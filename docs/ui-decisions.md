@@ -44,7 +44,7 @@ a change here in the same PR as the page change.
   ([#213](https://github.com/xperiaroco2/prime-game/issues/213), [#212](https://github.com/xperiaroco2/prime-game/issues/212),
   [#175](https://github.com/xperiaroco2/prime-game/issues/175)). Goals are generic: Engineers complete the tasks,
   Dissidents get in their way.
-- **Round HUD:** only the time at the top (task progress lives on the map screen); health and stamina always; the mic as
+- **Round HUD:** only the time at the top (task progress lives on the map screen); health and stamina always (stamina in the toy yellow; health green when full and turning red as it runs low, the colour computed from the fraction; both on a dark outlined track; the bar length is the real cue for colour-blind players); the mic as
   an icon, crossed out when nobody hears you; a hand slot and a belt slot, the hand slot widening into a rectangle while
   carrying with both hands; a small role chip; the object's name under the crosshair; no walk/run indicator, no player
   list, never who knocked you down.

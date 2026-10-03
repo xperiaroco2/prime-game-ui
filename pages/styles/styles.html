@@ -660,6 +660,8 @@ body[data-style="toy"] .frame {
   --toy-lilac: #D8CCE3;        /* secondary text on dark */
   --toy-keyshade: #B9A8C7;     /* keycap edge on dark plates */
   --toy-slotline: #9A8CA6;     /* idle slot outline */
+  --toy-health-full: #5BCB4E;  /* health bar at full */
+  --toy-health-empty: #FF5A44; /* health bar near zero (3.25:1 on the dark track) */
   /* context: dark (world plates, dim backdrops, night frames) */
   --toy-tx: var(--toy-cream);
   --toy-tx-muted: var(--toy-lilac);
@@ -969,6 +971,23 @@ body[data-style="toy"] .frame .circ {
   background: var(--toy-yellow);
   color: var(--toy-ink);
   border-color: var(--toy-ink);
+}
+
+/* ---------- HUD health and stamina (the engineer, 2026-10-03) ----------
+   Stamina is the toy yellow. Health runs from green (full) to red (empty): in Godot the HUD sets the fill colour from the
+   health fraction with Color.lerp between the two theme colours (a theme constant pair, not a StyleBox gradient). Both bars
+   sit on a dark track with an ink outline so they read over any wall. */
+body[data-style="toy"] .frame [data-bar] {
+  height: calc(16cqw / 19.2);
+  background: var(--toy-track-dark);
+  border: calc(3cqw / 19.2) solid var(--toy-ink);
+  border-radius: calc(10cqw / 19.2);
+}
+body[data-style="toy"] .frame [data-bar] > i { border-radius: calc(6cqw / 19.2); }
+body[data-style="toy"] .frame [data-bar="stamina"] > i { background: var(--toy-yellow); }
+body[data-style="toy"] .frame [data-bar="health"] > i {
+  background: var(--toy-health-full);
+  background: color-mix(in oklab, var(--toy-health-full) calc(var(--hp, 1) * 100%), var(--toy-health-empty));
 }
 
 /* Press feedback preview for the Toy style (prime-game-ui#2), outside the Godot-safe skin lint on purpose.
@@ -1297,9 +1316,9 @@ body[data-style="toy"] .frame .card:active {
 </section>
 
 <!-- 7 -->
-<section class="screen" id="s7" data-states="empty pack tired mate">
+<section class="screen" id="s7" data-states="empty pack tired hurt mate">
   <div class="head"><h2><span class="num">7</span>HUD у раунді</h2>
-    <span class="seg"><button type="button" data-s="empty">Порожні руки</button><button type="button" data-s="pack">Несеш пакунок</button><button type="button" data-s="tired">Мало сил</button><button type="button" data-s="mate">Дисидент бачить напарника</button></span></div>
+    <span class="seg"><button type="button" data-s="empty">Порожні руки</button><button type="button" data-s="pack">Несеш пакунок</button><button type="button" data-s="tired">Мало сил</button><button type="button" data-s="hurt">Мало здоровʼя</button><button type="button" data-s="mate">Дисидент бачить напарника</button></span></div>
   <div class="stage"><div class="frame">
     <span class="worldtag">від першої особи</span>
     <div class="cross"></div>
@@ -1307,16 +1326,16 @@ body[data-style="toy"] .frame .card:active {
     <div data-in="pack" class="abs" style="left:50%;bottom:-8%;transform:translateX(-50%);width:28%;height:34%;background:#8C8C8C;border:calc(4cqw/19.2) solid #6E6E6E;border-radius:calc(8cqw/19.2);display:grid;justify-items:center;align-content:start;padding-top:calc(22cqw/19.2)"><span style="background:#F2F2F2;padding:calc(8cqw/19.2) calc(14cqw/19.2);border-radius:calc(6cqw/19.2);display:inline-grid"><svg viewBox="0 0 40 32" style="width:calc(64cqw/19.2);height:auto;display:block" fill="none" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="22" height="15" rx="2"/><path d="M20 18 v6 M13 24 h14 M3 29 h34"/></svg></span></div>
     <div data-in="pack" class="abs t16" style="left:63%;bottom:22%;color:rgba(0,0,0,.55)">← знак кімнати на самому пакунку, у 3D (без слова)</div>
     <div class="abs plate c" style="left:50%;top:3%;transform:translateX(-50%)"><div class="t48 b">07:22</div></div>
-    <div data-in="empty pack tired" class="abs chip t20 b" style="left:2%;top:4%">Інженер</div><div data-in="mate" class="abs chip t20 b" style="left:2%;top:4%">Дисидент</div>
+    <div data-in="empty pack tired hurt" class="abs chip t20 b" style="left:2%;top:4%">Інженер</div><div data-in="mate" class="abs chip t20 b" style="left:2%;top:4%">Дисидент</div>
     <div data-in="mate" class="abs col" style="left:28%;top:28%;align-items:center"><div class="chip t20 b">Тарас <span>◈</span></div><div class="sil" style="width:calc(70cqw/19.2);height:calc(150cqw/19.2);margin-top:calc(6cqw/19.2)"></div></div>
     <div class="abs col" style="left:2%;bottom:4%;width:18%">
-      <div class="col" style="gap:calc(4cqw/19.2)"><span class="t16">Здоровʼя</span><div class="bar2"><i style="width:80%"></i></div></div>
-      <div class="col" style="gap:calc(4cqw/19.2)"><span class="t16">Витривалість</span><div class="bar2"><i data-in="empty pack mate" style="width:90%"></i><i data-in="tired" style="width:18%"></i></div></div>
+      <div class="col" style="gap:calc(4cqw/19.2)"><span class="t16">Здоровʼя</span><div class="bar2" data-bar="health"><i data-in="empty pack tired mate" style="width:80%;--hp:.8"></i><i data-in="hurt" style="width:22%;--hp:.22"></i></div></div>
+      <div class="col" style="gap:calc(4cqw/19.2)"><span class="t16">Витривалість</span><div class="bar2" data-bar="stamina"><i data-in="empty pack hurt mate" style="width:90%"></i><i data-in="tired" style="width:18%"></i></div></div>
       <span class="mic" style="align-self:flex-start">🎙</span>
     </div>
     <div class="abs col" style="right:2%;bottom:4%;align-items:flex-end">
       <div class="row">
-        <div data-in="empty tired mate" class="slot on t16">рука</div>
+        <div data-in="empty tired hurt mate" class="slot on t16">рука</div>
         <div data-in="pack" class="slot wide on t16 b">Пакунок</div>
         <div class="slot t16 dimtext">пояс</div>
       </div>
@@ -1324,7 +1343,7 @@ body[data-style="toy"] .frame .card:active {
   </div></div>
   <div class="notes">
     <div class="box"><h3>Звідки ідея</h3><ul><li>LOCKDOWN Protocol: таймер угорі по центру, руки знизу праворуч, центр вільний.</li><li>Угорі лише час. Задачі бувають різні й їх буде більше, тож їхній прогрес — на карті (M), а не в HUD (твоє рішення).</li><li>Без індикатора ходьби чи бігу.</li><li>Без клавіш на екрані; під прицілом лише назва предмета.</li><li>Інтерфейс не каже, що робити (твоя відповідь). На пакунку в 3D — знак кімнати доставки, без слова (твоя відповідь); гравець бачить «Офіс» на пакунку й на мапі, сам шукає дорогу, а на місці — саму точку доставки. Пакунки без кольорів і стартують на складі (твої відповіді як дизайнера, #255).</li><li>Напарника-дисидента позначає значок біля імені; бачать його лише дисиденти.</li></ul></div>
-    <div class="box"><h3>Що вирішити</h3><ul><li>Здоровʼя й витривалість видно завжди (твоя відповідь).</li><li>Слоти: рука й пояс (твоє уточнення). Коли несеш пакунок двома руками, квадратний слот руки розтягується в прямокутник: «обидві руки» видно формою, без тексту (твоя ідея).</li><li>Мікрофон — маленький значок замість тексту (твоя відповідь); перекреслений, коли тебе ніхто не чує.</li><li>Списку гравців у раунді немає (твоя відповідь). Напарників дисидент бачить на показі ролі, у вкладці «Роль» меню Esc і значком біля імені.</li><li>Таблички з іменами: у прямій видимості, до ~10 м, поки так (твоя відповідь, #257).</li><li>Мітку над точкою доставки прибрано (твоя відповідь): це змінює рішення M4 D10, де була мітка крізь стіни.</li><li>Ідея на потім: налаштування сесії «з підказками / без» для новачків (твоя ідея, ще обдумати).</li></ul></div>
+    <div class="box"><h3>Що вирішити</h3><ul><li>Здоровʼя й витривалість видно завжди (твоя відповідь). Витривалість жовта; здоровʼя зелене й червоніє, що менше його лишилось (твоя відповідь; у грі колір рахує HUD із відсотка). Для дальтоніків головне — довжина смужки, колір лише підсилює.</li><li>Слоти: рука й пояс (твоє уточнення). Коли несеш пакунок двома руками, квадратний слот руки розтягується в прямокутник: «обидві руки» видно формою, без тексту (твоя ідея).</li><li>Мікрофон — маленький значок замість тексту (твоя відповідь); перекреслений, коли тебе ніхто не чує.</li><li>Списку гравців у раунді немає (твоя відповідь). Напарників дисидент бачить на показі ролі, у вкладці «Роль» меню Esc і значком біля імені.</li><li>Таблички з іменами: у прямій видимості, до ~10 м, поки так (твоя відповідь, #257).</li><li>Мітку над точкою доставки прибрано (твоя відповідь): це змінює рішення M4 D10, де була мітка крізь стіни.</li><li>Ідея на потім: налаштування сесії «з підказками / без» для новачків (твоя ідея, ще обдумати).</li></ul></div>
   </div>
 </section>
 
