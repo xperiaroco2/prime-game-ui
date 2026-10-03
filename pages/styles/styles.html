@@ -695,15 +695,13 @@ body[data-style="toy"] .frame .t36.b,
 body[data-style="toy"] .frame .t48.b,
 body[data-style="toy"] .frame .t64.b { color: var(--toy-tx-title); }
 
-/* the game's name in the main menu: a chunky toy logo, slightly tilted */
+/* the game's name in the main menu: a chunky toy logo */
 body[data-style="toy"] .frame .abs.col:not(.panel) > .t64:first-child {
   color: var(--toy-yellow);
   text-shadow: 0 calc(6cqw / 19.2) 0 var(--toy-coral);
-  rotate: -2deg;
-  transform-origin: left center;
 }
 
-/* big moments (pre game role, end of round): a tilted yellow title plate with a coral toy base.
+/* big moments (pre game role, end of round): a yellow title plate with a coral toy base.
    Negative margins equal padding plus border, so the layout box keeps its size. */
 body[data-style="toy"] .frame .t96 {
   color: var(--toy-ink);
@@ -713,7 +711,6 @@ body[data-style="toy"] .frame .t96 {
   box-shadow: 0 calc(10cqw / 19.2) 0 var(--toy-coral);
   padding: 0 calc(32cqw / 19.2);
   margin: calc(-4cqw / 19.2) calc(-36cqw / 19.2);
-  rotate: -2.5deg;
 }
 
 /* ---------- backdrops ---------- */
@@ -734,10 +731,9 @@ body[data-style="toy"] .frame .plate {
 body[data-style="toy"] .frame.dark .plate { background: var(--toy-plate-solid); }
 /* tutorial checklist: the current step in yellow */
 body[data-style="toy"] .frame .plate.col.t18 > .b:not(.t20) { color: var(--toy-yellow); }
-/* "You're down": the one tilted HUD plate, with a coral edge */
+/* "You're down": a HUD plate with a coral edge */
 body[data-style="toy"] .frame .plate.col[data-in="down"] {
   border: calc(4cqw / 19.2) solid var(--toy-coral);
-  rotate: -2deg;
 }
 /* HUD bar labels sit over the world: give each its own small plate */
 body[data-style="toy"] .frame .abs.col > .col > span.t16 {
@@ -807,10 +803,9 @@ body[data-style="toy"] .frame .chip.line {
   color: var(--toy-tx);
   border-color: var(--toy-line);
 }
-/* the NEW badge on the task list: a coral sticker, a little crooked */
+/* the NEW badge on the task list: a coral sticker */
 body[data-style="toy"] .frame .panel .chip.light.t16 {
   background: var(--toy-coral);
-  rotate: -4deg;
 }
 
 /* ---------- keycaps ---------- */
@@ -976,6 +971,36 @@ body[data-style="toy"] .frame .circ {
   border-color: var(--toy-ink);
 }
 
+/* Press feedback preview for the Toy style (prime-game-ui#2), outside the Godot-safe skin lint on purpose.
+   In Godot: the Button's "hover" StyleBox lifts the toy base by 1 px and its "pressed" StyleBox drops the shadow offset
+   to 1 px with the content moved down by the same amount; a short Tween (about 70 ms) eases between them. */
+body[data-style="toy"] .frame .btn:not(.ghost),
+body[data-style="toy"] .frame .card {
+  cursor: pointer;
+  transition: transform 70ms ease-out, box-shadow 70ms ease-out;
+}
+body[data-style="toy"] .frame .btn:not(.ghost):hover {
+  transform: translateY(calc(-1cqw / 19.2));
+  box-shadow: 0 calc(6cqw / 19.2) 0 var(--toy-base);
+}
+body[data-style="toy"] .frame .btn.fill:hover {
+  box-shadow: 0 calc(7cqw / 19.2) 0 var(--toy-base);
+}
+body[data-style="toy"] .frame .btn:not(.ghost):active {
+  transform: translateY(calc(5cqw / 19.2));
+  box-shadow: 0 calc(1cqw / 19.2) 0 var(--toy-base);
+}
+body[data-style="toy"] .frame .btn.fill:active {
+  transform: translateY(calc(6cqw / 19.2));
+}
+body[data-style="toy"] .frame .card:active {
+  transform: translateY(calc(3cqw / 19.2));
+}
+@media (prefers-reduced-motion: reduce) {
+  body[data-style="toy"] .frame .btn:not(.ghost),
+  body[data-style="toy"] .frame .card { transition: none; }
+}
+
 </style>
 
 <div class="wrap">
@@ -1014,7 +1039,7 @@ body[data-style="toy"] .frame .circ {
   <div class="dirs">
     <div class="dir"><h3>Тихий ретро</h3><p>Темні нічні таблички з мʼякими кутами, теплий кремовий текст і один золотистий акцент для головних моментів: спокійно й затишно, як вечір у A Short Hike.</p><div class="sw"><span title="Intro and outro screens (.frame.dark and the pre-game black overlay); the base of the .dim overlays (72% and 82%) and the downed tint (42%)"><i style="background:#15131C"></i>Night</span><span title="Plates, chips, mic, slots and HUD bar tracks over the 3D world at 84% (slots and tracks 80%); also the text colour on cream and on the accent (ink)"><i style="background:#1E1C29"></i>Plate</span><span title="Menus and how-to card panels (Esc, join, invite, map task list)"><i style="background:#262433"></i>Panel</span><span title="The panel's barely visible 2 px border and the settings-row dividers"><i style="background:#322F42"></i>Panel edge</span><span title="Secondary buttons, unchecked language radio, character preview box"><i style="background:#36324A"></i>Lift</span><span title="Preset cards (border in the same colour, so no visible edge) and map rooms"><i style="background:#2F2C3E"></i>Raised</span><span title="Text field fill"><i style="background:#15131E"></i>Deep</span><span title="How-to card frames (airline safety card wells)"><i style="background:#1A1824"></i>Well</span><span>+10</span></div><button type="button" data-st="retro">Показати на екранах</button></div>
     <div class="dir"><h3>Картка безпеки</h3><p>Спокійні паперові картки з чорнильним контуром і жорсткою тінню, як інструкція в літаку: усе охайне й серйозне, а смішне тільки в самих картках.</p><div class="sw"><span title="Panels, HUD plates (paper tags), chips over the world, the HUD status card, text on ink"><i style="background:#F4EFE4"></i>Paper</span><span title="Text fields, secondary buttons, preset cards, keycaps, map rooms, how-to card cells"><i style="background:#FFFCF5"></i>Paper light</span><span title="Map sheet background, bar and slider tracks"><i style="background:#E4DCCB"></i>Paper shade</span><span title="Settings row separators (a printed form instead of a grey debug table)"><i style="background:#CFC4AE"></i>Rule tan</span><span title="Text on paper, every outline, the hard offset shadows, selection fill (tabs, sub-tabs, selected preset), bar fill, intro/outro and loading screen background; base of the dim overlays at 80% and 88%"><i style="background:#1E2229"></i>Ink</span><span title="Secondary text on paper (6.3:1 on paper), ghost button text and border on paper, the inactive slot label"><i style="background:#5C574D"></i>Ink muted</span><span title="Secondary text on ink and on the dimmed world (4.6:1 on the 80% dim over a white world), ghost button border on dark screens"><i style="background:#C8C0AF"></i>Paper muted</span><span title="The single warm signal colour, for attention only: primary buttons, NEW tag, map item zone and its label, active chips over the world (ready, protected, chosen language), the downed plate, the muted mic ring, low-stamina track, loading bar, eyebrow labels on ink, the selected main-menu item, the hard offset shadow on the big titles, the tab index edge, one highlighted how-to cell. Ink on amber is 8.7:1"><i style="background:#FFB000"></i>Signal amber</span><span>+1</span></div><button type="button" data-st="card">Показати на екранах</button></div>
-    <div class="dir"><h3>Іграшка</h3><p>Пухкі заокруглені форми з товстим сливовим контуром, кремові панелі й сонячно-жовті кнопки, які хочеться натиснути, як іграшку. Великі моменти отримують трохи нахилені таблички, а HUD лишається маленьким і спокійним.</p><div class="sw"><span title="Outlines, hard bottom shadows, and text and pictograms on light surfaces (14.4:1 on cream)"><i style="background:#2A1F33"></i>Plum ink</span><span title="Backgrounds of the intro and outro frames (pre game, connect and load, end of round), replacing #0E0E0E"><i style="background:#1F1727"></i>Night plum</span><span title="Small dark plates, chips, slots, mic and HUD bar-label plates over the 3D world (cream text 10.2:1 over the lightest world)"><i style="background:rgba(42,31,51,.86)"></i>HUD plate</span><span title="Plates on the night background (loading tip) and the spinner disc"><i style="background:#352A41"></i>Night plate</span><span title="Panel surfaces (Esc menu, map task list, dialogs, how-to cards), main text on dark, keycaps on dark, room tiles"><i style="background:#FFF4E2"></i>Cream</span><span title="Fields, plain buttons, idle preset cards, setting-row tiles, how-to card frames"><i style="background:#FFFFFF"></i>White</span><span title="Primary buttons, selected tab, chip, card and slot, host steppers, titles on dark (timer, plate titles), big-moment title plates, spinner arc, map zone tint at 55%"><i style="background:#FFC23A"></i>Sunny yellow</span><span title="The toy base (hard bottom shadow) under buttons on dark backgrounds"><i style="background:#C98A10"></i>Honey</span><span>+12</span></div><button type="button" data-st="toy">Показати на екранах</button></div>
+    <div class="dir"><h3>Іграшка</h3><p>Обрано (без нахилів). Пухкі заокруглені форми з товстим сливовим контуром, кремові панелі й сонячно-жовті обʼємні кнопки, які приємно натискати, як іграшку. HUD лишається маленьким і спокійним.</p><div class="sw"><span title="Outlines, hard bottom shadows, and text and pictograms on light surfaces (14.4:1 on cream)"><i style="background:#2A1F33"></i>Plum ink</span><span title="Backgrounds of the intro and outro frames (pre game, connect and load, end of round), replacing #0E0E0E"><i style="background:#1F1727"></i>Night plum</span><span title="Small dark plates, chips, slots, mic and HUD bar-label plates over the 3D world (cream text 10.2:1 over the lightest world)"><i style="background:rgba(42,31,51,.86)"></i>HUD plate</span><span title="Plates on the night background (loading tip) and the spinner disc"><i style="background:#352A41"></i>Night plate</span><span title="Panel surfaces (Esc menu, map task list, dialogs, how-to cards), main text on dark, keycaps on dark, room tiles"><i style="background:#FFF4E2"></i>Cream</span><span title="Fields, plain buttons, idle preset cards, setting-row tiles, how-to card frames"><i style="background:#FFFFFF"></i>White</span><span title="Primary buttons, selected tab, chip, card and slot, host steppers, titles on dark (timer, plate titles), big-moment title plates, spinner arc, map zone tint at 55%"><i style="background:#FFC23A"></i>Sunny yellow</span><span title="The toy base (hard bottom shadow) under buttons on dark backgrounds"><i style="background:#C98A10"></i>Honey</span><span>+12</span></div><button type="button" data-st="toy">Показати на екранах</button></div>
   </div>
 </section>
 <section class="screen" id="fonts">
@@ -1437,8 +1462,9 @@ var FONTS = [{"name":"Tiny5","family":"Tiny5","css":"Tiny5","note":"піксел
     try { localStorage.setItem("wf-style", k); } catch (e) {}
   }
   document.querySelectorAll("[data-st]").forEach(function (b) { b.addEventListener("click", function () { setStyle(b.getAttribute("data-st")); }); });
-  var st0 = "retro"; try { var sv = localStorage.getItem("wf-style"); if (sv !== null) st0 = sv; } catch (e) {}
+  var st0 = "toy"; try { var sv = localStorage.getItem("wf-style"); if (sv !== null) st0 = sv; } catch (e) {}
   setStyle(st0);
+  document.addEventListener("touchstart", function () {}, { passive: true });
   // zoom
   var zb = document.querySelectorAll("#zoom [data-z]");
   function zoom(z) {

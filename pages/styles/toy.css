@@ -63,15 +63,13 @@ body[data-style="toy"] .frame .t36.b,
 body[data-style="toy"] .frame .t48.b,
 body[data-style="toy"] .frame .t64.b { color: var(--toy-tx-title); }
 
-/* the game's name in the main menu: a chunky toy logo, slightly tilted */
+/* the game's name in the main menu: a chunky toy logo */
 body[data-style="toy"] .frame .abs.col:not(.panel) > .t64:first-child {
   color: var(--toy-yellow);
   text-shadow: 0 calc(6cqw / 19.2) 0 var(--toy-coral);
-  rotate: -2deg;
-  transform-origin: left center;
 }
 
-/* big moments (pre game role, end of round): a tilted yellow title plate with a coral toy base.
+/* big moments (pre game role, end of round): a yellow title plate with a coral toy base.
    Negative margins equal padding plus border, so the layout box keeps its size. */
 body[data-style="toy"] .frame .t96 {
   color: var(--toy-ink);
@@ -81,7 +79,6 @@ body[data-style="toy"] .frame .t96 {
   box-shadow: 0 calc(10cqw / 19.2) 0 var(--toy-coral);
   padding: 0 calc(32cqw / 19.2);
   margin: calc(-4cqw / 19.2) calc(-36cqw / 19.2);
-  rotate: -2.5deg;
 }
 
 /* ---------- backdrops ---------- */
@@ -102,10 +99,9 @@ body[data-style="toy"] .frame .plate {
 body[data-style="toy"] .frame.dark .plate { background: var(--toy-plate-solid); }
 /* tutorial checklist: the current step in yellow */
 body[data-style="toy"] .frame .plate.col.t18 > .b:not(.t20) { color: var(--toy-yellow); }
-/* "You're down": the one tilted HUD plate, with a coral edge */
+/* "You're down": a HUD plate with a coral edge */
 body[data-style="toy"] .frame .plate.col[data-in="down"] {
   border: calc(4cqw / 19.2) solid var(--toy-coral);
-  rotate: -2deg;
 }
 /* HUD bar labels sit over the world: give each its own small plate */
 body[data-style="toy"] .frame .abs.col > .col > span.t16 {
@@ -175,10 +171,9 @@ body[data-style="toy"] .frame .chip.line {
   color: var(--toy-tx);
   border-color: var(--toy-line);
 }
-/* the NEW badge on the task list: a coral sticker, a little crooked */
+/* the NEW badge on the task list: a coral sticker */
 body[data-style="toy"] .frame .panel .chip.light.t16 {
   background: var(--toy-coral);
-  rotate: -4deg;
 }
 
 /* ---------- keycaps ---------- */

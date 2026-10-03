@@ -5,7 +5,8 @@ const W = path.join('..', 'wireframes', 'wireframes.html');
 let s = fs.readFileSync(W, 'utf8');
 const meta = JSON.parse(fs.readFileSync('meta.json', 'utf8'));
 const order = ['retro', 'card', 'toy'];
-const css = order.map((k) => fs.readFileSync(k + '.css', 'utf8')).join('\n');
+// the skins, then the Toy press-feedback preview (outside the Godot-safe lint: motion is a Tween in the game)
+const css = order.map((k) => fs.readFileSync(k + '.css', 'utf8')).join('\n') + '\n' + fs.readFileSync('motion-preview.css', 'utf8');
 const esc = (t) => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const must = (a, b) => { if (!s.includes(a)) throw new Error('missing: ' + a.slice(0, 60)); s = s.replace(a, b); };
 
@@ -45,8 +46,9 @@ must('  // zoom\n', `  // style skin
     try { localStorage.setItem("wf-style", k); } catch (e) {}
   }
   document.querySelectorAll("[data-st]").forEach(function (b) { b.addEventListener("click", function () { setStyle(b.getAttribute("data-st")); }); });
-  var st0 = "retro"; try { var sv = localStorage.getItem("wf-style"); if (sv !== null) st0 = sv; } catch (e) {}
+  var st0 = "toy"; try { var sv = localStorage.getItem("wf-style"); if (sv !== null) st0 = sv; } catch (e) {}
   setStyle(st0);
+  document.addEventListener("touchstart", function () {}, { passive: true });
   // zoom
 `);
 fs.writeFileSync('styles.html', s);
