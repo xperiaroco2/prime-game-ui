@@ -25,6 +25,7 @@ const STEPS = [
   ["page:styles", ["pages/styles/build-styles-page.js", "--check"]],
   ["page:components", ["pages/components/build.js", "--check"]],
   ["page:choices", ["pages/choices/build.js", "--check"]],
+  ["page:room-signs", ["pages/room-signs/build.js", "--check"]],
 ];
 const MAX_LINES = 200;
 

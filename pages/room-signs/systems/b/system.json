@@ -1,0 +1,107 @@
+{
+  "id": "b",
+  "name": "Shape-coded plates",
+  "name_uk": "Таблички-форми",
+  "pitch_uk": "Кожна кімната має власну форму таблички (сковорідка, папка, будиночок, шестикутник), тож здалеку кімнату впізнають за обрисом, а зблизька її підтверджує піктограма всередині, і жодного кольору.",
+  "angle": "ground.md §4 B: two codes, still no colour. Each plate shape is itself a toy object that belongs to the room (a pan for the kitchen, a folder for the office), so a player learns one idea per room and sees it twice: the outline from far, the pictogram up close.",
+  "grid": {
+    "plate": "64 x 64 artboard, live area 4..60, one ink outline of 6 units (stroke centred on the path, round joins); the gear alone reaches 3.5..60.5",
+    "icon": "48 x 48 artboard, live area 4..44, one stroke of 6 units with round caps and joins, filled shapes where possible, no text",
+    "sign": "the plate plus its icon scaled 0.56 to 0.72 into the plate's window (build.js), so every icon keeps at least about 4 units of cream around it; icon strokes become 3.4 to 4.3 units",
+    "import": "3D: svg/scale 8 (512 px), Lossless or VRAM Uncompressed, mipmaps, LINEAR_WITH_MIPMAPS_ANISOTROPIC; UI: the same SVG at 40 px (svg/scale 0.625) or DPITexture",
+    "files": "icons/<id>.svg, plates/<id>.svg, signs/<id>.svg; build.js regenerates all 24"
+  },
+  "rooms": [
+    { "id": "storage", "name_uk": "Склад", "name_en": "Storage room", "deliveries": false, "role": "every package starts here",
+      "icon": "icons/storage.svg", "icon_uk": "стос коробок", "plate": "plates/storage.svg", "sign": "signs/storage.svg",
+      "shape": { "name": "rounded square", "name_uk": "ящик (заокруглений квадрат)", "why": "a crate" }, "colour": null },
+    { "id": "hall", "name_uk": "Хол", "name_en": "Hall", "deliveries": false, "role": "the hub, round spawn",
+      "icon": "icons/hall.svg", "icon_uk": "годинник", "plate": "plates/hall.svg", "sign": "signs/hall.svg",
+      "shape": { "name": "arch", "name_uk": "арка (дверний проріз)", "why": "a doorway: the hall is where every door meets; a station clock over it" }, "colour": null },
+    { "id": "kitchen", "name_uk": "Кухня", "name_en": "Kitchen", "deliveries": true,
+      "icon": "icons/kitchen.svg", "icon_uk": "чайник", "plate": "plates/kitchen.svg", "sign": "signs/kitchen.svg",
+      "shape": { "name": "frying pan", "name_uk": "сковорідка", "why": "the only plate with a handle sticking out; reads as cookware even at 13 px" }, "colour": null },
+    { "id": "lab", "name_uk": "Лабораторія", "name_en": "Lab", "deliveries": true,
+      "icon": "icons/lab.svg", "icon_uk": "колба з бульбашками", "plate": "plates/lab.svg", "sign": "signs/lab.svg",
+      "shape": { "name": "hexagon, points up and down", "name_uk": "шестикутник (кільце молекули)", "why": "a molecule ring; not a medical sign, no cross" }, "colour": null },
+    { "id": "office", "name_uk": "Офіс", "name_en": "Office", "deliveries": true,
+      "icon": "icons/office.svg", "icon_uk": "настільна лампа", "plate": "plates/office.svg", "sign": "signs/office.svg",
+      "shape": { "name": "folder", "name_uk": "папка", "why": "papers; landscape with a tab on the left, kept apart from the storage square" }, "colour": null },
+    { "id": "lounge", "name_uk": "Кімната відпочинку", "name_en": "Lounge", "deliveries": true,
+      "icon": "icons/lounge.svg", "icon_uk": "диван", "plate": "plates/lounge.svg", "sign": "signs/lounge.svg",
+      "shape": { "name": "house with eaves", "name_uk": "будиночок", "why": "home, rest; the eaves keep the apex from reading as an arrow" }, "colour": null },
+    { "id": "workshop", "name_uk": "Майстерня", "name_en": "Workshop", "deliveries": true, "optional": true,
+      "icon": "icons/workshop.svg", "icon_uk": "молоток", "plate": "plates/workshop.svg", "sign": "signs/workshop.svg",
+      "shape": { "name": "gear, 8 teeth", "name_uk": "шестерня", "why": "machines and tools" }, "colour": null },
+    { "id": "server", "name_uk": "Серверна", "name_en": "Server room", "deliveries": true, "optional": true,
+      "icon": "icons/server.svg", "icon_uk": "штепсельна вилка", "plate": "plates/server.svg", "sign": "signs/server.svg",
+      "shape": { "name": "cloud", "name_uk": "хмара", "why": "the cloud of computing; the plug inside keeps it from reading as weather" }, "colour": null }
+  ],
+  "colours": {
+    "used": [
+      { "token": "palette.ink", "hex": "#2a1f33", "role": "plate outline and pictogram" },
+      { "token": "palette.cream", "hex": "#fff4e2", "role": "plate face, floor pad face" }
+    ],
+    "new_colours": "none: every room uses the same two tokens; no room has a colour",
+    "how_measured": "WCAG ratio with ratio() of tools/a11y/contrast.js; Machado 2009 full-severity simulation and CIEDE2000 with simulateLin() and de2000() of tools/a11y/cvd.js (both scripts print fixed palettes, so their functions were run on these pairs)",
+    "pairs": {
+      "ink/cream (the sign itself)": { "contrast": 14.37, "protan": 14.23, "deutan": 14.44, "tritan": 14.11, "grey": 14.37, "dE00_min_over_visions": 77.6 },
+      "ink/lavender (sign rim on the map board)": { "contrast": 12.13, "protan": 12.14, "deutan": 12.12, "tritan": 12.1, "grey": 12.13, "dE00_min_over_visions": 75.1 },
+      "ink/zone yellow (sign rim on a lit map zone)": { "contrast": 9.71, "protan": 8.84, "deutan": 10.23, "tritan": 8.87, "grey": 9.71, "dE00_min_over_visions": 65.5 },
+      "cream/zone yellow": { "contrast": 1.48, "note": "low on purpose: the ink rim carries the edge; the face never needs to" },
+      "cream/lavender": { "contrast": 1.19, "note": "the same: the 3 px rim at UI size carries the edge" },
+      "cream/night (sign on a dark wall)": { "contrast": 15.94, "protan": 15.75, "deutan": 16.05, "tritan": 15.67 },
+      "cream/track-dark": { "contrast": 9.22, "protan": 9.12, "deutan": 9.26, "tritan": 9.0 },
+      "any wall, floor or box colour": { "contrast": 3.8, "note": "the better of rim and face against every background luminance; the worst case is mid grey #7D7D7D. So a sign never melts into the level art, whatever colour it is" }
+    }
+  },
+  "placements": {
+    "package": {
+      "what": "signs/<id>.svg on all six faces of the 0.45 m box, a 0.32 m field centred on each face; upright on the four sides; on the top face turned so its bottom edge faces the carrier when the box is held (the face the carrier sees most, foreshortened to about 0.57 at the 35° view); the bottom face too, so a box turned over still shows it. No word, no colour.",
+      "summary_uk": "Знак на всіх шести гранях коробки: на бічних стоїть рівно, на верхній повернутий до того, хто несе.",
+      "godot": "the package's MeshInstance3D with BoxMesh (0.45 m) and a StandardMaterial3D whose albedo_texture is one 3×2 atlas per room: each cell is the box body colour with the sign, turned as that face's UV needs. The atlas is generated from signs/*.svg in prime-game, not drawn by hand. Shaded like the box (not unshaded, no emission). No Decal, no Sprite3D billboard, no Label3D.",
+      "on_screen_1080p": "185 px carried, 45 px at 5 m (pictogram readable), 23 px at 10 m (plate shape only)"
+    },
+    "door": {
+      "what": "one cut-out plate per entrance in the room's own outline, 0.40 m tall, hung as a double-sided blade sign over the door (centre about 2.0 m, sticking out 0.3 m from the wall), so the shape reads down the corridor from both directions. The physical outline is the far code: at 15 m it is 19 px, still a pan, a house or a gear.",
+      "summary_uk": "Над дверима висить «прапорцем» вирізана табличка у формі кімнати, її видно з коридору з обох боків.",
+      "godot": "Node3D 'RoomSign' with two back-to-back MeshInstance3D QuadMesh (0.40 × 0.40 m), StandardMaterial3D: albedo_texture = signs/<id>.svg, transparency ALPHA_SCISSOR (threshold 0.5), billboard DISABLED, no fixed_size, depth test on, cull back. Level art may later replace it with a mesh extruded from plates/<id>.svg (a few cm thick, ink edge).",
+      "on_screen_1080p": "141 px at 2 m, 56 px at 5 m, 28 px at 10 m, 19 px at 15 m"
+    },
+    "map_room_tile": {
+      "what": "every room on the map board is its cream room panel (map.room: cream, ink 3 px, radius 12) with its sign at 40 px beside its name (map.room-text). All rooms, always, the storage room and the hall included. When a task is hovered, the lit room's panel turns zone yellow (map.zone); the sign itself never changes.",
+      "summary_uk": "Кожна кімната на мапі: кремова плашка зі знаком і назвою; знак завжди той самий, підсвічується лише плашка.",
+      "godot": "PanelContainer (the map.room StyleBoxFlat from the tokens) > HBoxContainer > TextureRect (signs/<id>.svg at UI size or DPITexture, custom_minimum_size 40×40, expand_mode IGNORE_SIZE, stretch_mode KEEP_ASPECT_CENTERED, no modulate) + Label (map.room-text)."
+    },
+    "delivery_spot": {
+      "what": "a receiving pad on the floor in the room's plate shape (cream face, ink rim, about 1.2 m across; packages are put down on it) and a waist-high stand at the pad's back edge with the sign (0.32 m at 1.1 m, facing the entrance). The stand reads across the room; the pad reads up close and repeats the door's outline, so the room says the same thing twice and nothing more. Fits either binding of #255: one pad that takes several packages (preferred here), or several small pads.",
+      "summary_uk": "Килимок на підлозі у формі таблички кімнати, а біля нього стійка зі знаком.",
+      "godot": "pad: MeshInstance3D PlaneMesh 1 mm above the floor, albedo_texture = plates/<id>.svg, ALPHA_SCISSOR (preferred: no projection onto hands or feet); or a Decal (texture_albedo = plates/<id>.svg, cull_mask without the player and item layers). Stand: a post mesh plus a single QuadMesh with the sign, as at the door.",
+      "on_screen_1080p": "stand sign 113 px at 2 m, 45 px at 5 m; a 1.2 m pad 51 px tall at 5 m (17.7° grazing), 13 px at 10 m"
+    }
+  },
+  "colour_blind_story": "There is no hue to lose. Both codes are shapes (the plate outline and the pictogram) drawn in two luminances, ink and cream: 14.37:1, and 14.11 to 14.44:1 under full protan, deutan and tritan simulation and in greyscale (dE2000 at least 77.6). Packages carry no colour (decided). On the map, the yellow hover sits behind the sign and the ink rim keeps it at 8.84:1 or more in every simulation. Against any wall or floor, the rim or the face gives at least 3.8:1.",
+  "not_a_destination_marker": [
+    "Static props: the same material for every room, lit by the room, no emission, glow, blink or sound, and nothing changes when the matching package is near or carried.",
+    "Walls hide them: depth test on, no billboard, no fixed_size, no no_depth_test; never on the HUD or at the screen edge.",
+    "Every room shows its sign at every door and on the map all the time, so a hexagon only says 'this is the lab'; matching it to the box is the player's job.",
+    "The package's sign is on the package only (the hand slot does not repeat it unless the engineer decides so).",
+    "No plate is an arrow: every outline is an object (crate, doorway, pan, hexagon, folder, house, gear, cloud), the house has eaves so its apex reads as a roof, and nothing marks corridors or turns.",
+    "A few signs per room: one blade sign per entrance and one spot (pad and stand). Unlike LOCKDOWN Protocol there is no colour banner and no light at the drop-off."
+  ],
+  "checks": {
+    "renders": "headless Edge at 13, 15, 19, 23, 45, 96 and 112 px, on cream, lavender, mid and dark walls, the box top squashed to 0.57 and the pads to 0.3",
+    "squint_test": "silhouette difference of the plates (differing pixels / union of pixels, upright) at 15 px: closest pair lab/workshop 0.114 (hexagon vs gear, only if the map gets a workshop), then hall/lounge 0.127 and hall/lab 0.143 (the hall takes no deliveries); among the four first destinations the closest is lab/lounge 0.181; mean over all 28 pairs 0.278. At 23 px: 0.117, 0.193 and 0.283.",
+    "svg": "plain paths, fills and strokes, one group transform; no filters, masks, text, gradients, images or external references; 1 to 7 paths per file"
+  },
+  "costs": [
+    "The pictogram inside is smaller than in a stamp system (icon strokes 3.4 to 4.3 units of 64) and reads to about 5 m; beyond that the outline carries the sign.",
+    "Door signs need a cut-out (an alpha-scissor quad now, an extruded mesh later) and the spot needs a pad and a stand: more pieces than a flat plate.",
+    "The pan and the cloud are wider than tall and the pan's head is smaller than the other plates, so the set is not one size; the eye reads it as a family by the shared rim and cream."
+  ],
+  "open_questions": [
+    "Door: the blade sign only, or also a flush plate beside the door for a player standing right in front of it?",
+    "Spot: one pad per room that takes several packages (fits B best), or several small pads (needs the #255 binding answer)?",
+    "Shapes: are the pan (kitchen), the house (lounge) and the cloud (server room) the look the engineer wants, or should a plate be more abstract?"
+  ]
+}

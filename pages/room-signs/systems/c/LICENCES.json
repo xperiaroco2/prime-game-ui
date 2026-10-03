@@ -1,0 +1,13 @@
+{
+  "storage.svg": { "licence": "own work", "author": "prime-game-ui", "what": "room sign for Склад: three stacked toy crates, drawn for system C (shop signs), 2026-10-04" },
+  "hall.svg": { "licence": "own work", "author": "prime-game-ui", "what": "room sign for Хол: a station clock showing three o'clock, drawn for system C" },
+  "kitchen.svg": { "licence": "own work", "author": "prime-game-ui", "what": "room sign for Кухня: a kettle in side view with an open arch handle and a spout, drawn for system C" },
+  "lab.svg": { "licence": "own work", "author": "prime-game-ui", "what": "room sign for Лабораторія: a conical flask with a liquid line, drawn for system C" },
+  "office.svg": { "licence": "own work", "author": "prime-game-ui", "what": "room sign for Офіс: a desk lamp with a bent arm and a shade, drawn for system C" },
+  "lounge.svg": { "licence": "own work", "author": "prime-game-ui", "what": "room sign for Кімната відпочинку: a wide low sofa from the front, drawn for system C" },
+  "workshop.svg": { "licence": "own work", "author": "prime-game-ui", "what": "room sign for Майстерня (optional room): a claw hammer at 45 degrees, drawn for system C" },
+  "server.svg": { "licence": "own work", "author": "prime-game-ui", "what": "room sign for Серверна (optional room): a plug with two prongs and a cable, drawn for system C" },
+  "frame-badge.svg": { "licence": "own work", "author": "prime-game-ui", "what": "the ink badge every room drawing sits on (package faces, hatch stamp, map), drawn for system C" },
+  "hatch.svg": { "licence": "own work", "author": "prime-game-ui", "what": "front view of the drop-off, a low wide mail-drop with a slot and the badge window, the same in every delivery room, drawn for system C" },
+  "bracket.svg": { "licence": "own work", "author": "prime-game-ui", "what": "the wall bracket a room's toy prop hangs from beside its door, drawn for system C" }
+}
