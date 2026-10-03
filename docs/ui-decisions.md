@@ -69,6 +69,19 @@ colour-blindness work therefore applies to body colours only.
 ## Style
 The engineer chose **Toy** (2026-10-03): chunky rounded shapes with a thick plum outline, cream panels, sunny-yellow buttons with a solid toy base that look pressable, and a small, calm HUD; it reads as arcade and game-like. **No tilted plates** (they break the design). **Press feedback** on the voluminous buttons: the button sinks onto its base when pressed (a pressed StyleBox and a short Tween in Godot; previewed in `pages/styles/motion-preview.css`). Safety card was liked but reads too much like an office; Quiet retro was not chosen. The 10 character colours proposed by the retro skin are not adopted. ([prime-game-ui#2](https://github.com/xperiaroco2/prime-game-ui/issues/2))
 
+**Toy look details** (the engineer, 2026-10-03, on the [look-choices page](https://claude.ai/artifact/2gRChgdYcCBNUCbggt3z2S);
+[prime-game-ui#5](https://github.com/xperiaroco2/prime-game-ui/issues/5)): a disabled control is "unplugged" (no base,
+pale lilac face, muted outline and label); keyboard and gamepad focus thickens the outline inward from 3 to 6 px (ink;
+cream on ghost buttons on dark), chips, the stepper and radios get a 3 px ring 2 px outside; hover and held on flat
+controls (ghost buttons, line chips, idle tabs) is a quiet fill, night plate on dark and lavender on light (the
+dropdown follows the same rule: (agent));
+a coral danger button for the host's «Покинути сесію» and its confirm dialog; large text ×1.25 for 18 to 36 px (48 px
+and up unchanged); the selected preset card keeps the idle card's size; held buttons sink 4 px (white) or 5 px
+(yellow), leaving 1 px of base; the menu backdrop `.dim` is 74 % instead of 70 %, so dim lilac text over a white wall
+reaches 4.5:1; wide keycaps (Space, Shift, Tab, Esc) are at least 96 px; the near-identical plums and lilacs stay
+separate (28 colours). Still proposals in the tokens: the held stepper's honey face, the preset cards' 1 px hover lift,
+and the field's read-only look and its placeholder, caret and selection colours.
+
 ## Type
 Comfortaa for titles and text, provisionally, until the style is chosen (SIL OFL 1.1 with the Reserved Font Name
 "Comfortaa": ship it unmodified) ([font pick](https://github.com/xperiaroco2/prime-game/issues/150#issuecomment-5960452846)).

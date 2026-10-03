@@ -2145,22 +2145,30 @@
   --tv-offset: var(--toy-button-secondary-press-disabled);
 }
 
-/* q8-a: Затемнення 74 % */
-/* .opt-q8-a · ToyBackdrop: Panel · backdrop.dim · dark */
-.opt-q8-a .tv-ToyBackdrop {
-  background: var(--toy-choice-q8-a-backdrop-dim-panel-bg-color);
-}
-
 /* q8-b: Світліший бузок */
+/* .opt-q8-b · ToyBackdrop: Panel · backdrop.dim · dark */
+.opt-q8-b .tv-ToyBackdrop {
+  background: var(--toy-choice-q8-b-backdrop-dim-panel-bg-color);
+}
 /* .opt-q8-b · ToyTextMutedOnDark: Label · text.muted-on-dark · dark */
 .opt-q8-b .tv-ToyTextMutedOnDark {
   color: var(--toy-choice-q8-b-text-muted-on-dark-normal-font-color);
 }
 
 /* q8-c: Кремовий текст */
+/* .opt-q8-c · ToyBackdrop: Panel · backdrop.dim · dark */
+.opt-q8-c .tv-ToyBackdrop {
+  background: var(--toy-choice-q8-c-backdrop-dim-panel-bg-color);
+}
 /* .opt-q8-c · ToyTextMutedOnDark: Label · text.muted-on-dark · dark */
 .opt-q8-c .tv-ToyTextMutedOnDark {
   color: var(--toy-choice-q8-c-text-muted-on-dark-normal-font-color);
+}
+
+/* q8-ref: було: затемнення 70 % (не проходило, тимчасово дозволено) */
+/* .opt-q8-ref · ToyBackdrop: Panel · backdrop.dim · dark */
+.opt-q8-ref .tv-ToyBackdrop {
+  background: var(--toy-choice-q8-ref-backdrop-dim-panel-bg-color);
 }
 
 /* q9-b: Щонайменше 72 px */

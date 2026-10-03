@@ -95,9 +95,11 @@
   --toy-choice-q7-b-button-secondary-press-held: 5;
   --toy-choice-q7-c-button-primary-press-held: 3;
   --toy-choice-q7-c-button-secondary-press-held: 2;
-  --toy-choice-q8-a-backdrop-dim-panel-bg-color: rgba(38, 28, 48, 0.74);
+  --toy-choice-q8-b-backdrop-dim-panel-bg-color: rgba(38, 28, 48, 0.7);
   --toy-choice-q8-b-text-muted-on-dark-normal-font-color: #e6daf1;
+  --toy-choice-q8-c-backdrop-dim-panel-bg-color: rgba(38, 28, 48, 0.7);
   --toy-choice-q8-c-text-muted-on-dark-normal-font-color: #fff4e2;
+  --toy-choice-q8-ref-backdrop-dim-panel-bg-color: rgba(38, 28, 48, 0.7);
   --toy-choice-q9-b-keycap-on-dark-size-wide-min-width: 72;
   --toy-choice-q9-b-keycap-on-light-size-wide-min-width: 72;
   --toy-choice-q9-c-keycap-on-dark-size-wide-min-width: 36;

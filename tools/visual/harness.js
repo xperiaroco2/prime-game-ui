@@ -5,7 +5,8 @@
    For each configuration (the page as loaded, then each variant that switches off some injected <style> elements),
    each style and each screen section with states, it clicks every state button of the section and records every
    visible element under the frame. Keys: "<screen>|<state>|f<frame index>/<child-index path>". Records are arrays in
-   the order of FIELDS (the picture) and RAW (the declared box, used only to recognise spec §15.3 item 5).
+   the order of FIELDS (the picture) and RAW (the declared box, used only to recognise a "(box)" item of the
+   intended-changes file).
    Browser script, ES5, no network. */
 (function () {
   "use strict";

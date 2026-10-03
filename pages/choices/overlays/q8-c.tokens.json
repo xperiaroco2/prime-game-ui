@@ -1,6 +1,21 @@
 {
   "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
-  "$description": "Dim text on dark (ToyTextMutedOnDark) takes cream, the colour of normal text on dark.",
+  "$description": "Dim text on dark (ToyTextMutedOnDark) takes cream, the colour of normal text on dark. The backdrop stays at the old 70 %, as offered.",
+  "palette": {
+    "$type": "color",
+    "backdrop": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.149,
+          0.1098,
+          0.1882
+        ],
+        "alpha": 0.7,
+        "hex": "#261c30"
+      }
+    }
+  },
   "text": {
     "muted-on-dark": {
       "normal": {

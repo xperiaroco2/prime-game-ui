@@ -1,6 +1,6 @@
 {
   "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
-  "$description": "The menu backdrop at 74 % instead of 70 %.",
+  "$description": "The menu backdrop as it was before the choice: 70 %.",
   "palette": {
     "$type": "color",
     "backdrop": {
@@ -11,7 +11,7 @@
           0.1098,
           0.1882
         ],
-        "alpha": 0.74,
+        "alpha": 0.7,
         "hex": "#261c30"
       }
     }

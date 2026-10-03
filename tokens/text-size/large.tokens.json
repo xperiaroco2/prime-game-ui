@@ -3,8 +3,7 @@
   "font": {
     "size": {
       "$type": "dimension",
-      "$description": "Large text (proposal): x1.25 rounded half up up to 36 px; 48 px and up is already large and stays.",
-      "$extensions": { "io.github.xperiaroco2.prime-game": { "proposal": true } },
+      "$description": "Large text: x1.25 rounded half up up to 36 px; 48 px and up is already large and stays.",
       "caption": { "$value": { "value": 23, "unit": "px" } },
       "small": { "$value": { "value": 25, "unit": "px" } },
       "body": { "$value": { "value": 28, "unit": "px" } },

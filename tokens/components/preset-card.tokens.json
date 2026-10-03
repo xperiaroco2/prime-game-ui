@@ -26,15 +26,13 @@
         "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
       },
       "disabled": {
-        "$description": "Unplugged: the base is hidden, the face rests, pale and quiet (proposal).",
-        "$extensions": { "io.github.xperiaroco2.prime-game": { "proposal": true } },
+        "$description": "Unplugged: the base is hidden, the face rests, pale and quiet.",
         "bg-color": { "$type": "color", "$value": "{color.state.disabled-face}" },
         "border-color": { "$type": "color", "$value": "{color.state.disabled-ink}" },
         "font-color": { "$type": "color", "$value": "{color.state.disabled-ink}" }
       },
       "focus": {
-        "$description": "Inner focus: the outline thickens inward by the focus width (proposal).",
-        "$extensions": { "io.github.xperiaroco2.prime-game": { "proposal": true } },
+        "$description": "Inner focus: the outline thickens inward by the focus width.",
         "bg-color": { "$type": "color", "$value": "{palette.clear}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width": { "$type": "dimension", "$value": "{focus.width}" },
@@ -76,15 +74,13 @@
         "font-color": { "$type": "color", "$value": "{color.on-accent.text}" }
       },
       "disabled": {
-        "$description": "Unplugged: the base is hidden, the face rests, pale and quiet (proposal).",
-        "$extensions": { "io.github.xperiaroco2.prime-game": { "proposal": true } },
+        "$description": "Unplugged: the base is hidden, the face rests, pale and quiet.",
         "bg-color": { "$type": "color", "$value": "{color.state.disabled-face}" },
         "border-color": { "$type": "color", "$value": "{color.state.disabled-ink}" },
         "font-color": { "$type": "color", "$value": "{color.state.disabled-ink}" }
       },
       "focus": {
-        "$description": "Inner focus: the outline thickens inward by the focus width (proposal).",
-        "$extensions": { "io.github.xperiaroco2.prime-game": { "proposal": true } },
+        "$description": "Inner focus: the outline thickens inward by the focus width.",
         "bg-color": { "$type": "color", "$value": "{palette.clear}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width": { "$type": "dimension", "$value": "{focus.width}" },
@@ -124,8 +120,7 @@
         "$description": "As normal: the quiet card is already quiet."
       },
       "focus": {
-        "$description": "Inner focus: the outline thickens inward by the focus width (proposal).",
-        "$extensions": { "io.github.xperiaroco2.prime-game": { "proposal": true } },
+        "$description": "Inner focus: the outline thickens inward by the focus width.",
         "bg-color": { "$type": "color", "$value": "{palette.clear}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width": { "$type": "dimension", "$value": "{focus.width}" },

@@ -99,14 +99,5 @@
     { "id": "m1", "fg": "mic.plate.items.icon-on", "bg": "color.surface.plate", "over": ["white", "light", "mid"], "min": "ui", "what": "mic icon (on) vs the HUD plate" },
     { "id": "m2", "fg": "mic.plate.items.icon-off", "bg": "color.surface.plate", "over": ["white", "light", "mid"], "min": "ui", "what": "mic icon (off) vs the HUD plate" }
   ],
-  "waivers": [
-    {
-      "fg": "color.on-dark.text-muted",
-      "bg": "color.surface.backdrop",
-      "over": "white",
-      "reason": "lilac on the 70 % menu backdrop over a white wall is 3.93:1",
-      "decision": "the engineer: .dim at 74 % (4.50:1), a lighter lilac, or cream for that text",
-      "issue": "https://github.com/xperiaroco2/prime-game-ui/issues/5"
-    }
-  ]
+  "waivers": []
 }

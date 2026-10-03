@@ -1,20 +1,22 @@
-// The zero-change proof of the toy.css migration (spec §15.5). Local Windows + Microsoft Edge only, not CI.
+// The zero-change proof of a PR that changes the picture (spec §15.5; written for the toy.css migration, reused by
+// every later PR). Local Windows + Microsoft Edge only, not CI.
 //
-//   node tools/visual/probe.js [--before <git ref>] [--verbose] [--keep]
-//     --before   the ref whose pages/styles/styles.html is "before" (default: main)
-//     --verbose  print every attributed difference, not three samples per item
-//     --keep     keep the Edge profiles in the temp folder (the pages, dumps and records are always kept there)
+//   node tools/visual/probe.js [--before <git ref>] [--intended <file>] [--verbose] [--keep]
+//     --before    the ref whose pages/styles/styles.html is "before" (default: main)
+//     --intended  the PR's reverse patch (default: tools/visual/intended-changes.css; its header gives the format)
+//     --verbose   print every attributed difference, not three samples per item
+//     --keep      keep the Edge profiles in the temp folder (the pages, dumps and records are always kept there)
 //
 // 1. Writes three copies of the styles page into a new OS temp folder (never into the repo): before (git show
 //    <ref>:pages/styles/styles.html), after (pages/styles/styles.html, which must be up to date with its sources), and
-//    after + tools/visual/intended-changes.css (the reverse patch of §15.3 items 1-4, one <style> per item).
+//    after + the intended-changes file (the PR's reverse patch, one <style> per item).
 // 2. Appends tools/visual/harness.js to each copy; it records every visible element of every state of every screen,
-//    for the styles toy, retro and card. The patched copy also records toy with each item switched off in turn.
+//    for the styles toy, retro and card. The patched copy also records toy with each CSS item switched off in turn.
 // 3. Runs headless Edge once per copy, through PowerShell Start-Process -Wait with a fresh --user-data-dir and every
 //    host name unresolvable (nothing is fetched), and reads the records back from the dumped DOM.
 // 4. Compares (tools/visual/compare.js): after + reverse patch against before must have zero differences for all
 //    three styles (exit 1 otherwise); after against before is printed as the intended changes, each difference
-//    attributed to an item of §15.3. A difference no item explains also exits 1.
+//    attributed to an item of the file. A difference no item explains also exits 1.
 // Node's own modules only.
 "use strict";
 const fs = require("fs");
@@ -27,36 +29,38 @@ const { diff, overlay, same, fmt, line, TOL } = require("./compare.js");
 const ROOT = path.resolve(__dirname, "..", "..");
 const EDGE = "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe";
 const STYLES = ["toy", "retro", "card"];
-const ITEMS = {
-  1: "letter spacing of .t16 .t18 (+0.01em -> 0), .t36 .t48 (-0.01em -> 0), .t64 .t96 (-0.01em -> -1 px)",
-  2: "the health fill at 22 % (s7 hurt): #E87D46 -> #EA7A46 (stop 04)",
-  3: "the selected preset card: padding 12 -> 10 (2 px smaller on every side, the idle card's size)",
-  4: "the stepper radius: 999px -> 999 reference px (still a pill)",
-  5: "chips and idle tabs: a 3 px transparent border -> border 0 and padding + 3 (same picture)",
-};
+const USAGE = "usage: node tools/visual/probe.js [--before <git ref>] [--intended <file>] [--verbose] [--keep]";
 
 function args() {
-  const o = { before: "main", verbose: false, keep: false };
+  const o = { before: "main", intended: path.join(__dirname, "intended-changes.css"), verbose: false, keep: false };
   const a = process.argv.slice(2);
   for (let i = 0; i < a.length; i++) {
     if (a[i] === "--before" && i + 1 < a.length) o.before = a[++i];
+    else if (a[i] === "--intended" && i + 1 < a.length) o.intended = path.resolve(a[++i]);
     else if (a[i] === "--verbose") o.verbose = true;
     else if (a[i] === "--keep") o.keep = true;
     else {
-      console.error("usage: node tools/visual/probe.js [--before <git ref>] [--verbose] [--keep]; unknown: " + a[i]);
+      console.error(USAGE + "; unknown: " + a[i]);
       process.exit(2);
     }
   }
   return o;
 }
 
-// the reverse patch, split at its "/* item N: ... */" comments
-function patchItems(css) {
+// the reverse patch, split at its "/* item <id>[ (box)]: <what changed> */" comments
+function patchItems(css, file) {
   const items = [];
-  const re = /\/\* item (\d+):[^*]*\*\/\n([\s\S]*?)(?=\/\* item \d+:|$)/g;
+  const re = /\/\* item ([\w-]+)( \(box\))?: ([^*]*)\*\/\n([\s\S]*?)(?=\/\* item [\w-]+(?: \(box\))?:|$)/g;
   let m;
-  while ((m = re.exec(css))) items.push({ id: m[1], css: m[2].trim() });
-  if (items.map((i) => i.id).join(",") !== "1,2,3,4") throw new Error("intended-changes.css must hold items 1, 2, 3, 4 in order");
+  while ((m = re.exec(css))) items.push({ id: m[1], box: !!m[2], title: m[3].trim().replace(/\s+/g, " "), css: m[4].trim() });
+  const bad = (why) => { throw new Error(file + ": " + why); };
+  const ids = items.map((i) => i.id);
+  if (new Set(ids).size !== ids.length) bad("item ids must be unique: " + ids.join(", "));
+  for (const it of items) {
+    if (it.box && it.css) bad(`item ${it.id} (box) has declarations; a box item has none`);
+    if (!it.box && !it.css) bad(`item ${it.id} has no declarations; mark it "(box)" or remove it`);
+  }
+  if (items.filter((i) => i.box).length > 1) bad("at most one (box) item");
   return items;
 }
 
@@ -95,9 +99,9 @@ function edge(tmp, name, file) {
 
 function count(o) { return Object.keys(o || {}).length; }
 
-// spec §15.3 item 5, per side whose declared box changed: a visible-nothing border of width w became border 0 and
-// the padding grew by w
-function item5(rawFields, before, after) {
+// a (box) item (item 5 of spec §15.3 in the migration), per side whose declared box changed: a visible-nothing border
+// of width w became border 0 and the padding grew by w
+function boxMove(rawFields, before, after) {
   const at = (r, f) => r[rawFields.indexOf(f)];
   let changed = false;
   for (const side of ["top", "right", "bottom", "left"]) {
@@ -126,10 +130,12 @@ function main() {
   }
   const before = execFileSync("git", ["show", o.before + ":pages/styles/styles.html"], { cwd: ROOT, encoding: "utf8", maxBuffer: 64 << 20 });
   const after = fs.readFileSync(path.join(ROOT, "pages", "styles", "styles.html"), "utf8");
-  const items = patchItems(fs.readFileSync(path.join(__dirname, "intended-changes.css"), "utf8").replace(/\r\n/g, "\n"));
+  const rel = path.relative(ROOT, o.intended).split(path.sep).join("/");
+  const all = patchItems(fs.readFileSync(o.intended, "utf8").replace(/\r\n/g, "\n"), rel);
+  const items = all.filter((it) => !it.box), boxItem = all.find((it) => it.box);
   const harness = fs.readFileSync(path.join(__dirname, "harness.js"), "utf8");
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "prime-ui-probe-"));
-  console.log(`probe: before = ${o.before}:pages/styles/styles.html, after = pages/styles/styles.html (up to date)`);
+  console.log(`probe: before = ${o.before}:pages/styles/styles.html, after = pages/styles/styles.html (up to date), intended = ${rel} (${all.length} item(s))`);
   console.log("temp folder: " + tmp);
 
   const variants = items.map((it) => ({ name: "minus-" + it.id, off: [it.id], styles: ["toy"] }));
@@ -162,9 +168,9 @@ function main() {
     failed += ds.length;
   }
 
-  // comparison 2: after against before, every difference attributed to an item of §15.3
-  console.log("\n2. after vs before: the intended changes of spec §15.3");
-  const perItem = {}; for (const k of Object.keys(ITEMS)) perItem[k] = { diffs: [], keys: new Set() };
+  // comparison 2: after against before, every difference attributed to an item of the intended-changes file
+  console.log("\n2. after vs before: the intended changes of " + rel);
+  const perItem = {}; for (const it of all) perItem[it.id] = { diffs: [], keys: new Set() };
   const unexplained = [];
   const itemDiffs = {};
   for (const it of items) {
@@ -179,10 +185,10 @@ function main() {
       if (!hits.length) { unexplained.push({ s, d }); continue; }
       for (const id of hits) { perItem[id].diffs.push(d); perItem[id].keys.add(d.key); }
     }
-    // the declared box (padding, raw borders) after the reverse patch: what is left must be item 5
+    // the declared box (padding, raw borders) after the reverse patch: what is left must be the (box) item
     for (const key of Object.keys(B.raw[s])) {
       if (!P.raw[s][key] || same(B.raw[s][key], P.raw[s][key])) continue;
-      if (s === "toy" && item5(RF, B.raw[s][key], P.raw[s][key])) { perItem[5].keys.add(key); continue; }
+      if (s === "toy" && boxItem && boxMove(RF, B.raw[s][key], P.raw[s][key])) { perItem[boxItem.id].keys.add(key); continue; }
       diff({ [key]: B.raw[s][key] }, { [key]: P.raw[s][key] }, RF).forEach((d) => unexplained.push({ s, d }));
     }
   }
@@ -194,10 +200,11 @@ function main() {
     const top = Object.entries(kinds).sort((a, b) => b[1] - a[1]).slice(0, 4).map(([k, n]) => `${k} x${n}`).join(", ");
     return `screens ${Object.keys(byScreen).join(" ")}; ${top}`;
   };
-  for (const id of Object.keys(ITEMS)) {
-    const p = perItem[id];
-    console.log(`   item ${id}, ${ITEMS[id]}`);
-    if (id === "5") {
+  if (!all.length) console.log("   (no items: the PR changes no picture)");
+  for (const it of all) {
+    const id = it.id, p = perItem[id];
+    console.log(`   item ${id}, ${it.title}`);
+    if (it.box) {
       console.log(`     ${p.keys.size} element-states with the same picture and a different declared box (${p.keys.size ? place(p.keys) : "none"})`);
       if (p.keys.size) {
         const k = [...p.keys][0];
@@ -207,15 +214,15 @@ function main() {
       continue;
     }
     if (!p.diffs.length) {
-      console.log("     0 differences at the probe's 1920 px frame" + (id === "4" ? ", where 1 reference px = 1 px: the computed radius is 999px both before and after" : ""));
+      console.log("     0 differences at the probe's 1920 px frame (1 reference px = 1 px there)");
       continue;
     }
     const fields = {};
     for (const d of p.diffs) fields[d.field] = (fields[d.field] || 0) + 1;
     console.log(`     ${p.diffs.length} field differences on ${p.keys.size} element-states (${place(p.keys)})`);
     console.log("     fields: " + Object.entries(fields).map(([f, n]) => `${f} ${n}`).join(", "));
-    const direct = { 1: "letter-spacing", 2: "bg", 3: "w", 4: "r-top-left" }[id];
-    const sample = p.diffs.filter((d) => d.field === direct).concat(p.diffs.filter((d) => d.field !== direct));
+    const order = Object.entries(fields).sort((a, b) => b[1] - a[1]).map(([f]) => f);
+    const sample = p.diffs.slice().sort((a, b) => order.indexOf(a.field) - order.indexOf(b.field));
     for (const d of sample.slice(0, o.verbose ? Infinity : 3)) console.log("     e.g. " + line(d, desc));
   }
   console.log(`   unexplained: ${unexplained.length}`);

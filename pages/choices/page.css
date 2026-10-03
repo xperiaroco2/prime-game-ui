@@ -90,3 +90,9 @@ html, body { overflow-x: hidden; }
 .ch-sw i { grid-row: span 2; width: 26px; height: 26px; border-radius: 6px; border: 1px solid var(--c-line); }
 .ch-sw b { font-weight: 600; overflow-wrap: anywhere; }
 .ch-sw code { color: var(--c-muted); font-size: 11px; }
+
+/* The engineer's recorded choice (options.json "decided"), shown without the page's store. */
+.ch-status { margin: 0 0 12px; padding: 8px 12px; border-radius: 10px; background: var(--c-card); border: 1px solid var(--c-ok); color: var(--c-ok); font-weight: 600; max-width: 80ch; }
+.ch-decided { margin: 0 0 8px; font-size: 14px; font-weight: 700; color: var(--c-ok); }
+.ch-badge-dec { background: var(--c-ok); color: var(--c-card); }
+.ch-opt.is-decided { border-color: var(--c-ok); }
