@@ -1,0 +1,58 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "title": {
+    "$description": "The title plate and the logo.",
+    "plate": {
+      "$description": "The title plate: a yellow Label box on a coral base; expand margins replace the CSS negative margins.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyTitlePlate", "class": "Label", "base": { "any": "ToyBaseTitle" } },
+          "context": "dark"
+        }
+      },
+      "label": { "$type": "typography", "$value": "{type.hero}" },
+      "normal": {
+        "bg-color": { "$type": "color", "$value": "{palette.yellow}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-width": { "$type": "dimension", "$value": "{stroke.surface}" },
+        "corner-radius": { "$type": "dimension", "$value": { "value": 26, "unit": "px" } },
+        "content-margin": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "expand-margin-block": { "$type": "dimension", "$value": { "value": 4, "unit": "px" } },
+        "expand-margin-inline": { "$type": "dimension", "$value": { "value": 36, "unit": "px" } },
+        "font-color": { "$type": "color", "$value": "{color.on-accent.text}" }
+      }
+    },
+    "base": {
+      "$description": "The coral base under the title plate, 10 px lower.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyBaseTitle", "class": "Panel" },
+          "context": "dark"
+        }
+      },
+      "panel": {
+        "bg-color": { "$type": "color", "$value": "{palette.coral}" },
+        "corner-radius": { "$type": "dimension", "$value": { "value": 26, "unit": "px" } },
+        "expand-margin-top": { "$type": "dimension", "$value": { "value": -6, "unit": "px" } },
+        "expand-margin-inline": { "$type": "dimension", "$value": { "value": 36, "unit": "px" } },
+        "expand-margin-bottom": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } }
+      }
+    },
+    "logo": {
+      "$description": "The logo: yellow letters with a coral drop shadow.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": { "godot": { "variation": "ToyLogo", "class": "Label" }, "context": "dark" }
+      },
+      "label": { "$type": "typography", "$value": "{type.display-large}" },
+      "normal": {
+        "font-color": { "$type": "color", "$value": "{color.on-dark.title}" },
+        "font-shadow-color": { "$type": "color", "$value": "{palette.coral}" }
+      },
+      "items": {
+        "shadow-offset-x": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "shadow-offset-y": { "$type": "dimension", "$value": { "value": 6, "unit": "px" } },
+        "shadow-outline-size": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } }
+      }
+    }
+  }
+}

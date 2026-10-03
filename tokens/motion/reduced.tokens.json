@@ -1,0 +1,7 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "duration": {
+    "$type": "duration",
+    "press": { "$description": "Reduced motion: the face jumps to its offset.", "$value": { "value": 0, "unit": "ms" } }
+  }
+}

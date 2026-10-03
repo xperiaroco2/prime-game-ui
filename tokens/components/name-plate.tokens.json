@@ -1,0 +1,34 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "name-plate": {
+    "$description": "Name plates over players.",
+    "plate": {
+      "$description": "A name plate: the translucent pill.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyNamePlate", "class": "PanelContainer" },
+          "context": "dark"
+        }
+      },
+      "panel": {
+        "bg-color": { "$type": "color", "$value": "{color.surface.plate}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
+        "content-margin-block": { "$type": "dimension", "$value": { "value": 4, "unit": "px" } },
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } }
+      }
+    },
+    "text": {
+      "$description": "The name on a name plate.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyNamePlateText", "class": "Label", "on": ["ToyNamePlate"] },
+          "context": "dark"
+        }
+      },
+      "label": { "$type": "typography", "$value": "{type.small-bold}" },
+      "normal": {
+        "font-color": { "$type": "color", "$value": "{color.on-dark.text}" }
+      }
+    }
+  }
+}

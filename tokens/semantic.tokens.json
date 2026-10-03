@@ -1,0 +1,191 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "color": {
+    "$type": "color",
+    "on-dark": {
+      "$description": "Text and lines on dark surroundings: world plates, backdrops, night.",
+      "text": { "$value": "{palette.cream}" },
+      "text-muted": { "$value": "{palette.lilac}" },
+      "title": { "$value": "{palette.yellow}" },
+      "line": { "$value": "{palette.cream}" },
+      "base": { "$value": "{palette.honey}" }
+    },
+    "on-light": {
+      "$description": "Text and lines on cream panels and the lavender map board.",
+      "text": { "$value": "{palette.ink}" },
+      "text-muted": { "$value": "{palette.muted}" },
+      "title": { "$value": "{palette.ink}" },
+      "line": { "$value": "{palette.ink}" },
+      "base": { "$value": "{palette.ink}" }
+    },
+    "on-accent": {
+      "$description": "Text on the yellow, coral and honey accents.",
+      "text": { "$value": "{palette.ink}" },
+      "text-muted": { "$value": "{palette.muted-deep}" }
+    },
+    "outline": { "$value": "{palette.ink}" },
+    "surface": {
+      "night": { "$value": "{palette.night}" },
+      "night-plate": { "$value": "{palette.plate-solid}" },
+      "plate": { "$value": "{palette.plate}" },
+      "backdrop": { "$value": "{palette.backdrop}" },
+      "backdrop-deep": { "$value": "{palette.backdrop-deep}" },
+      "panel": { "$value": "{palette.cream}" },
+      "board": { "$value": "{palette.lavender}" },
+      "tile": { "$value": "{palette.white}" },
+      "drop": { "$value": "{palette.drop}" }
+    },
+    "status": {
+      "stamina": { "$value": "{palette.yellow}" },
+      "health-full": { "$value": "{palette.health-full}" },
+      "health-empty": { "$value": "{palette.health-empty}" },
+      "progress": { "$value": "{palette.mint}" },
+      "alert": { "$value": "{palette.coral}" }
+    },
+    "state": {
+      "$description": "State colours added where the mock-up had none (proposals).",
+      "$extensions": { "io.github.xperiaroco2.prime-game": { "proposal": true } },
+      "disabled-face": { "$value": "{palette.key-quiet}" },
+      "disabled-ink": { "$value": "{palette.muted}" },
+      "disabled-ink-on-dark": { "$value": "{palette.lilac}" },
+      "hover-on-dark": { "$value": "{palette.plate-solid}" },
+      "hover-on-light": { "$value": "{palette.lavender}" },
+      "held-accent": { "$value": "{palette.honey}" }
+    }
+  },
+  "type": {
+    "$type": "typography",
+    "caption": {
+      "$value": {
+        "fontFamily": "{font.family.base}",
+        "fontSize": "{font.size.caption}",
+        "fontWeight": "{font.weight.semibold}",
+        "letterSpacing": "{font.letter-spacing.none}",
+        "lineHeight": "{font.line-height.base}"
+      }
+    },
+    "caption-bold": {
+      "$value": {
+        "fontFamily": "{font.family.base}",
+        "fontSize": "{font.size.caption}",
+        "fontWeight": "{font.weight.bold}",
+        "letterSpacing": "{font.letter-spacing.none}",
+        "lineHeight": "{font.line-height.base}"
+      }
+    },
+    "small": {
+      "$value": {
+        "fontFamily": "{font.family.base}",
+        "fontSize": "{font.size.small}",
+        "fontWeight": "{font.weight.semibold}",
+        "letterSpacing": "{font.letter-spacing.none}",
+        "lineHeight": "{font.line-height.base}"
+      }
+    },
+    "small-bold": {
+      "$value": {
+        "fontFamily": "{font.family.base}",
+        "fontSize": "{font.size.small}",
+        "fontWeight": "{font.weight.bold}",
+        "letterSpacing": "{font.letter-spacing.none}",
+        "lineHeight": "{font.line-height.base}"
+      }
+    },
+    "body": {
+      "$value": {
+        "fontFamily": "{font.family.base}",
+        "fontSize": "{font.size.body}",
+        "fontWeight": "{font.weight.semibold}",
+        "letterSpacing": "{font.letter-spacing.none}",
+        "lineHeight": "{font.line-height.base}"
+      }
+    },
+    "body-bold": {
+      "$value": {
+        "fontFamily": "{font.family.base}",
+        "fontSize": "{font.size.body}",
+        "fontWeight": "{font.weight.bold}",
+        "letterSpacing": "{font.letter-spacing.none}",
+        "lineHeight": "{font.line-height.base}"
+      }
+    },
+    "body-large": {
+      "$value": {
+        "fontFamily": "{font.family.base}",
+        "fontSize": "{font.size.body-large}",
+        "fontWeight": "{font.weight.semibold}",
+        "letterSpacing": "{font.letter-spacing.none}",
+        "lineHeight": "{font.line-height.base}"
+      }
+    },
+    "body-large-bold": {
+      "$value": {
+        "fontFamily": "{font.family.base}",
+        "fontSize": "{font.size.body-large}",
+        "fontWeight": "{font.weight.bold}",
+        "letterSpacing": "{font.letter-spacing.none}",
+        "lineHeight": "{font.line-height.base}"
+      }
+    },
+    "heading": {
+      "$value": {
+        "fontFamily": "{font.family.base}",
+        "fontSize": "{font.size.heading}",
+        "fontWeight": "{font.weight.semibold}",
+        "letterSpacing": "{font.letter-spacing.none}",
+        "lineHeight": "{font.line-height.base}"
+      }
+    },
+    "heading-bold": {
+      "$value": {
+        "fontFamily": "{font.family.base}",
+        "fontSize": "{font.size.heading}",
+        "fontWeight": "{font.weight.bold}",
+        "letterSpacing": "{font.letter-spacing.none}",
+        "lineHeight": "{font.line-height.base}"
+      }
+    },
+    "title": {
+      "$value": {
+        "fontFamily": "{font.family.base}",
+        "fontSize": "{font.size.title}",
+        "fontWeight": "{font.weight.bold}",
+        "letterSpacing": "{font.letter-spacing.none}",
+        "lineHeight": "{font.line-height.base}"
+      }
+    },
+    "display": {
+      "$value": {
+        "fontFamily": "{font.family.base}",
+        "fontSize": "{font.size.display}",
+        "fontWeight": "{font.weight.bold}",
+        "letterSpacing": "{font.letter-spacing.none}",
+        "lineHeight": "{font.line-height.base}"
+      }
+    },
+    "display-large": {
+      "$value": {
+        "fontFamily": "{font.family.base}",
+        "fontSize": "{font.size.display-large}",
+        "fontWeight": "{font.weight.bold}",
+        "letterSpacing": "{font.letter-spacing.tight}",
+        "lineHeight": "{font.line-height.base}"
+      }
+    },
+    "hero": {
+      "$value": {
+        "fontFamily": "{font.family.base}",
+        "fontSize": "{font.size.hero}",
+        "fontWeight": "{font.weight.bold}",
+        "letterSpacing": "{font.letter-spacing.tight}",
+        "lineHeight": "{font.line-height.base}"
+      }
+    }
+  },
+  "motion": {
+    "$type": "transition",
+    "press": {
+      "$value": { "duration": "{duration.press}", "delay": "{duration.none}", "timingFunction": "{ease.press}" }
+    }
+  }
+}

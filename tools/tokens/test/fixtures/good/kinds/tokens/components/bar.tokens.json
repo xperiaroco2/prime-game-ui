@@ -1,0 +1,128 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "bar": {
+    "track": {
+      "$description": "The bar track.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": {
+            "variation": "ToyBarTrack",
+            "class": "PanelContainer"
+          },
+          "context": "dark"
+        }
+      },
+      "panel": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{palette.track-dark}"
+        },
+        "border-color": {
+          "$type": "color",
+          "$value": "{color.outline}"
+        },
+        "border-width": {
+          "$type": "dimension",
+          "$value": "{stroke.control}"
+        },
+        "corner-radius": {
+          "$type": "dimension",
+          "$value": {
+            "value": 10,
+            "unit": "px"
+          }
+        },
+        "content-margin": {
+          "$type": "dimension",
+          "$value": {
+            "value": 3,
+            "unit": "px"
+          }
+        }
+      },
+      "size": {
+        "$type": "dimension",
+        "height": {
+          "$value": {
+            "value": 16,
+            "unit": "px"
+          }
+        }
+      }
+    },
+    "health": {
+      "$description": "Health: 21 stops.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": {
+            "variation": "ToyBarHealth",
+            "class": "ProgressBar",
+            "on": [
+              "ToyBarTrack"
+            ]
+          },
+          "context": "dark"
+        }
+      },
+      "fill": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{color.status.health-full}"
+        },
+        "corner-radius": {
+          "$type": "dimension",
+          "$value": "{radius.pill}"
+        }
+      },
+      "ramp": {
+        "full": {
+          "$type": "color",
+          "$value": "{color.status.health-full}"
+        },
+        "empty": {
+          "$type": "color",
+          "$value": "{color.status.health-empty}"
+        },
+        "steps": {
+          "$type": "number",
+          "$value": 20
+        }
+      }
+    },
+    "stamina": {
+      "$description": "Stamina.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": {
+            "variation": "ToyBarStamina",
+            "class": "ProgressBar",
+            "on": [
+              "ToyBarTrack"
+            ]
+          },
+          "context": "dark"
+        }
+      },
+      "background": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{color.surface.drop}"
+        },
+        "corner-radius": {
+          "$type": "dimension",
+          "$value": "{radius.pill}"
+        }
+      },
+      "fill": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{color.status.stamina}"
+        },
+        "corner-radius": {
+          "$type": "dimension",
+          "$value": "{radius.pill}"
+        }
+      }
+    }
+  }
+}

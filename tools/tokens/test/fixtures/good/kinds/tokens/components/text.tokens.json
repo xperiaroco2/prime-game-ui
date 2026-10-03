@@ -1,0 +1,31 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "text": {
+    "on-dark": {
+      "$description": "Text on dark.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": {
+            "variation": "ToyTextOnDark",
+            "class": "Label"
+          },
+          "context": "dark"
+        }
+      },
+      "label": {
+        "$type": "typography",
+        "$value": "{type.body}"
+      },
+      "normal": {
+        "font-color": {
+          "$type": "color",
+          "$value": "{color.on-dark.text}"
+        },
+        "font-shadow-color": {
+          "$type": "color",
+          "$value": "{color.surface.drop}"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "check.svg": { "licence": "own work", "author": "prime-game-ui", "what": "placeholder tick for a done how-to frame, drawn for the components showcase" },
+  "item.svg": { "licence": "own work", "author": "prime-game-ui", "what": "placeholder package pictogram for slots, how-to frames and map rooms" },
+  "mic-off.svg": { "licence": "own work", "author": "prime-game-ui", "what": "placeholder crossed microphone (tinted by ToyMic icon-off)" },
+  "mic.svg": { "licence": "own work", "author": "prime-game-ui", "what": "placeholder microphone (tinted by ToyMic icon-on)" }
+}

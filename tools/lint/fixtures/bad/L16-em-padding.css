@@ -1,0 +1,2 @@
+/* profile: skin; expect: L16 */
+body[data-style="toy"] .frame .a { padding: 1em; }

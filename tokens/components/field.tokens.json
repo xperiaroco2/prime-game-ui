@@ -1,0 +1,94 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "field": {
+    "$description": "Text field and dropdown.",
+    "input": {
+      "$description": "A text field: white box, ink outline.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyField", "class": "LineEdit" },
+          "context": "any"
+        }
+      },
+      "label": { "$type": "typography", "$value": "{type.body-bold}" },
+      "normal": {
+        "bg-color": { "$type": "color", "$value": "{palette.white}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.medium}" },
+        "content-margin-block": { "$type": "dimension", "$value": { "value": 10, "unit": "px" } },
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 16, "unit": "px" } },
+        "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
+      },
+      "focus": {
+        "$description": "Inner focus: the outline thickens inward by the focus width (proposal).",
+        "$extensions": { "io.github.xperiaroco2.prime-game": { "proposal": true } },
+        "bg-color": { "$type": "color", "$value": "{palette.clear}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-width": { "$type": "dimension", "$value": "{focus.width}" },
+        "corner-radius": { "$type": "dimension", "$value": { "value": 9, "unit": "px" } },
+        "expand-margin": { "$type": "dimension", "$value": { "value": -3, "unit": "px" } }
+      },
+      "read-only": {
+        "$description": "Read-only, also the guest's view: a quiet box with readable text (proposal).",
+        "$extensions": { "io.github.xperiaroco2.prime-game": { "proposal": true } },
+        "bg-color": { "$type": "color", "$value": "{color.state.disabled-face}" },
+        "border-color": { "$type": "color", "$value": "{color.state.disabled-ink}" },
+        "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
+      },
+      "items": {
+        "$description": "Placeholder, caret and selection colours (proposal).",
+        "$extensions": { "io.github.xperiaroco2.prime-game": { "proposal": true } },
+        "placeholder-color": { "$type": "color", "$value": "{palette.muted}" },
+        "caret-color": { "$type": "color", "$value": "{color.outline}" },
+        "selection-color": { "$type": "color", "$value": "{palette.yellow}" },
+        "selected-font-color": { "$type": "color", "$value": "{color.on-accent.text}" }
+      }
+    },
+    "dropdown": {
+      "$description": "A dropdown: as the field; no parent, so OptionButton's own items still resolve.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyDropdown", "class": "OptionButton" },
+          "context": "any"
+        }
+      },
+      "label": { "$type": "typography", "$value": "{type.body-bold}" },
+      "normal": {
+        "bg-color": { "$type": "color", "$value": "{palette.white}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.medium}" },
+        "content-margin-block": { "$type": "dimension", "$value": { "value": 10, "unit": "px" } },
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 16, "unit": "px" } },
+        "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
+      },
+      "hover": {
+        "$description": "Hover fill (proposal).",
+        "$extensions": { "io.github.xperiaroco2.prime-game": { "proposal": true } },
+        "bg-color": { "$type": "color", "$value": "{color.state.hover-on-light}" }
+      },
+      "pressed": {
+        "$description": "Held: as hover (proposal).",
+        "$extensions": { "io.github.xperiaroco2.prime-game": { "proposal": true } },
+        "bg-color": { "$type": "color", "$value": "{color.state.hover-on-light}" }
+      },
+      "disabled": {
+        "$description": "Unplugged dropdown: pale and quiet (proposal).",
+        "$extensions": { "io.github.xperiaroco2.prime-game": { "proposal": true } },
+        "bg-color": { "$type": "color", "$value": "{color.state.disabled-face}" },
+        "border-color": { "$type": "color", "$value": "{color.state.disabled-ink}" },
+        "font-color": { "$type": "color", "$value": "{color.state.disabled-ink}" }
+      },
+      "focus": {
+        "$description": "Inner focus: the outline thickens inward by the focus width (proposal).",
+        "$extensions": { "io.github.xperiaroco2.prime-game": { "proposal": true } },
+        "bg-color": { "$type": "color", "$value": "{palette.clear}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-width": { "$type": "dimension", "$value": "{focus.width}" },
+        "corner-radius": { "$type": "dimension", "$value": { "value": 9, "unit": "px" } },
+        "expand-margin": { "$type": "dimension", "$value": { "value": -3, "unit": "px" } }
+      }
+    }
+  }
+}

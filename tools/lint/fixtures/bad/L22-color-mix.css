@@ -1,0 +1,2 @@
+/* profile: skin; expect: L22 */
+body[data-style="toy"] .frame .a { color: color-mix(in srgb, var(--toy-palette-ink) 50%, var(--toy-palette-cream)); }

@@ -1,0 +1,108 @@
+{
+  "schema": 1,
+  "world": {
+    "white": "#ffffff",
+    "light": "#c9c9c9",
+    "mid": "#979797"
+  },
+  "min": {
+    "text": 4.5,
+    "large-text": 3,
+    "inactive-text": 3,
+    "ui": 3
+  },
+  "large-text-px": 36,
+  "surfaces": {
+    "dark": [
+      {
+        "bg": "color.surface.night"
+      },
+      {
+        "bg": "color.surface.plate",
+        "over": [
+          "white",
+          "light",
+          "mid"
+        ]
+      },
+      {
+        "bg": "color.surface.backdrop",
+        "over": [
+          "white",
+          "light",
+          "mid"
+        ]
+      }
+    ],
+    "light": [
+      {
+        "bg": "color.surface.panel"
+      }
+    ]
+  },
+  "auto": {
+    "component-text": true,
+    "label-text": true,
+    "focus": true,
+    "fills": true,
+    "ramp": {
+      "variation": "ToyBarHealth",
+      "track": "bar.track.panel.bg-color",
+      "min": "ui"
+    }
+  },
+  "pairs": [
+    {
+      "id": "c1",
+      "fg": "color.on-dark.text",
+      "bg": "color.surface.plate",
+      "over": [
+        "mid"
+      ],
+      "min": "text",
+      "what": "cream on the HUD plate, world 97"
+    },
+    {
+      "id": "c8",
+      "fg": "color.surface.plate",
+      "bg": "world:mid",
+      "min": "ui",
+      "what": "HUD plate vs world 97"
+    },
+    {
+      "id": "x15",
+      "fg": "color.on-dark.text-muted",
+      "bg": "color.surface.backdrop",
+      "over": [
+        "white"
+      ],
+      "min": "text",
+      "what": "lilac on the backdrop over white (waived)"
+    },
+    {
+      "id": "n23",
+      "fg": "palette.zone",
+      "fgOver": "palette.cream",
+      "bg": "palette.cream",
+      "min": null,
+      "what": "zone tint over cream vs cream"
+    }
+  ],
+  "waivers": [
+    {
+      "fg": "color.on-dark.text-muted",
+      "bg": "color.surface.backdrop",
+      "over": "white",
+      "reason": "lilac on the backdrop over a white wall is under 4.5:1",
+      "decision": "fixture: waived",
+      "issue": "https://github.com/xperiaroco2/prime-game-ui/issues/5"
+    },
+    {
+      "fg": "palette.ink",
+      "bg": "palette.white",
+      "reason": "ink on white passes, so this waiver is stale",
+      "decision": "fixture",
+      "issue": "https://github.com/xperiaroco2/prime-game-ui/issues/5"
+    }
+  ]
+}

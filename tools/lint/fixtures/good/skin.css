@@ -1,0 +1,64 @@
+/* profile: skin */
+/* Good skin: a .frame context block, a button with a base, a merge-form tab, a negative-margin title plate,
+   !important and rotate(80deg). */
+body[data-style="toy"] .frame {
+  --px: calc(1cqw / 19.2);
+  --ctx-text: var(--toy-color-on-dark-text);
+  --ctx-line: var(--toy-color-on-dark-line);
+  --ctx-base: var(--toy-color-on-dark-base);
+  color: var(--ctx-text);
+  font-family: var(--toy-type-body-font-family);
+}
+body[data-style="toy"] .frame .panel {
+  --ctx-text: var(--toy-color-on-light-text);
+  --ctx-line: var(--toy-color-on-light-line);
+  --ctx-base: var(--toy-color-on-light-base);
+  color: var(--ctx-text);
+  background: var(--toy-color-surface-panel);
+  border: calc(var(--toy-stroke-control) * var(--px)) solid var(--toy-color-outline);
+  border-radius: calc(var(--toy-radius-surface) * var(--px));
+}
+body[data-style="toy"] .frame .btn {
+  background: var(--toy-button-primary-normal-bg-color);
+  border: calc(var(--toy-button-primary-normal-border-width) * var(--px)) solid var(--toy-button-primary-normal-border-color);
+  border-radius: calc(var(--toy-button-primary-normal-corner-radius) * var(--px));
+  padding: calc((var(--toy-button-primary-normal-content-margin-block) - var(--toy-stroke-control)) * var(--px))
+           calc((var(--toy-button-primary-normal-content-margin-inline) - var(--toy-stroke-control)) * var(--px));
+  margin-bottom: calc(var(--toy-button-primary-press-depth) * var(--px));
+  box-shadow: 0 calc(var(--toy-button-primary-press-depth) * var(--px)) 0 var(--ctx-base);
+  font-size: calc(var(--toy-type-body-font-size) * var(--px));
+  font-weight: var(--toy-type-body-font-weight);
+  letter-spacing: calc(var(--toy-type-body-letter-spacing) * var(--px));
+  line-height: var(--toy-type-body-line-height);
+  align-self: flex-start;
+}
+body[data-style="toy"] .frame .btn.off { box-shadow: none; background: var(--toy-button-primary-disabled-bg-color); }
+/* The merge form: a thicker bottom border and a negative bottom margin, no shadow. */
+body[data-style="toy"] .frame .tab.sel {
+  background: var(--toy-palette-yellow);
+  border-style: solid;
+  border-color: var(--toy-color-outline);
+  border-width: calc(var(--toy-stroke-control) * var(--px)) calc(var(--toy-stroke-control) * var(--px))
+                calc(var(--toy-tab-selected-normal-border-width-bottom) * var(--px)) calc(var(--toy-stroke-control) * var(--px));
+  margin-bottom: calc(var(--toy-tab-selected-normal-expand-margin-bottom) * -1 * var(--px));
+}
+body[data-style="toy"] .frame .tab:not(.sel) { border: 0; border-bottom: calc(var(--toy-stroke-control) * var(--px)) solid var(--ctx-line); }
+body[data-style="toy"] .frame .title-plate {
+  background: var(--toy-palette-cream);
+  margin: calc(var(--toy-title-plate-normal-expand-margin) * -1 * var(--px)) 0;
+  padding: calc((var(--toy-title-plate-normal-expand-margin) + 4) * var(--px));
+}
+body[data-style="toy"] .frame .abs > .t64:first-child {
+  color: var(--toy-palette-yellow);
+  text-shadow: calc(var(--toy-title-logo-items-shadow-offset-x) * var(--px)) calc(var(--toy-title-logo-items-shadow-offset-y) * var(--px)) 0 var(--toy-palette-coral);
+}
+body[data-style="toy"] .frame [style*="background:#0E0E0E"] { background: var(--toy-palette-night) !important; }
+body[data-style="toy"] .frame .dot[style*="outline"] { outline-color: var(--toy-palette-yellow) !important; }
+body[data-style="toy"] .frame .pin {
+  background: var(--toy-palette-coral);
+  width: calc(var(--toy-map-pin-size-width) * var(--px));
+  height: calc(var(--toy-map-pin-size-height) * var(--px));
+  transform: rotate(80deg);
+}
+body[data-style="toy"] .frame .panel svg { stroke: var(--toy-color-outline); fill: none; opacity: 1; }
+body[data-style="toy"] .frame .hud { background: var(--toy-color-surface-plate); border-radius: 0; }

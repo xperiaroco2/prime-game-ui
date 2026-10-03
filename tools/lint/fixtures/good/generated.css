@@ -1,0 +1,46 @@
+/* profile: generated */
+/* Good generated CSS in the shape of spec §13.2: a raised button with its base, the focus ring, a bar fill, the logo. */
+.tv-ToyButtonPrimary {
+  --tv-offset: 0;
+  --tv-depth: var(--toy-button-primary-press-depth);
+  --tv-base: var(--toy-base-primary-on-dark-panel-bg-color);
+  position: relative;
+  display: inline-block;
+  box-sizing: border-box;
+  min-width: 0;
+  background: var(--toy-button-primary-normal-bg-color);
+  border-style: solid;
+  border-color: var(--toy-button-primary-normal-border-color);
+  border-top-width: calc(var(--toy-button-primary-normal-border-width) * var(--px));
+  border-right-width: calc(var(--toy-button-primary-normal-border-width) * var(--px));
+  border-bottom-width: calc(var(--toy-button-primary-normal-border-width) * var(--px));
+  border-left-width: calc(var(--toy-button-primary-normal-border-width) * var(--px));
+  border-top-left-radius: calc(var(--toy-button-primary-normal-corner-radius) * var(--px));
+  padding-top: calc((var(--toy-button-primary-normal-content-margin-block) - var(--toy-button-primary-normal-border-width)) * var(--px));
+  color: var(--toy-color-on-light-text);
+  transform: translateY(calc(var(--tv-offset) * var(--px)));
+  box-shadow: 0 calc((var(--tv-depth) - var(--tv-offset)) * var(--px)) 0 var(--tv-base);
+  transition: transform var(--toy-motion-press-duration) var(--toy-motion-press-timing-function),
+              box-shadow var(--toy-motion-press-duration) var(--toy-motion-press-timing-function);
+  cursor: pointer;
+}
+[data-context="light"] .tv-ToyButtonPrimary { --tv-base: var(--toy-base-primary-on-light-panel-bg-color); }
+.tv-ToyButtonPrimary.is-hover { --tv-offset: var(--toy-button-primary-press-hover); }
+.tv-ToyButtonPrimary.is-held { --tv-offset: var(--toy-button-primary-press-held); }
+.tv-ToyButtonPrimary.is-disabled { --tv-offset: 0; box-shadow: none; background: var(--toy-button-primary-disabled-bg-color); }
+.tv-ToyButtonPrimary > .tv-focus {
+  display: none; position: absolute; pointer-events: none; box-sizing: border-box;
+  border-style: solid; border-color: var(--toy-color-outline);
+  border-width: calc(var(--toy-button-primary-focus-border-width) * var(--px));
+  border-radius: calc(var(--toy-button-primary-normal-corner-radius) * var(--px));
+  top: calc((0 - var(--toy-button-primary-normal-border-width) - var(--toy-button-primary-focus-expand-margin)) * var(--px));
+  inset: 0;
+}
+.tv-ToyButtonPrimary.is-focus > .tv-focus, .tv-ToyButtonPrimary:focus-visible > .tv-focus { display: block; }
+.tv-ToyBarStamina > .tv-fill { height: 100%; width: calc(var(--value) * 100%); background: var(--toy-bar-stamina-fill-bg-color); }
+.tv-ToyLogo {
+  font-size: calc(var(--toy-type-body-font-size) * var(--px));
+  font-weight: var(--toy-type-body-font-weight);
+  letter-spacing: calc(var(--toy-type-body-letter-spacing) * var(--px));
+  text-shadow: calc(var(--toy-title-logo-items-shadow-offset-x) * var(--px)) calc(var(--toy-title-logo-items-shadow-offset-y) * var(--px)) 0 var(--toy-palette-coral);
+}

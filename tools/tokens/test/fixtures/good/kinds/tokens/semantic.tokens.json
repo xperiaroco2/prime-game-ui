@@ -1,0 +1,119 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "color": {
+    "$type": "color",
+    "outline": {
+      "$value": "{palette.ink}"
+    },
+    "on-dark": {
+      "text": {
+        "$value": "{palette.cream}"
+      },
+      "line": {
+        "$value": "{palette.cream}"
+      },
+      "base": {
+        "$value": "{palette.honey}"
+      }
+    },
+    "on-light": {
+      "text": {
+        "$value": "{palette.ink}"
+      },
+      "base": {
+        "$value": "{palette.ink}"
+      }
+    },
+    "surface": {
+      "plate": {
+        "$value": "{palette.plate}"
+      },
+      "panel": {
+        "$value": "{palette.cream}"
+      },
+      "drop": {
+        "$value": "{palette.drop}"
+      }
+    },
+    "status": {
+      "stamina": {
+        "$value": "{palette.yellow}"
+      },
+      "health-full": {
+        "$value": "{palette.health-full}"
+      },
+      "health-empty": {
+        "$value": "{palette.health-empty}"
+      }
+    },
+    "state": {
+      "$description": "State colours (proposals).",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "proposal": true
+        }
+      },
+      "disabled-face": {
+        "$value": "{palette.key-quiet}"
+      },
+      "disabled-ink": {
+        "$value": "{palette.muted}"
+      },
+      "hover-on-dark": {
+        "$value": "{palette.plate-solid}"
+      },
+      "hover-on-light": {
+        "$value": "{palette.lavender}"
+      }
+    }
+  },
+  "type": {
+    "$type": "typography",
+    "small": {
+      "$value": {
+        "fontFamily": "{font.family.base}",
+        "fontSize": "{font.size.small}",
+        "fontWeight": "{font.weight.semibold}",
+        "letterSpacing": "{font.letter-spacing.none}",
+        "lineHeight": "{font.line-height.base}"
+      }
+    },
+    "body": {
+      "$value": {
+        "fontFamily": "{font.family.base}",
+        "fontSize": "{font.size.body}",
+        "fontWeight": "{font.weight.semibold}",
+        "letterSpacing": "{font.letter-spacing.none}",
+        "lineHeight": "{font.line-height.base}"
+      }
+    },
+    "body-bold": {
+      "$value": {
+        "fontFamily": "{font.family.base}",
+        "fontSize": "{font.size.body}",
+        "fontWeight": "{font.weight.bold}",
+        "letterSpacing": "{font.letter-spacing.none}",
+        "lineHeight": "{font.line-height.base}"
+      }
+    },
+    "hero": {
+      "$value": {
+        "fontFamily": "{font.family.base}",
+        "fontSize": "{font.size.hero}",
+        "fontWeight": "{font.weight.bold}",
+        "letterSpacing": "{font.letter-spacing.tight}",
+        "lineHeight": "{font.line-height.base}"
+      }
+    }
+  },
+  "motion": {
+    "$type": "transition",
+    "press": {
+      "$value": {
+        "duration": "{duration.press}",
+        "delay": "{duration.none}",
+        "timingFunction": "{ease.press}"
+      }
+    }
+  }
+}

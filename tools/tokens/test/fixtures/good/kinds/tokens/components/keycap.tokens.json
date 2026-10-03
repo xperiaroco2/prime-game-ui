@@ -1,0 +1,83 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "keycap": {
+    "on-dark": {
+      "$description": "A keycap on dark.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": {
+            "variation": "ToyKeyOnDark",
+            "class": "PanelContainer"
+          },
+          "context": "dark"
+        }
+      },
+      "panel": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{color.surface.panel}"
+        },
+        "border-color": {
+          "$type": "color",
+          "$value": "{color.outline}"
+        },
+        "border-width-top": {
+          "$type": "dimension",
+          "$value": "{stroke.control}"
+        },
+        "border-width-right": {
+          "$type": "dimension",
+          "$value": "{stroke.control}"
+        },
+        "border-width-bottom": {
+          "$type": "dimension",
+          "$value": "{stroke.bold}"
+        },
+        "border-width-left": {
+          "$type": "dimension",
+          "$value": "{stroke.control}"
+        },
+        "corner-radius": {
+          "$type": "dimension",
+          "$value": "{radius.small}"
+        },
+        "content-margin-top": {
+          "$type": "dimension",
+          "$value": {
+            "value": 4,
+            "unit": "px"
+          }
+        },
+        "content-margin-bottom": {
+          "$type": "dimension",
+          "$value": {
+            "value": 6,
+            "unit": "px"
+          }
+        },
+        "content-margin-inline": {
+          "$type": "dimension",
+          "$value": {
+            "value": 10,
+            "unit": "px"
+          }
+        }
+      },
+      "size": {
+        "$type": "dimension",
+        "min-width": {
+          "$value": {
+            "value": 40,
+            "unit": "px"
+          }
+        },
+        "height": {
+          "$value": {
+            "value": 40,
+            "unit": "px"
+          }
+        }
+      }
+    }
+  }
+}

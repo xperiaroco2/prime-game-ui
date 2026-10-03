@@ -1,0 +1,11 @@
+{
+  "exit": 1,
+  "errors": 1,
+  "rows": [
+    {
+      "id": "x15",
+      "over": "white",
+      "verdict": "WAIVED"
+    }
+  ]
+}

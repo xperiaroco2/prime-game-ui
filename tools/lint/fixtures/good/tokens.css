@@ -1,0 +1,25 @@
+/* profile: tokens */
+/* Good: every value form of spec §8 and all three mode blocks. */
+:root {
+  --toy-palette-ink: #2a1f33;
+  --toy-palette-plate: rgba(42, 31, 51, 0.86);
+  --toy-color-on-dark-text: var(--toy-palette-ink);
+  --toy-stroke-control: 3;
+  --toy-button-primary-focus-expand-margin-top: -3;
+  --toy-duration-press: 70ms;
+  --toy-ease-press: cubic-bezier(0.33, 0.52, 0.64, 1);
+  --toy-font-line-height-base: 1.25;
+  --toy-font-weight-bold: 700;
+  --toy-font-family-base: "Comfortaa";
+  --toy-font-size-body: 22;
+  --toy-type-body-font-size: var(--toy-font-size-body);
+  --toy-motion-press-duration: var(--toy-duration-press);
+  --toy-bar-health-ramp-stop-04: #ea7a46;
+}
+:root[data-text-size="large"] {
+  --toy-font-size-body: 28;
+}
+:root[data-motion="reduced"] { --toy-duration-press: 0ms; }
+@media (prefers-reduced-motion: reduce) {
+  :root:not([data-motion="default"]) { --toy-duration-press: 0ms; }
+}

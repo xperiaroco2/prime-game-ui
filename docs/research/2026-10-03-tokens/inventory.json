@@ -1,0 +1,5454 @@
+{
+ "$schema_note": "Inventory of the Toy style as of branch tokens/5-toy-tokens (prime-game-ui#5). px are at the 1920x1080 frame (calc(Ncqw / 19.2) = N px). Built by a throwaway node script from pages/styles/toy.css, motion-preview.css and check_styles.js; see inventory.md.",
+ "sources": [
+  "pages/styles/toy.css",
+  "pages/styles/motion-preview.css",
+  "pages/styles/meta.json",
+  "pages/styles/check_styles.js",
+  "pages/wireframes/wireframes.html",
+  "docs/ui-decisions.md",
+  "docs/research/2026-10-02-wave-1/lens-3-system.md",
+  "docs/research/2026-10-02-wave-1/lens-6-a11y.md"
+ ],
+ "colors": [
+  {
+   "name": "--toy-ink",
+   "value": "#2A1F33",
+   "alpha": 1,
+   "hardcoded": false,
+   "meta_json_name": "Plum ink",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 43,
+     "selector": ".frame .panel, .frame .map",
+     "property": "--toy-tx",
+     "role": "context variable --toy-tx (light context)"
+    },
+    {
+     "file": "toy.css",
+     "line": 43,
+     "selector": ".frame .panel, .frame .map",
+     "property": "--toy-tx-title",
+     "role": "context variable --toy-tx-title (light context)"
+    },
+    {
+     "file": "toy.css",
+     "line": 43,
+     "selector": ".frame .panel, .frame .map",
+     "property": "--toy-line",
+     "role": "context variable --toy-line (light context)"
+    },
+    {
+     "file": "toy.css",
+     "line": 43,
+     "selector": ".frame .panel, .frame .map",
+     "property": "--toy-base",
+     "role": "context variable --toy-base (light context)"
+    },
+    {
+     "file": "toy.css",
+     "line": 43,
+     "selector": ".frame .panel, .frame .map",
+     "property": "color",
+     "via": "--toy-tx",
+     "context": "light"
+    },
+    {
+     "file": "toy.css",
+     "line": 63,
+     "selector": ".frame .t28.b, .frame .t36.b, .frame .t48.b, .frame .t64.b",
+     "property": "color",
+     "via": "--toy-tx-title",
+     "context": "light"
+    },
+    {
+     "file": "toy.css",
+     "line": 76,
+     "selector": ".frame .t96",
+     "property": "color"
+    },
+    {
+     "file": "toy.css",
+     "line": 76,
+     "selector": ".frame .t96",
+     "property": "border"
+    },
+    {
+     "file": "toy.css",
+     "line": 118,
+     "selector": ".frame .panel",
+     "property": "border"
+    },
+    {
+     "file": "toy.css",
+     "line": 126,
+     "selector": ".frame .btn",
+     "property": "color"
+    },
+    {
+     "file": "toy.css",
+     "line": 126,
+     "selector": ".frame .btn",
+     "property": "border"
+    },
+    {
+     "file": "toy.css",
+     "line": 126,
+     "selector": ".frame .btn",
+     "property": "box-shadow",
+     "via": "--toy-base",
+     "context": "light"
+    },
+    {
+     "file": "toy.css",
+     "line": 135,
+     "selector": ".frame .btn.fill",
+     "property": "color"
+    },
+    {
+     "file": "toy.css",
+     "line": 135,
+     "selector": ".frame .btn.fill",
+     "property": "border-color"
+    },
+    {
+     "file": "toy.css",
+     "line": 135,
+     "selector": ".frame .btn.fill",
+     "property": "box-shadow",
+     "via": "--toy-base",
+     "context": "light"
+    },
+    {
+     "file": "toy.css",
+     "line": 141,
+     "selector": ".frame .btn.ghost",
+     "property": "color",
+     "via": "--toy-tx",
+     "context": "light"
+    },
+    {
+     "file": "toy.css",
+     "line": 141,
+     "selector": ".frame .btn.ghost",
+     "property": "border-color",
+     "via": "--toy-line",
+     "context": "light"
+    },
+    {
+     "file": "toy.css",
+     "line": 150,
+     "selector": ".frame .field",
+     "property": "color"
+    },
+    {
+     "file": "toy.css",
+     "line": 150,
+     "selector": ".frame .field",
+     "property": "border"
+    },
+    {
+     "file": "toy.css",
+     "line": 166,
+     "selector": ".frame .chip.light",
+     "property": "color"
+    },
+    {
+     "file": "toy.css",
+     "line": 166,
+     "selector": ".frame .chip.light",
+     "property": "border-color"
+    },
+    {
+     "file": "toy.css",
+     "line": 171,
+     "selector": ".frame .chip.line",
+     "property": "color",
+     "via": "--toy-tx",
+     "context": "light"
+    },
+    {
+     "file": "toy.css",
+     "line": 171,
+     "selector": ".frame .chip.line",
+     "property": "border-color",
+     "via": "--toy-line",
+     "context": "light"
+    },
+    {
+     "file": "toy.css",
+     "line": 182,
+     "selector": ".frame .key",
+     "property": "color"
+    },
+    {
+     "file": "toy.css",
+     "line": 190,
+     "selector": ".frame .panel .key",
+     "property": "border-color"
+    },
+    {
+     "file": "toy.css",
+     "line": 217,
+     "selector": ".frame .panel .bar2 > i",
+     "property": "background"
+    },
+    {
+     "file": "toy.css",
+     "line": 220,
+     "selector": ".frame .cross",
+     "property": "border"
+    },
+    {
+     "file": "toy.css",
+     "line": 244,
+     "selector": ".frame .tabs > div:not(.dimtext)",
+     "property": "color"
+    },
+    {
+     "file": "toy.css",
+     "line": 245,
+     "selector": ".frame .tabs > div.on",
+     "property": "color"
+    },
+    {
+     "file": "toy.css",
+     "line": 245,
+     "selector": ".frame .tabs > div.on",
+     "property": "border-color"
+    },
+    {
+     "file": "toy.css",
+     "line": 245,
+     "selector": ".frame .tabs > div.on",
+     "property": "box-shadow"
+    },
+    {
+     "file": "toy.css",
+     "line": 258,
+     "selector": ".frame .val",
+     "property": "color"
+    },
+    {
+     "file": "toy.css",
+     "line": 260,
+     "selector": ".frame .val .ar",
+     "property": "color"
+    },
+    {
+     "file": "toy.css",
+     "line": 260,
+     "selector": ".frame .val .ar",
+     "property": "border"
+    },
+    {
+     "file": "toy.css",
+     "line": 268,
+     "selector": ".frame .card",
+     "property": "color"
+    },
+    {
+     "file": "toy.css",
+     "line": 268,
+     "selector": ".frame .card",
+     "property": "border"
+    },
+    {
+     "file": "toy.css",
+     "line": 268,
+     "selector": ".frame .card",
+     "property": "box-shadow"
+    },
+    {
+     "file": "toy.css",
+     "line": 289,
+     "selector": ".frame .dot",
+     "property": "border"
+    },
+    {
+     "file": "toy.css",
+     "line": 289,
+     "selector": ".frame .dot",
+     "property": "color"
+    },
+    {
+     "file": "toy.css",
+     "line": 290,
+     "selector": ".frame .dot[style*=\"outline\"]",
+     "property": "outline-color",
+     "important": true
+    },
+    {
+     "file": "toy.css",
+     "line": 295,
+     "selector": ".frame .panel .row > .col.c[style*=\"#1C1C1C\"]",
+     "property": "border"
+    },
+    {
+     "file": "toy.css",
+     "line": 303,
+     "selector": ".frame .panel svg",
+     "property": "stroke"
+    },
+    {
+     "file": "toy.css",
+     "line": 304,
+     "selector": ".frame .panel svg text",
+     "property": "fill"
+    },
+    {
+     "file": "toy.css",
+     "line": 307,
+     "selector": ".frame .map",
+     "property": "border"
+    },
+    {
+     "file": "toy.css",
+     "line": 313,
+     "selector": ".frame .room",
+     "property": "color"
+    },
+    {
+     "file": "toy.css",
+     "line": 313,
+     "selector": ".frame .room",
+     "property": "border"
+    },
+    {
+     "file": "toy.css",
+     "line": 321,
+     "selector": ".frame .room svg",
+     "property": "stroke"
+    },
+    {
+     "file": "toy.css",
+     "line": 323,
+     "selector": ".frame .map [style*=\"z-index:2\"]",
+     "property": "border",
+     "important": true
+    },
+    {
+     "file": "toy.css",
+     "line": 330,
+     "selector": ".frame .map .you",
+     "property": "border"
+    },
+    {
+     "file": "toy.css",
+     "line": 338,
+     "selector": ".frame .circ",
+     "property": "color"
+    },
+    {
+     "file": "toy.css",
+     "line": 338,
+     "selector": ".frame .circ",
+     "property": "border-color"
+    },
+    {
+     "file": "toy.css",
+     "line": 348,
+     "selector": ".frame [data-bar]",
+     "property": "border"
+    },
+    {
+     "file": "motion-preview.css",
+     "line": 9,
+     "selector": ".frame .btn:not(.ghost):hover",
+     "property": "box-shadow",
+     "via": "--toy-base",
+     "context": "light"
+    },
+    {
+     "file": "motion-preview.css",
+     "line": 13,
+     "selector": ".frame .btn.fill:hover",
+     "property": "box-shadow",
+     "via": "--toy-base",
+     "context": "light"
+    },
+    {
+     "file": "motion-preview.css",
+     "line": 16,
+     "selector": ".frame .btn:not(.ghost):active",
+     "property": "box-shadow",
+     "via": "--toy-base",
+     "context": "light"
+    }
+   ],
+   "contrast_pairs": [
+    "c4 ok 14.37:1 (min 4.5) text (plum ink) on cream panel",
+    "c6 ok 9.71:1 (min 4.5) primary button: ink on yellow",
+    "c7 ok 15.65:1 (min 4.5) secondary button: ink on white",
+    "c14 ok 6.51:1 (min 4.5) NEW sticker: ink on coral",
+    "c17 ok 12.13:1 (min 3) you-are-here marker outline on map",
+    "x4 ok 13.4:1 (min 4.5) caption (plum ink) on mint tint: the done how-to frame",
+    "x17 ok 12.13:1 (min 4.5) text (plum ink) on lavender (reference: ink on the map board)",
+    "n10 ok 10.5:1 (min 3) slider fill (plum ink) vs light track, in panels",
+    "n11 ok 9.45:1 (min 3) HUD bar outline (plum ink) vs world C9",
+    "n12 ok 5.36:1 (min 3) HUD bar outline (plum ink) vs world 97",
+    "n16 ok 14.37:1 (min 3) line chip and ghost outline (plum ink) vs cream panel",
+    "n26 ok 9.45:1 (min 3) crosshair outline (plum ink) vs world C9"
+   ]
+  },
+  {
+   "name": "--toy-night",
+   "value": "#1F1727",
+   "alpha": 1,
+   "hardcoded": false,
+   "meta_json_name": "Night plum",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 87,
+     "selector": ".frame.dark",
+     "property": "background"
+    },
+    {
+     "file": "toy.css",
+     "line": 89,
+     "selector": ".frame [style*=\"background:#0E0E0E\"]",
+     "property": "background",
+     "important": true
+    }
+   ],
+   "contrast_pairs": [
+    "c18 ok 15.94:1 (min 4.5) ghost text (cream) on night",
+    "x7 ok 10.77:1 (min 4.5) title (yellow) on night: connect, fail, loading titles",
+    "x8 ok 11.29:1 (min 4.5) dim text (lilac) on night: timers, statuses, Your role, End of the round",
+    "n14 ok 15.94:1 (min 3) ghost button and line chip outline (cream) vs night",
+    "n28 ok 5.89:1 (min 3) toy base (honey) vs night: buttons on dark",
+    "n29 ok 7.23:1 (min 3) toy base (coral) vs night: big-moment title plate"
+   ]
+  },
+  {
+   "name": "--toy-plate",
+   "value": "#2A1F33",
+   "alpha": 0.86,
+   "hardcoded": false,
+   "meta_json_name": "HUD plate",
+   "note": "rgb(42,31,51) is exactly --toy-ink: the HUD plate is plum ink at 86%.",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 96,
+     "selector": ".frame .plate",
+     "property": "background"
+    },
+    {
+     "file": "toy.css",
+     "line": 109,
+     "selector": ".frame .abs.col > .col > span.t16",
+     "property": "background"
+    },
+    {
+     "file": "toy.css",
+     "line": 160,
+     "selector": ".frame .chip",
+     "property": "background"
+    },
+    {
+     "file": "toy.css",
+     "line": 201,
+     "selector": ".frame .slot",
+     "property": "background"
+    },
+    {
+     "file": "toy.css",
+     "line": 225,
+     "selector": ".frame .mic",
+     "property": "background"
+    },
+    {
+     "file": "toy.css",
+     "line": 233,
+     "selector": ".frame .marker",
+     "property": "background"
+    }
+   ],
+   "contrast_pairs": [
+    "c1 ok 11.54:1 (min 4.5) text (cream) on HUD plate, world 97",
+    "c2 ok 10.39:1 (min 4.5) text (cream) on HUD plate, world C9",
+    "c3 ok 7.36:1 (min 4.5) dim text (lilac) on HUD plate, world C9",
+    "c8 ok 4.3:1 (min 3) HUD plate vs world 97",
+    "c9 ok 6.83:1 (min 3) HUD plate vs world C9",
+    "c10 ok 7.02:1 (min 4.5) title (yellow) on HUD plate, world C9",
+    "c15 ok 3.6:1 (min 3) idle slot outline on slot plate, world C9",
+    "x9 ok 9.25:1 (min 4.5) text (cream) on HUD plate over a pure white world (lens 6 worst case)",
+    "x10 ok 6.55:1 (min 4.5) dim text (lilac) on HUD plate over a pure white world",
+    "x11 ok 6.25:1 (min 4.5) title (yellow) on HUD plate over a pure white world",
+    "x12 ok 8.18:1 (min 4.5) idle slot label (lilac) on slot plate, world 97",
+    "x13 ok 9.83:1 (min 4.5) you-are-here chip: cream on HUD plate over the lavender map",
+    "n1 ok 7.02:1 (min 3) selected slot outline (yellow) vs HUD plate, world C9",
+    "n2 ok 4.71:1 (min 3) downed plate edge (coral) vs HUD plate, world C9",
+    "n4 ok 10.39:1 (min 3) keycap face (cream) vs HUD plate, world C9",
+    "n5 ok 5.11:1 (min 3) keycap edge (key shade) vs HUD plate, world C9",
+    "n33 ok 3.99:1 (min 3) idle slot outline (slot line) vs HUD plate, world 97",
+    "n34 ok 3.2:1 (min 3) idle slot outline (slot line) vs HUD plate over a pure white world",
+    "n35 ok 10.07:1 (min 3) HUD plate vs a pure white world (lens 6 worst case)"
+   ]
+  },
+  {
+   "name": "--toy-plate-solid",
+   "value": "#352A41",
+   "alpha": 1,
+   "hardcoded": false,
+   "meta_json_name": "Night plate",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 101,
+     "selector": ".frame.dark .plate",
+     "property": "background"
+    },
+    {
+     "file": "toy.css",
+     "line": 227,
+     "selector": ".frame .ring",
+     "property": "background"
+    }
+   ],
+   "contrast_pairs": [
+    "x6 ok 12.37:1 (min 4.5) text (cream) on night plate #352A41: the loading tip",
+    "n27 ok 8.36:1 (min 3) spinner arc (yellow) vs night plate disc"
+   ]
+  },
+  {
+   "name": "--toy-cream",
+   "value": "#FFF4E2",
+   "alpha": 1,
+   "hardcoded": false,
+   "meta_json_name": "Cream",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 11,
+     "selector": ".frame",
+     "property": "--toy-tx",
+     "role": "context variable --toy-tx (dark context)"
+    },
+    {
+     "file": "toy.css",
+     "line": 11,
+     "selector": ".frame",
+     "property": "--toy-line",
+     "role": "context variable --toy-line (dark context)"
+    },
+    {
+     "file": "toy.css",
+     "line": 11,
+     "selector": ".frame",
+     "property": "color",
+     "via": "--toy-tx",
+     "context": "dark"
+    },
+    {
+     "file": "toy.css",
+     "line": 96,
+     "selector": ".frame .plate",
+     "property": "color"
+    },
+    {
+     "file": "toy.css",
+     "line": 109,
+     "selector": ".frame .abs.col > .col > span.t16",
+     "property": "color"
+    },
+    {
+     "file": "toy.css",
+     "line": 118,
+     "selector": ".frame .panel",
+     "property": "background"
+    },
+    {
+     "file": "toy.css",
+     "line": 141,
+     "selector": ".frame .btn.ghost",
+     "property": "color",
+     "via": "--toy-tx",
+     "context": "dark"
+    },
+    {
+     "file": "toy.css",
+     "line": 141,
+     "selector": ".frame .btn.ghost",
+     "property": "border-color",
+     "via": "--toy-line",
+     "context": "dark"
+    },
+    {
+     "file": "toy.css",
+     "line": 160,
+     "selector": ".frame .chip",
+     "property": "color"
+    },
+    {
+     "file": "toy.css",
+     "line": 171,
+     "selector": ".frame .chip.line",
+     "property": "color",
+     "via": "--toy-tx",
+     "context": "dark"
+    },
+    {
+     "file": "toy.css",
+     "line": 171,
+     "selector": ".frame .chip.line",
+     "property": "border-color",
+     "via": "--toy-line",
+     "context": "dark"
+    },
+    {
+     "file": "toy.css",
+     "line": 182,
+     "selector": ".frame .key",
+     "property": "background"
+    },
+    {
+     "file": "toy.css",
+     "line": 201,
+     "selector": ".frame .slot",
+     "property": "color"
+    },
+    {
+     "file": "toy.css",
+     "line": 220,
+     "selector": ".frame .cross",
+     "property": "background"
+    },
+    {
+     "file": "toy.css",
+     "line": 225,
+     "selector": ".frame .mic",
+     "property": "color"
+    },
+    {
+     "file": "toy.css",
+     "line": 313,
+     "selector": ".frame .room",
+     "property": "background"
+    }
+   ],
+   "contrast_pairs": [
+    "c1 ok 11.54:1 (min 4.5) text (cream) on HUD plate, world 97",
+    "c2 ok 10.39:1 (min 4.5) text (cream) on HUD plate, world C9",
+    "c4 ok 14.37:1 (min 4.5) text (plum ink) on cream panel",
+    "c5 ok 6.22:1 (min 4.5) dim text (muted plum) on cream panel",
+    "c11 ok 7.12:1 (min 4.5) menu text (cream) on .dim, world C9",
+    "c18 ok 15.94:1 (min 4.5) ghost text (cream) on night",
+    "x6 ok 12.37:1 (min 4.5) text (cream) on night plate #352A41: the loading tip",
+    "x9 ok 9.25:1 (min 4.5) text (cream) on HUD plate over a pure white world (lens 6 worst case)",
+    "x13 ok 9.83:1 (min 4.5) you-are-here chip: cream on HUD plate over the lavender map",
+    "x14 ok 5.54:1 (min 4.5) menu text (cream) on .dim over a pure white world",
+    "x19 ok 7.83:1 (min 4.5) text (cream) on .dim.more over a pure white world",
+    "n4 ok 10.39:1 (min 3) keycap face (cream) vs HUD plate, world C9",
+    "n14 ok 15.94:1 (min 3) ghost button and line chip outline (cream) vs night",
+    "n15 ok 7.12:1 (min 3) line chip outline (cream) vs .dim, world C9",
+    "n16 ok 14.37:1 (min 3) line chip and ghost outline (plum ink) vs cream panel",
+    "n17 FAIL 1.48:1 (min 3) selected tab face (yellow) vs cream panel (the ink border carries the edge)",
+    "n18 FAIL 1.09:1 (min 3) white card, field, setting-row face vs cream panel (the ink border or the row line carries the edge)",
+    "n19 FAIL 1.28:1 (min 3) setting-row bottom line #E2D6EA vs cream panel",
+    "n22 ok 3.92:1 (min 3) you-are-here fill (coral deep) vs cream room tile (the pin sits on the Hall tile in the frame)",
+    "n23 FAIL 1.25:1 (min 3) zone tint (yellow 55%) over a cream room vs the cream room",
+    "n25 FAIL 1.52:1 (min 3) crosshair face (cream) vs world C9",
+    "n31 ok 6.22:1 (min 3) quiet ? key edge (muted plum) vs cream panel",
+    "n32 ok 6.22:1 (min 3) save-your-own card edge (muted plum) vs cream panel"
+   ]
+  },
+  {
+   "name": "--toy-white",
+   "value": "#FFFFFF",
+   "alpha": 1,
+   "hardcoded": false,
+   "meta_json_name": "White",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 126,
+     "selector": ".frame .btn",
+     "property": "background"
+    },
+    {
+     "file": "toy.css",
+     "line": 150,
+     "selector": ".frame .field",
+     "property": "background"
+    },
+    {
+     "file": "toy.css",
+     "line": 190,
+     "selector": ".frame .panel .key",
+     "property": "background"
+    },
+    {
+     "file": "toy.css",
+     "line": 252,
+     "selector": ".frame .setrow",
+     "property": "background"
+    },
+    {
+     "file": "toy.css",
+     "line": 268,
+     "selector": ".frame .card",
+     "property": "background"
+    },
+    {
+     "file": "toy.css",
+     "line": 292,
+     "selector": ".frame .dot[style*=\"background:#555\"]",
+     "property": "background",
+     "important": true
+    },
+    {
+     "file": "toy.css",
+     "line": 295,
+     "selector": ".frame .panel .row > .col.c[style*=\"#1C1C1C\"]",
+     "property": "background",
+     "important": true
+    }
+   ],
+   "contrast_pairs": [
+    "c7 ok 15.65:1 (min 4.5) secondary button: ink on white",
+    "x1 ok 6.77:1 (min 4.5) secondary text (muted plum) on white: idle preset card, setting-row tile",
+    "n18 FAIL 1.09:1 (min 3) white card, field, setting-row face vs cream panel (the ink border or the row line carries the edge)",
+    "n20 FAIL 1.4:1 (min 3) setting-row bottom line #E2D6EA vs the white row tile",
+    "n30 ok 7.75:1 (min 3) white field face vs .dim, world C9 (main-menu name field)"
+   ]
+  },
+  {
+   "name": "--toy-yellow",
+   "value": "#FFC23A",
+   "alpha": 1,
+   "hardcoded": false,
+   "meta_json_name": "Sunny yellow",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 11,
+     "selector": ".frame",
+     "property": "--toy-tx-title",
+     "role": "context variable --toy-tx-title (dark context)"
+    },
+    {
+     "file": "toy.css",
+     "line": 63,
+     "selector": ".frame .t28.b, .frame .t36.b, .frame .t48.b, .frame .t64.b",
+     "property": "color",
+     "via": "--toy-tx-title",
+     "context": "dark"
+    },
+    {
+     "file": "toy.css",
+     "line": 69,
+     "selector": ".frame .abs.col:not(.panel) > .t64:first-child",
+     "property": "color"
+    },
+    {
+     "file": "toy.css",
+     "line": 76,
+     "selector": ".frame .t96",
+     "property": "background"
+    },
+    {
+     "file": "toy.css",
+     "line": 103,
+     "selector": ".frame .plate.col.t18 > .b:not(.t20)",
+     "property": "color"
+    },
+    {
+     "file": "toy.css",
+     "line": 135,
+     "selector": ".frame .btn.fill",
+     "property": "background"
+    },
+    {
+     "file": "toy.css",
+     "line": 166,
+     "selector": ".frame .chip.light",
+     "property": "background"
+    },
+    {
+     "file": "toy.css",
+     "line": 208,
+     "selector": ".frame .slot.on",
+     "property": "border-color"
+    },
+    {
+     "file": "toy.css",
+     "line": 227,
+     "selector": ".frame .ring",
+     "property": "border-color"
+    },
+    {
+     "file": "toy.css",
+     "line": 233,
+     "selector": ".frame .marker",
+     "property": "border-color"
+    },
+    {
+     "file": "toy.css",
+     "line": 245,
+     "selector": ".frame .tabs > div.on",
+     "property": "background"
+    },
+    {
+     "file": "toy.css",
+     "line": 260,
+     "selector": ".frame .val .ar",
+     "property": "background"
+    },
+    {
+     "file": "toy.css",
+     "line": 276,
+     "selector": ".frame .card.on",
+     "property": "background"
+    },
+    {
+     "file": "toy.css",
+     "line": 291,
+     "selector": ".frame .dot[style*=\"background:#EDEDED\"]",
+     "property": "background",
+     "important": true
+    },
+    {
+     "file": "toy.css",
+     "line": 338,
+     "selector": ".frame .circ",
+     "property": "background"
+    },
+    {
+     "file": "toy.css",
+     "line": 355,
+     "selector": ".frame [data-bar=\"stamina\"] > i",
+     "property": "background"
+    }
+   ],
+   "contrast_pairs": [
+    "c6 ok 9.71:1 (min 4.5) primary button: ink on yellow",
+    "c10 ok 7.02:1 (min 4.5) title (yellow) on HUD plate, world C9",
+    "c12 ok 4.81:1 (min 3) logo and menu selection (yellow, large) on .dim, world C9",
+    "x2 ok 6.36:1 (min 4.5) secondary text #4A3B55 (hard-coded) on yellow: selected preset card",
+    "x3 FAIL 4.2:1 (min 4.5) secondary text (muted plum) on yellow, if the variable were used instead of #4A3B55",
+    "x7 ok 10.77:1 (min 4.5) title (yellow) on night: connect, fail, loading titles",
+    "x11 ok 6.25:1 (min 4.5) title (yellow) on HUD plate over a pure white world",
+    "x16 ok 3.74:1 (min 3) logo and selection (yellow, large) on .dim over a pure white world",
+    "n1 ok 7.02:1 (min 3) selected slot outline (yellow) vs HUD plate, world C9",
+    "n6 ok 6.23:1 (min 3) stamina fill (yellow) vs dark track",
+    "n17 FAIL 1.48:1 (min 3) selected tab face (yellow) vs cream panel (the ink border carries the edge)",
+    "n27 ok 8.36:1 (min 3) spinner arc (yellow) vs night plate disc"
+   ]
+  },
+  {
+   "name": "--toy-honey",
+   "value": "#C98A10",
+   "alpha": 1,
+   "hardcoded": false,
+   "meta_json_name": "Honey",
+   "note": "Only reachable through --toy-base in the dark context: the base under .btn and .btn.fill on night frames (s3 fail).",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 11,
+     "selector": ".frame",
+     "property": "--toy-base",
+     "role": "context variable --toy-base (dark context)"
+    },
+    {
+     "file": "toy.css",
+     "line": 126,
+     "selector": ".frame .btn",
+     "property": "box-shadow",
+     "via": "--toy-base",
+     "context": "dark"
+    },
+    {
+     "file": "toy.css",
+     "line": 135,
+     "selector": ".frame .btn.fill",
+     "property": "box-shadow",
+     "via": "--toy-base",
+     "context": "dark"
+    },
+    {
+     "file": "motion-preview.css",
+     "line": 9,
+     "selector": ".frame .btn:not(.ghost):hover",
+     "property": "box-shadow",
+     "via": "--toy-base",
+     "context": "dark"
+    },
+    {
+     "file": "motion-preview.css",
+     "line": 13,
+     "selector": ".frame .btn.fill:hover",
+     "property": "box-shadow",
+     "via": "--toy-base",
+     "context": "dark"
+    },
+    {
+     "file": "motion-preview.css",
+     "line": 16,
+     "selector": ".frame .btn:not(.ghost):active",
+     "property": "box-shadow",
+     "via": "--toy-base",
+     "context": "dark"
+    }
+   ],
+   "contrast_pairs": [
+    "n28 ok 5.89:1 (min 3) toy base (honey) vs night: buttons on dark"
+   ]
+  },
+  {
+   "name": "--toy-coral",
+   "value": "#FF8466",
+   "alpha": 1,
+   "hardcoded": false,
+   "meta_json_name": "Coral",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 69,
+     "selector": ".frame .abs.col:not(.panel) > .t64:first-child",
+     "property": "text-shadow"
+    },
+    {
+     "file": "toy.css",
+     "line": 76,
+     "selector": ".frame .t96",
+     "property": "box-shadow"
+    },
+    {
+     "file": "toy.css",
+     "line": 105,
+     "selector": ".frame .plate.col[data-in=\"down\"]",
+     "property": "border"
+    },
+    {
+     "file": "toy.css",
+     "line": 177,
+     "selector": ".frame .panel .chip.light.t16",
+     "property": "background"
+    }
+   ],
+   "contrast_pairs": [
+    "c14 ok 6.51:1 (min 4.5) NEW sticker: ink on coral",
+    "n2 ok 4.71:1 (min 3) downed plate edge (coral) vs HUD plate, world C9",
+    "n3 FAIL 1.45:1 (min 3) downed plate edge (coral) vs world C9",
+    "n29 ok 7.23:1 (min 3) toy base (coral) vs night: big-moment title plate"
+   ]
+  },
+  {
+   "name": "--toy-coral-deep",
+   "value": "#D9482F",
+   "alpha": 1,
+   "hardcoded": false,
+   "meta_json_name": "Coral deep",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 330,
+     "selector": ".frame .map .you",
+     "property": "background"
+    }
+   ],
+   "contrast_pairs": [
+    "n21 ok 3.31:1 (min 3) you-are-here fill (coral deep) vs lavender board",
+    "n22 ok 3.92:1 (min 3) you-are-here fill (coral deep) vs cream room tile (the pin sits on the Hall tile in the frame)"
+   ]
+  },
+  {
+   "name": "--toy-mint",
+   "value": "#3CC4A8",
+   "alpha": 1,
+   "hardcoded": false,
+   "meta_json_name": "Mint",
+   "note": "meta.json still says mint fills health and stamina; since 2026-10-03 those bars are green-to-red and yellow, so mint is left on the generic progress bars only (loading, downed bleed-out, raising).",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 215,
+     "selector": ".frame .bar2 > i",
+     "property": "background"
+    }
+   ],
+   "contrast_pairs": [
+    "n9 ok 4.61:1 (min 3) progress fill (mint) vs dark track: loading, downed, raising"
+   ]
+  },
+  {
+   "name": "--toy-mint-tint",
+   "value": "#D5F4EC",
+   "alpha": 1,
+   "hardcoded": false,
+   "meta_json_name": "Mint tint",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 300,
+     "selector": ".frame .panel .row > .col.c[style*=\"#1C1C1C\"]:nth-child(4)",
+     "property": "background",
+     "important": true
+    }
+   ],
+   "contrast_pairs": [
+    "x4 ok 13.4:1 (min 4.5) caption (plum ink) on mint tint: the done how-to frame"
+   ]
+  },
+  {
+   "name": "--toy-lavender",
+   "value": "#E9DFF0",
+   "alpha": 1,
+   "hardcoded": false,
+   "meta_json_name": "Lavender",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 282,
+     "selector": ".frame .card.dimtext",
+     "property": "background"
+    },
+    {
+     "file": "toy.css",
+     "line": 307,
+     "selector": ".frame .map",
+     "property": "background"
+    }
+   ],
+   "contrast_pairs": [
+    "c16 ok 5.25:1 (min 4.5) map secondary text on lavender board",
+    "c17 ok 12.13:1 (min 3) you-are-here marker outline on map",
+    "x13 ok 9.83:1 (min 4.5) you-are-here chip: cream on HUD plate over the lavender map",
+    "x17 ok 12.13:1 (min 4.5) text (plum ink) on lavender (reference: ink on the map board)",
+    "n21 ok 3.31:1 (min 3) you-are-here fill (coral deep) vs lavender board",
+    "n24 FAIL 1.15:1 (min 3) zone tint (yellow 55%) over the lavender board vs lavender"
+   ]
+  },
+  {
+   "name": "--toy-track-light",
+   "value": "#DCCFE4",
+   "alpha": 1,
+   "hardcoded": false,
+   "meta_json_name": "Light track",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 216,
+     "selector": ".frame .panel .bar2",
+     "property": "background"
+    }
+   ],
+   "contrast_pairs": [
+    "n10 ok 10.5:1 (min 3) slider fill (plum ink) vs light track, in panels"
+   ]
+  },
+  {
+   "name": "--toy-track-dark",
+   "value": "#4A3C5C",
+   "alpha": 1,
+   "hardcoded": false,
+   "meta_json_name": "Dark track",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 214,
+     "selector": ".frame .bar2",
+     "property": "background"
+    },
+    {
+     "file": "toy.css",
+     "line": 348,
+     "selector": ".frame [data-bar]",
+     "property": "background"
+    }
+   ],
+   "contrast_pairs": [
+    "n6 ok 6.23:1 (min 3) stamina fill (yellow) vs dark track",
+    "n7 ok 4.83:1 (min 3) health fill at full (green) vs dark track",
+    "n8 ok 3.25:1 (min 3) health fill at empty (red) vs dark track",
+    "n9 ok 4.61:1 (min 3) progress fill (mint) vs dark track: loading, downed, raising",
+    "n13 ok 6.06:1 (min 3) HUD bar track (dark track) vs world C9"
+   ]
+  },
+  {
+   "name": "--toy-muted",
+   "value": "#64566F",
+   "alpha": 1,
+   "hardcoded": false,
+   "meta_json_name": "Muted plum",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 43,
+     "selector": ".frame .panel, .frame .map",
+     "property": "--toy-tx-muted",
+     "role": "context variable --toy-tx-muted (light context)"
+    },
+    {
+     "file": "toy.css",
+     "line": 55,
+     "selector": ".frame .dimtext",
+     "property": "color",
+     "via": "--toy-tx-muted",
+     "context": "light"
+    },
+    {
+     "file": "toy.css",
+     "line": 194,
+     "selector": ".frame .panel .key.dimtext",
+     "property": "color"
+    },
+    {
+     "file": "toy.css",
+     "line": 194,
+     "selector": ".frame .panel .key.dimtext",
+     "property": "border-color"
+    },
+    {
+     "file": "toy.css",
+     "line": 282,
+     "selector": ".frame .card.dimtext",
+     "property": "color"
+    },
+    {
+     "file": "toy.css",
+     "line": 282,
+     "selector": ".frame .card.dimtext",
+     "property": "border-color"
+    }
+   ],
+   "contrast_pairs": [
+    "c5 ok 6.22:1 (min 4.5) dim text (muted plum) on cream panel",
+    "c16 ok 5.25:1 (min 4.5) map secondary text on lavender board",
+    "x1 ok 6.77:1 (min 4.5) secondary text (muted plum) on white: idle preset card, setting-row tile",
+    "x3 FAIL 4.2:1 (min 4.5) secondary text (muted plum) on yellow, if the variable were used instead of #4A3B55",
+    "x5 ok 5.88:1 (min 4.5) dim key text (muted plum) on #F3EDF6: the quiet ? key",
+    "n31 ok 6.22:1 (min 3) quiet ? key edge (muted plum) vs cream panel",
+    "n32 ok 6.22:1 (min 3) save-your-own card edge (muted plum) vs cream panel"
+   ]
+  },
+  {
+   "name": "--toy-lilac",
+   "value": "#D8CCE3",
+   "alpha": 1,
+   "hardcoded": false,
+   "meta_json_name": "Lilac",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 11,
+     "selector": ".frame",
+     "property": "--toy-tx-muted",
+     "role": "context variable --toy-tx-muted (dark context)"
+    },
+    {
+     "file": "toy.css",
+     "line": 55,
+     "selector": ".frame .dimtext",
+     "property": "color",
+     "via": "--toy-tx-muted",
+     "context": "dark"
+    },
+    {
+     "file": "toy.css",
+     "line": 207,
+     "selector": ".frame .slot.dimtext",
+     "property": "color"
+    }
+   ],
+   "contrast_pairs": [
+    "c3 ok 7.36:1 (min 4.5) dim text (lilac) on HUD plate, world C9",
+    "c13 ok 5.04:1 (min 4.5) dim text (lilac) on .dim, world C9",
+    "x8 ok 11.29:1 (min 4.5) dim text (lilac) on night: timers, statuses, Your role, End of the round",
+    "x10 ok 6.55:1 (min 4.5) dim text (lilac) on HUD plate over a pure white world",
+    "x12 ok 8.18:1 (min 4.5) idle slot label (lilac) on slot plate, world 97",
+    "x15 FAIL 3.93:1 (min 4.5) dim text (lilac) on .dim over a pure white world",
+    "x18 ok 5.55:1 (min 4.5) dim text (lilac) on .dim.more over a pure white world"
+   ]
+  },
+  {
+   "name": "--toy-keyshade",
+   "value": "#B9A8C7",
+   "alpha": 1,
+   "hardcoded": false,
+   "meta_json_name": "Key shade",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 182,
+     "selector": ".frame .key",
+     "property": "border-color"
+    }
+   ],
+   "contrast_pairs": [
+    "n5 ok 5.11:1 (min 3) keycap edge (key shade) vs HUD plate, world C9"
+   ]
+  },
+  {
+   "name": "--toy-slotline",
+   "value": "#9A8CA6",
+   "alpha": 1,
+   "hardcoded": false,
+   "meta_json_name": "Slot line",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 201,
+     "selector": ".frame .slot",
+     "property": "border"
+    }
+   ],
+   "contrast_pairs": [
+    "c15 ok 3.6:1 (min 3) idle slot outline on slot plate, world C9",
+    "n33 ok 3.99:1 (min 3) idle slot outline (slot line) vs HUD plate, world 97",
+    "n34 ok 3.2:1 (min 3) idle slot outline (slot line) vs HUD plate over a pure white world"
+   ]
+  },
+  {
+   "name": "--toy-health-full",
+   "value": "#5BCB4E",
+   "alpha": 1,
+   "hardcoded": false,
+   "meta_json_name": null,
+   "note": "Not in meta.json. Mixed with --toy-health-empty by the health fraction (CSS color-mix in OKLab; Godot plan: Color.lerp, which interpolates sRGB components).",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 356,
+     "selector": ".frame [data-bar=\"health\"] > i",
+     "property": "background"
+    },
+    {
+     "file": "toy.css",
+     "line": 356,
+     "selector": ".frame [data-bar=\"health\"] > i",
+     "property": "background",
+     "via": "color-mix(in oklab) by --hp"
+    }
+   ],
+   "contrast_pairs": [
+    "n7 ok 4.83:1 (min 3) health fill at full (green) vs dark track"
+   ]
+  },
+  {
+   "name": "--toy-health-empty",
+   "value": "#FF5A44",
+   "alpha": 1,
+   "hardcoded": false,
+   "meta_json_name": null,
+   "note": "Not in meta.json. 3.25:1 on the dark track.",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 356,
+     "selector": ".frame [data-bar=\"health\"] > i",
+     "property": "background",
+     "via": "color-mix(in oklab) by --hp"
+    }
+   ],
+   "contrast_pairs": [
+    "n8 ok 3.25:1 (min 3) health fill at empty (red) vs dark track"
+   ]
+  },
+  {
+   "name": "hard-coded #F3EDF6",
+   "value": "#F3EDF6",
+   "alpha": 1,
+   "hardcoded": true,
+   "note": "Quiet keycap face in panels; no variable. 1.06:1 against cream, 1.12:1 against lavender: one of four pale lilacs within 1.30:1 of each other (#F3EDF6, #E2D6EA, --toy-lavender, --toy-track-light).",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 194,
+     "selector": ".frame .panel .key.dimtext",
+     "property": "background"
+    }
+   ],
+   "contrast_pairs": [
+    "x5 ok 5.88:1 (min 4.5) dim key text (muted plum) on #F3EDF6: the quiet ? key"
+   ]
+  },
+  {
+   "name": "hard-coded #E2D6EA",
+   "value": "#E2D6EA",
+   "alpha": 1,
+   "hardcoded": true,
+   "note": "Setting-row bottom line; no variable. 1.07:1 against --toy-track-light and 1.08:1 against --toy-lavender: merge candidate.",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 252,
+     "selector": ".frame .setrow",
+     "property": "border-bottom"
+    }
+   ],
+   "contrast_pairs": [
+    "n19 FAIL 1.28:1 (min 3) setting-row bottom line #E2D6EA vs cream panel",
+    "n20 FAIL 1.4:1 (min 3) setting-row bottom line #E2D6EA vs the white row tile"
+   ]
+  },
+  {
+   "name": "hard-coded #4A3B55",
+   "value": "#4A3B55",
+   "alpha": 1,
+   "hardcoded": true,
+   "note": "Secondary text on the yellow selected card (6.36:1); --toy-muted would fail there (4.20:1). Needs a semantic token such as text.on-accent.muted. 1.02:1 against --toy-track-dark #4A3C5C.",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 281,
+     "selector": ".frame .card.on .dimtext",
+     "property": "color"
+    }
+   ],
+   "contrast_pairs": [
+    "x2 ok 6.36:1 (min 4.5) secondary text #4A3B55 (hard-coded) on yellow: selected preset card"
+   ]
+  },
+  {
+   "name": "hard-coded menu backdrop .dim",
+   "value": "#261C30",
+   "alpha": 0.7,
+   "css": "rgba(38, 28, 48, .70)",
+   "hardcoded": true,
+   "note": "Its base #261C30 is a dark plum used only here, 1.04:1 from --toy-ink #2A1F33 and 1.07:1 from --toy-night #1F1727. Listed in meta.json as 'Menu backdrop' but has no variable.",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 91,
+     "selector": ".frame .dim",
+     "property": "background"
+    }
+   ],
+   "contrast_pairs": [
+    "c11 ok 7.12:1 (min 4.5) menu text (cream) on .dim, world C9",
+    "c12 ok 4.81:1 (min 3) logo and menu selection (yellow, large) on .dim, world C9",
+    "c13 ok 5.04:1 (min 4.5) dim text (lilac) on .dim, world C9",
+    "x14 ok 5.54:1 (min 4.5) menu text (cream) on .dim over a pure white world",
+    "x15 FAIL 3.93:1 (min 4.5) dim text (lilac) on .dim over a pure white world",
+    "x16 ok 3.74:1 (min 3) logo and selection (yellow, large) on .dim over a pure white world",
+    "n15 ok 7.12:1 (min 3) line chip outline (cream) vs .dim, world C9",
+    "n30 ok 7.75:1 (min 3) white field face vs .dim, world C9 (main-menu name field)"
+   ]
+  },
+  {
+   "name": "hard-coded deep backdrop .dim.more",
+   "value": "#261C30",
+   "alpha": 0.8,
+   "css": "rgba(38, 28, 48, .80)",
+   "hardcoded": true,
+   "note": "Same base as .dim at 80%.",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 92,
+     "selector": ".frame .dim.more",
+     "property": "background"
+    }
+   ],
+   "contrast_pairs": [
+    "x18 ok 5.55:1 (min 4.5) dim text (lilac) on .dim.more over a pure white world",
+    "x19 ok 7.83:1 (min 4.5) text (cream) on .dim.more over a pure white world"
+   ]
+  },
+  {
+   "name": "hard-coded panel drop base",
+   "value": "#0F0A14",
+   "alpha": 0.6,
+   "css": "rgba(15, 10, 20, .6)",
+   "hardcoded": true,
+   "note": "The 10 px base under panels and the map board, written twice; another dark plum (#0F0A14, 1.25:1 from ink), not in meta.json.",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 118,
+     "selector": ".frame .panel",
+     "property": "box-shadow"
+    },
+    {
+     "file": "toy.css",
+     "line": 307,
+     "selector": ".frame .map",
+     "property": "box-shadow"
+    }
+   ],
+   "contrast_pairs": []
+  },
+  {
+   "name": "hard-coded map zone tint",
+   "value": "#FFC23A",
+   "alpha": 0.55,
+   "css": "rgba(255, 194, 58, .55)",
+   "hardcoded": true,
+   "note": "--toy-yellow at 55% written as a literal rgba; the zone is read by its 4 px ink outline (fill vs room 1.25:1).",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 323,
+     "selector": ".frame .map [style*=\"z-index:2\"]",
+     "property": "background",
+     "important": true
+    }
+   ],
+   "contrast_pairs": [
+    "n23 FAIL 1.25:1 (min 3) zone tint (yellow 55%) over a cream room vs the cream room",
+    "n24 FAIL 1.15:1 (min 3) zone tint (yellow 55%) over the lavender board vs lavender"
+   ]
+  },
+  {
+   "name": "transparent",
+   "value": null,
+   "alpha": 0,
+   "css": "transparent",
+   "hardcoded": true,
+   "note": "Keeps the 3 px border box on chips and idle tabs so the selected state does not shift layout; ghost button and line chip fill.",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 141,
+     "selector": ".frame .btn.ghost",
+     "property": "background"
+    },
+    {
+     "file": "toy.css",
+     "line": 160,
+     "selector": ".frame .chip",
+     "property": "border"
+    },
+    {
+     "file": "toy.css",
+     "line": 171,
+     "selector": ".frame .chip.line",
+     "property": "background"
+    },
+    {
+     "file": "toy.css",
+     "line": 239,
+     "selector": ".frame .tabs > div",
+     "property": "border"
+    }
+   ],
+   "contrast_pairs": []
+  }
+ ],
+ "contrast_pairs": [
+  {
+   "id": "c1",
+   "source": "check_styles.js toy",
+   "label": "text (cream) on HUD plate, world 97",
+   "fg": "--toy-cream",
+   "bg": "--toy-plate",
+   "under": "world #979797",
+   "fg_hex": "#FFF4E2",
+   "bg_hex": "#393041",
+   "ratio": 11.54,
+   "min": 4.5,
+   "ok": true,
+   "main": true
+  },
+  {
+   "id": "c2",
+   "source": "check_styles.js toy",
+   "label": "text (cream) on HUD plate, world C9",
+   "fg": "--toy-cream",
+   "bg": "--toy-plate",
+   "under": "world #C9C9C9",
+   "fg_hex": "#FFF4E2",
+   "bg_hex": "#403748",
+   "ratio": 10.39,
+   "min": 4.5,
+   "ok": true,
+   "main": true
+  },
+  {
+   "id": "c3",
+   "source": "check_styles.js toy",
+   "label": "dim text (lilac) on HUD plate, world C9",
+   "fg": "--toy-lilac",
+   "bg": "--toy-plate",
+   "under": "world #C9C9C9",
+   "fg_hex": "#D8CCE3",
+   "bg_hex": "#403748",
+   "ratio": 7.36,
+   "min": 4.5,
+   "ok": true,
+   "main": true
+  },
+  {
+   "id": "c4",
+   "source": "check_styles.js toy",
+   "label": "text (plum ink) on cream panel",
+   "fg": "--toy-ink",
+   "bg": "--toy-cream",
+   "under": null,
+   "fg_hex": "#2A1F33",
+   "bg_hex": "#FFF4E2",
+   "ratio": 14.37,
+   "min": 4.5,
+   "ok": true,
+   "main": true
+  },
+  {
+   "id": "c5",
+   "source": "check_styles.js toy",
+   "label": "dim text (muted plum) on cream panel",
+   "fg": "--toy-muted",
+   "bg": "--toy-cream",
+   "under": null,
+   "fg_hex": "#64566F",
+   "bg_hex": "#FFF4E2",
+   "ratio": 6.22,
+   "min": 4.5,
+   "ok": true,
+   "main": true
+  },
+  {
+   "id": "c6",
+   "source": "check_styles.js toy",
+   "label": "primary button: ink on yellow",
+   "fg": "--toy-ink",
+   "bg": "--toy-yellow",
+   "under": null,
+   "fg_hex": "#2A1F33",
+   "bg_hex": "#FFC23A",
+   "ratio": 9.71,
+   "min": 4.5,
+   "ok": true,
+   "main": true
+  },
+  {
+   "id": "c7",
+   "source": "check_styles.js toy",
+   "label": "secondary button: ink on white",
+   "fg": "--toy-ink",
+   "bg": "--toy-white",
+   "under": null,
+   "fg_hex": "#2A1F33",
+   "bg_hex": "#FFFFFF",
+   "ratio": 15.65,
+   "min": 4.5,
+   "ok": true,
+   "main": true
+  },
+  {
+   "id": "c8",
+   "source": "check_styles.js toy",
+   "label": "HUD plate vs world 97",
+   "fg": "--toy-plate",
+   "bg": "world #979797",
+   "under": null,
+   "fg_hex": "#393041",
+   "bg_hex": "#979797",
+   "ratio": 4.3,
+   "min": 3,
+   "ok": true,
+   "main": true
+  },
+  {
+   "id": "c9",
+   "source": "check_styles.js toy",
+   "label": "HUD plate vs world C9",
+   "fg": "--toy-plate",
+   "bg": "world #C9C9C9",
+   "under": null,
+   "fg_hex": "#403748",
+   "bg_hex": "#C9C9C9",
+   "ratio": 6.83,
+   "min": 3,
+   "ok": true,
+   "main": true
+  },
+  {
+   "id": "c10",
+   "source": "check_styles.js toy",
+   "label": "title (yellow) on HUD plate, world C9",
+   "fg": "--toy-yellow",
+   "bg": "--toy-plate",
+   "under": "world #C9C9C9",
+   "fg_hex": "#FFC23A",
+   "bg_hex": "#403748",
+   "ratio": 7.02,
+   "min": 4.5,
+   "ok": true,
+   "main": false
+  },
+  {
+   "id": "c11",
+   "source": "check_styles.js toy",
+   "label": "menu text (cream) on .dim, world C9",
+   "fg": "--toy-cream",
+   "bg": "rgba(38, 28, 48, .70)",
+   "under": "world #C9C9C9",
+   "fg_hex": "#FFF4E2",
+   "bg_hex": "#57505E",
+   "ratio": 7.12,
+   "min": 4.5,
+   "ok": true,
+   "main": false
+  },
+  {
+   "id": "c12",
+   "source": "check_styles.js toy",
+   "label": "logo and menu selection (yellow, large) on .dim, world C9",
+   "fg": "--toy-yellow",
+   "bg": "rgba(38, 28, 48, .70)",
+   "under": "world #C9C9C9",
+   "fg_hex": "#FFC23A",
+   "bg_hex": "#57505E",
+   "ratio": 4.81,
+   "min": 3,
+   "ok": true,
+   "main": false
+  },
+  {
+   "id": "c13",
+   "source": "check_styles.js toy",
+   "label": "dim text (lilac) on .dim, world C9",
+   "fg": "--toy-lilac",
+   "bg": "rgba(38, 28, 48, .70)",
+   "under": "world #C9C9C9",
+   "fg_hex": "#D8CCE3",
+   "bg_hex": "#57505E",
+   "ratio": 5.04,
+   "min": 4.5,
+   "ok": true,
+   "main": false
+  },
+  {
+   "id": "c14",
+   "source": "check_styles.js toy",
+   "label": "NEW sticker: ink on coral",
+   "fg": "--toy-ink",
+   "bg": "--toy-coral",
+   "under": null,
+   "fg_hex": "#2A1F33",
+   "bg_hex": "#FF8466",
+   "ratio": 6.51,
+   "min": 4.5,
+   "ok": true,
+   "main": false
+  },
+  {
+   "id": "c15",
+   "source": "check_styles.js toy",
+   "label": "idle slot outline on slot plate, world C9",
+   "fg": "--toy-slotline",
+   "bg": "--toy-plate",
+   "under": "world #C9C9C9",
+   "fg_hex": "#9A8CA6",
+   "bg_hex": "#403748",
+   "ratio": 3.6,
+   "min": 3,
+   "ok": true,
+   "main": false
+  },
+  {
+   "id": "c16",
+   "source": "check_styles.js toy",
+   "label": "map secondary text on lavender board",
+   "fg": "--toy-muted",
+   "bg": "--toy-lavender",
+   "under": null,
+   "fg_hex": "#64566F",
+   "bg_hex": "#E9DFF0",
+   "ratio": 5.25,
+   "min": 4.5,
+   "ok": true,
+   "main": false
+  },
+  {
+   "id": "c17",
+   "source": "check_styles.js toy",
+   "label": "you-are-here marker outline on map",
+   "fg": "--toy-ink",
+   "bg": "--toy-lavender",
+   "under": null,
+   "fg_hex": "#2A1F33",
+   "bg_hex": "#E9DFF0",
+   "ratio": 12.13,
+   "min": 3,
+   "ok": true,
+   "main": false
+  },
+  {
+   "id": "c18",
+   "source": "check_styles.js toy",
+   "label": "ghost text (cream) on night",
+   "fg": "--toy-cream",
+   "bg": "--toy-night",
+   "under": null,
+   "fg_hex": "#FFF4E2",
+   "bg_hex": "#1F1727",
+   "ratio": 15.94,
+   "min": 4.5,
+   "ok": true,
+   "main": false
+  },
+  {
+   "id": "x1",
+   "source": "inventory script (this report)",
+   "label": "secondary text (muted plum) on white: idle preset card, setting-row tile",
+   "fg": "--toy-muted",
+   "bg": "--toy-white",
+   "under": null,
+   "fg_hex": "#64566F",
+   "bg_hex": "#FFFFFF",
+   "ratio": 6.77,
+   "min": 4.5,
+   "ok": true,
+   "kind": "text"
+  },
+  {
+   "id": "x2",
+   "source": "inventory script (this report)",
+   "label": "secondary text #4A3B55 (hard-coded) on yellow: selected preset card",
+   "fg": "#4A3B55",
+   "bg": "--toy-yellow",
+   "under": null,
+   "fg_hex": "#4A3B55",
+   "bg_hex": "#FFC23A",
+   "ratio": 6.36,
+   "min": 4.5,
+   "ok": true,
+   "kind": "text"
+  },
+  {
+   "id": "x3",
+   "source": "inventory script (this report)",
+   "label": "secondary text (muted plum) on yellow, if the variable were used instead of #4A3B55",
+   "fg": "--toy-muted",
+   "bg": "--toy-yellow",
+   "under": null,
+   "fg_hex": "#64566F",
+   "bg_hex": "#FFC23A",
+   "ratio": 4.2,
+   "min": 4.5,
+   "ok": false,
+   "kind": "text"
+  },
+  {
+   "id": "x4",
+   "source": "inventory script (this report)",
+   "label": "caption (plum ink) on mint tint: the done how-to frame",
+   "fg": "--toy-ink",
+   "bg": "--toy-mint-tint",
+   "under": null,
+   "fg_hex": "#2A1F33",
+   "bg_hex": "#D5F4EC",
+   "ratio": 13.4,
+   "min": 4.5,
+   "ok": true,
+   "kind": "text"
+  },
+  {
+   "id": "x5",
+   "source": "inventory script (this report)",
+   "label": "dim key text (muted plum) on #F3EDF6: the quiet ? key",
+   "fg": "--toy-muted",
+   "bg": "#F3EDF6",
+   "under": null,
+   "fg_hex": "#64566F",
+   "bg_hex": "#F3EDF6",
+   "ratio": 5.88,
+   "min": 4.5,
+   "ok": true,
+   "kind": "text"
+  },
+  {
+   "id": "x6",
+   "source": "inventory script (this report)",
+   "label": "text (cream) on night plate #352A41: the loading tip",
+   "fg": "--toy-cream",
+   "bg": "--toy-plate-solid",
+   "under": null,
+   "fg_hex": "#FFF4E2",
+   "bg_hex": "#352A41",
+   "ratio": 12.37,
+   "min": 4.5,
+   "ok": true,
+   "kind": "text"
+  },
+  {
+   "id": "x7",
+   "source": "inventory script (this report)",
+   "label": "title (yellow) on night: connect, fail, loading titles",
+   "fg": "--toy-yellow",
+   "bg": "--toy-night",
+   "under": null,
+   "fg_hex": "#FFC23A",
+   "bg_hex": "#1F1727",
+   "ratio": 10.77,
+   "min": 4.5,
+   "ok": true,
+   "kind": "text"
+  },
+  {
+   "id": "x8",
+   "source": "inventory script (this report)",
+   "label": "dim text (lilac) on night: timers, statuses, Your role, End of the round",
+   "fg": "--toy-lilac",
+   "bg": "--toy-night",
+   "under": null,
+   "fg_hex": "#D8CCE3",
+   "bg_hex": "#1F1727",
+   "ratio": 11.29,
+   "min": 4.5,
+   "ok": true,
+   "kind": "text"
+  },
+  {
+   "id": "x9",
+   "source": "inventory script (this report)",
+   "label": "text (cream) on HUD plate over a pure white world (lens 6 worst case)",
+   "fg": "--toy-cream",
+   "bg": "--toy-plate",
+   "under": "world #FFFFFF",
+   "fg_hex": "#FFF4E2",
+   "bg_hex": "#483E50",
+   "ratio": 9.25,
+   "min": 4.5,
+   "ok": true,
+   "kind": "text"
+  },
+  {
+   "id": "x10",
+   "source": "inventory script (this report)",
+   "label": "dim text (lilac) on HUD plate over a pure white world",
+   "fg": "--toy-lilac",
+   "bg": "--toy-plate",
+   "under": "world #FFFFFF",
+   "fg_hex": "#D8CCE3",
+   "bg_hex": "#483E50",
+   "ratio": 6.55,
+   "min": 4.5,
+   "ok": true,
+   "kind": "text"
+  },
+  {
+   "id": "x11",
+   "source": "inventory script (this report)",
+   "label": "title (yellow) on HUD plate over a pure white world",
+   "fg": "--toy-yellow",
+   "bg": "--toy-plate",
+   "under": "world #FFFFFF",
+   "fg_hex": "#FFC23A",
+   "bg_hex": "#483E50",
+   "ratio": 6.25,
+   "min": 4.5,
+   "ok": true,
+   "kind": "text"
+  },
+  {
+   "id": "x12",
+   "source": "inventory script (this report)",
+   "label": "idle slot label (lilac) on slot plate, world 97",
+   "fg": "--toy-lilac",
+   "bg": "--toy-plate",
+   "under": "world #979797",
+   "fg_hex": "#D8CCE3",
+   "bg_hex": "#393041",
+   "ratio": 8.18,
+   "min": 4.5,
+   "ok": true,
+   "kind": "text"
+  },
+  {
+   "id": "x13",
+   "source": "inventory script (this report)",
+   "label": "you-are-here chip: cream on HUD plate over the lavender map",
+   "fg": "--toy-cream",
+   "bg": "--toy-plate",
+   "under": "--toy-lavender",
+   "fg_hex": "#FFF4E2",
+   "bg_hex": "#453A4D",
+   "ratio": 9.83,
+   "min": 4.5,
+   "ok": true,
+   "kind": "text"
+  },
+  {
+   "id": "x14",
+   "source": "inventory script (this report)",
+   "label": "menu text (cream) on .dim over a pure white world",
+   "fg": "--toy-cream",
+   "bg": "rgba(38, 28, 48, .70)",
+   "under": "world #FFFFFF",
+   "fg_hex": "#FFF4E2",
+   "bg_hex": "#67606E",
+   "ratio": 5.54,
+   "min": 4.5,
+   "ok": true,
+   "kind": "text"
+  },
+  {
+   "id": "x15",
+   "source": "inventory script (this report)",
+   "label": "dim text (lilac) on .dim over a pure white world",
+   "fg": "--toy-lilac",
+   "bg": "rgba(38, 28, 48, .70)",
+   "under": "world #FFFFFF",
+   "fg_hex": "#D8CCE3",
+   "bg_hex": "#67606E",
+   "ratio": 3.93,
+   "min": 4.5,
+   "ok": false,
+   "kind": "text"
+  },
+  {
+   "id": "x16",
+   "source": "inventory script (this report)",
+   "label": "logo and selection (yellow, large) on .dim over a pure white world",
+   "fg": "--toy-yellow",
+   "bg": "rgba(38, 28, 48, .70)",
+   "under": "world #FFFFFF",
+   "fg_hex": "#FFC23A",
+   "bg_hex": "#67606E",
+   "ratio": 3.74,
+   "min": 3,
+   "ok": true,
+   "kind": "text-large"
+  },
+  {
+   "id": "x17",
+   "source": "inventory script (this report)",
+   "label": "text (plum ink) on lavender (reference: ink on the map board)",
+   "fg": "--toy-ink",
+   "bg": "--toy-lavender",
+   "under": null,
+   "fg_hex": "#2A1F33",
+   "bg_hex": "#E9DFF0",
+   "ratio": 12.13,
+   "min": 4.5,
+   "ok": true,
+   "kind": "text"
+  },
+  {
+   "id": "x18",
+   "source": "inventory script (this report)",
+   "label": "dim text (lilac) on .dim.more over a pure white world",
+   "fg": "--toy-lilac",
+   "bg": "rgba(38, 28, 48, .80)",
+   "under": "world #FFFFFF",
+   "fg_hex": "#D8CCE3",
+   "bg_hex": "#514959",
+   "ratio": 5.55,
+   "min": 4.5,
+   "ok": true,
+   "kind": "text"
+  },
+  {
+   "id": "x19",
+   "source": "inventory script (this report)",
+   "label": "text (cream) on .dim.more over a pure white world",
+   "fg": "--toy-cream",
+   "bg": "rgba(38, 28, 48, .80)",
+   "under": "world #FFFFFF",
+   "fg_hex": "#FFF4E2",
+   "bg_hex": "#514959",
+   "ratio": 7.83,
+   "min": 4.5,
+   "ok": true,
+   "kind": "text"
+  },
+  {
+   "id": "n1",
+   "source": "inventory script (this report)",
+   "label": "selected slot outline (yellow) vs HUD plate, world C9",
+   "fg": "--toy-yellow",
+   "bg": "--toy-plate",
+   "under": "world #C9C9C9",
+   "fg_hex": "#FFC23A",
+   "bg_hex": "#403748",
+   "ratio": 7.02,
+   "min": 3,
+   "ok": true,
+   "kind": "non-text"
+  },
+  {
+   "id": "n2",
+   "source": "inventory script (this report)",
+   "label": "downed plate edge (coral) vs HUD plate, world C9",
+   "fg": "--toy-coral",
+   "bg": "--toy-plate",
+   "under": "world #C9C9C9",
+   "fg_hex": "#FF8466",
+   "bg_hex": "#403748",
+   "ratio": 4.71,
+   "min": 3,
+   "ok": true,
+   "kind": "non-text"
+  },
+  {
+   "id": "n3",
+   "source": "inventory script (this report)",
+   "label": "downed plate edge (coral) vs world C9",
+   "fg": "--toy-coral",
+   "bg": "world #C9C9C9",
+   "under": null,
+   "fg_hex": "#FF8466",
+   "bg_hex": "#C9C9C9",
+   "ratio": 1.45,
+   "min": 3,
+   "ok": false,
+   "kind": "non-text"
+  },
+  {
+   "id": "n4",
+   "source": "inventory script (this report)",
+   "label": "keycap face (cream) vs HUD plate, world C9",
+   "fg": "--toy-cream",
+   "bg": "--toy-plate",
+   "under": "world #C9C9C9",
+   "fg_hex": "#FFF4E2",
+   "bg_hex": "#403748",
+   "ratio": 10.39,
+   "min": 3,
+   "ok": true,
+   "kind": "non-text"
+  },
+  {
+   "id": "n5",
+   "source": "inventory script (this report)",
+   "label": "keycap edge (key shade) vs HUD plate, world C9",
+   "fg": "--toy-keyshade",
+   "bg": "--toy-plate",
+   "under": "world #C9C9C9",
+   "fg_hex": "#B9A8C7",
+   "bg_hex": "#403748",
+   "ratio": 5.11,
+   "min": 3,
+   "ok": true,
+   "kind": "non-text"
+  },
+  {
+   "id": "n6",
+   "source": "inventory script (this report)",
+   "label": "stamina fill (yellow) vs dark track",
+   "fg": "--toy-yellow",
+   "bg": "--toy-track-dark",
+   "under": null,
+   "fg_hex": "#FFC23A",
+   "bg_hex": "#4A3C5C",
+   "ratio": 6.23,
+   "min": 3,
+   "ok": true,
+   "kind": "non-text"
+  },
+  {
+   "id": "n7",
+   "source": "inventory script (this report)",
+   "label": "health fill at full (green) vs dark track",
+   "fg": "--toy-health-full",
+   "bg": "--toy-track-dark",
+   "under": null,
+   "fg_hex": "#5BCB4E",
+   "bg_hex": "#4A3C5C",
+   "ratio": 4.83,
+   "min": 3,
+   "ok": true,
+   "kind": "non-text"
+  },
+  {
+   "id": "n8",
+   "source": "inventory script (this report)",
+   "label": "health fill at empty (red) vs dark track",
+   "fg": "--toy-health-empty",
+   "bg": "--toy-track-dark",
+   "under": null,
+   "fg_hex": "#FF5A44",
+   "bg_hex": "#4A3C5C",
+   "ratio": 3.25,
+   "min": 3,
+   "ok": true,
+   "kind": "non-text"
+  },
+  {
+   "id": "n9",
+   "source": "inventory script (this report)",
+   "label": "progress fill (mint) vs dark track: loading, downed, raising",
+   "fg": "--toy-mint",
+   "bg": "--toy-track-dark",
+   "under": null,
+   "fg_hex": "#3CC4A8",
+   "bg_hex": "#4A3C5C",
+   "ratio": 4.61,
+   "min": 3,
+   "ok": true,
+   "kind": "non-text"
+  },
+  {
+   "id": "n10",
+   "source": "inventory script (this report)",
+   "label": "slider fill (plum ink) vs light track, in panels",
+   "fg": "--toy-ink",
+   "bg": "--toy-track-light",
+   "under": null,
+   "fg_hex": "#2A1F33",
+   "bg_hex": "#DCCFE4",
+   "ratio": 10.5,
+   "min": 3,
+   "ok": true,
+   "kind": "non-text"
+  },
+  {
+   "id": "n11",
+   "source": "inventory script (this report)",
+   "label": "HUD bar outline (plum ink) vs world C9",
+   "fg": "--toy-ink",
+   "bg": "world #C9C9C9",
+   "under": null,
+   "fg_hex": "#2A1F33",
+   "bg_hex": "#C9C9C9",
+   "ratio": 9.45,
+   "min": 3,
+   "ok": true,
+   "kind": "non-text"
+  },
+  {
+   "id": "n12",
+   "source": "inventory script (this report)",
+   "label": "HUD bar outline (plum ink) vs world 97",
+   "fg": "--toy-ink",
+   "bg": "world #979797",
+   "under": null,
+   "fg_hex": "#2A1F33",
+   "bg_hex": "#979797",
+   "ratio": 5.36,
+   "min": 3,
+   "ok": true,
+   "kind": "non-text"
+  },
+  {
+   "id": "n13",
+   "source": "inventory script (this report)",
+   "label": "HUD bar track (dark track) vs world C9",
+   "fg": "--toy-track-dark",
+   "bg": "world #C9C9C9",
+   "under": null,
+   "fg_hex": "#4A3C5C",
+   "bg_hex": "#C9C9C9",
+   "ratio": 6.06,
+   "min": 3,
+   "ok": true,
+   "kind": "non-text"
+  },
+  {
+   "id": "n14",
+   "source": "inventory script (this report)",
+   "label": "ghost button and line chip outline (cream) vs night",
+   "fg": "--toy-cream",
+   "bg": "--toy-night",
+   "under": null,
+   "fg_hex": "#FFF4E2",
+   "bg_hex": "#1F1727",
+   "ratio": 15.94,
+   "min": 3,
+   "ok": true,
+   "kind": "non-text"
+  },
+  {
+   "id": "n15",
+   "source": "inventory script (this report)",
+   "label": "line chip outline (cream) vs .dim, world C9",
+   "fg": "--toy-cream",
+   "bg": "rgba(38, 28, 48, .70)",
+   "under": "world #C9C9C9",
+   "fg_hex": "#FFF4E2",
+   "bg_hex": "#57505E",
+   "ratio": 7.12,
+   "min": 3,
+   "ok": true,
+   "kind": "non-text"
+  },
+  {
+   "id": "n16",
+   "source": "inventory script (this report)",
+   "label": "line chip and ghost outline (plum ink) vs cream panel",
+   "fg": "--toy-ink",
+   "bg": "--toy-cream",
+   "under": null,
+   "fg_hex": "#2A1F33",
+   "bg_hex": "#FFF4E2",
+   "ratio": 14.37,
+   "min": 3,
+   "ok": true,
+   "kind": "non-text"
+  },
+  {
+   "id": "n17",
+   "source": "inventory script (this report)",
+   "label": "selected tab face (yellow) vs cream panel (the ink border carries the edge)",
+   "fg": "--toy-yellow",
+   "bg": "--toy-cream",
+   "under": null,
+   "fg_hex": "#FFC23A",
+   "bg_hex": "#FFF4E2",
+   "ratio": 1.48,
+   "min": 3,
+   "ok": false,
+   "kind": "non-text"
+  },
+  {
+   "id": "n18",
+   "source": "inventory script (this report)",
+   "label": "white card, field, setting-row face vs cream panel (the ink border or the row line carries the edge)",
+   "fg": "--toy-white",
+   "bg": "--toy-cream",
+   "under": null,
+   "fg_hex": "#FFFFFF",
+   "bg_hex": "#FFF4E2",
+   "ratio": 1.09,
+   "min": 3,
+   "ok": false,
+   "kind": "non-text"
+  },
+  {
+   "id": "n19",
+   "source": "inventory script (this report)",
+   "label": "setting-row bottom line #E2D6EA vs cream panel",
+   "fg": "#E2D6EA",
+   "bg": "--toy-cream",
+   "under": null,
+   "fg_hex": "#E2D6EA",
+   "bg_hex": "#FFF4E2",
+   "ratio": 1.28,
+   "min": 3,
+   "ok": false,
+   "kind": "non-text"
+  },
+  {
+   "id": "n20",
+   "source": "inventory script (this report)",
+   "label": "setting-row bottom line #E2D6EA vs the white row tile",
+   "fg": "#E2D6EA",
+   "bg": "--toy-white",
+   "under": null,
+   "fg_hex": "#E2D6EA",
+   "bg_hex": "#FFFFFF",
+   "ratio": 1.4,
+   "min": 3,
+   "ok": false,
+   "kind": "non-text"
+  },
+  {
+   "id": "n21",
+   "source": "inventory script (this report)",
+   "label": "you-are-here fill (coral deep) vs lavender board",
+   "fg": "--toy-coral-deep",
+   "bg": "--toy-lavender",
+   "under": null,
+   "fg_hex": "#D9482F",
+   "bg_hex": "#E9DFF0",
+   "ratio": 3.31,
+   "min": 3,
+   "ok": true,
+   "kind": "non-text"
+  },
+  {
+   "id": "n22",
+   "source": "inventory script (this report)",
+   "label": "you-are-here fill (coral deep) vs cream room tile (the pin sits on the Hall tile in the frame)",
+   "fg": "--toy-coral-deep",
+   "bg": "--toy-cream",
+   "under": null,
+   "fg_hex": "#D9482F",
+   "bg_hex": "#FFF4E2",
+   "ratio": 3.92,
+   "min": 3,
+   "ok": true,
+   "kind": "non-text"
+  },
+  {
+   "id": "n23",
+   "source": "inventory script (this report)",
+   "label": "zone tint (yellow 55%) over a cream room vs the cream room",
+   "fg": "rgba(255, 194, 58, .55)",
+   "bg": "--toy-cream",
+   "under": null,
+   "fg_hex": "#FFD986",
+   "bg_hex": "#FFF4E2",
+   "ratio": 1.25,
+   "min": 3,
+   "ok": false,
+   "kind": "non-text"
+  },
+  {
+   "id": "n24",
+   "source": "inventory script (this report)",
+   "label": "zone tint (yellow 55%) over the lavender board vs lavender",
+   "fg": "rgba(255, 194, 58, .55)",
+   "bg": "--toy-lavender",
+   "under": null,
+   "fg_hex": "#F5CF8C",
+   "bg_hex": "#E9DFF0",
+   "ratio": 1.15,
+   "min": 3,
+   "ok": false,
+   "kind": "non-text"
+  },
+  {
+   "id": "n25",
+   "source": "inventory script (this report)",
+   "label": "crosshair face (cream) vs world C9",
+   "fg": "--toy-cream",
+   "bg": "world #C9C9C9",
+   "under": null,
+   "fg_hex": "#FFF4E2",
+   "bg_hex": "#C9C9C9",
+   "ratio": 1.52,
+   "min": 3,
+   "ok": false,
+   "kind": "non-text"
+  },
+  {
+   "id": "n26",
+   "source": "inventory script (this report)",
+   "label": "crosshair outline (plum ink) vs world C9",
+   "fg": "--toy-ink",
+   "bg": "world #C9C9C9",
+   "under": null,
+   "fg_hex": "#2A1F33",
+   "bg_hex": "#C9C9C9",
+   "ratio": 9.45,
+   "min": 3,
+   "ok": true,
+   "kind": "non-text"
+  },
+  {
+   "id": "n27",
+   "source": "inventory script (this report)",
+   "label": "spinner arc (yellow) vs night plate disc",
+   "fg": "--toy-yellow",
+   "bg": "--toy-plate-solid",
+   "under": null,
+   "fg_hex": "#FFC23A",
+   "bg_hex": "#352A41",
+   "ratio": 8.36,
+   "min": 3,
+   "ok": true,
+   "kind": "non-text"
+  },
+  {
+   "id": "n28",
+   "source": "inventory script (this report)",
+   "label": "toy base (honey) vs night: buttons on dark",
+   "fg": "--toy-honey",
+   "bg": "--toy-night",
+   "under": null,
+   "fg_hex": "#C98A10",
+   "bg_hex": "#1F1727",
+   "ratio": 5.89,
+   "min": 3,
+   "ok": true,
+   "kind": "non-text"
+  },
+  {
+   "id": "n29",
+   "source": "inventory script (this report)",
+   "label": "toy base (coral) vs night: big-moment title plate",
+   "fg": "--toy-coral",
+   "bg": "--toy-night",
+   "under": null,
+   "fg_hex": "#FF8466",
+   "bg_hex": "#1F1727",
+   "ratio": 7.23,
+   "min": 3,
+   "ok": true,
+   "kind": "non-text"
+  },
+  {
+   "id": "n30",
+   "source": "inventory script (this report)",
+   "label": "white field face vs .dim, world C9 (main-menu name field)",
+   "fg": "--toy-white",
+   "bg": "rgba(38, 28, 48, .70)",
+   "under": "world #C9C9C9",
+   "fg_hex": "#FFFFFF",
+   "bg_hex": "#57505E",
+   "ratio": 7.75,
+   "min": 3,
+   "ok": true,
+   "kind": "non-text"
+  },
+  {
+   "id": "n31",
+   "source": "inventory script (this report)",
+   "label": "quiet ? key edge (muted plum) vs cream panel",
+   "fg": "--toy-muted",
+   "bg": "--toy-cream",
+   "under": null,
+   "fg_hex": "#64566F",
+   "bg_hex": "#FFF4E2",
+   "ratio": 6.22,
+   "min": 3,
+   "ok": true,
+   "kind": "non-text"
+  },
+  {
+   "id": "n32",
+   "source": "inventory script (this report)",
+   "label": "save-your-own card edge (muted plum) vs cream panel",
+   "fg": "--toy-muted",
+   "bg": "--toy-cream",
+   "under": null,
+   "fg_hex": "#64566F",
+   "bg_hex": "#FFF4E2",
+   "ratio": 6.22,
+   "min": 3,
+   "ok": true,
+   "kind": "non-text"
+  },
+  {
+   "id": "n33",
+   "source": "inventory script (this report)",
+   "label": "idle slot outline (slot line) vs HUD plate, world 97",
+   "fg": "--toy-slotline",
+   "bg": "--toy-plate",
+   "under": "world #979797",
+   "fg_hex": "#9A8CA6",
+   "bg_hex": "#393041",
+   "ratio": 3.99,
+   "min": 3,
+   "ok": true,
+   "kind": "non-text"
+  },
+  {
+   "id": "n34",
+   "source": "inventory script (this report)",
+   "label": "idle slot outline (slot line) vs HUD plate over a pure white world",
+   "fg": "--toy-slotline",
+   "bg": "--toy-plate",
+   "under": "world #FFFFFF",
+   "fg_hex": "#9A8CA6",
+   "bg_hex": "#483E50",
+   "ratio": 3.2,
+   "min": 3,
+   "ok": true,
+   "kind": "non-text"
+  },
+  {
+   "id": "n35",
+   "source": "inventory script (this report)",
+   "label": "HUD plate vs a pure white world (lens 6 worst case)",
+   "fg": "--toy-plate",
+   "bg": "world #FFFFFF",
+   "under": null,
+   "fg_hex": "#483E50",
+   "bg_hex": "#FFFFFF",
+   "ratio": 10.07,
+   "min": 3,
+   "ok": true,
+   "kind": "non-text"
+  }
+ ],
+ "health_fill": [
+  {
+   "hp": 1,
+   "godot_color_lerp_srgb": "#5BCB4E",
+   "srgb_ratio_on_dark_track": 4.83,
+   "css_color_mix_oklab": "#5BCB4E",
+   "oklab_ratio_on_dark_track": 4.83
+  },
+  {
+   "hp": 0.8,
+   "godot_color_lerp_srgb": "#7CB44C",
+   "srgb_ratio_on_dark_track": 4.07,
+   "css_color_mix_oklab": "#92BA4C",
+   "oklab_ratio_on_dark_track": 4.48
+  },
+  {
+   "hp": 0.5,
+   "godot_color_lerp_srgb": "#AD9349",
+   "srgb_ratio_on_dark_track": 3.35,
+   "css_color_mix_oklab": "#C59E49",
+   "oklab_ratio_on_dark_track": 3.99
+  },
+  {
+   "hp": 0.22,
+   "godot_color_lerp_srgb": "#DB7346",
+   "srgb_ratio_on_dark_track": 3.13,
+   "css_color_mix_oklab": "#E87D46",
+   "oklab_ratio_on_dark_track": 3.56
+  },
+  {
+   "hp": 0,
+   "godot_color_lerp_srgb": "#FF5A44",
+   "srgb_ratio_on_dark_track": 3.25,
+   "css_color_mix_oklab": "#FF5A44",
+   "oklab_ratio_on_dark_track": 3.25
+  }
+ ],
+ "wireframe_colours_left_under_toy": [
+  {
+   "value": "#F2F2F2",
+   "where": ".mic.off::after slash",
+   "note": "pseudo-element, not restyled"
+  },
+  {
+   "value": "#F2F2F2 #DADADA #C2C2C2 #ABABAB #949494 #7E7E7E #686868 #535353 #3F3F3F #2C2C2C, numbers #FFF on 6-10",
+   "where": "s5 swatches (inline)",
+   "note": "placeholder body colours, not decided"
+  },
+  {
+   "value": "#4A4A4A",
+   "where": ".sil character silhouette",
+   "note": "world mock, not UI"
+  },
+  {
+   "value": "radial-gradient rgba(0,0,0,0..0.75)",
+   "where": ".vignette (downed)",
+   "note": "world post-effect (shader in Godot)"
+  },
+  {
+   "value": "#8C8C8C #6E6E6E #F2F2F2 #111",
+   "where": "s7 carried package mock (inline)",
+   "note": "3D world mock"
+  },
+  {
+   "value": "linear-gradient #D4D4D4 #C9C9C9 #A6A6A6 #979797",
+   "where": ".frame world background",
+   "note": "the 3D world stand-in; #C9C9C9 and #979797 are the lint's world samples"
+  },
+  {
+   "value": "rgba(0,0,0,.35) / rgba(0,0,0,.55)",
+   "where": ".worldtag, s7 annotation",
+   "note": "page annotations"
+  }
+ ],
+ "dimensions": [
+  {
+   "kind": "base-offset",
+   "px": 1,
+   "source": "toy skin",
+   "uses": [
+    {
+     "file": "motion-preview.css",
+     "line": 16,
+     "selector": ".frame .btn:not(.ghost):active",
+     "property": "box-shadow",
+     "color": "var(--toy-base)"
+    }
+   ]
+  },
+  {
+   "kind": "base-offset",
+   "px": 4,
+   "source": "toy skin",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 245,
+     "selector": ".frame .tabs > div.on",
+     "property": "box-shadow",
+     "color": "var(--toy-ink)"
+    }
+   ]
+  },
+  {
+   "kind": "base-offset",
+   "px": 5,
+   "source": "toy skin",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 126,
+     "selector": ".frame .btn",
+     "property": "box-shadow",
+     "color": "var(--toy-base)"
+    },
+    {
+     "file": "toy.css",
+     "line": 268,
+     "selector": ".frame .card",
+     "property": "box-shadow",
+     "color": "var(--toy-ink)"
+    }
+   ]
+  },
+  {
+   "kind": "base-offset",
+   "px": 6,
+   "source": "toy skin",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 69,
+     "selector": ".frame .abs.col:not(.panel) > .t64:first-child",
+     "property": "text-shadow",
+     "color": "var(--toy-coral)"
+    },
+    {
+     "file": "toy.css",
+     "line": 135,
+     "selector": ".frame .btn.fill",
+     "property": "box-shadow",
+     "color": "var(--toy-base)"
+    },
+    {
+     "file": "motion-preview.css",
+     "line": 9,
+     "selector": ".frame .btn:not(.ghost):hover",
+     "property": "box-shadow",
+     "color": "var(--toy-base)"
+    }
+   ]
+  },
+  {
+   "kind": "base-offset",
+   "px": 7,
+   "source": "toy skin",
+   "uses": [
+    {
+     "file": "motion-preview.css",
+     "line": 13,
+     "selector": ".frame .btn.fill:hover",
+     "property": "box-shadow",
+     "color": "var(--toy-base)"
+    }
+   ]
+  },
+  {
+   "kind": "base-offset",
+   "px": 10,
+   "source": "toy skin",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 76,
+     "selector": ".frame .t96",
+     "property": "box-shadow",
+     "color": "var(--toy-coral)"
+    },
+    {
+     "file": "toy.css",
+     "line": 118,
+     "selector": ".frame .panel",
+     "property": "box-shadow",
+     "color": "rgba(15, 10, 20, .6)"
+    },
+    {
+     "file": "toy.css",
+     "line": 307,
+     "selector": ".frame .map",
+     "property": "box-shadow",
+     "color": "rgba(15, 10, 20, .6)"
+    }
+   ]
+  },
+  {
+   "kind": "border",
+   "px": 0,
+   "source": "toy skin",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 227,
+     "selector": ".frame .ring",
+     "property": "border-width",
+     "side": "bottom"
+    },
+    {
+     "file": "toy.css",
+     "line": 227,
+     "selector": ".frame .ring",
+     "property": "border-width",
+     "side": "left"
+    }
+   ]
+  },
+  {
+   "kind": "border",
+   "px": 2,
+   "source": "toy skin",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 182,
+     "selector": ".frame .key",
+     "property": "border-width",
+     "side": "top"
+    },
+    {
+     "file": "toy.css",
+     "line": 182,
+     "selector": ".frame .key",
+     "property": "border-width",
+     "side": "left"
+    },
+    {
+     "file": "toy.css",
+     "line": 182,
+     "selector": ".frame .key",
+     "property": "border-width",
+     "side": "right"
+    },
+    {
+     "file": "toy.css",
+     "line": 220,
+     "selector": ".frame .cross",
+     "property": "border",
+     "side": "all"
+    },
+    {
+     "file": "toy.css",
+     "line": 260,
+     "selector": ".frame .val .ar",
+     "property": "border",
+     "side": "all"
+    },
+    {
+     "file": "toy.css",
+     "line": 289,
+     "selector": ".frame .dot",
+     "property": "border",
+     "side": "all"
+    }
+   ]
+  },
+  {
+   "kind": "border",
+   "px": 3,
+   "source": "toy skin",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 126,
+     "selector": ".frame .btn",
+     "property": "border",
+     "side": "all"
+    },
+    {
+     "file": "toy.css",
+     "line": 150,
+     "selector": ".frame .field",
+     "property": "border",
+     "side": "all"
+    },
+    {
+     "file": "toy.css",
+     "line": 160,
+     "selector": ".frame .chip",
+     "property": "border",
+     "side": "all"
+    },
+    {
+     "file": "toy.css",
+     "line": 201,
+     "selector": ".frame .slot",
+     "property": "border",
+     "side": "all"
+    },
+    {
+     "file": "toy.css",
+     "line": 239,
+     "selector": ".frame .tabs > div",
+     "property": "border",
+     "side": "all"
+    },
+    {
+     "file": "toy.css",
+     "line": 252,
+     "selector": ".frame .setrow",
+     "property": "border-bottom",
+     "side": "bottom"
+    },
+    {
+     "file": "toy.css",
+     "line": 268,
+     "selector": ".frame .card",
+     "property": "border",
+     "side": "all"
+    },
+    {
+     "file": "toy.css",
+     "line": 295,
+     "selector": ".frame .panel .row > .col.c[style*=\"#1C1C1C\"]",
+     "property": "border",
+     "side": "all"
+    },
+    {
+     "file": "toy.css",
+     "line": 313,
+     "selector": ".frame .room",
+     "property": "border",
+     "side": "all"
+    },
+    {
+     "file": "toy.css",
+     "line": 330,
+     "selector": ".frame .map .you",
+     "property": "border",
+     "side": "all"
+    },
+    {
+     "file": "toy.css",
+     "line": 348,
+     "selector": ".frame [data-bar]",
+     "property": "border",
+     "side": "all"
+    }
+   ]
+  },
+  {
+   "kind": "border",
+   "px": 4,
+   "source": "toy skin",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 76,
+     "selector": ".frame .t96",
+     "property": "border",
+     "side": "all"
+    },
+    {
+     "file": "toy.css",
+     "line": 105,
+     "selector": ".frame .plate.col[data-in=\"down\"]",
+     "property": "border",
+     "side": "all"
+    },
+    {
+     "file": "toy.css",
+     "line": 118,
+     "selector": ".frame .panel",
+     "property": "border",
+     "side": "all"
+    },
+    {
+     "file": "toy.css",
+     "line": 276,
+     "selector": ".frame .card.on",
+     "property": "border-width",
+     "side": "all"
+    },
+    {
+     "file": "toy.css",
+     "line": 307,
+     "selector": ".frame .map",
+     "property": "border",
+     "side": "all"
+    },
+    {
+     "file": "toy.css",
+     "line": 323,
+     "selector": ".frame .map [style*=\"z-index:2\"]",
+     "property": "border",
+     "side": "all"
+    }
+   ]
+  },
+  {
+   "kind": "border",
+   "px": 5,
+   "source": "toy skin",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 182,
+     "selector": ".frame .key",
+     "property": "border-width",
+     "side": "bottom"
+    },
+    {
+     "file": "toy.css",
+     "line": 208,
+     "selector": ".frame .slot.on",
+     "property": "border-width",
+     "side": "all"
+    }
+   ]
+  },
+  {
+   "kind": "border",
+   "px": 10,
+   "source": "toy skin",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 227,
+     "selector": ".frame .ring",
+     "property": "border-width",
+     "side": "top"
+    },
+    {
+     "file": "toy.css",
+     "line": 227,
+     "selector": ".frame .ring",
+     "property": "border-width",
+     "side": "right"
+    }
+   ]
+  },
+  {
+   "kind": "font-size",
+   "px": 18,
+   "source": "toy skin",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 56,
+     "selector": ".frame .t16",
+     "property": "font-size"
+    },
+    {
+     "file": "toy.css",
+     "line": 313,
+     "selector": ".frame .room",
+     "property": "font-size"
+    }
+   ]
+  },
+  {
+   "kind": "font-size",
+   "px": 20,
+   "source": "toy skin",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 57,
+     "selector": ".frame .t18",
+     "property": "font-size"
+    }
+   ]
+  },
+  {
+   "kind": "font-weight",
+   "px": null,
+   "value": 600,
+   "source": "toy skin",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 11,
+     "selector": ".frame",
+     "property": "font-weight"
+    },
+    {
+     "file": "toy.css",
+     "line": 141,
+     "selector": ".frame .btn.ghost",
+     "property": "font-weight"
+    }
+   ]
+  },
+  {
+   "kind": "font-weight",
+   "px": null,
+   "value": 700,
+   "source": "toy skin",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 54,
+     "selector": ".frame .b",
+     "property": "font-weight"
+    },
+    {
+     "file": "toy.css",
+     "line": 58,
+     "selector": ".frame .t36, .frame .t48, .frame .t64, .frame .t96",
+     "property": "font-weight"
+    },
+    {
+     "file": "toy.css",
+     "line": 126,
+     "selector": ".frame .btn",
+     "property": "font-weight"
+    },
+    {
+     "file": "toy.css",
+     "line": 150,
+     "selector": ".frame .field",
+     "property": "font-weight"
+    },
+    {
+     "file": "toy.css",
+     "line": 245,
+     "selector": ".frame .tabs > div.on",
+     "property": "font-weight"
+    },
+    {
+     "file": "toy.css",
+     "line": 260,
+     "selector": ".frame .val .ar",
+     "property": "font-weight"
+    },
+    {
+     "file": "toy.css",
+     "line": 313,
+     "selector": ".frame .room",
+     "property": "font-weight"
+    }
+   ]
+  },
+  {
+   "kind": "letter-spacing",
+   "px": -0.96,
+   "source": "toy skin",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 58,
+     "selector": ".frame .t96",
+     "property": "letter-spacing",
+     "em": "-.01em",
+     "at_font_size": 96
+    }
+   ]
+  },
+  {
+   "kind": "letter-spacing",
+   "px": -0.64,
+   "source": "toy skin",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 58,
+     "selector": ".frame .t64",
+     "property": "letter-spacing",
+     "em": "-.01em",
+     "at_font_size": 64
+    }
+   ]
+  },
+  {
+   "kind": "letter-spacing",
+   "px": -0.48,
+   "source": "toy skin",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 58,
+     "selector": ".frame .t48",
+     "property": "letter-spacing",
+     "em": "-.01em",
+     "at_font_size": 48
+    }
+   ]
+  },
+  {
+   "kind": "letter-spacing",
+   "px": -0.36,
+   "source": "toy skin",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 58,
+     "selector": ".frame .t36",
+     "property": "letter-spacing",
+     "em": "-.01em",
+     "at_font_size": 36
+    }
+   ]
+  },
+  {
+   "kind": "letter-spacing",
+   "px": 0.18,
+   "source": "toy skin",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 56,
+     "selector": ".frame .t16",
+     "property": "letter-spacing",
+     "em": ".01em",
+     "at_font_size": 18
+    }
+   ]
+  },
+  {
+   "kind": "letter-spacing",
+   "px": 0.2,
+   "source": "toy skin",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 57,
+     "selector": ".frame .t18",
+     "property": "letter-spacing",
+     "em": ".01em",
+     "at_font_size": 20
+    }
+   ]
+  },
+  {
+   "kind": "margin",
+   "px": -36,
+   "source": "toy skin",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 76,
+     "selector": ".frame .t96",
+     "property": "margin",
+     "side": "left"
+    },
+    {
+     "file": "toy.css",
+     "line": 76,
+     "selector": ".frame .t96",
+     "property": "margin",
+     "side": "right"
+    }
+   ]
+  },
+  {
+   "kind": "margin",
+   "px": -4,
+   "source": "toy skin",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 76,
+     "selector": ".frame .t96",
+     "property": "margin",
+     "side": "top"
+    },
+    {
+     "file": "toy.css",
+     "line": 76,
+     "selector": ".frame .t96",
+     "property": "margin",
+     "side": "bottom"
+    }
+   ]
+  },
+  {
+   "kind": "motion-offset",
+   "px": -1,
+   "source": "toy skin",
+   "uses": [
+    {
+     "file": "motion-preview.css",
+     "line": 9,
+     "selector": ".frame .btn:not(.ghost):hover",
+     "property": "transform"
+    }
+   ]
+  },
+  {
+   "kind": "motion-offset",
+   "px": 3,
+   "source": "toy skin",
+   "uses": [
+    {
+     "file": "motion-preview.css",
+     "line": 23,
+     "selector": ".frame .card:active",
+     "property": "transform"
+    }
+   ]
+  },
+  {
+   "kind": "motion-offset",
+   "px": 5,
+   "source": "toy skin",
+   "uses": [
+    {
+     "file": "motion-preview.css",
+     "line": 16,
+     "selector": ".frame .btn:not(.ghost):active",
+     "property": "transform"
+    }
+   ]
+  },
+  {
+   "kind": "motion-offset",
+   "px": 6,
+   "source": "toy skin",
+   "uses": [
+    {
+     "file": "motion-preview.css",
+     "line": 20,
+     "selector": ".frame .btn.fill:active",
+     "property": "transform"
+    }
+   ]
+  },
+  {
+   "kind": "padding",
+   "px": 0,
+   "source": "toy skin",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 76,
+     "selector": ".frame .t96",
+     "property": "padding",
+     "side": "top"
+    },
+    {
+     "file": "toy.css",
+     "line": 76,
+     "selector": ".frame .t96",
+     "property": "padding",
+     "side": "bottom"
+    },
+    {
+     "file": "toy.css",
+     "line": 109,
+     "selector": ".frame .abs.col > .col > span.t16",
+     "property": "padding",
+     "side": "top"
+    },
+    {
+     "file": "toy.css",
+     "line": 109,
+     "selector": ".frame .abs.col > .col > span.t16",
+     "property": "padding",
+     "side": "bottom"
+    },
+    {
+     "file": "toy.css",
+     "line": 260,
+     "selector": ".frame .val .ar",
+     "property": "padding",
+     "side": "top"
+    },
+    {
+     "file": "toy.css",
+     "line": 260,
+     "selector": ".frame .val .ar",
+     "property": "padding",
+     "side": "bottom"
+    }
+   ]
+  },
+  {
+   "kind": "padding",
+   "px": 1,
+   "source": "toy skin",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 160,
+     "selector": ".frame .chip",
+     "property": "padding",
+     "side": "top"
+    },
+    {
+     "file": "toy.css",
+     "line": 160,
+     "selector": ".frame .chip",
+     "property": "padding",
+     "side": "bottom"
+    }
+   ]
+  },
+  {
+   "kind": "padding",
+   "px": 6,
+   "source": "toy skin",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 252,
+     "selector": ".frame .setrow",
+     "property": "padding",
+     "side": "bottom"
+    }
+   ]
+  },
+  {
+   "kind": "padding",
+   "px": 7,
+   "source": "toy skin",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 150,
+     "selector": ".frame .field",
+     "property": "padding",
+     "side": "top"
+    },
+    {
+     "file": "toy.css",
+     "line": 150,
+     "selector": ".frame .field",
+     "property": "padding",
+     "side": "bottom"
+    },
+    {
+     "file": "toy.css",
+     "line": 239,
+     "selector": ".frame .tabs > div",
+     "property": "padding",
+     "side": "top"
+    },
+    {
+     "file": "toy.css",
+     "line": 239,
+     "selector": ".frame .tabs > div",
+     "property": "padding",
+     "side": "bottom"
+    }
+   ]
+  },
+  {
+   "kind": "padding",
+   "px": 8,
+   "source": "toy skin",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 109,
+     "selector": ".frame .abs.col > .col > span.t16",
+     "property": "padding",
+     "side": "left"
+    },
+    {
+     "file": "toy.css",
+     "line": 109,
+     "selector": ".frame .abs.col > .col > span.t16",
+     "property": "padding",
+     "side": "right"
+    },
+    {
+     "file": "toy.css",
+     "line": 252,
+     "selector": ".frame .setrow",
+     "property": "padding",
+     "side": "top"
+    },
+    {
+     "file": "toy.css",
+     "line": 260,
+     "selector": ".frame .val .ar",
+     "property": "padding",
+     "side": "left"
+    },
+    {
+     "file": "toy.css",
+     "line": 260,
+     "selector": ".frame .val .ar",
+     "property": "padding",
+     "side": "right"
+    }
+   ]
+  },
+  {
+   "kind": "padding",
+   "px": 9,
+   "source": "toy skin",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 126,
+     "selector": ".frame .btn",
+     "property": "padding",
+     "side": "top"
+    },
+    {
+     "file": "toy.css",
+     "line": 126,
+     "selector": ".frame .btn",
+     "property": "padding",
+     "side": "bottom"
+    }
+   ]
+  },
+  {
+   "kind": "padding",
+   "px": 11,
+   "source": "toy skin",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 160,
+     "selector": ".frame .chip",
+     "property": "padding",
+     "side": "left"
+    },
+    {
+     "file": "toy.css",
+     "line": 160,
+     "selector": ".frame .chip",
+     "property": "padding",
+     "side": "right"
+    },
+    {
+     "file": "toy.css",
+     "line": 268,
+     "selector": ".frame .card",
+     "property": "padding",
+     "side": "all"
+    }
+   ]
+  },
+  {
+   "kind": "padding",
+   "px": 12,
+   "source": "toy skin",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 276,
+     "selector": ".frame .card.on",
+     "property": "padding",
+     "side": "all"
+    }
+   ]
+  },
+  {
+   "kind": "padding",
+   "px": 13,
+   "source": "toy skin",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 150,
+     "selector": ".frame .field",
+     "property": "padding",
+     "side": "left"
+    },
+    {
+     "file": "toy.css",
+     "line": 150,
+     "selector": ".frame .field",
+     "property": "padding",
+     "side": "right"
+    },
+    {
+     "file": "toy.css",
+     "line": 239,
+     "selector": ".frame .tabs > div",
+     "property": "padding",
+     "side": "left"
+    },
+    {
+     "file": "toy.css",
+     "line": 239,
+     "selector": ".frame .tabs > div",
+     "property": "padding",
+     "side": "right"
+    }
+   ]
+  },
+  {
+   "kind": "padding",
+   "px": 14,
+   "source": "toy skin",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 252,
+     "selector": ".frame .setrow",
+     "property": "padding",
+     "side": "left"
+    },
+    {
+     "file": "toy.css",
+     "line": 252,
+     "selector": ".frame .setrow",
+     "property": "padding",
+     "side": "right"
+    }
+   ]
+  },
+  {
+   "kind": "padding",
+   "px": 19,
+   "source": "toy skin",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 126,
+     "selector": ".frame .btn",
+     "property": "padding",
+     "side": "left"
+    },
+    {
+     "file": "toy.css",
+     "line": 126,
+     "selector": ".frame .btn",
+     "property": "padding",
+     "side": "right"
+    }
+   ]
+  },
+  {
+   "kind": "padding",
+   "px": 32,
+   "source": "toy skin",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 76,
+     "selector": ".frame .t96",
+     "property": "padding",
+     "side": "left"
+    },
+    {
+     "file": "toy.css",
+     "line": 76,
+     "selector": ".frame .t96",
+     "property": "padding",
+     "side": "right"
+    }
+   ]
+  },
+  {
+   "kind": "radius",
+   "px": 0,
+   "source": "toy skin",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 330,
+     "selector": ".frame .map .you",
+     "property": "border-radius",
+     "corner": "top-left"
+    }
+   ]
+  },
+  {
+   "kind": "radius",
+   "px": 6,
+   "source": "toy skin",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 354,
+     "selector": ".frame [data-bar] > i",
+     "property": "border-radius",
+     "corner": "all"
+    }
+   ]
+  },
+  {
+   "kind": "radius",
+   "px": 8,
+   "source": "toy skin",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 109,
+     "selector": ".frame .abs.col > .col > span.t16",
+     "property": "border-radius",
+     "corner": "all"
+    },
+    {
+     "file": "toy.css",
+     "line": 182,
+     "selector": ".frame .key",
+     "property": "border-radius",
+     "corner": "all"
+    }
+   ]
+  },
+  {
+   "kind": "radius",
+   "px": 10,
+   "source": "toy skin",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 348,
+     "selector": ".frame [data-bar]",
+     "property": "border-radius",
+     "corner": "all"
+    }
+   ]
+  },
+  {
+   "kind": "radius",
+   "px": 12,
+   "source": "toy skin",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 150,
+     "selector": ".frame .field",
+     "property": "border-radius",
+     "corner": "all"
+    },
+    {
+     "file": "toy.css",
+     "line": 252,
+     "selector": ".frame .setrow",
+     "property": "border-radius",
+     "corner": "all"
+    },
+    {
+     "file": "toy.css",
+     "line": 313,
+     "selector": ".frame .room",
+     "property": "border-radius",
+     "corner": "all"
+    },
+    {
+     "file": "toy.css",
+     "line": 323,
+     "selector": ".frame .map [style*=\"z-index:2\"]",
+     "property": "border-radius",
+     "corner": "all"
+    }
+   ]
+  },
+  {
+   "kind": "radius",
+   "px": 14,
+   "source": "toy skin",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 239,
+     "selector": ".frame .tabs > div",
+     "property": "border-radius",
+     "corner": "all"
+    },
+    {
+     "file": "toy.css",
+     "line": 330,
+     "selector": ".frame .map .you",
+     "property": "border-radius",
+     "corner": "top-right"
+    },
+    {
+     "file": "toy.css",
+     "line": 330,
+     "selector": ".frame .map .you",
+     "property": "border-radius",
+     "corner": "bottom-right"
+    },
+    {
+     "file": "toy.css",
+     "line": 330,
+     "selector": ".frame .map .you",
+     "property": "border-radius",
+     "corner": "bottom-left"
+    }
+   ]
+  },
+  {
+   "kind": "radius",
+   "px": 16,
+   "source": "toy skin",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 96,
+     "selector": ".frame .plate",
+     "property": "border-radius",
+     "corner": "all"
+    },
+    {
+     "file": "toy.css",
+     "line": 268,
+     "selector": ".frame .card",
+     "property": "border-radius",
+     "corner": "all"
+    },
+    {
+     "file": "toy.css",
+     "line": 295,
+     "selector": ".frame .panel .row > .col.c[style*=\"#1C1C1C\"]",
+     "property": "border-radius",
+     "corner": "all"
+    }
+   ]
+  },
+  {
+   "kind": "radius",
+   "px": 18,
+   "source": "toy skin",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 126,
+     "selector": ".frame .btn",
+     "property": "border-radius",
+     "corner": "all"
+    },
+    {
+     "file": "toy.css",
+     "line": 201,
+     "selector": ".frame .slot",
+     "property": "border-radius",
+     "corner": "all"
+    }
+   ]
+  },
+  {
+   "kind": "radius",
+   "px": 24,
+   "source": "toy skin",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 118,
+     "selector": ".frame .panel",
+     "property": "border-radius",
+     "corner": "all"
+    },
+    {
+     "file": "toy.css",
+     "line": 307,
+     "selector": ".frame .map",
+     "property": "border-radius",
+     "corner": "all"
+    }
+   ]
+  },
+  {
+   "kind": "radius",
+   "px": 26,
+   "source": "toy skin",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 76,
+     "selector": ".frame .t96",
+     "property": "border-radius",
+     "corner": "all"
+    }
+   ]
+  },
+  {
+   "kind": "radius",
+   "px": 999,
+   "source": "toy skin",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 260,
+     "selector": ".frame .val .ar",
+     "property": "border-radius",
+     "corner": "all",
+     "raw": "999px"
+    }
+   ]
+  },
+  {
+   "kind": "rotation",
+   "px": null,
+   "value": 80,
+   "unit": "deg",
+   "source": "toy skin",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 330,
+     "selector": ".frame .map .you",
+     "property": "transform"
+    }
+   ]
+  },
+  {
+   "kind": "size",
+   "px": 16,
+   "source": "toy skin",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 348,
+     "selector": ".frame [data-bar]",
+     "property": "height"
+    }
+   ]
+  },
+  {
+   "kind": "size",
+   "px": 28,
+   "source": "toy skin",
+   "uses": [
+    {
+     "file": "toy.css",
+     "line": 330,
+     "selector": ".frame .map .you",
+     "property": "width"
+    },
+    {
+     "file": "toy.css",
+     "line": 330,
+     "selector": ".frame .map .you",
+     "property": "height"
+    }
+   ]
+  },
+  {
+   "kind": "line-height",
+   "px": null,
+   "source": "wireframe (kept by Toy)",
+   "uses": [
+    ".frame line-height 1.25 (unitless)"
+   ],
+   "value": 1.25
+  },
+  {
+   "kind": "gap",
+   "px": 10,
+   "source": "wireframe (kept by Toy)",
+   "uses": [
+    ".col gap"
+   ]
+  },
+  {
+   "kind": "gap",
+   "px": 12,
+   "source": "wireframe (kept by Toy)",
+   "uses": [
+    ".row gap",
+    ".setrow gap"
+   ]
+  },
+  {
+   "kind": "gap",
+   "px": 8,
+   "source": "wireframe (kept by Toy)",
+   "uses": [
+    ".tabs gap"
+   ]
+  },
+  {
+   "kind": "gap",
+   "px": 14,
+   "source": "wireframe (kept by Toy)",
+   "uses": [
+    ".val gap (value and stepper arrows)"
+   ]
+  },
+  {
+   "kind": "padding",
+   "px": 10,
+   "source": "wireframe (kept by Toy)",
+   "uses": [
+    ".plate padding top/bottom"
+   ]
+  },
+  {
+   "kind": "padding",
+   "px": 18,
+   "source": "wireframe (kept by Toy)",
+   "uses": [
+    ".plate padding left/right"
+   ]
+  },
+  {
+   "kind": "padding",
+   "px": 4,
+   "source": "wireframe (kept by Toy)",
+   "uses": [
+    ".slot padding"
+   ]
+  },
+  {
+   "kind": "padding",
+   "px": 6,
+   "source": "wireframe (kept by Toy)",
+   "uses": [
+    ".room padding"
+   ]
+  },
+  {
+   "kind": "padding",
+   "px": null,
+   "source": "wireframe (kept by Toy)",
+   "uses": [
+    ".key padding 0 .35em (7 px at t20, 7.7 at t22, 8.4 at t24)"
+   ],
+   "value": "0.35em"
+  },
+  {
+   "kind": "size",
+   "px": null,
+   "source": "wireframe (kept by Toy)",
+   "uses": [
+    ".key min-width 1.6em (32 px at t20, 35.2 at t22, 38.4 at t24)"
+   ],
+   "value": "1.6em"
+  },
+  {
+   "kind": "size",
+   "px": 84,
+   "source": "wireframe (kept by Toy)",
+   "uses": [
+    ".slot width and height"
+   ]
+  },
+  {
+   "kind": "size",
+   "px": 180,
+   "source": "wireframe (kept by Toy)",
+   "uses": [
+    ".slot.wide width (two-handed)"
+   ]
+  },
+  {
+   "kind": "size",
+   "px": 26,
+   "source": "wireframe (kept by Toy)",
+   "uses": [
+    ".dot width and height (swatch, radio)"
+   ]
+  },
+  {
+   "kind": "size",
+   "px": 46,
+   "source": "wireframe (kept by Toy)",
+   "uses": [
+    ".mic width and height"
+   ]
+  },
+  {
+   "kind": "size",
+   "px": 90,
+   "source": "wireframe (kept by Toy)",
+   "uses": [
+    ".ring width and height (spinner)"
+   ]
+  },
+  {
+   "kind": "size",
+   "px": 8,
+   "source": "wireframe (kept by Toy)",
+   "uses": [
+    ".cross width and height (crosshair)"
+   ]
+  },
+  {
+   "kind": "size",
+   "px": 10,
+   "source": "wireframe (kept by Toy)",
+   "uses": [
+    ".bar2 height (generic progress and sliders; [data-bar] HUD bars are 16)"
+   ]
+  },
+  {
+   "kind": "margin",
+   "px": -4,
+   "source": "wireframe (kept by Toy)",
+   "uses": [
+    ".cross margin (centres the 8 px dot)"
+   ]
+  },
+  {
+   "kind": "radius",
+   "px": null,
+   "source": "wireframe (kept by Toy)",
+   "uses": [
+    ".chip border-radius 999px (pill)"
+   ],
+   "value": "999px"
+  },
+  {
+   "kind": "radius",
+   "px": null,
+   "source": "wireframe (kept by Toy)",
+   "uses": [
+    ".bar2 and .bar2 > i border-radius 99px (pill) on generic bars"
+   ],
+   "value": "99px"
+  },
+  {
+   "kind": "radius",
+   "px": null,
+   "source": "wireframe (kept by Toy)",
+   "uses": [
+    ".dot, .mic, .ring, .cross border-radius 50% (circle)"
+   ],
+   "value": "50%"
+  },
+  {
+   "kind": "font-size",
+   "px": 14,
+   "source": "wireframe (kept by Toy)",
+   "uses": [
+    ".dot font-size (swatch numbers, radio glyph): below the 18 px floor of lens 6"
+   ]
+  },
+  {
+   "kind": "font-size",
+   "px": 22,
+   "source": "wireframe (kept by Toy)",
+   "uses": [
+    ".mic font-size (the emoji glyph)"
+   ]
+  },
+  {
+   "kind": "font-weight",
+   "px": null,
+   "source": "wireframe (kept by Toy)",
+   "uses": [
+    ".key, .dot, .val font-weight 700"
+   ],
+   "value": 700
+  },
+  {
+   "kind": "border",
+   "px": 4,
+   "source": "wireframe (kept by Toy)",
+   "uses": [
+    ".mic.off::after slash height 4, radius 2, rotated -45deg (pseudo-element)"
+   ]
+  },
+  {
+   "kind": "padding",
+   "px": 36,
+   "source": "wireframe inline style (kept by Toy)",
+   "uses": [
+    "s1 invite panel"
+   ]
+  },
+  {
+   "kind": "padding",
+   "px": 28,
+   "source": "wireframe inline style (kept by Toy)",
+   "uses": [
+    "s2 join panel"
+   ]
+  },
+  {
+   "kind": "padding",
+   "px": 24,
+   "source": "wireframe inline style (kept by Toy)",
+   "uses": [
+    "s5 Esc panel (and gap 24)"
+   ]
+  },
+  {
+   "kind": "padding",
+   "px": 26,
+   "source": "wireframe inline style (kept by Toy)",
+   "uses": [
+    "s8 task panel"
+   ]
+  },
+  {
+   "kind": "padding",
+   "px": 22,
+   "source": "wireframe inline style (kept by Toy)",
+   "uses": [
+    "how-to card panel (s3, s5, s8)"
+   ]
+  },
+  {
+   "kind": "padding",
+   "px": 10,
+   "source": "wireframe inline style (kept by Toy)",
+   "uses": [
+    "how-to frame cell"
+   ]
+  },
+  {
+   "kind": "gap",
+   "px": 6,
+   "source": "wireframe inline style (kept by Toy)",
+   "uses": [
+    "how-to frame cell gap"
+   ]
+  },
+  {
+   "kind": "gap",
+   "px": 12,
+   "source": "wireframe inline style (kept by Toy)",
+   "uses": [
+    "how-to card panel and frame row gap",
+    "s3 loadcard column gap"
+   ]
+  },
+  {
+   "kind": "gap",
+   "px": 32,
+   "source": "wireframe inline style (kept by Toy)",
+   "uses": [
+    "s5 lobby and character two-column gap"
+   ]
+  },
+  {
+   "kind": "gap",
+   "px": 36,
+   "source": "wireframe inline style (kept by Toy)",
+   "uses": [
+    "s5 role two-column gap"
+   ]
+  },
+  {
+   "kind": "gap",
+   "px": 20,
+   "source": "wireframe inline style (kept by Toy)",
+   "uses": [
+    "s5 guide two-column gap",
+    "s5 teammate grid column gap"
+   ]
+  },
+  {
+   "kind": "gap",
+   "px": 8,
+   "source": "wireframe inline style (kept by Toy)",
+   "uses": [
+    "s5 settings sub-tab row",
+    "s5 teammate grid row gap"
+   ]
+  },
+  {
+   "kind": "gap",
+   "px": 4,
+   "source": "wireframe inline style (kept by Toy)",
+   "uses": [
+    "s7 HUD bar label to bar"
+   ]
+  },
+  {
+   "kind": "gap",
+   "px": 10,
+   "source": "wireframe inline style (kept by Toy)",
+   "uses": [
+    "s5 swatch row"
+   ]
+  },
+  {
+   "kind": "margin",
+   "px": 10,
+   "source": "wireframe inline style (kept by Toy)",
+   "uses": [
+    "s1 invite button row margin-top",
+    "s5 guide 'Tasks' heading margin-top"
+   ]
+  },
+  {
+   "kind": "margin",
+   "px": 12,
+   "source": "wireframe inline style (kept by Toy)",
+   "uses": [
+    "s5 ready button margin-top"
+   ]
+  },
+  {
+   "kind": "margin",
+   "px": 14,
+   "source": "wireframe inline style (kept by Toy)",
+   "uses": [
+    "s8 second task row margin-top"
+   ]
+  },
+  {
+   "kind": "margin",
+   "px": 18,
+   "source": "wireframe inline style (kept by Toy)",
+   "uses": [
+    "s2 name row margin block"
+   ]
+  },
+  {
+   "kind": "margin",
+   "px": 40,
+   "source": "wireframe inline style (kept by Toy)",
+   "uses": [
+    "s10 'Back to the lobby' margin-top"
+   ]
+  },
+  {
+   "kind": "margin",
+   "px": 8,
+   "source": "wireframe inline style (kept by Toy)",
+   "uses": [
+    "s9 downed and raising bar margin-top"
+   ]
+  },
+  {
+   "kind": "margin",
+   "px": 6,
+   "source": "wireframe inline style (kept by Toy)",
+   "uses": [
+    "s5/s7 silhouette margin-top",
+    "s8 room pictogram margin-right"
+   ]
+  },
+  {
+   "kind": "radius",
+   "px": null,
+   "source": "wireframe inline style (kept by Toy)",
+   "uses": [
+    "s8 '?' keys border-radius 50% (wins over the Toy key radius 8)"
+   ],
+   "value": "50%"
+  },
+  {
+   "kind": "radius",
+   "px": 10,
+   "source": "wireframe inline style (kept by Toy)",
+   "uses": [
+    "how-to frame cell (overridden to 16 by Toy with !important)"
+   ]
+  },
+  {
+   "kind": "size",
+   "px": 250,
+   "source": "wireframe inline style (kept by Toy)",
+   "uses": [
+    "s5 teammate grid max-height (scrolls)"
+   ]
+  },
+  {
+   "kind": "size",
+   "px": 26,
+   "source": "wireframe inline style (kept by Toy)",
+   "uses": [
+    "s8 room pictogram width"
+   ]
+  },
+  {
+   "kind": "size",
+   "px": 64,
+   "source": "wireframe inline style (kept by Toy)",
+   "uses": [
+    "s7 package sign width (world mock)"
+   ]
+  }
+ ],
+ "motion": [
+  {
+   "name": "hover lift",
+   "applies_to": ".btn:not(.ghost) (secondary and primary)",
+   "file": "motion-preview.css",
+   "lines": [
+    9,
+    13
+   ],
+   "css": "transform: translateY(-1px); base 5 -> 6 px (secondary), 6 -> 7 px (primary)",
+   "px_offset": -1,
+   "base_rest": {
+    "secondary": 5,
+    "primary": 6
+   },
+   "base_hover": {
+    "secondary": 6,
+    "primary": 7
+   },
+   "effect": "The face rises 1 px and the base grows 1 px, so the base's bottom edge stays put.",
+   "godot_plan": "Button 'hover' StyleBox with the base 1 px taller and the face 1 px higher (comment in motion-preview.css)"
+  },
+  {
+   "name": "press sink",
+   "applies_to": ".btn:not(.ghost)",
+   "file": "motion-preview.css",
+   "lines": [
+    16,
+    20
+   ],
+   "css": "secondary: translateY(5px), base 1 px; primary: translateY(6px), base 1 px",
+   "px_offset": {
+    "secondary": 5,
+    "primary": 6
+   },
+   "base_pressed": 1,
+   "effect": "The face travels its full rest base (5 or 6 px) and keeps a 1 px base, so the base's bottom edge ends 1 px lower than at rest. Travel = rest base - 1 (4 or 5 px) would keep that edge fixed; which one is intended is open.",
+   "godot_plan": "Button 'pressed' StyleBox: shadow offset 1 px, content moved down by the same amount (comment in motion-preview.css)"
+  },
+  {
+   "name": "card press",
+   "applies_to": ".card (all variants, including the quiet .card.dimtext with no base)",
+   "file": "motion-preview.css",
+   "lines": [
+    23
+   ],
+   "css": "translateY(3px); the 5 px base is not changed",
+   "px_offset": 3,
+   "base_pressed": 5,
+   "effect": "The whole card and its base move down 3 px; it shifts rather than sinks onto its base, unlike the buttons. No hover state for cards."
+  },
+  {
+   "name": "timing",
+   "applies_to": ".btn:not(.ghost), .card",
+   "file": "motion-preview.css",
+   "lines": [
+    4,
+    7
+   ],
+   "css": "transition: transform 70ms ease-out, box-shadow 70ms ease-out",
+   "duration_ms": 70,
+   "easing": "ease-out = cubic-bezier(0, 0, 0.58, 1) (CSS Easing 1)",
+   "godot_plan": "a short Tween, about 70 ms (comment); Tween has TRANS_*/EASE_* pairs only, no cubic-bezier (lens 3), so the token needs a Godot pair in $extensions"
+  },
+  {
+   "name": "reduced motion",
+   "applies_to": ".btn:not(.ghost), .card",
+   "file": "motion-preview.css",
+   "lines": [
+    26,
+    28
+   ],
+   "css": "@media (prefers-reduced-motion: reduce) { transition: none }",
+   "effect": "The hover and press offsets still apply, instantly. No other Toy rule animates.",
+   "godot_plan": "DisplayServer.accessibility_should_reduce_animation() exists in the 4.7.2 API dump; lens 6 proposes zero-duration tokens or Tween.set_speed_scale"
+  },
+  {
+   "name": "not covered",
+   "applies_to": ".btn.ghost, .tabs > div, .val .ar, .chip (interactive uses), .key '?', .field, .dot radios and swatches",
+   "effect": "No hover or press feedback anywhere else; cursor: pointer only on .btn:not(.ghost) and .card."
+  },
+  {
+   "name": "static rotation",
+   "applies_to": ".map .you",
+   "file": "toy.css",
+   "lines": [
+    330
+   ],
+   "css": "transform: rotate(80deg)",
+   "effect": "A facing angle in the frame, a runtime value in the game (Control.rotation), not a token. No tilted plates remain (the engineer rejected tilts on 2026-10-03), though the toy.css header still lists 'rotation of whole elements' and meta.json pitch_en still mentions tilted title plates."
+  },
+  {
+   "name": "missing motion",
+   "applies_to": "screens",
+   "effect": "Not specified anywhere yet: spinner rotation (.ring), the ~3 s intro/outro fades (pre game, post game), panel open and close (Esc, map on M), tab switch, bar fill and health colour changes, hold-to-give-up progress (F), countdowns, the 3 s protection chip."
+  }
+ ],
+ "components": [
+  {
+   "name": "Button",
+   "classes": [
+    ".btn",
+    ".btn.fill",
+    ".btn.ghost",
+    "+ .t20/.t22/.t24, .b"
+   ],
+   "variants": [
+    "primary .btn.fill: yellow face, 3 px ink outline, 6 px base",
+    "secondary .btn: white face, 3 px ink outline, 5 px base",
+    "ghost .btn.ghost: no fill, 3 px context-line outline, no base, weight 600",
+    "base colour by context: honey on dark, ink on light",
+    "text 20, 22 or 24 px"
+   ],
+   "states_shown": [
+    "normal: s1 invite (primary, ghost), s2 join (primary, ghost), s3 conn (ghost on night), s3 fail (primary and ghost on night), s5 host (primary), s5 game (primary, secondary, ghost), s8 guide (ghost)",
+    "hover and pressed: live only, through motion-preview.css (no static frame)"
+   ],
+   "states_missing": [
+    "disabled",
+    "focus (lens 6: ring of at least 2 px with a 3:1 change; 3 px proposed)",
+    "hover_pressed for toggles such as Ready",
+    "hover and pressed for ghost",
+    "secondary on dark (honey base) is in no frame",
+    "danger variant for Leave the session and Quit (lens 3); today Leave is a plain .btn and Quit a ghost",
+    "icon button",
+    "static hover and pressed frames for the showcase"
+   ],
+   "showcase": true,
+   "frames": [
+    "s1",
+    "s2",
+    "s3",
+    "s5",
+    "s8"
+   ]
+  },
+  {
+   "name": "Main-menu item",
+   "classes": [
+    ".t28",
+    ".t28.b with a '▸' glyph in the text"
+   ],
+   "variants": [
+    "idle (cream)",
+    "selected (yellow, bold, ▸)"
+   ],
+   "states_shown": [
+    "s2 main and join"
+   ],
+   "states_missing": [
+    "hover vs keyboard focus",
+    "pressed",
+    "disabled"
+   ],
+   "frames": [
+    "s2"
+   ]
+  },
+  {
+   "name": "Chip",
+   "classes": [
+    ".chip",
+    ".chip.light",
+    ".chip.line",
+    ".panel .chip.light.t16 (NEW)"
+   ],
+   "variants": [
+    "plate: HUD plate fill, cream text, transparent 3 px border",
+    "light: yellow, ink text, 3 px ink outline",
+    "line: transparent, context text and outline",
+    "NEW sticker: coral fill, ink text and outline (only inside panels, keyed on .t16)"
+   ],
+   "states_shown": [
+    "role chip Engineer/Dissident (s6 after, s7)",
+    "ready no (plate) / yes (light) (s4)",
+    "language choice selected (light) / idle (line) (s1)",
+    "settings sub-tabs selected / idle (s5 set, lang)",
+    "guide list selection (s5 manual)",
+    "lock note, line (s5 charr)",
+    "map zone label, light (s8 zone)",
+    "'you are here' label, plate on the light map (s8)",
+    "'Protected 3 s', light (s9 back)",
+    "NEW (s8)",
+    "name plate (s7 mate, see Name plate)"
+   ],
+   "states_missing": [
+    "hover, focus and pressed for the interactive uses (language, sub-tabs, guide list)",
+    "disabled",
+    "NEW on dark",
+    "line chip on dark beyond s1",
+    "icon chip (the lock and mark are emoji or glyphs today)"
+   ],
+   "showcase": true,
+   "frames": [
+    "s1",
+    "s4",
+    "s5",
+    "s6",
+    "s7",
+    "s8",
+    "s9"
+   ]
+  },
+  {
+   "name": "Keycap",
+   "classes": [
+    ".key",
+    ".panel .key",
+    ".panel .key.dimtext",
+    "inline style border-radius:50% on the '?' keys"
+   ],
+   "variants": [
+    "on dark: cream face, key-shade edge 2/2/5 px, radius 8",
+    "on light: white face, ink edge",
+    "quiet on light: #F3EDF6 face, muted edge and text",
+    "round '?' (inline 50% radius)"
+   ],
+   "states_shown": [
+    "E in the tutorial step plate (s1 step)",
+    "F in the give-up plate (s9 down)",
+    "'?' normal for the new task and '?' quiet for the known one (s8)"
+   ],
+   "states_missing": [
+    "wide keys (Space, Shift, Tab, Esc): only min-width 1.6em today",
+    "mouse glyphs LMB/RMB (lens 3)",
+    "quiet on dark",
+    "held, with a progress ring for 'Hold F' (lens 6)",
+    "the '?' as a pressable control: hover, focus, pressed",
+    "unbound or disabled key"
+   ],
+   "showcase": true,
+   "frames": [
+    "s1",
+    "s8",
+    "s9"
+   ]
+  },
+  {
+   "name": "Slot (hand and belt)",
+   "classes": [
+    ".slot",
+    ".slot.on",
+    ".slot.wide",
+    ".slot.dimtext",
+    "+ .t16, .b"
+   ],
+   "variants": [
+    "square 84 px",
+    "wide 180 px (carrying with both hands)",
+    "idle: 3 px slot-line outline",
+    "active (.on): 5 px yellow outline"
+   ],
+   "states_shown": [
+    "hand active and empty ('hand', s7 empty/tired/hurt/mate)",
+    "hand active, two-handed, filled ('Package', wide, bold, s7 pack)",
+    "belt idle and empty ('belt', lilac label, every s7 state)"
+   ],
+   "states_missing": [
+    "filled one-handed with an item icon (tier B art)",
+    "belt filled",
+    "belt active / hand idle, if the active slot can switch",
+    "an empty-vs-filled cue that does not rely on the placeholder words"
+   ],
+   "showcase": true,
+   "frames": [
+    "s7"
+   ]
+  },
+  {
+   "name": "Bar",
+   "classes": [
+    ".bar2 > i",
+    ".panel .bar2 > i",
+    "[data-bar=\"health\"] > i with inline --hp",
+    "[data-bar=\"stamina\"] > i",
+    "HUD bar labels .abs.col > .col > span.t16"
+   ],
+   "variants": [
+    "HUD health: 16 px, dark track, 3 px ink outline, radius 10, fill radius 6, green to red by fraction",
+    "HUD stamina: same frame, yellow fill",
+    "progress on dark: 10 px pill, mint on dark track (loading, downed bleed-out, raising)",
+    "slider in panels: 10 px pill, ink on light track (voice volume, game volume, mic test)"
+   ],
+   "states_shown": [
+    "health 80% and 22% (s7 hurt)",
+    "stamina 90% and 18% (s7 tired)",
+    "loading 62% (s3)",
+    "downed 70% (s9)",
+    "raising 60% (s9)",
+    "sliders 70%, 55%, 40% (s5 set)"
+   ],
+   "states_missing": [
+    "0% and 100%",
+    "health at 0 (pure empty colour) and the colour in between",
+    "fills narrower than twice their radius",
+    "low-stamina emphasis (none in Toy)",
+    "slider grabber (tier B icon) with hover, focus and drag",
+    "disabled slider",
+    "mic test as a live level meter rather than a slider"
+   ],
+   "showcase": true,
+   "frames": [
+    "s3",
+    "s5",
+    "s7",
+    "s9"
+   ]
+  },
+  {
+   "name": "Panel",
+   "classes": [
+    ".panel",
+    ".panel .panel (nested, s5 manual)",
+    "inline padding 22 to 36 px"
+   ],
+   "variants": [
+    "dialog (s1 invite, s2 join)",
+    "menu (Esc, s5)",
+    "task list (s8)",
+    "how-to card (s3, s5, s8)"
+   ],
+   "states_shown": [
+    "normal: cream face, 4 px ink outline, radius 24, 10 px base rgba(15,10,20,.6)"
+   ],
+   "states_missing": [
+    "confirm dialog for Leave and Quit with a danger button (lens 3)",
+    "scroll container and scrollbar (the teammate list 'scrolls', s5 roled)",
+    "focus handling",
+    "open and close motion"
+   ],
+   "showcase": true,
+   "frames": [
+    "s1",
+    "s2",
+    "s3",
+    "s5",
+    "s8"
+   ]
+  },
+  {
+   "name": "HUD plate",
+   "classes": [
+    ".plate",
+    ".frame.dark .plate",
+    ".plate.col[data-in=\"down\"]",
+    ".abs.col > .col > span.t16 (mini label plate)"
+   ],
+   "variants": [
+    "over the world: plum ink at 86%, cream text, radius 16",
+    "on night: solid #352A41",
+    "alert: 4 px coral edge (downed)",
+    "mini label plate: radius 8, padding 0 8"
+   ],
+   "states_shown": [
+    "timer (s6 after, s7, s9 back)",
+    "object name under the crosshair (s7 empty)",
+    "tutorial step and checklist (s1 step)",
+    "player list (s4)",
+    "lobby status and countdown (s4)",
+    "loading tip on night (s3 load)",
+    "downed with coral edge, raising, give-up hint (s9)",
+    "spectating (s9 dead)",
+    "HUD bar labels (s7)"
+   ],
+   "states_missing": [
+    "backplate opacity setting 70% to 100% (lens 6)",
+    "high-contrast mode",
+    "toast (lens 3)",
+    "caption plate (lens 6)"
+   ],
+   "frames": [
+    "s1",
+    "s3",
+    "s4",
+    "s6",
+    "s7",
+    "s9"
+   ]
+  },
+  {
+   "name": "Backdrop",
+   "classes": [
+    ".dim",
+    ".dim.more",
+    ".frame.dark",
+    "inline background:#0E0E0E overlay (s6)"
+   ],
+   "variants": [
+    "menu backdrop 70% (#261C30)",
+    "deep backdrop 80%",
+    "night #1F1727"
+   ],
+   "states_shown": [
+    ".dim: s1 invite, s2",
+    ".dim.more: s5, s8",
+    ".dim stacked over .dim.more: s8 guide",
+    "night: s3, s10, s6 eng/dis"
+   ],
+   "states_missing": [
+    "fade in and out of the ~3 s intro and outro",
+    "a defined value for the stacked double dim",
+    "lilac text on .dim over a white wall fails (3.93:1); 74% alpha is the minimum for 4.5:1"
+   ],
+   "frames": [
+    "s1",
+    "s2",
+    "s3",
+    "s5",
+    "s6",
+    "s8",
+    "s10"
+   ]
+  },
+  {
+   "name": "Title plate (big moment)",
+   "classes": [
+    ".t96"
+   ],
+   "variants": [
+    "role reveal (s6 eng, dis)",
+    "round end (s10 win, lose)"
+   ],
+   "states_shown": [
+    "yellow face, ink text, 4 px ink outline, radius 26, 10 px coral base, negative margins keep the layout box"
+   ],
+   "states_missing": [
+    "two-line wrap for long Ukrainian titles",
+    "appear motion",
+    "any team or result variant (none decided)"
+   ],
+   "frames": [
+    "s6",
+    "s10"
+   ]
+  },
+  {
+   "name": "Logo",
+   "classes": [
+    ".abs.col:not(.panel) > .t64:first-child"
+   ],
+   "variants": [
+    "yellow 64 px with a 6 px coral text extrusion"
+   ],
+   "states_shown": [
+    "s2"
+   ],
+   "states_missing": [
+    "a real logotype (art)"
+   ],
+   "frames": [
+    "s2"
+   ]
+  },
+  {
+   "name": "Text roles",
+   "classes": [
+    ".t16 .t18 .t20 .t22 .t24 .t28 .t36 .t48 .t64 .t96",
+    ".b",
+    ".dimtext",
+    ".t28.b .t36.b .t48.b .t64.b (titles)"
+   ],
+   "variants": [
+    "caption 18 (t16)",
+    "small 20 (t18, t20)",
+    "body 22",
+    "body large 24",
+    "heading 28",
+    "title 36",
+    "display 48",
+    "display large 64",
+    "hero 96",
+    "dim (lilac on dark, muted plum on light)",
+    "title colour by context (yellow on dark, ink on light)"
+   ],
+   "states_shown": [
+    "every frame"
+   ],
+   "states_missing": [
+    "tabular figures for timers (lens 3)",
+    "outlined HUD text without a plate (lens 3)",
+    "large-text mode up to 200% (lens 6)",
+    "line-height token (1.25 from the wireframe)"
+   ]
+  },
+  {
+   "name": "Field",
+   "classes": [
+    ".field",
+    "+ .t20/.t24"
+   ],
+   "variants": [
+    "text input (player name, host address, lobby name)",
+    "dropdown (microphone, 'Default ▾')"
+   ],
+   "states_shown": [
+    "normal with a value: s2 main (on the dim backdrop), s2 join, s5 host (lobby name), s5 char (name), s5 set (mic dropdown)"
+   ],
+   "states_missing": [
+    "focus (caret and ring)",
+    "empty with placeholder",
+    "read_only (the guest gets plain text instead)",
+    "disabled",
+    "error (bad address)",
+    "selection colour",
+    "open dropdown list (PopupMenu)"
+   ],
+   "frames": [
+    "s2",
+    "s5"
+   ]
+  },
+  {
+   "name": "Esc tabs",
+   "classes": [
+    ".tabs > div",
+    ".tabs > div.on (data-on)",
+    "footer .t16.dimtext inside .tabs"
+   ],
+   "variants": [
+    "idle: ink text, transparent 3 px border, radius 14",
+    "selected: yellow, ink outline, 4 px ink base, bold"
+   ],
+   "states_shown": [
+    "selected and idle in every s5 state"
+   ],
+   "states_missing": [
+    "hover",
+    "focus",
+    "pressed",
+    "disabled"
+   ],
+   "frames": [
+    "s5"
+   ]
+  },
+  {
+   "name": "Setting row",
+   "classes": [
+    ".setrow",
+    ".val",
+    "with .field / .val .ar / .bar2 / .dimtext inside"
+   ],
+   "variants": [
+    "with text field (host)",
+    "with stepper (host)",
+    "read-only value (guest)",
+    "with dropdown",
+    "with slider",
+    "value with a dim alternative"
+   ],
+   "states_shown": [
+    "s5 host, guest, set"
+   ],
+   "states_missing": [
+    "hover and focus highlight for keyboard or gamepad",
+    "toggle or checkbox row",
+    "locked row for the guest (only the header says so)"
+   ],
+   "frames": [
+    "s5"
+   ]
+  },
+  {
+   "name": "Stepper",
+   "classes": [
+    ".val .ar"
+   ],
+   "variants": [
+    "yellow pill, 2 px ink outline, ‹ and ›"
+   ],
+   "states_shown": [
+    "normal (s5 host)"
+   ],
+   "states_missing": [
+    "hover",
+    "pressed",
+    "disabled at min or max",
+    "focus"
+   ],
+   "frames": [
+    "s5"
+   ]
+  },
+  {
+   "name": "Preset card",
+   "classes": [
+    ".card",
+    ".card.on",
+    ".card.dimtext"
+   ],
+   "variants": [
+    "idle: white, 3 px ink outline, 5 px ink base, radius 16",
+    "selected: yellow, 4 px outline, secondary text #4A3B55",
+    "quiet 'Save your own': lavender, muted text and outline, no base"
+   ],
+   "states_shown": [
+    "idle, selected, quiet (s5 host)",
+    "pressed: live only (motion-preview.css)"
+   ],
+   "states_missing": [
+    "hover",
+    "focus",
+    "disabled (the guest sees a text line instead)",
+    "equal outer size: selected is 2 px larger per side (border 4 + padding 12 vs 3 + 11)"
+   ],
+   "frames": [
+    "s5"
+   ]
+  },
+  {
+   "name": "Swatch",
+   "classes": [
+    ".dot with inline background greys",
+    ".dot[style*=\"outline\"] (selected ring)"
+   ],
+   "variants": [
+    "10 placeholder greys with numbers",
+    "selected: 4 px outline at 3 px offset"
+   ],
+   "states_shown": [
+    "s5 char, charr"
+   ],
+   "states_missing": [
+    "the real colours (not decided)",
+    "symbols per colour (lens 6)",
+    "taken by another player",
+    "hover and focus",
+    "numbers at 14 px are under the 18 px floor"
+   ],
+   "frames": [
+    "s5"
+   ]
+  },
+  {
+   "name": "Radio",
+   "classes": [
+    ".dot[style*=\"background:#EDEDED\"] (checked)",
+    ".dot[style*=\"background:#555\"] (unchecked)"
+   ],
+   "variants": [
+    "checked: yellow with a '●' glyph",
+    "unchecked: white"
+   ],
+   "states_shown": [
+    "s5 lang"
+   ],
+   "states_missing": [
+    "hover",
+    "focus",
+    "disabled",
+    "a proper radio icon (tier B, lens 3)"
+   ],
+   "frames": [
+    "s5"
+   ]
+  },
+  {
+   "name": "How-to card",
+   "classes": [
+    ".panel.col (padding 22)",
+    ".row.between with .t36.b title and .t18.dimtext 'how to'",
+    ".panel .row > .col.c[style*=\"#1C1C1C\"] x4 with svg and .t20.b caption"
+   ],
+   "variants": [
+    "frame normal: white, 3 px ink outline, radius 16",
+    "frame done: mint tint (the 4th frame)"
+   ],
+   "states_shown": [
+    "on night (s3 loadcard)",
+    "nested in the Esc panel (s5 manual)",
+    "over the dim with a ghost Close (s8 guide)"
+   ],
+   "states_missing": [
+    "a 3-frame card",
+    "a done frame that is not the 4th",
+    "the card list in the Guide tab as its own component",
+    "frame art (tier B)"
+   ],
+   "showcase": true,
+   "frames": [
+    "s3",
+    "s5",
+    "s8"
+   ]
+  },
+  {
+   "name": "Map board",
+   "classes": [
+    ".map",
+    ".room",
+    ".room svg",
+    ".map [style*=\"z-index:2\"] (zone)",
+    ".abs.chip.t16 ('you are here')",
+    ".abs.t16.dimtext (note)"
+   ],
+   "variants": [
+    "board: lavender, 4 px ink outline, radius 24, 10 px base",
+    "room tile: cream, 3 px ink outline, radius 12, 18 px bold label",
+    "zone: yellow 55% with 4 px ink outline, radius 12"
+   ],
+   "states_shown": [
+    "six rooms, one with a pictogram (s8 list)",
+    "one zone lit (s8 zone)"
+   ],
+   "states_missing": [
+    "a zone over several rooms",
+    "the room pictogram set (shared with packages and doors)",
+    "the map under the guide dim"
+   ],
+   "frames": [
+    "s8"
+   ]
+  },
+  {
+   "name": "You-are-here pin",
+   "classes": [
+    ".map .you"
+   ],
+   "variants": [
+    "28 px coral-deep square, 3 px ink outline, radii 0/14/14/14, rotated"
+   ],
+   "states_shown": [
+    "rotated 80° (s8)"
+   ],
+   "states_missing": [
+    "other angles are runtime (Control.rotation)"
+   ],
+   "frames": [
+    "s8"
+   ]
+  },
+  {
+   "name": "Mic",
+   "classes": [
+    ".mic",
+    ".mic.off (wireframe ::after slash)"
+   ],
+   "variants": [
+    "on: plate circle 46 px with the emoji",
+    "off: a light grey slash from the wireframe"
+   ],
+   "states_shown": [
+    "on (s4, s7)",
+    "off (s9 down, raise)"
+   ],
+   "states_missing": [
+    "talking / voice activity",
+    "push-to-talk held",
+    "the crossed-mic icon tinted coral (the toy.css comment's plan; not drawn)",
+    "who-is-talking indicator (lens 6)"
+   ],
+   "frames": [
+    "s4",
+    "s7",
+    "s9"
+   ]
+  },
+  {
+   "name": "Crosshair",
+   "classes": [
+    ".cross"
+   ],
+   "variants": [
+    "8 px cream dot with a 2 px ink outline"
+   ],
+   "states_shown": [
+    "s1 step, s4, s6 after, s7, s9 back"
+   ],
+   "states_missing": [
+    "state over an interactable (if any)",
+    "style and colour options (lens 6)"
+   ]
+  },
+  {
+   "name": "Spinner",
+   "classes": [
+    ".ring"
+   ],
+   "variants": [
+    "90 px night-plate disc with a 10 px yellow arc on the top and right sides"
+   ],
+   "states_shown": [
+    "static (s3 conn)"
+   ],
+   "states_missing": [
+    "rotation motion",
+    "a reduced-motion alternative"
+   ],
+   "frames": [
+    "s3"
+   ]
+  },
+  {
+   "name": "Name plate",
+   "classes": [
+    ".chip.t20.b with '◈'"
+   ],
+   "variants": [
+    "plate chip with the teammate mark"
+   ],
+   "states_shown": [
+    "dissident sees a teammate (s7 mate)"
+   ],
+   "states_missing": [
+    "plain name plate (no mark)",
+    "talking",
+    "distance fade",
+    "the mark as an icon instead of a glyph"
+   ],
+   "frames": [
+    "s7"
+   ]
+  },
+  {
+   "name": "Tutorial checklist",
+   "classes": [
+    ".plate.col.t18 > div",
+    ".b.t20 header",
+    ".b current step",
+    ".dimtext upcoming"
+   ],
+   "variants": [
+    "done ✓ (cream)",
+    "current • (bold yellow)",
+    "upcoming (lilac)"
+   ],
+   "states_shown": [
+    "all three (s1 step)"
+   ],
+   "states_missing": [
+    "all done",
+    "scroll for long lists"
+   ],
+   "frames": [
+    "s1"
+   ]
+  },
+  {
+   "name": "Player row",
+   "classes": [
+    ".row.between in .plate (s4) and in the Esc lobby column (s5)"
+   ],
+   "variants": [
+    "ready ✓",
+    "not ready '—' (dim)",
+    "host label"
+   ],
+   "states_shown": [
+    "s4 wait, count; s5 host, guest"
+   ],
+   "states_missing": [
+    "talking",
+    "muted",
+    "disconnected"
+   ],
+   "frames": [
+    "s4",
+    "s5"
+   ]
+  },
+  {
+   "name": "Timer and countdown",
+   "classes": [
+    ".plate.c > .t48.b",
+    ".t36.b 'Starting in 5'",
+    ".t24.b 'Waiting'"
+   ],
+   "variants": [
+    "round timer 48 px yellow on plate",
+    "lobby countdown 36 px"
+   ],
+   "states_shown": [
+    "s4, s6 after, s7, s9 back"
+   ],
+   "states_missing": [
+    "low-time warning",
+    "tabular figures"
+   ]
+  },
+  {
+   "name": "Destination marker (.marker)",
+   "classes": [
+    ".marker"
+   ],
+   "variants": [
+    "styled by Toy but used in no frame"
+   ],
+   "states_shown": [],
+   "states_missing": [
+    "drop: destination markers were removed by decision"
+   ],
+   "dead": true
+  },
+  {
+   "name": "Map circle (.circ)",
+   "classes": [
+    ".circ"
+   ],
+   "variants": [
+    "styled by Toy but used in no frame"
+   ],
+   "states_shown": [],
+   "states_missing": [
+    "drop: the map shows no circles by decision"
+   ],
+   "dead": true
+  }
+ ],
+ "contexts": {
+  "switching_variables": {
+   "--toy-tx": {
+    "dark": "--toy-cream #FFF4E2",
+    "light": "--toy-ink #2A1F33",
+    "read_by": [
+     ".frame color",
+     ".panel/.map color",
+     ".btn.ghost color",
+     ".chip.line color"
+    ]
+   },
+   "--toy-tx-muted": {
+    "dark": "--toy-lilac #D8CCE3",
+    "light": "--toy-muted #64566F",
+    "read_by": [
+     ".dimtext color"
+    ]
+   },
+   "--toy-tx-title": {
+    "dark": "--toy-yellow #FFC23A",
+    "light": "--toy-ink #2A1F33",
+    "read_by": [
+     ".t28.b, .t36.b, .t48.b, .t64.b color"
+    ]
+   },
+   "--toy-line": {
+    "dark": "--toy-cream #FFF4E2",
+    "light": "--toy-ink #2A1F33",
+    "read_by": [
+     ".btn.ghost border-color",
+     ".chip.line border-color"
+    ]
+   },
+   "--toy-base": {
+    "dark": "--toy-honey #C98A10",
+    "light": "--toy-ink #2A1F33",
+    "read_by": [
+     ".btn and .btn.fill box-shadow (5 and 6 px)",
+     "motion-preview hover and pressed shadows"
+    ]
+   }
+  },
+  "dark": {
+   "scope": ".frame (default for everything outside .panel and .map)",
+   "surfaces": [
+    "world plates: .plate, .chip, .slot, .mic, .marker, HUD bar labels at --toy-plate (ink 86%)",
+    "menu backdrops: .dim 70% and .dim.more 80% of #261C30",
+    "night frames: .frame.dark and the s6 inline overlay at --toy-night #1F1727"
+   ],
+   "frames": [
+    "s1 invite language chips over .dim",
+    "s1 step, s4, s6 after, s7, s9 HUD over the world",
+    "s2 main menu over .dim",
+    "s3 and s10 night frames",
+    "s6 eng/dis on the inline overlay"
+   ]
+  },
+  "night": {
+   "scope": ".frame.dark (s3, s10) and [style*=\"background:#0E0E0E\"] (s6)",
+   "overrides": [
+    ".frame.dark .plate -> --toy-plate-solid #352A41 (the loading tip)",
+    "the s6 overlay is not .frame.dark, so plates there would stay translucent (none are drawn)"
+   ],
+   "note": "A sub-context of dark: same text variables, an opaque background, solid plates."
+  },
+  "light": {
+   "scope": ".panel and .map",
+   "surfaces": [
+    "cream panels (Esc, dialogs, task list, how-to cards)",
+    "the lavender map board",
+    "white tiles inside them: .btn, .field, .setrow, .card, .panel .key, how-to frames"
+   ],
+   "frames": [
+    "s1 invite and s2 join dialogs",
+    "s3 loadcard, s5 manual, s8 guide how-to cards",
+    "s5 Esc menu",
+    "s8 task list and map"
+   ]
+  },
+  "not_context_aware": [
+   "Fixed whatever the context: .plate, .chip (plate), .chip.light, .slot, .mic, .cross, .ring, .marker, .field, .card, .tabs, .setrow, .val, .room, .map .you, .t96: they set their own colours",
+   "Switched by an ancestor selector instead of a variable: .panel .chip.light.t16 (coral NEW), .panel .key and .panel .key.dimtext, .panel .bar2 (light track, ink fill), .frame.dark .plate, .panel svg / .room svg strokes",
+   "The 'you are here' chip on the light map keeps the dark plate with cream text (9.83:1 over lavender)",
+   "Cards and the selected tab use var(--toy-ink) for their base directly, not --toy-base, though they only appear in the light context where the two are equal"
+  ]
+ },
+ "hacks": [
+  {
+   "selector": ".frame [style*=\"background:#0E0E0E\"]",
+   "file": "toy.css",
+   "line": 89,
+   "kind": "[style*=] + !important",
+   "does": "Repaints the s6 pre-game black overlay night plum",
+   "replace_with": "a backdrop class (.backdrop.night) or .frame.dark"
+  },
+  {
+   "selector": ".frame .abs.col:not(.panel) > .t64:first-child",
+   "file": "toy.css",
+   "line": 69,
+   "kind": ":first-child, :not()",
+   "does": "Finds the game name in the main menu to make it the logo",
+   "replace_with": ".logo"
+  },
+  {
+   "selector": ".frame .t96",
+   "file": "toy.css",
+   "line": 76,
+   "kind": "type class as component",
+   "does": "A font-size class carries the whole title-plate surface (fill, outline, base, negative margins)",
+   "replace_with": ".title-plate (with text role hero)"
+  },
+  {
+   "selector": ".frame .t28.b, .t36.b, .t48.b, .t64.b",
+   "file": "toy.css",
+   "line": 63,
+   "kind": "type + weight as role",
+   "does": "Bold large text is treated as a title and recoloured by context",
+   "replace_with": ".title (a text role token)"
+  },
+  {
+   "selector": ".frame .plate.col.t18 > .b:not(.t20)",
+   "file": "toy.css",
+   "line": 103,
+   "kind": ":not(), size class",
+   "does": "The bold child of an 18 px plate is the current tutorial step",
+   "replace_with": ".checklist-item.current (and .done, .upcoming)"
+  },
+  {
+   "selector": ".frame .plate.col[data-in=\"down\"]",
+   "file": "toy.css",
+   "line": 105,
+   "kind": "[data-in] (wireframe state switch)",
+   "does": "The downed plate gets the coral edge by its state attribute",
+   "replace_with": ".plate.alert"
+  },
+  {
+   "selector": ".frame .abs.col > .col > span.t16",
+   "file": "toy.css",
+   "line": 109,
+   "kind": "structural selector",
+   "does": "Any 16 px span two columns deep becomes a HUD bar-label plate",
+   "replace_with": ".hud-label"
+  },
+  {
+   "selector": ".frame .panel .chip.light.t16",
+   "file": "toy.css",
+   "line": 177,
+   "kind": "size class as variant",
+   "does": "A small light chip inside a panel becomes the coral NEW sticker",
+   "replace_with": ".chip.new (sticker)"
+  },
+  {
+   "selector": ".frame .panel .key, .frame .panel .key.dimtext",
+   "file": "toy.css",
+   "line": 190,
+   "kind": "ancestor context + hard-coded colour",
+   "does": "Keycaps change face and edge inside panels; the quiet one uses #F3EDF6",
+   "replace_with": ".key.on-light and .key.quiet, or context variables"
+  },
+  {
+   "selector": "inline border-radius:50% on .key (s8)",
+   "file": "wireframes.html",
+   "line": 441,
+   "kind": "inline style not overridden",
+   "does": "The '?' keys are round because the inline radius beats the Toy radius 8",
+   "replace_with": ".key.round (or a help icon button)"
+  },
+  {
+   "selector": ".frame .slot.dimtext",
+   "file": "toy.css",
+   "line": 207,
+   "kind": "text class as state",
+   "does": "The idle belt slot is marked by its dim label",
+   "replace_with": ".slot.idle / .slot-label"
+  },
+  {
+   "selector": ".frame .tabs > div and .tabs > div:not(.dimtext)",
+   "file": "toy.css",
+   "line": 239,
+   "kind": "structural selector, :not()",
+   "does": "Every child of .tabs gets tab padding and border, including the 'game keeps running' footer note",
+   "replace_with": ".tab (and a separate footer element)"
+  },
+  {
+   "selector": ".frame .setrow border-bottom #E2D6EA",
+   "file": "toy.css",
+   "line": 254,
+   "kind": "hard-coded colour",
+   "does": "Row divider colour outside the palette",
+   "replace_with": "a token (merge with --toy-track-light or --toy-lavender)"
+  },
+  {
+   "selector": ".frame .val .ar",
+   "file": "toy.css",
+   "line": 260,
+   "kind": "text glyph spans as controls",
+   "does": "‹ and › text spans are styled as stepper buttons",
+   "replace_with": ".stepper with two icon buttons"
+  },
+  {
+   "selector": ".frame .card.on .dimtext",
+   "file": "toy.css",
+   "line": 281,
+   "kind": "hard-coded colour",
+   "does": "Secondary text on yellow is #4A3B55 because --toy-muted fails there (4.20:1)",
+   "replace_with": "a text.on-accent.muted token"
+  },
+  {
+   "selector": ".frame .card.dimtext",
+   "file": "toy.css",
+   "line": 282,
+   "kind": "text class as variant",
+   "does": "The dim card is the quiet 'Save your own' variant",
+   "replace_with": ".card.add (quiet)"
+  },
+  {
+   "selector": ".frame .dot[style*=\"outline\"]",
+   "file": "toy.css",
+   "line": 290,
+   "kind": "[style*=] + !important",
+   "does": "Recolours the inline outline ring of the selected swatch",
+   "replace_with": ".swatch.selected"
+  },
+  {
+   "selector": ".frame .dot[style*=\"background:#EDEDED\"]",
+   "file": "toy.css",
+   "line": 291,
+   "kind": "[style*=] + !important",
+   "does": "The checked language radio, found by its inline grey",
+   "replace_with": ".radio.checked"
+  },
+  {
+   "selector": ".frame .dot[style*=\"background:#555\"]",
+   "file": "toy.css",
+   "line": 292,
+   "kind": "[style*=] + !important",
+   "does": "The unchecked language radio, found by its inline grey",
+   "replace_with": ".radio"
+  },
+  {
+   "selector": ".frame .panel .row > .col.c[style*=\"#1C1C1C\"]",
+   "file": "toy.css",
+   "line": 295,
+   "kind": "[style*=] + !important (2)",
+   "does": "How-to frames found by their inline wireframe fill; radius forced over the inline 10",
+   "replace_with": ".howto-frame"
+  },
+  {
+   "selector": "... [style*=\"#1C1C1C\"]:nth-child(4)",
+   "file": "toy.css",
+   "line": 300,
+   "kind": ":nth-child + !important",
+   "does": "The 4th frame is assumed to be the done frame",
+   "replace_with": ".howto-frame.done"
+  },
+  {
+   "selector": ".frame .panel svg, .panel svg text, .room svg",
+   "file": "toy.css",
+   "line": 303,
+   "kind": "overrides SVG presentation attributes",
+   "does": "Pictogram strokes and fills follow the light context",
+   "replace_with": "an icon colour token (Godot: icon modulate or theme icon colour)"
+  },
+  {
+   "selector": ".frame .map [style*=\"z-index:2\"]",
+   "file": "toy.css",
+   "line": 323,
+   "kind": "[style*=] + !important (2)",
+   "does": "The lit zone found by its inline z-index; replaces stripes and a dashed border",
+   "replace_with": ".map-zone.lit"
+  },
+  {
+   "selector": ".frame .map .you",
+   "file": "toy.css",
+   "line": 330,
+   "kind": "restyle of a different shape",
+   "does": "The wireframe's border triangle (per-side colours) becomes a rotated square pin",
+   "replace_with": ".pin (shape token; rotation at runtime)"
+  },
+  {
+   "selector": ".frame.dark .plate",
+   "file": "toy.css",
+   "line": 101,
+   "kind": "ancestor context",
+   "does": "Plates turn solid on night frames",
+   "replace_with": "a plate variant or a night context"
+  },
+  {
+   "selector": ".frame .panel .bar2",
+   "file": "toy.css",
+   "line": 216,
+   "kind": "ancestor context",
+   "does": "Any bar inside a panel becomes a settings slider",
+   "replace_with": ".slider (with a grabber)"
+  },
+  {
+   "selector": ".frame [data-bar] and inline --hp",
+   "file": "toy.css",
+   "line": 348,
+   "kind": "data attribute + inline custom property + color-mix()",
+   "does": "HUD bars by attribute; health colour mixed in OKLab from an inline fraction",
+   "replace_with": ".bar.health / .bar.stamina; the fraction and colour are runtime (Color.lerp or Gradient.sample)"
+  },
+  {
+   "selector": ".mic.off::after (wireframe)",
+   "file": "wireframes.html",
+   "line": 114,
+   "kind": "pseudo-element decoration left in place",
+   "does": "The muted slash is a light grey pseudo-element the Toy skin does not touch; CLAUDE.md forbids pseudo-element decoration in UI",
+   "replace_with": ".mic.off with its own icon (crossed mic, coral per the toy.css comment)"
+  },
+  {
+   "selector": ".bar2 { overflow: hidden } (wireframe)",
+   "file": "wireframes.html",
+   "line": 85,
+   "kind": "clipping",
+   "does": "The fill is clipped by the track's rounded box in CSS; Godot's clip_contents is rectangular (lens 3), so the fill must carry its own radius",
+   "replace_with": "fill radius as a token (Toy does this only for [data-bar])"
+  },
+  {
+   "selector": ".key padding 0 .35em, min-width 1.6em (wireframe)",
+   "file": "wireframes.html",
+   "line": 94,
+   "kind": "em sizes",
+   "does": "Keycap size follows the text size; lens 3 lists em sizes inside components as not Godot-safe",
+   "replace_with": "px padding and min width per key size"
+  },
+  {
+   "selector": ".field as a dropdown; .chip as sub-tabs; '▸' text as selection; '‹ ›' text in the spectate plate; the microphone, eye and lock emoji and '◈' as icons",
+   "file": "wireframes.html",
+   "line": null,
+   "kind": "reused classes and glyphs",
+   "does": "Components borrowed for another job",
+   "replace_with": ".dropdown, .subtab, .menu-item.selected, icon tokens (tier B icons with licences)"
+  },
+  {
+   "selector": ".frame .marker, .frame .circ",
+   "file": "toy.css",
+   "line": 233,
+   "kind": "dead rules",
+   "does": "Styled, but no frame uses them (destination markers and map circles were dropped)",
+   "replace_with": "remove"
+  }
+ ]
+}

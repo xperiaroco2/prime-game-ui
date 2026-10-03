@@ -1,0 +1,444 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "preset-card": {
+    "idle": {
+      "$description": "A preset card.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": {
+            "variation": "ToyPresetCard",
+            "class": "Button",
+            "parent": "ToyButton",
+            "base": {
+              "any": "ToyBaseCard"
+            },
+            "toggle": {
+              "selected": "ToyPresetCardSelected"
+            }
+          },
+          "context": "light"
+        }
+      },
+      "label": {
+        "$type": "typography",
+        "$value": "{type.body-bold}"
+      },
+      "normal": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{color.surface.panel}"
+        },
+        "border-color": {
+          "$type": "color",
+          "$value": "{color.outline}"
+        },
+        "border-width": {
+          "$type": "dimension",
+          "$value": "{stroke.control}"
+        },
+        "corner-radius": {
+          "$type": "dimension",
+          "$value": "{radius.medium}"
+        },
+        "content-margin-block": {
+          "$type": "dimension",
+          "$value": {
+            "value": 14,
+            "unit": "px"
+          }
+        },
+        "content-margin-inline": {
+          "$type": "dimension",
+          "$value": {
+            "value": 16,
+            "unit": "px"
+          }
+        },
+        "font-color": {
+          "$type": "color",
+          "$value": "{color.on-light.text}"
+        }
+      },
+      "disabled": {
+        "$description": "Unplugged (proposal).",
+        "$extensions": {
+          "io.github.xperiaroco2.prime-game": {
+            "proposal": true
+          }
+        },
+        "bg-color": {
+          "$type": "color",
+          "$value": "{color.state.disabled-face}"
+        }
+      },
+      "focus": {
+        "$description": "Inner focus (proposal).",
+        "$extensions": {
+          "io.github.xperiaroco2.prime-game": {
+            "proposal": true
+          }
+        },
+        "bg-color": {
+          "$type": "color",
+          "$value": "{palette.clear}"
+        },
+        "border-color": {
+          "$type": "color",
+          "$value": "{color.outline}"
+        },
+        "border-width": {
+          "$type": "dimension",
+          "$value": "{focus.width}"
+        },
+        "corner-radius": {
+          "$type": "dimension",
+          "$value": {
+            "value": 9,
+            "unit": "px"
+          }
+        },
+        "expand-margin": {
+          "$type": "dimension",
+          "$value": {
+            "value": -3,
+            "unit": "px"
+          }
+        }
+      },
+      "press": {
+        "$type": "dimension",
+        "depth": {
+          "$value": {
+            "value": 4,
+            "unit": "px"
+          }
+        },
+        "hover": {
+          "$value": {
+            "value": -1,
+            "unit": "px"
+          }
+        },
+        "held": {
+          "$value": {
+            "value": 3,
+            "unit": "px"
+          }
+        },
+        "disabled": {
+          "$value": {
+            "value": 0,
+            "unit": "px"
+          }
+        }
+      }
+    },
+    "selected": {
+      "$description": "The selected preset card.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": {
+            "variation": "ToyPresetCardSelected",
+            "class": "Button",
+            "parent": "ToyButton",
+            "base": {
+              "any": "ToyBaseCard"
+            }
+          },
+          "context": "light"
+        }
+      },
+      "label": {
+        "$type": "typography",
+        "$value": "{type.body-bold}"
+      },
+      "normal": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{palette.yellow}"
+        },
+        "border-color": {
+          "$type": "color",
+          "$value": "{color.outline}"
+        },
+        "border-width": {
+          "$type": "dimension",
+          "$value": "{stroke.surface}"
+        },
+        "corner-radius": {
+          "$type": "dimension",
+          "$value": "{radius.medium}"
+        },
+        "content-margin-block": {
+          "$type": "dimension",
+          "$value": {
+            "value": 14,
+            "unit": "px"
+          }
+        },
+        "content-margin-inline": {
+          "$type": "dimension",
+          "$value": {
+            "value": 16,
+            "unit": "px"
+          }
+        },
+        "font-color": {
+          "$type": "color",
+          "$value": "{color.outline}"
+        }
+      },
+      "disabled": {
+        "$description": "Unplugged (proposal).",
+        "$extensions": {
+          "io.github.xperiaroco2.prime-game": {
+            "proposal": true
+          }
+        },
+        "bg-color": {
+          "$type": "color",
+          "$value": "{color.state.disabled-face}"
+        }
+      },
+      "focus": {
+        "$description": "Inner focus (proposal).",
+        "$extensions": {
+          "io.github.xperiaroco2.prime-game": {
+            "proposal": true
+          }
+        },
+        "bg-color": {
+          "$type": "color",
+          "$value": "{palette.clear}"
+        },
+        "border-color": {
+          "$type": "color",
+          "$value": "{color.outline}"
+        },
+        "border-width": {
+          "$type": "dimension",
+          "$value": "{focus.width}"
+        },
+        "corner-radius": {
+          "$type": "dimension",
+          "$value": {
+            "value": 8,
+            "unit": "px"
+          }
+        },
+        "expand-margin": {
+          "$type": "dimension",
+          "$value": {
+            "value": -4,
+            "unit": "px"
+          }
+        }
+      },
+      "press": {
+        "$type": "dimension",
+        "depth": {
+          "$value": {
+            "value": 4,
+            "unit": "px"
+          }
+        },
+        "hover": {
+          "$value": {
+            "value": -1,
+            "unit": "px"
+          }
+        },
+        "held": {
+          "$value": {
+            "value": 3,
+            "unit": "px"
+          }
+        },
+        "disabled": {
+          "$value": {
+            "value": 0,
+            "unit": "px"
+          }
+        }
+      }
+    },
+    "quiet": {
+      "$description": "A quiet card.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": {
+            "variation": "ToyPresetCardQuiet",
+            "class": "Button",
+            "parent": "ToyButton"
+          },
+          "context": "light"
+        }
+      },
+      "label": {
+        "$type": "typography",
+        "$value": "{type.body}"
+      },
+      "normal": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{palette.clear}"
+        },
+        "border-color": {
+          "$type": "color",
+          "$value": "{palette.lilac}"
+        },
+        "border-width": {
+          "$type": "dimension",
+          "$value": "{stroke.thin}"
+        },
+        "corner-radius": {
+          "$type": "dimension",
+          "$value": "{radius.medium}"
+        },
+        "content-margin-block": {
+          "$type": "dimension",
+          "$value": {
+            "value": 14,
+            "unit": "px"
+          }
+        },
+        "content-margin-inline": {
+          "$type": "dimension",
+          "$value": {
+            "value": 16,
+            "unit": "px"
+          }
+        },
+        "font-color": {
+          "$type": "color",
+          "$value": "{color.on-light.text}"
+        }
+      },
+      "disabled": {
+        "$description": "As normal: it is already quiet."
+      },
+      "focus": {
+        "$description": "Inner focus (proposal).",
+        "$extensions": {
+          "io.github.xperiaroco2.prime-game": {
+            "proposal": true
+          }
+        },
+        "bg-color": {
+          "$type": "color",
+          "$value": "{palette.clear}"
+        },
+        "border-color": {
+          "$type": "color",
+          "$value": "{color.outline}"
+        },
+        "border-width": {
+          "$type": "dimension",
+          "$value": "{focus.width}"
+        },
+        "corner-radius": {
+          "$type": "dimension",
+          "$value": {
+            "value": 10,
+            "unit": "px"
+          }
+        },
+        "expand-margin": {
+          "$type": "dimension",
+          "$value": {
+            "value": -2,
+            "unit": "px"
+          }
+        }
+      },
+      "press": {
+        "$type": "dimension",
+        "depth": {
+          "$value": {
+            "value": 0,
+            "unit": "px"
+          }
+        },
+        "hover": {
+          "$value": {
+            "value": 0,
+            "unit": "px"
+          }
+        },
+        "held": {
+          "$value": {
+            "value": 0,
+            "unit": "px"
+          }
+        },
+        "disabled": {
+          "$value": {
+            "value": 0,
+            "unit": "px"
+          }
+        }
+      }
+    },
+    "note": {
+      "$description": "A note on a card.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": {
+            "variation": "ToyPresetCardNote",
+            "class": "Label",
+            "on": [
+              "ToyPresetCard"
+            ]
+          },
+          "context": "light"
+        }
+      },
+      "label": {
+        "$type": "typography",
+        "$value": "{type.small}"
+      },
+      "normal": {
+        "font-color": {
+          "$type": "color",
+          "$value": "{color.on-light.text}"
+        }
+      }
+    },
+    "base": {
+      "$description": "The card base.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": {
+            "variation": "ToyBaseCard",
+            "class": "Panel"
+          },
+          "context": "light"
+        }
+      },
+      "panel": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{color.on-light.base}"
+        },
+        "corner-radius": {
+          "$type": "dimension",
+          "$value": "{radius.medium}"
+        },
+        "expand-margin-top": {
+          "$type": "dimension",
+          "$value": {
+            "value": -4,
+            "unit": "px"
+          }
+        },
+        "expand-margin-bottom": {
+          "$type": "dimension",
+          "$value": {
+            "value": 4,
+            "unit": "px"
+          }
+        }
+      }
+    }
+  }
+}

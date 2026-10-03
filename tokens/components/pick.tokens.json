@@ -1,0 +1,125 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "pick": {
+    "$description": "Pickers: colour swatches and round radios.",
+    "swatch-ring": {
+      "$description": "The ring around a colour swatch (the fill is a white Panel tinted by self_modulate).",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToySwatchRing", "class": "Panel" },
+          "context": "light"
+        }
+      },
+      "panel": {
+        "bg-color": { "$type": "color", "$value": "{palette.clear}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-width": { "$type": "dimension", "$value": "{stroke.thin}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" }
+      },
+      "size": {
+        "$type": "dimension",
+        "width": { "$value": { "value": 26, "unit": "px" } },
+        "height": { "$value": { "value": 26, "unit": "px" } }
+      }
+    },
+    "swatch-selected": {
+      "$description": "The selected swatch ring: 4 px, 3 px outside the swatch.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToySwatchSelected", "class": "Panel" },
+          "context": "light"
+        }
+      },
+      "panel": {
+        "bg-color": { "$type": "color", "$value": "{palette.clear}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-width": { "$type": "dimension", "$value": "{stroke.surface}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
+        "expand-margin": { "$type": "dimension", "$value": { "value": 7, "unit": "px" } }
+      }
+    },
+    "radio": {
+      "$description": "A round picker (a radio): white.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": {
+            "variation": "ToyRadio",
+            "class": "Button",
+            "parent": "ToyButton",
+            "toggle": { "selected": "ToyRadioSelected" }
+          },
+          "context": "light"
+        }
+      },
+      "label": { "$type": "typography", "$value": "{type.caption-bold}" },
+      "normal": {
+        "bg-color": { "$type": "color", "$value": "{palette.white}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-width": { "$type": "dimension", "$value": "{stroke.thin}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
+        "content-margin": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
+      },
+      "disabled": {
+        "$description": "Unplugged picker: pale and quiet (proposal).",
+        "$extensions": { "io.github.xperiaroco2.prime-game": { "proposal": true } },
+        "bg-color": { "$type": "color", "$value": "{color.state.disabled-face}" },
+        "border-color": { "$type": "color", "$value": "{color.state.disabled-ink}" },
+        "font-color": { "$type": "color", "$value": "{color.state.disabled-ink}" }
+      },
+      "focus": {
+        "$description": "Outer focus: a ring of the focus width, the focus gap outside the outline (proposal).",
+        "$extensions": { "io.github.xperiaroco2.prime-game": { "proposal": true } },
+        "bg-color": { "$type": "color", "$value": "{palette.clear}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-width": { "$type": "dimension", "$value": "{focus.width}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
+        "expand-margin": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } }
+      },
+      "size": {
+        "$type": "dimension",
+        "width": { "$value": { "value": 26, "unit": "px" } },
+        "height": { "$value": { "value": 26, "unit": "px" } }
+      }
+    },
+    "radio-selected": {
+      "$description": "The selected round picker: yellow.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyRadioSelected", "class": "Button", "parent": "ToyButton" },
+          "context": "light"
+        }
+      },
+      "label": { "$type": "typography", "$value": "{type.caption-bold}" },
+      "normal": {
+        "bg-color": { "$type": "color", "$value": "{palette.yellow}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-width": { "$type": "dimension", "$value": "{stroke.thin}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
+        "content-margin": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "font-color": { "$type": "color", "$value": "{color.on-accent.text}" }
+      },
+      "disabled": {
+        "$description": "Unplugged picker: pale and quiet (proposal).",
+        "$extensions": { "io.github.xperiaroco2.prime-game": { "proposal": true } },
+        "bg-color": { "$type": "color", "$value": "{color.state.disabled-face}" },
+        "border-color": { "$type": "color", "$value": "{color.state.disabled-ink}" },
+        "font-color": { "$type": "color", "$value": "{color.state.disabled-ink}" }
+      },
+      "focus": {
+        "$description": "Outer focus: a ring of the focus width, the focus gap outside the outline (proposal).",
+        "$extensions": { "io.github.xperiaroco2.prime-game": { "proposal": true } },
+        "bg-color": { "$type": "color", "$value": "{palette.clear}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-width": { "$type": "dimension", "$value": "{focus.width}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
+        "expand-margin": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } }
+      },
+      "size": {
+        "$type": "dimension",
+        "width": { "$value": { "value": 26, "unit": "px" } },
+        "height": { "$value": { "value": 26, "unit": "px" } }
+      }
+    }
+  }
+}

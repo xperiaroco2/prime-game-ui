@@ -1,0 +1,106 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "panel": {
+    "menu": {
+      "$description": "A menu panel.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": {
+            "variation": "ToyPanelMenu",
+            "class": "PanelContainer",
+            "base": {
+              "any": "ToyBasePanel"
+            }
+          },
+          "context": "light"
+        }
+      },
+      "panel": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{color.surface.panel}"
+        },
+        "border-color": {
+          "$type": "color",
+          "$value": "{color.outline}"
+        },
+        "border-width": {
+          "$type": "dimension",
+          "$value": "{stroke.surface}"
+        },
+        "corner-radius": {
+          "$type": "dimension",
+          "$value": "{radius.surface}"
+        },
+        "content-margin": {
+          "$type": "dimension",
+          "$value": {
+            "value": 24,
+            "unit": "px"
+          }
+        }
+      }
+    },
+    "base": {
+      "$description": "The panel base.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": {
+            "variation": "ToyBasePanel",
+            "class": "Panel"
+          },
+          "context": "any"
+        }
+      },
+      "panel": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{color.surface.drop}"
+        },
+        "corner-radius": {
+          "$type": "dimension",
+          "$value": "{radius.surface}"
+        },
+        "expand-margin-top": {
+          "$type": "dimension",
+          "$value": {
+            "value": -8,
+            "unit": "px"
+          }
+        },
+        "expand-margin-bottom": {
+          "$type": "dimension",
+          "$value": {
+            "value": 8,
+            "unit": "px"
+          }
+        }
+      }
+    },
+    "text": {
+      "$description": "Panel text.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": {
+            "variation": "ToyPanelText",
+            "class": "Label",
+            "on": [
+              "ToyPanelMenu"
+            ]
+          },
+          "context": "light"
+        }
+      },
+      "label": {
+        "$type": "typography",
+        "$value": "{type.body}"
+      },
+      "normal": {
+        "font-color": {
+          "$type": "color",
+          "$value": "{color.on-light.text}"
+        }
+      }
+    }
+  }
+}

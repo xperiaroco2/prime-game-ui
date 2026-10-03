@@ -1,0 +1,69 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "panel": {
+    "$description": "Cream panels on the dark drop base.",
+    "menu": {
+      "$description": "The menu panel: cream face, ink outline, on the drop base.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyPanelMenu", "class": "PanelContainer", "base": { "any": "ToyBasePanel" } },
+          "context": "light"
+        }
+      },
+      "panel": {
+        "bg-color": { "$type": "color", "$value": "{color.surface.panel}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-width": { "$type": "dimension", "$value": "{stroke.surface}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.surface}" },
+        "content-margin": { "$type": "dimension", "$value": { "value": 28, "unit": "px" } }
+      }
+    },
+    "dialog": {
+      "$description": "The dialog panel: as the menu panel with more room.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyPanelDialog", "class": "PanelContainer", "base": { "any": "ToyBasePanel" } },
+          "context": "light"
+        }
+      },
+      "panel": {
+        "bg-color": { "$type": "color", "$value": "{color.surface.panel}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-width": { "$type": "dimension", "$value": "{stroke.surface}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.surface}" },
+        "content-margin": { "$type": "dimension", "$value": { "value": 40, "unit": "px" } }
+      }
+    },
+    "howto": {
+      "$description": "The how-to card panel.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyPanelHowto", "class": "PanelContainer", "base": { "any": "ToyBasePanel" } },
+          "context": "light"
+        }
+      },
+      "panel": {
+        "bg-color": { "$type": "color", "$value": "{color.surface.panel}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-width": { "$type": "dimension", "$value": "{stroke.surface}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.surface}" },
+        "content-margin": { "$type": "dimension", "$value": { "value": 26, "unit": "px" } }
+      }
+    },
+    "base": {
+      "$description": "The 10 px drop base under panels and the map board.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyBasePanel", "class": "Panel" },
+          "context": "any"
+        }
+      },
+      "panel": {
+        "bg-color": { "$type": "color", "$value": "{color.surface.drop}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.surface}" },
+        "expand-margin-top": { "$type": "dimension", "$value": { "value": -10, "unit": "px" } },
+        "expand-margin-bottom": { "$type": "dimension", "$value": { "value": 10, "unit": "px" } }
+      }
+    }
+  }
+}

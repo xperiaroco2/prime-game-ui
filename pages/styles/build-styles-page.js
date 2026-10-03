@@ -1,14 +1,34 @@
 // Builds styles.html: the session wireframes with the three style skins and a style switcher.
+// The Toy skin reads only the design tokens, so dist/css/toy-tokens.css is inlined first in the skins' <style>.
+// Usage: node pages/styles/build-styles-page.js [--check]   (runs from any directory)
+//   --check  renders the page in memory and exits 1 if pages/styles/styles.html differs from it (writes nothing).
 const fs = require('fs');
 const path = require('path');
-const W = path.join('..', 'wireframes', 'wireframes.html');
-let s = fs.readFileSync(W, 'utf8');
-const meta = JSON.parse(fs.readFileSync('meta.json', 'utf8'));
+
+const args = process.argv.slice(2);
+const bad = args.filter((a) => a !== '--check');
+if (bad.length) {
+  console.error('usage: node pages/styles/build-styles-page.js [--check]; unknown argument: ' + bad.join(' '));
+  process.exit(2);
+}
+const CHECK = args.includes('--check');
+
+const HERE = __dirname;
+const ROOT = path.join(HERE, '..', '..');
+const W = path.join(HERE, '..', 'wireframes', 'wireframes.html');
+const TOKENS = path.join(ROOT, 'dist', 'css', 'toy-tokens.css');
+const OUT = path.join(HERE, 'styles.html');
+const read = (f) => fs.readFileSync(f, 'utf8');
+const rel = (f) => path.relative(ROOT, f).split(path.sep).join('/');
+
+let s = read(W);
+const meta = JSON.parse(read(path.join(HERE, 'meta.json')));
 const order = ['retro', 'card', 'toy'];
-// the skins, then the Toy press-feedback preview (outside the Godot-safe lint: motion is a Tween in the game)
-const css = order.map((k) => fs.readFileSync(k + '.css', 'utf8')).join('\n') + '\n' + fs.readFileSync('motion-preview.css', 'utf8');
+// the tokens, the skins, then the Toy press-feedback preview (lint profile "motion": motion is a Tween in the game)
+const tokens = read(TOKENS).replace(/\n+$/, '');
+const css = tokens + '\n' + order.map((k) => read(path.join(HERE, k + '.css'))).join('\n') + '\n' + read(path.join(HERE, 'motion-preview.css'));
 const esc = (t) => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-const must = (a, b) => { if (!s.includes(a)) throw new Error('missing: ' + a.slice(0, 60)); s = s.replace(a, b); };
+const must = (a, b) => { if (!s.includes(a)) throw new Error('missing: ' + a.slice(0, 60)); s = s.replace(a, () => b); };
 
 must('<title>Вайрфрейми сесії</title>', '<title>Стилі екранів</title>');
 // the skins after the page's own style, plus the direction cards' style
@@ -21,7 +41,7 @@ const extra = `
 .sw span { display: inline-flex; align-items: center; gap: 5px; font-size: 0.74rem; color: var(--muted); }
 .sw i { width: 16px; height: 16px; border-radius: 4px; border: 1px solid var(--line); display: inline-block; }
 `;
-must('</style>', extra + '</style>\n<style>\n/* The three style skins (Godot-safe CSS, checked by check_styles.js) */\n' + css + '\n</style>');
+must('</style>', extra + '</style>\n<style>\n/* The Toy design tokens (prime-game-ui#5), then the three style skins. Godot-safe CSS: retro and card are checked by\n   pages/styles/check_styles.js, toy and its press preview by tools/lint/godot-css.js. */\n' + css + '\n</style>');
 must('<div class="eyebrow">prime-game · UX/UI-відділ · #150 · вайрфрейми</div>', '<div class="eyebrow">prime-game · UX/UI-відділ · prime-game-ui#2 · стилі</div>');
 must('<h1>Вайрфрейми сесії</h1>', '<h1>Стилі екранів</h1>');
 {
@@ -51,6 +71,23 @@ must('  // zoom\n', `  // style skin
   document.addEventListener("touchstart", function () {}, { passive: true });
   // zoom
 `);
-fs.writeFileSync('styles.html', s);
+// the page script must still parse
 new Function(s.slice(s.indexOf('<script>') + 8, s.lastIndexOf('</script>')));
-console.log('built styles.html', s.length, 'bytes; divs', (s.match(/<div\b/g) || []).length, (s.match(/<\/div>/g) || []).length, '; sections', (s.match(/<section\b/g) || []).length, (s.match(/<\/section>/g) || []).length);
+if (s.includes('\r')) throw new Error('the page has CR bytes: the sources must use LF endings');
+
+if (CHECK) {
+  let cur = null;
+  try { cur = read(OUT); } catch (e) { /* missing */ }
+  if (cur === null) { console.error('stale: ' + rel(OUT) + ' is missing; run node pages/styles/build-styles-page.js'); process.exit(1); }
+  if (cur !== s) {
+    let i = 0;
+    while (i < cur.length && i < s.length && cur[i] === s[i]) i++;
+    const line = s.slice(0, i).split('\n').length;
+    console.error('stale: ' + rel(OUT) + ' differs from its sources from line ' + line + '; run node pages/styles/build-styles-page.js');
+    process.exit(1);
+  }
+  console.log('up to date: ' + rel(OUT) + ' (' + Buffer.byteLength(s) + ' bytes)');
+} else {
+  fs.writeFileSync(OUT, s);
+  console.log('built ' + rel(OUT) + ', ' + Buffer.byteLength(s) + ' bytes; divs', (s.match(/<div\b/g) || []).length, (s.match(/<\/div>/g) || []).length, '; sections', (s.match(/<section\b/g) || []).length, (s.match(/<\/section>/g) || []).length);
+}

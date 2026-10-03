@@ -1,0 +1,5 @@
+/* profile: skin; expect: L13 */
+body[data-style="toy"] .frame .a {
+  background: var(--toy-palette-plate);
+  box-shadow: 0 calc(var(--toy-button-primary-press-depth) * var(--px)) 0 var(--toy-palette-ink);
+}

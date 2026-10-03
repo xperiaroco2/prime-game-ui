@@ -1,0 +1,277 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "chip": {
+    "toggle-on-dark": {
+      "$description": "A toggle chip.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": {
+            "variation": "ToyChipToggleOnDark",
+            "class": "Button",
+            "parent": "ToyButton",
+            "toggle": {
+              "selected": "ToyChipToggleOnDarkSelected"
+            }
+          },
+          "context": "dark"
+        }
+      },
+      "label": {
+        "$type": "typography",
+        "$value": "{type.small}"
+      },
+      "normal": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{palette.clear}"
+        },
+        "border-color": {
+          "$type": "color",
+          "$value": "{color.on-dark.line}"
+        },
+        "border-width": {
+          "$type": "dimension",
+          "$value": "{stroke.thin}"
+        },
+        "corner-radius": {
+          "$type": "dimension",
+          "$value": "{radius.pill}"
+        },
+        "content-margin-block": {
+          "$type": "dimension",
+          "$value": {
+            "value": 6,
+            "unit": "px"
+          }
+        },
+        "content-margin-inline": {
+          "$type": "dimension",
+          "$value": {
+            "value": 14,
+            "unit": "px"
+          }
+        },
+        "font-color": {
+          "$type": "color",
+          "$value": "{color.on-dark.text}"
+        }
+      },
+      "hover": {
+        "$description": "Hover (proposal).",
+        "$extensions": {
+          "io.github.xperiaroco2.prime-game": {
+            "proposal": true
+          }
+        },
+        "bg-color": {
+          "$type": "color",
+          "$value": "{color.surface.plate}"
+        }
+      },
+      "disabled": {
+        "$description": "Unplugged (proposal).",
+        "$extensions": {
+          "io.github.xperiaroco2.prime-game": {
+            "proposal": true
+          }
+        },
+        "border-color": {
+          "$type": "color",
+          "$value": "{color.state.disabled-ink}"
+        },
+        "font-color": {
+          "$type": "color",
+          "$value": "{color.state.disabled-ink}"
+        }
+      },
+      "focus": {
+        "$description": "Outer focus ring (proposal).",
+        "$extensions": {
+          "io.github.xperiaroco2.prime-game": {
+            "proposal": true
+          }
+        },
+        "bg-color": {
+          "$type": "color",
+          "$value": "{palette.clear}"
+        },
+        "border-color": {
+          "$type": "color",
+          "$value": "{color.on-dark.line}"
+        },
+        "border-width": {
+          "$type": "dimension",
+          "$value": "{focus.width}"
+        },
+        "corner-radius": {
+          "$type": "dimension",
+          "$value": "{radius.pill}"
+        },
+        "expand-margin": {
+          "$type": "dimension",
+          "$value": {
+            "value": 5,
+            "unit": "px"
+          }
+        }
+      }
+    },
+    "toggle-on-dark-selected": {
+      "$description": "A selected toggle chip.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": {
+            "variation": "ToyChipToggleOnDarkSelected",
+            "class": "Button",
+            "parent": "ToyButton"
+          },
+          "context": "dark"
+        }
+      },
+      "label": {
+        "$type": "typography",
+        "$value": "{type.small}"
+      },
+      "normal": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{palette.yellow}"
+        },
+        "border-color": {
+          "$type": "color",
+          "$value": "{color.outline}"
+        },
+        "border-width": {
+          "$type": "dimension",
+          "$value": "{stroke.thin}"
+        },
+        "corner-radius": {
+          "$type": "dimension",
+          "$value": "{radius.pill}"
+        },
+        "content-margin-block": {
+          "$type": "dimension",
+          "$value": {
+            "value": 6,
+            "unit": "px"
+          }
+        },
+        "content-margin-inline": {
+          "$type": "dimension",
+          "$value": {
+            "value": 14,
+            "unit": "px"
+          }
+        },
+        "font-color": {
+          "$type": "color",
+          "$value": "{color.outline}"
+        }
+      },
+      "disabled": {
+        "$description": "Unplugged (proposal).",
+        "$extensions": {
+          "io.github.xperiaroco2.prime-game": {
+            "proposal": true
+          }
+        },
+        "bg-color": {
+          "$type": "color",
+          "$value": "{color.state.disabled-face}"
+        }
+      },
+      "focus": {
+        "$description": "Outer focus ring (proposal).",
+        "$extensions": {
+          "io.github.xperiaroco2.prime-game": {
+            "proposal": true
+          }
+        },
+        "bg-color": {
+          "$type": "color",
+          "$value": "{palette.clear}"
+        },
+        "border-color": {
+          "$type": "color",
+          "$value": "{color.on-dark.line}"
+        },
+        "border-width": {
+          "$type": "dimension",
+          "$value": "{focus.width}"
+        },
+        "corner-radius": {
+          "$type": "dimension",
+          "$value": "{radius.pill}"
+        },
+        "expand-margin": {
+          "$type": "dimension",
+          "$value": {
+            "value": 5,
+            "unit": "px"
+          }
+        }
+      }
+    },
+    "plate": {
+      "$description": "A chip plate.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": {
+            "variation": "ToyChipPlate",
+            "class": "PanelContainer"
+          },
+          "context": "dark"
+        }
+      },
+      "panel": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{color.surface.plate}"
+        },
+        "corner-radius": {
+          "$type": "dimension",
+          "$value": "{radius.pill}"
+        },
+        "content-margin-block": {
+          "$type": "dimension",
+          "$value": {
+            "value": 6,
+            "unit": "px"
+          }
+        },
+        "content-margin-inline": {
+          "$type": "dimension",
+          "$value": {
+            "value": 14,
+            "unit": "px"
+          }
+        }
+      }
+    },
+    "plate-text": {
+      "$description": "Text on a chip plate.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": {
+            "variation": "ToyChipPlateText",
+            "class": "Label",
+            "on": [
+              "ToyChipPlate"
+            ]
+          },
+          "context": "dark"
+        }
+      },
+      "label": {
+        "$type": "typography",
+        "$value": "{type.small}"
+      },
+      "normal": {
+        "font-color": {
+          "$type": "color",
+          "$value": "{color.on-dark.text}"
+        }
+      }
+    }
+  }
+}

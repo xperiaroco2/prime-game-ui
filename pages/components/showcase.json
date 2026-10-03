@@ -1,0 +1,950 @@
+{
+  "sections": [
+    {
+      "id": "buttons",
+      "title_key": "sec_buttons",
+      "rows": [
+        {
+          "id": "button-primary",
+          "kind": "button",
+          "variations": [
+            "ToyButtonPrimary"
+          ],
+          "contexts": [
+            "dark",
+            "light"
+          ],
+          "states": [
+            "normal",
+            "hover",
+            "held",
+            "disabled",
+            "focus"
+          ],
+          "label": "start",
+          "live": true
+        },
+        {
+          "id": "button-secondary",
+          "kind": "button",
+          "variations": [
+            "ToyButtonSecondary"
+          ],
+          "contexts": [
+            "dark",
+            "light"
+          ],
+          "states": [
+            "normal",
+            "hover",
+            "held",
+            "disabled",
+            "focus"
+          ],
+          "label": "resume",
+          "live": true
+        },
+        {
+          "id": "button-danger",
+          "kind": "button",
+          "variations": [
+            "ToyButtonDanger"
+          ],
+          "contexts": [
+            "dark",
+            "light"
+          ],
+          "states": [
+            "normal",
+            "hover",
+            "held",
+            "disabled",
+            "focus"
+          ],
+          "label": "leave",
+          "live": true
+        },
+        {
+          "id": "button-ghost-on-dark",
+          "kind": "button",
+          "variations": [
+            "ToyButtonGhostOnDark"
+          ],
+          "contexts": [
+            "dark"
+          ],
+          "states": [
+            "normal",
+            "hover",
+            "held",
+            "disabled",
+            "focus"
+          ],
+          "label": "skip",
+          "live": true
+        },
+        {
+          "id": "button-ghost-on-light",
+          "kind": "button",
+          "variations": [
+            "ToyButtonGhostOnLight"
+          ],
+          "contexts": [
+            "light"
+          ],
+          "states": [
+            "normal",
+            "hover",
+            "held",
+            "disabled",
+            "focus"
+          ],
+          "label": "cancel",
+          "live": true
+        },
+        {
+          "id": "bases",
+          "kind": "static",
+          "title_key": "row_bases",
+          "items": [
+            {
+              "v": "ToyBasePrimaryOnDark",
+              "context": "dark",
+              "box": [
+                260,
+                56
+              ]
+            },
+            {
+              "v": "ToyBaseRaisedOnDark",
+              "context": "dark",
+              "box": [
+                260,
+                56
+              ]
+            },
+            {
+              "v": "ToyBasePanel",
+              "context": "dark",
+              "box": [
+                260,
+                120
+              ]
+            },
+            {
+              "v": "ToyBaseTitle",
+              "context": "dark",
+              "box": [
+                260,
+                96
+              ],
+              "pad": 48
+            },
+            {
+              "v": "ToyBasePrimaryOnLight",
+              "context": "light",
+              "box": [
+                260,
+                56
+              ]
+            },
+            {
+              "v": "ToyBaseRaisedOnLight",
+              "context": "light",
+              "box": [
+                260,
+                56
+              ]
+            },
+            {
+              "v": "ToyBaseCard",
+              "context": "light",
+              "box": [
+                200,
+                96
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "chips",
+      "title_key": "sec_chips",
+      "rows": [
+        {
+          "id": "chips-static",
+          "kind": "static",
+          "title_key": "row_chips_static",
+          "items": [
+            {
+              "v": "ToyChipPlate",
+              "text": "ToyChipPlateText",
+              "label": "host_chip",
+              "context": "dark"
+            },
+            {
+              "v": "ToyChipLight",
+              "text": "ToyChipLightText",
+              "label": "players",
+              "context": "dark"
+            },
+            {
+              "v": "ToyChipLineOnDark",
+              "text": "ToyChipLineOnDarkText",
+              "label": "same_net",
+              "context": "dark"
+            },
+            {
+              "v": "ToyChipLight",
+              "text": "ToyChipLightText",
+              "label": "players",
+              "context": "light"
+            },
+            {
+              "v": "ToyChipNew",
+              "text": "ToyChipNewText",
+              "label": "new",
+              "context": "light"
+            },
+            {
+              "v": "ToyChipLineOnLight",
+              "text": "ToyChipLineOnLightText",
+              "label": "later",
+              "context": "light"
+            }
+          ]
+        },
+        {
+          "id": "chip-toggle-on-dark",
+          "kind": "toggle",
+          "variations": [
+            "ToyChipToggleOnDark",
+            "ToyChipToggleOnDarkSelected"
+          ],
+          "contexts": [
+            "dark"
+          ],
+          "states": [
+            "normal",
+            "hover",
+            "held",
+            "disabled",
+            "focus",
+            "selected",
+            "selected-hover",
+            "selected-disabled",
+            "selected-focus"
+          ],
+          "label": "sound",
+          "live": true,
+          "group": [
+            "sound",
+            "controls",
+            "display"
+          ]
+        },
+        {
+          "id": "chip-toggle-on-light",
+          "kind": "toggle",
+          "variations": [
+            "ToyChipToggleOnLight",
+            "ToyChipToggleOnLightSelected"
+          ],
+          "contexts": [
+            "light"
+          ],
+          "states": [
+            "normal",
+            "hover",
+            "held",
+            "disabled",
+            "focus",
+            "selected",
+            "selected-hover",
+            "selected-disabled",
+            "selected-focus"
+          ],
+          "label": "controls",
+          "live": true,
+          "group": [
+            "sound",
+            "controls",
+            "display"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "slots",
+      "title_key": "sec_slots",
+      "rows": [
+        {
+          "id": "slot-set",
+          "kind": "slot-set",
+          "title_key": "row_slot_set",
+          "hud": true,
+          "variations": [
+            "ToySlot",
+            "ToySlotActive",
+            "ToySlotText",
+            "ToySlotTextEmpty"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bars",
+      "title_key": "sec_bars",
+      "rows": [
+        {
+          "id": "bar-stamina",
+          "kind": "bar",
+          "variations": [
+            "ToyBarStamina"
+          ],
+          "track": true,
+          "contexts": [
+            "dark"
+          ],
+          "values": [
+            1,
+            0.9,
+            0.5,
+            0.18,
+            0.03
+          ],
+          "live": true,
+          "hud": true
+        },
+        {
+          "id": "bar-health",
+          "kind": "bar",
+          "variations": [
+            "ToyBarHealth"
+          ],
+          "track": true,
+          "contexts": [
+            "dark"
+          ],
+          "values": [
+            1,
+            0.8,
+            0.5,
+            0.22,
+            0.05,
+            0
+          ],
+          "live": true,
+          "hud": true
+        },
+        {
+          "id": "bar-progress",
+          "kind": "bar",
+          "variations": [
+            "ToyBarProgress"
+          ],
+          "contexts": [
+            "dark"
+          ],
+          "values": [
+            0.62,
+            0.7,
+            0.6
+          ],
+          "captions": [
+            "bar_loading",
+            "bar_downed",
+            "bar_raising"
+          ],
+          "live": true
+        },
+        {
+          "id": "bar-slider",
+          "kind": "bar",
+          "variations": [
+            "ToyBarSlider"
+          ],
+          "contexts": [
+            "light"
+          ],
+          "values": [
+            0.7,
+            0.55,
+            0.4
+          ],
+          "live": true
+        },
+        {
+          "id": "hud-bar",
+          "kind": "hud-bar",
+          "title_key": "row_hud_bar",
+          "hud": true,
+          "variations": [
+            "ToyBarLabel",
+            "ToyHudCaption",
+            "ToyBarTrack",
+            "ToyBarStamina",
+            "ToyBarHealth"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "surfaces",
+      "title_key": "sec_surfaces",
+      "rows": [
+        {
+          "id": "panel-menu",
+          "kind": "menu",
+          "title_key": "row_menu",
+          "variations": [
+            "ToyPanelMenu",
+            "ToyBasePanel"
+          ]
+        },
+        {
+          "id": "dialog",
+          "kind": "dialog",
+          "title_key": "row_dialog",
+          "variations": [
+            "ToyBackdrop",
+            "ToyPanelDialog",
+            "ToyBasePanel"
+          ]
+        },
+        {
+          "id": "plates",
+          "kind": "static",
+          "title_key": "row_plates",
+          "hud": true,
+          "items": [
+            {
+              "v": "ToyPlate",
+              "text": "ToyPlateText",
+              "label": "waiting",
+              "context": "dark"
+            },
+            {
+              "v": "ToyPlateNight",
+              "text": "ToyPlateText",
+              "label": "downed",
+              "context": "dark"
+            },
+            {
+              "v": "ToyPlateAlert",
+              "text": "ToyPlateText",
+              "label": "died",
+              "context": "dark"
+            }
+          ]
+        },
+        {
+          "id": "backdrops",
+          "kind": "backdrops",
+          "title_key": "row_backdrops",
+          "variations": [
+            "ToyBackdrop",
+            "ToyBackdropDeep",
+            "ToyBackdropNight"
+          ]
+        },
+        {
+          "id": "hud-bits",
+          "kind": "static",
+          "title_key": "row_hud_bits",
+          "hud": true,
+          "items": [
+            {
+              "v": "ToyCrosshair",
+              "context": "dark"
+            },
+            {
+              "v": "ToySpinner",
+              "context": "dark"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "keys",
+      "title_key": "sec_keys",
+      "rows": [
+        {
+          "id": "keycaps",
+          "kind": "static",
+          "title_key": "row_keys",
+          "items": [
+            {
+              "v": "ToyKeyOnDark",
+              "text": "ToyKeyText",
+              "label": "key_e",
+              "context": "dark"
+            },
+            {
+              "v": "ToyKeyOnDark",
+              "text": "ToyKeyText",
+              "label": "space",
+              "context": "dark",
+              "wide": true
+            },
+            {
+              "v": "ToyKeyOnLight",
+              "text": "ToyKeyText",
+              "label": "key_e",
+              "context": "light"
+            },
+            {
+              "v": "ToyKeyQuiet",
+              "text": "ToyKeyQuietText",
+              "label": "key_e",
+              "context": "light"
+            },
+            {
+              "v": "ToyKeyOnLight",
+              "text": "ToyKeyText",
+              "label": "space",
+              "context": "light",
+              "wide": true
+            },
+            {
+              "v": "ToyKeyRound",
+              "text": "ToyKeyText",
+              "label": "question",
+              "context": "light"
+            },
+            {
+              "v": "ToyKeyRoundQuiet",
+              "text": "ToyKeyQuietText",
+              "label": "question",
+              "context": "light"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "howto",
+      "title_key": "sec_howto",
+      "rows": [
+        {
+          "id": "howto-card",
+          "kind": "howto",
+          "title_key": "row_howto",
+          "variations": [
+            "ToyPanelHowto",
+            "ToyBasePanel",
+            "ToyHowtoFrame",
+            "ToyHowtoFrameDone",
+            "ToyHowtoCaption",
+            "ToyHowtoNote",
+            "ToyChipNew"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "field",
+      "title_key": "sec_field",
+      "rows": [
+        {
+          "id": "field-input",
+          "kind": "field",
+          "variations": [
+            "ToyField"
+          ],
+          "contexts": [
+            "light"
+          ],
+          "states": [
+            "normal",
+            "placeholder",
+            "selection",
+            "focus",
+            "read-only"
+          ],
+          "label": "lobby_value",
+          "placeholder": "lobby_name",
+          "live": true
+        },
+        {
+          "id": "field-dropdown",
+          "kind": "button",
+          "variations": [
+            "ToyDropdown"
+          ],
+          "contexts": [
+            "light"
+          ],
+          "states": [
+            "normal",
+            "hover",
+            "held",
+            "disabled",
+            "focus"
+          ],
+          "label": "default_arrow",
+          "live": true
+        }
+      ]
+    },
+    {
+      "id": "tabs",
+      "title_key": "sec_tabs",
+      "rows": [
+        {
+          "id": "tab",
+          "kind": "toggle",
+          "variations": [
+            "ToyTab",
+            "ToyTabSelected"
+          ],
+          "contexts": [
+            "light"
+          ],
+          "states": [
+            "normal",
+            "hover",
+            "held",
+            "selected",
+            "selected-hover",
+            "disabled",
+            "focus",
+            "selected-disabled",
+            "selected-focus"
+          ],
+          "label": "game",
+          "live": true,
+          "group": [
+            "game",
+            "lobby",
+            "character"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "settings",
+      "title_key": "sec_settings",
+      "rows": [
+        {
+          "id": "setting-rows",
+          "kind": "settings",
+          "title_key": "row_setting_rows",
+          "variations": [
+            "ToySettingRow",
+            "ToySettingRowText",
+            "ToySettingRowValue",
+            "ToyStepper"
+          ]
+        },
+        {
+          "id": "stepper",
+          "kind": "button",
+          "variations": [
+            "ToyStepper"
+          ],
+          "contexts": [
+            "light"
+          ],
+          "states": [
+            "normal",
+            "hover",
+            "held",
+            "disabled",
+            "focus"
+          ],
+          "label": "plus",
+          "live": true
+        }
+      ]
+    },
+    {
+      "id": "presets",
+      "title_key": "sec_presets",
+      "rows": [
+        {
+          "id": "preset-card",
+          "kind": "toggle",
+          "variations": [
+            "ToyPresetCard",
+            "ToyPresetCardSelected"
+          ],
+          "contexts": [
+            "light"
+          ],
+          "states": [
+            "normal",
+            "hover",
+            "held",
+            "disabled",
+            "focus",
+            "selected",
+            "selected-hover",
+            "selected-held",
+            "selected-disabled",
+            "selected-focus"
+          ],
+          "label": "standard",
+          "note": {
+            "label": "min10",
+            "variations": [
+              "ToyPresetCardNote",
+              "ToyPresetCardNoteSelected"
+            ]
+          },
+          "live": true,
+          "group": [
+            "standard",
+            "quick",
+            "no_knives"
+          ],
+          "group_notes": [
+            "min10",
+            "min5",
+            "knives0"
+          ]
+        },
+        {
+          "id": "preset-card-quiet",
+          "kind": "button",
+          "variations": [
+            "ToyPresetCardQuiet"
+          ],
+          "contexts": [
+            "light"
+          ],
+          "states": [
+            "normal",
+            "hover",
+            "held",
+            "disabled",
+            "focus"
+          ],
+          "label": "save_own",
+          "live": true
+        }
+      ]
+    },
+    {
+      "id": "map",
+      "title_key": "sec_map",
+      "rows": [
+        {
+          "id": "map-board",
+          "kind": "map",
+          "title_key": "row_map",
+          "variations": [
+            "ToyMapBoard",
+            "ToyMapRoom",
+            "ToyMapRoomText",
+            "ToyMapZone",
+            "ToyMapPin",
+            "ToyChipPlate",
+            "ToyHudCaption",
+            "ToyKeyRound"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mic",
+      "title_key": "sec_mic",
+      "rows": [
+        {
+          "id": "mic-plate",
+          "kind": "mic",
+          "title_key": "row_mic",
+          "hud": true,
+          "variations": [
+            "ToyMic"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nameplate",
+      "title_key": "sec_nameplate",
+      "rows": [
+        {
+          "id": "name-plates",
+          "kind": "static",
+          "title_key": "row_nameplates",
+          "hud": true,
+          "items": [
+            {
+              "v": "ToyNamePlate",
+              "text": "ToyNamePlateText",
+              "label": "name_olena",
+              "context": "dark",
+              "caption": "plate_plain"
+            },
+            {
+              "v": "ToyNamePlate",
+              "text": "ToyNamePlateText",
+              "label": "teammate",
+              "context": "dark",
+              "caption": "plate_mark"
+            },
+            {
+              "v": "ToyNamePlate",
+              "text": "ToyNamePlateText",
+              "label": "long_name",
+              "context": "dark",
+              "caption": "plate_long"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "title",
+      "title_key": "sec_title",
+      "rows": [
+        {
+          "id": "title-logo",
+          "kind": "static",
+          "title_key": "row_title",
+          "items": [
+            {
+              "v": "ToyTitlePlate",
+              "label": "engineer",
+              "context": "dark",
+              "pad": 48
+            },
+            {
+              "v": "ToyLogo",
+              "label": "logo",
+              "context": "dark"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "text",
+      "title_key": "sec_text",
+      "rows": [
+        {
+          "id": "text-roles",
+          "kind": "static",
+          "title_key": "row_text",
+          "items": [
+            {
+              "v": "ToyTextOnDark",
+              "label": "raise_hint",
+              "context": "dark"
+            },
+            {
+              "v": "ToyTextMutedOnDark",
+              "label": "lying",
+              "context": "dark"
+            },
+            {
+              "v": "ToyTitleOnDark",
+              "label": "round_end",
+              "context": "dark"
+            },
+            {
+              "v": "ToyTimer",
+              "label": "timer",
+              "context": "dark"
+            },
+            {
+              "v": "ToyHudCaption",
+              "label": "stamina",
+              "context": "dark"
+            },
+            {
+              "v": "ToyTextOnLight",
+              "label": "everyone_sees",
+              "context": "light"
+            },
+            {
+              "v": "ToyTextMutedOnLight",
+              "label": "host_note",
+              "context": "light"
+            },
+            {
+              "v": "ToyTitleOnLight",
+              "label": "settings",
+              "context": "light"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pickers",
+      "title_key": "sec_pickers",
+      "rows": [
+        {
+          "id": "swatches",
+          "kind": "swatches",
+          "title_key": "row_swatches",
+          "variations": [
+            "ToySwatchRing",
+            "ToySwatchSelected"
+          ]
+        },
+        {
+          "id": "radio",
+          "kind": "toggle",
+          "variations": [
+            "ToyRadio",
+            "ToyRadioSelected"
+          ],
+          "contexts": [
+            "light"
+          ],
+          "states": [
+            "normal",
+            "hover",
+            "held",
+            "disabled",
+            "focus",
+            "selected",
+            "selected-hover",
+            "selected-disabled",
+            "selected-focus"
+          ],
+          "label": "one",
+          "live": true,
+          "group": [
+            "one",
+            "two",
+            "three"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tokens",
+      "title_key": "sec_tokens",
+      "rows": [
+        {
+          "id": "palette",
+          "kind": "palette",
+          "title_key": "row_palette"
+        },
+        {
+          "id": "type",
+          "kind": "type-scale",
+          "title_key": "row_type",
+          "label": "pick_package"
+        },
+        {
+          "id": "ramp",
+          "kind": "ramp",
+          "title_key": "row_ramp"
+        },
+        {
+          "id": "contrast",
+          "kind": "contrast",
+          "title_key": "row_contrast"
+        }
+      ]
+    }
+  ]
+}

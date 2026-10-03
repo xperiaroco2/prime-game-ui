@@ -1,0 +1,6 @@
+/* profile: skin; expect: L08 */
+body[data-style="toy"] .frame .a {
+  background: var(--toy-palette-yellow);
+  box-shadow: 0 calc(var(--toy-button-primary-press-depth) * var(--px)) 0 var(--toy-palette-ink),
+              0 calc(var(--toy-stroke-control) * var(--px)) 0 var(--toy-palette-honey);
+}

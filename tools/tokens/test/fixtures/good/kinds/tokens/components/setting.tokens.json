@@ -1,0 +1,66 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "setting": {
+    "row": {
+      "$description": "A setting row with a bottom rule.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": {
+            "variation": "ToySettingRow",
+            "class": "PanelContainer"
+          },
+          "context": "light"
+        }
+      },
+      "panel": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{palette.clear}"
+        },
+        "border-color": {
+          "$type": "color",
+          "$value": "{palette.lilac}"
+        },
+        "border-width-top": {
+          "$type": "dimension",
+          "$value": {
+            "value": 0,
+            "unit": "px"
+          }
+        },
+        "border-width-right": {
+          "$type": "dimension",
+          "$value": {
+            "value": 0,
+            "unit": "px"
+          }
+        },
+        "border-width-bottom": {
+          "$type": "dimension",
+          "$value": "{stroke.control}"
+        },
+        "border-width-left": {
+          "$type": "dimension",
+          "$value": {
+            "value": 0,
+            "unit": "px"
+          }
+        },
+        "content-margin-block": {
+          "$type": "dimension",
+          "$value": {
+            "value": 9,
+            "unit": "px"
+          }
+        },
+        "content-margin-inline": {
+          "$type": "dimension",
+          "$value": {
+            "value": 0,
+            "unit": "px"
+          }
+        }
+      }
+    }
+  }
+}

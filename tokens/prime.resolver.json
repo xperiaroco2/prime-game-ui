@@ -1,0 +1,40 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/resolver.json",
+  "name": "prime-game UI tokens (Toy)",
+  "version": "2025.10",
+  "description": "Toy: one base set and two orthogonal modifiers.",
+  "sets": {
+    "base": {
+      "description": "Primitives, semantic tokens, then one file per component.",
+      "sources": [
+        { "$ref": "primitives.tokens.json" },
+        { "$ref": "semantic.tokens.json" },
+        { "$ref": "components/backdrop.tokens.json" }, { "$ref": "components/bar.tokens.json" },
+        { "$ref": "components/button.tokens.json" }, { "$ref": "components/chip.tokens.json" },
+        { "$ref": "components/field.tokens.json" }, { "$ref": "components/howto.tokens.json" },
+        { "$ref": "components/hud.tokens.json" }, { "$ref": "components/keycap.tokens.json" },
+        { "$ref": "components/map.tokens.json" }, { "$ref": "components/mic.tokens.json" },
+        { "$ref": "components/name-plate.tokens.json" }, { "$ref": "components/panel.tokens.json" },
+        { "$ref": "components/pick.tokens.json" }, { "$ref": "components/plate.tokens.json" },
+        { "$ref": "components/preset-card.tokens.json" }, { "$ref": "components/setting.tokens.json" },
+        { "$ref": "components/slot.tokens.json" }, { "$ref": "components/tab.tokens.json" },
+        { "$ref": "components/text.tokens.json" }, { "$ref": "components/title.tokens.json" }
+      ]
+    }
+  },
+  "modifiers": {
+    "textSize": {
+      "description": "The player's text size setting. Owns font.size.*.",
+      "contexts": { "default": [{ "$ref": "text-size/default.tokens.json" }],
+                    "large": [{ "$ref": "text-size/large.tokens.json" }] },
+      "default": "default"
+    },
+    "motion": {
+      "description": "The player's reduced-motion setting. Owns duration.press.",
+      "contexts": { "default": [{ "$ref": "motion/default.tokens.json" }],
+                    "reduced": [{ "$ref": "motion/reduced.tokens.json" }] },
+      "default": "default"
+    }
+  },
+  "resolutionOrder": [ { "$ref": "#/sets/base" }, { "$ref": "#/modifiers/textSize" }, { "$ref": "#/modifiers/motion" } ]
+}

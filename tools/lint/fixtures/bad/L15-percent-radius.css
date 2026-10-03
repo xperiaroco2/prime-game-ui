@@ -1,0 +1,2 @@
+/* profile: skin; expect: L15 */
+body[data-style="toy"] .frame .a { border-radius: 50%; }

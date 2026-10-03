@@ -1,0 +1,74 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "palette": {
+    "$type": "color",
+    "ink": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.1647,
+          0.1216,
+          0.2
+        ],
+        "hex": "#2a1f33"
+      }
+    },
+    "cream": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.9569,
+          0.8863
+        ],
+        "hex": "#fff4e2"
+      }
+    },
+    "clear": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0,
+          0
+        ],
+        "alpha": 0,
+        "hex": "#000000"
+      }
+    }
+  },
+  "focus": {
+    "$type": "dimension",
+    "width": {
+      "$value": {
+        "value": 3,
+        "unit": "px"
+      }
+    },
+    "gap": {
+      "$value": {
+        "value": 2,
+        "unit": "px"
+      }
+    }
+  },
+  "stroke": {
+    "$type": "dimension",
+    "control": {
+      "$value": {
+        "value": 3,
+        "unit": "px"
+      }
+    },
+    "thin": 2
+  },
+  "radius": {
+    "$type": "dimension",
+    "control": {
+      "$value": {
+        "value": 18,
+        "unit": "px"
+      }
+    }
+  }
+}

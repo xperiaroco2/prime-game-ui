@@ -1,0 +1,10 @@
+{
+  "tokens": "dist/css/toy-tokens.css",
+  "targets": [
+    { "file": "dist/css/toy-tokens.css", "profile": "tokens" },
+    { "file": "pages/styles/toy.css", "profile": "skin" },
+    { "file": "pages/styles/motion-preview.css", "profile": "motion", "companion": "pages/styles/toy.css" },
+    { "file": "pages/components/toy-components.css", "profile": "generated" }
+  ],
+  "textShadowSelectors": ["\\.t(28|36|48|64|96)(?![\\w-])", "\\.tv-ToyLogo(?![\\w-])"]
+}

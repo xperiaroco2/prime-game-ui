@@ -1,0 +1,42 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "backdrop": {
+    "$description": "Full-screen backdrops behind menus and dialogs.",
+    "dim": {
+      "$description": "The dim backdrop.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyBackdrop", "class": "Panel" },
+          "context": "dark"
+        }
+      },
+      "panel": {
+        "bg-color": { "$type": "color", "$value": "{color.surface.backdrop}" }
+      }
+    },
+    "deep": {
+      "$description": "The deeper backdrop.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyBackdropDeep", "class": "Panel" },
+          "context": "dark"
+        }
+      },
+      "panel": {
+        "bg-color": { "$type": "color", "$value": "{color.surface.backdrop-deep}" }
+      }
+    },
+    "night": {
+      "$description": "The opaque night backdrop.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyBackdropNight", "class": "Panel" },
+          "context": "dark"
+        }
+      },
+      "panel": {
+        "bg-color": { "$type": "color", "$value": "{color.surface.night}" }
+      }
+    }
+  }
+}

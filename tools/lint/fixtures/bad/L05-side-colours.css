@@ -1,0 +1,6 @@
+/* profile: skin; expect: L05 */
+body[data-style="toy"] .frame .a {
+  border-style: solid;
+  border-width: calc(var(--toy-stroke-control) * var(--px));
+  border-color: var(--toy-color-outline) var(--toy-palette-yellow);
+}

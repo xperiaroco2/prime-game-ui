@@ -1,0 +1,2 @@
+/* profile: skin; expect: L28 */
+body[data-style="toy"] .frame .a { z-index: 2; }

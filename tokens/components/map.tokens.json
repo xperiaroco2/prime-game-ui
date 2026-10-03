@@ -1,0 +1,89 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "map": {
+    "$description": "The map board, rooms, zone and the \"you are here\" pin.",
+    "board": {
+      "$description": "The map board: lavender, ink outline, on the drop base.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyMapBoard", "class": "PanelContainer", "base": { "any": "ToyBasePanel" } },
+          "context": "light"
+        }
+      },
+      "panel": {
+        "bg-color": { "$type": "color", "$value": "{color.surface.board}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-width": { "$type": "dimension", "$value": "{stroke.surface}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.surface}" },
+        "content-margin": { "$type": "dimension", "$value": { "value": 4, "unit": "px" } }
+      }
+    },
+    "room": {
+      "$description": "A room on the map.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyMapRoom", "class": "PanelContainer" },
+          "context": "light"
+        }
+      },
+      "panel": {
+        "bg-color": { "$type": "color", "$value": "{palette.cream}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.medium}" },
+        "content-margin": { "$type": "dimension", "$value": { "value": 9, "unit": "px" } }
+      }
+    },
+    "room-text": {
+      "$description": "A room name.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyMapRoomText", "class": "Label", "on": ["ToyMapRoom"] },
+          "context": "light"
+        }
+      },
+      "label": { "$type": "typography", "$value": "{type.caption-bold}" },
+      "normal": {
+        "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
+      }
+    },
+    "zone": {
+      "$description": "The highlighted zone on the map.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyMapZone", "class": "Panel" },
+          "context": "light"
+        }
+      },
+      "panel": {
+        "bg-color": { "$type": "color", "$value": "{palette.zone}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-width": { "$type": "dimension", "$value": "{stroke.surface}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.medium}" }
+      }
+    },
+    "pin": {
+      "$description": "The \"you are here\" pin: a teardrop; its angle is set at runtime.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyMapPin", "class": "Panel" },
+          "context": "light"
+        }
+      },
+      "panel": {
+        "bg-color": { "$type": "color", "$value": "{palette.coral-deep}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
+        "corner-radius-top-left": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "corner-radius-top-right": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } },
+        "corner-radius-bottom-right": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } },
+        "corner-radius-bottom-left": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } }
+      },
+      "size": {
+        "$type": "dimension",
+        "width": { "$value": { "value": 28, "unit": "px" } },
+        "height": { "$value": { "value": 28, "unit": "px" } }
+      }
+    }
+  }
+}
