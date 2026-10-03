@@ -1,0 +1,19 @@
+/* The reverse patch of spec §15.5: items 1-4 of §15.3 in their old form, so that "after + this file" must equal the
+   page on main. tools/visual/probe.js injects it into a temp copy of pages/styles/styles.html only; it is never part of
+   a page. Each "item N" comment starts the declarations of that item (the probe switches items off one at a time to
+   attribute every difference). Item 5 (chips and idle tabs: transparent border -> padding) changes no picture, so it
+   has no line here. */
+
+/* item 1: letter spacing */
+body[data-style="toy"] .frame .t16, body[data-style="toy"] .frame .t18 { letter-spacing: .01em !important; }
+body[data-style="toy"] .frame .t36, body[data-style="toy"] .frame .t48,
+body[data-style="toy"] .frame .t64, body[data-style="toy"] .frame .t96 { letter-spacing: -.01em !important; }
+
+/* item 2: the health fill at 22 % */
+body[data-style="toy"] .frame [data-bar="health"] > i[data-in="hurt"] { background: #E87D46 !important; }
+
+/* item 3: the selected preset card's padding */
+body[data-style="toy"] .frame .card.on { padding: calc(12cqw / 19.2) !important; }
+
+/* item 4: the stepper radius */
+body[data-style="toy"] .frame .val .ar { border-radius: 999px !important; }
