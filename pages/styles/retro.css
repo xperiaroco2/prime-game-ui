@@ -1,0 +1,253 @@
+/* Quiet retro ("Тихий ретро"), after A Short Hike.
+   Dark night-plum plates with soft corners and no border, warm cream text, one marigold accent used rarely.
+   System: cream fill = the selected option; marigold = the primary action or the big moment (one per screen);
+   small caps with wide tracking = labels. Every rule maps to a Godot StyleBoxFlat, LabelSettings or Theme value:
+   solid colours, one border colour per element, corner radii, at most one outer shadow (panels only).
+   The 3D-world placeholder background of .frame is left alone. */
+
+body[data-style="retro"] {
+  --rt-night: #15131C;        /* intro and outro screens, full-screen dims */
+  --rt-plate: rgba(30, 28, 41, 0.84);   /* #1E1C29 at 84%: plates over the 3D world */
+  --rt-plate-solid: #1E1C29;
+  --rt-panel: #262433;        /* menus and cards */
+  --rt-panel-edge: #322F42;   /* the panel's barely visible edge, setrow dividers */
+  --rt-lift: #36324A;         /* secondary buttons, preview boxes */
+  --rt-raised: #2F2C3E;       /* preset cards, rooms */
+  --rt-deep: #15131E;         /* text fields */
+  --rt-well: #1A1824;         /* how-to card frames */
+  --rt-map: #191723;          /* the map's water */
+  --rt-line: #7A7490;         /* outlines that must read: ghost buttons, fields, line chips (3.4:1 on the panel) */
+  --rt-room-line: #6F6888;    /* room outlines (3.4:1 on the map) */
+  --rt-cream: #F3EAD8;        /* main text, selected fills */
+  --rt-cream-2: #D9D0BF;      /* ghost button text */
+  --rt-stone: #C6BCAB;        /* dim text, value arrows */
+  --rt-keyedge: #A89E8D;      /* keycap bottom edge */
+  --rt-ink: #1E1C29;          /* text on cream and on the accent */
+  --rt-accent: #EDBF6A;       /* marigold: the one accent */
+  --rt-accent-deep: #4A3820;  /* the hard drop under the big-moment titles */
+}
+
+/* ---------- base text inside the frames ---------- */
+body[data-style="retro"] .frame { color: var(--rt-cream); font-weight: 500; }
+body[data-style="retro"] .frame .t16,
+body[data-style="retro"] .frame .t18 { font-weight: 600; }
+body[data-style="retro"] .frame .b { font-weight: 700; }
+body[data-style="retro"] .frame .dimtext { color: var(--rt-stone); }
+body[data-style="retro"] .frame .t36,
+body[data-style="retro"] .frame .t48,
+body[data-style="retro"] .frame .t64,
+body[data-style="retro"] .frame .t96 { letter-spacing: 0.01em; }
+
+/* ---------- intro / outro and full-screen overlays ---------- */
+body[data-style="retro"] .frame.dark { background: var(--rt-night); }
+body[data-style="retro"] .frame > div.abs[data-in="eng dis"]:not(.col) { background: var(--rt-night) !important; }
+body[data-style="retro"] .frame .dim { background: rgba(21, 19, 28, 0.72); }
+body[data-style="retro"] .frame .dim.more { background: rgba(21, 19, 28, 0.82); }
+/* the downed vignette becomes a flat night tint; a real vignette would be a post-process shader, not UI */
+body[data-style="retro"] .frame .vignette { background: rgba(21, 19, 28, 0.42); }
+
+/* ---------- plates and panels ---------- */
+body[data-style="retro"] .frame .plate {
+  background: var(--rt-plate);
+  border-radius: calc(14cqw / 19.2);
+}
+body[data-style="retro"] .frame .panel {
+  background: var(--rt-panel);
+  border-color: var(--rt-panel-edge);
+  border-radius: calc(20cqw / 19.2);
+  box-shadow: 0 calc(6cqw / 19.2) calc(12cqw / 19.2) rgba(8, 7, 12, 0.45);
+}
+body[data-style="retro"] .frame.dark .plate { background: #24212F; }
+body[data-style="retro"] .frame.dark .panel { background: #211E2C; border-color: #211E2C; box-shadow: none; }
+body[data-style="retro"] .frame .panel .panel { box-shadow: none; border-color: var(--rt-panel); }
+
+/* ---------- labels: small caps with retro tracking ---------- */
+body[data-style="retro"] .frame .col > .dimtext:first-child,
+body[data-style="retro"] .frame .plate > .dimtext:first-child,
+body[data-style="retro"] .frame .row > span.dimtext:first-child,
+body[data-style="retro"] .frame .panel .row.between > .t18.dimtext:last-child,
+body[data-style="retro"] .frame .col.t22 > .t18.dimtext[style],
+body[data-style="retro"] .frame .plate.col > .b.t20:first-child,
+body[data-style="retro"] .frame .abs.col > .col > span.t16:first-child,
+body[data-style="retro"] .frame > .abs.chip,
+body[data-style="retro"] .frame .slot,
+body[data-style="retro"] .frame .room {
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-weight: 700;
+}
+/* uppercase reads larger: bring the labels down 6 to 13% */
+body[data-style="retro"] .frame .col > .t18.dimtext:first-child,
+body[data-style="retro"] .frame .plate > .t18.dimtext:first-child,
+body[data-style="retro"] .frame .panel .row.between > .t18.dimtext:last-child,
+body[data-style="retro"] .frame .col.t22 > .t18.dimtext[style] { font-size: calc(16cqw / 19.2); }
+body[data-style="retro"] .frame .col > .t20.dimtext:first-child,
+body[data-style="retro"] .frame .plate > .t20.dimtext:first-child,
+body[data-style="retro"] .frame .plate.col > .b.t20:first-child,
+body[data-style="retro"] .frame > .abs.chip.t20 { font-size: calc(18cqw / 19.2); }
+body[data-style="retro"] .frame .col > .t22.dimtext:first-child,
+body[data-style="retro"] .frame .row.t22 > span.dimtext:first-child,
+body[data-style="retro"] .frame .col.t22 .row > span.dimtext:first-child { font-size: calc(20cqw / 19.2); }
+body[data-style="retro"] .frame > .abs.chip.t24 { font-size: calc(21cqw / 19.2); }
+body[data-style="retro"] .frame .slot.t16,
+body[data-style="retro"] .frame .room { font-size: calc(15cqw / 19.2); }
+
+/* HUD bar labels sit over the 3D world: each gets its own small plate */
+body[data-style="retro"] .frame .abs.col > .col > span.t16:first-child {
+  align-self: flex-start;
+  background: var(--rt-plate);
+  border-radius: calc(6cqw / 19.2);
+  padding: calc(2cqw / 19.2) calc(8cqw / 19.2);
+  font-size: calc(15cqw / 19.2);
+}
+
+/* ---------- buttons, fields, keys ---------- */
+body[data-style="retro"] .frame .btn {
+  background: var(--rt-lift);
+  border-color: var(--rt-lift);
+  color: var(--rt-cream);
+  border-radius: calc(12cqw / 19.2);
+  letter-spacing: 0.02em;
+}
+body[data-style="retro"] .frame .btn.fill {
+  background: var(--rt-accent);
+  border-color: var(--rt-accent);
+  color: var(--rt-ink);
+}
+body[data-style="retro"] .frame .btn.ghost {
+  background: transparent;
+  border-color: var(--rt-line);
+  color: var(--rt-cream-2);
+}
+body[data-style="retro"] .frame .field {
+  background: var(--rt-deep);
+  border-color: var(--rt-line);
+  border-radius: calc(10cqw / 19.2);
+  color: var(--rt-cream);
+}
+body[data-style="retro"] .frame .key {
+  background: var(--rt-cream);
+  border-color: var(--rt-keyedge);
+  color: var(--rt-ink);
+  border-radius: calc(7cqw / 19.2);
+}
+body[data-style="retro"] .frame .key.dimtext {
+  background: transparent;
+  border-color: var(--rt-line);
+  color: var(--rt-stone);
+}
+
+/* ---------- chips ---------- */
+body[data-style="retro"] .frame .chip { background: var(--rt-plate); color: var(--rt-cream); }
+body[data-style="retro"] .frame .chip.light { background: var(--rt-cream); color: var(--rt-ink); }
+body[data-style="retro"] .frame .chip.line { background: transparent; border-color: var(--rt-line); color: var(--rt-cream); }
+body[data-style="retro"] .frame .panel .row > .row > .chip.light.t16 { letter-spacing: 0.12em; }
+/* outlines on the dimmed world (the invite's language chip, the main-menu name field): Line is only 2.1:1 there, stone is 5.0:1 */
+body[data-style="retro"] .frame > .abs > .chip.line,
+body[data-style="retro"] .frame > .abs.col > .row > .field { border-color: var(--rt-stone); }
+
+/* ---------- HUD: crosshair, bars, mic, slots ---------- */
+body[data-style="retro"] .frame .cross {
+  background: var(--rt-cream);
+  border: calc(2cqw / 19.2) solid rgba(21, 19, 28, 0.75);
+  box-shadow: none;
+}
+body[data-style="retro"] .frame .bar2 { background: rgba(30, 28, 41, 0.80); }
+body[data-style="retro"] .frame .bar2 > i { background: var(--rt-cream); }
+body[data-style="retro"] .frame .plate .bar2,
+body[data-style="retro"] .frame .panel .bar2 { background: rgba(243, 234, 216, 0.16); }
+body[data-style="retro"] .frame.dark .bar2 { background: rgba(243, 234, 216, 0.14); }
+body[data-style="retro"] .frame.dark .bar2 > i { background: var(--rt-accent); }
+body[data-style="retro"] .frame .bar2 > i[data-in="tired"] { background: var(--rt-accent); }
+body[data-style="retro"] .frame .mic { background: var(--rt-plate); color: var(--rt-cream); }
+body[data-style="retro"] .frame .slot {
+  background: rgba(30, 28, 41, 0.80);
+  border-color: #4A4560;
+  border-radius: calc(14cqw / 19.2);
+  color: var(--rt-cream);
+}
+body[data-style="retro"] .frame .slot.on { border-color: var(--rt-cream); }
+body[data-style="retro"] .frame .slot.dimtext { color: var(--rt-stone); }
+/* connect spinner: one cream arc from the top and right widths (one border colour); the engine rotates it */
+body[data-style="retro"] .frame .ring {
+  border-color: var(--rt-cream);
+  border-width: calc(8cqw / 19.2) calc(8cqw / 19.2) 0 0;
+}
+body[data-style="retro"] .frame .plate > .t48.b { letter-spacing: 0.04em; }
+
+/* ---------- Esc menu: tabs, setting rows, preset cards, character ---------- */
+body[data-style="retro"] .frame .tabs div { color: var(--rt-stone); border-radius: calc(10cqw / 19.2); }
+body[data-style="retro"] .frame .tabs div.on { background: var(--rt-cream); color: var(--rt-ink); }
+body[data-style="retro"] .frame .tabs .dimtext { color: var(--rt-stone); }
+body[data-style="retro"] .frame .setrow { border-color: var(--rt-panel-edge); }
+body[data-style="retro"] .frame .val { color: var(--rt-cream); }
+body[data-style="retro"] .frame .val .ar { color: var(--rt-stone); }
+body[data-style="retro"] .frame .card {
+  background: var(--rt-raised);
+  border-color: var(--rt-raised);
+  border-radius: calc(14cqw / 19.2);
+}
+body[data-style="retro"] .frame .card.on { border-color: var(--rt-cream); }
+body[data-style="retro"] .frame .card.dimtext { background: transparent; border-color: var(--rt-line); }
+body[data-style="retro"] .frame .panel .sil { background: var(--rt-lift); }
+
+/* language radios (inline greys in the wireframe) */
+body[data-style="retro"] .frame .dot[style*="#EDEDED"] { background: var(--rt-cream) !important; color: var(--rt-ink); }
+body[data-style="retro"] .frame .dot[style*="#555"] { background: var(--rt-lift) !important; }
+
+/* character colours: a PROPOSAL only, the designer decides the palette */
+body[data-style="retro"] .frame .row[style*="flex-wrap"] > .dot { color: var(--rt-ink) !important; }
+body[data-style="retro"] .frame .row[style*="flex-wrap"] > .dot:nth-child(1) { background: #E07A5F !important; outline-color: var(--rt-cream) !important; }
+body[data-style="retro"] .frame .row[style*="flex-wrap"] > .dot:nth-child(2) { background: #F2CC8F !important; }
+body[data-style="retro"] .frame .row[style*="flex-wrap"] > .dot:nth-child(3) { background: #81B29A !important; }
+body[data-style="retro"] .frame .row[style*="flex-wrap"] > .dot:nth-child(4) { background: #6FA8DC !important; }
+body[data-style="retro"] .frame .row[style*="flex-wrap"] > .dot:nth-child(5) { background: #B48EAD !important; }
+body[data-style="retro"] .frame .row[style*="flex-wrap"] > .dot:nth-child(6) { background: #F4A6B8 !important; }
+body[data-style="retro"] .frame .row[style*="flex-wrap"] > .dot:nth-child(7) { background: #8E7DBE !important; }
+body[data-style="retro"] .frame .row[style*="flex-wrap"] > .dot:nth-child(8) { background: #E9E4D4 !important; }
+body[data-style="retro"] .frame .row[style*="flex-wrap"] > .dot:nth-child(9) { background: #5C9EAD !important; }
+body[data-style="retro"] .frame .row[style*="flex-wrap"] > .dot:nth-child(10) { background: #A47551 !important; }
+
+/* ---------- how-to cards (airline safety card): calm cream pictograms in deep wells ---------- */
+body[data-style="retro"] .frame .panel [style*="background:#1C1C1C"] {
+  background: var(--rt-well) !important;
+  border-radius: calc(12cqw / 19.2) !important;
+}
+body[data-style="retro"] .frame .panel svg { stroke: var(--rt-cream); }
+body[data-style="retro"] .frame .panel svg text { fill: var(--rt-cream); }
+
+/* ---------- map (M) ---------- */
+body[data-style="retro"] .frame .map { background: var(--rt-map); border-radius: calc(16cqw / 19.2); }
+body[data-style="retro"] .frame .room {
+  background: var(--rt-raised);
+  border-color: var(--rt-room-line);
+  border-radius: calc(8cqw / 19.2);
+  color: #D2C8B6;
+}
+body[data-style="retro"] .frame .room svg { stroke: #D2C8B6; }
+/* the hovered task's zone: a flat marigold tint with one solid outline (the map's only accent) */
+body[data-style="retro"] .frame .map > div[data-in="zone"]:not(.chip) {
+  background: rgba(237, 191, 106, 0.20) !important;
+  border: calc(3cqw / 19.2) solid var(--rt-accent) !important;
+  border-radius: calc(8cqw / 19.2);
+}
+body[data-style="retro"] .frame .map .chip.light { background: var(--rt-accent); color: var(--rt-ink); }
+/* "you are here": a cream map pin (three round corners, one sharp corner pointing the way you face) instead of
+   the wireframe's border triangle, which needs per-side border colours. In Godot: one StyleBoxFlat, rotated. */
+body[data-style="retro"] .frame .map .you {
+  width: calc(26cqw / 19.2);
+  height: calc(26cqw / 19.2);
+  border: 0;
+  border-radius: 0 calc(13cqw / 19.2) calc(13cqw / 19.2) calc(13cqw / 19.2);
+  background: var(--rt-cream);
+  transform: rotate(80deg);
+}
+
+/* ---------- the rare accent: main-menu selection, countdown, big moments ---------- */
+body[data-style="retro"] .frame > .abs.col:not(.c) > .t28.b:not(.c) { color: var(--rt-accent); }
+body[data-style="retro"] .frame .plate > .t36.b[data-in="count"] { color: var(--rt-accent); }
+body[data-style="retro"] .frame .abs.col.c > .t96 {
+  color: var(--rt-accent);
+  text-shadow: 0 calc(4cqw / 19.2) 0 var(--rt-accent-deep);
+}
+body[data-style="retro"] .frame.dark .abs.col.c > .t24[style] { color: var(--rt-stone); letter-spacing: 0.04em; }

@@ -1,0 +1,251 @@
+/* prime-game UI style "card" (Safety card / Картка безпеки).
+   Calm paper panels with ink text and a thick ink outline, square-ish corners, a hard offset shadow like a
+   printed card, labels like printed headings, and one warm signal colour (amber) for attention only:
+   the primary button, "new", warnings, the downed plate, the muted mic, the loading bar and the big-title offset.
+   Godot-safe: every rule is a StyleBoxFlat (solid colour, per-side border widths with one border colour,
+   per-corner radius, one shadow), a LabelSettings (colour, one shadow on titles) or a Theme font setting.
+   Selectors that use [data-in], :has() or [style*=] only reach wireframe states; in Godot each is a theme
+   type variation (WarningPlate, HudStatusCard, BarLow, HowToCell, MapZone). */
+
+body[data-style="card"] {
+  --k-paper: #F4EFE4;      /* panels, plates, tags */
+  --k-paper-hi: #FFFCF5;   /* fields, buttons, sub-cards, map rooms, how-to cells */
+  --k-paper-lo: #E4DCCB;   /* map sheet, bar tracks */
+  --k-rule: #CFC4AE;       /* setting row rules */
+  --k-ink: #1E2229;        /* text, outlines, shadows, intro/outro background, selection fill */
+  --k-ink-2: #5C574D;      /* secondary text on paper */
+  --k-paper-2: #C8C0AF;    /* secondary text on ink and on the dimmed world */
+  --k-signal: #FFB000;     /* the one warm signal colour */
+  --k-shadow-dark: #0B0D10;/* panel shadow on the dimmed world */
+}
+
+/* ---------- frame text and the black intro/outro frames ---------- */
+body[data-style="card"] .frame { color: var(--k-paper); font-weight: 500; }
+body[data-style="card"] .frame .dimtext { color: var(--k-paper-2); }
+body[data-style="card"] .frame.dark { background: var(--k-ink); }
+/* screen 6 draws its black intro as an inline full-frame div */
+body[data-style="card"] .frame > .abs[style*="background:#0E0E0E"] { background: var(--k-ink) !important; }
+
+/* dim layers over the world: dark enough that paper text clears 4.5:1 on a white world */
+body[data-style="card"] .dim { background: rgba(30, 34, 41, .80); }
+body[data-style="card"] .dim.more { background: rgba(30, 34, 41, .88); }
+
+/* big titles: one hard amber offset shadow, like a misregistered print */
+body[data-style="card"] .frame .t64.b,
+body[data-style="card"] .frame .t96.b { text-shadow: calc(5cqw / 19.2) calc(5cqw / 19.2) 0 var(--k-signal); letter-spacing: .01em; }
+
+/* eyebrow labels on ink and on the dimmed world: amber printed headings */
+body[data-style="card"] .frame > .abs.col.c:not(.plate):not(.panel) > .dimtext:first-child,
+body[data-style="card"] .frame.dark .abs.col > .t24.c:first-child {
+  color: var(--k-signal); text-transform: uppercase; letter-spacing: .16em; font-weight: 700;
+}
+
+/* main menu: the selected entry carries the signal colour */
+body[data-style="card"] .frame:not(.dark) > .abs.col:not(.panel) > .t28.b { color: var(--k-signal); }
+
+/* ---------- plates over the 3D world: small paper tags ---------- */
+body[data-style="card"] .plate {
+  background: var(--k-paper); color: var(--k-ink);
+  border: calc(3cqw / 19.2) solid var(--k-ink);
+  border-radius: calc(4cqw / 19.2);
+  padding: calc(7cqw / 19.2) calc(15cqw / 19.2);
+  box-shadow: calc(4cqw / 19.2) calc(4cqw / 19.2) 0 var(--k-ink);
+}
+body[data-style="card"] .plate .dimtext { color: var(--k-ink-2); }
+/* downed: the warning variant of the plate */
+body[data-style="card"] .plate.col[data-in="down"] { background: var(--k-signal); }
+body[data-style="card"] .plate.col[data-in="down"] .dimtext { color: var(--k-ink); }
+
+/* HUD status (health, stamina, mic): one paper card instead of loose text over the world */
+body[data-style="card"] .frame > .abs.col:has(> .col > .bar2) {
+  background: var(--k-paper); color: var(--k-ink);
+  border: calc(3cqw / 19.2) solid var(--k-ink);
+  border-radius: calc(4cqw / 19.2);
+  padding: calc(10cqw / 19.2) calc(12cqw / 19.2);
+  box-shadow: calc(4cqw / 19.2) calc(4cqw / 19.2) 0 var(--k-ink);
+}
+body[data-style="card"] .frame > .abs.col:has(> .col > .bar2) .t16 {
+  text-transform: uppercase; letter-spacing: .1em; font-weight: 700; font-size: calc(15cqw / 19.2);
+}
+
+/* ---------- panels: the printed card ---------- */
+body[data-style="card"] .panel {
+  background: var(--k-paper); color: var(--k-ink);
+  border: calc(4cqw / 19.2) solid var(--k-ink);
+  border-radius: calc(6cqw / 19.2);
+  box-shadow: calc(8cqw / 19.2) calc(8cqw / 19.2) 0 var(--k-shadow-dark);
+}
+body[data-style="card"] .panel .dimtext { color: var(--k-ink-2); }
+body[data-style="card"] .panel .t36.b { text-transform: uppercase; letter-spacing: .06em; font-size: calc(32cqw / 19.2); }
+body[data-style="card"] .panel .t28.b:first-child { text-transform: uppercase; letter-spacing: .06em; font-size: calc(26cqw / 19.2); }
+
+/* printed section labels: small caps-like headings */
+body[data-style="card"] .plate.col > .t18.dimtext:first-child,
+body[data-style="card"] .plate.col > .t20.b:first-child,
+body[data-style="card"] .panel .col > .t20.dimtext:first-child,
+body[data-style="card"] .panel.col > .t20.dimtext,
+body[data-style="card"] .panel .row.between > .t18.dimtext,
+body[data-style="card"] #s5 [data-in="manual"] > .col > .t18.dimtext {
+  text-transform: uppercase; letter-spacing: .12em; font-weight: 700;
+}
+
+/* how-to card cells (inline-styled in the wireframe): white boxes with an ink frame, ink pictograms */
+body[data-style="card"] .panel > .row > .col.c {
+  background: var(--k-paper-hi) !important;
+  border: calc(3cqw / 19.2) solid var(--k-ink);
+  border-radius: calc(3cqw / 19.2) !important;
+}
+/* one highlighted cell per card (the warning or funny panel; which one is content): amber */
+body[data-style="card"] .panel > .row > .col.c:nth-child(3) { background: var(--k-signal) !important; }
+body[data-style="card"] .panel svg { stroke: var(--k-ink); }
+body[data-style="card"] .panel svg text { fill: var(--k-ink); }
+
+/* Esc menu tabs: selection is solid ink with an amber index edge */
+body[data-style="card"] .tabs div {
+  color: var(--k-ink);
+  border-radius: calc(3cqw / 19.2);
+  border-left: calc(8cqw / 19.2) solid transparent;
+  padding: calc(10cqw / 19.2) calc(16cqw / 19.2) calc(10cqw / 19.2) calc(8cqw / 19.2);
+}
+body[data-style="card"] .tabs div.on { background: var(--k-ink); color: var(--k-paper); border-color: var(--k-signal); }
+
+/* settings rows: a printed form, not a debug table */
+body[data-style="card"] .setrow { border-bottom: calc(2cqw / 19.2) solid var(--k-rule); }
+body[data-style="card"] .val .ar { color: var(--k-ink); }
+
+/* preset cards */
+body[data-style="card"] .card {
+  background: var(--k-paper-hi); color: var(--k-ink);
+  border: calc(2cqw / 19.2) solid var(--k-ink);
+  border-radius: calc(4cqw / 19.2);
+}
+body[data-style="card"] .card.on { background: var(--k-ink); color: var(--k-paper); border-width: calc(4cqw / 19.2); }
+body[data-style="card"] .panel .card.on .dimtext { color: var(--k-paper-2); }
+body[data-style="card"] .card.dimtext { background: transparent; border-color: var(--k-ink-2); }
+
+/* ---------- controls ---------- */
+body[data-style="card"] .btn {
+  background: var(--k-paper-hi); color: var(--k-ink);
+  border: calc(3cqw / 19.2) solid var(--k-ink);
+  border-radius: calc(4cqw / 19.2);
+  padding: calc(9cqw / 19.2) calc(19cqw / 19.2);
+}
+body[data-style="card"] .btn:not(.b) { font-weight: 600; }
+body[data-style="card"] .btn.fill {
+  background: var(--k-signal); color: var(--k-ink); border-color: var(--k-ink);
+  box-shadow: calc(4cqw / 19.2) calc(4cqw / 19.2) 0 var(--k-ink);
+}
+/* ghost on ink or on the dimmed world */
+body[data-style="card"] .btn.ghost { background: transparent; color: var(--k-paper); border-color: var(--k-paper-2); }
+/* ghost on paper */
+body[data-style="card"] .panel .btn.ghost { color: var(--k-ink-2); border-color: var(--k-ink-2); }
+
+/* text field: a form line, light slip with an ink underline */
+body[data-style="card"] .field {
+  background: var(--k-paper-hi); color: var(--k-ink);
+  border: 0 solid var(--k-ink);
+  border-bottom-width: calc(3cqw / 19.2);
+  border-radius: calc(3cqw / 19.2) calc(3cqw / 19.2) 0 0;
+}
+
+/* keycaps (tutorial only): paper key, ink outline, deeper bottom edge kept from the layout */
+body[data-style="card"] .key { background: var(--k-paper-hi); color: var(--k-ink); border-color: var(--k-ink); border-radius: calc(4cqw / 19.2); }
+body[data-style="card"] .key.dimtext { color: var(--k-ink-2); border-color: var(--k-ink-2); }
+
+/* chips: paper tags over the world; amber when active; outline-only when unselected on a dark screen */
+body[data-style="card"] .chip {
+  background: var(--k-paper); color: var(--k-ink);
+  border: calc(2cqw / 19.2) solid var(--k-ink);
+  border-radius: calc(3cqw / 19.2);
+  padding: calc(2cqw / 19.2) calc(12cqw / 19.2);
+  box-shadow: calc(3cqw / 19.2) calc(3cqw / 19.2) 0 var(--k-ink);
+}
+body[data-style="card"] .chip.light { background: var(--k-signal); color: var(--k-ink); }
+body[data-style="card"] .chip.line { background: transparent; color: var(--k-paper); border-color: var(--k-paper-2); box-shadow: none; }
+/* chips on paper: selection is solid ink, "new" and map zones stay amber */
+body[data-style="card"] .panel .chip,
+body[data-style="card"] .map .chip { box-shadow: none; }
+body[data-style="card"] .panel .chip.line { color: var(--k-ink); border-color: var(--k-ink); }
+body[data-style="card"] .panel .chip.light { background: var(--k-ink); color: var(--k-paper); }
+body[data-style="card"] .panel .chip.light.t16,
+body[data-style="card"] .map .chip.light { background: var(--k-signal); color: var(--k-ink); }
+body[data-style="card"] .map .chip:not(.light) { background: var(--k-ink); color: var(--k-paper); }
+
+/* hand and belt slots */
+body[data-style="card"] .slot {
+  background: rgba(244, 239, 228, .9); color: var(--k-ink);
+  border: calc(2cqw / 19.2) solid var(--k-ink);
+  border-radius: calc(4cqw / 19.2);
+}
+body[data-style="card"] .slot.dimtext { color: var(--k-ink-2); }
+body[data-style="card"] .slot.on {
+  background: var(--k-paper); border-color: var(--k-ink); border-width: calc(4cqw / 19.2);
+  box-shadow: calc(4cqw / 19.2) calc(4cqw / 19.2) 0 var(--k-ink);
+}
+
+/* mic badge: paper disc; muted is an inverted ink disc with an amber ring */
+body[data-style="card"] .mic { background: var(--k-paper); border: calc(3cqw / 19.2) solid var(--k-ink); }
+body[data-style="card"] .mic.off { background: var(--k-ink); border-color: var(--k-signal); }
+
+/* bars: ink fill in a framed paper track */
+body[data-style="card"] .bar2 {
+  background: var(--k-paper-lo);
+  border: calc(2cqw / 19.2) solid var(--k-ink);
+  border-radius: calc(2cqw / 19.2);
+}
+body[data-style="card"] .bar2 > i { background: var(--k-ink); border-radius: 0; }
+/* low stamina: the track turns amber */
+body[data-style="card"] .bar2:has(> i[data-in="tired"]:not([hidden])) { background: var(--k-signal); }
+/* on ink (loading): amber fill */
+body[data-style="card"] .frame.dark .bar2 { background: rgba(244, 239, 228, .16); border-color: var(--k-paper-2); }
+body[data-style="card"] .frame.dark .bar2 > i { background: var(--k-signal); }
+
+/* spinner: an amber arc (one colour, top and right widths only); the engine rotates it */
+body[data-style="card"] .ring {
+  border-color: var(--k-signal);
+  border-width: calc(8cqw / 19.2) calc(8cqw / 19.2) 0 0;
+}
+
+/* crosshair: paper dot with an ink ring, no spread shadow */
+body[data-style="card"] .cross { background: var(--k-paper); border: calc(2cqw / 19.2) solid var(--k-ink); box-shadow: none; }
+
+/* colour swatches and radio dots: square paint chips with an ink edge */
+body[data-style="card"] .dot { border: calc(2cqw / 19.2) solid var(--k-ink); border-radius: calc(4cqw / 19.2); color: var(--k-ink); }
+/* the selected swatch: a thicker edge and the hard shadow instead of the wireframe's white ring */
+body[data-style="card"] .dot[style*="outline"] {
+  outline: none !important;
+  border-width: calc(4cqw / 19.2);
+  box-shadow: calc(3cqw / 19.2) calc(3cqw / 19.2) 0 var(--k-ink);
+}
+
+/* ---------- the map (M): a printed floor plan ---------- */
+body[data-style="card"] .map {
+  background: var(--k-paper-lo); color: var(--k-ink);
+  border: calc(4cqw / 19.2) solid var(--k-ink);
+  border-radius: calc(6cqw / 19.2);
+  box-shadow: calc(8cqw / 19.2) calc(8cqw / 19.2) 0 var(--k-shadow-dark);
+}
+body[data-style="card"] .room {
+  background: var(--k-paper-hi); color: var(--k-ink);
+  border-color: var(--k-ink); border-radius: calc(2cqw / 19.2);
+  font-weight: 700; text-transform: uppercase; letter-spacing: .06em; font-size: calc(15cqw / 19.2);
+}
+body[data-style="card"] .room svg { stroke: var(--k-ink); }
+body[data-style="card"] .map .dimtext { color: var(--k-ink-2); }
+/* "you are here": an ink map pin (one sharp corner points the way you face) instead of the wireframe's border
+   triangle, which needs per-side border colours. In Godot: one StyleBoxFlat, rotated. */
+body[data-style="card"] .map .you {
+  width: calc(26cqw / 19.2);
+  height: calc(26cqw / 19.2);
+  border: 0;
+  border-radius: 0 calc(13cqw / 19.2) calc(13cqw / 19.2) calc(13cqw / 19.2);
+  background: var(--k-ink);
+  transform: rotate(80deg);
+}
+/* item zone (inline hatching in the wireframe): an amber highlighter wash with a heavy ink edge */
+body[data-style="card"] .map > .abs[data-in="zone"]:not(.chip) {
+  background: rgba(255, 176, 0, .40) !important;
+  border: calc(4cqw / 19.2) solid var(--k-ink) !important;
+}
+body[data-style="card"] .circ { background: var(--k-paper-hi); color: var(--k-ink); border-color: var(--k-ink); }
+body[data-style="card"] .marker { background: var(--k-signal); border-color: var(--k-ink); }
