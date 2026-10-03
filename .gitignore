@@ -1,0 +1,6 @@
+# Reference screenshots of other games stay local and private (never committed).
+pages/references/img/
+pages/references/refs-page.html
+# Scratch output
+*.tmp
+node_modules/

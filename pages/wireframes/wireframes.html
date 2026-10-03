@@ -1,0 +1,604 @@
+<title>Вайрфрейми сесії</title>
+<style>
+/* Layout: one column of screens; each screen is a 16:9 frame drawn at the game's 1920×1080 reference (sizes in cqw), with its states and notes; a sticky bar for navigation, zoom and font. Page chrome follows the theme; the frames are a fixed greyscale mock of the game screen. */
+:root {
+  --paper: #F2F1EF;
+  --card: #FFFFFF;
+  --ink: #1D1C21;
+  --muted: #5E5B64;
+  --line: #D9D5CF;
+  --tint: #E9E6F2;
+  --font-ui: "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, "Roboto", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "Cascadia Mono", "SF Mono", Consolas, monospace;
+  --wf-font: var(--font-ui);
+  --wf-title: var(--font-ui);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --paper: #141317; --card: #1C1B21; --ink: #ECEAF0; --muted: #A29EA9; --line: #34313B; --tint: #2A2635; color-scheme: dark; }
+}
+:root[data-theme="dark"] { --paper: #141317; --card: #1C1B21; --ink: #ECEAF0; --muted: #A29EA9; --line: #34313B; --tint: #2A2635; color-scheme: dark; }
+* { box-sizing: border-box; }
+body { background: var(--paper); color: var(--ink); font: 16px/1.55 var(--font-ui); padding-inline: 16px; padding-block: 0 48px; }
+.wrap { max-width: 64rem; margin: 0 auto; }
+a { color: inherit; text-underline-offset: 2px; }
+button:focus-visible, select:focus-visible, a:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; border-radius: 6px; }
+h1, h2, h3 { text-wrap: balance; line-height: 1.2; margin: 0; }
+h1 { font-size: clamp(1.8rem, 6vw, 2.4rem); font-weight: 800; }
+h2 { font-size: 1.3rem; font-weight: 750; }
+h3 { font-size: 0.95rem; font-weight: 700; }
+p { margin: 0; }
+ul { margin: 0; padding-left: 1.15rem; display: grid; gap: 5px; }
+.muted { color: var(--muted); }
+.eyebrow { font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+header { padding-block: 26px 12px; display: grid; gap: 10px; }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 16px; font-size: 0.88rem; color: var(--muted); }
+.legend i { display: inline-block; width: 14px; height: 14px; border-radius: 3px; vertical-align: -2px; margin-right: 6px; }
+
+.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10; background: var(--paper); border-bottom: 1px solid var(--line); margin-inline: -16px; padding: 8px 16px; display: grid; gap: 8px; }
+.nav { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; }
+.nav::-webkit-scrollbar { display: none; }
+.nav a { flex: none; text-decoration: none; font-size: 0.84rem; font-weight: 600; padding: 4px 10px; border: 1px solid var(--line); border-radius: 999px; background: var(--card); }
+.tools { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; font-size: 0.86rem; }
+.seg { display: inline-flex; flex-wrap: wrap; gap: 4px; }
+.seg button { font: 600 0.84rem var(--font-ui); padding: 5px 11px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--card); color: var(--ink); cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+select { font: 600 0.86rem var(--font-ui); padding: 5px 8px; border-radius: 8px; border: 1.5px solid var(--line); background: var(--card); color: var(--ink); max-width: 100%; }
+
+section.screen { padding-block: 28px 4px; display: grid; gap: 12px; scroll-margin-top: 92px; }
+.head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 12px; align-items: baseline; }
+.num { font: 700 0.95rem var(--font-mono); color: var(--muted); margin-right: 8px; }
+.stage { overflow-x: auto; border-radius: 10px; border: 1px solid var(--line); background: #111; }
+.notes { display: grid; gap: 12px; }
+@media (min-width: 720px) { .notes { grid-template-columns: 1fr 1fr; } }
+.box { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; display: grid; gap: 6px; font-size: 0.93rem; min-width: 0; }
+
+/* ---------- the frame: a 1920×1080 mock, 1cqw = 19.2 px at the reference ---------- */
+.frame {
+  container-type: inline-size; position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden;
+  font-family: var(--wf-font); color: #F4F4F4; line-height: 1.25;
+  background: linear-gradient(180deg, #D4D4D4 0%, #C9C9C9 57%, #A6A6A6 57%, #979797 100%);
+}
+body[data-zoom="2"] .frame { width: 200%; }
+body[data-zoom="3"] .frame { width: 300%; }
+.frame .worldtag { position: absolute; left: 50%; bottom: 3%; transform: translateX(-50%); font-size: calc(18cqw / 19.2); color: rgba(0,0,0,.35); letter-spacing: .1em; text-transform: uppercase; }
+.frame.dark { background: #0E0E0E; }
+.dim { position: absolute; inset: 0; background: rgba(0,0,0,.55); }
+.dim.more { background: rgba(0,0,0,.72); }
+.vignette { position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(0,0,0,0) 45%, rgba(0,0,0,.75) 100%); }
+.abs { position: absolute; }
+.plate { background: rgba(18,18,18,.74); border-radius: calc(10cqw / 19.2); padding: calc(10cqw / 19.2) calc(18cqw / 19.2); }
+.panel { background: #2A2A2A; border: calc(2cqw / 19.2) solid #4A4A4A; border-radius: calc(14cqw / 19.2); }
+.t16 { font-size: calc(16cqw / 19.2); } .t18 { font-size: calc(18cqw / 19.2); } .t20 { font-size: calc(20cqw / 19.2); }
+.t22 { font-size: calc(22cqw / 19.2); } .t24 { font-size: calc(24cqw / 19.2); } .t28 { font-size: calc(28cqw / 19.2); }
+.t36 { font-size: calc(36cqw / 19.2); } .t48 { font-size: calc(48cqw / 19.2); } .t64 { font-size: calc(64cqw / 19.2); }
+.t96 { font-size: calc(96cqw / 19.2); }
+.frame .t36, .frame .t48, .frame .t64, .frame .t96 { font-family: var(--wf-title); }
+.specimen { background: #1A1A1A; color: #F2F2F2; border-radius: 10px; padding: 14px 16px; display: grid; gap: 4px; overflow-wrap: anywhere; }
+.specimen .sp-title { font-family: var(--wf-title); font-size: 1.7rem; line-height: 1.15; }
+.specimen .sp-body { font-family: var(--wf-font); font-size: 1.05rem; }
+.specimen .sp-meta { font-size: 0.8rem; color: #A9A9A9; font-family: var(--font-ui); }
+.b { font-weight: 700; } .c { text-align: center; } .r { text-align: right; } .dimtext { color: #B5B5B5; }
+.col { display: flex; flex-direction: column; gap: calc(10cqw / 19.2); }
+.row { display: flex; gap: calc(12cqw / 19.2); align-items: center; }
+.between { justify-content: space-between; }
+.cross { position: absolute; left: 50%; top: 50%; width: calc(8cqw / 19.2); height: calc(8cqw / 19.2); margin: calc(-4cqw / 19.2) 0 0 calc(-4cqw / 19.2); border-radius: 50%; background: #FFF; box-shadow: 0 0 0 calc(2cqw / 19.2) rgba(0,0,0,.5); }
+.bar2 { height: calc(10cqw / 19.2); border-radius: 99px; background: rgba(255,255,255,.22); overflow: hidden; }
+.bar2 > i { display: block; height: 100%; background: #F0F0F0; border-radius: 99px; }
+.btn { border: calc(2cqw / 19.2) solid #DADADA; border-radius: calc(10cqw / 19.2); padding: calc(10cqw / 19.2) calc(20cqw / 19.2); text-align: center; }
+.btn.fill { background: #EDEDED; color: #151515; border-color: #EDEDED; }
+.btn.ghost { border-color: #6A6A6A; color: #CFCFCF; }
+.field { border: calc(2cqw / 19.2) solid #6A6A6A; border-radius: calc(8cqw / 19.2); padding: calc(8cqw / 19.2) calc(14cqw / 19.2); background: #1A1A1A; }
+.chip { display: inline-block; border-radius: 999px; padding: calc(4cqw / 19.2) calc(14cqw / 19.2); background: rgba(18,18,18,.74); }
+.chip.light { background: #E8E8E8; color: #151515; }
+.chip.line { background: transparent; border: calc(2cqw / 19.2) solid #8A8A8A; }
+.key { display: inline-block; min-width: 1.6em; padding: 0 .35em; border: calc(2cqw / 19.2) solid #EDEDED; border-bottom-width: calc(5cqw / 19.2); border-radius: calc(6cqw / 19.2); text-align: center; font-weight: 700; }
+.slot { width: calc(84cqw / 19.2); height: calc(84cqw / 19.2); border-radius: calc(12cqw / 19.2); border: calc(2cqw / 19.2) solid #7A7A7A; background: rgba(18,18,18,.6); display: grid; place-items: center; text-align: center; padding: calc(4cqw / 19.2); }
+.slot.on { border-color: #F2F2F2; border-width: calc(4cqw / 19.2); }
+.slot.wide { width: calc(180cqw / 19.2); }
+.dot { width: calc(26cqw / 19.2); height: calc(26cqw / 19.2); border-radius: 50%; display: inline-grid; place-items: center; font-weight: 700; color: #111; font-size: calc(14cqw / 19.2); }
+.marker { width: calc(34cqw / 19.2); height: calc(34cqw / 19.2); transform: rotate(45deg); border: calc(4cqw / 19.2) solid #FFF; background: rgba(18,18,18,.5); }
+.tabs { display: flex; flex-direction: column; gap: calc(8cqw / 19.2); }
+.tabs div { padding: calc(10cqw / 19.2) calc(16cqw / 19.2); border-radius: calc(8cqw / 19.2); color: #BDBDBD; }
+.tabs div.on { background: #EDEDED; color: #151515; font-weight: 700; }
+.setrow { display: flex; justify-content: space-between; align-items: center; gap: calc(12cqw / 19.2); padding: calc(8cqw / 19.2) 0; border-bottom: calc(1cqw / 19.2) solid #444; }
+.val { display: inline-flex; gap: calc(14cqw / 19.2); align-items: center; font-weight: 700; }
+.val .ar { color: #9A9A9A; }
+.card { border: calc(2cqw / 19.2) solid #555; border-radius: calc(10cqw / 19.2); padding: calc(12cqw / 19.2); text-align: center; flex: 1; }
+.card.on { border-color: #F0F0F0; border-width: calc(4cqw / 19.2); }
+.map { position: relative; background: #1E1E1E; border-radius: calc(10cqw / 19.2); }
+.room { position: absolute; border: calc(3cqw / 19.2) solid #8E8E8E; background: #2B2B2B; color: #A8A8A8; padding: calc(6cqw / 19.2); font-size: calc(16cqw / 19.2); }
+.circ { position: absolute; width: calc(26cqw / 19.2); height: calc(26cqw / 19.2); border-radius: 50%; border: calc(3cqw / 19.2) solid #EDEDED; background: #5A5A5A; display: grid; place-items: center; font-size: calc(13cqw / 19.2); font-weight: 700; }
+.you { position: absolute; width: 0; height: 0; border-left: calc(14cqw / 19.2) solid transparent; border-right: calc(14cqw / 19.2) solid transparent; border-bottom: calc(30cqw / 19.2) solid #FFF; transform: rotate(35deg); }
+.sil { background: #4A4A4A; border-radius: 45% 45% 20% 20%; }
+.mic { display: inline-grid; place-items: center; width: calc(46cqw / 19.2); height: calc(46cqw / 19.2); border-radius: 50%; background: rgba(18,18,18,.74); font-size: calc(22cqw / 19.2); position: relative; }
+.mic.off::after { content: ""; position: absolute; left: 16%; right: 16%; top: 48%; height: calc(4cqw / 19.2); background: #F2F2F2; border-radius: 2px; transform: rotate(-45deg); }
+.ring { width: calc(90cqw / 19.2); height: calc(90cqw / 19.2); border-radius: 50%; border: calc(8cqw / 19.2) solid rgba(255,255,255,.25); border-top-color: #FFF; border-right-color: #FFF; }
+</style>
+
+<div class="wrap">
+<header>
+  <div class="eyebrow">prime-game · UX/UI-відділ · #150 · вайрфрейми</div>
+  <h1>Вайрфрейми сесії</h1>
+  <p class="muted">Сірі схеми десяти екранів однієї сесії: що де стоїть і що написано. Стилю тут ще немає, лише розкладка. Тексти — чернетка. Кожен екран намальований у масштабі гри (1920×1080), тож на телефоні вмикай 2× або 3× і гортай убік.</p>
+  <div class="legend">
+    <span><i style="background:#C9C9C9"></i>світ гри (3D)</span>
+    <span><i style="background:#2B2B2B"></i>темна підкладка під текстом</span>
+    <span><i style="background:#EDEDED"></i>вибране або головна кнопка</span>
+  </div>
+</header>
+
+<div class="bar">
+  <nav class="nav" aria-label="Екрани">
+    <a href="#fonts">Шрифти</a><a href="#s1">1 Навчання</a><a href="#s2">2 Меню</a><a href="#s3">3 Підключення</a><a href="#s4">4 Лобі</a><a href="#s5">5 Esc</a>
+    <a href="#s6">6 Pre game</a><a href="#s7">7 HUD</a><a href="#s8">8 Карта (M)</a><a href="#s9">9 Падіння</a><a href="#s10">10 Post game</a>
+  </nav>
+  <div class="tools">
+    <span>Мова екранів</span>
+    <span class="seg" id="lang"><button type="button" data-l="uk" aria-pressed="true">UA</button><button type="button" data-l="en" aria-pressed="false">EN</button></span>
+    <span>Масштаб</span>
+    <span class="seg" id="zoom"><button type="button" data-z="1" aria-pressed="true">1×</button><button type="button" data-z="2" aria-pressed="false">2×</button><button type="button" data-z="3" aria-pressed="false">3×</button></span>
+    <label for="font-title">Заголовки</label>
+    <select id="font-title" data-kind="title"><option value="">Системний</option></select>
+    <label for="font-body">Текст</label>
+    <select id="font-body" data-kind="body"><option value="">Системний</option></select>
+  </div>
+</div>
+
+<section class="screen" id="fonts">
+  <h2>Шрифти</h2>
+  <p class="muted">Десять шрифтів у дусі A Short Hike: усі з відкритою ліцензією OFL і кирилицею (перевірено за файлами Google Fonts). Обери шрифт для заголовків і для тексту вгорі, і він одразу зʼявиться на всіх екранах нижче. Якщо в рядку нижче якась літера виглядає інакше, ніж сусідні, — у шрифті її немає. Шрифт самої A Short Hike не підтверджено: першоджерел немає.</p>
+  <p><b>Поки обрано: Comfortaa для заголовків і тексту</b> (твій вибір, тимчасово, доки немає стилю). Інші можна й далі перемикати.</p>
+  <div class="specimen" aria-live="polite">
+    <div class="sp-title">Ґанок їжака: Є Ї І Ґ · 07:22 · Перемогли Інженери</div>
+    <div class="sp-body">Віднеси кожен пакунок туди, що на ньому написано. Тебе ніхто не чує. ґ є і ї ʼ ’ № 0123456789</div>
+    <div class="sp-meta" id="sp-meta">Заголовки: системний · текст: системний</div>
+  </div>
+  <div class="box" id="font-notes"></div>
+</section>
+
+<!-- 1 -->
+<section class="screen" id="s1" data-states="invite step">
+  <div class="head"><h2><span class="num">1</span>Перший запуск і навчання</h2>
+    <span class="seg"><button type="button" data-s="invite">Запрошення</button><button type="button" data-s="step">Крок навчання</button></span></div>
+  <div class="stage"><div class="frame">
+    <span class="worldtag">тренувальна кімната</span>
+    <div data-in="invite" class="dim"></div>
+    <div data-in="invite" class="abs row t20" style="right:2%;top:4%"><span class="chip light b">Українська</span><span class="chip line">English</span></div>
+    <div data-in="invite" class="abs panel col c" style="left:32%;top:30%;width:36%;padding:calc(36cqw/19.2)">
+      <div class="t36 b">Перший раз тут?</div>
+      <div class="t22 dimtext">Коротке навчання: близько трьох хвилин, лише один раз. Після нього тобі нічого не доведеться пояснювати.</div>
+      <div class="row" style="justify-content:center;margin-top:calc(10cqw/19.2)"><div class="btn fill t24 b">Почати навчання</div><div class="btn ghost t20">Пропустити</div></div>
+    </div>
+    <div data-in="step" class="abs plate col c" style="left:50%;top:5%;transform:translateX(-50%);width:44%">
+      <div class="t18 dimtext">Крок 3 з 11</div>
+      <div class="t36 b">Візьми пакунок</div>
+      <div class="t22">Наведи приціл на пакунок і натисни <span class="key">E</span></div>
+    </div>
+    <div data-in="step" class="cross"></div>
+    <div data-in="step" class="abs plate col t18" style="right:2%;top:24%;width:20%">
+      <div class="b t20">Навчання</div>
+      <div>✓ Рух і погляд</div><div>✓ Біг і стрибок</div><div class="b">• Взяти й покласти</div><div class="dimtext">Рука й пояс</div><div class="dimtext">Віднести до кола</div><div class="dimtext">Карта й задачі (M)</div><div class="dimtext">Нова задача: «?» на карті</div><div class="dimtext">Повалений: підняти, здатися</div><div class="dimtext">Смерть: спостерігаєш, тебе не чують</div><div class="dimtext">Голос поруч</div><div class="dimtext">Меню</div>
+    </div>
+  </div></div>
+  <div class="notes">
+    <div class="box"><h3>Звідки ідея</h3><ul><li>LOCKDOWN Protocol: навчання на першому запуску, далі без пояснень (твій вибір).</li><li>Клавіші показуємо лише тут, у навчанні. У грі їх ніде немає.</li><li>Мову обираєш одразу тут, угорі праворуч; за замовчуванням — мова системи. Потім — «Налаштування → Мова» (#208).</li></ul></div>
+    <div class="box"><h3>Вирішено</h3><ul><li>Навчання можна пропустити (твоя відповідь).</li><li>Навчання — окрема кімната (твоя відповідь).</li><li>Навчання вчить лише основи й те, як дізнатися про будь-яку задачу: відкрити карту (M) і натиснути «?» (твоя відповідь).</li><li>Список кроків — чернетка; його затверджує дизайнер.</li></ul></div>
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="screen" id="s2" data-states="main join">
+  <div class="head"><h2><span class="num">2</span>Головне меню</h2>
+    <span class="seg"><button type="button" data-s="main">Меню</button><button type="button" data-s="join">Приєднатися</button></span></div>
+  <div class="stage"><div class="frame">
+    <span class="worldtag">лобі на фоні</span>
+    <div class="dim"></div>
+    <div class="abs col" style="left:7%;top:24%;width:30%">
+      <div class="t64 b">prime-game</div>
+      <div class="row t22" style="margin:calc(18cqw/19.2) 0"><span class="dimtext">Імʼя</span><span class="field" style="flex:1">Олена</span></div>
+      <div class="t28 b">▸ Створити гру</div>
+      <div class="t28" data-in="main">Приєднатися</div><div class="t28 b" data-in="join">▸ Приєднатися</div>
+      <div class="t28">Навчання</div>
+      <div class="t28">Налаштування</div>
+      <div class="t28">Вийти</div>
+    </div>
+    <div data-in="join" class="abs panel col" style="left:44%;top:34%;width:30%;padding:calc(28cqw/19.2)">
+      <div class="t28 b">Приєднатися до гри</div>
+      <div class="t20 dimtext">Адреса хоста</div><div class="field t24">192.168.0.12</div>
+      <div class="row t18 dimtext between"><span>Порт 7777 (зазвичай не чіпати)</span><span>лише та сама мережа</span></div>
+      <div class="row"><div class="btn fill t22 b" style="flex:1">Приєднатися</div><div class="btn ghost t20">Назад</div></div>
+    </div>
+    <div class="abs t16 dimtext" style="right:2%;bottom:3%">версія 0.4</div>
+  </div></div>
+  <div class="notes">
+    <div class="box"><h3>Звідки ідея</h3><ul><li>A Short Hike: кілька слів без рамок, стрілка біля вибраного; нічого зайвого.</li><li>Лобі видно на фоні: гра «жива» з першої секунди.</li><li>Пошуку ігор немає (відклали): лише створити або приєднатися за адресою.</li></ul></div>
+    <div class="box"><h3>Що вирішити</h3><ul><li>Назва гри на екрані — поки «prime-game».</li><li>Приєднання через інтернет — окрема задача; тут поки лише локальна мережа.</li></ul></div>
+  </div>
+</section>
+
+<!-- 3 -->
+<section class="screen" id="s3" data-states="conn fail load loadcard">
+  <div class="head"><h2><span class="num">3</span>Підключення й завантаження</h2>
+    <span class="seg"><button type="button" data-s="conn">Підключення</button><button type="button" data-s="fail">Помилка</button><button type="button" data-s="load">Завантаження</button><button type="button" data-s="loadcard">Завантаження з карткою</button></span></div>
+  <div class="stage"><div class="frame dark">
+    <div data-in="conn" class="abs col c" style="left:30%;top:36%;width:40%;align-items:center">
+      <div class="ring"></div>
+      <div class="t28 b">Підключаємось до «Лобі Олени»…</div>
+      <div class="t20 dimtext">0:04</div>
+      <div class="btn ghost t20">Скасувати</div>
+    </div>
+    <div data-in="fail" class="abs col c" style="left:28%;top:34%;width:44%;align-items:center">
+      <div class="t36 b">Не вдалося підключитися</div>
+      <div class="t22 dimtext">Хост не відповідає. Перевір адресу і чи ви в одній мережі.</div>
+      <div class="row"><div class="btn fill t22 b">Спробувати ще</div><div class="btn ghost t20">Назад</div></div>
+    </div>
+    <div data-in="load" class="abs col" style="left:30%;top:34%;width:40%">
+      <div class="t36 b c">Завантаження мапи</div>
+      <div class="bar2"><i style="width:62%"></i></div>
+      <div class="row t20 between"><span>Олена</span><span>готово</span></div>
+      <div class="row t20 between"><span>Тарас</span><span class="dimtext">завантажує…</span></div>
+      <div class="row t20 between"><span>Ти</span><span>готово</span></div>
+    </div>
+    <div data-in="load" class="abs plate t22 c" style="left:50%;bottom:8%;transform:translateX(-50%);width:56%">Порада: не забувай, що в тебе дві руки.</div>
+    <div data-in="loadcard" class="abs col" style="left:25%;top:6%;width:50%"><div class="t28 b c">Завантаження мапи</div><div class="bar2"><i style="width:62%"></i></div></div>
+    <div data-in="loadcard" class="abs col" style="left:8%;top:24%;width:84%;gap:calc(12cqw/19.2)"><div class="t24 c">У цьому раунді нова для тебе задача</div><div class="panel col" style="padding:calc(22cqw/19.2);gap:calc(12cqw/19.2)"><div class="row between"><div class="t36 b">Рубильники</div><div class="t18 dimtext">як робити</div></div><div class="row" style="gap:calc(12cqw/19.2);align-items:stretch"><div class="col c" style="flex:1;min-width:0;background:#1C1C1C;border-radius:calc(10cqw/19.2);padding:calc(10cqw/19.2);gap:calc(6cqw/19.2)"><svg viewBox="0 0 100 70" style="width:100%;height:auto;display:block" fill="none" stroke="#EDEDED" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g><circle cx="22" cy="20" r="6"/><path d="M22 26 V46 M22 32 L14 40 M22 32 L30 40 M22 46 L16 60 M22 46 L28 60"/></g><rect x="50" y="30" width="10" height="16" rx="2"/><path d="M55 38 L55 48"/><rect x="66" y="30" width="10" height="16" rx="2"/><path d="M71 38 L71 48"/><rect x="82" y="30" width="10" height="16" rx="2"/><path d="M87 38 L87 48"/><text x="64" y="20" fill="#EDEDED" stroke="none" font-size="14" font-weight="700">?</text></svg><div class="t20 b">Знайди всі рубильники</div></div><div class="col c" style="flex:1;min-width:0;background:#1C1C1C;border-radius:calc(10cqw/19.2);padding:calc(10cqw/19.2);gap:calc(6cqw/19.2)"><svg viewBox="0 0 100 70" style="width:100%;height:auto;display:block" fill="none" stroke="#EDEDED" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g><circle cx="40" cy="20" r="6"/><path d="M40 26 V46 M40 32 L32 40 M40 32 L48 40 M40 46 L34 60 M40 46 L46 60"/></g><path d="M40 32 L60 37"/><rect x="62" y="30" width="10" height="16" rx="2"/><path d="M67 38 L67 28 M59 26 l-3 -3 M75 26 l3 -3 M67 24 v-4"/></svg><div class="t20 b">Увімкни кожен</div></div><div class="col c" style="flex:1;min-width:0;background:#1C1C1C;border-radius:calc(10cqw/19.2);padding:calc(10cqw/19.2);gap:calc(6cqw/19.2)"><svg viewBox="0 0 100 70" style="width:100%;height:auto;display:block" fill="none" stroke="#EDEDED" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g><circle cx="22" cy="20" r="6"/><path d="M22 26 V46 M22 32 L14 40 M22 32 L30 40 M22 46 L16 60 M22 46 L28 60"/></g><text x="18" y="9" fill="#EDEDED" stroke="none" font-size="10" font-weight="700">👁</text><g stroke-dasharray="3 3"><circle cx="66" cy="20" r="6"/><path d="M66 26 V46 M66 32 L58 40 M66 32 L74 40 M66 46 L60 60 M66 46 L72 60"/></g><rect x="80" y="30" width="10" height="16" rx="2"/><path d="M85 38 L85 28 M77 26 l-3 -3 M93 26 l3 -3 M85 24 v-4"/><text x="90" y="22" fill="#EDEDED" stroke="none" font-size="14" font-weight="700">!</text></svg><div class="t20 b">Стеж, щоб ніхто не вимкнув</div></div><div class="col c" style="flex:1;min-width:0;background:#1C1C1C;border-radius:calc(10cqw/19.2);padding:calc(10cqw/19.2);gap:calc(6cqw/19.2)"><svg viewBox="0 0 100 70" style="width:100%;height:auto;display:block" fill="none" stroke="#EDEDED" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 40 l8 8 l14 -16"/><rect x="45" y="30" width="10" height="16" rx="2"/><path d="M50 38 L50 28 M42 26 l-3 -3 M58 26 l3 -3 M50 24 v-4"/><rect x="62" y="30" width="10" height="16" rx="2"/><path d="M67 38 L67 28 M59 26 l-3 -3 M75 26 l3 -3 M67 24 v-4"/><rect x="79" y="30" width="10" height="16" rx="2"/><path d="M84 38 L84 28 M76 26 l-3 -3 M92 26 l3 -3 M84 24 v-4"/></svg><div class="t20 b">Готово, коли всі горять</div></div></div></div></div>
+  </div></div>
+  <div class="notes">
+    <div class="box"><h3>Звідки ідея</h3><ul><li>Помилка каже, що сталося і що робити, без вибачень.</li><li>На завантаженні видно, на кого чекаємо.</li></ul></div>
+    <div class="box"><h3>Вирішено</h3><ul><li>Поради на завантаженні — так, але смішні (твоя відповідь). Приклади: «Не забувай, що в тебе дві руки». «А ти знав, що в цій грі можна вбивати? Тобі варто спробувати — це дуже весело!» Тексти — за дизайнером.</li><li>Назва лобі замість адреси (твоя ідея): хост задає її в налаштуваннях лобі. Як саме писати («до лобі», «до сесії» чи лише назву) — ще подумати. Назву гра дізнається, щойно хост відповість; до того — просто «Підключаємось…».</li><li>Якщо в раунді є задача, якої ти ще не виконував, на завантаженні замість поради — її картка-інструкція (до першого виконання, не більше двох разів) (твоя відповідь).</li></ul></div>
+  </div>
+</section>
+
+<!-- 4 -->
+<section class="screen" id="s4" data-states="wait count">
+  <div class="head"><h2><span class="num">4</span>Лобі</h2>
+    <span class="seg"><button type="button" data-s="wait">Чекаємо</button><button type="button" data-s="count">Відлік</button></span></div>
+  <div class="stage"><div class="frame">
+    <span class="worldtag">лобі-кімната, ходиш і говориш</span>
+    <div class="cross"></div>
+    <div class="abs plate c" style="left:50%;top:4%;transform:translateX(-50%)">
+      <div data-in="wait" class="t24 b">Чекаємо на всіх · готові 3 з 4</div>
+      <div data-in="count" class="t36 b">Старт через 5</div>
+    </div>
+    <div class="abs plate col t20" style="right:2%;top:4%;width:17%">
+      <div class="t18 dimtext">Лобі Олени</div><div class="row between b"><span>Гравці</span><span>4 / 10</span></div>
+      <div class="row between"><span>Олена · хост</span><span>✓</span></div>
+      <div class="row between"><span>Тарас</span><span>✓</span></div>
+      <div class="row between"><span>Ти</span><span data-in="wait" class="dimtext">—</span><span data-in="count">✓</span></div>
+      <div class="row between"><span>Марко</span><span>✓</span></div>
+    </div>
+    <div class="abs col" style="left:2%;bottom:4%">
+      <span class="chip t20" data-in="wait">Готовність: ні</span><span class="chip light t20 b" data-in="count">Готовність: так</span>
+      <span class="mic">🎙</span>
+    </div>
+  </div></div>
+  <div class="notes">
+    <div class="box"><h3>Звідки ідея</h3><ul><li>LOCKDOWN Protocol: лобі — це місце; в грі вже є.</li><li>Клавіші «Готовий» тут не показано: її вчить навчання, а ще кнопка є в меню Esc.</li><li>Список гравців праворуч угорі, як у LOCKDOWN Protocol.</li></ul></div>
+    <div class="box"><h3>Що вирішити</h3><ul><li>Наповнення лобі (табличка правил, дзеркало) — окрема задача.</li><li>Мікрофон — маленький значок замість тексту (твоя відповідь).</li></ul></div>
+  </div>
+</section>
+
+<!-- 5 -->
+<section class="screen" id="s5" data-states="host guest char charr game role roled manual set lang">
+  <div class="head"><h2><span class="num">5</span>Меню Esc</h2>
+    <span class="seg"><button type="button" data-s="host">Лобі: хост</button><button type="button" data-s="guest">Лобі: гравець</button><button type="button" data-s="char">Персонаж</button><button type="button" data-s="charr">Персонаж у раунді</button><button type="button" data-s="game">Гра</button><button type="button" data-s="role">Роль: інженер</button><button type="button" data-s="roled">Роль: дисидент</button><button type="button" data-s="manual">Посібник</button><button type="button" data-s="set">Налаштування</button><button type="button" data-s="lang">Мова</button></span></div>
+  <div class="stage"><div class="frame">
+    <div class="dim more"></div>
+    <div class="abs panel" style="left:12%;top:9%;width:76%;height:82%;display:flex;padding:calc(24cqw/19.2);gap:calc(24cqw/19.2)">
+      <div class="tabs t24" style="width:18%">
+        <div data-on="game">Гра</div><div data-on="role roled">Роль</div><div data-on="manual">Посібник</div><div data-on="host guest">Лобі</div><div data-on="char charr">Персонаж</div><div data-on="set lang">Налаштування</div>
+        <div class="t16 dimtext" style="margin-top:auto">Гра триває: меню її не зупиняє</div>
+      </div>
+      <div style="flex:1;min-width:0" class="col">
+        <!-- lobby -->
+        <div data-in="host guest" class="row between"><div class="t36 b">Лобі</div>
+          <div data-in="guest" class="t20 dimtext">🔒 Змінює лише хост · Олена</div><div data-in="host" class="t20 dimtext">Ти хост: зміни бачать усі</div></div>
+        <div data-in="host" class="row t20"><div class="card on"><b>Звичайна</b><br><span class="dimtext">10 хв</span></div><div class="card"><b>Швидка</b><br><span class="dimtext">5 хв</span></div><div class="card"><b>Без ножів</b><br><span class="dimtext">0 ножів</span></div><div class="card dimtext">+ Зберегти свою</div></div>
+        <div data-in="guest" class="t22">Пресет: <b>Звичайна</b></div>
+        <div data-in="host guest" class="row" style="align-items:flex-start;gap:calc(32cqw/19.2)">
+          <div class="col t22" style="flex:1.4">
+            <div class="setrow"><span>Назва лобі</span><span class="val"><span data-in="host" class="field t20">Лобі Олени</span><span data-in="guest">Лобі Олени</span></span></div><div class="setrow"><span>Тривалість матчу</span><span class="val"><span class="ar" data-in="host">‹</span>10 хв<span class="ar" data-in="host">›</span></span></div>
+            <div class="setrow"><span>Пакунки</span><span class="val"><span class="ar" data-in="host">‹</span>6<span class="ar" data-in="host">›</span></span></div>
+            <div class="setrow"><span>Дисиденти</span><span class="val"><span class="ar" data-in="host">‹</span>1<span class="ar" data-in="host">›</span></span></div>
+            <div class="setrow"><span>Ножі</span><span class="val"><span class="ar" data-in="host">‹</span>2<span class="ar" data-in="host">›</span></span></div>
+            <div class="setrow"><span>Задачі</span><span class="val">Доставка ✓ · Рубильники ✓</span></div><div class="setrow"><span>Рубильники: кроків</span><span class="val"><span class="ar" data-in="host">‹</span>3<span class="ar" data-in="host">›</span></span></div>
+          </div>
+          <div class="col t20" style="flex:1">
+            <div class="b">Гравці 4 / 10</div>
+            <div class="row between"><span>Олена · хост</span><span>✓</span></div><div class="row between"><span>Тарас</span><span>✓</span></div><div class="row between"><span>Ти</span><span class="dimtext">—</span></div><div class="row between"><span>Марко</span><span>✓</span></div>
+            <div class="btn fill t24 b" style="margin-top:calc(12cqw/19.2)">Я готовий(-а)</div>
+          </div>
+        </div>
+        <!-- character -->
+        <div data-in="char charr" class="t36 b">Персонаж</div>
+        <div data-in="charr" class="chip line t20" style="align-self:flex-start">🔒 Змінювати можна лише в лобі</div>
+        <div data-in="char charr" class="row" style="align-items:flex-start;gap:calc(32cqw/19.2)">
+          <div class="sil" style="width:26%;aspect-ratio:3/4"></div>
+          <div class="col t22" style="flex:1">
+            <div class="row"><span class="dimtext" style="width:22%">Імʼя</span><span class="field" style="flex:1">Олена</span></div>
+            <div class="row" style="align-items:flex-start"><span class="dimtext" style="width:22%">Колір</span><span class="row" style="flex-wrap:wrap;flex:1;gap:calc(10cqw/19.2)">
+              <span class="dot" style="background:#F2F2F2;outline:calc(4cqw/19.2) solid #FFF;outline-offset:calc(3cqw/19.2)">1</span><span class="dot" style="background:#DADADA">2</span><span class="dot" style="background:#C2C2C2">3</span><span class="dot" style="background:#ABABAB">4</span><span class="dot" style="background:#949494">5</span><span class="dot" style="background:#7E7E7E;color:#FFF">6</span><span class="dot" style="background:#686868;color:#FFF">7</span><span class="dot" style="background:#535353;color:#FFF">8</span><span class="dot" style="background:#3F3F3F;color:#FFF">9</span><span class="dot" style="background:#2C2C2C;color:#FFF">10</span></span></div>
+            <div class="row"><span class="dimtext" style="width:22%">Шапка</span><span class="dimtext">пізніше</span></div>
+            <div class="t18 dimtext" data-in="char">Зміни видно всім одразу.</div>
+          </div>
+        </div>
+        <!-- game -->
+        <div data-in="game" class="t36 b">Гра</div>
+        <div data-in="game" class="col t24" style="width:52%">
+          <div class="btn fill b">Продовжити</div><div class="btn">Покинути сесію</div><div class="t18 dimtext">Ти хост: якщо вийдеш, сесія закінчиться для всіх.</div><div class="btn ghost">Вийти з гри</div>
+        </div>
+        <!-- role -->
+        <div data-in="role roled" class="t36 b">Роль</div>
+        <div data-in="role roled" class="row" style="align-items:flex-start;gap:calc(36cqw/19.2)">
+          <div class="col" style="flex:1.1">
+            <div class="t20 dimtext">Ти</div>
+            <div class="t64 b" data-in="role">Інженер</div><div class="t64 b" data-in="roled">Дисидент</div>
+            <div class="t24" data-in="role">Твоя мета: виконати всі задачі, поки не вийшов час.</div>
+            <div class="t24" data-in="roled">Твоя мета: заважати інженерам виконати задачі.</div>
+          </div>
+          <div data-in="roled" class="col t22" style="flex:1">
+            <div class="b">Напарники · 9</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:calc(8cqw/19.2) calc(20cqw/19.2);max-height:calc(250cqw/19.2);overflow:hidden"><span>◈ Тарас</span><span>◈ Марко</span><span>◈ Оксана</span><span>◈ Іван</span><span>◈ Соломія</span><span>◈ Богдан</span><span>◈ Ірина</span><span>◈ Дмитро</span><span>◈ Леся</span></div>
+            <div class="t18 dimtext">список гортається</div>
+          </div>
+        </div>
+        <!-- guide -->
+        <div data-in="manual" class="t36 b">Посібник</div>
+        <div data-in="manual" class="row" style="align-items:flex-start;gap:calc(20cqw/19.2)">
+          <div class="col t22" style="width:24%;flex:none"><div class="t18 dimtext">Основи</div><div>Рух і руки</div><div>Голос</div><div>Повалений і повернення</div><div class="t18 dimtext" style="margin-top:calc(10cqw/19.2)">Задачі</div><div>Доставка</div><div class="chip light b" style="align-self:flex-start">Рубильники</div></div>
+          <div style="flex:1;min-width:0"><div class="panel col" style="padding:calc(22cqw/19.2);gap:calc(12cqw/19.2)"><div class="row between"><div class="t36 b">Рубильники</div><div class="t18 dimtext">як робити</div></div><div class="row" style="gap:calc(12cqw/19.2);align-items:stretch"><div class="col c" style="flex:1;min-width:0;background:#1C1C1C;border-radius:calc(10cqw/19.2);padding:calc(10cqw/19.2);gap:calc(6cqw/19.2)"><svg viewBox="0 0 100 70" style="width:100%;height:auto;display:block" fill="none" stroke="#EDEDED" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g><circle cx="22" cy="20" r="6"/><path d="M22 26 V46 M22 32 L14 40 M22 32 L30 40 M22 46 L16 60 M22 46 L28 60"/></g><rect x="50" y="30" width="10" height="16" rx="2"/><path d="M55 38 L55 48"/><rect x="66" y="30" width="10" height="16" rx="2"/><path d="M71 38 L71 48"/><rect x="82" y="30" width="10" height="16" rx="2"/><path d="M87 38 L87 48"/><text x="64" y="20" fill="#EDEDED" stroke="none" font-size="14" font-weight="700">?</text></svg><div class="t20 b">Знайди всі рубильники</div></div><div class="col c" style="flex:1;min-width:0;background:#1C1C1C;border-radius:calc(10cqw/19.2);padding:calc(10cqw/19.2);gap:calc(6cqw/19.2)"><svg viewBox="0 0 100 70" style="width:100%;height:auto;display:block" fill="none" stroke="#EDEDED" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g><circle cx="40" cy="20" r="6"/><path d="M40 26 V46 M40 32 L32 40 M40 32 L48 40 M40 46 L34 60 M40 46 L46 60"/></g><path d="M40 32 L60 37"/><rect x="62" y="30" width="10" height="16" rx="2"/><path d="M67 38 L67 28 M59 26 l-3 -3 M75 26 l3 -3 M67 24 v-4"/></svg><div class="t20 b">Увімкни кожен</div></div><div class="col c" style="flex:1;min-width:0;background:#1C1C1C;border-radius:calc(10cqw/19.2);padding:calc(10cqw/19.2);gap:calc(6cqw/19.2)"><svg viewBox="0 0 100 70" style="width:100%;height:auto;display:block" fill="none" stroke="#EDEDED" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g><circle cx="22" cy="20" r="6"/><path d="M22 26 V46 M22 32 L14 40 M22 32 L30 40 M22 46 L16 60 M22 46 L28 60"/></g><text x="18" y="9" fill="#EDEDED" stroke="none" font-size="10" font-weight="700">👁</text><g stroke-dasharray="3 3"><circle cx="66" cy="20" r="6"/><path d="M66 26 V46 M66 32 L58 40 M66 32 L74 40 M66 46 L60 60 M66 46 L72 60"/></g><rect x="80" y="30" width="10" height="16" rx="2"/><path d="M85 38 L85 28 M77 26 l-3 -3 M93 26 l3 -3 M85 24 v-4"/><text x="90" y="22" fill="#EDEDED" stroke="none" font-size="14" font-weight="700">!</text></svg><div class="t20 b">Стеж, щоб ніхто не вимкнув</div></div><div class="col c" style="flex:1;min-width:0;background:#1C1C1C;border-radius:calc(10cqw/19.2);padding:calc(10cqw/19.2);gap:calc(6cqw/19.2)"><svg viewBox="0 0 100 70" style="width:100%;height:auto;display:block" fill="none" stroke="#EDEDED" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 40 l8 8 l14 -16"/><rect x="45" y="30" width="10" height="16" rx="2"/><path d="M50 38 L50 28 M42 26 l-3 -3 M58 26 l3 -3 M50 24 v-4"/><rect x="62" y="30" width="10" height="16" rx="2"/><path d="M67 38 L67 28 M59 26 l-3 -3 M75 26 l3 -3 M67 24 v-4"/><rect x="79" y="30" width="10" height="16" rx="2"/><path d="M84 38 L84 28 M76 26 l-3 -3 M92 26 l3 -3 M84 24 v-4"/></svg><div class="t20 b">Готово, коли всі горять</div></div></div></div></div>
+        </div>
+        <!-- settings -->
+        <div data-in="set lang" class="t36 b">Налаштування</div>
+        <div data-in="set" class="row t20" style="gap:calc(8cqw/19.2)"><span class="chip light b">Звук і голос</span><span class="chip line">Керування</span><span class="chip line">Екран</span><span class="chip line">Доступність</span><span class="chip line">Мова</span></div>
+        <div data-in="lang" class="row t20" style="gap:calc(8cqw/19.2)"><span class="chip line">Звук і голос</span><span class="chip line">Керування</span><span class="chip line">Екран</span><span class="chip line">Доступність</span><span class="chip light b">Мова</span></div>
+        <div data-in="lang" class="col t24" style="width:60%">
+          <div class="dimtext t20">Мова гри</div>
+          <div class="row"><span class="dot" style="background:#EDEDED">●</span><b>Українська</b></div>
+          <div class="row"><span class="dot" style="background:#555"></span>English</div>
+          <div class="t18 dimtext">Змінюється одразу, без перезапуску. Кожен гравець бачить гру своєю мовою.</div>
+        </div>
+        <div data-in="set" class="col t22">
+          <div class="setrow"><span>Мікрофон</span><span class="field t20">Стандартний ▾</span></div>
+          <div class="setrow"><span>Як говорити</span><span class="val">Натисни й говори · <span class="dimtext">завжди ввімкнено</span></span></div>
+          <div class="setrow"><span>Гучність голосів</span><span class="bar2" style="width:34%"><i style="width:70%"></i></span></div>
+          <div class="setrow"><span>Гучність гри</span><span class="bar2" style="width:34%"><i style="width:55%"></i></span></div>
+          <div class="setrow"><span>Перевірка мікрофона</span><span class="bar2" style="width:34%"><i style="width:40%"></i></span></div>
+        </div>
+      </div>
+    </div>
+  </div></div>
+  <div class="notes">
+    <div class="box"><h3>Звідки ідея</h3><ul><li>Overcooked: меню поверх гри, гру видно позаду.</li><li>Among Us: усі бачать ті самі налаштування; хост змінює (стрілки ‹ ›), інші — лише читають, з позначкою, хто хост.</li><li>Пресети картками, як в Among Us; «Зберегти свою» — як у LOCKDOWN Protocol.</li><li>Задачі бувають легкі й складні; хост задає кількість кроків у складних або забороняє задачу (твоя відповідь, #256).</li><li>«Посібник»: усі механіки й усі задачі з картками; гортаєш будь-коли, і в лобі теж. Пробних станцій у лобі немає (твоя відповідь).</li><li>Вкладка «Роль»: твоя роль, мета й напарники; список гортається, бо напарників може бути до 9. Роль прибрали з Tab (твоя відповідь); це місце — моя пропозиція.</li><li>Персонаж: змінюєш у лобі, зміни видно відразу; у раунді вкладка лише для перегляду (твоє рішення).</li><li>Налаштування гри: тривалість, пакунки, дисиденти, ножі, задачі — ті, що вже є в грі.</li><li>Мова: українська й англійська, перемикається одразу, без перезапуску; кожен гравець бачить гру своєю мовою (#208). Перемикач «Мова екранів» угорі сторінки показує всі екрани англійською.</li></ul></div>
+    <div class="box"><h3>Що вирішити</h3><ul><li>Кнопка «Я готовий(-а)» — шукаю коротше слово без роду, наприклад «Готовність ✓».</li><li>Які пресети потрібні — чернетка, вирішує дизайнер.</li><li>Кольори персонажа поки сірі з номерами: палітра ще не вирішена.</li></ul></div>
+  </div>
+</section>
+
+<!-- 6 -->
+<section class="screen" id="s6" data-states="eng dis after">
+  <div class="head"><h2><span class="num">6</span>Pre game: показ ролі</h2>
+    <span class="seg"><button type="button" data-s="eng">Інженер</button><button type="button" data-s="dis">Дисидент</button><button type="button" data-s="after">Потім: у грі</button></span></div>
+  <div class="stage"><div class="frame">
+    <div data-in="eng dis" class="abs" style="inset:0;background:#0E0E0E"></div>
+    <span data-in="after" class="worldtag">світ гри</span>
+    <div data-in="after" class="cross"></div>
+    <div data-in="eng dis" class="abs col c" style="left:20%;top:26%;width:60%;align-items:center">
+      <div class="t20 dimtext">Твоя роль</div>
+      <div class="t96 b" data-in="eng">Інженер</div><div class="t96 b" data-in="dis">Дисидент</div>
+      <div class="t24" data-in="eng">Твоя мета: виконати всі задачі, поки не вийшов час.</div>
+      <div class="t24" data-in="dis">Твоя мета: заважати інженерам виконати задачі.</div>
+      <div class="t22 dimtext" data-in="dis">Твій напарник: Тарас</div>
+    </div>
+    <div data-in="after" class="abs plate c" style="left:50%;top:3%;transform:translateX(-50%)"><div class="t48 b">09:57</div></div>
+    <div data-in="after" class="abs chip t20 b" style="left:2%;top:4%">Інженер</div>
+  </div></div>
+  <div class="notes">
+    <div class="box"><h3>Звідки ідея</h3><ul><li>#175: одразу ясно, на чиєму ти боці й що робити.</li><li>Pre game — як інтро: чорний екран, зʼявляється роль, потім плавно зʼявляється гра (твоя відповідь). Post game — так само, як аутро.</li><li>Далі роль — маленький значок угорі ліворуч і у вкладці «Роль» меню Esc.</li></ul></div>
+    <div class="box"><h3>Що вирішити</h3><ul><li>Мета загальна, не про пакунки: інженери виконують задачі, дисиденти заважають (твоє уточнення, як у #175). Точні слова — за дизайнером.</li><li>Звук на показ ролі: два різні, залежно від ролі (твоя відповідь). Під час pre game ніхто нікого не чує, тож звук ролі ніхто не почує; напису про мікрофон немає: це як титри (твоя відповідь).</li><li>Показ триває ~3 с (твоя відповідь).</li></ul></div>
+  </div>
+</section>
+
+<!-- 7 -->
+<section class="screen" id="s7" data-states="empty pack tired mate">
+  <div class="head"><h2><span class="num">7</span>HUD у раунді</h2>
+    <span class="seg"><button type="button" data-s="empty">Порожні руки</button><button type="button" data-s="pack">Несеш пакунок</button><button type="button" data-s="tired">Мало сил</button><button type="button" data-s="mate">Дисидент бачить напарника</button></span></div>
+  <div class="stage"><div class="frame">
+    <span class="worldtag">від першої особи</span>
+    <div class="cross"></div>
+    <div data-in="empty" class="abs plate t20 c" style="left:50%;top:53.5%;transform:translateX(-50%)">Пакунок</div>
+    <div data-in="pack" class="abs" style="left:50%;bottom:-8%;transform:translateX(-50%);width:28%;height:34%;background:#8C8C8C;border:calc(4cqw/19.2) solid #6E6E6E;border-radius:calc(8cqw/19.2);display:grid;justify-items:center;align-content:start;padding-top:calc(22cqw/19.2)"><span style="background:#F2F2F2;padding:calc(8cqw/19.2) calc(14cqw/19.2);border-radius:calc(6cqw/19.2);display:inline-grid"><svg viewBox="0 0 40 32" style="width:calc(64cqw/19.2);height:auto;display:block" fill="none" stroke="#111" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="22" height="15" rx="2"/><path d="M20 18 v6 M13 24 h14 M3 29 h34"/></svg></span></div>
+    <div data-in="pack" class="abs t16" style="left:63%;bottom:22%;color:rgba(0,0,0,.55)">← знак кімнати на самому пакунку, у 3D (без слова)</div>
+    <div class="abs plate c" style="left:50%;top:3%;transform:translateX(-50%)"><div class="t48 b">07:22</div></div>
+    <div data-in="empty pack tired" class="abs chip t20 b" style="left:2%;top:4%">Інженер</div><div data-in="mate" class="abs chip t20 b" style="left:2%;top:4%">Дисидент</div>
+    <div data-in="mate" class="abs col" style="left:28%;top:28%;align-items:center"><div class="chip t20 b">Тарас <span>◈</span></div><div class="sil" style="width:calc(70cqw/19.2);height:calc(150cqw/19.2);margin-top:calc(6cqw/19.2)"></div></div>
+    <div class="abs col" style="left:2%;bottom:4%;width:18%">
+      <div class="col" style="gap:calc(4cqw/19.2)"><span class="t16">Здоровʼя</span><div class="bar2"><i style="width:80%"></i></div></div>
+      <div class="col" style="gap:calc(4cqw/19.2)"><span class="t16">Витривалість</span><div class="bar2"><i data-in="empty pack mate" style="width:90%"></i><i data-in="tired" style="width:18%"></i></div></div>
+      <span class="mic" style="align-self:flex-start">🎙</span>
+    </div>
+    <div class="abs col" style="right:2%;bottom:4%;align-items:flex-end">
+      <div class="row">
+        <div data-in="empty tired mate" class="slot on t16">рука</div>
+        <div data-in="pack" class="slot wide on t16 b">Пакунок</div>
+        <div class="slot t16 dimtext">пояс</div>
+      </div>
+    </div>
+  </div></div>
+  <div class="notes">
+    <div class="box"><h3>Звідки ідея</h3><ul><li>LOCKDOWN Protocol: таймер угорі по центру, руки знизу праворуч, центр вільний.</li><li>Угорі лише час. Задачі бувають різні й їх буде більше, тож їхній прогрес — на карті (M), а не в HUD (твоє рішення).</li><li>Без індикатора ходьби чи бігу.</li><li>Без клавіш на екрані; під прицілом лише назва предмета.</li><li>Інтерфейс не каже, що робити (твоя відповідь). На пакунку в 3D — знак кімнати доставки, без слова (твоя відповідь); гравець бачить «Офіс» на пакунку й на мапі, сам шукає дорогу, а на місці — саму точку доставки. Пакунки без кольорів і стартують на складі (твої відповіді як дизайнера, #255).</li><li>Напарника-дисидента позначає значок біля імені; бачать його лише дисиденти.</li></ul></div>
+    <div class="box"><h3>Що вирішити</h3><ul><li>Здоровʼя й витривалість видно завжди (твоя відповідь).</li><li>Слоти: рука й пояс (твоє уточнення). Коли несеш пакунок двома руками, квадратний слот руки розтягується в прямокутник: «обидві руки» видно формою, без тексту (твоя ідея).</li><li>Мікрофон — маленький значок замість тексту (твоя відповідь); перекреслений, коли тебе ніхто не чує.</li><li>Списку гравців у раунді немає (твоя відповідь). Напарників дисидент бачить на показі ролі, у вкладці «Роль» меню Esc і значком біля імені.</li><li>Таблички з іменами: у прямій видимості, до ~10 м, поки так (твоя відповідь, #257).</li><li>Мітку над точкою доставки прибрано (твоя відповідь): це змінює рішення M4 D10, де була мітка крізь стіни.</li><li>Ідея на потім: налаштування сесії «з підказками / без» для новачків (твоя ідея, ще обдумати).</li></ul></div>
+  </div>
+</section>
+
+<!-- 8 -->
+<section class="screen" id="s8" data-states="list zone guide">
+  <div class="head"><h2><span class="num">8</span>Карта й задачі (M)</h2>
+    <span class="seg"><button type="button" data-s="list">Задачі</button><button type="button" data-s="zone">Наведено на задачу</button><button type="button" data-s="guide">Натиснуто «?»</button></span></div>
+  <div class="stage"><div class="frame">
+    <div class="dim more"></div>
+    <div class="abs panel col" style="left:4%;top:8%;width:32%;height:84%;padding:calc(26cqw/19.2)">
+                  <div class="t36 b">Задачі</div>
+      <div class="row between t24"><b>Доставка</b><span class="row"><span>3 з 6</span><span class="key dimtext" style="border-radius:50%">?</span></span></div>
+      
+      
+      <div class="row between t24" style="margin-top:calc(14cqw/19.2)"><span class="row"><b>Рубильники</b><span class="chip light t16 b">НОВЕ</span></span><span class="row"><span>0 з 3</span><span class="key" style="border-radius:50%">?</span></span></div><div class="t18 dimtext" style="margin-top:auto">Час: 07:22</div>
+    </div>
+    <div class="abs map" style="left:39%;top:8%;width:57%;height:84%">
+      <div data-in="zone" class="abs" style="left:6%;top:8%;width:30%;height:34%;background:repeating-linear-gradient(45deg,rgba(255,255,255,.28) 0 calc(8cqw/19.2),transparent calc(8cqw/19.2) calc(16cqw/19.2));border:calc(3cqw/19.2) dashed #FFF;z-index:2"></div>
+      <div data-in="zone" class="abs chip light t16 b" style="left:8%;top:44%;z-index:3">тут можуть бути пакунки</div>
+      <div class="room" style="left:6%;top:8%;width:30%;height:34%">Склад</div>
+      <div class="room" style="left:40%;top:8%;width:24%;height:22%">Кухня</div>
+      <div class="room" style="left:68%;top:8%;width:26%;height:40%">Лабораторія</div>
+      <div class="room" style="left:6%;top:50%;width:22%;height:40%"><span style="display:inline-block;vertical-align:middle;margin-right:calc(6cqw/19.2)"><svg viewBox="0 0 40 32" style="width:calc(26cqw/19.2);height:auto;display:block" fill="none" stroke="#A8A8A8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="22" height="15" rx="2"/><path d="M20 18 v6 M13 24 h14 M3 29 h34"/></svg></span>Офіс</div>
+      <div class="room" style="left:32%;top:38%;width:32%;height:52%">Хол</div>
+      <div class="room" style="left:68%;top:56%;width:26%;height:34%">Кімната відпочинку</div>
+      
+      
+      <div class="you" style="left:46%;top:58%"></div>
+      <div class="abs chip t16" style="left:49%;top:64%">ти тут</div>
+      <div class="abs t16 dimtext" style="left:3%;bottom:2%;right:3%">Інших гравців і пакунки мапа не показує.</div>
+    </div>
+    <div data-in="guide" class="dim"></div>
+    <div data-in="guide" class="abs col" style="left:10%;top:14%;width:80%;gap:calc(12cqw/19.2)"><div class="panel col" style="padding:calc(22cqw/19.2);gap:calc(12cqw/19.2)"><div class="row between"><div class="t36 b">Рубильники</div><div class="t18 dimtext">як робити</div></div><div class="row" style="gap:calc(12cqw/19.2);align-items:stretch"><div class="col c" style="flex:1;min-width:0;background:#1C1C1C;border-radius:calc(10cqw/19.2);padding:calc(10cqw/19.2);gap:calc(6cqw/19.2)"><svg viewBox="0 0 100 70" style="width:100%;height:auto;display:block" fill="none" stroke="#EDEDED" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g><circle cx="22" cy="20" r="6"/><path d="M22 26 V46 M22 32 L14 40 M22 32 L30 40 M22 46 L16 60 M22 46 L28 60"/></g><rect x="50" y="30" width="10" height="16" rx="2"/><path d="M55 38 L55 48"/><rect x="66" y="30" width="10" height="16" rx="2"/><path d="M71 38 L71 48"/><rect x="82" y="30" width="10" height="16" rx="2"/><path d="M87 38 L87 48"/><text x="64" y="20" fill="#EDEDED" stroke="none" font-size="14" font-weight="700">?</text></svg><div class="t20 b">Знайди всі рубильники</div></div><div class="col c" style="flex:1;min-width:0;background:#1C1C1C;border-radius:calc(10cqw/19.2);padding:calc(10cqw/19.2);gap:calc(6cqw/19.2)"><svg viewBox="0 0 100 70" style="width:100%;height:auto;display:block" fill="none" stroke="#EDEDED" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g><circle cx="40" cy="20" r="6"/><path d="M40 26 V46 M40 32 L32 40 M40 32 L48 40 M40 46 L34 60 M40 46 L46 60"/></g><path d="M40 32 L60 37"/><rect x="62" y="30" width="10" height="16" rx="2"/><path d="M67 38 L67 28 M59 26 l-3 -3 M75 26 l3 -3 M67 24 v-4"/></svg><div class="t20 b">Увімкни кожен</div></div><div class="col c" style="flex:1;min-width:0;background:#1C1C1C;border-radius:calc(10cqw/19.2);padding:calc(10cqw/19.2);gap:calc(6cqw/19.2)"><svg viewBox="0 0 100 70" style="width:100%;height:auto;display:block" fill="none" stroke="#EDEDED" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g><circle cx="22" cy="20" r="6"/><path d="M22 26 V46 M22 32 L14 40 M22 32 L30 40 M22 46 L16 60 M22 46 L28 60"/></g><text x="18" y="9" fill="#EDEDED" stroke="none" font-size="10" font-weight="700">👁</text><g stroke-dasharray="3 3"><circle cx="66" cy="20" r="6"/><path d="M66 26 V46 M66 32 L58 40 M66 32 L74 40 M66 46 L60 60 M66 46 L72 60"/></g><rect x="80" y="30" width="10" height="16" rx="2"/><path d="M85 38 L85 28 M77 26 l-3 -3 M93 26 l3 -3 M85 24 v-4"/><text x="90" y="22" fill="#EDEDED" stroke="none" font-size="14" font-weight="700">!</text></svg><div class="t20 b">Стеж, щоб ніхто не вимкнув</div></div><div class="col c" style="flex:1;min-width:0;background:#1C1C1C;border-radius:calc(10cqw/19.2);padding:calc(10cqw/19.2);gap:calc(6cqw/19.2)"><svg viewBox="0 0 100 70" style="width:100%;height:auto;display:block" fill="none" stroke="#EDEDED" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 40 l8 8 l14 -16"/><rect x="45" y="30" width="10" height="16" rx="2"/><path d="M50 38 L50 28 M42 26 l-3 -3 M58 26 l3 -3 M50 24 v-4"/><rect x="62" y="30" width="10" height="16" rx="2"/><path d="M67 38 L67 28 M59 26 l-3 -3 M75 26 l3 -3 M67 24 v-4"/><rect x="79" y="30" width="10" height="16" rx="2"/><path d="M84 38 L84 28 M76 26 l-3 -3 M92 26 l3 -3 M84 24 v-4"/></svg><div class="t20 b">Готово, коли всі горять</div></div></div></div><div class="row" style="justify-content:flex-end"><div class="btn ghost t20">Закрити</div></div></div>
+  </div></div>
+  <div class="notes">
+    <div class="box"><h3>Звідки ідея</h3><ul><li>Карта й задачі на M: натиснув — відкрилось, ще раз — закрилось; без утримання (твоя відповідь). Предмет із рук не випадає (на відміну від планшета LOCKDOWN Protocol). Tab — пізніше для інвентарю (розхідники, одяг).</li><li>«?» біля кожної задачі відкриває картку-інструкцію; нова для тебе задача позначена «НОВЕ» (твоя відповідь). Як в Overcooked: намальовані кадри, а не відео.</li><li>LOCKDOWN Protocol: список задач поряд із мапою, кімнати підписані.</li><li>Доставка показує лише загальний лічильник «3 з 6», без списку пакунків (твоя відповідь).</li><li>Без описів задач і без кіл на мапі (твоя відповідь).</li><li>Ролі й напарників тут немає (твоя відповідь): напарників може бути багато. Вони у вкладці «Роль» меню Esc (екран 5).</li><li>Наводиш на задачу — мапа підсвічує зони, де можуть бути її предмети, а не точку; шукаєш сам (твоя ідея; у vision revision 1 це вже згадувалось як «зони предметів»). Для доставки це склад: пакунки стартують там (#255).</li><li>Ходити з відкритою картою можна (твоя відповідь).</li></ul></div>
+    <div class="box"><h3>Що вирішити</h3><ul><li>Мапа: дизайнер згоден (передав ти).</li><li>Які точки вже виконані, не показуємо (твоя відповідь).</li><li>Вирішено: навчання окремо від гри; картки-інструкції замість відео (твоя відповідь).</li><li>Арт карток — окреме дослідження пізніше (твоя відповідь); малюнки тут — заглушки.</li><li>Назви кімнат — заглушки; мапу малює дизайнер.</li></ul></div>
+  </div>
+</section>
+
+<!-- 9 -->
+<section class="screen" id="s9" data-states="down raise dead back">
+  <div class="head"><h2><span class="num">9</span>Повалений, мертвий, повернення</h2>
+    <span class="seg"><button type="button" data-s="down">Повалений</button><button type="button" data-s="raise">Тебе піднімають</button><button type="button" data-s="dead">Мертвий: дивишся</button><button type="button" data-s="back">Повернення</button></span></div>
+  <div class="stage"><div class="frame">
+    <span class="worldtag" data-in="down raise">лежиш на підлозі</span><span class="worldtag" data-in="dead">очима іншого гравця</span><span class="worldtag" data-in="back">знову в грі</span>
+    <div data-in="down raise" class="vignette"></div>
+    <div data-in="down" class="abs plate col c" style="left:50%;top:14%;transform:translateX(-50%);width:36%">
+      <div class="t48 b">Тебе повалено</div><div class="t22">Хтось може тебе підняти.</div>
+      <div class="bar2" style="margin-top:calc(8cqw/19.2)"><i style="width:70%"></i></div><div class="t18 dimtext">Лишилось 0:10</div>
+    </div>
+    <div data-in="down" class="abs plate t22 c" style="left:50%;bottom:12%;transform:translateX(-50%)">Утримуй <span class="key">F</span>, щоб здатися</div>
+    <div data-in="raise" class="abs plate col c" style="left:50%;top:14%;transform:translateX(-50%);width:36%">
+      <div class="t36 b">Тебе піднімає Олена</div><div class="bar2" style="margin-top:calc(8cqw/19.2)"><i style="width:60%"></i></div>
+    </div>
+    <div data-in="down raise" class="abs" style="left:2%;bottom:4%"><span class="mic off">🎙</span></div>
+    <div data-in="dead" class="abs plate c" style="left:50%;top:4%;transform:translateX(-50%)">
+      <div class="t20 dimtext">Тебе вбито · повернення через 0:24</div>
+      <div class="t36 b">‹&nbsp;&nbsp;Дивишся: Олена&nbsp;&nbsp;›</div>
+    </div>
+    <div data-in="back" class="cross"></div>
+    <div data-in="back" class="abs chip light t24 b" style="left:50%;top:22%;transform:translateX(-50%)">Захист 3 с</div>
+    <div data-in="back" class="abs plate c" style="left:50%;top:3%;transform:translateX(-50%)"><div class="t48 b">05:10</div></div>
+  </div></div>
+  <div class="notes">
+    <div class="box"><h3>Звідки ідея</h3><ul><li>Vision revision 1: повалений → підняли або помер → спостерігаєш → повернення через ~30 с із захистом 3 с.</li><li>Спостерігач бачить лише імʼя гравця, без його HUD, здоровʼя чи ролі (правило приватності).</li><li>Хто кого чує після смерті (тебе ніхто, ти — лише звуки біля гравця й музику з ліфта), пояснює навчання; на екрані про це нічого не пишемо (твоя відповідь).</li><li>R.E.P.O. і PEAK: смерть кумедна й зрозуміла без довгих текстів.</li></ul></div>
+    <div class="box"><h3>Що вирішити</h3><ul><li>Здатися: підписано «Утримуй F, щоб здатися» (твоя відповідь). Клавішу міняємо з G на F, і будь-яку клавішу гравець може перепризначити в налаштуваннях; підпис бере клавішу з налаштувань.</li><li>Хто тебе повалив, не показуємо (твоя відповідь).</li></ul></div>
+  </div>
+</section>
+
+<!-- 10 -->
+<section class="screen" id="s10" data-states="win lose">
+  <div class="head"><h2><span class="num">10</span>Post game: кінець раунду</h2>
+    <span class="seg"><button type="button" data-s="win">Перемога</button><button type="button" data-s="lose">Поразка</button></span></div>
+  <div class="stage"><div class="frame dark">
+    <div class="abs col c" style="left:20%;top:24%;width:60%;align-items:center">
+      <div class="t22 dimtext">Кінець раунду</div>
+      <div class="t96 b" data-in="win">Перемогли Інженери</div><div class="t96 b" data-in="lose">Перемогли Дисиденти</div>
+      <div class="t36" data-in="win">Твоя команда перемогла</div><div class="t36" data-in="lose">Твоя команда програла</div>
+      <div class="t24 dimtext" data-in="win">Усі задачі виконано за 7:41.</div><div class="t24 dimtext" data-in="lose">Час вийшов, а задачі ще не виконано.</div>
+      <div class="t24" style="margin-top:calc(40cqw/19.2)">Повернення в лобі через 3…</div>
+    </div>
+  </div></div>
+  <div class="notes">
+    <div class="box"><h3>Звідки ідея</h3><ul><li>Зараз: чорний екран з назвою команди-переможця; додаємо «твоя команда перемогла / програла» і причину.</li><li>Overcooked (чек) і Lethal Company (звіт): кінець пояснює, чому так вийшло.</li></ul></div>
+    <div class="box"><h3>Що вирішити</h3><ul><li>Ролі в кінці поки не показуємо (твоя відповідь).</li><li>Post game — як аутро: чорний екран, ніхто нікого не чує, напису про мікрофон немає (твоя відповідь). У грі фаза кінця вже беззвучна.</li><li>Звук один і для перемоги, і для поразки (твоя відповідь).</li><li>Через 3 с усі автоматично повертаються в лобі; кнопки хоста немає (твоя відповідь).</li><li>Причину кінця гра поки не передає клієнту: це задача для гри.</li></ul></div>
+  </div>
+</section>
+</div>
+
+<script>
+var EN = {"тренувальна кімната":"training room","Перший раз тут?":"First time here?","Коротке навчання: близько трьох хвилин, лише один раз. Після нього тобі нічого не доведеться пояснювати.":"A short tutorial: about three minutes, only once. After it, nothing needs explaining.","Почати навчання":"Start the tutorial","Пропустити":"Skip","Візьми пакунок":"Pick up a package","Наведи приціл на пакунок і натисни":"Aim at the package and press","Навчання":"Tutorial","✓ Рух і погляд":"✓ Moving and looking","✓ Біг і стрибок":"✓ Sprinting and jumping","• Взяти й покласти":"• Picking up and putting down","Віднести до кола":"Delivering to a circle","Повалений: підняти, здатися":"Downed: raising, giving up","Голос поруч":"Voice nearby","Меню":"Menu","лобі на фоні":"the lobby behind","Імʼя":"Name","▸ Створити гру":"▸ Host a game","Приєднатися":"Join","▸ Приєднатися":"▸ Join","Налаштування":"Settings","Вийти":"Quit","Приєднатися до гри":"Join a game","Адреса хоста":"Host address","Порт 7777 (зазвичай не чіпати)":"Port 7777 (usually leave it)","лише та сама мережа":"same network only","Назад":"Back","версія 0.4":"version 0.4","Скасувати":"Cancel","Не вдалося підключитися":"Couldn't connect","Хост не відповідає. Перевір адресу і чи ви в одній мережі.":"The host doesn't answer. Check the address and that you're on the same network.","Спробувати ще":"Try again","Завантаження мапи":"Loading the map","готово":"ready","завантажує…":"loading…","Ти":"You","лобі-кімната, ходиш і говориш":"lobby room: walk and talk","Чекаємо на всіх · готові 3 з 4":"Waiting for everyone · 3 of 4 ready","Старт через 5":"Starting in 5","Гравці":"Players","Олена · хост":"Олена · host","Готовність: ні":"Ready: no","Готовність: так":"Ready: yes","Гра":"Game","Лобі":"Lobby","Персонаж":"Character","Гра триває: меню її не зупиняє":"The game keeps running: the menu doesn't pause it","🔒 Змінює лише хост · Олена":"🔒 Only the host changes these · Олена","Ти хост: зміни бачать усі":"You host: everyone sees your changes","Звичайна":"Standard","10 хв":"10 min","Швидка":"Quick","5 хв":"5 min","Без ножів":"No knives","0 ножів":"0 knives","+ Зберегти свою":"+ Save your own","Пресет:":"Preset:","Тривалість матчу":"Match duration","Пакунки":"Packages","Дисиденти":"Dissidents","Ножі":"Knives","Задачі":"Tasks","Гравці 4 / 10":"Players 4 / 10","Я готовий(-а)":"I'm ready","🔒 Змінювати можна лише в лобі":"🔒 You can change this only in the lobby","Колір":"Colour","Шапка":"Hat","пізніше":"later","Зміни видно всім одразу.":"Everyone sees changes at once.","Продовжити":"Resume","Покинути сесію":"Leave the session","Ти хост: якщо вийдеш, сесія закінчиться для всіх.":"You host this session: leaving ends it for every player.","Вийти з гри":"Quit the game","Звук і голос":"Sound and voice","Керування":"Controls","Екран":"Display","Доступність":"Accessibility","Мова":"Language","Мікрофон":"Microphone","Стандартний ▾":"Default ▾","Як говорити":"How to talk","Натисни й говори ·":"Push to talk ·","завжди ввімкнено":"always on","Гучність голосів":"Voice volume","Гучність гри":"Game volume","Перевірка мікрофона":"Mic test","Мова гри":"Game language","Змінюється одразу, без перезапуску. Кожен гравець бачить гру своєю мовою.":"Changes at once, no restart. Every player sees the game in their own language.","Твоя роль":"Your role","Інженер":"Engineer","Дисидент":"Dissident","Твій напарник: Тарас":"Your teammate: Тарас","від першої особи":"first person","Витривалість":"Stamina","рука":"hand","Пакунок":"Package","пояс":"belt","Доставка":"Delivery","Час: 07:22":"Time: 07:22","Склад":"Storage","Кухня":"Kitchen","Лабораторія":"Lab","Офіс":"Office","Хол":"Hall","Кімната відпочинку":"Break room","ти тут":"you are here","лежиш на підлозі":"lying on the floor","очима іншого гравця":"through another player's eyes","знову в грі":"back in the game","Тебе повалено":"You're down","Хтось може тебе підняти.":"Someone can raise you.","Тебе піднімає Олена":"Олена is raising you","Тебе вбито · повернення через 0:24":"You died · back in 0:24","‹ Дивишся: Олена ›":"‹ Watching: Олена ›","Захист 3 с":"Protected 3 s","Кінець раунду":"End of the round","Перемогли Інженери":"The Engineers won","Перемогли Дисиденти":"The Dissidents won","Твоя команда перемогла":"Your team won","Твоя команда програла":"Your team lost","Твоя мета: виконати всі задачі, поки не вийшов час.":"Your goal: complete every task before time runs out.","Твоя мета: заважати інженерам виконати задачі.":"Your goal: stop the Engineers from completing their tasks.","Усі задачі виконано за 7:41.":"All tasks done in 7:41.","Час вийшов, а задачі ще не виконано.":"Time's up and the tasks aren't done.","0 з 3":"0 of 3","Здоровʼя":"Health","Порада: не забувай, що в тебе дві руки.":"Tip: don't forget you have two hands.","3 з 6":"3 of 6","Лишилось 0:10":"0:10 left","Утримуй":"Hold",", щоб здатися":" to give up","Повернення в лобі через 3…":"Back to the lobby in 3…","світ гри":"game world","Підключаємось до «Лобі Олени»…":"Connecting to “Лобі Олени”…","Назва лобі":"Lobby name","Рука й пояс":"Hand and belt","Інших гравців і пакунки мапа не показує.":"The map never shows other players or packages.","тут можуть бути пакунки":"packages may be here","Роль":"Role","Напарники · 9":"Teammates · 9","список гортається":"the list scrolls","Карта й задачі (M)":"Map and tasks (M)","Нова задача: «?» на карті":"A new task: “?” on the map","Рубильники":"Switches","як робити":"how to","НОВЕ":"NEW","Закрити":"Close","Знайди всі рубильники":"Find every switch","Увімкни кожен":"Turn each one on","Стеж, щоб ніхто не вимкнув":"Watch that nobody turns them off","Готово, коли всі горять":"Done when all are lit","У цьому раунді нова для тебе задача":"A task that's new to you is in this round","Посібник":"Guide","Основи":"Basics","Рух і руки":"Moving and hands","Голос":"Voice","Повалений і повернення":"Downed and back","← знак кімнати на самому пакунку, у 3D (без слова)":"← the room's sign on the package itself, in 3D (no word)","Доставка ✓ · Рубильники ✓":"Delivery ✓ · Switches ✓","Рубильники: кроків":"Switches: steps","Крок 3 з 11":"Step 3 of 11","Смерть: спостерігаєш, тебе не чують":"Death: you watch, nobody hears you"};
+var FONTS = [{"name":"Tiny5","family":"Tiny5","css":"Tiny5","note":"піксельний і дрібний: для цифр і коротких підписів","lic":"OFL, без захищеної назви","titleOnly":true},{"name":"Pixelify Sans","family":"Pixelify Sans","css":"Pixelify+Sans:wght@400..700","note":"дружній піксельний зі змінною товщиною; кирилиця без розширеного набору, тож ґ треба перевірити","lic":"OFL, без захищеної назви","titleOnly":true},{"name":"Press Start 2P","family":"Press Start 2P","css":"Press+Start+2P","note":"класичний аркадний 8×8: лише короткі заголовки","lic":"OFL, захищена назва: файл не змінювати","titleOnly":true},{"name":"Handjet","family":"Handjet","css":"Handjet:wght@100..900","note":"піксельна сітка, вузький, змінна товщина","lic":"OFL, без захищеної назви","titleOnly":true},{"name":"Rubik Pixels","family":"Rubik Pixels","css":"Rubik+Pixels","note":"піксельний варіант Rubik; пара до Rubik у тексті","lic":"OFL, без захищеної назви","titleOnly":true},{"name":"Comfortaa","family":"Comfortaa","css":"Comfortaa:wght@300..700","note":"заокруглений геометричний, легкий","lic":"OFL, захищена назва: файл не змінювати"},{"name":"Nunito","family":"Nunito","css":"Nunito:wght@200..1000","note":"заокруглений і мʼякий: для тексту","lic":"OFL, без захищеної назви"},{"name":"Rubik","family":"Rubik","css":"Rubik:wght@300..900","note":"трохи заокруглений і міцний: для тексту, пара до Rubik Pixels","lic":"OFL, без захищеної назви"},{"name":"Golos Text","family":"Golos Text","css":"Golos+Text:wght@400..900","note":"простий і чіткий: для тексту","lic":"OFL, без захищеної назви"},{"name":"M PLUS Rounded 1c","family":"M PLUS Rounded 1c","css":"M+PLUS+Rounded+1c:wght@100;300;400;500;700;800;900","note":"заокруглений: для тексту","lic":"OFL"}];
+(function () {
+  // states per screen
+  document.querySelectorAll("section.screen[data-states]").forEach(function (sec) {
+    var states = sec.getAttribute("data-states").split(" ");
+    var buttons = sec.querySelectorAll(".seg [data-s]");
+    function show(s) {
+      buttons.forEach(function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-s") === s ? "true" : "false"); });
+      sec.querySelectorAll("[data-in]").forEach(function (el) { el.hidden = el.getAttribute("data-in").split(" ").indexOf(s) < 0; });
+      sec.querySelectorAll("[data-on]").forEach(function (el) { el.classList.toggle("on", el.getAttribute("data-on").split(" ").indexOf(s) >= 0); });
+    }
+    buttons.forEach(function (b) { b.addEventListener("click", function () { show(b.getAttribute("data-s")); }); });
+    show(states[0]);
+  });
+  // screen language (the frames only; the notes stay Ukrainian)
+  var origText = new WeakMap();
+  function setLang(l) {
+    document.querySelectorAll(".frame").forEach(function (fr) {
+      var w = document.createTreeWalker(fr, NodeFilter.SHOW_TEXT);
+      var n;
+      while ((n = w.nextNode())) {
+        if (!origText.has(n)) origText.set(n, n.nodeValue);
+        var o = origText.get(n);
+        var k = o.replace(/\s+/g, " ").trim();
+        if (l === "en" && EN[k]) {
+          n.nodeValue = o.match(/^\s*/)[0] + EN[k] + o.match(/\s*$/)[0];
+        } else {
+          n.nodeValue = o;
+        }
+      }
+    });
+    document.querySelectorAll("#lang [data-l]").forEach(function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-l") === l ? "true" : "false"); });
+    document.documentElement.lang = l === "en" ? "en" : "uk";
+    try { localStorage.setItem("wf-lang", l); } catch (e) {}
+  }
+  document.querySelectorAll("#lang [data-l]").forEach(function (b) { b.addEventListener("click", function () { setLang(b.getAttribute("data-l")); }); });
+  var l0 = "uk"; try { l0 = localStorage.getItem("wf-lang") || "uk"; } catch (e) {}
+  setLang(l0);
+  // zoom
+  var zb = document.querySelectorAll("#zoom [data-z]");
+  function zoom(z) {
+    document.body.setAttribute("data-zoom", z);
+    zb.forEach(function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-z") === z ? "true" : "false"); });
+    try { localStorage.setItem("wf-zoom", z); } catch (e) {}
+  }
+  zb.forEach(function (b) { b.addEventListener("click", function () { zoom(b.getAttribute("data-z")); }); });
+  var z0 = "1"; try { z0 = localStorage.getItem("wf-zoom") || "1"; } catch (e) {}
+  zoom(z0);
+  // fonts (Google Fonts CSS API, loaded in the viewer's browser only when chosen)
+  var loaded = {};
+  var chosen = { title: "", body: "" };
+  var notes = document.getElementById("font-notes");
+  notes.innerHTML = "<h3>Кандидати</h3><ul>" + FONTS.map(function (f) {
+    return "<li><b>" + f.name + "</b> — " + f.note + ". " + f.lic + "</li>";
+  }).join("") + "</ul>";
+  function load(f) {
+    if (loaded[f.css]) return;
+    var l = document.createElement("link"); l.rel = "stylesheet";
+    l.href = "https://fonts.googleapis.com/css2?family=" + f.css + "&display=swap";
+    document.head.appendChild(l); loaded[f.css] = true;
+  }
+  function apply(kind, v) {
+    var stack = "var(--font-ui)";
+    if (v !== "" && FONTS[+v]) { load(FONTS[+v]); stack = "'" + FONTS[+v].family + "', var(--font-ui)"; }
+    document.documentElement.style.setProperty(kind === "title" ? "--wf-title" : "--wf-font", stack);
+    chosen[kind] = v;
+    function nm(x) { return x !== "" && FONTS[+x] ? FONTS[+x].name : "системний"; }
+    document.getElementById("sp-meta").textContent = "Заголовки: " + nm(chosen.title) + " · текст: " + nm(chosen.body);
+    try { localStorage.setItem("wf-font-" + kind, v); } catch (e) {}
+  }
+  document.querySelectorAll("select[data-kind]").forEach(function (sel) {
+    var kind = sel.getAttribute("data-kind");
+    FONTS.forEach(function (f, i) {
+      if (kind === "body" && f.titleOnly) return;
+      var o = document.createElement("option"); o.value = String(i); o.textContent = f.name; sel.appendChild(o);
+    });
+    sel.addEventListener("change", function () { apply(kind, sel.value); });
+    var pick = String(FONTS.findIndex(function (f) { return f.name === "Comfortaa"; }));
+    var v0 = pick; try { var st = localStorage.getItem("wf-font-" + kind); if (st !== null) v0 = st; } catch (e) {}
+    if (v0 !== "" && FONTS[+v0] && sel.querySelector('option[value="' + v0 + '"]')) { sel.value = v0; apply(kind, v0); }
+  });
+})();
+</script>

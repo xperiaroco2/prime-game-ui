@@ -1,0 +1,235 @@
+<title>Референси інтерфейсів</title>
+<style>
+/* Layout: a filterable gallery of reference cards (one column on a phone, two on wider screens), lessons first; neutral chrome so the screenshots carry the colour. */
+:root {
+  --paper: #F3F1EE;
+  --card: #FFFFFF;
+  --ink: #1C1A21;
+  --muted: #5D5965;
+  --line: #DAD5CE;
+  --shot: #E6E2DC;
+  --good: #1E6B3F;
+  --good-bg: #DDF0E3;
+  --mixed: #8A4B0C;
+  --mixed-bg: #FBEBD6;
+  --focus: #1C1A21;
+  --font-display: "Segoe UI Variable Display", "Segoe UI", system-ui, -apple-system, "Roboto", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, "Roboto", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "Cascadia Mono", "SF Mono", Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #131117; --card: #1C1A22; --ink: #ECE8F1; --muted: #A39DAD; --line: #33303B; --shot: #26232D;
+    --good: #9BD8B0; --good-bg: #17301F; --mixed: #F2BE85; --mixed-bg: #3A2814; --focus: #ECE8F1;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #131117; --card: #1C1A22; --ink: #ECE8F1; --muted: #A39DAD; --line: #33303B; --shot: #26232D;
+  --good: #9BD8B0; --good-bg: #17301F; --mixed: #F2BE85; --mixed-bg: #3A2814; --focus: #ECE8F1;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--paper); color: var(--ink); font: 16px/1.55 var(--font-body); padding-inline: 16px; padding-block: 0 56px; }
+.wrap { max-width: 60rem; margin: 0 auto; }
+a { color: inherit; text-underline-offset: 2px; }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 6px; }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; line-height: 1.2; margin: 0; }
+h1 { font-size: clamp(1.8rem, 6vw, 2.5rem); font-weight: 800; }
+h2 { font-size: 1.35rem; font-weight: 750; }
+h3 { font-size: 1.02rem; font-weight: 700; }
+p { margin: 0; }
+ul { margin: 0; padding-left: 1.2rem; display: grid; gap: 6px; }
+.muted { color: var(--muted); }
+.eyebrow { font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+header { padding-block: 26px 14px; display: grid; gap: 10px; }
+section { padding-block: 24px 4px; display: grid; gap: 12px; }
+.box { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 16px; display: grid; gap: 10px; min-width: 0; }
+.two { display: grid; gap: 12px; }
+@media (min-width: 720px) { .two { grid-template-columns: 1fr 1fr; } }
+.ref { font-weight: 600; }
+
+.filters {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--paper);
+  margin-inline: -16px; padding: 8px 16px; border-bottom: 1px solid var(--line);
+  display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none;
+}
+.filters::-webkit-scrollbar { display: none; }
+.filters button {
+  flex: none; font: 600 0.86rem var(--font-body); color: var(--ink); background: var(--card);
+  border: 1.5px solid var(--line); border-radius: 999px; padding: 6px 12px; cursor: pointer;
+}
+.filters button[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.filters .n { font-weight: 500; opacity: 0.7; margin-left: 4px; font-variant-numeric: tabular-nums; }
+
+.grid { display: grid; gap: 14px; }
+@media (min-width: 760px) { .grid { grid-template-columns: 1fr 1fr; } }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; display: grid; grid-template-rows: auto 1fr; min-width: 0; }
+.shot { aspect-ratio: 16 / 9; background: var(--shot); display: grid; place-items: center; position: relative; max-width: 100%; }
+.shot img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.shot .open { display: grid; gap: 4px; justify-items: center; text-align: center; padding: 12px; text-decoration: none; }
+.shot .open b { font-size: 0.95rem; text-decoration: underline; }
+.shot .open span { font-size: 0.78rem; color: var(--muted); overflow-wrap: anywhere; }
+.body { padding: 12px 14px 14px; display: grid; gap: 8px; align-content: start; }
+.meta { display: flex; flex-wrap: wrap; gap: 6px 8px; align-items: center; font-size: 0.82rem; color: var(--muted); }
+.game { font-weight: 700; color: var(--ink); }
+.chip { font-size: 0.74rem; font-weight: 700; border-radius: 999px; padding: 2px 9px; }
+.chip.good { color: var(--good); background: var(--good-bg); }
+.chip.mixed { color: var(--mixed); background: var(--mixed-bg); }
+.note { font-size: 0.94rem; }
+.links { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 0.84rem; color: var(--muted); }
+.mine { display: flex; gap: 6px; flex-wrap: wrap; }
+.mine button { font: 600 0.82rem var(--font-body); padding: 6px 11px; border-radius: 8px; border: 1.5px solid var(--line); background: transparent; color: var(--ink); cursor: pointer; }
+.mine button[aria-pressed="true"] { border-color: var(--ink); background: var(--ink); color: var(--paper); }
+
+.votes { position: sticky; bottom: 0; z-index: 4; margin-inline: -16px; padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px)); background: var(--card); border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; }
+.votes .sum { font-size: 0.9rem; flex: 1 1 12rem; min-width: 0; }
+.btn { font: 600 0.9rem var(--font-body); padding: 9px 14px; border-radius: 10px; cursor: pointer; border: 1.5px solid var(--ink); background: var(--ink); color: var(--paper); }
+.votes textarea { flex-basis: 100%; width: 100%; font: 0.85rem var(--font-mono); padding: 8px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); }
+.status { font-size: 0.85rem; color: var(--good); flex-basis: 100%; }
+.status:empty { display: none; }
+</style>
+
+<div class="wrap">
+<header>
+  <div class="eyebrow">prime-game · UX/UI-відділ · #150 · хвиля 2</div>
+  <h1>Референси інтерфейсів</h1>
+  <p class="muted">16 ігор, 42 скріншоти, які я переглянув сам. Біля кожного — що класно, а що ні, і чому. Мірило: просто, але не потворно.</p>
+  <p class="muted" id="img-note"></p>
+</header>
+
+<section>
+  <h2>Що з цього беремо</h2>
+  <div class="two">
+    <div class="box">
+      <h3>Класно, варто взяти</h3>
+      <ul>
+        <li><b>Центр екрана вільний,</b> усе дрібне — по кутах (LOCKDOWN Protocol, R.E.P.O., Overcooked).</li>
+        <li><b>Лобі й «Готовий» — у світі:</b> кімната з табличками, кіоск, двері (LOCKDOWN Protocol, PEAK, Gang Beasts, Content Warning).</li>
+        <li><b>Екран задач — предмет у руках:</b> планшет зі списком і мапою, де в кімнат є колір і іконка (LOCKDOWN Protocol), або зошит із закладками (Phasmophobia).</li>
+        <li><b>Спільний прогрес задач видно завжди</b>, смугою вгорі (Among Us).</li>
+        <li><b>Підказки клавіш для того, що в руках</b> (Content Warning), і «шпилька» з кнопкою над предметом (A Short Hike).</li>
+        <li><b>Колір завжди разом зі значком</b> (кімнати LOCKDOWN Protocol, смуга PEAK).</li>
+        <li><b>Стан мікрофона видно завжди</b> (Goose Goose Duck, LOCKDOWN Protocol).</li>
+        <li><b>Кринж-фан у великих моментах:</b> паспорт PEAK, «READY?» і чек Overcooked, звіт Lethal Company, SpookTube у Content Warning.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>Не класно, уникаємо</h3>
+      <ul>
+        <li><b>Тонкий дрібний текст без підкладки</b> губиться на світлій стіні чи в темряві (LOCKDOWN Protocol, Content Warning).</li>
+        <li><b>Сірі «дебаг»-налаштування</b> — таблиця без характеру (налаштування хоста LOCKDOWN Protocol).</li>
+        <li><b>Ефекти, що шкодять читанню</b> («VHS»-розмиття в R.E.P.O.).</li>
+        <li><b>Екран, засмічений цифрами</b> (цифри шкоди в How to Fish).</li>
+        <li><b>Надто відполірований «мобільний магазин»</b> (Party Animals): гарно, але дорого й не наше.</li>
+        <li><b>Підписи-меню, які ледь видно</b> (Gang Beasts).</li>
+      </ul>
+      <h3>Еталони «просто, але не потворно»</h3>
+      <p>A Short Hike, WEBFISHING, PEAK, і HUD-розкладка LOCKDOWN Protocol, якщо зробити її текст читабельним.</p>
+    </div>
+  </div>
+</section>
+
+<section id="gallery">
+  <h2>Скріншоти</h2>
+  <div class="filters" role="group" aria-label="Тип екрана" id="filters"></div>
+  <div class="grid" id="grid"></div>
+</section>
+
+<section>
+  <h2>Чого бракує</h2>
+  <div class="box">
+    <ul>
+      <li><b>LOCKDOWN Protocol:</b> немає жодного скріншота головного меню, показу ролі, смерті й спостереження, кінця матчу. Їх нема на сайтах; можна взяти з відео або пограти й зняти самим.</li>
+      <li><b>Among Us:</b> показ ролі й екран перемоги/поразки. <b>Goose Goose Duck:</b> майже нічого, крім рекламних знімків.</li>
+      <li><b>Game UI Database</b> — найкраща база скріншотів інтерфейсів, але вона показує мені перевірку «Ви людина?», а проходити такі перевірки я не маю права. Ти можеш відкрити її сам: <a href="https://www.gameuidatabase.com/" target="_blank" rel="noopener">gameuidatabase.com</a>.</li>
+      <li>Не відкрились у браузері: GIF привида в Among Us, журнал і налаштування A Short Hike (надто важкі 4K-картинки), колесо емоцій PEAK (посилання бите), головне меню Gang Beasts.</li>
+      <li>Moving Out, Lil Gator Game і Phasmophobia в рекламних знімках не показують інтерфейсу взагалі: там лише світ.</li>
+    </ul>
+  </div>
+</section>
+</div>
+
+<div class="votes">
+  <div class="sum" id="sum">Твої оцінки: ще немає. Тисни «Подобається» або «Не моє» на картках.</div>
+  <button class="btn" id="copy" type="button">Скопіювати мої оцінки</button>
+  <textarea id="fb" rows="3" readonly hidden aria-label="Оцінки для копіювання"></textarea>
+  <div class="status" id="status" role="status" aria-live="polite"></div>
+</div>
+
+<script>
+var REFS = /*DATA*/[];
+var SCREENS = [["all", "Усі"], ["lobby", "Лобі"], ["main_menu", "Головне меню"], ["hud", "HUD у грі"], ["task", "Задачі"], ["death", "Смерть"], ["round", "Початок і кінець"], ["pause", "Пауза й магазин"]];
+var LABEL = {}; SCREENS.forEach(function (s) { LABEL[s[0]] = s[1]; });
+(function () {
+  var KEY = "ux-refs-votes";
+  var votes = {};
+  try { votes = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch (e) { votes = {}; }
+  var withImg = REFS.filter(function (r) { return r.img; }).length;
+  document.getElementById("img-note").textContent = withImg
+    ? "Скріншоти завантажені й лежать прямо на сторінці (приватна, лише для тебе)."
+    : "Поки що скріншоти відкриваються за посиланням у новій вкладці. Щоб вони були прямо тут, мені потрібен твій дозвіл на завантаження.";
+
+  var filters = document.getElementById("filters");
+  var grid = document.getElementById("grid");
+  var current = "all";
+  SCREENS.forEach(function (s) {
+    var n = s[0] === "all" ? REFS.length : REFS.filter(function (r) { return r.screen === s[0]; }).length;
+    if (!n) return;
+    var b = document.createElement("button");
+    b.type = "button"; b.setAttribute("data-f", s[0]);
+    b.innerHTML = s[1] + '<span class="n">' + n + "</span>";
+    b.addEventListener("click", function () { current = s[0]; draw(); });
+    filters.appendChild(b);
+  });
+  function host(u) { try { return new URL(u).host.replace(/^www\./, ""); } catch (e) { return ""; } }
+  function draw() {
+    filters.querySelectorAll("button").forEach(function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-f") === current ? "true" : "false"); });
+    grid.innerHTML = "";
+    REFS.filter(function (r) { return current === "all" || r.screen === current; }).forEach(function (r) {
+      var c = document.createElement("article"); c.className = "card";
+      var shot = r.img
+        ? '<a class="shot" href="' + r.img + '" target="_blank" rel="noopener"><img src="' + r.img + '" alt="' + r.game + ": " + r.title + '" loading="lazy"></a>'
+        : '<div class="shot"><a class="open" href="' + r.url + '" target="_blank" rel="noopener"><b>Відкрити скріншот</b><span>' + host(r.url) + "</span></a></div>";
+      c.innerHTML = shot +
+        '<div class="body">' +
+          '<div class="meta"><span class="game">' + r.game + "</span><span>· " + LABEL[r.screen] + '</span><span class="chip ' + r.v + '">' + (r.v === "good" ? "класно" : "є мінуси") + "</span></div>" +
+          "<h3>" + r.title + "</h3>" +
+          '<p class="note">' + r.note + "</p>" +
+          '<div class="links"><a href="' + r.url + '" target="_blank" rel="noopener">скріншот</a><a href="' + r.page + '" target="_blank" rel="noopener">джерело: ' + host(r.page) + "</a></div>" +
+          '<div class="mine" role="group" aria-label="Моя оцінка"><button type="button" data-v="+">Подобається</button><button type="button" data-v="-">Не моє</button></div>' +
+        "</div>";
+      c.querySelectorAll(".mine button").forEach(function (b) {
+        b.setAttribute("aria-pressed", votes[r.id] === b.getAttribute("data-v") ? "true" : "false");
+        b.addEventListener("click", function () {
+          var v = b.getAttribute("data-v");
+          votes[r.id] = votes[r.id] === v ? undefined : v;
+          try { localStorage.setItem(KEY, JSON.stringify(votes)); } catch (e) {}
+          c.querySelectorAll(".mine button").forEach(function (x) { x.setAttribute("aria-pressed", votes[r.id] === x.getAttribute("data-v") ? "true" : "false"); });
+          summary();
+        });
+      });
+      grid.appendChild(c);
+    });
+  }
+  function lists() {
+    var plus = [], minus = [];
+    REFS.forEach(function (r) { if (votes[r.id] === "+") plus.push(r.id); if (votes[r.id] === "-") minus.push(r.id); });
+    return [plus, minus];
+  }
+  function summary() {
+    var l = lists();
+    document.getElementById("sum").textContent = (l[0].length || l[1].length)
+      ? "Твої оцінки: подобається " + l[0].length + ", не моє " + l[1].length + "."
+      : "Твої оцінки: ще немає. Тисни «Подобається» або «Не моє» на картках.";
+  }
+  document.getElementById("copy").addEventListener("click", function () {
+    var l = lists();
+    var text = "Референси. Подобається: " + (l[0].join(", ") || "—") + ". Не моє: " + (l[1].join(", ") || "—") + ".";
+    var fb = document.getElementById("fb"), st = document.getElementById("status");
+    function fallback() { fb.hidden = false; fb.value = text; fb.focus(); fb.select(); st.textContent = "Виділи текст і скопіюй вручну."; }
+    try { navigator.clipboard.writeText(text).then(function () { fb.hidden = true; st.textContent = "Скопійовано. Встав у чат."; }, fallback); } catch (e) { fallback(); }
+  });
+  draw(); summary();
+})();
+</script>

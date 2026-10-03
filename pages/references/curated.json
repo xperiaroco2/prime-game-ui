@@ -1,0 +1,632 @@
+[
+ {
+  "id": "lp-lobby-1",
+  "game": "LOCKDOWN Protocol",
+  "screen": "lobby",
+  "v": "good",
+  "title": "Лобі як місце",
+  "note": "Лобі — кімната, якою ходиш. На стінах щити з поясненнями для новачків, кольорові лінії на підлозі ділять зони. Мінус: текст на щитах дрібний, усе приглушено-сіре.",
+  "url": "https://clan.akamai.steamstatic.com/images/44859328/d4e4229d052fe07353eaef0f37a080e296b484dc.png",
+  "page": "https://store.steampowered.com/news/app/2780980/view/578271438186743048",
+  "head": {
+   "status": 200,
+   "type": "image/png",
+   "len": 605115
+  }
+ },
+ {
+  "id": "lp-lobby-2",
+  "game": "LOCKDOWN Protocol",
+  "screen": "lobby",
+  "v": "mixed",
+  "title": "Налаштування хоста",
+  "note": "Правила списком з перемикачами «‹ значення ›», згруповані заголовками (зброя, мапа, задачі). Структура добра, вигляд — сірий «дебаг-інтерфейс».",
+  "url": "https://clan.akamai.steamstatic.com/images/44859328/5786a414f62dd62f522d12504e4013841e168156.png",
+  "page": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=2780980&count=40&maxlength=0&feeds=steam_community_announcements",
+  "head": {
+   "status": 200,
+   "type": "image/png",
+   "len": 129704
+  }
+ },
+ {
+  "id": "lp-lobby-3",
+  "game": "LOCKDOWN Protocol",
+  "screen": "lobby",
+  "v": "mixed",
+  "title": "Пресети правил",
+  "note": "Ідея класна: збережені набори правил («No guns», «Pizzushi speedrun»). Вигляд ні: тонкі рамки на розмитому фоні, кнопка DELETE біля кожного рядка кидається в очі.",
+  "url": "https://clan.akamai.steamstatic.com/images/44859328/7644721b686e636b2ab9a70c718e30601c9e713e.jpg",
+  "page": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=2780980&count=100&maxlength=0&feeds=steam_community_announcements",
+  "head": {
+   "status": 200,
+   "type": "image/jpeg",
+   "len": 137341
+  }
+ },
+ {
+  "id": "au-lobby-1",
+  "game": "Among Us",
+  "screen": "lobby",
+  "v": "good",
+  "title": "Налаштування кімнати",
+  "note": "Код кімнати з кнопкою «копіювати», мапа, місткість 1/10, «приватна» червоним. Хост бачить «Edit», інші — «View». Чітка ієрархія, усе читається.",
+  "url": "https://www.innersloth.com/wp-content/uploads/2024/12/lobby-settings-1024x576.png",
+  "page": "https://www.innersloth.com/new-roles-enter-the-fray-v2024-6-18-emergency-meeting-38/",
+  "head": {
+   "status": 200,
+   "type": "image/webp",
+   "len": 189190
+  }
+ },
+ {
+  "id": "au-lobby-2",
+  "game": "Among Us",
+  "screen": "lobby",
+  "v": "good",
+  "title": "Пресети картками",
+  "note": "Два великі малюнки-картки «Core settings» і «Roles galore» з галочкою, підказка від персонажа. Просто, але не бідно.",
+  "url": "https://www.innersloth.com/wp-content/uploads/2025/03/mm2-ezgif.com-crop-1024x574.png",
+  "page": "https://www.innersloth.com/a-match-made-in-update-16-0-0-emergency-meeting-40/",
+  "head": {
+   "status": 200,
+   "type": "image/webp",
+   "len": 104844
+  }
+ },
+ {
+  "id": "pk-lobby-1",
+  "game": "PEAK",
+  "screen": "lobby",
+  "v": "good",
+  "title": "Паспорт замість меню персонажа",
+  "note": "Налаштування персонажа — смішний документ: імʼя, «громадянство CRABLAND», фото, сітка іконок, машинний рядок унизу. Кринж-фан без зайвого тексту.",
+  "url": "https://peak.wiki.gg/images/Passport_HUD.png",
+  "page": "https://peak.wiki.gg/wiki/File:Passport_HUD.png",
+  "head": {
+   "status": 403,
+   "type": "text/html; charset=UTF-8",
+   "len": 0
+  }
+ },
+ {
+  "id": "pk-lobby-2",
+  "game": "PEAK",
+  "screen": "lobby",
+  "v": "good",
+  "title": "Кіоск посадки = «Готовий»",
+  "note": "Старт — підійти до кіоску «Gate 7, please scan to board». Готовність як дія у світі, пародія на аеропорт.",
+  "url": "https://peak.wiki.gg/images/Kiosk_boarding.png",
+  "page": "https://peak.wiki.gg/wiki/File:Kiosk_boarding.png",
+  "head": {
+   "status": 403,
+   "type": "text/html; charset=UTF-8",
+   "len": 0
+  }
+ },
+ {
+  "id": "gb-lobby-1",
+  "game": "Gang Beasts",
+  "screen": "lobby",
+  "v": "mixed",
+  "title": "Меню-провулок",
+  "note": "Пункти меню («Mode», «Start», «Melee») — написи на будівлях, до яких іде персонаж. Ідея класна, але написи крихітні й ледь видно.",
+  "url": "https://static0.gamerantimages.com/wordpress/wp-content/uploads/2021/08/GangBeasts-OnlineSettings.jpg?q=50&fit=crop&w=825&dpr=1.5",
+  "page": "https://gamerant.com/gang-beasts-private-lobby-guide/",
+  "head": {
+   "status": 200,
+   "type": "image/jpeg",
+   "len": 53548
+  }
+ },
+ {
+  "id": "oc-lobby-1",
+  "game": "Overcooked! 2",
+  "screen": "lobby",
+  "v": "good",
+  "title": "Лобі з голосуванням",
+  "note": "Великі картки рівнів, трохи нахилені, «Vote for a theme!», гравці пронумеровані з табличками імен. Унизу рядок підказок клавіш.",
+  "url": "https://interfaceingame.com/wp-content/uploads/overcooked-2/overcooked-2-versus-lobby.jpg",
+  "page": "https://interfaceingame.com/screenshots/overcooked-2-versus-lobby/",
+  "head": {
+   "status": 200,
+   "type": "image/jpeg",
+   "len": 209663
+  }
+ },
+ {
+  "id": "sh-main-1",
+  "game": "A Short Hike",
+  "screen": "main_menu",
+  "v": "good",
+  "title": "Еталон «просто, але не потворно»",
+  "note": "Чорний фон, маленька картинка-сцена, чотири слова малими літерами, стрілка-курсор. Нічого зайвого, і все одно з характером.",
+  "url": "https://interfaceingame.com/wp-content/uploads/a-short-hike/a-short-hike-main-menu.png",
+  "page": "https://interfaceingame.com/screenshots/a-short-hike-main-menu/",
+  "head": {
+   "status": 200,
+   "type": "image/png",
+   "len": 138221
+  }
+ },
+ {
+  "id": "oc-main-1",
+  "game": "Overcooked! 2",
+  "screen": "main_menu",
+  "v": "mixed",
+  "title": "Меню у фудтраку",
+  "note": "Меню вбудоване у вікно фудтрака: вкладки на паперових ярликах, друзі — на крейдяній дошці. Мило, але перевантажено.",
+  "url": "https://interfaceingame.com/wp-content/uploads/overcooked-2/overcooked-2-main-menu.jpg",
+  "page": "https://interfaceingame.com/screenshots/overcooked-2-main-menu/",
+  "head": {
+   "status": 200,
+   "type": "image/jpeg",
+   "len": 280077
+  }
+ },
+ {
+  "id": "au-main-1",
+  "game": "Among Us",
+  "screen": "main_menu",
+  "v": "good",
+  "title": "Пошук гри",
+  "note": "Рядки з логотипом мапи, жовті мітки (швидкість, ролі), 2/10 гравців, велика кнопка Refresh. Товсті білі обвідки — усе читається.",
+  "url": "https://www.innersloth.com/wp-content/uploads/2025/03/newmm2-ezgif.com-crop-1024x575.png",
+  "page": "https://www.innersloth.com/a-match-made-in-update-16-0-0-emergency-meeting-40/",
+  "head": {
+   "status": 200,
+   "type": "image/webp",
+   "len": 163700
+  }
+ },
+ {
+  "id": "lp-hud-1",
+  "game": "LOCKDOWN Protocol",
+  "screen": "hud",
+  "v": "mixed",
+  "title": "HUD від першої особи",
+  "note": "Найближче до нас. Таймер угорі по центру, імʼя й роль праворуч, гравці — кольорові мітки, здоровʼя знизу ліворуч, «руки / сумка» текстом знизу праворуч, мікрофон знизу по центру. Центр вільний — класно. Мінус: тонкий дрібний текст губиться на світлій стіні.",
+  "url": "https://static0.thegamerimages.com/wordpress/wp-content/uploads/wm/2024/10/holding-a-screwdriver-in-lockdown-protocol.png?q=49&fit=crop&w=825&dpr=2",
+  "page": "https://www.thegamer.com/lockdown-protocol-vents-fix-explained-guide/",
+  "head": {
+   "status": 200,
+   "type": "image/jpeg",
+   "len": 52878
+  }
+ },
+ {
+  "id": "lp-sign-1",
+  "game": "LOCKDOWN Protocol",
+  "screen": "hud",
+  "v": "good",
+  "title": "Вивіска кімнати",
+  "note": "Над дверима — зелена табличка з іконкою: той самий колір і значок, що на мапі планшета. Колір завжди разом із символом.",
+  "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2780980/1417c2570e082f2ce366f89cf53aa42787821df1/ss_1417c2570e082f2ce366f89cf53aa42787821df1.1920x1080.jpg",
+  "page": "https://store.steampowered.com/app/2780980/LOCKDOWN_Protocol/",
+  "head": {
+   "status": 200,
+   "type": "image/jpeg",
+   "len": 378453
+  }
+ },
+ {
+  "id": "au-hud-1",
+  "game": "Among Us",
+  "screen": "hud",
+  "v": "good",
+  "title": "Спільний прогрес і кнопки дій",
+  "note": "Смуга «Total tasks completed» завжди вгорі. Великі кнопки дій з малюнком і підписом (REPORT, KILL з цифрою перезарядки). Назва кімнати внизу.",
+  "url": "https://cdn.nerdschalk.com/wp-content/uploads/2020/10/imported-image-18.jpg",
+  "page": "https://nerdschalk.com/how-to-vote-in-among-us/",
+  "head": {
+   "status": 200,
+   "type": "image/jpeg",
+   "len": 318266
+  }
+ },
+ {
+  "id": "gd-hud-1",
+  "game": "Goose Goose Duck",
+  "screen": "hud",
+  "v": "mixed",
+  "title": "Роль і здібності",
+  "note": "Роль — компактна картка вгорі ліворуч (іконка, назва, «Duties» розгортається). Здібності — круглі іконки з клавішею під кожною, мінікарта з назвою місця. Мінус: забагато великих фіолетових кіл.",
+  "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1568590/414b9c3c2873d25c9c91ed355d01f8688eeb43d7/ss_414b9c3c2873d25c9c91ed355d01f8688eeb43d7.1920x1080.jpg?t=1778102536",
+  "page": "https://store.steampowered.com/app/1568590/",
+  "head": {
+   "status": 200,
+   "type": "image/jpeg",
+   "len": 274899
+  }
+ },
+ {
+  "id": "gd-hud-2",
+  "game": "Goose Goose Duck",
+  "screen": "hud",
+  "v": "good",
+  "title": "Стан голосу",
+  "note": "Іконки мікрофона й навушників з клавішами M і P: стан голосу видно завжди.",
+  "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1568590/a44c91f1719d76ec0944fc8bd687c48d1fdf0a70/ss_a44c91f1719d76ec0944fc8bd687c48d1fdf0a70.1920x1080.jpg?t=1778102536",
+  "page": "https://store.steampowered.com/app/1568590/",
+  "head": {
+   "status": 200,
+   "type": "image/jpeg",
+   "len": 557784
+  }
+ },
+ {
+  "id": "lc-hud-1",
+  "game": "Lethal Company",
+  "screen": "hud",
+  "v": "good",
+  "title": "Здоровʼя-силует",
+  "note": "Здоровʼя — контур тіла, витривалість — помаранчева дуга навколо, вага «0 lb». Усе в одному куті, впізнавано.",
+  "url": "https://static.wikitide.net/lethalwiki/9/91/Player_stats_ui.png",
+  "page": "https://lethal.miraheze.org/wiki/Player_Stats",
+  "head": {
+   "status": 200,
+   "type": "image/png",
+   "len": 9092
+  }
+ },
+ {
+  "id": "cw-hud-1",
+  "game": "Content Warning",
+  "screen": "hud",
+  "v": "good",
+  "title": "Підказки для предмета в руках",
+  "note": "Праворуч угорі — клавіші саме для того, що тримаєш ([LMB] Record, [Q] Drop item). Ліворуч угорі «Next step» — що робити далі. Слоти знизу праворуч. Мінус: тонкий текст на темному.",
+  "url": "https://static0.thegamerimages.com/wordpress/wp-content/uploads/2024/04/o2.jpg?q=70&fit=crop&w=825&dpr=1",
+  "page": "https://www.thegamer.com/content-warning-beginner-tips-tricks-how-to-play-guide/",
+  "head": {
+   "status": 200,
+   "type": "image/jpeg",
+   "len": 30752
+  }
+ },
+ {
+  "id": "re-hud-1",
+  "game": "R.E.P.O.",
+  "screen": "hud",
+  "v": "good",
+  "title": "Мінімум цифр",
+  "note": "Здоровʼя й витривалість — дві цифри з іконками в куті, гроші й ціль праворуч, слоти «1 2 3». Дуже компактно.",
+  "url": "https://upload.wikimedia.org/wikipedia/en/b/be/REPO_gameplay_screenshot.jpg",
+  "page": "https://en.wikipedia.org/wiki/File:REPO_gameplay_screenshot.jpg",
+  "head": {
+   "status": 200,
+   "type": "image/jpeg",
+   "len": 52211
+  }
+ },
+ {
+  "id": "re-hud-2",
+  "game": "R.E.P.O.",
+  "screen": "hud",
+  "v": "mixed",
+  "title": "Список мертвих",
+  "note": "«The broken ones» — мертві гравці кольоровими голівками. Великі помаранчеві цифри «3/4». Мінус: «VHS»-розмиття шкодить читанню.",
+  "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3241660/ss_e6babaab52581f81df91e50768cee6a9334ef6ec.1920x1080.jpg?t=1778158882",
+  "page": "https://store.steampowered.com/app/3241660/",
+  "head": {
+   "status": 200,
+   "type": "image/jpeg",
+   "len": 260513
+  }
+ },
+ {
+  "id": "hf-hud-1",
+  "game": "How to Fish",
+  "screen": "hud",
+  "v": "good",
+  "title": "Майже без HUD",
+  "note": "Імʼя гравця — маленький підпис над головою, предмети висять на дошці у світі. Low-poly читається сам.",
+  "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/4001890/48f6817fe466a7c9666605527558bf1fac48d0d2/ss_48f6817fe466a7c9666605527558bf1fac48d0d2.1920x1080.jpg",
+  "page": "https://store.steampowered.com/app/4001890/",
+  "head": {
+   "status": 200,
+   "type": "image/jpeg",
+   "len": 383980
+  }
+ },
+ {
+  "id": "hf-hud-2",
+  "game": "How to Fish",
+  "screen": "hud",
+  "v": "mixed",
+  "title": "Хотбар",
+  "note": "Гроші в рамці, серце й їжа в колах, хотбар 1–8 з виділеним слотом — просто. Мінус: літаючі цифри шкоди засмічують екран, трохи безлико.",
+  "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/4001890/5f867d8c9b03c63867cc95b7bfaa4a3d2193ea48/ss_5f867d8c9b03c63867cc95b7bfaa4a3d2193ea48.1920x1080.jpg",
+  "page": "https://store.steampowered.com/app/4001890/",
+  "head": {
+   "status": 200,
+   "type": "image/jpeg",
+   "len": 416839
+  }
+ },
+ {
+  "id": "pk-hud-1",
+  "game": "PEAK",
+  "screen": "hud",
+  "v": "good",
+  "title": "Одна смуга на все",
+  "note": "Витривалість — одна смуга, а в ній смугасті шматки (голод, отрута, холод) з іконкою над кожним. Компактно, і не лише кольором.",
+  "url": "https://peak.wiki.gg/images/OwBar.png",
+  "page": "https://peak.wiki.gg/wiki/File:OwBar.png",
+  "head": {
+   "status": 403,
+   "type": "text/html; charset=UTF-8",
+   "len": 0
+  }
+ },
+ {
+  "id": "sh-hud-1",
+  "game": "A Short Hike",
+  "screen": "hud",
+  "v": "good",
+  "title": "Підказка над предметом",
+  "note": "Підказка дії — «шпилька» з кнопкою над предметом. Витривалість — ряд золотих пірʼїн замість смуги.",
+  "url": "https://interfaceingame.com/wp-content/uploads/a-short-hike/a-short-hike-interaction.png",
+  "page": "https://interfaceingame.com/screenshots/a-short-hike-interaction/",
+  "head": {
+   "status": 200,
+   "type": "image/png",
+   "len": 784608
+  }
+ },
+ {
+  "id": "sh-hud-2",
+  "game": "A Short Hike",
+  "screen": "hud",
+  "v": "good",
+  "title": "Сповіщення-плашка",
+  "note": "«You found a [іконка] Golden Feather!» у темній заокругленій плашці, назва предмета жовтим. Лічильник — маленький чіп у куті.",
+  "url": "https://interfaceingame.com/wp-content/uploads/a-short-hike/a-short-hike-found-a-golden-feather.png",
+  "page": "https://interfaceingame.com/screenshots/a-short-hike-found-a-golden-feather/",
+  "head": {
+   "status": 200,
+   "type": "image/png",
+   "len": 913618
+  }
+ },
+ {
+  "id": "oc-hud-1",
+  "game": "Overcooked! 2",
+  "screen": "hud",
+  "v": "good",
+  "title": "Задачі іконками",
+  "note": "Замовлення — картки з іконками інгредієнтів, читати не треба. Рахунок і таймер — у двох нижніх кутах великими цифрами з обвідкою.",
+  "url": "https://interfaceingame.com/wp-content/uploads/overcooked-2/overcooked-2-cooking.jpg",
+  "page": "https://interfaceingame.com/screenshots/overcooked-2-cooking/",
+  "head": {
+   "status": 200,
+   "type": "image/jpeg",
+   "len": 352962
+  }
+ },
+ {
+  "id": "wf-hud-1",
+  "game": "WEBFISHING",
+  "screen": "hud",
+  "v": "good",
+  "title": "HUD немає взагалі",
+  "note": "Теплі пласкі кольори, світ сам усе пояснює.",
+  "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3146520/ss_d1fdc753a7dc005896e239ea5ea055618a744bb6.1920x1080.jpg",
+  "page": "https://store.steampowered.com/app/3146520/WEBFISHING/",
+  "head": {
+   "status": 200,
+   "type": "image/jpeg",
+   "len": 198238
+  }
+ },
+ {
+  "id": "lp-task-1",
+  "game": "LOCKDOWN Protocol",
+  "screen": "task",
+  "v": "good",
+  "title": "Планшет із задачами",
+  "note": "Екран задач — планшет у руках: список задач з лічильниками й мапа, де кімнати мають колір і іконку. Типи задач угорі — кольорові квадрати з іконками.",
+  "url": "https://static0.thegamerimages.com/wordpress/wp-content/uploads/wm/2024/10/vents-task-manager-in-lockdown-protocol-1.png?q=49&fit=crop&w=825&dpr=2",
+  "page": "https://www.thegamer.com/lockdown-protocol-vents-fix-explained-guide/",
+  "head": {
+   "status": 200,
+   "type": "image/jpeg",
+   "len": 82267
+  }
+ },
+ {
+  "id": "lp-task-2",
+  "game": "LOCKDOWN Protocol",
+  "screen": "task",
+  "v": "good",
+  "title": "Планшет 1.0",
+  "note": "Довгий простий список задач з числами, кнопка «Return to lobby», великі обʼємні іконки-ярлики збоку.",
+  "url": "https://clan.akamai.steamstatic.com/images/44859328/0269da4b3a086d7801d2eec86d8638ff334e6a0d.jpg",
+  "page": "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=2780980&count=40&maxlength=0&feeds=steam_community_announcements",
+  "head": {
+   "status": 200,
+   "type": "image/jpeg",
+   "len": 243235
+  }
+ },
+ {
+  "id": "wf-task-1",
+  "game": "WEBFISHING",
+  "screen": "task",
+  "v": "good",
+  "title": "Дошка завдань",
+  "note": "Деревʼяна дошка з папірцями у світі; великий червоний «!», коли є нагорода.",
+  "url": "https://webfishing.wiki.gg/images/Questboard.png",
+  "page": "https://webfishing.wiki.gg/wiki/File:Questboard.png",
+  "head": {
+   "status": 403,
+   "type": "text/html; charset=UTF-8",
+   "len": 0
+  }
+ },
+ {
+  "id": "ph-task-1",
+  "game": "Phasmophobia",
+  "screen": "task",
+  "v": "mixed",
+  "title": "Журнал",
+  "note": "Меню паузи й екран задач — один зошит із закладками, фото-«полароїди». Ідея класна. Мінус: рукописний дрібний текст.",
+  "url": "https://kineticgames.co.uk/payload-api/media/file/Chronicle%20Screenshot%201.webp",
+  "page": "https://www.kineticgames.co.uk/blog/phasmophobia-chronicle-v013",
+  "head": {
+   "status": 200,
+   "type": "image/webp",
+   "len": 156060
+  }
+ },
+ {
+  "id": "cw-shop-1",
+  "game": "Content Warning",
+  "screen": "task",
+  "v": "good",
+  "title": "Кіоск і «наступний крок»",
+  "note": "Магазин — екран-кіоск у світі. «Next step: Enter the dive bell» вчить новачка без туторіалу.",
+  "url": "https://static0.thegamerimages.com/wordpress/wp-content/uploads/2024/04/defib.jpg?q=70&fit=crop&w=825&dpr=1",
+  "page": "https://www.thegamer.com/content-warning-beginner-tips-tricks-how-to-play-guide/",
+  "head": {
+   "status": 200,
+   "type": "image/jpeg",
+   "len": 39769
+  }
+ },
+ {
+  "id": "re-death-1",
+  "game": "R.E.P.O.",
+  "screen": "death",
+  "v": "good",
+  "title": "Мертвий — голова-робот",
+  "note": "Мертвий гравець — маленька голова-робот у світі, яка дивиться й пищить. Смерть кумедна, а не нудна.",
+  "url": "https://static0.thegamerimages.com/wordpress/wp-content/uploads/wm/2025/11/an-activated-death-head-in-repo.jpg?&fit=crop&w=1600&h=900",
+  "page": "https://www.thegamer.com/repo-death-head-possession-explained-guide/",
+  "head": {
+   "status": 200,
+   "type": "image/jpeg",
+   "len": 85323
+  }
+ },
+ {
+  "id": "pk-death-1",
+  "game": "PEAK",
+  "screen": "death",
+  "v": "good",
+  "title": "Знепритомнів",
+  "note": "Стан «знепритомнів» — проста намальована спіраль. Одна іконка замість тексту.",
+  "url": "https://peak.wiki.gg/images/Unconscious_Eyes.png",
+  "page": "https://peak.wiki.gg/wiki/File:Unconscious_Eyes.png",
+  "head": {
+   "status": 403,
+   "type": "text/html; charset=UTF-8",
+   "len": 0
+  }
+ },
+ {
+  "id": "oc-ready-1",
+  "game": "Overcooked! 2",
+  "screen": "round",
+  "v": "good",
+  "title": "«READY?»",
+  "note": "Велика нахилена помаранчева плашка по центру. Підходить для відліку й показу ролі.",
+  "url": "https://interfaceingame.com/wp-content/uploads/overcooked-2/overcooked-2-ready.jpg",
+  "page": "https://interfaceingame.com/screenshots/overcooked-2-ready/",
+  "head": {
+   "status": 200,
+   "type": "image/jpeg",
+   "len": 333443
+  }
+ },
+ {
+  "id": "oc-end-1",
+  "game": "Overcooked! 2",
+  "screen": "round",
+  "v": "good",
+  "title": "Підсумок-чек",
+  "note": "Зірки й «чек»: доставлено ×9, чайові, провалено ×3, разом. Кінець пояснює, чому так вийшло.",
+  "url": "https://interfaceingame.com/wp-content/uploads/overcooked-2/overcooked-2-score.jpg",
+  "page": "https://interfaceingame.com/screenshots/overcooked-2-score/",
+  "head": {
+   "status": 200,
+   "type": "image/jpeg",
+   "len": 153962
+  }
+ },
+ {
+  "id": "lc-end-1",
+  "game": "Lethal Company",
+  "screen": "round",
+  "v": "mixed",
+  "title": "Звіт про роботу",
+  "note": "Кінець — бланк «Performance report» з оцінкою, червоний монохром. Ідея смішна. Мінус: дуже дрібно.",
+  "url": "https://static.wikitide.net/lethalwiki/1/1e/Performance_report.png",
+  "page": "https://lethal.miraheze.org/wiki/Echo_Scanner",
+  "head": {
+   "status": 200,
+   "type": "image/png",
+   "len": 248550
+  }
+ },
+ {
+  "id": "cw-end-1",
+  "game": "Content Warning",
+  "screen": "round",
+  "v": "good",
+  "title": "SpookTube",
+  "note": "Результат дня — твоє відео на телевізорі з коментарями глядачів. Кінець раунду як смішна подія.",
+  "url": "https://static0.thegamerimages.com/wordpress/wp-content/uploads/2024/04/start-early.jpg?q=70&fit=crop&w=825&dpr=1",
+  "page": "https://www.thegamer.com/content-warning-beginner-tips-tricks-how-to-play-guide/",
+  "head": {
+   "status": 200,
+   "type": "image/jpeg",
+   "len": 32155
+  }
+ },
+ {
+  "id": "oc-pause-1",
+  "game": "Overcooked! 2",
+  "screen": "pause",
+  "v": "good",
+  "title": "Маленька пауза",
+  "note": "Меню з чотирьох кнопок, вибрана — помаранчева, гра видна позаду.",
+  "url": "https://interfaceingame.com/wp-content/uploads/overcooked-2/overcooked-2-paused.jpg",
+  "page": "https://interfaceingame.com/screenshots/overcooked-2-paused/",
+  "head": {
+   "status": 200,
+   "type": "image/jpeg",
+   "len": 210628
+  }
+ },
+ {
+  "id": "pa-shop-1",
+  "game": "Party Animals",
+  "screen": "pause",
+  "v": "mixed",
+  "title": "Магазин",
+  "note": "Теплий однотонний помаранчевий, білі заокруглені картки, рядок підказок унизу, мікрофон і рівень гравця. Гарно, але це «мобільний магазин»: надто відполіровано й дорого для нас.",
+  "url": "https://i0.wp.com/waytoomany.games/wp-content/uploads/2023/09/eaa29ed6-3467-4f23-94fb-f7a147296926.png?resize=860%2C484&ssl=1",
+  "page": "https://waytoomany.games/2023/09/29/review-party-animals/",
+  "head": {
+   "status": 200,
+   "type": "image/png",
+   "len": 113297
+  }
+ },
+ {
+  "id": "re-shop-1",
+  "game": "R.E.P.O.",
+  "screen": "pause",
+  "v": "good",
+  "title": "Апгрейди в коробках",
+  "note": "Апгрейди — коробки з кумедними малюнками на полиці, ціна червоним, жирний жовтий підпис.",
+  "url": "https://static0.thegamerimages.com/wordpress/wp-content/uploads/wm/2025/11/the-death-head-battery-upgrade-from-the-service-station-in-repo.jpg?q=49&fit=crop&w=825&dpr=2",
+  "page": "https://www.thegamer.com/repo-death-head-possession-explained-guide/",
+  "head": {
+   "status": 200,
+   "type": "image/jpeg",
+   "len": 79105
+  }
+ }
+]
