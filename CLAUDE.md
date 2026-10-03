@@ -19,9 +19,27 @@ human's language (Ukrainian); everything in this repo is English.
   Apache-2.0, own work). Never another studio's screenshots or art in this repo: reference images stay in private pages.
 - **Downloads.** Nothing is downloaded from the internet without the engineer's yes for that batch (name the files, the
   sources and the size). Web research reads HTML, JSON and text only, never a direct image, PDF or archive URL.
-- **Merging and issues.** Only a human merges into `main`; agents work on branches and open PRs. Agents never close
-  issues.
-- **Who decides.** Look, texts, money and subscriptions are the humans'; technical choices the agent decides and reports.
+- **Trust and autonomy** (the engineer, 2026-10-03: free the human from needless cognitive load and let the agent decide
+  what does not depend on the human's taste).
+  - **Merging.** The agent works on a branch, opens a PR for every change and merges it into `main` itself once CI is
+    green and it has verified the change. It never pushes to `main` directly; a bad change is undone with a revert PR. It
+    also tags releases (`ui-x.y.z`) and closes this repo's issues whose acceptance criteria are met and verified.
+  - **The agent decides alone and reports:**
+    - technical choices;
+    - applying the engineer's decisions;
+    - small look adjustments that are easy to change later and keep the style's character (a pixel or two, alignment,
+      consistent states).
+    Every look decision the agent takes alone goes into `docs/ui-decisions.md` marked "(agent)", so the engineer can veto
+    it later.
+  - **The agent stops and asks about:**
+    - the style's character (new colours, fonts, large component changes);
+    - player-facing texts;
+    - money, subscriptions and downloads;
+    - decisions that affect the whole game or a large scope;
+    - changes to these rules.
+    A workflow above about 1.5M subagent tokens is agreed first; smaller ones run and are reported.
+  - **Reporting.** A comment on prime-game #150 after each wave and a short message to the engineer when something
+    happens. When the engineer's attention or decision is needed, say so and stop.
 - **The game's code is not edited from here.** What the game needs becomes an issue in prime-game (with its `area:` label)
   and a note on #150.
 - **Research claims carry a link**; anything not confirmed by a primary source says "(unconfirmed)".
@@ -48,6 +66,7 @@ comments on prime-game #150 carry everything a session needs. The engineer's fir
 ```text
 ultracode: ти менеджер UX/UI-треку prime-game. Прочитай CLAUDE.md і docs/ui-decisions.md у D:\prime-game-ui,
 останні коментарі на xperiaroco2/prime-game#150 і відкриті задачі xperiaroco2/prime-game-ui. Продовжуй з <задача>.
-Правила ті самі: нічого не завантажувати без мого «так» на партію, зливаю в main лише я, агенти не закривають задачі,
-технічне вирішуй сам і повідомляй, вигляд, тексти й гроші питай. Звіт — коментар на #150 після хвилі.
+Правила в CLAUDE.md (довіра, 2026-10-03): технічне й дрібне вирішуй і зливай у main сам після зеленого CI; характер
+вигляду, тексти, гроші, завантаження й великі рішення питай; workflow понад ~1,5M токенів узгоджуй. Звіт — коментар на
+#150 після хвилі.
 ```

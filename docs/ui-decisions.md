@@ -3,7 +3,8 @@
 The engineer's decisions for the game's UI, 2026-10-02 and 2026-10-03, with where each was recorded (comments on
 [prime-game #150](https://github.com/xperiaroco2/prime-game/issues/150), the game issues). The engineer answered as the
 designer too. The wireframes that show them: the `pages/wireframes/` page. A newer decision replaces an older one; record
-a change here in the same PR as the page change.
+a change here in the same PR as the page change. A decision marked "(agent)" was taken by the agent alone under the
+trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it at any time.
 
 ## Principles
 - **The UI never tells the player what to do.** No "take it to X" line, no destination marker, no key prompts on the HUD;

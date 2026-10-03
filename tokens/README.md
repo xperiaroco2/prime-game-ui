@@ -64,5 +64,6 @@ enough against the previous `ui-*` tag's pack:
 - **minor**: one added;
 - **patch**: only values changed.
 
-A human merges the PR and tags the merge commit; prime-game then copies `dist/pack/` at that tag byte for byte and
+The PR is merged once CI is green and the merge commit is tagged (by the agent, under the trust rules in
+`CLAUDE.md`); prime-game then copies `dist/pack/` at that tag byte for byte and
 records the tag and commit in its lock file (spec §9.3).
