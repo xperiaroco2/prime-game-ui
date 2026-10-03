@@ -36,3 +36,14 @@ human's language (Ukrainian); everything in this repo is English.
 ## The process
 References, then wireframes of every screen, then three style directions, the choice, tokens and components, the styled
 screens, and finally handoff issues in prime-game.
+
+## Starting a new manager session
+Start a new session for each wave instead of compacting a long one: the repo, `docs/ui-decisions.md` and the wave
+comments on prime-game #150 carry everything a session needs. The engineer's first message:
+
+```text
+ultracode: ти менеджер UX/UI-треку prime-game. Прочитай CLAUDE.md і docs/ui-decisions.md у D:\prime-game-ui,
+останні коментарі на xperiaroco2/prime-game#150 і відкриті задачі xperiaroco2/prime-game-ui. Продовжуй з <задача>.
+Правила ті самі: нічого не завантажувати без мого «так» на партію, зливаю в main лише я, агенти не закривають задачі,
+технічне вирішуй сам і повідомляй, вигляд, тексти й гроші питай. Звіт — коментар на #150 після хвилі.
+```
