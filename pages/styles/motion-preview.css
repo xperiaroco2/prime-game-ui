@@ -1,0 +1,29 @@
+/* Press feedback preview for the Toy style (prime-game-ui#2), outside the Godot-safe skin lint on purpose.
+   In Godot: the Button's "hover" StyleBox lifts the toy base by 1 px and its "pressed" StyleBox drops the shadow offset
+   to 1 px with the content moved down by the same amount; a short Tween (about 70 ms) eases between them. */
+body[data-style="toy"] .frame .btn:not(.ghost),
+body[data-style="toy"] .frame .card {
+  cursor: pointer;
+  transition: transform 70ms ease-out, box-shadow 70ms ease-out;
+}
+body[data-style="toy"] .frame .btn:not(.ghost):hover {
+  transform: translateY(calc(-1cqw / 19.2));
+  box-shadow: 0 calc(6cqw / 19.2) 0 var(--toy-base);
+}
+body[data-style="toy"] .frame .btn.fill:hover {
+  box-shadow: 0 calc(7cqw / 19.2) 0 var(--toy-base);
+}
+body[data-style="toy"] .frame .btn:not(.ghost):active {
+  transform: translateY(calc(5cqw / 19.2));
+  box-shadow: 0 calc(1cqw / 19.2) 0 var(--toy-base);
+}
+body[data-style="toy"] .frame .btn.fill:active {
+  transform: translateY(calc(6cqw / 19.2));
+}
+body[data-style="toy"] .frame .card:active {
+  transform: translateY(calc(3cqw / 19.2));
+}
+@media (prefers-reduced-motion: reduce) {
+  body[data-style="toy"] .frame .btn:not(.ghost),
+  body[data-style="toy"] .frame .card { transition: none; }
+}

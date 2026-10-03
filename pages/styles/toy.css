@@ -1,0 +1,359 @@
+/* prime-game UI style direction "Toy" (Іграшка), after Overcooked and PEAK.
+   Chunky rounded shapes, thick plum outlines, a hard bottom shadow on pressable things, warm cream panels,
+   sunny-yellow actions and selection, mint progress, a coral accent; small calm dark plates for the HUD.
+   Godot-safe: solid colours only, one border colour per element (per-side widths allowed), per-corner radii,
+   at most one outer box-shadow without spread, one text outline/shadow on titles, rotation of whole elements.
+   Every selector is scoped to body[data-style="toy"]. Layout (positions and sizes) is unchanged: where a border
+   gets thicker, the padding shrinks by the same amount. !important appears only where the wireframe HTML uses
+   inline styles (pre-game black, how-to frames, map zone, swatch ring); in Godot these are plain theme colours. */
+
+/* ---------- tokens and text contexts ---------- */
+body[data-style="toy"] .frame {
+  --toy-ink: #2A1F33;          /* outlines, hard shadows, text on light */
+  --toy-night: #1F1727;        /* intro/outro and loading backgrounds */
+  --toy-plate: rgba(42, 31, 51, .86); /* HUD plates over the 3D world */
+  --toy-plate-solid: #352A41;  /* plates on the night background */
+  --toy-cream: #FFF4E2;        /* panels; text on dark */
+  --toy-white: #FFFFFF;        /* fields, cards, how-to frames */
+  --toy-yellow: #FFC23A;       /* primary action, selection, titles on dark */
+  --toy-honey: #C98A10;        /* the toy base under yellow buttons on dark */
+  --toy-coral: #FF8466;        /* NEW badge, danger edge, title extrusion */
+  --toy-coral-deep: #D9482F;   /* "you are here" arrow on the light map */
+  --toy-mint: #3CC4A8;         /* progress fills */
+  --toy-mint-tint: #D5F4EC;    /* the "done" frame of a how-to card */
+  --toy-lavender: #E9DFF0;     /* map board, quiet light surfaces */
+  --toy-track-light: #DCCFE4;  /* bar tracks inside panels */
+  --toy-track-dark: #4A3C5C;   /* bar tracks on dark */
+  --toy-muted: #64566F;        /* secondary text on light */
+  --toy-lilac: #D8CCE3;        /* secondary text on dark */
+  --toy-keyshade: #B9A8C7;     /* keycap edge on dark plates */
+  --toy-slotline: #9A8CA6;     /* idle slot outline */
+  --toy-health-full: #5BCB4E;  /* health bar at full */
+  --toy-health-empty: #FF5A44; /* health bar near zero (3.25:1 on the dark track) */
+  /* context: dark (world plates, dim backdrops, night frames) */
+  --toy-tx: var(--toy-cream);
+  --toy-tx-muted: var(--toy-lilac);
+  --toy-tx-title: var(--toy-yellow);
+  --toy-line: var(--toy-cream);
+  --toy-base: var(--toy-honey);
+  color: var(--toy-tx);
+  font-weight: 600;
+}
+/* context: light (cream panels, the map board) */
+body[data-style="toy"] .frame .panel,
+body[data-style="toy"] .frame .map {
+  --toy-tx: var(--toy-ink);
+  --toy-tx-muted: var(--toy-muted);
+  --toy-tx-title: var(--toy-ink);
+  --toy-line: var(--toy-ink);
+  --toy-base: var(--toy-ink);
+  color: var(--toy-tx);
+}
+
+/* ---------- type ---------- */
+body[data-style="toy"] .frame .b { font-weight: 700; }
+body[data-style="toy"] .frame .dimtext { color: var(--toy-tx-muted); }
+body[data-style="toy"] .frame .t16 { font-size: calc(18cqw / 19.2); letter-spacing: .01em; }
+body[data-style="toy"] .frame .t18 { font-size: calc(20cqw / 19.2); letter-spacing: .01em; }
+body[data-style="toy"] .frame .t36,
+body[data-style="toy"] .frame .t48,
+body[data-style="toy"] .frame .t64,
+body[data-style="toy"] .frame .t96 { font-weight: 700; letter-spacing: -.01em; }
+/* titles: yellow on dark, ink on light (the context variable decides) */
+body[data-style="toy"] .frame .t28.b,
+body[data-style="toy"] .frame .t36.b,
+body[data-style="toy"] .frame .t48.b,
+body[data-style="toy"] .frame .t64.b { color: var(--toy-tx-title); }
+
+/* the game's name in the main menu: a chunky toy logo */
+body[data-style="toy"] .frame .abs.col:not(.panel) > .t64:first-child {
+  color: var(--toy-yellow);
+  text-shadow: 0 calc(6cqw / 19.2) 0 var(--toy-coral);
+}
+
+/* big moments (pre game role, end of round): a yellow title plate with a coral toy base.
+   Negative margins equal padding plus border, so the layout box keeps its size. */
+body[data-style="toy"] .frame .t96 {
+  color: var(--toy-ink);
+  background: var(--toy-yellow);
+  border: calc(4cqw / 19.2) solid var(--toy-ink);
+  border-radius: calc(26cqw / 19.2);
+  box-shadow: 0 calc(10cqw / 19.2) 0 var(--toy-coral);
+  padding: 0 calc(32cqw / 19.2);
+  margin: calc(-4cqw / 19.2) calc(-36cqw / 19.2);
+}
+
+/* ---------- backdrops ---------- */
+body[data-style="toy"] .frame.dark { background: var(--toy-night); }
+/* pre game draws its black backdrop inline */
+body[data-style="toy"] .frame [style*="background:#0E0E0E"] { background: var(--toy-night) !important; }
+/* menu backdrops over the world: a plum tint of at least 60% */
+body[data-style="toy"] .frame .dim { background: rgba(38, 28, 48, .70); }
+body[data-style="toy"] .frame .dim.more { background: rgba(38, 28, 48, .80); }
+/* .vignette (downed) is a world post-effect drawn by a shader in Godot: left as in the wireframe */
+
+/* ---------- plates (HUD, small and calm) ---------- */
+body[data-style="toy"] .frame .plate {
+  background: var(--toy-plate);
+  color: var(--toy-cream);
+  border-radius: calc(16cqw / 19.2);
+}
+body[data-style="toy"] .frame.dark .plate { background: var(--toy-plate-solid); }
+/* tutorial checklist: the current step in yellow */
+body[data-style="toy"] .frame .plate.col.t18 > .b:not(.t20) { color: var(--toy-yellow); }
+/* "You're down": a HUD plate with a coral edge */
+body[data-style="toy"] .frame .plate.col[data-in="down"] {
+  border: calc(4cqw / 19.2) solid var(--toy-coral);
+}
+/* HUD bar labels sit over the world: give each its own small plate */
+body[data-style="toy"] .frame .abs.col > .col > span.t16 {
+  align-self: flex-start;
+  background: var(--toy-plate);
+  color: var(--toy-cream);
+  border-radius: calc(8cqw / 19.2);
+  padding: 0 calc(8cqw / 19.2);
+}
+
+/* ---------- panels (menus, how-to cards, dialogs) ---------- */
+body[data-style="toy"] .frame .panel {
+  background: var(--toy-cream);
+  border: calc(4cqw / 19.2) solid var(--toy-ink);
+  border-radius: calc(24cqw / 19.2);
+  box-shadow: 0 calc(10cqw / 19.2) 0 rgba(15, 10, 20, .6);
+}
+
+/* ---------- buttons: big rounded toys with a hard bottom shadow ---------- */
+body[data-style="toy"] .frame .btn {
+  background: var(--toy-white);
+  color: var(--toy-ink);
+  border: calc(3cqw / 19.2) solid var(--toy-ink);
+  border-radius: calc(18cqw / 19.2);
+  padding: calc(9cqw / 19.2) calc(19cqw / 19.2);
+  box-shadow: 0 calc(5cqw / 19.2) 0 var(--toy-base);
+  font-weight: 700;
+}
+body[data-style="toy"] .frame .btn.fill {
+  background: var(--toy-yellow);
+  color: var(--toy-ink);
+  border-color: var(--toy-ink);
+  box-shadow: 0 calc(6cqw / 19.2) 0 var(--toy-base);
+}
+body[data-style="toy"] .frame .btn.ghost {
+  background: transparent;
+  color: var(--toy-tx);
+  border-color: var(--toy-line);
+  box-shadow: none;
+  font-weight: 600;
+}
+
+/* ---------- fields ---------- */
+body[data-style="toy"] .frame .field {
+  background: var(--toy-white);
+  color: var(--toy-ink);
+  border: calc(3cqw / 19.2) solid var(--toy-ink);
+  border-radius: calc(12cqw / 19.2);
+  padding: calc(7cqw / 19.2) calc(13cqw / 19.2);
+  font-weight: 700;
+}
+
+/* ---------- chips ---------- */
+body[data-style="toy"] .frame .chip {
+  background: var(--toy-plate);
+  color: var(--toy-cream);
+  border: calc(3cqw / 19.2) solid transparent;
+  padding: calc(1cqw / 19.2) calc(11cqw / 19.2);
+}
+body[data-style="toy"] .frame .chip.light {
+  background: var(--toy-yellow);
+  color: var(--toy-ink);
+  border-color: var(--toy-ink);
+}
+body[data-style="toy"] .frame .chip.line {
+  background: transparent;
+  color: var(--toy-tx);
+  border-color: var(--toy-line);
+}
+/* the NEW badge on the task list: a coral sticker */
+body[data-style="toy"] .frame .panel .chip.light.t16 {
+  background: var(--toy-coral);
+}
+
+/* ---------- keycaps ---------- */
+body[data-style="toy"] .frame .key {
+  background: var(--toy-cream);
+  color: var(--toy-ink);
+  border-style: solid;
+  border-color: var(--toy-keyshade);
+  border-width: calc(2cqw / 19.2) calc(2cqw / 19.2) calc(5cqw / 19.2);
+  border-radius: calc(8cqw / 19.2);
+}
+body[data-style="toy"] .frame .panel .key {
+  background: var(--toy-white);
+  border-color: var(--toy-ink);
+}
+body[data-style="toy"] .frame .panel .key.dimtext {
+  background: #F3EDF6;
+  color: var(--toy-muted);
+  border-color: var(--toy-muted);
+}
+
+/* ---------- hand and belt slots ---------- */
+body[data-style="toy"] .frame .slot {
+  background: var(--toy-plate);
+  color: var(--toy-cream);
+  border: calc(3cqw / 19.2) solid var(--toy-slotline);
+  border-radius: calc(18cqw / 19.2);
+}
+body[data-style="toy"] .frame .slot.dimtext { color: var(--toy-lilac); }
+body[data-style="toy"] .frame .slot.on {
+  border-color: var(--toy-yellow);
+  border-width: calc(5cqw / 19.2);
+}
+
+/* ---------- bars ---------- */
+body[data-style="toy"] .frame .bar2 { background: var(--toy-track-dark); }
+body[data-style="toy"] .frame .bar2 > i { background: var(--toy-mint); }
+body[data-style="toy"] .frame .panel .bar2 { background: var(--toy-track-light); }
+body[data-style="toy"] .frame .panel .bar2 > i { background: var(--toy-ink); }
+
+/* ---------- small HUD bits ---------- */
+body[data-style="toy"] .frame .cross {
+  background: var(--toy-cream);
+  border: calc(2cqw / 19.2) solid var(--toy-ink);
+  box-shadow: none;
+}
+body[data-style="toy"] .frame .mic { background: var(--toy-plate); color: var(--toy-cream); }
+/* .mic.off keeps the wireframe's slash; in Godot the crossed mic is one icon texture tinted coral */
+body[data-style="toy"] .frame .ring {
+  background: var(--toy-plate-solid);
+  border-style: solid;
+  border-color: var(--toy-yellow);
+  border-width: calc(10cqw / 19.2) calc(10cqw / 19.2) 0 0;
+}
+body[data-style="toy"] .frame .marker {
+  background: var(--toy-plate);
+  border-color: var(--toy-yellow);
+}
+
+/* ---------- Esc menu: tabs, setting rows, values, preset cards ---------- */
+body[data-style="toy"] .frame .tabs > div {
+  border: calc(3cqw / 19.2) solid transparent;
+  border-radius: calc(14cqw / 19.2);
+  padding: calc(7cqw / 19.2) calc(13cqw / 19.2);
+}
+body[data-style="toy"] .frame .tabs > div:not(.dimtext) { color: var(--toy-ink); }
+body[data-style="toy"] .frame .tabs > div.on {
+  background: var(--toy-yellow);
+  color: var(--toy-ink);
+  border-color: var(--toy-ink);
+  box-shadow: 0 calc(4cqw / 19.2) 0 var(--toy-ink);
+  font-weight: 700;
+}
+body[data-style="toy"] .frame .setrow {
+  background: var(--toy-white);
+  border-bottom: calc(3cqw / 19.2) solid #E2D6EA;
+  border-radius: calc(12cqw / 19.2);
+  padding: calc(8cqw / 19.2) calc(14cqw / 19.2) calc(6cqw / 19.2);
+}
+body[data-style="toy"] .frame .val { color: var(--toy-ink); }
+/* the host's ‹ › steppers read as small pressable toys */
+body[data-style="toy"] .frame .val .ar {
+  background: var(--toy-yellow);
+  color: var(--toy-ink);
+  border: calc(2cqw / 19.2) solid var(--toy-ink);
+  border-radius: 999px;
+  padding: 0 calc(8cqw / 19.2);
+  font-weight: 700;
+}
+body[data-style="toy"] .frame .card {
+  background: var(--toy-white);
+  color: var(--toy-ink);
+  border: calc(3cqw / 19.2) solid var(--toy-ink);
+  border-radius: calc(16cqw / 19.2);
+  padding: calc(11cqw / 19.2);
+  box-shadow: 0 calc(5cqw / 19.2) 0 var(--toy-ink);
+}
+body[data-style="toy"] .frame .card.on {
+  background: var(--toy-yellow);
+  border-width: calc(4cqw / 19.2);
+  padding: calc(12cqw / 19.2);
+}
+body[data-style="toy"] .frame .card.on .dimtext { color: #4A3B55; }
+body[data-style="toy"] .frame .card.dimtext {
+  background: var(--toy-lavender);
+  color: var(--toy-muted);
+  border-color: var(--toy-muted);
+  box-shadow: none;
+}
+/* swatches and radio dots */
+body[data-style="toy"] .frame .dot { border: calc(2cqw / 19.2) solid var(--toy-ink); color: var(--toy-ink); }
+body[data-style="toy"] .frame .dot[style*="outline"] { outline-color: var(--toy-ink) !important; }
+body[data-style="toy"] .frame .dot[style*="background:#EDEDED"] { background: var(--toy-yellow) !important; }
+body[data-style="toy"] .frame .dot[style*="background:#555"] { background: var(--toy-white) !important; }
+
+/* ---------- how-to cards (airline safety card frames) ---------- */
+body[data-style="toy"] .frame .panel .row > .col.c[style*="#1C1C1C"] {
+  background: var(--toy-white) !important;
+  border: calc(3cqw / 19.2) solid var(--toy-ink);
+  border-radius: calc(16cqw / 19.2) !important;
+}
+body[data-style="toy"] .frame .panel .row > .col.c[style*="#1C1C1C"]:nth-child(4) {
+  background: var(--toy-mint-tint) !important;
+}
+body[data-style="toy"] .frame .panel svg { stroke: var(--toy-ink); }
+body[data-style="toy"] .frame .panel svg text { fill: var(--toy-ink); }
+
+/* ---------- map (M): a lavender board with cream room tiles ---------- */
+body[data-style="toy"] .frame .map {
+  background: var(--toy-lavender);
+  border: calc(4cqw / 19.2) solid var(--toy-ink);
+  border-radius: calc(24cqw / 19.2);
+  box-shadow: 0 calc(10cqw / 19.2) 0 rgba(15, 10, 20, .6);
+}
+body[data-style="toy"] .frame .room {
+  background: var(--toy-cream);
+  color: var(--toy-ink);
+  border: calc(3cqw / 19.2) solid var(--toy-ink);
+  border-radius: calc(12cqw / 19.2);
+  font-size: calc(18cqw / 19.2);
+  font-weight: 700;
+}
+body[data-style="toy"] .frame .room svg { stroke: var(--toy-ink); }
+/* the hovered task's zone (drawn with inline stripes in the wireframe; z-index 2 picks it out) */
+body[data-style="toy"] .frame .map [style*="z-index:2"] {
+  background: rgba(255, 194, 58, .55) !important;
+  border: calc(4cqw / 19.2) solid var(--toy-ink) !important;
+  border-radius: calc(12cqw / 19.2);
+}
+/* "you are here": a chunky coral map pin with the ink outline (one sharp corner points the way you face) instead of
+   the wireframe's border triangle, which needs per-side border colours. In Godot: one StyleBoxFlat, rotated. */
+body[data-style="toy"] .frame .map .you {
+  width: calc(28cqw / 19.2);
+  height: calc(28cqw / 19.2);
+  border: calc(3cqw / 19.2) solid var(--toy-ink);
+  border-radius: 0 calc(14cqw / 19.2) calc(14cqw / 19.2) calc(14cqw / 19.2);
+  background: var(--toy-coral-deep);
+  transform: rotate(80deg);
+}
+body[data-style="toy"] .frame .circ {
+  background: var(--toy-yellow);
+  color: var(--toy-ink);
+  border-color: var(--toy-ink);
+}
+
+/* ---------- HUD health and stamina (the engineer, 2026-10-03) ----------
+   Stamina is the toy yellow. Health runs from green (full) to red (empty): in Godot the HUD sets the fill colour from the
+   health fraction with Color.lerp between the two theme colours (a theme constant pair, not a StyleBox gradient). Both bars
+   sit on a dark track with an ink outline so they read over any wall. */
+body[data-style="toy"] .frame [data-bar] {
+  height: calc(16cqw / 19.2);
+  background: var(--toy-track-dark);
+  border: calc(3cqw / 19.2) solid var(--toy-ink);
+  border-radius: calc(10cqw / 19.2);
+}
+body[data-style="toy"] .frame [data-bar] > i { border-radius: calc(6cqw / 19.2); }
+body[data-style="toy"] .frame [data-bar="stamina"] > i { background: var(--toy-yellow); }
+body[data-style="toy"] .frame [data-bar="health"] > i {
+  background: var(--toy-health-full);
+  background: color-mix(in oklab, var(--toy-health-full) calc(var(--hp, 1) * 100%), var(--toy-health-empty));
+}
