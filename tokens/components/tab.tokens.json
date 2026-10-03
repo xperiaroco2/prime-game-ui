@@ -24,23 +24,19 @@
         "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
       },
       "hover": {
-        "$description": "Hover fill (proposal).",
-        "$extensions": { "io.github.xperiaroco2.prime-game": { "proposal": true } },
+        "$description": "Hover fill.",
         "bg-color": { "$type": "color", "$value": "{color.state.hover-on-light}" }
       },
       "pressed": {
-        "$description": "Held: as hover (proposal).",
-        "$extensions": { "io.github.xperiaroco2.prime-game": { "proposal": true } },
+        "$description": "Held: as hover.",
         "bg-color": { "$type": "color", "$value": "{color.state.hover-on-light}" }
       },
       "disabled": {
-        "$description": "Unplugged tab: a muted label (proposal).",
-        "$extensions": { "io.github.xperiaroco2.prime-game": { "proposal": true } },
+        "$description": "Unplugged tab: a muted label.",
         "font-color": { "$type": "color", "$value": "{color.state.disabled-ink}" }
       },
       "focus": {
-        "$description": "Inner focus at the edge of a borderless tab (proposal).",
-        "$extensions": { "io.github.xperiaroco2.prime-game": { "proposal": true } },
+        "$description": "Inner focus at the edge of a borderless tab.",
         "bg-color": { "$type": "color", "$value": "{palette.clear}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width": { "$type": "dimension", "$value": "{focus.width}" },
@@ -71,8 +67,7 @@
         "font-color": { "$type": "color", "$value": "{color.on-accent.text}" }
       },
       "disabled": {
-        "$description": "Unplugged selected tab: the merged base is undone, pale and quiet (proposal).",
-        "$extensions": { "io.github.xperiaroco2.prime-game": { "proposal": true } },
+        "$description": "Unplugged selected tab: the merged base is undone, pale and quiet.",
         "bg-color": { "$type": "color", "$value": "{color.state.disabled-face}" },
         "border-color": { "$type": "color", "$value": "{color.state.disabled-ink}" },
         "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
@@ -80,8 +75,7 @@
         "font-color": { "$type": "color", "$value": "{color.state.disabled-ink}" }
       },
       "focus": {
-        "$description": "Inner focus: the outline thickens inward by the focus width (proposal).",
-        "$extensions": { "io.github.xperiaroco2.prime-game": { "proposal": true } },
+        "$description": "Inner focus: the outline thickens inward by the focus width.",
         "bg-color": { "$type": "color", "$value": "{palette.clear}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width": { "$type": "dimension", "$value": "{focus.width}" },

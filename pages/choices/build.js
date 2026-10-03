@@ -9,6 +9,9 @@
 // per option scoped by .opt-<q>-<o>: the option's own emitted rules for each variation whose drawing differs from the
 // base tokens. A token value the option changes is read from --toy-choice-<q>-<o>-<name> in choices-tokens.css (lint
 // profile "tokens"), because generated CSS may not declare --toy-* variables.
+// A question's reference card (what the tokens held before) may name its own overlay, <q>-ref. Once the engineer has
+// chosen, options.json records it ("decided" per question, the date at the top); the page shows it from there, not
+// from the page's store.
 // Node 20, no packages.
 'use strict';
 
@@ -34,6 +37,8 @@ const readText = (r) => fs.readFileSync(path.join(ROOT, r), 'utf8').replace(/\r\
 const readJson = (r) => JSON.parse(readText(r));
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const num = (x) => String(x).replace('.', ',');
+const MONTHS = ['січня', 'лютого', 'березня', 'квітня', 'травня', 'червня', 'липня', 'серпня', 'вересня', 'жовтня', 'листопада', 'грудня'];
+const dateUk = (d) => { const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(d); if (!m) throw new Error(`options.json: decided.date ${d} is not YYYY-MM-DD`); return `${Number(m[3])} ${MONTHS[Number(m[2]) - 1]} ${m[1]}`; };
 // Ukrainian plural of «пара»: 1, 21 пара; 2-4, 22-24 пари; 5-20, 25 пар.
 const pairs = (n) => (n % 10 === 1 && n % 100 !== 11 ? 'пара' : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 'пари' : 'пар');
 
@@ -158,6 +163,8 @@ function build() {
     if (!q.options || q.options.length < 2 || q.options.length > 4) fail(`options.json: ${q.id} has ${q.options && q.options.length} options; 2 to 4`);
     q.options.forEach((o, i) => { if (o.id !== 'abcd'[i]) fail(`options.json: ${q.id} option ${i + 1} is ${o.id}, not ${'abcd'[i]}`); });
     if (q.options.filter((o) => o.recommended).length !== 1) fail(`options.json: ${q.id} needs exactly one recommended option`);
+    if (q.decided !== undefined && !q.options.some((o) => o.id === q.decided)) fail(`options.json: ${q.id} is decided as ${q.decided}, which is not an option`);
+    if (q.decided !== undefined && !(opts.decided && opts.decided.date)) fail(`options.json: ${q.id} is decided, but the page has no decided.date`);
     for (const o of q.options) {
       const key = keyOf(q, o);
       let sys = base;
@@ -174,10 +181,22 @@ function build() {
       const mode = o.mode || 'default';
       options.push({ q, o, key, sys, mode });
     }
-    if (q.reference) options.push({ q, o: null, key: `${q.id}-ref`, sys: base, mode: 'default', ref: true });
+    if (q.reference) {
+      const key = `${q.id}-ref`;
+      let sys = base;
+      if (q.reference.overlay) {
+        if (q.reference.overlay !== key) fail(`options.json: the reference of ${q.id} names the overlay ${q.reference.overlay}`);
+        try {
+          sys = api.load({ root: ROOT, overlay: `pages/choices/overlays/${key}.tokens.json` });
+        } catch (e) {
+          fail(`${key}: ${e.message}`);
+        }
+      }
+      options.push({ q, o: null, key, sys, mode: 'default', ref: true });
+    }
   }
   const files = fs.readdirSync(path.join(HERE, 'overlays')).filter((f) => f.endsWith('.tokens.json')).map((f) => f.replace('.tokens.json', ''));
-  for (const f of files) if (!options.some((x) => x.o && x.o.overlay === f)) fail(`overlays/${f}.tokens.json is not used by options.json`);
+  for (const f of files) if (!options.some((x) => (x.o ? x.o.overlay : x.q.reference.overlay) === f)) fail(`overlays/${f}.tokens.json is not used by options.json`);
 
   // Gates per option (spec §11): the option's permutation; a stale waiver means the option fixes the waived pair.
   const DEF = 'textSize=default,motion=default';
@@ -371,7 +390,7 @@ function build() {
   };
 
   // ----- the option cards -----
-  const BADGES = { rec: 'моя порада', cur: 'зараз у токенах', fail: 'не проходить контраст' };
+  const BADGES = { dec: 'вирішено', rec: 'моя порада', cur: 'зараз у токенах', fail: 'не проходить контраст' };
   const badge = (kind, text) => `<span class="ch-badge ch-badge-${kind}">${esc(text || BADGES[kind])}</span>`;
   const card = (x) => {
     const sample = SAMPLES[x.q.sample];
@@ -381,6 +400,8 @@ function build() {
     const html = sample(o, x);
     x.used = cardUsed;
     const badges = [];
+    const decided = !x.ref && x.q.decided === o.id;
+    if (decided) badges.push(badge('dec'));
     if (o.recommended) badges.push(badge('rec'));
     if (o.current) badges.push(badge('cur'));
     if (x.fails.length) badges.push(badge('fail'));
@@ -406,18 +427,21 @@ function build() {
       : `<div class="ch-opt-head"><span class="ch-letter">${o.id}</span><h3>${esc(o.title)}</h3></div>${badges.length ? `<div class="ch-badges">${badges.join('')}</div>` : ''}`
         + `<p class="ch-desc">${esc(o.desc)}</p>`;
     const take = x.ref ? '' : `<div class="ch-act"><button type="button" class="ch-btn ch-take" data-take="${o.id}">Беру цей</button><span class="ch-chosen">✓ ваш вибір</span></div>`;
-    const scope = x.ref ? '' : ` opt-${x.key}`;
-    return `<article class="ch-opt${x.ref ? ' ch-ref' : ''}${scope}" data-o="${x.ref ? 'ref' : o.id}">${head}`
+    const scope = x.sys === base && x.mode === 'default' && x.ref ? '' : ` opt-${x.key}`;
+    return `<article class="ch-opt${x.ref ? ' ch-ref' : ''}${decided ? ' is-decided' : ''}${scope}" data-o="${x.ref ? 'ref' : o.id}">${head}`
       + `<div class="ch-sample">${html}</div><ul class="ch-facts">${items.join('')}</ul>${take}</article>`;
   };
 
   const sections = opts.questions.map((q, i) => {
     const list = options.filter((x) => x.q === q);
     const ordered = list.filter((x) => x.ref).concat(list.filter((x) => !x.ref));
+    const dec = q.options.find((o) => o.id === q.decided);
+    const decTitle = dec ? (/^«.*»$/.test(dec.title) ? dec.title : `«${dec.title}»`) : '';
+    const decidedLine = dec ? `<p class="ch-decided">вирішено ${esc(dateUk(opts.decided.date))}: ${dec.id} ${esc(decTitle)}</p>` : '';
     const force = q.force ? `<button type="button" class="ch-btn ch-force" data-force-toggle="${q.force.kind}" aria-pressed="${q.force.on ? 'true' : 'false'}">${esc(q.force.label)}</button>` : '';
     return `<section class="ch-q" id="${q.id}" data-q="${q.id}">`
       + `<div class="ch-q-head"><h2><span class="ch-num">${i + 1}</span>${esc(q.title)}</h2><p class="ch-ask">${esc(q.ask)}</p>`
-      + `<div class="ch-q-tools">${force}<p class="ch-saved" data-saved>ще без відповіді</p></div></div>`
+      + decidedLine + `<div class="ch-q-tools">${force}<p class="ch-saved" data-saved>ще без відповіді</p></div></div>`
       + `<div class="ch-opts">${ordered.map(card).join('')}</div>`
       + `<div class="ch-note"><label for="note-${q.id}">Нотатка (не обовʼязково)</label><textarea id="note-${q.id}" rows="2" data-note-input></textarea>`
       + `<div class="ch-note-act"><button type="button" class="ch-btn" data-save-note>Зберегти нотатку</button>`
@@ -433,7 +457,7 @@ function build() {
   }
   const tokenLines = [];
   for (const x of options) {
-    if (x.ref || (x.sys === base && x.mode === 'default')) continue;
+    if (x.sys === base && x.mode === 'default') continue;
     const vars = tokenVars(x.sys.css, x.mode);
     const changed = new Set([...vars].filter(([n, v]) => baseVars.get(n) !== v).map(([n]) => n));
     const blocks = x.sys === base ? baseBlocks : splitBlocks(emitComponentsCss(x.sys));
@@ -452,8 +476,8 @@ function build() {
       const block = scopedBlock(`.opt-${x.key}`, b, bb, isChanged, rename);
       if (block) out.push(block);
     }
-    if (!out.length && x.o && x.o.overlay) fail(`${x.key}: the overlay changes nothing the page shows`);
-    if (out.length) css.push('', `/* ${x.key}: ${x.o ? x.o.title : ''} */`, ...out);
+    if (!out.length && x.sys !== base) fail(`${x.key}: the overlay changes nothing the page shows`);
+    if (out.length) css.push('', `/* ${x.key}: ${x.o ? x.o.title : x.q.reference.title} */`, ...out);
     for (const n of [...need].sort()) tokenLines.push(`  --toy-choice-${x.key}-${n.slice(6)}: ${vars.get(n)};`);
   }
   const tokensCss = [HEADER, ':root {', ...tokenLines, '}', ''].join('\n');
@@ -486,6 +510,7 @@ function build() {
     '<main>',
     `<h1>${esc(opts.title)}</h1>`,
     `<p class="sc-lead">${esc(opts.lead)}</p>`,
+    opts.decided ? `<p class="ch-status">${esc(opts.decided.text)}</p>` : '',
     `<ul class="ch-how">${opts.how.map((h) => `<li>${esc(h)}</li>`).join('')}</ul>`,
     '<div class="sc-bar ch-bar" id="sc-bar"><div class="ch-bar-row">'
       + `<p class="ch-progress" aria-live="polite">відповіді: <b id="ch-count">0</b> з ${n}</p>`

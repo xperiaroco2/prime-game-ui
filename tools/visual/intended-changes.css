@@ -1,19 +1,15 @@
-/* The reverse patch of spec §15.5: items 1-4 of §15.3 in their old form, so that "after + this file" must equal the
-   page on main. tools/visual/probe.js injects it into a temp copy of pages/styles/styles.html only; it is never part of
-   a page. Each "item N" comment starts the declarations of that item (the probe switches items off one at a time to
-   attribute every difference). Item 5 (chips and idle tabs: transparent border -> padding) changes no picture, so it
-   has no line here. */
+/* The reverse patch of the open PR, for node tools/visual/probe.js (spec §15.5): every intended visual change in its
+   old form, so that "after + this file" must equal the page on the --before ref. The probe injects it into a temp copy
+   of pages/styles/styles.html only; it is never part of a page. Each PR that changes the picture rewrites this file
+   (or passes its own with --intended <file>); git history keeps the earlier ones (PR #10: spec §15.3 items 1-5).
 
-/* item 1: letter spacing */
-body[data-style="toy"] .frame .t16, body[data-style="toy"] .frame .t18 { letter-spacing: .01em !important; }
-body[data-style="toy"] .frame .t36, body[data-style="toy"] .frame .t48,
-body[data-style="toy"] .frame .t64, body[data-style="toy"] .frame .t96 { letter-spacing: -.01em !important; }
+   Format: each "item <id>: <what changed>" comment starts the declarations of that item (the probe switches items off
+   one at a time to attribute every difference). An "item <id> (box): ..." comment has no declarations: a visible-
+   nothing border of width w that became border 0 and padding + w (the same picture, a different declared box).
+   A file with no items says the PR changes no picture.
 
-/* item 2: the health fill at 22 % */
-body[data-style="toy"] .frame [data-bar="health"] > i[data-in="hurt"] { background: #E87D46 !important; }
+   PR: tokens/apply-look-choices, the engineer's look choices of 2026-10-03 (prime-game-ui#5). */
 
-/* item 3: the selected preset card's padding */
-body[data-style="toy"] .frame .card.on { padding: calc(12cqw / 19.2) !important; }
-
-/* item 4: the stepper radius */
-body[data-style="toy"] .frame .val .ar { border-radius: 999px !important; }
+/* item 1: the .dim menu backdrop 70 % -> 74 % (palette.backdrop alpha 0.70 -> 0.74, the engineer's q8 choice; every
+   rule that reads --toy-palette-backdrop) */
+:root { --toy-palette-backdrop: rgba(38, 28, 48, 0.7) !important; }

@@ -138,6 +138,8 @@ function renderPage(sys, componentsCss) {
     return false;
   }
   const BADGE = `<span class="sc-badge">${esc(T('badge'))}</span>`;
+  // The large text sizes are badged only while a textSize=large font size still carries a proposal mark.
+  const largeProposal = Object.values((sys.pack.modes.textSize || {}).large || {}).some((e) => e && e.proposal);
 
   function hint(v) {
     const parts = [v.variation, `${v.class}${v.parent ? ` → ${v.parent}` : ''}`, v.context];
@@ -474,7 +476,7 @@ function renderPage(sys, componentsCss) {
       const diff = l.fontSizePx !== d.fontSizePx;
       out.push(`<div class="sc-type"><div class="sc-type-head"><code>${esc(p)}</code><span>${d.fontSizePx} / ${l.fontSizePx} px · ${d.fontWeight} · ${d.lineHeight} · ${d.letterSpacingPx}</span></div>`
         + `<div class="sc-type-samples"><div><small>${esc(T('type_default'))} ${d.fontSizePx}</small><span class="sc-type-sample" style="${style(d.fontSizePx)}" data-s="${row.label}">${esc(S(row.label))}</span></div>`
-        + `<div><small>${esc(T('type_large'))} ${l.fontSizePx}${diff ? BADGE : ''}</small><span class="sc-type-sample" style="${style(l.fontSizePx)}" data-s="${row.label}">${esc(S(row.label))}</span></div></div></div>`);
+        + `<div><small>${esc(T('type_large'))} ${l.fontSizePx}${diff && largeProposal ? BADGE : ''}</small><span class="sc-type-sample" style="${style(l.fontSizePx)}" data-s="${row.label}">${esc(S(row.label))}</span></div></div></div>`);
     }
     return out.join('');
   }
@@ -549,7 +551,7 @@ function renderPage(sys, componentsCss) {
     + opts.map(([val, text, badge]) => `<button type="button" data-ctl="${ctl}" data-val="${val}" aria-pressed="false">${esc(text)}${badge ? BADGE : ''}</button>`).join('')
     + '</div></div>';
   const controls = seg('lang', T('ctl_lang'), [['uk', 'UA'], ['en', 'EN']])
-    + seg('text', T('ctl_text'), [['default', T('text_default')], ['large', T('text_large'), true]])
+    + seg('text', T('ctl_text'), [['default', T('text_default')], ['large', T('text_large'), largeProposal]])
     + seg('motion', T('ctl_motion'), [['default', T('motion_default')], ['reduced', T('motion_reduced')]])
     + seg('zoom', T('ctl_zoom'), [50, 75, 100, 150, 200].map((z) => [String(z), `${z} %`]));
   const sampleJson = JSON.stringify(Object.fromEntries(Object.keys(samples).sort().map((k) => [k, { uk: samples[k].uk, en: samples[k].en }])))
@@ -580,7 +582,8 @@ function renderPage(sys, componentsCss) {
     `<div class="sc-bar" id="sc-bar"><div class="sc-bar-top"><label class="sc-sel"><span>${esc(T('ctl_section'))}</span><select id="sc-section">${options.join('')}</select></label>`
       + `<button type="button" class="sc-more" id="sc-more" aria-expanded="false" aria-controls="sc-controls">${esc(T('ctl_settings'))}</button></div>`
       + `<div class="sc-controls" id="sc-controls">${controls}</div>`
-      + `<p class="sc-note" id="sc-zoom-note" hidden>${esc(T('zoom_note'))}</p><p class="sc-note" id="sc-large-note" hidden>${esc(T('large_note'))}</p></div>`,
+      + `<p class="sc-note" id="sc-zoom-note" hidden>${esc(T('zoom_note'))}</p>`
+      + `${largeProposal ? `<p class="sc-note" id="sc-large-note" hidden>${esc(T('large_note'))}</p>` : ''}</div>`,
     sections.join('\n'),
     `<footer>${esc(T('footer'))}</footer>`,
     '</main>',

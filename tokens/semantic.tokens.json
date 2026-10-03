@@ -43,14 +43,17 @@
       "alert": { "$value": "{palette.coral}" }
     },
     "state": {
-      "$description": "State colours added where the mock-up had none (proposals).",
-      "$extensions": { "io.github.xperiaroco2.prime-game": { "proposal": true } },
+      "$description": "State colours added where the mock-up had none.",
       "disabled-face": { "$value": "{palette.key-quiet}" },
       "disabled-ink": { "$value": "{palette.muted}" },
       "disabled-ink-on-dark": { "$value": "{palette.lilac}" },
       "hover-on-dark": { "$value": "{palette.plate-solid}" },
       "hover-on-light": { "$value": "{palette.lavender}" },
-      "held-accent": { "$value": "{palette.honey}" }
+      "held-accent": {
+        "$value": "{palette.honey}",
+        "$description": "The held stepper's honey face (proposal).",
+        "$extensions": { "io.github.xperiaroco2.prime-game": { "proposal": true } }
+      }
     }
   },
   "type": {

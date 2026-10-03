@@ -174,24 +174,20 @@
         "font-color": { "$type": "color", "$value": "{color.on-dark.text}" }
       },
       "hover": {
-        "$description": "Hover fill (proposal).",
-        "$extensions": { "io.github.xperiaroco2.prime-game": { "proposal": true } },
+        "$description": "Hover fill.",
         "bg-color": { "$type": "color", "$value": "{color.state.hover-on-dark}" }
       },
       "pressed": {
-        "$description": "Held: as hover (proposal).",
-        "$extensions": { "io.github.xperiaroco2.prime-game": { "proposal": true } },
+        "$description": "Held: as hover.",
         "bg-color": { "$type": "color", "$value": "{color.state.hover-on-dark}" }
       },
       "disabled": {
-        "$description": "Unplugged: a muted outline and label on no fill (proposal).",
-        "$extensions": { "io.github.xperiaroco2.prime-game": { "proposal": true } },
+        "$description": "Unplugged: a muted outline and label on no fill.",
         "border-color": { "$type": "color", "$value": "{color.state.disabled-ink-on-dark}" },
         "font-color": { "$type": "color", "$value": "{color.state.disabled-ink-on-dark}" }
       },
       "focus": {
-        "$description": "Outer focus: a ring of the focus width, the focus gap outside the outline (proposal).",
-        "$extensions": { "io.github.xperiaroco2.prime-game": { "proposal": true } },
+        "$description": "Outer focus: a ring of the focus width, the focus gap outside the outline.",
         "bg-color": { "$type": "color", "$value": "{palette.clear}" },
         "border-color": { "$type": "color", "$value": "{color.on-dark.line}" },
         "border-width": { "$type": "dimension", "$value": "{focus.width}" },
@@ -218,15 +214,13 @@
         "font-color": { "$type": "color", "$value": "{color.on-accent.text}" }
       },
       "disabled": {
-        "$description": "Unplugged selected chip: pale and quiet (proposal).",
-        "$extensions": { "io.github.xperiaroco2.prime-game": { "proposal": true } },
+        "$description": "Unplugged selected chip: pale and quiet.",
         "bg-color": { "$type": "color", "$value": "{color.state.disabled-face}" },
         "border-color": { "$type": "color", "$value": "{color.state.disabled-ink}" },
         "font-color": { "$type": "color", "$value": "{color.state.disabled-ink}" }
       },
       "focus": {
-        "$description": "Outer focus: a ring of the focus width, the focus gap outside the outline (proposal).",
-        "$extensions": { "io.github.xperiaroco2.prime-game": { "proposal": true } },
+        "$description": "Outer focus: a ring of the focus width, the focus gap outside the outline.",
         "bg-color": { "$type": "color", "$value": "{palette.clear}" },
         "border-color": { "$type": "color", "$value": "{color.on-dark.line}" },
         "border-width": { "$type": "dimension", "$value": "{focus.width}" },
@@ -258,24 +252,20 @@
         "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
       },
       "hover": {
-        "$description": "Hover fill (proposal).",
-        "$extensions": { "io.github.xperiaroco2.prime-game": { "proposal": true } },
+        "$description": "Hover fill.",
         "bg-color": { "$type": "color", "$value": "{color.state.hover-on-light}" }
       },
       "pressed": {
-        "$description": "Held: as hover (proposal).",
-        "$extensions": { "io.github.xperiaroco2.prime-game": { "proposal": true } },
+        "$description": "Held: as hover.",
         "bg-color": { "$type": "color", "$value": "{color.state.hover-on-light}" }
       },
       "disabled": {
-        "$description": "Unplugged: a muted outline and label on no fill (proposal).",
-        "$extensions": { "io.github.xperiaroco2.prime-game": { "proposal": true } },
+        "$description": "Unplugged: a muted outline and label on no fill.",
         "border-color": { "$type": "color", "$value": "{color.state.disabled-ink}" },
         "font-color": { "$type": "color", "$value": "{color.state.disabled-ink}" }
       },
       "focus": {
-        "$description": "Outer focus: a ring of the focus width, the focus gap outside the outline (proposal).",
-        "$extensions": { "io.github.xperiaroco2.prime-game": { "proposal": true } },
+        "$description": "Outer focus: a ring of the focus width, the focus gap outside the outline.",
         "bg-color": { "$type": "color", "$value": "{palette.clear}" },
         "border-color": { "$type": "color", "$value": "{color.on-light.line}" },
         "border-width": { "$type": "dimension", "$value": "{focus.width}" },
@@ -302,15 +292,13 @@
         "font-color": { "$type": "color", "$value": "{color.on-accent.text}" }
       },
       "disabled": {
-        "$description": "Unplugged selected chip: pale and quiet (proposal).",
-        "$extensions": { "io.github.xperiaroco2.prime-game": { "proposal": true } },
+        "$description": "Unplugged selected chip: pale and quiet.",
         "bg-color": { "$type": "color", "$value": "{color.state.disabled-face}" },
         "border-color": { "$type": "color", "$value": "{color.state.disabled-ink}" },
         "font-color": { "$type": "color", "$value": "{color.state.disabled-ink}" }
       },
       "focus": {
-        "$description": "Outer focus: a ring of the focus width, the focus gap outside the outline (proposal).",
-        "$extensions": { "io.github.xperiaroco2.prime-game": { "proposal": true } },
+        "$description": "Outer focus: a ring of the focus width, the focus gap outside the outline.",
         "bg-color": { "$type": "color", "$value": "{palette.clear}" },
         "border-color": { "$type": "color", "$value": "{color.on-light.line}" },
         "border-width": { "$type": "dimension", "$value": "{focus.width}" },

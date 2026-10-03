@@ -30,7 +30,7 @@
     "row-line": { "$value": { "colorSpace": "srgb", "components": [0.8863, 0.8392, 0.9176], "hex": "#e2d6ea" } },
     "muted-deep": { "$value": { "colorSpace": "srgb", "components": [0.2902, 0.2314, 0.3333], "hex": "#4a3b55" } },
     "backdrop": {
-      "$value": { "colorSpace": "srgb", "components": [0.149, 0.1098, 0.1882], "alpha": 0.7, "hex": "#261c30" }
+      "$value": { "colorSpace": "srgb", "components": [0.149, 0.1098, 0.1882], "alpha": 0.74, "hex": "#261c30" }
     },
     "backdrop-deep": {
       "$value": { "colorSpace": "srgb", "components": [0.149, 0.1098, 0.1882], "alpha": 0.8, "hex": "#261c30" }
@@ -75,8 +75,7 @@
   },
   "focus": {
     "$type": "dimension",
-    "$description": "Keyboard and gamepad focus ring (proposal).",
-    "$extensions": { "io.github.xperiaroco2.prime-game": { "proposal": true } },
+    "$description": "Keyboard and gamepad focus ring.",
     "width": { "$value": { "value": 3, "unit": "px" } },
     "gap": { "$value": { "value": 2, "unit": "px" } }
   },
