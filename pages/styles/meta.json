@@ -1,0 +1,261 @@
+[
+ {
+  "key": "retro",
+  "name_uk": "Тихий ретро",
+  "pitch_uk": "Темні нічні таблички з мʼякими кутами, теплий кремовий текст і один золотистий акцент для головних моментів: спокійно й затишно, як вечір у A Short Hike.",
+  "pitch_en": "Dark night-plum plates with soft corners, warm cream text and one marigold accent saved for the big moments: calm and cosy, like an evening in A Short Hike.",
+  "palette": [
+   {
+    "name": "Night",
+    "hex": "#15131C",
+    "use": "Intro and outro screens (.frame.dark and the pre-game black overlay); the base of the .dim overlays (72% and 82%) and the downed tint (42%)"
+   },
+   {
+    "name": "Plate",
+    "hex": "#1E1C29",
+    "use": "Plates, chips, mic, slots and HUD bar tracks over the 3D world at 84% (slots and tracks 80%); also the text colour on cream and on the accent (ink)"
+   },
+   {
+    "name": "Panel",
+    "hex": "#262433",
+    "use": "Menus and how-to card panels (Esc, join, invite, map task list)"
+   },
+   {
+    "name": "Panel edge",
+    "hex": "#322F42",
+    "use": "The panel's barely visible 2 px border and the settings-row dividers"
+   },
+   {
+    "name": "Lift",
+    "hex": "#36324A",
+    "use": "Secondary buttons, unchecked language radio, character preview box"
+   },
+   {
+    "name": "Raised",
+    "hex": "#2F2C3E",
+    "use": "Preset cards (border in the same colour, so no visible edge) and map rooms"
+   },
+   {
+    "name": "Deep",
+    "hex": "#15131E",
+    "use": "Text field fill"
+   },
+   {
+    "name": "Well",
+    "hex": "#1A1824",
+    "use": "How-to card frames (airline safety card wells)"
+   },
+   {
+    "name": "Map",
+    "hex": "#191723",
+    "use": "Map background"
+   },
+   {
+    "name": "Line",
+    "hex": "#7A7490",
+    "use": "Outlines that must read: ghost buttons, fields, line chips, the quiet ? key (3.42:1 on the panel)"
+   },
+   {
+    "name": "Room line",
+    "hex": "#6F6888",
+    "use": "Map room outlines (3.38:1 on the map)"
+   },
+   {
+    "name": "Cream",
+    "hex": "#F3EAD8",
+    "use": "Main text, pictogram strokes, selected fills (tab, light chip, keycap, checked radio), selected outlines (slot.on, card.on), bar fills, crosshair"
+   },
+   {
+    "name": "Cream 2",
+    "hex": "#D9D0BF",
+    "use": "Ghost button text"
+   },
+   {
+    "name": "Stone",
+    "hex": "#C6BCAB",
+    "use": "Dim text and small-caps labels, value arrows, unselected tabs (4.74:1 on the main-menu dim, 6.0:1 on plates)"
+   },
+   {
+    "name": "Room text",
+    "hex": "#D2C8B6",
+    "use": "Map room labels and the room's package icon"
+   },
+   {
+    "name": "Key edge",
+    "hex": "#A89E8D",
+    "use": "Keycap border with the thicker bottom edge"
+   },
+   {
+    "name": "Marigold (accent)",
+    "hex": "#EDBF6A",
+    "use": "The one accent, at most one or two per screen: primary button fill, main-menu selection, lobby countdown, role and winner titles, loading bar and low-stamina fill, map zone highlight (20% fill, solid outline) and its chip"
+   },
+   {
+    "name": "Marigold deep",
+    "hex": "#4A3820",
+    "use": "The single hard drop shadow (0 4 px) under the 96 px big-moment titles"
+   }
+  ]
+ },
+ {
+  "key": "toy",
+  "name_uk": "Іграшка",
+  "pitch_uk": "Пухкі заокруглені форми з товстим сливовим контуром, кремові панелі й сонячно-жовті кнопки, які хочеться натиснути, як іграшку. Великі моменти отримують трохи нахилені таблички, а HUD лишається маленьким і спокійним.",
+  "pitch_en": "Chunky rounded shapes with a thick plum outline, cream panels and sunny-yellow buttons that look pressable like a toy. The big moments get slightly tilted title plates, while the HUD stays small and calm.",
+  "palette": [
+   {
+    "name": "Plum ink",
+    "hex": "#2A1F33",
+    "use": "Outlines, hard bottom shadows, and text and pictograms on light surfaces (14.4:1 on cream)"
+   },
+   {
+    "name": "Night plum",
+    "hex": "#1F1727",
+    "use": "Backgrounds of the intro and outro frames (pre game, connect and load, end of round), replacing #0E0E0E"
+   },
+   {
+    "name": "HUD plate",
+    "hex": "rgba(42,31,51,.86)",
+    "use": "Small dark plates, chips, slots, mic and HUD bar-label plates over the 3D world (cream text 10.2:1 over the lightest world)"
+   },
+   {
+    "name": "Night plate",
+    "hex": "#352A41",
+    "use": "Plates on the night background (loading tip) and the spinner disc"
+   },
+   {
+    "name": "Cream",
+    "hex": "#FFF4E2",
+    "use": "Panel surfaces (Esc menu, map task list, dialogs, how-to cards), main text on dark, keycaps on dark, room tiles"
+   },
+   {
+    "name": "White",
+    "hex": "#FFFFFF",
+    "use": "Fields, plain buttons, idle preset cards, setting-row tiles, how-to card frames"
+   },
+   {
+    "name": "Sunny yellow",
+    "hex": "#FFC23A",
+    "use": "Primary buttons, selected tab, chip, card and slot, host steppers, titles on dark (timer, plate titles), big-moment title plates, spinner arc, map zone tint at 55%"
+   },
+   {
+    "name": "Honey",
+    "hex": "#C98A10",
+    "use": "The toy base (hard bottom shadow) under buttons on dark backgrounds"
+   },
+   {
+    "name": "Coral",
+    "hex": "#FF8466",
+    "use": "NEW sticker, the edge of the 'You're down' plate, the logo's extrusion text-shadow, the hard base under big-moment title plates"
+   },
+   {
+    "name": "Coral deep",
+    "hex": "#D9482F",
+    "use": "The 'you are here' arrow on the light map board (3.3:1)"
+   },
+   {
+    "name": "Mint",
+    "hex": "#3CC4A8",
+    "use": "Progress fills on dark: health, stamina, loading, raising and give-up timers"
+   },
+   {
+    "name": "Mint tint",
+    "hex": "#D5F4EC",
+    "use": "The final 'done' frame of a how-to card"
+   },
+   {
+    "name": "Lavender",
+    "hex": "#E9DFF0",
+    "use": "Map board, the 'save your own' preset card"
+   },
+   {
+    "name": "Light track",
+    "hex": "#DCCFE4",
+    "use": "Bar tracks inside panels (settings sliders, filled with plum ink)"
+   },
+   {
+    "name": "Dark track",
+    "hex": "#4A3C5C",
+    "use": "Bar tracks on dark and over the world"
+   },
+   {
+    "name": "Muted plum",
+    "hex": "#64566F",
+    "use": "Secondary text on light surfaces (6.2:1 on cream, 5.3:1 on lavender)"
+   },
+   {
+    "name": "Lilac",
+    "hex": "#D8CCE3",
+    "use": "Secondary text on dark (7.2:1 on HUD plate, 4.8:1 on the menu backdrop)"
+   },
+   {
+    "name": "Key shade",
+    "hex": "#B9A8C7",
+    "use": "The keycap edge and thick bottom on dark plates"
+   },
+   {
+    "name": "Slot line",
+    "hex": "#9A8CA6",
+    "use": "Idle hand and belt slot outline (selected slot: yellow, 5 px)"
+   },
+   {
+    "name": "Menu backdrop",
+    "hex": "rgba(38,28,48,.70) / .80",
+    "use": ".dim and .dim.more: a plum tint over the world behind menus, at least 60% so the text on it qualifies as plated"
+   }
+  ]
+ },
+ {
+  "key": "card",
+  "name_uk": "Картка безпеки",
+  "pitch_uk": "Спокійні паперові картки з чорнильним контуром і жорсткою тінню, як інструкція в літаку: усе охайне й серйозне, а смішне тільки в самих картках.",
+  "pitch_en": "Calm paper cards with a thick ink outline and a hard printed shadow, like an airline safety card: everything tidy and deadpan, with the jokes left to the cards themselves.",
+  "palette": [
+   {
+    "name": "Paper",
+    "hex": "#F4EFE4",
+    "use": "Panels, HUD plates (paper tags), chips over the world, the HUD status card, text on ink"
+   },
+   {
+    "name": "Paper light",
+    "hex": "#FFFCF5",
+    "use": "Text fields, secondary buttons, preset cards, keycaps, map rooms, how-to card cells"
+   },
+   {
+    "name": "Paper shade",
+    "hex": "#E4DCCB",
+    "use": "Map sheet background, bar and slider tracks"
+   },
+   {
+    "name": "Rule tan",
+    "hex": "#CFC4AE",
+    "use": "Settings row separators (a printed form instead of a grey debug table)"
+   },
+   {
+    "name": "Ink",
+    "hex": "#1E2229",
+    "use": "Text on paper, every outline, the hard offset shadows, selection fill (tabs, sub-tabs, selected preset), bar fill, intro/outro and loading screen background; base of the dim overlays at 80% and 88%"
+   },
+   {
+    "name": "Ink muted",
+    "hex": "#5C574D",
+    "use": "Secondary text on paper (6.3:1 on paper), ghost button text and border on paper, the inactive slot label"
+   },
+   {
+    "name": "Paper muted",
+    "hex": "#C8C0AF",
+    "use": "Secondary text on ink and on the dimmed world (4.6:1 on the 80% dim over a white world), ghost button border on dark screens"
+   },
+   {
+    "name": "Signal amber",
+    "hex": "#FFB000",
+    "use": "The single warm signal colour, for attention only: primary buttons, NEW tag, map item zone and its label, active chips over the world (ready, protected, chosen language), the downed plate, the muted mic ring, low-stamina track, loading bar, eyebrow labels on ink, the selected main-menu item, the hard offset shadow on the big titles, the tab index edge, one highlighted how-to cell. Ink on amber is 8.7:1"
+   },
+   {
+    "name": "Shadow dark",
+    "hex": "#0B0D10",
+    "use": "Hard 8px offset shadow of panels and the map on the dimmed world"
+   }
+  ]
+ }
+]
