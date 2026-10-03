@@ -1,0 +1,52 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "$description": "Merge near-duplicates: ink takes the backdrop colour #261c30 (the backdrop and its alphas stay, so the menu backdrop gates do not move), the drop takes night (alpha kept); key-quiet takes lavender, row-line takes track-light.",
+  "palette": {
+    "$type": "color",
+    "ink": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.149,
+          0.1098,
+          0.1882
+        ],
+        "hex": "#261c30"
+      }
+    },
+    "drop": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.1216,
+          0.0902,
+          0.1529
+        ],
+        "alpha": 0.6,
+        "hex": "#1f1727"
+      }
+    },
+    "key-quiet": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9137,
+          0.8745,
+          0.9412
+        ],
+        "hex": "#e9dff0"
+      }
+    },
+    "row-line": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.8627,
+          0.8118,
+          0.8941
+        ],
+        "hex": "#dccfe4"
+      }
+    }
+  }
+}

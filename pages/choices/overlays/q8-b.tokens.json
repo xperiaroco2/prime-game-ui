@@ -1,0 +1,18 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "$description": "A lighter lilac: OKLab lightness raised from #d8cce3 in 0.002 steps until lilac on the 70 % backdrop over a white wall reaches 4.5:1.",
+  "palette": {
+    "$type": "color",
+    "lilac": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.902,
+          0.8549,
+          0.9451
+        ],
+        "hex": "#e6daf1"
+      }
+    }
+  }
+}

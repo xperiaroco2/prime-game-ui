@@ -1,0 +1,57 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "$description": "Disabled, \"sunk flat\": the face rests on its base (press.disabled = depth), lavender face, muted outline and label.",
+  "button": {
+    "primary": {
+      "disabled": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{palette.lavender}"
+        }
+      },
+      "press": {
+        "$type": "dimension",
+        "disabled": {
+          "$value": {
+            "value": 6,
+            "unit": "px"
+          }
+        }
+      }
+    },
+    "secondary": {
+      "disabled": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{palette.lavender}"
+        }
+      },
+      "press": {
+        "$type": "dimension",
+        "disabled": {
+          "$value": {
+            "value": 5,
+            "unit": "px"
+          }
+        }
+      }
+    },
+    "danger": {
+      "disabled": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{palette.lavender}"
+        }
+      },
+      "press": {
+        "$type": "dimension",
+        "disabled": {
+          "$value": {
+            "value": 5,
+            "unit": "px"
+          }
+        }
+      }
+    }
+  }
+}

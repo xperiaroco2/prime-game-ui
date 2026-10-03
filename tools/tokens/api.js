@@ -6,6 +6,7 @@
 'use strict';
 
 const fs = require('fs');
+const os = require('os');
 const path = require('path');
 const { parse, JsonStrictError } = require('../lib/json-strict.js');
 const R = require('./resolve.js');
@@ -42,10 +43,21 @@ function readRelease(root, P) {
   }
 }
 
-// analyzeAll(root) -> { problems, sys | null }: never throws on token problems.
-function analyzeAll(root) {
+// analyzeAll(root, opts) -> { problems, sys | null }: never throws on token problems.
+// opts.overlay: a DTCG file (absolute, or relative to root) applied on a temporary copy of tokens/ (see withOverlay).
+// opts.allow: rule ids reported as warnings instead of errors (an overlay that deliberately changes a rule's look).
+function analyzeAll(root, opts) {
+  if (opts && opts.overlay) {
+    return withOverlay(root, opts.overlay, (tmp) => {
+      const r = analyzeAll(tmp, Object.assign({}, opts, { overlay: null }));
+      if (r.sys) { r.sys.root = root; r.sys.overlay = rel(root, opts.overlay); }
+      return r;
+    });
+  }
   const a = analyze(root);
   const P = a.problems;
+  const allow = (opts && opts.allow) || [];
+  for (const p of P.list) if (p.severity === 'error' && allow.includes(p.rule)) { p.severity = 'warning'; p.allowed = true; }
   const version = readRelease(root, P);
   if (P.errors.length || !a.model) return { problems: P, sys: null };
   for (const r of a.results) r.packTokens = packTokens(r);
@@ -83,9 +95,110 @@ function analyzeAll(root) {
   return { problems: P, sys };
 }
 
+// ---------------------------------------------------------------------------------------------------------------
+// Overlays: a DTCG file holding only the tokens one look option changes (pages/choices/overlays/*.tokens.json).
+// Each overlay token replaces the $value (and $type, $description, $extensions when it gives them) of the token at the
+// same path; a path the base set lacks is added to the base-set file that holds its deepest existing group. A path a
+// modifier owns is changed only in the contexts named by the overlay's root
+//   "$extensions": { "io.github.xperiaroco2.prime-game": { "overlay": { "contexts": { "textSize": "large" } } } }
+// The patched files are written to a temporary copy of tokens/, which then goes through the real resolver, validator
+// and emitters, so an option is valid exactly when its winner, applied to tokens/, would be.
+
+const rel = (root, p) => path.relative(root, path.resolve(root, p)).split(path.sep).join('/');
+const isObj = (v) => v !== null && typeof v === 'object' && !Array.isArray(v);
+const isToken = (v) => isObj(v) && '$value' in v;
+const clone = (v) => JSON.parse(JSON.stringify(v));
+
+function overlayError(file, message) {
+  const e = new Error(`overlay ${file}: ${message}`);
+  e.problems = [{ file, pointer: '', path: null, rule: 'O01', severity: 'error', message, line: null, col: null }];
+  return e;
+}
+
+function withOverlay(root, overlay, fn) {
+  const file = rel(root, overlay);
+  let ov;
+  try {
+    ov = parse(fs.readFileSync(path.resolve(root, overlay), 'utf8')).value;
+  } catch (e) {
+    throw overlayError(file, e instanceof JsonStrictError ? `[${e.rule}] ${e.reason} at #${e.pointer} (line ${e.line})` : e.message);
+  }
+  if (!isObj(ov)) throw overlayError(file, 'an overlay is a JSON object');
+  const ext = isObj(ov.$extensions) && isObj(ov.$extensions[R.NS]) && isObj(ov.$extensions[R.NS].overlay) ? ov.$extensions[R.NS].overlay : {};
+  const contexts = isObj(ext.contexts) ? ext.contexts : {};
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'toy-overlay-'));
+  try {
+    fs.cpSync(path.join(root, 'tokens'), path.join(tmp, 'tokens'), { recursive: true });
+    const resolver = JSON.parse(fs.readFileSync(path.join(tmp, R.RESOLVER_FILE), 'utf8'));
+    const files = [];
+    const add = (ref, modifier, context) => {
+      const r = `tokens/${ref.$ref}`;
+      files.push({ rel: r, doc: JSON.parse(fs.readFileSync(path.join(tmp, r), 'utf8')), modifier, context, changed: false });
+    };
+    for (const s of Object.values(resolver.sets || {})) (s.sources || []).forEach((ref) => add(ref, null, null));
+    for (const [m, def] of Object.entries(resolver.modifiers || {})) {
+      for (const [c, list] of Object.entries(def.contexts || {})) list.forEach((ref) => add(ref, m, c));
+    }
+    for (const m of Object.keys(contexts)) {
+      if (!files.some((f) => f.modifier === m && f.context === contexts[m])) throw overlayError(file, `no context ${JSON.stringify(contexts[m])} of a modifier ${JSON.stringify(m)}`);
+    }
+    const at = (doc, segs) => segs.reduce((n, s) => (isObj(n) && s in n ? n[s] : undefined), doc);
+    const put = (segs, chain, tok, type) => {
+      const name = segs.join('.');
+      const holders = files.filter((f) => isToken(at(f.doc, segs)));
+      if (holders.length) {
+        const targets = holders.filter((f) => !f.modifier || contexts[f.modifier] === f.context);
+        if (!targets.length) throw overlayError(file, `${name} is owned by the modifier ${holders[0].modifier}: name its context in $extensions.${R.NS}.overlay.contexts`);
+        for (const f of targets) {
+          const t = at(f.doc, segs);
+          for (const k of ['$value', '$type', '$description', '$extensions']) if (k in tok) t[k] = clone(tok[k]);
+          f.changed = true;
+        }
+        return;
+      }
+      for (let n = segs.length - 1; n > 0; n--) {
+        const g = segs.slice(0, n);
+        const owners = files.filter((f) => !f.modifier && isObj(at(f.doc, g)) && !isToken(at(f.doc, g)));
+        if (!owners.length) continue;
+        if (owners.length > 1) throw overlayError(file, `the new token ${name}: its group ${g.join('.')} is in ${owners.map((f) => f.rel).join(' and ')}`);
+        const f = owners[0];
+        let typed = false;
+        for (let i = 1; i <= n; i++) if (at(f.doc, segs.slice(0, i)).$type) typed = true;
+        let node = at(f.doc, g);
+        for (let i = n; i < segs.length - 1; i++) {
+          node = node[segs[i]] = {};
+          for (const k of ['$type', '$description', '$extensions']) if (k in chain[i + 1]) node[k] = clone(chain[i + 1][k]);
+          if (node.$type) typed = true;
+        }
+        const copy = clone(tok);
+        if (!copy.$type && type && !typed) copy.$type = type;
+        node[segs[segs.length - 1]] = copy;
+        f.changed = true;
+        return;
+      }
+      throw overlayError(file, `the new token ${name} has no group in the base set`);
+    };
+    const walk = (node, segs, chain, type) => {
+      for (const k of Object.keys(node)) {
+        if (k.startsWith('$')) continue;
+        const child = node[k];
+        if (!isObj(child)) throw overlayError(file, `${segs.concat(k).join('.')} is neither a token nor a group`);
+        const t = child.$type || type;
+        if (isToken(child)) put(segs.concat(k), chain.concat([child]), child, t);
+        else walk(child, segs.concat(k), chain.concat([child]), t);
+      }
+    };
+    walk(ov, [], [ov], null);
+    for (const f of files) if (f.changed) fs.writeFileSync(path.join(tmp, f.rel), JSON.stringify(f.doc, null, 2) + '\n');
+    return fn(tmp);
+  } finally {
+    fs.rmSync(tmp, { recursive: true, force: true });
+  }
+}
+
 function load(opts) {
   const root = path.resolve((opts && opts.root) || path.join(__dirname, '..', '..'));
-  const { problems, sys } = analyzeAll(root);
+  const { problems, sys } = analyzeAll(root, opts);
   if (!sys) {
     const errs = problems.errors;
     const e = new Error(`tokens: ${errs.length} error(s)\n${R.sortProblems(errs).slice(0, 20).map(R.formatProblem).join('\n')}`);

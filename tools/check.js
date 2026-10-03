@@ -24,6 +24,7 @@ const STEPS = [
   ["legacy-skins", ["pages/styles/check_styles.js", "retro", "card"]],
   ["page:styles", ["pages/styles/build-styles-page.js", "--check"]],
   ["page:components", ["pages/components/build.js", "--check"]],
+  ["page:choices", ["pages/choices/build.js", "--check"]],
 ];
 const MAX_LINES = 200;
 

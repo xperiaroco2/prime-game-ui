@@ -1,0 +1,141 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "$description": "Disabled, \"faded\": the normal colours at 50 % alpha, no base. In Godot: the face modulate.a = 0.5, which multiplies each draw, so per-colour alpha draws the same.",
+  "palette": {
+    "$type": "color",
+    "yellow-half": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.7608,
+          0.2275
+        ],
+        "alpha": 0.5,
+        "hex": "#ffc23a"
+      }
+    },
+    "white-half": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          1,
+          1
+        ],
+        "alpha": 0.5,
+        "hex": "#ffffff"
+      }
+    },
+    "coral-half": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.5176,
+          0.4
+        ],
+        "alpha": 0.5,
+        "hex": "#ff8466"
+      }
+    },
+    "ink-half": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.1647,
+          0.1216,
+          0.2
+        ],
+        "alpha": 0.5,
+        "hex": "#2a1f33"
+      }
+    },
+    "cream-half": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          0.9569,
+          0.8863
+        ],
+        "alpha": 0.5,
+        "hex": "#fff4e2"
+      }
+    }
+  },
+  "button": {
+    "primary": {
+      "disabled": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{palette.yellow-half}"
+        },
+        "border-color": {
+          "$type": "color",
+          "$value": "{palette.ink-half}"
+        },
+        "font-color": {
+          "$type": "color",
+          "$value": "{palette.ink-half}"
+        }
+      }
+    },
+    "secondary": {
+      "disabled": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{palette.white-half}"
+        },
+        "border-color": {
+          "$type": "color",
+          "$value": "{palette.ink-half}"
+        },
+        "font-color": {
+          "$type": "color",
+          "$value": "{palette.ink-half}"
+        }
+      }
+    },
+    "danger": {
+      "disabled": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{palette.coral-half}"
+        },
+        "border-color": {
+          "$type": "color",
+          "$value": "{palette.ink-half}"
+        },
+        "font-color": {
+          "$type": "color",
+          "$value": "{palette.ink-half}"
+        }
+      }
+    },
+    "ghost-on-dark": {
+      "disabled": {
+        "border-color": {
+          "$type": "color",
+          "$value": "{palette.cream-half}"
+        },
+        "font-color": {
+          "$type": "color",
+          "$value": "{palette.cream-half}"
+        }
+      }
+    },
+    "ghost-on-light": {
+      "disabled": {
+        "border-color": {
+          "$type": "color",
+          "$value": "{palette.ink-half}"
+        },
+        "font-color": {
+          "$type": "color",
+          "$value": "{palette.ink-half}"
+        }
+      }
+    }
+  }
+}

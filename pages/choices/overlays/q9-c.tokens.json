@@ -1,0 +1,39 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "$description": "Wide keycaps fit their label: the wide minimum equals the normal 36 px, so the label plus 10 px each side decides.",
+  "keycap": {
+    "on-dark": {
+      "size": {
+        "$type": "dimension",
+        "wide-min-width": {
+          "$value": {
+            "value": 36,
+            "unit": "px"
+          }
+        }
+      }
+    },
+    "on-light": {
+      "size": {
+        "$type": "dimension",
+        "wide-min-width": {
+          "$value": {
+            "value": 36,
+            "unit": "px"
+          }
+        }
+      }
+    },
+    "quiet": {
+      "size": {
+        "$type": "dimension",
+        "wide-min-width": {
+          "$value": {
+            "value": 36,
+            "unit": "px"
+          }
+        }
+      }
+    }
+  }
+}

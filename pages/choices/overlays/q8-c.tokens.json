@@ -1,0 +1,14 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "$description": "Dim text on dark (ToyTextMutedOnDark) takes cream, the colour of normal text on dark.",
+  "text": {
+    "muted-on-dark": {
+      "normal": {
+        "font-color": {
+          "$type": "color",
+          "$value": "{color.on-dark.text}"
+        }
+      }
+    }
+  }
+}

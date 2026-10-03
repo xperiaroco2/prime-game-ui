@@ -1,0 +1,39 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "$description": "Wide keycaps (Space, Shift, Tab, Esc) at least 72 px.",
+  "keycap": {
+    "on-dark": {
+      "size": {
+        "$type": "dimension",
+        "wide-min-width": {
+          "$value": {
+            "value": 72,
+            "unit": "px"
+          }
+        }
+      }
+    },
+    "on-light": {
+      "size": {
+        "$type": "dimension",
+        "wide-min-width": {
+          "$value": {
+            "value": 72,
+            "unit": "px"
+          }
+        }
+      }
+    },
+    "quiet": {
+      "size": {
+        "$type": "dimension",
+        "wide-min-width": {
+          "$value": {
+            "value": 72,
+            "unit": "px"
+          }
+        }
+      }
+    }
+  }
+}

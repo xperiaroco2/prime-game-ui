@@ -1,0 +1,17 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "$description": "The selected preset card grows by 2 px per side (content margin 14 to 16), as in the wireframe; its neighbours move when the selection changes (this changes rule P46).",
+  "preset-card": {
+    "selected": {
+      "normal": {
+        "content-margin": {
+          "$type": "dimension",
+          "$value": {
+            "value": 16,
+            "unit": "px"
+          }
+        }
+      }
+    }
+  }
+}
