@@ -1,0 +1,232 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "field": {
+    "input": {
+      "$description": "A text field.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": {
+            "variation": "ToyField",
+            "class": "LineEdit"
+          },
+          "context": "any"
+        }
+      },
+      "label": {
+        "$type": "typography",
+        "$value": "{type.body}"
+      },
+      "normal": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{color.surface.panel}"
+        },
+        "border-color": {
+          "$type": "color",
+          "$value": "{color.outline}"
+        },
+        "border-width": {
+          "$type": "dimension",
+          "$value": "{stroke.control}"
+        },
+        "corner-radius": {
+          "$type": "dimension",
+          "$value": "{radius.medium}"
+        },
+        "content-margin-block": {
+          "$type": "dimension",
+          "$value": {
+            "value": 10,
+            "unit": "px"
+          }
+        },
+        "content-margin-inline": {
+          "$type": "dimension",
+          "$value": {
+            "value": 16,
+            "unit": "px"
+          }
+        },
+        "font-color": {
+          "$type": "color",
+          "$value": "{color.on-light.text}"
+        }
+      },
+      "focus": {
+        "$description": "Inner focus (proposal).",
+        "$extensions": {
+          "io.github.xperiaroco2.prime-game": {
+            "proposal": true
+          }
+        },
+        "bg-color": {
+          "$type": "color",
+          "$value": "{palette.clear}"
+        },
+        "border-color": {
+          "$type": "color",
+          "$value": "{color.outline}"
+        },
+        "border-width": {
+          "$type": "dimension",
+          "$value": "{focus.width}"
+        },
+        "corner-radius": {
+          "$type": "dimension",
+          "$value": {
+            "value": 9,
+            "unit": "px"
+          }
+        },
+        "expand-margin": {
+          "$type": "dimension",
+          "$value": {
+            "value": -3,
+            "unit": "px"
+          }
+        }
+      },
+      "read-only": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{palette.lilac}"
+        }
+      },
+      "items": {
+        "placeholder-color": {
+          "$type": "color",
+          "$value": "{palette.muted}"
+        },
+        "caret-width": {
+          "$type": "dimension",
+          "$value": {
+            "value": 2,
+            "unit": "px"
+          }
+        }
+      }
+    },
+    "dropdown": {
+      "$description": "A dropdown.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": {
+            "variation": "ToyDropdown",
+            "class": "OptionButton"
+          },
+          "context": "any"
+        }
+      },
+      "label": {
+        "$type": "typography",
+        "$value": "{type.body}"
+      },
+      "normal": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{color.surface.panel}"
+        },
+        "border-color": {
+          "$type": "color",
+          "$value": "{color.outline}"
+        },
+        "border-width": {
+          "$type": "dimension",
+          "$value": "{stroke.control}"
+        },
+        "corner-radius": {
+          "$type": "dimension",
+          "$value": "{radius.medium}"
+        },
+        "content-margin-block": {
+          "$type": "dimension",
+          "$value": {
+            "value": 10,
+            "unit": "px"
+          }
+        },
+        "content-margin-inline": {
+          "$type": "dimension",
+          "$value": {
+            "value": 16,
+            "unit": "px"
+          }
+        },
+        "font-color": {
+          "$type": "color",
+          "$value": "{color.on-light.text}"
+        }
+      },
+      "hover": {
+        "$description": "Hover (proposal).",
+        "$extensions": {
+          "io.github.xperiaroco2.prime-game": {
+            "proposal": true
+          }
+        },
+        "bg-color": {
+          "$type": "color",
+          "$value": "{color.state.hover-on-light}"
+        }
+      },
+      "pressed": {
+        "$description": "Held (proposal).",
+        "$extensions": {
+          "io.github.xperiaroco2.prime-game": {
+            "proposal": true
+          }
+        },
+        "bg-color": {
+          "$type": "color",
+          "$value": "{color.state.hover-on-light}"
+        }
+      },
+      "disabled": {
+        "$description": "Unplugged (proposal).",
+        "$extensions": {
+          "io.github.xperiaroco2.prime-game": {
+            "proposal": true
+          }
+        },
+        "font-color": {
+          "$type": "color",
+          "$value": "{color.state.disabled-ink}"
+        }
+      },
+      "focus": {
+        "$description": "Inner focus (proposal).",
+        "$extensions": {
+          "io.github.xperiaroco2.prime-game": {
+            "proposal": true
+          }
+        },
+        "bg-color": {
+          "$type": "color",
+          "$value": "{palette.clear}"
+        },
+        "border-color": {
+          "$type": "color",
+          "$value": "{color.outline}"
+        },
+        "border-width": {
+          "$type": "dimension",
+          "$value": "{focus.width}"
+        },
+        "corner-radius": {
+          "$type": "dimension",
+          "$value": {
+            "value": 9,
+            "unit": "px"
+          }
+        },
+        "expand-margin": {
+          "$type": "dimension",
+          "$value": {
+            "value": -3,
+            "unit": "px"
+          }
+        }
+      }
+    }
+  }
+}

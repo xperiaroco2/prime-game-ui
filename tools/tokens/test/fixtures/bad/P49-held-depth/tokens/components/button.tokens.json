@@ -1,0 +1,158 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "button": {
+    "$description": "Fixture buttons.",
+    "primary": {
+      "$description": "A primary button with a 6 px base.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": {
+            "variation": "ToyButtonPrimary",
+            "class": "Button",
+            "base": {
+              "any": "ToyBasePrimary"
+            }
+          },
+          "context": "any"
+        }
+      },
+      "normal": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{color.panel}"
+        },
+        "border-color": {
+          "$type": "color",
+          "$value": "{color.outline}"
+        },
+        "border-width": {
+          "$type": "dimension",
+          "$value": "{stroke.control}"
+        },
+        "corner-radius": {
+          "$type": "dimension",
+          "$value": "{radius.control}"
+        },
+        "content-margin-block": {
+          "$type": "dimension",
+          "$value": {
+            "value": 12,
+            "unit": "px"
+          }
+        },
+        "content-margin-inline": {
+          "$type": "dimension",
+          "$value": {
+            "value": 22,
+            "unit": "px"
+          }
+        },
+        "font-color": {
+          "$type": "color",
+          "$value": "{color.outline}"
+        }
+      },
+      "disabled": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{palette.cream}"
+        },
+        "font-color": {
+          "$type": "color",
+          "$value": "{palette.ink}"
+        }
+      },
+      "focus": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{palette.clear}"
+        },
+        "border-color": {
+          "$type": "color",
+          "$value": "{color.outline}"
+        },
+        "border-width": {
+          "$type": "dimension",
+          "$value": "{focus.width}"
+        },
+        "corner-radius": {
+          "$type": "dimension",
+          "$value": {
+            "value": 15,
+            "unit": "px"
+          }
+        },
+        "expand-margin": {
+          "$type": "dimension",
+          "$value": {
+            "value": -3,
+            "unit": "px"
+          }
+        }
+      },
+      "press": {
+        "$type": "dimension",
+        "depth": {
+          "$value": {
+            "value": 6,
+            "unit": "px"
+          }
+        },
+        "hover": {
+          "$value": {
+            "value": -1,
+            "unit": "px"
+          }
+        },
+        "held": {
+          "$value": {
+            "value": 6,
+            "unit": "px"
+          }
+        },
+        "disabled": {
+          "$value": {
+            "value": 0,
+            "unit": "px"
+          }
+        }
+      }
+    },
+    "base-primary": {
+      "$description": "The toy base of the primary button.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": {
+            "variation": "ToyBasePrimary",
+            "class": "Panel"
+          },
+          "context": "any"
+        }
+      },
+      "panel": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{color.outline}"
+        },
+        "corner-radius": {
+          "$type": "dimension",
+          "$value": "{radius.control}"
+        },
+        "expand-margin-top": {
+          "$type": "dimension",
+          "$value": {
+            "value": -6,
+            "unit": "px"
+          }
+        },
+        "expand-margin-bottom": {
+          "$type": "dimension",
+          "$value": {
+            "value": 6,
+            "unit": "px"
+          }
+        }
+      }
+    }
+  }
+}

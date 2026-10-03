@@ -1,0 +1,49 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "hud": {
+    "$description": "Small HUD parts.",
+    "crosshair": {
+      "$description": "The crosshair dot.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyCrosshair", "class": "Panel" },
+          "context": "dark"
+        }
+      },
+      "panel": {
+        "bg-color": { "$type": "color", "$value": "{palette.cream}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-width": { "$type": "dimension", "$value": "{stroke.thin}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" }
+      },
+      "size": {
+        "$type": "dimension",
+        "width": { "$value": { "value": 8, "unit": "px" } },
+        "height": { "$value": { "value": 8, "unit": "px" } }
+      }
+    },
+    "spinner": {
+      "$description": "The loading spinner: a yellow arc on a night disc (rotated at runtime).",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToySpinner", "class": "Panel" },
+          "context": "dark"
+        }
+      },
+      "panel": {
+        "bg-color": { "$type": "color", "$value": "{color.surface.night-plate}" },
+        "border-color": { "$type": "color", "$value": "{palette.yellow}" },
+        "border-width-top": { "$type": "dimension", "$value": { "value": 10, "unit": "px" } },
+        "border-width-right": { "$type": "dimension", "$value": { "value": 10, "unit": "px" } },
+        "border-width-bottom": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "border-width-left": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" }
+      },
+      "size": {
+        "$type": "dimension",
+        "width": { "$value": { "value": 90, "unit": "px" } },
+        "height": { "$value": { "value": 90, "unit": "px" } }
+      }
+    }
+  }
+}

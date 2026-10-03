@@ -1,0 +1,64 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "howto": {
+    "$description": "How-to card frames and captions (the card itself is ToyPanelHowto).",
+    "frame": {
+      "$description": "A how-to step frame.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyHowtoFrame", "class": "PanelContainer" },
+          "context": "light"
+        }
+      },
+      "panel": {
+        "bg-color": { "$type": "color", "$value": "{palette.white}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.large}" },
+        "content-margin": { "$type": "dimension", "$value": { "value": 13, "unit": "px" } }
+      }
+    },
+    "frame-done": {
+      "$description": "A done how-to step frame: mint tint.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyHowtoFrameDone", "class": "PanelContainer" },
+          "context": "light"
+        }
+      },
+      "panel": {
+        "bg-color": { "$type": "color", "$value": "{palette.mint-tint}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.large}" },
+        "content-margin": { "$type": "dimension", "$value": { "value": 13, "unit": "px" } }
+      }
+    },
+    "caption": {
+      "$description": "The caption under a how-to frame.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyHowtoCaption", "class": "Label", "on": ["ToyHowtoFrame", "ToyHowtoFrameDone"] },
+          "context": "light"
+        }
+      },
+      "label": { "$type": "typography", "$value": "{type.small-bold}" },
+      "normal": {
+        "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
+      }
+    },
+    "note": {
+      "$description": "The muted \"how to\" line of the how-to card, at t.small (spec §4.8); text.muted-on-light is t.body.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyHowtoNote", "class": "Label", "on": ["ToyPanelHowto"] },
+          "context": "light"
+        }
+      },
+      "label": { "$type": "typography", "$value": "{type.small}" },
+      "normal": {
+        "font-color": { "$type": "color", "$value": "{color.on-light.text-muted}" }
+      }
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "font": {
+    "size": {
+      "$type": "dimension",
+      "$description": "Large text (proposal): x1.25 rounded half up up to 36 px; 48 px and up is already large and stays.",
+      "$extensions": { "io.github.xperiaroco2.prime-game": { "proposal": true } },
+      "caption": { "$value": { "value": 23, "unit": "px" } },
+      "small": { "$value": { "value": 25, "unit": "px" } },
+      "body": { "$value": { "value": 28, "unit": "px" } },
+      "body-large": { "$value": { "value": 30, "unit": "px" } },
+      "heading": { "$value": { "value": 35, "unit": "px" } },
+      "title": { "$value": { "value": 45, "unit": "px" } },
+      "display": { "$value": { "value": 48, "unit": "px" } },
+      "display-large": { "$value": { "value": 64, "unit": "px" } },
+      "hero": { "$value": { "value": 96, "unit": "px" } }
+    }
+  }
+}

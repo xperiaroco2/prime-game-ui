@@ -1,0 +1,65 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/resolver.json",
+  "name": "fixture",
+  "version": "2025.10",
+  "sets": {
+    "base": {
+      "sources": [
+        {
+          "$ref": "primitives.tokens.json"
+        },
+        {
+          "$ref": "semantic.tokens.json"
+        },
+        {
+          "$ref": "components/button.tokens.json"
+        }
+      ]
+    }
+  },
+  "modifiers": {
+    "textSize": {
+      "description": "Text size.",
+      "contexts": {
+        "default": [
+          {
+            "$ref": "text-size/default.tokens.json"
+          }
+        ],
+        "large": [
+          {
+            "$ref": "text-size/large.tokens.json"
+          }
+        ]
+      },
+      "default": "default"
+    },
+    "motion": {
+      "description": "Reduced motion.",
+      "contexts": {
+        "default": [
+          {
+            "$ref": "motion/default.tokens.json"
+          }
+        ],
+        "reduced": [
+          {
+            "$ref": "motion/reduced.tokens.json"
+          }
+        ]
+      },
+      "default": "default"
+    }
+  },
+  "resolutionOrder": [
+    {
+      "$ref": "#/sets/base"
+    },
+    {
+      "$ref": "#/modifiers/textSize"
+    },
+    {
+      "$ref": "#/modifiers/motion"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "misc": {
+    "$type": "dimension",
+    "gap": {
+      "$value": {
+        "value": 2,
+        "unit": "px"
+      }
+    }
+  }
+}

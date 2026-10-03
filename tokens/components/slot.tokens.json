@@ -1,0 +1,76 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "slot": {
+    "$description": "Hand and belt slots (HUD, not focusable).",
+    "idle": {
+      "$description": "An idle slot: plate fill, slot-line outline.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToySlot", "class": "PanelContainer" },
+          "context": "dark"
+        }
+      },
+      "panel": {
+        "bg-color": { "$type": "color", "$value": "{color.surface.plate}" },
+        "border-color": { "$type": "color", "$value": "{palette.slotline}" },
+        "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.control}" },
+        "content-margin": { "$type": "dimension", "$value": { "value": 7, "unit": "px" } }
+      },
+      "size": {
+        "$type": "dimension",
+        "width": { "$value": { "value": 84, "unit": "px" } },
+        "height": { "$value": { "value": 84, "unit": "px" } },
+        "wide-width": { "$value": { "value": 180, "unit": "px" } }
+      }
+    },
+    "active": {
+      "$description": "The active slot: a bold yellow outline.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToySlotActive", "class": "PanelContainer" },
+          "context": "dark"
+        }
+      },
+      "panel": {
+        "bg-color": { "$type": "color", "$value": "{color.surface.plate}" },
+        "border-color": { "$type": "color", "$value": "{palette.yellow}" },
+        "border-width": { "$type": "dimension", "$value": "{stroke.bold}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.control}" },
+        "content-margin": { "$type": "dimension", "$value": { "value": 9, "unit": "px" } }
+      },
+      "size": {
+        "$type": "dimension",
+        "width": { "$value": { "value": 84, "unit": "px" } },
+        "height": { "$value": { "value": 84, "unit": "px" } },
+        "wide-width": { "$value": { "value": 180, "unit": "px" } }
+      }
+    },
+    "text": {
+      "$description": "The name in a filled slot.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToySlotText", "class": "Label", "on": ["ToySlot", "ToySlotActive"] },
+          "context": "dark"
+        }
+      },
+      "label": { "$type": "typography", "$value": "{type.caption}" },
+      "normal": {
+        "font-color": { "$type": "color", "$value": "{color.on-dark.text}" }
+      }
+    },
+    "text-empty": {
+      "$description": "The muted word in an empty slot.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToySlotTextEmpty", "class": "Label", "on": ["ToySlot", "ToySlotActive"] },
+          "context": "dark"
+        }
+      },
+      "label": { "$type": "typography", "$value": "{type.caption}" },
+      "normal": {
+        "font-color": { "$type": "color", "$value": "{color.on-dark.text-muted}" }
+      }
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "mic": {
+    "$description": "The voice chat mic badge.",
+    "plate": {
+      "$description": "The mic badge: a round plate; the icon is tinted on or off.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyMic", "class": "PanelContainer" },
+          "context": "dark"
+        }
+      },
+      "panel": {
+        "bg-color": { "$type": "color", "$value": "{color.surface.plate}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
+        "content-margin": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } }
+      },
+      "size": {
+        "$type": "dimension",
+        "width": { "$value": { "value": 46, "unit": "px" } },
+        "height": { "$value": { "value": 46, "unit": "px" } }
+      },
+      "items": {
+        "icon-on": { "$type": "color", "$value": "{color.on-dark.text}" },
+        "icon-off": { "$type": "color", "$value": "{color.status.alert}" }
+      }
+    }
+  }
+}

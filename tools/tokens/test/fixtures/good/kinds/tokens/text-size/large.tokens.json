@@ -1,0 +1,32 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "font": {
+    "size": {
+      "$description": "Large text (proposal).",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "proposal": true
+        }
+      },
+      "$type": "dimension",
+      "small": {
+        "$value": {
+          "value": 25,
+          "unit": "px"
+        }
+      },
+      "body": {
+        "$value": {
+          "value": 28,
+          "unit": "px"
+        }
+      },
+      "hero": {
+        "$value": {
+          "value": 96,
+          "unit": "px"
+        }
+      }
+    }
+  }
+}

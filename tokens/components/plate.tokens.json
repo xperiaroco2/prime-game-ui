@@ -1,0 +1,70 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "plate": {
+    "$description": "HUD plates on the dark world.",
+    "default": {
+      "$description": "A HUD plate: the translucent plate.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyPlate", "class": "PanelContainer" },
+          "context": "dark"
+        }
+      },
+      "panel": {
+        "bg-color": { "$type": "color", "$value": "{color.surface.plate}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.large}" },
+        "content-margin-block": { "$type": "dimension", "$value": { "value": 10, "unit": "px" } },
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 18, "unit": "px" } }
+      }
+    },
+    "night": {
+      "$description": "A solid night plate.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyPlateNight", "class": "PanelContainer" },
+          "context": "dark"
+        }
+      },
+      "panel": {
+        "bg-color": { "$type": "color", "$value": "{color.surface.night-plate}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.large}" },
+        "content-margin-block": { "$type": "dimension", "$value": { "value": 10, "unit": "px" } },
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 18, "unit": "px" } }
+      }
+    },
+    "alert": {
+      "$description": "An alert plate: a coral outline.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyPlateAlert", "class": "PanelContainer" },
+          "context": "dark"
+        }
+      },
+      "panel": {
+        "bg-color": { "$type": "color", "$value": "{color.surface.plate}" },
+        "border-color": { "$type": "color", "$value": "{color.status.alert}" },
+        "border-width": { "$type": "dimension", "$value": "{stroke.surface}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.large}" },
+        "content-margin-block": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } },
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 22, "unit": "px" } }
+      }
+    },
+    "text": {
+      "$description": "The text on a plate.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": {
+            "variation": "ToyPlateText",
+            "class": "Label",
+            "on": ["ToyPlate", "ToyPlateNight", "ToyPlateAlert"]
+          },
+          "context": "dark"
+        }
+      },
+      "label": { "$type": "typography", "$value": "{type.body}" },
+      "normal": {
+        "font-color": { "$type": "color", "$value": "{color.on-dark.text}" }
+      }
+    }
+  }
+}

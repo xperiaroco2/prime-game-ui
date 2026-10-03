@@ -1,0 +1,114 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "bar": {
+    "$description": "Bars: the HUD track with a fill-only bar inside, task progress and the slider track.",
+    "track": {
+      "$description": "The HUD bar track: dark fill, ink outline; its content margin insets the fill.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyBarTrack", "class": "PanelContainer" },
+          "context": "dark"
+        }
+      },
+      "panel": {
+        "bg-color": { "$type": "color", "$value": "{palette.track-dark}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
+        "corner-radius": { "$type": "dimension", "$value": { "value": 10, "unit": "px" } },
+        "content-margin": { "$type": "dimension", "$value": { "value": 3, "unit": "px" } }
+      },
+      "size": {
+        "$type": "dimension",
+        "height": { "$value": { "value": 16, "unit": "px" } }
+      }
+    },
+    "stamina": {
+      "$description": "The stamina fill: the toy yellow.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyBarStamina", "class": "ProgressBar", "on": ["ToyBarTrack"] },
+          "context": "dark"
+        }
+      },
+      "fill": {
+        "bg-color": { "$type": "color", "$value": "{color.status.stamina}" },
+        "corner-radius": { "$type": "dimension", "$value": { "value": 6, "unit": "px" } },
+        "content-margin-block": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } },
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } }
+      }
+    },
+    "health": {
+      "$description": "The health fill: white, tinted by the nearest of 21 ramp stops at draw time.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyBarHealth", "class": "ProgressBar", "on": ["ToyBarTrack"] },
+          "context": "dark"
+        }
+      },
+      "fill": {
+        "bg-color": { "$type": "color", "$value": "{palette.white}" },
+        "corner-radius": { "$type": "dimension", "$value": { "value": 6, "unit": "px" } },
+        "content-margin-block": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } },
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } }
+      },
+      "ramp": {
+        "full": { "$type": "color", "$value": "{color.status.health-full}" },
+        "empty": { "$type": "color", "$value": "{color.status.health-empty}" },
+        "steps": { "$type": "number", "$value": 20 }
+      }
+    },
+    "progress": {
+      "$description": "Task progress on dark: a mint fill on the dark track.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyBarProgress", "class": "ProgressBar" },
+          "context": "dark"
+        }
+      },
+      "background": {
+        "bg-color": { "$type": "color", "$value": "{palette.track-dark}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
+        "content-margin-block": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } },
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } }
+      },
+      "fill": {
+        "bg-color": { "$type": "color", "$value": "{color.status.progress}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" }
+      }
+    },
+    "slider": {
+      "$description": "Task progress and slider track in panels: an ink fill on the light track.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyBarSlider", "class": "ProgressBar" },
+          "context": "light"
+        }
+      },
+      "background": {
+        "bg-color": { "$type": "color", "$value": "{palette.track-light}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
+        "content-margin-block": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } },
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } }
+      },
+      "fill": {
+        "bg-color": { "$type": "color", "$value": "{color.outline}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" }
+      }
+    },
+    "label": {
+      "$description": "The small plate behind a HUD bar caption (its text is ToyHudCaption).",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyBarLabel", "class": "PanelContainer" },
+          "context": "dark"
+        }
+      },
+      "panel": {
+        "bg-color": { "$type": "color", "$value": "{color.surface.plate}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.small}" },
+        "content-margin-block": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } }
+      }
+    }
+  }
+}

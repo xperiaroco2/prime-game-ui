@@ -1,0 +1,7 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "duration": {
+    "$type": "duration",
+    "press": { "$description": "The press tween of a toy face.", "$value": { "value": 70, "unit": "ms" } }
+  }
+}

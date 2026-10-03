@@ -1,0 +1,110 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "text": {
+    "$description": "Text roles: Label variations.",
+    "on-dark": {
+      "$description": "Body text on dark.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyTextOnDark", "class": "Label" },
+          "context": "dark"
+        }
+      },
+      "label": { "$type": "typography", "$value": "{type.body}" },
+      "normal": {
+        "font-color": { "$type": "color", "$value": "{color.on-dark.text}" }
+      }
+    },
+    "muted-on-dark": {
+      "$description": "Muted text on dark.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyTextMutedOnDark", "class": "Label" },
+          "context": "dark"
+        }
+      },
+      "label": { "$type": "typography", "$value": "{type.body}" },
+      "normal": {
+        "font-color": { "$type": "color", "$value": "{color.on-dark.text-muted}" }
+      }
+    },
+    "title-on-dark": {
+      "$description": "A title on dark.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyTitleOnDark", "class": "Label" },
+          "context": "dark"
+        }
+      },
+      "label": { "$type": "typography", "$value": "{type.title}" },
+      "normal": {
+        "font-color": { "$type": "color", "$value": "{color.on-dark.title}" }
+      }
+    },
+    "on-light": {
+      "$description": "Body text on light.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyTextOnLight", "class": "Label" },
+          "context": "light"
+        }
+      },
+      "label": { "$type": "typography", "$value": "{type.body}" },
+      "normal": {
+        "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
+      }
+    },
+    "muted-on-light": {
+      "$description": "Muted text on light.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyTextMutedOnLight", "class": "Label" },
+          "context": "light"
+        }
+      },
+      "label": { "$type": "typography", "$value": "{type.body}" },
+      "normal": {
+        "font-color": { "$type": "color", "$value": "{color.on-light.text-muted}" }
+      }
+    },
+    "title-on-light": {
+      "$description": "A title on light.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyTitleOnLight", "class": "Label" },
+          "context": "light"
+        }
+      },
+      "label": { "$type": "typography", "$value": "{type.title}" },
+      "normal": {
+        "font-color": { "$type": "color", "$value": "{color.on-light.title}" }
+      }
+    },
+    "timer": {
+      "$description": "The round timer.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyTimer", "class": "Label" },
+          "context": "dark"
+        }
+      },
+      "label": { "$type": "typography", "$value": "{type.display}" },
+      "normal": {
+        "font-color": { "$type": "color", "$value": "{color.on-dark.title}" }
+      }
+    },
+    "hud-caption": {
+      "$description": "A HUD caption on a bar label or a plate chip.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyHudCaption", "class": "Label", "on": ["ToyBarLabel", "ToyChipPlate"] },
+          "context": "dark"
+        }
+      },
+      "label": { "$type": "typography", "$value": "{type.caption}" },
+      "normal": {
+        "font-color": { "$type": "color", "$value": "{color.on-dark.text}" }
+      }
+    }
+  }
+}

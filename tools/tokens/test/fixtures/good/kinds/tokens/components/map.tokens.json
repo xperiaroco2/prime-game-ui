@@ -1,0 +1,74 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "map": {
+    "pin": {
+      "$description": "A map pin.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": {
+            "variation": "ToyMapPin",
+            "class": "Panel"
+          },
+          "context": "light"
+        }
+      },
+      "panel": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{palette.yellow}"
+        },
+        "border-color": {
+          "$type": "color",
+          "$value": "{color.outline}"
+        },
+        "border-width": {
+          "$type": "dimension",
+          "$value": "{stroke.control}"
+        },
+        "corner-radius-top-left": {
+          "$type": "dimension",
+          "$value": {
+            "value": 0,
+            "unit": "px"
+          }
+        },
+        "corner-radius-top-right": {
+          "$type": "dimension",
+          "$value": {
+            "value": 14,
+            "unit": "px"
+          }
+        },
+        "corner-radius-bottom-right": {
+          "$type": "dimension",
+          "$value": {
+            "value": 14,
+            "unit": "px"
+          }
+        },
+        "corner-radius-bottom-left": {
+          "$type": "dimension",
+          "$value": {
+            "value": 14,
+            "unit": "px"
+          }
+        }
+      },
+      "size": {
+        "$type": "dimension",
+        "width": {
+          "$value": {
+            "value": 28,
+            "unit": "px"
+          }
+        },
+        "height": {
+          "$value": {
+            "value": 28,
+            "unit": "px"
+          }
+        }
+      }
+    }
+  }
+}

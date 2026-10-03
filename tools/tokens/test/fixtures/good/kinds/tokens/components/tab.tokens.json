@@ -1,0 +1,261 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "tab": {
+    "idle": {
+      "$description": "An idle tab.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": {
+            "variation": "ToyTab",
+            "class": "Button",
+            "parent": "ToyButton",
+            "toggle": {
+              "selected": "ToyTabSelected"
+            }
+          },
+          "context": "light"
+        }
+      },
+      "label": {
+        "$type": "typography",
+        "$value": "{type.body}"
+      },
+      "normal": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{palette.clear}"
+        },
+        "corner-radius": {
+          "$type": "dimension",
+          "$value": {
+            "value": 14,
+            "unit": "px"
+          }
+        },
+        "content-margin-block": {
+          "$type": "dimension",
+          "$value": {
+            "value": 10,
+            "unit": "px"
+          }
+        },
+        "content-margin-inline": {
+          "$type": "dimension",
+          "$value": {
+            "value": 16,
+            "unit": "px"
+          }
+        },
+        "font-color": {
+          "$type": "color",
+          "$value": "{color.on-light.text}"
+        }
+      },
+      "hover": {
+        "$description": "Hover (proposal).",
+        "$extensions": {
+          "io.github.xperiaroco2.prime-game": {
+            "proposal": true
+          }
+        },
+        "bg-color": {
+          "$type": "color",
+          "$value": "{color.state.hover-on-light}"
+        }
+      },
+      "pressed": {
+        "$description": "Held (proposal).",
+        "$extensions": {
+          "io.github.xperiaroco2.prime-game": {
+            "proposal": true
+          }
+        },
+        "bg-color": {
+          "$type": "color",
+          "$value": "{color.state.hover-on-light}"
+        }
+      },
+      "disabled": {
+        "$description": "Unplugged (proposal).",
+        "$extensions": {
+          "io.github.xperiaroco2.prime-game": {
+            "proposal": true
+          }
+        },
+        "font-color": {
+          "$type": "color",
+          "$value": "{color.state.disabled-ink}"
+        }
+      },
+      "focus": {
+        "$description": "Inner focus at the edge of a borderless tab (proposal).",
+        "$extensions": {
+          "io.github.xperiaroco2.prime-game": {
+            "proposal": true
+          }
+        },
+        "bg-color": {
+          "$type": "color",
+          "$value": "{palette.clear}"
+        },
+        "border-color": {
+          "$type": "color",
+          "$value": "{color.outline}"
+        },
+        "border-width": {
+          "$type": "dimension",
+          "$value": "{focus.width}"
+        },
+        "corner-radius": {
+          "$type": "dimension",
+          "$value": {
+            "value": 14,
+            "unit": "px"
+          }
+        },
+        "expand-margin": {
+          "$type": "dimension",
+          "$value": {
+            "value": 0,
+            "unit": "px"
+          }
+        }
+      }
+    },
+    "selected": {
+      "$description": "The selected tab: a merge-form base.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": {
+            "variation": "ToyTabSelected",
+            "class": "Button",
+            "parent": "ToyButton"
+          },
+          "context": "light"
+        }
+      },
+      "label": {
+        "$type": "typography",
+        "$value": "{type.body-bold}"
+      },
+      "normal": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{palette.yellow}"
+        },
+        "border-color": {
+          "$type": "color",
+          "$value": "{color.outline}"
+        },
+        "border-width-top": {
+          "$type": "dimension",
+          "$value": "{stroke.control}"
+        },
+        "border-width-right": {
+          "$type": "dimension",
+          "$value": "{stroke.control}"
+        },
+        "border-width-bottom": {
+          "$type": "dimension",
+          "$value": {
+            "value": 7,
+            "unit": "px"
+          }
+        },
+        "border-width-left": {
+          "$type": "dimension",
+          "$value": "{stroke.control}"
+        },
+        "corner-radius": {
+          "$type": "dimension",
+          "$value": {
+            "value": 14,
+            "unit": "px"
+          }
+        },
+        "content-margin-block": {
+          "$type": "dimension",
+          "$value": {
+            "value": 10,
+            "unit": "px"
+          }
+        },
+        "content-margin-inline": {
+          "$type": "dimension",
+          "$value": {
+            "value": 16,
+            "unit": "px"
+          }
+        },
+        "expand-margin-bottom": {
+          "$type": "dimension",
+          "$value": {
+            "value": 4,
+            "unit": "px"
+          }
+        },
+        "font-color": {
+          "$type": "color",
+          "$value": "{color.outline}"
+        }
+      },
+      "disabled": {
+        "$description": "Unplugged and flat (proposal).",
+        "$extensions": {
+          "io.github.xperiaroco2.prime-game": {
+            "proposal": true
+          }
+        },
+        "bg-color": {
+          "$type": "color",
+          "$value": "{color.state.disabled-face}"
+        },
+        "border-width": {
+          "$type": "dimension",
+          "$value": "{stroke.control}"
+        },
+        "expand-margin": {
+          "$type": "dimension",
+          "$value": {
+            "value": 0,
+            "unit": "px"
+          }
+        }
+      },
+      "focus": {
+        "$description": "Inner focus (proposal).",
+        "$extensions": {
+          "io.github.xperiaroco2.prime-game": {
+            "proposal": true
+          }
+        },
+        "bg-color": {
+          "$type": "color",
+          "$value": "{palette.clear}"
+        },
+        "border-color": {
+          "$type": "color",
+          "$value": "{color.outline}"
+        },
+        "border-width": {
+          "$type": "dimension",
+          "$value": "{focus.width}"
+        },
+        "corner-radius": {
+          "$type": "dimension",
+          "$value": {
+            "value": 11,
+            "unit": "px"
+          }
+        },
+        "expand-margin": {
+          "$type": "dimension",
+          "$value": {
+            "value": -3,
+            "unit": "px"
+          }
+        }
+      }
+    }
+  }
+}

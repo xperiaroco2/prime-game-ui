@@ -1,0 +1,176 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "keycap": {
+    "$description": "Keycaps: a face with a thick bottom edge.",
+    "on-dark": {
+      "$description": "A keycap on dark: cream face, keyshade edge.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyKeyOnDark", "class": "PanelContainer" },
+          "context": "dark"
+        }
+      },
+      "panel": {
+        "bg-color": { "$type": "color", "$value": "{palette.cream}" },
+        "border-color": { "$type": "color", "$value": "{palette.keyshade}" },
+        "border-width-top": { "$type": "dimension", "$value": "{stroke.thin}" },
+        "border-width-right": { "$type": "dimension", "$value": "{stroke.thin}" },
+        "border-width-bottom": { "$type": "dimension", "$value": "{stroke.bold}" },
+        "border-width-left": { "$type": "dimension", "$value": "{stroke.thin}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.small}" },
+        "content-margin-top": { "$type": "dimension", "$value": { "value": 2, "unit": "px" } },
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 10, "unit": "px" } },
+        "content-margin-bottom": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } }
+      },
+      "size": {
+        "$type": "dimension",
+        "min-width": { "$value": { "value": 36, "unit": "px" } },
+        "wide-min-width": {
+          "$value": { "value": 96, "unit": "px" },
+          "$description": "The wide keycap's minimum width (proposal).",
+          "$extensions": { "io.github.xperiaroco2.prime-game": { "proposal": true } }
+        }
+      }
+    },
+    "on-light": {
+      "$description": "A keycap on light: white face, ink edge.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyKeyOnLight", "class": "PanelContainer" },
+          "context": "light"
+        }
+      },
+      "panel": {
+        "bg-color": { "$type": "color", "$value": "{palette.white}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-width-top": { "$type": "dimension", "$value": "{stroke.thin}" },
+        "border-width-right": { "$type": "dimension", "$value": "{stroke.thin}" },
+        "border-width-bottom": { "$type": "dimension", "$value": "{stroke.bold}" },
+        "border-width-left": { "$type": "dimension", "$value": "{stroke.thin}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.small}" },
+        "content-margin-top": { "$type": "dimension", "$value": { "value": 2, "unit": "px" } },
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 10, "unit": "px" } },
+        "content-margin-bottom": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } }
+      },
+      "size": {
+        "$type": "dimension",
+        "min-width": { "$value": { "value": 36, "unit": "px" } },
+        "wide-min-width": {
+          "$value": { "value": 96, "unit": "px" },
+          "$description": "The wide keycap's minimum width (proposal).",
+          "$extensions": { "io.github.xperiaroco2.prime-game": { "proposal": true } }
+        }
+      }
+    },
+    "quiet": {
+      "$description": "A dim keycap: pale face, muted edge.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyKeyQuiet", "class": "PanelContainer" },
+          "context": "light"
+        }
+      },
+      "panel": {
+        "bg-color": { "$type": "color", "$value": "{palette.key-quiet}" },
+        "border-color": { "$type": "color", "$value": "{palette.muted}" },
+        "border-width-top": { "$type": "dimension", "$value": "{stroke.thin}" },
+        "border-width-right": { "$type": "dimension", "$value": "{stroke.thin}" },
+        "border-width-bottom": { "$type": "dimension", "$value": "{stroke.bold}" },
+        "border-width-left": { "$type": "dimension", "$value": "{stroke.thin}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.small}" },
+        "content-margin-top": { "$type": "dimension", "$value": { "value": 2, "unit": "px" } },
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 10, "unit": "px" } },
+        "content-margin-bottom": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } }
+      },
+      "size": {
+        "$type": "dimension",
+        "min-width": { "$value": { "value": 36, "unit": "px" } },
+        "wide-min-width": {
+          "$value": { "value": 96, "unit": "px" },
+          "$description": "The wide keycap's minimum width (proposal).",
+          "$extensions": { "io.github.xperiaroco2.prime-game": { "proposal": true } }
+        }
+      }
+    },
+    "round": {
+      "$description": "A round keycap (the map's \"?\").",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyKeyRound", "class": "PanelContainer" },
+          "context": "light"
+        }
+      },
+      "panel": {
+        "bg-color": { "$type": "color", "$value": "{palette.white}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-width-top": { "$type": "dimension", "$value": "{stroke.thin}" },
+        "border-width-right": { "$type": "dimension", "$value": "{stroke.thin}" },
+        "border-width-bottom": { "$type": "dimension", "$value": "{stroke.bold}" },
+        "border-width-left": { "$type": "dimension", "$value": "{stroke.thin}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
+        "content-margin-top": { "$type": "dimension", "$value": { "value": 2, "unit": "px" } },
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 10, "unit": "px" } },
+        "content-margin-bottom": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } }
+      },
+      "size": {
+        "$type": "dimension",
+        "min-width": { "$value": { "value": 36, "unit": "px" } }
+      }
+    },
+    "round-quiet": {
+      "$description": "A dim round keycap.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyKeyRoundQuiet", "class": "PanelContainer" },
+          "context": "light"
+        }
+      },
+      "panel": {
+        "bg-color": { "$type": "color", "$value": "{palette.key-quiet}" },
+        "border-color": { "$type": "color", "$value": "{palette.muted}" },
+        "border-width-top": { "$type": "dimension", "$value": "{stroke.thin}" },
+        "border-width-right": { "$type": "dimension", "$value": "{stroke.thin}" },
+        "border-width-bottom": { "$type": "dimension", "$value": "{stroke.bold}" },
+        "border-width-left": { "$type": "dimension", "$value": "{stroke.thin}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
+        "content-margin-top": { "$type": "dimension", "$value": { "value": 2, "unit": "px" } },
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 10, "unit": "px" } },
+        "content-margin-bottom": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } }
+      },
+      "size": {
+        "$type": "dimension",
+        "min-width": { "$value": { "value": 36, "unit": "px" } }
+      }
+    },
+    "text": {
+      "$description": "The key name on a keycap.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": {
+            "variation": "ToyKeyText",
+            "class": "Label",
+            "on": ["ToyKeyOnDark", "ToyKeyOnLight", "ToyKeyRound"]
+          },
+          "context": "any"
+        }
+      },
+      "label": { "$type": "typography", "$value": "{type.body-bold}" },
+      "normal": {
+        "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
+      }
+    },
+    "quiet-text": {
+      "$description": "The key name on a dim keycap.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyKeyQuietText", "class": "Label", "on": ["ToyKeyQuiet", "ToyKeyRoundQuiet"] },
+          "context": "light"
+        }
+      },
+      "label": { "$type": "typography", "$value": "{type.body-bold}" },
+      "normal": {
+        "font-color": { "$type": "color", "$value": "{palette.muted}" }
+      }
+    }
+  }
+}

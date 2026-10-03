@@ -1,0 +1,25 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/resolver.json",
+  "name": "fixture",
+  "version": "2025.06",
+  "sets": {
+    "base": {
+      "sources": [
+        {
+          "$ref": "primitives.tokens.json"
+        },
+        {
+          "$ref": "semantic.tokens.json"
+        },
+        {
+          "$ref": "components/button.tokens.json"
+        }
+      ]
+    }
+  },
+  "resolutionOrder": [
+    {
+      "$ref": "#/sets/base"
+    }
+  ]
+}

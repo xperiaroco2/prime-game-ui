@@ -1,0 +1,93 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "setting": {
+    "$description": "Setting rows and the stepper.",
+    "row": {
+      "$description": "A setting row: white, with a row-line underline.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToySettingRow", "class": "PanelContainer" },
+          "context": "light"
+        }
+      },
+      "panel": {
+        "bg-color": { "$type": "color", "$value": "{palette.white}" },
+        "border-color": { "$type": "color", "$value": "{palette.row-line}" },
+        "border-width-top": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "border-width-right": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "border-width-bottom": { "$type": "dimension", "$value": "{stroke.control}" },
+        "border-width-left": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.medium}" },
+        "content-margin-top": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } },
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } },
+        "content-margin-bottom": { "$type": "dimension", "$value": { "value": 9, "unit": "px" } }
+      }
+    },
+    "text": {
+      "$description": "The setting name.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToySettingRowText", "class": "Label", "on": ["ToySettingRow"] },
+          "context": "light"
+        }
+      },
+      "label": { "$type": "typography", "$value": "{type.body}" },
+      "normal": {
+        "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
+      }
+    },
+    "value": {
+      "$description": "The setting value.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToySettingRowValue", "class": "Label", "on": ["ToySettingRow"] },
+          "context": "light"
+        }
+      },
+      "label": { "$type": "typography", "$value": "{type.body-bold}" },
+      "normal": {
+        "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
+      }
+    },
+    "stepper": {
+      "$description": "A small yellow stepper button (minus and plus).",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyStepper", "class": "Button", "parent": "ToyButton" },
+          "context": "light"
+        }
+      },
+      "label": { "$type": "typography", "$value": "{type.body-bold}" },
+      "normal": {
+        "bg-color": { "$type": "color", "$value": "{palette.yellow}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-width": { "$type": "dimension", "$value": "{stroke.thin}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
+        "content-margin-block": { "$type": "dimension", "$value": { "value": 2, "unit": "px" } },
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 10, "unit": "px" } },
+        "font-color": { "$type": "color", "$value": "{color.on-accent.text}" }
+      },
+      "pressed": {
+        "$description": "Held: the face turns honey (proposal).",
+        "$extensions": { "io.github.xperiaroco2.prime-game": { "proposal": true } },
+        "bg-color": { "$type": "color", "$value": "{color.state.held-accent}" }
+      },
+      "disabled": {
+        "$description": "Unplugged at min, at max, or for a guest: pale and quiet (proposal).",
+        "$extensions": { "io.github.xperiaroco2.prime-game": { "proposal": true } },
+        "bg-color": { "$type": "color", "$value": "{color.state.disabled-face}" },
+        "border-color": { "$type": "color", "$value": "{color.state.disabled-ink}" },
+        "font-color": { "$type": "color", "$value": "{color.state.disabled-ink}" }
+      },
+      "focus": {
+        "$description": "Outer focus: a ring of the focus width, the focus gap outside the outline (proposal).",
+        "$extensions": { "io.github.xperiaroco2.prime-game": { "proposal": true } },
+        "bg-color": { "$type": "color", "$value": "{palette.clear}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-width": { "$type": "dimension", "$value": "{focus.width}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
+        "expand-margin": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } }
+      }
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "font": {
+    "size": {
+      "$type": "dimension",
+      "$description": "Text sizes at the default text-size setting, px at the 1920x1080 reference.",
+      "caption": { "$value": { "value": 18, "unit": "px" } },
+      "small": { "$value": { "value": 20, "unit": "px" } },
+      "body": { "$value": { "value": 22, "unit": "px" } },
+      "body-large": { "$value": { "value": 24, "unit": "px" } },
+      "heading": { "$value": { "value": 28, "unit": "px" } },
+      "title": { "$value": { "value": 36, "unit": "px" } },
+      "display": { "$value": { "value": 48, "unit": "px" } },
+      "display-large": { "$value": { "value": 64, "unit": "px" } },
+      "hero": { "$value": { "value": 96, "unit": "px" } }
+    }
+  }
+}

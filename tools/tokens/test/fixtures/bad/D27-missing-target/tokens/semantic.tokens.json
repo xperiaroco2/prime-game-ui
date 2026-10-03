@@ -1,0 +1,15 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "color": {
+    "$type": "color",
+    "outline": {
+      "$value": "{palette.ink}"
+    },
+    "panel": {
+      "$value": "{palette.cream}"
+    },
+    "extra": {
+      "$value": "{palette.nope}"
+    }
+  }
+}

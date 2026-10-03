@@ -1,0 +1,216 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "pick": {
+    "radio": {
+      "$description": "A radio.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": {
+            "variation": "ToyRadio",
+            "class": "Button",
+            "parent": "ToyButton",
+            "toggle": {
+              "selected": "ToyRadioSelected"
+            }
+          },
+          "context": "light"
+        }
+      },
+      "label": {
+        "$type": "typography",
+        "$value": "{type.small}"
+      },
+      "normal": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{palette.white}"
+        },
+        "border-color": {
+          "$type": "color",
+          "$value": "{color.outline}"
+        },
+        "border-width": {
+          "$type": "dimension",
+          "$value": "{stroke.thin}"
+        },
+        "corner-radius": {
+          "$type": "dimension",
+          "$value": "{radius.pill}"
+        },
+        "content-margin": {
+          "$type": "dimension",
+          "$value": {
+            "value": 0,
+            "unit": "px"
+          }
+        },
+        "font-color": {
+          "$type": "color",
+          "$value": "{color.on-light.text}"
+        }
+      },
+      "disabled": {
+        "$description": "Unplugged (proposal).",
+        "$extensions": {
+          "io.github.xperiaroco2.prime-game": {
+            "proposal": true
+          }
+        },
+        "bg-color": {
+          "$type": "color",
+          "$value": "{color.state.disabled-face}"
+        }
+      },
+      "focus": {
+        "$description": "Outer focus ring (proposal).",
+        "$extensions": {
+          "io.github.xperiaroco2.prime-game": {
+            "proposal": true
+          }
+        },
+        "bg-color": {
+          "$type": "color",
+          "$value": "{palette.clear}"
+        },
+        "border-color": {
+          "$type": "color",
+          "$value": "{color.outline}"
+        },
+        "border-width": {
+          "$type": "dimension",
+          "$value": "{focus.width}"
+        },
+        "corner-radius": {
+          "$type": "dimension",
+          "$value": "{radius.pill}"
+        },
+        "expand-margin": {
+          "$type": "dimension",
+          "$value": {
+            "value": 5,
+            "unit": "px"
+          }
+        }
+      },
+      "size": {
+        "$type": "dimension",
+        "width": {
+          "$value": {
+            "value": 26,
+            "unit": "px"
+          }
+        },
+        "height": {
+          "$value": {
+            "value": 26,
+            "unit": "px"
+          }
+        }
+      }
+    },
+    "radio-selected": {
+      "$description": "A selected radio.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": {
+            "variation": "ToyRadioSelected",
+            "class": "Button",
+            "parent": "ToyButton"
+          },
+          "context": "light"
+        }
+      },
+      "label": {
+        "$type": "typography",
+        "$value": "{type.small}"
+      },
+      "normal": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{palette.yellow}"
+        },
+        "border-color": {
+          "$type": "color",
+          "$value": "{color.outline}"
+        },
+        "border-width": {
+          "$type": "dimension",
+          "$value": "{stroke.thin}"
+        },
+        "corner-radius": {
+          "$type": "dimension",
+          "$value": "{radius.pill}"
+        },
+        "content-margin": {
+          "$type": "dimension",
+          "$value": {
+            "value": 0,
+            "unit": "px"
+          }
+        },
+        "font-color": {
+          "$type": "color",
+          "$value": "{color.on-light.text}"
+        }
+      },
+      "disabled": {
+        "$description": "Unplugged (proposal).",
+        "$extensions": {
+          "io.github.xperiaroco2.prime-game": {
+            "proposal": true
+          }
+        },
+        "bg-color": {
+          "$type": "color",
+          "$value": "{color.state.disabled-face}"
+        }
+      },
+      "focus": {
+        "$description": "Outer focus ring (proposal).",
+        "$extensions": {
+          "io.github.xperiaroco2.prime-game": {
+            "proposal": true
+          }
+        },
+        "bg-color": {
+          "$type": "color",
+          "$value": "{palette.clear}"
+        },
+        "border-color": {
+          "$type": "color",
+          "$value": "{color.outline}"
+        },
+        "border-width": {
+          "$type": "dimension",
+          "$value": "{focus.width}"
+        },
+        "corner-radius": {
+          "$type": "dimension",
+          "$value": "{radius.pill}"
+        },
+        "expand-margin": {
+          "$type": "dimension",
+          "$value": {
+            "value": 5,
+            "unit": "px"
+          }
+        }
+      },
+      "size": {
+        "$type": "dimension",
+        "width": {
+          "$value": {
+            "value": 26,
+            "unit": "px"
+          }
+        },
+        "height": {
+          "$value": {
+            "value": 26,
+            "unit": "px"
+          }
+        }
+      }
+    }
+  }
+}
