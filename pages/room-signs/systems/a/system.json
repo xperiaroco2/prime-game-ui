@@ -1,0 +1,102 @@
+{
+  "id": "a",
+  "name_en": "Stamps",
+  "name_uk": "Штампи",
+  "pitch_uk": "Кожна кімната має один впізнаваний силует сливовим чорнилом на кремовій плитці, і той самий штамп стоїть на коробці, на дверях, на стійці місця доставки та на мапі.",
+  "angle": "ground.md section 4, angle A: one code only, the silhouette. No colour per room, no frame shape per room, no 3D landmark.",
+  "grid": {
+    "artboard": "64 x 64 units, live area 4..60 (56 units); viewBox 0 0 64 64",
+    "minimum": "every stroke, gap and counter is at least 6 units (2.25 px at 24 px, 1.4 px at 15 px); bars are 7 to 9 units; corner radius 3 to 6",
+    "fill": "filled silhouettes in one ink, counters cut out (fill-rule evenodd), transparent background, so Godot can tint them with modulate",
+    "rule": "the outer outline alone names the room (the 10 m case); counters and bubbles only confirm it up close (inner details of 9 units or more, up to about 5 m)",
+    "face": "faces/<id>.svg: 90 x 90 units = 0.45 m package face, 1 unit = 5 mm; a square ink frame of 4 units, a cream panel with radius 10, the 64-unit icon at 13..77, so the icon field is 0.32 m as in ground.md",
+    "source": "build.js writes every SVG from its geometry (node 20, no packages); edit the numbers there and rerun, never hand-edit the SVGs"
+  },
+  "rooms": [
+    { "id": "storage", "name_uk": "Склад", "name_en": "Storage", "icon": "icons/storage.svg", "face": "faces/storage.svg", "colour": null, "shape": "the common square plate", "silhouette": "three solid crates in a stepped pyramid, no hand holes (separate blocks, unlike the one-block rack)", "takes_deliveries": false, "on_packages": false },
+    { "id": "hall", "name_uk": "Хол", "name_en": "Hall", "icon": "icons/hall.svg", "face": "faces/hall.svg", "colour": null, "shape": "the common square plate", "silhouette": "a station clock: a thick ring with the hands at three o'clock; the only hollow shape of the set", "takes_deliveries": false, "on_packages": false },
+    { "id": "kitchen", "name_uk": "Кухня", "name_en": "Kitchen", "icon": "icons/kitchen.svg", "face": "faces/kitchen.svg", "colour": null, "shape": "the common square plate", "silhouette": "a chef's hat: a tall three-bump puff over a narrower band, taller than wide (46 x 57 units); no drink, so it stays apart from the lounge", "takes_deliveries": true, "on_packages": true },
+    { "id": "lab", "name_uk": "Лабораторія", "name_en": "Lab", "icon": "icons/lab.svg", "face": "faces/lab.svg", "colour": null, "shape": "the common square plate", "silhouette": "a conical flask with a lipped neck and two bubbles; no cross or anything medical", "takes_deliveries": true, "on_packages": true },
+    { "id": "office", "name_uk": "Офіс", "name_en": "Office", "icon": "icons/office.svg", "face": "faces/office.svg", "colour": null, "shape": "the common square plate", "silhouette": "a desk lamp: base, two arms, a head pointing down; the only zigzag of the set", "takes_deliveries": true, "on_packages": true },
+    { "id": "lounge", "name_uk": "Кімната відпочинку", "name_en": "Lounge", "icon": "icons/lounge.svg", "face": "faces/lounge.svg", "colour": null, "shape": "the common square plate", "silhouette": "a sofa: back, two arms, seat and legs; the widest, lowest shape (56 x 34 units)", "takes_deliveries": true, "on_packages": true },
+    { "id": "workshop", "name_uk": "Майстерня", "name_en": "Workshop", "icon": "icons/workshop.svg", "face": "faces/workshop.svg", "colour": null, "shape": "the common square plate", "silhouette": "a hammer and a spanner crossed: the only X", "takes_deliveries": true, "on_packages": true, "optional": true },
+    { "id": "server", "name_uk": "Серверна", "name_en": "Server room", "icon": "icons/server.svg", "face": "faces/server.svg", "colour": null, "shape": "the common square plate", "silhouette": "a solid upright rack on two feet: one block with three units, each a slot and a light", "takes_deliveries": true, "on_packages": true, "optional": true }
+  ],
+  "shared_files": {
+    "plate.svg": "the plate alone (frame and panel), for the door plate, the stand and the spot pad when the stamp is drawn on separately",
+    "faces/": "plate + stamp in one texture per room: what the package, the door plate, the stand and the pad import",
+    "icons/": "the stamp alone: the map tile and any 2D use"
+  },
+  "colours": {
+    "introduced": "none; two token colours carry the whole system",
+    "used": {
+      "stamp, frame, post, plate body": "palette.ink #2a1f33 (color.outline)",
+      "panel of the plate, package faces, spot pad": "palette.cream #fff4e2 (color.surface.panel)",
+      "map": "the existing map tokens only: map.room.panel (cream, ink 3 px, radius 12), map.board.panel (lavender), map.zone.panel (yellow, hover only)"
+    },
+    "contrast_wcag": {
+      "tool": "formulas of tools/a11y/contrast.js (ratio) and tools/a11y/cvd.js (Machado 2009 simulation, CIEDE2000), loaded unchanged in a scratch script since neither takes arguments",
+      "ink on cream (stamp on its plate)": "14.37:1",
+      "ink on zone yellow (stamp on a hover-lit map tile)": "9.71:1",
+      "ink on lavender board (room tile border on the map)": "12.13:1",
+      "cream on lavender board": "1.19:1, never alone: the room tile's 3 px ink border separates them (12.13:1 and 14.37:1)",
+      "cream on zone yellow": "1.48:1, never alone: the same ink border",
+      "lit in 3D (light multiplies linear RGB by k)": { "k 1": "14.37:1", "k 0.5": "8.66:1", "k 0.25": "5.13:1", "k 0.1": "2.74:1", "k 0.05": "1.88:1", "note": "door plates and stands go where the light is at least a quarter of full; tone mapping and exposure change the exact figures (unconfirmed)" }
+    }
+  },
+  "placements": {
+    "package": {
+      "what": "the room's face tile on all six faces of the 0.45 m box. Adjacent faces' 4-unit frames meet at the edges as a 4 cm plum line, Toy's thick outline in 3D. The stamp field is 0.32 m: about 185 px when carried, 45 px at 5 m, 23 px at 10 m at 1080p (ground.md section 3). The top face matters most: the carrier sees it 35 degrees below the eye line.",
+      "godot": "the package's existing MeshInstance3D with BoxMesh size 0.45; StandardMaterial3D: albedo_texture = faces/<id>.svg imported with svg/scale 4 (360 px), compress mode Lossless or VRAM Uncompressed, mipmaps on; uv1_scale = Vector3(3, 2, 1), which the BoxMesh reference gives for the same texture on every face (https://docs.godotengine.org/en/4.7/classes/class_boxmesh.html); texture_filter LINEAR_WITH_MIPMAPS_ANISOTROPIC; roughness 1 (matte, the non-glare finish of the US Access Board rules). Shaded like the scene: never unshaded or emissive.",
+      "check_in_godot": "how BoxMesh orients each face's UVs is unconfirmed: the top face must read upright from the carrier and no face may be mirrored; if not, an ArrayMesh with its own UVs (tooling in prime-game)",
+      "vram": "360 x 360 RGBA with mipmaps is about 0.69 MB per room, about 4.1 MB for six destination rooms",
+      "not_used": "Decal (would paint hands), Sprite3D billboard (floats like a marker), Label3D icon font (not needed: the texture stays sharp with mipmaps)"
+    },
+    "door": {
+      "what": "one 0.50 m square plate per door, 4 cm thick, ink body, the face tile on both sides (stamp field 0.36 m: about 25 px at 10 m and 17 px at 15 m at 1080p). A door on a corridor gets a projecting blade plate, perpendicular to the wall beside the latch side of the frame, bottom edge 2.0 m above the floor, so it reads from both ends of the corridor and over other players' heads. A door seen head-on across an open hall gets the same plate flush over the lintel. Nothing on the door leaf.",
+      "godot": "a RoomSign scene: Node3D with a MeshInstance3D BoxMesh(0.5, 0.5, 0.04) in ink and two MeshInstance3D QuadMesh(0.5, 0.5), one per side, 1 mm proud, each with the face texture (two quads so neither side is mirrored). Depth test on, billboard off, no fixed_size."
+    },
+    "map_room_tile": {
+      "what": "each room on the map is the existing map.room panel (cream, ink 3 px, radius 12) with its stamp, 32 px at the 1920 x 1080 base (21 px at 720p), above the room name (map.room-text, caption bold). Every room's stamp is shown all the time, at the same size. Hover-lit zones turn the tile zone yellow; the ink stamp stays 9.71:1.",
+      "godot": "PanelContainer with the map.room StyleBoxFlat > VBoxContainer > TextureRect (custom_minimum_size 32 x 32, expand_mode ignore size, stretch_mode STRETCH_KEEP_ASPECT_CENTERED; icons/<id>.svg as a DPITexture if #287 adopts it, else imported at svg/scale 1 (64 px) and drawn at 32) + Label"
+    },
+    "delivery_spot": {
+      "what": "the same in every room, only the stamp changes: a 1.2 m square cream pad with the face tile printed on it, and at its back edge a stand, an ink post with the door's 0.5 m plate centred 1.3 m above the floor, facing the room's main entrance. The stand reads from across the room; the pad confirms up close (a floor sign foreshortens, ground.md section 3). If a room has one spot for several packages (open question 1), the pad is 2.4 x 1.2 m with one stand.",
+      "godot": "a DeliverySpot scene: MeshInstance3D QuadMesh(1.2, 1.2) lying flat with the face texture (no Decal, so nothing else gets painted) + MeshInstance3D CylinderMesh post in ink + the RoomSign scene on top. The receiving area and its rules stay in #255's code."
+    },
+    "hud_hand_slot": "proposal: no stamp in the slot; the box's top face already shows it at about 185 px while carried (open question 4 of ground.md, the engineer's call)"
+  },
+  "colour_blind": {
+    "story": "Nothing in A depends on hue. A room is told by its outline; the stamp and its plate are ink and cream, a lightness pair that every vision keeps apart. Packages stay colourless as decided.",
+    "ink_cream_ciede2000": { "normal": 80.7, "protan": 80.4, "deutan": 80.0, "tritan": 77.6, "greyscale": 78.0 },
+    "ink_zone_yellow_ciede2000": { "normal": 78.7, "protan": 74.2, "deutan": 79.6, "tritan": 65.5, "greyscale": 67.1 },
+    "weak_pairs": "cream/lavender is 4.9 under tritan and 4.0 in greyscale, cream/zone 9.3 in greyscale (cvd.js thresholds: under 10 confusable); these are surfaces of the existing map tokens, always split by the room tile's ink border, and carry no room information"
+  },
+  "squint_test": {
+    "method": "squint check 2026-10-04 (scratch, not in the repo): each sign rasterised in headless Edge canvas at 24 px sharp, at 24 px with a Gaussian blur of sigma 1.5 px and at 16 px with sigma 1 px; distance = sum |a - b| / sum max(a, b) over the coverage masks (0 same, 1 no overlap); floor = a sign against itself shifted 1 px.",
+    "results": {
+      "24 px sharp": { "floor": 0.250, "closest_8": "storage/lab 0.471, kitchen/server 0.485, lab/server 0.542", "closest_destinations": "kitchen/server 0.485" },
+      "24 px blurred": { "floor": 0.187, "closest_8": "storage/lab 0.388, kitchen/server 0.403, hall/server 0.428", "closest_destinations": "kitchen/server 0.403, lab/server 0.430" },
+      "16 px blurred": { "floor": 0.246, "closest_8": "storage/lab 0.371, kitchen/server 0.386, lab/server 0.397", "closest_destinations": "kitchen/server 0.386" },
+      "review pairs, 24 px blurred, before and after": "kitchen/lounge 0.417 to 0.575, storage/server 0.400 to 0.442, storage/lounge 0.413 to 0.574, kitchen/server 0.366 to 0.403"
+    },
+    "changes_it_made": "the hall clock became a ring (a solid disc was 0.283 from the chef's hat at 15 px; the ring lifts it off the closest list), and the rack was widened to 44 units (0.328 to 0.351 against the flask); after the 2026-10-04 review the crates lost their hand holes (a stepped pyramid), the rack became one upright block on feet, the hat taller and narrower and the sofa lower and wider",
+    "limit": "a pixel metric, not people: before the look is final, five people should name each stamp at a squint (ISO 9186-1 is the method for comprehension tests, https://www.iso.org/standard/59226.html)"
+  },
+  "not_a_destination_marker": [
+    "Static: a stamp never glows, blinks, changes colour or plays a sound, whatever anyone carries; its materials are shaded, so in a dark corner it is as dim as the wall.",
+    "In the world only: depth-tested meshes, no billboard, no fixed_size, no no_depth_test; never on the HUD or at the screen edge.",
+    "The map shows every room's stamp all the time at one size; nothing on the map changes when a package is picked up.",
+    "A package shows one stamp, on its own faces only; the storage and hall stamps never appear on a package.",
+    "Rooms, not routes: no arrows; stamps only at doors, at spots and on the map.",
+    "At most three per room: one plate per door, the spot's stand and its pad.",
+    "Quieter than LOCKDOWN Protocol: one code instead of icon plus banner colour plus a light at the spot."
+  ],
+  "costs_and_risks": [
+    "Cheapest system: 8 icons, 8 generated faces, one plate, two scenes (RoomSign, DeliverySpot) reused in every room, no new tokens.",
+    "It lives or dies by silhouettes: one code means no backup cue when a stamp is misread at 10 m or more; the player walks closer and the inner details settle it.",
+    "Rooms added later must pass the same squint test against all others before they ship.",
+    "BoxMesh face orientation is unconfirmed until tried in Godot.",
+    "Signs need light: at a tenth of full light the stamp drops to 2.7:1, so the level art keeps plates and stands lit."
+  ]
+}

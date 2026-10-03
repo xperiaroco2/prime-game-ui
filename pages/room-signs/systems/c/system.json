@@ -1,0 +1,108 @@
+{
+  "id": "c",
+  "name_uk": "Вивіски",
+  "name_en": "Shop signs",
+  "pitch_uk": "Над дверима кожної кімнати висить її велика іграшкова річ, як вивіска старої крамниці, пакунок і мапа несуть плаский малюнок цієї речі, а приймальна скринька однакова в кожній кімнаті.",
+  "idea": "The room's own object is the sign (ground.md §4 C). Each room has one big toy prop hanging from a bracket beside its door, at right angles to the wall like an old trade sign, so it is seen in profile from far down the corridor. Its profile is the room drawing, which the package (all six faces), the map tile and the drop-off hatch carry on one shared ink badge. The drop-off is the same hatch in every room, so players learn once what a drop-off looks like, and the room tells itself apart only by its object.",
+  "drawing": {
+    "grid": "64 x 64 units (ground.md §3: 64-unit artboard, raster 512 px with svg/scale 8); the cream figure stays inside 8..56 so it clears the badge's 16-unit corners",
+    "stroke": "one fixed stroke of 6 units for every outline and detail, round joins and caps (Toy); every cream part and every ink gap is at least 6 units",
+    "convention": "a cream figure with an ink outline and at most two ink details. On the ink badge the outline melts into the badge, so the figure reads as one solid cream silhouette; parts that must stay joined (kettle spout and handle, lamp arm, plug cable) are cream bands drawn over the outline. Without a badge the same file reads as a Toy sticker (outline drawing).",
+    "mirror_safe": "every drawing still names its room when mirrored (no text, arrows or handedness), because the double-sided prop shows the mirror image on its far side",
+    "files": "one SVG per room plus frame-badge.svg, hatch.svg and bracket.svg; plain rect, circle and path with fill and stroke only (one rotate transform in workshop.svg); no text, filters, masks, gradients or external references"
+  },
+  "rooms": [
+    { "id": "storage", "name_uk": "Склад", "name_en": "Storage room", "icon": "storage.svg", "deliveries": false, "shape": "three stacked crates, a stepped block",
+      "prop": "three toy crates on the bracket; end-on: two crates, one on the other" },
+    { "id": "hall", "name_uk": "Хол", "name_en": "Hall", "icon": "hall.svg", "deliveries": false, "shape": "a full disc with an L of hands",
+      "prop": "a double-faced station clock hanging from the ceiling in the middle of the hub (the hall has no door); end-on: a thick drum" },
+    { "id": "kitchen", "name_uk": "Кухня", "name_en": "Kitchen", "icon": "kitchen.svg", "deliveries": true, "shape": "a body under a high arch handle with an open loop (7 units of background through it) and a short spout to one side",
+      "prop": "a giant toy kettle; end-on: a body with an arch handle, the spout hidden" },
+    { "id": "lab", "name_uk": "Лабораторія", "name_en": "Lab", "icon": "lab.svg", "deliveries": true, "shape": "a cone with a neck and a liquid line",
+      "prop": "a giant conical flask; a turned shape, so it is the same from every side" },
+    { "id": "office", "name_uk": "Офіс", "name_en": "Office", "icon": "office.svg", "deliveries": true, "shape": "a desk lamp: a base, a bent arm and a shade (a diagonal pencil read as a UI edit icon)",
+      "prop": "a giant desk lamp; end-on: a post with the shade on top" },
+    { "id": "lounge", "name_uk": "Кімната відпочинку", "name_en": "Lounge", "icon": "lounge.svg", "deliveries": true, "shape": "a wide low sofa, about twice as wide as tall (60 x 38 units with the outline)",
+      "prop": "a toy sofa; end-on: an L, the side of a seat" },
+    { "id": "workshop", "name_uk": "Майстерня", "name_en": "Workshop", "icon": "workshop.svg", "deliveries": true, "optional": true, "shape": "a claw hammer at 45 degrees, head to the upper right (upright it shared a T with the plug)",
+      "prop": "a giant claw hammer hung at 45 degrees; end-on: a short bar" },
+    { "id": "server", "name_uk": "Серверна", "name_en": "Server room", "icon": "server.svg", "deliveries": true, "optional": true, "shape": "a plug: two prongs, a body, a cable",
+      "prop": "a giant plug with its cable running up the bracket; end-on: a body with one prong behind the other" }
+  ],
+  "frames": {
+    "frame-badge.svg": "the ink badge (radius 16 of 64, a quarter of its side) under every 2D use of a room drawing: package faces, the hatch stamp, the map",
+    "hatch.svg": "front view of the drop-off, a low wide mail-drop with a rounded top and a slot, the same in every delivery room; the dark square is where the room's badge goes",
+    "bracket.svg": "the wall bracket that holds a room's prop at right angles to the wall; the same for every room"
+  },
+  "colours": {
+    "used": [
+      { "token": "palette.cream", "hex": "#fff4e2", "role": "the figure on the badge; the prop's and the hatch's body" },
+      { "token": "palette.ink", "hex": "#2a1f33", "role": "the badge; every outline and detail; the prop's outline (palette.plate is the same value)" }
+    ],
+    "proposed_new": [],
+    "colour_is_never_a_code": "the eight rooms share the same two colours; nothing about a room is in its colour",
+    "contrast": {
+      "tool": "tools/a11y/contrast.js ratio (WCAG 2.2) on colours simulated with tools/a11y/cvd.js (Machado 2009), via a scratch runner that loads both files' functions",
+      "cream figure on ink badge": { "normal": 14.4, "protan": 14.2, "deutan": 14.4, "tritan": 14.1, "grey": 14.4 },
+      "ink badge on the cream map tile": { "normal": 14.4, "protan": 14.2, "deutan": 14.4, "tritan": 14.1, "grey": 14.4 },
+      "ink badge on the tile lit by the hover highlight (palette.zone #ffc23a)": { "normal": 9.7, "protan": 8.8, "deutan": 10.2, "tritan": 8.9, "grey": 9.7 }
+    },
+    "cvd_dE2000": {
+      "tool": "tools/a11y/cvd.js analyse and de2000",
+      "ink/cream": { "normal": 80.7, "protan": 80.4, "deutan": 80.0, "tritan": 77.6, "grey": 78.0 },
+      "ink/zone": { "normal": 78.7, "protan": 74.2, "deutan": 79.6, "tritan": 65.5, "grey": 67.1 },
+      "note": "cream/zone (an idle map tile against a lit one, an existing map behaviour, not a sign colour) is 23.8 normally but 9.3 in grey; the sign itself keeps at least 8.8:1 on both tiles"
+    }
+  },
+  "appearance": {
+    "package": {
+      "look": "a cream toy box (0.45 m) with the room's badge on all six faces: a 0.38 m ink badge with the cream drawing, 0.035 m of cream rim around it. From any side a face shows the sign; the top face, the one the carrier looks down at, is about 185 px tall at 1080p while carried (ground.md §3). At 5 m the badge is about 54 px (figure 40 px), at 10 m 27 px (figure 20 px), at 10 m on 720p 18 px.",
+      "godot": "MeshInstance3D with a BoxMesh (size 0.45) and a StandardMaterial3D whose albedo_texture is the room's 512 px face texture (cream square, badge, drawing; one per room, about 1.4 MB with mipmaps). uv1_scale (3, 2, 1) with texture repeat on makes each face of the BoxMesh 3x2 UV layout show the whole texture, so one 512 px texture serves all six faces. texture_filter LINEAR_WITH_MIPMAPS_ANISOTROPIC; import Lossless with mipmaps (ground.md §3). (unconfirmed: the exact face bounds and the orientation of each BoxMesh face; a rotated face is harmless for a mirror-safe drawing, otherwise use an ArrayMesh with six upright quads)",
+      "links": ["https://docs.godotengine.org/en/4.7/classes/class_boxmesh.html", "https://docs.godotengine.org/en/4.7/classes/class_basematerial3d.html"]
+    },
+    "door": {
+      "look": "no flat plate: the room's toy prop, about 1.0 m for the 64-unit drawing (figure about 0.8 m) and 0.3 m deep with rounded edges, cream with a thick ink outline and the drawing's ink details on both flat sides, hangs from the shared ink bracket beside the door, its lowest point at 2.2 m or more, sticking out at right angles to the wall. Walking down a corridor you see it face-on: at 10 m about 56 px tall at 1080p, at 20 m 28 px, at 30 m 19 px. A flat 0.40 m plate on the same wall, seen from 10 m along a 3 m corridor, is turned 81.5 degrees away and only about 4 px wide (own calculation: 704/d px per metre times sin 8.5 degrees).",
+      "godot": "a RoomSign scene (Node3D with an exported room id): Bracket, a MeshInstance3D shared by all rooms, and Prop, a MeshInstance3D per room (level art) with a cream StandardMaterial3D whose next_pass is an ink outline material (grow on, cull_mode CULL_FRONT, unshaded). Greybox stand-in: a CSGPolygon3D in MODE_DEPTH with depth 0.3, fed the drawing's outer outline, so the prop's profile is the drawing by construction; the docs say CSG is for level prototyping, so the final prop is a MeshInstance3D. Depth test stays on and nothing is billboarded.",
+      "links": ["https://docs.godotengine.org/en/4.7/classes/class_csgpolygon3d.html", "https://docs.godotengine.org/en/4.7/classes/class_basematerial3d.html"],
+      "fallback": "if playtests show the end-on view (standing right in front of the door) confuses, add a 0.25 m badge on the door frame at 1.5 m; not part of the default"
+    },
+    "map_room_tile": {
+      "look": "every room tile shows, beside the room name, the room's drawing on a small ink badge (40 px at 1920 x 1080); always for every room, never only the carried package's room. The tile stays as decided (cream, ink outline); the hover highlight lights the tile yellow and the badge stays ink, so the sign still reads.",
+      "godot": "PanelContainer (StyleBoxFlat from tokens: palette.cream fill, palette.ink border) with an HBoxContainer: a Panel badge (StyleBoxFlat, palette.ink, corner radius a quarter of its side) holding a TextureRect (STRETCH_KEEP_ASPECT_CENTERED; the room SVG as a DPITexture or a second raster at UI size), then the room-name Label",
+      "links": ["https://docs.godotengine.org/en/4.7/classes/class_texturerect.html", "https://docs.godotengine.org/en/4.7/classes/class_dpitexture.html"]
+    },
+    "delivery_spot": {
+      "look": "the drop-off (hatch.svg), the same toy object in every delivery room: a low, wide cream mail-drop, 1.44 m wide and 1.22 m high (1 unit = 0.02 m), with a rounded top, a 0.64 m slot at about 0.8 m and the room's badge on its front (0.36 m, centred at 0.42 m, about 51 px at 5 m). Wider than tall, so it does not read as a bin with a cistern. One drop-off per delivery room takes all of that room's packages; it stands against a wall in view from the doorway. Склад and Хол have none.",
+      "godot": "a Hatch scene: MeshInstance3D body (shared level art), MeshInstance3D with a 0.36 m QuadMesh on the front using the room's face texture, and the Area3D receiving volume in front of the slot that core/ uses",
+      "links": ["https://docs.godotengine.org/en/4.7/classes/class_quadmesh.html"]
+    }
+  },
+  "colour_blind_story": "There is no colour to miss. Every sign, prop and hatch is cream and ink, 14.1:1 or more in protan, deutan, tritan and greyscale simulation, and packages carry no colour (decided). Rooms differ only by the object's outline, which a squint test separates (below). The map's yellow hover highlight is an existing map cue; the sign keeps at least 8.8:1 on it.",
+  "not_a_destination_marker": [
+    "the props and hatch stamps are level geometry: static, hidden by walls, never billboarded, never on the HUD or the screen edge, the same whatever the player carries",
+    "one landmark per room (the prop at the door) plus the hatch stamp inside: signs mark rooms, not routes, and there are no arrows",
+    "every hatch looks the same, so a hatch says only 'drop-offs go here', not 'your drop-off'; its stamp reads only once you are in the room",
+    "the slot's flap moves only when a package is put in (feedback after the act), never when a matching package comes near",
+    "the map always shows all rooms' signs; the hand slot shows no sign, the carried box's top face already does"
+  ],
+  "checks": {
+    "render_24px": "all eight drawings checked in headless Edge on the badge at 96, 48, 24 and 15 px, alone at 48 and 24 px, mirrored, and pixelated at 15 and 10 px: each names its object at 24 px",
+    "squint": {
+      "method": "squint check 2026-10-04 (scratch, not in the repo): each sign rasterised in headless Edge canvas at 24 px sharp, at 24 px with a Gaussian blur of sigma 1.5 px and at 16 px with sigma 1 px; distance = sum |a - b| / sum max(a, b) over the coverage masks (0 same, 1 no overlap); floor = a sign against itself shifted 1 px; on the badge the mask is the cream figure, for the prop it is the whole outline",
+      "badge, 24 px blurred": "floor 0.211; closest hall/kitchen 0.406, hall/server 0.441, storage/kitchen 0.463; destinations lounge/server 0.506, kitchen/lab 0.523",
+      "prop outline, 24 px blurred": "floor 0.133; closest hall/kitchen 0.221, hall/server 0.223, storage/kitchen 0.257; destinations kitchen/server 0.337, kitchen/lounge 0.355",
+      "review pairs, badge 24 px blurred, before and after": "hall/kitchen 0.284 to 0.406 (kettle handle opened), storage/lounge 0.466 to 0.551, workshop/server stays apart at 0.648 and is no longer a T beside a T"
+    }
+  },
+  "costs_and_risks": [
+    "one prop mesh per room plus the bracket and the hatch: level art in prime-game (L-1, #146); a CSG greybox from the SVG outline works before that",
+    "the props need head room: the lowest point at 2.2 m or more, so ceilings of about 3.3 m by the doors",
+    "end-on, from right in front of a door, a prop shows its narrow side; the corridor views, where rooms are searched for, see it face-on"
+  ],
+  "answers_to_ground_questions": {
+    "binding": "one hatch per delivery room takes all of that room's packages",
+    "storage_and_hall": "no deliveries, so no hatch; they still have props and map badges",
+    "hand_slot": "no sign in the HUD hand slot",
+    "junction_signs": "none; the props stick out into the corridor, so they are seen from the junction without arrows"
+  }
+}

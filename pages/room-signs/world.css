@@ -1,0 +1,36 @@
+/* The world of the room-signs mock-ups: scenery and textures, not UI (corridor, rooms, the carried box and the signs
+   themselves). Not linted, like the page chrome: Godot draws these as meshes and textures, never as StyleBoxes. The
+   greys are greybox placeholders (the light and the dark world of the showcase, #c9c9c9 and #979797), not the game's
+   look; the signs use only the tokens' ink and cream. build.js reads every --w-* literal below and writes its
+   colour-vision versions into signs-cvd.css, so add a world colour here, never inline in build.js. */
+:root {
+  --rs-ink: var(--toy-palette-ink);
+  --rs-cream: var(--toy-palette-cream);
+  --w-light: #c9c9c9;
+  --w-dark: #979797;
+  --w-wall: #c9c9c9;
+  --w-wall2: #bebebe;
+  --w-far: #b2b2b2;
+  --w-ceil: #a8a8a8;
+  --w-floor: #979797;
+  --w-lamp: #e8e8e8;
+  --w-line: #868686;
+  --w-door: #8d8d8d;
+  --w-frame: #6f6f6f;
+  --w-box: #b4b4b4;
+  --w-edge: #5a5a5a;
+}
+
+.rs-world .wl { fill: var(--w-wall); }
+.rs-world .wr { fill: var(--w-wall2); }
+.rs-world .wb { fill: var(--w-far); }
+.rs-world .wc { fill: var(--w-ceil); }
+.rs-world .wf { fill: var(--w-floor); }
+.rs-world .wlt { fill: var(--w-lamp); }
+.rs-world .wln { fill: none; stroke: var(--w-line); stroke-width: 3; }
+.rs-world .wd { fill: var(--w-door); }
+.rs-world .wdf { fill: var(--w-frame); }
+.rs-world .wink { fill: var(--rs-ink); }
+.rs-world .wedge { fill: none; stroke: var(--w-edge); stroke-width: 4; stroke-linejoin: round; }
+.rs-leg-light, .rs-tile-light { background: var(--w-light); }
+.rs-leg-dark { background: var(--w-dark); }

@@ -66,6 +66,13 @@ sign marks the room on the map, the door and the spot, its look waiting for the 
 [answers](https://github.com/xperiaroco2/prime-game/issues/150#issuecomment-5968656240)). Wave 1's package-colour and
 colour-blindness work therefore applies to body colours only.
 
+Room signs, decided by the agent from the "UI never tells" principle (agent): hovering the Delivery task on the map
+lights only the storage room, never the rooms still waiting for a package; the HUD hand slot does not repeat the carried
+package's sign; there are no direction signs at corridor junctions (signs mark rooms, not routes). The room list of the
+room-signs page (the storage room and the hall take no deliveries) is a proposal for the designer's map
+([prime-game #306](https://github.com/xperiaroco2/prime-game/issues/306), #146). The sign system itself waits for the
+engineer ([prime-game-ui#6](https://github.com/xperiaroco2/prime-game-ui/issues/6)).
+
 ## Style
 The engineer chose **Toy** (2026-10-03): chunky rounded shapes with a thick plum outline, cream panels, sunny-yellow buttons with a solid toy base that look pressable, and a small, calm HUD; it reads as arcade and game-like. **No tilted plates** (they break the design). **Press feedback** on the voluminous buttons: the button sinks onto its base when pressed (a pressed StyleBox and a short Tween in Godot; previewed in `pages/styles/motion-preview.css`). Safety card was liked but reads too much like an office; Quiet retro was not chosen. The 10 character colours proposed by the retro skin are not adopted. ([prime-game-ui#2](https://github.com/xperiaroco2/prime-game-ui/issues/2))
 
