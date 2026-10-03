@@ -44,8 +44,7 @@
         "depth": { "$value": { "value": 5, "unit": "px" } },
         "hover": {
           "$value": { "value": -1, "unit": "px" },
-          "$description": "The hover lift (proposal).",
-          "$extensions": { "io.github.xperiaroco2.prime-game": { "proposal": true } }
+          "$description": "The hover lift."
         },
         "held": { "$value": { "value": 3, "unit": "px" } },
         "disabled": { "$value": { "value": 0, "unit": "px" } }
@@ -92,8 +91,7 @@
         "depth": { "$value": { "value": 5, "unit": "px" } },
         "hover": {
           "$value": { "value": -1, "unit": "px" },
-          "$description": "The hover lift (proposal).",
-          "$extensions": { "io.github.xperiaroco2.prime-game": { "proposal": true } }
+          "$description": "The hover lift."
         },
         "held": { "$value": { "value": 3, "unit": "px" } },
         "disabled": { "$value": { "value": 0, "unit": "px" } }

@@ -79,8 +79,9 @@ a coral danger button for the host's «Покинути сесію» and its con
 and up unchanged); the selected preset card keeps the idle card's size; held buttons sink 4 px (white) or 5 px
 (yellow), leaving 1 px of base; the menu backdrop `.dim` is 74 % instead of 70 %, so dim lilac text over a white wall
 reaches 4.5:1; wide keycaps (Space, Shift, Tab, Esc) are at least 96 px; the near-identical plums and lilacs stay
-separate (28 colours). Still proposals in the tokens: the held stepper's honey face, the preset cards' 1 px hover lift,
-and the field's read-only look and its placeholder, caret and selection colours.
+separate (28 colours). Decided by the agent, small and easy to change (agent): a held stepper turns honey, preset
+cards lift 1 px on hover, a read-only field (the guest's view) is a quiet pale-lilac box with readable text, and the
+field's placeholder is muted plum with an ink caret and a yellow selection.
 
 ## Type
 Comfortaa for titles and text, provisionally, until the style is chosen (SIL OFL 1.1 with the Reserved Font Name

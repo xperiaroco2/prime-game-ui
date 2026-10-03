@@ -68,8 +68,7 @@
         "font-color": { "$type": "color", "$value": "{color.on-accent.text}" }
       },
       "pressed": {
-        "$description": "Held: the face turns honey (proposal).",
-        "$extensions": { "io.github.xperiaroco2.prime-game": { "proposal": true } },
+        "$description": "Held: the face turns honey.",
         "bg-color": { "$type": "color", "$value": "{color.state.held-accent}" }
       },
       "disabled": {

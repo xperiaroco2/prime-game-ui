@@ -51,8 +51,7 @@
       "hover-on-light": { "$value": "{palette.lavender}" },
       "held-accent": {
         "$value": "{palette.honey}",
-        "$description": "The held stepper's honey face (proposal).",
-        "$extensions": { "io.github.xperiaroco2.prime-game": { "proposal": true } }
+        "$description": "The held stepper's honey face."
       }
     }
   },

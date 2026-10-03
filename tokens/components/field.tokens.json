@@ -29,15 +29,13 @@
         "expand-margin": { "$type": "dimension", "$value": { "value": -3, "unit": "px" } }
       },
       "read-only": {
-        "$description": "Read-only, also the guest's view: a quiet box with readable text (proposal).",
-        "$extensions": { "io.github.xperiaroco2.prime-game": { "proposal": true } },
+        "$description": "Read-only, also the guest's view: a quiet box with readable text.",
         "bg-color": { "$type": "color", "$value": "{color.state.disabled-face}" },
         "border-color": { "$type": "color", "$value": "{color.state.disabled-ink}" },
         "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
       },
       "items": {
-        "$description": "Placeholder, caret and selection colours (proposal).",
-        "$extensions": { "io.github.xperiaroco2.prime-game": { "proposal": true } },
+        "$description": "Placeholder, caret and selection colours.",
         "placeholder-color": { "$type": "color", "$value": "{palette.muted}" },
         "caret-color": { "$type": "color", "$value": "{color.outline}" },
         "selection-color": { "$type": "color", "$value": "{palette.yellow}" },
