@@ -30,8 +30,12 @@ human's language (Ukrainian); everything in this repo is English.
 ## Layout
 - `docs/ui-decisions.md`: the UI decisions made so far and where each was recorded. Read it before any screen work.
 - `docs/research/<date>-<topic>/`: research reports.
-- `pages/<page>/`: sources of the review pages.
-- `tools/a11y/`: colour-blindness and contrast scripts (node 20, no packages).
+- `pages/<page>/`: sources of the review pages; `pages/components/` is the generated component showcase.
+- `tokens/`: the DTCG 2025.10 tokens of the chosen style, the single source of truth (`tokens/README.md`). `dist/` is
+  generated from them (the pages' CSS, the game's pack, the contrast results) and never edited by hand.
+- `tools/check.js`: runs every check (the token build, the Godot-safe lint, the contrast gates, the page builds); run it
+  before every commit, CI runs it too. `tools/tokens/`, `tools/lint/`, `tools/contrast/`, `tools/visual/` (the local
+  zero-change probe), `tools/a11y/`: node 20, no packages.
 
 ## The process
 References, then wireframes of every screen, then three style directions, the choice, tokens and components, the styled

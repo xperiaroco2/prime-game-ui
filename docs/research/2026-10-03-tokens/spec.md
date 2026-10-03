@@ -642,7 +642,8 @@ field.tokens.json      field: { input: V("ToyField","LineEdit","any") {label, no
                                 dropdown: V("ToyDropdown","OptionButton","any") {label, normal, hover, pressed, disabled, focus} }
 howto.tokens.json      howto: { frame: V("ToyHowtoFrame","PanelContainer","light") {panel},
                                 frame-done: V("ToyHowtoFrameDone","PanelContainer","light") {panel},
-                                caption: V("ToyHowtoCaption","Label","light",{on:["ToyHowtoFrame","ToyHowtoFrameDone"]}) {label, normal} }
+                                caption: V("ToyHowtoCaption","Label","light",{on:["ToyHowtoFrame","ToyHowtoFrameDone"]}) {label, normal},
+                                note: V("ToyHowtoNote","Label","light",{on:["ToyPanelHowto"]}) {label, normal} }
 hud.tokens.json        hud: { crosshair: V("ToyCrosshair","Panel","dark") {panel, size},
                               spinner: V("ToySpinner","Panel","dark") {panel, size} }
 keycap.tokens.json     keycap: { on-dark: V("ToyKeyOnDark","PanelContainer","dark") {panel, size},
@@ -701,7 +702,8 @@ title.tokens.json      title: { plate: V("ToyTitlePlate","Label","dark",{base:{a
                                 logo: V("ToyLogo","Label","dark") {label, normal, items} }
 ```
 
-That is 94 variations: 84 in the 19 files above, plus the 10 of `button.tokens.json`.
+That is 95 variations: 85 in the 19 files above, plus the 10 of `button.tokens.json`. (ToyHowtoNote was added in the
+fix pass: §4.8 draws "як робити" at t.small, and no other Label variation gives t.small in c.on-light.text-muted.)
 
 ---
 
@@ -844,10 +846,11 @@ A **dialog** is a composition, not a variation. In order:
 
 | Variant | Values |
 |---|---|
-| (the card) | the ToyRaised of ToyBasePanel and ToyPanelHowto (§4.6); title ToyTitleOnLight, "як робити" ToyTextMutedOnLight at t.small |
+| (the card) | the ToyRaised of ToyBasePanel and ToyPanelHowto (§4.6); title ToyTitleOnLight, "як робити" ToyHowtoNote |
 | `howto.frame` (ToyHowtoFrame), light | panel: bg p.white · bc c.outline · bw s.control · r rd.large · cm 13 |
 | `howto.frame-done` (ToyHowtoFrameDone), light | panel: bg p.mint-tint · the rest as frame (ink on it 13.40:1) |
 | `howto.caption` (ToyHowtoCaption, Label) | label t.small-bold · font c.on-light.text |
+| `howto.note` (ToyHowtoNote, Label), on ToyPanelHowto | label t.small · font c.on-light.text-muted |
 
 Showcase states:
 - **normal**: four frames, none done;
@@ -905,7 +908,7 @@ own items still resolve), context any, label t.body-bold:
 | `map.room` (ToyMapRoom) | panel: bg p.cream · bc c.outline · bw s.control · r rd.medium · cm 9 |
 | `map.room-text` (ToyMapRoomText, Label) | label t.caption-bold · font c.on-light.text |
 | `map.zone` (ToyMapZone, Panel) | panel: bg p.zone · bc c.outline · bw s.surface · r rd.medium |
-| `map.pin` (ToyMapPin, Panel), "you are here" | panel: bg p.coral-deep · bc c.outline · bw s.control · r 0 14 14 14. size: width 28 · height 28. The angle is set at runtime (`rotation`, or `offset_transform_rotation` inside a container) |
+| `map.pin` (ToyMapPin, Panel), "you are here" | panel: bg p.coral-deep · bc c.outline · bw s.control · r 0 14 14 14. size: width 28 · height 28. The angle is set at runtime about the pin's centre, as the showcase draws it: with `rotation`, also set `pivot_offset_ratio = Vector2(0.5, 0.5)` (the default pivot is the top-left corner, [Control.xml L1197-L1204](https://github.com/godotengine/godot/blob/4.7.2-stable/doc/classes/Control.xml#L1197-L1204)); inside a container, use `offset_transform_rotation` with `offset_transform_enabled`, whose `offset_transform_pivot_ratio` defaults to (0.5, 0.5) ([L1161-L1172](https://github.com/godotengine/godot/blob/4.7.2-stable/doc/classes/Control.xml#L1161-L1172)) |
 | the «ти тут» chip | ToyChipPlate + ToyHudCaption |
 
 ### 4.13 Mic and name plate
@@ -970,10 +973,10 @@ own items still resolve), context any, label t.body-bold:
 | ToyBase* (7), ToyBackdrop*, ToyMapZone, ToyMapPin, ToyCrosshair, ToySpinner, ToySwatch* | Panel | panel | – | size constants |
 | ToyChip* (static), ToySlot*, ToyBarTrack, ToyBarLabel, ToyPanel*, ToyPlate*, ToyKey* (box), ToyHowtoFrame*, ToySettingRow, ToyMapBoard, ToyMapRoom, ToyMic, ToyNamePlate | PanelContainer | panel | ToyMic: icon_on, icon_off | size constants |
 | ToyBarStamina, ToyBarHealth, ToyBarProgress, ToyBarSlider | ProgressBar | fill; background (StyleBoxEmpty when absent) | ToyBarHealth: ramp_stop_00 … ramp_stop_20 | – |
-| …Text companions, text roles, ToyHowtoCaption, ToyPresetCardNote(Selected), ToySettingRowText/Value, ToyMapRoomText | Label | normal = StyleBoxEmpty | font_color | `font` + `font_size` |
+| …Text companions, text roles, ToyHowtoCaption, ToyHowtoNote, ToyPresetCardNote(Selected), ToySettingRowText/Value, ToyMapRoomText | Label | normal = StyleBoxEmpty | font_color | `font` + `font_size` |
 | ToyTitlePlate, ToyLogo | Label | normal (title plate) | font_color, font_shadow_color (logo) | `shadow_offset_x/y`, `shadow_outline_size` (logo) |
 
-All 94 names are letters only. No Godot 4.7.2 class starts with "Toy" (dump queried), and the game's theme test only
+All 95 names are letters only. No Godot 4.7.2 class starts with "Toy" (dump queried), and the game's theme test only
 sees `&"[A-Za-z]+"` (godot-facts §0).
 
 ---
@@ -1402,9 +1405,12 @@ It generalises `pages/styles/check_styles.js`. That script stays frozen and keep
     { "file": "pages/styles/motion-preview.css", "profile": "motion" },
     { "file": "pages/components/toy-components.css", "profile": "generated" }
   ],
-  "textShadowSelectors": ["\\.t(28|36|48|64|96)\\b", "\\.tv-ToyLogo\\b"]
+  "textShadowSelectors": ["\\.t(28|36|48|64|96)(?![\\w-])", "\\.tv-ToyLogo(?![\\w-])"]
 }
 ```
+
+(Fix pass: the patterns end in `(?![\w-])`, not `\b`, because `\b` also matches before a `-` and let `.t28-foo` through.
+The motion target also names its `companion`, `pages/styles/toy.css`.)
 
 | Profile | Scope (L24) | Extra allowed |
 |---|---|---|
@@ -1423,7 +1429,7 @@ Layout properties allowed in every profile except `tokens`: `padding*`, `margin*
 | L02 | No `*-gradient(` |
 | L03 | No `url(` |
 | L04 | Border and outline styles `solid` or `none` only; `outline` other than `none` |
-| L05 | One border colour per element: no `border-*-color` per side, no several colours in `border-color`, no different colours across side shorthands |
+| L05 | One border colour per element: no `border-*-color` per side, no several colours in `border-color`, no different colours across side shorthands. Colours are compared after resolving through the tokens file; a side with a style but no colour counts as `currentcolor` (resolved through `color`); logical sides (`border-block-start`, …) are one side each. Checked on the cascade: a rule over its base-selector rules and the earlier rules with the same selector |
 | L06 | No pseudo-elements |
 | L07 | No at-rules, except `@media (prefers-reduced-motion: reduce)` in `tokens` |
 | L08 | `box-shadow`: one layer |
@@ -1431,8 +1437,8 @@ Layout properties allowed in every profile except `tokens`: `padding*`, `margin*
 | L10 | `box-shadow`: no spread (at most three lengths) |
 | L11 | `box-shadow`: blur 0 |
 | L12 | `box-shadow`: x offset 0 |
-| L13 | `box-shadow` (other than `none`) only on a rule whose base selector declares an opaque background. The base selector strips `:hover`, `:active`, `:focus-visible`, `:not(…)` and `.is-*`. It is looked up in the same file, or `toy.css` for `motion-preview.css`. Backgrounds are resolved through the tokens file; alpha must be 1 |
-| L14 | No `transparent` and no colour with alpha 0 on a border |
+| L13 | `box-shadow` (other than `none`) only on a rule whose base selector declares an opaque background. The base selector strips `:hover`, `:active`, `:focus-visible`, `:not(…)` and `.is-*`. It is looked up in the same file, or `toy.css` for `motion-preview.css`. Backgrounds are resolved through the tokens file; alpha must be 1. Also: a rule whose background is not opaque may not sit under a box-shadow that a rule with a covering selector (same ancestors, a subset of its last compound) gives the same elements, unless a rule in between sets `box-shadow: none` |
+| L14 | No `transparent` and no colour with alpha 0 on a border, including a `currentcolor` border whose `color` is transparent |
 | L15 | No `%` radius |
 | L16 | No `em`, `rem`, `%`, `vw`, `vh`, `cq*` units in border, radius, padding, margin, font-size, letter-spacing, box-shadow, text-shadow, width, height, min-*, inset and translate values (the exemptions of §10.1 apply) |
 | L17 | Ints only: every numeric literal in a length `calc()` is an integer, and the only literal multiplier is `-1`; in `tokens`, every dimension variable is an int or a `var()` |
@@ -2293,19 +2299,21 @@ body[data-style="toy"] .frame .card.dimtext:active {
 
 | # | Change | Where | Why |
 |---|---|---|---|
-| 1 | Letter spacing: `.t16`, `.t18` +0.01em → 0; `.t36`, `.t48` −0.01em → 0; `.t64`, `.t96` −0.01em → −1 px | all text, sub-pixel | `spacing_glyph` is an int (godot-facts §5) |
+| 1 | Letter spacing: `.t16`, `.t18` +0.01em → 0; `.t36`, `.t48` −0.01em → 0; `.t64`, `.t96` −0.01em → −1 px. Sub-pixel per glyph, but it moves some line wraps and so panel heights (fix pass: at a 1022 px frame the s1 invite checklist line and the s2 join hint go from 2 lines to 1) | all text | `spacing_glyph` is an int (godot-facts §5) |
 | 2 | Health fill at 22 % (s7 "hurt"): `#E87D46` → `#EA7A46` (stop 04). The 80 % fill stays `#92BA4C` | s7 | decision 7 |
 | 3 | Selected preset card: padding 12 → 10, so it is 2 px smaller on every side, the idle card's size | s5 host | a toggle cannot change size in Godot |
-| 4 | Stepper radius: `999px` → 999 reference px. The computed value differs, the picture does not (still a pill) | s5 host | token-only lengths |
-| 5 | Chips and idle tabs: a 3 px transparent border → border 0 and padding + 3. The background is painted under the border box, so the picture is the same | s1, s4, s5, s7, s8 | lint L14 (godot-facts, `border-color: transparent`) |
+| 4 | Stepper radius: `999px` → 999 reference px. The computed value differs, the picture does not (still a pill). At the probe's 1920 px frame 1 reference px is 1 px, so there the computed value is 999px both times | s5 host | token-only lengths |
+| 5 | Chips and idle tabs: a 3 px transparent border → border 0 and padding + 3. The background is painted under the border box, so the picture is the same at the probe's 1920 px frame. At other frame widths Chrome snaps the 3 reference px border to whole pixels but not the padding that replaces it, so chips and idle tabs move by up to about 1 px, and idle tabs are no longer exactly the selected tab's height (fix pass, measured at 1022 and 358 px) | s4, s5, s6, s7, s8 (s1 has only bordered chips) | lint L14 (godot-facts, `border-color: transparent`) |
 | 6 | Live only: buttons travel 4 / 5 px (was 5 / 6) and the base stays still; the held card shows a 2 px base (was the card and its base moving 3 px); the easing is `cubic-bezier(0.33, 0.52, 0.64, 1)` (was `ease-out`) | hover and press | decisions 5 and 6 |
 | 7 | `.marker` and `.circ` rules removed | none: no frame uses them | dead rules |
 
 ### 15.4 Known Godot differences left visible in the frames
 
 These are checked later in a Godot `shot`, not changed here.
-- **Inner corners** where border widths are uneven (keycap 2/2/5, the setting row's bottom-only border, the spinner):
-  Godot draws circles, CSS draws ellipses (godot-facts §2).
+- **Inner corners** where border widths are uneven and the inner radii do not overflow (keycap 2/2/5, the setting
+  row's bottom-only border, the selected tab's 3/3/7/3 merge form): Godot draws circles, CSS draws ellipses
+  (godot-facts §2). The spinner (10 10 0 0, pill) overflows; Godot 4.7.2's `set_corner_scale` makes it elliptical
+  too, so it matches.
 - **Button text sizes:** the frames show 20 to 24 px buttons from the wireframe size classes. The variations fix one
   size each.
 - **Line height:** CSS uses 1.25. The generator turns `lineHeight` into `line_spacing` once Comfortaa's metrics are
@@ -2381,7 +2389,7 @@ Four builders own disjoint files (the owners in §1). They share this spec and t
 
 | Builder | Owns | Builds | Runs before it reports done |
 |---|---|---|---|
-| **1: tokens and the build** | `tokens/**` except `gates.json`; `tools/lib/json-strict.js`, `tools/lib/color.js`; `tools/tokens/**`; `dist/css/toy-tokens.css`; `dist/pack/toy.pack.json` | §3–§9: every token file, validator D01–D39 + P40–P60, resolver, expansion, ramp, both emitters, `api.js`, fixtures, `expect-values.json` | `node tools/tokens/test/run.js` (all fixtures and spot values pass); `node tools/tokens/build.js` then `node tools/tokens/build.js --check` (clean); `node -e "require('./tools/tokens/api.js').load({root:'.'})"` prints no error; the build's summary shows 94 variations and 4 permutations |
+| **1: tokens and the build** | `tokens/**` except `gates.json`; `tools/lib/json-strict.js`, `tools/lib/color.js`; `tools/tokens/**`; `dist/css/toy-tokens.css`; `dist/pack/toy.pack.json` | §3–§9: every token file, validator D01–D39 + P40–P60, resolver, expansion, ramp, both emitters, `api.js`, fixtures, `expect-values.json` | `node tools/tokens/test/run.js` (all fixtures and spot values pass); `node tools/tokens/build.js` then `node tools/tokens/build.js --check` (clean); `node -e "require('./tools/tokens/api.js').load({root:'.'})"` prints no error; the build's summary shows 95 variations (94 before the fix pass added ToyHowtoNote) and 4 permutations |
 | **2: lint, gates, check.js and CI** | `tokens/gates.json`; `tools/lib/wcag.js`; `tools/lint/**`; `tools/contrast/**`; `dist/gates.json`; `tools/check.js`; `.github/workflows/check.yml` | §10, §11, §12 | `node tools/lint/godot-css.js --self-test`; `node tools/contrast/gates.js --self-test`; once builder 1 has landed, `node tools/contrast/gates.js` then `--check`, where only x15 and its auto twin may be WAIVED and nothing may FAIL; `node tools/check.js` runs every step and reports each |
 | **3: components CSS and the showcase** | `pages/components/**` | §13, §14 | `node pages/components/build.js` then `--check`; `node tools/lint/godot-css.js` with its `generated` target clean; one headless Edge dump of `components.html` (via PowerShell, §15.5) showing `.tv-ToyButtonPrimary`'s computed background `rgb(255, 194, 58)` and no script error in a `<pre>` the page fills on load |
 | **4: toy.css on tokens and the styles page** | `pages/styles/toy.css`, `motion-preview.css`, `build-styles-page.js`, `styles.html`; `tools/visual/**` | §15 | `node pages/styles/build-styles-page.js` then `--check`; `node tools/lint/godot-css.js` with the `skin` and `motion` targets clean; `node pages/styles/check_styles.js retro card` (ALL CLEAN); `node tools/visual/probe.js --before main` (zero differences after the reverse patch; the intended list equals §15.3) |
@@ -2544,11 +2552,14 @@ File one issue per item in prime-game, each with its `area:` label and a note on
    - `tools/theme/showcase.tscn` plus a script that reads the pack's `variations` and instantiates each one in every
      state it can force: normal, disabled, toggled, focused with `grab_focus`, and press offsets set directly for hover
      and held. It goes on night and cream stages at 1920×1080, in the order of the HTML showcase.
+   - The map pin turns about its centre, as in the HTML showcase: `rotation` with `pivot_offset_ratio = Vector2(0.5, 0.5)`,
+     or `offset_transform_rotation` with `offset_transform_enabled` (§4.12). The default pivot (top-left) moves a 28 px
+     pin by about 25 px at 80°.
    - It lives under `tools/`, not `client/ui/`, because it is a dev tool, not a screen.
    - Shot: `tools\run.cmd shot tools/theme/showcase.tscn --size 1920x1080`
      ([cli.py L130-L134](https://github.com/xperiaroco2/prime-game/blob/c43c0e185918b346ea3a537e48c8c950b230a87c/tools/runner/cli.py#L130-L134)).
    - The PR compares the PNG with `components.html` at 100 %, above all the inner corners of the keycap, the setting row
-     and the spinner, and the 1 px edges of the bases.
+     and the selected tab (with its focus ring), and the 1 px edges of the bases.
 7. **Text size and fonts.**
    - The text-size setting and the `GameUi` theme swap.
    - Comfortaa ships after the engineer approves the download batch: the file, its OFL text and its licence entry in the

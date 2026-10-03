@@ -253,8 +253,15 @@ no Godot form and must be written as px. The tiny health fill is worked through 
 ([L231-L241](https://github.com/godotengine/godot/blob/4.7.2-stable/scene/resources/style_box_flat.cpp#L231-L241)).
 CSS uses "the outer border radius minus the corresponding border thickness"
 ([Overview.bs L2427-L2435](https://github.com/w3c/csswg-drafts/blob/dddf78d1aec8935ae6fdb836e38459142e58dc59/css-backgrounds-3/Overview.bs#L2427-L2435)),
-which is elliptical when the two widths differ. So `.key` (2 2 5), `.setrow` (bottom border only) and `.ring`
-(10 10 0 0) look slightly different at the corners: check them in a `shot`.
+which is elliptical when the two widths differ. Godot 4.7.2 then runs `set_corner_scale`
+([L243-L313](https://github.com/godotengine/godot/blob/4.7.2-stable/scene/resources/style_box_flat.cpp#L243-L313), called at
+[L327](https://github.com/godotengine/godot/blob/4.7.2-stable/scene/resources/style_box_flat.cpp#L327) and [L341](https://github.com/godotengine/godot/blob/4.7.2-stable/scene/resources/style_box_flat.cpp#L341)):
+when the inner radii overflow the inner rect it shrinks them per axis, which makes those corners elliptical too.
+So the two engines differ only where the widths are uneven **and** the inner corners do not overflow: `.key` (2 2 5),
+`.setrow` (bottom border only) and the selected tab's merge form (3 3 7 3, r 14; also its r 11 focus ring, which in
+Godot sits exactly on the face's inner edge). `.ring` (10 10 0 0, a pill) overflows and comes out the same in both
+(fix pass, checked with a JS port of `adapt_values`, `set_inner_corner_radius` and `set_corner_scale`). Check them in
+a `shot`.
 
 ## 3. Button
 
@@ -638,7 +645,7 @@ Every feature used in [toy.css](../../../pages/styles/toy.css) and [motion-previ
 | rgba fills (`--toy-plate` .86, `.dim` .70 and .80, the map zone .55) | `bg_color` with alpha; blends on non-linear values with `hdr_2d` off (§8) | drawable as is |
 | `background: transparent` (`.btn.ghost`, `.chip.line`) | `draw_center = false` | drawable as is |
 | `border: Npx solid C`, one colour (buttons, panels, fields, cards, slots, bars) | `border_width_*` (int) + `border_color` | drawable as is (ints at the reference resolution, §8) |
-| Per-side border widths, one colour (`.key` 2 2 5, `.ring` 10 10 0 0, `.setrow` bottom only, `.slot.on` 5) | per-side `border_width_*` | drawable with a change: inner corners are circular in Godot and elliptical in CSS (§2); check in a `shot` |
+| Per-side border widths, one colour (`.key` 2 2 5, `.ring` 10 10 0 0, `.setrow` bottom only, `.slot.on` 5) | per-side `border_width_*` | drawable with a change: where the inner corners do not overflow, they are circular in Godot and elliptical in CSS (§2; `.ring` overflows and matches); check in a `shot` |
 | `border-color: transparent` (`.chip`, `.tabs > div`) | Godot leaves a see-through ring and insets the fill; CSS paints the background under the border (`background-clip` initial `border-box`, [Overview.bs L923-L930](https://github.com/w3c/csswg-drafts/blob/dddf78d1aec8935ae6fdb836e38459142e58dc59/css-backgrounds-3/Overview.bs#L923-L930)) | drawable with a change: border width 0, with the width added to the content margins (or `border_color = bg_color`) |
 | `border-radius` in px, per corner (`.you` 0 14 14 14) | `corner_radius_*` (int) | drawable as is |
 | `border-radius: 999px` (`.val .ar`) and radii above half the box | int 999; per-corner adaptation, same as CSS for equal radii (§2) | drawable as is |
