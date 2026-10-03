@@ -50,8 +50,8 @@ gives the line and column, the JSON Pointer and the token path.
 ## Proposal marks
 
 `"$extensions": { "io.github.xperiaroco2.prime-game": { "proposal": true } }` with a `$description` marks a value the
-engineer has not approved yet: today the held stepper's honey face, the preset cards' 1 px hover lift, and the field's
-read-only look and item colours (the engineer's look choices of 2026-10-03 approved the rest; `docs/ui-decisions.md`).
+engineer has not approved yet. None is left in ui-0.1.2: the engineer approved the look choices of 2026-10-03,
+and the agent decided the last small ones (`docs/ui-decisions.md`, marked "(agent)").
 A mark on a group covers everything in it. The pack lists every mark under `proposals`, and the
 showcase puts a proposal badge on each. When a proposal is approved, remove its mark (keep the description) and rebuild.
 
