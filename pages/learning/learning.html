@@ -1,0 +1,492 @@
+<title>Навчання й гра</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&display=swap">
+<style>
+/* Layout: one reading column; option cards in an auto-fit grid; comic strips are 2 panels wide on a phone, 4 on wider screens. Palette: safety-card ink on cool paper, signal amber for the room symbol and the recommended pick. */
+:root{
+  --bg:#eef1f5;--surface:#ffffff;--panel:#ffffff;--ink:#1b2230;--muted:#56617a;--line:#cfd6e0;
+  --accent:#f0b429;--accent-line:#b7791f;--pick-bg:#fff3d1;--pick-fg:#6e4400;
+  --plus:#2f6b45;--minus:#9b3b2e;--link:#1f5fbf;
+  --head:"Comfortaa","Trebuchet MS","Segoe UI",system-ui,sans-serif;
+  --body:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#11151c;--surface:#1a2029;--panel:#222a35;--ink:#e6eaf1;--muted:#9aa5b8;--line:#323c4b;
+    --accent:#f5bd3c;--accent-line:#f5bd3c;--pick-bg:#3b2f12;--pick-fg:#ffd77a;
+    --plus:#8fd3a5;--minus:#f2a08f;--link:#8fb8ff;color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#11151c;--surface:#1a2029;--panel:#222a35;--ink:#e6eaf1;--muted:#9aa5b8;--line:#323c4b;
+  --accent:#f5bd3c;--accent-line:#f5bd3c;--pick-bg:#3b2f12;--pick-fg:#ffd77a;
+  --plus:#8fd3a5;--minus:#f2a08f;--link:#8fb8ff;color-scheme:dark;
+}
+body{background:var(--bg);color:var(--ink);font:16px/1.55 var(--body);margin:0}
+.wrap{max-width:46rem;margin:0 auto;padding-inline:16px;padding-block:28px 56px}
+h1,h2,h3{font-family:var(--head);text-wrap:balance;line-height:1.25;margin:0}
+h1{font-size:2.1rem;font-weight:700}
+h2{font-size:1.35rem;font-weight:700}
+h3{font-size:1rem;font-weight:700}
+p{margin:0}
+a{color:var(--link)}
+a:focus-visible{outline:2px solid var(--accent-line);outline-offset:2px;border-radius:2px}
+section{margin-top:2.6rem;display:flex;flex-direction:column;gap:.8rem}
+.eyebrow{font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+section > .eyebrow + h2{margin-top:-.5rem}
+header{display:flex;flex-direction:column;gap:.6rem}
+.lede{color:var(--muted);max-width:40rem}
+.short{margin:0;padding-left:1.1rem;display:flex;flex-direction:column;gap:.55rem}
+.opts{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(13.5rem,1fr))}
+.opt{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px;display:flex;flex-direction:column;gap:7px;min-width:0}
+.opt.pick{border:2px solid var(--accent-line);padding:11px 13px}
+.opt p{font-size:.94rem}
+.tag{align-self:flex-start;background:var(--pick-bg);color:var(--pick-fg);font-size:.72rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:2px 9px;border-radius:99px}
+.pc{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px;font-size:.92rem}
+.pc li{padding-left:1.15rem;position:relative}
+.pc li::before{position:absolute;left:0;font-weight:800}
+.pc .p::before{content:"+";color:var(--plus)}
+.pc .m::before{content:"\2212";color:var(--minus)}
+.why{max-width:42rem}
+.facts{margin:0;padding-left:1.1rem;display:flex;flex-direction:column;gap:.45rem;font-size:.95rem}
+.card{background:var(--surface);border:2px solid var(--ink);border-radius:8px;padding:14px;display:flex;flex-direction:column;gap:12px}
+.card-h{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.card-h svg{width:28px;height:28px;flex:none}
+.card-h .sub{color:var(--muted);font-size:.85rem}
+.strip{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 10px}
+@media (min-width:40rem){.strip{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.fr{display:flex;flex-direction:column;gap:6px;min-width:0}
+.art{position:relative;background:var(--panel);border:2.5px solid var(--ink);border-radius:255px 14px 225px 14px/14px 225px 14px 255px;padding:4px}
+.art svg{display:block;width:100%;height:auto}
+.warn .art{background:repeating-linear-gradient(45deg,var(--accent) 0 5px,var(--panel) 5px 10px);padding:7px}
+.warn .art svg{background:var(--panel);border-radius:8px}
+.n{position:absolute;top:-9px;left:-7px;width:1.45rem;height:1.45rem;border-radius:50%;background:var(--ink);color:var(--surface);font:700 .74rem/1 var(--head);display:grid;place-items:center}
+.cap{font-weight:700;font-size:.9rem;line-height:1.3}
+.note{color:var(--muted);font-size:.9rem}
+.dec{margin:0;padding-left:1.4rem;display:flex;flex-direction:column;gap:.5rem}
+.src{margin:0;padding-left:1.1rem;display:flex;flex-direction:column;gap:.3rem;font-size:.88rem}
+.src li{overflow-wrap:anywhere}
+.uc{color:var(--muted)}
+/* comic drawing */
+.k{fill:none;stroke:var(--ink);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.w{fill:var(--panel);stroke:var(--ink);stroke-width:2.4;stroke-linejoin:round}
+.y{fill:var(--accent);stroke:var(--ink);stroke-width:2;stroke-linejoin:round}
+.o{fill:none;stroke:var(--accent-line);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.i{fill:var(--ink)}
+.x{fill:var(--ink);font:800 15px var(--body)}
+.t{stroke-width:1.6}
+.d{stroke-dasharray:3 4}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <filter id="r" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="4" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="2.4" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <symbol id="st" viewBox="-11 -11 22 22">
+      <polygon style="fill:var(--accent);stroke:var(--ink);stroke-width:1.8;stroke-linejoin:round" points="0,-10 2.6,-3.6 9.5,-3.1 4.3,1.4 5.9,8.1 0,4.5 -5.9,8.1 -4.3,1.4 -9.5,-3.1 -2.6,-3.6"/>
+    </symbol>
+  </defs>
+</svg>
+
+<main class="wrap">
+
+<header>
+  <p class="eyebrow">prime-game · штурм UX/UI · 2 жовтня 2026</p>
+  <h1>Навчання й гра</h1>
+  <p class="lede">Як зробити, щоб кожен швидко зрозумів механіки, і не завантажити екран. Зведено з трьох досліджень: як навчають інші ігри, завдання, що пояснюють себе самі, і картки-комікси. Мірило одне: новачок швидко розбирається в будь-якому завданні, а гравець, що зіграв десять разів, не бачить жодного навчання.</p>
+</header>
+
+<section id="short">
+  <h2>Коротко</h2>
+  <ul class="short">
+    <li><b>Три місця, три ролі.</b> Кімната-навчання вчить лише базових дій (це вже вирішено). Кожне завдання пояснює себе в самому світі: напис на предметі, той самий значок на мапі й на місці, лампи, звуки. Картка-комікс є довідкою до кожного типу завдань.</li>
+    <li><b>До раунду показуємо, у раунді лише на запит.</b> Екран завантаження показує картку завдання, якого гравець ще не виконував. У раунді картка відкривається тільки зі списку завдань, через маленький «?». На HUD нічого.</li>
+    <li><b>Комікс, а не відео.</b> 3–4 кадри видно одразу: одна дія в кадрі, той самий чоловічок, підпис на 1–4 слова англійською чи українською. Читається секунд за п’ять. Якщо завданню треба більше чотирьох кадрів, спрощуємо завдання, а не картку.</li>
+    <li><b>Картка вчить способу, а не відповіді.</b> «Глянь на напис, знайди місце на мапі», ніколи «неси на склад Б». Тож правило «UI не каже гравцеві, що робити» лишається цілим.</li>
+    <li><b>Tab:</b> коротке натискання відкриває екран із курсором, утримання дає лише підглянути, M відкриває той самий екран одразу на мапі. Картці й підсвітці зон потрібен курсор.</li>
+    <li><b>Ветеран після десяти ігор бачить</b> лише маленький «?» на екрані, який і так відкриває. Перемикач «з підказками / без» вимикає підказки в раунді, але картки лишаються для всіх.</li>
+  </ul>
+</section>
+
+<section id="q1">
+  <p class="eyebrow">Питання 1</p>
+  <h2>Де живе навчання, а де гра</h2>
+  <div class="opts">
+    <div class="opt">
+      <h3>А. Одне велике навчання про все</h3>
+      <ul class="pc"><li class="p">Усе в одному місці.</li><li class="m">Довге. Навчання наперед пропускають і забувають, і грати краще від нього не стають (NN/g).</li><li class="m">10+ завдань туди не влізуть.</li></ul>
+    </div>
+    <div class="opt">
+      <h3>Б. Лише кімната-навчання, решту гравець з’ясує сам</h3>
+      <ul class="pc"><li class="p">Нуль інтерфейсу.</li><li class="m">Багатокрокові завдання стають таємними рецептами. Для LOCKDOWN Protocol гравці самі знімали відеогайди.</li></ul>
+    </div>
+    <div class="opt pick">
+      <p class="tag">Рекомендую</p>
+      <h3>В. Шари за моментом</h3>
+      <p>Перший запуск: кімната вчить дій. Лобі: пробні станції й дошка «Як грати». Завантаження: картка нового для гравця завдання. Раунд: світ пояснює сам, картка лише з Tab. Після смерті: гортай картки.</p>
+      <ul class="pc"><li class="p">Кожен шар для свого гравця. Ветеран бачить лише «?».</li><li class="m">Більше частин. Новачок має помітити «?».</li></ul>
+    </div>
+  </div>
+  <p class="why"><b>Чому В.</b> Допомога в момент потреби працює, а навчання наперед ні (NN/g). У дослідженні на 45&nbsp;000 гравців навчання окупилося лише в найскладнішій із трьох ігор (Andersen, 2012). Тож вчимо тоді, коли гравець і так чекає: у лобі, на завантаженні, після смерті. Кімната-навчання лишається такою, як вирішено: лише дії, жодних завдань.</p>
+</section>
+
+<section id="q2">
+  <p class="eyebrow">Питання 2</p>
+  <h2>Як зрозуміти завдання, якого ще не бачив</h2>
+  <div class="opts">
+    <div class="opt">
+      <h3>А. Довідка просто в раунді</h3>
+      <p>Як у LOCKDOWN: планшет із поясненням до кожного завдання.</p>
+      <ul class="pc"><li class="p">Повна довідка, ветеран її не відкриває.</li><li class="m">Хвилина відео посеред раунду коштує раунду. Відео пропускають і перемотують.</li></ul>
+    </div>
+    <div class="opt pick">
+      <p class="tag">Рекомендую: основа</p>
+      <h3>Б. Світ пояснює сам</h3>
+      <p>Один значок і колір кімнати на написі предмета, на мапі, на дверях і на місці. Гніздо приймає лише предмет своєї форми. Станція показує стан лампами. Успіх гучний, а помилку видно й чути: не той предмет відскакує з дзижчанням. Поки новачок не виконав завдання двічі, предмет ледь зблискує, коли гравець на нього дивиться.</p>
+      <ul class="pc"><li class="p">Нічого на екрані, працює без слів, витримає будь-яку кількість завдань.</li><li class="m">Потрібна дисципліна в арті й рівнях. Зблиск треба звірити з правилом «без маркерів».</li></ul>
+    </div>
+    <div class="opt pick">
+      <p class="tag">Рекомендую: додати</p>
+      <h3>В. Вчитися до раунду</h3>
+      <p>Пробні станції кожного типу завдань у лобі, де всі однаково чекають. Дошка «Як грати», біля якої ветеран пояснює голосом.</p>
+      <ul class="pc"><li class="p">Вчишся дією і від друзів, у раунді нуль UI.</li><li class="m">Окремі елементи рівня, не всі до них підуть.</li></ul>
+    </div>
+  </div>
+  <p class="why"><b>Чому Б і В.</b> Б нічого не коштує ветеранові й вчить без слів. В використовує час очікування і робить із голосу поруч учителя. Зблиск ніколи нікуди не вказує: він реагує лише на те, на що гравець уже дивиться. Стрілки до наступного кроку, як в Among Us, ми свідомо не беремо. Картка з питання 3 лишається довідкою на запит.</p>
+</section>
+
+<section id="q3">
+  <p class="eyebrow">Питання 3</p>
+  <h2>Картки-комікси</h2>
+  <div class="opts">
+    <div class="opt">
+      <h3>А. Відео до кожного завдання</h3>
+      <ul class="pc"><li class="p">Видно рух.</li><li class="m">Лінійне й повільне. У 8 порівняннях анімація з диктором жодного разу не виграла в статичних малюнків із підписами (Mayer, 2005).</li></ul>
+    </div>
+    <div class="opt">
+      <h3>Б. Слайди по одному з кнопкою «Далі»</h3>
+      <ul class="pc"><li class="p">Великі малюнки.</li><li class="m">Треба клацати. Увесь процес не видно одним поглядом, не можна одразу глянути крок 3.</li></ul>
+    </div>
+    <div class="opt pick">
+      <p class="tag">Рекомендую</p>
+      <h3>В. Смужка коміксу</h3>
+      <p>3–4 кадри видно одразу. У кожному одна дія з одним предметом, той самий кумедний чоловічок і підпис на 1–4 слова. Підпис зберігається як рядок перекладу, а не намальований у картинці. Може мати кадр «Обережно» в заштрихованій рамці: що роблять дисиденти.</p>
+      <ul class="pc"><li class="p">Читається за 5 секунд, можна глянути один кадр. Дешевий переклад. Свій впізнаваний стиль гри.</li><li class="m">Потрібен арт. Без підписів картинки часто читають неправильно (FAA: у середньому 65% розуміння), тож підписи й тест на новачках обов’язкові.</li></ul>
+    </div>
+  </div>
+  <p class="why"><b>Чому В.</b> Статичні малюнки з короткими підписами пояснюють «як це працює» не гірше за анімацію, а темп задає сам читач. Жодне з трьох досліджень не знайшло партійної гри з такими картками до кожного завдання (не підтверджено), тож це може стати родзинкою гри.</p>
+  <ul class="facts">
+    <li><b>Коли з’являється.</b> Автоматично на екрані завантаження, доки гравець уперше не виконає це завдання, але не більше двох разів. Раунд не чекає: картка закривається, а на рядку завдання лишається позначка «НОВЕ», доки її не відкриють.</li>
+    <li><b>Де ще.</b> «?» у кінці рядка завдання на екрані Tab, дошка «Як грати» в лобі, екран після смерті. Ніколи на HUD.</li>
+    <li><b>Дані, а не малюнки.</b> Дизайнер пише кроки (дія + предмет + кількість) у content/. Рушій складає кадри з набору SVG-піктограм, тож нове завдання має картку в день появи. Пізніше кумедні намальовані вручну кадри замінюють складені по одному.</li>
+    <li><b>Тест у коридорі.</b> Двоє з трьох людей, які не грали, мають за карткою сказати, що робити.</li>
+  </ul>
+</section>
+
+<section id="q4">
+  <p class="eyebrow">Питання 4</p>
+  <h2>Tab: утримувати, перемикати чи M</h2>
+  <div class="opts">
+    <div class="opt">
+      <h3>А. Лише утримувати Tab</h3>
+      <p>Як вирішено зараз.</p>
+      <ul class="pc"><li class="p">Швидкий погляд, екран закривається сам.</li><li class="m">Немає курсора: не навести на завдання, щоб підсвітити зони, і не натиснути «?». Читати картку, тримаючи клавішу, незручно, а відпустиш, і картка зникне.</li></ul>
+    </div>
+    <div class="opt">
+      <h3>Б. Tab як перемикач, M для мапи</h3>
+      <ul class="pc"><li class="p">Просто. Курсор вільний, картки читаються.</li><li class="m">Щоб глянути на лічильники, ветеранові треба два натискання. Відкритий екран легко забути.</li></ul>
+    </div>
+    <div class="opt pick">
+      <p class="tag">Рекомендую</p>
+      <h3>В. Натиснув чи затиснув</h3>
+      <p>Коротко натиснув Tab: екран лишається відкритим із курсором, WASD далі ходить, камера стоїть. Затиснув: лише підглядаєш на лічильники й мапу, відпустив, і екран закрився. M: той самий відкритий екран одразу на мапі.</p>
+      <ul class="pc"><li class="p">Одна клавіша для обох типів гравців. Картку завжди читають на стабільному екрані.</li><li class="m">Поріг «коротко» (близько 0,2 с) треба підібрати на плейтесті.</li></ul>
+    </div>
+  </div>
+  <p class="why"><b>Чому В.</b> Картці й підсвітці зон потрібен курсор, а погляду на лічильники ні. Якщо на плейтесті люди плутають натискання й утримання, переходимо на Б.</p>
+</section>
+
+<section id="q5">
+  <p class="eyebrow">Питання 5</p>
+  <h2>Перемикач «з підказками / без»</h2>
+  <div class="opts">
+    <div class="opt">
+      <h3>А. Хост вимикає все, навіть картки</h3>
+      <ul class="pc"><li class="p">Простий хардкорний режим.</li><li class="m">Один новий друг серед ветеранів лишається ні з чим. Ховати правила суперечить відкритому знанню.</li></ul>
+    </div>
+    <div class="opt pick">
+      <p class="tag">Рекомендую</p>
+      <h3>Б. Хост вимикає лише підказки в раунді</h3>
+      <p>Тобто підсвітку зон, зблиски для новачків і підказку після помилок. Картки через «?» є завжди. Автопоказ на завантаженні вмикає чи вимикає сам гравець. Допомога, що змінює правила (довший таймер, менше предметів), є окремим налаштуванням лобі, яке бачать усі.</p>
+      <ul class="pc"><li class="p">Чесно для групи й не кидає новачка. Кожне налаштування означає одне.</li><li class="m">Три види налаштувань треба зрозуміло підписати в меню.</li></ul>
+    </div>
+    <div class="opt">
+      <h3>В. Лише особисті налаштування</h3>
+      <ul class="pc"><li class="p">Кожен вирішує сам.</li><li class="m">Підсвітка зон дає перевагу в раунді, тож група має разом вирішувати, чи грати без допомоги.</li></ul>
+    </div>
+  </div>
+  <p class="why"><b>Чому Б.</b> Те, що впливає на рівність у раунді, вирішує хост. Те, що лише навчає правил, лишається особистим. Слова без сорому: ніколи «легкий режим» (урок Celeste). Ідея для дизайнера: кумедний значок «стажер» на спині, поки підказки ввімкнені, спершу за бажанням.</p>
+</section>
+
+<section id="q6">
+  <p class="eyebrow">Питання 6</p>
+  <h2>Не надто легко й не надто важко</h2>
+  <div class="opts">
+    <div class="opt">
+      <h3>А. Лише прості завдання в одну дію</h3>
+      <p>Як в Among Us.</p>
+      <ul class="pc"><li class="p">Нема чого вчити.</li><li class="m">Набридає за кілька раундів. Немає рішень про маршрут і командної гри.</li></ul>
+    </div>
+    <div class="opt">
+      <h3>Б. Рецепти, як у LOCKDOWN</h3>
+      <p>4 і більше кроків між машинами й кімнатами.</p>
+      <ul class="pc"><li class="p">Глибина.</li><li class="m">Без довідки не зрозуміти. Перші матчі йдуть на навчання.</li></ul>
+    </div>
+    <div class="opt pick">
+      <p class="tag">Рекомендую</p>
+      <h3>В. Ланцюжки підписаних доставок</h3>
+      <p>Кожен проміжний предмет має напис наступної зупинки: згорілий запобіжник каже «Майстерня», а заряджений уже «Генератор». До трьох кроків. Лише дії з навчання плюс щонайбільше одна нова, яку показує сам предмет. Зусилля дають маршрут, пошук, руки й пояс, командна гра й дисиденти, а не точність чи читання.</p>
+      <ul class="pc"><li class="p">Глибина без таємних рецептів. Хто підхопив предмет посередині, той знає наступний крок.</li><li class="m">Потрібні правила для рівнів і чек-лист на кожне завдання.</li></ul>
+    </div>
+  </div>
+  <p class="why"><b>Чому В.</b> Перший прогрес за 20–30 секунд, один крок до хвилини (стартові цифри, уточнити на плейтесті). Перший предмет з’являється в найлегшій зоні, далі складніше, а дисиденти дають поворот. Перед випуском кожне завдання проходить «тихий плейтест»: новачок без пояснень робить перший крок за 60 секунд у трьох спробах із чотирьох, а ветеран не бачить нічого зайвого. Завдання, якому треба більше чотирьох кадрів картки, тест не пройшло.</p>
+</section>
+
+<section id="look">
+  <h2>Як це виглядає</h2>
+  <p>Два приклади карток. Це ескізи: на старті кадри складає рушій із піктограм, а намальовані вручну можуть прийти пізніше. Зірка тут є значком кімнати: той самий знак на пакунку, на мапі й на місці доставки.</p>
+
+  <div class="card">
+    <div class="card-h">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path class="w" style="stroke-width:1.8" d="M3 9h18v12H3z"/><path class="k" style="stroke-width:1.8" d="M3 9l3-4h12l3 4M12 9v12"/></svg>
+      <h3>Доставка</h3><span class="sub">4 кадри</span>
+    </div>
+    <ol class="strip">
+      <li class="fr">
+        <div class="art"><span class="n">1</span>
+          <svg viewBox="0 0 120 100" aria-hidden="true"><g filter="url(#r)">
+            <path class="k t" d="M6 89c34-3 74 2 108-1"/>
+            <circle class="w" cx="34" cy="38" r="8"/><circle class="i" cx="33" cy="38" r="1.2"/><circle class="i" cx="38" cy="38" r="1.2"/><path class="k t" d="M33 42h4"/>
+            <path class="k" d="M34 46v22M26 88l8-20 8 20M34 51l-9 12M34 51l12-6-1-11M36 33.5l13 .5"/>
+            <path class="k t d" d="M48 40l24 20"/>
+            <rect class="w" x="74" y="64" width="30" height="24" rx="1.5"/><path class="k t" d="M89 64v24"/>
+            <text class="x" x="89" y="56" text-anchor="middle" style="font-size:22px">?</text>
+            <text class="x" x="106" y="44" text-anchor="middle" style="font-size:13px">?</text>
+          </g></svg>
+        </div>
+        <p class="cap">Знайди пакунок</p>
+      </li>
+      <li class="fr">
+        <div class="art"><span class="n">2</span>
+          <svg viewBox="0 0 120 100" aria-hidden="true"><g filter="url(#r)">
+            <path class="k t" d="M6 89c34-3 74 2 108-1"/>
+            <circle class="w" cx="30" cy="36" r="8"/><circle class="i" cx="31" cy="37" r="1.2"/><circle class="i" cx="36" cy="37" r="1.2"/><path class="k t" d="M31 41h4"/>
+            <path class="k" d="M30 44v22M22 88l8-22 8 22M30 50l12 6M30 52l10 12"/>
+            <rect class="w" x="40" y="50" width="28" height="22" rx="1.5"/>
+            <rect class="w t" x="46" y="54" width="16" height="13"/>
+            <use href="#st" x="49" y="55.5" width="10" height="10"/>
+            <path class="k t" d="M62 54L79 32M62 67L80 46"/>
+            <circle class="w" cx="96" cy="38" r="18"/>
+            <use href="#st" x="84" y="26" width="24" height="24"/>
+          </g></svg>
+        </div>
+        <p class="cap">Подивись, куди його нести</p>
+      </li>
+      <li class="fr">
+        <div class="art"><span class="n">3</span>
+          <svg viewBox="0 0 120 100" aria-hidden="true"><g filter="url(#r)">
+            <path class="k t" d="M6 89c8-1 16 1 22 0"/>
+            <path class="w" d="M40 16l24-6 24 6 24-6v68l-24 6-24-6-24 6z"/>
+            <path class="k t" d="M64 10v68M88 16v68"/>
+            <path class="k t" d="M45 24h13v13H45zM69 22h14v16H69zM93 25h13v12H93zM45 50h30v20H45zM82 48h24v24H82z"/>
+            <circle class="i" cx="58" cy="60" r="2.6"/><circle class="k t" cx="58" cy="60" r="5.5"/>
+            <use href="#st" x="86" y="52" width="16" height="16"/>
+            <path class="o" d="M106 52c6 8-2 22-14 21s-18-12-12-21 16-9 22-4"/>
+            <circle class="w" cx="18" cy="40" r="7"/><circle class="i" cx="18" cy="39.5" r="1.1"/><circle class="i" cx="22" cy="39.5" r="1.1"/><path class="k t" d="M18 43h3.5"/>
+            <path class="k" d="M18 47v20M12 88l6-21 6 21M18 52l20-8M18 52l-7 10"/>
+          </g></svg>
+        </div>
+        <p class="cap">Знайди це місце на мапі</p>
+      </li>
+      <li class="fr">
+        <div class="art"><span class="n">4</span>
+          <svg viewBox="0 0 120 100" aria-hidden="true"><g filter="url(#r)">
+            <path class="k t" d="M6 89c34-3 74 2 108-1"/>
+            <ellipse class="o" cx="64" cy="87" rx="24" ry="5"/>
+            <circle class="w" cx="30" cy="44" r="8"/><circle class="i" cx="32" cy="45" r="1.2"/><circle class="i" cx="36" cy="45" r="1.2"/><path class="k t" d="M32 49h4"/>
+            <path class="k" d="M32 52l6 18M30 88l8-18 8 18M34 57l20 7M34 59l19 13"/>
+            <rect class="w" x="52" y="60" width="24" height="20" rx="1.5"/>
+            <path class="k t" d="M84 62v12M80 70l4 4 4-4"/>
+            <path class="k" d="M104 88V56"/><rect class="w" x="94" y="40" width="20" height="16" rx="1.5"/>
+            <use href="#st" x="98" y="42" width="12" height="12"/>
+            <text class="x" x="58" y="27" text-anchor="middle">4/8</text>
+            <path class="k t" d="M40 14l4 4M76 14l-4 4M58 4v5"/>
+          </g></svg>
+        </div>
+        <p class="cap">Віднеси й постав</p>
+      </li>
+    </ol>
+  </div>
+
+  <div class="card">
+    <div class="card-h">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect class="w" style="stroke-width:1.8" x="7" y="3" width="10" height="18" rx="1"/><path class="k" style="stroke-width:1.8" d="M12 14l3-8"/><circle class="i" cx="15" cy="6" r="1.8"/></svg>
+      <h3>Рубильники</h3><span class="sub">вигадане завдання, 4 кадри</span>
+    </div>
+    <ol class="strip">
+      <li class="fr">
+        <div class="art"><span class="n">1</span>
+          <svg viewBox="0 0 120 100" aria-hidden="true"><g filter="url(#r)">
+            <path class="k t" d="M6 89c34-3 74 2 108-1"/>
+            <circle class="w" cx="24" cy="40" r="8"/><circle class="i" cx="25" cy="39" r="1.2"/><circle class="i" cx="30" cy="39" r="1.2"/><path class="k t" d="M25 43.5h4"/>
+            <path class="k" d="M24 48v20M16 88l8-20 8 20M24 53l12-1M24 53l-8 10M36 52l5-5"/>
+            <circle class="w" cx="46" cy="42" r="7"/><path class="k t" d="M43 39a4 4 0 0 1 5 0"/>
+            <rect class="w" x="62" y="14" width="12" height="16" rx="1"/><path class="k t" d="M68 22l3 6"/><circle class="i" cx="71" cy="28" r="2"/>
+            <rect class="w" x="94" y="34" width="12" height="16" rx="1"/><path class="k t" d="M100 42l3 6"/><circle class="i" cx="103" cy="48" r="2"/>
+            <rect class="w" x="70" y="58" width="12" height="16" rx="1"/><path class="k t" d="M76 66l3 6"/><circle class="i" cx="79" cy="72" r="2"/>
+            <text class="x" x="114" y="20" text-anchor="end">×3</text>
+          </g></svg>
+        </div>
+        <p class="cap">Знайди всі рубильники</p>
+      </li>
+      <li class="fr">
+        <div class="art"><span class="n">2</span>
+          <svg viewBox="0 0 120 100" aria-hidden="true"><g filter="url(#r)">
+            <path class="k t" d="M6 89c34-3 74 2 108-1"/>
+            <circle class="w" cx="30" cy="40" r="8"/><circle class="i" cx="32" cy="39" r="1.2"/><circle class="i" cx="36" cy="39" r="1.2"/><path class="k t" d="M32 44h4"/>
+            <path class="k" d="M30 48v20M22 88l8-20 8 20M30 53l18-6 26-7M30 53l-8 10"/>
+            <rect class="w" x="62" y="44" width="22" height="30" rx="1.5"/>
+            <path class="k" d="M73 59l5-19"/><circle class="i" cx="78" cy="40" r="3.5"/>
+            <path class="k t" d="M83 34l4-3M85 40l5-1"/>
+            <path class="k t d" d="M84 50c14 0 18-12 18-23"/>
+            <circle class="y" cx="102" cy="20" r="7"/>
+            <path class="k t" d="M102 9V5M113 20h4M91 20h-4M110 12l3-3M94 12l-3-3"/>
+          </g></svg>
+        </div>
+        <p class="cap">Увімкни кожен</p>
+      </li>
+      <li class="fr warn">
+        <div class="art"><span class="n">3</span>
+          <svg viewBox="0 0 120 100" aria-hidden="true"><g filter="url(#r)">
+            <path class="k t" d="M6 89c34-3 74 2 108-1"/>
+            <circle class="w" cx="22" cy="40" r="8"/><circle class="i" cx="21" cy="39.5" r="1.2"/><circle class="i" cx="26" cy="39.5" r="1.2"/>
+            <path class="k t" d="M19 35.5l3.5 1.5M28 35.5l-3.5 1.5M21 44h4"/>
+            <path class="k" d="M22 48v20M14 88l8-20 8 20M22 53l16-4M22 53l-7 10"/>
+            <rect class="w" x="52" y="46" width="16" height="22" rx="1"/>
+            <path class="k" d="M60 58l4-14"/><circle class="i" cx="64" cy="44" r="2.6"/>
+            <circle class="w" cx="96" cy="50" r="8"/>
+            <path class="k" style="stroke-width:4.5" d="M88.5 48h15"/>
+            <circle cx="92" cy="48" r="1.1" style="fill:var(--panel)"/><circle cx="98" cy="48" r="1.1" style="fill:var(--panel)"/>
+            <path class="k t" d="M93 54q1.5-1.5 3 0t3 0"/>
+            <path class="k" d="M95 58l-5 14M82 88l8-16 10 16M94 62l-27-17M93 63l-9 8"/>
+            <path class="y" d="M80 6l12 20H68z"/>
+            <text class="x" x="80" y="24" text-anchor="middle" style="font-size:13px">!</text>
+          </g></svg>
+        </div>
+        <p class="cap">Стеж, щоб не вимкнули</p>
+      </li>
+      <li class="fr">
+        <div class="art"><span class="n">4</span>
+          <svg viewBox="0 0 120 100" aria-hidden="true"><g filter="url(#r)">
+            <path class="k t" d="M6 89c34-3 74 2 108-1"/>
+            <circle class="w" cx="22" cy="42" r="8"/><circle class="i" cx="20" cy="41" r="1.2"/><circle class="i" cx="25" cy="41" r="1.2"/><path class="k t" d="M19.5 45q3 3 6 0"/>
+            <path class="k" d="M22 50v18M14 88l8-20 8 20M22 55l-9-14M22 55l9-14"/>
+            <circle class="y" cx="56" cy="24" r="7"/><circle class="y" cx="78" cy="24" r="7"/><circle class="y" cx="100" cy="24" r="7"/>
+            <path class="k t" d="M56 13V9M49 17l-3-3M63 17l3-3M78 13V9M71 17l-3-3M85 17l3-3M100 13V9M93 17l-3-3M107 17l3-3M56 31v9M78 31v9M100 31v9"/>
+            <rect class="w" x="50" y="40" width="12" height="16" rx="1"/><rect class="w" x="72" y="40" width="12" height="16" rx="1"/><rect class="w" x="94" y="40" width="12" height="16" rx="1"/>
+            <path class="k t" d="M56 50l3-8M78 50l3-8M100 50l3-8"/>
+            <circle class="i" cx="59" cy="42" r="2"/><circle class="i" cx="81" cy="42" r="2"/><circle class="i" cx="103" cy="42" r="2"/>
+            <path class="o" d="M58 76l6 6 12-14"/>
+            <text class="x" x="82" y="82">3/3</text>
+          </g></svg>
+        </div>
+        <p class="cap">Усі горять = готово</p>
+      </li>
+    </ol>
+    <p class="note">Кадр 3 у заштрихованій рамці з трикутником є попередженням: що роблять дисиденти. Рамка має форму й штрих, а не лише колір. Коли саме завдання зараховано (усі горять одночасно чи протягом N секунд), ще вирішує дизайнер.</p>
+  </div>
+
+  <p class="note"><b>Правила картки:</b> одна дія на кадр зі списку приблизно 13 дієслів; той самий чоловічок і ракурс; без кадрів «іде туди», бо читач сам домислює дорогу між кадрами; останній кадр показує, коли зараховано; жодних назв кімнат цього раунду.</p>
+</section>
+
+<section id="decide">
+  <h2>Що вирішує дизайнер</h2>
+  <ol class="dec">
+    <li>Правило «список каже що, світ каже як» і один значок та колір на кімнату: на написі предмета, на мапі, на дверях і на місці.</li>
+    <li>«Бюджет дій» в інтерв’ю new-mechanic: дії з навчання плюс щонайбільше одна нова, яку показує сам предмет.</li>
+    <li>Межа в три кроки, чек-лист із 12 питань і тихий плейтест як частина визначення завдання.</li>
+    <li>Стиль карток: чоловічок, тон (пародія на інструкцію з літака, кумедний кадр провалу), остаточні підписи EN і UK. Підписи на цій сторінці чернеткові.</li>
+    <li>Хто малює кадри вручну: сам дизайнер, друг, платний художник (це гроші, спершу спитати) чи вільні набори іконок із записом у credits. Це спільне рішення обох людей, бо зачіпає жорсткі правила репозиторію.</li>
+    <li>Доставка, кадр 1: пакунки розкидані («Знайди») чи лежать на складі («Іди на склад»)? У GDD вони розкидані.</li>
+    <li>Рубильники: зараховано, коли всі ввімкнені одночасно, чи коли горять N секунд?</li>
+    <li>Чи не порушують «без маркерів» єдина «фарба завдань» на гніздах і постійні значки кімнат на мапі.</li>
+    <li>Значок «стажер»: так, ні чи за бажанням.</li>
+    <li>Допомога, що змінює правила (довший таймер, менше предметів): потрібна, чи досить наявного налаштування таймера.</li>
+    <li>Дошка «Як грати» і пробні станції в лобі: у якому етапі.</li>
+    <li>Порядок появи предметів (перший у найлегшій зоні) у даних кожного завдання.</li>
+  </ol>
+  <h3>А це вирішуєш ти</h3>
+  <ul class="facts">
+    <li>Tab: варіант В (натиснув чи затиснув, плюс M) чи простіший Б.</li>
+    <li>Коли картка перестає з’являтися на завантаженні: після першого виконання (не більше двох показів) чи одразу після першого перегляду.</li>
+    <li>Чи може картка показати клавішу мапи, якщо на екрані немає підказок клавіш.</li>
+    <li>Чи вимикає «без підказок» також автопоказ карток для всіх.</li>
+    <li>Чи не є зблиск предметів і підказка після двох помилок «маркером».</li>
+    <li>Мова 3D-напису, коли в гравців різні мови: кожен клієнт свою чи лише значок.</li>
+  </ul>
+</section>
+
+<section id="sources">
+  <h2>Джерела</h2>
+  <p class="note">Повні списки: synthesis.md, refs.md, tasks.md і cards.md у теці штурму. Позначка «не підтверджено» означає фан-вікі, форум, уривок із пошуку чи пам’ять.</p>
+  <h3>Дослідження</h3>
+  <ul class="src">
+    <li><a href="https://www.nngroup.com/articles/onboarding-tutorials/">NN/g: навчання наперед проти допомоги в контексті</a></li>
+    <li><a href="https://grail.cs.washington.edu/projects/game-abtesting/chi2012/chi2012.pdf">Andersen et al., CHI 2012: навчання в іграх різної складності</a> <span class="uc">(не підтверджено: прочитано анотацію)</span></li>
+    <li><a href="https://pubmed.ncbi.nlm.nih.gov/16393035/">Mayer et al., 2005: статичні малюнки проти анімації</a></li>
+    <li><a href="https://rosap.ntl.bts.gov/view/dot/58470">FAA, 2008: як розуміють піктограми карток безпеки</a></li>
+    <li><a href="https://www.sciencedirect.com/science/article/abs/pii/S0747563208002252">Arguel, Jamet, 2009: відео, розбите на кадри</a> <span class="uc">(не підтверджено)</span></li>
+    <li><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3122047/">Піктограма з текстом проти самої піктограми</a> <span class="uc">(не підтверджено)</span></li>
+    <li><a href="https://gameaccessibilityguidelines.com/full-list/">Game Accessibility Guidelines</a></li>
+    <li><a href="https://docs.godotengine.org/en/4.7/tutorials/i18n/internationalizing_games.html">Godot 4.7: локалізація</a></li>
+  </ul>
+  <h3>Ігри</h3>
+  <ul class="src">
+    <li><a href="https://miragecreativelab.com/lockdown-protocol/">LOCKDOWN Protocol, сторінка студії: вивіски й планшет із процедурами</a></li>
+    <li><a href="https://www.thegamer.com/lockdown-protocol-vents-fix-explained-guide/">LOCKDOWN Protocol: наведення на завдання підсвічує місця</a></li>
+    <li><a href="https://steamcommunity.com/app/2780980/discussions/0/4635988779091438487/">LOCKDOWN Protocol: відео до завдань і тренування в приватному лобі</a> <span class="uc">(не підтверджено, форум)</span></li>
+    <li><a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3305518998">LOCKDOWN Protocol: багатокрокові завдання</a> <span class="uc">(не підтверджено, гайд спільноти)</span></li>
+    <li><a href="https://backloggd.com/u/spyrospy/review/4020631/">LOCKDOWN Protocol: перші матчі йдуть на навчання</a> <span class="uc">(не підтверджено)</span></li>
+    <li><a href="https://www.youtube.com/watch?v=vRvoqHCTO_A">LOCKDOWN Protocol: відео спільноти про всі завдання</a> <span class="uc">(висновок «довідки в грі замало» не підтверджено)</span></li>
+    <li><a href="https://among-us.fandom.com/wiki/Tasks">Among Us: завдання без інструкцій, стрілки</a> <span class="uc">(не підтверджено, фан-вікі)</span></li>
+    <li><a href="https://innersloth.zendesk.com/hc/en-us/articles/7794240573460-Beginner-s-Guide-to-Among-Us">Among Us: режим Practice</a></li>
+    <li><a href="https://overcooked.fandom.com/wiki/1-1_(Overcooked!)">Overcooked: новий рецепт на початку рівня</a> <span class="uc">(не підтверджено, фан-вікі)</span></li>
+    <li><a href="https://twinfinite.net/guides/mario-party-superstars-minigames-how-practice/">Mario Party Superstars: тренування з екрана правил</a> <span class="uc">(не підтверджено)</span></li>
+    <li><a href="https://en.wikipedia.org/wiki/WarioWare">WarioWare: одне слово-наказ</a></li>
+    <li><a href="https://jackboxgames.com/responding-to-your-questions-from-the-jackbox-customer-survey">Jackbox: пропуск навчання на прохання гравців</a></li>
+    <li><a href="https://fallguysultimateknockout.fandom.com/wiki/Intro">Fall Guys: вступ раунду</a> <span class="uc">(не підтверджено, фан-вікі)</span></li>
+    <li><a href="https://gamefaqs.gamespot.com/boards/437678-team-fortress-2/61603528">Team Fortress 2: вступні відео вимикаються самі</a> <span class="uc">(не підтверджено, форум)</span></li>
+    <li><a href="https://deeprockgalactic.wiki.gg/wiki/Heads-up_display">Deep Rock Galactic: підказки можна вимкнути й скинути</a> <span class="uc">(не підтверджено, вікі)</span></li>
+    <li><a href="https://store.steampowered.com/news/app/1568590/view/2984182379485260022">Goose Goose Duck: кнопка довідки для поточного матчу</a> <span class="uc">(не підтверджено)</span></li>
+    <li><a href="https://www.gamedeveloper.com/design/the-secret-to-i-mario-i-level-design">Super Mario 3D Land: kishotenketsu</a></li>
+    <li><a href="https://www.gamedeveloper.com/design/how-miyamoto-built-i-super-mario-bros-i-legendary-world-1-1">Super Mario Bros.: World 1-1 вчить без слів</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/New_Super_Mario_Bros._Wii">New Super Mario Bros. Wii: Super Guide</a> <span class="uc">(не підтверджено)</span></li>
+    <li><a href="https://caniplaythat.com/2023/06/05/moving-out-2-accessibility-and-assist-modes-detailed/">Moving Out 2: допомога для всієї групи</a></li>
+    <li><a href="https://www.vice.com/en/article/celeste-assist-mode-change-and-accessibility/">Celeste: слова без сорому</a></li>
+    <li><a href="https://win.gg/news/should-you-use-smart-steering-in-mario-kart-8-deluxe/">Mario Kart 8 Deluxe: антена «розумного керма»</a> <span class="uc">(не підтверджено)</span></li>
+    <li><a href="https://www.gamedeveloper.com/design/video-designing-i-dead-space-i-s-immersive-user-interface">Dead Space: інформація в самому світі</a> <span class="uc">(не підтверджено)</span></li>
+    <li><a href="https://en.wikipedia.org/wiki/Untitled_Goose_Game">Untitled Goose Game: список цілей, а «як» у світі</a> <span class="uc">(не підтверджено)</span></li>
+  </ul>
+  <h3>Дизайн</h3>
+  <ul class="src">
+    <li><a href="https://www.fastcompany.com/3052604/how-ikea-designs-its-infamous-instruction-manuals">IKEA: інструкції без слів</a> <span class="uc">(не підтверджено)</span></li>
+    <li><a href="https://en.wikipedia.org/wiki/Otl_Aicher">Otl Aicher: піктограми на одній сітці</a> <span class="uc">(не підтверджено)</span></li>
+    <li><a href="https://www.ebsco.com/research-starters/literature-and-writing/understanding-comics-invisible-art-scott-mccloud">McCloud: читач домислює проміжок між кадрами</a> <span class="uc">(не підтверджено)</span></li>
+    <li><a href="https://critpoints.net/2024/03/03/yellow-paint-is-fine-actually/">«Жовта фарба» в іграх: коли позначка у світі доречна</a></li>
+    <li><a href="https://www.jenovachen.com/flowingames/Flow_in_games_final.pdf">Jenova Chen: потік і вибір складності гравцем</a> <span class="uc">(не підтверджено)</span></li>
+    <li><a href="https://roblog.co.uk/2024/03/juicy-games/">Juice: гучний відгук на кожну дію</a> <span class="uc">(не підтверджено)</span></li>
+  </ul>
+</section>
+
+</main>
