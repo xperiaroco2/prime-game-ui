@@ -140,6 +140,38 @@ for (const r of WARN_RULES) check(covered.has(r), `a warn/ fixture covers ${r}`)
   check(threw && Array.isArray(threw.problems) && threw.problems.some((p) => p.rule === 'P46'), 'api.load throws with .problems');
 }
 
+// Overlays (api.js withOverlay): a changed value, a new token, a modifier-owned path, a deliberately changed rule.
+console.log('-- overlays');
+{
+  const dir = path.join(FIX, 'good', 'modes');
+  const ov = (name, doc) => { const f = path.join(tmp, `${name}.tokens.json`); fs.writeFileSync(f, JSON.stringify(doc)); return f; };
+  const NS = 'io.github.xperiaroco2.prime-game';
+  const hex = (sys, p) => sys.tokens.get(p) && sys.tokens.get(p).hex;
+  const base = api.load({ root: dir });
+  const ink = { colorSpace: 'srgb', components: [0.1216, 0.0902, 0.1529], hex: '#1f1727' };
+  const a = api.load({ root: dir, overlay: ov('value', { palette: { $type: 'color', ink: { $value: ink } } }) });
+  check(hex(a, 'palette.ink') === '#1f1727' && hex(base, 'palette.ink') === '#2a1f33', 'an overlay replaces a value; the base set is untouched', hex(a, 'palette.ink'));
+  check(a.root === dir && /value\.tokens\.json$/.test(a.overlay), 'an overlaid sys names its root and overlay');
+  const b = api.load({ root: dir, overlay: ov('new', { palette: { 'ink-half': { $type: 'color', $value: Object.assign({}, ink, { alpha: 0.5 }) } } }) });
+  check(b.tokens.has('palette.ink-half') && !base.tokens.has('palette.ink-half'), 'an overlay adds a token to the file of its group');
+  let threw = null;
+  try { api.load({ root: dir, overlay: ov('owned', { font: { size: { $type: 'dimension', body: { $value: { value: 30, unit: 'px' } } } } }) }); } catch (e) { threw = e; }
+  check(threw && /owned by the modifier textSize/.test(threw.message), 'a modifier-owned path needs a named context', threw && threw.message);
+  const c = api.load({ root: dir, overlay: ov('large', { $extensions: { [NS]: { overlay: { contexts: { textSize: 'large' } } } },
+    font: { size: { $type: 'dimension', body: { $value: { value: 30, unit: 'px' } } } } }) });
+  const large = c.pack.modes.textSize.large['font.size.body'];
+  check(large && large.px === 30 && c.tokens.get('font.size.body').px === base.tokens.get('font.size.body').px, 'an overlay changes only the named context', JSON.stringify(large));
+  const held = ov('held', { button: { primary: { press: { $type: 'dimension', held: { $value: { value: 6, unit: 'px' } } } } } });
+  threw = null;
+  try { api.load({ root: dir, overlay: held }); } catch (e) { threw = e; }
+  check(threw && threw.problems.some((p) => p.rule === 'P49'), 'an overlay goes through the validator (P49)', threw && threw.message);
+  const d = api.load({ root: dir, overlay: held, allow: ['P49'] });
+  check(d.warnings.some((p) => p.rule === 'P49' && p.allowed), 'allow reports a rule as a warning');
+  threw = null;
+  try { api.load({ root: dir, overlay: ov('bad', { nowhere: { x: { $type: 'number', $value: 1 } } }) }); } catch (e) { threw = e; }
+  check(threw && threw.problems[0].rule === 'O01', 'a token with no group in the base set is an overlay error', threw && threw.message);
+}
+
 // 3. CLI ----------------------------------------------------------------------------------------------------------
 console.log('-- build.js');
 {

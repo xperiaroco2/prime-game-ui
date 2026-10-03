@@ -990,16 +990,18 @@ function main(argv) {
       // The companion: --companion, else the targets.json entry, else the file's own header (relative to the file).
       const companion = o.companion ? path.resolve(o.companion) : t && t.companion && profile === t.profile ? path.join(ROOT, t.companion)
         : h.companion ? path.resolve(path.dirname(abs), h.companion) : null;
-      jobs.push({ file: abs, profile, companion });
+      jobs.push({ file: abs, profile, companion, extra: t && t.profile === profile ? t.tokens : null });
     }
   } else {
-    for (const t of targets.targets) jobs.push({ file: path.join(ROOT, t.file), profile: t.profile, companion: t.companion ? path.join(ROOT, t.companion) : null });
+    for (const t of targets.targets) jobs.push({ file: path.join(ROOT, t.file), profile: t.profile, companion: t.companion ? path.join(ROOT, t.companion) : null, extra: t.tokens });
   }
   let total = 0;
   for (const j of jobs) {
     if (!fs.existsSync(j.file)) { console.log(`${rel(j.file)}:1: L00 file not found`); total++; continue; }
     let res;
-    try { res = lintFile(j.file, { profile: j.profile, tokens, tokensFile, textShadowSelectors: tss, companion: j.companion }); }
+    // A target's own "tokens" files (generated option values, pages/choices) add to the tokens file for that target only.
+    const own = tokens && j.extra && j.extra.length ? new Map([...tokens, ...j.extra.flatMap(x => [...(loadTokens(path.join(ROOT, x)) || new Map())])]) : tokens;
+    try { res = lintFile(j.file, { profile: j.profile, tokens: own, tokensFile, textShadowSelectors: tss, companion: j.companion }); }
     catch (e) { res = { V: [{ line: 1, rule: "L00", msg: "internal error: " + e.message }], info: null }; }
     total += report(j.file, j.profile, res, o.quiet);
   }
