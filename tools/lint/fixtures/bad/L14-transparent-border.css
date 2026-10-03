@@ -1,0 +1,2 @@
+/* profile: skin; expect: L14 */
+body[data-style="toy"] .frame .a { border: calc(var(--toy-stroke-control) * var(--px)) solid var(--toy-palette-clear); }

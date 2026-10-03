@@ -1,0 +1,2 @@
+/* profile: skin; expect: L06 */
+body[data-style="toy"] .frame .a::before { color: var(--toy-palette-ink); }

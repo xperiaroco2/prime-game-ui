@@ -1,0 +1,2 @@
+/* profile: skin; expect: L20 */
+body[data-style="toy"] .frame .a { color: var(--toy-palette-unknown); }

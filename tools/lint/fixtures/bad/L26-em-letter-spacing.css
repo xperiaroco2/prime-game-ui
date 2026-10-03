@@ -1,0 +1,2 @@
+/* profile: skin; expect: L26 */
+body[data-style="toy"] .frame .a { letter-spacing: 0.05em; }

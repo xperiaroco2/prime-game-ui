@@ -1,0 +1,88 @@
+{
+  "exit": 0,
+  "errors": 0,
+  "ramp": 5,
+  "rows": [
+    {
+      "id": "c1",
+      "over": "mid",
+      "verdict": "ok",
+      "min": 4.5
+    },
+    {
+      "id": "c8",
+      "verdict": "ok",
+      "min": 3
+    },
+    {
+      "id": "x15",
+      "over": "white",
+      "verdict": "WAIVED"
+    },
+    {
+      "id": "n23",
+      "verdict": "info",
+      "min": null
+    },
+    {
+      "id": "auto:ToyTextMutedOnDark:normal:color.surface.backdrop/white",
+      "verdict": "WAIVED"
+    },
+    {
+      "id": "auto:ToyButtonPrimary:disabled:face",
+      "verdict": "ok",
+      "min": 3
+    },
+    {
+      "id": "auto:ToyButtonGhostOnDark:hover:face/color.surface.plate/mid",
+      "verdict": "ok"
+    },
+    {
+      "id": "auto:ToyButtonGhostOnDark:normal:color.surface.night",
+      "verdict": "ok"
+    },
+    {
+      "id": "auto:ToyButtonPrimary:focus-on-normal:face",
+      "verdict": "ok",
+      "min": 3
+    },
+    {
+      "id": "auto:ToyChipToggle:focus:color.surface.panel",
+      "verdict": "ok"
+    },
+    {
+      "id": "auto:ToyField:selection:selection",
+      "verdict": "ok"
+    },
+    {
+      "id": "auto:ToyField:placeholder:face",
+      "verdict": "ok"
+    },
+    {
+      "id": "auto:ToyHudCaption:normal:ToyBarLabel/color.surface.backdrop/white",
+      "verdict": "ok"
+    },
+    {
+      "id": "auto:ToyTitlePlate:normal:face",
+      "min": 3
+    },
+    {
+      "id": "auto:ToyBarStamina:fill:ToyBarTrack",
+      "verdict": "ok",
+      "min": 3
+    },
+    {
+      "id": "auto:ToyBarProgress:fill:background",
+      "verdict": "ok"
+    },
+    {
+      "id": "auto:ToyTimer:normal:color.surface.night",
+      "min": 4.5
+    },
+    {
+      "id": "auto:ToyTimer:normal:color.surface.night",
+      "permutation": "textSize=large,motion=default",
+      "min": 3
+    }
+  ]
+}

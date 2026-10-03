@@ -1,0 +1,2 @@
+/* profile: skin; expect: L21 */
+body[data-style="toy"] .frame .a { transform: translateY(calc(var(--toy-button-primary-press-held) * var(--px))); }

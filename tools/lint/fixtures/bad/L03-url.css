@@ -1,0 +1,2 @@
+/* profile: skin; expect: L03 */
+body[data-style="toy"] .frame .a { background: url("bark.png"); }

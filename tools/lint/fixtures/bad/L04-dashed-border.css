@@ -1,0 +1,2 @@
+/* profile: skin; expect: L04 */
+body[data-style="toy"] .frame .a { border: calc(var(--toy-stroke-control) * var(--px)) dashed var(--toy-color-outline); }

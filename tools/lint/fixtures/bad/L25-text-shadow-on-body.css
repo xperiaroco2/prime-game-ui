@@ -1,0 +1,2 @@
+/* profile: skin; expect: L25 */
+body[data-style="toy"] .frame .body { text-shadow: 0 calc(var(--toy-stroke-control) * var(--px)) 0 var(--toy-palette-coral); }

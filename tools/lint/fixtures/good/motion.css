@@ -1,0 +1,15 @@
+/* profile: motion; companion: skin.css */
+/* Good motion: transitions and translateY on the faces; backgrounds and --ctx-base come from the companion skin. */
+body[data-style="toy"] .frame .btn:not(.ghost) {
+  cursor: pointer;
+  transition: transform var(--toy-motion-press-duration) var(--toy-motion-press-timing-function),
+              box-shadow var(--toy-motion-press-duration) var(--toy-motion-press-timing-function);
+}
+body[data-style="toy"] .frame .btn:not(.ghost):hover {
+  transform: translateY(calc(var(--toy-button-primary-press-hover) * var(--px)));
+  box-shadow: 0 calc((var(--toy-button-primary-press-depth) - var(--toy-button-primary-press-hover)) * var(--px)) 0 var(--ctx-base);
+}
+body[data-style="toy"] .frame .btn:not(.ghost):active {
+  transform: translateY(calc(var(--toy-button-primary-press-held) * var(--px)));
+  box-shadow: 0 calc((var(--toy-button-primary-press-depth) - var(--toy-button-primary-press-held)) * var(--px)) 0 var(--ctx-base);
+}

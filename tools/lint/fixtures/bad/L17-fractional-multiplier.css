@@ -1,0 +1,2 @@
+/* profile: skin; expect: L17 */
+body[data-style="toy"] .frame .a { padding: calc(var(--toy-stroke-control) * 0.5 * var(--px)); }

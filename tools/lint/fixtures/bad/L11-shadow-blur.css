@@ -1,0 +1,5 @@
+/* profile: skin; expect: L11 */
+body[data-style="toy"] .frame .a {
+  background: var(--toy-palette-yellow);
+  box-shadow: 0 calc(var(--toy-stroke-control) * var(--px)) calc(var(--toy-stroke-control) * var(--px)) var(--toy-palette-ink);
+}

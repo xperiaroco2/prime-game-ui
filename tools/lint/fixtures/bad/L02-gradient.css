@@ -1,0 +1,2 @@
+/* profile: skin; expect: L02 */
+body[data-style="toy"] .frame .a { background: linear-gradient(var(--toy-palette-ink), var(--toy-palette-cream)); }

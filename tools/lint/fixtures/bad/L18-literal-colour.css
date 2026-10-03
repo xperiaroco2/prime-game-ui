@@ -1,0 +1,2 @@
+/* profile: skin; expect: L18 */
+body[data-style="toy"] .frame .a { color: #fff4e2; }

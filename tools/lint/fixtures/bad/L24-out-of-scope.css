@@ -1,0 +1,2 @@
+/* profile: skin; expect: L24 */
+.frame .a { color: var(--toy-palette-ink); }

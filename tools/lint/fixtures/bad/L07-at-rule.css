@@ -1,0 +1,4 @@
+/* profile: skin; expect: L07 */
+@media (min-width: 600px) {
+  body[data-style="toy"] .frame .a { color: var(--toy-palette-ink); }
+}

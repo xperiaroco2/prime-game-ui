@@ -1,0 +1,70 @@
+/* profile: tokens */
+/* A small hand-written tokens file in the format of dist/css/toy-tokens.css (spec §8), so the lint self-test
+   never needs the token build. Every name used by the good and bad fixtures is declared here. */
+:root {
+  --toy-palette-ink: #2a1f33;
+  --toy-palette-cream: #fff4e2;
+  --toy-palette-yellow: #ffc23a;
+  --toy-palette-honey: #e5a52a;
+  --toy-palette-white: #ffffff;
+  --toy-palette-coral: #ff8466;
+  --toy-palette-night: #1f1727;
+  --toy-palette-plate: rgba(42, 31, 51, 0.86);
+  --toy-palette-clear: rgba(42, 31, 51, 0);
+  --toy-font-family-base: "Comfortaa";
+  --toy-font-weight-bold: 700;
+  --toy-font-size-body: 22;
+  --toy-font-line-height-base: 1.25;
+  --toy-stroke-control: 3;
+  --toy-radius-control: 14;
+  --toy-radius-surface: 22;
+  --toy-focus-width: 3;
+  --toy-duration-press: 70ms;
+  --toy-ease-press: cubic-bezier(0.33, 0.52, 0.64, 1);
+  --toy-color-outline: var(--toy-palette-ink);
+  --toy-color-on-dark-text: var(--toy-palette-cream);
+  --toy-color-on-dark-line: var(--toy-palette-cream);
+  --toy-color-on-dark-base: var(--toy-palette-ink);
+  --toy-color-on-light-text: var(--toy-palette-ink);
+  --toy-color-on-light-line: var(--toy-palette-ink);
+  --toy-color-on-light-base: var(--toy-palette-honey);
+  --toy-color-surface-panel: var(--toy-palette-cream);
+  --toy-color-surface-plate: var(--toy-palette-plate);
+  --toy-type-body-font-family: var(--toy-font-family-base);
+  --toy-type-body-font-size: var(--toy-font-size-body);
+  --toy-type-body-font-weight: var(--toy-font-weight-bold);
+  --toy-type-body-letter-spacing: 0;
+  --toy-type-body-line-height: var(--toy-font-line-height-base);
+  --toy-motion-press-duration: var(--toy-duration-press);
+  --toy-motion-press-delay: 0ms;
+  --toy-motion-press-timing-function: var(--toy-ease-press);
+  --toy-button-primary-press-depth: 5;
+  --toy-button-primary-press-hover: -1;
+  --toy-button-primary-press-held: 4;
+  --toy-button-primary-normal-bg-color: var(--toy-palette-yellow);
+  --toy-button-primary-normal-border-color: var(--toy-color-outline);
+  --toy-button-primary-normal-border-width: var(--toy-stroke-control);
+  --toy-button-primary-normal-corner-radius: var(--toy-radius-control);
+  --toy-button-primary-normal-content-margin-block: 12;
+  --toy-button-primary-normal-content-margin-inline: 24;
+  --toy-button-primary-disabled-bg-color: var(--toy-palette-cream);
+  --toy-button-primary-focus-border-width: var(--toy-focus-width);
+  --toy-button-primary-focus-expand-margin: -3;
+  --toy-base-primary-on-dark-panel-bg-color: var(--toy-color-on-dark-base);
+  --toy-base-primary-on-light-panel-bg-color: var(--toy-color-on-light-base);
+  --toy-tab-selected-normal-border-width-bottom: 6;
+  --toy-tab-selected-normal-expand-margin-bottom: 3;
+  --toy-title-plate-normal-expand-margin: 8;
+  --toy-map-pin-size-width: 18;
+  --toy-map-pin-size-height: 28;
+  --toy-title-logo-items-shadow-offset-x: 0;
+  --toy-title-logo-items-shadow-offset-y: 6;
+  --toy-bar-stamina-fill-bg-color: var(--toy-palette-yellow);
+}
+:root[data-text-size="large"] {
+  --toy-font-size-body: 28;
+}
+:root[data-motion="reduced"] { --toy-duration-press: 0ms; }
+@media (prefers-reduced-motion: reduce) {
+  :root:not([data-motion="default"]) { --toy-duration-press: 0ms; }
+}
