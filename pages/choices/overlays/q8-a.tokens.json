@@ -1,0 +1,19 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "$description": "The menu backdrop at 74 % instead of 70 %.",
+  "palette": {
+    "$type": "color",
+    "backdrop": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.149,
+          0.1098,
+          0.1882
+        ],
+        "alpha": 0.74,
+        "hex": "#261c30"
+      }
+    }
+  }
+}

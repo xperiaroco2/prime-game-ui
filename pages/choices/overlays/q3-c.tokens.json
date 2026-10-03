@@ -1,0 +1,128 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "$description": "Hover and held draw no fill; the outline grows by 1 px (3 to 4). The idle tab, which has no outline, gets a thin 2 px ink one.",
+  "button": {
+    "ghost-on-dark": {
+      "hover": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{palette.clear}"
+        },
+        "border-width": {
+          "$type": "dimension",
+          "$value": "{stroke.surface}"
+        }
+      },
+      "pressed": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{palette.clear}"
+        },
+        "border-width": {
+          "$type": "dimension",
+          "$value": "{stroke.surface}"
+        }
+      }
+    },
+    "ghost-on-light": {
+      "hover": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{palette.clear}"
+        },
+        "border-width": {
+          "$type": "dimension",
+          "$value": "{stroke.surface}"
+        }
+      },
+      "pressed": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{palette.clear}"
+        },
+        "border-width": {
+          "$type": "dimension",
+          "$value": "{stroke.surface}"
+        }
+      }
+    }
+  },
+  "chip": {
+    "toggle-on-dark": {
+      "hover": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{palette.clear}"
+        },
+        "border-width": {
+          "$type": "dimension",
+          "$value": "{stroke.surface}"
+        }
+      },
+      "pressed": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{palette.clear}"
+        },
+        "border-width": {
+          "$type": "dimension",
+          "$value": "{stroke.surface}"
+        }
+      }
+    },
+    "toggle-on-light": {
+      "hover": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{palette.clear}"
+        },
+        "border-width": {
+          "$type": "dimension",
+          "$value": "{stroke.surface}"
+        }
+      },
+      "pressed": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{palette.clear}"
+        },
+        "border-width": {
+          "$type": "dimension",
+          "$value": "{stroke.surface}"
+        }
+      }
+    }
+  },
+  "tab": {
+    "idle": {
+      "hover": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{palette.clear}"
+        },
+        "border-width": {
+          "$type": "dimension",
+          "$value": "{stroke.thin}"
+        },
+        "border-color": {
+          "$type": "color",
+          "$value": "{color.outline}"
+        }
+      },
+      "pressed": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{palette.clear}"
+        },
+        "border-width": {
+          "$type": "dimension",
+          "$value": "{stroke.thin}"
+        },
+        "border-color": {
+          "$type": "color",
+          "$value": "{color.outline}"
+        }
+      }
+    }
+  }
+}

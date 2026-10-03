@@ -1,0 +1,14 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "$description": "Inner focus as now, but yellow on the dark (clear) ghost face.",
+  "button": {
+    "ghost-on-dark": {
+      "focus": {
+        "border-color": {
+          "$type": "color",
+          "$value": "{palette.yellow}"
+        }
+      }
+    }
+  }
+}

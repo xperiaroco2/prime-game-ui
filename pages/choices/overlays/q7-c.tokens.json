@@ -1,0 +1,39 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "$description": "A shallow press: 3 px primary, 2 px secondary and danger; 3 px of base stay visible.",
+  "button": {
+    "primary": {
+      "press": {
+        "$type": "dimension",
+        "held": {
+          "$value": {
+            "value": 3,
+            "unit": "px"
+          }
+        }
+      }
+    },
+    "secondary": {
+      "press": {
+        "$type": "dimension",
+        "held": {
+          "$value": {
+            "value": 2,
+            "unit": "px"
+          }
+        }
+      }
+    },
+    "danger": {
+      "press": {
+        "$type": "dimension",
+        "held": {
+          "$value": {
+            "value": 2,
+            "unit": "px"
+          }
+        }
+      }
+    }
+  }
+}

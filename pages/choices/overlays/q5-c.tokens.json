@@ -1,0 +1,54 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "$description": "Large text x1.33 (4/3), rounded half up, 18 to 36 px; 48, 64 and 96 stay.",
+  "$extensions": {
+    "io.github.xperiaroco2.prime-game": {
+      "overlay": {
+        "contexts": {
+          "textSize": "large"
+        }
+      }
+    }
+  },
+  "font": {
+    "size": {
+      "$type": "dimension",
+      "caption": {
+        "$value": {
+          "value": 24,
+          "unit": "px"
+        }
+      },
+      "small": {
+        "$value": {
+          "value": 27,
+          "unit": "px"
+        }
+      },
+      "body": {
+        "$value": {
+          "value": 29,
+          "unit": "px"
+        }
+      },
+      "body-large": {
+        "$value": {
+          "value": 32,
+          "unit": "px"
+        }
+      },
+      "heading": {
+        "$value": {
+          "value": 37,
+          "unit": "px"
+        }
+      },
+      "title": {
+        "$value": {
+          "value": 48,
+          "unit": "px"
+        }
+      }
+    }
+  }
+}

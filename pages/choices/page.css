@@ -1,0 +1,92 @@
+/* The look-choices page's chrome, over pages/components/page.css. Not linted: it never draws a component's look
+   (that comes only from choices.css); layout rules on components use :where() so they never outrank a generated rule. */
+:root { --px: calc(var(--zoom) * 0.56px); }
+@media (min-width: 1100px) { :root { --px: calc(var(--zoom) * 0.62px); } }
+html, body { overflow-x: hidden; }
+
+.ch-how { margin: 0 0 12px; padding-left: 20px; color: var(--c-muted); font-size: 14px; max-width: 80ch; }
+.ch-how li { margin: 2px 0; }
+.ch-bar-row { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; justify-content: space-between; }
+.ch-progress { margin: 0; font-size: 15px; }
+.ch-progress b { font-size: 17px; }
+.ch-db { margin: 6px 0 0; font-size: 13px; line-height: 1.4; color: var(--c-muted); }
+.ch-db[data-state="none"] { color: var(--c-warn); font-weight: 600; }
+.ch-db[data-state="db"] { color: var(--c-ok); }
+.ch-summary { margin: 12px 0; }
+.ch-summary[hidden] { display: none; }
+.ch-summary label, .ch-note label { display: block; font-size: 13px; color: var(--c-muted); margin-bottom: 4px; }
+.ch-summary textarea, .ch-note textarea {
+  width: 100%; font: inherit; font-size: 14px; color: var(--c-fg); background: var(--c-card);
+  border: 1px solid var(--c-line); border-radius: 8px; padding: 8px; resize: vertical;
+}
+
+/* Questions and options. */
+.ch-q { background: var(--c-card); border: 1px solid var(--c-line); border-radius: 14px; padding: 12px 12px 14px; margin: 16px 0; min-width: 0; scroll-margin-top: 90px; }
+.ch-q h2 { margin: 2px 0 4px; font-size: 19px; display: flex; gap: 10px; align-items: baseline; }
+.ch-num { flex: none; display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 999px; background: var(--c-accent); color: var(--c-on-accent); font-size: 14px; }
+.ch-ask { margin: 0 0 8px; max-width: 80ch; }
+.ch-q-tools { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; margin-bottom: 10px; }
+.ch-saved { margin: 0; font-size: 13px; color: var(--c-muted); }
+.ch-saved.is-done { color: var(--c-ok); font-weight: 600; }
+.ch-opts { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 330px), 1fr)); }
+.ch-opt { display: flex; flex-direction: column; gap: 8px; min-width: 0; border: 1px solid var(--c-line); border-radius: 12px; padding: 10px; background: var(--c-bg); }
+.ch-opt.is-chosen { border-color: var(--c-accent); box-shadow: 0 0 0 2px var(--c-accent); }
+.ch-ref { border-style: dashed; }
+.ch-opt-head { display: flex; gap: 8px; align-items: baseline; }
+.ch-opt-head h3 { margin: 0; font-size: 16px; line-height: 1.3; }
+.ch-letter { flex: none; font-weight: 700; color: var(--c-accent); font-size: 16px; }
+.ch-desc { margin: 0; font-size: 14px; line-height: 1.4; }
+.ch-badges { display: flex; flex-wrap: wrap; gap: 4px; }
+.ch-badge { display: inline-block; padding: 0 8px; border-radius: 999px; font-size: 12px; line-height: 20px; font-weight: 700; }
+.ch-badge-rec { background: var(--c-accent); color: var(--c-on-accent); }
+.ch-badge-cur { background: var(--c-badge-bg); color: var(--c-badge-fg); }
+.ch-badge-fail { background: var(--c-fail); color: var(--c-card); }
+.ch-badge-rule { border: 1px solid var(--c-warn); color: var(--c-warn); line-height: 18px; }
+.ch-sample { min-width: 0; }
+.ch-stage-label { margin: 4px 0 3px; font-size: 12px; color: var(--c-muted); }
+.ch-stage { min-width: 0; border-radius: 10px; overflow: hidden; }
+.ch-stage .sc-sample { flex-wrap: wrap; --pad: 18; }
+.ch-facts { list-style: none; margin: 0; padding: 0; font-size: 13px; line-height: 1.35; display: flex; flex-direction: column; gap: 2px; }
+.ch-facts b { white-space: nowrap; }
+.ch-facts small { color: var(--c-muted); white-space: nowrap; }
+.ch-r-ok b { color: var(--c-ok); }
+.ch-r-fail b, .ch-r-fail > span { color: var(--c-fail); }
+.ch-r-waived b { color: var(--c-warn); }
+.ch-r-sub { padding-left: 12px; font-size: 12px; overflow-wrap: anywhere; }
+.ch-r-sub > span { color: var(--c-fg) !important; }
+.ch-act { display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: center; margin-top: auto; padding-top: 4px; }
+.ch-chosen { display: none; font-size: 14px; font-weight: 700; color: var(--c-accent); }
+.is-chosen .ch-chosen { display: inline; }
+.ch-btn {
+  appearance: none; font: inherit; font-size: 14px; font-weight: 600; min-height: 40px; padding: 6px 14px; border-radius: 10px;
+  border: 1px solid var(--c-accent); background: var(--c-accent); color: var(--c-on-accent); cursor: pointer;
+}
+.ch-btn:disabled { opacity: .5; cursor: not-allowed; }
+.ch-btn:focus-visible { outline: 3px solid var(--c-info); outline-offset: 2px; }
+.ch-btn-quiet, .ch-force { background: var(--c-card); color: var(--c-fg); border-color: var(--c-line); }
+.ch-force[aria-pressed="true"] { background: var(--c-badge-bg); color: var(--c-badge-fg); border-color: var(--c-badge-bg); }
+.is-chosen .ch-take { background: var(--c-card); color: var(--c-accent); }
+.ch-note { margin-top: 12px; }
+.ch-note-act { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+.ch-foot { margin: 24px 0 0; font-size: 12px; color: var(--c-muted); }
+
+/* Sample layout (never looks). */
+.ch-row { display: flex; flex-wrap: wrap; gap: calc(16 * var(--px)); align-items: center; min-width: 0; max-width: 100%; }
+.ch-cards { align-items: flex-start; }
+/* q6: the cards take their content's size (no showcase min-width), so a selected card that grows also grows wider and
+   moves its neighbours. */
+.ch-cards :where(.tv-ToyPresetCard, .tv-ToyPresetCardSelected, .tv-ToyPresetCardQuiet) { min-width: 0; }
+:where(.ch-stage) :where(button[class*="tv-"]) { touch-action: none; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+:where(.ch-panel) { width: auto !important; max-width: 100%; min-width: 0; }
+:where(.ch-panel) .sc-setrow { width: 100%; flex-wrap: wrap; }
+:where(.ch-panel) .sc-actions, :where(.ch-panel) .ch-row { max-width: 100%; }
+.ch-full { display: flex !important; flex: 1 1 100%; min-width: 0; padding: calc(28 * var(--px)) calc(22 * var(--px)) !important; }
+.ch-col { flex-direction: column; align-items: flex-start !important; gap: calc(12 * var(--px)); min-height: calc(200 * var(--px)); }
+.ch-keys { display: flex !important; flex-wrap: wrap; gap: calc(14 * var(--px)) calc(22 * var(--px)) !important; justify-content: flex-start !important; max-width: 100%; }
+.ch-key { display: inline-flex; align-items: center; gap: calc(10 * var(--px)); }
+.ch-pal { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 4px 10px; font-size: 12px; margin-bottom: 4px; }
+.ch-pal p { grid-column: 1 / -1; margin: 4px 0 0; color: var(--c-muted); }
+.ch-sw { display: grid; grid-template-columns: 26px 1fr; gap: 0 8px; align-items: center; min-width: 0; }
+.ch-sw i { grid-row: span 2; width: 26px; height: 26px; border-radius: 6px; border: 1px solid var(--c-line); }
+.ch-sw b { font-weight: 600; overflow-wrap: anywhere; }
+.ch-sw code { color: var(--c-muted); font-size: 11px; }

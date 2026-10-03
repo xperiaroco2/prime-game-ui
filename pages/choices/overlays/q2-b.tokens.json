@@ -1,0 +1,240 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "$description": "Focus as an outer ring: focus.width at focus.gap outside the outline, a pill (P48 outer). Yellow on dark and on the controls used in both contexts (the any-context buttons, the field and the dropdown), ink on light.",
+  "button": {
+    "primary": {
+      "focus": {
+        "border-color": {
+          "$type": "color",
+          "$value": "{palette.yellow}"
+        },
+        "corner-radius": {
+          "$type": "dimension",
+          "$value": "{radius.pill}"
+        },
+        "expand-margin": {
+          "$type": "dimension",
+          "$value": {
+            "value": 5,
+            "unit": "px"
+          }
+        }
+      }
+    },
+    "secondary": {
+      "focus": {
+        "border-color": {
+          "$type": "color",
+          "$value": "{palette.yellow}"
+        },
+        "corner-radius": {
+          "$type": "dimension",
+          "$value": "{radius.pill}"
+        },
+        "expand-margin": {
+          "$type": "dimension",
+          "$value": {
+            "value": 5,
+            "unit": "px"
+          }
+        }
+      }
+    },
+    "danger": {
+      "focus": {
+        "border-color": {
+          "$type": "color",
+          "$value": "{palette.yellow}"
+        },
+        "corner-radius": {
+          "$type": "dimension",
+          "$value": "{radius.pill}"
+        },
+        "expand-margin": {
+          "$type": "dimension",
+          "$value": {
+            "value": 5,
+            "unit": "px"
+          }
+        }
+      }
+    },
+    "ghost-on-dark": {
+      "focus": {
+        "border-color": {
+          "$type": "color",
+          "$value": "{palette.yellow}"
+        },
+        "corner-radius": {
+          "$type": "dimension",
+          "$value": "{radius.pill}"
+        },
+        "expand-margin": {
+          "$type": "dimension",
+          "$value": {
+            "value": 5,
+            "unit": "px"
+          }
+        }
+      }
+    },
+    "ghost-on-light": {
+      "focus": {
+        "border-color": {
+          "$type": "color",
+          "$value": "{color.outline}"
+        },
+        "corner-radius": {
+          "$type": "dimension",
+          "$value": "{radius.pill}"
+        },
+        "expand-margin": {
+          "$type": "dimension",
+          "$value": {
+            "value": 5,
+            "unit": "px"
+          }
+        }
+      }
+    }
+  },
+  "tab": {
+    "idle": {
+      "focus": {
+        "border-color": {
+          "$type": "color",
+          "$value": "{color.outline}"
+        },
+        "corner-radius": {
+          "$type": "dimension",
+          "$value": "{radius.pill}"
+        },
+        "expand-margin": {
+          "$type": "dimension",
+          "$value": {
+            "value": 5,
+            "unit": "px"
+          }
+        }
+      }
+    },
+    "selected": {
+      "focus": {
+        "border-color": {
+          "$type": "color",
+          "$value": "{color.outline}"
+        },
+        "corner-radius": {
+          "$type": "dimension",
+          "$value": "{radius.pill}"
+        },
+        "expand-margin": {
+          "$type": "dimension",
+          "$value": {
+            "value": 5,
+            "unit": "px"
+          }
+        }
+      }
+    }
+  },
+  "preset-card": {
+    "idle": {
+      "focus": {
+        "border-color": {
+          "$type": "color",
+          "$value": "{color.outline}"
+        },
+        "corner-radius": {
+          "$type": "dimension",
+          "$value": "{radius.pill}"
+        },
+        "expand-margin": {
+          "$type": "dimension",
+          "$value": {
+            "value": 5,
+            "unit": "px"
+          }
+        }
+      }
+    },
+    "selected": {
+      "focus": {
+        "border-color": {
+          "$type": "color",
+          "$value": "{color.outline}"
+        },
+        "corner-radius": {
+          "$type": "dimension",
+          "$value": "{radius.pill}"
+        },
+        "expand-margin": {
+          "$type": "dimension",
+          "$value": {
+            "value": 5,
+            "unit": "px"
+          }
+        }
+      }
+    },
+    "quiet": {
+      "focus": {
+        "border-color": {
+          "$type": "color",
+          "$value": "{color.outline}"
+        },
+        "corner-radius": {
+          "$type": "dimension",
+          "$value": "{radius.pill}"
+        },
+        "expand-margin": {
+          "$type": "dimension",
+          "$value": {
+            "value": 5,
+            "unit": "px"
+          }
+        }
+      }
+    }
+  },
+  "field": {
+    "input": {
+      "focus": {
+        "border-color": {
+          "$type": "color",
+          "$value": "{palette.yellow}"
+        },
+        "corner-radius": {
+          "$type": "dimension",
+          "$value": "{radius.pill}"
+        },
+        "expand-margin": {
+          "$type": "dimension",
+          "$value": {
+            "value": 5,
+            "unit": "px"
+          }
+        }
+      }
+    },
+    "dropdown": {
+      "focus": {
+        "border-color": {
+          "$type": "color",
+          "$value": "{palette.yellow}"
+        },
+        "corner-radius": {
+          "$type": "dimension",
+          "$value": "{radius.pill}"
+        },
+        "expand-margin": {
+          "$type": "dimension",
+          "$value": {
+            "value": 5,
+            "unit": "px"
+          }
+        }
+      }
+    }
+  }
+}

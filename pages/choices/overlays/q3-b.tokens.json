@@ -1,0 +1,96 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "$description": "Hover and held fill white on flat controls; on dark the label turns ink so it stays readable.",
+  "button": {
+    "ghost-on-dark": {
+      "hover": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{palette.white}"
+        },
+        "font-color": {
+          "$type": "color",
+          "$value": "{color.on-light.text}"
+        }
+      },
+      "pressed": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{palette.white}"
+        },
+        "font-color": {
+          "$type": "color",
+          "$value": "{color.on-light.text}"
+        }
+      }
+    },
+    "ghost-on-light": {
+      "hover": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{palette.white}"
+        }
+      },
+      "pressed": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{palette.white}"
+        }
+      }
+    }
+  },
+  "chip": {
+    "toggle-on-dark": {
+      "hover": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{palette.white}"
+        },
+        "font-color": {
+          "$type": "color",
+          "$value": "{color.on-light.text}"
+        }
+      },
+      "pressed": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{palette.white}"
+        },
+        "font-color": {
+          "$type": "color",
+          "$value": "{color.on-light.text}"
+        }
+      }
+    },
+    "toggle-on-light": {
+      "hover": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{palette.white}"
+        }
+      },
+      "pressed": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{palette.white}"
+        }
+      }
+    }
+  },
+  "tab": {
+    "idle": {
+      "hover": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{palette.white}"
+        }
+      },
+      "pressed": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{palette.white}"
+        }
+      }
+    }
+  }
+}
