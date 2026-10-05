@@ -858,7 +858,7 @@
             },
             {
               "v": "ToyTextOnLight",
-              "label": "everyone_sees",
+              "label": "goal",
               "context": "light"
             },
             {

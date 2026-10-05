@@ -363,7 +363,7 @@ function renderPage(sys, componentsCss) {
     ['ToyPanelMenu', 'ToyBasePanel', 'ToyTitleOnLight', 'ToyTextMutedOnLight', 'ToyTab', 'ToyTabSelected', 'ToyButtonPrimary', 'ToyButtonSecondary'].forEach(V);
     const html = `<div class="tv-ToyPanelMenu sc-panel" data-context="light">${sampleSpan('settings', 'tv-ToyTitleOnLight')}`
       + `<div class="sc-group">${buttonEl('ToyTabSelected', '', sampleSpan('game'))}${buttonEl('ToyTab', '', sampleSpan('lobby'))}${buttonEl('ToyTab', '', sampleSpan('character'))}</div>`
-      + `${sampleSpan('game_running', 'tv-ToyTextMutedOnLight sc-wrap')}`
+      + `${sampleSpan('leave_host_note', 'tv-ToyTextMutedOnLight sc-wrap')}`
       + `<div class="sc-actions">${buttonEl('ToyButtonPrimary', '', sampleSpan('resume'))}${buttonEl('ToyButtonSecondary', '', sampleSpan('settings'))}</div></div>`;
     const badge = proposal([['ToyPanelMenu'], ['ToyBasePanel'], ['ToyTitleOnLight'], ['ToyTextMutedOnLight'], ['ToyTab', 'normal'], ['ToyTabSelected', 'normal'], ['ToyButtonPrimary', 'normal'], ['ToyButtonSecondary', 'normal']]);
     return stage('dark', [cell(T('menu_panel'), badge, html)]);
@@ -392,12 +392,11 @@ function renderPage(sys, componentsCss) {
     return stage('dark', cells);
   }
   function rowHowto() {
-    ['ToyPanelHowto', 'ToyBasePanel', 'ToyHowtoFrame', 'ToyHowtoFrameDone', 'ToyHowtoCaption', 'ToyChipNew', 'ToyChipNewText', 'ToyTitleOnLight', 'ToyHowtoNote'].forEach(V);
+    ['ToyPanelHowto', 'ToyBasePanel', 'ToyHowtoFrame', 'ToyHowtoFrameDone', 'ToyHowtoCaption', 'ToyTitleOnLight', 'ToyHowtoNote'].forEach(V);
     const frame = (label, done) => `<div class="tv-${done ? 'ToyHowtoFrameDone' : 'ToyHowtoFrame'} sc-frame">${icon(done ? 'check' : 'item')}${sampleSpan(label, 'tv-ToyHowtoCaption')}</div>`;
-    const card = (steps, doneIdx) => `<div class="tv-ToyPanelHowto sc-howto" data-context="light"><div class="sc-howto-head">${sampleSpan('switches', 'tv-ToyTitleOnLight')}`
-      + `${textIn('ToyChipNew', 'ToyChipNewText', 'new')}</div>${sampleSpan('how_to', 'tv-ToyHowtoNote')}`
+    const card = (steps, doneIdx) => `<div class="tv-ToyPanelHowto sc-howto" data-context="light"><div class="sc-howto-head">${sampleSpan('switches', 'tv-ToyTitleOnLight')}</div>${sampleSpan('how_to', 'tv-ToyHowtoNote')}`
       + `<div class="sc-frames">${steps.map((s, i) => frame(s, i === doneIdx)).join('')}</div></div>`;
-    const uses = [['ToyPanelHowto'], ['ToyBasePanel'], ['ToyHowtoFrame'], ['ToyHowtoCaption'], ['ToyChipNew'], ['ToyChipNewText'], ['ToyTitleOnLight'], ['ToyHowtoNote']];
+    const uses = [['ToyPanelHowto'], ['ToyBasePanel'], ['ToyHowtoFrame'], ['ToyHowtoCaption'], ['ToyTitleOnLight'], ['ToyHowtoNote']];
     const four = ['step1', 'step2', 'step3', 'step4'];
     return stage('dark', [
       cell(T('howto_four'), proposal(uses), card(four, -1)),

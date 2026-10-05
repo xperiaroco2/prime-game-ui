@@ -54,8 +54,8 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
   list, never who knocked you down.
 - **Name plates** in line of sight within about 10 m; a dissident sees a mark next to a teammate's name, nobody else
   does ([#257](https://github.com/xperiaroco2/prime-game/issues/257)).
-- **Map and tasks on M**, press to open and close, walking allowed: task counters without descriptions, "?" and NEW per
-  task, a map with "you are here" and room names, hovering a task lights up zones; no circles, players, items, role or
+- **Map and tasks on M**, press to open and close, walking allowed: task counters without descriptions, "?" per task
+  (no NEW tag: see Texts), a map with "you are here" and room names, hovering a task lights up zones; no circles, players, items, role or
   teammates. Tab is kept for an inventory later ([#253](https://github.com/xperiaroco2/prime-game/issues/253),
   [#258](https://github.com/xperiaroco2/prime-game/issues/258)).
 - **Downed:** "Hold F to give up" (F instead of G; every key rebindable,
@@ -82,6 +82,22 @@ plate shape with its pictogram), flat on the wall, not a hanging shop sign. **On
 pictogram (system B's icons, `pages/room-signs/systems/b/icons/`) with no plate, like a stamp. **The delivery spot:** for
 now only a marked area in the room (a lit zone the player sees on arrival, like a delivery zone in GTA), one per room;
 its real form waits for game design. No deeper design work on signs until the game's look is set.
+
+## Texts
+The engineer's word choices and removals, 2026-10-05, on the [copy page](https://claude.ai/artifact/XTywwaVhBdvGKEgdw4xL4s)
+([prime-game-ui#4](https://github.com/xperiaroco2/prime-game-ui/issues/4)); the deck is `copy/strings.csv`, its rules
+`copy/README.md`.
+- **No gender in player-facing text**, and the player is «ти» everywhere.
+- **Words:** «задача» for tasks (it sounds technical, and the players are engineers), «мапа» («Завантаження мапи»),
+  «шаблон» for a preset («Шаблон: Звичайний», «Швидкий», «Зберегти свій»), «Нокдаун» for the downed lesson and guide
+  page, «Готовність» for the ready button, «Доставка» for the delivery lesson; «матч» stays in «Тривалість матчу».
+- **Sentence case** in every string, small labels too («Рука», «Пояс», «Ти тут», «Готово», «Версія 0.4»).
+- **No «ми» voice:** «Підключення до «{lobby}»…», «Підключення…», «Готові 3 з 4» (no «Чекаємо на всіх»).
+- **Removed hand-holding:** that the Esc menu does not pause the game, that the language changes at once, that everyone
+  sees character changes, the loading screen's "a task that's new to you" sentence (the how-to card stays,
+  prime-game#254), the map's NEW tag (the «?» stays), and the tutorial's sprint-and-jump and "new task" lessons (moving,
+  looking, sprinting and jumping are one «Керування» lesson).
+- Kept as is: «Ти хост: зміни бачать усі».
 
 ## Style
 The engineer chose **Toy** (2026-10-03): chunky rounded shapes with a thick plum outline, cream panels, sunny-yellow buttons with a solid toy base that look pressable, and a small, calm HUD; it reads as arcade and game-like. **No tilted plates** (they break the design). **Press feedback** on the voluminous buttons: the button sinks onto its base when pressed (a pressed StyleBox and a short Tween in Godot; previewed in `pages/styles/motion-preview.css`). Safety card was liked but reads too much like an office; Quiet retro was not chosen. The 10 character colours proposed by the retro skin are not adopted. ([prime-game-ui#2](https://github.com/xperiaroco2/prime-game-ui/issues/2))
