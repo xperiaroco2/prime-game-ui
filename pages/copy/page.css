@@ -1,0 +1,75 @@
+/* The copy page's chrome and layout, over pages/components/page.css. Not linted: it never draws a component's look
+   (that comes only from copy-ui.css, lint profile "generated"); on a component it only places it (display, gaps,
+   width) through :where(), so a generated rule always wins. */
+html, body { overflow-x: hidden; }
+.cp-toy, .cp-card, .cp-bar { --zoom: 0.68; --px: calc(var(--zoom) * 1px); }
+@media (min-width: 900px) { .cp-card { --zoom: 0.8; } }
+h2 small { font-size: 14px; font-weight: 600; color: var(--c-muted); }
+.cp-rule { margin: 0 0 8px; max-width: 80ch; padding: 8px 12px; border-radius: 10px; background: var(--c-card); border: 1px solid var(--c-line); font-size: 14px; }
+.cp-toc { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 10px; padding: 0; list-style: none; }
+.cp-toc a {
+  display: inline-block; padding: 4px 10px; border: 1px solid var(--c-line); border-radius: 999px; background: var(--c-card);
+  color: var(--c-fg); text-decoration: none; font-size: 13px;
+}
+.cp-bar { position: sticky; top: 0; z-index: 50; margin: 0 -16px; padding: 6px 16px; background: var(--c-bar); border-bottom: 1px solid var(--c-line); }
+.cp-count { margin: 0; font-size: 14px; }
+.cp-db { margin: 2px 0 0; font-size: 12px; line-height: 1.35; color: var(--c-muted); }
+.cp-db[data-state="none"] { color: var(--c-warn); font-weight: 600; }
+.cp-db[data-state="db"] { color: var(--c-ok); }
+.cp-sec { scroll-margin-top: 70px; }
+.cp-sec > h2 { margin: 26px 0 8px; font-size: 20px; }
+.cp-intro { margin: 0 0 10px; max-width: 72ch; font-size: 14px; }
+.cp-cards { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); align-items: start; }
+
+/* A card: a cream Toy panel; padding is the token's content margin, set by the generated rule. */
+:where(.cp-card) { display: flex; flex-direction: column; gap: 10px; min-width: 0; margin-bottom: 6px; }
+.cp-head { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
+:where(.tv-ToyChipNew) { display: inline-flex; align-items: center; }
+.cp-key { font-size: 12px; color: var(--toy-color-on-light-text-muted); overflow-wrap: anywhere; }
+.cp-where { font-size: 12px; color: var(--toy-color-on-light-text-muted); }
+.cp-why { margin: 0; }
+.cp-pair { display: grid; grid-template-columns: 74px 1fr; gap: 8px; align-items: start; }
+.cp-lbl { font-size: 12px; font-weight: 700; color: var(--toy-color-on-light-text-muted); padding-top: 2px; }
+.cp-texts { display: flex; flex-direction: column; gap: 2px; min-width: 0; overflow-wrap: anywhere; }
+.cp-old .cp-uk { text-decoration: line-through; text-decoration-thickness: 1px; }
+.cp-remove { font-style: italic; }
+.cp-forms { display: flex; flex-wrap: wrap; gap: 4px 14px; }
+.cp-form small { margin-right: 4px; font-size: 11px; opacity: .8; }
+.cp-ph {
+  display: inline-block; padding: 0 5px; border-radius: 6px; border: 1px solid currentColor; font-size: .82em; line-height: 1.3;
+  vertical-align: 0.06em; opacity: .85;
+}
+
+/* The answer form. */
+.cp-form-box { display: flex; flex-direction: column; gap: 10px; }
+.cp-act { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding-bottom: 6px; }
+.cp-act-small { padding-bottom: 0; }
+:where(.cp-act button) { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; }
+:where(.cp-act .tv-ToyButtonPrimary, .cp-act .tv-ToyButtonSecondary) { min-width: 120px; }
+.cp-act-small :where(button) { min-height: 36px; }
+.cp-own, .cp-note { display: flex; flex-direction: column; gap: 4px; }
+.cp-own label, .cp-note label { font-size: 12px; color: var(--toy-color-on-light-text-muted); }
+:where(.cp-form-box .tv-ToyField) { display: block; width: 100%; cursor: text; }
+.cp-input {
+  all: unset; display: block; width: 100%; min-width: 0; font: inherit; color: inherit; letter-spacing: inherit; white-space: pre-wrap;
+  caret-color: var(--toy-field-input-items-caret-color); text-align: left;
+}
+.cp-input::selection { background: var(--toy-field-input-items-selection-color); color: var(--toy-field-input-items-selected-font-color); }
+.cp-saved { font-size: 12px; color: var(--toy-color-on-light-text-muted); }
+.cp-saved.is-done { color: var(--toy-color-on-light-text); font-weight: 700; }
+
+/* Every string: rows inside one panel per screen. */
+.cp-list { list-style: none; margin: 0; padding: 0; }
+.cp-row { display: flex; flex-direction: column; gap: 4px; padding: 10px 0; border-bottom: 1px solid var(--toy-palette-row-line); }
+.cp-row:last-child { border-bottom: 0; }
+.cp-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; }
+.cp-tag { font-size: 12px; font-weight: 700; color: var(--toy-color-on-light-text); }
+.cp-ok { font-size: 12px; color: var(--toy-color-on-light-text-muted); }
+.cp-row.is-changed .cp-ok { display: none; }
+.cp-changed { font-size: 12px; font-weight: 700; color: var(--toy-color-on-light-text); }
+.cp-change > summary { cursor: pointer; font-size: 13px; color: var(--toy-color-on-light-text-muted); padding: 4px 0; }
+.cp-change[open] > summary { margin-bottom: 8px; }
+.cp-summary { margin: 24px 0 0; display: flex; flex-direction: column; gap: 4px; font-size: 13px; }
+.cp-summary textarea { width: 100%; font: 13px/1.4 ui-monospace, Consolas, monospace; padding: 8px; border-radius: 8px; border: 1px solid var(--c-line); background: var(--c-card); color: var(--c-fg); }
+.cp-foot { margin: 28px 0 0; font-size: 12px; color: var(--c-muted); }
+.cp-own[hidden] { display: none; }

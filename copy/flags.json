@@ -1,0 +1,24 @@
+{
+  "about": "Strings of copy/strings.csv that need the engineer: why (page text, Ukrainian) and a proposed text. Empty uk and en propose removing the string. Kinds: gender, rule, less-text, clarity, consistency. The deck keeps the current wording until the engineer answers on the copy page (pages/copy/copy.html).",
+  "flags": [
+    { "key": "esc.lobby.ready", "kind": "gender", "why": "«готовий(-а)» має рід, а дужки читаються як анкета. Пропоную слово без роду; стан і так видно на табличці «Готовність: так / ні».", "uk": "Готово", "en": "Ready" },
+    { "key": "pregame.teammate", "kind": "gender", "why": "«Твій напарник» — чоловічий рід і однина, а дисидентів може бути кілька і будь-якої статі. «Команда» без роду й без числа.", "uk": "Твоя команда: {names}", "en": "Your team: {names}" },
+    { "key": "esc.role.teammates", "kind": "gender", "why": "Те саме слово, що й на показі ролі: «команда» замість «напарники», щоб усюди однаково.", "uk": "Твоя команда · {count}", "en": "Your team · {count}" },
+    { "key": "tutorial.list.downed", "kind": "gender", "why": "«Повалений» — чоловічий рід. Іменник «падіння» без роду.", "uk": "Падіння: підняти або здатися", "en": "Downed: raising or giving up" },
+    { "key": "guide.downed", "kind": "gender", "why": "«Повалений» — чоловічий рід; так само, як у списку навчання.", "uk": "Падіння і повернення", "en": "Downed and back" },
+    { "key": "tutorial.list.deliver", "kind": "rule", "why": "Кіл доставки більше немає: пакунок несуть до кімнати за знаком, а на місці — позначена зона (рішення про знаки кімнат).", "uk": "Доставка за знаком", "en": "Delivering by the sign" },
+    { "key": "dead.respawn_in", "kind": "rule", "why": "Рішення для спостерігача: лише «Дивишся: імʼя» і час до повернення. «Тебе вбито» зайве: ти й так бачиш, що дивишся очима іншого.", "uk": "Повернення через {time}", "en": "Back in {time}" },
+    { "key": "downed.can_raise", "kind": "less-text", "why": "Що поваленого можна підняти, вчить навчання; на екрані лишаються заголовок, час і «Утримуй F, щоб здатися». Пропоную прибрати рядок.", "uk": "", "en": "" },
+    { "key": "tutorial.invite.body", "kind": "clarity", "why": "Друге речення читається як «тобі не доведеться нікому пояснювати». Коротше й без двозначності.", "uk": "Близько трьох хвилин, лише один раз.", "en": "About three minutes, only once." },
+    { "key": "connect.fail.body", "kind": "clarity", "why": "«Перевір адресу і чи ви в одній мережі» — важка конструкція. Помилка має бути спокійна й коротка.", "uk": "Хост не відповідає. Перевір адресу й мережу.", "en": "The host isn't answering. Check the address and the network." },
+    { "key": "join.port", "kind": "less-text", "why": "«(зазвичай не чіпати)» — порада, яка займає місце; порт і так написаний дрібно.", "uk": "Порт {port}", "en": "Port {port}" },
+    { "key": "esc.running", "kind": "less-text", "why": "Менше тексту: що меню не зупиняє гру, вчить навчання. Досить короткого нагадування.", "uk": "Гра не на паузі", "en": "The game isn't paused" },
+    { "key": "settings.language.hint", "kind": "less-text", "why": "Що мова змінюється одразу, гравець побачить сам; важлива лише друга частина: інші гравці мову не міняють.", "uk": "Кожен гравець бачить гру своєю мовою.", "en": "Every player sees the game in their own language." },
+    { "key": "lobby.setting.task_steps", "kind": "clarity", "why": "«Рубильники: кроків» читається як уривок. Назва налаштування має бути цілою.", "uk": "{task}: кількість кроків", "en": "{task}: step count" },
+    { "key": "role.goal.dissident", "kind": "consistency", "why": "Назви команд пишемо з великої, як на кінці раунду («Перемогли Інженери») і в англійській.", "uk": "Твоя мета: заважати Інженерам виконати задачі.", "en": "Your goal: stop the Engineers from completing their tasks." },
+    { "key": "loading.title", "kind": "consistency", "why": "Усюди в грі «карта» («Карта й задачі», ««?» на карті»), а тут «мапа». Одне слово для одного.", "uk": "Завантаження карти", "en": "Loading the map" },
+    { "key": "map.new", "kind": "consistency", "why": "Позначка стоїть біля задачі, а «задача» жіночого роду: «НОВА», не «НОВЕ».", "uk": "НОВА", "en": "NEW" },
+    { "key": "loading.new_task", "kind": "clarity", "why": "Українська добра; англійське речення незграбне. Змінюється лише англійська.", "uk": "У цьому раунді нова для тебе задача", "en": "A new task for you this round" },
+    { "key": "esc.lobby.you_host", "kind": "clarity", "why": "Українська добра; англійське «You host» звучить як дієслово. Змінюється лише англійська.", "uk": "Ти хост: зміни бачать усі", "en": "You're the host: everyone sees your changes" }
+  ]
+}
