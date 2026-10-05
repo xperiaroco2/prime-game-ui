@@ -28,9 +28,9 @@ A counted string with a word that changes with the number takes three rows: the 
 rows with an empty key: en "other" and uk "few", then en empty and uk "many". Ukrainian: one for 1, 21, 31; few for
 2-4, 22-24; many for 0, 5-20, 11-14, 25. Example: `unit.knives` = 1 ніж, 2 ножі, 5 ножів.
 A count without such a word needs no plural: "Гравці 4 / 10", "3 з 6", "10 хв", "Старт через 5".
-The layout was confirmed on 2026-10-05 by importing this file in a throwaway Godot 4.7.2 project: 153 messages per
-locale, and `get_plural_message("unit.knives", "unit.knives", n)` gives ніж for 1 and 21, ножі for 2, 3 and 22, ножів
-for 0, 5, 11 and 112, and en knife / knives. The game's own import test in prime-game#208 still covers it there.
+The layout was confirmed on 2026-10-05 by importing this file (153 keys then) in a throwaway Godot 4.7.2 project: 153
+messages per locale, and `get_plural_message("unit.knives", "unit.knives", n)` gives ніж for 1 and 21, ножі for 2, 3
+and 22, ножів for 0, 5, 11 and 112, and en knife / knives. The game's own import test in prime-game#208 still covers it there.
 
 ## Placeholders
 `{name}`, `{names}`, `{count}`, `{total}`, `{time}` (m:ss), `{key}` (the bound key, rebindable), `{lobby}`, `{preset}`,
@@ -59,10 +59,13 @@ principle: players are experienced and the game is not for kids, so no string ex
    здатися»).
 5. No hand-holding: nothing is «new», no «Порада:», no notes on familiar controls or on what the player sees anyway.
 6. Short and dry; a joke only in loading tips and big moments. Errors: what happened plus one action; no «Будь ласка»,
-   no apology, no «!».
+   no apology, no «!». The game never speaks as «ми»: a status is a noun («Підключення…», «Готові 3 з 4»).
 7. One word per concept: лобі, хост, сесія, раунд, мапа, гравець, повернення (not «респавн»), поява (not «спавн»),
-   Готово. The words for tasks («завдання» or «задача») and presets wait on the engineer (`flags.json`).
-8. Sentence case; team and role names capitalised in every string (Інженери, Дисиденти, Інженер).
+   Готово, задача (the engineer: it sounds technical, and the players are engineers), шаблон (a preset, so its names
+   are masculine: «Звичайний», «Швидкий»), Нокдаун (downed), Готовність (the ready toggle). «Матч» stays in «Тривалість
+   матчу» (the engineer, 2026-10-05).
+8. Sentence case, small labels too («Рука», «Ти тут», «Готово»); team and role names capitalised in every string
+   (Інженери, Дисиденти, Інженер).
 9. A number before a word that changes goes through `tr_n` (see Plurals); otherwise the number follows a label
    («Гравці 4 / 10», «Ножі: 3»).
 10. Units without a dot, after a no-break space (U+00A0): «10 хв», «5 с», «2 год».
