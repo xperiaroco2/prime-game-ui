@@ -1,0 +1,233 @@
+{
+  "about": "Round 2 of the copy review (prime-game-ui#4). open: questions for the engineer, each with options a-c; an option lists the rows it would write (empty uk and en remove the key), an option without rows keeps the deck and says so in its label. The deck keeps its current wording until an open question is answered on pages/copy/. decided: what was applied after round 1. removed: keys taken out of the deck. asked: when round 2 was put to the engineer; the page ignores answers saved before it. Rules: copy/README.md and docs/research/2026-10-05-ukrainian-localization/report.md.",
+  "asked": "2026-10-05T11:00:00Z",
+  "principle": "Гравці досвідчені, гра не для дітей: не пояснюємо звичне й очевидне (що меню не ставить на паузу, що щось нове, знайоме керування), без «водіння за руку».",
+  "open": [
+    {
+      "id": "esc.lobby.ready", "kind": "gender", "round": "rejected",
+      "why": "«Я готовий(-а)» має рід. «Готово» тобі не підійшло. Кнопка без роду, як у Steam і Minecraft — дія або стан.",
+      "options": [
+        { "id": "a", "rows": [{ "key": "esc.lobby.ready", "uk": "Я в грі", "en": "I'm in" }], "note": "Теперішній час, без роду." },
+        { "id": "b", "rows": [{ "key": "esc.lobby.ready", "uk": "Готовність", "en": "Ready" }], "note": "Перемикач із ✓, як на табличці «Готовність: так / ні»." },
+        { "id": "c", "rows": [{ "key": "esc.lobby.ready", "uk": "Підтвердити готовність", "en": "Ready up" }], "note": "Інфінітив, як інші кнопки; довше." }
+      ]
+    },
+    {
+      "id": "esc.running", "kind": "obvious", "round": "rejected",
+      "why": "Що меню не ставить онлайн-гру на паузу, гравці знають.",
+      "options": [
+        { "id": "a", "rows": [{ "key": "esc.running", "uk": "", "en": "" }] },
+        { "id": "b", "rows": [{ "key": "esc.running", "uk": "Гра триває", "en": "Still running" }], "note": "Лише два слова біля вкладок." }
+      ]
+    },
+    {
+      "id": "settings.language.hint", "kind": "obvious", "round": "rejected",
+      "why": "Що мова змінюється одразу, видно; що в кожного своя мова, гравці теж знають.",
+      "options": [
+        { "id": "a", "rows": [{ "key": "settings.language.hint", "uk": "", "en": "" }] },
+        { "id": "b", "rows": [{ "key": "settings.language.hint", "uk": "Лише для тебе", "en": "Only for you" }] }
+      ]
+    },
+    {
+      "id": "loading.new_task", "kind": "obvious", "round": "rejected",
+      "why": "Речення каже, що завдання нове. Картка «як робити» на завантаженні — твоє рішення (prime-game#254), вона лишається.",
+      "options": [
+        { "id": "a", "rows": [{ "key": "loading.new_task", "uk": "", "en": "" }], "note": "Прибрати речення; картка «як робити» з назвою завдання лишається (зміна до рішення prime-game#254 лише в цьому реченні)." },
+        { "id": "b", "rows": [{ "key": "loading.new_task", "uk": "Завдання раунду", "en": "This round's task" }], "note": "Заголовок картки без слова «нове»." }
+      ]
+    },
+    {
+      "id": "map.new", "kind": "obvious", "round": "rejected",
+      "why": "Позначка лише каже «це нове». Її поставили за твоїм рішенням (prime-game#254); принцип каже її не писати.",
+      "options": [
+        { "id": "a", "rows": [{ "key": "map.new", "uk": "", "en": "" }], "note": "Прибрати позначку (змінює рішення prime-game#254); «?» на мапі лишається." },
+        { "id": "b", "rows": [{ "key": "map.new", "uk": "Нове", "en": "New" }], "note": "Лишити позначку, без капслоку; «Нове» пасує до «завдання» (див. питання про слово)." }
+      ]
+    },
+    {
+      "id": "tutorial.list.deliver", "kind": "rule", "round": "rejected",
+      "why": "Кіл доставки більше немає (рішення про знаки кімнат). Назва уроку — коротко; як шукати кімнату, урок покаже.",
+      "options": [
+        { "id": "a", "rows": [{ "key": "tutorial.list.deliver", "uk": "Доставка", "en": "Delivery" }] },
+        { "id": "b", "rows": [{ "key": "tutorial.list.deliver", "uk": "Віднести пакунок", "en": "Delivering a package" }], "note": "Як сусідній урок «Взяти й покласти»." },
+        { "id": "c", "rows": [{ "key": "tutorial.list.deliver", "uk": "Доставка до кімнати", "en": "Delivering to a room" }] }
+      ]
+    },
+    {
+      "id": "tutorial.list.downed", "kind": "gender", "round": "rejected",
+      "why": "«Повалений» — чоловічий рід; «Падіння» тобі не підійшло. Назва уроку без пояснення, що в ньому.",
+      "options": [
+        { "id": "a", "rows": [{ "key": "tutorial.list.downed", "uk": "Нокдаун", "en": "Downed" }], "note": "Слово з боксу, є в словнику; в іграх (unconfirmed)." },
+        { "id": "b", "rows": [{ "key": "tutorial.list.downed", "uk": "Повалення", "en": "Downed" }] },
+        { "id": "c", "rows": [{ "key": "tutorial.list.downed", "uk": "Тебе повалено", "en": "Downed" }], "note": "Як заголовок на самому екрані." }
+      ]
+    },
+    {
+      "id": "guide.downed", "kind": "gender", "round": "rejected",
+      "why": "Те саме слово, що в уроці вище; бери пару.",
+      "options": [
+        { "id": "a", "rows": [{ "key": "guide.downed", "uk": "Нокдаун і повернення", "en": "Downed and back" }] },
+        { "id": "b", "rows": [{ "key": "guide.downed", "uk": "Повалення і повернення", "en": "Downed and back" }] }
+      ]
+    },
+    {
+      "id": "topic.task_word", "kind": "word", "round": "new",
+      "keys": ["lobby.setting.tasks", "map.tasks", "guide.tasks", "tutorial.list.map", "role.goal.engineer", "role.goal.dissident", "end.reason.all_tasks", "end.reason.time_up"],
+      "why": "У випущених іграх те, що роблять гравці, — «завдання»; «задача» в Minecraft лише технічна. Одне слово скрізь.",
+      "options": [
+        { "id": "a", "label": "«Завдання» скрізь", "rows": [
+          { "key": "lobby.setting.tasks", "uk": "Завдання", "en": "Tasks" },
+          { "key": "map.tasks", "uk": "Завдання", "en": "Tasks" },
+          { "key": "guide.tasks", "uk": "Завдання", "en": "Tasks" },
+          { "key": "tutorial.list.map", "uk": "Мапа й завдання ({key})", "en": "Map and tasks ({key})" },
+          { "key": "role.goal.engineer", "uk": "Твоя мета: виконати всі завдання, поки не вийшов час.", "en": "Your goal: complete every task before time runs out." },
+          { "key": "role.goal.dissident", "uk": "Твоя мета: заважати Інженерам виконати завдання.", "en": "Your goal: stop the Engineers from completing their tasks." },
+          { "key": "end.reason.all_tasks", "uk": "Усі завдання виконано за {time}.", "en": "All tasks done in {time}." },
+          { "key": "end.reason.time_up", "uk": "Час вийшов, а завдання ще не виконано.", "en": "Time's up and the tasks aren't done." }
+        ], "note": "І так само в решті рядків." },
+        { "id": "b", "label": "Лишити «задача»", "rows": [] }
+      ]
+    },
+    {
+      "id": "topic.map_word", "kind": "word", "round": "new",
+      "keys": ["loading.title", "tutorial.list.map", "tutorial.list.new_task"],
+      "why": "Ти прийняв одне слово для мапи. Дослідження радить «мапа»: «карта» плутається з «карткою» («картка як робити»). У колоді вже «мапа».",
+      "options": [
+        { "id": "a", "label": "«Мапа» (як зараз)", "rows": [] },
+        { "id": "b", "label": "«Карта» скрізь", "rows": [
+          { "key": "loading.title", "uk": "Завантаження карти", "en": "Loading the map" },
+          { "key": "tutorial.list.map", "uk": "Карта й задачі ({key})", "en": "Map and tasks ({key})" },
+          { "key": "tutorial.list.new_task", "uk": "Нова задача: «?» на карті", "en": "A new task: “?” on the map" }
+        ] }
+      ]
+    },
+    {
+      "id": "topic.preset_word", "kind": "word", "round": "new",
+      "keys": ["esc.lobby.preset", "preset.standard", "preset.quick", "preset.save_own"],
+      "why": "«Пресет: Звичайна» — рід не узгоджено, а «пресет» — англіцизм.",
+      "options": [
+        { "id": "a", "label": "«Шаблон»", "rows": [
+          { "key": "esc.lobby.preset", "uk": "Шаблон: {preset}", "en": "Preset: {preset}" },
+          { "key": "preset.standard", "uk": "Звичайний", "en": "Standard" },
+          { "key": "preset.quick", "uk": "Швидкий", "en": "Quick" },
+          { "key": "preset.save_own", "uk": "Зберегти свій", "en": "Save your own" }
+        ] },
+        { "id": "b", "label": "Без підпису, «гра»", "rows": [
+          { "key": "esc.lobby.preset", "uk": "{preset}", "en": "{preset}" },
+          { "key": "preset.standard", "uk": "Звичайна гра", "en": "Standard game" },
+          { "key": "preset.quick", "uk": "Швидка гра", "en": "Quick game" }
+        ], "note": "«Без ножів» і «Зберегти свою» лишаються." },
+        { "id": "c", "label": "«Режим»", "rows": [
+          { "key": "esc.lobby.preset", "uk": "Режим: {preset}", "en": "Mode: {preset}" },
+          { "key": "preset.standard", "uk": "Звичайний", "en": "Standard" },
+          { "key": "preset.quick", "uk": "Швидкий", "en": "Quick" },
+          { "key": "preset.save_own", "uk": "Зберегти свій", "en": "Save your own" }
+        ], "note": "Можна сплутати з режимом гри." }
+      ]
+    },
+    {
+      "id": "topic.tutorial_basics", "kind": "obvious", "round": "new",
+      "keys": ["tutorial.list.move", "tutorial.list.sprint"],
+      "why": "Рух, погляд, біг і стрибок — знайоме керування; навчання може починатися з рук і пакунків.",
+      "options": [
+        { "id": "a", "label": "Прибрати обидва уроки", "rows": [
+          { "key": "tutorial.list.move", "uk": "", "en": "" },
+          { "key": "tutorial.list.sprint", "uk": "", "en": "" }
+        ], "note": "Змінює зміст навчання: після відповіді — задача в prime-game." },
+        { "id": "b", "label": "Один урок «Керування»", "rows": [
+          { "key": "tutorial.list.move", "uk": "Керування", "en": "Controls" },
+          { "key": "tutorial.list.sprint", "uk": "", "en": "" }
+        ] },
+        { "id": "c", "label": "Лишити як є", "rows": [] }
+      ]
+    },
+    {
+      "id": "tutorial.list.new_task", "kind": "obvious", "round": "new",
+      "why": "Урок називається «Нова задача», тобто знову каже, що щось нове. Учить він кнопку «?» на мапі.",
+      "options": [
+        { "id": "a", "rows": [{ "key": "tutorial.list.new_task", "uk": "Кнопка «?» на мапі", "en": "The “?” on the map" }] },
+        { "id": "b", "rows": [{ "key": "tutorial.list.new_task", "uk": "", "en": "" }], "note": "Прибрати урок: «?» покаже урок про мапу." }
+      ]
+    },
+    {
+      "id": "esc.lobby.you_host", "kind": "obvious", "round": "new",
+      "why": "Що зміни хоста бачать усі, гравці знають з інших ігор.",
+      "options": [
+        { "id": "a", "rows": [{ "key": "esc.lobby.you_host", "uk": "Ти хост", "en": "You're the host" }] },
+        { "id": "b", "label": "Лишити як є", "rows": [] }
+      ]
+    },
+    {
+      "id": "esc.character.live", "kind": "obvious", "round": "new",
+      "why": "Що зміни персонажа видно всім одразу, гравець побачить сам.",
+      "options": [
+        { "id": "a", "rows": [{ "key": "esc.character.live", "uk": "", "en": "" }] },
+        { "id": "b", "label": "Лишити як є", "rows": [] }
+      ]
+    },
+    {
+      "id": "tip.two_hands", "kind": "tone", "round": "new",
+      "why": "Без префікса «Порада:» — на екрані завантаження й так видно, що це порада. Жарт тут дозволений.",
+      "options": [
+        { "id": "a", "rows": [{ "key": "tip.two_hands", "uk": "У тебе дві руки. Користуйся обома.", "en": "You have two hands. Use both." }] },
+        { "id": "b", "rows": [{ "key": "tip.two_hands", "uk": "Не забувай: у тебе дві руки.", "en": "Don't forget: you have two hands." }] }
+      ]
+    },
+    {
+      "id": "topic.we_voice", "kind": "tone", "round": "new",
+      "keys": ["connect.connecting", "connect.connecting_unnamed", "lobby.waiting"],
+      "why": "Гра говорить «ми» («Підключаємось», «Чекаємо на всіх»), а скрізь інде — сухо й на «ти». «Чекаємо на всіх» ще й пояснює очевидне.",
+      "options": [
+        { "id": "a", "label": "Іменники, сухо", "rows": [
+          { "key": "connect.connecting", "uk": "Підключення до «{lobby}»…", "en": "Connecting to “{lobby}”…" },
+          { "key": "connect.connecting_unnamed", "uk": "Підключення…", "en": "Connecting…" },
+          { "key": "lobby.waiting", "uk": "Готові {count} з {total}", "en": "{count} of {total} ready" }
+        ] },
+        { "id": "b", "label": "Лишити «ми»", "rows": [] }
+      ]
+    },
+    {
+      "id": "lobby.setting.duration", "kind": "word", "round": "new",
+      "why": "Одне слово для одного: скрізь «раунд» («Кінець раунду»), а тут «матч».",
+      "options": [
+        { "id": "a", "rows": [{ "key": "lobby.setting.duration", "uk": "Тривалість раунду", "en": "Round length" }] },
+        { "id": "b", "label": "Лишити «матчу»", "rows": [] }
+      ]
+    },
+    {
+      "id": "topic.lowercase", "kind": "case", "round": "new",
+      "keys": ["loading.player_ready", "loading.player_loading", "howto.label", "hud.slot.hand", "hud.slot.belt", "map.zone_hint", "map.you_are_here", "join.lan_only", "menu.version", "settings.talk_mode.open"],
+      "why": "Дрібні підписи написано з малої («готово», «рука», «ти тут»). Правило — велика літера на початку скрізь; це зміна вигляду, тому питаю.",
+      "options": [
+        { "id": "a", "label": "З великої скрізь", "rows": [
+          { "key": "loading.player_ready", "uk": "Готово", "en": "Ready" },
+          { "key": "loading.player_loading", "uk": "Завантажує…", "en": "Loading…" },
+          { "key": "howto.label", "uk": "Як робити", "en": "How to" },
+          { "key": "hud.slot.hand", "uk": "Рука", "en": "Hand" },
+          { "key": "hud.slot.belt", "uk": "Пояс", "en": "Belt" },
+          { "key": "map.zone_hint", "uk": "Тут можуть бути пакунки", "en": "Packages may be here" },
+          { "key": "map.you_are_here", "uk": "Ти тут", "en": "You are here" },
+          { "key": "join.lan_only", "uk": "Лише та сама мережа", "en": "Same network only" },
+          { "key": "menu.version", "uk": "Версія {version}", "en": "Version {version}" },
+          { "key": "settings.talk_mode.open", "uk": "Завжди ввімкнено", "en": "Always on" }
+        ] },
+        { "id": "b", "label": "Дрібні підписи з малої", "rows": [], "note": "Як зараз: лише другорядні підписи поруч з іншим текстом." }
+      ]
+    }
+  ],
+  "removed": ["downed.can_raise"],
+  "decided": [
+    { "id": "connect.fail.body", "how": "Прийнято: «Хост не відповідає. Перевір адресу й мережу.»" },
+    { "id": "dead.respawn_in", "how": "Прийнято: «Повернення через {time}»." },
+    { "id": "downed.can_raise", "how": "Прийнято: рядок прибрано з колоди й з кадру." },
+    { "id": "esc.role.teammates", "how": "Прийнято: «Твоя команда · {count}»." },
+    { "id": "join.port", "how": "Прийнято: «Порт {port}»." },
+    { "id": "loading.title", "keys": ["loading.title", "tutorial.list.map", "tutorial.list.new_task"], "how": "Прийнято одне слово для мапи; за дослідженням це «мапа» (див. питання про слово)." },
+    { "id": "lobby.setting.task_steps", "how": "Прийнято: «{task}: кількість кроків»." },
+    { "id": "pregame.teammate", "how": "Прийнято: «Твоя команда: {names}»." },
+    { "id": "role.goal.dissident", "how": "Прийнято: «Інженерам» з великої." },
+    { "id": "tutorial.invite.body", "how": "Прийнято: «Близько трьох хвилин, лише один раз.»" },
+    { "id": "esc.lobby.you_host.en", "keys": ["esc.lobby.you_host"], "how": "Прийнято: англійською «You're the host: everyone sees your changes» (сам рядок — у питаннях)." },
+    { "id": "unit.minutes", "keys": ["unit.minutes", "respawn.protected"], "how": "(агент) Одиниці без крапки й з нерозривним пробілом: «10 хв», «3 с»." }
+  ]
+}

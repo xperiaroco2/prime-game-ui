@@ -14,6 +14,9 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
   ([less text](https://github.com/xperiaroco2/prime-game/issues/150#issuecomment-5968715316))
 - **English and Ukrainian from the start**, a language choice on the first launch and in the settings, every player in
   their own language ([prime-game #208](https://github.com/xperiaroco2/prime-game/issues/208)).
+- **Players are experienced; the game is not for kids.** They have played many similar games: never explain
+  conventions or the obvious (that the Esc menu does not pause, that something is new, familiar controls). No
+  hand-holding text. (The engineer, 2026-10-05, reviewing the copy deck, prime-game-ui#4.)
 - **Simple, but not ugly**; references liked: A Short Hike, LOCKDOWN Protocol's HUD layout (more readable), PEAK,
   Overcooked's cards. ([references](https://github.com/xperiaroco2/prime-game/issues/150#issuecomment-5955158412))
 
