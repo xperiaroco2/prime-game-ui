@@ -70,8 +70,15 @@ Room signs, decided by the agent from the "UI never tells" principle (agent): ho
 lights only the storage room, never the rooms still waiting for a package; the HUD hand slot does not repeat the carried
 package's sign; there are no direction signs at corridor junctions (signs mark rooms, not routes). The room list of the
 room-signs page (the storage room and the hall take no deliveries) is a proposal for the designer's map
-([prime-game #306](https://github.com/xperiaroco2/prime-game/issues/306), #146). The sign system itself waits for the
-engineer ([prime-game-ui#6](https://github.com/xperiaroco2/prime-game-ui/issues/6)).
+([prime-game #306](https://github.com/xperiaroco2/prime-game/issues/306), #146).
+
+**Room signs** (the engineer, 2026-10-05, after the [room-signs page](https://claude.ai/artifact/ANqfgCi35uedLBffJr4F75);
+[prime-game-ui#6](https://github.com/xperiaroco2/prime-game-ui/issues/6)): a mix, kept light while the game builds
+mechanics and its art style is open. **On the wall by the door:** the shaped plates of system B (each room its own
+plate shape with its pictogram), flat on the wall, not a hanging shop sign. **On the package and on the map:** the plain
+pictogram (system B's icons, `pages/room-signs/systems/b/icons/`) with no plate, like a stamp. **The delivery spot:** for
+now only a marked area in the room (a lit zone the player sees on arrival, like a delivery zone in GTA), one per room;
+its real form waits for game design. No deeper design work on signs until the game's look is set.
 
 ## Style
 The engineer chose **Toy** (2026-10-03): chunky rounded shapes with a thick plum outline, cream panels, sunny-yellow buttons with a solid toy base that look pressable, and a small, calm HUD; it reads as arcade and game-like. **No tilted plates** (they break the design). **Press feedback** on the voluminous buttons: the button sinks onto its base when pressed (a pressed StyleBox and a short Tween in Godot; previewed in `pages/styles/motion-preview.css`). Safety card was liked but reads too much like an office; Quiet retro was not chosen. The 10 character colours proposed by the retro skin are not adopted. ([prime-game-ui#2](https://github.com/xperiaroco2/prime-game-ui/issues/2))
