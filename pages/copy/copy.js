@@ -1,12 +1,14 @@
-// The copy page's behaviour: «Так» / «Інакше» / a note per string, saved through the artifact runtime's db capability
-// when this view has it. Collection "copy", one document per key: { answer: "yes" | "other" | null, text, note, at }
-// (answer null: a note alone; text: the Ukrainian taken, the proposal for «Так» or the engineer's own for «Інакше»).
-// Nothing is written on load; a write happens only on a tap, one at a time per document. A tap made before the store
-// answers waits and is written when it arrives; a refused write puts back the last saved answer. Without db the page
-// still works, says so and offers a summary to copy.
+// The copy page's behaviour, round 2: per open question, a tap on «Беру цей» saves that option, «Інакше» saves the own
+// text, «Зберегти нотатку» saves the note with the answer already given. Saved through the artifact runtime's db
+// capability when this view has it: collection "copy", one document per question id,
+// { answer: option id | "other" | null, text, note, at } (text: the Ukrainian the option writes, or the own text).
+// ASKED (set by build.js) is when round 2 was asked: a document saved before it is a round-1 answer, shown only as a
+// past note. Nothing is written on load; a write happens only on a tap, one at a time per document. A tap made before
+// the store answers waits and is written when it arrives; a refused write puts back the last saved answer. Without db
+// the page still works, says so and offers a summary to copy.
 (function () {
   'use strict';
-  var ANSWERS = ['yes', 'other'];
+  var asked = typeof ASKED === 'string' ? Date.parse(ASKED) : NaN;
   var saved = {};
   var local = {};
   var state = {};
@@ -21,8 +23,10 @@
     readOnly: 'Ця сторінка тут лише для перегляду: відповіді не зберігаються.',
   };
   function all(sel, from) { return Array.prototype.slice.call((from || document).querySelectorAll(sel)); }
-  function boxes(key) { return all('[data-key]').filter(function (el) { return el.getAttribute('data-key') === key; }); }
   function str(v, max) { return typeof v === 'string' ? v.slice(0, max) : ''; }
+  function choices(box) { return all('[data-answer]', box).map(function (b) { return b.getAttribute('data-answer'); }); }
+  // A saved document counts for round 2 only when it was saved after ASKED.
+  function fresh(s) { if (!s) return false; var t = Date.parse(s.at || ''); return isNaN(asked) || (!isNaN(t) && t >= asked); }
 
   // Toy buttons sink while held (the generated CSS draws is-held and is-hover).
   all('.cp-act button').forEach(function (el) {
@@ -46,44 +50,47 @@
   }
 
   function render() {
-    var done = 0, changes = 0, lines = [];
+    var done = 0, lines = [];
     all('[data-key]').forEach(function (box) {
       var key = box.getAttribute('data-key');
-      var s = state[key];
-      var flag = box.classList.contains('cp-flag');
-      var ans = s && ANSWERS.indexOf(s.answer) >= 0 ? s.answer : null;
-      if (flag && ans) done++;
-      if (!flag && ans === 'other') changes++;
+      var raw = state[key];
+      var s = fresh(raw) ? raw : null;
+      var ans = s && choices(box).indexOf(s.answer) >= 0 ? s.answer : null;
+      if (ans) done++;
       box.classList.toggle('is-answered', !!ans);
-      box.classList.toggle('is-changed', !flag && ans === 'other');
-      all('[data-answer]', box).forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-answer') === ans)); });
-      var own = box.querySelector('[data-own]');
-      if (own) own.hidden = !(ans === 'other' || own.getAttribute('data-shown'));
+      all('[data-answer]', box).forEach(function (b) {
+        var id = b.getAttribute('data-answer');
+        var on = id === ans;
+        b.setAttribute('aria-pressed', String(on));
+        b.classList.toggle('tv-ToyButtonPrimary', on);
+        b.classList.toggle('tv-ToyButtonSecondary', !on);
+        var label = b.querySelector('span');
+        if (label && id !== 'other') label.textContent = on ? '✓ Обрано' : 'Беру цей';
+        if (label && id === 'other') label.textContent = on ? '✓ Інакше' : 'Інакше';
+      });
+      all('[data-opt]', box).forEach(function (o) { o.classList.toggle('is-chosen', o.getAttribute('data-opt') === ans); });
       var t = box.querySelector('[data-text-input]');
       if (t && s && ans === 'other' && document.activeElement !== t && !t.getAttribute('data-dirty')) t.value = s.text || '';
       var n = box.querySelector('[data-note-input]');
       if (n && s && document.activeElement !== n && !n.getAttribute('data-dirty')) n.value = s.note || '';
+      var prev = box.querySelector('[data-prev]');
+      if (prev) {
+        var old = raw && !s && raw.note ? raw.note : '';
+        prev.hidden = !old;
+        prev.textContent = old ? 'Твоя нотатка з першого кола: «' + old + '»' : '';
+      }
       var out = box.querySelector('[data-saved]');
       if (out) {
-        var text = ans === 'yes' ? (flag ? 'ваша відповідь: так' : 'лишити як є') : ans === 'other' ? 'ваша відповідь: інакше' + (s.text ? ' — «' + s.text + '»' : '') : (s && s.note ? 'є нотатка' : (flag ? 'ще без відповіді' : ''));
+        var text = ans === 'other' ? 'Відповідь: інакше' + (s.text ? ' — «' + s.text + '»' : '') : ans ? 'Відповідь: ' + ans : (s && s.note ? 'Є нотатка, без відповіді' : 'Ще без відповіді');
         if (s && s.at && mode === 'db') text += ' · ' + fmtTime(s.at);
         if (inflight[key]) text += ' · зберігаю…';
         else if (local[key] && mode === 'wait') text += ' · ще не збережено';
         out.textContent = text;
         out.classList.toggle('is-done', !!ans);
       }
-      if (!flag) {
-        var details = box.querySelector('.cp-change');
-        if (details && ans === 'other') details.open = true;
-        var meta = box.querySelector('.cp-meta');
-        var mark = meta && meta.querySelector('.cp-changed');
-        if (meta && ans === 'other' && !mark) { mark = document.createElement('span'); mark.className = 'cp-changed'; mark.textContent = 'зміна'; meta.appendChild(mark); }
-        if (mark && ans !== 'other') mark.remove();
-      }
-      if (ans || (s && s.note)) lines.push(key + ': ' + (ans === 'yes' ? 'так' : ans === 'other' ? 'інакше' + (s.text ? ' «' + s.text + '»' : '') : '—') + (s && s.note ? ' — ' + s.note : ''));
+      if (ans || (s && s.note)) lines.push(key + ': ' + (ans === 'other' ? 'інакше' + (s.text ? ' «' + s.text + '»' : '') : ans || '—') + (s && s.note ? ' — ' + s.note : ''));
     });
     var d = document.getElementById('cp-done'); if (d) d.textContent = String(done);
-    var c = document.getElementById('cp-changes'); if (c) c.textContent = String(changes);
     var box = document.getElementById('cp-summary');
     var area = document.getElementById('cp-summary-text');
     if (box && area) { box.hidden = mode === 'db' || !lines.length; area.value = lines.join('\n'); }
@@ -134,7 +141,7 @@
       delete local[key];
       var code = e && e.code;
       if (code === 'invalid_argument' || code === 'not_granted' || code === 'permission_denied') { readOnly = true; notice('db', TEXT.readOnly, 'read-only'); }
-      else notice('db', 'Не вдалося зберегти (' + (code || 'помилка') + '). Відповідь не змінилася; спробуйте ще раз трохи пізніше.', 'write-error');
+      else notice('db', 'Не вдалося зберегти (' + (code || 'помилка') + '). Відповідь не змінилася; спробуй ще раз трохи пізніше.', 'write-error');
       show();
     });
   }
@@ -147,22 +154,18 @@
     all('[data-answer]', box).forEach(function (b) {
       b.addEventListener('click', function () {
         var ans = b.getAttribute('data-answer');
-        if (ans === 'other') {
-          var own = box.querySelector('[data-own]');
-          if (own) { own.setAttribute('data-shown', '1'); own.hidden = false; }
-        }
-        var text = ans === 'yes' ? (box.getAttribute('data-proposed') || '') : ownOf();
+        var text = ans === 'other' ? ownOf() : (b.getAttribute('data-text') || '');
         clean();
         write(key, { answer: ans, text: text, note: noteOf(), at: new Date().toISOString() });
       });
     });
     var save = box.querySelector('[data-save]');
     if (save) save.addEventListener('click', function () {
-      var cur = state[key] || {};
-      var ans = ANSWERS.indexOf(cur.answer) >= 0 ? cur.answer : null;
+      var cur = fresh(state[key]) ? state[key] : null;
+      var ans = cur && choices(box).indexOf(cur.answer) >= 0 ? cur.answer : null;
       var note = noteOf();
-      if (!ans && !note && !state[key]) return;
-      var text = ans === 'other' ? ownOf() : (ans === 'yes' ? (cur.text || box.getAttribute('data-proposed') || '') : '');
+      if (!ans && !note && !cur) return;
+      var text = ans === 'other' ? ownOf() : (ans ? cur.text || '' : '');
       clean();
       write(key, { answer: ans, text: text, note: note, at: new Date().toISOString() });
     });
@@ -178,13 +181,13 @@
           (snap && snap.docs || []).forEach(function (d) {
             var v = d && d.exists ? d.data() : null;
             if (!v || typeof v !== 'object') return;
-            next[d.id] = { answer: ANSWERS.indexOf(v.answer) >= 0 ? v.answer : null, text: str(v.text, 300), note: str(v.note, 2000), at: str(v.at, 40) };
+            next[d.id] = { answer: typeof v.answer === 'string' ? v.answer.slice(0, 10) : null, text: str(v.text, 300), note: str(v.note, 2000), at: str(v.at, 40) };
           });
           saved = next;
           show();
         } catch (e) { /* a malformed snapshot: keep what is shown */ }
       }, function (e) {
-        notice('db', 'Збережені відповіді зараз не оновлюються (' + ((e && e.code) || 'помилка') + '). Перезавантажте сторінку.', 'live-error');
+        notice('db', 'Збережені відповіді зараз не оновлюються (' + ((e && e.code) || 'помилка') + '). Перезавантаж сторінку.', 'live-error');
       });
       notice('db', readOnly ? TEXT.readOnly : TEXT.ok, readOnly ? 'read-only' : 'ok');
       if (readOnly) { local = {}; show(); }

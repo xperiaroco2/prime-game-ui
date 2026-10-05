@@ -5,8 +5,10 @@ Every player-facing string of the screens, with a translation key, English and U
 keys ([prime-game#208](https://github.com/xperiaroco2/prime-game/issues/208)); the wireframes read their English from it.
 
 - `strings.csv`: the deck, in Godot's CSV translation format. The single source of the texts.
-- `flags.json`: strings that need the engineer, each with a reason and a proposed text. The deck keeps the current
-  wording until the engineer answers on the copy page (`pages/copy/`), then the answer is applied here.
+- `flags.json`: the open questions for the engineer (one key or a `topic.*` over several keys), each with a reason and
+  options a-c (the rows an option would write; empty uk and en remove a key), and what was decided in earlier rounds.
+  The deck keeps the current wording until the engineer answers on the copy page (`pages/copy/`), then the answer is
+  applied here.
 - `node tools/copy/check.js` checks both (it is a step of `tools/check.js`); `--write` regenerates
   `pages/wireframes/en.json` and the English map inlined in `pages/wireframes/wireframes.html`.
 
@@ -41,11 +43,32 @@ Icons are never in a string: 🔒, ✓, ▸, the mic, arrows. A key the player p
 - The UI never tells the player what to do or where to go in a round. The tutorial and the how-to cards may.
 - Instructions and errors: calm and plain, say what happened and what to do, no apologies, no jokes.
 - Funny only in loading tips and big moments (the end of a round, a role reveal).
-- Ukrainian is gender-neutral: no "готовий(-а)", no masculine adjectives about the player; impersonal forms
-  ("Тебе повалено") and nouns ("Падіння") instead. Address the player as "ти". Role names (Інженер, Дисидент) are
-  titles; team names are capitalised (Інженери, Дисиденти).
-- The Ukrainian apostrophe is ʼ (U+02BC): «Імʼя», «Здоровʼя»; the check refuses ' and ’ in uk.
+- Ukrainian: see the localization rules below; the check refuses ' and ’ in uk («Імʼя», «Здоровʼя»).
 - English: sentence case, plain words, straight from the meaning, not word for word.
+
+## Ukrainian localization rules
+From [the localization research](../docs/research/2026-10-05-ukrainian-localization/report.md) and the engineer's
+principle: players are experienced and the game is not for kids, so no string explains a convention or the obvious.
+
+1. The player is «ти» everywhere; «ви» only as a real plural that cannot read as a switch of address.
+2. Nothing about the player carries gender: no past tense with «ти», no adjectives or participles about the player.
+   Present or future tense («дивишся», «вийдеш»), impersonal -но/-то («Тебе повалено»), nouns, state words
+   («Готово»). Never «(-а)» or «/а».
+3. Other players by name: present tense or a noun («{name} у грі», «{name} виходить»), never a masculine default.
+4. Buttons are infinitives («Приєднатися», «Спробувати ще»); instructions are «ти» imperatives («Утримуй {key}, щоб
+   здатися»).
+5. No hand-holding: nothing is «new», no «Порада:», no notes on familiar controls or on what the player sees anyway.
+6. Short and dry; a joke only in loading tips and big moments. Errors: what happened plus one action; no «Будь ласка»,
+   no apology, no «!».
+7. One word per concept: лобі, хост, сесія, раунд, мапа, гравець, повернення (not «респавн»), поява (not «спавн»),
+   Готово. The words for tasks («завдання» or «задача») and presets wait on the engineer (`flags.json`).
+8. Sentence case; team and role names capitalised in every string (Інженери, Дисиденти, Інженер).
+9. A number before a word that changes goes through `tr_n` (see Plurals); otherwise the number follows a label
+   («Гравці 4 / 10», «Ножі: 3»).
+10. Units without a dot, after a no-break space (U+00A0): «10 хв», «5 с», «2 год».
+11. The apostrophe is ʼ (U+02BC) only; every game font must have that glyph.
+12. Quotes «», a single … character, a spaced « — ».
+13. Translate the meaning, not the English sentence, and keep the Ukrainian within the layout's length.
 
 ## The wireframes
 Every Ukrainian text inside a wireframe frame must match a key (a placeholder matches the frame's sample value), or be

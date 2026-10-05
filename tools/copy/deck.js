@@ -32,7 +32,8 @@ const DECOR = '\\s▸✓•🔒‹›▾◈←+·';
 const DECOR_HEAD = new RegExp('^[' + DECOR + ']+', 'u');
 const DECOR_TAIL = new RegExp('[' + DECOR + ']+$', 'u');
 const CYRILLIC = /[Ѐ-ӿ]/;
-const FLAG_KINDS = ['gender', 'rule', 'less-text', 'clarity', 'consistency'];
+const FLAG_KINDS = ['gender', 'rule', 'less-text', 'clarity', 'consistency', 'obvious', 'word', 'tone', 'case'];
+const OPTION_IDS = ['a', 'b', 'c'];
 const PLURAL_FORMS = { en: 2, uk: 3 };
 
 // Ukrainian plural form of n: 0 one (1, 21), 1 few (2-4, 22), 2 many (0, 5-20, 11-14).
@@ -139,28 +140,75 @@ function readDeck(text) {
   return { entries, errors };
 }
 
+// copy/flags.json, round 2: the open questions, each with options a-c (an option is the rows it would write: a row
+// with empty uk and en removes that key; an option without rows keeps the deck as it is and says so in its label), and
+// the decided ones (what was applied; "removed" names keys taken out of the deck). "asked" is when this round was put
+// to the engineer: the page ignores answers saved before it.
 function readFlags(text, entries) {
   const errors = [];
   let data;
-  try { data = JSON.parse(text); } catch (e) { return { flags: [], errors: ['flags: ' + e.message] }; }
-  const flags = Array.isArray(data.flags) ? data.flags : [];
-  if (!Array.isArray(data.flags)) errors.push('flags: no "flags" array');
+  try { data = JSON.parse(text); } catch (e) { return { flags: [], decided: [], errors: ['flags: ' + e.message] }; }
+  const flags = Array.isArray(data.open) ? data.open : [];
+  const decided = Array.isArray(data.decided) ? data.decided : [];
+  if (!Array.isArray(data.open)) errors.push('flags: no "open" array');
+  if (!Array.isArray(data.decided)) errors.push('flags: no "decided" array');
+  if (typeof data.asked !== 'string' || isNaN(Date.parse(data.asked))) errors.push('flags: "asked" must be an ISO time');
+  if (typeof data.principle !== 'string' || !data.principle) errors.push('flags: "principle" is empty');
   const byKey = new Map(entries.map((e) => [e.key, e]));
   const seen = new Set();
+  const ID_RE = /^[a-z][a-z0-9_]*(\.[a-z][a-z0-9_]*)+$/;
   for (const f of flags) {
-    const where = `flag ${f && f.key}`;
-    if (!f || typeof f.key !== 'string' || !byKey.has(f.key)) { errors.push(`${where}: no such key in the deck`); continue; }
-    if (seen.has(f.key)) errors.push(`${where}: flagged twice`);
-    seen.add(f.key);
+    const where = `flag ${f && f.id}`;
+    if (!f || typeof f.id !== 'string' || !ID_RE.test(f.id)) { errors.push(`${where}: id must be a deck key or a topic.* id`); continue; }
+    if (seen.has(f.id)) errors.push(`${where}: asked twice`);
+    seen.add(f.id);
+    if (!f.keys) f.keys = [f.id];
+    if (!Array.isArray(f.keys) || !f.keys.length) { errors.push(`${where}: keys must be a list`); continue; }
+    if (!f.id.startsWith('topic.') && (f.keys.length !== 1 || f.keys[0] !== f.id)) errors.push(`${where}: a flag on one key has that key as its id; several keys take a topic.* id`);
+    for (const k of f.keys) if (!byKey.has(k)) errors.push(`${where}: no key ${k} in the deck`);
     if (!FLAG_KINDS.includes(f.kind)) errors.push(`${where}: kind must be one of ${FLAG_KINDS.join(', ')}`);
-    for (const k of ['why', 'uk', 'en']) if (typeof f[k] !== 'string') errors.push(`${where}: ${k} must be a string`);
-    if (!f.why) errors.push(`${where}: why is empty`);
-    if (!!f.uk !== !!f.en) errors.push(`${where}: give both uk and en, or neither (a removal)`);
-    const ref = placeholders(byKey.get(f.key).en[0]);
-    for (const k of ['uk', 'en']) if (f[k] && !sameSet(placeholders(f[k]), ref)) errors.push(`${where}: the proposed ${k} must keep the placeholders {${ref.join('}, {')}}`);
-    if (f.uk === byKey.get(f.key).uk[0] && f.en === byKey.get(f.key).en[0]) errors.push(`${where}: the proposal is the current text`);
+    if (typeof f.why !== 'string' || !f.why) errors.push(`${where}: why is empty`);
+    if (!['rejected', 'new'].includes(f.round)) errors.push(`${where}: round must be "rejected" or "new"`);
+    const opts = Array.isArray(f.options) ? f.options : [];
+    if (opts.length < 1 || opts.length > OPTION_IDS.length) errors.push(`${where}: 1 to ${OPTION_IDS.length} options`);
+    opts.forEach((o, i) => {
+      const ow = `${where} option ${o && o.id}`;
+      if (!o || o.id !== OPTION_IDS[i]) { errors.push(`${where}: option ${i + 1} must have id "${OPTION_IDS[i]}"`); return; }
+      if (o.label !== undefined && (typeof o.label !== 'string' || !o.label)) errors.push(`${ow}: label must be a text`);
+      if (o.note !== undefined && typeof o.note !== 'string') errors.push(`${ow}: note must be a text`);
+      const rows = Array.isArray(o.rows) ? o.rows : null;
+      if (!rows) { errors.push(`${ow}: rows must be a list`); return; }
+      if (!rows.length && !o.label) errors.push(`${ow}: an option that keeps the deck needs a label`);
+      let same = rows.length > 0;
+      const rowKeys = new Set();
+      for (const r of rows) {
+        if (!r || !f.keys.includes(r.key)) { errors.push(`${ow}: row key ${r && r.key} is not one of the flag's keys`); same = false; continue; }
+        if (rowKeys.has(r.key)) errors.push(`${ow}: key ${r.key} twice`);
+        rowKeys.add(r.key);
+        const e = byKey.get(r.key);
+        if (typeof r.uk !== 'string' || typeof r.en !== 'string') { errors.push(`${ow}: ${r.key} needs uk and en texts`); continue; }
+        if (!!r.uk !== !!r.en) errors.push(`${ow}: ${r.key}: give both uk and en, or neither (a removal)`);
+        const ref = placeholders(e.en[0]);
+        for (const k of ['uk', 'en']) if (r[k] && !sameSet(placeholders(r[k]), ref)) errors.push(`${ow}: ${r.key}: ${k} must keep the placeholders {${ref.join('}, {')}}`);
+        if (r.uk && /['‘’`]/.test(r.uk)) errors.push(`${ow}: ${r.key}: uk writes the apostrophe as ʼ (U+02BC)`);
+        if (!(r.uk === e.uk[0] && r.en === e.en[0])) same = false;
+      }
+      if (same) errors.push(`${ow}: every row is the current text; use no rows and a label`);
+    });
   }
-  return { flags, errors };
+  const removed = Array.isArray(data.removed) ? data.removed : [];
+  for (const k of removed) if (byKey.has(k)) errors.push(`removed key ${k} is still in the deck`);
+  const done = new Set();
+  for (const d of decided) {
+    const where = `decided ${d && d.id}`;
+    if (!d || typeof d.id !== 'string') { errors.push(`${where}: no id`); continue; }
+    if (done.has(d.id) || seen.has(d.id)) errors.push(`${where}: listed twice`);
+    done.add(d.id);
+    if (!d.keys) d.keys = [d.id];
+    for (const k of d.keys) if (!byKey.has(k) && !removed.includes(k)) errors.push(`${where}: no key ${k} in the deck or in "removed"`);
+    if (typeof d.how !== 'string' || !d.how) errors.push(`${where}: how is empty`);
+  }
+  return { flags, decided, removed, asked: data.asked, principle: data.principle, errors };
 }
 
 // ---------- the wireframes' frames ----------
@@ -228,8 +276,10 @@ function compile(entries) {
   const templates = [];
   const fragments = new Map();
   for (const e of entries) {
-    e.uk.forEach((form, fi) => {
-      if (!form) return;
+    e.uk.forEach((form0, fi) => {
+      if (!form0) return;
+      // A frame text is whitespace-normalised (a no-break space before a unit becomes a space), so the deck form is too.
+      const form = form0.replace(/\u00a0/g, ' ');
       const names = placeholders(form);
       if (!names.length) {
         if (!exact.has(form)) exact.set(form, []);
@@ -343,6 +393,6 @@ function load(root) {
 }
 
 module.exports = {
-  ROOT, DECK, FLAGS, WIREFRAMES, EXTRAS, EN_JSON, HEADER, FLAG_KINDS,
+  ROOT, DECK, FLAGS, WIREFRAMES, EXTRAS, EN_JSON, HEADER, FLAG_KINDS, OPTION_IDS,
   ukForm, parseCsv, readDeck, readFlags, frameTexts, screenTitles, matchFrames, readExtras, load, placeholders,
 };

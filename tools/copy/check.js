@@ -1,6 +1,6 @@
 // The copy deck's check (prime-game-ui#4): copy/strings.csv parses as Godot's CSV translation format, keys are unique
 // and snake_case screen.element, every row has en and uk with the same placeholders, plural rows have every form,
-// copy/flags.json names real keys, and every Ukrainian text inside the wireframes' frames maps to a key (or is listed
+// copy/flags.json (open questions with options, decided ones) names real keys, and every Ukrainian text inside the wireframes' frames maps to a key (or is listed
 // in pages/wireframes/frame-extras.json as a world tag, an annotation or sample data). The wireframes read their
 // English from the deck: pages/wireframes/en.json and the EN map inlined in wireframes.html are generated here.
 //
@@ -79,7 +79,7 @@ function main(argv) {
   const plural = L.deck.entries.filter((e) => e.plural).length;
   const mapped = L.frames.nodes.filter((n) => n.match.kind === 'key').length;
   const unused = L.deck.entries.filter((e) => !L.frames.used.has(e.key)).map((e) => e.key);
-  console.log(`${keys} keys (${plural} plural), ${L.flags.flags.length} flagged; ${mapped} frame texts map to keys, ${L.frames.nodes.length - mapped} are world tags, annotations or samples; en.json fresh${unused.length ? `; not on a frame: ${unused.join(', ')}` : ''}`);
+  console.log(`${keys} keys (${plural} plural), ${L.flags.flags.length} open questions, ${L.flags.decided.length} decided; ${mapped} frame texts map to keys, ${L.frames.nodes.length - mapped} are world tags, annotations or samples; en.json fresh${unused.length ? `; not on a frame: ${unused.join(', ')}` : ''}`);
   return 0;
 }
 

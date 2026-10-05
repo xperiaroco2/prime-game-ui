@@ -1,7 +1,7 @@
-// The copy review page (prime-game-ui#4): every string of copy/strings.csv as Ukrainian and English, per wireframe
-// screen, in the Toy look; the strings of copy/flags.json first, each with its proposed text and «Так» / «Інакше» plus
-// a note, saved through the artifact runtime's db capability (collection "copy", one document per key:
-// {answer, text, note, at}). Unflagged strings show as accepted; «Змінити» opens the same answer form.
+// The copy review page, round 2 (prime-game-ui#4): the open questions of copy/flags.json first, each with its options
+// a-c as taps («Беру цей») and «Інакше» with an own text and a note, saved through the artifact runtime's db capability
+// (collection "copy", one document per question id: {answer: option id | "other", text, note, at}); then what was
+// decided after round 1 and every string of copy/strings.csv per wireframe screen, both folded and read-only.
 //
 //   node pages/copy/build.js          write copy-ui.css and copy.html
 //   node pages/copy/build.js --check  fail when either is stale
@@ -34,7 +34,10 @@ const SCREEN_OF = [
   ['pregame', 's6'], ['hud', 's7'], ['item', 's7'], ['map', 's8'], ['room', 's8'], ['downed', 's9'], ['dead', 's9'],
   ['respawn', 's9'], ['end', 's10'],
 ];
-const KIND = { gender: 'рід', rule: 'правило', 'less-text': 'менше тексту', clarity: 'ясність', consistency: 'однаковість' };
+const KIND = {
+  gender: 'рід', rule: 'правило', 'less-text': 'менше тексту', clarity: 'ясність', consistency: 'однаковість',
+  obvious: 'очевидне', word: 'одне слово', tone: 'тон', case: 'велика літера',
+};
 const FORM_UK = ['1', '2–4', '5+'];
 const FORM_EN = ['1', '2+'];
 
@@ -63,24 +66,12 @@ function button(cls, attrs, label) {
   return `<button type="button" class="${cls}" ${attrs}><span>${label}</span><span class="tv-focus"></span></button>`;
 }
 
-// The answer form shared by flagged cards and «Змінити» on accepted rows.
-function form(key) {
-  const id = key.replace(/\./g, '-');
-  return '<div class="cp-form-box">'
-    + `<div class="cp-act">${button('tv-ToyButtonPrimary', `data-answer="yes"`, 'Так')}${button('tv-ToyButtonSecondary', 'data-answer="other"', 'Інакше')}</div>`
-    + `<div class="cp-own" data-own hidden><label for="t-${id}">Свій варіант українською</label><span class="tv-ToyField"><input class="cp-input" id="t-${id}" type="text" maxlength="300" data-text-input><span class="tv-focus"></span></span></div>`
-    + `<div class="cp-note"><label for="n-${id}">Нотатка (не обовʼязково)</label><span class="tv-ToyField"><textarea class="cp-input" id="n-${id}" rows="2" maxlength="2000" data-note-input></textarea><span class="tv-focus"></span></span></div>`
-    + `<div class="cp-act cp-act-small">${button('tv-ToyButtonGhostOnLight', 'data-save', 'Зберегти нотатку')}<span class="cp-saved" data-saved></span></div>`
-    + '</div>';
-}
-
 function build() {
   const L = D.load(ROOT);
   if (L.errors.length) fail('the copy deck has errors; run node tools/copy/check.js\n' + L.errors.join('\n'));
   const entries = L.deck.entries;
   const byKey = new Map(entries.map((e) => [e.key, e]));
   const flags = L.flags.flags;
-  const flagged = new Map(flags.map((f) => [f.key, f]));
   const titles = L.titles;
   const screens = Object.keys(titles);
   if (screens.length !== 10) fail(`expected 10 wireframe screens, found ${screens.length}`);
@@ -113,44 +104,60 @@ function build() {
   }
   const uiCss = uiParts.join('\n') + '\n';
 
-  // ----- flagged strings -----
-  const flagCards = flags.map((f) => {
-    const e = byKey.get(f.key);
-    const removal = !f.uk;
-    const proposal = removal
-      ? '<span class="cp-uk tv-ToyTextOnLight cp-remove">прибрати рядок</span>'
-      : `<span class="cp-uk tv-ToyTextOnLight" lang="uk"><b>${show(f.uk)}</b></span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">${show(f.en)}</span>`;
-    return `<article class="tv-ToyPanelMenu cp-card cp-flag" data-context="light" id="f-${esc(f.key)}" data-key="${esc(f.key)}" data-proposed="${esc(removal ? '' : f.uk)}">`
-      + `<div class="cp-head"><span class="tv-ToyChipNew"><span class="tv-ToyChipNewText">${esc(KIND[f.kind])}</span></span><code class="cp-key">${esc(f.key)}</code><span class="cp-where">${esc(where(f.key))}</span></div>`
+  // ----- the open questions -----
+  const asked = L.flags.asked;
+  const textsOf = (uk, en) => `<span class="cp-uk tv-ToyTextOnLight" lang="uk">${show(uk)}</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">${show(en)}</span>`;
+  const rowsHtml = (rows, many) => rows.map((r) => {
+    const k = many ? `<code class="cp-key">${esc(r.key)}</code>` : '';
+    const t = r.uk ? textsOf(r.uk, r.en) : '<span class="cp-uk tv-ToyTextOnLight cp-remove">прибрати рядок</span>';
+    return `<div class="cp-texts">${k}${t}</div>`;
+  }).join('');
+  // What a tap on an option saves as its text: the Ukrainian it writes, or what it does.
+  const optText = (o) => (o.rows.length ? o.rows.map((r) => (r.uk ? r.uk : `прибрати ${r.key}`)).join(' / ') : o.label).slice(0, 300);
+  const cards = flags.map((f) => {
+    const many = f.keys.length > 1;
+    const id = f.id.replace(/\./g, '-');
+    const now = f.keys.map((k) => { const e = byKey.get(k); return { key: k, uk: e.uk[0], en: e.en[0] }; });
+    const opts = f.options.map((o) => `<div class="cp-opt" data-opt="${o.id}"><div class="cp-opt-head"><b class="cp-letter">${o.id}</b>${o.label ? `<span class="tv-ToyTextOnLight cp-opt-label">${esc(o.label)}</span>` : ''}</div>`
+      + (o.rows.length ? `<div class="cp-rows">${rowsHtml(o.rows, many)}</div>` : '')
+      + (o.note ? `<p class="cp-note-txt tv-ToyTextMutedOnLight">${esc(o.note)}</p>` : '')
+      + `<div class="cp-act">${button('tv-ToyButtonSecondary', `data-answer="${o.id}" data-text="${esc(optText(o))}"`, 'Беру цей')}</div></div>`).join('');
+    const on = [...new Set(f.keys.map(screenOf).filter((x) => x !== 'shared').map(num))].sort((x, y) => x - y);
+    const places = !many ? where(f.id) : on.length ? (on.length > 1 ? 'екрани ' : 'екран ') + on.join(', ') : 'спільне';
+    return `<article class="tv-ToyPanelMenu cp-card cp-flag" data-context="light" id="f-${esc(f.id)}" data-key="${esc(f.id)}">`
+      + `<div class="cp-head"><span class="tv-ToyChipNew"><span class="tv-ToyChipNewText">${esc(KIND[f.kind])}</span></span><code class="cp-key">${esc(f.id)}</code><span class="cp-where">${esc(places)}</span>${f.round === 'rejected' ? '<span class="cp-again">ще раз</span>' : ''}</div>`
       + `<p class="cp-why tv-ToyTextMutedOnLight">${esc(f.why)}</p>`
-      + `<div class="cp-pair"><span class="cp-lbl">Зараз</span><div class="cp-texts cp-old">${texts(e)}</div></div>`
-      + `<div class="cp-pair"><span class="cp-lbl">Пропоную</span><div class="cp-texts">${proposal}</div></div>`
-      + form(f.key)
-      + '</article>';
+      + `<div class="cp-pair"><span class="cp-lbl">Зараз</span><div class="cp-rows cp-old">${rowsHtml(now, many)}</div></div>`
+      + `<div class="cp-opts">${opts}</div>`
+      + '<div class="cp-form-box">'
+      + `<div class="cp-own"><label for="t-${id}">Інакше: свій варіант (не обовʼязково)</label><span class="tv-ToyField"><input class="cp-input" id="t-${id}" type="text" maxlength="300" data-text-input><span class="tv-focus"></span></span></div>`
+      + `<div class="cp-note"><label for="n-${id}">Нотатка (не обовʼязково)</label><span class="tv-ToyField"><textarea class="cp-input" id="n-${id}" rows="2" maxlength="2000" data-note-input></textarea><span class="tv-focus"></span></span></div>`
+      + `<div class="cp-act">${button('tv-ToyButtonSecondary', 'data-answer="other"', 'Інакше')}${button('tv-ToyButtonGhostOnLight', 'data-save', 'Зберегти нотатку')}</div>`
+      + '<p class="cp-saved" data-saved></p><p class="cp-prev tv-ToyTextMutedOnLight" data-prev hidden></p>'
+      + '</div></article>';
   }).join('\n');
 
-  // ----- every string, per screen -----
+  // ----- decided after round 1 -----
+  const decided = L.flags.decided.map((d) => {
+    const lines = d.keys.map((k) => {
+      const e = byKey.get(k);
+      return `<div class="cp-texts"><code class="cp-key">${esc(k)}</code>${e ? textsOf(e.uk[0], e.en[0]) : '<span class="cp-uk tv-ToyTextOnLight cp-remove">прибрано</span>'}</div>`;
+    }).join('');
+    return `<li class="cp-row"><p class="cp-how tv-ToyTextOnLight">${show(d.how)}</p>${lines}</li>`;
+  }).join('');
+
+  // ----- every string, per screen, to read -----
   const groups = new Map([...screens.map((s) => [s, []]), ['shared', []]]);
   for (const e of entries) groups.get(screenOf(e.key)).push(e);
-  const row = (e) => {
-    const f = flagged.get(e.key);
-    const state = f
-      ? `<a class="cp-tag" href="#f-${esc(e.key)}">питання вгорі</a>`
-      : '<span class="cp-ok" data-ok>✓ прийнято</span>';
-    return (f ? `<li class="cp-row is-flagged">` : `<li class="cp-row" data-key="${esc(e.key)}" data-proposed="${esc(e.uk[0])}">`)
-      + `<div class="cp-texts">${texts(e)}</div>`
-      + `<div class="cp-meta"><code class="cp-key">${esc(e.key)}</code><span class="cp-where">${esc(where(e.key))}</span>${state}</div>`
-      + (f ? '' : `<details class="cp-change"><summary>Змінити</summary>${form(e.key)}</details>`)
-      + '</li>';
-  };
+  const asks = new Set(flags.flatMap((f) => f.keys));
+  const row = (e) => `<li class="cp-row"><div class="cp-texts">${texts(e)}</div><div class="cp-meta"><code class="cp-key">${esc(e.key)}</code><span class="cp-where">${esc(where(e.key))}</span>${asks.has(e.key) ? '<span class="cp-tag">є питання</span>' : ''}</div></li>`;
   const screenSecs = [...groups].filter(([, list]) => list.length).map(([s, list]) => {
     const title = s === 'shared' ? 'Спільне для кількох екранів' : `${num(s)} · ${titles[s]}`;
-    return `<section class="cp-sec" id="${s}"><h2>${esc(title)} <small>${list.length}</small></h2>`
-      + `<div class="tv-ToyPanelMenu cp-card" data-context="light"><ul class="cp-list">${list.map(row).join('')}</ul></div></section>`;
+    return `<h3 class="cp-sub">${esc(title)} <small>${list.length}</small></h3><ul class="cp-list">${list.map(row).join('')}</ul>`;
   }).join('\n');
-  const toc = [['flags', `Питання · ${flags.length}`], ...screens.map((s) => [s, `${num(s)} ${titles[s].split(/[:,]/)[0]}`]), ['shared', 'Спільне']];
 
   const plural = entries.filter((e) => e.plural).length;
+  const rejected = flags.filter((f) => f.round === 'rejected').length;
   const style = (id, text) => `<style id="${id}">\n${text.replace(/\s+$/, '')}\n</style>`;
   const html = [
     '<!doctype html>',
@@ -169,20 +176,21 @@ function build() {
     '</head>',
     '<body>',
     '<main>',
-    '<h1>Тексти гри: українська й англійська</h1>',
-    `<p class="sc-lead">Усі ${entries.length} рядків десяти вайрфреймів, з ключами, які візьме гра (prime-game#208). Спершу ${flags.length} рядків, де я пропоную інший текст: рід, правила інтерфейсу, менше тексту, ясність. Решта прийнята як є; будь-який рядок можна змінити.</p>`,
-    '<p class="cp-rule">Тон: коротко; інтерфейс не каже, що робити; помилки спокійні й прості; смішне — лише в порадах і великих моментах; українська без роду.</p>',
-    `<ul class="cp-toc">${toc.map(([id, l]) => `<li><a href="#${id}">${esc(l)}</a></li>`).join('')}</ul>`,
-    `<div class="cp-bar"><p class="cp-count">Питань вирішено: <b id="cp-done">0</b> з ${flags.length} · змін до прийнятих: <b id="cp-changes">0</b></p>`
+    '<h1>Тексти гри: коло 2</h1>',
+    `<p class="cp-rule"><b>Принцип.</b> ${esc(L.flags.principle)}</p>`,
+    `<p class="sc-lead">${flags.length} питань: ${rejected}, де ти хотів інакше, і ${flags.length - rejected} нових після дослідження української локалізації. Тапни «Беру цей» біля варіанта або «Інакше» з нотаткою. Прийняте вже внесено й згорнуте внизу.</p>`,
+    `<div class="cp-bar"><p class="cp-count">Відповідей: <b id="cp-done">0</b> з ${flags.length}</p>`
       + '<p class="cp-db" id="cp-db" data-state="wait">Перевіряю, чи можна тут зберегти відповідь…</p></div>',
     `<section class="cp-sec" id="flags"><h2>Що вирішити <small>${flags.length}</small></h2>`
-      + '<p class="cp-intro">«Так» — беру пропозицію. «Інакше» — лишити як є або свій варіант (поле зʼявиться); нотатка — за бажанням.</p>'
-      + `<div class="cp-cards">${flagCards}</div></section>`,
-    screenSecs,
+      + `<div class="cp-cards">${cards}</div></section>`,
+    `<section class="cp-sec" id="decided"><details class="cp-fold"><summary>Вирішено <small>${L.flags.decided.length}</small></summary>`
+      + `<div class="tv-ToyPanelMenu cp-card" data-context="light"><ul class="cp-list">${decided}</ul></div></details></section>`,
+    `<section class="cp-sec" id="all"><details class="cp-fold"><summary>Усі рядки <small>${entries.length}</small></summary>`
+      + `<div class="tv-ToyPanelMenu cp-card" data-context="light">${screenSecs}</div></details></section>`,
     '<div class="cp-summary" id="cp-summary" hidden><label for="cp-summary-text">Підсумок відповідей, щоб скопіювати в чат</label><textarea id="cp-summary-text" rows="5" readonly></textarea></div>',
-    `<footer class="cp-foot">Зібрано з copy/strings.csv (${entries.length} ключів, ${plural} з множиною) і copy/flags.json. Множина: українська має три форми (1, 2–4, 5+), англійська дві. Заповнювачі в рамці (як <span class="cp-ph">name</span>) гра підставляє сама. Вигляд — токени Toy ${esc(sys.version)}.</footer>`,
+    `<footer class="cp-foot">Зібрано з copy/strings.csv (${entries.length} ключів, ${plural} з множиною) і copy/flags.json. Правила: copy/README.md і docs/research/2026-10-05-ukrainian-localization/report.md. Заповнювачі в рамці (як <span class="cp-ph">name</span>) гра підставляє сама. Вигляд — токени Toy ${esc(sys.version)}.</footer>`,
     '</main>',
-    `<script>\n${readText('pages/copy/copy.js').replace(/\s+$/, '')}\n</script>`,
+    `<script>\nvar ASKED = ${JSON.stringify(asked)};\n${readText('pages/copy/copy.js').replace(/\s+$/, '')}\n</script>`,
     '</body>',
     '</html>',
     '',
