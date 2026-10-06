@@ -10,7 +10,7 @@
     { "id": "tired", "label": "Мало сил", "note": "Stamina at 0.18." },
     { "id": "hurt", "label": "Мало здоровʼя", "note": "Health at 0.22 (ramp stop 04)." },
     { "id": "mate", "label": "Дисидент бачить команду", "note": "A dissident with a knife on the belt sees a teammate's name plate with the teammate mark." },
-    { "id": "raising", "label": "Підняття", "note": "PROPOSAL, waiting for the engineer (prime-game-ui#19, comp-11): what the raiser sees while holding Interact next to a downed teammate. A thin progress bar under the crosshair in place of the object name, filling at the same rate as the downed player's raise bar (s9 raise); no text. If the engineer prefers that the raiser sees nothing, drop this state and Hud/Raising." }
+    { "id": "raising", "label": "Підняття", "note": "Decided by the engineer (2026-10-06, the wave-19 question page, q9): what the raiser sees while holding Interact next to a downed teammate. A thin progress bar under the crosshair in place of the object name, filling at the same rate as the downed player's raise bar (s9 raise); no text." }
   ],
   "nodes": [
     {
@@ -72,7 +72,7 @@
         {
           "name": "Raising", "type": "PanelContainer", "variation": "ToyPlate", "states": ["raising"],
           "anchors_preset": "center", "offset_top": 38, "offset_bottom": 38,
-          "note": "PROPOSAL (see the state raising). Shown while the player holds Interact on a downed teammate, in place of Aim; hidden when the key is released or the teammate is up.",
+          "note": "See the state raising. Shown while the player holds Interact on a downed teammate, in place of Aim; hidden when the key is released or the teammate is up.",
           "children": [
             {
               "name": "Bar", "type": "ProgressBar", "variation": "ToyBarProgress", "show_percentage": false,

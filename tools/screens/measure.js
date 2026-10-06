@@ -12,7 +12,7 @@
 //     parent   the nearest [data-node] ancestor inside the frame (its data-node), or null
 //     clipX/Y  the nearest element between the node and the frame (both excluded) whose overflow in that axis is not
 //              visible, as [name, overflow], or null
-//   text: { key, host, text, visible, children, box, rects, union, scroll, overflow, textOverflow, clips }
+//   text: { key, host, text, visible, children, pieceEmpty (a sentence piece the page hides where it is empty), box, rects, union, scroll, overflow, textOverflow, clips }
 //     host     the nearest [data-node] at or above the element; rects: the client rects of its text (a Range over
 //              its contents), union: their bounding box; clips: every element from the text element up to and
 //              including the frame whose overflow is not visible: { who, ox, oy, pad (its padding box), own (it is
@@ -150,7 +150,7 @@ function measure(opts, fontState) {
       }
       rec.texts.push({
         key: el.getAttribute("data-key") || "(data)", host: host ? host.getAttribute("data-node") : null,
-        text: el.textContent, visible: visible(el, cs), children: el.children.length,
+        text: el.textContent, visible: visible(el, cs), children: el.children.length, pieceEmpty: el.hasAttribute("data-piece-empty"),
         box: rel(el.getBoundingClientRect()), rects: rects,
         union: u ? { x: R(u.x), y: R(u.y), w: R(u.r - u.x), h: R(u.b - u.y) } : null,
         scroll: { w: el.scrollWidth, h: el.scrollHeight, cw: el.clientWidth, ch: el.clientHeight },

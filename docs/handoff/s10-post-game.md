@@ -27,11 +27,9 @@ The black outro of about 3 s: the End phase fades to black (0.4 s; a cut under r
   - Note: The 32 px gaps clear the title plate's expand margins (4 px above it, the base 14 px below).
   - **Title** `Label` · variation `ToyTextMutedOnDark` · text `end.title`: en "End of the round" · uk "Кінець раунду" · horizontal_alignment `CENTER`
   - **Winner** `Label` · variation `ToyTitlePlate` (raised: ToyRaised with base `ToyBaseTitle`) · size flags horizontal `SIZE_SHRINK_CENTER` · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper · text `end.won_engineers`: en "The Engineers won" · uk "Перемогли Інженери"
-    - Note: The winning team on the title plate (raised on ToyBaseTitle): end.won_engineers or end.won_dissidents.
+    - Note: When the own team won: the winning team on the title plate (raised on ToyBaseTitle), end.won_engineers or end.won_dissidents.
   - **Result** `VBoxContainer` · variation `ToyColumnEight` · gaps from the variation: separation 8
-    - Note: Whether the own team won and why.
-    - **Team** `Label` · variation `ToyTitleOnDark` · text `end.your_team_won`: en "Your team won" · uk "Твоя команда перемогла" · horizontal_alignment `CENTER`
-      - Note: Whether the own team won: end.your_team_won or end.your_team_lost.
+    - Note: Why the round ended. Whether the own team won shows in the winner line itself: on the plate or plain.
     - **Reason** `Label` · variation `ToyTextMutedOnDark` · custom_minimum_size (1152, 0) · text `end.reason.all_tasks` with sample {time} = "7:41": en "All tasks done in 7:41." · uk "Усі задачі виконано за 7:41." · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
       - Note: Why the round ended, from the host's reason id (#208): end.reason.all_tasks with the round's time (m:ss) or end.reason.time_up. An unknown reason hides the line.
   - **Gap** `Control` · custom_minimum_size (0, 8)
@@ -41,9 +39,11 @@ The black outro of about 3 s: the End phase fades to black (0.4 s; a cut under r
 
 ## `lose`: what differs from `win`
 
-- **Changed** `V/Winner`: text `end.won_dissidents`: en "The Dissidents won" · uk "Перемогли Дисиденти" (was: text `end.won_engineers`: en "The Engineers won" · uk "Перемогли Інженери")
-- **Changed** `V/Result/Team`: text `end.your_team_lost`: en "Your team lost" · uk "Твоя команда програла" (was: text `end.your_team_won`: en "Your team won" · uk "Твоя команда перемогла")
+- **Hidden:** `V/Winner`.
 - **Changed** `V/Result/Reason`: text `end.reason.time_up`: en "Time's up and the tasks aren't done." · uk "Час вийшов, а задачі ще не виконано." (was: text `end.reason.all_tasks` with sample {time} = "7:41": en "All tasks done in 7:41." · uk "Усі задачі виконано за 7:41.")
+- **Shown:**
+  - **V/WinnerLoss** `Label` · variation `ToyTextOnDark` · text `end.won_dissidents`: en "The Dissidents won" · uk "Перемогли Дисиденти" · horizontal_alignment `CENTER`
+    - Note: When the own team lost: the winning team in plain text, no plate (the plate is only for a win and for the roles). end.won_engineers or end.won_dissidents.
 
 ## Notes
 
@@ -53,7 +53,7 @@ The black outro of about 3 s: the End phase fades to black (0.4 s; a cut under r
 
 ## Keys
 
-- **Drawn** (8): `end.back_to_lobby`, `end.reason.all_tasks`, `end.reason.time_up`, `end.title`, `end.won_dissidents`, `end.won_engineers`, `end.your_team_lost`, `end.your_team_won`.
+- **Drawn** (6): `end.back_to_lobby`, `end.reason.all_tasks`, `end.reason.time_up`, `end.title`, `end.won_dissidents`, `end.won_engineers`.
 
 ## Layers and input (every screen)
 

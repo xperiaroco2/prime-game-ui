@@ -987,7 +987,12 @@ function renderNode(n, st, S, C, ctx) {
     case 'Label': {
       const uk = textOf(C, p, 'uk'), en = textOf(C, p, 'en');
       attrs.push(textMark());
-      if (isInt(p.piece)) attrs.push(`data-piece="${p.piece}"`);
+      if (isInt(p.piece)) {
+        attrs.push(`data-piece="${p.piece}"`);
+        // A piece that is empty in a language (a keycap at the sentence's end) is hidden there, as the game hides it.
+        const empty = ['uk', 'en'].filter((l) => !(l === 'uk' ? uk : en).trim());
+        if (empty.length) attrs.push(`data-piece-empty="${empty.join(' ')}"`);
+      }
       if (p.value_of) attrs.push(`data-value-of="${esc(p.value_of)}"`);
       attrs.push(textAttrs(uk, en).trim());
       inner = esc(uk);
@@ -1508,7 +1513,7 @@ function handoff(S, C) {
       if (!('key' in p)) return `text from data (auto_translate_mode = DISABLED), sample: ${sample(p.text)}`;
       const e = C.byKey.get(p[k]);
       const how = p.value_of ? `the value of {${p.value_of}} in \`${p.key}\``
-        : isInt(p.piece) ? `piece ${p.piece} of \`tr("${p.key}")\` split at ${SPLIT.map((x) => `{${x}}`).join('/')}`
+        : isInt(p.piece) ? `piece ${p.piece} of \`tr("${p.key}")\` split at ${SPLIT.map((x) => `{${x}}`).join('/')} (strip_edges(); hidden when the piece is empty)`
           : e.plural ? `\`tr_n("${p.key}", "${p.key}", ${p.count})\`` : `\`${p.key}\``;
       const args = isObj(p.args) && Object.keys(p.args).length
         ? ` with sample ${Object.entries(p.args).map(([a, x]) => `{${a}} = ${typeof x === 'string' ? quote(x) : `${quote(x.en)} / ${quote(x.uk)}`}`).join(', ')}` : '';

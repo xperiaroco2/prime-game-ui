@@ -32,6 +32,32 @@ function iconOutputs(root) {
     const note = `<!-- generated from ${ICONS_SRC}/${name} by tools/tokens/build.js: currentColor written as #ffffff, for Godot's tint -->\n`;
     out[`${ICONS_OUT}/${name}`] = note + text.replace(/currentColor/g, '#ffffff');
   }
+  Object.assign(out, roomIconOutputs(root));
+  return out;
+}
+// The room pictograms (the engineer's room-signs decision: system B's icons, plain on packages and the map) go to
+// dist/pack/icons/room/ with their licence records. They are drawn in one ink colour, written as white for the same
+// tint; an icon with any other colour is copied as it is.
+const ROOM_SRC = 'pages/room-signs/systems/b';
+const ROOM_INK = '#2a1f33';
+function roomIconOutputs(root) {
+  const dir = path.join(root, ...ROOM_SRC.split('/'), 'icons');
+  let files = [];
+  try { files = fs.readdirSync(dir).filter((n) => n.endsWith('.svg')).sort(); } catch { return {}; }
+  let licences = {};
+  try { licences = JSON.parse(fs.readFileSync(path.join(root, ...ROOM_SRC.split('/'), 'LICENCES.json'), 'utf8')); } catch { /* none */ }
+  const out = {};
+  const records = [];
+  for (const name of files) {
+    const text = fs.readFileSync(path.join(dir, name), 'utf8').replace(/\r\n/g, '\n').replace(/\s+$/, '') + '\n';
+    const colours = new Set((text.match(/#[0-9a-fA-F]{6}\b/g) || []).map((c) => c.toLowerCase()));
+    const ink = colours.size === 1 && colours.has(ROOM_INK);
+    const note = `<!-- generated from ${ROOM_SRC}/icons/${name} by tools/tokens/build.js${ink ? `: ${ROOM_INK} written as #ffffff, for Godot's tint` : ''} -->\n`;
+    out[`${ICONS_OUT}/room/${name}`] = note + (ink ? text.split(ROOM_INK).join('#ffffff') : text);
+    const rec = licences[`icons/${name}`];
+    if (rec) records.push(`  ${JSON.stringify(name)}: ${JSON.stringify(rec).replace(/":/g, '": ').replace(/,"/g, ', "')}`);
+  }
+  out[`${ICONS_OUT}/room/LICENCES.json`] = `{\n${records.join(',\n')}\n}\n`;
   return out;
 }
 const RELEASE_FILE = 'tokens/release.json';

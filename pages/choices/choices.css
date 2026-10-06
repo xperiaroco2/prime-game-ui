@@ -2234,10 +2234,6 @@
 }
 
 /* q10-b: Злити 8 у 4 */
-/* .opt-q10-b · ToyBarTrack: PanelContainer · bar.track · dark */
-.opt-q10-b .tv-ToyBarTrack {
-  border-color: var(--toy-choice-q10-b-bar-track-panel-border-color);
-}
 /* .opt-q10-b · ToyButtonPrimary: Button → ToyButton · button.primary · any */
 .opt-q10-b .tv-ToyButtonPrimary {
   background: var(--toy-button-primary-normal-bg-color);

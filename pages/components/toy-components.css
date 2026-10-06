@@ -2198,6 +2198,30 @@
   margin-bottom: calc(var(--toy-pick-swatch-selected-panel-expand-margin) * -1 * var(--px));
   margin-left: calc(var(--toy-pick-swatch-selected-panel-expand-margin) * -1 * var(--px));
 }
+/* ToySwatchFocus: Panel · pick.swatch-focus · light */
+.tv-ToySwatchFocus {
+  box-sizing: border-box;
+  position: relative;
+  background: var(--toy-palette-clear);
+  border-style: solid;
+  border-color: var(--toy-pick-swatch-focus-panel-border-color);
+  border-top-width: calc(var(--toy-pick-swatch-focus-panel-border-width) * var(--px));
+  border-right-width: calc(var(--toy-pick-swatch-focus-panel-border-width) * var(--px));
+  border-bottom-width: calc(var(--toy-pick-swatch-focus-panel-border-width) * var(--px));
+  border-left-width: calc(var(--toy-pick-swatch-focus-panel-border-width) * var(--px));
+  border-top-left-radius: calc(var(--toy-pick-swatch-focus-panel-corner-radius) * var(--px));
+  border-top-right-radius: calc(var(--toy-pick-swatch-focus-panel-corner-radius) * var(--px));
+  border-bottom-right-radius: calc(var(--toy-pick-swatch-focus-panel-corner-radius) * var(--px));
+  border-bottom-left-radius: calc(var(--toy-pick-swatch-focus-panel-corner-radius) * var(--px));
+  padding-top: calc((var(--toy-pick-swatch-focus-panel-border-width) + var(--toy-pick-swatch-focus-panel-expand-margin) - var(--toy-pick-swatch-focus-panel-border-width)) * var(--px));
+  padding-right: calc((var(--toy-pick-swatch-focus-panel-border-width) + var(--toy-pick-swatch-focus-panel-expand-margin) - var(--toy-pick-swatch-focus-panel-border-width)) * var(--px));
+  padding-bottom: calc((var(--toy-pick-swatch-focus-panel-border-width) + var(--toy-pick-swatch-focus-panel-expand-margin) - var(--toy-pick-swatch-focus-panel-border-width)) * var(--px));
+  padding-left: calc((var(--toy-pick-swatch-focus-panel-border-width) + var(--toy-pick-swatch-focus-panel-expand-margin) - var(--toy-pick-swatch-focus-panel-border-width)) * var(--px));
+  margin-top: calc(var(--toy-pick-swatch-focus-panel-expand-margin) * -1 * var(--px));
+  margin-right: calc(var(--toy-pick-swatch-focus-panel-expand-margin) * -1 * var(--px));
+  margin-bottom: calc(var(--toy-pick-swatch-focus-panel-expand-margin) * -1 * var(--px));
+  margin-left: calc(var(--toy-pick-swatch-focus-panel-expand-margin) * -1 * var(--px));
+}
 /* ToyRadio: Button → ToyButton · pick.radio · light */
 .tv-ToyRadio {
   box-sizing: border-box;

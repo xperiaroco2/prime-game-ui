@@ -181,6 +181,21 @@ the agents took where the decisions were silent, after five reviews (agent):
   the ten character swatches show sample colours from the Toy palette (page samples: the body colours are not chosen).
 - **Reduced motion** makes the raised buttons' press instant (the pressed look still shows).
 
+**The engineer's answers on the screens** (2026-10-06, the
+[wave-19 question page](https://claude.ai/artifact/PnHGtBSbMzHMi28hmR6Cpd), each option shown as a render; all nine
+took the recommended option):
+- **HUD bars** keep a lilac slot-line outline (`palette.slotline`), so the empty part stays visible over a dark room and
+  the bar's length reads.
+- **Loading:** every row says «Завантаження…», yours too.
+- **A keycap ends the sentence:** «Щоб здатися, утримуй [F]», «Щоб дивитися на іншого гравця, натисни [key]».
+- **Post game:** a win shows the winning team on the title plate; a loss shows it as plain cream text (the plate is for
+  a win and the roles only); the line «Твоя команда перемогла/програла» is gone.
+- **Colour swatches** are 40 px; a focused swatch has a 3 px ink ring flush outside the disc (`ToySwatchFocus`), the
+  chosen one keeps its gapped ring.
+- **The death lesson** is named «Смерть» / Death.
+- **The ready key** is not taught: the Esc Lobby tab has the Ready button and Settings › Controls shows the key.
+- **Raising a teammate:** the raiser sees a thin progress bar under the crosshair in place of the object's name, no text.
+
 ## Type
 Comfortaa for titles and text, provisionally, until the style is chosen (SIL OFL 1.1 with the Reserved Font Name
 "Comfortaa": ship it unmodified) ([font pick](https://github.com/xperiaroco2/prime-game/issues/150#issuecomment-5960452846)).

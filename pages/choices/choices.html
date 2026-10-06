@@ -175,7 +175,7 @@
   --toy-backdrop-deep-panel-bg-color: var(--toy-color-surface-backdrop-deep);
   --toy-backdrop-night-panel-bg-color: var(--toy-color-surface-night);
   --toy-bar-track-panel-bg-color: var(--toy-palette-track-dark);
-  --toy-bar-track-panel-border-color: var(--toy-color-outline);
+  --toy-bar-track-panel-border-color: var(--toy-palette-slotline);
   --toy-bar-track-panel-border-width: var(--toy-stroke-control);
   --toy-bar-track-panel-corner-radius: 10;
   --toy-bar-track-panel-content-margin: 3;
@@ -868,13 +868,18 @@
   --toy-pick-swatch-ring-panel-border-color: var(--toy-color-outline);
   --toy-pick-swatch-ring-panel-border-width: var(--toy-stroke-thin);
   --toy-pick-swatch-ring-panel-corner-radius: var(--toy-radius-pill);
-  --toy-pick-swatch-ring-size-width: 26;
-  --toy-pick-swatch-ring-size-height: 26;
+  --toy-pick-swatch-ring-size-width: 40;
+  --toy-pick-swatch-ring-size-height: 40;
   --toy-pick-swatch-selected-panel-bg-color: var(--toy-palette-clear);
   --toy-pick-swatch-selected-panel-border-color: var(--toy-color-outline);
   --toy-pick-swatch-selected-panel-border-width: var(--toy-stroke-surface);
   --toy-pick-swatch-selected-panel-corner-radius: var(--toy-radius-pill);
   --toy-pick-swatch-selected-panel-expand-margin: 7;
+  --toy-pick-swatch-focus-panel-bg-color: var(--toy-palette-clear);
+  --toy-pick-swatch-focus-panel-border-color: var(--toy-color-outline);
+  --toy-pick-swatch-focus-panel-border-width: var(--toy-focus-width);
+  --toy-pick-swatch-focus-panel-corner-radius: var(--toy-radius-pill);
+  --toy-pick-swatch-focus-panel-expand-margin: 3;
   --toy-pick-radio-label-font-family: var(--toy-type-caption-bold-font-family);
   --toy-pick-radio-label-font-size: var(--toy-type-caption-bold-font-size);
   --toy-pick-radio-label-font-weight: var(--toy-type-caption-bold-font-weight);
@@ -1363,7 +1368,6 @@
   --toy-choice-q9-b-keycap-on-light-size-wide-min-width: 72;
   --toy-choice-q9-c-keycap-on-dark-size-wide-min-width: 36;
   --toy-choice-q9-c-keycap-on-light-size-wide-min-width: 36;
-  --toy-choice-q10-b-bar-track-panel-border-color: #261c30;
   --toy-choice-q10-b-button-base-primary-on-light-panel-bg-color: #261c30;
   --toy-choice-q10-b-button-ghost-on-light-focus-border-color: #261c30;
   --toy-choice-q10-b-button-ghost-on-light-normal-border-color: #261c30;
@@ -3636,10 +3640,6 @@
 }
 
 /* q10-b: Злити 8 у 4 */
-/* .opt-q10-b · ToyBarTrack: PanelContainer · bar.track · dark */
-.opt-q10-b .tv-ToyBarTrack {
-  border-color: var(--toy-choice-q10-b-bar-track-panel-border-color);
-}
 /* .opt-q10-b · ToyButtonPrimary: Button → ToyButton · button.primary · any */
 .opt-q10-b .tv-ToyButtonPrimary {
   background: var(--toy-button-primary-normal-bg-color);

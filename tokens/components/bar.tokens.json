@@ -3,7 +3,7 @@
   "bar": {
     "$description": "Bars: the HUD track with a fill-only bar inside, task progress, the slider track, the slider and the scroll bar.",
     "track": {
-      "$description": "The HUD bar track: dark fill, ink outline; its content margin insets the fill.",
+      "$description": "The HUD bar track: dark fill, lilac slot-line outline (it stays visible over a dark room, so the bar's length reads); its content margin insets the fill.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyBarTrack", "class": "PanelContainer" },
@@ -12,7 +12,7 @@
       },
       "panel": {
         "bg-color": { "$type": "color", "$value": "{palette.track-dark}" },
-        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-color": { "$type": "color", "$value": "{palette.slotline}" },
         "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
         "corner-radius": { "$type": "dimension", "$value": { "value": 10, "unit": "px" } },
         "content-margin": { "$type": "dimension", "$value": { "value": 3, "unit": "px" } }

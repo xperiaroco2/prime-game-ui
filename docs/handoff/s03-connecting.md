@@ -254,11 +254,11 @@ One screen on the opaque night backdrop for the join (its steps and each failure
         - **State** `Label` · variation `ToyTextOnDark` · text `loading.player_ready`: en "Ready" · uk "Готово"
       - **Row** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
         - **Name** `Label` · variation `ToyTextOnDark` · size flags horizontal `SIZE_EXPAND_FILL` · text `player.you`: en "You" · uk "Ти" · clip_text true · text_overrun_behavior `OVERRUN_TRIM_ELLIPSIS`
-        - **State** `Label` · variation `ToyTextMutedOnDark` · text `loading.player_loading`: en "Loading…" · uk "Завантажує…"
+        - **State** `Label` · variation `ToyTextMutedOnDark` · text `loading.player_loading`: en "Loading…" · uk "Завантаження…"
           - Note: loading.player_loading in ToyTextMutedOnDark while the player loads; loading.player_ready in ToyTextOnDark once loaded.
       - **OtherRow** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
         - **Name** `Label` · variation `ToyTextOnDark` · size flags horizontal `SIZE_EXPAND_FILL` · text from data (auto_translate_mode = DISABLED), sample: "Taras" / "Тарас" · clip_text true · text_overrun_behavior `OVERRUN_TRIM_ELLIPSIS`
-        - **State** `Label` · variation `ToyTextMutedOnDark` · text `loading.player_loading`: en "Loading…" · uk "Завантажує…"
+        - **State** `Label` · variation `ToyTextMutedOnDark` · text `loading.player_loading`: en "Loading…" · uk "Завантаження…"
   - **Tip** `PanelContainer` · variation `ToyPlate` · anchors `center_bottom`, offsets 0, -88, 0, -88 (left, top, right, bottom), grow both/both · custom_minimum_size (1072, 0)
     - **Text** `Label` · variation `ToyPlateText` · custom_minimum_size (1036, 0) · text `tip.two_hands`: en "Don't forget: you have two hands." · uk "Не забувай: у тебе дві руки." · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
       - Note: One random tip.* key per loading.
