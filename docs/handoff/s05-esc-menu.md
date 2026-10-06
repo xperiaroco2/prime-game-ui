@@ -196,7 +196,6 @@ The menu over the running game (no pause): Esc (ui_cancel) opens and closes it; 
   - **Menu/H/Page/TitleRow/HostOnly** `HBoxContainer` · variation `ToyRowEight` · size flags vertical `SIZE_SHRINK_CENTER` · gaps from the variation: separation 8
     - Note: A player's view in the lobby only; hidden in a round, where nobody changes the settings and the values without steppers already read as fixed.
     - **Lock** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (20, 20) · texture `lock` (dist/pack/icons/lock.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyTextMutedOnLight")
-      - Note: Muted like the text beside it: self_modulate = get_theme_color("font_color", "ToyTextMutedOnLight") (this replaces the generated ToyTextOnLight line).
     - **Text** `Label` · variation `ToyTextMutedOnLight` · text `esc.lobby.host_only` with sample {name} = "Olena" / "Олена": en "Only the host changes these · Olena" · uk "Змінює лише хост · Олена"
   - **Menu/H/Page/Lobby/Preset** `Label` · variation `ToyTextOnLight` · text `esc.lobby.preset` with sample {preset} = "Standard" / "Звичайний": en "Preset: Standard" · uk "Шаблон: Звичайний"
     - Note: {preset} is tr() of the applied preset's name key (preset.standard, preset.quick, preset.no_knives), or preset.custom.
@@ -291,7 +290,6 @@ The menu over the running game (no pause): Esc (ui_cancel) opens and closes it; 
   - **Menu/H/Page/TitleRow/Locked** `HBoxContainer` · variation `ToyRowEight` · size flags vertical `SIZE_SHRINK_CENTER` · gaps from the variation: separation 8
     - Note: In a round the Character tab is locked: the same lock line as the guest's HostOnly, in the title row, so the page below does not move.
     - **Lock** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (20, 20) · texture `lock` (dist/pack/icons/lock.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyTextMutedOnLight")
-      - Note: Muted like the text beside it: self_modulate = get_theme_color("font_color", "ToyTextMutedOnLight") (this replaces the generated ToyTextOnLight line).
     - **Text** `Label` · variation `ToyTextMutedOnLight` · text `esc.character.locked`: en "You can change this only in the lobby" · uk "Змінювати можна лише в лобі"
   - **Menu/H/Page/Character** `VBoxContainer` · variation `ToyColumnSixteen` · gaps from the variation: separation 16
     - **Body** `HBoxContainer` · variation `ToyRowThirtyTwo` · gaps from the variation: separation 32
