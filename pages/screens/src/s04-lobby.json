@@ -121,8 +121,7 @@
                         },
                         {
                           "name": "Ready", "type": "TextureRect", "icon": "check", "custom_minimum_size": [24, 24],
-                          "size_flags_vertical": "shrink_center", "states": ["wait", "count", "short", "direct"],
-                          "note": "self_modulate = get_theme_color(\"font_color\", \"ToyTextOnDark\")."
+                          "size_flags_vertical": "shrink_center", "states": ["wait", "count", "short", "direct"]
                         }
                       ]
                     },

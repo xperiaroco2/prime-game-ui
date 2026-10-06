@@ -45,11 +45,11 @@ The same HUD as s7: Hud and its nodes are s7's (same names and places); this scr
   - **V** `VBoxContainer` · variation `ToyColumnEight` · gaps from the variation: separation 8
     - **Line** `HBoxContainer` · variation `ToyRowFour` · gaps from the variation: separation 4 · alignment `ALIGNMENT_CENTER`
       - Note: tr("downed.give_up_hold") split at {key}: the words around a keycap, each piece through strip_edges() (the 4 px gap and the keycap's own padding stand in for the spaces, so the uk comma sits by the key). A piece that is empty after strip_edges() is hidden.
-      - **Before** `Label` · variation `ToyTextOnDark` · size flags vertical `SIZE_SHRINK_CENTER` · text piece 0 of `tr("downed.give_up_hold")` split at {key}/{preset} (strip_edges(); hidden when the piece is empty): en "Hold " · uk "Щоб здатися, утримуй "
+      - **Before** `Label` · variation `ToyTextOnDark` · size flags vertical `SIZE_SHRINK_CENTER` · text piece 0 of `tr("downed.give_up_hold")` split at {key}/{preset} (strip_edges(); hidden when the piece is empty): en "Hold" · uk "Щоб здатися, утримуй"
       - **Key** `PanelContainer` · variation `ToyKeyOnDark` · custom_minimum_size (36, 0) = Vector2(get_theme_constant("min_width", "ToyKeyOnDark"), 0)
         - **Text** `Label` · variation `ToyKeyText` · text the value of {key} in `downed.give_up_hold` with sample {key} = "F": en "F" · uk "F" · horizontal_alignment `CENTER`
           - Note: The give_up action's key: DisplayServer.keyboard_get_label_from_physical() of its binding (rebindable, #211); F by default.
-      - **After** `Label` · variation `ToyTextOnDark` · size flags vertical `SIZE_SHRINK_CENTER` · text piece 1 of `tr("downed.give_up_hold")` split at {key}/{preset} (strip_edges(); hidden when the piece is empty): en " to give up" · uk ""
+      - **After** `Label` · variation `ToyTextOnDark` · size flags vertical `SIZE_SHRINK_CENTER` · text piece 1 of `tr("downed.give_up_hold")` split at {key}/{preset} (strip_edges(); hidden when the piece is empty): en "to give up" · uk ""
     - **Hold** `ProgressBar` · variation `ToyBarProgress` · size flags horizontal `SIZE_SHRINK_CENTER` · custom_minimum_size (360, 10) · value 0 of max_value 1, show_percentage false
       - Note: Fills over the 1 s hold while the give-up key is down and empties when it is released; at 1 the player gives up (dead). Empty at rest, so the plate never changes size.
     - **Pad** `Control` · custom_minimum_size (0, 4)

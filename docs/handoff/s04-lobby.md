@@ -57,7 +57,6 @@ The lobby's HUD in the world: the mouse is captured and every node has mouse_fil
           - **Name** `Label` · variation `ToyTextOnDark` · size flags horizontal `SIZE_EXPAND_FILL` · text `lobby.host_mark` with sample {name} = "Olena" / "Олена": en "Olena · host" · uk "Олена · хост" · clip_text true · text_overrun_behavior `OVERRUN_TRIM_ELLIPSIS`
             - Note: The host's row: lobby.host_mark with the name (auto_translate_mode DISABLED on the name), seen by the other players; on the host's own client it reads player.you, as every own row does.
           - **Ready** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (24, 24) · texture `check` (dist/pack/icons/check.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyTextOnDark")
-            - Note: self_modulate = get_theme_color("font_color", "ToyTextOnDark").
         - **Row2** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
           - **Name** `Label` · variation `ToyTextOnDark` · size flags horizontal `SIZE_EXPAND_FILL` · text from data (auto_translate_mode = DISABLED), sample: "Taras" / "Тарас" · clip_text true · text_overrun_behavior `OVERRUN_TRIM_ELLIPSIS`
             - Note: Another player's row: the name only (auto_translate_mode DISABLED).

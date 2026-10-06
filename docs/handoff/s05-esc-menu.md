@@ -153,33 +153,33 @@ The menu over the running game (no pause): Esc (ui_cancel) opens and closes it; 
                   - **Taras** `PanelContainer` · variation `ToySettingRow` · custom_minimum_size (0, 64)
                     - **H** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
                       - **Name** `Label` · variation `ToySettingRowText` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text from data (auto_translate_mode = DISABLED), sample: "Taras" / "Тарас" · clip_text true · text_overrun_behavior `OVERRUN_TRIM_ELLIPSIS`
-                      - **Ready** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (24, 24) · texture `check` (dist/pack/icons/check.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyTextOnLight")
+                      - **Ready** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (24, 24) · texture `check` (dist/pack/icons/check.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToySettingRowText")
                   - **Ivan** `PanelContainer` · variation `ToySettingRow` · custom_minimum_size (0, 64)
                     - **H** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
                       - **Name** `Label` · variation `ToySettingRowText` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text from data (auto_translate_mode = DISABLED), sample: "Ivan" / "Іван" · clip_text true · text_overrun_behavior `OVERRUN_TRIM_ELLIPSIS`
-                      - **Ready** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (24, 24) · texture `check` (dist/pack/icons/check.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyTextOnLight")
+                      - **Ready** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (24, 24) · texture `check` (dist/pack/icons/check.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToySettingRowText")
                   - **Marko** `PanelContainer` · variation `ToySettingRow` · custom_minimum_size (0, 64)
                     - **H** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
                       - **Name** `Label` · variation `ToySettingRowText` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text from data (auto_translate_mode = DISABLED), sample: "Marko" / "Марко" · clip_text true · text_overrun_behavior `OVERRUN_TRIM_ELLIPSIS`
-                      - **Ready** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (24, 24) · texture `check` (dist/pack/icons/check.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyTextOnLight")
+                      - **Ready** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (24, 24) · texture `check` (dist/pack/icons/check.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToySettingRowText")
                   - **Oksana** `PanelContainer` · variation `ToySettingRow` · custom_minimum_size (0, 64)
                     - **H** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
                       - **Name** `Label` · variation `ToySettingRowText` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text from data (auto_translate_mode = DISABLED), sample: "Oksana" / "Оксана" · clip_text true · text_overrun_behavior `OVERRUN_TRIM_ELLIPSIS`
-                      - **Ready** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (24, 24) · texture `check` (dist/pack/icons/check.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyTextOnLight")
+                      - **Ready** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (24, 24) · texture `check` (dist/pack/icons/check.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToySettingRowText")
                   - **Solomiia** `PanelContainer` · variation `ToySettingRow` · custom_minimum_size (0, 64)
                     - **H** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
                       - **Name** `Label` · variation `ToySettingRowText` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text from data (auto_translate_mode = DISABLED), sample: "Solomiia" / "Соломія" · clip_text true · text_overrun_behavior `OVERRUN_TRIM_ELLIPSIS`
                   - **Bohdan** `PanelContainer` · variation `ToySettingRow` · custom_minimum_size (0, 64)
                     - **H** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
                       - **Name** `Label` · variation `ToySettingRowText` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text from data (auto_translate_mode = DISABLED), sample: "Bohdan" / "Богдан" · clip_text true · text_overrun_behavior `OVERRUN_TRIM_ELLIPSIS`
-                      - **Ready** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (24, 24) · texture `check` (dist/pack/icons/check.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyTextOnLight")
+                      - **Ready** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (24, 24) · texture `check` (dist/pack/icons/check.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToySettingRowText")
                   - **Iryna** `PanelContainer` · variation `ToySettingRow` · custom_minimum_size (0, 64)
                     - **H** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
                       - **Name** `Label` · variation `ToySettingRowText` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text from data (auto_translate_mode = DISABLED), sample: "Iryna" / "Ірина" · clip_text true · text_overrun_behavior `OVERRUN_TRIM_ELLIPSIS`
                   - **Dmytro** `PanelContainer` · variation `ToySettingRow` · custom_minimum_size (0, 64)
                     - **H** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
                       - **Name** `Label` · variation `ToySettingRowText` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text from data (auto_translate_mode = DISABLED), sample: "Dmytro" / "Дмитро" · clip_text true · text_overrun_behavior `OVERRUN_TRIM_ELLIPSIS`
-                      - **Ready** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (24, 24) · texture `check` (dist/pack/icons/check.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyTextOnLight")
+                      - **Ready** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (24, 24) · texture `check` (dist/pack/icons/check.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToySettingRowText")
                   - **Lesia** `PanelContainer` · variation `ToySettingRow` · custom_minimum_size (0, 64)
                     - **H** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
                       - **Name** `Label` · variation `ToySettingRowText` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text from data (auto_translate_mode = DISABLED), sample: "Lesia" / "Леся" · clip_text true · text_overrun_behavior `OVERRUN_TRIM_ELLIPSIS`
@@ -195,8 +195,7 @@ The menu over the running game (no pause): Esc (ui_cancel) opens and closes it; 
 - **Shown:**
   - **Menu/H/Page/TitleRow/HostOnly** `HBoxContainer` · variation `ToyRowEight` · size flags vertical `SIZE_SHRINK_CENTER` · gaps from the variation: separation 8
     - Note: A player's view in the lobby only; hidden in a round, where nobody changes the settings and the values without steppers already read as fixed.
-    - **Lock** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (20, 20) · texture `lock` (dist/pack/icons/lock.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyTextOnLight")
-      - Note: Muted like the text beside it: self_modulate = get_theme_color("font_color", "ToyTextMutedOnLight") (this replaces the generated ToyTextOnLight line).
+    - **Lock** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (20, 20) · texture `lock` (dist/pack/icons/lock.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyTextMutedOnLight")
     - **Text** `Label` · variation `ToyTextMutedOnLight` · text `esc.lobby.host_only` with sample {name} = "Olena" / "Олена": en "Only the host changes these · Olena" · uk "Змінює лише хост · Олена"
   - **Menu/H/Page/Lobby/Preset** `Label` · variation `ToyTextOnLight` · text `esc.lobby.preset` with sample {preset} = "Standard" / "Звичайний": en "Preset: Standard" · uk "Шаблон: Звичайний"
     - Note: {preset} is tr() of the applied preset's name key (preset.standard, preset.quick, preset.no_knives), or preset.custom.
@@ -206,7 +205,7 @@ The menu over the running game (no pause): Esc (ui_cancel) opens and closes it; 
       - **Text** `Label` · variation `ToyChipLightText` · text `task.delivery`: en "Delivery" · uk "Доставка"
     - **Switches** `PanelContainer` · variation `ToyChipLight`
       - **Text** `Label` · variation `ToyChipLightText` · text `task.switches`: en "Switches" · uk "Рубильники"
-  - **Menu/H/Page/Lobby/Body/Side/Players/Scroll/Rows/Host/H/Ready** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (24, 24) · texture `check` (dist/pack/icons/check.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyTextOnLight")
+  - **Menu/H/Page/Lobby/Body/Side/Players/Scroll/Rows/Host/H/Ready** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (24, 24) · texture `check` (dist/pack/icons/check.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToySettingRowText")
     - Note: Shown while the player is ready; not ready leaves the slot empty (no dash). The marks are hidden in a round.
   - **Menu/H/Page/Lobby/Body/Side/Players/Scroll/Rows/You** `PanelContainer` · variation `ToySettingRow` · custom_minimum_size (0, 64)
     - **H** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
@@ -290,8 +289,7 @@ The menu over the running game (no pause): Esc (ui_cancel) opens and closes it; 
   - **Menu/H/Tabs/Role** `Button` · variation `ToyTab` · text `esc.tab.role`: en "Role" · uk "Роль" · alignment `LEFT` · toggle_mode true, button_pressed false
   - **Menu/H/Page/TitleRow/Locked** `HBoxContainer` · variation `ToyRowEight` · size flags vertical `SIZE_SHRINK_CENTER` · gaps from the variation: separation 8
     - Note: In a round the Character tab is locked: the same lock line as the guest's HostOnly, in the title row, so the page below does not move.
-    - **Lock** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (20, 20) · texture `lock` (dist/pack/icons/lock.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyTextOnLight")
-      - Note: Muted like the text beside it: self_modulate = get_theme_color("font_color", "ToyTextMutedOnLight") (this replaces the generated ToyTextOnLight line).
+    - **Lock** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (20, 20) · texture `lock` (dist/pack/icons/lock.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyTextMutedOnLight")
     - **Text** `Label` · variation `ToyTextMutedOnLight` · text `esc.character.locked`: en "You can change this only in the lobby" · uk "Змінювати можна лише в лобі"
   - **Menu/H/Page/Character** `VBoxContainer` · variation `ToyColumnSixteen` · gaps from the variation: separation 16
     - **Body** `HBoxContainer` · variation `ToyRowThirtyTwo` · gaps from the variation: separation 32
