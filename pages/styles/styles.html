@@ -18,6 +18,8 @@
 }
 :root[data-theme="dark"] { --paper: #141317; --card: #1C1B21; --ink: #ECEAF0; --muted: #A29EA9; --line: #34313B; --tint: #2A2635; color-scheme: dark; }
 * { box-sizing: border-box; }
+/* The state switcher hides with the hidden attribute; class rules such as .col { display: flex } must not show it again (#9). */
+[hidden] { display: none !important; }
 body { background: var(--paper); color: var(--ink); font: 16px/1.55 var(--font-ui); padding-inline: 16px; padding-block: 0 48px; }
 .wrap { max-width: 64rem; margin: 0 auto; }
 a { color: inherit; text-underline-offset: 2px; }
