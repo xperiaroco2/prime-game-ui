@@ -62,6 +62,15 @@
         "hover": { "$value": { "value": -1, "unit": "px" } },
         "held": { "$value": { "value": 5, "unit": "px" } },
         "disabled": { "$value": { "value": 0, "unit": "px" } }
+      },
+      "items": {
+        "$description": "An icon (the ready toggle's check) in the label colour of each state, as the page draws it; without these Godot tints it white.",
+        "icon-normal-color": { "$type": "color", "$value": "{color.on-accent.text}" },
+        "icon-hover-color": { "$type": "color", "$value": "{color.on-accent.text}" },
+        "icon-pressed-color": { "$type": "color", "$value": "{color.on-accent.text}" },
+        "icon-hover-pressed-color": { "$type": "color", "$value": "{color.on-accent.text}" },
+        "icon-disabled-color": { "$type": "color", "$value": "{color.state.disabled-ink}" },
+        "icon-focus-color": { "$type": "color", "$value": "{color.on-accent.text}" }
       }
     },
     "secondary": {

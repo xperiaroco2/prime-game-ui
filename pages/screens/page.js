@@ -1,5 +1,7 @@
-// The screens page's behaviour: the language, text-size and zoom switches (remembered for this viewer when storage
-// works), the state tabs, the ScrollContainers' bars, and the fit tool's local measuring mode (tools/screens/):
+// The screens page's behaviour: the language (with the language chips, selected for the shown language), text-size and
+// zoom (fit, 50 %, 100 %; a switch keeps the screen in view) switches, remembered for this viewer when storage works;
+// the state tabs; the sticky bar's height for the screen chips' scroll margin; the ScrollContainers' bars; and the fit
+// tool's local measuring mode (tools/screens/):
 // ?only=<screen>:<state>|all with &lang=uk|en&size=default|large renders those frames alone at zoom 1, then sets
 // data-ready="1" on <html>.
 (function () {
@@ -55,7 +57,7 @@
   var resizeTimer = null;
   window.addEventListener('resize', function () {
     window.clearTimeout(resizeTimer);
-    resizeTimer = window.setTimeout(function () { fitScrolls(); }, 100);
+    resizeTimer = window.setTimeout(function () { fitScrolls(); barHeight(); }, 100);
   });
   function pressed(ctl, val) {
     all('[data-ctl="' + ctl + '"]').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-val') === val)); });
@@ -68,6 +70,11 @@
       if (!el.hasAttribute('data-uk')) el.setAttribute('data-uk', el.textContent);
       el.textContent = el.getAttribute(l === 'en' ? 'data-en' : 'data-uk');
     });
+    // A language chip is selected while its language is the one shown (build.js writes both looks).
+    all('[data-lang-chip]').forEach(function (el) {
+      el.className = el.getAttribute('data-cls-' + l);
+      el.setAttribute('data-variation', el.getAttribute('data-var-' + l));
+    });
     root.setAttribute('lang', l);
     root.setAttribute('data-lang', l);
     pressed('lang', l);
@@ -79,11 +86,28 @@
     pressed('text', t);
     fitScrolls();
   }
-  function applyZoom(z) {
-    if (z !== '100') z = 'fit';
+  // The screen at the top of the view (under the sticky bar), so that a zoom switch keeps the reader on it.
+  function screenInView() {
+    var bar = document.getElementById('pg-bar');
+    // A screen scrolled to by its chip sits 12 px under the bar (its scroll-margin-top).
+    var edge = bar ? bar.getBoundingClientRect().bottom + 20 : 0;
+    var secs = all('.pg-screen');
+    var cur = null;
+    secs.forEach(function (s) { if (s.getBoundingClientRect().top <= edge) cur = s; });
+    return cur;
+  }
+  function applyZoom(z, keep) {
+    if (z !== '100' && z !== '50') z = 'fit';
+    var sec = keep ? screenInView() : null;
     root.setAttribute('data-zoom', z);
     pressed('zoom', z);
     fitScrolls();
+    if (sec) sec.scrollIntoView({ block: 'start' });
+  }
+  // The sticky bar wraps on a phone: a screen chip scrolls its screen to just under it (page.css scroll-margin-top).
+  function barHeight() {
+    var bar = document.getElementById('pg-bar');
+    if (bar) root.style.setProperty('--pg-bar-h', bar.offsetHeight + 'px');
   }
 
   // State tabs: one frame of a screen at a time.
@@ -122,12 +146,13 @@
     applyLang(load('lang') || 'uk');
     applyText(load('text') || 'default');
     applyZoom(load('zoom') || 'fit');
+    barHeight();
     var apply = { lang: applyLang, text: applyText, zoom: applyZoom };
     all('[data-ctl]').forEach(function (b) {
       b.addEventListener('click', function () {
         var ctl = b.getAttribute('data-ctl');
         var val = b.getAttribute('data-val');
-        apply[ctl](val);
+        apply[ctl](val, true);
         save(ctl, val);
       });
     });
@@ -141,6 +166,7 @@
     done = true;
     root.setAttribute('data-fonts', how);
     fitScrolls();
+    if (!only) barHeight();
     void root.offsetHeight;
     root.setAttribute('data-ready', '1');
   }

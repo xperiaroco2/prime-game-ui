@@ -37,7 +37,8 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
   **Join with a code** (the engineer's M6 decision D19 in prime-game, `docs/decisions/2026-10-04-m6-playable-over-the-internet.md`
   §2.3 and §3, [prime-game #373](https://github.com/xperiaroco2/prime-game/issues/373)): "Join with a code" (a field
   and Join), Host (a room with a code), and "Direct (LAN or VPN)" (address and port) with its own host button, as the
-  game already does (agent). A failed join returns to the menu with its reason and keeps what was typed.
+  game already does (agent). A failed join shows its reason on the connecting screen; Back returns to the menu
+  with what was typed kept (agent).
 - **Connecting:** "Connecting to <lobby name>…"; the host names the lobby
   ([prime-game #214](https://github.com/xperiaroco2/prime-game/issues/214)). It names the step (finding the game,
   connecting, joined) and each failure in plain words (M6 §3).
@@ -142,25 +143,43 @@ slider (`ToySlider`, whose focus ring the game draws in code, as Godot's Slider 
 
 ## Styled screens
 The ten screens as Godot scene trees, `pages/screens/src/` (prime-game-ui#19; the spec
-`docs/research/2026-10-06-screens/spec.md`). Small layout choices the agents took where the decisions were silent
-(agent):
+`docs/research/2026-10-06-screens/spec.md`; the Godot handoffs `docs/handoff/`). Small layout and behaviour choices
+the agents took where the decisions were silent, after five reviews (agent):
 - **Edges and top line:** HUD and lobby plates sit on a 40 px edge; the timer, the role chip, the lobby plates and the
   spectating plate share the top line at y 40; the spawn-protection chip sits 24 px under the timer.
-- **Main menu:** borderless menu items with a 24 px gap; the code and Direct panels (672 px wide) open to the right of
-  the items with their top on Host's top; the code field shows what was typed, and Join stays unplugged until the code
-  is complete; the version is muted text.
-- **Connecting:** one failure layout for every failure (title, body, then the buttons 32 px below); the loading card is
-  centred with 200 px art.
-- **Lobby:** the players plate in two groups (the lobby name and code, then the count and the rows); a not-ready player
-  shows no mark (the check is hidden).
-- **Esc menu:** a 1600×880 panel; left-aligned tabs; settings controls in one 500 px column at the right; the talk mode
-  is a dropdown like the microphone; the language is one row with two chips; the Character name field is 400 px; the
-  host's own row reads «Ти».
+- **Layers:** name plates, then the HUD (with the lobby HUD and the tutorial's lesson plates), the map, the Esc menu,
+  its confirm dialog, and the black screens on top; the main menu is its own scene.
+- **Main menu:** borderless menu items 4 px apart in a 592 px column; the open item shows its pressed look and names the
+  panel, so the code and Direct panels (784 px) have no title; the code field opens empty and Join stays unplugged until
+  the code is complete; Settings opens the Esc menu's Settings scene in a 960×888 panel, on Sound and voice; the version
+  is muted text.
+- **Connecting:** one failure layout for every failure (title, body, then the buttons 32 px below); a failed join shows
+  its reason there, and Back returns to the menu with the code or address kept; a dismiss button standing alone is
+  raised, beside a primary it is a ghost; the loading header is 768 px and the loading card is centred with 200 px art.
+- **Lobby:** the lobby HUD shows the code only (Copy is in the Esc Lobby tab, since the mouse is captured in the lobby);
+  the players plate is 400 px, in two groups (the lobby name and code, then the count and the rows); names are cut with
+  an ellipsis; a not-ready player shows no mark.
+- **Esc menu:** a 1600×880 panel with 288 px left-aligned tabs; the players list scrolls inside it; preset cards
+  184×96 over a 784 px settings column, Save is a raised card; every setting row is at least 64 px with 8 px between
+  rows; settings controls in one 500 px column at the right; the talk mode is a dropdown like the microphone; the
+  language is one row with two chips; Character uses setting rows with the lock line in the title row; the
+  leave and quit confirm uses the shared dialog layout, and the host's quit confirms too; the default tab is Lobby in the
+  lobby and Game in a round and the tutorial, Role is hidden in the lobby; while the menu is open the own character
+  takes no gameplay input, voice keeps working.
 - **Pre and post game:** a centred column on the night backdrop with 32 px around the title plate.
-- **HUD and downed:** the timer has a fixed 128 px minimum width; the give-up hold bar stays visible and empty until the
+- **HUD and downed:** slots are 88×88 (the wide hand slot 180); a carried item's name is cut at 106 px; the timer has a
+  140 px minimum width (it holds 44:44); the downed plate is a HUD plate like the others; while downed only the downed
+  plates and the mic show, while dead only the spectating plate; the give-up hold bar stays visible and empty until the
   key is held.
-- **Map and tutorial:** the sample map's rooms tidied onto one grid with 48 px pictograms; «Ти тут» beside the pin; the
-  zone label under the lit zone; a done lesson's check at the right edge of its row.
+- **Map and tutorial:** the task panel grows from the top to its content; the sample map's rooms sit on one grid with
+  48 px pictograms; a lit zone sits inside its room under the pictogram; «Ти тут» beside the pin; the how-to card is
+  centred with Close inside it; the map's «?» is a 42 px round keycap; the tutorial's lesson plate is 912 px and its
+  lesson list 440 px, a done lesson's check at the right edge of its row.
+- **Lists:** a scrolling list keeps 8 px between its rows and its scroll bar (`ToyScroll`, the ScrollContainer theme
+  constant `scrollbar_h_separation`).
+- **Data on the page:** names, the room code, times, stepper values and key labels are data the game never translates;
+  the ten character swatches show sample colours from the Toy palette (page samples: the body colours are not chosen).
+- **Reduced motion** makes the raised buttons' press instant (the pressed look still shows).
 
 ## Type
 Comfortaa for titles and text, provisionally, until the style is chosen (SIL OFL 1.1 with the Reserved Font Name

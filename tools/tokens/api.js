@@ -15,6 +15,25 @@ const { packTokens, computeModes, buildPack, serializePack } = require('./emit-p
 const { renderCss } = require('./emit-css.js');
 
 const OUTPUTS = { css: 'dist/css/toy-tokens.css', pack: 'dist/pack/toy.pack.json' };
+// The icons the game imports beside the pack: pages/components/icons/*.svg with currentColor written as white, and their
+// LICENCES.json. The pages draw an icon in its context's colour (CSS currentColor); Godot's SVG importer (ThorVG) has no
+// such context, and the game tints an icon by multiplying it (TextureRect self_modulate, a Button's icon_*_color,
+// OptionButton's modulate_arrow), so the game's copy is white and the tint gives its colour. Icons drawn in their own hex
+// (the slider knobs) are copied as they are. A root without pages/components/icons (a test fixture, an overlay) has none.
+const ICONS_SRC = 'pages/components/icons';
+const ICONS_OUT = 'dist/pack/icons';
+function iconOutputs(root) {
+  let files = [];
+  try { files = fs.readdirSync(path.join(root, ...ICONS_SRC.split('/'))).filter((n) => n.endsWith('.svg') || n === 'LICENCES.json').sort(); } catch { return {}; }
+  const out = {};
+  for (const name of files) {
+    const text = fs.readFileSync(path.join(root, ...ICONS_SRC.split('/'), name), 'utf8').replace(/\r\n/g, '\n').replace(/\s+$/, '') + '\n';
+    if (!name.endsWith('.svg') || !text.includes('currentColor')) { out[`${ICONS_OUT}/${name}`] = text; continue; }
+    const note = `<!-- generated from ${ICONS_SRC}/${name} by tools/tokens/build.js: currentColor written as #ffffff, for Godot's tint -->\n`;
+    out[`${ICONS_OUT}/${name}`] = note + text.replace(/currentColor/g, '#ffffff');
+  }
+  return out;
+}
 const RELEASE_FILE = 'tokens/release.json';
 
 // tokens/release.json = {"version": "X.Y.Z"} (spec §1, §9.2). Its problems use the build rule id B01.
@@ -86,7 +105,7 @@ function analyzeAll(root, opts) {
     cssVar: R.cssVar,
     pack,
     css,
-    outputs: { [OUTPUTS.css]: css, [OUTPUTS.pack]: packText },
+    outputs: Object.assign({ [OUTPUTS.css]: css, [OUTPUTS.pack]: packText }, iconOutputs(root)),
     modifiers: a.model.modifiers.map((m) => ({ name: m.name, contexts: m.contexts.slice(), default: m.default })),
     warnings: P.warnings,
     counts: { tiers, authored: sources.size, packTokens: r0.packTokens.size, variations: Object.keys(pack.variations).length,

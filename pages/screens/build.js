@@ -1,7 +1,8 @@
 // The styled screens (prime-game-ui#19): every session screen as a Godot 4.7.2 scene tree in pages/screens/src/*.json,
 // rendered from the Toy components and the copy deck into one review page, validated, and handed off to the game.
 //
-//   node pages/screens/build.js                      write screens.html, screens-ui.css and screens-layout.css
+//   node pages/screens/build.js                      write screens.html, screens-ui.css, screens-layout.css and the
+//                                                    handoffs docs/handoff/<screen file>.md
 //   node pages/screens/build.js --check              exit 1 when an output differs from what the build would write
 //   node pages/screens/build.js --validate [s2 ...]  validate the sources only (all, or these screens); writes nothing
 //   node pages/screens/build.js --handoff s2         print the screen's Godot handoff (Markdown) to stdout
@@ -24,36 +25,48 @@
 //     container is placed by it: size_flags_horizontal/vertical (fill | shrink_begin | shrink_center | shrink_end |
 //     expand_fill | expand_shrink_begin | expand_shrink_center | expand_shrink_end; default fill) and, in a box,
 //     size_flags_stretch_ratio (default 1). A CenterContainer ignores size flags.
-//   types (rendered faithfully, nothing else): Control, Panel, PanelContainer (wide), MarginContainer (margin_left/
-//     top/right/bottom), CenterContainer, VBoxContainer and HBoxContainer (alignment begin|center|end; the gap only from
-//     a spacing variation: ToyColumn*/ToyRow*), GridContainer (columns 1; the gaps only from ToyGridList/ToyGridSwatch),
-//     ScrollContainer (vertical only: scroll_vertical; one child, expand_fill across; its bar is a VScrollBar drawn
-//     with ToyScrollBar when the child is taller), HSlider (value, min_value, max_value, step, editable, state
+//   types (rendered faithfully, nothing else): Control, Panel, PanelContainer (wide), MarginContainer (no margins:
+//     they are theme constants, so overrides the theme test forbids), CenterContainer, VBoxContainer and HBoxContainer
+//     (alignment begin|center|end; the gap only from a spacing variation: ToyColumn*/ToyRow*), GridContainer (columns
+//     1; the gaps only from ToyGridList/ToyGridSwatch), ScrollContainer (vertical only: scroll_vertical; one child,
+//     expand_fill across; its bar is a VScrollBar drawn with ToyScrollBar when the child is taller; the gap between the
+//     child and the bar only from ToyScroll), HSlider (value, min_value, max_value, step, editable, state
 //     normal|hover|focus), VScrollBar (value, min_value, max_value, page, state normal|hover|held|focus),
-//     Label (key, args, count, piece, value_of,
-//     horizontal_alignment left|center|right|fill, vertical_alignment top|center|bottom|fill, autowrap_mode off|
-//     arbitrary|word|word_smart), Button (key and/or icon, icon_size, args, count, state, toggle_mode, alignment
-//     left|center|right, h_separation: the variation's theme constant, else 4), OptionButton (key, args, items,
-//     state; its arrow is icons/chevron-down.svg), LineEdit (text: a sample value, placeholder: a key, editable,
-//     state normal|focus), ProgressBar (value, max_value 100, show_percentage: must be false), TextureRect (icon,
-//     theme_color icon-on|icon-off: a colour item of the surface it sits on, as ToyMic's; sized by
-//     custom_minimum_size).
-//   texts: only deck keys of copy/strings.csv. args gives each placeholder a sample value (a string, or {uk, en});
-//     a plural key takes count. piece N draws only the Nth part of the text split at {key}/{preset} (a sentence drawn
-//     around a keycap); value_of names the placeholder whose sample value a node draws (the keycap's letter).
+//     Label (key, args, count, piece, value_of, or text; horizontal_alignment left|center|right|fill,
+//     vertical_alignment top|center|bottom|fill, autowrap_mode off|arbitrary|word|word_smart), Button (key or text,
+//     and/or icon, icon_size, args, count, state, toggle_mode, alignment left|center|right, h_separation: the
+//     variation's theme constant, else 4; with no key, text or icon its children fill its StyleBox content rect),
+//     OptionButton (key, args, items, state; its arrow is icons/chevron-down.svg); a Label, Button and OptionButton
+//     also take clip_text and text_overrun_behavior (no_trimming|trim_char|trim_word|trim_ellipsis|trim_word_ellipsis):
+//     a cut text adds no width, so the node needs a slot that stretches it or a custom_minimum_size width. LineEdit
+//     (text: a sample value, ""
+//     or neither for an empty field (drawn one line tall), placeholder: a key, editable, state normal|focus),
+//     ProgressBar (value, max_value
+//     100, show_percentage: must be false), TextureRect (icon, theme_color icon-on|icon-off: a colour item of the
+//     surface it sits on, as ToyMic's, or self_modulate: a sample colour "#rrggbb" of content data such as a body
+//     colour; sized by custom_minimum_size).
+//   texts: deck keys of copy/strings.csv (key), or a data text (text: a sample, a string or {uk, en}) for what the game
+//     fills from data and never translates (names, the room code, times, numbers, glyphs; auto_translate_mode
+//     DISABLED). A data text equal to a deck value is refused: that text is the key's. args gives each placeholder of a
+//     key a sample value (a string, or {uk, en}); a plural key takes count. piece N draws only the Nth part of the text
+//     split at {key}/{preset} (a sentence drawn around a keycap); value_of names the placeholder whose sample value a
+//     node draws (the keycap's letter inside that sentence).
 //   states of a Button (the look shown on the page): normal, hover, held, disabled, focus, and with toggle_mode the
 //     selected ones (selected, selected-hover, selected-held, selected-disabled, selected-focus) that draw the pack's
-//     toggle.selected variation, as ToyToggle does.
+//     toggle.selected variation, as ToyToggle does; a variation with no toggle partner (ToyMenuItem) draws its own
+//     pressed StyleBox while selected (button_pressed). A toggle with a lang.* key is drawn pressed while its language
+//     is the page's (the language chips), whatever its source state.
 //   per_state may change only content: key, args, count, state, value, text, placeholder, editable, icon,
-//     theme_color, variation, wide. Layout never changes per state; a node shown only in some states lists them in
-//     states.
+//     theme_color, self_modulate, variation, wide. Layout never changes per state; a node shown only in some states
+//     lists them in states.
 //
 // VALIDATION (every error names the file, the line, the JSON pointer and what to do): unknown types and fields; a
 // variation missing from the pack, abstract, of a class that is not the node's type or a base of it, or a toggle's
-// selected half named directly; a box or grid with more than one child and no spacing variation, or a separation
-// written on the node (the theme test forbids overrides: the message names the variation to use); a ScrollContainer
-// with other than one child, or a child that does not fill its width; a text that is not a deck key (no field takes
-// literal player-facing text); a missing
+// selected half named directly; a box or grid with more than one child and no spacing variation, or a separation or a
+// MarginContainer margin written on the node (the theme test forbids overrides: the message names the variation to
+// use); a ScrollContainer with other than one child, or a child that does not fill its width; a text that is not a deck
+// key, a node with both a key and a data text, or a data text that is a deck value (no field takes literal
+// player-facing text); a cut text that gets no width; a tinted Button icon on a variation without icon colours; a missing
 // placeholder sample, an unknown arg, a plural key without count; an icon without a licence record; a state that is
 // not declared, or where the parent is hidden; duplicate sibling names; an anchored root whose fixed size (its
 // custom_minimum_size or the variation's size constants) leaves the 1920x1080 frame; and the context rule:
@@ -66,15 +79,19 @@
 //
 // OUTPUTS. screens-ui.css (lint profile generated) is the components CSS of the variations the screens draw, emitted
 // from the tokens by pages/components/emit-css.js. screens-layout.css (lint profile layout) emulates Godot's
-// containers: a box or grid container is a CSS grid (a non-expanding child gets an auto track, an expanding one
-// <stretch_ratio>fr, so free space goes to the expanding children by ratio and never below their minimum, as in
-// BoxContainer); a PanelContainer, MarginContainer or CenterContainer stacks its children in one grid cell (the
-// PanelContainer's content margins are the StyleBox padding of the generated CSS); fill/shrink flags are
-// justify-self/align-self; an anchored node sits in a .gd-anchor box at its anchor rect and grows from it as its
-// grow direction says. page.css and page.js are the page chrome and the world art, outside the lint.
+// containers: a box or grid container is a CSS grid (a non-expanding child gets a minmax(min-content, auto) track, an
+// expanding one minmax(min-content, <stretch_ratio>fr), so free space goes to the expanding children by ratio and never
+// below their minimum, the larger of custom_minimum_size and the content, as in BoxContainer); a PanelContainer,
+// MarginContainer or CenterContainer stacks its children in one grid cell (the PanelContainer's content margins are the
+// StyleBox padding of the generated CSS); fill/shrink flags are justify-self/align-self; an anchored node sits in a
+// .gd-anchor box at its anchor rect, sized at Godot's combined minimum when that is larger (min-content), and grows from
+// it as its grow direction says. page.css and page.js are the page chrome and the world art, outside the lint.
+// docs/handoff/<screen file>.md is each screen's handoff (the --handoff text), generated and checked by --check: the
+// prime-game handoff issues link to it (a long screen's handoff passes GitHub's 65,536-character issue limit).
 // THE PAGE CONTRACT (the fit tool, tools/screens/, measures it): <html lang data-lang data-text-size>; one
 // <div class="sc-frame" data-screen data-state> per state, 1920x1080 reference px, clipping; every node one element
-// with data-node="<screen>/<path>", data-type, data-variation; a text's element carries data-key and only that text;
+// with data-node="<screen>/<path>", data-type, data-variation; a text's element carries data-key (a deck text) or
+// data-text="data" (a data text) and only that text;
 // ?only=<screen>:<state>|all&lang=uk|en&size=default|large renders frames alone at zoom 1 (local only) and the page
 // sets data-ready="1" when fonts and layout are done.
 // Deterministic and LF-only. Node 20, no packages.
@@ -92,6 +109,7 @@ const SRC = 'pages/screens/src';
 const OUT_HTML = 'pages/screens/screens.html';
 const OUT_UI = 'pages/screens/screens-ui.css';
 const OUT_LAYOUT = 'pages/screens/screens-layout.css';
+const OUT_HANDOFF = 'docs/handoff'; // <screen file name>.md: each screen's handoff, generated
 const PACK = 'dist/pack/toy.pack.json';
 const TOKENS_CSS = 'dist/css/toy-tokens.css';
 const FONT_LINK = 'https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap';
@@ -109,6 +127,7 @@ const BACKGROUNDS = {
   black: 'black, no world (intro, outro, loading)',
 };
 const LICENCES_OK = /^(own work|OFL(-1\.1)?|CC0(-1\.0)?|MIT|ISC|Apache-2\.0)$/i;
+const GAME_ICONS = 'dist/pack/icons'; // the white copies of the tinted icons the game imports (tools/tokens/api.js)
 const ICON_SOURCES = [
   { prefix: '', dir: 'pages/components/icons', licences: 'pages/components/icons/LICENCES.json', entry: (f) => f },
   { prefix: 'room/', dir: 'pages/room-signs/systems/b/icons', licences: 'pages/room-signs/systems/b/LICENCES.json', entry: (f) => `icons/${f}` },
@@ -121,27 +140,36 @@ const GODOT = {
   Control: { chain: ['Control'], holds: 'anchored', fields: [] },
   Panel: { chain: ['Panel', 'Control'], holds: 'anchored', themed: true, fields: [] },
   PanelContainer: { chain: ['PanelContainer', 'Container', 'Control'], holds: 'stack', themed: true, fields: ['wide'] },
-  MarginContainer: { chain: ['MarginContainer', 'Container', 'Control'], holds: 'stack', fields: ['margin_left', 'margin_top', 'margin_right', 'margin_bottom'] },
+  // Its margins are theme constants (margin_left …), so setting them is an override the theme test forbids.
+  MarginContainer: { chain: ['MarginContainer', 'Container', 'Control'], holds: 'stack', fields: [] },
   CenterContainer: { chain: ['CenterContainer', 'Container', 'Control'], holds: 'center', fields: [] },
   // A box or grid takes its gaps only from a spacing variation (`spacing`: the pack items it reads).
   VBoxContainer: { chain: ['VBoxContainer', 'BoxContainer', 'Container', 'Control'], holds: 'vbox', fields: ['alignment'], spacing: ['separation'] },
   HBoxContainer: { chain: ['HBoxContainer', 'BoxContainer', 'Container', 'Control'], holds: 'hbox', fields: ['alignment'], spacing: ['separation'] },
   GridContainer: { chain: ['GridContainer', 'Container', 'Control'], holds: 'grid', fields: ['columns'], spacing: ['h-separation', 'v-separation'] },
   // Vertical scrolling only (horizontal_scroll_mode SCROLL_MODE_DISABLED): one child; the bar is drawn with SCROLL_BAR.
-  ScrollContainer: { chain: ['ScrollContainer', 'Container', 'Control'], holds: 'scroll', fields: ['scroll_vertical'] },
+  // The gap between the child and the bar (scrollbar_h_separation, Godot's default 0) comes only from a variation.
+  ScrollContainer: { chain: ['ScrollContainer', 'Container', 'Control'], holds: 'scroll', fields: ['scroll_vertical'], spacing: ['scrollbar-h-separation'] },
   HSlider: { chain: ['HSlider', 'Slider', 'Range', 'Control'], holds: null, themed: true, fields: ['value', 'min_value', 'max_value', 'step', 'editable', 'state'] },
   VScrollBar: { chain: ['VScrollBar', 'ScrollBar', 'Range', 'Control'], holds: null, themed: true, fields: ['value', 'min_value', 'max_value', 'page', 'state'] },
-  Label: { chain: ['Label', 'Control'], holds: null, themed: true, fields: ['key', 'args', 'count', 'piece', 'value_of', 'horizontal_alignment', 'vertical_alignment', 'autowrap_mode'] },
-  Button: { chain: ['Button', 'BaseButton', 'Control'], holds: 'anchored', themed: true, fields: ['key', 'args', 'count', 'icon', 'icon_size', 'state', 'toggle_mode', 'alignment', 'h_separation', 'wide'] },
-  OptionButton: { chain: ['OptionButton', 'Button', 'BaseButton', 'Control'], holds: null, themed: true, fields: ['key', 'args', 'items', 'state'] },
+  Label: { chain: ['Label', 'Control'], holds: null, themed: true, fields: ['key', 'args', 'count', 'piece', 'value_of', 'text', 'horizontal_alignment', 'vertical_alignment', 'autowrap_mode', 'clip_text', 'text_overrun_behavior'] },
+  // A Button with a key, a text or an icon places its children by anchors; with none of them its children are its
+  // content and fill its StyleBox content rect (place 'content').
+  Button: { chain: ['Button', 'BaseButton', 'Control'], holds: 'anchored', themed: true, fields: ['key', 'args', 'count', 'text', 'icon', 'icon_size', 'state', 'toggle_mode', 'alignment', 'h_separation', 'wide', 'clip_text', 'text_overrun_behavior'] },
+  OptionButton: { chain: ['OptionButton', 'Button', 'BaseButton', 'Control'], holds: null, themed: true, fields: ['key', 'args', 'items', 'state', 'clip_text', 'text_overrun_behavior'] },
   LineEdit: { chain: ['LineEdit', 'Control'], holds: null, themed: true, fields: ['text', 'placeholder', 'editable', 'state'] },
   ProgressBar: { chain: ['ProgressBar', 'Range', 'Control'], holds: null, themed: true, fields: ['value', 'max_value', 'show_percentage'] },
-  TextureRect: { chain: ['TextureRect', 'Control'], holds: null, fields: ['icon', 'theme_color'] },
+  TextureRect: { chain: ['TextureRect', 'Control'], holds: null, fields: ['icon', 'theme_color', 'self_modulate'] },
 };
 const COMMON_FIELDS = ['name', 'type', 'variation', 'states', 'per_state', 'note', 'custom_minimum_size'];
 const ANCHOR_FIELDS = ['anchors_preset', 'offset_left', 'offset_top', 'offset_right', 'offset_bottom', 'grow_horizontal', 'grow_vertical'];
 const FLAG_FIELDS = ['size_flags_horizontal', 'size_flags_vertical', 'size_flags_stretch_ratio'];
-const PER_STATE_FIELDS = ['key', 'args', 'count', 'state', 'value', 'text', 'placeholder', 'editable', 'icon', 'theme_color', 'variation', 'wide'];
+const PER_STATE_FIELDS = ['key', 'args', 'count', 'state', 'value', 'text', 'placeholder', 'editable', 'icon', 'theme_color', 'self_modulate', 'variation', 'wide'];
+// The fields that give a Button its own content; a Button with none of them draws its children as its content.
+const BUTTON_CONTENT = ['key', 'text', 'icon'];
+// A data text's element (the page contract): data-text="data" in place of a deck text's data-key.
+const DATA_TEXT = 'data';
+const COLOUR_RE = /^#[0-9a-fA-F]{6}$/;
 // Colour items of a surface variation that tint an icon inside it (the CSS child class the components CSS colours).
 const TINTS = { 'icon-on': 'tv-icon-on', 'icon-off': 'tv-icon-off' };
 const ARROW_ICON = 'chevron-down'; // OptionButton's theme icon `arrow` (pages/components/icons)
@@ -186,16 +214,21 @@ const KNOB_DISABLED_ICON = 'slider-knob-disabled';
 // The variation of every ScrollContainer's VScrollBar (the game sets it on get_v_scroll_bar()).
 const SCROLL_BAR = 'ToyScrollBar';
 // The separation fields Godot has, which the theme test forbids as overrides: a spacing variation sets them.
-const SEPARATION_FIELDS = { VBoxContainer: ['separation'], HBoxContainer: ['separation'], GridContainer: ['h_separation', 'v_separation'] };
+const SEPARATION_FIELDS = { VBoxContainer: ['separation'], HBoxContainer: ['separation'], GridContainer: ['h_separation', 'v_separation'], ScrollContainer: ['scrollbar_h_separation'] };
+// MarginContainer's margins are theme constants too, so they are overrides the theme test forbids.
+const MARGIN_FIELDS = ['margin_left', 'margin_top', 'margin_right', 'margin_bottom'];
 const ENUMS = {
   horizontal_alignment: ['left', 'center', 'right', 'fill'],
   vertical_alignment: ['top', 'center', 'bottom', 'fill'],
   autowrap_mode: ['off', 'arbitrary', 'word', 'word_smart'],
+  // TextServer.OverrunBehavior (Label, Button and OptionButton text_overrun_behavior).
+  text_overrun_behavior: ['no_trimming', 'trim_char', 'trim_word', 'trim_ellipsis', 'trim_word_ellipsis'],
 };
 const DEFAULTS = {
-  separation: 4, h_separation: 4, v_separation: 4, columns: 1, margin_left: 0, margin_top: 0, margin_right: 0, margin_bottom: 0,
+  separation: 4, h_separation: 4, v_separation: 4, scrollbar_h_separation: 0, columns: 1,
   horizontal_alignment: 'left', vertical_alignment: 'top', autowrap_mode: 'off', state: 'normal', toggle_mode: false,
   editable: true, value: 0, min_value: 0, max_value: 100, step: 1, page: 0, scroll_vertical: 0, show_percentage: true,
+  clip_text: false, text_overrun_behavior: 'no_trimming',
 };
 const SPLIT = ['key', 'preset']; // placeholders drawn as their own element (copy/README.md, tools/copy/deck.js PH_SPLIT)
 const SPLIT_RE = /\{(?:key|preset)\}/;
@@ -204,8 +237,22 @@ const SURFACES = new Set(['Panel', 'PanelContainer']);
 // The classes whose variations sit on a surface (the context rule), and the containers whose variations draw nothing
 // (a spacing variation is never a surface).
 const TEXT_CLASSES = new Set(['Label', 'Button', 'OptionButton', 'LineEdit', 'ProgressBar', 'HSlider', 'VScrollBar']);
-const LAYOUT_CLASSES = new Set(['VBoxContainer', 'HBoxContainer', 'GridContainer']);
+const LAYOUT_CLASSES = new Set(['VBoxContainer', 'HBoxContainer', 'GridContainer', 'ScrollContainer']);
 const isSurfaceOf = (v, n) => !!v && (SURFACES.has(v.class) || (n.children.length > 0 && !LAYOUT_CLASSES.has(v.class)));
+// A Label, Button or OptionButton whose text is cut at its width (clip_text, or a text_overrun_behavior that trims):
+// Godot no longer counts the text in its minimum width (Label::get_minimum_size: 1 px; Button: its StyleBox and icon).
+const clipsText = (p) => p.clip_text === true || (typeof p.text_overrun_behavior === 'string' && p.text_overrun_behavior !== 'no_trimming');
+const trimsWithEllipsis = (p) => /ellipsis/.test(p.text_overrun_behavior || '');
+// Whether Godot gives the node only its minimum width (no slot stretches it across): a CenterContainer's child, a box or
+// grid child that does not expand and fill along a row, a column or stack child that does not fill across, an anchored
+// node at a horizontal point.
+function widthIsMinimum(n) {
+  if (n.place === 'center') return true;
+  if (n.place === 'hbox' || n.place === 'grid') return n.flags.h !== 'expand_fill';
+  if (n.place === 'vbox' || n.place === 'stack' || n.place === 'scroll') return n.flags.h !== 'fill' && n.flags.h !== 'expand_fill';
+  if (n.place === 'anchored') return n.anchor.a[0] === n.anchor.a[2] && n.anchor.o[2] - n.anchor.o[0] <= 0;
+  return false;
+}
 const NAME_RE = /^[A-Za-z][A-Za-z0-9_]*$/;
 const STATE_ID_RE = /^[a-z][a-z0-9-]*$/;
 
@@ -249,8 +296,12 @@ function loadIcons() {
       const w = Number(attr('width')) || vb[2] || 24;
       const h = Number(attr('height')) || vb[3] || 24;
       const head = open[0].replace(/\s(width|height|aria-hidden|focusable)="[^"]*"/g, '').replace(/>$/, ' width="100%" height="100%" aria-hidden="true" focusable="false">');
+      // A tinted icon draws in currentColor on the page; the game imports its white copy (dist/pack/icons, written by
+      // tools/tokens/build.js) and tints it. An icon in its own colours (the room pictograms, the slider knobs) is not.
+      const tinted = /currentColor/.test(text);
       icons.set(src.prefix + f.replace(/\.svg$/, ''), {
-        file: rel, svg: head + text.slice(open[0].length), w, h,
+        file: rel, svg: head + text.slice(open[0].length), w, h, tinted,
+        game: tinted && !src.prefix ? `${GAME_ICONS}/${f}` : rel,
         licence: entry && typeof entry.licence === 'string' && LICENCES_OK.test(entry.licence) ? entry.licence : null,
       });
     }
@@ -263,8 +314,16 @@ function loadInputs(pack) {
   if (deck.errors.length) fail(`${D.DECK} has errors; run node tools/copy/check.js\n  ${deck.errors.slice(0, 10).join('\n  ')}`);
   const selectedOf = new Map();
   for (const [name, v] of Object.entries(pack.variations)) if (v.toggle && v.toggle.selected) selectedOf.set(v.toggle.selected, name);
+  // Every deck text (both languages, every plural form), lower case: a data text equal to one of them is the key's.
+  const deckValues = new Map();
+  for (const e of deck.entries) {
+    for (const s of [...e.en, ...e.uk]) {
+      const k = String(s || '').trim().toLowerCase();
+      if (k && !deckValues.has(k)) deckValues.set(k, e.key);
+    }
+  }
   return {
-    pack, selectedOf, byKey: new Map(deck.entries.map((e) => [e.key, e])),
+    pack, selectedOf, deckValues, byKey: new Map(deck.entries.map((e) => [e.key, e])),
     titles: D.screenTitles(readText(D.WIREFRAMES)), icons: loadIcons(),
   };
 }
@@ -343,7 +402,7 @@ function fieldProblem(type, field, v) {
     case 'count': return int(0, 1000000);
     case 'piece': return int(0, 9);
     case 'value_of': return typeof v === 'string' && /^[a-z_]+$/.test(v) ? null : 'value_of names a placeholder of the key, such as "key"';
-    case 'horizontal_alignment': case 'vertical_alignment': case 'autowrap_mode': return oneOf(ENUMS[field]);
+    case 'horizontal_alignment': case 'vertical_alignment': case 'autowrap_mode': case 'text_overrun_behavior': return oneOf(ENUMS[field]);
     case 'icon_size': return int(8, 512);
     case 'state':
       if (type === 'Button') return oneOf(Object.keys(BUTTON_STATES));
@@ -355,13 +414,16 @@ function fieldProblem(type, field, v) {
     case 'step': return isNum(v) && v > 0 ? null : 'step is a number above 0';
     case 'page': return isNum(v) && v >= 0 ? null : 'page is a number of at least 0 (the visible part of the range)';
     case 'scroll_vertical': return int(0, 100000);
-    case 'toggle_mode': case 'editable': case 'show_percentage': case 'wide': return bool();
+    case 'toggle_mode': case 'editable': case 'show_percentage': case 'wide': case 'clip_text': return bool();
     case 'alignment': return oneOf(type === 'Button' ? ['left', 'center', 'right'] : ['begin', 'center', 'end']);
     case 'separation': case 'h_separation': case 'v_separation': return int(-200, 400);
     case 'margin_left': case 'margin_top': case 'margin_right': case 'margin_bottom': return int(-400, 1000);
     case 'columns': return int(1, 32);
     case 'items': return Array.isArray(v) && v.length && v.every((x) => typeof x === 'string' && x) ? null : 'items is a list of deck keys';
-    case 'text': return sampleOk(v) ? null : 'text is a sample value: a string (at most 80 characters) or {"uk": …, "en": …}';
+    case 'text':
+      if (type === 'LineEdit' && v === '') return null; // an empty field
+      return sampleOk(v) ? null : 'text is a sample value: a string (at most 80 characters, no braces or line breaks) or {"uk": …, "en": …}';
+    case 'self_modulate': return typeof v === 'string' && COLOUR_RE.test(v) ? null : 'self_modulate is a sample colour "#rrggbb" (content data, such as a body colour)';
     case 'value':
       if (type === 'HSlider' || type === 'VScrollBar') return isNum(v) ? null : 'value is a number';
       return isNum(v) && v >= 0 ? null : 'value is a number of at least 0';
@@ -460,10 +522,12 @@ function buildNode(raw, P, parent, place, S, C, R) {
   const G = GODOT[type];
   const where = parent ? `a ${parent.type}` : 'the frame';
   const allowed = new Set([...COMMON_FIELDS, ...G.fields, ...(G.holds ? ['children'] : []),
-    ...(place === 'anchored' ? ANCHOR_FIELDS : place === 'center' ? [] : place === 'vbox' || place === 'hbox' ? FLAG_FIELDS : FLAG_FIELDS.slice(0, 2))]);
+    ...(place === 'anchored' ? ANCHOR_FIELDS : place === 'center' || place === 'content' ? [] : place === 'vbox' || place === 'hbox' ? FLAG_FIELDS : FLAG_FIELDS.slice(0, 2))]);
   for (const k of Object.keys(raw)) {
     if (allowed.has(k)) continue;
     if (SEPARATION_FIELDS[type] && SEPARATION_FIELDS[type].includes(k)) R.err(ptr(P, k), spacingHint(C, type, raw));
+    else if (type === 'MarginContainer' && MARGIN_FIELDS.includes(k)) R.err(ptr(P, k), `${k} cannot be set on a node: a MarginContainer's margins are theme constants, and the game's theme test forbids theme overrides; leave the space with an empty Control spacer (custom_minimum_size) in a box, or let a PanelContainer's StyleBox give it`);
+    else if (place === 'content' && (ANCHOR_FIELDS.includes(k) || FLAG_FIELDS.includes(k))) R.err(ptr(P, k), `the child of a Button without a key, text or icon is its content and fills its StyleBox content rect: no ${ANCHOR_FIELDS.includes(k) ? 'anchors or offsets' : 'size flags'}`);
     else if (ANCHOR_FIELDS.includes(k)) R.err(ptr(P, k), `${k} works only on a node placed by anchors (a root, or a child of a Control, Panel or Button); this node is inside ${where}, which places it: use size flags`);
     else if (k === 'size_flags_stretch_ratio' && place !== 'anchored' && place !== 'center') R.err(ptr(P, k), 'size_flags_stretch_ratio matters only inside a VBoxContainer or HBoxContainer');
     else if (FLAG_FIELDS.includes(k)) R.err(ptr(P, k), place === 'center' ? 'a CenterContainer ignores size flags: it keeps its children at their minimum size, centred' : `size flags work only inside a container; this node is placed by anchors in ${where}`);
@@ -475,6 +539,8 @@ function buildNode(raw, P, parent, place, S, C, R) {
     name: raw.name, type, G, ptr: P, parent, place, raw, children: [], per: {},
     path: `${parent ? parent.path : S.id}/${raw.name}`, depth: parent ? parent.depth + 1 : 0,
   };
+  // A Button with no key, text or icon draws its children as its content (in its StyleBox content rect).
+  n.content = type === 'Button' && !BUTTON_CONTENT.some((f) => f in raw);
   S.all.push(n);
   const parentEff = parent ? parent.eff : new Set(S.stateIds);
   n.eff = new Set(parentEff);
@@ -511,6 +577,10 @@ function buildNode(raw, P, parent, place, S, C, R) {
         }
         if (!PER_STATE_FIELDS.includes(f) || !(f === 'variation' || G.fields.includes(f))) {
           R.err(ptr(PS, f), `${f} cannot change per state on a ${type} (per_state takes ${PER_STATE_FIELDS.filter((x) => x === 'variation' || G.fields.includes(x)).join(', ')})`);
+          continue;
+        }
+        if (n.content && BUTTON_CONTENT.includes(f)) {
+          R.err(ptr(PS, f), `this Button draws its children as its content; a ${f} cannot appear per state (use another node shown in that state)`);
           continue;
         }
         const p = fieldProblem(type, f, v);
@@ -553,9 +623,10 @@ function buildNode(raw, P, parent, place, S, C, R) {
       if (!FLAGS[n.flags[axis]][0]) R.err(ptr(P, 'size_flags_stretch_ratio'), `a stretch ratio needs an expand flag on size_flags_${axis === 'v' ? 'vertical' : 'horizontal'}`);
     }
   }
+  if (place === 'content') n.flags = { h: 'fill', v: 'fill', ratio: 1 };
   if (G.holds && 'children' in raw) {
     if (!Array.isArray(raw.children)) R.err(ptr(P, 'children'), 'children is a list of nodes');
-    else n.children = buildChildren(raw.children, ptr(P, 'children'), n, G.holds, S, C, R);
+    else n.children = buildChildren(raw.children, ptr(P, 'children'), n, n.content ? 'content' : G.holds, S, C, R);
   }
   return n;
 }
@@ -610,6 +681,24 @@ function checkText(n, st, p, C, R) {
   }
 }
 
+// A data text (text on a Label or Button): what the game fills from data and never translates. It takes none of a
+// key's fields, and a text the deck already holds is that key's (the player reads it in their language).
+function checkDataText(n, st, p, C, R) {
+  const at = (f) => fieldAt(n, st, f);
+  for (const f of ['args', 'count', 'piece', 'value_of']) {
+    if (f in p) R.err(at(f), `${f} belongs to a deck key; a data text (text) is drawn as it is`);
+  }
+  if (!sampleOk(p.text)) return;
+  for (const lang of ['uk', 'en']) {
+    const s = sampleText(p.text, lang);
+    const key = C.deckValues.get(s.trim().toLowerCase());
+    if (key) {
+      R.err(at('text'), `${q(s)} is the deck text of ${key}: a text the player reads in their language is a key ("key": "${key}"); text is only for data the game never translates (names, codes, times, numbers, glyphs)`);
+      return;
+    }
+  }
+}
+
 function checkIcon(n, st, p, C, R) {
   const ic = C.icons.get(p.icon);
   if (!ic) R.err(fieldAt(n, st, 'icon'), `no icon ${q(p.icon)}; the icons are ${[...C.icons.keys()].join(', ')}`);
@@ -634,25 +723,49 @@ function checkContent(n, st, S, C, R) {
     if (!v || !(C.pack.tokens[`${v.prefix}.size.wide-width`] || C.pack.tokens[`${v.prefix}.size.wide-min-width`])) R.err(at('wide'), `${p.variation || 'this node'} has no wide size (wide-width or wide-min-width)`);
   }
   if (T === 'Label') {
-    if (!('key' in p)) R.err(n.ptr, 'a Label draws a deck key: add key');
-    else checkText(n, st, p, C, R);
+    if ('key' in p && 'text' in p) R.err(at('text'), 'a Label draws a deck key or a data text, not both');
+    else if ('key' in p) checkText(n, st, p, C, R);
+    else if ('text' in p) checkDataText(n, st, p, C, R);
+    else R.err(n.ptr, 'a Label draws a deck key (key) or a data text (text: names, codes, times, numbers the game never translates)');
     if (p.autowrap_mode !== 'off' && !(n.cmin[0] > 0)) R.err(ptr(n.ptr, 'autowrap_mode'), 'an autowrapping Label has no width of its own in Godot: give custom_minimum_size a width');
   }
   if (T === 'Button') {
-    if (!('key' in p) && !('icon' in p)) R.err(n.ptr, 'a Button draws a key, an icon or both');
-    if ('key' in p) checkText(n, st, p, C, R);
+    if (n.content) {
+      if (!n.children.length) R.err(n.ptr, 'a Button draws a key or a data text, an icon, or (with none of them) its child nodes as its content');
+      for (const f of ['args', 'count', 'icon_size', 'alignment', 'h_separation']) {
+        if (f in n.raw) R.err(ptr(n.ptr, f), `${f} has nothing to act on: this Button draws its children as its content (no key, text or icon)`);
+      }
+    }
+    if ('key' in p && 'text' in p) R.err(at('text'), 'a Button draws a deck key or a data text, not both');
+    else if ('key' in p) checkText(n, st, p, C, R);
+    else if ('text' in p) checkDataText(n, st, p, C, R);
+    // A selected toggle draws the pack's toggle.selected; a variation with no toggle partner draws its own pressed
+    // StyleBox while button_pressed (ToyMenuItem's open item).
+    const pressedLook = (x) => !!x && (!!x.toggle || x.styleboxes.includes('pressed'));
     if (BUTTON_STATES[p.state] && BUTTON_STATES[p.state][0]) {
       if (p.toggle_mode !== true) R.err(at('state'), `${p.state} is a toggle's state: set toggle_mode true`);
-      else if (v && !v.toggle) R.err(at('state'), `${p.variation} has no selected look (no toggle in the pack)`);
+      else if (v && !pressedLook(v)) R.err(at('state'), `${p.variation} has no selected look (no toggle in the pack and no pressed StyleBox)`);
     }
-    if (p.toggle_mode === true && v && !v.toggle) R.err(ptr(n.ptr, 'toggle_mode'), `${p.variation} is not a toggle variation (the pack gives it no toggle.selected)`);
+    if (p.toggle_mode === true && v && !pressedLook(v)) R.err(ptr(n.ptr, 'toggle_mode'), `${p.variation} has no selected look (no toggle.selected in the pack and no pressed StyleBox)`);
     if ('icon_size' in p && !('icon' in p)) R.err(ptr(n.ptr, 'icon_size'), 'icon_size without an icon');
   }
   if (T === 'Button' || T === 'TextureRect') {
+    // Godot tints a Button's icon with the variation's icon colours, white without them; the page draws it in the
+    // label colour, so a tinted icon needs them.
+    const ic = 'icon' in p ? C.icons.get(p.icon) : null;
+    if (T === 'Button' && ic && ic.tinted && v && !C.pack.tokens[`${v.prefix}.items.icon-normal-color`]) {
+      R.err(at('icon'), `${p.variation} has no icon colours (icon_normal_color …), so Godot would draw the ${p.icon} icon white: add them to its tokens, or use a variation that has them`);
+    }
     if ('icon' in p) checkIcon(n, st, p, C, R);
     else if (T === 'TextureRect') R.err(n.ptr, 'a TextureRect draws an icon: add icon');
   }
+  if ((T === 'Label' || T === 'Button' || T === 'OptionButton') && clipsText(p)) {
+    const f = 'clip_text' in n.raw ? 'clip_text' : 'text_overrun_behavior';
+    if (n.content) R.err(ptr(n.ptr, f), `${f} cuts a Button's own text; this Button draws its children (no key, text or icon)`);
+    else if (!(n.cmin[0] > 0) && widthIsMinimum(n)) R.err(ptr(n.ptr, f), `a cut text adds no width in Godot (a Label's minimum is 1 px, a Button's its StyleBox and icon), and this node gets only its minimum width here: give it a custom_minimum_size width, or let its slot stretch it (${n.place === 'hbox' || n.place === 'grid' ? 'size_flags_horizontal expand_fill' : n.place === 'anchored' ? 'anchors or offsets with a width' : 'size_flags_horizontal fill'})`);
+  }
   if (T === 'TextureRect' && !(n.cmin[0] > 0 && n.cmin[1] > 0)) R.err(n.ptr, 'a TextureRect is sized by custom_minimum_size (expand_mode ignore_size): give both a width and a height');
+  if (T === 'TextureRect' && 'theme_color' in p && 'self_modulate' in p) R.err(at('self_modulate'), 'a TextureRect takes its tint from a theme colour (theme_color) or from data (self_modulate), not both');
   if (T === 'OptionButton') {
     const arrow = C.icons.get(ARROW_ICON);
     if (!arrow || !arrow.licence) R.err(n.ptr, `an OptionButton draws its arrow with pages/components/icons/${ARROW_ICON}.svg, which is missing or has no licence record`);
@@ -664,7 +777,7 @@ function checkContent(n, st, S, C, R) {
     }
   }
   if (T === 'LineEdit') {
-    if (!('text' in p) && !('placeholder' in p)) R.err(n.ptr, 'a LineEdit shows a sample text or a placeholder key');
+    // Neither text nor placeholder (or text "") is an empty field, as the code field opens.
     if ('placeholder' in p) {
       const e = C.byKey.get(p.placeholder);
       if (!e) R.err(at('placeholder'), `${q(p.placeholder)} is not a key of copy/strings.csv`);
@@ -790,6 +903,7 @@ function validateAll(sources, C) {
 // Texts.
 
 function textOf(C, p, lang) {
+  if (!('key' in p) && 'text' in p) return sampleText(p.text, lang); // a data text
   const e = C.byKey.get(p.key);
   const args = isObj(p.args) ? p.args : {};
   if (p.value_of) return sampleText(args[p.value_of], lang);
@@ -803,33 +917,76 @@ const textAttrs = (uk, en) => ` data-en="${esc(en)}"`;
 // ---------------------------------------------------------------------------------------------------------------
 // The page.
 
-function renderNode(n, st, S, C, ctx) {
-  if (!n.eff.has(st)) return '';
-  const p = merged(n, st);
+// The CSS state classes of a Button's shown state (v: its idle variation). A selected toggle draws the pack's toggle.selected variation in the
+// state's look; a variation with no toggle partner draws its own pressed StyleBox while selected (hover_pressed has no
+// CSS form, so selected-hover shows the pressed look too).
+function buttonClasses(v, p) {
+  const [selected, cls] = BUTTON_STATES[p.state];
+  if (!selected || (v && v.toggle)) return cls ? [cls] : [];
+  if (p.state === 'selected-disabled') return ['is-disabled'];
+  return p.state === 'selected-focus' ? ['is-held', 'is-focus'] : ['is-held'];
+}
+
+// A language chip (a toggle Button with a lang.* key) is pressed while its language is the game's, so the page draws
+// the chip of the language it shows as selected, whatever the source's state (the source is drawn for Ukrainian).
+const LANG_KEY_RE = /^lang.([a-z]+)$/;
+function langChipOf(n, p) {
+  const m = n.type === 'Button' && p.toggle_mode === true && typeof p.key === 'string' ? LANG_KEY_RE.exec(p.key) : null;
+  return m ? m[1] : null;
+}
+function stateForLang(p, chipLang, lang) {
+  const base = String(p.state).replace(/^selected-?/, '') || 'normal';
+  return Object.assign({}, p, { state: chipLang === lang ? (base === 'normal' ? 'selected' : `selected-${base}`) : base });
+}
+// The variation drawn and the element's classes for the node's fields in one state.
+function nodeLook(n, p, C) {
   const name = drawnVariation(C, n, p);
-  const v = name ? C.pack.variations[name] : null;
   const cls = ['gd-node', `gd-${n.type}`];
-  if (name) { cls.push(`tv-${name}`); ctx.used.add(name); }
+  if (name) cls.push(`tv-${name}`);
   if (p.wide) cls.push('tv-wide');
   if (p.theme_color) cls.push(TINTS[p.theme_color]);
-  if (n.type === 'Button' && BUTTON_STATES[p.state][1]) cls.push(BUTTON_STATES[p.state][1]);
+  if (n.type === 'Button') for (const c of buttonClasses(C.pack.variations[p.variation], p)) cls.push(c);
+  if (n.content) cls.push('gd-content');
   if (n.type === 'OptionButton' && p.state !== 'normal') cls.push({ hover: 'is-hover', held: 'is-held', disabled: 'is-disabled', focus: 'is-focus' }[p.state]);
   if (n.type === 'LineEdit') { if (p.state === 'focus') cls.push('is-focus'); if (p.editable === false) cls.push('is-readonly'); }
   if ((n.type === 'HSlider' || n.type === 'VScrollBar') && p.state !== 'normal') cls.push({ hover: 'is-hover', held: 'is-held', focus: 'is-focus' }[p.state]);
+  return { name, cls };
+}
+
+function renderNode(n, st, S, C, ctx) {
+  if (!n.eff.has(st)) return '';
+  const p0 = merged(n, st);
+  const chipLang = langChipOf(n, p0);
+  const p = chipLang ? stateForLang(p0, chipLang, 'uk') : p0;
+  const { name, cls } = nodeLook(n, p, C);
+  const v = name ? C.pack.variations[name] : null;
+  if (name) ctx.used.add(name);
   const attrs = [`class="${cls.join(' ')}"`, `data-node="${esc(n.path)}"`, `data-type="${n.type}"`];
   if (name) attrs.push(`data-variation="${name}"`);
+  // A cut text (clip_text, text_overrun_behavior): the fit tool names it so.
+  if ((n.type === 'Label' || n.type === 'Button' || n.type === 'OptionButton') && clipsText(p)) attrs.push(`data-clip="${trimsWithEllipsis(p) ? 'ellipsis' : 'clip'}"`);
+  if (chipLang) {
+    // page.js swaps the class list and data-variation with the page's language.
+    const en = nodeLook(n, stateForLang(p0, chipLang, 'en'), C);
+    if (en.name) ctx.used.add(en.name);
+    attrs.push(`data-lang-chip="${chipLang}"`, `data-cls-uk="${cls.join(' ')}"`, `data-cls-en="${en.cls.join(' ')}"`,
+      `data-var-uk="${name}"`, `data-var-en="${en.name}"`);
+  }
   if (v && SURFACES.has(v.class) && (v.context === 'dark' || v.context === 'light')) attrs.push(`data-context="${v.context}"`);
   let inner = '';
   const kids = () => n.children.map((c) => renderNode(c, st, S, C, ctx)).join('');
-  const textSpan = (extra) => {
+  // A deck text's element carries data-key, a data text's data-text="data" (the page contract).
+  const textMark = () => ('key' in p ? `data-key="${esc(p.key)}"` : `data-text="${DATA_TEXT}"`);
+  // A Button's or OptionButton's text: one line (gd-label), cut at the Button's width when it clips (the layout CSS).
+  const textSpan = () => {
     const uk = textOf(C, p, 'uk'), en = textOf(C, p, 'en');
-    return `<span data-key="${esc(p.key)}"${extra || ''}${textAttrs(uk, en)}>${esc(uk)}</span>`;
+    return `<span class="gd-label" ${textMark()}${textAttrs(uk, en)}>${esc(uk)}</span>`;
   };
   const icon = (ic) => `<span class="gd-icon tv-icon">${ic.svg}</span>`;
   switch (n.type) {
     case 'Label': {
       const uk = textOf(C, p, 'uk'), en = textOf(C, p, 'en');
-      attrs.push(`data-key="${esc(p.key)}"`);
+      attrs.push(textMark());
       if (isInt(p.piece)) attrs.push(`data-piece="${p.piece}"`);
       if (p.value_of) attrs.push(`data-value-of="${esc(p.value_of)}"`);
       attrs.push(textAttrs(uk, en).trim());
@@ -837,15 +994,19 @@ function renderNode(n, st, S, C, ctx) {
       break;
     }
     case 'Button':
-      inner = (p.icon ? icon(C.icons.get(p.icon)) : '') + (p.key ? textSpan() : '') + '<span class="tv-focus"></span>' + kids();
+      inner = (p.icon ? icon(C.icons.get(p.icon)) : '') + ('key' in p || 'text' in p ? textSpan() : '') + '<span class="tv-focus"></span>' + kids();
       break;
     case 'OptionButton':
       inner = `${textSpan()}<span class="gd-arrow tv-arrow">${C.icons.get(ARROW_ICON).svg}</span><span class="tv-focus"></span>`;
       break;
     case 'LineEdit':
-      if ('text' in p) {
+      if ('text' in p && p.text !== '') {
+        // The sample value is a data text (the page contract), so the fit tool measures it against the field.
         const uk = sampleText(p.text, 'uk'), en = sampleText(p.text, 'en');
-        inner = `<span class="gd-text"${textAttrs(uk, en)}>${esc(uk)}</span>`;
+        inner = `<span class="gd-text" data-text="${DATA_TEXT}"${textAttrs(uk, en)}>${esc(uk)}</span>`;
+      } else if (!('placeholder' in p)) {
+        // An empty field keeps one line of its font, as Godot's LineEdit minimum height does: a zero-width space.
+        inner = '<span class="gd-text" aria-hidden="true">&#8203;</span>';
       } else {
         const e = C.byKey.get(p.placeholder);
         inner = `<span class="tv-placeholder" data-key="${esc(p.placeholder)}"${textAttrs(e.uk[0], e.en[0])}>${esc(e.uk[0])}</span>`;
@@ -862,6 +1023,8 @@ function renderNode(n, st, S, C, ctx) {
       break;
     }
     case 'TextureRect':
+      // A sample colour (content data) tints the icon through its currentColor; it is page data, not a theme colour.
+      if (p.self_modulate) attrs.push(`style="color: ${p.self_modulate}"`);
       inner = C.icons.get(p.icon).svg;
       break;
     case 'HSlider': {
@@ -898,24 +1061,27 @@ function renderNode(n, st, S, C, ctx) {
 const LAYOUT_HEAD = `/* Generated by pages/screens/build.js: Godot 4.7.2 containers emulated in CSS (lint profile layout). Do not edit. */
 .gd-node { box-sizing: border-box; position: relative; }
 .gd-Control, .gd-Panel, .gd-ProgressBar { display: block; }
-.gd-PanelContainer, .gd-MarginContainer, .gd-CenterContainer { display: grid; }
+.gd-PanelContainer, .gd-MarginContainer, .gd-CenterContainer { display: grid; grid-auto-columns: minmax(min-content, auto); grid-auto-rows: minmax(min-content, auto); }
 .gd-TextureRect { display: grid; contain: size; }
-.gd-VBoxContainer { display: grid; grid-auto-flow: row; grid-template-columns: 1fr; align-content: start; }
-.gd-HBoxContainer { display: grid; grid-auto-flow: column; grid-template-rows: 1fr; justify-content: start; }
+.gd-VBoxContainer { display: grid; grid-auto-flow: row; grid-template-columns: minmax(min-content, 1fr); align-content: start; }
+.gd-HBoxContainer { display: grid; grid-auto-flow: column; grid-template-rows: minmax(min-content, 1fr); justify-content: start; }
 .gd-GridContainer { display: grid; justify-content: start; align-content: start; }
-.gd-ScrollContainer { display: grid; }
-.gd-scroll-view { display: grid; grid-template-rows: 0; overflow-x: hidden; overflow-y: auto; scrollbar-width: none; }
+.gd-ScrollContainer { display: grid; grid-template-columns: 1fr; }
+.gd-scroll-view { grid-area: 1 / 1; display: grid; grid-template-rows: 0; overflow-x: hidden; overflow-y: auto; scrollbar-width: none; min-width: min-content; }
 .gd-scroll-view > .gd-node { align-self: start; }
-.gd-ScrollContainer > .gd-VScrollBar { position: absolute; top: 0; right: 0; bottom: 0; display: none; }
+.gd-ScrollContainer > .gd-VScrollBar { grid-area: 1 / 2; display: none; }
 .gd-ScrollContainer[data-vscroll="1"] > .gd-VScrollBar { display: flex; }
 .gd-Label { display: flex; flex-direction: column; justify-content: flex-start; white-space: nowrap; text-align: left; }
 .gd-Button { display: flex; align-items: center; justify-content: center; white-space: nowrap; }
+.gd-Button.gd-content { display: grid; justify-content: stretch; align-items: stretch; }
 .gd-OptionButton { display: flex; align-items: center; justify-content: space-between; white-space: nowrap; }
+.gd-label { white-space: nowrap; }
 .gd-LineEdit { display: flex; align-items: center; white-space: nowrap; overflow: hidden; contain: inline-size; }
 .gd-icon { display: grid; flex: none; }
 .gd-arrow { display: grid; flex: none; }
 .gd-caret { display: block; flex: none; align-self: stretch; width: calc(2 * var(--px)); }
 .gd-anchor { position: absolute; display: flex; pointer-events: none; }
+.gd-anchor > .gd-node { width: min-content; }
 `;
 const len = (x) => (x === 0 ? '0' : `calc(${fmt(x)} * var(--px))`);
 const pctLen = (pct, x) => {
@@ -939,6 +1105,12 @@ function cssOffsets(anchor) {
   return out;
 }
 
+// The expand margins [left, top, right, bottom] of a Panel or PanelContainer variation's panel StyleBox.
+function expandOf(C, v) {
+  if (!v || !v.styleboxes.includes('panel')) return [0, 0, 0, 0];
+  return ['left', 'top', 'right', 'bottom'].map((side) => packPx(C, v, `panel.expand-margin-${side}`));
+}
+
 function borderOf(C, n) {
   // The parent's border widths (its normal or panel StyleBox), so that anchors count from its rect, not from inside
   // its border (CSS absolute positions count from the padding box).
@@ -950,12 +1122,16 @@ function borderOf(C, n) {
   return ['left', 'top', 'right', 'bottom'].map((s) => packPx(C, v, `${rec}.border-width-${s}`));
 }
 
+// A track is never smaller than its children's minimum sizes, as in Godot, where a control's minimum is the larger of
+// its custom_minimum_size and its content's: minmax(min-content, …) takes the children's min-content contributions
+// (a child's min-width counts only up to its content), where a plain auto or fr track would take its min-width alone.
+const track = (expands, ratio) => (expands ? `minmax(min-content, ${fmt(ratio)}fr)` : 'minmax(min-content, auto)');
 function tracksFor(n, st) {
   const kids = n.children.filter((c) => c.eff.has(st));
   if (!kids.length) return null;
   if (n.type === 'VBoxContainer' || n.type === 'HBoxContainer') {
     const ax = n.type === 'VBoxContainer' ? 'v' : 'h';
-    return { [n.type === 'VBoxContainer' ? 'grid-template-rows' : 'grid-template-columns']: kids.map((c) => (FLAGS[c.flags[ax]][0] ? `${fmt(c.flags.ratio)}fr` : 'auto')).join(' ') };
+    return { [n.type === 'VBoxContainer' ? 'grid-template-rows' : 'grid-template-columns']: kids.map((c) => track(FLAGS[c.flags[ax]][0], c.flags.ratio)).join(' ') };
   }
   const cols = merged(n, st).columns;
   const colX = new Array(Math.min(cols, kids.length)).fill(false);
@@ -965,8 +1141,8 @@ function tracksFor(n, st) {
     if (FLAGS[c.flags.v][0]) rowX[Math.floor(i / cols)] = true;
   });
   return {
-    'grid-template-columns': colX.map((x) => (x ? '1fr' : 'auto')).join(' '),
-    'grid-template-rows': rowX.map((x) => (x ? '1fr' : 'auto')).join(' '),
+    'grid-template-columns': colX.map((x) => track(x, 1)).join(' '),
+    'grid-template-rows': rowX.map((x) => track(x, 1)).join(' '),
   };
 }
 
@@ -974,12 +1150,13 @@ function layoutCss(screens, C) {
   const out = [LAYOUT_HEAD.replace(/\n$/, '')];
   const arrow = C.icons.get(ARROW_ICON);
   if (arrow) out.push(`.gd-arrow { width: ${len(arrow.w)}; height: ${len(arrow.h)}; }`);
-  // An HSlider's grabber at its texture's size; a ScrollContainer gives its child the width less the bar's (the bar's
-  // minimum width: its scroll StyleBox's inline content margins) while the bar shows.
+  // An HSlider's grabber at its texture's size; while its bar shows, a ScrollContainer is two columns, the view and the
+  // bar at its minimum width (its scroll StyleBox's inline content margins), the gap between them its variation's
+  // scrollbar_h_separation (the column gap in the components CSS; Godot's default 0 without one).
   const knob = C.icons.get(KNOB_ICON);
   if (knob) out.push(`.gd-knob { width: ${len(knob.w)}; height: ${len(knob.h)}; }`);
   const sb = C.pack.variations[SCROLL_BAR];
-  if (sb) out.push(`.gd-ScrollContainer[data-vscroll="1"] { padding-right: ${len(Math.max(packPx(C, sb, 'scroll.content-margin-left') + packPx(C, sb, 'scroll.content-margin-right'), packPx(C, sb, 'grabber.content-margin-left') + packPx(C, sb, 'grabber.content-margin-right')))}; }`);
+  if (sb) out.push(`.gd-ScrollContainer[data-vscroll="1"] { grid-template-columns: 1fr ${len(Math.max(packPx(C, sb, 'scroll.content-margin-left') + packPx(C, sb, 'scroll.content-margin-right'), packPx(C, sb, 'grabber.content-margin-left') + packPx(C, sb, 'grabber.content-margin-right')))}; }`);
   const rule = (sel, decls) => { if (decls.size) out.push(`${sel} { ${[...decls].map(([k, x]) => `${k}: ${x};`).join(' ')} }`); };
   for (const S of screens) {
     out.push(`/* ${S.id}: ${S.title} */`);
@@ -989,9 +1166,11 @@ function layoutCss(screens, C) {
       const raw = n.raw;
       const p = merged(n, S.stateIds.find((st) => n.eff.has(st)) || S.stateIds[0]);
       const v = p.variation ? C.pack.variations[p.variation] : null;
-      // The variation's own min-width (keycaps) stays when this rule sets min-width too.
-      const compMin = packPx(C, v, p.wide ? 'size.wide-min-width' : 'size.min-width');
-      const minW = n.place === 'anchored' || n.cmin[0] > 0 ? Math.max(n.cmin[0], compMin) : 0;
+      // The variation's own size constants (a slot, the mic plate, a keycap's min-width: a minimum in Godot, as the
+      // components CSS draws them) stay when this rule sets min-width or min-height too.
+      const fixed = fixedSize(n, p, C);
+      const minW = n.place === 'anchored' || n.cmin[0] > 0 ? fixed[0] : 0;
+      const minH = n.place === 'anchored' || n.cmin[1] > 0 ? fixed[1] : 0;
       if (n.place === 'anchored') {
         const b = borderOf(C, n.parent);
         const { a, grow } = n.anchor;
@@ -1006,12 +1185,16 @@ function layoutCss(screens, C) {
         ]);
         rule(`[data-anchor="${n.path}"]`, wrap);
         own.set('flex', 'none');
-        own.set('min-width', minW > 0 ? `max(100%, ${len(minW)})` : '100%');
-        own.set('min-height', n.cmin[1] > 0 ? `max(100%, ${len(n.cmin[1])})` : '100%');
+        // A panel's expand margins draw outside its rect: the components CSS gives the box negative margins, so the box
+        // is the anchor rect plus the expand margins (ToySwatchSelected's ring), never cut back to the rect.
+        const ex = expandOf(C, v);
+        const ew = ex[0] + ex[2], eh = ex[1] + ex[3];
+        own.set('min-width', minW > 0 ? `max(${pctLen(1, ew)}, ${len(minW + ew)})` : pctLen(1, ew));
+        own.set('min-height', minH > 0 ? `max(${pctLen(1, eh)}, ${len(minH + eh)})` : pctLen(1, eh));
       } else {
         if (minW > 0) own.set('min-width', len(minW));
-        if (n.cmin[1] > 0) own.set('min-height', len(n.cmin[1]));
-        if (n.place === 'stack' || n.place === 'center') own.set('grid-area', '1 / 1');
+        if (minH > 0) own.set('min-height', len(minH));
+        if (n.place === 'stack' || n.place === 'center' || n.place === 'content') own.set('grid-area', '1 / 1');
         if (n.place === 'center') { own.set('justify-self', 'center'); own.set('align-self', 'center'); }
         else {
           // fill is the grid default (stretch); only shrink positions are written.
@@ -1024,17 +1207,29 @@ function layoutCss(screens, C) {
         const vb = n.type === 'VBoxContainer';
         if (p.alignment !== 'begin') own.set(vb ? 'align-content' : 'justify-content', p.alignment === 'center' ? 'center' : 'end');
       }
-      if (n.type === 'MarginContainer') {
-        for (const s of ['top', 'right', 'bottom', 'left']) if (p[`margin_${s}`]) own.set(`padding-${s}`, len(p[`margin_${s}`]));
-      }
+      const clip = clipsText(p);
+      const cut = trimsWithEllipsis(p) ? 'ellipsis' : 'clip';
       if (n.type === 'Label') {
         if (p.horizontal_alignment !== 'left') own.set('text-align', p.horizontal_alignment === 'fill' ? 'justify' : p.horizontal_alignment);
-        if (p.vertical_alignment === 'center') own.set('justify-content', 'center');
-        if (p.vertical_alignment === 'bottom') own.set('justify-content', 'flex-end');
+        if (clip) {
+          // A cut text adds no width (contain), and is cut at the Label's width with Godot's trim: a block box, its
+          // vertical alignment by align-content.
+          own.set('display', 'block');
+          own.set('contain', 'inline-size');
+          own.set('overflow', 'hidden');
+          own.set('text-overflow', cut);
+          if (p.vertical_alignment === 'center') own.set('align-content', 'center');
+          if (p.vertical_alignment === 'bottom') own.set('align-content', 'end');
+        } else {
+          if (p.vertical_alignment === 'center') own.set('justify-content', 'center');
+          if (p.vertical_alignment === 'bottom') own.set('justify-content', 'flex-end');
+        }
         if (p.autowrap_mode !== 'off') {
           own.set('white-space', 'normal');
           own.set('contain', 'inline-size');
-          if (p.autowrap_mode === 'arbitrary') own.set('overflow-wrap', 'anywhere');
+          // arbitrary breaks anywhere; word_smart breaks at words and force-breaks a word longer than the line
+          // (TextServer AUTOWRAP_WORD_SMART), which overflow-wrap: anywhere does.
+          if (p.autowrap_mode === 'arbitrary' || p.autowrap_mode === 'word_smart') own.set('overflow-wrap', 'anywhere');
         }
       }
       if (n.type === 'Button' || n.type === 'OptionButton') {
@@ -1064,6 +1259,11 @@ function layoutCss(screens, C) {
       }
       rule(sel, own);
       for (const [osel, decls] of others) rule(osel, decls);
+      if ((n.type === 'Button' || n.type === 'OptionButton') && clip) {
+        // A cut Button text adds no width and fills the space its Button gets, aligned as the Button aligns it.
+        const align = n.type === 'OptionButton' ? 'left' : p.alignment;
+        rule(`${sel} > .gd-label`, new Map([['contain', 'inline-size'], ['flex-grow', '1'], ['overflow', 'hidden'], ['text-overflow', cut], ['text-align', align]]));
+      }
       if (n.type === 'Button' && 'icon' in raw) {
         const ic = C.icons.get(raw.icon);
         const size = raw.icon_size || (ic ? Math.max(ic.w, ic.h) : 24);
@@ -1113,6 +1313,8 @@ function renderPage(screens, C, sys, ui, layout) {
     }).join('\n');
     return `<section class="pg-screen" id="${S.id}" data-screen-id="${S.id}" aria-labelledby="${S.id}-h">`
       + `<h2 id="${S.id}-h"><span class="pg-num">${num(S.id)}</span> ${esc(C.titles[S.wireframe])} <small lang="en">${esc(S.title)}</small></h2>`
+      // The screen's note (what it leaves out, what shows with it), then the shown state's note.
+      + (S.note ? `<p class="pg-screen-note" lang="en">${esc(S.note)}</p>` : '')
       + `<div class="pg-tabs" role="tablist" aria-label="Стани екрана">${tabs}</div>${notes}`
       + `<div class="pg-stage"><div class="pg-frames">\n${frames}\n</div></div></section>`;
   }).join('\n');
@@ -1137,7 +1339,7 @@ function renderPage(screens, C, sys, ui, layout) {
     `<p class="pg-lead">Екрани сесії у стилі Toy, зібрані з компонентів і текстів колоди так, як їх збудує Godot: кожен стан — окремий кадр 1920×1080. ${screens.length ? `Готово: ${screens.length} з ${SCREENS.length}.` : 'Екранів ще немає.'}</p>`,
     '<nav class="pg-bar" id="pg-bar" aria-label="Екрани й вигляд">',
     `<div class="pg-list">${chips}</div>`,
-    `<div class="pg-controls">${seg('lang', 'Мова', [['uk', 'UA'], ['en', 'EN']])}${seg('text', 'Текст', [['default', 'Звичайний'], ['large', 'Великий']])}${seg('zoom', 'Масштаб', [['fit', 'По ширині'], ['100', '100 %']])}</div>`,
+    `<div class="pg-controls">${seg('lang', 'Мова', [['uk', 'UA'], ['en', 'EN']])}${seg('text', 'Текст', [['default', 'Звичайний'], ['large', 'Великий']])}${seg('zoom', 'Масштаб', [['fit', 'По ширині'], ['50', '50 %'], ['100', '100 %']])}</div>`,
     '</nav>',
     sections,
     `<footer class="pg-foot">Зібрано з pages/screens/src (${screens.length} ${screens.length === 1 ? 'екран' : 'екранів'}), токенів Toy ${esc(sys.version)} і copy/strings.csv. ${missing.length ? `Ще немає екранів: ${missing.join(', ')}. ` : ''}Світ за інтерфейсом — лише фон сторінки. Для гри: node pages/screens/build.js --handoff &lt;екран&gt;.</footer>`,
@@ -1151,6 +1353,74 @@ function renderPage(screens, C, sys, ui, layout) {
 
 // ---------------------------------------------------------------------------------------------------------------
 // The Godot handoff (Markdown, the body of a prime-game issue).
+
+// The icons a screen draws, each at the largest size it is drawn (px) and the svg/scale Godot imports it at, so that
+// EXPAND_IGNORE_SIZE never stretches a small bitmap (Godot rasterises an SVG at import, svg/scale 1 = its viewBox).
+function iconImportNotes(S, C) {
+  const best = new Map();
+  const see = (name, px) => { if (C.icons.get(name)) best.set(name, Math.max(best.get(name) || 0, px)); };
+  for (const n of S.all) {
+    const icons = [n.raw.icon, ...Object.values(n.per).map((o) => o.raw.icon)].filter(Boolean);
+    for (const name of icons) {
+      const ic = C.icons.get(name);
+      if (!ic) continue;
+      if (n.type === 'TextureRect') see(name, Math.min(n.cmin[0] / ic.w, n.cmin[1] / ic.h) * Math.max(ic.w, ic.h));
+      else see(name, n.raw.icon_size || Math.max(ic.w, ic.h));
+    }
+    if (n.type === 'OptionButton') { const a = C.icons.get(ARROW_ICON); if (a) see(ARROW_ICON, Math.max(a.w, a.h)); }
+  }
+  if (!best.size) return [];
+  const tick = '`';
+  const list = [...best].sort((a, b) => a[0].localeCompare(b[0])).map(([name, px]) => {
+    const ic = C.icons.get(name);
+    const scale = Math.ceil((px / Math.max(ic.w, ic.h)) * 100) / 100;
+    return `${tick}${name}${tick} ${scale} (${fmt(px)} px)`;
+  });
+  return [
+    `- Icons: the tinted ones are white SVGs in ${tick}${GAME_ICONS}/${tick} (the pack's copy of ${tick}pages/components/icons${tick}, currentColor written as white): a TextureRect tints one with the ${tick}self_modulate${tick} its line gives (the colour the page draws it in), a Button with its variation's ${tick}icon_*_color${tick}, an OptionButton its arrow with ${tick}modulate_arrow${tick}. The room pictograms are ink and are not tinted.`,
+    `- SVG import: Godot rasterises an SVG at import, so import each at ${tick}svg/scale${tick} = the largest size it is drawn ÷ its viewBox (the largest over every screen that draws it): ${list.join(', ')}.`,
+  ];
+}
+
+// The deck keys the screen draws, and the keys only its notes name (the developer wires those too).
+function keysSection(S, C) {
+  const drawn = new Set();
+  const named = new Set();
+  const KEY_RE = /\b[a-z][a-z0-9_]*(?:\.[a-z0-9_]+)+\b/g;
+  const scan = (s) => { for (const m of String(s || '').match(KEY_RE) || []) if (C.byKey.has(m)) named.add(m); };
+  scan(S.note);
+  for (const st of S.states) scan(st.note);
+  for (const n of S.all) {
+    for (const o of [n.raw, ...Object.values(n.per).map((x) => x.raw)]) {
+      for (const f of ['key', 'placeholder']) if (typeof o[f] === 'string' && C.byKey.has(o[f])) drawn.add(o[f]);
+      if (Array.isArray(o.items)) for (const k of o.items) if (C.byKey.has(k)) drawn.add(k);
+    }
+    scan(n.raw.note);
+  }
+  const code = (k) => '`' + k + '`';
+  const only = [...named].filter((k) => !drawn.has(k)).sort();
+  const out = ['## Keys', '', `- **Drawn** (${drawn.size}): ${[...drawn].sort().map(code).join(', ')}.`];
+  if (only.length) out.push(`- **Named only in the notes** (wire them too): ${only.map(code).join(', ')}.`);
+  return out;
+}
+
+// Every handoff ends with the stacking of the session's screens and who takes Esc and M (the agent's choice, recorded
+// in docs/ui-decisions.md), so that two developers stack them the same way.
+const LAYERS_MD = [
+  '## Layers and input (every screen)',
+  '',
+  '| CanvasLayer | What |',
+  '|---|---|',
+  '| 1 | Name plates in the world (s4, s7) |',
+  '| 2 | HUD: the round HUD (s7), downed and spectating (s9), the lobby HUD (s4), the tutorial\'s lesson plates (s1) |',
+  '| 3 | Map and tasks (s8), with its how-to card |',
+  '| 4 | Esc menu (s5) and its dim |',
+  '| 5 | The Esc menu\'s confirm dialog |',
+  '| 6 | Black screens: connecting and loading (s3), pre game (s6), post game (s10) |',
+  '',
+  '- The main menu (s2) is its own scene, under none of these.',
+  '- Esc closes the topmost open overlay first (a how-to card, then the map; in the Esc menu its confirm dialog, then the menu) and opens the Esc menu only when nothing else is open. M is ignored while the Esc menu is open.',
+];
 
 function handoff(S, C) {
   const out = [];
@@ -1177,6 +1447,12 @@ function handoff(S, C) {
       bits.push(`anchors \`${preset}\`, offsets ${o.map(fmt).join(', ')} (left, top, right, bottom), grow ${grow[0]}/${grow[1]}`);
     } else if (n.place === 'center') {
       bits.push('centred by its CenterContainer');
+    } else if (n.place === 'content') {
+      // The content of a Button without text: Godot places a Button's children by anchors, so it fills the Button's
+      // content rect with a full-rect anchor inset by the idle StyleBox's content margins.
+      const pv = n.parent.raw.variation ? C.pack.variations[n.parent.raw.variation] : null;
+      const m = ['left', 'top', 'right', 'bottom'].map((side) => packPx(C, pv, `normal.content-margin-${side}`));
+      bits.push(`the Button's content: anchors \`full_rect\`, offsets ${fmt(m[0])}, ${fmt(m[1])}, ${fmt(-m[2])}, ${fmt(-m[3])} (the \`normal\` StyleBox's content margins), mouse_filter \`MOUSE_FILTER_IGNORE\` on it and every node inside`);
     } else {
       const f = [];
       if (n.flags.h !== 'fill') f.push(`horizontal \`${FLAG_GODOT[n.flags.h]}\``);
@@ -1184,10 +1460,31 @@ function handoff(S, C) {
       if (n.flags.ratio !== 1) f.push(`stretch_ratio ${fmt(n.flags.ratio)}`);
       if (f.length) bits.push(`size flags ${f.join(', ')}`);
     }
-    if (n.cmin[0] || n.cmin[1]) bits.push(`custom_minimum_size (${fmt(n.cmin[0])}, ${fmt(n.cmin[1])})`);
-    if (p.wide) bits.push('wide (the variation\'s wide size constant)');
+    // custom_minimum_size: the node's own, and the variation's size constants (theme constants width, height,
+    // min_width, wide_width, wide_min_width), which component code reads in (tokens spec §4): a Panel or PanelContainer
+    // takes no size from them on its own.
+    const sv = p.variation ? C.pack.variations[p.variation] : null;
+    const sizeKey = (axis) => {
+      const has = (k) => !!(sv && C.pack.tokens[`${sv.prefix}.size.${k}`]);
+      if (axis === 'y') return has('height') ? 'height' : null;
+      if (p.wide) return has('wide-width') ? 'wide-width' : has('wide-min-width') ? 'wide-min-width' : null;
+      return has('width') ? 'width' : has('min-width') ? 'min-width' : null;
+    };
+    const axisPart = (i, k) => {
+      const own = n.cmin[i];
+      if (!k) return { px: own, code: fmt(own) };
+      const c = packPx(C, sv, `size.${k}`);
+      if (own > c) return { px: own, code: fmt(own) };
+      return { px: c, code: `get_theme_constant("${k.replace(/-/g, '_')}", "${p.variation}")` };
+    };
+    const kx = sizeKey('x'), ky = sizeKey('y');
+    if (kx || ky) {
+      const x = axisPart(0, kx), y = axisPart(1, ky);
+      bits.push(`custom_minimum_size (${fmt(x.px)}, ${fmt(y.px)}) = Vector2(${x.code}, ${y.code})${p.wide ? ' (wide)' : ''}`);
+    } else if (n.cmin[0] || n.cmin[1]) bits.push(`custom_minimum_size (${fmt(n.cmin[0])}, ${fmt(n.cmin[1])})`);
+    if (v && v.base) bits.push('placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper');
     const T = n.type;
-    if (n.G.spacing && v) bits.push(`gaps from the variation: ${n.G.spacing.map((k) => `${k.replace(/-/g, '_')} ${packPx(C, v, `items.${k}`)}`).join(', ')}`);
+    if (n.G.spacing && v) bits.push(`${T === 'ScrollContainer' ? 'the gap between the child and the bar' : 'gaps'} from the variation: ${n.G.spacing.map((k) => `${k.replace(/-/g, '_')} ${packPx(C, v, `items.${k}`)}`).join(', ')}`);
     if (T === 'VBoxContainer' || T === 'HBoxContainer') {
       if (p.alignment !== 'begin') bits.push(`alignment \`ALIGNMENT_${p.alignment.toUpperCase()}\``);
     }
@@ -1206,11 +1503,9 @@ function handoff(S, C) {
       bits.push(`value ${fmt(p.value)}, page ${fmt(p.page)} (min_value ${fmt(p.min_value)}, max_value ${fmt(p.max_value)})`);
       if (p.state !== 'normal') bits.push(`shown ${{ hover: 'hovered', held: 'dragged', focus: 'focused' }[p.state]} (review only)`);
     }
-    if (T === 'MarginContainer') {
-      const m = ['left', 'top', 'right', 'bottom'].filter((s) => p[`margin_${s}`]).map((s) => `margin_${s} ${p[`margin_${s}`]}`);
-      if (m.length) bits.push(`theme_override_constants: ${m.join(', ')}`);
-    }
+    const sample = (x) => (typeof x === 'string' ? quote(x) : `${quote(x.en)} / ${quote(x.uk)}`);
     const text = (k) => {
+      if (!('key' in p)) return `text from data (auto_translate_mode = DISABLED), sample: ${sample(p.text)}`;
       const e = C.byKey.get(p[k]);
       const how = p.value_of ? `the value of {${p.value_of}} in \`${p.key}\``
         : isInt(p.piece) ? `piece ${p.piece} of \`tr("${p.key}")\` split at ${SPLIT.map((x) => `{${x}}`).join('/')}`
@@ -1225,29 +1520,41 @@ function handoff(S, C) {
       if (p.vertical_alignment !== 'top') bits.push(`vertical_alignment \`${p.vertical_alignment.toUpperCase()}\``);
       if (p.autowrap_mode !== 'off') bits.push(`autowrap_mode \`AUTOWRAP_${p.autowrap_mode.toUpperCase()}\``);
     }
+    if ((T === 'Label' || T === 'Button' || T === 'OptionButton') && clipsText(p)) {
+      if (p.clip_text) bits.push('clip_text true');
+      if (p.text_overrun_behavior !== 'no_trimming') bits.push(`text_overrun_behavior \`OVERRUN_${p.text_overrun_behavior.toUpperCase()}\``);
+    }
     if (T === 'Button' || T === 'OptionButton') {
-      if (p.key) bits.push(text('key'));
+      if (p.key || 'text' in p) bits.push(text('key'));
+      if (langChipOf(n, p)) bits.push('button_pressed while this is the game\'s language (TranslationServer.get_locale()); the page draws the shown language\'s chip pressed');
+      if (n.content) bits.push('no text or icon: its child is its content, drawn in its StyleBox content rect (the child and every node inside ignore the mouse, so the Button takes the press); a Button\'s minimum size does not follow its children, so custom_minimum_size holds the content at large text');
       if (p.icon) {
         const ic = C.icons.get(p.icon);
-        bits.push(`icon \`${p.icon}\` (${ic.file}, ${ic.licence}) at ${p.icon_size || Math.max(ic.w, ic.h)} px`);
+        bits.push(`icon \`${p.icon}\` (${ic.game}, ${ic.licence}) at ${p.icon_size || Math.max(ic.w, ic.h)} px${ic.tinted ? `, tinted by \`${p.variation}\`'s icon_*_color` : ''}`);
       }
       if (T === 'Button' && p.alignment !== 'center') bits.push(`alignment \`${p.alignment.toUpperCase()}\``);
       if (T === 'Button' && 'h_separation' in n.raw) bits.push(`theme_override_constants/h_separation ${p.h_separation}`);
-      if (T === 'OptionButton') bits.push(`arrow: theme icon \`arrow\` (pages/components/icons/${ARROW_ICON}.svg)`);
+      if (T === 'OptionButton') {
+        const arrow = C.icons.get(ARROW_ICON);
+        const mod = v && C.pack.tokens[`${v.prefix}.items.modulate-arrow`];
+        bits.push(`arrow: theme icon \`arrow\` (${arrow.game})${mod ? ', tinted by the font colour (modulate_arrow)' : ''}; its list is \`get_popup()\` (see the notes)`);
+      }
       if (T === 'OptionButton' && Array.isArray(p.items)) bits.push(`items ${p.items.map((x) => `\`${x}\``).join(', ')}`);
-      if (p.toggle_mode) bits.push(`toggle_mode true, button_pressed ${BUTTON_STATES[p.state][0]}${BUTTON_STATES[p.state][0] ? ` (ToyToggle draws \`${name}\`)` : ''}`);
+      if (p.toggle_mode) bits.push(`toggle_mode true, button_pressed ${BUTTON_STATES[p.state][0]}${BUTTON_STATES[p.state][0] ? (C.pack.variations[p.variation] && C.pack.variations[p.variation].toggle ? ` (ToyToggle draws \`${name}\`)` : ' (its own `pressed` StyleBox; the variation has no toggle partner)') : ''}`);
       const st2 = String(p.state).replace(/^selected-?/, '') || 'normal';
       if (st2 === 'disabled') bits.push('disabled true');
       else if (st2 === 'focus') bits.push('shown with keyboard focus (grab_focus)');
       else if (st2 === 'hover' || st2 === 'held') bits.push(`shown ${st2 === 'hover' ? 'hovered' : 'held down'} (review only)`);
     }
     if (T === 'LineEdit') {
-      if ('text' in p) bits.push(`text (sample data) ${typeof p.text === 'string' ? quote(p.text) : `${quote(p.text.en)} / ${quote(p.text.uk)}`}`);
+      if ('text' in p && p.text !== '') bits.push(`text (sample data) ${sample(p.text)}`);
+      else if (!p.placeholder) bits.push('empty (no text, no placeholder)');
       if (p.placeholder) {
         const e = C.byKey.get(p.placeholder);
         bits.push(`placeholder_text \`${p.placeholder}\`: en ${quote(e.en[0])} · uk ${quote(e.uk[0])}`);
       }
       if (p.editable === false) bits.push('editable false');
+      bits.push('context_menu_enabled false (no Toy PopupMenu look yet)');
       if (p.state === 'focus') bits.push('shown focused with the caret');
     }
     if (T === 'ProgressBar') {
@@ -1260,8 +1567,12 @@ function handoff(S, C) {
     }
     if (T === 'TextureRect') {
       const ic = C.icons.get(p.icon);
-      bits.push(`texture \`${p.icon}\` (${ic.file}, ${ic.licence}), expand_mode \`EXPAND_IGNORE_SIZE\`, stretch_mode \`STRETCH_KEEP_ASPECT_CENTERED\``);
+      bits.push(`texture \`${p.icon}\` (${ic.game}${ic.tinted ? ', white' : ''}, ${ic.licence}), expand_mode \`EXPAND_IGNORE_SIZE\`, stretch_mode \`STRETCH_KEEP_ASPECT_CENTERED\``);
       if (p.theme_color) bits.push(`self_modulate = get_theme_color("${p.theme_color.replace(/-/g, '_')}", "${surface.name}")`);
+      else if (p.self_modulate) bits.push(`self_modulate from data (a content colour, not a theme colour), sample ${p.self_modulate}`);
+      // An icon with no tint of its own draws in the text colour of its context (as the page draws it).
+      else if (ic.tinted) bits.push(`self_modulate = get_theme_color("font_color", "${surface.context === 'light' ? 'ToyTextOnLight' : 'ToyTextOnDark'}")`);
+      else bits.push('not tinted (drawn in its own colours)');
     }
     return bits;
   }
@@ -1288,7 +1599,8 @@ function handoff(S, C) {
   out.push(`- **Source:** \`${S.rel}\`; the review page is \`pages/screens/screens.html#${S.id}\`; the wireframe is section \`${S.wireframe}\` («${C.titles[S.wireframe]}»).`);
   out.push(`- **Theme:** the Toy pack ui-${C.pack.version} (\`dist/pack/toy.pack.json\`); the variations below are \`theme_type_variation\` names.`);
   out.push(`- **World behind the UI** (not UI): ${BACKGROUNDS[S.background]}.`);
-  out.push('- **How to read it:** the roots are children of the screen\'s full-rect root `Control`; every property not listed keeps Godot\'s default; sizes and offsets are reference px. Texts are keys of `copy/strings.csv` through `tr()`; sample values are data the game fills with `String.format()`.');
+  out.push('- **How to read it:** the roots are children of the screen\'s full-rect root `Control`; every property not listed keeps Godot\'s default; sizes and offsets are reference px. In a state\'s **Shown** list, the first node of each subtree gives its path from the screen root.');
+  out.push('- **Texts** are keys of `copy/strings.csv`, and the language switches live (the Esc menu\'s Settings). A plain key is set as `text` and translates itself. A key with placeholders, a plural key (`tr_n`) and a key drawn in pieces are set from code with `auto_translate_mode = DISABLED`: `tr()`, then `String.format()` with the data (the samples below), rebuilt on `NOTIFICATION_TRANSLATION_CHANGED`. A "text from data" (names, the room code, times, numbers) is set in code and never translated (`auto_translate_mode = DISABLED`).');
   if (S.note) { out.push(''); out.push(S.note); }
   out.push('');
   out.push('## States');
@@ -1325,7 +1637,12 @@ function handoff(S, C) {
     if (shownTop.length) {
       out.push('- **Shown:**');
       for (const t of shownTop) {
-        for (const x of shown) if (x.n === t.n || x.n.path.startsWith(t.n.path + '/')) out.push(item({ ...x, depth: x.depth - t.depth + 1 }));
+        for (const x of shown) {
+          if (x.n !== t.n && !x.n.path.startsWith(t.n.path + '/')) continue;
+          // The top of a shown subtree names its path from the screen root, so the developer finds where it goes.
+          const line = x.n === t.n ? x.line.replace(/^\*\*[^*]+\*\*/, `**${x.n.path.slice(S.id.length + 1)}**`) : x.line;
+          out.push(item({ ...x, line, depth: x.depth - t.depth + 1 }));
+        }
       }
     }
   }
@@ -1334,11 +1651,17 @@ function handoff(S, C) {
   out.push('');
   out.push('- The review page emulates Godot\'s containers with CSS grid (expanding children share the free space by stretch ratio, never below their minimum size), so a pixel or two may differ from Godot.');
   const usedVars = S.all.map((n) => C.pack.variations[n.raw.variation]).filter(Boolean);
-  if (usedVars.some((v) => v.base)) out.push('- A raised variation is built as the tokens spec (§6) says: a `ToyRaised` MarginContainer holding first the base `Panel` (the base named above, chosen by the context it sits in), then the face.');
-  if (S.all.some((n) => 'icon' in n.raw || Object.values(n.per).some((o) => 'icon' in o.raw))) out.push('- Icons draw in the text colour of their context on the page; in Godot import them in that colour or set `self_modulate`.');
-  if (S.all.some((n) => n.G.spacing)) out.push('- Boxes and grids take their gaps only from their spacing variation (ToyColumn…, ToyRow…, ToyGrid…); a box without one has a single child. No `theme_override_constants`: the theme test forbids them.');
+  if (usedVars.some((v) => v.base)) out.push('- A raised variation is built as the tokens spec (§6) says: a `ToyRaised` MarginContainer holding first the base `Panel` (the base named above, chosen by the context it sits in), then the face. The wrapper is the node in its parent: anchors, offsets, grow, size flags, stretch ratio, custom_minimum_size and visibility belong to the wrapper; the variation, the text, toggle_mode, disabled, focus and the signals belong to the face. Hide or show the wrapper, not the face.');
+  if (S.all.some((n) => { const sv = C.pack.variations[n.raw.variation]; return sv && Object.keys(C.pack.tokens).some((k) => k.startsWith(`${sv.prefix}.size.`)); })) out.push('- Size constants: a variation\'s `width`, `height`, `min_width`, `wide_width` and `wide_min_width` theme constants are read by code into `custom_minimum_size`, as the node lines give them. A Panel or PanelContainer takes no size from them on its own: an anchored Panel at offsets 0 is 0×0, a slot shrinks to its text.');
+  out.push(...iconImportNotes(S, C));
+  if (S.all.some((n) => n.type === 'OptionButton' || n.type === 'LineEdit')) out.push('- An OptionButton\'s open list is its `get_popup()`, a PopupMenu in a window of its own, and a LineEdit\'s right-click menu is one too: Toy has no PopupMenu variation yet, so they would draw in Godot\'s default theme. Until it comes (a prime-game-ui follow-up), LineEdits set `context_menu_enabled = false`.');
+  if (S.all.some((n) => n.G.spacing)) out.push('- Boxes and grids take their gaps only from their spacing variation (ToyColumn…, ToyRow…, ToyGrid…), and a ScrollContainer the gap to its bar from ToyScroll; a box without one has a single child. No `theme_override_constants`: the theme test forbids them.');
   if (S.all.some((n) => n.type === 'HSlider')) out.push(`- An HSlider's grabber is a texture: the theme icons \`grabber\` and \`grabber_highlight\` are \`${C.icons.get(KNOB_ICON).file}\`, \`grabber_disabled\` \`${C.icons.get(KNOB_DISABLED_ICON).file}\` (own work). Slider draws no focus StyleBox of its own: draw the variation's \`focus\` StyleBox over the slider while it has visible focus.`);
   if (S.all.some((n) => n.type === 'ScrollContainer')) out.push(`- A ScrollContainer's bar is its own \`VScrollBar\`: set its \`theme_type_variation\` to \`${SCROLL_BAR}\` in code (\`get_v_scroll_bar()\`); the child fills the width (\`SIZE_EXPAND_FILL\`) and keeps its minimum height.`);
+  out.push('');
+  out.push(...keysSection(S, C));
+  out.push('');
+  out.push(...LAYERS_MD);
   return out.join('\n') + '\n';
 }
 
@@ -1401,6 +1724,14 @@ function main(argv) {
     for (const S of screens) for (const st of S.stateIds) S.roots.forEach((n) => renderNode(n, st, S, C, { used: C.used }));
     const ui = uiCss(sys, C.used, emitComponentsCss);
     const outputs = [[OUT_UI, ui], [OUT_LAYOUT, layout], [OUT_HTML, renderPage(screens, C, sys, ui, layout)]];
+    // The handoffs (docs/handoff/s05-esc-menu.md …): the prime-game issues link to them.
+    for (const S of screens) outputs.push([`${OUT_HANDOFF}/${S.file.replace(/\.json$/, '.md')}`, handoff(S, C)]);
+    const handoffDir = path.join(ROOT, OUT_HANDOFF);
+    const strayHandoffs = () => {
+      let list = [];
+      try { list = fs.readdirSync(handoffDir).filter((x) => x.endsWith('.md')); } catch (e) { list = []; }
+      return list.map((x) => `${OUT_HANDOFF}/${x}`).filter((x) => !outputs.some(([o]) => o === x));
+    };
     for (const [file, text] of outputs) if (/\r/.test(text)) { console.error(`error: ${file} would contain CR bytes`); return 1; }
     if (mode === 'private') {
       // The page inlines both stylesheets, so it is the one file to write.
@@ -1418,13 +1749,16 @@ function main(argv) {
         try { disk = fs.readFileSync(path.join(ROOT, file), 'utf8'); } catch (e) { disk = null; }
         if (disk !== text) stale.push(`${file} (${disk === null ? 'missing' : 'differs'})`);
       }
+      for (const x of strayHandoffs()) stale.push(`${x} (no screen source)`);
       if (stale.length) { console.log(`stale: ${stale.join(', ')}; run node pages/screens/build.js`); return 1; }
       console.log(`up to date: ${outputs.map(([f]) => f).join(', ')}`);
       return 0;
     }
+    fs.mkdirSync(handoffDir, { recursive: true });
+    for (const x of strayHandoffs()) fs.unlinkSync(path.join(ROOT, x));
     for (const [file, text] of outputs) fs.writeFileSync(path.join(ROOT, file), text);
     const kb = (t) => `${Math.round(Buffer.byteLength(t) / 1024)} KB`;
-    console.log(`wrote ${outputs.map(([f, t]) => `${f} (${kb(t)})`).join(', ')}; screens: ${screens.map((S) => S.id).join(', ') || 'none yet'}`);
+    console.log(`wrote ${outputs.slice(0, 3).map(([f, t]) => `${f} (${kb(t)})`).join(', ')} and ${outputs.length - 3} handoff(s) in ${OUT_HANDOFF}; screens: ${screens.map((S) => S.id).join(', ') || 'none yet'}`);
     return 0;
   } catch (e) {
     if (e instanceof BuildError || /^emit-css:|^tokens:/.test(e.message)) { console.error(`error: ${e.message}`); return 1; }

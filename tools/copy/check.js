@@ -15,6 +15,37 @@ const path = require('path');
 const D = require('./deck.js');
 
 const EN_LINE = /^var EN = \{.*\};$/m;
+const SCREENS_SRC = 'pages/screens/src';
+
+// The deck keys the styled screens use (pages/screens/src/*.json): drawn (key, placeholder, items, in per_state too)
+// or named in a note (a screen's, a state's or a node's). null when there are no screen sources.
+function screenKeys(deckKeys) {
+  let files = [];
+  try { files = fs.readdirSync(path.join(D.ROOT, SCREENS_SRC)).filter((x) => /^s\d\d-.*\.json$/.test(x)); } catch (e) { return null; }
+  if (!files.length) return null;
+  const used = new Set();
+  const NOTE_KEY = /\b[a-z][a-z0-9_]*(?:\.[a-z0-9_]+)+\b/g;
+  const note = (s) => { for (const m of String(s || '').match(NOTE_KEY) || []) if (deckKeys.has(m)) used.add(m); };
+  const fields = (o) => {
+    for (const k of ['key', 'placeholder']) if (typeof o[k] === 'string') used.add(o[k]);
+    if (Array.isArray(o.items)) for (const k of o.items) if (typeof k === 'string') used.add(k);
+  };
+  const walk = (n) => {
+    if (!n || typeof n !== 'object') return;
+    fields(n);
+    if (n.per_state && typeof n.per_state === 'object') for (const o of Object.values(n.per_state)) if (o && typeof o === 'object') fields(o);
+    note(n.note);
+    if (Array.isArray(n.children)) n.children.forEach(walk);
+  };
+  for (const file of files) {
+    let s;
+    try { s = JSON.parse(fs.readFileSync(path.join(D.ROOT, SCREENS_SRC, file), 'utf8')); } catch (e) { continue; } // the screens build reports it
+    note(s.note);
+    if (Array.isArray(s.states)) for (const st of s.states) note(st && st.note);
+    if (Array.isArray(s.nodes)) s.nodes.forEach(walk);
+  }
+  return used;
+}
 
 function selfTest() {
   const bad = [];
@@ -78,8 +109,14 @@ function main(argv) {
   const keys = L.deck.entries.length;
   const plural = L.deck.entries.filter((e) => e.plural).length;
   const mapped = L.frames.nodes.filter((n) => n.match.kind === 'key').length;
-  const unused = L.deck.entries.filter((e) => !L.frames.used.has(e.key)).map((e) => e.key);
-  console.log(`${keys} keys (${plural} plural), ${L.flags.flags.length} open questions, ${L.flags.decided.length} decided; ${mapped} frame texts map to keys, ${L.frames.nodes.length - mapped} are world tags, annotations or samples; en.json fresh${unused.length ? `; not on a frame: ${unused.join(', ')}` : ''}`);
+  // Keys not on a wireframe frame (the wireframes predate the styled screens), and keys no styled screen draws or names
+  // in a note: the second list is the one to act on (wire the key into a screen, or ask to remove it).
+  const offFrame = L.deck.entries.filter((e) => !L.frames.used.has(e.key)).map((e) => e.key);
+  const onScreens = screenKeys(new Set(L.deck.entries.map((e) => e.key)));
+  const noScreen = onScreens ? L.deck.entries.filter((e) => !onScreens.has(e.key)).map((e) => e.key) : null;
+  console.log(`${keys} keys (${plural} plural), ${L.flags.flags.length} open questions, ${L.flags.decided.length} decided; ${mapped} frame texts map to keys, ${L.frames.nodes.length - mapped} are world tags, annotations or samples; en.json fresh`);
+  if (offFrame.length) console.log(`not on a wireframe frame (${offFrame.length}): ${offFrame.join(', ')}`);
+  if (noScreen) console.log(noScreen.length ? `used by no styled screen, drawn or named in a note (${noScreen.length}): ${noScreen.join(', ')}` : 'every key is used by a styled screen');
   return 0;
 }
 

@@ -81,7 +81,10 @@ h1 { font-size: 26px; line-height: 1.2; margin: 24px 0 8px; }
 .pg-seg button[aria-pressed="true"] { background: var(--c-accent); color: var(--c-on-accent); }
 
 /* One screen: its title, the state tabs, the frames. */
-.pg-screen { margin-top: 30px; scroll-margin-top: 104px; }
+/* A screen chip scrolls its screen to just under the sticky bar: page.js keeps --pg-bar-h at the bar's height (it wraps
+   to several lines on a phone); the fallbacks are its usual heights. */
+.pg-screen { margin-top: 30px; scroll-margin-top: calc(var(--pg-bar-h, 92px) + 12px); }
+@media (max-width: 600px) { .pg-screen { scroll-margin-top: calc(var(--pg-bar-h, 140px) + 12px); } }
 .pg-screen h2 { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; font-size: 20px; line-height: 1.25; margin: 0 0 8px; }
 .pg-screen h2 small { font-size: 13px; font-weight: 400; color: var(--c-muted); }
 .pg-num {
@@ -94,12 +97,13 @@ h1 { font-size: 26px; line-height: 1.2; margin: 24px 0 8px; }
   border: 1px solid var(--c-line); border-radius: 8px; padding: 4px 12px; min-height: 32px; cursor: pointer;
 }
 .pg-tab[aria-selected="true"] { background: var(--c-accent); border-color: var(--c-accent); color: var(--c-on-accent); }
-.pg-state-note { margin: 0 0 8px; font-size: 13px; color: var(--c-muted); max-width: 80ch; }
+.pg-state-note, .pg-screen-note { margin: 0 0 8px; font-size: 13px; color: var(--c-muted); max-width: 80ch; }
 .pg-state-note[hidden] { display: none; }
 
-/* The stage: fit to the column (--px from the stage's width), or 100 % (1 reference px = 1 CSS px, scrolling). */
+/* The stage: fit to the column (--px from the stage's width), 50 % or 100 % (1 reference px = 1 CSS px), scrolling. */
 .pg-stage { container-type: inline-size; border: 1px solid var(--c-line); border-radius: 10px; overflow: hidden; background: #000000; }
 html[data-zoom="fit"] .pg-stage { --px: calc(100cqw / 1920); }
+html[data-zoom="50"] .pg-stage { --px: 0.5px; overflow-x: auto; overscroll-behavior-x: contain; }
 html[data-zoom="100"] .pg-stage { --px: 1px; overflow-x: auto; overscroll-behavior-x: contain; }
 .pg-frames { width: max-content; }
 

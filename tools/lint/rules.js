@@ -44,6 +44,8 @@ const LAYOUT_KEYWORDS = {
   "box-sizing": ["border-box"],
   "flex-direction": ["row", "column"],
   flex: ["none"],
+  // A cut Button text fills the space its Button gives it (Godot draws it in the content rect).
+  "flex-grow": ["0", "1"],
   "grid-auto-flow": ["row", "column"],
   "justify-content": ["start", "center", "end", "flex-start", "flex-end", "space-between", "stretch", "normal"],
   "align-content": ["start", "center", "end", "flex-start", "flex-end", "stretch", "normal"],
@@ -58,12 +60,17 @@ const LAYOUT_KEYWORDS = {
   "overflow-y": ["hidden", "visible", "auto"],
   "scrollbar-width": ["none"],
   "overflow-wrap": ["normal", "anywhere", "break-word"],
+  // A Label or Button with clip_text or a text_overrun_behavior: its text is cut at its width (with an ellipsis).
+  "text-overflow": ["clip", "ellipsis"],
   contain: ["inline-size", "size", "none"],
   "pointer-events": ["none", "auto"],
 };
 const LAYOUT_LENGTHS = new Set(["top", "right", "bottom", "left", "width", "height", "min-width", "min-height", "row-gap",
   "column-gap", "padding-top", "padding-right", "padding-bottom", "padding-left"]);
-const LAYOUT_TRACKS = new Set(["grid-template-columns", "grid-template-rows"]);
+const LAYOUT_TRACKS = new Set(["grid-template-columns", "grid-template-rows", "grid-auto-columns", "grid-auto-rows"]);
+// A track: auto, <n>fr, a layout length, or minmax(min-content, auto | <n>fr) (a track never below its children's
+// minimum sizes, as in a Godot container).
+const LAYOUT_TRACK_RE = /^(?:auto|\d+(?:\.\d+)?fr|minmax\(\s*min-content\s*,\s*(?:auto|\d+(?:\.\d+)?fr)\s*\))$/;
 const LAYOUT_NUM = "-?\\d+(?:\\.\\d+)?";
 const LAYOUT_LEN_RE = new RegExp("^(?:0|" + LAYOUT_NUM + "%|calc\\(\\s*" + LAYOUT_NUM + "\\s*\\*\\s*var\\(\\s*--px\\s*\\)\\s*\\)" +
   "|calc\\(\\s*" + LAYOUT_NUM + "%\\s*[+-]\\s*" + LAYOUT_NUM + "\\s*\\*\\s*var\\(\\s*--px\\s*\\)\\s*\\))$");
@@ -80,6 +87,8 @@ function layoutLength(c) {
 // Checks one declaration of the layout profile; returns null or a message (rule L28).
 function checkLayout(prop, val) {
   const comps = splitTop(val, " ");
+  // An anchored node and a ScrollContainer's view take Godot's combined minimum: the content's min-content width.
+  if ((prop === "width" || prop === "min-width") && val === "min-content") return null;
   if (LAYOUT_KEYWORDS[prop]) {
     return comps.length === 1 && LAYOUT_KEYWORDS[prop].includes(comps[0]) ? null : `${prop} takes one of ${LAYOUT_KEYWORDS[prop].join(", ")}; found ${val}`;
   }
@@ -90,8 +99,8 @@ function checkLayout(prop, val) {
     return comps.length >= 1 && comps.length <= 4 && comps.every(layoutLength) ? null : `padding takes 1-4 layout lengths; found ${val}`;
   }
   if (LAYOUT_TRACKS.has(prop)) {
-    const ok = comps.length >= 1 && comps.every(c => c === "auto" || /^\d+(\.\d+)?fr$/.test(c) || layoutLength(c));
-    return ok ? null : `${prop} lists tracks of auto, <n>fr or a layout length; found ${val}`;
+    const ok = comps.length >= 1 && comps.every(c => LAYOUT_TRACK_RE.test(c) || layoutLength(c));
+    return ok ? null : `${prop} lists tracks of auto, <n>fr, minmax(min-content, auto | <n>fr) or a layout length; found ${val}`;
   }
   if (prop === "grid-area") return /^\d+\s*\/\s*\d+$/.test(val) ? null : `grid-area must be <row> / <column>; found ${val}`;
   return `property outside the layout allowlist: ${prop}`;

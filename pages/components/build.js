@@ -369,11 +369,16 @@ function renderPage(sys, componentsCss) {
     const box = '<i class="sc-lay-box"></i>';
     const cells = row.variations.map((name) => {
       const v = V(name);
-      const kind = v.class === 'VBoxContainer' ? 'col' : v.class === 'HBoxContainer' ? 'row' : 'grid';
+      const kind = v.class === 'VBoxContainer' ? 'col' : v.class === 'HBoxContainer' ? 'row' : v.class === 'ScrollContainer' ? 'scroll' : 'grid';
       const n = kind === 'grid' ? 6 : 3;
       const gaps = Object.values(v.items).map((f) => f.value.px).join(' · ');
+      // A ScrollContainer: a column of boxes beside the drawn bar (ToyScrollBar), its gap the variation's.
+      const body = kind === 'scroll'
+        ? `<div class="sc-lay-col">${box.repeat(n)}</div><div class="tv-ToyScrollBar" style="--value: 0; --page: 0.6"><i class="tv-pre"></i><i class="tv-grabber"></i><i class="tv-post"></i></div>`
+        : box.repeat(n);
+      if (kind === 'scroll') V('ToyScrollBar');
       return cell(`${name} · ${gaps}`, proposal([[name, null, { items: Object.keys(v.items) }]]),
-        `<div class="tv-${name} sc-lay-${kind}">${box.repeat(n)}</div>`);
+        `<div class="tv-${name} sc-lay-${kind}">${body}</div>`);
     });
     return stage(row.context || 'light', cells);
   }

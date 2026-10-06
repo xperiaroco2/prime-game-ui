@@ -3,10 +3,10 @@
   "wireframe": "s8",
   "title": "Map and tasks",
   "background": "room-light",
-  "note": "M opens and closes this screen over the running round (press, not hold; rebindable, #211); Tab does nothing here. The mouse is freed while it is open and the player keeps walking: only the mouse look stops. Nothing here is a HUD hint: the map never shows players, items, roles, teammates, delivery circles or done points.",
+  "note": "M opens and closes this screen over the running round (press, not hold; rebindable, #211); Tab does nothing here. The mouse is freed while it is open and the player keeps walking: only the mouse look stops. Nothing here is a HUD hint: the map never shows players, items, roles, teammates, delivery circles or done points. Input while it is open: the gameplay actions keep working (move, sprint, jump, interact, talk), so Space, which jumps, must never press a focused «?»: remove Space from ui_accept in the project InputMap (Enter and the gamepad's A still press; jump keeps Space), and when the card was opened with the mouse, closing it releases focus instead of giving it back to the «?». The map's focus moves only with the arrows and the d-pad; the left stick and WASD walk.",
   "states": [
     { "id": "list", "label": "Задачі", "note": "The task list beside the map; nothing hovered." },
-    { "id": "zone", "label": "Наведено на задачу", "note": "The mouse is over the Delivery row (or its «?» has keyboard focus): the map lights that task's zones, for Delivery only the storage room." },
+    { "id": "zone", "label": "Наведено на задачу", "note": "Delivery's «?» has keyboard focus (the mouse over the Delivery row does the same, with no look of its own): the map lights that task's zones, for Delivery only the storage room; the zone is drawn inside the room, under its pictogram and name." },
     { "id": "guide", "label": "Натиснуто «?»", "note": "The Delivery «?» was pressed: its how-to card opens over the map; Close, Esc or M closes it." }
   ],
   "nodes": [
@@ -16,18 +16,19 @@
     },
     {
       "name": "Tasks", "type": "PanelContainer", "variation": "ToyPanelMenu",
-      "offset_left": 77, "offset_top": 86, "offset_right": 691, "offset_bottom": 993,
+      "offset_left": 80, "offset_top": 88, "offset_right": 688, "offset_bottom": 88,
+      "note": "Grows down from its top to its content (the rows, then the time). On open no control has focus (state list); the first ui_down or ui_up gives focus to the first row's «?» (Rows/Delivery/H/Help), which lights that task's zones (state zone). While the how-to card is open, focus_behavior_recursive = FOCUS_BEHAVIOR_DISABLED here (see Dim2).",
       "children": [
         {
           "name": "V", "type": "VBoxContainer", "variation": "ToyColumnTwentyFour",
           "children": [
             { "name": "Title", "type": "Label", "variation": "ToyTitleOnLight", "key": "map.tasks" },
             {
-              "name": "Rows", "type": "VBoxContainer", "variation": "ToyColumnTwelve",
+              "name": "Rows", "type": "VBoxContainer", "variation": "ToyColumnEight",
               "note": "One row per task type of the round, in the round's task order (content data). A counter only, never a description.",
               "children": [
                 {
-                  "name": "Delivery", "type": "PanelContainer", "variation": "ToySettingRow",
+                  "name": "Delivery", "type": "PanelContainer", "variation": "ToySettingRow", "custom_minimum_size": [0, 64],
                   "note": "mouse_entered and mouse_exited (and focus on its «?») show and hide this task's zones on the board (ZoneDelivery, ZoneDeliveryTag).",
                   "children": [
                     {
@@ -40,18 +41,16 @@
                           "note": "Packages delivered of the round's total; updates live while the map is open."
                         },
                         {
-                          "name": "Help", "type": "PanelContainer", "variation": "ToyKeyRound", "custom_minimum_size": [36, 36], "size_flags_vertical": "shrink_center",
-                          "note": "Build as a Button(ToyKeyRoundButton) with the text ? (auto_translate_mode DISABLED, focus_mode ALL): a press opens this task's how-to card (Guide); keyboard focus shows the task's zones as hovering the row does. Every ? looks the same (no seen or new mark). The page draws the static round keycap with the tutorial's ? until the deck has the button's own key.",
-                          "children": [
-                            { "name": "Text", "type": "Label", "variation": "ToyKeyText", "key": "tutorial.step.howto.how", "value_of": "key", "args": { "key": "?" }, "horizontal_alignment": "center" }
-                          ]
+                          "name": "Help", "type": "Button", "variation": "ToyKeyRoundButton", "text": "?", "custom_minimum_size": [42, 42], "size_flags_vertical": "shrink_center",
+                          "per_state": { "zone": { "state": "focus" } },
+                          "note": "The text ? is a glyph, not a deck key (auto_translate_mode DISABLED); focus_mode ALL. 42 x 42 so it stays round at large text, where the glyph makes it 42 tall. A press opens this task's how-to card (Guide); keyboard focus shows the task's zones as hovering the row does. Every ? looks the same (no seen or new mark)."
                         }
                       ]
                     }
                   ]
                 },
                 {
-                  "name": "Switches", "type": "PanelContainer", "variation": "ToySettingRow",
+                  "name": "Switches", "type": "PanelContainer", "variation": "ToySettingRow", "custom_minimum_size": [0, 64],
                   "note": "Its zones use map.zone_hint.switches and the level's switch areas.",
                   "children": [
                     {
@@ -62,20 +61,13 @@
                           "name": "Count", "type": "Label", "variation": "ToySettingRowText", "key": "map.progress", "args": { "count": "0", "total": "3" },
                           "size_flags_vertical": "shrink_center"
                         },
-                        {
-                          "name": "Help", "type": "PanelContainer", "variation": "ToyKeyRound", "custom_minimum_size": [36, 36], "size_flags_vertical": "shrink_center",
-                          "note": "As Delivery's Help.",
-                          "children": [
-                            { "name": "Text", "type": "Label", "variation": "ToyKeyText", "key": "tutorial.step.howto.how", "value_of": "key", "args": { "key": "?" }, "horizontal_alignment": "center" }
-                          ]
-                        }
+                        { "name": "Help", "type": "Button", "variation": "ToyKeyRoundButton", "text": "?", "custom_minimum_size": [42, 42], "size_flags_vertical": "shrink_center", "note": "As Delivery's Help." }
                       ]
                     }
                   ]
                 }
               ]
             },
-            { "name": "Fill", "type": "Control", "size_flags_vertical": "expand_fill" },
             {
               "name": "Time", "type": "Label", "variation": "ToyTextMutedOnLight", "key": "map.time", "args": { "time": "7:22" },
               "note": "The round's time left, m:ss, updated every second."
@@ -86,17 +78,22 @@
     },
     {
       "name": "Board", "type": "PanelContainer", "variation": "ToyMapBoard",
-      "offset_left": 749, "offset_top": 86, "offset_right": 1843, "offset_bottom": 993,
+      "offset_left": 744, "offset_top": 88, "offset_right": 1840, "offset_bottom": 992,
+      "note": "While the how-to card is open, focus_behavior_recursive = FOCUS_BEHAVIOR_DISABLED here (see Dim2).",
       "children": [
         {
           "name": "Rooms", "type": "Control",
-          "note": "Children are built from the level's map data (room rects, the pin), scaled to fit this rect. The rects here are sample data in Rooms px (1086x899) until the designer's map exists.",
+          "note": "Children are built from the level's map data (room rects, the pin), scaled to fit this rect. The rects here are sample data in Rooms px (1088x896) until the designer's map exists.",
           "children": [
             {
               "name": "Storage", "type": "PanelContainer", "variation": "ToyMapRoom",
               "offset_left": 56, "offset_top": 56, "offset_right": 386, "offset_bottom": 356,
               "note": "One room: its rect from the map data, its system B pictogram (ink, not tinted, no plate) and its name.",
               "children": [
+                {
+                  "name": "ZoneDelivery", "type": "Panel", "variation": "ToyMapZone", "states": ["zone"],
+                  "note": "mouse_filter IGNORE. A lit zone of the hovered or focused task (level or content data): a zone that is a whole room is the room's first child, so it fills the room's content rect under its pictogram and name; a zone that is part of a room is placed the same way inside it by its rect. Delivery lights only the storage room, never the rooms still waiting for a package."
+                },
                 {
                   "name": "V", "type": "VBoxContainer", "variation": "ToyColumnFour", "alignment": "center",
                   "children": [
@@ -172,14 +169,9 @@
               ]
             },
             {
-              "name": "ZoneDelivery", "type": "Panel", "variation": "ToyMapZone", "states": ["zone"],
-              "offset_left": 56, "offset_top": 56, "offset_right": 386, "offset_bottom": 356,
-              "note": "mouse_filter IGNORE. Drawn over the rooms, one per zone of the hovered task (level or content data). Delivery lights only the storage room, never the rooms still waiting for a package."
-            },
-            {
               "name": "ZoneDeliveryTag", "type": "PanelContainer", "variation": "ToyChipLight", "states": ["zone"],
               "offset_left": 56, "offset_top": 368, "offset_right": 56, "offset_bottom": 368,
-              "note": "mouse_filter IGNORE. Under the first zone, its left edge on the zone's, 12 px below it. Switches use map.zone_hint.switches.",
+              "note": "mouse_filter IGNORE. Under the first zone's room, its left edge on the room's, 12 px below it. Switches use map.zone_hint.switches.",
               "children": [
                 { "name": "Text", "type": "Label", "variation": "ToyChipLightText", "key": "map.zone_hint" }
               ]
@@ -203,16 +195,15 @@
     },
     {
       "name": "Dim2", "type": "Panel", "variation": "ToyBackdrop", "anchors_preset": "full_rect", "states": ["guide"],
-      "note": "mouse_filter STOP: the task list and the map under the card do not react while it is open."
+      "note": "mouse_filter STOP: the task list and the map under the card do not react to the mouse while it is open. Keyboard and gamepad focus search ignores what is drawn on top, so while the card is open set focus_behavior_recursive = FOCUS_BEHAVIOR_DISABLED on Tasks and Board (Control, Godot 4.5+) and restore FOCUS_BEHAVIOR_INHERITED on close. The card handles ui_cancel and the map key itself and calls get_viewport().set_input_as_handled(), so one press closes only the card, never the map too."
     },
     {
-      "name": "Guide", "type": "VBoxContainer", "variation": "ToyColumnTwelve", "states": ["guide"],
-      "anchors_preset": "center_top", "offset_top": 151, "offset_bottom": 151, "custom_minimum_size": [1536, 0],
-      "grow_horizontal": "both",
-      "note": "The how-to card of the task whose «?» was pressed (content data per task type, #254). Close, Esc (ui_cancel) or M closes it and gives focus back to that «?».",
+      "name": "Guide", "type": "CenterContainer", "states": ["guide"], "anchors_preset": "full_rect",
+      "note": "Centres the how-to card of the task whose «?» was pressed (content data per task type, #254) on the screen. Close, Esc (ui_cancel) or M closes it; focus goes back to that «?» only when the card was opened by keyboard or gamepad. mouse_filter IGNORE (Dim2 blocks the mouse).",
       "children": [
         {
-          "name": "Card", "type": "PanelContainer", "variation": "ToyPanelHowto",
+          "name": "Card", "type": "PanelContainer", "variation": "ToyPanelHowto", "custom_minimum_size": [1536, 0],
+          "note": "The same card tree as s3/Card and the Esc menu's s5 Guide/Card (Head, Frames/Frame1..4 with Art and Caption), plus Bar with Close.",
           "children": [
             {
               "name": "V", "type": "VBoxContainer", "variation": "ToyColumnSixteen",
@@ -234,8 +225,8 @@
                         {
                           "name": "F", "type": "VBoxContainer", "variation": "ToyColumnEight",
                           "children": [
-                            { "name": "Art", "type": "TextureRect", "icon": "item", "custom_minimum_size": [120, 120], "note": "Placeholder art until the card art (prime-game-ui#3): the package, the room pictogram it carries (twice), the check on the done frame. The art fills the frame width at 120 px high." },
-                            { "name": "Caption", "type": "Label", "variation": "ToyHowtoCaption", "key": "howto.delivery.take", "horizontal_alignment": "center", "autowrap_mode": "word_smart", "custom_minimum_size": [200, 0] }
+                            { "name": "Art", "type": "TextureRect", "icon": "item", "custom_minimum_size": [120, 120], "note": "Placeholder art until the card art (prime-game-ui#3): the package, the room pictogram it carries (twice), the check on the done frame. The art fills the frame width at 120 px high (s3's loading card draws it 200 high)." },
+                            { "name": "Caption", "type": "Label", "variation": "ToyHowtoCaption", "key": "howto.delivery.take", "horizontal_alignment": "center", "autowrap_mode": "word_smart", "custom_minimum_size": [120, 0] }
                           ]
                         }
                       ]
@@ -247,7 +238,7 @@
                           "name": "F", "type": "VBoxContainer", "variation": "ToyColumnEight",
                           "children": [
                             { "name": "Art", "type": "TextureRect", "icon": "room/lab", "custom_minimum_size": [120, 120] },
-                            { "name": "Caption", "type": "Label", "variation": "ToyHowtoCaption", "key": "howto.delivery.sign", "horizontal_alignment": "center", "autowrap_mode": "word_smart", "custom_minimum_size": [200, 0] }
+                            { "name": "Caption", "type": "Label", "variation": "ToyHowtoCaption", "key": "howto.delivery.sign", "horizontal_alignment": "center", "autowrap_mode": "word_smart", "custom_minimum_size": [120, 0] }
                           ]
                         }
                       ]
@@ -259,7 +250,7 @@
                           "name": "F", "type": "VBoxContainer", "variation": "ToyColumnEight",
                           "children": [
                             { "name": "Art", "type": "TextureRect", "icon": "room/lab", "custom_minimum_size": [120, 120] },
-                            { "name": "Caption", "type": "Label", "variation": "ToyHowtoCaption", "key": "howto.delivery.find", "horizontal_alignment": "center", "autowrap_mode": "word_smart", "custom_minimum_size": [200, 0] }
+                            { "name": "Caption", "type": "Label", "variation": "ToyHowtoCaption", "key": "howto.delivery.find", "horizontal_alignment": "center", "autowrap_mode": "word_smart", "custom_minimum_size": [120, 0] }
                           ]
                         }
                       ]
@@ -271,21 +262,21 @@
                           "name": "F", "type": "VBoxContainer", "variation": "ToyColumnEight",
                           "children": [
                             { "name": "Art", "type": "TextureRect", "icon": "check", "custom_minimum_size": [120, 120] },
-                            { "name": "Caption", "type": "Label", "variation": "ToyHowtoCaption", "key": "howto.delivery.drop", "horizontal_alignment": "center", "autowrap_mode": "word_smart", "custom_minimum_size": [200, 0] }
+                            { "name": "Caption", "type": "Label", "variation": "ToyHowtoCaption", "key": "howto.delivery.drop", "horizontal_alignment": "center", "autowrap_mode": "word_smart", "custom_minimum_size": [120, 0] }
                           ]
                         }
                       ]
                     }
                   ]
+                },
+                {
+                  "name": "Bar", "type": "HBoxContainer", "alignment": "end",
+                  "children": [
+                    { "name": "Close", "type": "Button", "variation": "ToyButtonSecondary", "key": "common.close", "state": "focus", "note": "Takes focus when the card opens by keyboard or gamepad (the page shows that case)." }
+                  ]
                 }
               ]
             }
-          ]
-        },
-        {
-          "name": "Bar", "type": "HBoxContainer", "alignment": "end",
-          "children": [
-            { "name": "Close", "type": "Button", "variation": "ToyButtonGhostOnDark", "key": "common.close", "state": "focus", "note": "Takes focus when the card opens." }
           ]
         }
       ]

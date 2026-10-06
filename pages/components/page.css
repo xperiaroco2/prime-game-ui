@@ -274,4 +274,5 @@ footer { color: var(--c-muted); font-size: 12px; margin-top: 32px; }
 .sc-lay-col { display: flex; flex-direction: column; align-items: flex-start; }
 .sc-lay-row { display: flex; align-items: flex-start; }
 .sc-lay-grid { display: grid; grid-template-columns: repeat(3, auto); }
+.sc-lay-scroll { display: grid; grid-template-columns: auto auto; align-items: stretch; }
 .sc-lay-box { display: block; width: calc(44 * var(--px)); height: calc(24 * var(--px)); border-radius: calc(6 * var(--px)); background: var(--toy-color-surface-board); border: calc(2 * var(--px)) solid var(--toy-color-outline); box-sizing: border-box; }

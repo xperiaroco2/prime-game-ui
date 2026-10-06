@@ -962,6 +962,12 @@ const ADVERSARIAL = [
   ["layout", '.gd-scroll-view { overflow-x: hidden; overflow-y: auto; scrollbar-width: none; grid-template-rows: 0; }', []],
   ["layout", '.gd-scroll-view { overflow-x: auto; }', ["L28"]],
   ["layout", '.gd-scroll-view { overflow: auto; scrollbar-width: thin; }', ["L28"]],
+  // Godot's combined minimum (min-content) and a clipped text (clip_text, text_overrun_behavior).
+  ["layout", '.gd-anchor > .gd-node { width: min-content; } .gd-scroll-view { min-width: min-content; }', []],
+  ["layout", '[data-node="s5/a"] > .gd-label { overflow: hidden; text-overflow: ellipsis; }', []],
+  ["layout", '.gd-Label { text-overflow: "…"; height: min-content; }', ["L28"]],
+  ["layout", '.gd-HBoxContainer { grid-template-columns: minmax(min-content, auto) minmax(min-content, 2fr); grid-auto-rows: minmax(min-content, auto); }', []],
+  ["layout", '.gd-HBoxContainer { grid-template-columns: minmax(0, 1fr) fit-content(10px); }', ["L28"]],
 ];
 
 function selfTest() {
