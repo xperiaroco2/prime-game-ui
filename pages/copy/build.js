@@ -179,11 +179,12 @@ function build() {
     '<h1>Тексти гри: коло 3</h1>',
     `<p class="cp-rule"><b>Принцип.</b> ${esc(L.flags.principle)}</p>`,
     flags.length
-      ? `<p class="sc-lead">Відкритих питань: ${flags.length}${rejected ? ` (${rejected} ще раз, бо ти хотів інакше)` : ''}. Тапни «Беру цей» біля варіанта або «Інакше» з нотаткою. Прийняте вже внесено й згорнуте внизу.</p>`
+      ? `<p class="sc-lead">Відкритих питань: ${flags.length}${rejected ? ` (${rejected} ще раз, після твоєї відповіді «інакше»)` : ''}. Тапни «Беру цей» біля варіанта або «Інакше» з нотаткою; «Беру всі рекомендовані» одним тапом обирає варіант a там, де відповіді ще немає. Прийняте вже внесено й згорнуте внизу.</p>`
       : '<p class="sc-lead">Відкритих питань немає: усі відповіді внесено в колоду, вони згорнуті внизу.</p>',
     flags.length
       ? `<div class="cp-bar"><p class="cp-count">Відповідей: <b id="cp-done">0</b> з ${flags.length}</p>`
-        + '<p class="cp-db" id="cp-db" data-state="wait">Перевіряю, чи можна тут зберегти відповідь…</p></div>'
+        + '<p class="cp-db" id="cp-db" data-state="wait">Перевіряю, чи можна тут зберегти відповідь…</p>'
+        + '<div class="cp-act cp-act-small"><button class="tv-ToyButtonPrimary" type="button" id="cp-all" data-all><span>Беру всі рекомендовані</span></button></div></div>'
         + `<section class="cp-sec" id="flags"><h2>Що вирішити <small>${flags.length}</small></h2>`
         + `<div class="cp-cards">${cards}</div></section>`
       : '',

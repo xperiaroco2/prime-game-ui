@@ -1,5 +1,6 @@
 // The copy page's behaviour, round 3: per open question, a tap on «Беру цей» saves that option, «Інакше» saves the own
-// text, «Зберегти нотатку» saves the note with the answer already given. Saved through the artifact runtime's db
+// text, «Зберегти нотатку» saves the note with the answer already given, «Беру всі рекомендовані» saves option a for every
+// question with no round-3 answer yet. Saved through the artifact runtime's db
 // capability when this view has it: collection "copy", one document per question id,
 // { answer: option id | "other" | null, text, note, at } (text: the Ukrainian the option writes, or the own text).
 // ASKED (set by build.js) is when round 3 was asked: a document saved before it is an earlier round's answer, shown only as a
@@ -91,6 +92,8 @@
       if (ans || (s && s.note)) lines.push(key + ': ' + (ans === 'other' ? 'інакше' + (s.text ? ' «' + s.text + '»' : '') : ans || '—') + (s && s.note ? ' — ' + s.note : ''));
     });
     var d = document.getElementById('cp-done'); if (d) d.textContent = String(done);
+    var allBtn = document.getElementById('cp-all');
+    if (allBtn) allBtn.disabled = readOnly || done === all('[data-key]').length;
     var box = document.getElementById('cp-summary');
     var area = document.getElementById('cp-summary-text');
     if (box && area) { box.hidden = mode === 'db' || !lines.length; area.value = lines.join('\n'); }
@@ -101,7 +104,7 @@
     tag = t || '';
     var el = document.getElementById('cp-db');
     if (el) { el.setAttribute('data-state', kind); el.textContent = text; }
-    all('[data-answer], [data-save]').forEach(function (b) { b.disabled = readOnly; });
+    all('[data-answer], [data-save], [data-all]').forEach(function (b) { b.disabled = readOnly; });
     render();
   }
   function noDb() {
@@ -145,6 +148,19 @@
       show();
     });
   }
+
+  var allBtn = document.getElementById('cp-all');
+  if (allBtn) allBtn.addEventListener('click', function () {
+    all('[data-key]').forEach(function (box) {
+      var key = box.getAttribute('data-key');
+      var s = fresh(state[key]) ? state[key] : null;
+      if (s && s.answer && choices(box).indexOf(s.answer) >= 0) return;
+      var a = box.querySelector('[data-answer="a"]');
+      if (!a) return;
+      var n = box.querySelector('[data-note-input]');
+      write(key, { answer: 'a', text: a.getAttribute('data-text') || '', note: n ? n.value.trim().slice(0, 2000) : '', at: new Date().toISOString() });
+    });
+  });
 
   all('[data-key]').forEach(function (box) {
     var key = box.getAttribute('data-key');
