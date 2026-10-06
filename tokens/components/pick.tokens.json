@@ -18,8 +18,8 @@
       },
       "size": {
         "$type": "dimension",
-        "width": { "$value": { "value": 26, "unit": "px" } },
-        "height": { "$value": { "value": 26, "unit": "px" } }
+        "width": { "$value": { "value": 40, "unit": "px" } },
+        "height": { "$value": { "value": 40, "unit": "px" } }
       }
     },
     "swatch-selected": {
@@ -36,6 +36,22 @@
         "border-width": { "$type": "dimension", "$value": "{stroke.surface}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
         "expand-margin": { "$type": "dimension", "$value": { "value": 7, "unit": "px" } }
+      }
+    },
+    "swatch-focus": {
+      "$description": "The focused swatch: a 3 px ink ring flush outside the disc, unlike the chosen swatch's gapped ring.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToySwatchFocus", "class": "Panel" },
+          "context": "light"
+        }
+      },
+      "panel": {
+        "bg-color": { "$type": "color", "$value": "{palette.clear}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-width": { "$type": "dimension", "$value": "{focus.width}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
+        "expand-margin": { "$type": "dimension", "$value": { "value": 3, "unit": "px" } }
       }
     },
     "radio": {

@@ -134,6 +134,7 @@
     "plate_long": "довге імʼя",
     "swatch_ring": "кільце",
     "swatch_selected": "вибране кільце",
+    "swatch_focus": "кільце фокуса",
     "footer": "Згенеровано pages/components/build.js із tokens/ через tools/tokens/api.js. Не редагувати вручну."
   },
   "samples": {

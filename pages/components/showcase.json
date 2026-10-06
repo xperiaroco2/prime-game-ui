@@ -1015,7 +1015,8 @@
           "title_key": "row_swatches",
           "variations": [
             "ToySwatchRing",
-            "ToySwatchSelected"
+            "ToySwatchSelected",
+            "ToySwatchFocus"
           ]
         },
         {

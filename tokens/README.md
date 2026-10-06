@@ -48,7 +48,9 @@ node tools/check.js                 # every check: tokens, lint, contrast gates,
 `dist/pack/icons/` is the game's copy of `pages/components/icons`: an icon drawn in `currentColor` is written white
 (`#ffffff`), since Godot's SVG importer has no colour context and the game tints an icon by multiplying it
 (`self_modulate`, a Button's `icon_*_color`, OptionButton's `modulate_arrow`); an icon in its own colours (the slider
-knobs) and `LICENCES.json` are copied as they are.
+knobs) and `LICENCES.json` are copied as they are. `dist/pack/icons/room/` holds the room pictograms (room-signs system B, the
+engineer's room-signs decision: plain on packages and the map), their ink written white the same way, with their own
+`LICENCES.json`; the game names a room's sign by its file name (`room/lab`).
 
 Every error names the rule (D01–D39, P40–P60, or B01 for `release.json`) and the file; where the file parses it also
 gives the line and column, the JSON Pointer and the token path.

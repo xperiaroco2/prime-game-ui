@@ -134,6 +134,7 @@ function check(run, opt) {
       const txt = (t.text || "").trim();
       if (t.children > 0) add(fr, "contract", subj, `the data-key element holds ${t.children} element(s); it must hold only its text`);
       if (!t.host) add(fr, "contract", subj, "a data-key element outside every data-node");
+      if (!txt && t.pieceEmpty && !t.visible) continue; // an empty sentence piece, hidden as the game hides it
       if (!txt) { add(fr, "empty-text", subj, t.visible ? "no text" : "no text (the element is hidden)", 0, { node: t.host, key: t.key }); continue; }
       if (txt === t.key) add(fr, "key-shown", subj, "shows its key: the deck has no text for it", 0, { node: t.host, key: t.key });
       if (!t.visible || !t.union) continue;

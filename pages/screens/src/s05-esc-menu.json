@@ -473,73 +473,74 @@
                                       "name": "Swatches", "type": "GridContainer", "variation": "ToyGridSwatch", "columns": 5, "size_flags_vertical": "shrink_center", "note": "The ten body colours (#255; the palette is not decided yet).",
                                       "children": [
                                         {
-                                          "name": "Swatch1", "type": "Control", "custom_minimum_size": [26, 26], "note": "In the game: TextureButton · toggle_mode · one ButtonGroup · 26×26 (focus_mode ALL in the lobby, NONE in a round; mouse_filter IGNORE in a round). The disc is tinted with the body colour (content data, #255; the page's colours are samples only).",
+                                          "name": "Swatch1", "type": "Control", "custom_minimum_size": [40, 40], "note": "In the game: TextureButton · toggle_mode · one ButtonGroup · 40×40 (focus_mode ALL in the lobby, NONE in a round; mouse_filter IGNORE in a round). The disc is tinted with the body colour (content data, #255; the page's colours are samples only).",
                                           "children": [
-                                            { "name": "Disc", "type": "TextureRect", "icon": "swatch-disc", "anchors_preset": "full_rect", "custom_minimum_size": [26, 26], "self_modulate": "#ff8466", "note": "self_modulate = the body colour (content data)." },
+                                            { "name": "Disc", "type": "TextureRect", "icon": "swatch-disc", "anchors_preset": "full_rect", "custom_minimum_size": [40, 40], "self_modulate": "#ff8466", "note": "self_modulate = the body colour (content data)." },
                                             { "name": "Ring", "type": "Panel", "variation": "ToySwatchRing", "anchors_preset": "full_rect", "note": "mouse_filter IGNORE." },
-                                            { "name": "Sel", "type": "Panel", "variation": "ToySwatchSelected", "anchors_preset": "full_rect", "note": "mouse_filter IGNORE; visible while the swatch is selected or focused." }
+                                            { "name": "Sel", "type": "Panel", "variation": "ToySwatchSelected", "anchors_preset": "full_rect", "note": "mouse_filter IGNORE; visible while the swatch is selected." }
                                           ]
                                         },
                                         {
-                                          "name": "Swatch2", "type": "Control", "custom_minimum_size": [26, 26],
+                                          "name": "Swatch2", "type": "Control", "custom_minimum_size": [40, 40],
                                           "children": [
-                                            { "name": "Disc", "type": "TextureRect", "icon": "swatch-disc", "anchors_preset": "full_rect", "custom_minimum_size": [26, 26], "self_modulate": "#ffc23a" },
+                                            { "name": "Disc", "type": "TextureRect", "icon": "swatch-disc", "anchors_preset": "full_rect", "custom_minimum_size": [40, 40], "self_modulate": "#ffc23a" },
                                             { "name": "Ring", "type": "Panel", "variation": "ToySwatchRing", "anchors_preset": "full_rect" }
                                           ]
                                         },
                                         {
-                                          "name": "Swatch3", "type": "Control", "custom_minimum_size": [26, 26],
+                                          "name": "Swatch3", "type": "Control", "custom_minimum_size": [40, 40],
                                           "children": [
-                                            { "name": "Disc", "type": "TextureRect", "icon": "swatch-disc", "anchors_preset": "full_rect", "custom_minimum_size": [26, 26], "self_modulate": "#3cc4a8" },
+                                            { "name": "Disc", "type": "TextureRect", "icon": "swatch-disc", "anchors_preset": "full_rect", "custom_minimum_size": [40, 40], "self_modulate": "#3cc4a8" },
+                                            { "name": "Ring", "type": "Panel", "variation": "ToySwatchRing", "anchors_preset": "full_rect" },
+                                            { "name": "Focus", "type": "Panel", "variation": "ToySwatchFocus", "anchors_preset": "full_rect", "note": "mouse_filter IGNORE; visible while the swatch has keyboard or gamepad focus (drawn here on the third swatch)." }
+                                          ]
+                                        },
+                                        {
+                                          "name": "Swatch4", "type": "Control", "custom_minimum_size": [40, 40],
+                                          "children": [
+                                            { "name": "Disc", "type": "TextureRect", "icon": "swatch-disc", "anchors_preset": "full_rect", "custom_minimum_size": [40, 40], "self_modulate": "#5bcb4e" },
                                             { "name": "Ring", "type": "Panel", "variation": "ToySwatchRing", "anchors_preset": "full_rect" }
                                           ]
                                         },
                                         {
-                                          "name": "Swatch4", "type": "Control", "custom_minimum_size": [26, 26],
+                                          "name": "Swatch5", "type": "Control", "custom_minimum_size": [40, 40],
                                           "children": [
-                                            { "name": "Disc", "type": "TextureRect", "icon": "swatch-disc", "anchors_preset": "full_rect", "custom_minimum_size": [26, 26], "self_modulate": "#5bcb4e" },
+                                            { "name": "Disc", "type": "TextureRect", "icon": "swatch-disc", "anchors_preset": "full_rect", "custom_minimum_size": [40, 40], "self_modulate": "#d9482f" },
                                             { "name": "Ring", "type": "Panel", "variation": "ToySwatchRing", "anchors_preset": "full_rect" }
                                           ]
                                         },
                                         {
-                                          "name": "Swatch5", "type": "Control", "custom_minimum_size": [26, 26],
+                                          "name": "Swatch6", "type": "Control", "custom_minimum_size": [40, 40],
                                           "children": [
-                                            { "name": "Disc", "type": "TextureRect", "icon": "swatch-disc", "anchors_preset": "full_rect", "custom_minimum_size": [26, 26], "self_modulate": "#d9482f" },
+                                            { "name": "Disc", "type": "TextureRect", "icon": "swatch-disc", "anchors_preset": "full_rect", "custom_minimum_size": [40, 40], "self_modulate": "#c98a10" },
                                             { "name": "Ring", "type": "Panel", "variation": "ToySwatchRing", "anchors_preset": "full_rect" }
                                           ]
                                         },
                                         {
-                                          "name": "Swatch6", "type": "Control", "custom_minimum_size": [26, 26],
+                                          "name": "Swatch7", "type": "Control", "custom_minimum_size": [40, 40],
                                           "children": [
-                                            { "name": "Disc", "type": "TextureRect", "icon": "swatch-disc", "anchors_preset": "full_rect", "custom_minimum_size": [26, 26], "self_modulate": "#c98a10" },
+                                            { "name": "Disc", "type": "TextureRect", "icon": "swatch-disc", "anchors_preset": "full_rect", "custom_minimum_size": [40, 40], "self_modulate": "#b9a8c7" },
                                             { "name": "Ring", "type": "Panel", "variation": "ToySwatchRing", "anchors_preset": "full_rect" }
                                           ]
                                         },
                                         {
-                                          "name": "Swatch7", "type": "Control", "custom_minimum_size": [26, 26],
+                                          "name": "Swatch8", "type": "Control", "custom_minimum_size": [40, 40],
                                           "children": [
-                                            { "name": "Disc", "type": "TextureRect", "icon": "swatch-disc", "anchors_preset": "full_rect", "custom_minimum_size": [26, 26], "self_modulate": "#b9a8c7" },
+                                            { "name": "Disc", "type": "TextureRect", "icon": "swatch-disc", "anchors_preset": "full_rect", "custom_minimum_size": [40, 40], "self_modulate": "#64566f" },
                                             { "name": "Ring", "type": "Panel", "variation": "ToySwatchRing", "anchors_preset": "full_rect" }
                                           ]
                                         },
                                         {
-                                          "name": "Swatch8", "type": "Control", "custom_minimum_size": [26, 26],
+                                          "name": "Swatch9", "type": "Control", "custom_minimum_size": [40, 40],
                                           "children": [
-                                            { "name": "Disc", "type": "TextureRect", "icon": "swatch-disc", "anchors_preset": "full_rect", "custom_minimum_size": [26, 26], "self_modulate": "#64566f" },
+                                            { "name": "Disc", "type": "TextureRect", "icon": "swatch-disc", "anchors_preset": "full_rect", "custom_minimum_size": [40, 40], "self_modulate": "#4a3c5c" },
                                             { "name": "Ring", "type": "Panel", "variation": "ToySwatchRing", "anchors_preset": "full_rect" }
                                           ]
                                         },
                                         {
-                                          "name": "Swatch9", "type": "Control", "custom_minimum_size": [26, 26],
+                                          "name": "Swatch10", "type": "Control", "custom_minimum_size": [40, 40],
                                           "children": [
-                                            { "name": "Disc", "type": "TextureRect", "icon": "swatch-disc", "anchors_preset": "full_rect", "custom_minimum_size": [26, 26], "self_modulate": "#4a3c5c" },
-                                            { "name": "Ring", "type": "Panel", "variation": "ToySwatchRing", "anchors_preset": "full_rect" }
-                                          ]
-                                        },
-                                        {
-                                          "name": "Swatch10", "type": "Control", "custom_minimum_size": [26, 26],
-                                          "children": [
-                                            { "name": "Disc", "type": "TextureRect", "icon": "swatch-disc", "anchors_preset": "full_rect", "custom_minimum_size": [26, 26], "self_modulate": "#fff4e2" },
+                                            { "name": "Disc", "type": "TextureRect", "icon": "swatch-disc", "anchors_preset": "full_rect", "custom_minimum_size": [40, 40], "self_modulate": "#fff4e2" },
                                             { "name": "Ring", "type": "Panel", "variation": "ToySwatchRing", "anchors_preset": "full_rect" }
                                           ]
                                         }

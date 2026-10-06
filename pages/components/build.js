@@ -521,11 +521,13 @@ function renderPage(sys, componentsCss) {
     return stage('dark', [cell(T('mic_on'), b, on), cell(T('mic_off'), b, off), ...hudTiles(`<div class="sc-group">${on}${off}</div>`, b)]);
   }
   function rowSwatches() {
-    ['ToySwatchRing', 'ToySwatchSelected'].forEach(V);
+    ['ToySwatchRing', 'ToySwatchSelected', 'ToySwatchFocus'].forEach(V);
     return stage('light', [
       cell(T('swatch_ring'), proposal([['ToySwatchRing']]), '<div class="tv-ToySwatchRing"></div>'),
       cell(T('swatch_selected'), proposal([['ToySwatchRing'], ['ToySwatchSelected']]),
         '<div class="sc-swatch"><div class="tv-ToySwatchRing"></div><div class="tv-ToySwatchSelected sc-overlay"></div></div>'),
+      cell(T('swatch_focus'), proposal([['ToySwatchRing'], ['ToySwatchFocus']]),
+        '<div class="sc-swatch"><div class="tv-ToySwatchRing"></div><div class="tv-ToySwatchFocus sc-overlay"></div></div>'),
     ]);
   }
 

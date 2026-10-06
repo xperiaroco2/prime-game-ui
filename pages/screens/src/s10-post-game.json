@@ -17,17 +17,17 @@
         { "name": "Title", "type": "Label", "variation": "ToyTextMutedOnDark", "key": "end.title", "horizontal_alignment": "center" },
         {
           "name": "Winner", "type": "Label", "variation": "ToyTitlePlate", "key": "end.won_engineers",
-          "size_flags_horizontal": "shrink_center", "per_state": { "lose": { "key": "end.won_dissidents" } },
-          "note": "The winning team on the title plate (raised on ToyBaseTitle): end.won_engineers or end.won_dissidents."
+          "size_flags_horizontal": "shrink_center", "states": ["win"],
+          "note": "When the own team won: the winning team on the title plate (raised on ToyBaseTitle), end.won_engineers or end.won_dissidents."
         },
         {
-          "name": "Result", "type": "VBoxContainer", "variation": "ToyColumnEight", "note": "Whether the own team won and why.",
+          "name": "WinnerLoss", "type": "Label", "variation": "ToyTextOnDark", "key": "end.won_dissidents",
+          "horizontal_alignment": "center", "states": ["lose"],
+          "note": "When the own team lost: the winning team in plain text, no plate (the plate is only for a win and for the roles). end.won_engineers or end.won_dissidents."
+        },
+        {
+          "name": "Result", "type": "VBoxContainer", "variation": "ToyColumnEight", "note": "Why the round ended. Whether the own team won shows in the winner line itself: on the plate or plain.",
           "children": [
-            {
-              "name": "Team", "type": "Label", "variation": "ToyTitleOnDark", "key": "end.your_team_won", "horizontal_alignment": "center",
-              "per_state": { "lose": { "key": "end.your_team_lost" } },
-              "note": "Whether the own team won: end.your_team_won or end.your_team_lost."
-            },
             {
               "name": "Reason", "type": "Label", "variation": "ToyTextMutedOnDark", "key": "end.reason.all_tasks",
               "args": { "time": "7:41" }, "horizontal_alignment": "center", "autowrap_mode": "word_smart", "custom_minimum_size": [1152, 0],

@@ -21,7 +21,7 @@ One HUD for the whole round; s9 hides and returns the same nodes (Hud/Timer, Hud
 | `tired` | Мало сил | Stamina at 0.18. |
 | `hurt` | Мало здоровʼя | Health at 0.22 (ramp stop 04). |
 | `mate` | Дисидент бачить команду | A dissident with a knife on the belt sees a teammate's name plate with the teammate mark. |
-| `raising` | Підняття | PROPOSAL, waiting for the engineer (prime-game-ui#19, comp-11): what the raiser sees while holding Interact next to a downed teammate. A thin progress bar under the crosshair in place of the object name, filling at the same rate as the downed player's raise bar (s9 raise); no text. If the engineer prefers that the raiser sees nothing, drop this state and Hud/Raising. |
+| `raising` | Підняття | Decided by the engineer (2026-10-06, the wave-19 question page, q9): what the raiser sees while holding Interact next to a downed teammate. A thin progress bar under the crosshair in place of the object name, filling at the same rate as the downed player's raise bar (s9 raise); no text. |
 
 ## Node tree in `empty`
 
@@ -109,7 +109,7 @@ One HUD for the whole round; s9 hides and returns the same nodes (Hud/Timer, Hud
 - **Hidden:** `Hud/Aim`.
 - **Shown:**
   - **Hud/Raising** `PanelContainer` · variation `ToyPlate` · anchors `center`, offsets 0, 38, 0, 38 (left, top, right, bottom), grow both/both
-    - Note: PROPOSAL (see the state raising). Shown while the player holds Interact on a downed teammate, in place of Aim; hidden when the key is released or the teammate is up.
+    - Note: See the state raising. Shown while the player holds Interact on a downed teammate, in place of Aim; hidden when the key is released or the teammate is up.
     - **Bar** `ProgressBar` · variation `ToyBarProgress` · custom_minimum_size (240, 10) · value 0.6 of max_value 1, show_percentage false
       - Note: The raise progress (0 to 1), the same value the downed player's s9 Downed/V/Raise shows.
 
