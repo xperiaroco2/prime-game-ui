@@ -1,0 +1,6 @@
+{"type":"queue-operation","operation":"enqueue","timestamp":"2026-10-05T10:00:00.000Z","sessionId":"aaaa1111-0000-4000-8000-000000000001"}
+{"type":"user","isSidechain":false,"timestamp":"2026-10-05T10:00:01.000Z","sessionId":"aaaa1111-0000-4000-8000-000000000001","message":{"role":"user","content":"Continue the wave."}}
+{"type":"assistant","isSidechain":false,"timestamp":"2026-10-05T10:05:00.000Z","sessionId":"aaaa1111-0000-4000-8000-000000000001","message":{"id":"msg_a1","model":"claude-opus-5-5","usage":{"input_tokens":4,"cache_read_input_tokens":290000,"cache_creation_input_tokens":10000,"output_tokens":120}}}
+{"type":"assistant","isSidechain":true,"timestamp":"2026-10-05T10:06:00.000Z","sessionId":"aaaa1111-0000-4000-8000-000000000001","message":{"id":"msg_s1","model":"claude-opus-5-5","usage":{"input_tokens":3,"cache_read_input_tokens":20000,"cache_creation_input_tokens":500,"output_tokens":40}}}
+{"type":"assistant","isSidechain":false,"timestamp":"2026-10-05T10:07:00.000Z","sessionId":"aaaa1111-0000-4000-8000-000000000001","message":{"id":"msg_x1","model":"<synthetic>","usage":{"input_tokens":0,"cache_read_input_tokens":0,"cache_creation_input_tokens":0,"output_tokens":0}}}
+{"type":"system","timestamp":"2026-10-05T10:08:00.000Z","sessionId":"aaaa1111-0000-4000-8000-000000000001"}
