@@ -180,6 +180,8 @@ the agents took where the decisions were silent, after five reviews (agent):
 - **Data on the page:** names, the room code, times, stepper values and key labels are data the game never translates;
   the ten character swatches show sample colours from the Toy palette (page samples: the body colours are not chosen).
 - **Reduced motion** makes the raised buttons' press instant (the pressed look still shows).
+- **Icons beside text** (prime-game-ui#28) (agent): an icon with no tint of its own in a row takes the font colour of the
+  row's nearest Label, so the lock beside muted text is muted; elsewhere it takes its surface's text colour.
 
 **The engineer's answers on the screens** (2026-10-06, the
 [wave-19 question page](https://claude.ai/artifact/PnHGtBSbMzHMi28hmR6Cpd), each option shown as a render; all nine

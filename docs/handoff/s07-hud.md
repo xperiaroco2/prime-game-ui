@@ -76,7 +76,7 @@ One HUD for the whole round; s9 hides and returns the same nodes (Hud/Timer, Hud
 - **Hidden:** `Hud/Aim`, `Hud/Slots/Hand/Center/Row/Name`.
 - **Changed** `Hud/Slots/Hand`: custom_minimum_size (180, 88) = Vector2(get_theme_constant("wide_width", "ToySlotActive"), get_theme_constant("height", "ToySlotActive")) (wide) (was: custom_minimum_size (88, 88) = Vector2(get_theme_constant("width", "ToySlotActive"), get_theme_constant("height", "ToySlotActive")))
 - **Shown:**
-  - **Hud/Slots/Hand/Center/Row/Icon** `TextureRect` · custom_minimum_size (48, 48) · texture `item` (dist/pack/icons/item.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyTextOnDark")
+  - **Hud/Slots/Hand/Center/Row/Icon** `TextureRect` · custom_minimum_size (48, 48) · texture `item` (dist/pack/icons/item.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToySlotText")
     - Note: The hand slot's item icon (the package here).
   - **Hud/Slots/Hand/Center/Row/ItemName** `Label` · variation `ToySlotText` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (106, 0) · text `item.package`: en "Package" · uk "Пакунок" · clip_text true · text_overrun_behavior `OVERRUN_TRIM_ELLIPSIS`
     - Note: Shown only while carrying a two-handed item: its name (item.package here). Its own node, so the empty slot keeps its 88 px: 106 = 180 (wide width) - 2 x 9 (content margins) - 48 (Icon) - 8 (gap). A longer name is cut with an ellipsis. One-handed item: both labels hidden.
@@ -99,7 +99,7 @@ One HUD for the whole round; s9 hides and returns the same nodes (Hud/Timer, Hud
     - **Row** `HBoxContainer` · variation `ToyRowEight` · gaps from the variation: separation 8
       - **Name** `Label` · variation `ToyNamePlateText` · text from data (auto_translate_mode = DISABLED), sample: "Taras" / "Тарас"
         - Note: The player's name from code (auto_translate_mode DISABLED); no translated text.
-      - **Mark** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (20, 20) · texture `teammate-mark` (dist/pack/icons/teammate-mark.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyTextOnDark")
+      - **Mark** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (20, 20) · texture `teammate-mark` (dist/pack/icons/teammate-mark.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyNamePlateText")
         - Note: Only on a dissident's client and only for a teammate.
   - **Hud/Slots/Belt/Center/Row/Icon** `TextureRect` · custom_minimum_size (48, 48) · texture `knife` (dist/pack/icons/knife.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyTextOnDark")
     - Note: The belt slot's item icon: a one-handed item shows only its icon (the knife here).

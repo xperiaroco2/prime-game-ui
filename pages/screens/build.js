@@ -34,8 +34,9 @@
 //     normal|hover|focus), VScrollBar (value, min_value, max_value, page, state normal|hover|held|focus),
 //     Label (key, args, count, piece, value_of, or text; horizontal_alignment left|center|right|fill,
 //     vertical_alignment top|center|bottom|fill, autowrap_mode off|arbitrary|word|word_smart), Button (key or text,
-//     and/or icon, icon_size, args, count, state, toggle_mode, alignment left|center|right, h_separation: the
-//     variation's theme constant, else 4; with no key, text or icon its children fill its StyleBox content rect),
+//     and/or icon, icon_size (also the size of an icon only some states set through per_state), args, count, state,
+//     toggle_mode, alignment left|center|right, h_separation: the variation's theme constant, else 4; with no key,
+//     text or icon its children fill its StyleBox content rect),
 //     OptionButton (key, args, items, state; its arrow is icons/chevron-down.svg); a Label, Button and OptionButton
 //     also take clip_text and text_overrun_behavior (no_trimming|trim_char|trim_word|trim_ellipsis|trim_word_ellipsis):
 //     a cut text adds no width, so the node needs a slot that stretches it or a custom_minimum_size width. LineEdit
@@ -44,12 +45,14 @@
 //     ProgressBar (value, max_value
 //     100, show_percentage: must be false), TextureRect (icon, theme_color icon-on|icon-off: a colour item of the
 //     surface it sits on, as ToyMic's, or self_modulate: a sample colour "#rrggbb" of content data such as a body
-//     colour; sized by custom_minimum_size).
+//     colour; with neither, a tinted icon in a row (HBoxContainer) takes the font colour of the row's nearest Label
+//     visible in the state, else the text colour of its context; sized by custom_minimum_size).
 //   texts: deck keys of copy/strings.csv (key), or a data text (text: a sample, a string or {uk, en}) for what the game
 //     fills from data and never translates (names, the room code, times, numbers, glyphs; auto_translate_mode
 //     DISABLED). A data text equal to a deck value is refused: that text is the key's. args gives each placeholder of a
 //     key a sample value (a string, or {uk, en}); a plural key takes count. piece N draws only the Nth part of the text
-//     split at {key}/{preset} (a sentence drawn around a keycap); value_of names the placeholder whose sample value a
+//     split at {key}/{preset} (a sentence drawn around a keycap), through strip_edges() as the game draws it, hidden
+//     where it is empty; value_of names the placeholder whose sample value a
 //     node draws (the keycap's letter inside that sentence).
 //   states of a Button (the look shown on the page): normal, hover, held, disabled, focus, and with toggle_mode the
 //     selected ones (selected, selected-hover, selected-held, selected-disabled, selected-focus) that draw the pack's
@@ -643,6 +646,28 @@ function merged(n, st) {
   return p;
 }
 const fieldAt = (n, st, f) => (n.per[st] && f in n.per[st].raw ? ptr(n.per[st].ptr, f) : ptr(n.ptr, f));
+// The text an icon sits beside: when its parent is a row (HBoxContainer), the nearest Label of that row visible in
+// the state (by index; the following one on a tie, as an icon leads its text), if its variation has a font colour;
+// else null. A TextureRect with no tint of its own (no theme_color, no self_modulate) draws in that Label's font
+// colour, so a lock beside muted text is muted; with none, in the text colour of its context (ToyTextOnLight/OnDark).
+function rowLabelOf(n, st, C) {
+  if (!n.parent || n.parent.type !== 'HBoxContainer') return null;
+  const sibs = n.parent.children;
+  const i = sibs.indexOf(n);
+  let best = null;
+  sibs.forEach((x, j) => {
+    if (x === n || x.type !== 'Label' || !x.eff.has(st)) return;
+    const d = Math.abs(j - i);
+    if (!best || d < best.d || (d === best.d && j > i)) best = { x, d };
+  });
+  const name = best ? merged(best.x, st).variation : null;
+  const v = name ? C.pack.variations[name] : null;
+  return v && C.pack.tokens[`${v.prefix}.normal.font-color`] ? name : null;
+}
+// The CSS variable of a Label variation's font colour (dist/css/toy-tokens.css: --toy- and the token path).
+const fontColourVar = (C, name) => `--toy-${C.pack.variations[name].prefix.split('.').join('-')}-normal-font-color`;
+// The icons a node sets: its own and the ones its per_state entries set.
+const iconsOf = (n) => [n.raw.icon, ...Object.values(n.per).map((o) => o.raw.icon)].filter((x) => x !== undefined);
 // The variation drawn in a state: a toggle shown selected draws the pack's toggle.selected.
 function drawnVariation(C, n, p) {
   if (!p.variation) return null;
@@ -747,7 +772,8 @@ function checkContent(n, st, S, C, R) {
       else if (v && !pressedLook(v)) R.err(at('state'), `${p.variation} has no selected look (no toggle in the pack and no pressed StyleBox)`);
     }
     if (p.toggle_mode === true && v && !pressedLook(v)) R.err(ptr(n.ptr, 'toggle_mode'), `${p.variation} has no selected look (no toggle.selected in the pack and no pressed StyleBox)`);
-    if ('icon_size' in p && !('icon' in p)) R.err(ptr(n.ptr, 'icon_size'), 'icon_size without an icon');
+    // icon_size sizes the node's icon in every state: the node's own, or one that only some states set (per_state).
+    if ('icon_size' in n.raw && !iconsOf(n).length) R.err(ptr(n.ptr, 'icon_size'), 'icon_size without an icon (on the node or in a per_state)');
   }
   if (T === 'Button' || T === 'TextureRect') {
     // Godot tints a Button's icon with the variation's icon colours, white without them; the page draws it in the
@@ -902,13 +928,16 @@ function validateAll(sources, C) {
 // ---------------------------------------------------------------------------------------------------------------
 // Texts.
 
+// Godot's String.strip_edges(): every character up to 32 (space, tab, newline, controls) off both ends, no other
+// (https://github.com/godotengine/godot/blob/4.7.2-stable/core/string/ustring.cpp). The game strips each piece so.
+const stripEdges = (s) => s.replace(/^[\x00-\x20]+|[\x00-\x20]+$/g, '');
 function textOf(C, p, lang) {
   if (!('key' in p) && 'text' in p) return sampleText(p.text, lang); // a data text
   const e = C.byKey.get(p.key);
   const args = isObj(p.args) ? p.args : {};
   if (p.value_of) return sampleText(args[p.value_of], lang);
   let s = e.plural ? e[lang][lang === 'uk' ? D.ukForm(p.count) : (p.count === 1 ? 0 : 1)] : e[lang][0];
-  if (isInt(p.piece)) s = s.split(SPLIT_RE)[p.piece];
+  if (isInt(p.piece)) s = stripEdges(s.split(SPLIT_RE)[p.piece]);
   return s.replace(PH_RE, (m, k) => (k === 'count' && e.plural ? String(p.count) : k in args ? sampleText(args[k], lang) : m));
 }
 // The page shows Ukrainian first; page.js swaps every [data-en] element's text for the language switch.
@@ -989,8 +1018,9 @@ function renderNode(n, st, S, C, ctx) {
       attrs.push(textMark());
       if (isInt(p.piece)) {
         attrs.push(`data-piece="${p.piece}"`);
-        // A piece that is empty in a language (a keycap at the sentence's end) is hidden there, as the game hides it.
-        const empty = ['uk', 'en'].filter((l) => !(l === 'uk' ? uk : en).trim());
+        // A piece that is empty in a language after strip_edges() (a keycap at the sentence's end) is hidden there, as
+        // the game hides it.
+        const empty = ['uk', 'en'].filter((l) => !(l === 'uk' ? uk : en));
         if (empty.length) attrs.push(`data-piece-empty="${empty.join(' ')}"`);
       }
       if (p.value_of) attrs.push(`data-value-of="${esc(p.value_of)}"`);
@@ -1027,11 +1057,16 @@ function renderNode(n, st, S, C, ctx) {
       inner = '<i class="tv-fill"></i>';
       break;
     }
-    case 'TextureRect':
+    case 'TextureRect': {
       // A sample colour (content data) tints the icon through its currentColor; it is page data, not a theme colour.
+      // An icon with no tint of its own beside a Label of its row draws in that Label's font colour (rowLabelOf);
+      // else it inherits its context's text colour.
+      const beside = p.self_modulate || p.theme_color || !C.icons.get(p.icon).tinted ? null : rowLabelOf(n, st, C);
       if (p.self_modulate) attrs.push(`style="color: ${p.self_modulate}"`);
+      else if (beside) attrs.push(`style="color: var(${fontColourVar(C, beside)})"`);
       inner = C.icons.get(p.icon).svg;
       break;
+    }
     case 'HSlider': {
       // pages/components/emit-css.js emitSlider: the track, the grabber-area (fill and grabber), the rest, the ring.
       const r = (p.value - p.min_value) / (p.max_value - p.min_value);
@@ -1269,10 +1304,22 @@ function layoutCss(screens, C) {
         const align = n.type === 'OptionButton' ? 'left' : p.alignment;
         rule(`${sel} > .gd-label`, new Map([['contain', 'inline-size'], ['flex-grow', '1'], ['overflow', 'hidden'], ['text-overflow', cut], ['text-align', align]]));
       }
-      if (n.type === 'Button' && 'icon' in raw) {
-        const ic = C.icons.get(raw.icon);
-        const size = raw.icon_size || (ic ? Math.max(ic.w, ic.h) : 24);
-        rule(`${sel} > .gd-icon`, new Map([['width', len(size)], ['height', len(size)]]));
+      if (n.type === 'Button' && iconsOf(n).length) {
+        // The icon at icon_size, else at its SVG's size, in every state that draws one (its own or a per_state icon):
+        // the most common size joins the node's rule, the others are qualified by the frame's state.
+        const sizes = new Map();
+        for (const st of S.stateIds) {
+          const icon = n.eff.has(st) ? merged(n, st).icon : undefined;
+          if (icon === undefined) continue;
+          const ic = C.icons.get(icon);
+          const size = raw.icon_size || (ic ? Math.max(ic.w, ic.h) : 24);
+          if (!sizes.has(size)) sizes.set(size, []);
+          sizes.get(size).push(st);
+        }
+        [...sizes].sort((x, y) => y[1].length - x[1].length).forEach(([size, sts], i) => {
+          const isel = i === 0 ? `${sel} > .gd-icon` : sts.map((st) => `.sc-frame[data-state="${st}"] ${sel} > .gd-icon`).join(', ');
+          rule(isel, new Map([['width', len(size)], ['height', len(size)]]));
+        });
       }
     }
   }
@@ -1365,8 +1412,7 @@ function iconImportNotes(S, C) {
   const best = new Map();
   const see = (name, px) => { if (C.icons.get(name)) best.set(name, Math.max(best.get(name) || 0, px)); };
   for (const n of S.all) {
-    const icons = [n.raw.icon, ...Object.values(n.per).map((o) => o.raw.icon)].filter(Boolean);
-    for (const name of icons) {
+    for (const name of iconsOf(n)) {
       const ic = C.icons.get(name);
       if (!ic) continue;
       if (n.type === 'TextureRect') see(name, Math.min(n.cmin[0] / ic.w, n.cmin[1] / ic.h) * Math.max(ic.w, ic.h));
@@ -1575,8 +1621,9 @@ function handoff(S, C) {
       bits.push(`texture \`${p.icon}\` (${ic.game}${ic.tinted ? ', white' : ''}, ${ic.licence}), expand_mode \`EXPAND_IGNORE_SIZE\`, stretch_mode \`STRETCH_KEEP_ASPECT_CENTERED\``);
       if (p.theme_color) bits.push(`self_modulate = get_theme_color("${p.theme_color.replace(/-/g, '_')}", "${surface.name}")`);
       else if (p.self_modulate) bits.push(`self_modulate from data (a content colour, not a theme colour), sample ${p.self_modulate}`);
-      // An icon with no tint of its own draws in the text colour of its context (as the page draws it).
-      else if (ic.tinted) bits.push(`self_modulate = get_theme_color("font_color", "${surface.context === 'light' ? 'ToyTextOnLight' : 'ToyTextOnDark'}")`);
+      // An icon with no tint of its own draws in the font colour of the Label beside it in its row, else in the text
+      // colour of its context (as the page draws it).
+      else if (ic.tinted) bits.push(`self_modulate = get_theme_color("font_color", "${rowLabelOf(n, st, C) || (surface.context === 'light' ? 'ToyTextOnLight' : 'ToyTextOnDark')}")`);
       else bits.push('not tinted (drawn in its own colours)');
     }
     return bits;
