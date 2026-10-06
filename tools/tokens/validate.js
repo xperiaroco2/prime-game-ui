@@ -8,6 +8,8 @@ const path = require('path');
 const R = require('./resolve.js');
 const X = require('./expand.js');
 
+// Letters only: the game's theme test sees `&"[A-Za-z]+"` only, and the pages that read the components CSS find its
+// blocks by `/* Toy[A-Za-z]+: `. A number is spelled (ToyColumnSixteen for space.16).
 const VARIATION_RE = /^Toy[A-Za-z]+$/;
 const CONTEXTS = ['dark', 'light', 'any'];
 const GODOT_VARIANT_KEYS = ['variation', 'class', 'parent', 'abstract', 'base', 'toggle', 'on'];
@@ -93,7 +95,7 @@ function checkStructure(model, structs, P) {
     const tp = v.prefix;
     // P40
     if (!v.variation || !VARIATION_RE.test(v.variation)) {
-      P.error('P40', v.file, extPtr(v, 'godot', 'variation'), tp, `godot.variation must match ^Toy[A-Za-z]+$, not ${JSON.stringify(v.godot.variation)}`);
+      P.error('P40', v.file, extPtr(v, 'godot', 'variation'), tp, `godot.variation must match ^Toy[A-Za-z]+$ (letters only; spell a number: ToyColumnSixteen), not ${JSON.stringify(v.godot.variation)}`);
     } else if (seen.has(v.variation)) {
       P.error('P40', v.file, extPtr(v, 'godot', 'variation'), tp, `variation ${v.variation} is already used by ${seen.get(v.variation)}`);
     } else seen.set(v.variation, tp);
@@ -124,7 +126,8 @@ function checkStructure(model, structs, P) {
     }
     if (!info) continue;
     // P42
-    const allowed = new Set([...info.states, 'items', 'size']);
+    const allowed = new Set([...info.states, 'items']);
+    if (!info.container) allowed.add('size');
     if (info.label) allowed.add('label');
     if (v.cls === 'Button') allowed.add('press');
     if (v.cls === 'Button' && v.abstract) allowed.add('motion');
@@ -147,6 +150,15 @@ function checkStructure(model, structs, P) {
       }
     };
     nest(v.node);
+    // P42: the classes that list their theme items (HSlider, VScrollBar, the containers) take only those items.
+    const items = v.child('items');
+    if (info.items && items && items.kind === 'group') {
+      for (const m of items.children) {
+        if (!info.items.includes(m.name) || m.kind !== 'token') {
+          P.error('P42', m.file, m.pointer, m.path, `the items of a ${v.cls} variant are ${info.items.length ? info.items.join(', ') : 'none'}`);
+        }
+      }
+    }
     // P43 (names; the compact-form convention is checked with values in checkValues)
     for (const s of info.states) {
       const g = v.child(s);
@@ -171,7 +183,14 @@ function checkStructure(model, structs, P) {
     else if (v.cls === 'Panel' || v.cls === 'PanelContainer') required = ['panel'];
     else if (v.cls === 'ProgressBar') required = ['fill'];
     else if (v.cls === 'Label') required = ['normal'];
+    else if (v.cls === 'HSlider') required = ['slider', 'grabber-area'];
+    else if (v.cls === 'VScrollBar') required = ['scroll', 'grabber'];
     for (const s of required) if (!v.child(s)) P.error('P47', v.file, v.pointer, tp, `a ${v.cls} variant needs the state ${s}`);
+    if (info.container) {
+      for (const k of info.items) {
+        if (!items || items.kind !== 'group' || !items.childMap.has(k)) P.error('P47', v.file, v.pointer, tp, `a ${v.cls} variant needs items.${k} (its whole job)`);
+      }
+    }
     // P54 names
     const ramp = v.child('ramp');
     if (ramp && ramp.kind === 'group') {
@@ -259,7 +278,21 @@ function checkValues(model, structs, variants, res, P) {
     // P43 compact authoring form
     for (const st of info.states) {
       const g = s.child(st);
-      if (g && g.kind === 'group') checkConvention(g, val, P, ['normal', 'panel', 'fill', 'background'].includes(st));
+      if (g && g.kind === 'group') checkConvention(g, val, P, X.BASE_STATES.includes(st));
+    }
+    // P42 and P44 on the listed theme items: separations are dimensions of 0 or more, grabber_offset a dimension,
+    // center_grabber the number 0 or 1.
+    const itemsNode = s.child('items');
+    if (info.items && itemsNode && itemsNode.kind === 'group') {
+      for (const m of itemsNode.children) {
+        if (m.kind !== 'token' || !info.items.includes(m.name)) continue;
+        const ty = res.typeOf(m.path);
+        const vv = val(m.path);
+        const want = m.name === 'center-grabber' ? 'number' : 'dimension';
+        if (ty && ty !== want) P.error('P42', ...loc(m), `items.${m.name} is a ${want}, not a ${ty}`);
+        else if (want === 'number' && vv && vv.value !== 0 && vv.value !== 1) P.error('P42', ...loc(m), `items.center-grabber is 0 or 1 (Godot's constant used as a flag), not ${vv.value}`);
+        else if (/separation$/.test(m.name) && vv && typeof vv.px === 'number' && vv.px < 0) P.error('P44', ...loc(m), `items.${m.name} is ${vv.px}; separations are ≥ 0`);
+      }
     }
     // P44
     // the smaller size side needs both sides: bar.track has only a height (16) and r 10 (spec §4.5)
@@ -328,7 +361,8 @@ function checkValues(model, structs, variants, res, P) {
     }
     // P48
     const fg = s.child('focus');
-    if (fg && fg.kind === 'group' && v.states.focus && v.states.normal && ['Button', 'OptionButton', 'LineEdit'].includes(s.cls)) {
+    const own = v.states.normal || v.states.slider;
+    if (fg && fg.kind === 'group' && v.states.focus && own && ['Button', 'OptionButton', 'LineEdit', 'HSlider'].includes(s.cls)) {
       checkFocus(s, v, fg, res, P);
     }
     // P49
@@ -442,15 +476,33 @@ function checkValues(model, structs, variants, res, P) {
         const term = res.terminalOf(p);
         if (term && !term.startsWith('palette.')) P.error('P52', n.file, `${n.pointer}/$value`, p, `the reference chain ends at ${term}, not at a palette.* colour`);
       }
-    } else if (ty === 'dimension' && n.alias && !/^(stroke|radius|focus)\./.test(n.alias)) {
-      P.error('P53', n.file, `${n.pointer}/$value`, p, `component dimensions are int literals or references to stroke.*, radius.* or focus.*, not {${n.alias}}`);
+    } else if (ty === 'dimension') {
+      // the primitives stroke.*, radius.*, focus.* and space.* (the screens' gaps); a container's separation is always
+      // one of space.* (the only gaps a screen uses)
+      const target = n.alias ? res.tokens.get(n.alias) : null;
+      const sep = isItemOf(n, variantNodes, structs) && /separation$/.test(n.name);
+      if (n.alias && (!/^(stroke|radius|focus|space)\./.test(n.alias) || (target && target.tier !== 'primitive'))) {
+        P.error('P53', n.file, `${n.pointer}/$value`, p, `component dimensions are int literals or references to the primitives stroke.*, radius.*, focus.* or space.*, not {${n.alias}}`);
+      } else if (sep && (!n.alias || !n.alias.startsWith('space.'))) {
+        P.error('P53', n.file, `${n.pointer}/$value`, p, `a container's ${n.name} is a reference to space.* (the screens' gaps: 4, 8, 12, 16, 24, 32)`);
+      }
     }
   }
 }
 
+// A token in the items group of a container variant (VBoxContainer, HBoxContainer, GridContainer).
+function isItemOf(n, variantNodes, structs) {
+  const g = n.parent;
+  if (!g || g.name !== 'items' || !variantNodes.has(g.parent)) return false;
+  const v = structs.list.find((x) => x.node === g.parent);
+  return !!(v && CLASSES[v.cls] && CLASSES[v.cls].container);
+}
+
 function checkFocus(s, v, fg, res, P) {
   const rec = v.states.focus;
-  const nrec = v.states.normal;
+  // the record the ring surrounds: normal, or an HSlider's slider (its track)
+  const nrec = v.states.normal || v.states.slider;
+  const nname = v.states.normal ? 'normal' : 'slider';
   const once = new Set();
   const e = (node, msg) => {
     if (once.has(node.pointer)) return;
@@ -498,9 +550,14 @@ function checkFocus(s, v, fg, res, P) {
     const gap = res.valueOf('focus.gap');
     const width = res.valueOf('focus.width');
     if (gap && width && ex !== gap.px + width.px) e(exNode, `outer focus: expand-margin is ${ex}; it must be focus.gap + focus.width = ${gap.px + width.px}`);
+    // The outer ring is a pill (999), or it follows the control's corners: radius = its radius + the expand margin (a
+    // keycap's ring, r 8 + 5 = 13).
     for (const c of CORNERS) {
       const fr = pxOf(rec[`corner-radius-${c}`]);
-      if (fr != null && fr !== 999) e(m.get('corner-radius') || fg, `outer focus: corner-radius-${c} is ${fr}; the outer ring is a pill (999)`);
+      const nr = pxOf(nrec[`corner-radius-${c}`]);
+      if (fr == null || fr === 999 || (nr != null && nr < 999 && fr === nr + ex)) continue;
+      const follow = nr != null && nr < 999 ? ` or follows the ${nname} corner (${nr} + expand ${ex} = ${nr + ex})` : '';
+      e(m.get('corner-radius') || m.get(`corner-radius-${c}`) || fg, `outer focus: corner-radius-${c} is ${fr}; the outer ring is a pill (999)${follow}`);
     }
   }
 }

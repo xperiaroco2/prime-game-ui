@@ -212,7 +212,7 @@
             {
               "v": "ToyChipLineOnDark",
               "text": "ToyChipLineOnDarkText",
-              "label": "same_net",
+              "label": "port",
               "context": "dark"
             },
             {
@@ -402,6 +402,46 @@
           "live": true
         },
         {
+          "id": "slider",
+          "kind": "slider",
+          "variations": [
+            "ToySlider"
+          ],
+          "contexts": [
+            "light"
+          ],
+          "values": [
+            0.55,
+            0,
+            1
+          ],
+          "live": true
+        },
+        {
+          "id": "scroll-bar",
+          "kind": "scrollbar",
+          "variations": [
+            "ToyScrollBar"
+          ],
+          "contexts": [
+            "light"
+          ],
+          "samples": [
+            [
+              0,
+              0.4
+            ],
+            [
+              0.35,
+              0.4
+            ],
+            [
+              0.6,
+              0.4
+            ]
+          ]
+        },
+        {
           "id": "hud-bar",
           "kind": "hud-bar",
           "title_key": "row_hud_bar",
@@ -565,6 +605,25 @@
             "focus"
           ],
           "label": "question",
+          "live": true
+        },
+        {
+          "id": "key-button",
+          "kind": "button",
+          "variations": [
+            "ToyKeyButton"
+          ],
+          "contexts": [
+            "light"
+          ],
+          "states": [
+            "normal",
+            "hover",
+            "held",
+            "disabled",
+            "focus"
+          ],
+          "label": "key_e",
           "live": true
         }
       ]
@@ -986,6 +1045,33 @@
             "one",
             "two",
             "three"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "layout",
+      "title_key": "sec_layout",
+      "rows": [
+        {
+          "id": "layout-gaps",
+          "kind": "layout",
+          "title_key": "row_layout",
+          "variations": [
+            "ToyColumnFour",
+            "ToyColumnEight",
+            "ToyColumnTwelve",
+            "ToyColumnSixteen",
+            "ToyColumnTwentyFour",
+            "ToyColumnThirtyTwo",
+            "ToyRowFour",
+            "ToyRowEight",
+            "ToyRowTwelve",
+            "ToyRowSixteen",
+            "ToyRowTwentyFour",
+            "ToyRowThirtyTwo",
+            "ToyGridList",
+            "ToyGridSwatch"
           ]
         }
       ]

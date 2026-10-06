@@ -1,0 +1,176 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "layout": {
+    "$description": "Spacing containers: the only gaps a screen uses (space.*). The game's theme test forbids theme overrides, so a box or grid takes its separation from one of these variations.",
+    "column-4": {
+      "$description": "A column with 4 px between its children (VBoxContainer separation).",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyColumnFour", "class": "VBoxContainer" },
+          "context": "any"
+        }
+      },
+      "items": {
+        "separation": { "$type": "dimension", "$value": "{space.4}" }
+      }
+    },
+    "column-8": {
+      "$description": "A column with 8 px between its children (VBoxContainer separation).",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyColumnEight", "class": "VBoxContainer" },
+          "context": "any"
+        }
+      },
+      "items": {
+        "separation": { "$type": "dimension", "$value": "{space.8}" }
+      }
+    },
+    "column-12": {
+      "$description": "A column with 12 px between its children (VBoxContainer separation).",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyColumnTwelve", "class": "VBoxContainer" },
+          "context": "any"
+        }
+      },
+      "items": {
+        "separation": { "$type": "dimension", "$value": "{space.12}" }
+      }
+    },
+    "column-16": {
+      "$description": "A column with 16 px between its children (VBoxContainer separation).",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyColumnSixteen", "class": "VBoxContainer" },
+          "context": "any"
+        }
+      },
+      "items": {
+        "separation": { "$type": "dimension", "$value": "{space.16}" }
+      }
+    },
+    "column-24": {
+      "$description": "A column with 24 px between its children (VBoxContainer separation).",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyColumnTwentyFour", "class": "VBoxContainer" },
+          "context": "any"
+        }
+      },
+      "items": {
+        "separation": { "$type": "dimension", "$value": "{space.24}" }
+      }
+    },
+    "column-32": {
+      "$description": "A column with 32 px between its children (VBoxContainer separation).",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyColumnThirtyTwo", "class": "VBoxContainer" },
+          "context": "any"
+        }
+      },
+      "items": {
+        "separation": { "$type": "dimension", "$value": "{space.32}" }
+      }
+    },
+    "row-4": {
+      "$description": "A row with 4 px between its children (HBoxContainer separation).",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyRowFour", "class": "HBoxContainer" },
+          "context": "any"
+        }
+      },
+      "items": {
+        "separation": { "$type": "dimension", "$value": "{space.4}" }
+      }
+    },
+    "row-8": {
+      "$description": "A row with 8 px between its children (HBoxContainer separation).",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyRowEight", "class": "HBoxContainer" },
+          "context": "any"
+        }
+      },
+      "items": {
+        "separation": { "$type": "dimension", "$value": "{space.8}" }
+      }
+    },
+    "row-12": {
+      "$description": "A row with 12 px between its children (HBoxContainer separation).",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyRowTwelve", "class": "HBoxContainer" },
+          "context": "any"
+        }
+      },
+      "items": {
+        "separation": { "$type": "dimension", "$value": "{space.12}" }
+      }
+    },
+    "row-16": {
+      "$description": "A row with 16 px between its children (HBoxContainer separation).",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyRowSixteen", "class": "HBoxContainer" },
+          "context": "any"
+        }
+      },
+      "items": {
+        "separation": { "$type": "dimension", "$value": "{space.16}" }
+      }
+    },
+    "row-24": {
+      "$description": "A row with 24 px between its children (HBoxContainer separation).",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyRowTwentyFour", "class": "HBoxContainer" },
+          "context": "any"
+        }
+      },
+      "items": {
+        "separation": { "$type": "dimension", "$value": "{space.24}" }
+      }
+    },
+    "row-32": {
+      "$description": "A row with 32 px between its children (HBoxContainer separation).",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyRowThirtyTwo", "class": "HBoxContainer" },
+          "context": "any"
+        }
+      },
+      "items": {
+        "separation": { "$type": "dimension", "$value": "{space.32}" }
+      }
+    },
+    "grid-list": {
+      "$description": "A grid of names (the teammates in the Esc menu): 24 px across, 8 px down.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyGridList", "class": "GridContainer" },
+          "context": "any"
+        }
+      },
+      "items": {
+        "h-separation": { "$type": "dimension", "$value": "{space.24}" },
+        "v-separation": { "$type": "dimension", "$value": "{space.8}" }
+      }
+    },
+    "grid-swatch": {
+      "$description": "A grid of colour swatches: 12 px across and down.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyGridSwatch", "class": "GridContainer" },
+          "context": "any"
+        }
+      },
+      "items": {
+        "h-separation": { "$type": "dimension", "$value": "{space.12}" },
+        "v-separation": { "$type": "dimension", "$value": "{space.12}" }
+      }
+    }
+  }
+}

@@ -130,6 +130,99 @@ function emitComponentsCss(sys) {
     if (!b || !b.states.panel) fail(variant, `base ${name} has no panel record`);
     return b.states.panel['bg-color'];
   };
+  // A StyleBox drawn as an absolutely placed layer (no margins: it is placed by its rule).
+  const layerDecls = (variant, rec) => {
+    const d = new Map();
+    for (const [p, x] of boxDecls(variant, rec)) if (!p.startsWith('margin-')) d.set(p, x);
+    return d;
+  };
+  // The outer focus ring of a control that draws no StyleBox of its own (HSlider): the ring's expand margins outside
+  // the control's rect. Shown by .is-focus or :focus-visible, as the buttons'.
+  const ringRules = (variant, cls, focus) => {
+    const fd = new Map([['display', 'none'], ['position', 'absolute'], ['pointer-events', 'none'], ['box-sizing', 'border-box'],
+      ['border-style', 'solid']]);
+    if (!focus['border-color'].source) fail(variant, 'focus has no border colour');
+    fd.set('border-color', v(focus['border-color'].source));
+    for (const s of SIDES) fd.set(`border-${s}-width`, len(variant, focus[`border-width-${s}`], `focus border-width-${s}`));
+    for (const c of CORNERS) fd.set(`border-${c}-radius`, len(variant, focus[`corner-radius-${c}`], `focus corner-radius-${c}`));
+    for (const s of SIDES) {
+      const ex = focus[`expand-margin-${s}`];
+      fd.set(s, px(ex) !== 0 ? `calc(${term(variant, ex, `focus expand-margin-${s}`)} * -1 * var(--px))` : '0');
+    }
+    rule(`${cls} > .tv-focus`, fd);
+    rule(`${cls}.is-focus > .tv-focus, ${cls}:focus-visible > .tv-focus`, ['display: block;']);
+  };
+
+  // HSlider (slider.cpp NOTIFICATION_DRAW): the `slider` StyleBox is the track, as tall as its minimum size (its content
+  // margins), across the whole width and centred; the grabber texture sits at ratio × (width − its width); the
+  // `grabber_area` fill runs from the start to the grabber's centre, as tall as the track. Markup:
+  //   .tv-ToySlider[style="--value: <ratio>"] > i.tv-slider, span.tv-grabber-area > (i.tv-fill, span.tv-grabber > svg),
+  //   i.tv-rest, span.tv-focus
+  // The grabber-area and the rest share the free width (width − the grabber) by --value, so the grabber lands where Godot
+  // draws it without the page knowing its size; the fill spans the grabber-area, i.e. to the grabber's far edge: the
+  // part past its centre is under the opaque round grabber (radius 14 over a 10 px pill), so it draws as Godot's.
+  function emitSlider(variant, cls) {
+    const sl = variant.states.slider;
+    const ga = variant.states['grabber-area'];
+    for (const [name, f] of Object.entries(variant.items || {})) {
+      if (!f.value || (f.value.px || f.value.value || 0) !== 0) fail(variant, `item ${name} other than 0 has no CSS form`);
+    }
+    for (const k of ['content-margin-left', 'content-margin-right']) if (px(sl[k]) !== 0) fail(variant, `slider ${k} other than 0 has no CSS form`);
+    rule(cls, ['position: relative;', 'display: flex;', 'align-items: center;', 'justify-content: flex-start;', 'gap: 0;', 'cursor: pointer;']);
+    const track = layerDecls(variant, sl);
+    track.set('position', 'absolute');
+    track.set('left', '0');
+    track.set('right', '0');
+    rule(`${cls} > .tv-slider`, track);
+    rule(`${cls} > .tv-grabber-area`, ['position: relative;', 'display: flex;', 'align-items: center;', 'justify-content: flex-end;', 'flex-grow: var(--value);']);
+    const fill = layerDecls(variant, ga);
+    fill.set('position', 'absolute');
+    fill.set('left', '0');
+    fill.set('right', '0');
+    fill.set('height', sum(variant, [[sl['content-margin-top'], 'slider content-margin-top'], [sl['content-margin-bottom'], 'slider content-margin-bottom']], []));
+    rule(`${cls} > .tv-grabber-area > .tv-fill`, fill);
+    rule(`${cls} > .tv-grabber-area > .tv-grabber`, ['position: relative;', 'flex: none;']);
+    rule(`${cls} > .tv-rest`, ['flex-grow: calc(1 - var(--value));']);
+    const hi = variant.states['grabber-area-highlight'];
+    if (hi) {
+      const d = diff(layerDecls(variant, ga), layerDecls(variant, hi));
+      rule(`${cls}.is-hover > .tv-grabber-area > .tv-fill, ${cls}.is-focus > .tv-grabber-area > .tv-fill, ${cls}:focus-visible > .tv-grabber-area > .tv-fill`, d);
+    }
+    if (variant.states.focus) ringRules(variant, cls, variant.states.focus);
+  }
+
+  // VScrollBar (scroll_bar.cpp NOTIFICATION_DRAW): the `scroll` StyleBox over the whole bar; the `grabber` StyleBox the
+  // bar's full width, from the scroll StyleBox's top margin, ratio × the area down, page ÷ range of the area long.
+  // Markup: .tv-ToyScrollBar[style="--value: <ratio>; --page: <page ÷ range>"] > i.tv-pre, i.tv-grabber, i.tv-post. The
+  // three share the bar's content height by --value, --page and the rest.
+  function emitScrollBar(variant, cls) {
+    const sc = variant.states.scroll;
+    const gr = variant.states.grabber;
+    if (px(gr['content-margin-top']) + px(gr['content-margin-bottom']) !== 0) fail(variant, 'a grabber with a minimum length has no CSS form');
+    const base = layerDecls(variant, sc);
+    base.set('display', 'flex');
+    base.set('flex-direction', 'column');
+    base.set('align-items', 'stretch');
+    base.set('gap', '0');
+    rule(cls, base);
+    rule(`${cls} > .tv-pre`, ['flex-grow: var(--value);']);
+    const g = layerDecls(variant, gr);
+    g.delete('position');
+    g.set('flex-grow', 'var(--page)');
+    for (const s of ['left', 'right']) {
+      const cm = sc[`content-margin-${s}`];
+      g.set(`margin-${s}`, px(cm) !== 0 ? `calc(${term(variant, cm, `scroll content-margin-${s}`)} * -1 * var(--px))` : '0');
+    }
+    rule(`${cls} > .tv-grabber`, g);
+    rule(`${cls} > .tv-post`, ['flex-grow: calc(1 - var(--value) - var(--page));']);
+    const st = (state, klass) => {
+      const rec = variant.states[state];
+      if (rec) rule(`${cls}.${klass} > .tv-grabber`, diff(layerDecls(variant, gr), layerDecls(variant, rec)));
+    };
+    st('grabber-highlight', 'is-hover');
+    st('grabber-pressed', 'is-held');
+    if (variant.states['scroll-focus']) rule(`${cls}.is-focus`, diff(layerDecls(variant, sc), layerDecls(variant, variant.states['scroll-focus'])));
+  }
 
   for (const variant of sys.variants) {
     if (variant.abstract) continue;
@@ -167,6 +260,9 @@ function emitComponentsCss(sys) {
       continue;
     }
 
+    if (variant.class === 'HSlider') { emitSlider(variant, cls); continue; }
+    if (variant.class === 'VScrollBar') { emitScrollBar(variant, cls); continue; }
+
     const mainKey = boxes.has('panel') ? 'panel' : boxes.has('normal') ? 'normal' : null;
     const mainRec = mainKey ? variant.states[mainKey] : null;
     const textRec = variant.states.normal || null;
@@ -201,7 +297,11 @@ function emitComponentsCss(sys) {
         continue;
       }
       if (ICON_STATE.some(([n]) => n === name)) { iconRules.set(name, v(f.source)); continue; }
+      // A box's separation is the gap between its children (the page lays a box out as a grid or a flex line, so one
+      // gap serves both axes); a grid's (and a Button's) h_separation the column gap, a grid's v_separation the row gap.
+      if (name === 'separation') { base.set('gap', len(variant, f, 'separation')); continue; }
       if (name === 'h-separation') { base.set('column-gap', len(variant, f, 'h-separation')); continue; }
+      if (name === 'v-separation') { base.set('row-gap', len(variant, f, 'v-separation')); continue; }
       if (name === 'arrow-margin') {
         // Godot draws the arrow arrow_margin from the right edge and reserves its width itself; in CSS the arrow is the
         // last flex child, so its right margin is arrow_margin minus the right content margin.

@@ -1,631 +1,8 @@
 {
- "about": "The copy review (prime-game-ui#4). Round 2 was answered on 2026-10-05 and applied. Round 3 (2026-10-06, wave prime-game-ui#19) asks about the texts the styled screens added or reworded. open: questions still waiting for the engineer, each with options a-c; an option lists the rows it would write (empty uk and en remove the key), an option without rows keeps the deck and says so in its label. The deck keeps its current wording until an open question is answered on pages/copy/; where option a has rows, the deck could not take the change yet (an old wireframe frame still shows the current text). decided: what was applied, round 2 first. removed: keys taken out of the deck. asked: when round 3 was put to the engineer; the page ignores answers saved before it. Rules: copy/README.md and docs/research/2026-10-05-ukrainian-localization/report.md.",
+ "about": "The copy review (prime-game-ui#4). Round 2 was answered on 2026-10-05 and applied. Round 3 (2026-10-06, wave prime-game-ui#19), about the texts the styled screens added or reworded, was answered the same day and applied. open: questions still waiting for the engineer, each with options a-c; an option lists the rows it would write (empty uk and en remove the key), an option without rows keeps the deck and says so in its label. The deck keeps its current wording until an open question is answered on pages/copy/; where option a has rows, the deck could not take the change yet (an old wireframe frame still shows the current text). decided: what was applied, round 2 first. removed: keys taken out of the deck. asked: when round 3 was put to the engineer; the page ignores answers saved before it. Rules: copy/README.md and docs/research/2026-10-05-ukrainian-localization/report.md.",
  "asked": "2026-10-06T11:02:44Z",
  "principle": "Гравці досвідчені, гра не для дітей: не пояснюємо звичне й очевидне (що меню не ставить на паузу, що щось нове, знайоме керування), без «водіння за руку».",
- "open": [
-  {
-   "id": "topic.r3_menu_join",
-   "keys": [
-    "menu.join",
-    "menu.direct"
-   ],
-   "kind": "clarity",
-   "round": "new",
-   "why": "Приєднатися тепер можна двома шляхами: за кодом (сервіс кодів) і напряму за адресою (LAN, VPN, playit.gg; M6 §3, пункт 1). Тому в головному меню два пункти, і вони ж — заголовки двох панелей. «Приєднатися за кодом» уже в колоді.",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "rows": [],
-     "note": "«Приєднатися за кодом» і «Напряму (LAN або VPN)»: у дужках — коли цей шлях потрібен."
-    },
-    {
-     "id": "b",
-     "rows": [
-      {
-       "key": "menu.direct",
-       "uk": "Приєднатися напряму",
-       "en": "Join directly"
-      }
-     ],
-     "note": "Дієслово, як в інших пунктах меню; LAN і VPN — лише в панелі."
-    },
-    {
-     "id": "c",
-     "rows": [
-      {
-       "key": "menu.join",
-       "uk": "Приєднатися",
-       "en": "Join"
-      },
-      {
-       "key": "menu.direct",
-       "uk": "Приєднатися за адресою",
-       "en": "Join by address"
-      }
-     ],
-     "note": "Код лишається звичайним шляхом, адреса — запасним."
-    }
-   ]
-  },
-  {
-   "id": "topic.r3_join_panel",
-   "keys": [
-    "join.title",
-    "join.lan_only"
-   ],
-   "kind": "obvious",
-   "round": "new",
-   "why": "Панелі тепер мають заголовки «Приєднатися за кодом» і «Напряму (LAN або VPN)», тож «Приєднатися до гри» зайве. «Лише та сама мережа» вже неправда: напряму можна і через VPN або playit.gg (M6 §2.3, пункт 6). Колода ще тримає обидва рядки, бо їх показують старі каркаси (екран 2).",
-   "options": [
-    {
-     "id": "a",
-     "label": "Прибрати обидва (рекомендую)",
-     "rows": [
-      {
-       "key": "join.title",
-       "uk": "",
-       "en": ""
-      },
-      {
-       "key": "join.lan_only",
-       "uk": "",
-       "en": ""
-      }
-     ],
-     "note": "Прибрати, щойно каркаси оновлять або позначать ці рядки як старі."
-    },
-    {
-     "id": "b",
-     "label": "Лишити обидва",
-     "rows": []
-    }
-   ]
-  },
-  {
-   "id": "topic.r3_talk_mode",
-   "keys": [
-    "settings.talk_mode.open",
-    "common.off"
-   ],
-   "kind": "clarity",
-   "round": "new",
-   "why": "«Завжди ввімкнено» неправда: гра вмикає мікрофон, коли чує голос понад поріг (#301). Третій режим, «Вимкнено», — спільний рядок common.off. Колода ще тримає «Завжди ввімкнено», бо його показує старий каркас (екран 5).",
-   "options": [
-    {
-     "id": "a",
-     "label": "За голосом (рекомендую)",
-     "rows": [
-      {
-       "key": "settings.talk_mode.open",
-       "uk": "За голосом",
-       "en": "Voice activity"
-      }
-     ],
-     "note": "Як у Discord: мікрофон вмикає голос."
-    },
-    {
-     "id": "b",
-     "rows": [
-      {
-       "key": "settings.talk_mode.open",
-       "uk": "Автоматично",
-       "en": "Automatic"
-      }
-     ],
-     "note": "Коротше, але менш ясно, що саме вмикає мікрофон."
-    },
-    {
-     "id": "c",
-     "label": "Лишити «Завжди ввімкнено»",
-     "rows": []
-    }
-   ]
-  },
-  {
-   "id": "topic.r3_volumes",
-   "keys": [
-    "settings.game_volume",
-    "settings.effects_volume",
-    "settings.music_volume"
-   ],
-   "kind": "clarity",
-   "round": "new",
-   "why": "У гри чотири повзунки гучності: загальна, ефекти, музика й голоси. «Гучність гри» керує загальною шиною, тож поруч з ефектами й музикою її назва плутає. Ефекти й музика вже в колоді; «Гучність гри» колода ще тримає, бо її показує старий каркас (екран 5).",
-   "options": [
-    {
-     "id": "a",
-     "label": "Загальна гучність (рекомендую)",
-     "rows": [
-      {
-       "key": "settings.game_volume",
-       "uk": "Загальна гучність",
-       "en": "Overall volume"
-      }
-     ],
-     "note": "Ефекти, музика й голоси — під нею."
-    },
-    {
-     "id": "b",
-     "rows": [
-      {
-       "key": "settings.game_volume",
-       "uk": "Гучність",
-       "en": "Volume"
-      }
-     ],
-     "note": "Одне слово над трьома іншими повзунками."
-    },
-    {
-     "id": "c",
-     "label": "Лишити «Гучність гри»",
-     "rows": []
-    }
-   ]
-  },
-  {
-   "id": "topic.r3_connect_steps",
-   "keys": [
-    "connect.step.finding",
-    "connect.step.connecting",
-    "connect.step.joined"
-   ],
-   "kind": "consistency",
-   "round": "new",
-   "why": "Три кроки підключення на екрані 3 (JoinProgress): знайти гру за кодом, підключитися до хоста, увійти в лобі. Іменники, без «ми», як «Підключення…».",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "rows": [],
-     "note": "«Пошук гри», «Підключення до хоста», «Вхід у лобі»: «підключення», як у «Підключення…»."
-    },
-    {
-     "id": "b",
-     "rows": [
-      {
-       "key": "connect.step.connecting",
-       "uk": "Зʼєднання з хостом",
-       "en": "Reaching the host"
-      }
-     ],
-     "note": "Інше слово для другого кроку (так пропонувала специфікація екранів)."
-    }
-   ]
-  },
-  {
-   "id": "topic.r3_connect_fail",
-   "keys": [
-    "connect.fail.no_room",
-    "connect.fail.started",
-    "connect.fail.version",
-    "connect.fail.version_host",
-    "connect.fail.version_own",
-    "connect.fail.full",
-    "connect.fail.service",
-    "connect.fail.unreachable",
-    "connect.fail.direct",
-    "connect.fail.body"
-   ],
-   "kind": "clarity",
-   "round": "new",
-   "why": "Під заголовком «Не вдалося підключитися» кожна причина тепер має свій текст: що сталося й одна дія. «Хост не відповідає…» лишається лише для прямого підключення без відповіді. Версії обох сторін — окремими рядками (#373). Для двох збоїв сервісу кодів — кнопка «Приєднатися напряму».",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "rows": [
-      {
-       "key": "connect.fail.version",
-       "uk": "У хоста інша версія гри.",
-       "en": "The host has another version of the game."
-      },
-      {
-       "key": "connect.fail.unreachable",
-       "uk": "Немає звʼязку з хостом. Попроси адресу й приєднайся напряму.",
-       "en": "No link to the host. Ask for an address and join directly."
-      }
-     ],
-     "note": "Коротше: версії й так видно рядками нижче; без «якщо в лобі є місце»."
-    }
-   ]
-  },
-  {
-   "id": "topic.r3_session_end",
-   "keys": [
-    "connect.lost.title",
-    "connect.lost.body",
-    "connect.map_fail.title",
-    "connect.map_fail.body",
-    "connect.error.title",
-    "connect.error.body",
-    "connect.host_fail.title"
-   ],
-   "kind": "clarity",
-   "round": "new",
-   "why": "Як закінчується сесія, коли щось пішло не так: звʼязок обірвався (гра не відрізняє закритий хост від мережі, тому безособово), мапа не завантажилася, помилка в грі хоста, не вдалося створити гру.",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "rows": [
-      {
-       "key": "connect.error.body",
-       "uk": "У грі сталася помилка.",
-       "en": "The game ran into an error."
-      }
-     ],
-     "note": "Без «Подробиці — в журналі»."
-    }
-   ]
-  },
-  {
-   "id": "topic.r3_lobby",
-   "keys": [
-    "lobby.need_more",
-    "lobby.default_name"
-   ],
-   "kind": "rule",
-   "round": "new",
-   "why": "Коли гравців замало для режиму, відлік не почнеться: «Ще 1 гравець до старту», «Ще 2 гравці…», «Ще 5 гравців…» (множина через tr_n). Назва лобі, з якою хост починає (#214): українська не відмінює імʼя в заповнювачі, тому не «Лобі Олени».",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "rows": [],
-     "note": "«Лобі: Олена»."
-    },
-    {
-     "id": "b",
-     "rows": [
-      {
-       "key": "lobby.default_name",
-       "uk": "{name} · лобі",
-       "en": "{name} · lobby"
-      }
-     ],
-     "note": "Як «Олена · хост»."
-    },
-    {
-     "id": "c",
-     "rows": [
-      {
-       "key": "lobby.default_name",
-       "uk": "Лобі «{name}»",
-       "en": "Lobby “{name}”"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "topic.r3_room_code",
-   "keys": [
-    "common.code",
-    "esc.lobby.copy",
-    "esc.lobby.copied",
-    "esc.lobby.code_gone"
-   ],
-   "kind": "clarity",
-   "round": "new",
-   "why": "Код кімнати на екранах 2–5 і кнопка, що копіює його (1,5 с показує «Скопійовано»). Коли сервіс кодів зник, хост бачить, що нових гравців тепер можна прийняти лише напряму.",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "rows": [
-      {
-       "key": "esc.lobby.code_gone",
-       "uk": "Сервіс кодів не відповідає: нові гравці — лише напряму.",
-       "en": "The code service isn't answering: new players can only join directly."
-      }
-     ],
-     "note": "Коротше, без дії для хоста."
-    }
-   ]
-  },
-  {
-   "id": "topic.r3_leave",
-   "keys": [
-    "esc.game.leave_confirm",
-    "esc.game.quit_confirm",
-    "esc.game.leave_tutorial",
-    "esc.game.leave_host_note"
-   ],
-   "kind": "consistency",
-   "round": "new",
-   "why": "Хост, що виходить, тепер бачить підтвердження (кораловий діалог), і «Ти хост: якщо вийдеш…» переходить із-під кнопки в цей діалог. У навчальній кімнаті вкладка «Гра» має свою кнопку виходу.",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "rows": [],
-     "note": "«Вийти з навчання», як «Вийти з гри»."
-    },
-    {
-     "id": "b",
-     "rows": [
-      {
-       "key": "esc.game.leave_tutorial",
-       "uk": "Покинути навчання",
-       "en": "Leave the tutorial"
-      }
-     ],
-     "note": "Як «Покинути сесію»."
-    }
-   ]
-  },
-  {
-   "id": "topic.r3_preset_custom",
-   "keys": [
-    "preset.custom"
-   ],
-   "kind": "word",
-   "round": "new",
-   "why": "Шаблон, коли налаштування не збігаються з жодним, і єдиний збережений свій шаблон. Чоловічий рід, як «шаблон».",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "rows": [],
-     "note": "«Свій», як «Зберегти свій»."
-    },
-    {
-     "id": "b",
-     "rows": [
-      {
-       "key": "preset.custom",
-       "uk": "Власний",
-       "en": "Custom"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "topic.r3_voice_settings",
-   "keys": [
-    "settings.voice_threshold",
-    "settings.noise_suppression",
-    "settings.voice_unavailable"
-   ],
-   "kind": "word",
-   "round": "new",
-   "why": "Налаштування голосу, які гра вже має (#301): поріг голосу, шумозаглушення, і рядок для збірки без голосу.",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "rows": [
-      {
-       "key": "settings.voice_threshold",
-       "uk": "Чутливість мікрофона",
-       "en": "Mic sensitivity"
-      }
-     ],
-     "note": "Звичніше слово, але навпаки: більша чутливість — нижчий поріг."
-    }
-   ]
-  },
-  {
-   "id": "topic.r3_switches",
-   "keys": [
-    "common.on",
-    "common.off",
-    "settings.window",
-    "settings.window.fullscreen",
-    "settings.window.windowed",
-    "settings.large_text",
-    "settings.reduced_motion"
-   ],
-   "kind": "word",
-   "round": "new",
-   "why": "Перемикачі «Увімкнено / Вимкнено» (шумозаглушення, великий текст, менше руху) і режим вікна на вкладці «Екран».",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "rows": [
-      {
-       "key": "common.on",
-       "uk": "Так",
-       "en": "Yes"
-      },
-      {
-       "key": "common.off",
-       "uk": "Ні",
-       "en": "No"
-      }
-     ],
-     "note": "Коротше, як «Готовність: так / ні»."
-    },
-    {
-     "id": "c",
-     "rows": [
-      {
-       "key": "settings.window.fullscreen",
-       "uk": "Повний екран",
-       "en": "Full screen"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "topic.r3_controls",
-   "keys": [
-    "settings.controls.press_key",
-    "settings.controls.reset",
-    "settings.controls.same_key",
-    "control.forward",
-    "control.backward",
-    "control.left",
-    "control.right",
-    "control.walk",
-    "control.sprint",
-    "control.jump",
-    "control.interact",
-    "control.use",
-    "control.put_down",
-    "control.swap",
-    "control.give_up",
-    "control.ready",
-    "control.map",
-    "control.talk",
-    "control.spectate_next",
-    "control.spectate_previous",
-    "key.space",
-    "key.mouse_left",
-    "key.mouse_right"
-   ],
-   "kind": "consistency",
-   "round": "new",
-   "why": "Вкладка «Керування» (#211): назви дій, підписи клавіш миші й пробілу, стан «Натисни клавішу…», скидання і позначка, коли одна клавіша стоїть на двох діях. Рух — прислівниками, дії — інфінітивами, «Готовність» — як вирішено. «Назад» англійською — «Back», як у списках керування.",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "rows": [
-      {
-       "key": "control.sprint",
-       "uk": "Біг",
-       "en": "Sprint"
-      },
-      {
-       "key": "control.jump",
-       "uk": "Стрибок",
-       "en": "Jump"
-      },
-      {
-       "key": "control.talk",
-       "uk": "Розмова",
-       "en": "Talk"
-      }
-     ],
-     "note": "Іменники, як «Готовність»."
-    }
-   ]
-  },
-  {
-   "id": "topic.r3_tutorial_steps",
-   "keys": [
-    "tutorial.step.press",
-    "tutorial.step.move.title",
-    "tutorial.step.put_down.title",
-    "tutorial.step.hand_belt.title",
-    "tutorial.step.deliver.title",
-    "tutorial.step.deliver.how",
-    "tutorial.step.map.title",
-    "tutorial.step.howto.title",
-    "tutorial.step.howto.how",
-    "tutorial.step.downed.title",
-    "tutorial.step.downed.how",
-    "tutorial.step.death.title",
-    "tutorial.step.death.how",
-    "tutorial.step.voice.title",
-    "tutorial.step.voice.how",
-    "tutorial.step.menu.title"
-   ],
-   "kind": "tone",
-   "round": "new",
-   "why": "Інструкції уроків навчання (екран 1) і кадри посібника: що зробити й як. Навчання може вчити того, чого раунд не каже (як знайти кімнату для пакунка, як дивитися на іншого гравця).",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "rows": [
-      {
-       "key": "tutorial.step.move.title",
-       "uk": "Пройдися",
-       "en": "Walk around"
-      }
-     ],
-     "note": "Коротше для першого уроку."
-    }
-   ]
-  },
-  {
-   "id": "topic.r3_howto_delivery",
-   "keys": [
-    "howto.delivery.take",
-    "howto.delivery.sign",
-    "howto.delivery.find",
-    "howto.delivery.drop"
-   ],
-   "kind": "less-text",
-   "round": "new",
-   "why": "Картка «Як робити» для Доставки (#254), чотири кадри; останній — кадр «готово».",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "rows": [
-      {
-       "key": "howto.delivery.take",
-       "uk": "Візьми пакунок",
-       "en": "Take a package"
-      },
-      {
-       "key": "howto.delivery.drop",
-       "uk": "Поклади в зону",
-       "en": "Put it in the zone"
-      }
-     ],
-     "note": "Коротше; склад і зону видно на кадрах."
-    }
-   ]
-  },
-  {
-   "id": "topic.r3_world_names",
-   "keys": [
-    "item.knife",
-    "item.switch",
-    "map.zone_hint.switches"
-   ],
-   "kind": "word",
-   "round": "new",
-   "why": "Назва предмета під прицілом (екран 7) і підпис зони на мапі, коли наведено рядок «Рубильники» (екран 8).",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "rows": []
-    }
-   ]
-  }
- ],
+ "open": [],
  "removed": [
   "downed.can_raise",
   "esc.running",
@@ -634,7 +11,9 @@
   "loading.new_task",
   "map.new",
   "tutorial.list.new_task",
-  "tutorial.list.sprint"
+  "tutorial.list.sprint",
+  "join.title",
+  "join.lan_only"
  ],
  "decided": [
   {
@@ -801,6 +180,204 @@
     "respawn.protected"
    ],
    "how": "(агент) Одиниці без крапки й з нерозривним пробілом: «10 хв», «3 с»."
+  },
+  {
+   "id": "topic.r3_menu_join",
+   "keys": [
+    "menu.join",
+    "menu.direct"
+   ],
+   "how": "Прийнято варіант c: «Приєднатися», «Приєднатися за адресою»."
+  },
+  {
+   "id": "topic.r3_join_panel",
+   "keys": [
+    "join.title",
+    "join.lan_only"
+   ],
+   "how": "Прийнято: обидва рядки прибрано з колоди й з каркаса."
+  },
+  {
+   "id": "topic.r3_talk_mode",
+   "keys": [
+    "settings.talk_mode.open",
+    "common.off"
+   ],
+   "how": "Прийнято інакше: «Голосова активація» (з двох варіантів інженера, «Голосова активація» чи «Активація голосом», обрав агент); англійською «Voice activation»."
+  },
+  {
+   "id": "topic.r3_volumes",
+   "keys": [
+    "settings.game_volume",
+    "settings.effects_volume",
+    "settings.music_volume"
+   ],
+   "how": "Прийнято: «Загальна гучність»."
+  },
+  {
+   "id": "topic.r3_connect_steps",
+   "keys": [
+    "connect.step.finding",
+    "connect.step.connecting",
+    "connect.step.joined"
+   ],
+   "how": "Прийнято: «Пошук гри», «Підключення до хоста», «Вхід у лобі»: «підключення», як у «Підключення…»."
+  },
+  {
+   "id": "topic.r3_connect_fail",
+   "keys": [
+    "connect.fail.no_room",
+    "connect.fail.started",
+    "connect.fail.version",
+    "connect.fail.version_host",
+    "connect.fail.version_own",
+    "connect.fail.full",
+    "connect.fail.service",
+    "connect.fail.unreachable",
+    "connect.fail.direct",
+    "connect.fail.body"
+   ],
+   "how": "Прийнято: Як у колоді (рекомендую)."
+  },
+  {
+   "id": "topic.r3_session_end",
+   "keys": [
+    "connect.lost.title",
+    "connect.lost.body",
+    "connect.map_fail.title",
+    "connect.map_fail.body",
+    "connect.error.title",
+    "connect.error.body",
+    "connect.host_fail.title"
+   ],
+   "how": "Прийнято: Як у колоді (рекомендую)."
+  },
+  {
+   "id": "topic.r3_lobby",
+   "keys": [
+    "lobby.need_more",
+    "lobby.default_name"
+   ],
+   "how": "Прийнято: «Лобі: Олена»."
+  },
+  {
+   "id": "topic.r3_room_code",
+   "keys": [
+    "common.code",
+    "esc.lobby.copy",
+    "esc.lobby.copied",
+    "esc.lobby.code_gone"
+   ],
+   "how": "Прийнято: Як у колоді (рекомендую)."
+  },
+  {
+   "id": "topic.r3_leave",
+   "keys": [
+    "esc.game.leave_confirm",
+    "esc.game.quit_confirm",
+    "esc.game.leave_tutorial",
+    "esc.game.leave_host_note"
+   ],
+   "how": "Прийнято: «Вийти з навчання», як «Вийти з гри»."
+  },
+  {
+   "id": "topic.r3_preset_custom",
+   "keys": [
+    "preset.custom"
+   ],
+   "how": "Прийнято: «Свій», як «Зберегти свій»."
+  },
+  {
+   "id": "topic.r3_voice_settings",
+   "keys": [
+    "settings.voice_threshold",
+    "settings.noise_suppression",
+    "settings.voice_unavailable"
+   ],
+   "how": "Прийнято: Як у колоді (рекомендую)."
+  },
+  {
+   "id": "topic.r3_switches",
+   "keys": [
+    "common.on",
+    "common.off",
+    "settings.window",
+    "settings.window.fullscreen",
+    "settings.window.windowed",
+    "settings.large_text",
+    "settings.reduced_motion"
+   ],
+   "how": "Прийнято: Як у колоді (рекомендую)."
+  },
+  {
+   "id": "topic.r3_controls",
+   "keys": [
+    "settings.controls.press_key",
+    "settings.controls.reset",
+    "settings.controls.same_key",
+    "control.forward",
+    "control.backward",
+    "control.left",
+    "control.right",
+    "control.walk",
+    "control.sprint",
+    "control.jump",
+    "control.interact",
+    "control.use",
+    "control.put_down",
+    "control.swap",
+    "control.give_up",
+    "control.ready",
+    "control.map",
+    "control.talk",
+    "control.spectate_next",
+    "control.spectate_previous",
+    "key.space",
+    "key.mouse_left",
+    "key.mouse_right"
+   ],
+   "how": "Прийнято: Як у колоді (рекомендую)."
+  },
+  {
+   "id": "topic.r3_tutorial_steps",
+   "keys": [
+    "tutorial.step.press",
+    "tutorial.step.move.title",
+    "tutorial.step.put_down.title",
+    "tutorial.step.hand_belt.title",
+    "tutorial.step.deliver.title",
+    "tutorial.step.deliver.how",
+    "tutorial.step.map.title",
+    "tutorial.step.howto.title",
+    "tutorial.step.howto.how",
+    "tutorial.step.downed.title",
+    "tutorial.step.downed.how",
+    "tutorial.step.death.title",
+    "tutorial.step.death.how",
+    "tutorial.step.voice.title",
+    "tutorial.step.voice.how",
+    "tutorial.step.menu.title"
+   ],
+   "how": "Прийнято: Як у колоді (рекомендую)."
+  },
+  {
+   "id": "topic.r3_howto_delivery",
+   "keys": [
+    "howto.delivery.take",
+    "howto.delivery.sign",
+    "howto.delivery.find",
+    "howto.delivery.drop"
+   ],
+   "how": "Прийнято: Як у колоді (рекомендую)."
+  },
+  {
+   "id": "topic.r3_world_names",
+   "keys": [
+    "item.knife",
+    "item.switch",
+    "map.zone_hint.switches"
+   ],
+   "how": "Прийнято: Як у колоді (рекомендую)."
   }
  ]
 }

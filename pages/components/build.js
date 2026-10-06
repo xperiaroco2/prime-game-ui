@@ -311,6 +311,73 @@ function renderPage(sys, componentsCss) {
     return stages.join('');
   }
 
+  // HSlider: the markup emit-css.js documents; the grabber texture at its own size (the SVG's viewBox).
+  const iconSize = (name) => {
+    const m = /viewBox="0 0 (\d+(?:\.\d+)?) (\d+(?:\.\d+)?)"/.exec(icons[name] || '');
+    if (!m) fail(`pages/components/icons/${name}.svg: no viewBox "0 0 w h"`);
+    return [Number(m[1]), Number(m[2])];
+  };
+  function sliderEl(name, value, stateCls, editable, live) {
+    V(name);
+    const knob = editable ? 'slider-knob' : 'slider-knob-disabled';
+    const [w, h] = iconSize(knob);
+    const attrs = [`class="tv-${name}${stateCls ? ` ${stateCls}` : ''}"`, `style="--value: ${fmt(value)}"`];
+    if (live) attrs.push('data-live-bar', 'tabindex="0"');
+    return `<div class="sc-sliderbox"><div ${attrs.join(' ')}><i class="tv-slider"></i><span class="tv-grabber-area"><i class="tv-fill"></i>`
+      + `<span class="tv-grabber" style="width: calc(${w} * var(--px)); height: calc(${h} * var(--px))">${icons[knob]}</span></span>`
+      + '<i class="tv-rest"></i><span class="tv-focus"></span></div></div>';
+  }
+  function rowSlider(row) {
+    const name = row.variations[0];
+    const stages = [];
+    for (const ctx of row.contexts) {
+      const cells = [];
+      if (row.live) {
+        const init = row.values[0];
+        cells.push(cell(T('live'), proposal([[name, 'slider'], [name, 'grabber-area'], [name, 'focus']]), sliderEl(name, init, '', true, true),
+          { live: true, after: `<div class="sc-live-extra"><input type="range" class="sc-range" min="0" max="100" step="1" value="${Math.round(init * 100)}" data-bar-input aria-label="${esc(T('bar_value'))}"><output class="sc-out"></output></div>` }));
+      }
+      row.values.forEach((value) => cells.push(cell(`${T('bar_value')} ${fmt(value)}`, proposal([[name, 'slider'], [name, 'grabber-area']]), sliderEl(name, value, '', true, false))));
+      const v = row.values[0];
+      cells.push(cell(T('st_hover'), proposal([[name, 'grabber-area-highlight']]), sliderEl(name, v, 'is-hover', true, false)));
+      cells.push(cell(T('st_focus'), proposal([[name, 'grabber-area-highlight'], [name, 'focus']]), sliderEl(name, v, 'is-focus', true, false)));
+      cells.push(cell(T('st_disabled'), proposal([[name, 'slider']]), sliderEl(name, v, '', false, false)));
+      stages.push(stage(ctx, cells));
+    }
+    return stages.join('');
+  }
+  // VScrollBar: value and page as fractions of the range (emit-css.js), at a fixed sample length.
+  function rowScrollBar(row) {
+    const name = row.variations[0];
+    V(name);
+    const bar = (value, page, cls) => `<div class="sc-scrollbox"><div class="tv-${name}${cls ? ` ${cls}` : ''}" style="--value: ${fmt(value)}; --page: ${fmt(page)}">`
+      + '<i class="tv-pre"></i><i class="tv-grabber"></i><i class="tv-post"></i></div></div>';
+    const stages = [];
+    for (const ctx of row.contexts) {
+      const cells = row.samples.map(([value, page]) => cell(`${T('bar_value')} ${fmt(value)} · ${T('scroll_page')} ${fmt(page)}`,
+        proposal([[name, 'scroll'], [name, 'grabber']]), bar(value, page, '')));
+      const [v0, p0] = row.samples[0];
+      cells.push(cell(T('st_hover'), proposal([[name, 'grabber-highlight']]), bar(v0, p0, 'is-hover')));
+      cells.push(cell(T('st_held'), proposal([[name, 'grabber-pressed']]), bar(v0, p0, 'is-held')));
+      cells.push(cell(T('st_focus'), proposal([[name, 'scroll-focus']]), bar(v0, p0, 'is-focus')));
+      stages.push(stage(ctx, cells));
+    }
+    return stages.join('');
+  }
+  // Spacing containers: placeholder boxes at the variation's gaps (a column, a row, a grid of three columns).
+  function rowLayout(row) {
+    const box = '<i class="sc-lay-box"></i>';
+    const cells = row.variations.map((name) => {
+      const v = V(name);
+      const kind = v.class === 'VBoxContainer' ? 'col' : v.class === 'HBoxContainer' ? 'row' : 'grid';
+      const n = kind === 'grid' ? 6 : 3;
+      const gaps = Object.values(v.items).map((f) => f.value.px).join(' · ');
+      return cell(`${name} · ${gaps}`, proposal([[name, null, { items: Object.keys(v.items) }]]),
+        `<div class="tv-${name} sc-lay-${kind}">${box.repeat(n)}</div>`);
+    });
+    return stage(row.context || 'light', cells);
+  }
+
   function itemHtml(it) {
     V(it.v);
     if (it.text) V(it.text);
@@ -530,7 +597,7 @@ function renderPage(sys, componentsCss) {
     button: rowButton, toggle: rowButton, field: rowField, bar: rowBar, static: rowStatic, 'slot-set': rowSlotSet,
     'hud-bar': rowHudBar, menu: rowMenu, dialog: rowDialog, backdrops: rowBackdrops, howto: rowHowto, settings: rowSettings,
     map: rowMap, mic: rowMic, swatches: rowSwatches, palette: rowPalette, 'type-scale': rowTypeScale, ramp: rowRamp,
-    contrast: rowContrast, icons: rowIcons,
+    contrast: rowContrast, icons: rowIcons, slider: rowSlider, scrollbar: rowScrollBar, layout: rowLayout,
   };
   const TOKEN_KINDS = new Set(['palette', 'type-scale', 'ramp', 'contrast', 'icons']);
 

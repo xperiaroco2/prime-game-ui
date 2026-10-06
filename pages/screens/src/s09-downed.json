@@ -1,0 +1,260 @@
+{
+  "id": "s9",
+  "wireframe": "s9",
+  "title": "Downed, dead and respawn",
+  "background": "room-dark",
+  "note": "The same HUD as s7: Hud and its nodes are s7's (same names and places); this screen only hides and returns them and adds the downed, spectating and protection plates. Aim and the name plates behave as in s7 and are left out here. Every node has mouse_filter IGNORE. Never show who knocked the player down.",
+  "states": [
+    { "id": "down", "label": "Повалений", "note": "Downed and bleeding out: only the two plates and the mic (off) show; the rest of the HUD hides." },
+    { "id": "down-holding", "label": "Утримуєш F", "note": "The give-up key is held: the hold bar fills over 1 s." },
+    { "id": "raise", "label": "Тебе піднімають", "note": "A teammate is raising the player: the raise progress replaces the bleed-out bar; giving up hides." },
+    { "id": "dead", "label": "Мертвий: дивишся", "note": "Spectating another player: only the time to respawn and the watched player's name." },
+    { "id": "back", "label": "Повернення", "note": "Back in the round: the s7 HUD returns with a 3 s protection chip." }
+  ],
+  "nodes": [
+    {
+      "name": "Hud", "type": "Control", "anchors_preset": "full_rect",
+      "note": "s7's Hud. While downed only Vitals/Mic shows; while dead nothing shows; on return everything as in s7.",
+      "children": [
+        {
+          "name": "Timer", "type": "PanelContainer", "variation": "ToyPlate", "states": ["back"],
+          "anchors_preset": "center_top", "offset_top": 40, "offset_bottom": 40, "grow_horizontal": "both",
+          "children": [
+            {
+              "name": "Time", "type": "Label", "variation": "ToyTimer", "key": "map.time", "value_of": "time",
+              "args": { "time": "05:10" }, "horizontal_alignment": "center", "custom_minimum_size": [128, 0],
+              "note": "As s7: the round's time left as mm:ss from code."
+            }
+          ]
+        },
+        {
+          "name": "Role", "type": "PanelContainer", "variation": "ToyChipPlate", "states": ["back"], "offset_left": 40,
+          "offset_top": 40, "offset_right": 40, "offset_bottom": 40,
+          "children": [{ "name": "Text", "type": "Label", "variation": "ToyChipPlateText", "key": "role.engineer" }]
+        },
+        { "name": "Cross", "type": "Panel", "variation": "ToyCrosshair", "anchors_preset": "center", "states": ["back"] },
+        {
+          "name": "Vitals", "type": "VBoxContainer", "variation": "ToyColumnTwelve", "anchors_preset": "bottom_left",
+          "offset_left": 40, "offset_top": -40, "offset_right": 40, "offset_bottom": -40,
+          "states": ["down", "down-holding", "raise", "back"],
+          "children": [
+            {
+              "name": "Health", "type": "VBoxContainer", "variation": "ToyColumnFour", "custom_minimum_size": [320, 0],
+              "states": ["back"], "note": "Hidden while downed; full again on return.",
+              "children": [
+                {
+                  "name": "Cap", "type": "PanelContainer", "variation": "ToyBarLabel", "size_flags_horizontal": "shrink_begin",
+                  "children": [{ "name": "Text", "type": "Label", "variation": "ToyHudCaption", "key": "hud.health" }]
+                },
+                {
+                  "name": "Track", "type": "PanelContainer", "variation": "ToyBarTrack", "custom_minimum_size": [320, 16],
+                  "children": [
+                    {
+                      "name": "Fill", "type": "ProgressBar", "variation": "ToyBarHealth", "show_percentage": false,
+                      "max_value": 1, "value": 1, "custom_minimum_size": [0, 10]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Stamina", "type": "VBoxContainer", "variation": "ToyColumnFour", "custom_minimum_size": [320, 0],
+              "states": ["back"], "note": "Hidden while downed; full again on return.",
+              "children": [
+                {
+                  "name": "Cap", "type": "PanelContainer", "variation": "ToyBarLabel", "size_flags_horizontal": "shrink_begin",
+                  "children": [{ "name": "Text", "type": "Label", "variation": "ToyHudCaption", "key": "hud.stamina" }]
+                },
+                {
+                  "name": "Track", "type": "PanelContainer", "variation": "ToyBarTrack", "custom_minimum_size": [320, 16],
+                  "children": [
+                    {
+                      "name": "Fill", "type": "ProgressBar", "variation": "ToyBarStamina", "show_percentage": false,
+                      "max_value": 1, "value": 1, "custom_minimum_size": [0, 10]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Mic", "type": "PanelContainer", "variation": "ToyMic", "size_flags_horizontal": "shrink_begin",
+              "note": "Off while downed (nobody hears a downed player); hidden while dead; on again on return (when the player is heard).",
+              "children": [
+                {
+                  "name": "Icon", "type": "TextureRect", "icon": "mic-off", "theme_color": "icon-off", "custom_minimum_size": [28, 28],
+                  "size_flags_horizontal": "shrink_center", "size_flags_vertical": "shrink_center",
+                  "per_state": { "back": { "icon": "mic", "theme_color": "icon-on" } }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Slots", "type": "HBoxContainer", "variation": "ToyRowTwelve", "anchors_preset": "bottom_right",
+          "offset_left": -40, "offset_top": -40, "offset_right": -40, "offset_bottom": -40, "states": ["back"],
+          "note": "As s7; the player comes back with empty hands.",
+          "children": [
+            {
+              "name": "Hand", "type": "PanelContainer", "variation": "ToySlotActive",
+              "children": [
+                {
+                  "name": "Center", "type": "CenterContainer",
+                  "children": [
+                    {
+                      "name": "Row", "type": "HBoxContainer", "variation": "ToyRowEight",
+                      "children": [
+                        {
+                          "name": "Name", "type": "Label", "variation": "ToySlotTextEmpty", "key": "hud.slot.hand",
+                          "size_flags_vertical": "shrink_center"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Belt", "type": "PanelContainer", "variation": "ToySlot",
+              "children": [
+                {
+                  "name": "Center", "type": "CenterContainer",
+                  "children": [
+                    {
+                      "name": "Row", "type": "HBoxContainer", "variation": "ToyRowEight",
+                      "children": [
+                        {
+                          "name": "Name", "type": "Label", "variation": "ToySlotTextEmpty", "key": "hud.slot.belt",
+                          "size_flags_vertical": "shrink_center"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Downed", "type": "PanelContainer", "variation": "ToyPlateNight", "states": ["down", "down-holding", "raise"],
+      "anchors_preset": "center_top", "offset_top": 152, "offset_bottom": 152, "grow_horizontal": "both",
+      "custom_minimum_size": [690, 0],
+      "note": "Shown from the moment the player is downed until they are raised, give up or bleed out.",
+      "children": [
+        {
+          "name": "V", "type": "VBoxContainer", "variation": "ToyColumnEight",
+          "children": [
+            {
+              "name": "Title", "type": "Label", "variation": "ToyTitleOnDark", "key": "downed.title",
+              "horizontal_alignment": "center", "autowrap_mode": "word_smart", "custom_minimum_size": [600, 0],
+              "per_state": { "raise": { "key": "downed.raised_by", "args": { "name": { "uk": "Олена", "en": "Olena" } } } },
+              "note": "downed.title while bleeding out; downed.raised_by with the raiser's name (auto_translate_mode DISABLED on the name) while someone raises the player."
+            },
+            {
+              "name": "Bleed", "type": "PanelContainer", "variation": "ToyBarTrack", "custom_minimum_size": [600, 16],
+              "states": ["down", "down-holding"],
+              "children": [
+                {
+                  "name": "Fill", "type": "ProgressBar", "variation": "ToyBarHealth", "show_percentage": false,
+                  "max_value": 1, "value": 0.7, "custom_minimum_size": [0, 10],
+                  "note": "value = bleed-out time left / bleed-out duration, falling to 0; coloured with the health ramp as s7's health (the time left reads as life)."
+                }
+              ]
+            },
+            {
+              "name": "Left", "type": "Label", "variation": "ToyTextMutedOnDark", "key": "downed.time_left",
+              "args": { "time": "0:10" }, "horizontal_alignment": "center", "states": ["down", "down-holding"],
+              "note": "{time} is the bleed-out time left as m:ss, updated every second."
+            },
+            {
+              "name": "Raise", "type": "ProgressBar", "variation": "ToyBarProgress", "show_percentage": false,
+              "max_value": 1, "value": 0.6, "custom_minimum_size": [600, 16], "states": ["raise"],
+              "note": "The raise progress (0 to 1) while a teammate holds raise; if they stop, the bleed-out bar and the time return."
+            },
+            {
+              "name": "Pad", "type": "Control", "custom_minimum_size": [0, 4], "states": ["raise"],
+              "note": "An empty spacer: a bar that ends a plate gets 4 px more room under it than the plate's padding."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "GiveUp", "type": "PanelContainer", "variation": "ToyPlate", "states": ["down", "down-holding"],
+      "anchors_preset": "center_bottom", "offset_top": -130, "offset_bottom": -130, "grow_horizontal": "both",
+      "note": "Hidden while someone raises the player.",
+      "children": [
+        {
+          "name": "V", "type": "VBoxContainer", "variation": "ToyColumnEight",
+          "children": [
+            {
+              "name": "Line", "type": "HBoxContainer", "variation": "ToyRowEight", "alignment": "center",
+              "note": "tr(\"downed.give_up_hold\") split at {key}: the words around a keycap.",
+              "children": [
+                {
+                  "name": "Before", "type": "Label", "variation": "ToyTextOnDark", "key": "downed.give_up_hold", "piece": 0,
+                  "size_flags_vertical": "shrink_center"
+                },
+                {
+                  "name": "Key", "type": "PanelContainer", "variation": "ToyKeyOnDark",
+                  "children": [
+                    {
+                      "name": "Text", "type": "Label", "variation": "ToyKeyText", "key": "downed.give_up_hold", "value_of": "key",
+                      "args": { "key": "F" }, "horizontal_alignment": "center",
+                      "note": "The give_up action's key: DisplayServer.keyboard_get_label_from_physical() of its binding (rebindable, #211); F by default."
+                    }
+                  ]
+                },
+                {
+                  "name": "After", "type": "Label", "variation": "ToyTextOnDark", "key": "downed.give_up_hold", "piece": 1,
+                  "size_flags_vertical": "shrink_center"
+                }
+              ]
+            },
+            {
+              "name": "Hold", "type": "ProgressBar", "variation": "ToyBarProgress", "show_percentage": false,
+              "max_value": 1, "value": 0, "custom_minimum_size": [360, 10], "size_flags_horizontal": "shrink_center",
+              "per_state": { "down-holding": { "value": 0.45 } },
+              "note": "Fills over the 1 s hold while the give-up key is down and empties when it is released; at 1 the player gives up (dead). Empty at rest, so the plate never changes size."
+            },
+            {
+              "name": "Pad", "type": "Control", "custom_minimum_size": [0, 4],
+              "note": "An empty spacer: a bar that ends a plate gets 4 px more room under it than the plate's padding."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Spectate", "type": "PanelContainer", "variation": "ToyPlate", "states": ["dead"],
+      "anchors_preset": "center_top", "offset_top": 40, "offset_bottom": 40, "grow_horizontal": "both",
+      "note": "The only UI while dead (no timer, bars, slots, mic or arrows). The camera follows the watched player; spectate_next and spectate_previous switch (taught in the tutorial). The watched player's HUD, health and role never show; the name updates when they die.",
+      "children": [
+        {
+          "name": "V", "type": "VBoxContainer", "variation": "ToyColumnFour",
+          "children": [
+            {
+              "name": "Respawn", "type": "Label", "variation": "ToyTextMutedOnDark", "key": "dead.respawn_in",
+              "args": { "time": "0:24" }, "horizontal_alignment": "center",
+              "note": "{time} is the time to respawn as m:ss."
+            },
+            {
+              "name": "Watching", "type": "Label", "variation": "ToyTitleOnDark", "key": "dead.watching",
+              "args": { "name": { "uk": "Олена", "en": "Olena" } }, "horizontal_alignment": "center",
+              "note": "{name}: the watched player's name (auto_translate_mode DISABLED on the name)."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Protect", "type": "PanelContainer", "variation": "ToyChipLight", "states": ["back"],
+      "anchors_preset": "center_top", "offset_top": 144, "offset_bottom": 144, "grow_horizontal": "both",
+      "note": "Spawn protection: count 3, 2, 1 (one per second), then hidden. It sits 24 px under the timer plate (40 + 80 + 24).",
+      "children": [
+        { "name": "Text", "type": "Label", "variation": "ToyChipLightText", "key": "respawn.protected", "args": { "count": "3" } }
+      ]
+    }
+  ]
+}

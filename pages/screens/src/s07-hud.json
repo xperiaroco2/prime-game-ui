@@ -1,0 +1,199 @@
+{
+  "id": "s7",
+  "wireframe": "s7",
+  "title": "Round HUD",
+  "background": "room-light",
+  "note": "One HUD for the whole round; s9 hides and returns the same nodes (Hud/Timer, Hud/Vitals/Health, Hud/Vitals/Stamina, Hud/Vitals/Mic, Hud/Slots). Every node has mouse_filter IGNORE. The HUD never shows keys, walking or running, a player list, who knocked the player down, a destination or task progress. HUD edges sit 40 px in.",
+  "states": [
+    { "id": "empty", "label": "Порожні руки", "note": "Nothing carried; the crosshair is on a package within reach." },
+    { "id": "pack", "label": "Несеш пакунок", "note": "Carrying a package with both hands: the hand slot widens; the package's room sign is on the 3D package only, the slot never repeats it." },
+    { "id": "tired", "label": "Мало сил", "note": "Stamina at 0.18." },
+    { "id": "hurt", "label": "Мало здоровʼя", "note": "Health at 0.22 (ramp stop 04)." },
+    { "id": "mate", "label": "Дисидент бачить напарника", "note": "A dissident with a knife on the belt sees a teammate's name plate with the teammate mark." }
+  ],
+  "nodes": [
+    {
+      "name": "Plates", "type": "Control", "anchors_preset": "full_rect",
+      "note": "The name plate layer (#257), under the rest of the HUD: one Plate per other player in line of sight within about 10 m. Code: position = camera.unproject_position(head + 0.35 m), the plate centred on it; hidden behind walls (raycast), beyond 10 m or behind the camera. No role, no health.",
+      "children": [
+        {
+          "name": "Plate", "type": "PanelContainer", "variation": "ToyNamePlate", "states": ["mate"],
+          "offset_left": 538, "offset_top": 302, "offset_right": 538, "offset_bottom": 302,
+          "grow_horizontal": "both", "grow_vertical": "both",
+          "note": "One instance per visible player, moved every frame to the projected point (the sample sits over a teammate at about 538, 302).",
+          "children": [
+            {
+              "name": "Row", "type": "HBoxContainer", "variation": "ToyRowEight",
+              "children": [
+                {
+                  "name": "Name", "type": "Label", "variation": "ToyNamePlateText", "key": "dead.watching", "value_of": "name",
+                  "args": { "name": { "uk": "Тарас", "en": "Taras" } },
+                  "note": "The player's name from code (auto_translate_mode DISABLED); no translated text."
+                },
+                {
+                  "name": "Mark", "type": "TextureRect", "icon": "teammate-mark", "custom_minimum_size": [20, 20],
+                  "size_flags_vertical": "shrink_center",
+                  "note": "Only on a dissident's client and only for a teammate. self_modulate = get_theme_color(\"font_color\", \"ToyNamePlateText\")."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Hud", "type": "Control", "anchors_preset": "full_rect",
+      "children": [
+        {
+          "name": "Timer", "type": "PanelContainer", "variation": "ToyPlate",
+          "anchors_preset": "center_top", "offset_top": 40, "offset_bottom": 40, "grow_horizontal": "both",
+          "children": [
+            {
+              "name": "Time", "type": "Label", "variation": "ToyTimer", "key": "map.time", "value_of": "time",
+              "args": { "time": "07:22" }, "horizontal_alignment": "center", "custom_minimum_size": [128, 0],
+              "note": "The round's time left as mm:ss from code (auto_translate_mode DISABLED), updated every second. The minimum width holds \"00:00\", so the plate never jitters."
+            }
+          ]
+        },
+        {
+          "name": "Role", "type": "PanelContainer", "variation": "ToyChipPlate", "offset_left": 40, "offset_top": 40,
+          "offset_right": 40, "offset_bottom": 40,
+          "children": [
+            {
+              "name": "Text", "type": "Label", "variation": "ToyChipPlateText", "key": "role.engineer",
+              "per_state": { "mate": { "key": "role.dissident" } },
+              "note": "The player's own role for the round: role.engineer or role.dissident."
+            }
+          ]
+        },
+        {
+          "name": "Cross", "type": "Panel", "variation": "ToyCrosshair", "anchors_preset": "center",
+          "note": "The crosshair dot, centred on the screen (its size is the variation's)."
+        },
+        {
+          "name": "Aim", "type": "PanelContainer", "variation": "ToyChipPlate", "states": ["empty", "tired", "hurt"],
+          "anchors_preset": "center", "offset_top": 38, "offset_bottom": 38,
+          "note": "The name of the object under the crosshair within reach (item.package, item.knife, item.switch); hidden when nothing within reach is under the crosshair.",
+          "children": [
+            { "name": "Text", "type": "Label", "variation": "ToyChipPlateText", "key": "item.package" }
+          ]
+        },
+        {
+          "name": "Vitals", "type": "VBoxContainer", "variation": "ToyColumnTwelve", "anchors_preset": "bottom_left",
+          "offset_left": 40, "offset_top": -40, "offset_right": 40, "offset_bottom": -40,
+          "children": [
+            {
+              "name": "Health", "type": "VBoxContainer", "variation": "ToyColumnFour", "custom_minimum_size": [320, 0],
+              "note": "Always shown in a round. No numbers: the bar's length is the real cue, the colour only adds to it.",
+              "children": [
+                {
+                  "name": "Cap", "type": "PanelContainer", "variation": "ToyBarLabel", "size_flags_horizontal": "shrink_begin",
+                  "children": [{ "name": "Text", "type": "Label", "variation": "ToyHudCaption", "key": "hud.health" }]
+                },
+                {
+                  "name": "Track", "type": "PanelContainer", "variation": "ToyBarTrack", "custom_minimum_size": [320, 16],
+                  "children": [
+                    {
+                      "name": "Fill", "type": "ProgressBar", "variation": "ToyBarHealth", "show_percentage": false,
+                      "max_value": 1, "value": 0.8, "custom_minimum_size": [0, 10],
+                      "per_state": { "hurt": { "value": 0.22 } },
+                      "note": "value = hp (0 to 1). The fill colour follows the fraction: step = clampi(floori(hp * 20.0 + 0.5), 0, 20), Fill.self_modulate = get_theme_color(\"ramp_stop_%02d\" % step, \"ToyBarHealth\")."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Stamina", "type": "VBoxContainer", "variation": "ToyColumnFour", "custom_minimum_size": [320, 0],
+              "note": "Always shown in a round; drains while sprinting and refills at rest.",
+              "children": [
+                {
+                  "name": "Cap", "type": "PanelContainer", "variation": "ToyBarLabel", "size_flags_horizontal": "shrink_begin",
+                  "children": [{ "name": "Text", "type": "Label", "variation": "ToyHudCaption", "key": "hud.stamina" }]
+                },
+                {
+                  "name": "Track", "type": "PanelContainer", "variation": "ToyBarTrack", "custom_minimum_size": [320, 16],
+                  "children": [
+                    {
+                      "name": "Fill", "type": "ProgressBar", "variation": "ToyBarStamina", "show_percentage": false,
+                      "max_value": 1, "value": 0.9, "custom_minimum_size": [0, 10],
+                      "per_state": { "tired": { "value": 0.18 } },
+                      "note": "value = stamina (0 to 1)."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Mic", "type": "PanelContainer", "variation": "ToyMic", "size_flags_horizontal": "shrink_begin",
+              "note": "Whether anyone hears the player. On: mic.svg tinted icon_on. Off (mic off, push-to-talk released, downed, pre and post game): mic-off.svg tinted icon_off (coral).",
+              "children": [
+                {
+                  "name": "Icon", "type": "TextureRect", "icon": "mic", "theme_color": "icon-on", "custom_minimum_size": [28, 28],
+                  "size_flags_horizontal": "shrink_center", "size_flags_vertical": "shrink_center"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Slots", "type": "HBoxContainer", "variation": "ToyRowTwelve", "anchors_preset": "bottom_right",
+          "offset_left": -40, "offset_top": -40, "offset_right": -40, "offset_bottom": -40,
+          "note": "One slot pattern for both: empty shows the slot's name; a one-handed item shows only its icon (48 px); a two-handed item widens the hand slot and shows its icon and name.",
+          "children": [
+            {
+              "name": "Hand", "type": "PanelContainer", "variation": "ToySlotActive", "per_state": { "pack": { "wide": true } },
+              "note": "Always the active slot. Two-handed carry (a package) uses the slot's wide width.",
+              "children": [
+                {
+                  "name": "Center", "type": "CenterContainer",
+                  "children": [
+                    {
+                      "name": "Row", "type": "HBoxContainer", "variation": "ToyRowEight",
+                      "children": [
+                        {
+                          "name": "Icon", "type": "TextureRect", "icon": "item", "custom_minimum_size": [48, 48], "states": ["pack"],
+                          "note": "The hand slot's item icon (the package here). self_modulate = get_theme_color(\"font_color\", \"ToySlotText\")."
+                        },
+                        {
+                          "name": "Name", "type": "Label", "variation": "ToySlotTextEmpty", "key": "hud.slot.hand",
+                          "size_flags_vertical": "shrink_center",
+                          "per_state": { "pack": { "variation": "ToySlotText", "key": "item.package" } },
+                          "note": "Empty: hud.slot.hand in ToySlotTextEmpty. Two-handed item: the item's name in ToySlotText. One-handed item: hidden."
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Belt", "type": "PanelContainer", "variation": "ToySlot",
+              "children": [
+                {
+                  "name": "Center", "type": "CenterContainer",
+                  "children": [
+                    {
+                      "name": "Row", "type": "HBoxContainer", "variation": "ToyRowEight",
+                      "children": [
+                        {
+                          "name": "Icon", "type": "TextureRect", "icon": "knife", "custom_minimum_size": [48, 48], "states": ["mate"],
+                          "note": "The belt slot's item icon: a one-handed item shows only its icon (the knife here). self_modulate = get_theme_color(\"font_color\", \"ToySlotText\")."
+                        },
+                        {
+                          "name": "Name", "type": "Label", "variation": "ToySlotTextEmpty", "key": "hud.slot.belt",
+                          "size_flags_vertical": "shrink_center", "states": ["empty", "pack", "tired", "hurt"],
+                          "note": "Empty: hud.slot.belt. Hidden while the belt holds a one-handed item."
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

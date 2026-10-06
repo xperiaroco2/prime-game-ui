@@ -1,0 +1,51 @@
+{
+  "id": "s10", "wireframe": "s10", "title": "Post game", "background": "black",
+  "note": "The black outro of about 3 s: the End phase fades to black (0.4 s; a cut under reduced motion), plays one sound for both outcomes, routes no voice (#213) and returns everyone to the lobby after 3 s (#212). Nobody hears anybody and no text says so. Roles are not revealed. No input.",
+  "states": [
+    { "id": "win", "label": "Перемога", "note": "An Engineer's view: every task done in time." },
+    { "id": "lose", "label": "Поразка", "note": "An Engineer's view: the time ran out." }
+  ],
+  "nodes": [
+    {
+      "name": "Night", "type": "Panel", "variation": "ToyBackdropNight", "anchors_preset": "full_rect",
+      "note": "P2, opaque: the style's darkest stands for the decided black. It fades in over 0.4 s when the End phase starts (a cut under reduced motion)."
+    },
+    {
+      "name": "V", "type": "VBoxContainer", "variation": "ToyColumnThirtyTwo", "anchors_preset": "center", "custom_minimum_size": [1440, 0],
+      "grow_horizontal": "both", "alignment": "center",
+      "children": [
+        { "name": "Title", "type": "Label", "variation": "ToyTextMutedOnDark", "key": "end.title", "horizontal_alignment": "center" },
+        {
+          "name": "Winner", "type": "Label", "variation": "ToyTitlePlate", "key": "end.won_engineers",
+          "size_flags_horizontal": "shrink_center", "per_state": { "lose": { "key": "end.won_dissidents" } },
+          "note": "The winning team on the title plate (raised on ToyBaseTitle): end.won_engineers or end.won_dissidents."
+        },
+        {
+          "name": "Result", "type": "VBoxContainer", "variation": "ToyColumnEight", "note": "Whether the own team won and why.",
+          "children": [
+            {
+              "name": "Team", "type": "Label", "variation": "ToyTitleOnDark", "key": "end.your_team_won", "horizontal_alignment": "center",
+              "per_state": { "lose": { "key": "end.your_team_lost" } },
+              "note": "Whether the own team won: end.your_team_won or end.your_team_lost."
+            },
+            {
+              "name": "Reason", "type": "Label", "variation": "ToyTextMutedOnDark", "key": "end.reason.all_tasks",
+              "args": { "time": "7:41" }, "horizontal_alignment": "center", "autowrap_mode": "word_smart", "custom_minimum_size": [1152, 0],
+              "per_state": { "lose": { "key": "end.reason.time_up", "args": {} } },
+              "note": "Why the round ended, from the host's reason id (#208): end.reason.all_tasks with the round's time (m:ss) or end.reason.time_up. An unknown reason hides the line."
+            }
+          ]
+        },
+        {
+          "name": "Gap", "type": "Control", "custom_minimum_size": [0, 8],
+          "note": "With the column's two 32 px gaps, 72 px between the reason and the countdown."
+        },
+        {
+          "name": "Back", "type": "Label", "variation": "ToyTextOnDark", "key": "end.back_to_lobby", "args": { "count": "3" },
+          "horizontal_alignment": "center", "note": "Counts 3, 2, 1 once a second; at 0 everyone is back in the lobby (#212)."
+        }
+      ],
+      "grow_vertical": "both", "note": "The 32 px gaps clear the title plate's expand margins (4 px above it, the base 14 px below)."
+    }
+  ]
+}
