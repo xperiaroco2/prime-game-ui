@@ -1,6 +1,8 @@
-# Filing the handoff issues (wave prime-game-ui#19)
+# The handoff issues of wave prime-game-ui#19
 
-Drafts written on 2026-10-06, to file in prime-game once the question page is answered and applied and `ui-0.2.0` is tagged. Checks before filing:
+Filed on 2026-10-07 in prime-game, after the `ui-0.2.0` tag: input #488, s7 #489, s8 #490, s5 #491, s1 #492, s2 #493,
+s3 #494, s4 #495, s6 #496, s9 #497, s10 #498; the comments went to #288 and #289. The issues are the source of truth
+from now on; these drafts are kept as filed. The notes the drafter left before filing:
 
 - Before filing: tag ui-0.2.0 must exist (every Build link points at blob/ui-0.2.0/docs/handoff/...), and replace SCREENS_URL in all ten bodies.
 - Placeholders ISSUE_S5, ISSUE_S7, ISSUE_S8, ISSUE_INPUT: file in the order input, s7, s8, s5, s1, s2, s3, s4, s6, s9, s10 and replace each with the number filed before it (s1 uses S5/S7/S8/INPUT; s2 S5; s3 S8; s4 S7; s5 S8/INPUT; s6 S7; s8 INPUT; s9 S7/INPUT). The input issue names no screen issue, so it has no cycle.
