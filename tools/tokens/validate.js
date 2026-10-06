@@ -193,7 +193,12 @@ function checkStructure(model, structs, P, icons) {
     else if (v.cls === 'Label') required = ['normal'];
     else if (v.cls === 'HSlider') required = ['slider', 'grabber-area'];
     else if (v.cls === 'VScrollBar') required = ['scroll', 'grabber'];
+    else if (v.cls === 'PopupMenu') required = ['panel', 'hover', 'separator'];
     for (const s of required) if (!v.child(s)) P.error('P47', v.file, v.pointer, tp, `a ${v.cls} variant needs the state ${s}`);
+    // the items a class cannot do without (PopupMenu's font colours: the default theme's are light grey)
+    for (const k of info.requiredItems || []) {
+      if (!items || items.kind !== 'group' || !items.childMap.has(k)) P.error('P47', v.file, v.pointer, tp, `a ${v.cls} variant needs items.${k}`);
+    }
     if (info.container) {
       for (const k of info.items) {
         if (!items || items.kind !== 'group' || !items.childMap.has(k)) P.error('P47', v.file, v.pointer, tp, `a ${v.cls} variant needs items.${k} (its whole job)`);
@@ -315,18 +320,18 @@ function checkValues(model, structs, variants, res, P) {
       const g = s.child(st);
       if (g && g.kind === 'group') checkConvention(g, val, P, X.BASE_STATES.includes(st));
     }
-    // P42 and P44 on the listed theme items: separations are dimensions of 0 or more, grabber_offset a dimension,
-    // center_grabber the number 0 or 1.
+    // P42 and P44 on the listed theme items: separations are dimensions of 0 or more, grabber_offset and PopupMenu's
+    // paddings dimensions, center_grabber the number 0 or 1, a *-color item a colour.
     const itemsNode = s.child('items');
     if (info.items && itemsNode && itemsNode.kind === 'group') {
       for (const m of itemsNode.children) {
         if (m.kind !== 'token' || !info.items.includes(m.name)) continue;
         const ty = res.typeOf(m.path);
         const vv = val(m.path);
-        const want = m.name === 'center-grabber' ? 'number' : 'dimension';
+        const want = m.name === 'center-grabber' ? 'number' : /-color$/.test(m.name) ? 'color' : 'dimension';
         if (ty && ty !== want) P.error('P42', ...loc(m), `items.${m.name} is a ${want}, not a ${ty}`);
         else if (want === 'number' && vv && vv.value !== 0 && vv.value !== 1) P.error('P42', ...loc(m), `items.center-grabber is 0 or 1 (Godot's constant used as a flag), not ${vv.value}`);
-        else if (/separation$/.test(m.name) && vv && typeof vv.px === 'number' && vv.px < 0) P.error('P44', ...loc(m), `items.${m.name} is ${vv.px}; separations are ≥ 0`);
+        else if (/(separation|padding)$/.test(m.name) && vv && typeof vv.px === 'number' && vv.px < 0) P.error('P44', ...loc(m), `items.${m.name} is ${vv.px}; separations and paddings are ≥ 0`);
       }
     }
     // P44

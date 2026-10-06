@@ -12,8 +12,8 @@
 //
 // Each icon's import settings are derived, not kept by hand: its size is the SVG's width and height (else its viewBox),
 // `drawn_px` the largest size any screen of pages/screens/src draws it at (as the screens handoffs measure it: a
-// TextureRect by its custom_minimum_size, a Button icon by icon_size or its own size, an OptionButton's arrow and an
-// HSlider's knobs at their own size; an icon no screen draws keeps its own size), and `svg_scale` = drawn_px / the larger
+// TextureRect by its custom_minimum_size, a Button icon by icon_size or its own size, an OptionButton's arrow and list
+// icons and an HSlider's knobs at their own size; an icon no screen draws keeps its own size), and `svg_scale` = drawn_px / the larger
 // side, rounded up to 0.01, the svg/scale Godot imports it at (it rasterises an SVG at import).
 // A root without these folders (a test fixture, an overlay's temporary copy) has no icons.
 // Node 20, no packages.
@@ -32,8 +32,9 @@ const SOURCES = [
   { prefix: '', dir: 'pages/components/icons', licences: 'pages/components/icons/LICENCES.json', entry: (f) => f },
   { prefix: 'room/', dir: 'pages/room-signs/systems/b/icons', licences: 'pages/room-signs/systems/b/LICENCES.json', entry: (f) => `icons/${f}`, ink: ROOM_INK },
 ];
-// The textures a screen draws without naming them (pages/screens/build.js ARROW_ICON, KNOB_ICON, KNOB_DISABLED_ICON).
-const IMPLIED = { OptionButton: ['chevron-down'], HSlider: ['slider-knob', 'slider-knob-disabled'] };
+// The textures a screen draws without naming them (pages/screens/build.js ARROW_ICON, LIST_ICONS, KNOB_ICON,
+// KNOB_DISABLED_ICON): an OptionButton's arrow and its open list's radio icons (ToyDropdownList), an HSlider's knobs.
+const IMPLIED = { OptionButton: ['chevron-down', 'radio-checked', 'radio-checked-disabled', 'radio-unchecked'], HSlider: ['slider-knob', 'slider-knob-disabled'] };
 
 const readNorm = (abs) => fs.readFileSync(abs, 'utf8').replace(/\r\n/g, '\n').replace(/\s+$/, '') + '\n';
 const sha256 = (text) => crypto.createHash('sha256').update(Buffer.from(text, 'utf8')).digest('hex');

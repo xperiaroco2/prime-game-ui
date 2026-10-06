@@ -11,7 +11,7 @@ spec, [`docs/research/2026-10-03-tokens/spec.md`](../docs/research/2026-10-03-to
 | `prime.resolver.json` | The resolver: one base set (the files below, in order) and two modifiers, `textSize` and `motion` |
 | `primitives.tokens.json` | Literals: the palette, font family, weights, letter spacing, line height, `ease.press`, `duration.none`, `focus.*`, `stroke.*`, `radius.*`, `space.*` (the screens' gaps: 4, 8, 12, 16, 24, 32) |
 | `semantic.tokens.json` | Aliases of primitives: colour roles by context (`color.*`), the 14 type roles (`type.*`), `motion.press` |
-| `components/<name>.tokens.json` | 21 files, 118 Godot type variations: one variant group per variation, with its StyleBox states, `label`, `press`, `size`, `items`, `ramp` |
+| `components/<name>.tokens.json` | 21 files, 121 Godot type variations (the abstract ToyButton and the two deprecated chips included): one variant group per variation, with its StyleBox states, `label`, `press`, `size`, `items`, `ramp` |
 | `text-size/default.tokens.json`, `text-size/large.tokens.json` | `font.size.*` and `size.keycap` (a keycap's minimum width) for the player's text size setting |
 | `motion/default.tokens.json`, `motion/reduced.tokens.json` | `duration.press` for the reduced-motion setting |
 | `release.json` | The semver the next `ui-<semver>` tag carries |
@@ -76,6 +76,7 @@ A variant's `godot.class` is one of these (`tools/tokens/expand.js` CLASSES); it
 | VBoxContainer, HBoxContainer | none | separation (required, a `space.*` alias) |
 | GridContainer | none | h-separation, v-separation (both required, `space.*` aliases) |
 | ScrollContainer | none | scrollbar-h-separation (required, a `space.*` alias: the gap between the content and the vertical bar) |
+| PopupMenu | panel, hover, separator (all three required) | font-color, font-hover-color, font-disabled-color (required), v-separation, h-separation, item-start-padding, item-end-padding |
 
 - **HSlider:** its grabber, grabber_highlight and grabber_disabled are textures, not tokens
   (`pages/components/icons/slider-knob.svg` and `slider-knob-disabled.svg`, 28 px), named in `godot.textures` (below). Its `focus` is the Toy outer ring;
@@ -90,6 +91,30 @@ A variant's `godot.class` is one of these (`tools/tokens/expand.js` CLASSES); it
   only, and the pages that read the components CSS find its blocks by that pattern, so a number is spelled.
 - **An outer focus ring** is a pill (999) or follows the control's corners: radius = the control's radius + the expand
   margin (ToyKeyButton: radius.small 8 + 5 = 13). P48 checks it.
+- **PopupMenu** (`ToyDropdownList`, the open list of every ToyDropdown: the game sets it on the OptionButton's
+  `get_popup()`). Godot 4.7.2 binds the StyleBoxes `panel`, `hover`, `separator`, `labeled_separator_left/right`, the
+  colours `font_color`, `font_hover_color`, `font_disabled_color`, `font_accelerator_color`, `font_separator_color`,
+  the outline colours, the constants `v_separation`, `h_separation`, `indent`, `item_start_padding`,
+  `item_end_padding`, `icon_max_width`, `gutter_compact`, `outline_size`, … and the icons `checked`, `unchecked`,
+  `radio_checked`, `radio_unchecked` (each with `_disabled`), `submenu`, `submenu_mirrored`, `search`
+  ([popup_menu.cpp L3548-L3591](https://github.com/godotengine/godot/blob/4.7.2-stable/scene/gui/popup_menu.cpp#L3548-L3591);
+  the defaults: [default_theme.cpp L750-L805](https://github.com/godotengine/godot/blob/4.7.2-stable/scene/theme/default_theme.cpp#L750-L805)).
+  Toy binds what an OptionButton's list draws: the three StyleBoxes, the three font colours, the four layout constants
+  and the four radio icons (an OptionButton adds every item as a radio-checkable item and checks the selected one,
+  [option_button.cpp L220-L227](https://github.com/godotengine/godot/blob/4.7.2-stable/scene/gui/option_button.cpp#L220-L227),
+  [L442-L470](https://github.com/godotengine/godot/blob/4.7.2-stable/scene/gui/option_button.cpp#L442-L470)).
+  The font colours are items here, as Godot names them, since PopupMenu has no StyleBox per text state; `font` and
+  `font_size` come from `label`. How it draws ([popup_menu.cpp L882-L1090](https://github.com/godotengine/godot/blob/4.7.2-stable/scene/gui/popup_menu.cpp#L882-L1090),
+  [L307-L327](https://github.com/godotengine/godot/blob/4.7.2-stable/scene/gui/popup_menu.cpp#L307-L327)): the
+  `panel` content margins inset the rows; a row is as tall as its text (or its check icon, if taller) plus
+  `v_separation`, half above and half below, and `hover` fills that whole row across the content width while the row
+  is hovered or keyboard-focused (its own margins lay nothing out); in a row come `item_start_padding`, the check
+  gutter (the widest of the check and radio icons), `h_separation`, the label, `item_end_padding`; a separator row is
+  the `separator` StyleBox across the content width, as tall as its minimum size (its content margins). The check
+  icons are drawn with the item's own `icon_modulate` (white by default), never a theme colour, so Toy's are in their
+  own colours (`tint: "none"` in the pack's assets). Rounded corners on a popup need embedded subwindows, Godot's
+  default ([popup_menu.cpp L3327-L3338](https://github.com/godotengine/godot/blob/4.7.2-stable/scene/gui/popup_menu.cpp#L3327-L3338)).
+  Labeled separators, accelerators, submenus and the search bar are not bound: no Toy list has them.
 
 ## Proposal marks
 
@@ -102,7 +127,8 @@ showcase puts a proposal badge on each. When a proposal is approved, remove its 
 ## Items
 
 `items` holds Godot theme items that are not StyleBox fields, named as the Godot item in kebab-case (`icon-hover-color` is
-`icon_hover_color`, `h-separation` is `h_separation`, `arrow-margin` is `arrow_margin`); the older `placeholder-color`,
+`icon_hover_color`, `h-separation` is `h_separation`, `arrow-margin` is `arrow_margin`, PopupMenu's `font-hover-color`
+is `font_hover_color`, `item-start-padding` is `item_start_padding`); the older `placeholder-color`,
 `caret-color`, `selection-color`, `selected-font-color` (ToyField) and `icon-on`, `icon-off` (ToyMic) keep their names.
 Every item needs a CSS form in `pages/components/emit-css.js` (or a stated reason it has none), or the showcase build fails.
 
@@ -119,10 +145,13 @@ for `pages/components/icons/<name>.svg`, `icons/room/<name>.svg` for a room pict
 ```
 
 The class's icons are listed in `tools/tokens/expand.js` CLASSES (`textures`): OptionButton `arrow`; HSlider `grabber`,
-`grabber-highlight`, `grabber-disabled`, `tick` (godot-facts §9). A new class adds its own there (PopupMenu's
-`radio-checked`, `radio-unchecked` for ToyDropdownList). P61 checks that each name is one of the class's icons and that
-the file exists with an allowed licence record. Today: ToySlider's three knobs and ToyDropdown's `arrow`
-(`icons/chevron-down.svg`).
+`grabber-highlight`, `grabber-disabled`, `tick` (godot-facts §9); PopupMenu `checked`, `unchecked`, `radio-checked`,
+`radio-unchecked` (each also `-disabled`), `submenu`, `submenu-mirrored`, `search`. A new class adds its own there. P61
+checks that each name is one of the class's icons and that the file exists with an allowed licence record. Today:
+ToySlider's three knobs, ToyDropdown's `arrow` (`icons/chevron-down.svg`) and ToyDropdownList's `radio-checked`
+(`icons/radio-checked.svg`, an ink check), `radio-checked-disabled` (`icons/radio-checked-disabled.svg`, the check in
+the muted ink), `radio-unchecked` and `radio-unchecked-disabled` (both `icons/radio-unchecked.svg`, an empty 24 px
+icon that keeps the check's gutter).
 
 ## Deprecated variations
 
@@ -154,8 +183,13 @@ deprecated itself. The pack marks both (below).
     imports each at its `svg_scale`.
 - **`variations.<name>.textures`** (only where a variant names textures): `{ "<theme icon, kebab-case>": "<assets path>" }`,
   e.g. ToySlider `{ "grabber": "icons/slider-knob.svg", "grabber-highlight": "icons/slider-knob.svg",
-  "grabber-disabled": "icons/slider-knob-disabled.svg" }` and ToyDropdown `{ "arrow": "icons/chevron-down.svg" }`: the
-  generator sets each as the theme icon (`grabber_highlight`) of that variation.
+  "grabber-disabled": "icons/slider-knob-disabled.svg" }`, ToyDropdown `{ "arrow": "icons/chevron-down.svg" }` and
+  ToyDropdownList's four radio icons: the generator sets each as the theme icon (`grabber_highlight`,
+  `radio_checked_disabled`) of that variation.
+- **PopupMenu** (since ui-0.3.0, `ToyDropdownList`): its `styleboxes` are `panel`, `hover` and `separator` (Godot's
+  StyleBox names); its `items` are theme colours (`font_color`, `font_hover_color`, `font_disabled_color`) and
+  constants (`v_separation`, `h_separation`, `item_start_padding`, `item_end_padding`), kebab-case to snake_case like
+  every item; `font` and `font_size` come from its `label`. The game sets it on every OptionButton's `get_popup()`.
 - **`variations.<name>.deprecated`** (only on a deprecated variation): `{ "replacement": "<variation>" | null, "note":
   "<the $deprecated text>" | null }`, e.g. ToyChipNew `{ "replacement": "ToyChipAlert", … }`. The variation stays in the
   pack, complete, until the next major release.
@@ -170,6 +204,9 @@ These extend spec §7.2 (P40–P60):
 
 | Id | Rule |
 |---|---|
+| P42 | (extended) a listed `*-color` item (PopupMenu's font colours) is a colour; the other listed items are dimensions, `center-grabber` a number |
+| P44 | (extended) a listed `*-padding` item (PopupMenu's `item-start-padding`, `item-end-padding`) is ≥ 0, as separations are |
+| P47 | (extended) a PopupMenu variant needs the states `panel`, `hover`, `separator` and the items `font-color`, `font-hover-color`, `font-disabled-color` (CLASSES `requiredItems`) |
 | P53 | (extended) a variant's `size` member may also alias `size.*`, and only a `size.*` a modifier owns |
 | P61 | `godot.textures` is a non-empty object; each key is one of the class's theme icons (`expand.js` CLASSES `textures`), each value the pack path of an icon that exists and has an allowed licence record |
 | P62 | `godot.replacement` only on a variant with `$deprecated`; it names a variant of the same class that is not deprecated |

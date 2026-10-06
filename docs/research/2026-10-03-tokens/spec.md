@@ -1360,9 +1360,14 @@ every alias.
   `#2a1f33`); `tokens/README.md` ("The pack's members since ui-0.3.0") has the details. Fonts follow once the engineer
   approves the Comfortaa download batch (CLAUDE.md, Downloads).
 - **`variations`** may carry two optional members (since ui-0.3.0, schema 1): `textures`
-  `{ "<theme icon, kebab-case>": "<assets path>" }` (ToySlider's knobs, ToyDropdown's `arrow`) and `deprecated`
+  `{ "<theme icon, kebab-case>": "<assets path>" }` (ToySlider's knobs, ToyDropdown's `arrow`, ToyDropdownList's radio
+  icons) and `deprecated`
   `{ "replacement": "<variation>" | null, "note": "<the $deprecated text>" | null }` (ToyChipNew, ToyChipNewText).
   Both are absent where they do not apply.
+- **A PopupMenu variation** (since ui-0.3.0: `ToyDropdownList`, set on every OptionButton's `get_popup()`) has the
+  StyleBoxes `panel`, `hover` and `separator`; its font colours and layout constants are `items` (`font_color`,
+  `font_hover_color`, `font_disabled_color`, `v_separation`, `h_separation`, `item_start_padding`,
+  `item_end_padding`), its `font` and `font_size` its `label` (`tokens/README.md`, Classes).
 - **`schema`** bumps only when this shape changes; the generator refuses a schema it does not know. **`version`** is
   `tokens/release.json`.
 - There is no commit field: the lock file records the commit.

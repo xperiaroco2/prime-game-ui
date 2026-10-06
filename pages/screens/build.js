@@ -173,6 +173,10 @@ const COLOUR_RE = /^#[0-9a-fA-F]{6}$/;
 // Colour items of a surface variation that tint an icon inside it (the CSS child class the components CSS colours).
 const TINTS = { 'icon-on': 'tv-icon-on', 'icon-off': 'tv-icon-off' };
 const ARROW_ICON = 'chevron-down'; // OptionButton's theme icon `arrow` (pages/components/icons)
+// The variation of every OptionButton's open list (the game sets it on get_popup()), and the radio icons it draws (its
+// textures in the pack: radio_checked, radio_checked_disabled, radio_unchecked and radio_unchecked_disabled).
+const LIST_VARIATION = 'ToyDropdownList';
+const LIST_ICONS = ['radio-checked', 'radio-checked-disabled', 'radio-unchecked'];
 const SCREEN_FIELDS = ['id', 'wireframe', 'title', 'background', 'note', 'states', 'nodes'];
 // LayoutPreset -> [anchor left, top, right, bottom, grow horizontal, grow vertical] (the grow directions the editor
 // sets with the preset, Control.set_grow_direction_preset).
@@ -775,6 +779,11 @@ function checkContent(n, st, S, C, R) {
   if (T === 'OptionButton') {
     const arrow = C.icons.get(ARROW_ICON);
     if (!arrow || !arrow.licence) R.err(n.ptr, `an OptionButton draws its arrow with pages/components/icons/${ARROW_ICON}.svg, which is missing or has no licence record`);
+    if (!C.pack.variations[LIST_VARIATION]) R.err(n.ptr, `an OptionButton's open list is ${LIST_VARIATION}, which the pack does not have`);
+    for (const k of LIST_ICONS) {
+      const ic = C.icons.get(k);
+      if (!ic || !ic.licence) R.err(n.ptr, `an OptionButton's open list draws pages/components/icons/${k}.svg, which is missing or has no licence record`);
+    }
     if (!('key' in p)) R.err(n.ptr, 'an OptionButton shows its selected item: add key');
     else checkText(n, st, p, C, R);
     if (Array.isArray(p.items)) {
@@ -1380,7 +1389,8 @@ function iconImportNotes(S, C) {
       if (n.type === 'TextureRect') see(name, Math.min(n.cmin[0] / ic.w, n.cmin[1] / ic.h) * Math.max(ic.w, ic.h));
       else see(name, n.raw.icon_size || Math.max(ic.w, ic.h));
     }
-    if (n.type === 'OptionButton') { const a = C.icons.get(ARROW_ICON); if (a) see(ARROW_ICON, Math.max(a.w, a.h)); }
+    // An OptionButton draws its arrow, and its open list the radio icons, at their own size.
+    if (n.type === 'OptionButton') for (const k of [ARROW_ICON, ...LIST_ICONS]) { const a = C.icons.get(k); if (a) see(k, Math.max(a.w, a.h)); }
   }
   if (!best.size) return [];
   const tick = '`';
@@ -1551,7 +1561,8 @@ function handoff(S, C) {
       if (T === 'OptionButton') {
         const arrow = C.icons.get(ARROW_ICON);
         const mod = v && C.pack.tokens[`${v.prefix}.items.modulate-arrow`];
-        bits.push(`arrow: theme icon \`arrow\` (${arrow.game})${mod ? ', tinted by the font colour (modulate_arrow)' : ''}; its list is \`get_popup()\` (see the notes)`);
+        bits.push(`arrow: theme icon \`arrow\` (${arrow.game})${mod ? ', tinted by the font colour (modulate_arrow)' : ''}`);
+        bits.push(`\`get_popup().theme_type_variation = &"${LIST_VARIATION}"\` (its open list, see the notes)`);
       }
       if (T === 'OptionButton' && Array.isArray(p.items)) bits.push(`items ${p.items.map((x) => `\`${x}\``).join(', ')}`);
       if (p.toggle_mode) bits.push(`toggle_mode true, button_pressed ${BUTTON_STATES[p.state][0]}${BUTTON_STATES[p.state][0] ? (C.pack.variations[p.variation] && C.pack.variations[p.variation].toggle ? ` (ToyToggle draws \`${name}\`)` : ' (its own `pressed` StyleBox; the variation has no toggle partner)') : ''}`);
@@ -1568,7 +1579,7 @@ function handoff(S, C) {
         bits.push(`placeholder_text \`${p.placeholder}\`: en ${quote(e.en[0])} · uk ${quote(e.uk[0])}`);
       }
       if (p.editable === false) bits.push('editable false');
-      bits.push('context_menu_enabled false (no Toy PopupMenu look yet)');
+      bits.push('context_menu_enabled false (Godot\'s right-click menu would show untranslated English labels; see the notes)');
       if (p.state === 'focus') bits.push('shown focused with the caret');
     }
     if (T === 'ProgressBar') {
@@ -1669,7 +1680,11 @@ function handoff(S, C) {
   if (usedVars.some((v) => v.base)) out.push('- A raised variation is built as the tokens spec (§6) says: a `ToyRaised` MarginContainer holding first the base `Panel` (the base named above, chosen by the context it sits in), then the face. The wrapper is the node in its parent: anchors, offsets, grow, size flags, stretch ratio, custom_minimum_size and visibility belong to the wrapper; the variation, the text, toggle_mode, disabled, focus and the signals belong to the face. Hide or show the wrapper, not the face.');
   if (S.all.some((n) => { const sv = C.pack.variations[n.raw.variation]; return sv && Object.keys(C.pack.tokens).some((k) => k.startsWith(`${sv.prefix}.size.`)); })) out.push('- Size constants: a variation\'s `width`, `height`, `min_width`, `wide_width` and `wide_min_width` theme constants are read by code into `custom_minimum_size`, as the node lines give them. A Panel or PanelContainer takes no size from them on its own: an anchored Panel at offsets 0 is 0×0, a slot shrinks to its text.');
   out.push(...iconImportNotes(S, C));
-  if (S.all.some((n) => n.type === 'OptionButton' || n.type === 'LineEdit')) out.push('- An OptionButton\'s open list is its `get_popup()`, a PopupMenu in a window of its own, and a LineEdit\'s right-click menu is one too: Toy has no PopupMenu variation yet, so they would draw in Godot\'s default theme. Until it comes (a prime-game-ui follow-up), LineEdits set `context_menu_enabled = false`.');
+  if (S.all.some((n) => n.type === 'OptionButton')) {
+    const g = (k) => `\`${C.icons.get(k).game}\``;
+    out.push(`- An OptionButton's open list is its \`get_popup()\`, a PopupMenu in a window of its own: set its \`theme_type_variation\` to \`${LIST_VARIATION}\` in code when the scene is ready (a cream list with the dropdown's ink outline, a lavender hovered or keyboard-focused row). The selected item shows the theme icon \`radio_checked\` (${g('radio-checked')}, \`radio_checked_disabled\` ${g('radio-checked-disabled')}); the others \`radio_unchecked\` and \`radio_unchecked_disabled\` (${g('radio-unchecked')}, empty, so every label starts at the same x). PopupMenu does not tint these icons, so they are drawn in their own colours (not white; the pack names them in the variation's \`textures\`). Its rounded corners need the default embedded subwindows (\`display/window/subwindows/embed_subwindows\` true).`);
+  }
+  if (S.all.some((n) => n.type === 'LineEdit')) out.push('- A LineEdit\'s right-click menu is a PopupMenu too, but its labels (Cut, Copy, Paste, Select All, Clear, Undo, Redo, Text Writing Direction, …) are Godot\'s English source strings, translated at run time only through translations of those exact strings, which the copy deck (keyed, copy/strings.csv) does not have: in Ukrainian they would show in English. So LineEdits keep `context_menu_enabled = false`; the keyboard shortcuts (copy, paste, select all, undo) still work.');
   if (S.all.some((n) => n.G.spacing)) out.push('- Boxes and grids take their gaps only from their spacing variation (ToyColumn…, ToyRow…, ToyGrid…), and a ScrollContainer the gap to its bar from ToyScroll; a box without one has a single child. No `theme_override_constants`: the theme test forbids them.');
   if (S.all.some((n) => n.type === 'HSlider')) out.push(`- An HSlider's grabber is a texture: the theme icons \`grabber\` and \`grabber_highlight\` are \`${C.icons.get(KNOB_ICON).game}\`, \`grabber_disabled\` \`${C.icons.get(KNOB_DISABLED_ICON).game}\` (own work, in their own colours, not tinted; the pack names them in the variation's \`textures\`). Slider draws no focus StyleBox of its own: draw the variation's \`focus\` StyleBox over the slider while it has visible focus.`);
   if (S.all.some((n) => n.type === 'ScrollContainer')) out.push(`- A ScrollContainer's bar is its own \`VScrollBar\`: set its \`theme_type_variation\` to \`${SCROLL_BAR}\` in code (\`get_v_scroll_bar()\`); the child fills the width (\`SIZE_EXPAND_FILL\`) and keeps its minimum height.`);

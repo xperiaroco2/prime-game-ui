@@ -144,6 +144,15 @@ chevrons, lock, teammate mark, knife, slider knob, swatch disc (`pages/component
 slider (`ToySlider`, whose focus ring the game draws in code, as Godot's Slider has no focus StyleBox) and a scroll bar
 (`ToyScrollBar`).
 
+**The dropdown's open list 0.3.0** (agent, `ToyDropdownList`,
+[prime-game-ui#26](https://github.com/xperiaroco2/prime-game-ui/issues/26)): a cream list with the dropdown's 3 px ink
+outline and 12 px corners, no shadow, flush under the dropdown; rows in the dropdown's bold ink text, 8 px above and
+below the text, 4 px inside the outline; the hovered or keyboard-focused row takes the lavender quiet fill of the flat
+controls with 8 px corners; a disabled row is muted plum; a separator is a 2 px ink line; the selected row shows an ink
+check (the how-to tick, a new own-work icon in ink) before its label, and the other rows keep its 24 px gutter empty.
+Text fields keep Godot's right-click menu off (`context_menu_enabled = false`): its labels are Godot's English strings,
+which the copy deck does not translate; the keyboard shortcuts still work.
+
 ## Styled screens
 The ten screens as Godot scene trees, `pages/screens/src/` (prime-game-ui#19; the spec
 `docs/research/2026-10-06-screens/spec.md`; the Godot handoffs `docs/handoff/`). Small layout and behaviour choices

@@ -196,6 +196,14 @@ console.log('-- pack members');
   check(same(c.pack.variations.ToyColumnOld.deprecated, { replacement: 'ToyColumnEight', note: 'Use ToyColumnEight.' }),
     'a deprecated variation is marked with its replacement', JSON.stringify(c.pack.variations.ToyColumnOld.deprecated));
   check(!('textures' in c.pack.variations.ToyColumnEight) && !('deprecated' in c.pack.variations.ToyColumnEight), 'the optional members are absent where they do not apply');
+  // PopupMenu (prime-game-ui#26): three StyleBoxes, its font colours and constants as items, its radio icons as textures.
+  const list = c.pack.variations.ToyDropdownList;
+  check(list && same(list.styleboxes, ['panel', 'hover', 'separator']) && same(list.textures, { 'radio-checked': 'icons/mark.svg', 'radio-unchecked': 'icons/knob.svg' }),
+    'a PopupMenu variation has its panel, hover and separator StyleBoxes and names its radio textures', JSON.stringify(list));
+  const sep = (k) => c.pack.tokens[`ctl.list.separator.${k}`];
+  check(sep('content-margin-top') && sep('content-margin-top').px === 2 && sep('content-margin-bottom').px === 0 && sep('draw-center').value === false
+    && c.pack.tokens['ctl.list.items.font-disabled-color'] && c.pack.tokens['ctl.list.items.v-separation'].px === 16,
+  'a PopupMenu separator is as tall as its top border and draws no centre; its items are in the pack', JSON.stringify(sep('content-margin-top')));
   const m = api.load({ root: path.join(FIX, 'good', 'modes') });
   const large = m.pack.modes.textSize.large;
   check(large['size.keycap'] && large['size.keycap'].px === 42 && large['button.primary.size.min-width'] && large['button.primary.size.min-width'].px === 42
@@ -263,6 +271,9 @@ if (fs.existsSync(path.join(ROOT, 'tokens', 'prime.resolver.json'))) {
     check(same(V.ToySlider.textures, { grabber: 'icons/slider-knob.svg', 'grabber-highlight': 'icons/slider-knob.svg', 'grabber-disabled': 'icons/slider-knob-disabled.svg' }),
       'tokens/: ToySlider names its knob textures', JSON.stringify(V.ToySlider.textures));
     check(same(V.ToyDropdown.textures, { arrow: 'icons/chevron-down.svg' }), 'tokens/: ToyDropdown names its arrow', JSON.stringify(V.ToyDropdown.textures));
+    check(V.ToyDropdownList && V.ToyDropdownList.class === 'PopupMenu' && same(V.ToyDropdownList.textures, { 'radio-checked': 'icons/radio-checked.svg',
+      'radio-checked-disabled': 'icons/radio-checked-disabled.svg', 'radio-unchecked': 'icons/radio-unchecked.svg', 'radio-unchecked-disabled': 'icons/radio-unchecked.svg' }),
+    'tokens/: ToyDropdownList (PopupMenu) names its radio textures', JSON.stringify(V.ToyDropdownList && V.ToyDropdownList.textures));
     check(V.ToyChipNew.deprecated && V.ToyChipNew.deprecated.replacement === 'ToyChipAlert' && V.ToyChipNewText.deprecated
       && V.ToyChipNewText.deprecated.replacement === 'ToyChipAlertText', 'tokens/: ToyChipNew and ToyChipNewText are marked deprecated with their replacements');
     const assets = new Map(sys.pack.assets.map((a) => [a.path, a]));

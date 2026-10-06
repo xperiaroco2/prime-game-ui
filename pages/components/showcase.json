@@ -691,6 +691,36 @@
           "label": "mic_default",
           "live": true,
           "arrow": "chevron-down"
+        },
+        {
+          "id": "field-dropdown-list",
+          "kind": "dropdown-list",
+          "variations": [
+            "ToyDropdownList"
+          ],
+          "context": "light",
+          "cells": [
+            {
+              "caption": "list_open",
+              "dropdown": "ToyDropdown",
+              "label": "talk_open",
+              "arrow": "chevron-down",
+              "rows": [
+                { "label": "talk_open", "checked": true },
+                { "label": "talk_push", "hover": true },
+                { "label": "off" }
+              ]
+            },
+            {
+              "caption": "list_states",
+              "rows": [
+                { "label": "talk_open" },
+                { "label": "talk_push", "checked": true, "disabled": true },
+                { "separator": true },
+                { "label": "off", "disabled": true }
+              ]
+            }
+          ]
         }
       ]
     },

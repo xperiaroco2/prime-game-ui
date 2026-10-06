@@ -60,6 +60,7 @@
   --toy-title-logo-items-shadow-offset-x: 0;
   --toy-title-logo-items-shadow-offset-y: 6;
   --toy-bar-stamina-fill-bg-color: var(--toy-palette-yellow);
+  --toy-field-list-items-v-separation: 16;
 }
 :root[data-text-size="large"] {
   --toy-font-size-body: 28;
