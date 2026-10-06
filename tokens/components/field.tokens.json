@@ -81,6 +81,12 @@
         "border-width": { "$type": "dimension", "$value": "{focus.width}" },
         "corner-radius": { "$type": "dimension", "$value": { "value": 9, "unit": "px" } },
         "expand-margin": { "$type": "dimension", "$value": { "value": -3, "unit": "px" } }
+      },
+      "items": {
+        "$description": "The arrow (chevron-down, a white texture tinted by the label colour): Godot reserves its width itself (OptionButton's internal margin), it sits at the right content edge, 8 px after the text.",
+        "arrow-margin": { "$type": "dimension", "$value": { "value": 16, "unit": "px" } },
+        "h-separation": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } },
+        "modulate-arrow": { "$type": "number", "$value": 1 }
       }
     }
   }

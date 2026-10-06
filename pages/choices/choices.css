@@ -1213,6 +1213,21 @@
 .tv-ToyStepper.is-focus > .tv-focus, .tv-ToyStepper:focus-visible > .tv-focus {
   display: block;
 }
+.tv-ToyStepper .tv-icon {
+  color: var(--toy-setting-stepper-items-icon-normal-color);
+}
+.tv-ToyStepper.is-focus .tv-icon, .tv-ToyStepper:focus-visible .tv-icon {
+  color: var(--toy-setting-stepper-items-icon-focus-color);
+}
+.tv-ToyStepper.is-hover .tv-icon {
+  color: var(--toy-setting-stepper-items-icon-hover-color);
+}
+.tv-ToyStepper.is-held .tv-icon {
+  color: var(--toy-setting-stepper-items-icon-pressed-color);
+}
+.tv-ToyStepper.is-disabled .tv-icon {
+  color: var(--toy-setting-stepper-items-icon-disabled-color);
+}
 /* ToySlot: PanelContainer · slot.idle · dark */
 .tv-ToySlot {
   box-sizing: border-box;
@@ -2276,6 +2291,21 @@
 }
 .opt-q10-b .tv-ToyStepper > .tv-focus {
   border-color: var(--toy-choice-q10-b-setting-stepper-focus-border-color);
+}
+.opt-q10-b .tv-ToyStepper .tv-icon {
+  color: var(--toy-choice-q10-b-setting-stepper-items-icon-normal-color);
+}
+.opt-q10-b .tv-ToyStepper.is-focus .tv-icon, .opt-q10-b .tv-ToyStepper:focus-visible .tv-icon {
+  color: var(--toy-choice-q10-b-setting-stepper-items-icon-focus-color);
+}
+.opt-q10-b .tv-ToyStepper.is-hover .tv-icon {
+  color: var(--toy-choice-q10-b-setting-stepper-items-icon-hover-color);
+}
+.opt-q10-b .tv-ToyStepper.is-held .tv-icon {
+  color: var(--toy-choice-q10-b-setting-stepper-items-icon-pressed-color);
+}
+.opt-q10-b .tv-ToyStepper.is-disabled .tv-icon {
+  color: var(--toy-setting-stepper-items-icon-disabled-color);
 }
 /* .opt-q10-b · ToyTab: Button → ToyButton · tab.idle · light */
 .opt-q10-b .tv-ToyTab {

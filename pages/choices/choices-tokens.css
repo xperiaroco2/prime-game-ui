@@ -119,6 +119,10 @@
   --toy-choice-q10-b-setting-row-panel-border-color: #dccfe4;
   --toy-choice-q10-b-setting-stepper-disabled-bg-color: #e9dff0;
   --toy-choice-q10-b-setting-stepper-focus-border-color: #261c30;
+  --toy-choice-q10-b-setting-stepper-items-icon-focus-color: #261c30;
+  --toy-choice-q10-b-setting-stepper-items-icon-hover-color: #261c30;
+  --toy-choice-q10-b-setting-stepper-items-icon-normal-color: #261c30;
+  --toy-choice-q10-b-setting-stepper-items-icon-pressed-color: #261c30;
   --toy-choice-q10-b-setting-stepper-normal-border-color: #261c30;
   --toy-choice-q10-b-setting-stepper-normal-font-color: #261c30;
   --toy-choice-q10-b-setting-text-normal-font-color: #261c30;

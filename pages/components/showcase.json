@@ -103,6 +103,26 @@
           "live": true
         },
         {
+          "id": "menu-item",
+          "kind": "button",
+          "variations": [
+            "ToyMenuItem"
+          ],
+          "contexts": [
+            "dark"
+          ],
+          "states": [
+            "normal",
+            "hover",
+            "held",
+            "disabled",
+            "focus"
+          ],
+          "label": "host_game",
+          "icon": "pointer",
+          "live": true
+        },
+        {
           "id": "bases",
           "kind": "static",
           "title_key": "row_bases",
@@ -205,6 +225,12 @@
               "v": "ToyChipNew",
               "text": "ToyChipNewText",
               "label": "new",
+              "context": "light"
+            },
+            {
+              "v": "ToyChipAlert",
+              "text": "ToyChipAlertText",
+              "label": "same_key",
               "context": "light"
             },
             {
@@ -521,6 +547,25 @@
               "context": "light"
             }
           ]
+        },
+        {
+          "id": "key-round-button",
+          "kind": "button",
+          "variations": [
+            "ToyKeyRoundButton"
+          ],
+          "contexts": [
+            "light"
+          ],
+          "states": [
+            "normal",
+            "hover",
+            "held",
+            "disabled",
+            "focus"
+          ],
+          "label": "question",
+          "live": true
         }
       ]
     },
@@ -584,8 +629,9 @@
             "disabled",
             "focus"
           ],
-          "label": "default_arrow",
-          "live": true
+          "label": "mic_default",
+          "live": true,
+          "arrow": "chevron-down"
         }
       ]
     },
@@ -655,8 +701,9 @@
             "disabled",
             "focus"
           ],
-          "label": "plus",
-          "live": true
+          "live": true,
+          "icon": "chevron-right",
+          "icon_only": true
         }
       ]
     },
@@ -724,6 +771,25 @@
           ],
           "label": "save_own",
           "live": true
+        },
+        {
+          "id": "preset-names",
+          "kind": "static",
+          "title_key": "row_preset_names",
+          "items": [
+            {
+              "v": "ToyPresetCard",
+              "text": "ToyPresetCardName",
+              "label": "standard",
+              "context": "light"
+            },
+            {
+              "v": "ToyPresetCardSelected",
+              "text": "ToyPresetCardName",
+              "label": "quick",
+              "context": "light"
+            }
+          ]
         }
       ]
     },
@@ -870,6 +936,11 @@
               "v": "ToyTitleOnLight",
               "label": "settings",
               "context": "light"
+            },
+            {
+              "v": "ToyDisplayOnLight",
+              "label": "volume_value",
+              "context": "light"
             }
           ]
         }
@@ -916,6 +987,17 @@
             "two",
             "three"
           ]
+        }
+      ]
+    },
+    {
+      "id": "icons",
+      "title_key": "sec_icons",
+      "rows": [
+        {
+          "id": "icons",
+          "kind": "icons",
+          "title_key": "row_icons"
         }
       ]
     },

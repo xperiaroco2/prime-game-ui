@@ -159,6 +159,19 @@
         "font-color": { "$type": "color", "$value": "{color.on-accent.text-muted}" }
       }
     },
+    "name": {
+      "$description": "The preset's name on a preset card, idle or selected (ink on both faces).",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyPresetCardName", "class": "Label", "on": ["ToyPresetCard", "ToyPresetCardSelected"] },
+          "context": "light"
+        }
+      },
+      "label": { "$type": "typography", "$value": "{type.small-bold}" },
+      "normal": {
+        "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
+      }
+    },
     "base": {
       "$description": "The 5 px ink base under preset cards.",
       "$extensions": {

@@ -34,7 +34,65 @@ const RULES = {
   L28: "property (and value form) outside the profile's allowlist",
 };
 
-const PROFILES = ["tokens", "skin", "motion", "generated"];
+const PROFILES = ["tokens", "skin", "motion", "generated", "layout"];
+
+// The "layout" profile (pages/screens/screens-layout.css): the CSS that emulates Godot's containers. Only layout
+// properties, each with a small value grammar; no paint at all (no colour, border, background, shadow, font, transform).
+const LAYOUT_KEYWORDS = {
+  display: ["block", "flex", "grid", "none"],
+  position: ["relative", "absolute"],
+  "box-sizing": ["border-box"],
+  "flex-direction": ["row", "column"],
+  flex: ["none"],
+  "grid-auto-flow": ["row", "column"],
+  "justify-content": ["start", "center", "end", "flex-start", "flex-end", "space-between", "stretch", "normal"],
+  "align-content": ["start", "center", "end", "flex-start", "flex-end", "stretch", "normal"],
+  "align-items": ["start", "center", "end", "flex-start", "flex-end", "stretch", "normal"],
+  "justify-self": ["start", "center", "end", "stretch", "auto"],
+  "align-self": ["start", "center", "end", "stretch", "auto"],
+  "white-space": ["nowrap", "normal"],
+  "text-align": ["left", "center", "right", "justify"],
+  overflow: ["hidden", "visible"],
+  "overflow-wrap": ["normal", "anywhere", "break-word"],
+  contain: ["inline-size", "size", "none"],
+  "pointer-events": ["none", "auto"],
+};
+const LAYOUT_LENGTHS = new Set(["top", "right", "bottom", "left", "width", "height", "min-width", "min-height", "row-gap",
+  "column-gap", "padding-top", "padding-right", "padding-bottom", "padding-left"]);
+const LAYOUT_TRACKS = new Set(["grid-template-columns", "grid-template-rows"]);
+const LAYOUT_NUM = "-?\\d+(?:\\.\\d+)?";
+const LAYOUT_LEN_RE = new RegExp("^(?:0|" + LAYOUT_NUM + "%|calc\\(\\s*" + LAYOUT_NUM + "\\s*\\*\\s*var\\(\\s*--px\\s*\\)\\s*\\)" +
+  "|calc\\(\\s*" + LAYOUT_NUM + "%\\s*[+-]\\s*" + LAYOUT_NUM + "\\s*\\*\\s*var\\(\\s*--px\\s*\\)\\s*\\))$");
+
+// One layout length: 0, n%, calc(n * var(--px)), calc(n% ± n * var(--px)), or max() of two of those.
+function layoutLength(c) {
+  if (LAYOUT_LEN_RE.test(c)) return true;
+  const f = fnCall(c);
+  if (!f || f.name !== "max") return false;
+  const args = splitTop(f.args, ",");
+  return args.length === 2 && args.every(a => LAYOUT_LEN_RE.test(a));
+}
+
+// Checks one declaration of the layout profile; returns null or a message (rule L28).
+function checkLayout(prop, val) {
+  const comps = splitTop(val, " ");
+  if (LAYOUT_KEYWORDS[prop]) {
+    return comps.length === 1 && LAYOUT_KEYWORDS[prop].includes(comps[0]) ? null : `${prop} takes one of ${LAYOUT_KEYWORDS[prop].join(", ")}; found ${val}`;
+  }
+  if (LAYOUT_LENGTHS.has(prop)) {
+    return comps.length === 1 && layoutLength(comps[0]) ? null : `${prop} must be 0, n%, calc(n * var(--px)), calc(n% ± n * var(--px)) or max() of two; found ${val}`;
+  }
+  if (prop === "padding") {
+    return comps.length >= 1 && comps.length <= 4 && comps.every(layoutLength) ? null : `padding takes 1-4 layout lengths; found ${val}`;
+  }
+  if (LAYOUT_TRACKS.has(prop)) {
+    const ok = comps.length >= 1 && comps.every(c => c === "auto" || /^\d+(\.\d+)?fr$/.test(c) || layoutLength(c));
+    return ok ? null : `${prop} lists tracks of auto, <n>fr or a layout length; found ${val}`;
+  }
+  if (prop === "grid-area") return /^\d+\s*\/\s*\d+$/.test(val) ? null : `grid-area must be <row> / <column>; found ${val}`;
+  return `property outside the layout allowlist: ${prop}`;
+}
+const LAYOUT_PROPS = new Set([...Object.keys(LAYOUT_KEYWORDS), ...LAYOUT_LENGTHS, ...LAYOUT_TRACKS, "padding", "grid-area"]);
 
 const NAMED_COLOURS = new Set((
   "aliceblue antiquewhite aqua aquamarine azure beige bisque black blanchedalmond blue blueviolet brown burlywood " +
@@ -270,7 +328,7 @@ function checkLength(comp, ctx, opts) {
 }
 
 module.exports = {
-  RULES, PROFILES, NAMED_COLOURS, REL_UNIT_RE, NUM_RE, INT_RE, ZERO_RE,
+  RULES, PROFILES, NAMED_COLOURS, REL_UNIT_RE, NUM_RE, INT_RE, ZERO_RE, LAYOUT_PROPS, checkLayout,
   splitTop, fnCall, varName, varRefs, stripVarNames, literalColours, parseColour,
   COLOUR_FN_RE, GRADIENT_RE, IMAGE_RE, checkCalc, checkLength,
 };

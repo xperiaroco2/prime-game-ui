@@ -1,8 +1,9 @@
-// The copy page's behaviour, round 2: per open question, a tap on «Беру цей» saves that option, «Інакше» saves the own
-// text, «Зберегти нотатку» saves the note with the answer already given. Saved through the artifact runtime's db
+// The copy page's behaviour, round 3: per open question, a tap on «Беру цей» saves that option, «Інакше» saves the own
+// text, «Зберегти нотатку» saves the note with the answer already given, «Беру всі рекомендовані» saves option a for every
+// question with no round-3 answer yet. Saved through the artifact runtime's db
 // capability when this view has it: collection "copy", one document per question id,
 // { answer: option id | "other" | null, text, note, at } (text: the Ukrainian the option writes, or the own text).
-// ASKED (set by build.js) is when round 2 was asked: a document saved before it is a round-1 answer, shown only as a
+// ASKED (set by build.js) is when round 3 was asked: a document saved before it is an earlier round's answer, shown only as a
 // past note. Nothing is written on load; a write happens only on a tap, one at a time per document. A tap made before
 // the store answers waits and is written when it arrives; a refused write puts back the last saved answer. Without db
 // the page still works, says so and offers a summary to copy.
@@ -25,7 +26,7 @@
   function all(sel, from) { return Array.prototype.slice.call((from || document).querySelectorAll(sel)); }
   function str(v, max) { return typeof v === 'string' ? v.slice(0, max) : ''; }
   function choices(box) { return all('[data-answer]', box).map(function (b) { return b.getAttribute('data-answer'); }); }
-  // A saved document counts for round 2 only when it was saved after ASKED.
+  // A saved document counts for round 3 only when it was saved after ASKED.
   function fresh(s) { if (!s) return false; var t = Date.parse(s.at || ''); return isNaN(asked) || (!isNaN(t) && t >= asked); }
 
   // Toy buttons sink while held (the generated CSS draws is-held and is-hover).
@@ -91,6 +92,8 @@
       if (ans || (s && s.note)) lines.push(key + ': ' + (ans === 'other' ? 'інакше' + (s.text ? ' «' + s.text + '»' : '') : ans || '—') + (s && s.note ? ' — ' + s.note : ''));
     });
     var d = document.getElementById('cp-done'); if (d) d.textContent = String(done);
+    var allBtn = document.getElementById('cp-all');
+    if (allBtn) allBtn.disabled = readOnly || done === all('[data-key]').length;
     var box = document.getElementById('cp-summary');
     var area = document.getElementById('cp-summary-text');
     if (box && area) { box.hidden = mode === 'db' || !lines.length; area.value = lines.join('\n'); }
@@ -101,7 +104,7 @@
     tag = t || '';
     var el = document.getElementById('cp-db');
     if (el) { el.setAttribute('data-state', kind); el.textContent = text; }
-    all('[data-answer], [data-save]').forEach(function (b) { b.disabled = readOnly; });
+    all('[data-answer], [data-save], [data-all]').forEach(function (b) { b.disabled = readOnly; });
     render();
   }
   function noDb() {
@@ -145,6 +148,19 @@
       show();
     });
   }
+
+  var allBtn = document.getElementById('cp-all');
+  if (allBtn) allBtn.addEventListener('click', function () {
+    all('[data-key]').forEach(function (box) {
+      var key = box.getAttribute('data-key');
+      var s = fresh(state[key]) ? state[key] : null;
+      if (s && s.answer && choices(box).indexOf(s.answer) >= 0) return;
+      var a = box.querySelector('[data-answer="a"]');
+      if (!a) return;
+      var n = box.querySelector('[data-note-input]');
+      write(key, { answer: 'a', text: a.getAttribute('data-text') || '', note: n ? n.value.trim().slice(0, 2000) : '', at: new Date().toISOString() });
+    });
+  });
 
   all('[data-key]').forEach(function (box) {
     var key = box.getAttribute('data-key');

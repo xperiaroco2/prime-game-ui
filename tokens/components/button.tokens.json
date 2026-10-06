@@ -234,6 +234,53 @@
         "expand-margin": { "$type": "dimension", "$value": { "value": -3, "unit": "px" } }
       }
     },
+    "menu-item": {
+      "$description": "A main-menu entry on dark: a borderless ghost with the heading label and a pointer icon that shows on hover, focus and while open (toggle_mode: pressed is the open entry).",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyMenuItem", "class": "Button", "parent": "ToyButton" },
+          "context": "dark"
+        }
+      },
+      "label": { "$type": "typography", "$value": "{type.heading-bold}" },
+      "normal": {
+        "bg-color": { "$type": "color", "$value": "{palette.clear}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.control}" },
+        "content-margin-block": { "$type": "dimension", "$value": { "value": 12, "unit": "px" } },
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 22, "unit": "px" } },
+        "font-color": { "$type": "color", "$value": "{color.on-dark.text}" }
+      },
+      "hover": {
+        "$description": "Hover fill.",
+        "bg-color": { "$type": "color", "$value": "{color.state.hover-on-dark}" }
+      },
+      "pressed": {
+        "$description": "Held, and the open entry (toggled on): as hover.",
+        "bg-color": { "$type": "color", "$value": "{color.state.hover-on-dark}" }
+      },
+      "disabled": {
+        "$description": "Unplugged entry: a muted label.",
+        "font-color": { "$type": "color", "$value": "{color.state.disabled-ink-on-dark}" }
+      },
+      "focus": {
+        "$description": "Inner focus at the edge of a borderless entry.",
+        "bg-color": { "$type": "color", "$value": "{palette.clear}" },
+        "border-color": { "$type": "color", "$value": "{color.on-dark.line}" },
+        "border-width": { "$type": "dimension", "$value": "{focus.width}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.control}" },
+        "expand-margin": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } }
+      },
+      "items": {
+        "$description": "The pointer icon: clear at rest and unplugged, cream on hover, focus and while open; 12 px between the pointer and the label.",
+        "icon-normal-color": { "$type": "color", "$value": "{palette.clear}" },
+        "icon-hover-color": { "$type": "color", "$value": "{color.on-dark.text}" },
+        "icon-pressed-color": { "$type": "color", "$value": "{color.on-dark.text}" },
+        "icon-hover-pressed-color": { "$type": "color", "$value": "{color.on-dark.text}" },
+        "icon-disabled-color": { "$type": "color", "$value": "{palette.clear}" },
+        "icon-focus-color": { "$type": "color", "$value": "{color.on-dark.text}" },
+        "h-separation": { "$type": "dimension", "$value": { "value": 12, "unit": "px" } }
+      }
+    },
     "base-raised-on-dark": {
       "$description": "The 5 px toy base under secondary and danger buttons on dark.",
       "$extensions": {

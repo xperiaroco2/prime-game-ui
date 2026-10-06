@@ -33,11 +33,16 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
   maps prove too hard.
 
 ## Screens
-- **Main menu:** A Short Hike's few words; host, join by address (LAN for now), tutorial, settings, quit. No server
-  browser.
+- **Main menu:** A Short Hike's few words; host, join with a code, tutorial, settings, quit. No server browser.
+  **Join with a code** (the engineer's M6 decision D19 in prime-game, `docs/decisions/2026-10-04-m6-playable-over-the-internet.md`
+  §2.3 and §3, [prime-game #373](https://github.com/xperiaroco2/prime-game/issues/373)): "Join with a code" (a field
+  and Join), Host (a room with a code), and "Direct (LAN or VPN)" (address and port) with its own host button, as the
+  game already does (agent). A failed join returns to the menu with its reason and keeps what was typed.
 - **Connecting:** "Connecting to <lobby name>…"; the host names the lobby
-  ([prime-game #214](https://github.com/xperiaroco2/prime-game/issues/214)).
-- **Lobby:** in the world (already built); ready state and players; the mic as an icon.
+  ([prime-game #214](https://github.com/xperiaroco2/prime-game/issues/214)). It names the step (finding the game,
+  connecting, joined) and each failure in plain words (M6 §3).
+- **Lobby:** in the world (already built); ready state and players; the mic as an icon. The room's code, with Copy,
+  to whoever knows it (the host and each player who joined with it); never an address (M6 §3).
 - **Esc menu** over the running game (no pause): Game, Role (own role, goal, a scrolling teammate list for dissidents:
   a proposal), Guide, Lobby (one settings view for everyone, the host edits, presets as cards; easy and complex tasks with
   a subtask count, [#256](https://github.com/xperiaroco2/prime-game/issues/256)), Character (changes only in the lobby),
@@ -115,6 +120,13 @@ reaches 4.5:1; wide keycaps (Space, Shift, Tab, Esc) are at least 96 px; the nea
 separate (28 colours). Decided by the agent, small and easy to change (agent): a held stepper turns honey, preset
 cards lift 1 px on hover, a read-only field (the guest's view) is a quiet pale-lilac box with readable text, and the
 field's placeholder is muted plum with an ink caret and a yellow selection.
+
+**Toy 0.2.0 additions** for the styled screens (prime-game-ui#19), decided by the agent (agent): a borderless menu
+item for the main menu (`ToyMenuItem`, the ghost button's shape with no outline and a pointer icon on the hovered,
+focused or open item); the map's «?» as a round keycap button (`ToyKeyRoundButton`); a preset card name label; a
+64 px display label on light; a coral alert chip for a key clash (`ToyChipAlert`, which replaces the retired NEW chip);
+chevron icons on the stepper instead of − and +, and a chevron arrow on the dropdown. New own-work icons: pointer,
+chevrons, lock, teammate mark, knife, slider knob, swatch disc (`pages/components/icons/LICENCES.json`).
 
 ## Type
 Comfortaa for titles and text, provisionally, until the style is chosen (SIL OFL 1.1 with the Reserved Font Name

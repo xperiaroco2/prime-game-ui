@@ -18,7 +18,8 @@ const OUT_HTML = 'pages/components/components.html';
 const TOKENS_CSS = 'dist/css/toy-tokens.css';
 const GATES = 'dist/gates.json';
 const EN_JSON = 'pages/wireframes/en.json';
-const ICONS = ['check', 'item', 'mic', 'mic-off'];
+const ICONS = ['check', 'item', 'mic', 'mic-off', 'pointer', 'chevron-left', 'chevron-right', 'chevron-down', 'lock', 'teammate-mark',
+  'knife', 'slider-knob', 'slider-knob-disabled', 'swatch-disc'];
 const ICON_HEAD = '<!-- own work, prime-game-ui, licence: own work -->';
 const FONT_LINK = 'https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap';
 const TILES = [['white', '#ffffff'], ['grey', '#c9c9c9'], ['dim', '#979797']];
@@ -173,6 +174,12 @@ function renderPage(sys, componentsCss) {
     + `<div class="sc-scroll"><div class="sc-stage" data-context="${ctx}">${cells.join('')}</div></div>`;
   const hudTiles = (html, badge, pad) => TILES.map(([t, hex]) => cell(`${T('tile')} ${hex}`, badge, html, { tile: t, pad }));
   const icon = (name, cls) => `<span class="sc-icon${cls ? ` ${cls}` : ''}">${icons[name]}</span>`;
+  // A Button's own icon (Godot's icon, tinted by the icon_*_color items: the .tv-icon rules) and OptionButton's arrow
+  // (.tv-arrow, the label colour), at the texture's size.
+  const bicon = (name, cls) => {
+    if (!icons[name]) fail(`showcase.json: unknown icon ${name}`);
+    return `<span class="sc-bicon ${cls}">${icons[name]}</span>`;
+  };
 
   function buttonEl(name, stateCls, content, o = {}) {
     const a = ['type="button"', `class="tv-${name}${stateCls ? ` ${stateCls}` : ''}"`];
@@ -191,7 +198,7 @@ function renderPage(sys, componentsCss) {
     const toggle = row.kind === 'toggle';
     if (toggle && names.length !== 2) fail(`showcase.json: ${row.id}: a toggle row lists X and XSelected`);
     const content = (idx, label, noteLabel) => {
-      const main = sampleSpan(label);
+      const main = (row.icon ? bicon(row.icon, 'tv-icon') : '') + (row.icon_only ? '' : sampleSpan(label)) + (row.arrow ? bicon(row.arrow, 'tv-arrow') : '');
       if (!row.note) return main;
       const nv = row.note.variations;
       nv.forEach(V);
@@ -406,15 +413,16 @@ function renderPage(sys, componentsCss) {
   }
   function rowSettings() {
     ['ToySettingRow', 'ToySettingRowText', 'ToySettingRowValue', 'ToyStepper', 'ToyTextMutedOnLight'].forEach(V);
-    const stepper = (disabled, live) => `<span class="sc-stepper">${buttonEl('ToyStepper', disabled ? 'is-disabled' : '', sampleSpan('minus'), { live })}`
-      + `${sampleSpan('min10', 'tv-ToySettingRowValue')}${buttonEl('ToyStepper', disabled ? 'is-disabled' : '', sampleSpan('plus'), { live })}</span>`;
+    const stepper = (disabled, live) => `<span class="sc-stepper">${buttonEl('ToyStepper', disabled ? 'is-disabled' : '', bicon('chevron-left', 'tv-icon'), { live })}`
+      + `${sampleSpan('min10', 'tv-ToySettingRowValue')}${buttonEl('ToyStepper', disabled ? 'is-disabled' : '', bicon('chevron-right', 'tv-icon'), { live })}</span>`;
     const rowHtml = (label, right) => `<div class="tv-ToySettingRow sc-setrow">${sampleSpan(label, 'tv-ToySettingRowText')}${right}</div>`;
     const base = [['ToySettingRow'], ['ToySettingRowText'], ['ToySettingRowValue']];
+    const lockNote = `<span class="sc-lockline">${icon('lock', 'sc-icon-small')}${sampleSpan('host_only_text', 'tv-ToyTextMutedOnLight')}</span>`;
     return stage('light', [
       cell(T('set_value'), proposal(base), rowHtml('game_volume', sampleSpan('volume_value', 'tv-ToySettingRowValue'))),
       cell(T('set_stepper'), proposal([...base, ['ToyStepper', 'normal']]), rowHtml('match_duration', stepper(false, true)), { live: true }),
       cell(T('set_guest'), proposal([...base, ['ToyStepper', 'disabled'], ['ToyTextMutedOnLight']]),
-        `<div class="sc-setcol">${rowHtml('match_duration', stepper(true, false))}${sampleSpan('host_only', 'tv-ToyTextMutedOnLight')}</div>`),
+        `<div class="sc-setcol">${rowHtml('match_duration', stepper(true, false))}${lockNote}</div>`),
     ]);
   }
   function rowMap() {
@@ -447,6 +455,12 @@ function renderPage(sys, componentsCss) {
       cell(T('swatch_selected'), proposal([['ToySwatchRing'], ['ToySwatchSelected']]),
         '<div class="sc-swatch"><div class="tv-ToySwatchRing"></div><div class="tv-ToySwatchSelected sc-overlay"></div></div>'),
     ]);
+  }
+
+  // Every own-work icon at its texture size, on dark and on light (tinted ones take the context's text colour).
+  function rowIcons() {
+    const cells = (ctx) => ICONS.map((name) => cell(`${name}.svg`, false, `<span class="sc-icon sc-icon-${name}">${icons[name]}</span>`));
+    return stage('dark', cells('dark')) + stage('light', cells('light'));
   }
 
   // The Tokens section.
@@ -516,9 +530,9 @@ function renderPage(sys, componentsCss) {
     button: rowButton, toggle: rowButton, field: rowField, bar: rowBar, static: rowStatic, 'slot-set': rowSlotSet,
     'hud-bar': rowHudBar, menu: rowMenu, dialog: rowDialog, backdrops: rowBackdrops, howto: rowHowto, settings: rowSettings,
     map: rowMap, mic: rowMic, swatches: rowSwatches, palette: rowPalette, 'type-scale': rowTypeScale, ramp: rowRamp,
-    contrast: rowContrast,
+    contrast: rowContrast, icons: rowIcons,
   };
-  const TOKEN_KINDS = new Set(['palette', 'type-scale', 'ramp', 'contrast']);
+  const TOKEN_KINDS = new Set(['palette', 'type-scale', 'ramp', 'contrast', 'icons']);
 
   // The page.
   const sections = [];
@@ -543,7 +557,8 @@ function renderPage(sys, componentsCss) {
   }
   const missing = sys.variants.filter((v) => !v.abstract && !used.has(v.variation)).map((v) => v.variation);
   if (missing.length) fail(`showcase.json: these variations appear nowhere on the page: ${missing.join(', ')}`);
-  const unusedSamples = Object.keys(samples).filter((k) => !usedSamples.has(k));
+  // A sample marked other_page is read by another page (pages/choices reads minus and plus), not by this one.
+  const unusedSamples = Object.keys(samples).filter((k) => !usedSamples.has(k) && !samples[k].other_page);
   if (unusedSamples.length) fail(`strings.json: unused samples: ${unusedSamples.join(', ')}`);
 
   const seg = (ctl, label, opts) => `<div class="sc-ctl" role="group" aria-label="${esc(label)}"><span class="sc-ctl-label">${esc(label)}</span><div class="sc-seg">`

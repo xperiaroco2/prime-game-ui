@@ -1,0 +1,256 @@
+<title>Запуск хвилі 19</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&family=Nunito+Sans:wght@400;600;700&display=swap">
+<style>
+/* Layout: one phone-width column of Toy panels; the three options are big tappable cards with the agents drawn as dots. */
+:root {
+  --bg: #fff4e2;        /* cream */
+  --panel: #ffffff;
+  --ink: #2a1f33;       /* plum ink: text and outlines */
+  --muted: #64566f;
+  --line: #e2d6ea;
+  --accent: #ffc23a;    /* toy yellow */
+  --accent-base: #c98a10;
+  --soft: #e9dff0;      /* lavender */
+  --ok: #1f7a5f;
+  --ok-tint: #d5f4ec;
+  --warn: #b33a22;
+  --dot-full: #2a1f33;
+  --font-display: "Comfortaa", "Trebuchet MS", system-ui, sans-serif;
+  --font-body: "Nunito Sans", "Segoe UI", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1f1727; --panel: #352a41; --ink: #fff4e2; --muted: #c9bcd6; --line: #4a3c5c; --soft: #2a1f33;
+    --ok: #7fe0c6; --ok-tint: #23463f; --warn: #ff8466; --dot-full: #fff4e2; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #1f1727; --panel: #352a41; --ink: #fff4e2; --muted: #c9bcd6; --line: #4a3c5c; --soft: #2a1f33;
+  --ok: #7fe0c6; --ok-tint: #23463f; --warn: #ff8466; --dot-full: #fff4e2; color-scheme: dark;
+}
+body { background: var(--bg); color: var(--ink); font: 16px/1.5 var(--font-body); }
+.wrap { max-width: 720px; margin: 0 auto; padding-inline: 16px; padding-block: 20px 40px; display: flex; flex-direction: column; gap: 18px; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 700; text-wrap: balance; margin: 0; }
+h1 { font-size: 28px; line-height: 1.2; }
+h2 { font-size: 19px; }
+h3 { font-size: 17px; }
+p { margin: 0; }
+a { color: inherit; text-underline-offset: 3px; }
+.lead { font-size: 16px; color: var(--muted); max-width: 62ch; }
+.eyebrow { font: 700 12px/1 var(--font-body); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+
+.panel { background: var(--panel); border: 3px solid var(--ink); border-radius: 18px; padding: 16px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.panel.soft { background: var(--soft); border-width: 2px; }
+
+/* The ten screens as chips with their state counts. */
+.screens { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; margin: 0; padding: 0; list-style: none; }
+.screens li { border: 2px solid var(--line); border-radius: 12px; padding: 8px 10px; background: var(--panel); display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.screens b { font: 700 14px/1.25 var(--font-display); }
+.screens small { color: var(--muted); font-size: 12px; }
+.screens .changed { border-color: var(--accent-base); }
+
+.flow { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; align-items: center; gap: 8px; font-size: 13px; text-align: center; }
+.flow span.box { border: 2px solid var(--ink); border-radius: 12px; padding: 8px 6px; background: var(--panel); font-weight: 600; }
+.flow span.arrow { font-weight: 700; color: var(--muted); }
+@media (max-width: 460px) { .flow { grid-template-columns: 1fr; } .flow span.arrow { transform: rotate(90deg); } }
+
+/* Options. */
+.options { display: flex; flex-direction: column; gap: 14px; }
+.opt { position: relative; }
+.opt[data-picked="1"] { box-shadow: 0 0 0 4px var(--accent); }
+.opt-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 12px; }
+.badge { display: inline-block; font: 700 12px/1 var(--font-body); padding: 5px 9px; border-radius: 999px; background: var(--accent); color: #2a1f33; }
+.cost { font: 700 22px/1.1 var(--font-display); font-variant-numeric: tabular-nums; }
+.cost small { font: 600 13px/1.2 var(--font-body); color: var(--muted); display: block; }
+.phases { display: flex; flex-direction: column; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.phases li { display: grid; grid-template-columns: 112px 1fr; gap: 10px; align-items: start; font-size: 14px; }
+.phases .ph { font-weight: 700; display: flex; flex-direction: column; gap: 4px; }
+.dots { display: flex; gap: 4px; flex-wrap: wrap; }
+.dots i { width: 12px; height: 12px; border-radius: 50%; background: var(--dot-full); display: block; }
+.dots i.me { background: transparent; border: 2px solid var(--muted); width: 8px; height: 8px; }
+.phases .what { color: var(--muted); min-width: 0; }
+.gives { margin: 0; padding-left: 18px; font-size: 14px; }
+
+.btn {
+  font: 700 16px/1 var(--font-display); color: #2a1f33; background: var(--accent); border: 3px solid #2a1f33; border-radius: 14px;
+  padding: 12px 18px; min-height: 48px; cursor: pointer; box-shadow: 0 5px 0 #2a1f33; transform: translateY(0);
+  transition: transform .08s ease, box-shadow .08s ease; align-self: flex-start;
+}
+.btn:active { transform: translateY(4px); box-shadow: 0 1px 0 #2a1f33; }
+.btn:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+.btn.quiet { background: var(--panel); color: var(--ink); border-color: var(--ink); box-shadow: 0 5px 0 var(--ink); }
+.btn[disabled] { opacity: .55; cursor: default; box-shadow: none; transform: none; }
+.picked-mark { display: none; font-weight: 700; color: var(--ok); }
+.opt[data-picked="1"] .picked-mark { display: inline; }
+
+.note label { font-weight: 700; font-size: 14px; }
+.note textarea {
+  width: 100%; box-sizing: border-box; min-height: 74px; font: 15px/1.45 var(--font-body); color: var(--ink); background: var(--panel);
+  border: 2px solid var(--line); border-radius: 12px; padding: 10px; resize: vertical;
+}
+.note textarea:focus-visible { outline: 3px solid var(--accent); outline-offset: 1px; }
+
+.status { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; border-radius: 14px; padding: 10px 14px; font-weight: 600; font-size: 14px;
+  background: var(--soft); border: 2px solid var(--line); }
+.status[data-state="saved"] { background: var(--ok-tint); border-color: var(--ok); }
+.status[data-state="error"] { border-color: var(--warn); color: var(--warn); }
+.foot { color: var(--muted); font-size: 13px; }
+@media (prefers-reduced-motion: reduce) { .btn { transition: none; } }
+</style>
+
+<div class="wrap">
+  <header style="display:flex;flex-direction:column;gap:8px">
+    <span class="eyebrow">prime-game-ui #19 · 6 жовтня 2026</span>
+    <h1>Запуск хвилі 19</h1>
+    <p class="lead">Десять готових екранів, зібраних із компонентів «Іграшки» й таблиці текстів, а потім по задачі в prime-game на кожен екран. Хвиля дорожча за поріг 1,5M, тому без твого «погнали» нічого не запускаю.</p>
+  </header>
+
+  <div class="status" id="status" role="status" data-state="idle">Обери обсяг нижче: вибір збережеться тут. Запущу лише після твого «погнали» в чаті.</div>
+
+  <section class="panel">
+    <h2>Що вийде</h2>
+    <ul class="screens">
+      <li><b>1 · Навчання</b><small>2 стани</small></li>
+      <li class="changed"><b>2 · Головне меню</b><small>2 стани · вхід за кодом</small></li>
+      <li class="changed"><b>3 · Підключення</b><small>4 стани · кроки й помилки</small></li>
+      <li class="changed"><b>4 · Лобі</b><small>2 стани · код лобі</small></li>
+      <li><b>5 · Меню Esc</b><small>11 станів</small></li>
+      <li><b>6 · Показ ролі</b><small>3 стани</small></li>
+      <li><b>7 · HUD</b><small>5 станів</small></li>
+      <li><b>8 · Мапа (M)</b><small>3 стани</small></li>
+      <li><b>9 · Нокдаун і смерть</b><small>4 стани</small></li>
+      <li><b>10 · Кінець раунду</b><small>2 стани</small></li>
+    </ul>
+    <div class="flow" aria-label="Як це влаштовано">
+      <span class="box">Опис екрана вузлами Godot</span><span class="arrow">→</span>
+      <span class="box">Сторінка для тебе: uk, en, великий шрифт</span><span class="arrow">→</span>
+      <span class="box">Задача в prime-game на кожен екран</span>
+    </div>
+    <p style="font-size:14px">Кожен екран описано деревом вузлів Godot (контейнери, розміри, варіації теми, ключі текстів). З одного опису виходять і сторінка, і задача для гри, тож вони не розійдуться. Нові варіації спершу йдуть у токени (реліз ui-0.2.0).</p>
+  </section>
+
+  <section class="panel soft">
+    <h2>Що змінилося в грі</h2>
+    <p style="font-size:15px">Гра вже вміє входити <b>за кодом</b> (<a href="https://github.com/xperiaroco2/prime-game/issues/373">prime-game#373</a>, злито в PR #430). Тому три екрани, виділені жовтим, підуть за нею: у меню «Приєднатися за кодом» і «Напряму (LAN або VPN)», у лобі код із кнопкою «Копіювати», на екрані підключення кроки й пʼять помилок. Для цього потрібно близько 15 нових рядків тексту. Під час хвилі пришлю одну сторінку з варіантами, де їх можна просто потиснути.</p>
+  </section>
+
+  <section class="options" aria-label="Варіанти">
+    <article class="panel opt" data-opt="full">
+      <div class="opt-head">
+        <h3>Повна <span class="badge">раджу</span> <span class="picked-mark">✓ вибрано</span></h3>
+        <div class="cost">≈4,5–6M<small>16 агентів, токени субагентів</small></div>
+      </div>
+      <ul class="phases">
+        <li><span class="ph">Основа<span class="dots"><i></i><i></i><i></i></span></span><span class="what">рушій сторінки з дерев вузлів; опис кожного екрана й чого бракує; нові варіації в токенах і нові тексти як пропозиції</span></li>
+        <li><span class="ph">Екрани<span class="dots"><i></i><i></i><i></i><i></i><i></i></span></span><span class="what">пʼять авторів, по два екрани (меню Esc окремо)</span></li>
+        <li><span class="ph">Перевірка<span class="dots"><i></i><i></i><i></i><i></i><i></i></span></span><span class="what">пʼять поглядів: чи влазять тексти (uk, en, великий шрифт); вигляд як у вітрині; твої рішення; чи будується в Godot один до одного; чого бракує</span></li>
+        <li><span class="ph">Виправлення<span class="dots"><i></i><i></i></span></span><span class="what">правлять усе, що знайшла перевірка</span></li>
+        <li><span class="ph">Передача<span class="dots"><i></i></span></span><span class="what">тексти десяти задач для prime-game</span></li>
+      </ul>
+      <p style="font-size:14px">Для порівняння: хвиля #5 (токени й компоненти) мала 16 агентів і коштувала ≈4,9M.</p>
+      <button class="btn" type="button" id="pick-full" data-pick="full">Беру цей</button>
+    </article>
+
+    <article class="panel opt" data-opt="lean">
+      <div class="opt-head">
+        <h3>Ощадна <span class="picked-mark">✓ вибрано</span></h3>
+        <div class="cost">≈2–3M<small>7 агентів, токени субагентів</small></div>
+      </div>
+      <ul class="phases">
+        <li><span class="ph">Основа<span class="dots"><i></i><i></i></span></span><span class="what">рушій сторінки; опис екранів разом із токенами й текстами</span></li>
+        <li><span class="ph">Екрани<span class="dots"><i></i><i></i><i></i></span></span><span class="what">три автори, по три-чотири екрани</span></li>
+        <li><span class="ph">Перевірка<span class="dots"><i></i></span></span><span class="what">один перевіряльник на все</span></li>
+        <li><span class="ph">Виправлення<span class="dots"><i></i></span></span><span class="what">один</span></li>
+        <li><span class="ph">Передача<span class="dots"><i class="me"></i></span></span><span class="what">задачі пишу сам</span></li>
+      </ul>
+      <p style="font-size:14px">Результат той самий, але перевірка тонша. Те, що вона пропустить, ловитиму сам, і правки можуть піти другим колом.</p>
+      <button class="btn quiet" type="button" id="pick-lean" data-pick="lean">Беру цей</button>
+    </article>
+
+    <article class="panel opt" data-opt="later">
+      <div class="opt-head">
+        <h3>Не зараз <span class="picked-mark">✓ вибрано</span></h3>
+        <div class="cost">0<small>нічого не запускаю</small></div>
+      </div>
+      <p style="font-size:14px">Сам виправлю лише дрібну помилку #9 у вайрфреймах і чекатиму.</p>
+      <button class="btn quiet" type="button" id="pick-later" data-pick="later">Беру цей</button>
+    </article>
+  </section>
+
+  <section class="panel note">
+    <label for="note">Примітка, якщо хочеш (необовʼязково)</label>
+    <textarea id="note" maxlength="2000" placeholder="Наприклад: спершу головне меню й HUD"></textarea>
+    <button class="btn quiet" type="button" id="save-note">Зберегти примітку</button>
+  </section>
+
+  <p class="foot">Вартість рахую в токенах субагентів, бо відсотки ліміту спільні для всіх сесій. Мої власні токени менеджера сюди не входять. Вибір можна змінити, поки не прозвучало «погнали».</p>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var NAMES = { full: 'Повна', lean: 'Ощадна', later: 'Не зараз' };
+  var statusEl = document.getElementById('status');
+  var noteEl = document.getElementById('note');
+  var ref = null, saved = null, busy = false, readOnly = false;
+
+  function setStatus(text, state) { statusEl.textContent = text; statusEl.setAttribute('data-state', state || 'idle'); }
+  function fmtTime(iso) {
+    try { var d = new Date(iso); return d.toLocaleString('uk-UA', { day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' }); }
+    catch (e) { return ''; }
+  }
+  function show() {
+    var pick = saved && saved.choice;
+    Array.prototype.forEach.call(document.querySelectorAll('.opt'), function (el) {
+      el.setAttribute('data-picked', el.getAttribute('data-opt') === pick ? '1' : '0');
+    });
+    if (saved && typeof saved.note === 'string' && !noteEl.getAttribute('data-dirty')) noteEl.value = saved.note;
+    if (pick && NAMES[pick]) {
+      setStatus('Збережено: «' + NAMES[pick] + '»' + (saved.at ? ', ' + fmtTime(saved.at) : '') + '. Запущу після твого «погнали» в чаті.', 'saved');
+    }
+  }
+  function write(next) {
+    if (!ref) { setStatus('Збереження тут недоступне (сторінку відкрито поза claude.ai). Напиши мені вибір у чаті.', 'error'); return; }
+    if (readOnly) { setStatus('Ця сторінка відкрита лише для читання.', 'error'); return; }
+    if (busy) return;
+    busy = true;
+    setStatus('Зберігаю…', 'idle');
+    ref.set(next).then(function () {
+      busy = false; saved = next; noteEl.removeAttribute('data-dirty'); show();
+    }, function (e) {
+      busy = false;
+      var code = (e && e.code) || 'помилка';
+      if (code === 'permission_denied' || code === 'not_granted') { readOnly = true; setStatus('Ця сторінка відкрита лише для читання.', 'error'); }
+      else setStatus('Не вдалося зберегти (' + code + '). Спробуй ще раз.', 'error');
+    });
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('[data-pick]'), function (b) {
+    b.addEventListener('click', function () {
+      write({ choice: b.getAttribute('data-pick'), note: noteEl.value.slice(0, 2000), at: new Date().toISOString() });
+    });
+  });
+  noteEl.addEventListener('input', function () { noteEl.setAttribute('data-dirty', '1'); });
+  document.getElementById('save-note').addEventListener('click', function () {
+    write({ choice: saved && saved.choice || null, note: noteEl.value.slice(0, 2000), at: new Date().toISOString() });
+  });
+
+  try {
+    var claude = window.claude;
+    if (!claude || typeof claude.use !== 'function') return;
+    claude.use('db').then(function (db) {
+      if (!db) { setStatus('Збереження тут недоступне. Напиши мені вибір у чаті.', 'error'); return; }
+      ref = db.collection('go').doc('wave19');
+      ref.onSnapshot(function (snap) {
+        try {
+          var v = snap && snap.exists ? snap.data() : null;
+          if (v && typeof v === 'object') {
+            saved = { choice: typeof v.choice === 'string' ? v.choice.slice(0, 10) : null, note: typeof v.note === 'string' ? v.note.slice(0, 2000) : '', at: typeof v.at === 'string' ? v.at.slice(0, 40) : '' };
+            show();
+          }
+        } catch (e) { /* a malformed snapshot: keep what is shown */ }
+      }, function () { setStatus('Збережений вибір зараз не оновлюється. Перезавантаж сторінку.', 'error'); });
+    }, function () { setStatus('Збереження тут недоступне. Напиши мені вибір у чаті.', 'error'); });
+  } catch (e) { /* no runtime: the page still reads */ }
+})();
+</script>

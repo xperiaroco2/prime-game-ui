@@ -84,6 +84,15 @@
         "border-width": { "$type": "dimension", "$value": "{focus.width}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
         "expand-margin": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } }
+      },
+      "items": {
+        "$description": "The chevron icons follow the label: ink, and the unplugged ink when disabled.",
+        "icon-normal-color": { "$type": "color", "$value": "{color.on-accent.text}" },
+        "icon-hover-color": { "$type": "color", "$value": "{color.on-accent.text}" },
+        "icon-pressed-color": { "$type": "color", "$value": "{color.on-accent.text}" },
+        "icon-hover-pressed-color": { "$type": "color", "$value": "{color.on-accent.text}" },
+        "icon-disabled-color": { "$type": "color", "$value": "{color.state.disabled-ink}" },
+        "icon-focus-color": { "$type": "color", "$value": "{color.on-accent.text}" }
       }
     }
   }
