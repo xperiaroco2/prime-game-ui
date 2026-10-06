@@ -2518,7 +2518,8 @@ File one issue per item in prime-game, each with its `area:` label and a note on
    - writes `client/ui/theme/game_theme.tres` from the defaults;
    - restores the uid `uid://c8behqt7jtcn8` with `ResourceSaver.set_uid` (godot-facts §9);
    - sets `resource_scene_unique_id` per StyleBox, for stable diffs;
-   - writes `game_theme_large.tres` (textSize large, font sizes only), applied through a `GameUi` change
+   - writes `game_theme_large.tres` (textSize large: the font sizes and, since ui-0.3.0, the keycaps' `min_width`
+     constant, 42), applied through a `GameUi` change
      (godot-facts §8);
    - writes the motion values as constants `press_duration_ms` and `press_duration_reduced_ms`, so no second theme is
      needed for motion.

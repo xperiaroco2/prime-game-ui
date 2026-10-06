@@ -222,7 +222,8 @@ for every other state what is shown (each shown subtree from its path), hidden o
 also writes every screen's handoff to `docs/handoff/<screen file>.md` (checked by `--check`); the issues link there.
 Each node line gives `custom_minimum_size` with the variation's size constants it comes from, what goes on a raised
 node's ToyRaised wrapper, the cut-text properties, the icon (its white copy in `dist/pack/icons/`) and its tint. The
-notes say what the game sets in code: the raised wrapper, the size constants, the icons' tints and `svg/scale` (one
+notes say what the game sets in code: the raised wrapper, the size constants (and those that follow the text size, the
+keycaps' `min_width`, set again on `NOTIFICATION_THEME_CHANGED`), the icons' tints and `svg/scale` (one
 value per file, the pack's `assets`: the largest size any screen draws it at), a
 ScrollContainer's bar variation, an HSlider's grabber textures and its focus ring (Slider draws no focus StyleBox), an
 OptionButton's open list (`get_popup()` takes `ToyDropdownList`, with its radio icons) and why LineEdits keep their

@@ -1425,6 +1425,31 @@ function renderPage(screens, C, sys, ui, layout) {
 // EXPAND_IGNORE_SIZE never stretches a small bitmap (Godot rasterises an SVG at import, svg/scale 1 = its viewBox).
 // One file has one import setting, so the values are the pack's (assets: drawn_px and svg_scale, the largest over every
 // screen, tools/tokens/icons.js); this screen's own measure is the fallback for an icon the pack does not list.
+// The size constants of the screen's variations that a text size changes (the pack's modes: since ui-0.3.0 the keycaps'
+// min_width, 42 in the large-text theme). Code that copied one into custom_minimum_size copies it again when the theme
+// changes, or a keycap keeps its default width at large text.
+function textSizeConstantsNote(S, C) {
+  const names = new Set();
+  for (const n of S.all) for (const x of [n.raw.variation, ...Object.values(n.per).map((o) => o.raw.variation)]) if (C.pack.variations[x]) names.add(x);
+  const found = new Map(); // "min_width 36 → 42" → [variation]
+  for (const name of [...names].sort()) {
+    const sv = C.pack.variations[name];
+    for (const [mod, ctxs] of Object.entries(C.pack.modes || {})) {
+      for (const [ctx, over] of Object.entries(ctxs)) {
+        for (const [k, val] of Object.entries(over)) {
+          if (!k.startsWith(`${sv.prefix}.size.`) || !C.pack.tokens[k]) continue;
+          const what = `\`${k.slice(sv.prefix.length + 6).replace(/-/g, '_')}\` ${fmt(C.pack.tokens[k].px)} (${fmt(val.px)} in the pack's \`modes.${mod}.${ctx}\`)`;
+          if (!found.has(what)) found.set(what, []);
+          found.get(what).push(name);
+        }
+      }
+    }
+  }
+  if (!found.size) return [];
+  const list = [...found].map(([what, vs]) => `${what} of ${vs.join(', ')}`).join('; ');
+  return [`- Size constants that follow the text size: ${list}. The large-text theme is swapped in while a screen is open, so code that sets custom_minimum_size from such a constant sets it again on \`NOTIFICATION_THEME_CHANGED\`.`];
+}
+
 function iconImportNotes(S, C) {
   const best = new Map();
   const see = (name, px) => { if (C.icons.get(name)) best.set(name, Math.max(best.get(name) || 0, px)); };
@@ -1435,8 +1460,10 @@ function iconImportNotes(S, C) {
       if (n.type === 'TextureRect') see(name, Math.min(n.cmin[0] / ic.w, n.cmin[1] / ic.h) * Math.max(ic.w, ic.h));
       else see(name, n.raw.icon_size || Math.max(ic.w, ic.h));
     }
-    // An OptionButton draws its arrow, and its open list the radio icons, at their own size.
-    if (n.type === 'OptionButton') for (const k of [ARROW_ICON, ...LIST_ICONS]) { const a = C.icons.get(k); if (a) see(k, Math.max(a.w, a.h)); }
+    // An OptionButton draws its arrow, and its open list the radio icons, at their own size; an HSlider its knobs (as
+    // tools/tokens/icons.js IMPLIED counts them for the pack's assets).
+    const implied = n.type === 'OptionButton' ? [ARROW_ICON, ...LIST_ICONS] : n.type === 'HSlider' ? [KNOB_ICON, KNOB_DISABLED_ICON] : [];
+    for (const k of implied) { const a = C.icons.get(k); if (a) see(k, Math.max(a.w, a.h)); }
   }
   if (!best.size) return [];
   const tick = '`';
@@ -1726,6 +1753,7 @@ function handoff(S, C) {
   const usedVars = S.all.map((n) => C.pack.variations[n.raw.variation]).filter(Boolean);
   if (usedVars.some((v) => v.base)) out.push('- A raised variation is built as the tokens spec (§6) says: a `ToyRaised` MarginContainer holding first the base `Panel` (the base named above, chosen by the context it sits in), then the face. The wrapper is the node in its parent: anchors, offsets, grow, size flags, stretch ratio, custom_minimum_size and visibility belong to the wrapper; the variation, the text, toggle_mode, disabled, focus and the signals belong to the face. Hide or show the wrapper, not the face.');
   if (S.all.some((n) => { const sv = C.pack.variations[n.raw.variation]; return sv && Object.keys(C.pack.tokens).some((k) => k.startsWith(`${sv.prefix}.size.`)); })) out.push('- Size constants: a variation\'s `width`, `height`, `min_width`, `wide_width` and `wide_min_width` theme constants are read by code into `custom_minimum_size`, as the node lines give them. A Panel or PanelContainer takes no size from them on its own: an anchored Panel at offsets 0 is 0×0, a slot shrinks to its text.');
+  out.push(...textSizeConstantsNote(S, C));
   out.push(...iconImportNotes(S, C));
   if (S.all.some((n) => n.type === 'OptionButton')) {
     const g = (k) => `\`${C.icons.get(k).game}\``;
