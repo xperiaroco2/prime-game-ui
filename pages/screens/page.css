@@ -1,0 +1,147 @@
+/* The screens page's chrome and the world art: the page layout, the sticky bar, the state tabs, the stage that scales
+   the 1920x1080 frames to the column, and the placeholder worlds behind the UI. Not linted, like
+   pages/components/page.css: the game UI inside a frame is drawn only by screens-ui.css (the Toy components) and
+   screens-layout.css (the Godot containers). The only rules here that reach inside a frame are the frame box itself,
+   the world, and the inherited colour that icons draw with (currentColor), chosen by the surface's context. */
+:root {
+  --zoom: 1;
+  --px: calc(var(--zoom) * 1px);
+  --c-bg: #f5f2f7;
+  --c-fg: #241b2b;
+  --c-muted: #5c5166;
+  --c-card: #ffffff;
+  --c-line: #ddd3e4;
+  --c-accent: #5b3591;
+  --c-on-accent: #ffffff;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --c-bg: #15111a;
+    --c-fg: #eee7f3;
+    --c-muted: #b2a7bc;
+    --c-card: #201a27;
+    --c-line: #3a3143;
+    --c-accent: #cbaaf6;
+    --c-on-accent: #1d1424;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --c-bg: #15111a;
+  --c-fg: #eee7f3;
+  --c-muted: #b2a7bc;
+  --c-card: #201a27;
+  --c-line: #3a3143;
+  --c-accent: #cbaaf6;
+  --c-on-accent: #1d1424;
+  color-scheme: dark;
+}
+
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--c-bg);
+  color: var(--c-fg);
+  font: 15px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+main { max-width: 1240px; margin: 0 auto; padding: 0 16px 48px; }
+h1 { font-size: 26px; line-height: 1.2; margin: 24px 0 8px; }
+.pg-lead { margin: 0 0 12px; max-width: 72ch; }
+
+/* The sticky bar: the screen list, then the switches. */
+.pg-bar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  margin: 0 -16px;
+  padding: 8px 16px;
+  background: var(--c-bg);
+  border-bottom: 1px solid var(--c-line);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.pg-list { display: flex; gap: 6px; overflow-x: auto; overscroll-behavior-x: contain; padding-bottom: 2px; }
+.pg-chip {
+  flex: none; display: inline-flex; gap: 6px; align-items: baseline; text-decoration: none; color: var(--c-fg);
+  background: var(--c-card); border: 1px solid var(--c-line); border-radius: 999px; padding: 4px 11px; font-size: 13px;
+  white-space: nowrap; min-height: 30px;
+}
+.pg-chip b { color: var(--c-accent); }
+.pg-controls { display: flex; flex-wrap: wrap; gap: 6px 16px; }
+.pg-ctl { display: flex; align-items: center; gap: 6px; min-width: 0; }
+.pg-ctl-label { font-size: 12px; color: var(--c-muted); }
+.pg-seg { display: inline-flex; border: 1px solid var(--c-line); border-radius: 8px; overflow: hidden; background: var(--c-card); }
+.pg-seg button {
+  appearance: none; border: 0; border-right: 1px solid var(--c-line); background: transparent; color: var(--c-fg);
+  font: inherit; font-size: 13px; padding: 4px 10px; min-height: 30px; cursor: pointer;
+}
+.pg-seg button:last-child { border-right: 0; }
+.pg-seg button[aria-pressed="true"] { background: var(--c-accent); color: var(--c-on-accent); }
+
+/* One screen: its title, the state tabs, the frames. */
+.pg-screen { margin-top: 30px; scroll-margin-top: 104px; }
+.pg-screen h2 { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; font-size: 20px; line-height: 1.25; margin: 0 0 8px; }
+.pg-screen h2 small { font-size: 13px; font-weight: 400; color: var(--c-muted); }
+.pg-num {
+  display: inline-flex; align-items: center; justify-content: center; min-width: 28px; height: 28px; padding: 0 6px;
+  border-radius: 8px; background: var(--c-accent); color: var(--c-on-accent); font-size: 15px;
+}
+.pg-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 8px; }
+.pg-tab {
+  appearance: none; font: inherit; font-size: 13px; color: var(--c-fg); background: var(--c-card);
+  border: 1px solid var(--c-line); border-radius: 8px; padding: 4px 12px; min-height: 32px; cursor: pointer;
+}
+.pg-tab[aria-selected="true"] { background: var(--c-accent); border-color: var(--c-accent); color: var(--c-on-accent); }
+.pg-state-note { margin: 0 0 8px; font-size: 13px; color: var(--c-muted); max-width: 80ch; }
+.pg-state-note[hidden] { display: none; }
+
+/* The stage: fit to the column (--px from the stage's width), or 100 % (1 reference px = 1 CSS px, scrolling). */
+.pg-stage { container-type: inline-size; border: 1px solid var(--c-line); border-radius: 10px; overflow: hidden; background: #000000; }
+html[data-zoom="fit"] .pg-stage { --px: calc(100cqw / 1920); }
+html[data-zoom="100"] .pg-stage { --px: 1px; overflow-x: auto; overscroll-behavior-x: contain; }
+.pg-frames { width: max-content; }
+
+/* The frame: the game window. */
+.sc-frame {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  width: calc(1920 * var(--px));
+  height: calc(1080 * var(--px));
+  color: var(--toy-color-on-dark-text);
+  line-height: normal;
+}
+.sc-frame[hidden] { display: none; }
+.sc-frame [data-context="dark"] { color: var(--toy-color-on-dark-text); }
+.sc-frame [data-context="light"] { color: var(--toy-color-on-light-text); }
+.sc-frame svg { display: block; }
+
+/* The worlds behind the UI: page art, a wall, a floor and one prop, so that the UI is seen over something. */
+.pg-world { position: absolute; inset: 0; }
+.pg-world i { position: absolute; display: block; }
+.pg-world i:nth-child(1) { left: 0; right: 0; bottom: 0; height: 30%; }
+.pg-world i:nth-child(2) { bottom: 30%; left: 62%; width: 11%; height: 42%; border-radius: 6px 6px 0 0; }
+.pg-world i:nth-child(3) { bottom: 30%; left: 18%; width: 22%; height: 14%; border-radius: 14px 14px 4px 4px; }
+.pg-world-menu { background: #b9a7c9; }
+.pg-world-menu i:nth-child(1) { background: #8d7a63; }
+.pg-world-menu i:nth-child(2) { background: #f3e3c4; }
+.pg-world-menu i:nth-child(3) { background: #d0644f; }
+.pg-world-room-light { background: #ece6dc; }
+.pg-world-room-light i:nth-child(1) { background: #c9bba5; }
+.pg-world-room-light i:nth-child(2) { background: #9c8a76; }
+.pg-world-room-light i:nth-child(3) { background: #7fa1b5; }
+.pg-world-room-dark { background: #2e2838; }
+.pg-world-room-dark i:nth-child(1) { background: #1c1823; }
+.pg-world-room-dark i:nth-child(2) { background: #3f3650; }
+.pg-world-room-dark i:nth-child(3) { background: #463a4f; }
+.pg-world-black { background: #000000; }
+.pg-world-black i { display: none; }
+
+.pg-foot { color: var(--c-muted); font-size: 12px; margin-top: 32px; }
+
+/* The fit tool's measuring mode (local ?only=…): the frames alone at zoom 1, at the top left, no chrome. */
+html[data-measure] body { background: #000000; }
+html[data-measure] main { display: none; }
+#pg-measure { --px: 1px; position: absolute; left: 0; top: 0; }

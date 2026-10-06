@@ -1,0 +1,3 @@
+/* profile: layout; expect: L28 */
+/* The layout profile draws nothing: a corner radius is paint (a StyleBox field), so it is outside the allowlist. */
+.gd-PanelContainer { display: grid; border-radius: 0; }

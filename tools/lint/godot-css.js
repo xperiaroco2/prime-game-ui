@@ -2,7 +2,7 @@
 //
 //   node tools/lint/godot-css.js                       lint every target of tools/lint/targets.json
 //   node tools/lint/godot-css.js --self-test           run the fixtures and the built-in adversarial cases
-//   node tools/lint/godot-css.js [--profile tokens|skin|motion|generated] [--tokens <css>] [--companion <css>]
+//   node tools/lint/godot-css.js [--profile tokens|skin|motion|generated|layout] [--tokens <css>] [--companion <css>]
 //                                [--quiet] <file.css> ...
 //
 // A file given without --profile takes it from a leading "/* profile: <name> */" comment or from targets.json.
@@ -266,8 +266,9 @@ const SIDE_RE = new RegExp(`^border-${BORDER_SIDE}(?=-(width|style|color)$|$)`);
 const RADIUS_RE = /^border(-(top-left|top-right|bottom-right|bottom-left|start-start|start-end|end-start|end-end))?-radius$/;
 const LAYOUT_ALL = /^(padding|margin)(-[a-z-]+)?$|^(width|height|align-self)$/;
 const TRANSITION_RE = /^transition(-(property|duration|timing-function|delay))?$/;
+// column-gap and row-gap carry a theme constant such as a Button's h_separation (the gap between icon and text).
 const GENERATED_LAYOUT = new Set(["position", "inset", "top", "right", "bottom", "left", "display", "pointer-events",
-  "box-sizing", "min-width", "min-height"]);
+  "box-sizing", "min-width", "min-height", "column-gap", "row-gap"]);
 const FORBIDDEN_RE = /^(filter|backdrop-filter|clip-path|mix-blend-mode|background-blend-mode|background-image|mask(-.*)?|animation(-.*)?)$/;
 const SIDES = { top: ["t"], right: ["r"], bottom: ["b"], left: ["l"], block: ["t", "b"], inline: ["l", "r"],
   "block-start": ["t"], "block-end": ["b"], "inline-start": ["l"], "inline-end": ["r"] };
@@ -276,6 +277,7 @@ const WIDE = new Set(["inherit", "initial", "unset", "revert", "revert-layer"]);
 
 function allowedProperty(prop, profile) {
   if (profile === "tokens") return false;
+  if (profile === "layout") return R.LAYOUT_PROPS.has(prop);
   if (DRAWING.has(prop) || BORDER_RE.test(prop) || RADIUS_RE.test(prop) || LAYOUT_ALL.test(prop)) {
     return !/^border-(image|collapse|spacing)/.test(prop);
   }
@@ -390,6 +392,8 @@ function lintText(text, opts) {
         add(line, "L01", "forbidden property " + prop); continue;
       }
       if (!allowedProperty(prop, profile)) { add(line, "L28", "property outside the " + profile + " allowlist: " + prop); continue; }
+      // The layout profile checks its own small value grammar and draws nothing, so the paint checks below never apply.
+      if (profile === "layout") { const p = R.checkLayout(prop, val); if (p) add(line, "L28", p); continue; }
 
       if (prop !== "font-family" && !TRANSITION_RE.test(prop)) {
         const lit = R.literalColours(val);
@@ -511,6 +515,7 @@ function lintText(text, opts) {
       }
       if (/^(padding|margin)/.test(prop)) return lengths(1, /^(padding|margin)$/.test(prop) ? 4 : /-(block|inline)$/.test(prop) ? 2 : 1);
       if (prop === "inset") return lengths(1, 4);
+      if (prop === "column-gap" || prop === "row-gap") return lengths(1, 1);
       if (["width", "height", "min-width", "min-height", "top", "right", "bottom", "left"].includes(prop)) {
         const exempt = [];
         if (profile === "generated" && (prop === "width" || prop === "height")) exempt.push("100%");
@@ -609,6 +614,7 @@ function lintText(text, opts) {
   function checkVars(d, val, line) {
     for (const name of R.varRefs(val)) {
       if (!/^--/.test(name)) { add(line, "L20", "malformed var(" + name + ")"); continue; }
+      if (profile === "layout") { if (name !== "--px") add(line, "L20", "layout CSS uses no variable but --px, found " + name); continue; }
       if (name.startsWith("--toy-")) {
         if (!tokens) { if (!opts.tokensMissingReported) { opts.tokensMissingReported = true; add(line, "L20", "tokens file not found (" + (opts.tokensFile ? rel(opts.tokensFile) : "none") + "), var(--toy-…) cannot be checked"); } }
         else if (!tokens.has(name)) add(line, "L20", "unknown token " + name);
@@ -676,6 +682,8 @@ function lintText(text, opts) {
     }
     if (prof === "skin" || prof === "motion") return /^body\[data-style="toy"\](?![\w-])/.test(sel);
     const c = compounds(sel);
+    // layout: the last compound is a container class (.gd-*), a node ([data-node="…"]) or its anchor box ([data-anchor="…"]).
+    if (prof === "layout") return c.length > 0 && /^(\.gd-|\[data-node="|\[data-anchor=")/.test(c[c.length - 1]);
     return c.length > 0 && /^\.tv-/.test(c[c.length - 1]);
   }
 
@@ -914,6 +922,23 @@ const ADVERSARIAL = [
   ["tokens", ':root[data-text-size="huge"] { --toy-a: 1; }', ["L24"]],
   ["skin", 'body[data-style="toy"] [class~="frame"] { padding: calc(var(--toy-stroke-control) * var(--px)); }', ["L23"]],
   ["skin", 'body[data-style="toy"] .frame .t28-foo { text-shadow: 0 calc(var(--toy-button-primary-press-depth) * var(--px)) 0 var(--toy-palette-ink); }', ["L25"]],
+  // A theme constant as a gap in generated CSS (ToyMenuItem's h_separation), tokens times var(--px) only.
+  ["generated", '.tv-a { column-gap: calc(var(--toy-stroke-control) * var(--px)); }', []],
+  ["generated", '.tv-a { column-gap: 12px; }', ["L19"]],
+  ["skin", 'body[data-style="toy"] .a { column-gap: calc(var(--toy-stroke-control) * var(--px)); }', ["L28"]],
+  // The layout profile (pages/screens/screens-layout.css): layout only, its own value grammar, its own scope.
+  ["layout", '.gd-VBoxContainer { display: grid; row-gap: calc(12 * var(--px)); grid-template-rows: auto 2fr auto; }', []],
+  ["layout", '[data-anchor="s2/menu"] { left: calc(50% - 160 * var(--px)); top: 0; justify-content: center; }', []],
+  ["layout", '[data-node="s2/menu"] { min-width: max(100%, calc(600 * var(--px))); flex: none; }', []],
+  ["layout", '.gd-Label { color: var(--toy-palette-ink); }', ["L20", "L28"]],
+  ["layout", '.gd-Label { border: 0; }', ["L28"]],
+  ["layout", '.gd-Label { row-gap: 2em; }', ["L28"]],
+  ["layout", '.gd-Label { min-width: calc(var(--toy-stroke-control) * var(--px)); }', ["L20", "L28"]],
+  ["layout", '.tv-ToyPanelMenu { display: grid; }', ["L24"]],
+  ["layout", '.gd-Label { --gd-x: 1; }', ["L28"]],
+  ["layout", '.gd-Label { display: grid !important; }', ["L27"]],
+  ["layout", '.gd-Label { grid-template-columns: repeat(2, 1fr); }', ["L28"]],
+  ["layout", '.gd-Label::after { display: block; }', ["L06"]],
 ];
 
 function selfTest() {
@@ -930,7 +955,7 @@ function selfTest() {
 
   const goodDir = path.join(FIX, "good"), badDir = path.join(FIX, "bad");
   const goods = fs.readdirSync(goodDir).filter(f => f.endsWith(".css")).sort();
-  for (const want of ["tokens.css", "skin.css", "motion.css", "generated.css"]) if (!goods.includes(want)) line(false, "good/" + want, "missing");
+  for (const want of ["tokens.css", "skin.css", "motion.css", "generated.css", "layout.css"]) if (!goods.includes(want)) line(false, "good/" + want, "missing");
   for (const f of goods) {
     const file = path.join(goodDir, f), h = header(fs.readFileSync(file, "utf8"));
     const res = lintFile(file, { profile: h.profile, tokens, tokensFile, textShadowSelectors: tss, companion: h.companion && path.join(goodDir, h.companion) });

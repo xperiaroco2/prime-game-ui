@@ -80,6 +80,19 @@
         "font-color": { "$type": "color", "$value": "{color.on-light.title}" }
       }
     },
+    "display-on-light": {
+      "$description": "A big number or word on light (the volume and threshold readouts, a lobby code).",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyDisplayOnLight", "class": "Label" },
+          "context": "light"
+        }
+      },
+      "label": { "$type": "typography", "$value": "{type.display-large}" },
+      "normal": {
+        "font-color": { "$type": "color", "$value": "{color.on-light.title}" }
+      }
+    },
     "timer": {
       "$description": "The round timer.",
       "$extensions": {

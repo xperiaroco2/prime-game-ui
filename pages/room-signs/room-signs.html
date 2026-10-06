@@ -59,6 +59,12 @@
   --toy-radius-control: 18;
   --toy-radius-surface: 24;
   --toy-radius-pill: 999;
+  --toy-space-4: 4;
+  --toy-space-8: 8;
+  --toy-space-12: 12;
+  --toy-space-16: 16;
+  --toy-space-24: 24;
+  --toy-space-32: 32;
   --toy-color-on-dark-text: var(--toy-palette-cream);
   --toy-color-on-dark-text-muted: var(--toy-palette-lilac);
   --toy-color-on-dark-title: var(--toy-palette-yellow);
@@ -343,6 +349,31 @@
   --toy-button-ghost-on-light-focus-border-width: var(--toy-focus-width);
   --toy-button-ghost-on-light-focus-corner-radius: 15;
   --toy-button-ghost-on-light-focus-expand-margin: -3;
+  --toy-button-menu-item-label-font-family: var(--toy-type-heading-bold-font-family);
+  --toy-button-menu-item-label-font-size: var(--toy-type-heading-bold-font-size);
+  --toy-button-menu-item-label-font-weight: var(--toy-type-heading-bold-font-weight);
+  --toy-button-menu-item-label-letter-spacing: var(--toy-type-heading-bold-letter-spacing);
+  --toy-button-menu-item-label-line-height: var(--toy-type-heading-bold-line-height);
+  --toy-button-menu-item-normal-bg-color: var(--toy-palette-clear);
+  --toy-button-menu-item-normal-corner-radius: var(--toy-radius-control);
+  --toy-button-menu-item-normal-content-margin-block: 12;
+  --toy-button-menu-item-normal-content-margin-inline: 22;
+  --toy-button-menu-item-normal-font-color: var(--toy-color-on-dark-text);
+  --toy-button-menu-item-hover-bg-color: var(--toy-color-state-hover-on-dark);
+  --toy-button-menu-item-pressed-bg-color: var(--toy-color-state-hover-on-dark);
+  --toy-button-menu-item-disabled-font-color: var(--toy-color-state-disabled-ink-on-dark);
+  --toy-button-menu-item-focus-bg-color: var(--toy-palette-clear);
+  --toy-button-menu-item-focus-border-color: var(--toy-color-on-dark-line);
+  --toy-button-menu-item-focus-border-width: var(--toy-focus-width);
+  --toy-button-menu-item-focus-corner-radius: var(--toy-radius-control);
+  --toy-button-menu-item-focus-expand-margin: 0;
+  --toy-button-menu-item-items-icon-normal-color: var(--toy-palette-clear);
+  --toy-button-menu-item-items-icon-hover-color: var(--toy-color-on-dark-text);
+  --toy-button-menu-item-items-icon-pressed-color: var(--toy-color-on-dark-text);
+  --toy-button-menu-item-items-icon-hover-pressed-color: var(--toy-color-on-dark-text);
+  --toy-button-menu-item-items-icon-disabled-color: var(--toy-palette-clear);
+  --toy-button-menu-item-items-icon-focus-color: var(--toy-color-on-dark-text);
+  --toy-button-menu-item-items-h-separation: 12;
   --toy-button-base-raised-on-dark-panel-bg-color: var(--toy-color-on-dark-base);
   --toy-button-base-raised-on-dark-panel-corner-radius: var(--toy-radius-control);
   --toy-button-base-raised-on-dark-panel-expand-margin-top: -5;
@@ -393,6 +424,18 @@
   --toy-chip-new-text-label-letter-spacing: var(--toy-type-caption-bold-letter-spacing);
   --toy-chip-new-text-label-line-height: var(--toy-type-caption-bold-line-height);
   --toy-chip-new-text-normal-font-color: var(--toy-color-on-accent-text);
+  --toy-chip-alert-panel-bg-color: var(--toy-color-status-alert);
+  --toy-chip-alert-panel-border-color: var(--toy-color-outline);
+  --toy-chip-alert-panel-border-width: var(--toy-stroke-control);
+  --toy-chip-alert-panel-corner-radius: var(--toy-radius-pill);
+  --toy-chip-alert-panel-content-margin-block: 4;
+  --toy-chip-alert-panel-content-margin-inline: 14;
+  --toy-chip-alert-text-label-font-family: var(--toy-type-caption-bold-font-family);
+  --toy-chip-alert-text-label-font-size: var(--toy-type-caption-bold-font-size);
+  --toy-chip-alert-text-label-font-weight: var(--toy-type-caption-bold-font-weight);
+  --toy-chip-alert-text-label-letter-spacing: var(--toy-type-caption-bold-letter-spacing);
+  --toy-chip-alert-text-label-line-height: var(--toy-type-caption-bold-line-height);
+  --toy-chip-alert-text-normal-font-color: var(--toy-color-on-accent-text);
   --toy-chip-line-on-dark-panel-bg-color: var(--toy-palette-clear);
   --toy-chip-line-on-dark-panel-border-color: var(--toy-color-on-dark-line);
   --toy-chip-line-on-dark-panel-border-width: var(--toy-stroke-control);
@@ -545,6 +588,9 @@
   --toy-field-dropdown-focus-border-width: var(--toy-focus-width);
   --toy-field-dropdown-focus-corner-radius: 9;
   --toy-field-dropdown-focus-expand-margin: -3;
+  --toy-field-dropdown-items-arrow-margin: 16;
+  --toy-field-dropdown-items-h-separation: 8;
+  --toy-field-dropdown-items-modulate-arrow: 1;
   --toy-howto-frame-panel-bg-color: var(--toy-palette-white);
   --toy-howto-frame-panel-border-color: var(--toy-color-outline);
   --toy-howto-frame-panel-border-width: var(--toy-stroke-control);
@@ -640,6 +686,33 @@
   --toy-keycap-round-quiet-panel-content-margin-inline: 10;
   --toy-keycap-round-quiet-panel-content-margin-bottom: 5;
   --toy-keycap-round-quiet-size-min-width: 36;
+  --toy-keycap-round-button-label-font-family: var(--toy-type-body-bold-font-family);
+  --toy-keycap-round-button-label-font-size: var(--toy-type-body-bold-font-size);
+  --toy-keycap-round-button-label-font-weight: var(--toy-type-body-bold-font-weight);
+  --toy-keycap-round-button-label-letter-spacing: var(--toy-type-body-bold-letter-spacing);
+  --toy-keycap-round-button-label-line-height: var(--toy-type-body-bold-line-height);
+  --toy-keycap-round-button-normal-bg-color: var(--toy-palette-white);
+  --toy-keycap-round-button-normal-border-color: var(--toy-color-outline);
+  --toy-keycap-round-button-normal-border-width-top: var(--toy-stroke-thin);
+  --toy-keycap-round-button-normal-border-width-right: var(--toy-stroke-thin);
+  --toy-keycap-round-button-normal-border-width-bottom: var(--toy-stroke-bold);
+  --toy-keycap-round-button-normal-border-width-left: var(--toy-stroke-thin);
+  --toy-keycap-round-button-normal-corner-radius: var(--toy-radius-pill);
+  --toy-keycap-round-button-normal-content-margin-top: 2;
+  --toy-keycap-round-button-normal-content-margin-inline: 10;
+  --toy-keycap-round-button-normal-content-margin-bottom: 5;
+  --toy-keycap-round-button-normal-font-color: var(--toy-color-on-light-text);
+  --toy-keycap-round-button-hover-bg-color: var(--toy-color-state-hover-on-light);
+  --toy-keycap-round-button-pressed-bg-color: var(--toy-color-state-hover-on-light);
+  --toy-keycap-round-button-disabled-bg-color: var(--toy-color-state-disabled-face);
+  --toy-keycap-round-button-disabled-border-color: var(--toy-color-state-disabled-ink);
+  --toy-keycap-round-button-disabled-font-color: var(--toy-color-state-disabled-ink);
+  --toy-keycap-round-button-focus-bg-color: var(--toy-palette-clear);
+  --toy-keycap-round-button-focus-border-color: var(--toy-color-outline);
+  --toy-keycap-round-button-focus-border-width: var(--toy-focus-width);
+  --toy-keycap-round-button-focus-corner-radius: var(--toy-radius-pill);
+  --toy-keycap-round-button-focus-expand-margin: 5;
+  --toy-keycap-round-button-size-min-width: 36;
   --toy-keycap-text-label-font-family: var(--toy-type-body-bold-font-family);
   --toy-keycap-text-label-font-size: var(--toy-type-body-bold-font-size);
   --toy-keycap-text-label-font-weight: var(--toy-type-body-bold-font-weight);
@@ -868,6 +941,12 @@
   --toy-preset-card-note-selected-label-letter-spacing: var(--toy-type-small-letter-spacing);
   --toy-preset-card-note-selected-label-line-height: var(--toy-type-small-line-height);
   --toy-preset-card-note-selected-normal-font-color: var(--toy-color-on-accent-text-muted);
+  --toy-preset-card-name-label-font-family: var(--toy-type-small-bold-font-family);
+  --toy-preset-card-name-label-font-size: var(--toy-type-small-bold-font-size);
+  --toy-preset-card-name-label-font-weight: var(--toy-type-small-bold-font-weight);
+  --toy-preset-card-name-label-letter-spacing: var(--toy-type-small-bold-letter-spacing);
+  --toy-preset-card-name-label-line-height: var(--toy-type-small-bold-line-height);
+  --toy-preset-card-name-normal-font-color: var(--toy-color-on-light-text);
   --toy-preset-card-base-panel-bg-color: var(--toy-color-on-light-base);
   --toy-preset-card-base-panel-corner-radius: var(--toy-radius-large);
   --toy-preset-card-base-panel-expand-margin-top: -5;
@@ -915,6 +994,12 @@
   --toy-setting-stepper-focus-border-width: var(--toy-focus-width);
   --toy-setting-stepper-focus-corner-radius: var(--toy-radius-pill);
   --toy-setting-stepper-focus-expand-margin: 5;
+  --toy-setting-stepper-items-icon-normal-color: var(--toy-color-on-accent-text);
+  --toy-setting-stepper-items-icon-hover-color: var(--toy-color-on-accent-text);
+  --toy-setting-stepper-items-icon-pressed-color: var(--toy-color-on-accent-text);
+  --toy-setting-stepper-items-icon-hover-pressed-color: var(--toy-color-on-accent-text);
+  --toy-setting-stepper-items-icon-disabled-color: var(--toy-color-state-disabled-ink);
+  --toy-setting-stepper-items-icon-focus-color: var(--toy-color-on-accent-text);
   --toy-slot-idle-panel-bg-color: var(--toy-color-surface-plate);
   --toy-slot-idle-panel-border-color: var(--toy-palette-slotline);
   --toy-slot-idle-panel-border-width: var(--toy-stroke-control);
@@ -1023,6 +1108,12 @@
   --toy-text-title-on-light-label-letter-spacing: var(--toy-type-title-letter-spacing);
   --toy-text-title-on-light-label-line-height: var(--toy-type-title-line-height);
   --toy-text-title-on-light-normal-font-color: var(--toy-color-on-light-title);
+  --toy-text-display-on-light-label-font-family: var(--toy-type-display-large-font-family);
+  --toy-text-display-on-light-label-font-size: var(--toy-type-display-large-font-size);
+  --toy-text-display-on-light-label-font-weight: var(--toy-type-display-large-font-weight);
+  --toy-text-display-on-light-label-letter-spacing: var(--toy-type-display-large-letter-spacing);
+  --toy-text-display-on-light-label-line-height: var(--toy-type-display-large-line-height);
+  --toy-text-display-on-light-normal-font-color: var(--toy-color-on-light-title);
   --toy-text-timer-label-font-family: var(--toy-type-display-font-family);
   --toy-text-timer-label-font-size: var(--toy-type-display-font-size);
   --toy-text-timer-label-font-weight: var(--toy-type-display-font-weight);
@@ -1636,6 +1727,18 @@ h2 { font-size: 21px; margin: 34px 0 10px; padding-top: 4px; }
 .sc-icon { display: inline-flex; flex: none; width: calc(36 * var(--px)); height: calc(36 * var(--px)); color: var(--toy-color-on-dark-text); }
 [data-context="light"] .sc-icon { color: var(--toy-color-on-light-text); }
 .sc-icon svg { display: block; width: 100%; height: 100%; }
+/* A Button's icon and OptionButton's arrow at the texture size (24 px); their colour comes from the generated
+   .tv-icon rules (icon_*_color) or, for the arrow, the label colour (modulate_arrow). */
+.sc-bicon { display: inline-flex; flex: none; width: calc(24 * var(--px)); height: calc(24 * var(--px)); }
+.sc-bicon svg { display: block; width: 100%; height: 100%; }
+:where(.tv-ToyDropdown) { justify-content: space-between !important; }
+/* The icons row: every icon at its texture size (24 px; the knife 48, the slider knobs 28, the swatch disc 26). */
+.sc-icon[class*="sc-icon-"] { width: calc(24 * var(--px)); height: calc(24 * var(--px)); }
+.sc-icon.sc-icon-knife { width: calc(48 * var(--px)); height: calc(48 * var(--px)); }
+.sc-icon.sc-icon-slider-knob, .sc-icon.sc-icon-slider-knob-disabled { width: calc(28 * var(--px)); height: calc(28 * var(--px)); }
+.sc-icon.sc-icon-swatch-disc { width: calc(26 * var(--px)); height: calc(26 * var(--px)); }
+.sc-lockline { display: inline-flex; align-items: center; gap: calc(8 * var(--px)); }
+[data-context="light"] .sc-lockline .sc-icon { color: var(--toy-color-on-light-text-muted); }
 .sc-stack { display: inline-flex; flex-direction: column; align-items: flex-start; gap: calc(4 * var(--px)); }
 .sc-group { display: flex; gap: calc(12 * var(--px)); align-items: flex-start; }
 .sc-wrap { white-space: normal !important; }
@@ -2303,7 +2406,7 @@ html, body { overflow-x: hidden; }
 <section class="rs-sec" id="choice"><h2>Питання 1. Ваш вибір системи</h2><p class="rs-intro">Одна система, суміш або нотатка, що змінити. Відповідь зберігається тут, якщо сторінка відкрита зі сховищем.</p><p class="rs-saved" id="rs-saved">ще без відповіді</p><div class="rs-tri"><article class="rs-col rs-opt" data-o="a"><h3 class="rs-col-head"><span class="rs-letter">A</span>Штампи</h3><div class="rs-pick-signs rs-tile-light"><svg width="48" height="48" viewBox="0 0 90 90" role="img" aria-label="Кухня"><use href="#rs-a-face-kitchen" width="90" height="90"/></svg><svg width="48" height="48" viewBox="0 0 90 90" role="img" aria-label="Лабораторія"><use href="#rs-a-face-lab" width="90" height="90"/></svg><svg width="48" height="48" viewBox="0 0 90 90" role="img" aria-label="Офіс"><use href="#rs-a-face-office" width="90" height="90"/></svg><svg width="48" height="48" viewBox="0 0 90 90" role="img" aria-label="Кімната відпочинку"><use href="#rs-a-face-lounge" width="90" height="90"/></svg></div><p class="rs-cap">Один код, силует. Найдешевша: 8 піктограм, одна табличка і дві сцени на всі кімнати, жодного нового кольору.</p><div class="rs-act"><button type="button" class="rs-btn rs-take" data-take="a">Беру цю систему</button><span class="rs-chosen">✓ ваш вибір</span></div></article><article class="rs-col rs-opt" data-o="b"><h3 class="rs-col-head"><span class="rs-letter">B</span>Таблички-форми</h3><div class="rs-pick-signs rs-tile-light"><svg width="48" height="48" viewBox="0 0 64 64" role="img" aria-label="Кухня"><use href="#rs-b-sign-kitchen" width="64" height="64"/></svg><svg width="48" height="48" viewBox="0 0 64 64" role="img" aria-label="Лабораторія"><use href="#rs-b-sign-lab" width="64" height="64"/></svg><svg width="48" height="48" viewBox="0 0 64 64" role="img" aria-label="Офіс"><use href="#rs-b-sign-office" width="64" height="64"/></svg><svg width="48" height="48" viewBox="0 0 64 64" role="img" aria-label="Кімната відпочинку"><use href="#rs-b-sign-lounge" width="64" height="64"/></svg></div><p class="rs-cap">Два коди без кольору: обрис таблички видно здалеку (19 px на 15 м), піктограма підтверджує зблизька.</p><div class="rs-act"><button type="button" class="rs-btn rs-take" data-take="b">Беру цю систему</button><span class="rs-chosen">✓ ваш вибір</span></div></article><article class="rs-col rs-opt" data-o="c"><h3 class="rs-col-head"><span class="rs-letter">C</span>Вивіски</h3><div class="rs-pick-signs rs-tile-light"><svg width="48" height="48" viewBox="0 0 64 64" role="img" aria-label="Кухня"><use href="#rs-c-badge-kitchen" width="64" height="64"/></svg><svg width="48" height="48" viewBox="0 0 64 64" role="img" aria-label="Лабораторія"><use href="#rs-c-badge-lab" width="64" height="64"/></svg><svg width="48" height="48" viewBox="0 0 64 64" role="img" aria-label="Офіс"><use href="#rs-c-badge-office" width="64" height="64"/></svg><svg width="48" height="48" viewBox="0 0 64 64" role="img" aria-label="Кімната відпочинку"><use href="#rs-c-badge-lounge" width="64" height="64"/></svg></div><p class="rs-cap">Річ стирчить у коридор під прямим кутом, тож її видно в профіль здалеку: близько 56 px на 10 м. Скринька доставки скрізь однакова.</p><div class="rs-act"><button type="button" class="rs-btn rs-take" data-take="c">Беру цю систему</button><span class="rs-chosen">✓ ваш вибір</span></div></article></div><article class="rs-col rs-opt rs-mix" data-o="mix"><h3 class="rs-col-head"><span class="rs-letter">+</span>Змішати</h3><p class="rs-cap">Частина однієї системи з частиною іншої: наприклад, форми табличок B зі штампами A, або речі C на дверях і штампи A на пакунках. Напишіть у нотатці нижче, що з чим.</p><div class="rs-act"><button type="button" class="rs-btn rs-take" data-take="mix">Змішати</button><span class="rs-chosen">✓ ваш вибір</span></div><p class="rs-hint" id="rs-mix-hint" hidden>Спершу напишіть у нотатці, що з чим змішати, а тоді натисніть «Змішати» ще раз.</p></article><div class="rs-note"><label for="rs-note">Нотатка (не обовʼязково)</label><textarea id="rs-note" rows="3" data-note-input></textarea><div class="rs-note-act"><button type="button" class="rs-btn rs-btn-quiet" data-save-note>Зберегти нотатку</button></div></div><details class="rs-rooms"><summary>Нотатки до окремих кімнат (не обовʼязково)</summary><div class="rs-room-grid"><div class="rs-room-note" data-room-note="storage" data-name="Склад"><label for="rs-room-storage"><svg width="24" height="24" viewBox="0 0 90 90" aria-hidden="true"><use href="#rs-a-face-storage" width="90" height="90"/></svg><svg width="24" height="24" viewBox="0 0 64 64" aria-hidden="true"><use href="#rs-b-sign-storage" width="64" height="64"/></svg><svg width="24" height="24" viewBox="0 0 64 64" aria-hidden="true"><use href="#rs-c-badge-storage" width="64" height="64"/></svg>Склад</label><textarea id="rs-room-storage" rows="2"></textarea><div class="rs-room-act"><button type="button" class="rs-btn rs-btn-quiet" data-save-room>Зберегти</button><span class="rs-room-saved" data-room-saved></span></div></div><div class="rs-room-note" data-room-note="hall" data-name="Хол"><label for="rs-room-hall"><svg width="24" height="24" viewBox="0 0 90 90" aria-hidden="true"><use href="#rs-a-face-hall" width="90" height="90"/></svg><svg width="24" height="24" viewBox="0 0 64 64" aria-hidden="true"><use href="#rs-b-sign-hall" width="64" height="64"/></svg><svg width="24" height="24" viewBox="0 0 64 64" aria-hidden="true"><use href="#rs-c-badge-hall" width="64" height="64"/></svg>Хол</label><textarea id="rs-room-hall" rows="2"></textarea><div class="rs-room-act"><button type="button" class="rs-btn rs-btn-quiet" data-save-room>Зберегти</button><span class="rs-room-saved" data-room-saved></span></div></div><div class="rs-room-note" data-room-note="kitchen" data-name="Кухня"><label for="rs-room-kitchen"><svg width="24" height="24" viewBox="0 0 90 90" aria-hidden="true"><use href="#rs-a-face-kitchen" width="90" height="90"/></svg><svg width="24" height="24" viewBox="0 0 64 64" aria-hidden="true"><use href="#rs-b-sign-kitchen" width="64" height="64"/></svg><svg width="24" height="24" viewBox="0 0 64 64" aria-hidden="true"><use href="#rs-c-badge-kitchen" width="64" height="64"/></svg>Кухня</label><textarea id="rs-room-kitchen" rows="2"></textarea><div class="rs-room-act"><button type="button" class="rs-btn rs-btn-quiet" data-save-room>Зберегти</button><span class="rs-room-saved" data-room-saved></span></div></div><div class="rs-room-note" data-room-note="lab" data-name="Лабораторія"><label for="rs-room-lab"><svg width="24" height="24" viewBox="0 0 90 90" aria-hidden="true"><use href="#rs-a-face-lab" width="90" height="90"/></svg><svg width="24" height="24" viewBox="0 0 64 64" aria-hidden="true"><use href="#rs-b-sign-lab" width="64" height="64"/></svg><svg width="24" height="24" viewBox="0 0 64 64" aria-hidden="true"><use href="#rs-c-badge-lab" width="64" height="64"/></svg>Лабораторія</label><textarea id="rs-room-lab" rows="2"></textarea><div class="rs-room-act"><button type="button" class="rs-btn rs-btn-quiet" data-save-room>Зберегти</button><span class="rs-room-saved" data-room-saved></span></div></div><div class="rs-room-note" data-room-note="office" data-name="Офіс"><label for="rs-room-office"><svg width="24" height="24" viewBox="0 0 90 90" aria-hidden="true"><use href="#rs-a-face-office" width="90" height="90"/></svg><svg width="24" height="24" viewBox="0 0 64 64" aria-hidden="true"><use href="#rs-b-sign-office" width="64" height="64"/></svg><svg width="24" height="24" viewBox="0 0 64 64" aria-hidden="true"><use href="#rs-c-badge-office" width="64" height="64"/></svg>Офіс</label><textarea id="rs-room-office" rows="2"></textarea><div class="rs-room-act"><button type="button" class="rs-btn rs-btn-quiet" data-save-room>Зберегти</button><span class="rs-room-saved" data-room-saved></span></div></div><div class="rs-room-note" data-room-note="lounge" data-name="Кімната відпочинку"><label for="rs-room-lounge"><svg width="24" height="24" viewBox="0 0 90 90" aria-hidden="true"><use href="#rs-a-face-lounge" width="90" height="90"/></svg><svg width="24" height="24" viewBox="0 0 64 64" aria-hidden="true"><use href="#rs-b-sign-lounge" width="64" height="64"/></svg><svg width="24" height="24" viewBox="0 0 64 64" aria-hidden="true"><use href="#rs-c-badge-lounge" width="64" height="64"/></svg>Кімната відпочинку</label><textarea id="rs-room-lounge" rows="2"></textarea><div class="rs-room-act"><button type="button" class="rs-btn rs-btn-quiet" data-save-room>Зберегти</button><span class="rs-room-saved" data-room-saved></span></div></div><div class="rs-room-note" data-room-note="workshop" data-name="Майстерня"><label for="rs-room-workshop"><svg width="24" height="24" viewBox="0 0 90 90" aria-hidden="true"><use href="#rs-a-face-workshop" width="90" height="90"/></svg><svg width="24" height="24" viewBox="0 0 64 64" aria-hidden="true"><use href="#rs-b-sign-workshop" width="64" height="64"/></svg><svg width="24" height="24" viewBox="0 0 64 64" aria-hidden="true"><use href="#rs-c-badge-workshop" width="64" height="64"/></svg>Майстерня</label><textarea id="rs-room-workshop" rows="2"></textarea><div class="rs-room-act"><button type="button" class="rs-btn rs-btn-quiet" data-save-room>Зберегти</button><span class="rs-room-saved" data-room-saved></span></div></div><div class="rs-room-note" data-room-note="server" data-name="Серверна"><label for="rs-room-server"><svg width="24" height="24" viewBox="0 0 90 90" aria-hidden="true"><use href="#rs-a-face-server" width="90" height="90"/></svg><svg width="24" height="24" viewBox="0 0 64 64" aria-hidden="true"><use href="#rs-b-sign-server" width="64" height="64"/></svg><svg width="24" height="24" viewBox="0 0 64 64" aria-hidden="true"><use href="#rs-c-badge-server" width="64" height="64"/></svg>Серверна</label><textarea id="rs-room-server" rows="2"></textarea><div class="rs-room-act"><button type="button" class="rs-btn rs-btn-quiet" data-save-room>Зберегти</button><span class="rs-room-saved" data-room-saved></span></div></div></div></details></section>
 <section class="rs-sec" id="binding"><h2>Питання 2. Точка доставки</h2><p class="rs-intro">Пакунків 10, а кімнат доставки 4–6, тож кімната отримує 2–3 пакунки. Знак називає кімнату, а не окреме місце, тож нинішнє правило «кожен пакунок — своє коло» лишитися не може. Це зміна правила для <a href="https://github.com/xperiaroco2/prime-game/issues/255">prime-game#255</a> (core/); тут лише вибір. Малюнки — план кімнати згори в стилі Toy, однаковий для будь-якої системи знаків.</p><p class="rs-saved" id="rs-bind-saved">ще без відповіді</p><div class="rs-tri"><article class="rs-col rs-opt" data-b="one"><h3 class="rs-col-head"><span class="rs-letter">а</span>Одна точка на кімнату <span class="rs-tag">радимо</span></h3><svg class="rs-plan" viewBox="0 0 320 196" role="img" aria-label="План кімнати згори: біля стіни одна широка точка доставки зі знаком кімнати, на ній три пакунки; гравець несе ще один."><rect class="pf" x="8" y="8" width="304" height="174" rx="18"/><rect class="pg" x="34" y="176" width="56" height="10"/><rect class="pn" x="98" y="171" width="22" height="22" rx="6"/><circle class="pc" cx="109" cy="182" r="4.8"/><rect class="pd" x="74" y="24" width="172" height="50" rx="12"/><rect class="pn" x="86" y="36" width="26" height="26" rx="7"/><circle class="pc" cx="99" cy="49" r="5.7"/><rect class="pk" x="124" y="35" width="28" height="28" rx="5"/><rect class="pn" x="124" y="46" width="28" height="6"/><rect class="pk" x="160" y="35" width="28" height="28" rx="5"/><rect class="pn" x="160" y="46" width="28" height="6"/><rect class="pk" x="196" y="35" width="28" height="28" rx="5"/><rect class="pn" x="196" y="46" width="28" height="6"/><circle class="pp" cx="160" cy="140" r="16"/><rect class="pk" x="147" y="94" width="26" height="26" rx="5"/><rect class="pn" x="147" y="104.5" width="26" height="5"/></svg><p class="rs-cap">Одна широка точка біля стіни приймає всі пакунки цієї кімнати (за раунд їх 2–3). Найпростіше прочитати: один знак на кімнату, одне місце, куди нести.</p><div class="rs-act"><button type="button" class="rs-btn rs-bind" data-bind="one">Беру це</button><span class="rs-chosen">✓ ваш вибір</span></div></article><article class="rs-col rs-opt" data-b="many"><h3 class="rs-col-head"><span class="rs-letter">б</span>Кілька місць у кімнаті</h3><svg class="rs-plan" viewBox="0 0 320 196" role="img" aria-label="План кімнати згори: чотири малі місця зі знаком кімнати, на двох уже стоять пакунки; гравець несе пакунок до вільного."><rect class="pf" x="8" y="8" width="304" height="174" rx="18"/><rect class="pg" x="34" y="176" width="56" height="10"/><rect class="pn" x="98" y="171" width="22" height="22" rx="6"/><circle class="pc" cx="109" cy="182" r="4.8"/><circle class="pd" cx="62" cy="52" r="24"/><rect class="pk" x="47" y="37" width="30" height="30" rx="5"/><rect class="pn" x="47" y="49" width="30" height="6"/><circle class="pd" cx="258" cy="52" r="24"/><rect class="pn" x="248" y="42" width="20" height="20" rx="5"/><circle class="pc" cx="258" cy="52" r="4.4"/><circle class="pd" cx="258" cy="132" r="24"/><rect class="pk" x="243" y="117" width="30" height="30" rx="5"/><rect class="pn" x="243" y="129" width="30" height="6"/><circle class="pd" cx="160" cy="52" r="24"/><rect class="pn" x="150" y="42" width="20" height="20" rx="5"/><circle class="pc" cx="160" cy="52" r="4.4"/><circle class="pp" cx="160" cy="148" r="16"/><rect class="pk" x="147" y="102" width="26" height="26" rx="5"/><rect class="pn" x="147" y="112.5" width="26" height="5"/></svg><p class="rs-cap">Три-чотири малі місця по кімнаті; будь-яке вільне приймає пакунок цієї кімнати. Знаків у кімнаті більше, і вільне місце ще треба знайти.</p><div class="rs-act"><button type="button" class="rs-btn rs-bind" data-bind="many">Беру це</button><span class="rs-chosen">✓ ваш вибір</span></div></article></div><p class="rs-cap rs-legend">На плані: темний квадрат із крапкою — знак кімнати (у будь-якій системі); кремові коробки зі смужкою — пакунки цієї кімнати; зелене коло — гравець із пакунком. Біля дверей той самий знак, що на точці доставки.</p><div class="rs-note"><label for="rs-bind-note">Нотатка (не обовʼязково)</label><textarea id="rs-bind-note" rows="2"></textarea><div class="rs-note-act"><button type="button" class="rs-btn rs-btn-quiet" data-save-bind-note>Зберегти нотатку</button></div></div><div class="rs-summary" id="rs-summary" hidden><label for="rs-summary-text">Підсумок обох відповідей, щоб скопіювати в чат</label><textarea id="rs-summary-text" rows="4" readonly></textarea></div></section>
 <section class="rs-sec" id="agent"><h2>Вирішив агент</h2><p class="rs-intro">Дрібні технічні рішення, які агент ухвалив сам. Кожне можна скасувати.</p><ul class="rs-agent"><li><b>Мапа: наведення на задачу «Доставка» підсвічує лише Склад.</b> <small class="rs-by">(агент)</small><span>Чому: Якби світилися кімнати, що чекають пакунків, підсвітка стала б маркером цілі.</span></li><li><b>HUD: слот у руці не повторює знак пакунка, який несеш.</b> <small class="rs-by">(агент)</small><span>Чому: На HUD жодних підказок; знак і так видно на верхній грані коробки.</span></li><li><b>Перехрестя коридорів: жодних знаків-напрямків.</b> <small class="rs-by">(агент)</small><span>Чому: Знаки позначають кімнати, а не маршрути.</span></li><li><b>Склад і Хол пакунків не приймають.</b> <small class="rs-by">(агент)</small><span>Чому: На Складі пакунки беруть, Хол перетинають усі, тож точка там була б задарма. Пропозиція для мапи дизайнера (<a href="https://github.com/xperiaroco2/prime-game/issues/146">prime-game#146</a>).</span></li></ul><p class="rs-cap">Сам перелік кімнат (Склад, Хол, Кухня, Лабораторія, Офіс, Кімната відпочинку, Майстерня, Серверна) — теж лише пропозиція для мапи дизайнера, <a href="https://github.com/xperiaroco2/prime-game/issues/146">prime-game#146</a>. Не згодні з чимось — напишіть у нотатці вище.</p></section>
-<footer class="rs-foot">Зібрано з токенів 0.1.2 і систем pages/room-signs/systems/a, b, c. Усі знаки — власні малюнки (own work, LICENCES.json кожної системи). Світ — сірі заглушки, не вигляд гри. Відстані й розміри — для екрана 1080p, 704 px на метр з 1 м, як у дослідженні (ground.md, розділ 3). Колірний зір — tools/a11y/cvd.js; контраст — формула WCAG (tools/lib/wcag.js).</footer>
+<footer class="rs-foot">Зібрано з токенів 0.2.0 і систем pages/room-signs/systems/a, b, c. Усі знаки — власні малюнки (own work, LICENCES.json кожної системи). Світ — сірі заглушки, не вигляд гри. Відстані й розміри — для екрана 1080p, 704 px на метр з 1 м, як у дослідженні (ground.md, розділ 3). Колірний зір — tools/a11y/cvd.js; контраст — формула WCAG (tools/lib/wcag.js).</footer>
 </main>
 <script id="rs-data" type="application/json">{"options":{"a":"A · Штампи","b":"B · Таблички-форми","c":"C · Вивіски"},"rooms":{"storage":"Склад","hall":"Хол","kitchen":"Кухня","lab":"Лабораторія","office":"Офіс","lounge":"Кімната відпочинку","workshop":"Майстерня","server":"Серверна"},"bindings":{"one":"а · Одна точка на кімнату","many":"б · Кілька місць у кімнаті"}}</script>
 <script>

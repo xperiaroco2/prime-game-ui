@@ -1,0 +1,188 @@
+<!doctype html>
+<!-- The self-test fixture of tools/screens/fit.js and shots.js: a small page that follows the screens page contract
+     (pages/screens/screens.html): lang, data-lang and data-text-size on <html>; one .sc-frame per screen state,
+     1920x1080 reference px in var(--px) lengths, clipping; data-node, data-type, data-variation and data-key; the
+     measuring mode ?only=<screen>:<state>|all&lang=uk|en&size=default|large with <html data-ready="1">.
+     Frame s1:broken has one deliberate case of every fit problem; frame s2:clean has none, but has what must not be
+     reported (text in padding-free labels, an icon sibling, wrapped text, a scroll list running past its viewport
+     and past the frame, a hidden node outside the frame). ?font=off leaves Comfortaa out (the fonts failure test).
+     The texts are test strings, not the copy deck. -->
+<html lang="uk" data-lang="uk" data-text-size="default">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Screens fixture</title>
+<script>
+  if (!/[?&]font=off(&|$)/.test(location.search)) {
+    var l = document.createElement("link");
+    l.rel = "stylesheet";
+    l.href = "https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap";
+    document.head.appendChild(l);
+  }
+</script>
+<style>
+  :root { --zoom: 0.5; --px: calc(var(--zoom) * 1px); --fs: 1; }
+  html[data-text-size="large"] { --fs: 1.25; }
+  body { margin: 0; background: #f4efe6; color: #2b2233; font-family: Comfortaa, system-ui, sans-serif; }
+  .chrome { display: flex; gap: 8px; padding: 12px 16px; font-size: 16px; }
+  .chrome button { font: inherit; padding: 6px 12px; }
+  .stack { display: flex; flex-direction: column; gap: 16px; padding: 0 16px 16px; }
+  html.measure .chrome { display: none; }
+  html.measure .stack { padding: 0; gap: 0; }
+  [hidden] { display: none !important; }
+
+  .sc-frame { position: relative; flex: none; overflow: hidden; width: calc(1920 * var(--px)); height: calc(1080 * var(--px)); }
+  .sc-frame[data-screen="s1"] { background: #20304a; color: #ffffff; }
+  .sc-frame[data-screen="s2"] { background: #f9d65c; color: #2b2233; }
+  .abs { position: absolute; }
+  .t { font-size: calc(32 * var(--fs) * var(--px)); font-weight: 700; line-height: 1.25; white-space: nowrap; }
+  .t-small { font-size: calc(24 * var(--fs) * var(--px)); font-weight: 400; line-height: 1.25; white-space: nowrap; }
+  .t-title { font-size: calc(64 * var(--fs) * var(--px)); font-weight: 700; line-height: 1.25; white-space: nowrap; }
+  .panel { background: #3d5a80; border-radius: calc(16 * var(--px)); }
+  .btn { display: flex; align-items: center; gap: calc(16 * var(--px)); box-sizing: border-box;
+    height: calc(80 * var(--px)); padding: 0 calc(24 * var(--px)); background: #ffffff; color: #2b2233;
+    border: calc(4 * var(--px)) solid #2b2233; border-radius: calc(20 * var(--px)); }
+  .icon { flex: none; width: calc(32 * var(--px)); height: calc(32 * var(--px)); background: #e76f51; border-radius: calc(8 * var(--px)); }
+  .vbox { display: flex; flex-direction: column; }
+  .hbox { display: flex; flex-direction: row; }
+</style>
+</head>
+<body>
+<div class="chrome">
+  <button type="button" data-set-lang="uk">uk</button><button type="button" data-set-lang="en">en</button>
+  <button type="button" data-set-size="default">default</button><button type="button" data-set-size="large">large</button>
+</div>
+<div class="stack">
+
+  <div class="sc-frame" data-screen="s1" data-state="broken">
+    <!-- text-overflow: the text is wider than the button's content box -->
+    <div class="abs btn t" data-node="s1/play" data-type="Button" data-variation="ToyButton" data-key="fixture.play"
+      style="left: calc(80 * var(--px)); top: calc(80 * var(--px)); width: calc(200 * var(--px));">Start</div>
+    <!-- text-clipped: the label fits its text, the clipping panel around it does not -->
+    <div class="abs panel" data-node="s1/clip" data-type="Panel"
+      style="left: calc(80 * var(--px)); top: calc(220 * var(--px)); width: calc(240 * var(--px)); height: calc(60 * var(--px)); overflow: hidden;">
+      <div class="abs t" data-node="s1/clip/label" data-type="Label" data-key="fixture.clip" style="left: 0; top: 0;">Clip</div>
+    </div>
+    <!-- outside-frame: the badge runs past the right edge -->
+    <div class="abs panel" data-node="s1/badge" data-type="Panel"
+      style="left: calc(1800 * var(--px)); top: calc(40 * var(--px)); width: calc(200 * var(--px)); height: calc(80 * var(--px));"></div>
+    <!-- overlap: two children of a box container overlap by 40 px -->
+    <div class="abs hbox" data-node="s1/row" data-type="HBoxContainer" style="left: calc(80 * var(--px)); top: calc(400 * var(--px));">
+      <div class="panel" data-node="s1/row/a" data-type="Panel" style="flex: none; width: calc(160 * var(--px)); height: calc(100 * var(--px));"></div>
+      <div class="panel" data-node="s1/row/b" data-type="Panel" style="flex: none; width: calc(160 * var(--px)); height: calc(100 * var(--px)); margin-left: calc(-40 * var(--px));"></div>
+    </div>
+    <!-- empty-text: the key resolves to an empty string -->
+    <div class="abs t" data-node="s1/empty" data-type="Label" data-key="fixture.empty"
+      style="left: calc(80 * var(--px)); top: calc(560 * var(--px)); width: calc(200 * var(--px)); height: calc(40 * var(--px));"></div>
+    <!-- key-shown: the key is not in the texts, so the key itself is shown -->
+    <div class="abs t" data-node="s1/missing" data-type="Label" data-key="fixture.missing"
+      style="left: calc(400 * var(--px)); top: calc(560 * var(--px));">fixture.missing</div>
+    <!-- outside-parent: a child wider than its box container -->
+    <div class="abs vbox" data-node="s1/col" data-type="VBoxContainer"
+      style="left: calc(80 * var(--px)); top: calc(680 * var(--px)); width: calc(200 * var(--px));">
+      <div class="panel" data-node="s1/col/wide" data-type="Panel" style="flex: none; width: calc(320 * var(--px)); height: calc(60 * var(--px));"></div>
+    </div>
+  </div>
+
+  <div class="sc-frame" data-screen="s2" data-state="clean">
+    <div class="abs vbox" data-node="s2/menu" data-type="VBoxContainer"
+      style="left: calc(120 * var(--px)); top: calc(160 * var(--px)); width: calc(560 * var(--px)); gap: calc(24 * var(--px));">
+      <div class="t-title" data-node="s2/menu/title" data-type="Label" data-variation="ToyTitle" data-key="fixture.title">Title</div>
+      <div class="vbox" data-node="s2/menu/buttons" data-type="VBoxContainer" style="gap: calc(16 * var(--px));">
+        <div class="btn t" data-node="s2/menu/buttons/host" data-type="Button" data-variation="ToyButton"><span class="icon"></span><span data-key="fixture.host">Host</span></div>
+        <div class="btn t" data-node="s2/menu/buttons/join" data-type="Button" data-variation="ToyButton"><span class="icon"></span><span data-key="fixture.join">Join</span></div>
+        <div class="btn t" data-node="s2/menu/buttons/settings" data-type="Button" data-variation="ToyButton"><span class="icon"></span><span data-key="fixture.settings">Settings</span></div>
+      </div>
+    </div>
+    <div class="abs" data-node="s2/cards" data-type="GridContainer"
+      style="left: calc(760 * var(--px)); top: calc(160 * var(--px)); display: grid; grid-template-columns: repeat(3, calc(300 * var(--px))); gap: calc(24 * var(--px));">
+      <div class="panel" data-node="s2/cards/c1" data-type="PanelContainer" style="box-sizing: border-box; height: calc(170 * var(--px)); padding: calc(20 * var(--px)); color: #ffffff;"><div class="t" data-node="s2/cards/c1/label" data-type="Label" data-key="fixture.card.a" style="white-space: normal;">A</div></div>
+      <div class="panel" data-node="s2/cards/c2" data-type="PanelContainer" style="box-sizing: border-box; height: calc(170 * var(--px)); padding: calc(20 * var(--px)); color: #ffffff;"><div class="t" data-node="s2/cards/c2/label" data-type="Label" data-key="fixture.card.b" style="white-space: normal;">B</div></div>
+      <div class="panel" data-node="s2/cards/c3" data-type="PanelContainer" style="box-sizing: border-box; height: calc(170 * var(--px)); padding: calc(20 * var(--px)); color: #ffffff;"><div class="t" data-node="s2/cards/c3/label" data-type="Label" data-key="fixture.card.c" style="white-space: normal;">C</div></div>
+      <div class="panel" data-node="s2/cards/c4" data-type="PanelContainer" style="box-sizing: border-box; height: calc(170 * var(--px)); padding: calc(20 * var(--px)); color: #ffffff;"><div class="t" data-node="s2/cards/c4/label" data-type="Label" data-key="fixture.card.d" style="white-space: normal;">D</div></div>
+    </div>
+    <div class="abs" data-node="s2/list" data-type="ScrollContainer"
+      style="left: calc(760 * var(--px)); top: calc(620 * var(--px)); width: calc(600 * var(--px)); height: calc(300 * var(--px)); overflow-x: hidden; overflow-y: auto;">
+      <div class="vbox" data-node="s2/list/items" data-type="VBoxContainer" style="gap: calc(8 * var(--px));">
+        <div class="t" data-node="s2/list/items/r1" data-type="Label" data-key="fixture.row" style="flex: none; height: calc(64 * var(--px));">Row</div>
+        <div class="t" data-node="s2/list/items/r2" data-type="Label" data-key="fixture.row" style="flex: none; height: calc(64 * var(--px));">Row</div>
+        <div class="t" data-node="s2/list/items/r3" data-type="Label" data-key="fixture.row" style="flex: none; height: calc(64 * var(--px));">Row</div>
+        <div class="t" data-node="s2/list/items/r4" data-type="Label" data-key="fixture.row" style="flex: none; height: calc(64 * var(--px));">Row</div>
+        <div class="t" data-node="s2/list/items/r5" data-type="Label" data-key="fixture.row" style="flex: none; height: calc(64 * var(--px));">Row</div>
+        <div class="t" data-node="s2/list/items/r6" data-type="Label" data-key="fixture.row" style="flex: none; height: calc(64 * var(--px));">Row</div>
+        <div class="t" data-node="s2/list/items/r7" data-type="Label" data-key="fixture.row" style="flex: none; height: calc(64 * var(--px));">Row</div>
+        <div class="t" data-node="s2/list/items/r8" data-type="Label" data-key="fixture.row" style="flex: none; height: calc(64 * var(--px));">Row</div>
+      </div>
+    </div>
+    <div class="abs hbox" data-node="s2/footer" data-type="HBoxContainer"
+      style="left: calc(120 * var(--px)); top: calc(990 * var(--px)); width: calc(1680 * var(--px)); justify-content: space-between;">
+      <div class="t-small" data-node="s2/footer/version" data-type="Label" data-key="fixture.version">v</div>
+      <div class="t-small" data-node="s2/footer/hint" data-type="Label" data-key="fixture.hint">hint</div>
+    </div>
+    <div class="abs t" data-node="s2/toast" data-type="Label" data-key="fixture.toast" hidden
+      style="left: calc(2400 * var(--px)); top: calc(40 * var(--px));">Toast</div>
+  </div>
+
+</div>
+<script>
+(function () {
+  "use strict";
+  var TEXTS = {
+    uk: {
+      "fixture.play": "Почати гру просто зараз", "fixture.clip": "Цей рядок обрізає панель навколо", "fixture.empty": "",
+      "fixture.title": "Прайм", "fixture.host": "Створити гру", "fixture.join": "Приєднатися",
+      "fixture.settings": "Налаштування", "fixture.card.a": "Нова мапа", "fixture.card.b": "Друзі",
+      "fixture.card.c": "Звук", "fixture.card.d": "Мова", "fixture.row": "Рядок списку",
+      "fixture.version": "версія 0.1", "fixture.hint": "Натисніть, щоб почати", "fixture.toast": "Збережено",
+    },
+    en: {
+      "fixture.play": "Start the game right now", "fixture.clip": "The panel around clips this line", "fixture.empty": "",
+      "fixture.title": "Prime", "fixture.host": "Host a game", "fixture.join": "Join a game",
+      "fixture.settings": "Settings", "fixture.card.a": "New map", "fixture.card.b": "Friends",
+      "fixture.card.c": "Sound", "fixture.card.d": "Language", "fixture.row": "A list row",
+      "fixture.version": "version 0.1", "fixture.hint": "Press to start", "fixture.toast": "Saved",
+    },
+  };
+  var html = document.documentElement;
+  function setLang(lang) {
+    html.setAttribute("lang", lang);
+    html.setAttribute("data-lang", lang);
+    document.querySelectorAll("[data-key]").forEach(function (el) {
+      var k = el.getAttribute("data-key");
+      el.textContent = Object.prototype.hasOwnProperty.call(TEXTS[lang], k) ? TEXTS[lang][k] : k;
+    });
+  }
+  function setSize(size) { html.setAttribute("data-text-size", size); }
+  function fitZoom() {
+    if (html.classList.contains("measure")) return;
+    html.style.setProperty("--zoom", String(Math.min(1, (document.documentElement.clientWidth - 32) / 1920)));
+  }
+
+  var q = new URLSearchParams(location.search);
+  var only = q.get("only");
+  setLang(q.get("lang") === "en" ? "en" : "uk");
+  setSize(q.get("size") === "large" ? "large" : "default");
+  if (only) {
+    html.classList.add("measure");
+    html.style.setProperty("--zoom", "1");
+    document.querySelectorAll(".sc-frame").forEach(function (fr) {
+      var id = fr.getAttribute("data-screen") + ":" + fr.getAttribute("data-state");
+      if (only !== "all" && only !== id) fr.hidden = true;
+    });
+  } else {
+    fitZoom();
+    window.addEventListener("resize", fitZoom);
+    document.querySelectorAll("[data-set-lang]").forEach(function (b) {
+      b.addEventListener("click", function () { setLang(b.getAttribute("data-set-lang")); });
+    });
+    document.querySelectorAll("[data-set-size]").forEach(function (b) {
+      b.addEventListener("click", function () { setSize(b.getAttribute("data-set-size")); });
+    });
+  }
+  document.fonts.ready.then(function () {
+    requestAnimationFrame(function () { requestAnimationFrame(function () { html.setAttribute("data-ready", "1"); }); });
+  });
+})();
+</script>
+</body>
+</html>

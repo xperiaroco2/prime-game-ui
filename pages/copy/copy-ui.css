@@ -20,34 +20,34 @@
   padding-left: calc((var(--toy-panel-menu-panel-content-margin) - var(--toy-panel-menu-panel-border-width)) * var(--px));
   box-shadow: 0 calc(var(--toy-panel-base-panel-expand-margin-bottom) * var(--px)) 0 var(--toy-panel-base-panel-bg-color);
 }
-/* ToyChipNew: PanelContainer · chip.new · light */
-.tv-ToyChipNew {
+/* ToyChipAlert: PanelContainer · chip.alert · light */
+.tv-ToyChipAlert {
   box-sizing: border-box;
   position: relative;
-  background: var(--toy-chip-new-panel-bg-color);
+  background: var(--toy-chip-alert-panel-bg-color);
   border-style: solid;
-  border-color: var(--toy-chip-new-panel-border-color);
-  border-top-width: calc(var(--toy-chip-new-panel-border-width) * var(--px));
-  border-right-width: calc(var(--toy-chip-new-panel-border-width) * var(--px));
-  border-bottom-width: calc(var(--toy-chip-new-panel-border-width) * var(--px));
-  border-left-width: calc(var(--toy-chip-new-panel-border-width) * var(--px));
-  border-top-left-radius: calc(var(--toy-chip-new-panel-corner-radius) * var(--px));
-  border-top-right-radius: calc(var(--toy-chip-new-panel-corner-radius) * var(--px));
-  border-bottom-right-radius: calc(var(--toy-chip-new-panel-corner-radius) * var(--px));
-  border-bottom-left-radius: calc(var(--toy-chip-new-panel-corner-radius) * var(--px));
-  padding-top: calc((var(--toy-chip-new-panel-content-margin-block) - var(--toy-chip-new-panel-border-width)) * var(--px));
-  padding-right: calc((var(--toy-chip-new-panel-content-margin-inline) - var(--toy-chip-new-panel-border-width)) * var(--px));
-  padding-bottom: calc((var(--toy-chip-new-panel-content-margin-block) - var(--toy-chip-new-panel-border-width)) * var(--px));
-  padding-left: calc((var(--toy-chip-new-panel-content-margin-inline) - var(--toy-chip-new-panel-border-width)) * var(--px));
+  border-color: var(--toy-chip-alert-panel-border-color);
+  border-top-width: calc(var(--toy-chip-alert-panel-border-width) * var(--px));
+  border-right-width: calc(var(--toy-chip-alert-panel-border-width) * var(--px));
+  border-bottom-width: calc(var(--toy-chip-alert-panel-border-width) * var(--px));
+  border-left-width: calc(var(--toy-chip-alert-panel-border-width) * var(--px));
+  border-top-left-radius: calc(var(--toy-chip-alert-panel-corner-radius) * var(--px));
+  border-top-right-radius: calc(var(--toy-chip-alert-panel-corner-radius) * var(--px));
+  border-bottom-right-radius: calc(var(--toy-chip-alert-panel-corner-radius) * var(--px));
+  border-bottom-left-radius: calc(var(--toy-chip-alert-panel-corner-radius) * var(--px));
+  padding-top: calc((var(--toy-chip-alert-panel-content-margin-block) - var(--toy-chip-alert-panel-border-width)) * var(--px));
+  padding-right: calc((var(--toy-chip-alert-panel-content-margin-inline) - var(--toy-chip-alert-panel-border-width)) * var(--px));
+  padding-bottom: calc((var(--toy-chip-alert-panel-content-margin-block) - var(--toy-chip-alert-panel-border-width)) * var(--px));
+  padding-left: calc((var(--toy-chip-alert-panel-content-margin-inline) - var(--toy-chip-alert-panel-border-width)) * var(--px));
 }
-/* ToyChipNewText: Label · chip.new-text · light */
-.tv-ToyChipNewText {
-  font-family: var(--toy-chip-new-text-label-font-family), system-ui, sans-serif;
-  font-size: calc(var(--toy-chip-new-text-label-font-size) * var(--px));
-  font-weight: var(--toy-chip-new-text-label-font-weight);
-  line-height: var(--toy-chip-new-text-label-line-height);
-  letter-spacing: calc(var(--toy-chip-new-text-label-letter-spacing) * var(--px));
-  color: var(--toy-chip-new-text-normal-font-color);
+/* ToyChipAlertText: Label · chip.alert-text · light */
+.tv-ToyChipAlertText {
+  font-family: var(--toy-chip-alert-text-label-font-family), system-ui, sans-serif;
+  font-size: calc(var(--toy-chip-alert-text-label-font-size) * var(--px));
+  font-weight: var(--toy-chip-alert-text-label-font-weight);
+  line-height: var(--toy-chip-alert-text-label-line-height);
+  letter-spacing: calc(var(--toy-chip-alert-text-label-letter-spacing) * var(--px));
+  color: var(--toy-chip-alert-text-normal-font-color);
 }
 /* ToyButtonPrimary: Button → ToyButton · button.primary · any */
 .tv-ToyButtonPrimary {

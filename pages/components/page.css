@@ -164,6 +164,18 @@ h2 { font-size: 21px; margin: 34px 0 10px; padding-top: 4px; }
 .sc-icon { display: inline-flex; flex: none; width: calc(36 * var(--px)); height: calc(36 * var(--px)); color: var(--toy-color-on-dark-text); }
 [data-context="light"] .sc-icon { color: var(--toy-color-on-light-text); }
 .sc-icon svg { display: block; width: 100%; height: 100%; }
+/* A Button's icon and OptionButton's arrow at the texture size (24 px); their colour comes from the generated
+   .tv-icon rules (icon_*_color) or, for the arrow, the label colour (modulate_arrow). */
+.sc-bicon { display: inline-flex; flex: none; width: calc(24 * var(--px)); height: calc(24 * var(--px)); }
+.sc-bicon svg { display: block; width: 100%; height: 100%; }
+:where(.tv-ToyDropdown) { justify-content: space-between !important; }
+/* The icons row: every icon at its texture size (24 px; the knife 48, the slider knobs 28, the swatch disc 26). */
+.sc-icon[class*="sc-icon-"] { width: calc(24 * var(--px)); height: calc(24 * var(--px)); }
+.sc-icon.sc-icon-knife { width: calc(48 * var(--px)); height: calc(48 * var(--px)); }
+.sc-icon.sc-icon-slider-knob, .sc-icon.sc-icon-slider-knob-disabled { width: calc(28 * var(--px)); height: calc(28 * var(--px)); }
+.sc-icon.sc-icon-swatch-disc { width: calc(26 * var(--px)); height: calc(26 * var(--px)); }
+.sc-lockline { display: inline-flex; align-items: center; gap: calc(8 * var(--px)); }
+[data-context="light"] .sc-lockline .sc-icon { color: var(--toy-color-on-light-text-muted); }
 .sc-stack { display: inline-flex; flex-direction: column; align-items: flex-start; gap: calc(4 * var(--px)); }
 .sc-group { display: flex; gap: calc(12 * var(--px)); align-items: flex-start; }
 .sc-wrap { white-space: normal !important; }

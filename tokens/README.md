@@ -9,9 +9,9 @@ spec, [`docs/research/2026-10-03-tokens/spec.md`](../docs/research/2026-10-03-to
 | File | What it holds |
 |---|---|
 | `prime.resolver.json` | The resolver: one base set (the files below, in order) and two modifiers, `textSize` and `motion` |
-| `primitives.tokens.json` | Literals: the palette, font family, weights, letter spacing, line height, `ease.press`, `duration.none`, `focus.*`, `stroke.*`, `radius.*` |
+| `primitives.tokens.json` | Literals: the palette, font family, weights, letter spacing, line height, `ease.press`, `duration.none`, `focus.*`, `stroke.*`, `radius.*`, `space.*` (the screens' gaps: 4, 8, 12, 16, 24, 32) |
 | `semantic.tokens.json` | Aliases of primitives: colour roles by context (`color.*`), the 14 type roles (`type.*`), `motion.press` |
-| `components/<name>.tokens.json` | 20 files, 95 Godot type variations: one variant group per variation, with its StyleBox states, `label`, `press`, `size`, `items`, `ramp` |
+| `components/<name>.tokens.json` | 20 files, 101 Godot type variations: one variant group per variation, with its StyleBox states, `label`, `press`, `size`, `items`, `ramp` |
 | `text-size/default.tokens.json`, `text-size/large.tokens.json` | `font.size.*` for the player's text size setting |
 | `motion/default.tokens.json`, `motion/reduced.tokens.json` | `duration.press` for the reduced-motion setting |
 | `release.json` | The semver the next `ui-<semver>` tag carries |
@@ -50,10 +50,22 @@ gives the line and column, the JSON Pointer and the token path.
 ## Proposal marks
 
 `"$extensions": { "io.github.xperiaroco2.prime-game": { "proposal": true } }` with a `$description` marks a value the
-engineer has not approved yet. None is left in ui-0.1.2: the engineer approved the look choices of 2026-10-03,
+engineer has not approved yet. None is left since ui-0.1.2: the engineer approved the look choices of 2026-10-03,
 and the agent decided the last small ones (`docs/ui-decisions.md`, marked "(agent)").
 A mark on a group covers everything in it. The pack lists every mark under `proposals`, and the
 showcase puts a proposal badge on each. When a proposal is approved, remove its mark (keep the description) and rebuild.
+
+## Items
+
+`items` holds Godot theme items that are not StyleBox fields, named as the Godot item in kebab-case (`icon-hover-color` is
+`icon_hover_color`, `h-separation` is `h_separation`, `arrow-margin` is `arrow_margin`); the older `placeholder-color`,
+`caret-color`, `selection-color`, `selected-font-color` (ToyField) and `icon-on`, `icon-off` (ToyMic) keep their names.
+Every item needs a CSS form in `pages/components/emit-css.js` (or a stated reason it has none), or the showcase build fails.
+
+## Deprecated variations
+
+`ToyChipNew` and `ToyChipNewText` carry `$deprecated` since ui-0.2.0 (the NEW tag is gone; `ToyChipAlert` replaces them). A
+removal is a major bump, so they leave with the next major release.
 
 ## Releases
 

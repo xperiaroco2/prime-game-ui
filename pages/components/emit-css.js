@@ -21,6 +21,14 @@ const ITEM_MAP = {
   'icon-off': ['tv-icon-off', 'color'],
 };
 const LOGO_ITEMS = new Set(['shadow-offset-x', 'shadow-offset-y', 'shadow-outline-size']);
+// A Button's icon colours (Godot's icon_*_color) tint the .tv-icon child per state; the order of the CSS rules is the
+// order here, so hover, held and disabled beat focus (Button's focus colour replaces only the normal state's, spec §4.18).
+// hover-pressed has no CSS state class (see STATE_CLASS), so icon-hover-pressed-color has no CSS form by design.
+const ICON_STATE = [['icon-normal-color', null], ['icon-focus-color', 'is-focus'], ['icon-hover-color', 'is-hover'],
+  ['icon-pressed-color', 'is-held'], ['icon-disabled-color', 'is-disabled']];
+const NO_CSS_ITEMS = new Set(['icon-hover-pressed-color',
+  // OptionButton's modulate_arrow = 1 tints the arrow with the label colour: in CSS the .tv-arrow child's currentColor.
+  'modulate-arrow']);
 
 function emitComponentsCss(sys) {
   const v = (p) => `var(${sys.cssVar(p)})`;
@@ -185,8 +193,24 @@ function emitComponentsCss(sys) {
     // Items.
     const itemRules = new Map();
     let logo = null;
+    const iconRules = new Map();
     for (const [name, f] of Object.entries(variant.items || {})) {
       if (LOGO_ITEMS.has(name)) { logo = logo || {}; logo[name] = f; continue; }
+      if (NO_CSS_ITEMS.has(name)) {
+        if (name === 'modulate-arrow' && f.value && f.value.value !== 1) fail(variant, 'modulate-arrow 0 has no CSS form (the arrow takes the label colour)');
+        continue;
+      }
+      if (ICON_STATE.some(([n]) => n === name)) { iconRules.set(name, v(f.source)); continue; }
+      if (name === 'h-separation') { base.set('column-gap', len(variant, f, 'h-separation')); continue; }
+      if (name === 'arrow-margin') {
+        // Godot draws the arrow arrow_margin from the right edge and reserves its width itself; in CSS the arrow is the
+        // last flex child, so its right margin is arrow_margin minus the right content margin.
+        const cmr = mainRec && mainRec['content-margin-right'];
+        if (!cmr) fail(variant, 'arrow-margin needs a normal content-margin-right');
+        if (!itemRules.has('tv-arrow')) itemRules.set('tv-arrow', new Map());
+        itemRules.get('tv-arrow').set('margin-right', sum(variant, [[f, 'arrow-margin']], [[cmr, 'content-margin-right']]));
+        continue;
+      }
       const m = ITEM_MAP[name];
       if (!m) fail(variant, `item ${name} has no CSS form`);
       if (!itemRules.has(m[0])) itemRules.set(m[0], new Map());
@@ -283,6 +307,11 @@ function emitComponentsCss(sys) {
     }
 
     for (const [child, decls] of itemRules) rule(`${cls} .${child}`, decls);
+    for (const [name, klass] of ICON_STATE) {
+      if (!iconRules.has(name)) continue;
+      const sel = !klass ? `${cls} .tv-icon` : klass === 'is-focus' ? `${cls}.is-focus .tv-icon, ${cls}:focus-visible .tv-icon` : `${cls}.${klass} .tv-icon`;
+      rule(sel, [`color: ${iconRules.get(name)};`]);
+    }
   }
   return out.join('\n') + '\n';
 }

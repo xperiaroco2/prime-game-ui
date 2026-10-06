@@ -1,0 +1,81 @@
+{
+  "id": "s2",
+  "wireframe": "s2",
+  "title": "Main menu",
+  "background": "menu",
+  "note": "The lobby stays alive behind a dim backdrop. There is no server browser: joining is by address on the local network for now.",
+  "states": [
+    { "id": "main", "label": "Меню", "note": "The menu alone; keyboard focus starts on Host a game." },
+    { "id": "join", "label": "Приєднатися", "note": "Join opens a panel beside the menu with the host's address; Back or Esc closes it." }
+  ],
+  "nodes": [
+    {
+      "name": "Backdrop", "type": "Panel", "variation": "ToyBackdrop", "anchors_preset": "full_rect",
+      "note": "mouse_filter IGNORE; it dims the live lobby behind the menu."
+    },
+    {
+      "name": "Menu", "type": "VBoxContainer", "anchors_preset": "center_left", "offset_left": 134, "offset_right": 134,
+      "custom_minimum_size": [460, 0], "separation": 28,
+      "children": [
+        {
+          "name": "NameRow", "type": "HBoxContainer", "separation": 16,
+          "children": [
+            { "name": "NameLabel", "type": "Label", "variation": "ToyTextMutedOnDark", "key": "player.name", "size_flags_vertical": "shrink_center" },
+            {
+              "name": "NameField", "type": "LineEdit", "variation": "ToyField", "text": { "uk": "Олена", "en": "Olena" },
+              "size_flags_horizontal": "expand_fill", "note": "The player's name, kept between sessions."
+            }
+          ]
+        },
+        {
+          "name": "Buttons", "type": "VBoxContainer", "separation": 12,
+          "children": [
+            {
+              "name": "Host", "type": "Button", "variation": "ToyButtonPrimary", "key": "menu.host", "state": "focus",
+              "per_state": { "join": { "state": "normal" } }, "note": "Starts hosting and opens the lobby."
+            },
+            { "name": "Join", "type": "Button", "variation": "ToyButtonSecondary", "key": "menu.join", "note": "Opens JoinPanel." },
+            { "name": "Tutorial", "type": "Button", "variation": "ToyButtonGhostOnDark", "key": "menu.tutorial" },
+            { "name": "Settings", "type": "Button", "variation": "ToyButtonGhostOnDark", "key": "menu.settings" },
+            { "name": "Quit", "type": "Button", "variation": "ToyButtonGhostOnDark", "key": "menu.quit" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "JoinPanel", "type": "PanelContainer", "variation": "ToyPanelMenu", "states": ["join"],
+      "anchors_preset": "center", "offset_left": 200, "offset_right": 200, "custom_minimum_size": [600, 0],
+      "children": [
+        {
+          "name": "Content", "type": "VBoxContainer", "separation": 16,
+          "children": [
+            { "name": "Title", "type": "Label", "variation": "ToyTitleOnLight", "key": "join.title" },
+            { "name": "AddressLabel", "type": "Label", "variation": "ToyTextMutedOnLight", "key": "join.address" },
+            {
+              "name": "Address", "type": "LineEdit", "variation": "ToyField", "text": "192.168.0.12", "state": "focus",
+              "note": "Focused when the panel opens; Enter joins."
+            },
+            {
+              "name": "Info", "type": "HBoxContainer", "separation": 16,
+              "children": [
+                { "name": "Port", "type": "Label", "variation": "ToyTextMutedOnLight", "key": "join.port", "args": { "port": "7777" }, "size_flags_horizontal": "expand_fill" },
+                { "name": "LanOnly", "type": "Label", "variation": "ToyTextMutedOnLight", "key": "join.lan_only" }
+              ]
+            },
+            {
+              "name": "Actions", "type": "HBoxContainer", "separation": 16,
+              "children": [
+                { "name": "Connect", "type": "Button", "variation": "ToyButtonPrimary", "key": "join.connect", "size_flags_horizontal": "expand_fill" },
+                { "name": "Back", "type": "Button", "variation": "ToyButtonGhostOnLight", "key": "common.back", "note": "Esc does the same." }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Version", "type": "Label", "variation": "ToyTextMutedOnDark", "key": "menu.version", "args": { "version": "0.4" },
+      "anchors_preset": "bottom_right", "offset_left": -40, "offset_top": -32, "offset_right": -40, "offset_bottom": -32
+    }
+  ]
+}

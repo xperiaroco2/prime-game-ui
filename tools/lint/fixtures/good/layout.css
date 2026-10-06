@@ -1,0 +1,15 @@
+/* profile: layout */
+/* Good layout CSS in the shape pages/screens/build.js writes: Godot containers emulated with grid and flex, anchors as
+   absolute boxes, sizes in reference px through var(--px). Layout only: no colour, border, background, font or shadow. */
+.gd-node { box-sizing: border-box; position: relative; }
+.gd-VBoxContainer { display: grid; grid-auto-flow: row; grid-template-columns: 1fr; row-gap: calc(4 * var(--px)); align-content: start; }
+.gd-HBoxContainer { display: grid; grid-auto-flow: column; grid-template-rows: 1fr; column-gap: calc(4 * var(--px)); justify-content: start; }
+.gd-Label { display: flex; flex-direction: column; justify-content: flex-start; white-space: nowrap; text-align: left; }
+.gd-LineEdit { display: flex; align-items: center; white-space: nowrap; overflow: hidden; contain: inline-size; }
+.gd-anchor { position: absolute; display: flex; pointer-events: none; }
+[data-anchor="s2/menu"] { left: calc(0% + 134 * var(--px)); right: calc(100% - 134 * var(--px)); top: 50%; bottom: 50%; justify-content: flex-start; align-items: center; }
+[data-node="s2/menu"] { flex: none; min-width: 100%; min-height: max(100%, calc(200 * var(--px))); grid-template-rows: auto auto 1.5fr; row-gap: calc(18 * var(--px)); }
+.sc-frame[data-state="join"] [data-node="s2/menu"] { grid-template-rows: auto auto; }
+[data-node="s2/menu/name"] { justify-self: stretch; align-self: center; padding: calc(4 * var(--px)) 0; }
+[data-node="s2/panel/box"] { grid-area: 1 / 1; justify-self: center; align-self: start; }
+[data-node="s2/menu/host"] > .gd-icon { width: calc(36 * var(--px)); height: calc(36 * var(--px)); }
