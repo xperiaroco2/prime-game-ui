@@ -1,0 +1,670 @@
+<title>Питання хвилі 19</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&family=Nunito+Sans:wght@400;600;700&display=swap">
+<style>
+/* Layout: one phone-first column of Toy panels (pages/wave-19/go.html's look); each question is a panel, its options
+   cards with the game's own pictures, a sticky bar counts the answers. */
+:root {
+  --bg: #fff4e2;          /* cream */
+  --panel: #ffffff;
+  --ink: #2a1f33;         /* plum ink: text and outlines */
+  --muted: #64566f;
+  --line: #e2d6ea;
+  --accent: #ffc23a;      /* toy yellow */
+  --accent-ink: #2a1f33;  /* text on yellow, both themes */
+  --soft: #e9dff0;        /* lavender */
+  --chosen: #fff1cc;
+  --ok: #1f7a5f;
+  --ok-tint: #d5f4ec;
+  --warn: #b33a22;
+  --shot-line: #2a1f33;
+  --scrim: #1f1727;       /* night */
+  --scrim-ink: #fff4e2;
+  --font-display: "Comfortaa", "Trebuchet MS", system-ui, sans-serif;
+  --font-body: "Nunito Sans", "Segoe UI", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1f1727; --panel: #352a41; --ink: #fff4e2; --muted: #c9bcd6; --line: #4a3c5c; --soft: #2a1f33;
+    --chosen: #4a3c2a; --ok: #7fe0c6; --ok-tint: #23463f; --warn: #ff8466; --shot-line: #9a8ca6; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #1f1727; --panel: #352a41; --ink: #fff4e2; --muted: #c9bcd6; --line: #4a3c5c; --soft: #2a1f33;
+  --chosen: #4a3c2a; --ok: #7fe0c6; --ok-tint: #23463f; --warn: #ff8466; --shot-line: #9a8ca6; color-scheme: dark;
+}
+[hidden] { display: none !important; }
+body { background: var(--bg); color: var(--ink); font: 16px/1.5 var(--font-body); }
+.wrap { max-width: 760px; margin: 0 auto; padding-inline: 16px; padding-block: 20px 48px; display: flex; flex-direction: column; gap: 18px; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 700; text-wrap: balance; margin: 0; }
+h1 { font-size: 27px; line-height: 1.2; }
+h2 { font-size: 20px; line-height: 1.25; }
+p { margin: 0; }
+.lead { color: var(--muted); max-width: 62ch; }
+.eyebrow { font: 700 12px/1.3 var(--font-body); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.head { display: flex; flex-direction: column; gap: 8px; }
+
+/* The sticky bar: the count and the one tap for every recommended option. */
+.bar {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; display: flex; flex-wrap: wrap; align-items: center;
+  flex-wrap: nowrap; justify-content: space-between; gap: 10px; padding: 8px 10px 12px; border-radius: 16px; background: var(--panel);
+  border: 3px solid var(--ink);
+}
+.count { font: 700 15px/1.25 var(--font-display); font-variant-numeric: tabular-nums; min-width: 0; }
+.count b { white-space: nowrap; font-weight: 700; }
+.bar .btn { flex: none; }
+.bar .btn { font-size: 14px; padding: 8px 12px; min-height: 40px; box-shadow: 0 4px 0 var(--accent-ink); }
+.db { font-size: 14px; color: var(--muted); padding: 8px 12px; border-radius: 12px; background: var(--soft); border: 2px solid var(--line); }
+.db[data-state="write-error"], .db[data-state="live-error"] { color: var(--warn); border-color: var(--warn); }
+
+.btn {
+  font: 700 15px/1.1 var(--font-display); color: var(--accent-ink); background: var(--accent); border: 3px solid var(--accent-ink);
+  border-radius: 14px; padding: 10px 16px; min-height: 46px; cursor: pointer; box-shadow: 0 5px 0 var(--accent-ink);
+  transform: translateY(0); transition: transform .08s ease, box-shadow .08s ease;
+}
+.btn:active { transform: translateY(4px); box-shadow: 0 1px 0 var(--accent-ink); }
+.btn:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+.btn.quiet { background: var(--panel); color: var(--ink); border-color: var(--ink); box-shadow: 0 5px 0 var(--ink); }
+.btn.quiet:active { box-shadow: 0 1px 0 var(--ink); }
+.btn[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent-ink); box-shadow: 0 5px 0 var(--accent-ink); }
+.btn[disabled] { opacity: .5; cursor: default; box-shadow: none; transform: none; }
+
+/* A question. */
+.q { border-top: 3px solid var(--line); padding-top: 22px; display: flex; flex-direction: column; gap: 14px; min-width: 0; scroll-margin-top: 72px; }
+.q-head { display: flex; flex-direction: column; gap: 6px; }
+.why { display: flex; flex-direction: column; gap: 4px; max-width: 62ch; }
+.shows { font-size: 14px; color: var(--muted); }
+.saved { font: 600 13px/1.3 var(--font-body); color: var(--muted); }
+.saved.is-done { color: var(--ok); }
+
+.opts { display: flex; flex-direction: column; gap: 14px; margin: 0; padding: 0; list-style: none; }
+.opt { border: 3px solid var(--ink); border-radius: 18px; padding: 12px; display: flex; flex-direction: column; gap: 12px; background: var(--panel); min-width: 0; }
+.opt.is-chosen { background: var(--chosen); box-shadow: 0 0 0 4px var(--accent); }
+.opt-head { display: flex; align-items: flex-start; gap: 10px; }
+.letter {
+  flex: none; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: var(--ink);
+  color: var(--bg); font: 700 16px/1 var(--font-display);
+}
+.opt-label { font: 700 16px/1.35 var(--font-display); min-width: 0; padding-top: 4px; }
+.badge { display: inline-block; vertical-align: 2px; margin-left: 6px; font: 700 12px/1 var(--font-body); padding: 5px 8px; border-radius: 999px; background: var(--accent); color: var(--accent-ink); white-space: nowrap; }
+.opt-note { font-size: 14px; color: var(--muted); }
+.shots { display: flex; flex-direction: column; gap: 10px; }
+.shot { margin: 0; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.shot img { display: block; width: 100%; max-width: 100%; height: auto; box-sizing: border-box; border-radius: 10px; border: 2px solid var(--shot-line); background: var(--soft); }
+.shot figcaption { font: 600 12px/1.3 var(--font-body); color: var(--muted); }
+.shot.en { width: 72%; }
+.zoom { display: block; width: 100%; padding: 0; margin: 0; border: 0; background: none; cursor: zoom-in; border-radius: 10px; }
+.zoom:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+
+/* The enlarged picture: its own size in a scrolling overlay. */
+.lightbox { position: fixed; inset: 0; z-index: 20; display: flex; flex-direction: column; gap: 10px; background: var(--scrim); padding: calc(env(safe-area-inset-top, 0px) + 12px) 12px calc(env(safe-area-inset-bottom, 0px) + 12px); }
+.lb-bar { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.lb-hint { color: var(--scrim-ink); font-size: 14px; }
+.lb-scroll { flex: 1; min-height: 0; overflow: auto; overscroll-behavior: contain; display: flex; align-items: flex-start; }
+.lb-scroll img { display: block; max-width: none; width: auto; height: auto; margin: auto; border-radius: 10px; border: 2px solid var(--scrim-ink); }
+.is-zoomed, .is-zoomed body { overflow: hidden; }
+.opt .btn { align-self: flex-start; }
+
+.note { display: flex; flex-direction: column; gap: 8px; background: var(--soft); border: 2px solid var(--line); border-radius: 16px; padding: 12px; }
+.note label { font-weight: 700; font-size: 14px; }
+.note textarea, .summary textarea {
+  width: 100%; box-sizing: border-box; min-height: 64px; font: 15px/1.45 var(--font-body); color: var(--ink); background: var(--panel);
+  border: 2px solid var(--line); border-radius: 12px; padding: 10px; resize: vertical;
+}
+.note textarea:focus-visible, .summary textarea:focus-visible { outline: 3px solid var(--accent); outline-offset: 1px; }
+.note .btn { align-self: flex-start; }
+
+.summary { background: var(--soft); border: 2px solid var(--line); border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 8px; }
+.summary textarea { min-height: 140px; font-family: ui-monospace, Consolas, monospace; font-size: 13px; }
+.summary .btn { align-self: flex-start; }
+.foot { color: var(--muted); font-size: 13px; }
+
+@media (min-width: 700px) {
+  .opt { padding: 16px; }
+  .shot.en { width: 60%; }
+}
+@media (prefers-reduced-motion: reduce) { .btn { transition: none; } }
+</style>
+<!-- Generated by pages/wave-19/questions/build.js from questions.json. Do not edit. -->
+
+<div class="wrap">
+  <header class="head">
+    <span class="eyebrow">prime-game-ui #19 · 6 жовтня 2026</span>
+    <h1>Девʼять питань до екранів</h1>
+    <p class="lead">Перевірки екранів залишили девʼять питань. Кожен варіант показано картинкою з гри: тисни «Беру цей» біля того, що до вподоби. Дотик до картинки її збільшує.</p>
+  </header>
+  <div class="bar">
+    <span class="count">Відповідей: <b><span id="q-done">0</span> з 9</b></span>
+    <button class="btn" type="button" id="q-all">Беру всі рекомендовані</button>
+  </div>
+  <p class="db" id="q-db" role="status" data-state="wait">Підключаю збереження…</p>
+  <section class="q" id="q1" data-q="q1" aria-labelledby="q1-title">
+    <div class="q-head">
+      <span class="eyebrow">Питання 1 · HUD у раунді · екрани 7 і 9</span>
+      <h2 id="q1-title">Смужки в темній кімнаті</h2>
+      <div class="why"><p>У темній кімнаті порожня частина смужки зливається з підлогою, і половина смужки схожа на коротку повну.</p><p>А саме за довжиною стан бачать ті, хто погано розрізняє кольори.</p></div>
+      <p class="shows">На картинках: обидві смужки заповнені наполовину, кімната темна.</p>
+    </div>
+    <ul class="opts">
+      <li class="opt" data-opt="a">
+        <div class="opt-head"><span class="letter" aria-hidden="true">a</span><p class="opt-label" id="q1-a">Світла обвідка, як у порожніх слотів <span class="badge">рекомендую</span></p></div>
+        <div class="shots"><figure class="shot"><button class="zoom" type="button" data-zoom aria-label="Збільшити картинку"><img src="img/q1a-bars-uk.jpg" width="888" height="526" alt="Смужки здоровʼя й витривалості зі світло-бузковою обвідкою на темній підлозі" loading="lazy" decoding="async"></button></figure></div>
+        <button class="btn quiet" type="button" data-answer="a" aria-pressed="false" aria-describedby="q1-a">Беру цей</button>
+      </li>
+      <li class="opt" data-opt="b">
+        <div class="opt-head"><span class="letter" aria-hidden="true">b</span><p class="opt-label" id="q1-b">Смужки на темній підкладці, як у таймера</p></div>
+        <div class="shots"><figure class="shot"><button class="zoom" type="button" data-zoom aria-label="Збільшити картинку"><img src="img/q1b-bars-uk.jpg" width="888" height="526" alt="Обидві смужки на спільній темній підкладці з заокругленими кутами" loading="lazy" decoding="async"></button></figure></div>
+        <button class="btn quiet" type="button" data-answer="b" aria-pressed="false" aria-describedby="q1-b">Беру цей</button>
+      </li>
+      <li class="opt" data-opt="c">
+        <div class="opt-head"><span class="letter" aria-hidden="true">c</span><p class="opt-label" id="q1-c">Лишити як є</p></div>
+        <div class="shots"><figure class="shot"><button class="zoom" type="button" data-zoom aria-label="Збільшити картинку"><img src="img/q1c-bars-uk.jpg" width="888" height="526" alt="Смужки з темною обвідкою, порожня частина майже зливається з підлогою" loading="lazy" decoding="async"></button></figure></div>
+        <button class="btn quiet" type="button" data-answer="c" aria-pressed="false" aria-describedby="q1-c">Беру цей</button>
+      </li>
+    </ul>
+    <div class="note">
+      <label for="q1-note">Інакше або нотатка</label>
+      <textarea id="q1-note" data-note maxlength="2000" placeholder="Якщо жоден варіант не підходить, напиши, як треба"></textarea>
+      <button class="btn quiet" type="button" data-save>Зберегти нотатку</button>
+    </div>
+    <p class="saved" data-saved>Ще без відповіді</p>
+  </section>
+  <section class="q" id="q2" data-q="q2" aria-labelledby="q2-title">
+    <div class="q-head">
+      <span class="eyebrow">Питання 2 · Завантаження мапи · екран 3</span>
+      <h2 id="q2-title">Твій рядок під час завантаження</h2>
+      <div class="why"><p>Зараз у твоєму рядку стоїть «Ти» і «Завантажує…», а так не кажуть.</p><p>Англійською все гаразд, там «Loading…» в усіх варіантах.</p></div>
+      <p class="shows">На картинках: список гравців під смужкою завантаження (звужено, щоб текст читався на телефоні).</p>
+    </div>
+    <ul class="opts">
+      <li class="opt" data-opt="a">
+        <div class="opt-head"><span class="letter" aria-hidden="true">a</span><p class="opt-label" id="q2-a">«Завантаження…» в усіх рядках <span class="badge">рекомендую</span></p></div>
+        <div class="shots"><figure class="shot"><button class="zoom" type="button" data-zoom aria-label="Збільшити картинку"><img src="img/q2a-rows-uk.jpg" width="900" height="346" alt="Рядки: Олена Готово, Ти Завантаження…, Тарас Завантаження…" loading="lazy" decoding="async"></button></figure><figure class="shot en"><button class="zoom" type="button" data-zoom aria-label="Збільшити картинку"><img src="img/q2a-rows-en.jpg" width="896" height="352" alt="Те саме англійською: Loading…" loading="lazy" decoding="async"></button><figcaption>Англійською</figcaption></figure></div>
+        <button class="btn quiet" type="button" data-answer="a" aria-pressed="false" aria-describedby="q2-a">Беру цей</button>
+      </li>
+      <li class="opt" data-opt="b">
+        <div class="opt-head"><span class="letter" aria-hidden="true">b</span><p class="opt-label" id="q2-b">Окремо для тебе: «Завантажуєш…»</p></div>
+        <div class="shots"><figure class="shot"><button class="zoom" type="button" data-zoom aria-label="Збільшити картинку"><img src="img/q2b-rows-uk.jpg" width="900" height="346" alt="Рядки: Ти Завантажуєш…, Тарас Завантажує…" loading="lazy" decoding="async"></button></figure><figure class="shot en"><button class="zoom" type="button" data-zoom aria-label="Збільшити картинку"><img src="img/q2b-rows-en.jpg" width="896" height="352" alt="Те саме англійською: Loading…" loading="lazy" decoding="async"></button><figcaption>Англійською</figcaption></figure></div>
+        <button class="btn quiet" type="button" data-answer="b" aria-pressed="false" aria-describedby="q2-b">Беру цей</button>
+      </li>
+      <li class="opt" data-opt="c">
+        <div class="opt-head"><span class="letter" aria-hidden="true">c</span><p class="opt-label" id="q2-c">Лишити як є</p></div>
+        <div class="shots"><figure class="shot"><button class="zoom" type="button" data-zoom aria-label="Збільшити картинку"><img src="img/q2c-rows-uk.jpg" width="900" height="346" alt="Рядки: Ти Завантажує…, Тарас Завантажує…" loading="lazy" decoding="async"></button></figure><figure class="shot en"><button class="zoom" type="button" data-zoom aria-label="Збільшити картинку"><img src="img/q2c-rows-en.jpg" width="896" height="352" alt="Те саме англійською: Loading…" loading="lazy" decoding="async"></button><figcaption>Англійською</figcaption></figure></div>
+        <button class="btn quiet" type="button" data-answer="c" aria-pressed="false" aria-describedby="q2-c">Беру цей</button>
+      </li>
+    </ul>
+    <div class="note">
+      <label for="q2-note">Інакше або нотатка</label>
+      <textarea id="q2-note" data-note maxlength="2000" placeholder="Якщо жоден варіант не підходить, напиши, як треба"></textarea>
+      <button class="btn quiet" type="button" data-save>Зберегти нотатку</button>
+    </div>
+    <p class="saved" data-saved>Ще без відповіді</p>
+  </section>
+  <section class="q" id="q3" data-q="q3" aria-labelledby="q3-title">
+    <div class="q-head">
+      <span class="eyebrow">Питання 3 · Нокдаун · екран 9, урок у навчанні</span>
+      <h2 id="q3-title">Речення з клавішею</h2>
+      <div class="why"><p>Після клавіші кома висить окремо: «Утримуй [F] , щоб здатися».</p><p>Те саме в уроці, де вчать дивитися на інших гравців.</p></div>
+      <p class="shows">На картинках: плашка нокдауну й крок уроку 7. Англійська однакова в усіх варіантах.</p>
+    </div>
+    <ul class="opts">
+      <li class="opt" data-opt="a">
+        <div class="opt-head"><span class="letter" aria-hidden="true">a</span><p class="opt-label" id="q3-a">Клавіша в кінці речення <span class="badge">рекомендую</span></p></div>
+        <div class="shots"><figure class="shot"><button class="zoom" type="button" data-zoom aria-label="Збільшити картинку"><img src="img/q3a-downed-uk.jpg" width="872" height="250" alt="Щоб здатися, утримуй F" loading="lazy" decoding="async"></button><figcaption>Нокдаун</figcaption></figure><figure class="shot"><button class="zoom" type="button" data-zoom aria-label="Збільшити картинку"><img src="img/q3a-lesson-uk.jpg" width="900" height="173" alt="Щоб дивитися на іншого гравця, натисни ЛКМ" loading="lazy" decoding="async"></button><figcaption>Урок</figcaption></figure><figure class="shot en"><button class="zoom" type="button" data-zoom aria-label="Збільшити картинку"><img src="img/q3a-downed-en.jpg" width="872" height="250" alt="Hold F to give up" loading="lazy" decoding="async"></button><figcaption>Англійською</figcaption></figure><figure class="shot en"><button class="zoom" type="button" data-zoom aria-label="Збільшити картинку"><img src="img/q3a-lesson-en.jpg" width="900" height="173" alt="Press LMB to watch another player" loading="lazy" decoding="async"></button><figcaption>Англійською</figcaption></figure></div>
+        <button class="btn quiet" type="button" data-answer="a" aria-pressed="false" aria-describedby="q3-a">Беру цей</button>
+      </li>
+      <li class="opt" data-opt="b">
+        <div class="opt-head"><span class="letter" aria-hidden="true">b</span><p class="opt-label" id="q3-b">Прибрати кому</p></div>
+        <div class="shots"><figure class="shot"><button class="zoom" type="button" data-zoom aria-label="Збільшити картинку"><img src="img/q3b-downed-uk.jpg" width="872" height="250" alt="Утримуй F щоб здатися" loading="lazy" decoding="async"></button><figcaption>Нокдаун</figcaption></figure><figure class="shot"><button class="zoom" type="button" data-zoom aria-label="Збільшити картинку"><img src="img/q3b-lesson-uk.jpg" width="900" height="173" alt="Натисни ЛКМ щоб дивитися на іншого гравця" loading="lazy" decoding="async"></button><figcaption>Урок</figcaption></figure><figure class="shot en"><button class="zoom" type="button" data-zoom aria-label="Збільшити картинку"><img src="img/q3b-downed-en.jpg" width="872" height="250" alt="Hold F to give up" loading="lazy" decoding="async"></button><figcaption>Англійською</figcaption></figure><figure class="shot en"><button class="zoom" type="button" data-zoom aria-label="Збільшити картинку"><img src="img/q3b-lesson-en.jpg" width="900" height="173" alt="Press LMB to watch another player" loading="lazy" decoding="async"></button><figcaption>Англійською</figcaption></figure></div>
+        <button class="btn quiet" type="button" data-answer="b" aria-pressed="false" aria-describedby="q3-b">Беру цей</button>
+      </li>
+      <li class="opt" data-opt="c">
+        <div class="opt-head"><span class="letter" aria-hidden="true">c</span><p class="opt-label" id="q3-c">Лишити як є</p></div>
+        <div class="shots"><figure class="shot"><button class="zoom" type="button" data-zoom aria-label="Збільшити картинку"><img src="img/q3c-downed-uk.jpg" width="872" height="250" alt="Утримуй F , щоб здатися" loading="lazy" decoding="async"></button><figcaption>Нокдаун</figcaption></figure><figure class="shot"><button class="zoom" type="button" data-zoom aria-label="Збільшити картинку"><img src="img/q3c-lesson-uk.jpg" width="900" height="173" alt="Натисни ЛКМ , щоб дивитися на іншого гравця" loading="lazy" decoding="async"></button><figcaption>Урок</figcaption></figure><figure class="shot en"><button class="zoom" type="button" data-zoom aria-label="Збільшити картинку"><img src="img/q3c-downed-en.jpg" width="872" height="250" alt="Hold F to give up" loading="lazy" decoding="async"></button><figcaption>Англійською</figcaption></figure><figure class="shot en"><button class="zoom" type="button" data-zoom aria-label="Збільшити картинку"><img src="img/q3c-lesson-en.jpg" width="900" height="173" alt="Press LMB to watch another player" loading="lazy" decoding="async"></button><figcaption>Англійською</figcaption></figure></div>
+        <button class="btn quiet" type="button" data-answer="c" aria-pressed="false" aria-describedby="q3-c">Беру цей</button>
+      </li>
+    </ul>
+    <div class="note">
+      <label for="q3-note">Інакше або нотатка</label>
+      <textarea id="q3-note" data-note maxlength="2000" placeholder="Якщо жоден варіант не підходить, напиши, як треба"></textarea>
+      <button class="btn quiet" type="button" data-save>Зберегти нотатку</button>
+    </div>
+    <p class="saved" data-saved>Ще без відповіді</p>
+  </section>
+  <section class="q" id="q4" data-q="q4" aria-labelledby="q4-title">
+    <div class="q-head">
+      <span class="eyebrow">Питання 4 · Кінець раунду · екран 10</span>
+      <h2 id="q4-title">Поразка на святковій плашці</h2>
+      <div class="why"><p>Переможця показано на жовтій плашці з кораловою основою, як головну кнопку, і після програшу теж.</p><p>Тож програш виглядає так само святково, як перемога.</p></div>
+      <p class="shows">На картинках: погляд інженера: перемога, потім поразка.</p>
+    </div>
+    <ul class="opts">
+      <li class="opt" data-opt="a">
+        <div class="opt-head"><span class="letter" aria-hidden="true">a</span><p class="opt-label" id="q4-a">Програш простим світлим текстом, плашка лише для перемоги й ролей <span class="badge">рекомендую</span></p></div>
+        <div class="shots"><figure class="shot"><button class="zoom" type="button" data-zoom aria-label="Збільшити картинку"><img src="img/q4a-win-uk.jpg" width="900" height="310" alt="Перемогли Інженери на жовтій плашці" loading="lazy" decoding="async"></button><figcaption>Перемога</figcaption></figure><figure class="shot"><button class="zoom" type="button" data-zoom aria-label="Збільшити картинку"><img src="img/q4a-lose-uk.jpg" width="900" height="310" alt="Перемогли Дисиденти дрібним світлим текстом без плашки" loading="lazy" decoding="async"></button><figcaption>Поразка</figcaption></figure></div>
+        <button class="btn quiet" type="button" data-answer="a" aria-pressed="false" aria-describedby="q4-a">Беру цей</button>
+      </li>
+      <li class="opt" data-opt="b">
+        <div class="opt-head"><span class="letter" aria-hidden="true">b</span><p class="opt-label" id="q4-b">Пласка плашка без основи для всіх заголовків, що не кнопки</p></div>
+        <div class="shots"><figure class="shot"><button class="zoom" type="button" data-zoom aria-label="Збільшити картинку"><img src="img/q4b-win-uk.jpg" width="900" height="310" alt="Перемогли Інженери на жовтій плашці без коралової основи" loading="lazy" decoding="async"></button><figcaption>Перемога</figcaption></figure><figure class="shot"><button class="zoom" type="button" data-zoom aria-label="Збільшити картинку"><img src="img/q4b-lose-uk.jpg" width="900" height="310" alt="Перемогли Дисиденти на жовтій плашці без коралової основи" loading="lazy" decoding="async"></button><figcaption>Поразка</figcaption></figure></div>
+        <button class="btn quiet" type="button" data-answer="b" aria-pressed="false" aria-describedby="q4-b">Беру цей</button>
+      </li>
+      <li class="opt" data-opt="c">
+        <div class="opt-head"><span class="letter" aria-hidden="true">c</span><p class="opt-label" id="q4-c">Лишити як є</p></div>
+        <div class="shots"><figure class="shot"><button class="zoom" type="button" data-zoom aria-label="Збільшити картинку"><img src="img/q4c-win-uk.jpg" width="900" height="310" alt="Перемогли Інженери на жовтій плашці з кораловою основою" loading="lazy" decoding="async"></button><figcaption>Перемога</figcaption></figure><figure class="shot"><button class="zoom" type="button" data-zoom aria-label="Збільшити картинку"><img src="img/q4c-lose-uk.jpg" width="900" height="310" alt="Перемогли Дисиденти на тій самій святковій плашці" loading="lazy" decoding="async"></button><figcaption>Поразка</figcaption></figure></div>
+        <button class="btn quiet" type="button" data-answer="c" aria-pressed="false" aria-describedby="q4-c">Беру цей</button>
+      </li>
+    </ul>
+    <div class="note">
+      <label for="q4-note">Інакше або нотатка</label>
+      <textarea id="q4-note" data-note maxlength="2000" placeholder="Якщо жоден варіант не підходить, напиши, як треба"></textarea>
+      <button class="btn quiet" type="button" data-save>Зберегти нотатку</button>
+    </div>
+    <p class="saved" data-saved>Ще без відповіді</p>
+  </section>
+  <section class="q" id="q5" data-q="q5" aria-labelledby="q5-title">
+    <div class="q-head">
+      <span class="eyebrow">Питання 5 · Меню Esc › Персонаж · екран 5</span>
+      <h2 id="q5-title">Кружечки кольору</h2>
+      <div class="why"><p>Кружечки по 26 px губляться поруч із полем висотою 44 px.</p><p>А кружечок у фокусі (з клавіатури чи геймпада) виглядає так само, як обраний.</p></div>
+      <p class="shows">На картинках: обрано перший колір, фокус на третьому.</p>
+    </div>
+    <ul class="opts">
+      <li class="opt" data-opt="a">
+        <div class="opt-head"><span class="letter" aria-hidden="true">a</span><p class="opt-label" id="q5-a">Кружечки 40 px, фокус: товсте кільце впритул <span class="badge">рекомендую</span></p></div>
+        <div class="shots"><figure class="shot"><button class="zoom" type="button" data-zoom aria-label="Збільшити картинку"><img src="img/q5a-swatches-uk.jpg" width="900" height="436" alt="Великі кружечки: обраний має кільце з проміжком, у фокусі товсте кільце впритул" loading="lazy" decoding="async"></button></figure></div>
+        <button class="btn quiet" type="button" data-answer="a" aria-pressed="false" aria-describedby="q5-a">Беру цей</button>
+      </li>
+      <li class="opt" data-opt="b">
+        <div class="opt-head"><span class="letter" aria-hidden="true">b</span><p class="opt-label" id="q5-b">Кружечки 26 px, фокус так само: товсте кільце впритул</p></div>
+        <div class="shots"><figure class="shot"><button class="zoom" type="button" data-zoom aria-label="Збільшити картинку"><img src="img/q5b-swatches-uk.jpg" width="900" height="436" alt="Малі кружечки: обраний з проміжком, у фокусі товсте кільце впритул" loading="lazy" decoding="async"></button></figure></div>
+        <button class="btn quiet" type="button" data-answer="b" aria-pressed="false" aria-describedby="q5-b">Беру цей</button>
+      </li>
+      <li class="opt" data-opt="c">
+        <div class="opt-head"><span class="letter" aria-hidden="true">c</span><p class="opt-label" id="q5-c">Лишити як є</p></div>
+        <div class="shots"><figure class="shot"><button class="zoom" type="button" data-zoom aria-label="Збільшити картинку"><img src="img/q5c-swatches-uk.jpg" width="900" height="436" alt="Малі кружечки: обраний і той, що у фокусі, мають однакові кільця" loading="lazy" decoding="async"></button></figure></div>
+        <button class="btn quiet" type="button" data-answer="c" aria-pressed="false" aria-describedby="q5-c">Беру цей</button>
+      </li>
+    </ul>
+    <div class="note">
+      <label for="q5-note">Інакше або нотатка</label>
+      <textarea id="q5-note" data-note maxlength="2000" placeholder="Якщо жоден варіант не підходить, напиши, як треба"></textarea>
+      <button class="btn quiet" type="button" data-save>Зберегти нотатку</button>
+    </div>
+    <p class="saved" data-saved>Ще без відповіді</p>
+  </section>
+  <section class="q" id="q6" data-q="q6" aria-labelledby="q6-title">
+    <div class="q-head">
+      <span class="eyebrow">Питання 6 · Навчання · екран 1</span>
+      <h2 id="q6-title">Назва уроку про смерть</h2>
+      <div class="why"><p>Усі уроки названо одним-трьома словами, а цей цілим реченням.</p><p>Коли урок поточний, його плашка у великому шрифті розширює список з 440 до 610 px.</p></div>
+      <p class="shows">На картинках: великий шрифт, поточний урок 7.</p>
+    </div>
+    <ul class="opts">
+      <li class="opt" data-opt="a">
+        <div class="opt-head"><span class="letter" aria-hidden="true">a</span><p class="opt-label" id="q6-a">Скоротити до «Смерть»: решту скаже сам урок <span class="badge">рекомендую</span></p></div>
+        <div class="shots"><figure class="shot"><button class="zoom" type="button" data-zoom aria-label="Збільшити картинку"><img src="img/q6a-list-uk.jpg" width="900" height="690" alt="Список уроків вузький, поточний урок Смерть" loading="lazy" decoding="async"></button></figure><figure class="shot en"><button class="zoom" type="button" data-zoom aria-label="Збільшити картинку"><img src="img/q6a-list-en.jpg" width="900" height="738" alt="Те саме англійською: Death" loading="lazy" decoding="async"></button><figcaption>Англійською</figcaption></figure></div>
+        <button class="btn quiet" type="button" data-answer="a" aria-pressed="false" aria-describedby="q6-a">Беру цей</button>
+      </li>
+      <li class="opt" data-opt="b">
+        <div class="opt-head"><span class="letter" aria-hidden="true">b</span><p class="opt-label" id="q6-b">Лишити назву, список завжди 608 px</p></div>
+        <div class="shots"><figure class="shot"><button class="zoom" type="button" data-zoom aria-label="Збільшити картинку"><img src="img/q6b-list-uk.jpg" width="900" height="690" alt="Широкий список, поточний урок з довгою назвою" loading="lazy" decoding="async"></button></figure><figure class="shot en"><button class="zoom" type="button" data-zoom aria-label="Збільшити картинку"><img src="img/q6b-list-en.jpg" width="900" height="738" alt="Те саме англійською, список широкий на кожному уроці" loading="lazy" decoding="async"></button><figcaption>Англійською</figcaption></figure></div>
+        <button class="btn quiet" type="button" data-answer="b" aria-pressed="false" aria-describedby="q6-b">Беру цей</button>
+      </li>
+      <li class="opt" data-opt="c">
+        <div class="opt-head"><span class="letter" aria-hidden="true">c</span><p class="opt-label" id="q6-c">Лишити назву, список ширшає лише на цьому уроці</p></div>
+        <div class="shots"><figure class="shot"><button class="zoom" type="button" data-zoom aria-label="Збільшити картинку"><img src="img/q6c-list-uk.jpg" width="900" height="690" alt="Список розширився вліво під довгу назву" loading="lazy" decoding="async"></button></figure><figure class="shot en"><button class="zoom" type="button" data-zoom aria-label="Збільшити картинку"><img src="img/q6c-list-en.jpg" width="900" height="738" alt="Те саме англійською" loading="lazy" decoding="async"></button><figcaption>Англійською</figcaption></figure></div>
+        <button class="btn quiet" type="button" data-answer="c" aria-pressed="false" aria-describedby="q6-c">Беру цей</button>
+      </li>
+    </ul>
+    <div class="note">
+      <label for="q6-note">Інакше або нотатка</label>
+      <textarea id="q6-note" data-note maxlength="2000" placeholder="Якщо жоден варіант не підходить, напиши, як треба"></textarea>
+      <button class="btn quiet" type="button" data-save>Зберегти нотатку</button>
+    </div>
+    <p class="saved" data-saved>Ще без відповіді</p>
+  </section>
+  <section class="q" id="q7" data-q="q7" aria-labelledby="q7-title">
+    <div class="q-head">
+      <span class="eyebrow">Питання 7 · Кінець раунду · екран 10</span>
+      <h2 id="q7-title">Два рядки про одне</h2>
+      <div class="why"><p>«Перемогли Інженери» і «Твоя команда перемогла» кажуть тобі те саме.</p><p>А на кінець раунду є 3 секунди й пʼять рядків.</p></div>
+      <p class="shows">На картинках: перемога, погляд інженера.</p>
+    </div>
+    <ul class="opts">
+      <li class="opt" data-opt="a">
+        <div class="opt-head"><span class="letter" aria-hidden="true">a</span><p class="opt-label" id="q7-a">Прибрати «Твоя команда перемогла/програла» <span class="badge">рекомендую</span></p></div>
+        <div class="shots"><figure class="shot"><button class="zoom" type="button" data-zoom aria-label="Збільшити картинку"><img src="img/q7a-end-uk.jpg" width="900" height="344" alt="Кінець раунду, плашка Перемогли Інженери, причина й відлік" loading="lazy" decoding="async"></button></figure><figure class="shot en"><button class="zoom" type="button" data-zoom aria-label="Збільшити картинку"><img src="img/q7a-end-en.jpg" width="900" height="388" alt="Те саме англійською" loading="lazy" decoding="async"></button><figcaption>Англійською</figcaption></figure></div>
+        <button class="btn quiet" type="button" data-answer="a" aria-pressed="false" aria-describedby="q7-a">Беру цей</button>
+      </li>
+      <li class="opt" data-opt="b">
+        <div class="opt-head"><span class="letter" aria-hidden="true">b</span><p class="opt-label" id="q7-b">Прибрати плашку з переможцем</p></div>
+        <div class="shots"><figure class="shot"><button class="zoom" type="button" data-zoom aria-label="Збільшити картинку"><img src="img/q7b-end-uk.jpg" width="900" height="344" alt="Кінець раунду, Твоя команда перемогла, причина й відлік" loading="lazy" decoding="async"></button></figure><figure class="shot en"><button class="zoom" type="button" data-zoom aria-label="Збільшити картинку"><img src="img/q7b-end-en.jpg" width="900" height="388" alt="Те саме англійською" loading="lazy" decoding="async"></button><figcaption>Англійською</figcaption></figure></div>
+        <button class="btn quiet" type="button" data-answer="b" aria-pressed="false" aria-describedby="q7-b">Беру цей</button>
+      </li>
+      <li class="opt" data-opt="c">
+        <div class="opt-head"><span class="letter" aria-hidden="true">c</span><p class="opt-label" id="q7-c">Лишити обидва</p></div>
+        <div class="shots"><figure class="shot"><button class="zoom" type="button" data-zoom aria-label="Збільшити картинку"><img src="img/q7c-end-uk.jpg" width="900" height="344" alt="Плашка Перемогли Інженери і рядок Твоя команда перемогла" loading="lazy" decoding="async"></button></figure><figure class="shot en"><button class="zoom" type="button" data-zoom aria-label="Збільшити картинку"><img src="img/q7c-end-en.jpg" width="900" height="388" alt="Те саме англійською" loading="lazy" decoding="async"></button><figcaption>Англійською</figcaption></figure></div>
+        <button class="btn quiet" type="button" data-answer="c" aria-pressed="false" aria-describedby="q7-c">Беру цей</button>
+      </li>
+    </ul>
+    <div class="note">
+      <label for="q7-note">Інакше або нотатка</label>
+      <textarea id="q7-note" data-note maxlength="2000" placeholder="Якщо жоден варіант не підходить, напиши, як треба"></textarea>
+      <button class="btn quiet" type="button" data-save>Зберегти нотатку</button>
+    </div>
+    <p class="saved" data-saved>Ще без відповіді</p>
+  </section>
+  <section class="q" id="q8" data-q="q8" aria-labelledby="q8-title">
+    <div class="q-head">
+      <span class="eyebrow">Питання 8 · Лобі · екран 4</span>
+      <h2 id="q8-title">Звідки дізнатися клавішу готовності</h2>
+      <div class="why"><p>Ні урок, ні підказка не вчать клавіші готовності.</p><p>У лобі видно лише «Готовність: ні».</p></div>
+      <p class="shows">На картинках: лобі, твоя готовність поки «ні».</p>
+    </div>
+    <ul class="opts">
+      <li class="opt" data-opt="a">
+        <div class="opt-head"><span class="letter" aria-hidden="true">a</span><p class="opt-label" id="q8-a">Лишити: у меню Esc › Лобі є кнопка, а клавіша є в Налаштуваннях › Керування <span class="badge">рекомендую</span></p></div>
+        <div class="shots"><figure class="shot"><button class="zoom" type="button" data-zoom aria-label="Збільшити картинку"><img src="img/q8a-lobby-uk.jpg" width="632" height="362" alt="Плашка Готовність: ні без клавіші" loading="lazy" decoding="async"></button><figcaption>Лобі</figcaption></figure><figure class="shot"><button class="zoom" type="button" data-zoom aria-label="Збільшити картинку"><img src="img/q8a-esc-uk.jpg" width="900" height="221" alt="Жовта кнопка Готовність" loading="lazy" decoding="async"></button><figcaption>Меню Esc › Лобі</figcaption></figure></div>
+        <button class="btn quiet" type="button" data-answer="a" aria-pressed="false" aria-describedby="q8-a">Беру цей</button>
+      </li>
+      <li class="opt" data-opt="b">
+        <div class="opt-head"><span class="letter" aria-hidden="true">b</span><p class="opt-label" id="q8-b">Показати клавішу в плашці лобі (виняток лише для лобі)</p></div>
+        <div class="shots"><figure class="shot"><button class="zoom" type="button" data-zoom aria-label="Збільшити картинку"><img src="img/q8b-lobby-uk.jpg" width="632" height="362" alt="Плашка Готовність: ні з клавішею F" loading="lazy" decoding="async"></button><figcaption>Лобі</figcaption></figure></div>
+        <button class="btn quiet" type="button" data-answer="b" aria-pressed="false" aria-describedby="q8-b">Беру цей</button>
+      </li>
+      <li class="opt" data-opt="c">
+        <div class="opt-head"><span class="letter" aria-hidden="true">c</span><p class="opt-label" id="q8-c">Десятий урок у навчанні</p></div>
+        <p class="opt-note">Назва й текст уроку тут лише приклад.</p>
+        <div class="shots"><figure class="shot"><button class="zoom" type="button" data-zoom aria-label="Збільшити картинку"><img src="img/q8c-step-uk.jpg" width="900" height="173" alt="Крок 10 з 10, Познач готовність, натисни F" loading="lazy" decoding="async"></button><figcaption>Крок уроку</figcaption></figure><figure class="shot"><button class="zoom" type="button" data-zoom aria-label="Збільшити картинку"><img src="img/q8c-list-uk.jpg" width="754" height="760" alt="Девʼять уроків пройдено, поточний десятий: Готовність" loading="lazy" decoding="async"></button><figcaption>Список уроків</figcaption></figure></div>
+        <button class="btn quiet" type="button" data-answer="c" aria-pressed="false" aria-describedby="q8-c">Беру цей</button>
+      </li>
+    </ul>
+    <div class="note">
+      <label for="q8-note">Інакше або нотатка</label>
+      <textarea id="q8-note" data-note maxlength="2000" placeholder="Якщо жоден варіант не підходить, напиши, як треба"></textarea>
+      <button class="btn quiet" type="button" data-save>Зберегти нотатку</button>
+    </div>
+    <p class="saved" data-saved>Ще без відповіді</p>
+  </section>
+  <section class="q" id="q9" data-q="q9" aria-labelledby="q9-title">
+    <div class="q-head">
+      <span class="eyebrow">Питання 9 · HUD у раунді · екран 7</span>
+      <h2 id="q9-title">Що бачить той, хто піднімає</h2>
+      <div class="why"><p>Коли ти піднімаєш товариша з нокдауну (утримуєш E), що бачиш на своєму екрані?</p><p>Той, кого піднімають, свою смужку бачить у будь-якому разі.</p></div>
+      <p class="shows">На картинках: приціл, поки ти утримуєш E біля товариша.</p>
+    </div>
+    <ul class="opts">
+      <li class="opt" data-opt="a">
+        <div class="opt-head"><span class="letter" aria-hidden="true">a</span><p class="opt-label" id="q9-a">Тонка смужка під прицілом замість назви предмета, без тексту <span class="badge">рекомендую</span></p></div>
+        <div class="shots"><figure class="shot"><button class="zoom" type="button" data-zoom aria-label="Збільшити картинку"><img src="img/q9a-cross-uk.jpg" width="900" height="546" alt="Під прицілом темна плашка з мʼятною смужкою поступу" loading="lazy" decoding="async"></button></figure></div>
+        <button class="btn quiet" type="button" data-answer="a" aria-pressed="false" aria-describedby="q9-a">Беру цей</button>
+      </li>
+      <li class="opt" data-opt="b">
+        <div class="opt-head"><span class="letter" aria-hidden="true">b</span><p class="opt-label" id="q9-b">Нічого: поступ бачить лише той, кого піднімають</p></div>
+        <div class="shots"><figure class="shot"><button class="zoom" type="button" data-zoom aria-label="Збільшити картинку"><img src="img/q9b-cross-uk.jpg" width="900" height="546" alt="Лише точка прицілу" loading="lazy" decoding="async"></button></figure></div>
+        <button class="btn quiet" type="button" data-answer="b" aria-pressed="false" aria-describedby="q9-b">Беру цей</button>
+      </li>
+    </ul>
+    <div class="note">
+      <label for="q9-note">Інакше або нотатка</label>
+      <textarea id="q9-note" data-note maxlength="2000" placeholder="Якщо жоден варіант не підходить, напиши, як треба"></textarea>
+      <button class="btn quiet" type="button" data-save>Зберегти нотатку</button>
+    </div>
+    <p class="saved" data-saved>Ще без відповіді</p>
+  </section>
+  <section class="summary" id="q-summary" hidden>
+    <h2>Підсумок для чату</h2>
+    <p>Тут відповіді не зберігаються, тож скопіюй цей підсумок і встав мені в чат.</p>
+    <label class="eyebrow" for="q-summary-text">Твої відповіді</label>
+    <textarea id="q-summary-text" readonly></textarea>
+    <button class="btn quiet" type="button" id="q-copy">Копіювати</button>
+  </section>
+  <p class="foot">Кожну картинку зібрано з тих самих описів екранів, що підуть у гру: варіант застосовано до копії, і екран зібрано заново. Відповідь можна змінити, поки її не застосовано.</p>
+</div>
+<div class="lightbox" id="q-zoom" role="dialog" aria-modal="true" aria-label="Картинка більшою" hidden>
+  <div class="lb-bar"><span class="lb-hint">Гортай, щоб побачити все</span><button class="btn quiet" type="button" id="q-zoom-close">Закрити</button></div>
+  <div class="lb-scroll" id="q-zoom-scroll"><img id="q-zoom-img" src="data:," alt=""></div>
+</div>
+
+<script>
+var COLLECTION = "q19";
+// The question page's behaviour (prime-game-ui#19): per question, «Беру цей» saves that option, «Зберегти нотатку»
+// saves the note with the answer already given, «Беру всі рекомендовані» saves option a for every question still
+// unanswered. Saved through the artifact runtime's db capability when this view has it: collection COLLECTION (set by
+// build.js), one document per question id, { answer: "a" | "b" | "c" | null, note, at }. Nothing is written on load; a
+// write happens only on a tap, one at a time per document (a tap during a write waits and is written after it). A
+// tap made before the store answers waits and is written when it arrives; a refused write puts back the last saved
+// answer. Without db the page still works, says so and offers a summary to copy. The pattern of pages/copy/copy.js.
+(function () {
+  'use strict';
+  var NAME = typeof COLLECTION === 'string' ? COLLECTION : 'q19';
+  var saved = {};
+  var local = {};
+  var state = {};
+  var col = null;
+  var mode = 'wait';
+  var tag = '';
+  var readOnly = false;
+  var inflight = {};
+  var queued = {};
+  var TEXT = {
+    wait: 'Підключаю збереження…',
+    ok: 'Відповіді зберігаються тут, разом зі сторінкою.',
+    readOnly: 'Ця сторінка тут лише для перегляду: відповіді не зберігаються.',
+    none: 'Тут відповіді не зберігаються: сторінку відкрито без сховища. Вибір лишиться до перезавантаження, а підсумок унизу можна скопіювати в чат.',
+  };
+  function all(sel, from) { return Array.prototype.slice.call((from || document).querySelectorAll(sel)); }
+  function str(v, max) { return typeof v === 'string' ? v.slice(0, max) : ''; }
+  function choices(box) { return all('[data-answer]', box).map(function (b) { return b.getAttribute('data-answer'); }); }
+  function fmtTime(iso) {
+    try { var d = new Date(iso); return isNaN(d.getTime()) ? '' : d.toLocaleString('uk-UA', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }); } catch (e) { return ''; }
+  }
+  var boxes = all('[data-q]');
+
+  function render() {
+    var done = 0, lines = [];
+    boxes.forEach(function (box) {
+      var key = box.getAttribute('data-q');
+      var s = state[key] || null;
+      var ans = s && choices(box).indexOf(s.answer) >= 0 ? s.answer : null;
+      if (ans) done++;
+      box.classList.toggle('is-answered', !!ans);
+      all('[data-answer]', box).forEach(function (b) {
+        var on = b.getAttribute('data-answer') === ans;
+        b.setAttribute('aria-pressed', String(on));
+        b.textContent = on ? '✓ Обрано' : 'Беру цей';
+      });
+      all('[data-opt]', box).forEach(function (o) { o.classList.toggle('is-chosen', o.getAttribute('data-opt') === ans); });
+      var n = box.querySelector('[data-note]');
+      if (n && s && document.activeElement !== n && !n.getAttribute('data-dirty')) n.value = s.note || '';
+      var out = box.querySelector('[data-saved]');
+      if (out) {
+        var text = ans ? 'Відповідь: ' + ans : (s && s.note ? 'Є нотатка, без відповіді' : 'Ще без відповіді');
+        if (s && s.at && mode === 'db' && !local[key]) text += ' · ' + fmtTime(s.at);
+        if (inflight[key]) text += ' · зберігаю…';
+        else if (local[key] && mode === 'wait') text += ' · ще не збережено';
+        out.textContent = text;
+        out.classList.toggle('is-done', !!ans);
+      }
+      if (ans || (s && s.note)) lines.push(key + ': ' + (ans || '—') + (s && s.note ? ' — ' + s.note : ''));
+    });
+    var d = document.getElementById('q-done'); if (d) d.textContent = String(done);
+    var allBtn = document.getElementById('q-all');
+    if (allBtn) allBtn.disabled = readOnly || done === boxes.length;
+    var box = document.getElementById('q-summary');
+    var area = document.getElementById('q-summary-text');
+    if (box && area) { box.hidden = mode === 'db' || !lines.length; area.value = lines.join('\n'); }
+  }
+
+  function notice(kind, text, t) {
+    mode = kind;
+    tag = t || '';
+    var el = document.getElementById('q-db');
+    if (el) { el.setAttribute('data-state', t || kind); el.textContent = text; }
+    all('[data-answer], [data-save], #q-all').forEach(function (b) { b.disabled = readOnly; });
+    render();
+  }
+  function noDb() {
+    if (mode === 'db') return;
+    notice('none', TEXT.none, 'none');
+  }
+  function show() {
+    state = {};
+    Object.keys(saved).forEach(function (k) { state[k] = saved[k]; });
+    Object.keys(local).forEach(function (k) { state[k] = local[k]; });
+    render();
+  }
+  function write(key, doc) {
+    if (readOnly) return;
+    local[key] = doc;
+    if (!col) { show(); return; }
+    if (inflight[key]) { queued[key] = doc; show(); return; }
+    send(key, doc);
+  }
+  function send(key, doc) {
+    inflight[key] = true;
+    show();
+    var p;
+    try { p = col.doc(key).set(doc); } catch (e) { p = Promise.reject(e); }
+    p.then(function () {
+      inflight[key] = false;
+      saved[key] = doc;
+      var next = queued[key];
+      queued[key] = null;
+      if (next) { send(key, next); return; }
+      delete local[key];
+      if (tag === 'write-error') notice('db', TEXT.ok, 'ok');
+      show();
+    }, function (e) {
+      inflight[key] = false;
+      queued[key] = null;
+      delete local[key];
+      var code = e && e.code;
+      if (code === 'invalid_argument' || code === 'not_granted' || code === 'permission_denied') { readOnly = true; notice('db', TEXT.readOnly, 'read-only'); }
+      else notice('db', 'Не вдалося зберегти (' + (code || 'помилка') + '). Відповідь не змінилася; спробуй ще раз трохи пізніше.', 'write-error');
+      show();
+    });
+  }
+  function noteOf(box) { var t = box.querySelector('[data-note]'); return t ? t.value.trim().slice(0, 2000) : ''; }
+  function clean(box) { all('[data-dirty]', box).forEach(function (t) { t.removeAttribute('data-dirty'); }); }
+
+  var allBtn = document.getElementById('q-all');
+  if (allBtn) allBtn.addEventListener('click', function () {
+    boxes.forEach(function (box) {
+      var key = box.getAttribute('data-q');
+      var s = state[key];
+      if (s && s.answer && choices(box).indexOf(s.answer) >= 0) return;
+      if (!box.querySelector('[data-answer="a"]')) return;
+      clean(box);
+      write(key, { answer: 'a', note: noteOf(box), at: new Date().toISOString() });
+    });
+  });
+
+  boxes.forEach(function (box) {
+    var key = box.getAttribute('data-q');
+    all('[data-answer]', box).forEach(function (b) {
+      b.addEventListener('click', function () {
+        clean(box);
+        write(key, { answer: b.getAttribute('data-answer'), note: noteOf(box), at: new Date().toISOString() });
+      });
+    });
+    var save = box.querySelector('[data-save]');
+    if (save) save.addEventListener('click', function () {
+      var cur = state[key];
+      var ans = cur && choices(box).indexOf(cur.answer) >= 0 ? cur.answer : null;
+      var note = noteOf(box);
+      if (!ans && !note && !cur) return;
+      clean(box);
+      write(key, { answer: ans, note: note, at: new Date().toISOString() });
+    });
+    all('[data-note]', box).forEach(function (t) { t.addEventListener('input', function () { t.setAttribute('data-dirty', '1'); }); });
+  });
+
+  // A tap on a picture shows it at its own size (up to 900 px wide) in an overlay that scrolls; Close or Esc ends it.
+  var zoom = document.getElementById('q-zoom');
+  var zoomImg = document.getElementById('q-zoom-img');
+  var zoomClose = document.getElementById('q-zoom-close');
+  var zoomFrom = null;
+  function closeZoom() {
+    if (!zoom || zoom.hidden) return;
+    zoom.hidden = true;
+    document.documentElement.classList.remove('is-zoomed');
+    if (zoomFrom) { try { zoomFrom.focus(); } catch (e) { /* gone */ } }
+  }
+  all('[data-zoom]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var img = b.querySelector('img');
+      if (!zoom || !zoomImg || !img) return;
+      zoomFrom = b;
+      zoomImg.src = img.currentSrc || img.src;
+      zoomImg.alt = img.alt;
+      zoomImg.width = Number(img.getAttribute('width')) || img.naturalWidth || 900;
+      zoomImg.height = Number(img.getAttribute('height')) || img.naturalHeight || 300;
+      zoom.hidden = false;
+      document.documentElement.classList.add('is-zoomed');
+      var sc = document.getElementById('q-zoom-scroll');
+      if (sc) { sc.scrollLeft = 0; sc.scrollTop = 0; }
+      if (zoomClose) zoomClose.focus();
+    });
+  });
+  if (zoomClose) zoomClose.addEventListener('click', closeZoom);
+  if (zoom) zoom.addEventListener('click', function (e) { if (e.target === zoom) closeZoom(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeZoom(); });
+
+  var copyBtn = document.getElementById('q-copy');
+  if (copyBtn) copyBtn.addEventListener('click', function () {
+    var area = document.getElementById('q-summary-text');
+    if (!area) return;
+    var done = function () { copyBtn.textContent = 'Скопійовано'; };
+    var fallback = function () { area.focus(); area.select(); copyBtn.textContent = 'Виділено: скопіюй сам'; };
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(area.value).then(done, fallback);
+      else fallback();
+    } catch (e) { fallback(); }
+  });
+
+  function start(db) {
+    try {
+      col = db.collection(NAME);
+      col.onSnapshot(function (snap) {
+        try {
+          var next = {};
+          (snap && snap.docs || []).forEach(function (d) {
+            var v = d && d.exists ? d.data() : null;
+            if (!v || typeof v !== 'object') return;
+            next[d.id] = { answer: typeof v.answer === 'string' ? v.answer.slice(0, 10) : null, note: str(v.note, 2000), at: str(v.at, 40) };
+          });
+          saved = next;
+          show();
+        } catch (e) { /* a malformed snapshot: keep what is shown */ }
+      }, function (e) {
+        notice('db', 'Збережені відповіді зараз не оновлюються (' + ((e && e.code) || 'помилка') + '). Перезавантаж сторінку.', 'live-error');
+      });
+      notice('db', readOnly ? TEXT.readOnly : TEXT.ok, readOnly ? 'read-only' : 'ok');
+      if (readOnly) { local = {}; show(); }
+      else Object.keys(local).forEach(function (k) { if (!inflight[k]) send(k, local[k]); });
+    } catch (e) {
+      col = null;
+      noDb();
+    }
+  }
+  notice('wait', TEXT.wait, 'wait');
+  try {
+    var claude = window.claude;
+    if (!claude || typeof claude.use !== 'function') { noDb(); }
+    else {
+      claude.use('user').then(function (user) {
+        if (!user || typeof user.can !== 'function') return;
+        return user.can('data.write').then(function (ok) {
+          if (ok === false) { readOnly = true; local = {}; if (mode === 'db') notice('db', TEXT.readOnly, 'read-only'); else show(); }
+        });
+      }).catch(function () { /* no user capability: let a refused write decide */ });
+      claude.use('db').then(function (db) { if (db) start(db); else noDb(); }, noDb);
+    }
+  } catch (e) {
+    noDb();
+  }
+})();
+</script>
