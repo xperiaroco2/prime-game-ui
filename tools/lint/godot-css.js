@@ -266,9 +266,13 @@ const SIDE_RE = new RegExp(`^border-${BORDER_SIDE}(?=-(width|style|color)$|$)`);
 const RADIUS_RE = /^border(-(top-left|top-right|bottom-right|bottom-left|start-start|start-end|end-start|end-end))?-radius$/;
 const LAYOUT_ALL = /^(padding|margin)(-[a-z-]+)?$|^(width|height|align-self)$/;
 const TRANSITION_RE = /^transition(-(property|duration|timing-function|delay))?$/;
-// column-gap and row-gap carry a theme constant such as a Button's h_separation (the gap between icon and text).
+// column-gap and row-gap carry a theme constant such as a Button's h_separation (the gap between icon and text), gap a
+// box container's separation. The flex properties lay out the parts Godot places by a ratio (an HSlider's grabber, a
+// VScrollBar's grabber): flex-grow takes only --value, --page and 1 minus them.
 const GENERATED_LAYOUT = new Set(["position", "inset", "top", "right", "bottom", "left", "display", "pointer-events",
-  "box-sizing", "min-width", "min-height", "column-gap", "row-gap"]);
+  "box-sizing", "min-width", "min-height", "column-gap", "row-gap", "gap", "align-items", "justify-content", "flex-direction",
+  "flex", "flex-grow"]);
+const FLEX_GROW_RE = /^(?:\d+|var\(--(?:value|page)\)|calc\(1(?: - var\(--(?:value|page)\))+\))$/;
 const FORBIDDEN_RE = /^(filter|backdrop-filter|clip-path|mix-blend-mode|background-blend-mode|background-image|mask(-.*)?|animation(-.*)?)$/;
 const SIDES = { top: ["t"], right: ["r"], bottom: ["b"], left: ["l"], block: ["t", "b"], inline: ["l", "r"],
   "block-start": ["t"], "block-end": ["b"], "inline-start": ["l"], "inline-end": ["r"] };
@@ -509,13 +513,18 @@ function lintText(text, opts) {
       }
       if (prop === "transform") return transform(val, line);
       if (TRANSITION_RE.test(prop)) return transition(prop, val, line);
-      if (["cursor", "display", "position", "pointer-events", "box-sizing", "align-self"].includes(prop)) {
+      if (prop === "flex-grow") {
+        if (!FLEX_GROW_RE.test(val.replace(/\s+/g, " ").replace(/\(\s+/g, "(").replace(/\s+\)/g, ")"))) add(line, "L28", "flex-grow is an int, var(--value), var(--page) or calc(1 - var(--value) [- var(--page)]), found " + val);
+        return;
+      }
+      if (prop === "flex" && !(comps.length === 1 && comps[0].toLowerCase() === "none")) { add(line, "L28", "flex takes only none, found " + val); return; }
+      if (["cursor", "display", "position", "pointer-events", "box-sizing", "align-self", "align-items", "justify-content", "flex-direction", "flex"].includes(prop)) {
         if (!(comps.length === 1 && /^[a-z-]+$/i.test(comps[0]))) add(line, "L28", prop + " takes one keyword, found " + val);
         return;
       }
       if (/^(padding|margin)/.test(prop)) return lengths(1, /^(padding|margin)$/.test(prop) ? 4 : /-(block|inline)$/.test(prop) ? 2 : 1);
       if (prop === "inset") return lengths(1, 4);
-      if (prop === "column-gap" || prop === "row-gap") return lengths(1, 1);
+      if (prop === "column-gap" || prop === "row-gap" || prop === "gap") return lengths(1, 1);
       if (["width", "height", "min-width", "min-height", "top", "right", "bottom", "left"].includes(prop)) {
         const exempt = [];
         if (profile === "generated" && (prop === "width" || prop === "height")) exempt.push("100%");
@@ -632,6 +641,7 @@ function lintText(text, opts) {
         continue;
       }
       if (["--px", "--zoom", "--value"].includes(name)) continue;
+      if (name === "--page" && profile === "generated") continue;
       add(line, "L20", "unknown variable " + name);
     }
   }
@@ -925,6 +935,15 @@ const ADVERSARIAL = [
   // A theme constant as a gap in generated CSS (ToyMenuItem's h_separation), tokens times var(--px) only.
   ["generated", '.tv-a { column-gap: calc(var(--toy-stroke-control) * var(--px)); }', []],
   ["generated", '.tv-a { column-gap: 12px; }', ["L19"]],
+  // A box variation's separation as a gap; the ratio layouts of a slider and a scroll bar.
+  ["generated", '.tv-a { gap: calc(var(--toy-stroke-control) * var(--px)); display: flex; align-items: center; justify-content: flex-end; flex-direction: column; }', []],
+  ["generated", '.tv-a > .tv-b { flex: none; flex-grow: var(--value); } .tv-a > .tv-c { flex-grow: calc(1 - var(--value) - var(--page)); }', []],
+  ["generated", '.tv-a { flex-grow: 0.5; }', ["L28"]],
+  ["generated", '.tv-a { flex-grow: var(--x); }', ["L20", "L28"]],
+  ["generated", '.tv-a { flex: 1 1 0; }', ["L28"]],
+  ["generated", '.tv-a { gap: 8px; }', ["L19"]],
+  ["skin", 'body[data-style="toy"] .a { gap: calc(var(--toy-stroke-control) * var(--px)); }', ["L28"]],
+  ["skin", 'body[data-style="toy"] .a { width: calc(var(--page) * 1px); }', ["L20", "L19"]],
   ["skin", 'body[data-style="toy"] .a { column-gap: calc(var(--toy-stroke-control) * var(--px)); }', ["L28"]],
   // The layout profile (pages/screens/screens-layout.css): layout only, its own value grammar, its own scope.
   ["layout", '.gd-VBoxContainer { display: grid; row-gap: calc(12 * var(--px)); grid-template-rows: auto 2fr auto; }', []],
@@ -939,6 +958,10 @@ const ADVERSARIAL = [
   ["layout", '.gd-Label { display: grid !important; }', ["L27"]],
   ["layout", '.gd-Label { grid-template-columns: repeat(2, 1fr); }', ["L28"]],
   ["layout", '.gd-Label::after { display: block; }', ["L06"]],
+  // A ScrollContainer's view scrolls vertically with its native bar hidden; nothing else scrolls.
+  ["layout", '.gd-scroll-view { overflow-x: hidden; overflow-y: auto; scrollbar-width: none; grid-template-rows: 0; }', []],
+  ["layout", '.gd-scroll-view { overflow-x: auto; }', ["L28"]],
+  ["layout", '.gd-scroll-view { overflow: auto; scrollbar-width: thin; }', ["L28"]],
 ];
 
 function selfTest() {

@@ -3,10 +3,12 @@
   "wireframe": "s2",
   "title": "Main menu",
   "background": "menu",
-  "note": "The lobby stays alive behind a dim backdrop. There is no server browser: joining is by address on the local network for now.",
+  "note": "The live lobby stays behind a dim backdrop with an idle camera. There is no server browser: Host makes a game with a code, Join takes a code, Join by address (Direct) joins or hosts directly. Join, Direct and Settings are one ButtonGroup with allow_unpress: pressing one opens its panel beside the items, top-aligned with Host; pressing it again, Back or Esc (ui_cancel) closes it. Settings opens the Esc menu's Settings panel (s5 settings-sound), not drawn here.",
   "states": [
-    { "id": "main", "label": "Меню", "note": "The menu alone; keyboard focus starts on Host a game." },
-    { "id": "join", "label": "Приєднатися", "note": "Join opens a panel beside the menu with the host's address; Back or Esc closes it." }
+    { "id": "main", "label": "Меню", "note": "The menu alone; keyboard focus starts on Host." },
+    { "id": "code", "label": "Код", "note": "Join pressed: the code panel, the field focused (empty when it opens; here three characters typed), Join unplugged." },
+    { "id": "code-ready", "label": "Код готовий", "note": "Six valid characters typed: Join is enabled." },
+    { "id": "direct", "label": "За адресою", "note": "Join by address pressed: the Direct panel, the address focused." }
   ],
   "nodes": [
     {
@@ -14,59 +16,139 @@
       "note": "mouse_filter IGNORE; it dims the live lobby behind the menu."
     },
     {
-      "name": "Menu", "type": "VBoxContainer", "anchors_preset": "center_left", "offset_left": 134, "offset_right": 134,
-      "custom_minimum_size": [460, 0], "separation": 28,
+      "name": "Column", "type": "VBoxContainer", "variation": "ToyColumnTwentyFour",
+      "anchors_preset": "top_left", "offset_left": 134, "offset_top": 259, "offset_right": 134, "offset_bottom": 259,
+      "note": "The game's name (Label ToyLogo, the working title \"prime-game\", auto_translate_mode DISABLED) is the first child, above NameRow; it is left out of this mock-up until the format can draw a text that is not a deck key.",
       "children": [
         {
-          "name": "NameRow", "type": "HBoxContainer", "separation": 16,
+          "name": "NameRow", "type": "HBoxContainer", "variation": "ToyRowTwelve", "size_flags_horizontal": "shrink_begin",
+          "custom_minimum_size": [576, 0],
           "children": [
             { "name": "NameLabel", "type": "Label", "variation": "ToyTextMutedOnDark", "key": "player.name", "size_flags_vertical": "shrink_center" },
             {
-              "name": "NameField", "type": "LineEdit", "variation": "ToyField", "text": { "uk": "Олена", "en": "Olena" },
-              "size_flags_horizontal": "expand_fill", "note": "The player's name, kept between sessions."
+              "name": "Name", "type": "LineEdit", "variation": "ToyField", "text": { "uk": "Олена", "en": "Olena" },
+              "size_flags_horizontal": "expand_fill",
+              "note": "The player's name, kept between sessions (user://); never empty: the last name used, else the system user name. max_length as the game's name rule. auto_translate_mode DISABLED."
             }
           ]
         },
         {
-          "name": "Buttons", "type": "VBoxContainer", "separation": 12,
+          "name": "Body", "type": "HBoxContainer", "variation": "ToyRowThirtyTwo",
+          "note": "The items, then the open panel (if any) to their right, its top on Host's top.",
           "children": [
             {
-              "name": "Host", "type": "Button", "variation": "ToyButtonPrimary", "key": "menu.host", "state": "focus",
-              "per_state": { "join": { "state": "normal" } }, "note": "Starts hosting and opens the lobby."
-            },
-            { "name": "Join", "type": "Button", "variation": "ToyButtonSecondary", "key": "menu.join", "note": "Opens JoinPanel." },
-            { "name": "Tutorial", "type": "Button", "variation": "ToyButtonGhostOnDark", "key": "menu.tutorial" },
-            { "name": "Settings", "type": "Button", "variation": "ToyButtonGhostOnDark", "key": "menu.settings" },
-            { "name": "Quit", "type": "Button", "variation": "ToyButtonGhostOnDark", "key": "menu.quit" }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "JoinPanel", "type": "PanelContainer", "variation": "ToyPanelMenu", "states": ["join"],
-      "anchors_preset": "center", "offset_left": 200, "offset_right": 200, "custom_minimum_size": [600, 0],
-      "children": [
-        {
-          "name": "Content", "type": "VBoxContainer", "separation": 16,
-          "children": [
-            { "name": "Title", "type": "Label", "variation": "ToyTitleOnLight", "key": "join.title" },
-            { "name": "AddressLabel", "type": "Label", "variation": "ToyTextMutedOnLight", "key": "join.address" },
-            {
-              "name": "Address", "type": "LineEdit", "variation": "ToyField", "text": "192.168.0.12", "state": "focus",
-              "note": "Focused when the panel opens; Enter joins."
-            },
-            {
-              "name": "Info", "type": "HBoxContainer", "separation": 16,
+              "name": "Items", "type": "VBoxContainer", "variation": "ToyColumnFour", "custom_minimum_size": [576, 0],
+              "size_flags_vertical": "shrink_begin",
+              "note": "Up and down move the focus through the items; the focused, hovered or pressed item shows its pointer icon.",
               "children": [
-                { "name": "Port", "type": "Label", "variation": "ToyTextMutedOnLight", "key": "join.port", "args": { "port": "7777" }, "size_flags_horizontal": "expand_fill" },
-                { "name": "LanOnly", "type": "Label", "variation": "ToyTextMutedOnLight", "key": "join.lan_only" }
+                {
+                  "name": "Host", "type": "Button", "variation": "ToyMenuItem", "key": "menu.host", "icon": "pointer", "icon_size": 24,
+                  "alignment": "left", "state": "focus", "per_state": { "code": { "state": "normal" }, "code-ready": { "state": "normal" }, "direct": { "state": "normal" } },
+                  "note": "Focus on open. Hosts a game with a code (WebRTC) and goes straight to the lobby (s4); a failure shows s3 host-failed."
+                },
+                {
+                  "name": "Join", "type": "Button", "variation": "ToyMenuItem", "key": "menu.join", "icon": "pointer", "icon_size": 24,
+                  "alignment": "left", "per_state": { "code": { "state": "held" }, "code-ready": { "state": "held" } },
+                  "note": "toggle_mode true, in the menu ButtonGroup; button_pressed while CodePanel is open (ToyMenuItem's pressed StyleBox and pointer; drawn here as held). Toggles CodePanel."
+                },
+                {
+                  "name": "Direct", "type": "Button", "variation": "ToyMenuItem", "key": "menu.direct", "icon": "pointer", "icon_size": 24,
+                  "alignment": "left", "per_state": { "direct": { "state": "held" } },
+                  "note": "toggle_mode true, in the menu ButtonGroup; button_pressed while DirectPanel is open (drawn here as held). Toggles DirectPanel."
+                },
+                {
+                  "name": "Tutorial", "type": "Button", "variation": "ToyMenuItem", "key": "menu.tutorial", "icon": "pointer", "icon_size": 24,
+                  "alignment": "left", "note": "Loads the tutorial's first lesson (s1)."
+                },
+                {
+                  "name": "Settings", "type": "Button", "variation": "ToyMenuItem", "key": "menu.settings", "icon": "pointer", "icon_size": 24,
+                  "alignment": "left",
+                  "note": "toggle_mode true, in the menu ButtonGroup. Toggles the Esc menu's Settings panel code (s5 settings-sound, #301) in a ToyPanelMenu titled esc.tab.settings, a root of its own at @TOP_LEFT (838, 97), 941x886 (its left edge on the other panels' left edge; too tall to sit in Body): the mic, the mode, the threshold with its live meter, noise suppression and the volumes work without a session; nothing is sent."
+                },
+                {
+                  "name": "Quit", "type": "Button", "variation": "ToyMenuItem", "key": "menu.quit", "icon": "pointer", "icon_size": 24,
+                  "alignment": "left", "note": "Quits the game at once."
+                }
               ]
             },
             {
-              "name": "Actions", "type": "HBoxContainer", "separation": 16,
+              "name": "Gap", "type": "Control", "custom_minimum_size": [64, 0], "states": ["code", "code-ready", "direct"],
+              "note": "An empty spacer: 32 + 64 + 32 px between the items and the open panel. Shown with any panel."
+            },
+            {
+              "name": "CodePanel", "type": "PanelContainer", "variation": "ToyPanelMenu", "states": ["code", "code-ready"],
+              "custom_minimum_size": [672, 0], "size_flags_vertical": "shrink_begin",
+              "note": "Join with a code. Shown while Join is pressed.",
               "children": [
-                { "name": "Connect", "type": "Button", "variation": "ToyButtonPrimary", "key": "join.connect", "size_flags_horizontal": "expand_fill" },
-                { "name": "Back", "type": "Button", "variation": "ToyButtonGhostOnLight", "key": "common.back", "note": "Esc does the same." }
+                {
+                  "name": "V", "type": "VBoxContainer", "variation": "ToyColumnSixteen",
+                  "children": [
+                    { "name": "Title", "type": "Label", "variation": "ToyTitleOnLight", "key": "menu.join" },
+                    {
+                      "name": "Field", "type": "VBoxContainer", "variation": "ToyColumnEight",
+                      "children": [
+                        { "name": "CodeLabel", "type": "Label", "variation": "ToyTextMutedOnLight", "key": "common.code" },
+                        {
+                          "name": "Code", "type": "LineEdit", "variation": "ToyField", "text": "K7Q", "state": "focus",
+                          "per_state": { "code-ready": { "text": "K7Q2XR" } },
+                          "note": "Focused and empty when the panel opens. max_length 6; upper-cases as typed, drops spaces and dashes on paste, accepts only the 31-letter code alphabet (no 0, O, 1, I, L). Keeps what was typed after a failure (back from s3). Enter = Join when it is enabled. auto_translate_mode DISABLED."
+                        }
+                      ]
+                    },
+                    {
+                      "name": "Buttons", "type": "HBoxContainer", "variation": "ToyRowSixteen",
+                      "children": [
+                        {
+                          "name": "Join", "type": "Button", "variation": "ToyButtonPrimary", "key": "join.connect", "size_flags_horizontal": "expand_fill",
+                          "state": "disabled", "per_state": { "code-ready": { "state": "normal" } },
+                          "note": "Disabled (unplugged) until the field holds 6 valid characters. Joins by the code: s3 finding."
+                        },
+                        { "name": "Back", "type": "Button", "variation": "ToyButtonGhostOnLight", "key": "common.back", "note": "Closes the panel and unpresses Join; Esc does the same." }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "DirectPanel", "type": "PanelContainer", "variation": "ToyPanelMenu", "states": ["direct"],
+              "custom_minimum_size": [672, 0], "size_flags_vertical": "shrink_begin",
+              "note": "Join or host directly over ENet (LAN, VPN, playit.gg). Shown while Direct is pressed. No address is shown anywhere else (streams).",
+              "children": [
+                {
+                  "name": "V", "type": "VBoxContainer", "variation": "ToyColumnSixteen",
+                  "children": [
+                    { "name": "Title", "type": "Label", "variation": "ToyTitleOnLight", "key": "menu.direct" },
+                    {
+                      "name": "Field", "type": "VBoxContainer", "variation": "ToyColumnEight",
+                      "children": [
+                        { "name": "AddressLabel", "type": "Label", "variation": "ToyTextMutedOnLight", "key": "join.address" },
+                        {
+                          "name": "Address", "type": "LineEdit", "variation": "ToyField", "text": "192.168.0.12", "state": "focus",
+                          "note": "Focused when the panel opens. Takes host or host:port, host names included (JoinTarget). Keeps what was typed after a failure. Enter = Join. auto_translate_mode DISABLED."
+                        },
+                        {
+                          "name": "Port", "type": "Label", "variation": "ToyTextMutedOnLight", "key": "join.port", "args": { "port": "7777" },
+                          "note": "The default port, used when the address has none."
+                        }
+                      ]
+                    },
+                    {
+                      "name": "Buttons", "type": "HBoxContainer", "variation": "ToyRowSixteen",
+                      "children": [
+                        {
+                          "name": "Join", "type": "Button", "variation": "ToyButtonPrimary", "key": "join.connect", "size_flags_horizontal": "expand_fill",
+                          "note": "Disabled (unplugged) while Address is empty. Joins over ENet: s3 (the connecting steps, no code row)."
+                        },
+                        {
+                          "name": "Host", "type": "Button", "variation": "ToyButtonSecondary", "key": "menu.host",
+                          "note": "Hosts directly (ENet) on the port typed, else the default, and opens the lobby (s4) with no code row."
+                        },
+                        { "name": "Back", "type": "Button", "variation": "ToyButtonGhostOnLight", "key": "common.back", "note": "Closes the panel and unpresses Direct; Esc does the same." }
+                      ]
+                    }
+                  ]
+                }
               ]
             }
           ]
@@ -75,7 +157,9 @@
     },
     {
       "name": "Version", "type": "Label", "variation": "ToyTextMutedOnDark", "key": "menu.version", "args": { "version": "0.4" },
-      "anchors_preset": "bottom_right", "offset_left": -40, "offset_top": -32, "offset_right": -40, "offset_bottom": -32
+      "anchors_preset": "bottom_right", "offset_left": -40, "offset_top": -32, "offset_right": -40, "offset_bottom": -32,
+      "grow_horizontal": "begin", "grow_vertical": "begin",
+      "note": "The build's version (ProjectSettings application/config/version)."
     }
   ]
 }

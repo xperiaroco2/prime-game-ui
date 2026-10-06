@@ -1,0 +1,193 @@
+{
+  "id": "s4", "wireframe": "s4", "title": "Lobby", "background": "menu",
+  "note": "The lobby's HUD in the world: the mouse is captured and every node has mouse_filter IGNORE. Ready toggles on the bound ready key (no prompt on screen: the tutorial teaches it and the Esc Lobby tab has the button). The countdown starts when everyone is ready and the mode's demands are met; an un-ready stops it.",
+  "states": [
+    { "id": "wait", "label": "Чекаємо", "note": "The host's view with the code known: three of four ready, the own row not ready." },
+    { "id": "count", "label": "Відлік", "note": "Everyone ready and the mode's demands met: the countdown runs 5, 4, 3, 2, 1." },
+    {
+      "id": "short", "label": "Замало гравців",
+      "note": "Fewer players than the mode needs: the status plate says how many more, instead of the ready count."
+    },
+    {
+      "id": "code-waiting", "label": "Код ще не готовий",
+      "note": "The host before the code service has made the room (JoinProgress.CODE_WAITING): the code keycap reads \"…\"; when the service is gone it reads \"—\" and the Esc Lobby tab explains (s5 lobby-no-code)."
+    },
+    { "id": "direct", "label": "Напряму", "note": "A player who joined directly (LAN or VPN): no code row; the own row not ready." }
+  ],
+  "nodes": [
+    {
+      "name": "Plates", "type": "Control", "anchors_preset": "full_rect",
+      "note": "The name plate layer (P6, #257), the same as s7/Plates, under the rest of the HUD: one Plate per other player in line of sight within about 10 m. Code: position = camera.unproject_position(head + 0.35 m), the plate centred on it; hidden behind walls (raycast), beyond 10 m or behind the camera. No role, no health.",
+      "children": [
+        {
+          "name": "Plate", "type": "PanelContainer", "variation": "ToyNamePlate", "offset_left": 1296, "offset_top": 500,
+          "offset_right": 1296, "offset_bottom": 500, "grow_horizontal": "both", "grow_vertical": "both",
+          "note": "One instance per visible player, moved every frame to the projected point (the sample stands over one player). The teammate mark of s7 never shows here: roles do not exist yet in the lobby.",
+          "children": [
+            {
+              "name": "Row", "type": "HBoxContainer", "variation": "ToyRowEight",
+              "children": [
+                {
+                  "name": "Name", "type": "Label", "variation": "ToyNamePlateText", "key": "dead.watching", "value_of": "name",
+                  "args": { "name": { "uk": "Тарас", "en": "Taras" } },
+                  "note": "The player's name from code (auto_translate_mode DISABLED); no translated text."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Cross", "type": "Panel", "variation": "ToyCrosshair", "anchors_preset": "center",
+      "note": "The crosshair (P5), centred on the screen (its size is the variation's)."
+    },
+    {
+      "name": "Status", "type": "PanelContainer", "variation": "ToyPlate", "anchors_preset": "center_top", "offset_top": 40,
+      "offset_bottom": 40, "grow_horizontal": "both",
+      "children": [
+        {
+          "name": "Text", "type": "Label", "variation": "ToyPlateText", "key": "lobby.waiting", "args": { "count": "3", "total": "4" },
+          "horizontal_alignment": "center",
+          "per_state": {
+            "count": { "variation": "ToyTitleOnDark", "key": "lobby.countdown", "args": { "count": "5" } },
+            "short": { "key": "lobby.need_more", "count": 1, "args": {} }
+          },
+          "note": "lobby.waiting {count} ready of {total} players; lobby.need_more (tr_n) while the lobby has fewer players than the mode needs (other unmet demands of #208 take their own keys later); during the countdown lobby.countdown in ToyTitleOnDark, once a second from 5 to 1."
+        }
+      ]
+    },
+    {
+      "name": "Players", "type": "PanelContainer", "variation": "ToyPlate", "anchors_preset": "top_right", "offset_left": -40,
+      "offset_top": 40, "offset_right": -40, "offset_bottom": 40, "custom_minimum_size": [326, 0],
+      "note": "Rebuilt when a player joins, leaves, renames or toggles ready.",
+      "children": [
+        {
+          "name": "V", "type": "VBoxContainer", "variation": "ToyColumnSixteen",
+          "children": [
+            {
+              "name": "Info", "type": "VBoxContainer", "variation": "ToyColumnEight",
+              "children": [
+                {
+                  "name": "LobbyName", "type": "Label", "variation": "ToyTextMutedOnDark", "key": "lobby.default_name",
+                  "args": { "name": { "uk": "Олена", "en": "Olena" } },
+                  "note": "The lobby name the host set (#214), user text with auto_translate_mode DISABLED; lobby.default_name with the host's name while it is the default."
+                },
+                {
+                  "name": "CodeRow", "type": "HBoxContainer", "variation": "ToyRowEight",
+                  "states": ["wait", "count", "short", "code-waiting"],
+                  "note": "The host and every player who joined with the code (M6 §3); hidden for a Direct joiner. After CodeLabel comes Code: PanelContainer(ToyKeyOnDark) > Label(ToyKeyText) with the room code \"K7Q2XR\" (auto_translate_mode DISABLED), \"…\" while the code service has not made the room, \"—\" when the service is gone; it is left out of this mock-up until the format can draw a text that is not a deck key. Copy lives in the Esc Lobby tab (the mouse is captured here).",
+                  "children": [
+                    {
+                      "name": "CodeLabel", "type": "Label", "variation": "ToyTextMutedOnDark", "key": "common.code",
+                      "size_flags_vertical": "shrink_center"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "List", "type": "VBoxContainer", "variation": "ToyColumnEight",
+              "children": [
+                {
+                  "name": "Head", "type": "Label", "variation": "ToyTextOnDark", "key": "esc.lobby.players",
+                  "args": { "count": "4", "total": "10" }, "per_state": { "short": { "args": { "count": "3", "total": "10" } } },
+                  "note": "Players in the lobby / the lobby's limit."
+                },
+                {
+                  "name": "Rows", "type": "VBoxContainer", "variation": "ToyColumnEight",
+                  "note": "One row per player in join order, the host first. Name expands; Ready shows the check while that player is ready and hides otherwise (an empty mark, not a dash).",
+                  "children": [
+                    {
+                      "name": "HostRow", "type": "HBoxContainer", "variation": "ToyRowTwelve",
+                      "children": [
+                        {
+                          "name": "Name", "type": "Label", "variation": "ToyTextOnDark", "key": "lobby.host_mark",
+                          "args": { "name": { "uk": "Олена", "en": "Olena" } }, "size_flags_horizontal": "expand_fill",
+                          "note": "The host's row: lobby.host_mark with the name (auto_translate_mode DISABLED on the name)."
+                        },
+                        {
+                          "name": "Ready", "type": "TextureRect", "icon": "check", "custom_minimum_size": [24, 24],
+                          "size_flags_vertical": "shrink_center",
+                          "note": "self_modulate = get_theme_color(\"font_color\", \"ToyTextOnDark\")."
+                        }
+                      ]
+                    },
+                    {
+                      "name": "Row2", "type": "HBoxContainer", "variation": "ToyRowTwelve",
+                      "children": [
+                        {
+                          "name": "Name", "type": "Label", "variation": "ToyTextOnDark", "key": "lobby.host_mark", "value_of": "name",
+                          "args": { "name": { "uk": "Тарас", "en": "Taras" } }, "size_flags_horizontal": "expand_fill",
+                          "note": "Another player's row: the name only."
+                        },
+                        {
+                          "name": "Ready", "type": "TextureRect", "icon": "check", "custom_minimum_size": [24, 24],
+                          "size_flags_vertical": "shrink_center"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "OwnRow", "type": "HBoxContainer", "variation": "ToyRowTwelve",
+                      "children": [
+                        {
+                          "name": "Name", "type": "Label", "variation": "ToyTextOnDark", "key": "player.you",
+                          "size_flags_horizontal": "expand_fill", "note": "The own row reads player.you."
+                        },
+                        {
+                          "name": "Ready", "type": "TextureRect", "icon": "check", "custom_minimum_size": [24, 24],
+                          "size_flags_vertical": "shrink_center", "states": ["count"]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "Row4", "type": "HBoxContainer", "variation": "ToyRowTwelve",
+                      "states": ["wait", "count", "code-waiting", "direct"],
+                      "children": [
+                        {
+                          "name": "Name", "type": "Label", "variation": "ToyTextOnDark", "key": "lobby.host_mark", "value_of": "name",
+                          "args": { "name": { "uk": "Марко", "en": "Marko" } }, "size_flags_horizontal": "expand_fill"
+                        },
+                        {
+                          "name": "Ready", "type": "TextureRect", "icon": "check", "custom_minimum_size": [24, 24],
+                          "size_flags_vertical": "shrink_center"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Bottom", "type": "VBoxContainer", "variation": "ToyColumnTwelve", "anchors_preset": "bottom_left", "offset_left": 40,
+      "offset_top": -40, "offset_right": 40, "offset_bottom": -40,
+      "children": [
+        {
+          "name": "ReadyChip", "type": "PanelContainer", "variation": "ToyChipPlate", "size_flags_horizontal": "shrink_begin",
+          "per_state": { "count": { "variation": "ToyChipLight" } },
+          "note": "The own ready state: ToyChipPlate with lobby.ready_no while not ready, ToyChipLight with lobby.ready_yes while ready.",
+          "children": [
+            {
+              "name": "Text", "type": "Label", "variation": "ToyChipPlateText", "key": "lobby.ready_no",
+              "per_state": { "count": { "variation": "ToyChipLightText", "key": "lobby.ready_yes" } }
+            }
+          ]
+        },
+        {
+          "name": "Mic", "type": "PanelContainer", "variation": "ToyMic", "size_flags_horizontal": "shrink_begin",
+          "note": "The mic (P4): mic.svg in icon_on while anybody can hear the player, mic-off.svg in icon_off when nobody does (mic off, push-to-talk released).",
+          "children": [
+            {
+              "name": "Icon", "type": "TextureRect", "icon": "mic", "theme_color": "icon-on", "custom_minimum_size": [28, 28],
+              "size_flags_horizontal": "shrink_center", "size_flags_vertical": "shrink_center"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

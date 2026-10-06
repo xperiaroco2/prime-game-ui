@@ -43,6 +43,16 @@
     { "mode": "textSize/large", "path": "font.size.hero", "absent": true },
     { "path": "duration.press", "expect": { "ms": 70 } },
     { "mode": "motion/reduced", "path": "duration.press", "expect": { "ms": 0 } },
-    { "path": "ease.press", "expect": { "points": [0.33, 0.52, 0.64, 1], "godot.trans": "TRANS_SINE" } }
+    { "path": "ease.press", "expect": { "points": [0.33, 0.52, 0.64, 1], "godot.trans": "TRANS_SINE" } },
+    { "path": "keycap.button.focus.corner-radius-top-left", "expect": { "px": 13 } },
+    { "path": "keycap.button.focus.expand-margin-left", "expect": { "px": 5 } },
+    { "path": "bar.slider-control.slider.content-margin-top", "expect": { "px": 5 } },
+    { "path": "bar.slider-control.grabber-area-highlight.bg-color", "expect": { "hex": "#2a1f33" } },
+    { "path": "bar.scroll.scroll.content-margin-left", "expect": { "px": 5 } },
+    { "path": "bar.scroll.scroll-focus.bg-color", "expect": { "hex": "#dccfe4", "from": "bar.scroll.scroll.bg-color" } },
+    { "path": "layout.column-16.items.separation", "expect": { "px": 16, "from": "space.16" } },
+    { "path": "layout.row-4.items.separation", "expect": { "px": 4 } },
+    { "path": "layout.grid-list.items.h-separation", "expect": { "px": 24 } },
+    { "path": "layout.grid-swatch.items.v-separation", "expect": { "px": 12 } }
   ]
 }

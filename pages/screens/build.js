@@ -5,6 +5,10 @@
 //   node pages/screens/build.js --check              exit 1 when an output differs from what the build would write
 //   node pages/screens/build.js --validate [s2 ...]  validate the sources only (all, or these screens); writes nothing
 //   node pages/screens/build.js --handoff s2         print the screen's Godot handoff (Markdown) to stdout
+//   node pages/screens/build.js --out <file.html> s2 [s5 ...]
+//                                                    a private page with only these screens (validated alone), written
+//                                                    outside the repo, CSS inlined: build and measure one screen while
+//                                                    other screens are being edited (tools/screens/fit.js --page <file>)
 //
 // THE FORMAT (pages/screens/README.md has the long form). One file per screen, src/s01-tutorial.json …
 // src/s10-post-game.json; a missing file is a screen not drawn yet. Godot's defaults are the format's defaults, so a
@@ -21,8 +25,12 @@
 //     expand_fill | expand_shrink_begin | expand_shrink_center | expand_shrink_end; default fill) and, in a box,
 //     size_flags_stretch_ratio (default 1). A CenterContainer ignores size flags.
 //   types (rendered faithfully, nothing else): Control, Panel, PanelContainer (wide), MarginContainer (margin_left/
-//     top/right/bottom), CenterContainer, VBoxContainer and HBoxContainer (separation 4, alignment begin|center|end),
-//     GridContainer (columns 1, h_separation 4, v_separation 4), Label (key, args, count, piece, value_of,
+//     top/right/bottom), CenterContainer, VBoxContainer and HBoxContainer (alignment begin|center|end; the gap only from
+//     a spacing variation: ToyColumn*/ToyRow*), GridContainer (columns 1; the gaps only from ToyGridList/ToyGridSwatch),
+//     ScrollContainer (vertical only: scroll_vertical; one child, expand_fill across; its bar is a VScrollBar drawn
+//     with ToyScrollBar when the child is taller), HSlider (value, min_value, max_value, step, editable, state
+//     normal|hover|focus), VScrollBar (value, min_value, max_value, page, state normal|hover|held|focus),
+//     Label (key, args, count, piece, value_of,
 //     horizontal_alignment left|center|right|fill, vertical_alignment top|center|bottom|fill, autowrap_mode off|
 //     arbitrary|word|word_smart), Button (key and/or icon, icon_size, args, count, state, toggle_mode, alignment
 //     left|center|right, h_separation: the variation's theme constant, else 4), OptionButton (key, args, items,
@@ -42,7 +50,10 @@
 //
 // VALIDATION (every error names the file, the line, the JSON pointer and what to do): unknown types and fields; a
 // variation missing from the pack, abstract, of a class that is not the node's type or a base of it, or a toggle's
-// selected half named directly; a text that is not a deck key (no field takes literal player-facing text); a missing
+// selected half named directly; a box or grid with more than one child and no spacing variation, or a separation
+// written on the node (the theme test forbids overrides: the message names the variation to use); a ScrollContainer
+// with other than one child, or a child that does not fill its width; a text that is not a deck key (no field takes
+// literal player-facing text); a missing
 // placeholder sample, an unknown arg, a plural key without count; an icon without a licence record; a state that is
 // not declared, or where the parent is hidden; duplicate sibling names; an anchored root whose fixed size (its
 // custom_minimum_size or the variation's size constants) leaves the 1920x1080 frame; and the context rule:
@@ -112,11 +123,16 @@ const GODOT = {
   PanelContainer: { chain: ['PanelContainer', 'Container', 'Control'], holds: 'stack', themed: true, fields: ['wide'] },
   MarginContainer: { chain: ['MarginContainer', 'Container', 'Control'], holds: 'stack', fields: ['margin_left', 'margin_top', 'margin_right', 'margin_bottom'] },
   CenterContainer: { chain: ['CenterContainer', 'Container', 'Control'], holds: 'center', fields: [] },
-  VBoxContainer: { chain: ['VBoxContainer', 'BoxContainer', 'Container', 'Control'], holds: 'vbox', fields: ['separation', 'alignment'] },
-  HBoxContainer: { chain: ['HBoxContainer', 'BoxContainer', 'Container', 'Control'], holds: 'hbox', fields: ['separation', 'alignment'] },
-  GridContainer: { chain: ['GridContainer', 'Container', 'Control'], holds: 'grid', fields: ['columns', 'h_separation', 'v_separation'] },
+  // A box or grid takes its gaps only from a spacing variation (`spacing`: the pack items it reads).
+  VBoxContainer: { chain: ['VBoxContainer', 'BoxContainer', 'Container', 'Control'], holds: 'vbox', fields: ['alignment'], spacing: ['separation'] },
+  HBoxContainer: { chain: ['HBoxContainer', 'BoxContainer', 'Container', 'Control'], holds: 'hbox', fields: ['alignment'], spacing: ['separation'] },
+  GridContainer: { chain: ['GridContainer', 'Container', 'Control'], holds: 'grid', fields: ['columns'], spacing: ['h-separation', 'v-separation'] },
+  // Vertical scrolling only (horizontal_scroll_mode SCROLL_MODE_DISABLED): one child; the bar is drawn with SCROLL_BAR.
+  ScrollContainer: { chain: ['ScrollContainer', 'Container', 'Control'], holds: 'scroll', fields: ['scroll_vertical'] },
+  HSlider: { chain: ['HSlider', 'Slider', 'Range', 'Control'], holds: null, themed: true, fields: ['value', 'min_value', 'max_value', 'step', 'editable', 'state'] },
+  VScrollBar: { chain: ['VScrollBar', 'ScrollBar', 'Range', 'Control'], holds: null, themed: true, fields: ['value', 'min_value', 'max_value', 'page', 'state'] },
   Label: { chain: ['Label', 'Control'], holds: null, themed: true, fields: ['key', 'args', 'count', 'piece', 'value_of', 'horizontal_alignment', 'vertical_alignment', 'autowrap_mode'] },
-  Button: { chain: ['Button', 'BaseButton', 'Control'], holds: 'anchored', themed: true, fields: ['key', 'args', 'count', 'icon', 'icon_size', 'state', 'toggle_mode', 'alignment', 'h_separation'] },
+  Button: { chain: ['Button', 'BaseButton', 'Control'], holds: 'anchored', themed: true, fields: ['key', 'args', 'count', 'icon', 'icon_size', 'state', 'toggle_mode', 'alignment', 'h_separation', 'wide'] },
   OptionButton: { chain: ['OptionButton', 'Button', 'BaseButton', 'Control'], holds: null, themed: true, fields: ['key', 'args', 'items', 'state'] },
   LineEdit: { chain: ['LineEdit', 'Control'], holds: null, themed: true, fields: ['text', 'placeholder', 'editable', 'state'] },
   ProgressBar: { chain: ['ProgressBar', 'Range', 'Control'], holds: null, themed: true, fields: ['value', 'max_value', 'show_percentage'] },
@@ -162,6 +178,15 @@ const BUTTON_STATES = {
 };
 const OPTION_STATES = ['normal', 'hover', 'held', 'disabled', 'focus'];
 const LINE_STATES = ['normal', 'focus'];
+const SLIDER_STATES = ['normal', 'hover', 'focus'];
+const SCROLLBAR_STATES = ['normal', 'hover', 'held', 'focus'];
+// The theme's grabber textures of an HSlider (grabber and grabber_highlight, grabber_disabled), pages/components/icons.
+const KNOB_ICON = 'slider-knob';
+const KNOB_DISABLED_ICON = 'slider-knob-disabled';
+// The variation of every ScrollContainer's VScrollBar (the game sets it on get_v_scroll_bar()).
+const SCROLL_BAR = 'ToyScrollBar';
+// The separation fields Godot has, which the theme test forbids as overrides: a spacing variation sets them.
+const SEPARATION_FIELDS = { VBoxContainer: ['separation'], HBoxContainer: ['separation'], GridContainer: ['h_separation', 'v_separation'] };
 const ENUMS = {
   horizontal_alignment: ['left', 'center', 'right', 'fill'],
   vertical_alignment: ['top', 'center', 'bottom', 'fill'],
@@ -170,13 +195,17 @@ const ENUMS = {
 const DEFAULTS = {
   separation: 4, h_separation: 4, v_separation: 4, columns: 1, margin_left: 0, margin_top: 0, margin_right: 0, margin_bottom: 0,
   horizontal_alignment: 'left', vertical_alignment: 'top', autowrap_mode: 'off', state: 'normal', toggle_mode: false,
-  editable: true, value: 0, max_value: 100, show_percentage: true,
+  editable: true, value: 0, min_value: 0, max_value: 100, step: 1, page: 0, scroll_vertical: 0, show_percentage: true,
 };
 const SPLIT = ['key', 'preset']; // placeholders drawn as their own element (copy/README.md, tools/copy/deck.js PH_SPLIT)
 const SPLIT_RE = /\{(?:key|preset)\}/;
 const PH_RE = /\{([a-z_]+)\}/g;
 const SURFACES = new Set(['Panel', 'PanelContainer']);
-const TEXT_CLASSES = new Set(['Label', 'Button', 'OptionButton', 'LineEdit', 'ProgressBar']);
+// The classes whose variations sit on a surface (the context rule), and the containers whose variations draw nothing
+// (a spacing variation is never a surface).
+const TEXT_CLASSES = new Set(['Label', 'Button', 'OptionButton', 'LineEdit', 'ProgressBar', 'HSlider', 'VScrollBar']);
+const LAYOUT_CLASSES = new Set(['VBoxContainer', 'HBoxContainer', 'GridContainer']);
+const isSurfaceOf = (v, n) => !!v && (SURFACES.has(v.class) || (n.children.length > 0 && !LAYOUT_CLASSES.has(v.class)));
 const NAME_RE = /^[A-Za-z][A-Za-z0-9_]*$/;
 const STATE_ID_RE = /^[a-z][a-z0-9-]*$/;
 
@@ -192,6 +221,9 @@ function readText(rel) {
 }
 const exists = (rel) => fs.existsSync(path.join(ROOT, rel));
 const fmt = (x) => String(Math.round(x * 100) / 100);
+const fmt4 = (x) => String(Math.round(x * 10000) / 10000);
+// pages/components/emit-css.js emitScrollBar: the part above the grabber, the grabber, the part below.
+const SCROLL_BAR_INNER = '<i class="tv-pre"></i><i class="tv-grabber"></i><i class="tv-post"></i>';
 const placeholdersOf = (s) => [...new Set([...String(s).matchAll(PH_RE)].map((m) => m[1]))];
 
 // ---------------------------------------------------------------------------------------------------------------
@@ -316,7 +348,13 @@ function fieldProblem(type, field, v) {
     case 'state':
       if (type === 'Button') return oneOf(Object.keys(BUTTON_STATES));
       if (type === 'OptionButton') return oneOf(OPTION_STATES);
+      if (type === 'HSlider') return oneOf(SLIDER_STATES);
+      if (type === 'VScrollBar') return oneOf(SCROLLBAR_STATES);
       return oneOf(LINE_STATES);
+    case 'min_value': return isNum(v) ? null : 'min_value is a number';
+    case 'step': return isNum(v) && v > 0 ? null : 'step is a number above 0';
+    case 'page': return isNum(v) && v >= 0 ? null : 'page is a number of at least 0 (the visible part of the range)';
+    case 'scroll_vertical': return int(0, 100000);
     case 'toggle_mode': case 'editable': case 'show_percentage': case 'wide': return bool();
     case 'alignment': return oneOf(type === 'Button' ? ['left', 'center', 'right'] : ['begin', 'center', 'end']);
     case 'separation': case 'h_separation': case 'v_separation': return int(-200, 400);
@@ -324,10 +362,33 @@ function fieldProblem(type, field, v) {
     case 'columns': return int(1, 32);
     case 'items': return Array.isArray(v) && v.length && v.every((x) => typeof x === 'string' && x) ? null : 'items is a list of deck keys';
     case 'text': return sampleOk(v) ? null : 'text is a sample value: a string (at most 80 characters) or {"uk": …, "en": …}';
-    case 'value': return isNum(v) && v >= 0 ? null : 'value is a number of at least 0';
+    case 'value':
+      if (type === 'HSlider' || type === 'VScrollBar') return isNum(v) ? null : 'value is a number';
+      return isNum(v) && v >= 0 ? null : 'value is a number of at least 0';
     case 'max_value': return isNum(v) && v > 0 ? null : 'max_value is a number above 0';
     default: return null;
   }
+}
+
+// The spacing variations of a container class in the pack: [{name, gaps: [px …]}] (gaps in the order of G.spacing).
+function spacingVariations(C, type) {
+  const items = GODOT[type].spacing;
+  const out = [];
+  for (const [name, v] of Object.entries(C.pack.variations)) {
+    if (v.class !== type) continue;
+    out.push({ name, gaps: items.map((k) => packPx(C, v, `items.${k}`)) });
+  }
+  return out.sort((a, b) => a.gaps[0] - b.gaps[0] || a.gaps[1] - b.gaps[1]);
+}
+// The error for a separation written on a box or grid: name the variation that gives it, else the ones there are.
+function spacingHint(C, type, raw) {
+  const list = spacingVariations(C, type);
+  const want = SEPARATION_FIELDS[type].map((f) => (isNum(raw[f]) ? raw[f] : DEFAULTS[f]));
+  const hit = list.find((x) => x.gaps.every((g, i) => g === want[i]));
+  const all = list.map((x) => `${x.name} (${x.gaps.join(' × ')})`).join(', ');
+  const head = `${SEPARATION_FIELDS[type].join(' and ')} cannot be set on a node (the game's theme test forbids theme overrides)`;
+  if (hit) return `${head}: use "variation": "${hit.name}" (${hit.gaps.join(' × ')} px)`;
+  return `${head}, and no spacing variation gives ${want.join(' × ')} px: use one of ${all || '(none in the pack)'}`;
 }
 
 function validateScreen(src, C) {
@@ -402,7 +463,8 @@ function buildNode(raw, P, parent, place, S, C, R) {
     ...(place === 'anchored' ? ANCHOR_FIELDS : place === 'center' ? [] : place === 'vbox' || place === 'hbox' ? FLAG_FIELDS : FLAG_FIELDS.slice(0, 2))]);
   for (const k of Object.keys(raw)) {
     if (allowed.has(k)) continue;
-    if (ANCHOR_FIELDS.includes(k)) R.err(ptr(P, k), `${k} works only on a node placed by anchors (a root, or a child of a Control, Panel or Button); this node is inside ${where}, which places it: use size flags`);
+    if (SEPARATION_FIELDS[type] && SEPARATION_FIELDS[type].includes(k)) R.err(ptr(P, k), spacingHint(C, type, raw));
+    else if (ANCHOR_FIELDS.includes(k)) R.err(ptr(P, k), `${k} works only on a node placed by anchors (a root, or a child of a Control, Panel or Button); this node is inside ${where}, which places it: use size flags`);
     else if (k === 'size_flags_stretch_ratio' && place !== 'anchored' && place !== 'center') R.err(ptr(P, k), 'size_flags_stretch_ratio matters only inside a VBoxContainer or HBoxContainer');
     else if (FLAG_FIELDS.includes(k)) R.err(ptr(P, k), place === 'center' ? 'a CenterContainer ignores size flags: it keeps its children at their minimum size, centred' : `size flags work only inside a container; this node is placed by anchors in ${where}`);
     else if (k === 'children') R.err(ptr(P, k), `a ${type} holds no children in this renderer`);
@@ -443,6 +505,10 @@ function buildNode(raw, P, parent, place, S, C, R) {
       if (!n.eff.has(st)) { R.err(PS, `the node is not visible in ${st}`); continue; }
       if (!isObj(o)) { R.err(PS, 'a per_state entry is {field: value}'); continue; }
       for (const [f, v] of Object.entries(o)) {
+        if (f === 'variation' && LAYOUT_CLASSES.has(type)) {
+          R.err(ptr(PS, f), 'a spacing variation is layout, and layout never changes per state');
+          continue;
+        }
         if (!PER_STATE_FIELDS.includes(f) || !(f === 'variation' || G.fields.includes(f))) {
           R.err(ptr(PS, f), `${f} cannot change per state on a ${type} (per_state takes ${PER_STATE_FIELDS.filter((x) => x === 'variation' || G.fields.includes(x)).join(', ')})`);
           continue;
@@ -609,6 +675,39 @@ function checkContent(n, st, S, C, R) {
     if (p.show_percentage !== false) R.err(n.ptr, 'show_percentage is true by Godot\'s default and draws a percentage that is not in the deck: set "show_percentage": false');
     if (isNum(p.value) && isNum(p.max_value) && p.value > p.max_value) R.err(at('value'), `value ${p.value} is above max_value ${p.max_value}`);
   }
+  // A box or grid draws its gaps only through a spacing variation; without one it keeps Godot's default separation,
+  // which is allowed only where there is no gap to draw.
+  if (n.G.spacing && !p.variation && n.children.length > 1) {
+    const list = spacingVariations(C, T).map((x) => `${x.name} (${x.gaps.join(' × ')})`).join(', ');
+    R.err(n.ptr, `a ${T} with ${n.children.length} children takes its gap from a spacing variation (the theme test forbids a separation override): add "variation", one of ${list}`);
+  }
+  if (T === 'ScrollContainer') {
+    if (n.children.length !== 1) R.err(n.ptr, `a ScrollContainer holds exactly one child, the scrolled content (it has ${n.children.length})`);
+    else {
+      const c = n.children[0];
+      if (c.flags.h !== 'expand_fill') R.err(ptr(c.ptr, 'size_flags_horizontal'), 'the child of a ScrollContainer sets "size_flags_horizontal": "expand_fill", so that it fills the width (scrolling is vertical only)');
+      if (FLAGS[c.flags.v][0]) R.err(ptr(c.ptr, 'size_flags_vertical'), 'the child of a ScrollContainer keeps its minimum height (it scrolls vertically): drop the vertical expand flag');
+    }
+    const sb = C.pack.variations[SCROLL_BAR];
+    if (!sb || sb.class !== 'VScrollBar') R.err(n.ptr, `${SCROLL_BAR}, the VScrollBar variation of every ScrollContainer, is missing from the pack`);
+  }
+  if ((T === 'HSlider' || T === 'VScrollBar') && isNum(p.min_value) && isNum(p.max_value) && isNum(p.value)) {
+    const top = T === 'VScrollBar' && isNum(p.page) ? p.max_value - p.page : p.max_value;
+    if (!(p.max_value > p.min_value)) R.err(at('max_value'), `max_value ${p.max_value} is not above min_value ${p.min_value}`);
+    else if (T === 'VScrollBar' && p.page > p.max_value - p.min_value) R.err(at('page'), `page ${p.page} is more than the range ${p.max_value - p.min_value}`);
+    else if (p.value < p.min_value || p.value > top) R.err(at('value'), `value ${p.value} is outside ${p.min_value} … ${top}${T === 'VScrollBar' ? ' (max_value − page)' : ''}`);
+    else if (T === 'HSlider' && isNum(p.step) && p.step > 0) {
+      const k = (p.value - p.min_value) / p.step;
+      if (Math.abs(k - Math.round(k)) > 1e-6) R.err(at('value'), `value ${p.value} is not on a step of ${p.step} from ${p.min_value} (Godot snaps it)`);
+    }
+  }
+  if (T === 'HSlider') {
+    if (p.editable === false && p.state !== 'normal') R.err(at('state'), 'a slider that is not editable shows no hover or focus');
+    for (const k of [KNOB_ICON, KNOB_DISABLED_ICON]) {
+      const ic = C.icons.get(k);
+      if (!ic || !ic.licence) R.err(n.ptr, `an HSlider draws its grabber with pages/components/icons/${k}.svg, which is missing or has no licence record`);
+    }
+  }
 }
 
 // The context rule (the header comment).
@@ -633,8 +732,14 @@ function checkContext(nodes, st, surface, C, R) {
         R.err(fieldAt(n, st, 'theme_color'), `in ${st}: ${surface.name || 'the world'} has no colour item ${p.theme_color} to tint this icon with`);
       }
     }
-    const isSurface = v && (SURFACES.has(v.class) || n.children.length);
-    const next = isSurface ? { name, context: v.context === 'any' ? surface.context : v.context } : surface;
+    if (n.type === 'ScrollContainer') {
+      const sb = C.pack.variations[SCROLL_BAR];
+      const on = surface.name ? `${surface.name} (${surface.context})` : 'the world (dark)';
+      if (sb && (sb.context === 'dark' || sb.context === 'light') && sb.context !== surface.context) {
+        R.err(n.ptr, `in ${st}: its bar ${SCROLL_BAR} is a ${sb.context}-context variation on ${on}`);
+      }
+    }
+    const next = isSurfaceOf(v, n) ? { name, context: v.context === 'any' ? surface.context : v.context } : surface;
     checkContext(n.children, st, next, C, R);
   }
 }
@@ -710,6 +815,7 @@ function renderNode(n, st, S, C, ctx) {
   if (n.type === 'Button' && BUTTON_STATES[p.state][1]) cls.push(BUTTON_STATES[p.state][1]);
   if (n.type === 'OptionButton' && p.state !== 'normal') cls.push({ hover: 'is-hover', held: 'is-held', disabled: 'is-disabled', focus: 'is-focus' }[p.state]);
   if (n.type === 'LineEdit') { if (p.state === 'focus') cls.push('is-focus'); if (p.editable === false) cls.push('is-readonly'); }
+  if ((n.type === 'HSlider' || n.type === 'VScrollBar') && p.state !== 'normal') cls.push({ hover: 'is-hover', held: 'is-held', focus: 'is-focus' }[p.state]);
   const attrs = [`class="${cls.join(' ')}"`, `data-node="${esc(n.path)}"`, `data-type="${n.type}"`];
   if (name) attrs.push(`data-variation="${name}"`);
   if (v && SURFACES.has(v.class) && (v.context === 'dark' || v.context === 'light')) attrs.push(`data-context="${v.context}"`);
@@ -758,6 +864,29 @@ function renderNode(n, st, S, C, ctx) {
     case 'TextureRect':
       inner = C.icons.get(p.icon).svg;
       break;
+    case 'HSlider': {
+      // pages/components/emit-css.js emitSlider: the track, the grabber-area (fill and grabber), the rest, the ring.
+      const r = (p.value - p.min_value) / (p.max_value - p.min_value);
+      attrs.push(`style="--value: ${fmt4(r)}"`);
+      const knob = C.icons.get(p.editable === false ? KNOB_DISABLED_ICON : KNOB_ICON);
+      inner = `<i class="tv-slider"></i><span class="tv-grabber-area"><i class="tv-fill"></i><span class="tv-grabber gd-knob">${knob.svg}</span></span>`
+        + '<i class="tv-rest"></i><span class="tv-focus"></span>';
+      break;
+    }
+    case 'VScrollBar': {
+      const range = p.max_value - p.min_value;
+      attrs.push(`style="--value: ${fmt4((p.value - p.min_value) / range)}; --page: ${fmt4(p.page / range)}"`);
+      inner = SCROLL_BAR_INNER;
+      break;
+    }
+    case 'ScrollContainer': {
+      // The view scrolls (its native bar hidden); the drawn bar is ToyScrollBar, shown and sized by page.js (Godot's
+      // update_scrollbars: visible when the child's minimum height is more than the view's height).
+      ctx.used.add(SCROLL_BAR);
+      if (p.scroll_vertical) attrs.push(`data-scroll-v="${p.scroll_vertical}"`);
+      inner = `<div class="gd-scroll-view">${kids()}</div><div class="gd-VScrollBar tv-${SCROLL_BAR}" data-bar-of="${esc(n.path)}" aria-hidden="true" style="--value: 0; --page: 1">${SCROLL_BAR_INNER}</div>`;
+      break;
+    }
     default:
       inner = kids();
   }
@@ -771,9 +900,14 @@ const LAYOUT_HEAD = `/* Generated by pages/screens/build.js: Godot 4.7.2 contain
 .gd-Control, .gd-Panel, .gd-ProgressBar { display: block; }
 .gd-PanelContainer, .gd-MarginContainer, .gd-CenterContainer { display: grid; }
 .gd-TextureRect { display: grid; contain: size; }
-.gd-VBoxContainer { display: grid; grid-auto-flow: row; grid-template-columns: 1fr; row-gap: calc(4 * var(--px)); align-content: start; }
-.gd-HBoxContainer { display: grid; grid-auto-flow: column; grid-template-rows: 1fr; column-gap: calc(4 * var(--px)); justify-content: start; }
-.gd-GridContainer { display: grid; column-gap: calc(4 * var(--px)); row-gap: calc(4 * var(--px)); justify-content: start; align-content: start; }
+.gd-VBoxContainer { display: grid; grid-auto-flow: row; grid-template-columns: 1fr; align-content: start; }
+.gd-HBoxContainer { display: grid; grid-auto-flow: column; grid-template-rows: 1fr; justify-content: start; }
+.gd-GridContainer { display: grid; justify-content: start; align-content: start; }
+.gd-ScrollContainer { display: grid; }
+.gd-scroll-view { display: grid; grid-template-rows: 0; overflow-x: hidden; overflow-y: auto; scrollbar-width: none; }
+.gd-scroll-view > .gd-node { align-self: start; }
+.gd-ScrollContainer > .gd-VScrollBar { position: absolute; top: 0; right: 0; bottom: 0; display: none; }
+.gd-ScrollContainer[data-vscroll="1"] > .gd-VScrollBar { display: flex; }
 .gd-Label { display: flex; flex-direction: column; justify-content: flex-start; white-space: nowrap; text-align: left; }
 .gd-Button { display: flex; align-items: center; justify-content: center; white-space: nowrap; }
 .gd-OptionButton { display: flex; align-items: center; justify-content: space-between; white-space: nowrap; }
@@ -840,6 +974,12 @@ function layoutCss(screens, C) {
   const out = [LAYOUT_HEAD.replace(/\n$/, '')];
   const arrow = C.icons.get(ARROW_ICON);
   if (arrow) out.push(`.gd-arrow { width: ${len(arrow.w)}; height: ${len(arrow.h)}; }`);
+  // An HSlider's grabber at its texture's size; a ScrollContainer gives its child the width less the bar's (the bar's
+  // minimum width: its scroll StyleBox's inline content margins) while the bar shows.
+  const knob = C.icons.get(KNOB_ICON);
+  if (knob) out.push(`.gd-knob { width: ${len(knob.w)}; height: ${len(knob.h)}; }`);
+  const sb = C.pack.variations[SCROLL_BAR];
+  if (sb) out.push(`.gd-ScrollContainer[data-vscroll="1"] { padding-right: ${len(Math.max(packPx(C, sb, 'scroll.content-margin-left') + packPx(C, sb, 'scroll.content-margin-right'), packPx(C, sb, 'grabber.content-margin-left') + packPx(C, sb, 'grabber.content-margin-right')))}; }`);
   const rule = (sel, decls) => { if (decls.size) out.push(`${sel} { ${[...decls].map(([k, x]) => `${k}: ${x};`).join(' ')} }`); };
   for (const S of screens) {
     out.push(`/* ${S.id}: ${S.title} */`);
@@ -879,14 +1019,10 @@ function layoutCss(screens, C) {
           if (n.flags.v !== 'fill' && n.flags.v !== 'expand_fill') own.set('align-self', FLAGS[n.flags.v][1]);
         }
       }
+      // The gaps of a box or grid are its spacing variation's (the components CSS); without one it has a single child.
       if (n.type === 'VBoxContainer' || n.type === 'HBoxContainer') {
         const vb = n.type === 'VBoxContainer';
-        if (p.separation !== DEFAULTS.separation) own.set(vb ? 'row-gap' : 'column-gap', len(p.separation));
         if (p.alignment !== 'begin') own.set(vb ? 'align-content' : 'justify-content', p.alignment === 'center' ? 'center' : 'end');
-      }
-      if (n.type === 'GridContainer') {
-        if (p.h_separation !== DEFAULTS.h_separation) own.set('column-gap', len(p.h_separation));
-        if (p.v_separation !== DEFAULTS.v_separation) own.set('row-gap', len(p.v_separation));
       }
       if (n.type === 'MarginContainer') {
         for (const s of ['top', 'right', 'bottom', 'left']) if (p[`margin_${s}`]) own.set(`padding-${s}`, len(p[`margin_${s}`]));
@@ -1051,14 +1187,24 @@ function handoff(S, C) {
     if (n.cmin[0] || n.cmin[1]) bits.push(`custom_minimum_size (${fmt(n.cmin[0])}, ${fmt(n.cmin[1])})`);
     if (p.wide) bits.push('wide (the variation\'s wide size constant)');
     const T = n.type;
+    if (n.G.spacing && v) bits.push(`gaps from the variation: ${n.G.spacing.map((k) => `${k.replace(/-/g, '_')} ${packPx(C, v, `items.${k}`)}`).join(', ')}`);
     if (T === 'VBoxContainer' || T === 'HBoxContainer') {
-      if (p.separation !== DEFAULTS.separation) bits.push(`theme_override_constants/separation ${p.separation}`);
       if (p.alignment !== 'begin') bits.push(`alignment \`ALIGNMENT_${p.alignment.toUpperCase()}\``);
     }
-    if (T === 'GridContainer') {
-      bits.push(`columns ${p.columns}`);
-      if (p.h_separation !== DEFAULTS.h_separation) bits.push(`theme_override_constants/h_separation ${p.h_separation}`);
-      if (p.v_separation !== DEFAULTS.v_separation) bits.push(`theme_override_constants/v_separation ${p.v_separation}`);
+    if (T === 'GridContainer') bits.push(`columns ${p.columns}`);
+    if (T === 'ScrollContainer') {
+      bits.push(`horizontal_scroll_mode \`SCROLL_MODE_DISABLED\` (vertical scrolling only); \`get_v_scroll_bar().theme_type_variation = &"${SCROLL_BAR}"\`; the bar shows when the child is taller`);
+      if (p.scroll_vertical) bits.push(`shown scrolled: scroll_vertical ${p.scroll_vertical} (review only)`);
+    }
+    if (T === 'HSlider') {
+      bits.push(`value ${fmt(p.value)} (min_value ${fmt(p.min_value)}, max_value ${fmt(p.max_value)}, step ${fmt(p.step)})`);
+      if (p.editable === false) bits.push('editable false');
+      if (p.state === 'hover') bits.push('shown hovered (review only)');
+      if (p.state === 'focus') bits.push('shown with keyboard focus (grab_focus; the ring: see the notes)');
+    }
+    if (T === 'VScrollBar') {
+      bits.push(`value ${fmt(p.value)}, page ${fmt(p.page)} (min_value ${fmt(p.min_value)}, max_value ${fmt(p.max_value)})`);
+      if (p.state !== 'normal') bits.push(`shown ${{ hover: 'hovered', held: 'dragged', focus: 'focused' }[p.state]} (review only)`);
     }
     if (T === 'MarginContainer') {
       const m = ['left', 'top', 'right', 'bottom'].filter((s) => p[`margin_${s}`]).map((s) => `margin_${s} ${p[`margin_${s}`]}`);
@@ -1128,8 +1274,7 @@ function handoff(S, C) {
       const v = name ? C.pack.variations[name] : null;
       const bits = describe(n, st, surface);
       acc.push({ n, depth, bits, line: bits.join(' · ') });
-      const isSurface = v && (SURFACES.has(v.class) || n.children.length);
-      lines(n.children, st, isSurface ? { name, context: v.context === 'any' ? surface.context : v.context } : surface, depth + 1, acc);
+      lines(n.children, st, isSurfaceOf(v, n) ? { name, context: v.context === 'any' ? surface.context : v.context } : surface, depth + 1, acc);
     }
     return acc;
   }
@@ -1191,22 +1336,46 @@ function handoff(S, C) {
   const usedVars = S.all.map((n) => C.pack.variations[n.raw.variation]).filter(Boolean);
   if (usedVars.some((v) => v.base)) out.push('- A raised variation is built as the tokens spec (§6) says: a `ToyRaised` MarginContainer holding first the base `Panel` (the base named above, chosen by the context it sits in), then the face.');
   if (S.all.some((n) => 'icon' in n.raw || Object.values(n.per).some((o) => 'icon' in o.raw))) out.push('- Icons draw in the text colour of their context on the page; in Godot import them in that colour or set `self_modulate`.');
+  if (S.all.some((n) => n.G.spacing)) out.push('- Boxes and grids take their gaps only from their spacing variation (ToyColumn…, ToyRow…, ToyGrid…); a box without one has a single child. No `theme_override_constants`: the theme test forbids them.');
+  if (S.all.some((n) => n.type === 'HSlider')) out.push(`- An HSlider's grabber is a texture: the theme icons \`grabber\` and \`grabber_highlight\` are \`${C.icons.get(KNOB_ICON).file}\`, \`grabber_disabled\` \`${C.icons.get(KNOB_DISABLED_ICON).file}\` (own work). Slider draws no focus StyleBox of its own: draw the variation's \`focus\` StyleBox over the slider while it has visible focus.`);
+  if (S.all.some((n) => n.type === 'ScrollContainer')) out.push(`- A ScrollContainer's bar is its own \`VScrollBar\`: set its \`theme_type_variation\` to \`${SCROLL_BAR}\` in code (\`get_v_scroll_bar()\`); the child fills the width (\`SIZE_EXPAND_FILL\`) and keeps its minimum height.`);
   return out.join('\n') + '\n';
 }
 
 // ---------------------------------------------------------------------------------------------------------------
 
+// A private page goes outside the repo (it is never committed): null when `file` is fine, else why not.
+function privateOutProblem(file) {
+  const abs = path.resolve(file);
+  const r = path.relative(ROOT, abs);
+  if (!r || (!r.startsWith('..') && !path.isAbsolute(r))) return `${file} is inside the repo; write a private page outside it (for example to your temp folder)`;
+  if (!/\.html?$/i.test(abs)) return `${file}: a private page is an .html file`;
+  return null;
+}
+
 function main(argv) {
-  const mode = argv.includes('--check') ? 'check' : argv.includes('--validate') ? 'validate' : argv.includes('--handoff') ? 'handoff' : 'write';
+  const usage = 'usage: node pages/screens/build.js [--check | --validate [s2 ...] | --handoff s2 | --out <file.html> s2 [s5 ...]]';
+  let out = null;
+  const oi = argv.indexOf('--out');
+  if (oi >= 0) {
+    out = argv[oi + 1];
+    if (!out || out.startsWith('--')) { console.error(`--out needs a file\n${usage}`); return 2; }
+    argv = argv.slice(0, oi).concat(argv.slice(oi + 2));
+  }
+  const mode = out ? 'private' : argv.includes('--check') ? 'check' : argv.includes('--validate') ? 'validate' : argv.includes('--handoff') ? 'handoff' : 'write';
   const flags = argv.filter((a) => a.startsWith('--'));
   const ids = argv.filter((a) => !a.startsWith('--')).map((a) => {
     const m = /^s0*(\d+)(?:-[a-z-]+)?(?:\.json)?$/.exec(a);
     return m ? `s${m[1]}` : a;
   });
-  const usage = 'usage: node pages/screens/build.js [--check | --validate [s2 ...] | --handoff s2]';
-  if (flags.length > 1 || flags.some((f) => !['--check', '--validate', '--handoff'].includes(f))) { console.error(usage); return 2; }
+  if (flags.length > (out ? 0 : 1) || flags.some((f) => !['--check', '--validate', '--handoff'].includes(f))) { console.error(usage); return 2; }
   if ((mode === 'write' || mode === 'check') && ids.length) { console.error(usage); return 2; }
   if (mode === 'handoff' && ids.length !== 1) { console.error(usage); return 2; }
+  if (mode === 'private') {
+    if (!ids.length) { console.error(`--out builds the screens you name: --out <file.html> s2 [s5 ...]\n${usage}`); return 2; }
+    const why = privateOutProblem(out);
+    if (why) { console.error(`error: ${why}`); return 2; }
+  }
   if (ids.some((id) => !SCREENS.some(([x]) => x === id))) { console.error(`unknown screen ${ids.find((id) => !SCREENS.some(([x]) => x === id))}; the screens are s1 … s10\n${usage}`); return 2; }
   try {
     const { sources, errors: readErrors } = readSources(ids.length ? ids : null);
@@ -1233,6 +1402,15 @@ function main(argv) {
     const ui = uiCss(sys, C.used, emitComponentsCss);
     const outputs = [[OUT_UI, ui], [OUT_LAYOUT, layout], [OUT_HTML, renderPage(screens, C, sys, ui, layout)]];
     for (const [file, text] of outputs) if (/\r/.test(text)) { console.error(`error: ${file} would contain CR bytes`); return 1; }
+    if (mode === 'private') {
+      // The page inlines both stylesheets, so it is the one file to write.
+      const abs = path.resolve(out);
+      fs.mkdirSync(path.dirname(abs), { recursive: true });
+      fs.writeFileSync(abs, outputs[2][1]);
+      console.log(`wrote ${abs} (${Math.round(Buffer.byteLength(outputs[2][1]) / 1024)} KB): ${screens.map((S) => `${S.id} (${S.stateIds.length} states)`).join(', ')}`);
+      console.log(`measure it: node tools/screens/fit.js --page "${abs}"; pictures: node tools/screens/shots.js --page "${abs}"`);
+      return 0;
+    }
     if (mode === 'check') {
       const stale = [];
       for (const [file, text] of outputs) {

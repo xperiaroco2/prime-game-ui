@@ -9,9 +9,14 @@ node pages/screens/build.js                      write screens.html, screens-ui.
 node pages/screens/build.js --check              exit 1 when an output is stale (a step of tools/check.js)
 node pages/screens/build.js --validate [s2 ...]  validate the sources only (all, or these screens); writes nothing
 node pages/screens/build.js --handoff s2         print the screen's Godot handoff (Markdown) to stdout
+node pages/screens/build.js --out <file.html> s2 [s5 ...]
+                                                 a private page with only these screens, outside the repo
 ```
 
-`--validate s7` checks one screen while other screens are being edited. `tools/check.js` runs `screens` (validate
+`--validate s7` checks one screen while other screens are being edited. `--out` builds a private page with only the
+named screens (validated alone, the CSS inlined) to a path outside the repo (a path inside it is refused), so an author
+can build and measure one screen while others edit theirs; `tools/screens/fit.js --page <file>` and
+`tools/screens/shots.js --page <file>` take it. `tools/check.js` runs `screens` (validate
 everything) and `page:screens` (`--check`).
 
 ## Files
@@ -67,10 +72,13 @@ states only what differs, with Godot's property names.
 | `PanelContainer` | `variation` (required), `wide` | the StyleBox; children fill its content rect |
 | `MarginContainer` | `margin_left/top/right/bottom` (0) | children fill the rect minus the margins |
 | `CenterContainer` | – | children centred at their minimum size |
-| `VBoxContainer`, `HBoxContainer` | `separation` (4), `alignment` `begin`/`center`/`end` | a box: free space to expanding children by ratio |
-| `GridContainer` | `columns` (1), `h_separation` (4), `v_separation` (4) | a grid; a column or row with an expanding child expands |
+| `VBoxContainer`, `HBoxContainer` | `variation` (a spacing variation, below), `alignment` `begin`/`center`/`end` | a box: free space to expanding children by ratio; the gap is the variation's |
+| `GridContainer` | `variation` (`ToyGridList` or `ToyGridSwatch`), `columns` (1) | a grid; a column or row with an expanding child expands |
+| `ScrollContainer` | `scroll_vertical` (0, reference px; the page shows the view scrolled) | vertical scrolling only: one child, which fills the width and keeps its minimum height; the bar is a `VScrollBar` drawn with `ToyScrollBar` when the child is taller than the view, and the child is then narrower by the bar |
+| `HSlider` | `variation` (`ToySlider`), `value` (0), `min_value` (0), `max_value` (100), `step` (1), `editable` (true), `state` `normal`/`hover`/`focus` | the track, the fill to the grabber's centre, the grabber texture (`icons/slider-knob.svg`, `slider-knob-disabled.svg` when not editable), the focus ring |
+| `VScrollBar` | `variation` (`ToyScrollBar`), `value` (0), `min_value` (0), `max_value` (100), `page` (0), `state` `normal`/`hover`/`held`/`focus` | the track and the grabber (page ÷ range long, at value ÷ range) |
 | `Label` | `key`, `args`, `count`, `piece`, `value_of`, `horizontal_alignment` (`left`), `vertical_alignment` (`top`), `autowrap_mode` (`off`, `arbitrary`, `word`, `word_smart`; needs a `custom_minimum_size` width) | the text |
-| `Button` | `key` and/or `icon`, `icon_size` (the SVG's size), `args`, `count`, `state`, `toggle_mode`, `alignment` (`center`), `h_separation` (the variation's theme constant, else 4) | the face, the icon tinted by the variation's icon colours; children placed by anchors |
+| `Button` | `key` and/or `icon`, `icon_size` (the SVG's size), `args`, `count`, `state`, `toggle_mode`, `alignment` (`center`), `h_separation` (the variation's theme constant, else 4), `wide` (ToyKeyButton's wide keycap) | the face, the icon tinted by the variation's icon colours; children placed by anchors |
 | `OptionButton` | `key` (the shown item), `args`, `items` (keys), `state` | text and the arrow (`icons/chevron-down.svg`) |
 | `LineEdit` | `text` (a sample value) or `placeholder` (a key), `editable` (true), `state` `normal`/`focus` | the field, the caret when focused |
 | `ProgressBar` | `value` (0), `max_value` (100), `show_percentage` (must be `false`) | the fill; ToyBarHealth picks its ramp stop |
@@ -84,6 +92,14 @@ states only what differs, with Godot's property names.
   `toggle_mode: true` the selected ones `selected`, `selected-hover`, `selected-held`, `selected-disabled`,
   `selected-focus`, which draw the pack's `toggle.selected` variation as ToyToggle does. Name the idle variation (`ToyTab`),
   never the selected one.
+- **Spacing:** the game's theme test forbids theme overrides, so a box or grid never sets `separation`,
+  `h_separation` or `v_separation`: its gap comes from a spacing variation. Columns (VBoxContainer): `ToyColumnFour`,
+  `ToyColumnEight`, `ToyColumnTwelve`, `ToyColumnSixteen`, `ToyColumnTwentyFour`, `ToyColumnThirtyTwo` (4 … 32 px, the
+  tokens' `space.*`); rows (HBoxContainer): `ToyRowFour` … `ToyRowThirtyTwo`; grids: `ToyGridList` (24 across, 8 down)
+  and `ToyGridSwatch` (12, 12). A box or grid without a variation keeps Godot's default (4) and may hold only one child
+  (there is no gap to draw). Spacing variations draw nothing, so they never make a surface for the context rule. A
+  gap the scale lacks is an empty `Control` spacer with a `custom_minimum_size` (MarginContainer margins are theme
+  constants too, so they would be overrides), or a question for the manager.
 - **Icons:** `pages/components/icons/<name>.svg` as `<name>` (`item`, `check`, `mic`, `mic-off`) and the room
   pictograms `pages/room-signs/systems/b/icons/<name>.svg` as `room/<name>`; each needs a licence record in its
   `LICENCES.json`. A Button's icon is tinted by its variation's icon colours (ToyMenuItem's pointer); elsewhere an icon
@@ -93,14 +109,19 @@ states only what differs, with Godot's property names.
 
 Every error names the file, the line, the JSON pointer and what to do: an unknown type or field (including a field in
 the wrong place, such as anchors inside a container); a variation missing from the pack, abstract, of a class that
-does not fit the type, or the selected half of a toggle; a text that is not a deck key; a placeholder without a sample,
+does not fit the type, or the selected half of a toggle; a separation written on a box or grid (the message names the
+variation to use), a box or grid with more than one child and no spacing variation, a spacing variation changed per
+state; a ScrollContainer without exactly one child, a child that does not set `size_flags_horizontal: expand_fill`, or
+one that expands vertically; an HSlider or VScrollBar value outside its range (or off the slider's step), a slider that
+is not editable shown hovered or focused; a text that is not a deck key; a placeholder without a sample,
 an arg the key does not have, a plural key without `count`; an icon without a licence record; an undeclared state, or
 one where the parent is hidden; duplicate sibling names; an anchored root whose fixed size (its
 `custom_minimum_size` or the variation's size constants) leaves the 1920x1080 frame; and the context rule:
 
 > A surface is a node drawn with a Panel or PanelContainer variation, or any node with a variation that holds
-> children; the world behind the UI is a dark surface. A node drawn with a Label, Button, OptionButton, LineEdit or
-> ProgressBar variation sits on its nearest surface ancestor. When the pack gives the variation an `on` list (ToyKeyText
+> children (but a spacing variation); the world behind the UI is a dark surface. A node drawn with a Label, Button,
+> OptionButton, LineEdit, ProgressBar, HSlider or VScrollBar variation, and a ScrollContainer's ToyScrollBar, sits on
+> its nearest surface ancestor. When the pack gives the variation an `on` list (ToyKeyText
 > on ToyKeyOnDark, ToyKeyOnLight, ToyKeyRound), that surface must be in it; otherwise a dark or light variation needs a
 > surface of the same context (a surface of context `any` passes on its own surface's context). Variations of context
 > `any` fit everywhere.
@@ -122,9 +143,21 @@ Content sizes (a text that overflows its box, at large text or in English) are t
   `custom_minimum_size`.
 - **Minimum sizes:** a node is never smaller than its content, as in Godot. An autowrapping Label and a LineEdit add no
   width of their own (`contain: inline-size`), a TextureRect only its `custom_minimum_size` (`contain: size`).
+- **Gaps** are the spacing variations' (`gap`, `column-gap`, `row-gap` in the generated components CSS).
+- **ScrollContainer:** a view that scrolls vertically (its native bar hidden) over a zero-height grid row, so the child
+  keeps its own height and the container adds none to its parent (in Godot its minimum height is
+  `custom_minimum_size` only). `page.js` does what Godot's `update_scrollbars` does: when the child is taller than the
+  view it shows the `ToyScrollBar` at the right edge (`data-vscroll="1"`), narrows the child by the bar's width, and
+  sizes the grabber to the visible part; it runs before `data-ready` and after every switch. Wheel and touch scroll the
+  view on the page; the bar follows.
+- **HSlider:** a flex line: the track across the whole width, then the grabber-area (the fill and the grabber texture)
+  and the rest sharing the width less the grabber by `--value`, so the grabber lands where Godot draws it.
 - **Known limits:** a node with a `custom_minimum_size` in an expanding track may get less than its content when space
   is short (Godot would keep the larger of the two); Godot's LineEdit minimum of four characters is not drawn (give it a
-  width or let a container fill it); icons draw in the text colour of their context.
+  width or let a container fill it); icons draw in the text colour of their context; a ScrollContainer counts its bar's
+  width in its minimum width only while the bar shows (Godot always does once the child has a height), and the gap
+  between the child and the bar is Godot's default `scrollbar_v_separation`, taken as 0 (unconfirmed); an HSlider is at
+  least its grabber wide (Godot: 0).
 
 ## The page contract (the fit tool codes against it)
 
@@ -135,7 +168,9 @@ Content sizes (a text that overflows its box, at large text or in English) are t
 3. Every node is one element with `data-node="s2/Menu/Buttons/Host"`, `data-type` (the Godot class) and
    `data-variation` (the variation drawn, the selected one for a pressed toggle). The element holding a text carries
    `data-key` and only that text (a Label is that element itself; a Button's text is a child span; an icon is a
-   sibling). An anchored node is wrapped in a `.gd-anchor` box without `data-node`.
+   sibling). An anchored node is wrapped in a `.gd-anchor` box without `data-node`. A ScrollContainer's view
+   (`.gd-scroll-view`, `overflow-y: auto`) and its drawn bar (`.gd-VScrollBar`, `data-bar-of`) carry no `data-node`:
+   they are the container's own parts.
 4. Measuring mode, local only: `screens.html?only=<screen>:<state>&lang=uk|en&size=default|large` renders that frame
    alone at zoom 1 at the top left with no chrome or margins; `?only=all` stacks every frame, each frame's top at a
    multiple of 1080 px, in source order. When the fonts and the layout are done, `<html>` gets `data-ready="1"`.
@@ -144,5 +179,6 @@ Content sizes (a text that overflows its box, at large text or in English) are t
 
 `--handoff s2` prints Markdown for the body of a prime-game issue: the source, the theme version, the world, the
 states; the full node tree in the first state (types, variations with their ToyRaised base, anchors and grow, size
-flags, minimum sizes, container constants, keys with their English and Ukrainian, sample values, notes); then for
-every other state what is shown, hidden or changed.
+flags, minimum sizes, the spacing variations' gaps, keys with their English and Ukrainian, sample values, notes); then
+for every other state what is shown, hidden or changed. The notes say what the game sets in code: a ScrollContainer's
+bar variation, an HSlider's grabber textures and its focus ring (Slider draws no focus StyleBox).

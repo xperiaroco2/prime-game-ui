@@ -198,11 +198,11 @@ h2 { font-size: 21px; margin: 34px 0 10px; padding-top: 4px; }
 .sc-hudbar { display: flex; flex-direction: column; align-items: flex-start; gap: calc(8 * var(--px)); }
 .sc-fill { display: flex !important; width: calc(300 * var(--px)); min-height: calc(150 * var(--px)); padding: calc(24 * var(--px)); align-items: flex-end !important; justify-content: flex-start !important; }
 .sc-dialog-world { display: block; }
-.sc-dialog { display: flex !important; flex-direction: column; align-items: flex-start !important; gap: calc(14 * var(--px)) !important; width: calc(600 * var(--px)); }
+.sc-dialog { display: flex; flex-direction: column; align-items: flex-start; gap: calc(14 * var(--px)) !important; width: calc(600 * var(--px)); }
 .sc-backdrop { display: flex !important; padding: calc(48 * var(--px)) calc(40 * var(--px)); }
 .sc-actions { display: flex; gap: calc(18 * var(--px)); flex-wrap: wrap; margin-top: calc(10 * var(--px)); }
-.sc-panel { display: flex !important; flex-direction: column; align-items: flex-start !important; gap: calc(14 * var(--px)) !important; width: calc(560 * var(--px)); }
-.sc-howto { display: flex !important; flex-direction: column; align-items: flex-start !important; gap: calc(12 * var(--px)) !important; }
+.sc-panel { display: flex; flex-direction: column; align-items: flex-start; gap: calc(14 * var(--px)) !important; width: calc(560 * var(--px)); }
+.sc-howto { display: flex; flex-direction: column; align-items: flex-start; gap: calc(12 * var(--px)) !important; }
 .sc-howto-head { display: flex; align-items: center; gap: calc(16 * var(--px)); }
 .sc-frames { display: flex; gap: calc(14 * var(--px)); }
 .sc-frame { width: calc(190 * var(--px)); flex-direction: column; justify-content: flex-start !important; }
@@ -266,3 +266,12 @@ h2 { font-size: 21px; margin: 34px 0 10px; padding-top: 4px; }
 details.sc-more-list { margin-top: 10px; }
 details.sc-more-list summary { cursor: pointer; font-weight: 600; padding: 6px 0; }
 footer { color: var(--c-muted); font-size: 12px; margin-top: 32px; }
+/* The slider at a sample width; the scroll bar at a sample length (its width is its StyleBox's). */
+.sc-sliderbox { display: block; width: calc(320 * var(--px)); flex: none; }
+.sc-scrollbox { display: flex; height: calc(160 * var(--px)); flex: none; }
+.tv-ToySlider .tv-grabber svg { display: block; width: 100%; height: 100%; }
+/* Spacing containers: placeholder boxes, so the gaps show. */
+.sc-lay-col { display: flex; flex-direction: column; align-items: flex-start; }
+.sc-lay-row { display: flex; align-items: flex-start; }
+.sc-lay-grid { display: grid; grid-template-columns: repeat(3, auto); }
+.sc-lay-box { display: block; width: calc(44 * var(--px)); height: calc(24 * var(--px)); border-radius: calc(6 * var(--px)); background: var(--toy-color-surface-board); border: calc(2 * var(--px)) solid var(--toy-color-outline); box-sizing: border-box; }

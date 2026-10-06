@@ -96,6 +96,11 @@
     { "id": "n33", "fg": "palette.slotline", "bg": "color.surface.plate", "over": ["mid"], "min": "ui", "what": "idle slot outline vs the plate, world 97" },
     { "id": "n34", "fg": "palette.slotline", "bg": "color.surface.plate", "over": ["white"], "min": "ui", "what": "idle slot outline vs the plate over a white world" },
     { "id": "n35", "fg": "color.surface.plate", "bg": "world:white", "min": "ui", "what": "HUD plate vs a white world" },
+    { "id": "n36", "fg": "bar.slider-control.grabber-area.bg-color", "bg": "bar.slider-control.slider.bg-color", "min": "ui", "what": "ToySlider fill (ink) vs its light track" },
+    { "id": "n37", "fg": "bar.scroll.grabber.bg-color", "bg": "bar.scroll.scroll.bg-color", "min": "ui", "what": "ToyScrollBar grabber (ink) vs its light track" },
+    { "id": "n38", "fg": "bar.slider-control.focus.border-color", "bg": "color.surface.panel", "min": "ui", "what": "ToySlider focus ring (ink) vs the cream panel" },
+    { "id": "n39", "fg": "bar.slider-control.focus.border-color", "bg": "palette.white", "min": "ui", "what": "ToySlider focus ring (ink) vs a white setting row" },
+    { "id": "n40", "fg": "bar.slider-control.slider.bg-color", "bg": "palette.white", "min": null, "what": "ToySlider track vs a white setting row: carried by the ink fill and the knob" },
     { "id": "m1", "fg": "mic.plate.items.icon-on", "bg": "color.surface.plate", "over": ["white", "light", "mid"], "min": "ui", "what": "mic icon (on) vs the HUD plate" },
     { "id": "m2", "fg": "mic.plate.items.icon-off", "bg": "color.surface.plate", "over": ["white", "light", "mid"], "min": "ui", "what": "mic icon (off) vs the HUD plate" }
   ],

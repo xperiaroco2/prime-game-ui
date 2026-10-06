@@ -188,6 +188,59 @@
         "min-width": { "$value": { "value": 36, "unit": "px" } }
       }
     },
+    "button": {
+      "$description": "A keycap as a button (rebinding in Settings > Controls): the ToyKeyOnLight face, a lavender hover, unplugged when disabled, an outer focus ring that follows the keycap's corners.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyKeyButton", "class": "Button", "parent": "ToyButton" },
+          "context": "light"
+        }
+      },
+      "label": { "$type": "typography", "$value": "{type.body-bold}" },
+      "normal": {
+        "bg-color": { "$type": "color", "$value": "{palette.white}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-width-top": { "$type": "dimension", "$value": "{stroke.thin}" },
+        "border-width-right": { "$type": "dimension", "$value": "{stroke.thin}" },
+        "border-width-bottom": { "$type": "dimension", "$value": "{stroke.bold}" },
+        "border-width-left": { "$type": "dimension", "$value": "{stroke.thin}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.small}" },
+        "content-margin-top": { "$type": "dimension", "$value": { "value": 2, "unit": "px" } },
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 10, "unit": "px" } },
+        "content-margin-bottom": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } },
+        "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
+      },
+      "hover": {
+        "$description": "Hover fill.",
+        "bg-color": { "$type": "color", "$value": "{color.state.hover-on-light}" }
+      },
+      "pressed": {
+        "$description": "Held (and waiting for a key): as hover.",
+        "bg-color": { "$type": "color", "$value": "{color.state.hover-on-light}" }
+      },
+      "disabled": {
+        "$description": "Unplugged: pale and quiet.",
+        "bg-color": { "$type": "color", "$value": "{color.state.disabled-face}" },
+        "border-color": { "$type": "color", "$value": "{color.state.disabled-ink}" },
+        "font-color": { "$type": "color", "$value": "{color.state.disabled-ink}" }
+      },
+      "focus": {
+        "$description": "Outer focus: a ring of the focus width, the focus gap outside the outline, following the keycap's corners (radius.small + the expand margin).",
+        "bg-color": { "$type": "color", "$value": "{palette.clear}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-width": { "$type": "dimension", "$value": "{focus.width}" },
+        "corner-radius": { "$type": "dimension", "$value": { "value": 13, "unit": "px" } },
+        "expand-margin": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } }
+      },
+      "size": {
+        "$type": "dimension",
+        "min-width": { "$value": { "value": 36, "unit": "px" } },
+        "wide-min-width": {
+          "$value": { "value": 96, "unit": "px" },
+          "$description": "The wide keycap's minimum width (Shift, Space, the mouse buttons)."
+        }
+      }
+    },
     "text": {
       "$description": "The key name on a keycap.",
       "$extensions": {

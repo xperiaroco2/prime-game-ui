@@ -1,0 +1,174 @@
+{
+  "id": "s1",
+  "wireframe": "s1",
+  "title": "Tutorial",
+  "background": "room-light",
+  "note": "The tutorial room. On the first launch the invite with the language choice; in the room, the current lesson at the top and the lesson list at the right. In a lesson the s7 round HUD shows too, without the timer and the role chip (s7's own nodes, not repeated here). After lesson 9 the game returns to the main menu (s2) with no end screen.",
+  "states": [
+    { "id": "invite", "label": "Запрошення", "note": "First launch only (a user:// flag). Focus starts on Start the tutorial." },
+    { "id": "step", "label": "Крок навчання", "note": "Lesson 2, its first instruction: a sentence with one keycap." },
+    { "id": "step-keys", "label": "Крок: керування", "note": "Lesson 1 (Controls): a row of keycaps instead of the sentence." }
+  ],
+  "nodes": [
+    {
+      "name": "Dim", "type": "Panel", "variation": "ToyBackdrop", "anchors_preset": "full_rect", "states": ["invite"],
+      "note": "Dims the tutorial room behind the invite."
+    },
+    {
+      "name": "Lang", "type": "HBoxContainer", "variation": "ToyRowEight", "states": ["invite"],
+      "anchors_preset": "top_right", "offset_left": -40, "offset_top": 40, "offset_right": -40, "offset_bottom": 40,
+      "note": "The two chips share one ButtonGroup. The default is Ukrainian when OS.get_locale_language() is \"uk\", else English. A press applies at once (TranslationServer.set_locale) and is saved; the invite's texts rebuild on NOTIFICATION_TRANSLATION_CHANGED.",
+      "children": [
+        { "name": "Uk", "type": "Button", "variation": "ToyChipToggleOnDark", "key": "lang.uk", "toggle_mode": true, "state": "selected", "note": "auto_translate_mode DISABLED: a language's name is always in its own language." },
+        { "name": "En", "type": "Button", "variation": "ToyChipToggleOnDark", "key": "lang.en", "toggle_mode": true, "note": "auto_translate_mode DISABLED." }
+      ]
+    },
+    {
+      "name": "Box", "type": "PanelContainer", "variation": "ToyPanelDialog", "states": ["invite"],
+      "anchors_preset": "center", "custom_minimum_size": [690, 0],
+      "children": [
+        {
+          "name": "V", "type": "VBoxContainer", "variation": "ToyColumnThirtyTwo",
+          "children": [
+            {
+              "name": "Text", "type": "VBoxContainer", "variation": "ToyColumnTwelve",
+              "children": [
+                { "name": "Title", "type": "Label", "variation": "ToyTitleOnLight", "key": "tutorial.invite.title", "horizontal_alignment": "center" },
+                { "name": "Body", "type": "Label", "variation": "ToyTextMutedOnLight", "key": "tutorial.invite.body", "horizontal_alignment": "center", "autowrap_mode": "word_smart", "custom_minimum_size": [480, 0] }
+              ]
+            },
+            {
+              "name": "Buttons", "type": "HBoxContainer", "variation": "ToyRowSixteen", "alignment": "center",
+              "children": [
+                { "name": "Start", "type": "Button", "variation": "ToyButtonPrimary", "key": "tutorial.invite.start", "state": "focus", "note": "Focused on open. Starts lesson 1 and hides the invite for good." },
+                { "name": "Skip", "type": "Button", "variation": "ToyButtonGhostOnLight", "key": "tutorial.invite.skip", "note": "Goes to the main menu (s2) and hides the invite for good. Esc (ui_cancel) does the same." }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Cross", "type": "Panel", "variation": "ToyCrosshair", "anchors_preset": "center", "states": ["step", "step-keys"],
+      "note": "mouse_filter IGNORE. The round's crosshair (P5)."
+    },
+    {
+      "name": "Step", "type": "PanelContainer", "variation": "ToyPlate", "states": ["step", "step-keys"],
+      "anchors_preset": "center_top", "offset_top": 54, "offset_bottom": 54, "custom_minimum_size": [845, 0],
+      "note": "mouse_filter IGNORE (and its children). The current lesson. A lesson advances when the game sees its action; a lesson with two instructions swaps Title and How within the same step number (pick_up then put_down; map then howto).",
+      "children": [
+        {
+          "name": "V", "type": "VBoxContainer", "variation": "ToyColumnEight", "alignment": "center",
+          "children": [
+            {
+              "name": "Progress", "type": "Label", "variation": "ToyTextMutedOnDark", "key": "tutorial.step.progress", "args": { "count": "2", "total": "9" },
+              "horizontal_alignment": "center", "per_state": { "step-keys": { "args": { "count": "1", "total": "9" } } }
+            },
+            {
+              "name": "Title", "type": "Label", "variation": "ToyTitleOnDark", "key": "tutorial.step.pick_up.title",
+              "horizontal_alignment": "center", "autowrap_mode": "word_smart", "custom_minimum_size": [600, 0],
+              "per_state": { "step-keys": { "key": "tutorial.step.move.title" } }
+            },
+            {
+              "name": "How", "type": "HBoxContainer", "variation": "ToyRowEight", "alignment": "center", "states": ["step"],
+              "note": "A sentence with a keycap (P3), built in code: tr() the lesson's how-string, split it at {key}, add a Label per non-empty piece and the keycap between them. The keycap's text is DisplayServer.keyboard_get_label_from_physical() of the action's binding (#211); Space and the mouse buttons use key.space, key.mouse_left, key.mouse_right, and Space, Shift, Tab and Esc keycaps take the wide size.",
+              "children": [
+                {
+                  "name": "Before", "type": "Label", "variation": "ToyTextOnDark", "key": "tutorial.step.pick_up.how", "piece": 0,
+                  "args": { "key": "E" }, "size_flags_vertical": "shrink_center"
+                },
+                {
+                  "name": "Key", "type": "PanelContainer", "variation": "ToyKeyOnDark",
+                  "children": [
+                    { "name": "Text", "type": "Label", "variation": "ToyKeyText", "key": "tutorial.step.pick_up.how", "value_of": "key", "args": { "key": "E" }, "horizontal_alignment": "center" }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "HowKeys", "type": "HBoxContainer", "variation": "ToyRowTwentyFour", "alignment": "center", "states": ["step-keys"],
+              "note": "The Controls lesson: the bound keys of walking, sprinting and jumping, each group followed by its action name; it advances once the player has moved. Each keycap shows the label of its action's binding (DisplayServer.keyboard_get_label_from_physical(), #211; Space is key.space); the deck key named on a letter keycap only carries the sample. Shift and Space keycaps take the wide size.",
+              "children": [
+                {
+                  "name": "Walk", "type": "HBoxContainer", "variation": "ToyRowEight",
+                  "children": [
+                    {
+                      "name": "Keys", "type": "HBoxContainer", "variation": "ToyRowFour",
+                      "children": [
+                        { "name": "Forward", "type": "PanelContainer", "variation": "ToyKeyOnDark", "children": [{ "name": "Text", "type": "Label", "variation": "ToyKeyText", "key": "tutorial.step.press", "value_of": "key", "args": { "key": "W" }, "horizontal_alignment": "center" }] },
+                        { "name": "Left", "type": "PanelContainer", "variation": "ToyKeyOnDark", "children": [{ "name": "Text", "type": "Label", "variation": "ToyKeyText", "key": "tutorial.step.press", "value_of": "key", "args": { "key": "A" }, "horizontal_alignment": "center" }] },
+                        { "name": "Backward", "type": "PanelContainer", "variation": "ToyKeyOnDark", "children": [{ "name": "Text", "type": "Label", "variation": "ToyKeyText", "key": "tutorial.step.press", "value_of": "key", "args": { "key": "S" }, "horizontal_alignment": "center" }] },
+                        { "name": "Right", "type": "PanelContainer", "variation": "ToyKeyOnDark", "children": [{ "name": "Text", "type": "Label", "variation": "ToyKeyText", "key": "tutorial.step.press", "value_of": "key", "args": { "key": "D" }, "horizontal_alignment": "center" }] }
+                      ]
+                    },
+                    { "name": "Label", "type": "Label", "variation": "ToyTextOnDark", "key": "control.walk", "size_flags_vertical": "shrink_center" }
+                  ]
+                },
+                {
+                  "name": "Sprint", "type": "HBoxContainer", "variation": "ToyRowEight",
+                  "children": [
+                    { "name": "Key", "type": "PanelContainer", "variation": "ToyKeyOnDark", "wide": true, "children": [{ "name": "Text", "type": "Label", "variation": "ToyKeyText", "key": "tutorial.step.press", "value_of": "key", "args": { "key": "Shift" }, "horizontal_alignment": "center" }] },
+                    { "name": "Label", "type": "Label", "variation": "ToyTextOnDark", "key": "control.sprint", "size_flags_vertical": "shrink_center" }
+                  ]
+                },
+                {
+                  "name": "Jump", "type": "HBoxContainer", "variation": "ToyRowEight",
+                  "children": [
+                    { "name": "Key", "type": "PanelContainer", "variation": "ToyKeyOnDark", "wide": true, "children": [{ "name": "Text", "type": "Label", "variation": "ToyKeyText", "key": "key.space", "horizontal_alignment": "center" }] },
+                    { "name": "Label", "type": "Label", "variation": "ToyTextOnDark", "key": "control.jump", "size_flags_vertical": "shrink_center" }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "List", "type": "PanelContainer", "variation": "ToyPlate", "states": ["step", "step-keys"],
+      "anchors_preset": "top_right", "offset_left": -40, "offset_top": 259, "offset_right": -40, "offset_bottom": 259,
+      "custom_minimum_size": [384, 0],
+      "note": "mouse_filter IGNORE; not clickable. The nine lessons in order, built in code: a done lesson is its name with a check at the right edge, the current one a light chip, the rest muted. The chip does not wrap: a current lesson longer than the list (Death) widens the plate to the left for that lesson.",
+      "children": [
+        {
+          "name": "V", "type": "VBoxContainer", "variation": "ToyColumnSixteen",
+          "children": [
+            { "name": "Head", "type": "Label", "variation": "ToyTextOnDark", "key": "tutorial.list.title" },
+            {
+              "name": "Rows", "type": "VBoxContainer", "variation": "ToyColumnEight",
+              "children": [
+                {
+                  "name": "MoveDone", "type": "HBoxContainer", "variation": "ToyRowEight", "states": ["step"],
+                  "children": [
+                    { "name": "Name", "type": "Label", "variation": "ToyTextOnDark", "key": "tutorial.list.move", "size_flags_horizontal": "expand_fill", "autowrap_mode": "word_smart", "custom_minimum_size": [240, 0] },
+                    { "name": "Check", "type": "TextureRect", "icon": "check", "custom_minimum_size": [24, 24], "size_flags_vertical": "shrink_center", "note": "self_modulate = get_theme_color(\"font_color\", \"ToyTextOnDark\")." }
+                  ]
+                },
+                {
+                  "name": "MoveNow", "type": "PanelContainer", "variation": "ToyChipLight", "states": ["step-keys"], "size_flags_horizontal": "shrink_begin",
+                  "children": [
+                    { "name": "Name", "type": "Label", "variation": "ToyChipLightText", "key": "tutorial.list.move" }
+                  ]
+                },
+                {
+                  "name": "PickUpNow", "type": "PanelContainer", "variation": "ToyChipLight", "states": ["step"], "size_flags_horizontal": "shrink_begin",
+                  "children": [
+                    { "name": "Name", "type": "Label", "variation": "ToyChipLightText", "key": "tutorial.list.pick_up" }
+                  ]
+                },
+                { "name": "PickUpNext", "type": "Label", "variation": "ToyTextMutedOnDark", "key": "tutorial.list.pick_up", "states": ["step-keys"], "autowrap_mode": "word_smart", "custom_minimum_size": [240, 0] },
+                { "name": "HandBelt", "type": "Label", "variation": "ToyTextMutedOnDark", "key": "tutorial.list.hand_belt", "autowrap_mode": "word_smart", "custom_minimum_size": [240, 0] },
+                { "name": "Deliver", "type": "Label", "variation": "ToyTextMutedOnDark", "key": "tutorial.list.deliver", "autowrap_mode": "word_smart", "custom_minimum_size": [240, 0] },
+                { "name": "Map", "type": "Label", "variation": "ToyTextMutedOnDark", "key": "tutorial.list.map", "args": { "key": "M" }, "autowrap_mode": "word_smart", "custom_minimum_size": [240, 0], "note": "{key} is the bound key of the map action." },
+                { "name": "Downed", "type": "Label", "variation": "ToyTextMutedOnDark", "key": "tutorial.list.downed", "autowrap_mode": "word_smart", "custom_minimum_size": [240, 0] },
+                { "name": "Death", "type": "Label", "variation": "ToyTextMutedOnDark", "key": "tutorial.list.death", "autowrap_mode": "word_smart", "custom_minimum_size": [240, 0] },
+                { "name": "Voice", "type": "Label", "variation": "ToyTextMutedOnDark", "key": "tutorial.list.voice", "autowrap_mode": "word_smart", "custom_minimum_size": [240, 0] },
+                { "name": "Menu", "type": "Label", "variation": "ToyTextMutedOnDark", "key": "tutorial.list.menu", "autowrap_mode": "word_smart", "custom_minimum_size": [240, 0] }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,150 @@
+{
+  "id": "s6", "wireframe": "s6", "title": "Pre game", "background": "room-light",
+  "note": "The black intro of about 3 s in the silent pre game (#213): it shows when the own role arrives, names the role and the goal (and a dissident's team), plays one sound per role, and needs no input. Nobody hears anybody and no text says so. Then the round fades in. No mic, no other HUD while it shows.",
+  "states": [
+    { "id": "engineer", "label": "Інженер", "note": "An Engineer's intro." },
+    { "id": "dissident", "label": "Дисидент", "note": "A dissident's intro: the teammates' names under the goal (#175)." },
+    {
+      "id": "after", "label": "Потім: раунд",
+      "note": "The round fading in: Night fades from alpha 1 to 0 over 0.4 s (a cut under reduced motion) over the round HUD, s7 empty at the round's first second."
+    }
+  ],
+  "nodes": [
+    {
+      "name": "Hud", "type": "Control", "anchors_preset": "full_rect", "states": ["after"],
+      "note": "Not part of this scene: the round HUD of s7 (s7/Hud, state empty) at the round's first second, drawn here only to show what the fading Night uncovers. Build it once, in s7.",
+      "children": [
+        {
+          "name": "Timer", "type": "PanelContainer", "variation": "ToyPlate", "anchors_preset": "center_top", "offset_top": 40,
+          "offset_bottom": 40, "grow_horizontal": "both",
+          "children": [
+            {
+              "name": "Time", "type": "Label", "variation": "ToyTimer", "key": "map.time", "value_of": "time", "args": { "time": "09:57" },
+              "horizontal_alignment": "center", "custom_minimum_size": [148, 0]
+            }
+          ]
+        },
+        {
+          "name": "Role", "type": "PanelContainer", "variation": "ToyChipPlate", "offset_left": 40, "offset_top": 40, "offset_right": 40,
+          "offset_bottom": 40,
+          "children": [{ "name": "Text", "type": "Label", "variation": "ToyChipPlateText", "key": "role.engineer" }]
+        },
+        { "name": "Cross", "type": "Panel", "variation": "ToyCrosshair", "anchors_preset": "center" },
+        {
+          "name": "Vitals", "type": "VBoxContainer", "variation": "ToyColumnTwelve", "anchors_preset": "bottom_left", "offset_left": 40,
+          "offset_top": -40, "offset_right": 40, "offset_bottom": -40,
+          "children": [
+            {
+              "name": "Health", "type": "VBoxContainer", "variation": "ToyColumnFour", "custom_minimum_size": [320, 0],
+              "children": [
+                {
+                  "name": "Cap", "type": "PanelContainer", "variation": "ToyBarLabel", "size_flags_horizontal": "shrink_begin",
+                  "children": [{ "name": "Text", "type": "Label", "variation": "ToyHudCaption", "key": "hud.health" }]
+                },
+                {
+                  "name": "Track", "type": "PanelContainer", "variation": "ToyBarTrack", "custom_minimum_size": [320, 16],
+                  "children": [
+                    {
+                      "name": "Fill", "type": "ProgressBar", "variation": "ToyBarHealth", "show_percentage": false, "max_value": 1,
+                      "value": 1, "custom_minimum_size": [0, 10]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Stamina", "type": "VBoxContainer", "variation": "ToyColumnFour", "custom_minimum_size": [320, 0],
+              "children": [
+                {
+                  "name": "Cap", "type": "PanelContainer", "variation": "ToyBarLabel", "size_flags_horizontal": "shrink_begin",
+                  "children": [{ "name": "Text", "type": "Label", "variation": "ToyHudCaption", "key": "hud.stamina" }]
+                },
+                {
+                  "name": "Track", "type": "PanelContainer", "variation": "ToyBarTrack", "custom_minimum_size": [320, 16],
+                  "children": [
+                    {
+                      "name": "Fill", "type": "ProgressBar", "variation": "ToyBarStamina", "show_percentage": false, "max_value": 1,
+                      "value": 1, "custom_minimum_size": [0, 10]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Mic", "type": "PanelContainer", "variation": "ToyMic", "size_flags_horizontal": "shrink_begin",
+              "children": [
+                {
+                  "name": "Icon", "type": "TextureRect", "icon": "mic", "theme_color": "icon-on", "custom_minimum_size": [28, 28],
+                  "size_flags_horizontal": "shrink_center", "size_flags_vertical": "shrink_center"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Slots", "type": "HBoxContainer", "variation": "ToyRowTwelve", "anchors_preset": "bottom_right", "offset_left": -40,
+          "offset_top": -40, "offset_right": -40, "offset_bottom": -40,
+          "children": [
+            {
+              "name": "Hand", "type": "PanelContainer", "variation": "ToySlotActive",
+              "children": [
+                {
+                  "name": "Center", "type": "CenterContainer",
+                  "children": [{ "name": "Name", "type": "Label", "variation": "ToySlotTextEmpty", "key": "hud.slot.hand" }]
+                }
+              ]
+            },
+            {
+              "name": "Belt", "type": "PanelContainer", "variation": "ToySlot",
+              "children": [
+                {
+                  "name": "Center", "type": "CenterContainer",
+                  "children": [{ "name": "Name", "type": "Label", "variation": "ToySlotTextEmpty", "key": "hud.slot.belt" }]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Night", "type": "Panel", "variation": "ToyBackdropNight", "anchors_preset": "full_rect", "states": ["engineer", "dissident"],
+      "note": "P2, opaque: the style's darkest stands for the decided black. In after it fades from alpha 1 to 0 over 0.4 s (modulate.a; a cut under reduced motion), then the whole screen is freed."
+    },
+    {
+      "name": "V", "type": "VBoxContainer", "variation": "ToyColumnThirtyTwo", "states": ["engineer", "dissident"],
+      "anchors_preset": "center", "custom_minimum_size": [1152, 0], "grow_horizontal": "both", "grow_vertical": "both",
+      "alignment": "center",
+      "children": [
+        {
+          "name": "YourRole", "type": "Label", "variation": "ToyTextMutedOnDark", "key": "pregame.your_role",
+          "horizontal_alignment": "center"
+        },
+        {
+          "name": "Role", "type": "Label", "variation": "ToyTitlePlate", "key": "role.engineer", "size_flags_horizontal": "shrink_center",
+          "per_state": { "dissident": { "key": "role.dissident" } },
+          "note": "The own role on the title plate (raised on ToyBaseTitle): role.engineer or role.dissident."
+        },
+        {
+          "name": "Text", "type": "VBoxContainer", "variation": "ToyColumnSixteen",
+          "note": "The column's 32 px gap above clears the title base, which draws 14 px below the plate.",
+          "children": [
+            {
+              "name": "Goal", "type": "Label", "variation": "ToyTextOnDark", "key": "role.goal.engineer", "horizontal_alignment": "center",
+              "autowrap_mode": "word_smart", "custom_minimum_size": [1152, 0],
+              "per_state": { "dissident": { "key": "role.goal.dissident" } },
+              "note": "The role's generic goal: role.goal.engineer or role.goal.dissident."
+            },
+            {
+              "name": "Team", "type": "Label", "variation": "ToyTextMutedOnDark", "key": "pregame.teammate", "states": ["dissident"],
+              "args": { "names": { "uk": "Тарас", "en": "Taras" } }, "horizontal_alignment": "center", "autowrap_mode": "word_smart",
+              "custom_minimum_size": [1152, 0],
+              "note": "A dissident's teammates: {names} joined with \", \" (user text). Hidden for an Engineer and for a dissident with no teammates."
+            }
+          ]
+        }
+      ],
+      "note": "The 32 px gaps clear the title plate's expand margins (4 px above it, the base 14 px below)."
+    }
+  ]
+}

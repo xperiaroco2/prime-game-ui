@@ -13,12 +13,13 @@
         { "$ref": "components/button.tokens.json" }, { "$ref": "components/chip.tokens.json" },
         { "$ref": "components/field.tokens.json" }, { "$ref": "components/howto.tokens.json" },
         { "$ref": "components/hud.tokens.json" }, { "$ref": "components/keycap.tokens.json" },
-        { "$ref": "components/map.tokens.json" }, { "$ref": "components/mic.tokens.json" },
-        { "$ref": "components/name-plate.tokens.json" }, { "$ref": "components/panel.tokens.json" },
-        { "$ref": "components/pick.tokens.json" }, { "$ref": "components/plate.tokens.json" },
-        { "$ref": "components/preset-card.tokens.json" }, { "$ref": "components/setting.tokens.json" },
-        { "$ref": "components/slot.tokens.json" }, { "$ref": "components/tab.tokens.json" },
-        { "$ref": "components/text.tokens.json" }, { "$ref": "components/title.tokens.json" }
+        { "$ref": "components/layout.tokens.json" }, { "$ref": "components/map.tokens.json" },
+        { "$ref": "components/mic.tokens.json" }, { "$ref": "components/name-plate.tokens.json" },
+        { "$ref": "components/panel.tokens.json" }, { "$ref": "components/pick.tokens.json" },
+        { "$ref": "components/plate.tokens.json" }, { "$ref": "components/preset-card.tokens.json" },
+        { "$ref": "components/setting.tokens.json" }, { "$ref": "components/slot.tokens.json" },
+        { "$ref": "components/tab.tokens.json" }, { "$ref": "components/text.tokens.json" },
+        { "$ref": "components/title.tokens.json" }
       ]
     }
   },

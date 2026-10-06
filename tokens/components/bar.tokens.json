@@ -1,7 +1,7 @@
 {
   "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
   "bar": {
-    "$description": "Bars: the HUD track with a fill-only bar inside, task progress and the slider track.",
+    "$description": "Bars: the HUD track with a fill-only bar inside, task progress, the slider track, the slider and the scroll bar.",
     "track": {
       "$description": "The HUD bar track: dark fill, ink outline; its content margin insets the fill.",
       "$extensions": {
@@ -108,6 +108,71 @@
         "corner-radius": { "$type": "dimension", "$value": "{radius.small}" },
         "content-margin-block": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
         "content-margin-inline": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } }
+      }
+    },
+    "slider-control": {
+      "$description": "The panel slider (volumes, voice threshold): the ToyBarSlider track and ink fill, a 28 px knob texture (slider-knob.svg; slider-knob-disabled.svg when not editable), an outer focus ring.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToySlider", "class": "HSlider" },
+          "context": "light"
+        }
+      },
+      "slider": {
+        "$description": "The track, drawn as tall as its content margins (10 px) across the slider, centred on the knob.",
+        "bg-color": { "$type": "color", "$value": "{palette.track-light}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
+        "content-margin-block": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } },
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } }
+      },
+      "grabber-area": {
+        "$description": "The fill from the start to the knob's centre, as tall as the track.",
+        "bg-color": { "$type": "color", "$value": "{color.outline}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" }
+      },
+      "grabber-area-highlight": {
+        "$description": "Hovered or focused: as the fill (the knob and the focus ring show it).",
+        "bg-color": { "$type": "color", "$value": "{color.outline}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" }
+      },
+      "focus": {
+        "$description": "Outer focus as the chips': a pill ring of the focus width, the focus gap outside the slider. Godot's Slider draws no focus StyleBox: the game draws this one while the slider has visible focus.",
+        "bg-color": { "$type": "color", "$value": "{palette.clear}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-width": { "$type": "dimension", "$value": "{focus.width}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
+        "expand-margin": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } }
+      }
+    },
+    "scroll": {
+      "$description": "A vertical scroll bar in panels (a ScrollContainer's bar): a 10 px light track pill and an ink grabber pill.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyScrollBar", "class": "VScrollBar" },
+          "context": "light"
+        }
+      },
+      "scroll": {
+        "$description": "The track: its inline content margins make the bar 10 px wide.",
+        "bg-color": { "$type": "color", "$value": "{palette.track-light}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
+        "content-margin-block": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } }
+      },
+      "grabber": {
+        "$description": "The grabber, the bar's full width; its length is the visible part of the content.",
+        "bg-color": { "$type": "color", "$value": "{color.outline}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" }
+      },
+      "grabber-highlight": {
+        "$description": "Hovered: as the grabber.",
+        "bg-color": { "$type": "color", "$value": "{color.outline}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" }
+      },
+      "grabber-pressed": {
+        "$description": "Dragged: as the grabber.",
+        "bg-color": { "$type": "color", "$value": "{color.outline}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" }
       }
     }
   }

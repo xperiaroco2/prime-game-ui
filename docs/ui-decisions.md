@@ -103,6 +103,12 @@ The engineer's word choices and removals, 2026-10-05, on the [copy page](https:/
   prime-game#254), the map's NEW tag (the «?» stays), and the tutorial's sprint-and-jump and "new task" lessons (moving,
   looking, sprinting and jumping are one «Керування» lesson).
 - Kept as is: «Ти хост: зміни бачать усі».
+- **Round 3** (the engineer, 2026-10-06, the texts of the styled screens, prime-game-ui#19): the recommended wording
+  everywhere (the connecting steps and failures, the room code, the lobby, leaving, presets, voice settings, controls,
+  the tutorial steps, the delivery card), except: the main menu says «Приєднатися» (with a code) and «Приєднатися за
+  адресою» (Direct); the voice mode is «Голосова активація» (the engineer offered it or «Активація голосом»; the agent
+  took the first) (agent); the master slider is «Загальна гучність»; «Приєднатися до гри» and «Лише та сама мережа» are
+  removed.
 
 ## Style
 The engineer chose **Toy** (2026-10-03): chunky rounded shapes with a thick plum outline, cream panels, sunny-yellow buttons with a solid toy base that look pressable, and a small, calm HUD; it reads as arcade and game-like. **No tilted plates** (they break the design). **Press feedback** on the voluminous buttons: the button sinks onto its base when pressed (a pressed StyleBox and a short Tween in Godot; previewed in `pages/styles/motion-preview.css`). Safety card was liked but reads too much like an office; Quiet retro was not chosen. The 10 character colours proposed by the retro skin are not adopted. ([prime-game-ui#2](https://github.com/xperiaroco2/prime-game-ui/issues/2))
@@ -127,6 +133,34 @@ focused or open item); the map's «?» as a round keycap button (`ToyKeyRoundBut
 64 px display label on light; a coral alert chip for a key clash (`ToyChipAlert`, which replaces the retired NEW chip);
 chevron icons on the stepper instead of − and +, and a chevron arrow on the dropdown. New own-work icons: pointer,
 chevrons, lock, teammate mark, knife, slider knob, swatch disc (`pages/components/icons/LICENCES.json`).
+
+**Spacing and controls 0.2.0** (agent): gaps come only from container variations over a `space.*` scale (4, 8, 12, 16,
+24, 32): `ToyColumnFour` … `ToyColumnThirtyTwo`, `ToyRowFour` … `ToyRowThirtyTwo`, `ToyGridList`, `ToyGridSwatch`
+(names spelled out, since the game's theme test reads letters only); a keycap button for rebinding (`ToyKeyButton`), a
+slider (`ToySlider`, whose focus ring the game draws in code, as Godot's Slider has no focus StyleBox) and a scroll bar
+(`ToyScrollBar`).
+
+## Styled screens
+The ten screens as Godot scene trees, `pages/screens/src/` (prime-game-ui#19; the spec
+`docs/research/2026-10-06-screens/spec.md`). Small layout choices the agents took where the decisions were silent
+(agent):
+- **Edges and top line:** HUD and lobby plates sit on a 40 px edge; the timer, the role chip, the lobby plates and the
+  spectating plate share the top line at y 40; the spawn-protection chip sits 24 px under the timer.
+- **Main menu:** borderless menu items with a 24 px gap; the code and Direct panels (672 px wide) open to the right of
+  the items with their top on Host's top; the code field shows what was typed, and Join stays unplugged until the code
+  is complete; the version is muted text.
+- **Connecting:** one failure layout for every failure (title, body, then the buttons 32 px below); the loading card is
+  centred with 200 px art.
+- **Lobby:** the players plate in two groups (the lobby name and code, then the count and the rows); a not-ready player
+  shows no mark (the check is hidden).
+- **Esc menu:** a 1600×880 panel; left-aligned tabs; settings controls in one 500 px column at the right; the talk mode
+  is a dropdown like the microphone; the language is one row with two chips; the Character name field is 400 px; the
+  host's own row reads «Ти».
+- **Pre and post game:** a centred column on the night backdrop with 32 px around the title plate.
+- **HUD and downed:** the timer has a fixed 128 px minimum width; the give-up hold bar stays visible and empty until the
+  key is held.
+- **Map and tutorial:** the sample map's rooms tidied onto one grid with 48 px pictograms; «Ти тут» beside the pin; the
+  zone label under the lit zone; a done lesson's check at the right edge of its row.
 
 ## Type
 Comfortaa for titles and text, provisionally, until the style is chosen (SIL OFL 1.1 with the Reserved Font Name

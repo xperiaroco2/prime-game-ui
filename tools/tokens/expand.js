@@ -30,7 +30,25 @@ const CLASSES = {
   Panel: { states: ['panel'], font: [], shadow: [], label: false, press: false },
   Label: { states: ['normal'], font: ['normal'], shadow: ['normal'], label: true, press: false },
   ProgressBar: { states: ['background', 'fill'], font: [], shadow: [], label: false, press: false, ramp: true },
+  // HSlider (slider.cpp binds slider, grabber_area, grabber_area_highlight; its grabber, grabber_highlight and
+  // grabber_disabled icons are textures, not tokens). `focus` is the Toy outer ring: Godot 4.7.2's Slider draws no focus
+  // StyleBox itself, so the game draws this one over the slider while it has visible focus.
+  HSlider: { states: ['slider', 'grabber-area', 'grabber-area-highlight', 'focus'], font: [], shadow: [], label: false, press: false,
+    items: ['center-grabber', 'grabber-offset'] },
+  VScrollBar: { states: ['scroll', 'scroll-focus', 'grabber', 'grabber-highlight', 'grabber-pressed'], font: [], shadow: [], label: false,
+    press: false, items: [] },
+  // Containers draw nothing: their variations hold only the separation constants (the screens' gaps, space.*).
+  VBoxContainer: { states: [], font: [], shadow: [], label: false, press: false, items: ['separation'], container: true },
+  HBoxContainer: { states: [], font: [], shadow: [], label: false, press: false, items: ['separation'], container: true },
+  GridContainer: { states: [], font: [], shadow: [], label: false, press: false, items: ['h-separation', 'v-separation'], container: true },
 };
+// The state an inheriting state completes from (the other states complete from StyleBoxFlat's defaults).
+const INHERITS = {
+  HSlider: { 'grabber-area-highlight': 'grabber-area' },
+  VScrollBar: { 'scroll-focus': 'scroll', 'grabber-highlight': 'grabber', 'grabber-pressed': 'grabber' },
+};
+// The states that inherit nothing, where zero expand margins are omitted (P43).
+const BASE_STATES = ['normal', 'panel', 'fill', 'background', 'slider', 'grabber-area', 'scroll', 'grabber'];
 const PRESS_MEMBERS = ['depth', 'hover', 'held', 'disabled'];
 const SIZE_NAMES = ['width', 'height', 'wide-width', 'min-width', 'wide-min-width'];
 const CLEAR = { type: 'color', hex: '#000000', rgba: [0, 0, 0, 0] };
@@ -237,6 +255,13 @@ function expandVariant(v, structs, res) {
     if (bg && bg.kind === 'group') states.background = completeBase(part('background'), clear);
     else empty.push('background');
     states.fill = completeBase(part('fill'), clear);
+  } else if (info && (v.cls === 'HSlider' || v.cls === 'VScrollBar')) {
+    // Base states complete from the defaults, an inheriting state from its base (INHERITS), focus only when authored.
+    const inh = INHERITS[v.cls];
+    for (const s of info.states) {
+      if (inh[s]) states[s] = inheritFrom(states[inh[s]], part(s));
+      else if (s !== 'focus' || (v.child('focus') && v.child('focus').kind === 'group')) states[s] = completeBase(part(s), clear);
+    }
   }
   const tokenField = (name) => {
     const t = v.child(name);
@@ -271,5 +296,5 @@ function expandAll(structs, res) {
   return structs.list.map((v) => expandVariant(v, structs, res));
 }
 
-module.exports = { collectVariants, expandAll, authored, completeBase, CLASSES, BOX_FIELDS, FONT_FIELDS, AUTHOR_BOX, SIDES,
-  CORNERS, PRESS_MEMBERS, SIZE_NAMES, stopName, rampStops };
+module.exports = { collectVariants, expandAll, authored, completeBase, CLASSES, INHERITS, BASE_STATES, BOX_FIELDS, FONT_FIELDS,
+  AUTHOR_BOX, SIDES, CORNERS, PRESS_MEMBERS, SIZE_NAMES, stopName, rampStops };

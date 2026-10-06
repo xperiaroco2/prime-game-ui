@@ -1,0 +1,282 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "ctl": {
+    "$description": "Fixture controls of wave 19.",
+    "key": {
+      "$description": "A keycap button: the outer ring follows its corners.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": {
+            "variation": "ToyKeyButton",
+            "class": "Button"
+          },
+          "context": "any"
+        }
+      },
+      "normal": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{palette.cream}"
+        },
+        "border-color": {
+          "$type": "color",
+          "$value": "{color.outline}"
+        },
+        "border-width": {
+          "$type": "dimension",
+          "$value": "{stroke.control}"
+        },
+        "corner-radius": {
+          "$type": "dimension",
+          "$value": "{radius.small}"
+        },
+        "content-margin-block": {
+          "$type": "dimension",
+          "$value": {
+            "value": 4,
+            "unit": "px"
+          }
+        },
+        "content-margin-inline": {
+          "$type": "dimension",
+          "$value": {
+            "value": 10,
+            "unit": "px"
+          }
+        },
+        "font-color": {
+          "$type": "color",
+          "$value": "{color.outline}"
+        }
+      },
+      "disabled": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{palette.cream}"
+        }
+      },
+      "focus": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{palette.clear}"
+        },
+        "border-color": {
+          "$type": "color",
+          "$value": "{color.outline}"
+        },
+        "border-width": {
+          "$type": "dimension",
+          "$value": "{focus.width}"
+        },
+        "corner-radius": {
+          "$type": "dimension",
+          "$value": {
+            "value": 13,
+            "unit": "px"
+          }
+        },
+        "expand-margin": {
+          "$type": "dimension",
+          "$value": {
+            "value": 5,
+            "unit": "px"
+          }
+        }
+      }
+    },
+    "slider": {
+      "$description": "A slider: track, fill, a pill ring.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": {
+            "variation": "ToySlider",
+            "class": "HSlider"
+          },
+          "context": "any"
+        }
+      },
+      "slider": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{palette.cream}"
+        },
+        "corner-radius": {
+          "$type": "dimension",
+          "$value": "{radius.pill}"
+        },
+        "content-margin-block": {
+          "$type": "dimension",
+          "$value": {
+            "value": 5,
+            "unit": "px"
+          }
+        },
+        "content-margin-inline": {
+          "$type": "dimension",
+          "$value": {
+            "value": 0,
+            "unit": "px"
+          }
+        }
+      },
+      "grabber-area": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{color.outline}"
+        },
+        "corner-radius": {
+          "$type": "dimension",
+          "$value": "{radius.pill}"
+        }
+      },
+      "grabber-area-highlight": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{color.outline}"
+        }
+      },
+      "focus": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{palette.clear}"
+        },
+        "border-color": {
+          "$type": "color",
+          "$value": "{color.outline}"
+        },
+        "border-width": {
+          "$type": "dimension",
+          "$value": "{focus.width}"
+        },
+        "corner-radius": {
+          "$type": "dimension",
+          "$value": "{radius.pill}"
+        },
+        "expand-margin": {
+          "$type": "dimension",
+          "$value": {
+            "value": 5,
+            "unit": "px"
+          }
+        }
+      },
+      "items": {
+        "center-grabber": {
+          "$type": "number",
+          "$value": 0
+        },
+        "grabber-offset": {
+          "$type": "dimension",
+          "$value": {
+            "value": 0,
+            "unit": "px"
+          }
+        }
+      }
+    },
+    "scroll": {
+      "$description": "A scroll bar: track and grabber.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": {
+            "variation": "ToyScrollBar",
+            "class": "VScrollBar"
+          },
+          "context": "any"
+        }
+      },
+      "scroll": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{palette.cream}"
+        },
+        "corner-radius": {
+          "$type": "dimension",
+          "$value": "{radius.pill}"
+        },
+        "content-margin-block": {
+          "$type": "dimension",
+          "$value": {
+            "value": 0,
+            "unit": "px"
+          }
+        },
+        "content-margin-inline": {
+          "$type": "dimension",
+          "$value": {
+            "value": 5,
+            "unit": "px"
+          }
+        }
+      },
+      "grabber": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{color.outline}"
+        },
+        "corner-radius": {
+          "$type": "dimension",
+          "$value": "{radius.pill}"
+        }
+      }
+    },
+    "column": {
+      "$description": "A column with 8 px between its children.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": {
+            "variation": "ToyColumn8",
+            "class": "VBoxContainer"
+          },
+          "context": "any"
+        }
+      },
+      "items": {
+        "separation": {
+          "$type": "dimension",
+          "$value": "{space.8}"
+        }
+      }
+    },
+    "row": {
+      "$description": "A row with 16 px between its children.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": {
+            "variation": "ToyRowSixteen",
+            "class": "HBoxContainer"
+          },
+          "context": "any"
+        }
+      },
+      "items": {
+        "separation": {
+          "$type": "dimension",
+          "$value": "{space.16}"
+        }
+      }
+    },
+    "grid": {
+      "$description": "A grid: 16 across, 8 down.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": {
+            "variation": "ToyGridList",
+            "class": "GridContainer"
+          },
+          "context": "any"
+        }
+      },
+      "items": {
+        "h-separation": {
+          "$type": "dimension",
+          "$value": "{space.16}"
+        },
+        "v-separation": {
+          "$type": "dimension",
+          "$value": "{space.8}"
+        }
+      }
+    }
+  }
+}
