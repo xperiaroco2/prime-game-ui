@@ -2,7 +2,7 @@
 //  1. json-strict and color.js units (the 21 health stops of spec §5 and its two computed bounds);
 //  2. fixtures/good/<name>: 0 errors, 0 warnings, outputs built, two runs give the same bytes;
 //     fixtures/bad/<rule>-<slug> and fixtures/warn/<rule>-<slug>: exactly the rule ids of expect.json;
-//     every error rule (D01-D39 except D11, D12, D25, D26; P40-P62) and warning rule (D11, D12) has a folder;
+//     every error rule (D01-D39 except D11, D12, D25, D26; P40-P63) and warning rule (D11, D12) has a folder;
 //  3. build.js as a CLI: write, --check up to date, --check on stale and missing outputs, D39 report shape;
 //  4. expect-values.json against the kinds fixture (paths it has) and against the real tokens/ (SKIPPED until they exist).
 // Exit 1 on any failure. Node 20, no packages.
@@ -21,7 +21,7 @@ const ROOT = path.resolve(HERE, '..', '..', '..');
 const FIX = path.join(HERE, 'fixtures');
 const BUILD = path.join(HERE, '..', 'build.js');
 const range = (p, a, b) => Array.from({ length: b - a + 1 }, (_, i) => `${p}${String(a + i).padStart(2, '0')}`);
-const ERROR_RULES = range('D', 1, 39).filter((r) => !['D11', 'D12', 'D25', 'D26'].includes(r)).concat(range('P', 40, 62));
+const ERROR_RULES = range('D', 1, 39).filter((r) => !['D11', 'D12', 'D25', 'D26'].includes(r)).concat(range('P', 40, 63));
 const WARN_RULES = ['D11', 'D12'];
 const HEALTH = ['#ff5a44', '#fa6345', '#f56b45', '#f07346', '#ea7a46', '#e58147', '#df8747', '#d98d48', '#d39348', '#cc9849',
   '#c59e49', '#bea34a', '#b6a84a', '#aeac4b', '#a6b14b', '#9cb64c', '#92ba4c', '#87be4d', '#7bc34d', '#6cc74e', '#5bcb4e'];
@@ -172,7 +172,8 @@ console.log('-- overlays');
   check(threw && threw.problems[0].rule === 'O01', 'a token with no group in the base set is an overlay error', threw && threw.message);
 }
 
-// The pack's assets, textures and deprecation marks (prime-game-ui#30), on the fixtures that carry them.
+// The pack's assets, textures and deprecation marks (prime-game-ui#30) and the keycap width that follows the text size
+// (prime-game-ui#27), on the fixtures that carry them.
 console.log('-- pack members');
 {
   const crypto = require('crypto');
@@ -195,6 +196,13 @@ console.log('-- pack members');
   check(same(c.pack.variations.ToyColumnOld.deprecated, { replacement: 'ToyColumnEight', note: 'Use ToyColumnEight.' }),
     'a deprecated variation is marked with its replacement', JSON.stringify(c.pack.variations.ToyColumnOld.deprecated));
   check(!('textures' in c.pack.variations.ToyColumnEight) && !('deprecated' in c.pack.variations.ToyColumnEight), 'the optional members are absent where they do not apply');
+  const m = api.load({ root: path.join(FIX, 'good', 'modes') });
+  const large = m.pack.modes.textSize.large;
+  check(large['size.keycap'] && large['size.keycap'].px === 42 && large['button.primary.size.min-width'] && large['button.primary.size.min-width'].px === 42
+    && m.tokens.get('button.primary.size.min-width').px === 36 && m.tokens.get('button.primary.size.min-width').from === 'size.keycap',
+  'a size member that references size.keycap follows the text size in the large mode', JSON.stringify(large['button.primary.size.min-width']));
+  check(/--toy-button-primary-size-min-width: var\(--toy-size-keycap\);/.test(m.css) && /:root\[data-text-size="large"\] \{[^}]*--toy-size-keycap: 42;/.test(m.css),
+    'the CSS keeps the size member a var() of size.keycap, which the large block overrides');
 }
 
 // 3. CLI ----------------------------------------------------------------------------------------------------------

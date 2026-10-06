@@ -169,7 +169,7 @@
       "size": {
         "$type": "dimension",
         "min-width": {
-          "$value": "{size.keycap}"
+          "$value": "{size.wide}"
         }
       }
     },

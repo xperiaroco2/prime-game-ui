@@ -2,16 +2,10 @@
   "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
   "font": {
     "size": {
-      "$description": "Large text (proposal).",
-      "$extensions": {
-        "io.github.xperiaroco2.prime-game": {
-          "proposal": true
-        }
-      },
       "$type": "dimension",
       "body": {
         "$value": {
-          "value": 28,
+          "value": 22,
           "unit": "px"
         }
       },
@@ -27,7 +21,13 @@
     "$type": "dimension",
     "keycap": {
       "$value": {
-        "value": 42,
+        "value": 36,
+        "unit": "px"
+      }
+    },
+    "other": {
+      "$value": {
+        "value": 10,
         "unit": "px"
       }
     }

@@ -1,0 +1,12 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "duration": {
+    "$type": "duration",
+    "press": {
+      "$value": {
+        "value": 0,
+        "unit": "ms"
+      }
+    }
+  }
+}

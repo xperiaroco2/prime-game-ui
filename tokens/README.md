@@ -12,18 +12,21 @@ spec, [`docs/research/2026-10-03-tokens/spec.md`](../docs/research/2026-10-03-to
 | `primitives.tokens.json` | Literals: the palette, font family, weights, letter spacing, line height, `ease.press`, `duration.none`, `focus.*`, `stroke.*`, `radius.*`, `space.*` (the screens' gaps: 4, 8, 12, 16, 24, 32) |
 | `semantic.tokens.json` | Aliases of primitives: colour roles by context (`color.*`), the 14 type roles (`type.*`), `motion.press` |
 | `components/<name>.tokens.json` | 21 files, 118 Godot type variations: one variant group per variation, with its StyleBox states, `label`, `press`, `size`, `items`, `ramp` |
-| `text-size/default.tokens.json`, `text-size/large.tokens.json` | `font.size.*` for the player's text size setting |
+| `text-size/default.tokens.json`, `text-size/large.tokens.json` | `font.size.*` and `size.keycap` (a keycap's minimum width) for the player's text size setting |
 | `motion/default.tokens.json`, `motion/reduced.tokens.json` | `duration.press` for the reduced-motion setting |
 | `release.json` | The semver the next `ui-<semver>` tag carries |
 | `gates.json` | Contrast pairs, surfaces and waivers for `tools/contrast/gates.js` (not a DTCG file) |
 
 ## Tiers
 
-1. **Primitive**: literals only. The modifier files are primitives owned by one modifier.
+1. **Primitive**: literals only. The modifier files are primitives owned by one modifier, and each modifier owns exactly
+   these paths (P63): `textSize` `font.size.*` and `size.keycap`, `motion` `duration.press`.
 2. **Semantic**: aliases of primitives only (`{palette.ink}`), composite sub-values included.
 3. **Component**: one group per variation, marked by `$extensions` `io.github.xperiaroco2.prime-game` `godot.variation`.
    Colours alias down to `palette.*`; dimensions are int px literals or aliases to the primitives `stroke.*`, `radius.*`,
-   `focus.*` and `space.*`; a container's separation is always a `space.*` alias.
+   `focus.*` and `space.*`; a container's separation is always a `space.*` alias. A `size` member may also alias
+   `size.*`, the lengths the text size owns (the keycaps' `min-width` is `{size.keycap}`: 36, 42 at large text), so a
+   size follows the text size with no code in the game.
    The build completes each state to the 19 `StyleBoxFlat` fields (spec §3.5), so the pack needs no inheritance logic.
 
 Lengths are int px at the 1920×1080 reference frame.
@@ -53,7 +56,7 @@ engineer's room-signs decision: plain on packages and the map), their ink writte
 `LICENCES.json`; the game names a room's sign by its file name (`room/lab`). The pack's `assets` list every one of
 these icons with how it is imported (below, "The pack's assets"); `tools/tokens/icons.js` writes both.
 
-Every error names the rule (D01–D39, P40–P62, B01 for `release.json`, or B02 for a screen source the icon sizes cannot
+Every error names the rule (D01–D39, P40–P63, B01 for `release.json`, or B02 for a screen source the icon sizes cannot
 read) and the file; where the file parses it also gives the line and column, the JSON Pointer and the token path.
 
 ## Classes
@@ -156,6 +159,10 @@ deprecated itself. The pack marks both (below).
 - **`variations.<name>.deprecated`** (only on a deprecated variation): `{ "replacement": "<variation>" | null, "note":
   "<the $deprecated text>" | null }`, e.g. ToyChipNew `{ "replacement": "ToyChipAlert", … }`. The variation stays in the
   pack, complete, until the next major release.
+- **`modes.textSize.large`** now also holds a dimension that is not a font size: `size.keycap` (42) and the keycap
+  variations' `size.min-width` that reference it (ToyKeyOnDark, ToyKeyOnLight, ToyKeyQuiet, ToyKeyRound,
+  ToyKeyRoundQuiet, ToyKeyRoundButton, ToyKeyButton; `from` names `size.keycap`). The large-text theme's `min_width`
+  constant of these variations is 42. `wide-min-width` (96) does not change.
 
 ## Profile rules since ui-0.3.0
 
@@ -163,8 +170,10 @@ These extend spec §7.2 (P40–P60):
 
 | Id | Rule |
 |---|---|
+| P53 | (extended) a variant's `size` member may also alias `size.*`, and only a `size.*` a modifier owns |
 | P61 | `godot.textures` is a non-empty object; each key is one of the class's theme icons (`expand.js` CLASSES `textures`), each value the pack path of an icon that exists and has an allowed licence record |
 | P62 | `godot.replacement` only on a variant with `$deprecated`; it names a variant of the same class that is not deprecated |
+| P63 | A modifier's files define only the paths it owns (`validate.js` MODIFIER_OWNS: textSize `font.size.*`, `size.keycap`; motion `duration.press`), and the base set none of them |
 
 ## Releases
 

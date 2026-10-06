@@ -1,5 +1,5 @@
 // The token validator (spec §7.1 step 2, §7.2): runs the DTCG rules of resolve.js on every permutation (D38) and the
-// component profile rules P40-P62 (P61-P62 since ui-0.3.0: tokens/README.md, "Profile rules since ui-0.3.0"). analyze(root) is the one entry used by api.js, build.js and the self-test.
+// component profile rules P40-P63 (P61-P63 since ui-0.3.0: tokens/README.md, "Profile rules since ui-0.3.0"). analyze(root) is the one entry used by api.js, build.js and the self-test.
 // CLI: node tools/tokens/validate.js [--root <dir>] [--json]
 // Node 20, no packages.
 'use strict';
@@ -13,6 +13,11 @@ const X = require('./expand.js');
 const VARIATION_RE = /^Toy[A-Za-z]+$/;
 const CONTEXTS = ['dark', 'light', 'any'];
 const GODOT_VARIANT_KEYS = ['variation', 'class', 'parent', 'abstract', 'base', 'toggle', 'on', 'textures', 'replacement'];
+// P63: the paths each modifier owns, exactly (the resolver's descriptions say the same). "a.*" is every path under the
+// group a; anything else is one path. textSize owns the font sizes and size.keycap, the keycaps' minimum width, which
+// follows the text: a single-letter keycap is at least as wide as it is tall at every text size (prime-game-ui#27).
+const MODIFIER_OWNS = { textSize: ['font.size.*', 'size.keycap'], motion: ['duration.press'] };
+const owns = (list, p) => list.some((x) => (x.endsWith('.*') ? p.startsWith(x.slice(0, -1)) : p === x));
 const NS_KEYS = ['godot', 'context', 'proposal'];
 // P58 names PanelContainer and Panel; spec §3.7 (whose tables win, spec intro) also puts preset-card notes on the
 // ToyPresetCard buttons, so a Button or OptionButton surface is accepted too.
@@ -29,6 +34,7 @@ function analyze(root, opts) {
   const structs = X.collectVariants(model);
   checkNamespace(model, structs, P);
   checkStructure(model, structs, P, icons);
+  checkModifiers(model, P);
   const results = [];
   const defaultKeys = new Set();
   const d38 = new Set();
@@ -508,12 +514,38 @@ function checkValues(model, structs, variants, res, P) {
     } else if (ty === 'dimension') {
       // the primitives stroke.*, radius.*, focus.* and space.* (the screens' gaps); a container's separation is always
       // one of space.* (the only gaps a screen uses)
+      // a variant's size members may also reference size.*, the lengths the textSize modifier owns (P63)
       const target = n.alias ? res.tokens.get(n.alias) : null;
       const sep = isItemOf(n, variantNodes, structs) && /separation$/.test(n.name);
-      if (n.alias && (!/^(stroke|radius|focus|space)\./.test(n.alias) || (target && target.tier !== 'primitive'))) {
-        P.error('P53', n.file, `${n.pointer}/$value`, p, `component dimensions are int literals or references to the primitives stroke.*, radius.*, focus.* or space.*, not {${n.alias}}`);
+      const sizeMember = !!(n.parent && n.parent.name === 'size' && n.parent.parent && variantNodes.has(n.parent.parent));
+      const allowed = sizeMember ? /^(stroke|radius|focus|space|size)\./ : /^(stroke|radius|focus|space)\./;
+      if (n.alias && (!allowed.test(n.alias) || (target && target.tier !== 'primitive'))) {
+        P.error('P53', n.file, `${n.pointer}/$value`, p, `component dimensions are int literals or references to the primitives stroke.*, radius.*, focus.* or space.* (a size member also size.*), not {${n.alias}}`);
+      } else if (n.alias && /^size\./.test(n.alias) && target && !(target.fe && target.fe.role === 'context')) {
+        P.error('P53', n.file, `${n.pointer}/$value`, p, `{${n.alias}} is not owned by a modifier: size.* are the lengths that follow the text size (text-size/*.tokens.json)`);
       } else if (sep && (!n.alias || !n.alias.startsWith('space.'))) {
         P.error('P53', n.file, `${n.pointer}/$value`, p, `a container's ${n.name} is a reference to space.* (the screens' gaps: 4, 8, 12, 16, 24, 32)`);
+      }
+    }
+  }
+}
+
+// P63: a modifier defines only the paths it owns (MODIFIER_OWNS), and the base set none of them.
+function checkModifiers(model, P) {
+  const unknown = new Set();
+  for (const n of model.nodes) {
+    if (n.kind !== 'token' || !n.fe) continue;
+    if (n.fe.role === 'context') {
+      const list = MODIFIER_OWNS[n.fe.modifier];
+      if (!list) {
+        if (!unknown.has(n.fe.modifier)) P.error('P63', n.file, '', null, `the modifier ${JSON.stringify(n.fe.modifier)} is not one the profile knows (${Object.keys(MODIFIER_OWNS).join(', ')}): name the paths it owns in tools/tokens/validate.js MODIFIER_OWNS`);
+        unknown.add(n.fe.modifier);
+      } else if (!owns(list, n.path)) {
+        P.error('P63', n.file, n.pointer, n.path, `the modifier ${n.fe.modifier} owns only ${list.join(', ')}, not ${n.path}`);
+      }
+    } else {
+      for (const [m, list] of Object.entries(MODIFIER_OWNS)) {
+        if (owns(list, n.path)) P.error('P63', n.file, n.pointer, n.path, `${n.path} belongs to the modifier ${m} (${list.join(', ')}): define it in its context files only`);
       }
     }
   }

@@ -667,7 +667,7 @@
   --toy-keycap-on-dark-panel-content-margin-top: 2;
   --toy-keycap-on-dark-panel-content-margin-inline: 10;
   --toy-keycap-on-dark-panel-content-margin-bottom: 5;
-  --toy-keycap-on-dark-size-min-width: 36;
+  --toy-keycap-on-dark-size-min-width: var(--toy-size-keycap);
   --toy-keycap-on-dark-size-wide-min-width: 96;
   --toy-keycap-on-light-panel-bg-color: var(--toy-palette-white);
   --toy-keycap-on-light-panel-border-color: var(--toy-color-outline);
@@ -679,7 +679,7 @@
   --toy-keycap-on-light-panel-content-margin-top: 2;
   --toy-keycap-on-light-panel-content-margin-inline: 10;
   --toy-keycap-on-light-panel-content-margin-bottom: 5;
-  --toy-keycap-on-light-size-min-width: 36;
+  --toy-keycap-on-light-size-min-width: var(--toy-size-keycap);
   --toy-keycap-on-light-size-wide-min-width: 96;
   --toy-keycap-quiet-panel-bg-color: var(--toy-palette-key-quiet);
   --toy-keycap-quiet-panel-border-color: var(--toy-palette-muted);
@@ -691,7 +691,7 @@
   --toy-keycap-quiet-panel-content-margin-top: 2;
   --toy-keycap-quiet-panel-content-margin-inline: 10;
   --toy-keycap-quiet-panel-content-margin-bottom: 5;
-  --toy-keycap-quiet-size-min-width: 36;
+  --toy-keycap-quiet-size-min-width: var(--toy-size-keycap);
   --toy-keycap-quiet-size-wide-min-width: 96;
   --toy-keycap-round-panel-bg-color: var(--toy-palette-white);
   --toy-keycap-round-panel-border-color: var(--toy-color-outline);
@@ -703,7 +703,7 @@
   --toy-keycap-round-panel-content-margin-top: 2;
   --toy-keycap-round-panel-content-margin-inline: 10;
   --toy-keycap-round-panel-content-margin-bottom: 5;
-  --toy-keycap-round-size-min-width: 36;
+  --toy-keycap-round-size-min-width: var(--toy-size-keycap);
   --toy-keycap-round-quiet-panel-bg-color: var(--toy-palette-key-quiet);
   --toy-keycap-round-quiet-panel-border-color: var(--toy-palette-muted);
   --toy-keycap-round-quiet-panel-border-width-top: var(--toy-stroke-thin);
@@ -714,7 +714,7 @@
   --toy-keycap-round-quiet-panel-content-margin-top: 2;
   --toy-keycap-round-quiet-panel-content-margin-inline: 10;
   --toy-keycap-round-quiet-panel-content-margin-bottom: 5;
-  --toy-keycap-round-quiet-size-min-width: 36;
+  --toy-keycap-round-quiet-size-min-width: var(--toy-size-keycap);
   --toy-keycap-round-button-label-font-family: var(--toy-type-body-bold-font-family);
   --toy-keycap-round-button-label-font-size: var(--toy-type-body-bold-font-size);
   --toy-keycap-round-button-label-font-weight: var(--toy-type-body-bold-font-weight);
@@ -741,7 +741,7 @@
   --toy-keycap-round-button-focus-border-width: var(--toy-focus-width);
   --toy-keycap-round-button-focus-corner-radius: var(--toy-radius-pill);
   --toy-keycap-round-button-focus-expand-margin: 5;
-  --toy-keycap-round-button-size-min-width: 36;
+  --toy-keycap-round-button-size-min-width: var(--toy-size-keycap);
   --toy-keycap-button-label-font-family: var(--toy-type-body-bold-font-family);
   --toy-keycap-button-label-font-size: var(--toy-type-body-bold-font-size);
   --toy-keycap-button-label-font-weight: var(--toy-type-body-bold-font-weight);
@@ -768,7 +768,7 @@
   --toy-keycap-button-focus-border-width: var(--toy-focus-width);
   --toy-keycap-button-focus-corner-radius: 13;
   --toy-keycap-button-focus-expand-margin: 5;
-  --toy-keycap-button-size-min-width: 36;
+  --toy-keycap-button-size-min-width: var(--toy-size-keycap);
   --toy-keycap-button-size-wide-min-width: 96;
   --toy-keycap-text-label-font-family: var(--toy-type-body-bold-font-family);
   --toy-keycap-text-label-font-size: var(--toy-type-body-bold-font-size);
@@ -1242,6 +1242,7 @@
   --toy-font-size-display: 48;
   --toy-font-size-display-large: 64;
   --toy-font-size-hero: 96;
+  --toy-size-keycap: 36;
   --toy-duration-press: 70ms;
 }
 :root[data-text-size="large"] {
@@ -1251,6 +1252,7 @@
   --toy-font-size-body-large: 30;
   --toy-font-size-heading: 35;
   --toy-font-size-title: 45;
+  --toy-size-keycap: 42;
 }
 :root[data-motion="reduced"] {
   --toy-duration-press: 0ms;

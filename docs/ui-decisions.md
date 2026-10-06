@@ -121,7 +121,10 @@ cream on ghost buttons on dark), chips, the stepper and radios get a 3 px ring 2
 controls (ghost buttons, line chips, idle tabs) is a quiet fill, night plate on dark and lavender on light (the
 dropdown follows the same rule: (agent));
 a coral danger button for the host's «Покинути сесію» and its confirm dialog; large text ×1.25 for 18 to 36 px (48 px
-and up unchanged); the selected preset card keeps the idle card's size; held buttons sink 4 px (white) or 5 px
+and up unchanged), and with it a keycap's minimum width follows its height, 36 px at the default size and 42 px at
+large, so a single-letter key (every keycap and keycap button, round ones included) stays square instead of an upright
+box; wide keycaps keep 96 px at both sizes (more than twice the 42 px height; their label sets any extra width)
+(agent, `size.keycap`, [prime-game-ui#27](https://github.com/xperiaroco2/prime-game-ui/issues/27)); the selected preset card keeps the idle card's size; held buttons sink 4 px (white) or 5 px
 (yellow), leaving 1 px of base; the menu backdrop `.dim` is 74 % instead of 70 %, so dim lilac text over a white wall
 reaches 4.5:1; wide keycaps (Space, Shift, Tab, Esc) are at least 96 px; the near-identical plums and lilacs stay
 separate (28 colours). Decided by the agent, small and easy to change (agent): a held stepper turns honey, preset

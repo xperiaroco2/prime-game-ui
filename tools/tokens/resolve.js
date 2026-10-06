@@ -1,6 +1,6 @@
 // The DTCG 2025.10 layer of the token build (spec §7.1 steps 1-3): the resolver, strict parsing, the walk of every
 // token file, the static rules D01-D37 of dtcg-facts §9 (with the spec §7.1 changes), the merge of the permutations
-// and alias resolution to pack value objects (spec §7.3). Rules of the component profile (P40-P62) are in validate.js.
+// and alias resolution to pack value objects (spec §7.3). Rules of the component profile (P40-P63) are in validate.js.
 // Node 20, no packages.
 'use strict';
 

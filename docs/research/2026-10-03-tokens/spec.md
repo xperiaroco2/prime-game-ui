@@ -1348,7 +1348,8 @@ every alias.
 
 **Other members:**
 - **`modes`** holds, per non-default context, exactly the keys whose resolved value differs from the default: font sizes,
-  every typography token and label, durations, transitions. Any permutation is the defaults plus each chosen context's
+  every typography token and label, durations, transitions, and (since ui-0.3.0) `size.keycap` with the keycap
+  variations' `size.min-width` that reference it (textSize `large`: 42). Any permutation is the defaults plus each chosen context's
   overrides; the build verifies this for all four before writing.
 - **`proposals`** lists every path or group path marked proposal.
 - **`assets`** lists files shipped beside the JSON, as `{ "path", "sha256", "licence", "licence_file", "source" }`. Since

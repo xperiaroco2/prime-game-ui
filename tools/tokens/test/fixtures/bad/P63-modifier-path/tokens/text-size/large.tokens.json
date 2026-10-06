@@ -30,6 +30,12 @@
         "value": 42,
         "unit": "px"
       }
+    },
+    "other": {
+      "$value": {
+        "value": 10,
+        "unit": "px"
+      }
     }
   }
 }
