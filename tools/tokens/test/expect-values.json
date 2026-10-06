@@ -53,6 +53,12 @@
     { "path": "layout.column-16.items.separation", "expect": { "px": 16, "from": "space.16" } },
     { "path": "layout.row-4.items.separation", "expect": { "px": 4 } },
     { "path": "layout.grid-list.items.h-separation", "expect": { "px": 24 } },
-    { "path": "layout.grid-swatch.items.v-separation", "expect": { "px": 12 } }
+    { "path": "layout.grid-swatch.items.v-separation", "expect": { "px": 12 } },
+    { "path": "size.keycap", "expect": { "px": 36 } },
+    { "mode": "textSize/large", "path": "size.keycap", "expect": { "px": 42 } },
+    { "path": "keycap.on-light.size.min-width", "expect": { "px": 36, "from": "size.keycap" } },
+    { "mode": "textSize/large", "path": "keycap.button.size.min-width", "expect": { "px": 42, "from": "size.keycap" } },
+    { "mode": "textSize/large", "path": "keycap.round.size.min-width", "expect": { "px": 42 } },
+    { "mode": "textSize/large", "path": "keycap.button.size.wide-min-width", "absent": true }
   ]
 }

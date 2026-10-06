@@ -14,5 +14,12 @@
       "display-large": { "$value": { "value": 64, "unit": "px" } },
       "hero": { "$value": { "value": 96, "unit": "px" } }
     }
+  },
+  "size": {
+    "$type": "dimension",
+    "keycap": {
+      "$description": "Large text: the keycap's height (2 + 28 x 1.25 + 5 = 42), so a single-letter keycap stays square.",
+      "$value": { "value": 42, "unit": "px" }
+    }
   }
 }

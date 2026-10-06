@@ -5,7 +5,7 @@
 The styled round hud screen from the UI track (xperiaroco2/prime-game-ui), as a Godot 4.7.2 node tree for the 1920×1080 reference.
 
 - **Source:** `pages/screens/src/s07-hud.json`; the review page is `pages/screens/screens.html#s7`; the wireframe is section `s7` («HUD у раунді»).
-- **Theme:** the Toy pack ui-0.2.0 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
+- **Theme:** the Toy pack ui-0.3.0 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
 - **World behind the UI** (not UI): a lit room of the level.
 - **How to read it:** the roots are children of the screen's full-rect root `Control`; every property not listed keeps Godot's default; sizes and offsets are reference px. In a state's **Shown** list, the first node of each subtree gives its path from the screen root.
 - **Texts** are keys of `copy/strings.csv`, and the language switches live (the Esc menu's Settings). A plain key is set as `text` and translates itself. A key with placeholders, a plural key (`tr_n`) and a key drawn in pieces are set from code with `auto_translate_mode = DISABLED`: `tr()`, then `String.format()` with the data (the samples below), rebuilt on `NOTIFICATION_TRANSLATION_CHANGED`. A "text from data" (names, the room code, times, numbers) is set in code and never translated (`auto_translate_mode = DISABLED`).
@@ -76,7 +76,7 @@ One HUD for the whole round; s9 hides and returns the same nodes (Hud/Timer, Hud
 - **Hidden:** `Hud/Aim`, `Hud/Slots/Hand/Center/Row/Name`.
 - **Changed** `Hud/Slots/Hand`: custom_minimum_size (180, 88) = Vector2(get_theme_constant("wide_width", "ToySlotActive"), get_theme_constant("height", "ToySlotActive")) (wide) (was: custom_minimum_size (88, 88) = Vector2(get_theme_constant("width", "ToySlotActive"), get_theme_constant("height", "ToySlotActive")))
 - **Shown:**
-  - **Hud/Slots/Hand/Center/Row/Icon** `TextureRect` · custom_minimum_size (48, 48) · texture `item` (dist/pack/icons/item.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyTextOnDark")
+  - **Hud/Slots/Hand/Center/Row/Icon** `TextureRect` · custom_minimum_size (48, 48) · texture `item` (dist/pack/icons/item.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToySlotText")
     - Note: The hand slot's item icon (the package here).
   - **Hud/Slots/Hand/Center/Row/ItemName** `Label` · variation `ToySlotText` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (106, 0) · text `item.package`: en "Package" · uk "Пакунок" · clip_text true · text_overrun_behavior `OVERRUN_TRIM_ELLIPSIS`
     - Note: Shown only while carrying a two-handed item: its name (item.package here). Its own node, so the empty slot keeps its 88 px: 106 = 180 (wide width) - 2 x 9 (content margins) - 48 (Icon) - 8 (gap). A longer name is cut with an ellipsis. One-handed item: both labels hidden.
@@ -99,7 +99,7 @@ One HUD for the whole round; s9 hides and returns the same nodes (Hud/Timer, Hud
     - **Row** `HBoxContainer` · variation `ToyRowEight` · gaps from the variation: separation 8
       - **Name** `Label` · variation `ToyNamePlateText` · text from data (auto_translate_mode = DISABLED), sample: "Taras" / "Тарас"
         - Note: The player's name from code (auto_translate_mode DISABLED); no translated text.
-      - **Mark** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (20, 20) · texture `teammate-mark` (dist/pack/icons/teammate-mark.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyTextOnDark")
+      - **Mark** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (20, 20) · texture `teammate-mark` (dist/pack/icons/teammate-mark.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyNamePlateText")
         - Note: Only on a dissident's client and only for a teammate.
   - **Hud/Slots/Belt/Center/Row/Icon** `TextureRect` · custom_minimum_size (48, 48) · texture `knife` (dist/pack/icons/knife.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyTextOnDark")
     - Note: The belt slot's item icon: a one-handed item shows only its icon (the knife here).
@@ -117,8 +117,8 @@ One HUD for the whole round; s9 hides and returns the same nodes (Hud/Timer, Hud
 
 - The review page emulates Godot's containers with CSS grid (expanding children share the free space by stretch ratio, never below their minimum size), so a pixel or two may differ from Godot.
 - Size constants: a variation's `width`, `height`, `min_width`, `wide_width` and `wide_min_width` theme constants are read by code into `custom_minimum_size`, as the node lines give them. A Panel or PanelContainer takes no size from them on its own: an anchored Panel at offsets 0 is 0×0, a slot shrinks to its text.
-- Icons: the tinted ones are white SVGs in `dist/pack/icons/` (the pack's copy of `pages/components/icons`, currentColor written as white): a TextureRect tints one with the `self_modulate` its line gives (the colour the page draws it in), a Button with its variation's `icon_*_color`, an OptionButton its arrow with `modulate_arrow`. The room pictograms are ink and are not tinted.
-- SVG import: Godot rasterises an SVG at import, so import each at `svg/scale` = the largest size it is drawn ÷ its viewBox (the largest over every screen that draws it): `item` 2 (48 px), `knife` 1 (48 px), `mic` 1.17 (28 px), `teammate-mark` 0.84 (20 px).
+- Icons: the tinted ones are white SVGs in `dist/pack/icons/` (the pack's copy of `pages/components/icons`, currentColor written as white): a TextureRect tints one with the `self_modulate` its line gives (the colour the page draws it in), a Button with its variation's `icon_*_color`, an OptionButton its arrow with `modulate_arrow`. The room pictograms are white copies too (`dist/pack/icons/room/`), drawn in ink: their lines give the `self_modulate`. The pack's `assets` list every icon with its tint and `svg_scale`.
+- SVG import: Godot rasterises an SVG at import, so import each at `svg/scale` = the largest size it is drawn ÷ its viewBox (the largest over every screen that draws it, as the pack's `assets` give it): `item` 5 (120 px), `knife` 1 (48 px), `mic` 1.17 (28 px), `teammate-mark` 0.84 (20 px).
 - Boxes and grids take their gaps only from their spacing variation (ToyColumn…, ToyRow…, ToyGrid…), and a ScrollContainer the gap to its bar from ToyScroll; a box without one has a single child. No `theme_override_constants`: the theme test forbids them.
 
 ## Keys

@@ -273,6 +273,8 @@ const GENERATED_LAYOUT = new Set(["position", "inset", "top", "right", "bottom",
   "box-sizing", "min-width", "min-height", "column-gap", "row-gap", "gap", "align-items", "justify-content", "flex-direction",
   "flex", "flex-grow"]);
 const FLEX_GROW_RE = /^(?:\d+|var\(--(?:value|page)\)|calc\(1(?: - var\(--(?:value|page)\))+\))$/;
+// Half a PopupMenu variation's v_separation: the only division the generated CSS has (a .tv-row's padding-top/bottom).
+const HALF_SEPARATION_RE = /^calc\(var\(--toy-[a-z0-9-]+-items-v-separation\) \/ 2 \* var\(--px\)\)$/;
 const FORBIDDEN_RE = /^(filter|backdrop-filter|clip-path|mix-blend-mode|background-blend-mode|background-image|mask(-.*)?|animation(-.*)?)$/;
 const SIDES = { top: ["t"], right: ["r"], bottom: ["b"], left: ["l"], block: ["t", "b"], inline: ["l", "r"],
   "block-start": ["t"], "block-end": ["b"], "inline-start": ["l"], "inline-end": ["r"] };
@@ -522,6 +524,11 @@ function lintText(text, opts) {
         if (!(comps.length === 1 && /^[a-z-]+$/i.test(comps[0]))) add(line, "L28", prop + " takes one keyword, found " + val);
         return;
       }
+      // A PopupMenu row (popup_menu.cpp _draw_items) is its text plus v_separation, half above and half below, where the
+      // hover fill reaches: a generated .tv-row may halve its list's v_separation token (the emitter requires it even, so
+      // the half is Godot's integer v_separation / 2). Nothing else halves a token.
+      if (profile === "generated" && (prop === "padding-top" || prop === "padding-bottom") && rule.selectors.every(s => /\.tv-row$/.test(s.text))
+        && HALF_SEPARATION_RE.test(val.replace(/\s+/g, " ").replace(/\(\s+/g, "(").replace(/\s+\)/g, ")"))) return;
       if (/^(padding|margin)/.test(prop)) return lengths(1, /^(padding|margin)$/.test(prop) ? 4 : /-(block|inline)$/.test(prop) ? 2 : 1);
       if (prop === "inset") return lengths(1, 4);
       if (prop === "column-gap" || prop === "row-gap" || prop === "gap") return lengths(1, 1);
@@ -910,6 +917,12 @@ const ADVERSARIAL = [
   ["generated", '.tv-a > div { color: var(--toy-palette-ink); }', ["L24"]],
   ["generated", '.tv-a { width: 100%; height: calc(var(--value) * 100%); }', ["L16"]],
   ["generated", '.tv-a .tv-fill { width: calc(var(--value) * 100%); }', []],
+  // A PopupMenu row: half its list's v_separation above and below, on a .tv-row only, and nothing else halved.
+  ["generated", '.tv-a > .tv-row { padding-top: calc(var(--toy-field-list-items-v-separation) / 2 * var(--px)); padding-bottom: calc( var(--toy-field-list-items-v-separation) / 2 * var(--px) ); }', []],
+  ["generated", '.tv-a > .tv-check { padding-top: calc(var(--toy-field-list-items-v-separation) / 2 * var(--px)); }', ["L17"]],
+  ["generated", '.tv-a > .tv-row { margin-top: calc(var(--toy-field-list-items-v-separation) / 2 * var(--px)); }', ["L17"]],
+  ["generated", '.tv-a > .tv-row { padding-top: calc(var(--toy-stroke-control) / 2 * var(--px)); }', ["L17"]],
+  ["generated", '.tv-a > .tv-row { padding-top: calc(var(--toy-field-list-items-v-separation) / 3 * var(--px)); }', ["L17"]],
   ["tokens", ':root { --toy-a: 2.5; --toy-b: 3px; --toy-c: red; --toy-d: hsl(0 0% 0%); }', ["L17", "L28", "L22"]],
   ["tokens", '@media screen and (prefers-reduced-motion: reduce) { :root:not([data-motion="default"]) { --toy-a: 0ms; } }', ["L07"]],
   ["tokens", '@media (prefers-reduced-motion:reduce) { :root { --toy-a: 0ms; } }', ["L24"]],

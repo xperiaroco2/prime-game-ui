@@ -80,17 +80,18 @@ states only what differs, with Godot's property names.
 | `HSlider` | `variation` (`ToySlider`), `value` (0), `min_value` (0), `max_value` (100), `step` (1), `editable` (true), `state` `normal`/`hover`/`focus` | the track, the fill to the grabber's centre, the grabber texture (`icons/slider-knob.svg`, `slider-knob-disabled.svg` when not editable), the focus ring |
 | `VScrollBar` | `variation` (`ToyScrollBar`), `value` (0), `min_value` (0), `max_value` (100), `page` (0), `state` `normal`/`hover`/`held`/`focus` | the track and the grabber (page ÷ range long, at value ÷ range) |
 | `Label` | `key`, `args`, `count`, `piece`, `value_of`, or `text` (a data text), `horizontal_alignment` (`left`), `vertical_alignment` (`top`), `autowrap_mode` (`off`, `arbitrary`, `word`, `word_smart`; needs a `custom_minimum_size` width), `clip_text` (false), `text_overrun_behavior` (`no_trimming`, `trim_char`, `trim_word`, `trim_ellipsis`, `trim_word_ellipsis`) | the text |
-| `Button` | `key` or `text` (a data text), and/or `icon`, `icon_size` (the SVG's size), `args`, `count`, `state`, `toggle_mode`, `alignment` (`center`), `h_separation` (the variation's theme constant, else 4), `wide` (ToyKeyButton's wide keycap), `clip_text`, `text_overrun_behavior` | the face, the icon tinted by the variation's icon colours; children placed by anchors. With no key, text or icon its children are its content: they fill its StyleBox content rect (no anchors or size flags), as the preset cards' name and note |
+| `Button` | `key` or `text` (a data text), and/or `icon`, `icon_size` (the SVG's size; it also sizes an icon only some states set through `per_state`), `args`, `count`, `state`, `toggle_mode`, `alignment` (`center`), `h_separation` (the variation's theme constant, else 4), `wide` (ToyKeyButton's wide keycap), `clip_text`, `text_overrun_behavior` | the face, the icon tinted by the variation's icon colours; children placed by anchors. With no key, text or icon its children are its content: they fill its StyleBox content rect (no anchors or size flags), as the preset cards' name and note |
 | `OptionButton` | `key` (the shown item), `args`, `items` (keys), `state`, `clip_text`, `text_overrun_behavior` | text and the arrow (`icons/chevron-down.svg`) |
 | `LineEdit` | `text` (a sample value; `""` or no text and no placeholder is an empty field) or `placeholder` (a key), `editable` (true), `state` `normal`/`focus` | the field, the caret when focused |
 | `ProgressBar` | `value` (0), `max_value` (100), `show_percentage` (must be `false`) | the fill; ToyBarHealth picks its ramp stop |
-| `TextureRect` | `icon`, `theme_color` (`icon-on`, `icon-off`: a colour item of the surface it sits on, as ToyMic's) or `self_modulate` (a sample colour `#rrggbb` of content data, such as a body colour; page data, not a theme colour), sized by `custom_minimum_size` | the icon, keep-aspect, centred |
+| `TextureRect` | `icon`, `theme_color` (`icon-on`, `icon-off`: a colour item of the surface it sits on, as ToyMic's) or `self_modulate` (a sample colour `#rrggbb` of content data, such as a body colour; page data, not a theme colour); with neither, a tinted icon in a row (`HBoxContainer`) takes the font colour of the row's nearest Label shown in that state, else its context's text colour; sized by `custom_minimum_size` | the icon, keep-aspect, centred |
 
 - **Texts** a player reads in their language come only from `copy/strings.csv` keys: no field takes literal
   player-facing text. `args` gives every placeholder a sample value, a string or `{"uk": …, "en": …}` (player names, the
   lobby name, times, codes: sample data only here). A plural key takes `count`. `piece: N` draws the Nth part of the
-  text split at `{key}` or `{preset}` (the words around a keycap); `value_of: "key"` draws the sample value of that
-  placeholder (the keycap's letter inside that sentence).
+  text split at `{key}` or `{preset}` (the words around a keycap), through `strip_edges()` as the game draws it and
+  hidden where it is empty; `value_of: "key"` draws the sample value of that placeholder (the keycap's letter inside
+  that sentence).
 - **Data texts:** `text` on a Label or Button is a sample of what the game fills from data and never translates: player
   and lobby names, the room code, times, numbers shown alone (stepper values), a key's label, the working title, glyphs
   such as «?». It takes no `args`, `count`, `piece` or `value_of`, never sits beside a `key`, and a text equal to a deck
@@ -123,9 +124,10 @@ states only what differs, with Godot's property names.
 - **Icons:** `pages/components/icons/<name>.svg` as `<name>` (`item`, `check`, `mic`, `mic-off`) and the room
   pictograms `pages/room-signs/systems/b/icons/<name>.svg` as `room/<name>`; each needs a licence record in its
   `LICENCES.json`. A Button's icon is tinted by its variation's icon colours (ToyMenuItem's pointer), so a tinted icon
-  on a variation without them is refused (Godot would draw it white); elsewhere an icon draws in the text colour of
-  its context, or in the `theme_color` its TextureRect names. The game imports the white copies the token build writes
-  to `dist/pack/icons/` and tints them; the handoff gives every TextureRect its `self_modulate`.
+  on a variation without them is refused (Godot would draw it white); a TextureRect's icon draws in the `theme_color`
+  or the `self_modulate` it names, else in the font colour of the nearest Label of its row (a lock beside muted text is
+  muted), else in the text colour of its context. The game imports the white copies the token build writes to
+  `dist/pack/icons/` and tints them; the handoff gives every TextureRect its `self_modulate`.
 
 ## Validation
 
@@ -220,7 +222,10 @@ for every other state what is shown (each shown subtree from its path), hidden o
 also writes every screen's handoff to `docs/handoff/<screen file>.md` (checked by `--check`); the issues link there.
 Each node line gives `custom_minimum_size` with the variation's size constants it comes from, what goes on a raised
 node's ToyRaised wrapper, the cut-text properties, the icon (its white copy in `dist/pack/icons/`) and its tint. The
-notes say what the game sets in code: the raised wrapper, the size constants, the icons' tints and `svg/scale`, a
-ScrollContainer's bar variation, an HSlider's grabber textures and its focus ring (Slider draws no focus StyleBox), the
-missing PopupMenu look. Then the keys the screen draws and the keys only its notes name, and the layers and input
+notes say what the game sets in code: the raised wrapper, the size constants (and those that follow the text size, the
+keycaps' `min_width`, set again on `NOTIFICATION_THEME_CHANGED`), the icons' tints and `svg/scale` (one
+value per file, the pack's `assets`: the largest size any screen draws it at), a
+ScrollContainer's bar variation, an HSlider's grabber textures and its focus ring (Slider draws no focus StyleBox), an
+OptionButton's open list (`get_popup()` takes `ToyDropdownList`, with its radio icons) and why LineEdits keep their
+right-click menu off (its labels are Godot's English strings). Then the keys the screen draws and the keys only its notes name, and the layers and input
 rules every screen shares (CanvasLayer order; Esc closes the topmost overlay first).

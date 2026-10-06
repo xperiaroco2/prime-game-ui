@@ -224,6 +224,57 @@ function emitComponentsCss(sys) {
     if (variant.states['scroll-focus']) rule(`${cls}.is-focus`, diff(layerDecls(variant, sc), layerDecls(variant, variant.states['scroll-focus'])));
   }
 
+  // PopupMenu (popup_menu.cpp _draw_items, Godot 4.7.2): the `panel` StyleBox frames the list and its content margins
+  // inset the rows. Each row is as tall as its text (or the check icon, if taller) plus v_separation, half above and
+  // half below (Godot's integer v_separation / 2), and the `hover` StyleBox fills that whole row across the list's
+  // content width when the row is hovered or keyboard-focused (its own margins lay nothing out). In a row:
+  // item_start_padding, the check gutter (the radio icons at their own size), h_separation, the label,
+  // item_end_padding. A separator row has no padding at the sides: the `separator` StyleBox across the content width,
+  // as tall as its content margins, half a v_separation above and below. Markup:
+  //   .tv-ToyDropdownList > (span.tv-row[.is-hover|.is-disabled] > span.tv-check > svg, span) | (span.tv-row.tv-sep > i.tv-separator)
+  // The label colour is font_color, font_hover_color on the hovered row, font_disabled_color on a disabled one.
+  function emitPopupMenu(variant, cls) {
+    const it = variant.items || {};
+    for (const name of Object.keys(it)) {
+      if (!['font-color', 'font-hover-color', 'font-disabled-color', 'v-separation', 'h-separation', 'item-start-padding', 'item-end-padding'].includes(name)) {
+        fail(variant, `item ${name} has no CSS form`);
+      }
+    }
+    for (const name of ['font-color', 'font-hover-color', 'font-disabled-color', 'v-separation']) if (!it[name]) fail(variant, `a PopupMenu needs items.${name}`);
+    const vsep = it['v-separation'];
+    if (px(vsep) % 2 !== 0) fail(variant, `v-separation ${px(vsep)} is odd: Godot halves it with an integer division, which has no exact CSS form`);
+    const hover = variant.states.hover;
+    for (const s of SIDES) {
+      if (px(hover[`border-width-${s}`]) !== 0 || px(hover[`expand-margin-${s}`]) !== 0) fail(variant, `a hover border or expand margin (${s}) has no CSS form: Godot draws the hover inside the row it lays out`);
+    }
+    const sep = variant.states.separator;
+    for (const s of SIDES) if (px(sep[`expand-margin-${s}`]) !== 0) fail(variant, `a separator expand margin (${s}) has no CSS form`);
+    const base = new Map();
+    for (const [p, x] of boxDecls(variant, variant.states.panel)) if (!(p.startsWith('margin-') && x === '0')) base.set(p, x);
+    for (const [p, x] of fontDecls(variant.label, it['font-color'])) base.set(p, x);
+    base.set('display', 'flex');
+    base.set('flex-direction', 'column');
+    base.set('align-items', 'stretch');
+    rule(cls, base);
+    const half = `calc(${v(vsep.source)} / 2 * var(--px))`;
+    const row = new Map([['position', 'relative'], ['display', 'flex'], ['align-items', 'center'], ['padding-top', half], ['padding-bottom', half],
+      ['padding-left', it['item-start-padding'] ? len(variant, it['item-start-padding'], 'item-start-padding') : '0'],
+      ['padding-right', it['item-end-padding'] ? len(variant, it['item-end-padding'], 'item-end-padding') : '0'],
+      ['column-gap', it['h-separation'] ? len(variant, it['h-separation'], 'h-separation') : '0']]);
+    rule(`${cls} > .tv-row`, row);
+    rule(`${cls} > .tv-row > .tv-check`, ['flex: none;']);
+    const hd = new Map([['background', colour(hover['bg-color'])]]);
+    for (const c of CORNERS) hd.set(`border-${c}-radius`, len(variant, hover[`corner-radius-${c}`], `hover corner-radius-${c}`));
+    for (const [p, x] of fontDecls(null, it['font-hover-color'])) hd.set(p, x);
+    rule(`${cls} > .tv-row.is-hover`, hd);
+    rule(`${cls} > .tv-row.is-disabled`, fontDecls(null, it['font-disabled-color']));
+    rule(`${cls} > .tv-row.tv-sep`, ['padding-left: 0;', 'padding-right: 0;']);
+    const line = layerDecls(variant, sep);
+    line.set('height', sum(variant, [[sep['content-margin-top'], 'separator content-margin-top'], [sep['content-margin-bottom'], 'separator content-margin-bottom']], []));
+    line.set('flex-grow', '1');
+    rule(`${cls} > .tv-row.tv-sep > .tv-separator`, line);
+  }
+
   for (const variant of sys.variants) {
     if (variant.abstract) continue;
     const cls = `.tv-${variant.variation}`;
@@ -262,6 +313,7 @@ function emitComponentsCss(sys) {
 
     if (variant.class === 'HSlider') { emitSlider(variant, cls); continue; }
     if (variant.class === 'VScrollBar') { emitScrollBar(variant, cls); continue; }
+    if (variant.class === 'PopupMenu') { emitPopupMenu(variant, cls); continue; }
 
     const mainKey = boxes.has('panel') ? 'panel' : boxes.has('normal') ? 'normal' : null;
     const mainRec = mainKey ? variant.states[mainKey] : null;

@@ -14,5 +14,12 @@
       "display-large": { "$value": { "value": 64, "unit": "px" } },
       "hero": { "$value": { "value": 96, "unit": "px" } }
     }
+  },
+  "size": {
+    "$type": "dimension",
+    "keycap": {
+      "$description": "A keycap's minimum width: at least its height (2 + the body-bold line, 22 x 1.25, + 5 = 34.5), so a single-letter keycap is never narrower than it is tall.",
+      "$value": { "value": 36, "unit": "px" }
+    }
   }
 }

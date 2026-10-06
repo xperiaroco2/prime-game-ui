@@ -109,13 +109,19 @@ const sortedObject = (map) => {
   return out;
 };
 
-function buildPack(model, results, modes, version) {
+// A variation's optional members (schema 1, present only where they apply):
+//   textures    { "<theme icon, kebab-case>": "<pack path of an assets entry>" } (godot.textures, P61)
+//   deprecated  { "replacement": "<variation>" | null, "note": "<the $deprecated text>" | null } (`$deprecated`, godot.replacement, P62)
+function buildPack(model, results, modes, version, assets) {
   const r0 = results[0];
   const variations = new Map();
   for (const v of r0.variants) {
     if (!v.variation || variations.has(v.variation)) continue;
-    variations.set(v.variation, { class: v.class, parent: v.parent, prefix: v.prefix, context: v.context, abstract: v.abstract,
-      styleboxes: v.styleboxes, empty: v.empty, base: v.base, toggle: v.toggle, on: v.on, proposal: v.proposal });
+    const out = { class: v.class, parent: v.parent, prefix: v.prefix, context: v.context, abstract: v.abstract,
+      styleboxes: v.styleboxes, empty: v.empty, base: v.base, toggle: v.toggle, on: v.on, proposal: v.proposal };
+    if (v.textures && Object.keys(v.textures).length) out.textures = v.textures;
+    if (v.deprecated) out.deprecated = v.deprecated;
+    variations.set(v.variation, out);
   }
   const proposals = new Set();
   for (const n of model.nodes) if (n.ownProposal && n.path) proposals.add(n.path);
@@ -140,11 +146,11 @@ function buildPack(model, results, modes, version) {
     variations: sortedObject(variations),
     derived: derived.sort(),
     proposals: [...proposals].sort(),
-    assets: [],
+    assets: assets || [],
   };
 }
 
-// Pretty at the top, one line per token, mode entry and variation: readable diffs, deterministic bytes.
+// Pretty at the top, one line per token, mode entry, variation and asset: readable diffs, deterministic bytes.
 function serializePack(pack) {
   const S = JSON.stringify;
   const block = (obj, indent) => {
@@ -158,7 +164,7 @@ function serializePack(pack) {
     const v = pack[k];
     let text;
     if (k === 'tokens' || k === 'variations') text = block(v, '  ');
-    else if (k === 'derived' || k === 'proposals') text = list(v, '  ');
+    else if (k === 'derived' || k === 'proposals' || k === 'assets') text = list(v, '  ');
     else if (k === 'modes') {
       const mods = Object.keys(v);
       text = mods.length ? `{\n${mods.map((m) => {

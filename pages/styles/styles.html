@@ -739,6 +739,30 @@ body[data-zoom="3"] .frame { width: 300%; }
   --toy-field-dropdown-items-arrow-margin: 16;
   --toy-field-dropdown-items-h-separation: 8;
   --toy-field-dropdown-items-modulate-arrow: 1;
+  --toy-field-list-label-font-family: var(--toy-type-body-bold-font-family);
+  --toy-field-list-label-font-size: var(--toy-type-body-bold-font-size);
+  --toy-field-list-label-font-weight: var(--toy-type-body-bold-font-weight);
+  --toy-field-list-label-letter-spacing: var(--toy-type-body-bold-letter-spacing);
+  --toy-field-list-label-line-height: var(--toy-type-body-bold-line-height);
+  --toy-field-list-panel-bg-color: var(--toy-color-surface-panel);
+  --toy-field-list-panel-border-color: var(--toy-color-outline);
+  --toy-field-list-panel-border-width: var(--toy-stroke-control);
+  --toy-field-list-panel-corner-radius: var(--toy-radius-medium);
+  --toy-field-list-panel-content-margin: 7;
+  --toy-field-list-hover-bg-color: var(--toy-color-state-hover-on-light);
+  --toy-field-list-hover-corner-radius: var(--toy-radius-small);
+  --toy-field-list-separator-border-color: var(--toy-color-outline);
+  --toy-field-list-separator-border-width-top: var(--toy-stroke-thin);
+  --toy-field-list-separator-border-width-right: 0;
+  --toy-field-list-separator-border-width-bottom: 0;
+  --toy-field-list-separator-border-width-left: 0;
+  --toy-field-list-items-font-color: var(--toy-color-on-light-text);
+  --toy-field-list-items-font-hover-color: var(--toy-color-on-light-text);
+  --toy-field-list-items-font-disabled-color: var(--toy-color-state-disabled-ink);
+  --toy-field-list-items-v-separation: var(--toy-space-16);
+  --toy-field-list-items-h-separation: var(--toy-space-8);
+  --toy-field-list-items-item-start-padding: var(--toy-space-8);
+  --toy-field-list-items-item-end-padding: var(--toy-space-16);
   --toy-howto-frame-panel-bg-color: var(--toy-palette-white);
   --toy-howto-frame-panel-border-color: var(--toy-color-outline);
   --toy-howto-frame-panel-border-width: var(--toy-stroke-control);
@@ -786,7 +810,7 @@ body[data-zoom="3"] .frame { width: 300%; }
   --toy-keycap-on-dark-panel-content-margin-top: 2;
   --toy-keycap-on-dark-panel-content-margin-inline: 10;
   --toy-keycap-on-dark-panel-content-margin-bottom: 5;
-  --toy-keycap-on-dark-size-min-width: 36;
+  --toy-keycap-on-dark-size-min-width: var(--toy-size-keycap);
   --toy-keycap-on-dark-size-wide-min-width: 96;
   --toy-keycap-on-light-panel-bg-color: var(--toy-palette-white);
   --toy-keycap-on-light-panel-border-color: var(--toy-color-outline);
@@ -798,7 +822,7 @@ body[data-zoom="3"] .frame { width: 300%; }
   --toy-keycap-on-light-panel-content-margin-top: 2;
   --toy-keycap-on-light-panel-content-margin-inline: 10;
   --toy-keycap-on-light-panel-content-margin-bottom: 5;
-  --toy-keycap-on-light-size-min-width: 36;
+  --toy-keycap-on-light-size-min-width: var(--toy-size-keycap);
   --toy-keycap-on-light-size-wide-min-width: 96;
   --toy-keycap-quiet-panel-bg-color: var(--toy-palette-key-quiet);
   --toy-keycap-quiet-panel-border-color: var(--toy-palette-muted);
@@ -810,7 +834,7 @@ body[data-zoom="3"] .frame { width: 300%; }
   --toy-keycap-quiet-panel-content-margin-top: 2;
   --toy-keycap-quiet-panel-content-margin-inline: 10;
   --toy-keycap-quiet-panel-content-margin-bottom: 5;
-  --toy-keycap-quiet-size-min-width: 36;
+  --toy-keycap-quiet-size-min-width: var(--toy-size-keycap);
   --toy-keycap-quiet-size-wide-min-width: 96;
   --toy-keycap-round-panel-bg-color: var(--toy-palette-white);
   --toy-keycap-round-panel-border-color: var(--toy-color-outline);
@@ -822,7 +846,7 @@ body[data-zoom="3"] .frame { width: 300%; }
   --toy-keycap-round-panel-content-margin-top: 2;
   --toy-keycap-round-panel-content-margin-inline: 10;
   --toy-keycap-round-panel-content-margin-bottom: 5;
-  --toy-keycap-round-size-min-width: 36;
+  --toy-keycap-round-size-min-width: var(--toy-size-keycap);
   --toy-keycap-round-quiet-panel-bg-color: var(--toy-palette-key-quiet);
   --toy-keycap-round-quiet-panel-border-color: var(--toy-palette-muted);
   --toy-keycap-round-quiet-panel-border-width-top: var(--toy-stroke-thin);
@@ -833,7 +857,7 @@ body[data-zoom="3"] .frame { width: 300%; }
   --toy-keycap-round-quiet-panel-content-margin-top: 2;
   --toy-keycap-round-quiet-panel-content-margin-inline: 10;
   --toy-keycap-round-quiet-panel-content-margin-bottom: 5;
-  --toy-keycap-round-quiet-size-min-width: 36;
+  --toy-keycap-round-quiet-size-min-width: var(--toy-size-keycap);
   --toy-keycap-round-button-label-font-family: var(--toy-type-body-bold-font-family);
   --toy-keycap-round-button-label-font-size: var(--toy-type-body-bold-font-size);
   --toy-keycap-round-button-label-font-weight: var(--toy-type-body-bold-font-weight);
@@ -860,7 +884,7 @@ body[data-zoom="3"] .frame { width: 300%; }
   --toy-keycap-round-button-focus-border-width: var(--toy-focus-width);
   --toy-keycap-round-button-focus-corner-radius: var(--toy-radius-pill);
   --toy-keycap-round-button-focus-expand-margin: 5;
-  --toy-keycap-round-button-size-min-width: 36;
+  --toy-keycap-round-button-size-min-width: var(--toy-size-keycap);
   --toy-keycap-button-label-font-family: var(--toy-type-body-bold-font-family);
   --toy-keycap-button-label-font-size: var(--toy-type-body-bold-font-size);
   --toy-keycap-button-label-font-weight: var(--toy-type-body-bold-font-weight);
@@ -887,7 +911,7 @@ body[data-zoom="3"] .frame { width: 300%; }
   --toy-keycap-button-focus-border-width: var(--toy-focus-width);
   --toy-keycap-button-focus-corner-radius: 13;
   --toy-keycap-button-focus-expand-margin: 5;
-  --toy-keycap-button-size-min-width: 36;
+  --toy-keycap-button-size-min-width: var(--toy-size-keycap);
   --toy-keycap-button-size-wide-min-width: 96;
   --toy-keycap-text-label-font-family: var(--toy-type-body-bold-font-family);
   --toy-keycap-text-label-font-size: var(--toy-type-body-bold-font-size);
@@ -1361,6 +1385,7 @@ body[data-zoom="3"] .frame { width: 300%; }
   --toy-font-size-display: 48;
   --toy-font-size-display-large: 64;
   --toy-font-size-hero: 96;
+  --toy-size-keycap: 36;
   --toy-duration-press: 70ms;
 }
 :root[data-text-size="large"] {
@@ -1370,6 +1395,7 @@ body[data-zoom="3"] .frame { width: 300%; }
   --toy-font-size-body-large: 30;
   --toy-font-size-heading: 35;
   --toy-font-size-title: 45;
+  --toy-size-keycap: 42;
 }
 :root[data-motion="reduced"] {
   --toy-duration-press: 0ms;

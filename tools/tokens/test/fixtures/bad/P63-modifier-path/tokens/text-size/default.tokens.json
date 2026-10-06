@@ -1,0 +1,35 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "font": {
+    "size": {
+      "$type": "dimension",
+      "body": {
+        "$value": {
+          "value": 22,
+          "unit": "px"
+        }
+      },
+      "hero": {
+        "$value": {
+          "value": 96,
+          "unit": "px"
+        }
+      }
+    }
+  },
+  "size": {
+    "$type": "dimension",
+    "keycap": {
+      "$value": {
+        "value": 36,
+        "unit": "px"
+      }
+    },
+    "other": {
+      "$value": {
+        "value": 10,
+        "unit": "px"
+      }
+    }
+  }
+}

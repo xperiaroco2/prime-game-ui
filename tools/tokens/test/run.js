@@ -2,7 +2,7 @@
 //  1. json-strict and color.js units (the 21 health stops of spec §5 and its two computed bounds);
 //  2. fixtures/good/<name>: 0 errors, 0 warnings, outputs built, two runs give the same bytes;
 //     fixtures/bad/<rule>-<slug> and fixtures/warn/<rule>-<slug>: exactly the rule ids of expect.json;
-//     every error rule (D01-D39 except D11, D12, D25, D26; P40-P60) and warning rule (D11, D12) has a folder;
+//     every error rule (D01-D39 except D11, D12, D25, D26; P40-P63) and warning rule (D11, D12) has a folder;
 //  3. build.js as a CLI: write, --check up to date, --check on stale and missing outputs, D39 report shape;
 //  4. expect-values.json against the kinds fixture (paths it has) and against the real tokens/ (SKIPPED until they exist).
 // Exit 1 on any failure. Node 20, no packages.
@@ -21,7 +21,7 @@ const ROOT = path.resolve(HERE, '..', '..', '..');
 const FIX = path.join(HERE, 'fixtures');
 const BUILD = path.join(HERE, '..', 'build.js');
 const range = (p, a, b) => Array.from({ length: b - a + 1 }, (_, i) => `${p}${String(a + i).padStart(2, '0')}`);
-const ERROR_RULES = range('D', 1, 39).filter((r) => !['D11', 'D12', 'D25', 'D26'].includes(r)).concat(range('P', 40, 60));
+const ERROR_RULES = range('D', 1, 39).filter((r) => !['D11', 'D12', 'D25', 'D26'].includes(r)).concat(range('P', 40, 63));
 const WARN_RULES = ['D11', 'D12'];
 const HEALTH = ['#ff5a44', '#fa6345', '#f56b45', '#f07346', '#ea7a46', '#e58147', '#df8747', '#d98d48', '#d39348', '#cc9849',
   '#c59e49', '#bea34a', '#b6a84a', '#aeac4b', '#a6b14b', '#9cb64c', '#92ba4c', '#87be4d', '#7bc34d', '#6cc74e', '#5bcb4e'];
@@ -172,6 +172,47 @@ console.log('-- overlays');
   check(threw && threw.problems[0].rule === 'O01', 'a token with no group in the base set is an overlay error', threw && threw.message);
 }
 
+// The pack's assets, textures and deprecation marks (prime-game-ui#30) and the keycap width that follows the text size
+// (prime-game-ui#27), on the fixtures that carry them.
+console.log('-- pack members');
+{
+  const crypto = require('crypto');
+  const sha = (t) => crypto.createHash('sha256').update(Buffer.from(t, 'utf8')).digest('hex');
+  const c = api.load({ root: path.join(FIX, 'good', 'controls') });
+  const by = new Map(c.pack.assets.map((a) => [a.path, a]));
+  const knob = by.get('icons/knob.svg');
+  const mark = by.get('icons/mark.svg');
+  check(c.pack.assets.length === 2 && knob && mark, 'assets list every icon of pages/components/icons', JSON.stringify(c.pack.assets.map((a) => a.path)));
+  check(knob && knob.tint === 'none' && knob.svg_scale === 1 && knob.drawn_px === 28 && same(knob.size, [28, 28]),
+    'an icon in its own colours is not tinted; an HSlider draws its knob at its own size', JSON.stringify(knob));
+  check(mark && mark.tint === 'multiply' && mark.drawn_px === 40 && mark.svg_scale === 1.67 && !('tint_color' in mark),
+    'a currentColor icon is multiplied; its drawn size is the largest a screen gives it (TextureRect 48 x 40 keeps aspect)', JSON.stringify(mark));
+  const out = c.outputs['dist/pack/icons/mark.svg'];
+  check(out && /fill="#ffffff"/.test(out) && !/"currentColor"/.test(out) && mark && mark.sha256 === sha(out), 'an asset\'s sha256 is the bytes of its file in the pack');
+  check(knob && knob.licence === 'own work' && knob.licence_file === 'icons/LICENCES.json' && knob.source === 'pages/components/icons/knob.svg' && knob.kind === 'icon',
+    'an asset names its licence, licence file and source');
+  check(same(c.pack.variations.ToySlider.textures, { grabber: 'icons/knob.svg', 'grabber-highlight': 'icons/knob.svg', 'grabber-disabled': 'icons/mark.svg' }),
+    'a variation lists its textures as pack paths', JSON.stringify(c.pack.variations.ToySlider.textures));
+  check(same(c.pack.variations.ToyColumnOld.deprecated, { replacement: 'ToyColumnEight', note: 'Use ToyColumnEight.' }),
+    'a deprecated variation is marked with its replacement', JSON.stringify(c.pack.variations.ToyColumnOld.deprecated));
+  check(!('textures' in c.pack.variations.ToyColumnEight) && !('deprecated' in c.pack.variations.ToyColumnEight), 'the optional members are absent where they do not apply');
+  // PopupMenu (prime-game-ui#26): three StyleBoxes, its font colours and constants as items, its radio icons as textures.
+  const list = c.pack.variations.ToyDropdownList;
+  check(list && same(list.styleboxes, ['panel', 'hover', 'separator']) && same(list.textures, { 'radio-checked': 'icons/mark.svg', 'radio-unchecked': 'icons/knob.svg' }),
+    'a PopupMenu variation has its panel, hover and separator StyleBoxes and names its radio textures', JSON.stringify(list));
+  const sep = (k) => c.pack.tokens[`ctl.list.separator.${k}`];
+  check(sep('content-margin-top') && sep('content-margin-top').px === 2 && sep('content-margin-bottom').px === 0 && sep('draw-center').value === false
+    && c.pack.tokens['ctl.list.items.font-disabled-color'] && c.pack.tokens['ctl.list.items.v-separation'].px === 16,
+  'a PopupMenu separator is as tall as its top border and draws no centre; its items are in the pack', JSON.stringify(sep('content-margin-top')));
+  const m = api.load({ root: path.join(FIX, 'good', 'modes') });
+  const large = m.pack.modes.textSize.large;
+  check(large['size.keycap'] && large['size.keycap'].px === 42 && large['button.primary.size.min-width'] && large['button.primary.size.min-width'].px === 42
+    && m.tokens.get('button.primary.size.min-width').px === 36 && m.tokens.get('button.primary.size.min-width').from === 'size.keycap',
+  'a size member that references size.keycap follows the text size in the large mode', JSON.stringify(large['button.primary.size.min-width']));
+  check(/--toy-button-primary-size-min-width: var\(--toy-size-keycap\);/.test(m.css) && /:root\[data-text-size="large"\] \{[^}]*--toy-size-keycap: 42;/.test(m.css),
+    'the CSS keeps the size member a var() of size.keycap, which the large block overrides');
+}
+
 // 3. CLI ----------------------------------------------------------------------------------------------------------
 console.log('-- build.js');
 {
@@ -225,6 +266,24 @@ if (fs.existsSync(path.join(ROOT, 'tokens', 'prime.resolver.json'))) {
   if (sys) {
     const n = spot(sys, checks, false, 'tokens/');
     check(n === checks.length, 'every spot value of spec §7.6 was checked', `${n} of ${checks.length}`);
+    // the pack's own members: what the game's generator and ui-sync read beside the tokens (prime-game-ui#30)
+    const V = sys.pack.variations;
+    check(same(V.ToySlider.textures, { grabber: 'icons/slider-knob.svg', 'grabber-highlight': 'icons/slider-knob.svg', 'grabber-disabled': 'icons/slider-knob-disabled.svg' }),
+      'tokens/: ToySlider names its knob textures', JSON.stringify(V.ToySlider.textures));
+    check(same(V.ToyDropdown.textures, { arrow: 'icons/chevron-down.svg' }), 'tokens/: ToyDropdown names its arrow', JSON.stringify(V.ToyDropdown.textures));
+    check(V.ToyDropdownList && V.ToyDropdownList.class === 'PopupMenu' && same(V.ToyDropdownList.textures, { 'radio-checked': 'icons/radio-checked.svg',
+      'radio-checked-disabled': 'icons/radio-checked-disabled.svg', 'radio-unchecked': 'icons/radio-unchecked.svg', 'radio-unchecked-disabled': 'icons/radio-unchecked.svg' }),
+    'tokens/: ToyDropdownList (PopupMenu) names its radio textures', JSON.stringify(V.ToyDropdownList && V.ToyDropdownList.textures));
+    check(V.ToyChipNew.deprecated && V.ToyChipNew.deprecated.replacement === 'ToyChipAlert' && V.ToyChipNewText.deprecated
+      && V.ToyChipNewText.deprecated.replacement === 'ToyChipAlertText', 'tokens/: ToyChipNew and ToyChipNewText are marked deprecated with their replacements');
+    const assets = new Map(sys.pack.assets.map((a) => [a.path, a]));
+    const files = Object.keys(sys.outputs).filter((k) => /^dist\/pack\/icons\/.+\.svg$/.test(k));
+    check(files.length > 0 && files.every((k) => assets.has(k.slice('dist/pack/'.length))) && assets.size === files.length,
+      'tokens/: every icon in dist/pack/icons has one assets entry', `${assets.size} assets, ${files.length} icons`);
+    const knob = assets.get('icons/slider-knob.svg');
+    const lab = assets.get('icons/room/lab.svg');
+    check(knob && knob.tint === 'none' && lab && lab.tint === 'multiply' && lab.tint_color === '#2a1f33' && lab.svg_scale === 2.5,
+      'tokens/: the knobs keep their colours; a room pictogram is white, drawn in ink, imported at its largest size', JSON.stringify(lab));
   }
 } else {
   skipped++;

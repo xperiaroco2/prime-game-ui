@@ -90,7 +90,12 @@
         "io.github.xperiaroco2.prime-game": {
           "godot": {
             "variation": "ToySlider",
-            "class": "HSlider"
+            "class": "HSlider",
+            "textures": {
+              "grabber": "icons/knob.svg",
+              "grabber-highlight": "icons/knob.svg",
+              "grabber-disabled": "icons/mark.svg"
+            }
           },
           "context": "any"
         }
@@ -273,6 +278,133 @@
           "$value": "{space.16}"
         },
         "v-separation": {
+          "$type": "dimension",
+          "$value": "{space.8}"
+        }
+      }
+    },
+    "column-old": {
+      "$description": "The old 8 px column, kept until the next major.",
+      "$deprecated": "Use ToyColumnEight.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": {
+            "variation": "ToyColumnOld",
+            "class": "VBoxContainer",
+            "replacement": "ToyColumnEight"
+          },
+          "context": "any"
+        }
+      },
+      "items": {
+        "separation": {
+          "$type": "dimension",
+          "$value": "{space.8}"
+        }
+      }
+    },
+    "list": {
+      "$description": "A dropdown list: the radio icons are textures.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": {
+            "variation": "ToyDropdownList",
+            "class": "PopupMenu",
+            "textures": {
+              "radio-checked": "icons/mark.svg",
+              "radio-unchecked": "icons/knob.svg"
+            }
+          },
+          "context": "light"
+        }
+      },
+      "panel": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{color.panel}"
+        },
+        "border-color": {
+          "$type": "color",
+          "$value": "{color.outline}"
+        },
+        "border-width": {
+          "$type": "dimension",
+          "$value": "{stroke.control}"
+        },
+        "corner-radius": {
+          "$type": "dimension",
+          "$value": "{radius.small}"
+        },
+        "content-margin": {
+          "$type": "dimension",
+          "$value": {
+            "value": 7,
+            "unit": "px"
+          }
+        }
+      },
+      "hover": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{palette.cream}"
+        },
+        "corner-radius": {
+          "$type": "dimension",
+          "$value": "{radius.small}"
+        }
+      },
+      "separator": {
+        "border-color": {
+          "$type": "color",
+          "$value": "{color.outline}"
+        },
+        "border-width-top": {
+          "$type": "dimension",
+          "$value": {
+            "value": 2,
+            "unit": "px"
+          }
+        },
+        "border-width-right": {
+          "$type": "dimension",
+          "$value": {
+            "value": 0,
+            "unit": "px"
+          }
+        },
+        "border-width-bottom": {
+          "$type": "dimension",
+          "$value": {
+            "value": 0,
+            "unit": "px"
+          }
+        },
+        "border-width-left": {
+          "$type": "dimension",
+          "$value": {
+            "value": 0,
+            "unit": "px"
+          }
+        }
+      },
+      "items": {
+        "font-color": {
+          "$type": "color",
+          "$value": "{color.outline}"
+        },
+        "font-hover-color": {
+          "$type": "color",
+          "$value": "{color.outline}"
+        },
+        "font-disabled-color": {
+          "$type": "color",
+          "$value": "{palette.ink}"
+        },
+        "v-separation": {
+          "$type": "dimension",
+          "$value": "{space.16}"
+        },
+        "item-start-padding": {
           "$type": "dimension",
           "$value": "{space.8}"
         }

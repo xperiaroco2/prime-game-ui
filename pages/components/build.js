@@ -19,7 +19,7 @@ const TOKENS_CSS = 'dist/css/toy-tokens.css';
 const GATES = 'dist/gates.json';
 const EN_JSON = 'pages/wireframes/en.json';
 const ICONS = ['check', 'item', 'mic', 'mic-off', 'pointer', 'chevron-left', 'chevron-right', 'chevron-down', 'lock', 'teammate-mark',
-  'knife', 'slider-knob', 'slider-knob-disabled', 'swatch-disc'];
+  'knife', 'slider-knob', 'slider-knob-disabled', 'swatch-disc', 'radio-checked', 'radio-checked-disabled', 'radio-unchecked'];
 const ICON_HEAD = '<!-- own work, prime-game-ui, licence: own work -->';
 const FONT_LINK = 'https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap';
 const TILES = [['white', '#ffffff'], ['grey', '#c9c9c9'], ['dim', '#979797']];
@@ -364,6 +364,42 @@ function renderPage(sys, componentsCss) {
     }
     return stages.join('');
   }
+  // A dropdown's open list (PopupMenu, the markup emit-css.js documents), drawn as Godot opens it: flush under the
+  // dropdown, which shows its pressed look while the list is open, and at least as wide as the dropdown. Each row's
+  // check gutter holds its radio texture at its own size (the variation's textures: checked, checked and disabled,
+  // or the empty unchecked icon). row.rows: [{ label, checked, hover, disabled } | { separator: true }].
+  function rowDropdownList(row) {
+    const name = row.variations[0];
+    const v = V(name);
+    const tex = v.textures || {};
+    const iconOf = (k) => {
+      const p = tex[k];
+      const m = p ? /^icons\/([a-z-]+)\.svg$/.exec(p) : null;
+      if (!m || !icons[m[1]]) fail(`showcase.json: ${row.id}: ${name} names no pages/components/icons texture for ${k}`);
+      return m[1];
+    };
+    const listRow = (r) => {
+      if (r.separator) return '<span class="tv-row tv-sep"><i class="tv-separator"></i></span>';
+      const icon = iconOf(r.checked ? (r.disabled ? 'radio-checked-disabled' : 'radio-checked') : (r.disabled ? 'radio-unchecked-disabled' : 'radio-unchecked'));
+      const [w, h] = iconSize(icon);
+      const cls = ['tv-row', r.hover ? 'is-hover' : '', r.disabled ? 'is-disabled' : ''].filter(Boolean).join(' ');
+      return `<span class="${cls}"><span class="tv-check" style="width: calc(${w} * var(--px)); height: calc(${h} * var(--px))">${icons[icon]}</span>${sampleSpan(r.label)}</span>`;
+    };
+    const list = (rows) => `<div class="tv-${name}">${rows.map(listRow).join('')}</div>`;
+    const uses = (rows) => [[name, 'panel', { items: ['font-color', 'v-separation', 'h-separation', 'item-start-padding', 'item-end-padding'] }],
+      ...(rows.some((r) => r.hover) ? [[name, 'hover', { items: ['font-hover-color'] }]] : []),
+      ...(rows.some((r) => r.disabled) ? [[name, 'panel', { items: ['font-disabled-color'] }]] : []),
+      ...(rows.some((r) => r.separator) ? [[name, 'separator']] : [])];
+    const cells = row.cells.map((c) => {
+      if (c.dropdown) {
+        V(c.dropdown);
+        const dd = buttonEl(c.dropdown, 'is-held', sampleSpan(c.label) + bicon(c.arrow, 'tv-arrow'));
+        return cell(T(c.caption), proposal([...uses(c.rows), [c.dropdown, 'pressed']]), `<div class="sc-ddl">${dd}${list(c.rows)}</div>`);
+      }
+      return cell(T(c.caption), proposal(uses(c.rows)), `<div class="sc-ddl">${list(c.rows)}</div>`);
+    });
+    return stage(row.context || 'light', cells);
+  }
   // Spacing containers: placeholder boxes at the variation's gaps (a column, a row, a grid of three columns).
   function rowLayout(row) {
     const box = '<i class="sc-lay-box"></i>';
@@ -605,6 +641,7 @@ function renderPage(sys, componentsCss) {
     'hud-bar': rowHudBar, menu: rowMenu, dialog: rowDialog, backdrops: rowBackdrops, howto: rowHowto, settings: rowSettings,
     map: rowMap, mic: rowMic, swatches: rowSwatches, palette: rowPalette, 'type-scale': rowTypeScale, ramp: rowRamp,
     contrast: rowContrast, icons: rowIcons, slider: rowSlider, scrollbar: rowScrollBar, layout: rowLayout,
+    'dropdown-list': rowDropdownList,
   };
   const TOKEN_KINDS = new Set(['palette', 'type-scale', 'ramp', 'contrast', 'icons']);
 

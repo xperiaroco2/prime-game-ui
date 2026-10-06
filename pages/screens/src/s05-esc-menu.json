@@ -50,14 +50,14 @@
                     {
                       "name": "HostOnly", "type": "HBoxContainer", "variation": "ToyRowEight", "states": ["lobby-guest"], "size_flags_vertical": "shrink_center", "note": "A player's view in the lobby only; hidden in a round, where nobody changes the settings and the values without steppers already read as fixed.",
                       "children": [
-                        { "name": "Lock", "type": "TextureRect", "icon": "lock", "custom_minimum_size": [20, 20], "size_flags_vertical": "shrink_center", "note": "Muted like the text beside it: self_modulate = get_theme_color(\"font_color\", \"ToyTextMutedOnLight\") (this replaces the generated ToyTextOnLight line)." },
+                        { "name": "Lock", "type": "TextureRect", "icon": "lock", "custom_minimum_size": [20, 20], "size_flags_vertical": "shrink_center" },
                         { "name": "Text", "type": "Label", "variation": "ToyTextMutedOnLight", "key": "esc.lobby.host_only", "args": { "name": { "uk": "Олена", "en": "Olena" } } }
                       ]
                     },
                     {
                       "name": "Locked", "type": "HBoxContainer", "variation": "ToyRowEight", "states": ["character-round"], "size_flags_vertical": "shrink_center", "note": "In a round the Character tab is locked: the same lock line as the guest's HostOnly, in the title row, so the page below does not move.",
                       "children": [
-                        { "name": "Lock", "type": "TextureRect", "icon": "lock", "custom_minimum_size": [20, 20], "size_flags_vertical": "shrink_center", "note": "Muted like the text beside it: self_modulate = get_theme_color(\"font_color\", \"ToyTextMutedOnLight\") (this replaces the generated ToyTextOnLight line)." },
+                        { "name": "Lock", "type": "TextureRect", "icon": "lock", "custom_minimum_size": [20, 20], "size_flags_vertical": "shrink_center" },
                         { "name": "Text", "type": "Label", "variation": "ToyTextMutedOnLight", "key": "esc.character.locked" }
                       ]
                     }

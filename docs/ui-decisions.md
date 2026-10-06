@@ -121,7 +121,10 @@ cream on ghost buttons on dark), chips, the stepper and radios get a 3 px ring 2
 controls (ghost buttons, line chips, idle tabs) is a quiet fill, night plate on dark and lavender on light (the
 dropdown follows the same rule: (agent));
 a coral danger button for the host's «Покинути сесію» and its confirm dialog; large text ×1.25 for 18 to 36 px (48 px
-and up unchanged); the selected preset card keeps the idle card's size; held buttons sink 4 px (white) or 5 px
+and up unchanged), and with it a keycap's minimum width follows its height, 36 px at the default size and 42 px at
+large, so a single-letter key (every keycap and keycap button, round ones included) stays square instead of an upright
+box; wide keycaps keep 96 px at both sizes (more than twice the 42 px height; their label sets any extra width)
+(agent, `size.keycap`, [prime-game-ui#27](https://github.com/xperiaroco2/prime-game-ui/issues/27)); the selected preset card keeps the idle card's size; held buttons sink 4 px (white) or 5 px
 (yellow), leaving 1 px of base; the menu backdrop `.dim` is 74 % instead of 70 %, so dim lilac text over a white wall
 reaches 4.5:1; wide keycaps (Space, Shift, Tab, Esc) are at least 96 px; the near-identical plums and lilacs stay
 separate (28 colours). Decided by the agent, small and easy to change (agent): a held stepper turns honey, preset
@@ -140,6 +143,15 @@ chevrons, lock, teammate mark, knife, slider knob, swatch disc (`pages/component
 (names spelled out, since the game's theme test reads letters only); a keycap button for rebinding (`ToyKeyButton`), a
 slider (`ToySlider`, whose focus ring the game draws in code, as Godot's Slider has no focus StyleBox) and a scroll bar
 (`ToyScrollBar`).
+
+**The dropdown's open list 0.3.0** (agent, `ToyDropdownList`,
+[prime-game-ui#26](https://github.com/xperiaroco2/prime-game-ui/issues/26)): a cream list with the dropdown's 3 px ink
+outline and 12 px corners, no shadow, flush under the dropdown; rows in the dropdown's bold ink text, 8 px above and
+below the text, 4 px inside the outline; the hovered or keyboard-focused row takes the lavender quiet fill of the flat
+controls with 8 px corners; a disabled row is muted plum; a separator is a 2 px ink line; the selected row shows an ink
+check (the how-to tick, a new own-work icon in ink) before its label, and the other rows keep its 24 px gutter empty.
+Text fields keep Godot's right-click menu off (`context_menu_enabled = false`): its labels are Godot's English strings,
+which the copy deck does not translate; the keyboard shortcuts still work.
 
 ## Styled screens
 The ten screens as Godot scene trees, `pages/screens/src/` (prime-game-ui#19; the spec
@@ -180,6 +192,8 @@ the agents took where the decisions were silent, after five reviews (agent):
 - **Data on the page:** names, the room code, times, stepper values and key labels are data the game never translates;
   the ten character swatches show sample colours from the Toy palette (page samples: the body colours are not chosen).
 - **Reduced motion** makes the raised buttons' press instant (the pressed look still shows).
+- **Icons beside text** (prime-game-ui#28) (agent): an icon with no tint of its own in a row takes the font colour of the
+  row's nearest Label, so the lock beside muted text is muted; elsewhere it takes its surface's text colour.
 
 **The engineer's answers on the screens** (2026-10-06, the
 [wave-19 question page](https://claude.ai/artifact/PnHGtBSbMzHMi28hmR6Cpd), each option shown as a render; all nine

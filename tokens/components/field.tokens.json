@@ -46,7 +46,7 @@
       "$description": "A dropdown: as the field; no parent, so OptionButton's own items still resolve.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
-          "godot": { "variation": "ToyDropdown", "class": "OptionButton" },
+          "godot": { "variation": "ToyDropdown", "class": "OptionButton", "textures": { "arrow": "icons/chevron-down.svg" } },
           "context": "any"
         }
       },
@@ -87,6 +87,53 @@
         "arrow-margin": { "$type": "dimension", "$value": { "value": 16, "unit": "px" } },
         "h-separation": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } },
         "modulate-arrow": { "$type": "number", "$value": 1 }
+      }
+    },
+    "list": {
+      "$description": "The dropdown's open list (the OptionButton's get_popup(), a PopupMenu): a cream panel with the dropdown's ink outline and corners, rows in the dropdown's text. The selected row shows an ink check (radio_checked); the other rows an empty icon of the same size (radio_unchecked), so every label starts at the same x.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": {
+            "variation": "ToyDropdownList", "class": "PopupMenu",
+            "textures": {
+              "radio-checked": "icons/radio-checked.svg", "radio-checked-disabled": "icons/radio-checked-disabled.svg",
+              "radio-unchecked": "icons/radio-unchecked.svg", "radio-unchecked-disabled": "icons/radio-unchecked.svg"
+            }
+          },
+          "context": "light"
+        }
+      },
+      "label": { "$type": "typography", "$value": "{type.body-bold}" },
+      "panel": {
+        "$description": "The list's frame: cream, the dropdown's 3 px ink outline and 12 px corners; the rows sit 4 px inside the outline.",
+        "bg-color": { "$type": "color", "$value": "{color.surface.panel}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.medium}" },
+        "content-margin": { "$type": "dimension", "$value": { "value": 7, "unit": "px" } }
+      },
+      "hover": {
+        "$description": "The hovered or keyboard-focused row (PopupMenu draws its focused item as hovered): the lavender quiet fill of the flat controls, its corners rounded inside the list's.",
+        "bg-color": { "$type": "color", "$value": "{color.state.hover-on-light}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.small}" }
+      },
+      "separator": {
+        "$description": "A separator row: a 2 px ink line across the list (its height is its top content margin, the border width).",
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-width-top": { "$type": "dimension", "$value": "{stroke.thin}" },
+        "border-width-right": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "border-width-bottom": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "border-width-left": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } }
+      },
+      "items": {
+        "$description": "Row text colours (ink; a disabled row muted) and the row layout: each row is its text plus v_separation (half above, half below, where the hover fill reaches), the check 8 px from the row's start and 8 px before the label, 16 px after the longest label.",
+        "font-color": { "$type": "color", "$value": "{color.on-light.text}" },
+        "font-hover-color": { "$type": "color", "$value": "{color.on-light.text}" },
+        "font-disabled-color": { "$type": "color", "$value": "{color.state.disabled-ink}" },
+        "v-separation": { "$type": "dimension", "$value": "{space.16}" },
+        "h-separation": { "$type": "dimension", "$value": "{space.8}" },
+        "item-start-padding": { "$type": "dimension", "$value": "{space.8}" },
+        "item-end-padding": { "$type": "dimension", "$value": "{space.16}" }
       }
     }
   }

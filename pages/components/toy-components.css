@@ -1498,6 +1498,84 @@
 .tv-ToyDropdown .tv-arrow {
   margin-right: calc((var(--toy-field-dropdown-items-arrow-margin) - var(--toy-field-dropdown-normal-content-margin-inline)) * var(--px));
 }
+/* ToyDropdownList: PopupMenu · field.list · light */
+.tv-ToyDropdownList {
+  box-sizing: border-box;
+  position: relative;
+  background: var(--toy-field-list-panel-bg-color);
+  border-style: solid;
+  border-color: var(--toy-field-list-panel-border-color);
+  border-top-width: calc(var(--toy-field-list-panel-border-width) * var(--px));
+  border-right-width: calc(var(--toy-field-list-panel-border-width) * var(--px));
+  border-bottom-width: calc(var(--toy-field-list-panel-border-width) * var(--px));
+  border-left-width: calc(var(--toy-field-list-panel-border-width) * var(--px));
+  border-top-left-radius: calc(var(--toy-field-list-panel-corner-radius) * var(--px));
+  border-top-right-radius: calc(var(--toy-field-list-panel-corner-radius) * var(--px));
+  border-bottom-right-radius: calc(var(--toy-field-list-panel-corner-radius) * var(--px));
+  border-bottom-left-radius: calc(var(--toy-field-list-panel-corner-radius) * var(--px));
+  padding-top: calc((var(--toy-field-list-panel-content-margin) - var(--toy-field-list-panel-border-width)) * var(--px));
+  padding-right: calc((var(--toy-field-list-panel-content-margin) - var(--toy-field-list-panel-border-width)) * var(--px));
+  padding-bottom: calc((var(--toy-field-list-panel-content-margin) - var(--toy-field-list-panel-border-width)) * var(--px));
+  padding-left: calc((var(--toy-field-list-panel-content-margin) - var(--toy-field-list-panel-border-width)) * var(--px));
+  font-family: var(--toy-field-list-label-font-family), system-ui, sans-serif;
+  font-size: calc(var(--toy-field-list-label-font-size) * var(--px));
+  font-weight: var(--toy-field-list-label-font-weight);
+  line-height: var(--toy-field-list-label-line-height);
+  letter-spacing: calc(var(--toy-field-list-label-letter-spacing) * var(--px));
+  color: var(--toy-field-list-items-font-color);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+.tv-ToyDropdownList > .tv-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding-top: calc(var(--toy-field-list-items-v-separation) / 2 * var(--px));
+  padding-bottom: calc(var(--toy-field-list-items-v-separation) / 2 * var(--px));
+  padding-left: calc(var(--toy-field-list-items-item-start-padding) * var(--px));
+  padding-right: calc(var(--toy-field-list-items-item-end-padding) * var(--px));
+  column-gap: calc(var(--toy-field-list-items-h-separation) * var(--px));
+}
+.tv-ToyDropdownList > .tv-row > .tv-check {
+  flex: none;
+}
+.tv-ToyDropdownList > .tv-row.is-hover {
+  background: var(--toy-field-list-hover-bg-color);
+  border-top-left-radius: calc(var(--toy-field-list-hover-corner-radius) * var(--px));
+  border-top-right-radius: calc(var(--toy-field-list-hover-corner-radius) * var(--px));
+  border-bottom-right-radius: calc(var(--toy-field-list-hover-corner-radius) * var(--px));
+  border-bottom-left-radius: calc(var(--toy-field-list-hover-corner-radius) * var(--px));
+  color: var(--toy-field-list-items-font-hover-color);
+}
+.tv-ToyDropdownList > .tv-row.is-disabled {
+  color: var(--toy-field-list-items-font-disabled-color);
+}
+.tv-ToyDropdownList > .tv-row.tv-sep {
+  padding-left: 0;
+  padding-right: 0;
+}
+.tv-ToyDropdownList > .tv-row.tv-sep > .tv-separator {
+  box-sizing: border-box;
+  position: relative;
+  background: var(--toy-palette-clear);
+  border-style: solid;
+  border-color: var(--toy-field-list-separator-border-color);
+  border-top-width: calc(var(--toy-field-list-separator-border-width-top) * var(--px));
+  border-right-width: calc(var(--toy-field-list-separator-border-width-right) * var(--px));
+  border-bottom-width: calc(var(--toy-field-list-separator-border-width-bottom) * var(--px));
+  border-left-width: calc(var(--toy-field-list-separator-border-width-left) * var(--px));
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  padding-top: calc((var(--toy-field-list-separator-border-width-top) - var(--toy-field-list-separator-border-width-top)) * var(--px));
+  padding-right: calc((var(--toy-field-list-separator-border-width-right) - var(--toy-field-list-separator-border-width-right)) * var(--px));
+  padding-bottom: calc((var(--toy-field-list-separator-border-width-bottom) - var(--toy-field-list-separator-border-width-bottom)) * var(--px));
+  padding-left: calc((var(--toy-field-list-separator-border-width-left) - var(--toy-field-list-separator-border-width-left)) * var(--px));
+  height: calc((var(--toy-field-list-separator-border-width-top) + var(--toy-field-list-separator-border-width-bottom)) * var(--px));
+  flex-grow: 1;
+}
 /* ToyHowtoFrame: PanelContainer · howto.frame · light */
 .tv-ToyHowtoFrame {
   box-sizing: border-box;

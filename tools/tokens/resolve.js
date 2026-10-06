@@ -1,6 +1,6 @@
 // The DTCG 2025.10 layer of the token build (spec §7.1 steps 1-3): the resolver, strict parsing, the walk of every
 // token file, the static rules D01-D37 of dtcg-facts §9 (with the spec §7.1 changes), the merge of the permutations
-// and alias resolution to pack value objects (spec §7.3). Rules of the component profile (P40-P60) are in validate.js.
+// and alias resolution to pack value objects (spec §7.3). Rules of the component profile (P40-P63) are in validate.js.
 // Node 20, no packages.
 'use strict';
 
@@ -421,6 +421,9 @@ function walkFile(fe, P) {
       tier: fe.tier, parent, isRoot, ownType: obj.$type, description: typeof obj.$description === 'string' ? obj.$description : null,
       ext, ownProposal: proposalOwn && ext.proposal === true, proposalDeclared: proposalOwn,
       proposal: (proposalOwn && ext.proposal === true) || (parent ? parent.proposal : false),
+      // $deprecated (a boolean or the reason), inherited by the groups inside unless one sets its own
+      deprecated: '$deprecated' in obj && (typeof obj.$deprecated === 'boolean' || typeof obj.$deprecated === 'string')
+        ? obj.$deprecated : (parent ? parent.deprecated : false),
       children: [], childMap: new Map() };
     node.effType = parent ? parent.effType : null;
     node.effTypeInvalid = parent ? parent.effTypeInvalid : false;

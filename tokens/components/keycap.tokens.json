@@ -24,7 +24,7 @@
       },
       "size": {
         "$type": "dimension",
-        "min-width": { "$value": { "value": 36, "unit": "px" } },
+        "min-width": { "$value": "{size.keycap}" },
         "wide-min-width": {
           "$value": { "value": 96, "unit": "px" },
           "$description": "The wide keycap's minimum width."
@@ -53,7 +53,7 @@
       },
       "size": {
         "$type": "dimension",
-        "min-width": { "$value": { "value": 36, "unit": "px" } },
+        "min-width": { "$value": "{size.keycap}" },
         "wide-min-width": {
           "$value": { "value": 96, "unit": "px" },
           "$description": "The wide keycap's minimum width."
@@ -82,7 +82,7 @@
       },
       "size": {
         "$type": "dimension",
-        "min-width": { "$value": { "value": 36, "unit": "px" } },
+        "min-width": { "$value": "{size.keycap}" },
         "wide-min-width": {
           "$value": { "value": 96, "unit": "px" },
           "$description": "The wide keycap's minimum width."
@@ -111,7 +111,7 @@
       },
       "size": {
         "$type": "dimension",
-        "min-width": { "$value": { "value": 36, "unit": "px" } }
+        "min-width": { "$value": "{size.keycap}" }
       }
     },
     "round-quiet": {
@@ -136,7 +136,7 @@
       },
       "size": {
         "$type": "dimension",
-        "min-width": { "$value": { "value": 36, "unit": "px" } }
+        "min-width": { "$value": "{size.keycap}" }
       }
     },
     "round-button": {
@@ -185,7 +185,7 @@
       },
       "size": {
         "$type": "dimension",
-        "min-width": { "$value": { "value": 36, "unit": "px" } }
+        "min-width": { "$value": "{size.keycap}" }
       }
     },
     "button": {
@@ -234,7 +234,7 @@
       },
       "size": {
         "$type": "dimension",
-        "min-width": { "$value": { "value": 36, "unit": "px" } },
+        "min-width": { "$value": "{size.keycap}" },
         "wide-min-width": {
           "$value": { "value": 96, "unit": "px" },
           "$description": "The wide keycap's minimum width (Shift, Space, the mouse buttons)."

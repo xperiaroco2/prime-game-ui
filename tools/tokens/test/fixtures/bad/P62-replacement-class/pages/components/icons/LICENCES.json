@@ -1,0 +1,4 @@
+{
+  "knob.svg": { "licence": "own work", "author": "prime-game-ui", "what": "fixture knob in its own colours" },
+  "mark.svg": { "licence": "own work", "author": "prime-game-ui", "what": "fixture mark in currentColor" }
+}

@@ -1,5 +1,5 @@
 // The token validator (spec §7.1 step 2, §7.2): runs the DTCG rules of resolve.js on every permutation (D38) and the
-// component profile rules P40-P60. analyze(root) is the one entry used by api.js, build.js and the self-test.
+// component profile rules P40-P63 (P61-P63 since ui-0.3.0: tokens/README.md, "Profile rules since ui-0.3.0"). analyze(root) is the one entry used by api.js, build.js and the self-test.
 // CLI: node tools/tokens/validate.js [--root <dir>] [--json]
 // Node 20, no packages.
 'use strict';
@@ -12,7 +12,12 @@ const X = require('./expand.js');
 // blocks by `/* Toy[A-Za-z]+: `. A number is spelled (ToyColumnSixteen for space.16).
 const VARIATION_RE = /^Toy[A-Za-z]+$/;
 const CONTEXTS = ['dark', 'light', 'any'];
-const GODOT_VARIANT_KEYS = ['variation', 'class', 'parent', 'abstract', 'base', 'toggle', 'on'];
+const GODOT_VARIANT_KEYS = ['variation', 'class', 'parent', 'abstract', 'base', 'toggle', 'on', 'textures', 'replacement'];
+// P63: the paths each modifier owns, exactly (the resolver's descriptions say the same). "a.*" is every path under the
+// group a; anything else is one path. textSize owns the font sizes and size.keycap, the keycaps' minimum width, which
+// follows the text: a single-letter keycap is at least as wide as it is tall at every text size (prime-game-ui#27).
+const MODIFIER_OWNS = { textSize: ['font.size.*', 'size.keycap'], motion: ['duration.press'] };
+const owns = (list, p) => list.some((x) => (x.endsWith('.*') ? p.startsWith(x.slice(0, -1)) : p === x));
 const NS_KEYS = ['godot', 'context', 'proposal'];
 // P58 names PanelContainer and Panel; spec §3.7 (whose tables win, spec intro) also puts preset-card notes on the
 // ToyPresetCard buttons, so a Button or OptionButton surface is accepted too.
@@ -20,13 +25,16 @@ const ON_CLASSES = ['PanelContainer', 'Panel', 'Button', 'OptionButton'];
 const { SIDES, CORNERS, CLASSES, AUTHOR_BOX, PRESS_MEMBERS, SIZE_NAMES } = X;
 const extPtr = (v, ...rest) => R.ptrJoin(v.pointer, '$extensions', R.NS, ...rest);
 
-function analyze(root) {
+// opts.icons: the pack's icons (tools/tokens/icons.js listIcons), which godot.textures may name (P61).
+function analyze(root, opts) {
   const P = new R.Problems();
   const model = R.loadModel(root, P);
   if (!model) return { problems: P, model: null, structs: null, results: [] };
+  const icons = new Map(((opts && opts.icons) || []).map((ic) => [ic.path, ic]));
   const structs = X.collectVariants(model);
   checkNamespace(model, structs, P);
-  checkStructure(model, structs, P);
+  checkStructure(model, structs, P, icons);
+  checkModifiers(model, P);
   const results = [];
   const defaultKeys = new Set();
   const d38 = new Set();
@@ -88,7 +96,7 @@ function checkNamespace(model, structs, P) {
   }
 }
 
-function checkStructure(model, structs, P) {
+function checkStructure(model, structs, P, icons) {
   const seen = new Map();
   const variantNodes = new Set(structs.list.map((v) => v.node));
   for (const v of structs.list) {
@@ -185,7 +193,12 @@ function checkStructure(model, structs, P) {
     else if (v.cls === 'Label') required = ['normal'];
     else if (v.cls === 'HSlider') required = ['slider', 'grabber-area'];
     else if (v.cls === 'VScrollBar') required = ['scroll', 'grabber'];
+    else if (v.cls === 'PopupMenu') required = ['panel', 'hover', 'separator'];
     for (const s of required) if (!v.child(s)) P.error('P47', v.file, v.pointer, tp, `a ${v.cls} variant needs the state ${s}`);
+    // the items a class cannot do without (PopupMenu's font colours: the default theme's are light grey)
+    for (const k of info.requiredItems || []) {
+      if (!items || items.kind !== 'group' || !items.childMap.has(k)) P.error('P47', v.file, v.pointer, tp, `a ${v.cls} variant needs items.${k}`);
+    }
     if (info.container) {
       for (const k of info.items) {
         if (!items || items.kind !== 'group' || !items.childMap.has(k)) P.error('P47', v.file, v.pointer, tp, `a ${v.cls} variant needs items.${k} (its whole job)`);
@@ -234,6 +247,33 @@ function checkStructure(model, structs, P) {
         }
       }
     }
+    // P61: the class's theme icons, each a pack icon with a licence record
+    if ('textures' in v.godot) {
+      const tptr = extPtr(v, 'godot', 'textures');
+      const t = v.godot.textures;
+      const names = info.textures || [];
+      if (!R.isObj(t) || !R.keysOf(t).length) P.error('P61', v.file, tptr, tp, 'textures is a non-empty object {"<theme icon, kebab-case>": "icons/<name>.svg"}');
+      else {
+        for (const k of R.keysOf(t)) {
+          const kp = R.ptrJoin(tptr, k);
+          const ic = typeof t[k] === 'string' ? icons.get(t[k]) : null;
+          if (!names.includes(k)) P.error('P61', v.file, kp, tp, `${k} is not a theme icon of a ${v.cls} variant; ${names.length ? `its icons are ${names.join(', ')}` : 'it takes none'}`);
+          else if (typeof t[k] !== 'string') P.error('P61', v.file, kp, tp, 'a texture is the pack path of an icon: "icons/<name>.svg" (pages/components/icons) or "icons/room/<name>.svg" (the room pictograms)');
+          else if (!ic) P.error('P61', v.file, kp, tp, `${JSON.stringify(t[k])} is no icon of the pack: "icons/<name>.svg" is pages/components/icons/<name>.svg, "icons/room/<name>.svg" a room pictogram`);
+          else if (!ic.licenceOk) P.error('P61', v.file, kp, tp, `${ic.source} has no licence record with an allowed licence (own work, OFL, CC0, MIT, ISC, Apache-2.0) in its LICENCES.json`);
+        }
+      }
+    }
+    // P62: a deprecated variant may name its replacement: a variant of the same class that is not deprecated itself
+    if ('replacement' in v.godot) {
+      const rp = extPtr(v, 'godot', 'replacement');
+      const rv = typeof v.godot.replacement === 'string' ? structs.byName.get(v.godot.replacement) : null;
+      if (!v.node.deprecated) P.error('P62', v.file, rp, tp, 'replacement belongs on a deprecated variant (one with $deprecated)');
+      else if (!rv) P.error('P62', v.file, rp, tp, `replacement ${JSON.stringify(v.godot.replacement)} names no variant`);
+      else if (rv === v) P.error('P62', v.file, rp, tp, 'a variant is not its own replacement');
+      else if (rv.cls !== v.cls) P.error('P62', v.file, rp, tp, `replacement ${rv.variation} is a ${rv.cls}, not a ${v.cls}`);
+      else if (rv.node.deprecated) P.error('P62', v.file, rp, tp, `replacement ${rv.variation} is deprecated itself`);
+    }
     // P58
     if ('on' in v.godot) {
       const onp = extPtr(v, 'godot', 'on');
@@ -280,18 +320,18 @@ function checkValues(model, structs, variants, res, P) {
       const g = s.child(st);
       if (g && g.kind === 'group') checkConvention(g, val, P, X.BASE_STATES.includes(st));
     }
-    // P42 and P44 on the listed theme items: separations are dimensions of 0 or more, grabber_offset a dimension,
-    // center_grabber the number 0 or 1.
+    // P42 and P44 on the listed theme items: separations are dimensions of 0 or more, grabber_offset and PopupMenu's
+    // paddings dimensions, center_grabber the number 0 or 1, a *-color item a colour.
     const itemsNode = s.child('items');
     if (info.items && itemsNode && itemsNode.kind === 'group') {
       for (const m of itemsNode.children) {
         if (m.kind !== 'token' || !info.items.includes(m.name)) continue;
         const ty = res.typeOf(m.path);
         const vv = val(m.path);
-        const want = m.name === 'center-grabber' ? 'number' : 'dimension';
+        const want = m.name === 'center-grabber' ? 'number' : /-color$/.test(m.name) ? 'color' : 'dimension';
         if (ty && ty !== want) P.error('P42', ...loc(m), `items.${m.name} is a ${want}, not a ${ty}`);
         else if (want === 'number' && vv && vv.value !== 0 && vv.value !== 1) P.error('P42', ...loc(m), `items.center-grabber is 0 or 1 (Godot's constant used as a flag), not ${vv.value}`);
-        else if (/separation$/.test(m.name) && vv && typeof vv.px === 'number' && vv.px < 0) P.error('P44', ...loc(m), `items.${m.name} is ${vv.px}; separations are ≥ 0`);
+        else if (/(separation|padding)$/.test(m.name) && vv && typeof vv.px === 'number' && vv.px < 0) P.error('P44', ...loc(m), `items.${m.name} is ${vv.px}; separations and paddings are ≥ 0`);
       }
     }
     // P44
@@ -479,12 +519,38 @@ function checkValues(model, structs, variants, res, P) {
     } else if (ty === 'dimension') {
       // the primitives stroke.*, radius.*, focus.* and space.* (the screens' gaps); a container's separation is always
       // one of space.* (the only gaps a screen uses)
+      // a variant's size members may also reference size.*, the lengths the textSize modifier owns (P63)
       const target = n.alias ? res.tokens.get(n.alias) : null;
       const sep = isItemOf(n, variantNodes, structs) && /separation$/.test(n.name);
-      if (n.alias && (!/^(stroke|radius|focus|space)\./.test(n.alias) || (target && target.tier !== 'primitive'))) {
-        P.error('P53', n.file, `${n.pointer}/$value`, p, `component dimensions are int literals or references to the primitives stroke.*, radius.*, focus.* or space.*, not {${n.alias}}`);
+      const sizeMember = !!(n.parent && n.parent.name === 'size' && n.parent.parent && variantNodes.has(n.parent.parent));
+      const allowed = sizeMember ? /^(stroke|radius|focus|space|size)\./ : /^(stroke|radius|focus|space)\./;
+      if (n.alias && (!allowed.test(n.alias) || (target && target.tier !== 'primitive'))) {
+        P.error('P53', n.file, `${n.pointer}/$value`, p, `component dimensions are int literals or references to the primitives stroke.*, radius.*, focus.* or space.* (a size member also size.*), not {${n.alias}}`);
+      } else if (n.alias && /^size\./.test(n.alias) && target && !(target.fe && target.fe.role === 'context')) {
+        P.error('P53', n.file, `${n.pointer}/$value`, p, `{${n.alias}} is not owned by a modifier: size.* are the lengths that follow the text size (text-size/*.tokens.json)`);
       } else if (sep && (!n.alias || !n.alias.startsWith('space.'))) {
         P.error('P53', n.file, `${n.pointer}/$value`, p, `a container's ${n.name} is a reference to space.* (the screens' gaps: 4, 8, 12, 16, 24, 32)`);
+      }
+    }
+  }
+}
+
+// P63: a modifier defines only the paths it owns (MODIFIER_OWNS), and the base set none of them.
+function checkModifiers(model, P) {
+  const unknown = new Set();
+  for (const n of model.nodes) {
+    if (n.kind !== 'token' || !n.fe) continue;
+    if (n.fe.role === 'context') {
+      const list = MODIFIER_OWNS[n.fe.modifier];
+      if (!list) {
+        if (!unknown.has(n.fe.modifier)) P.error('P63', n.file, '', null, `the modifier ${JSON.stringify(n.fe.modifier)} is not one the profile knows (${Object.keys(MODIFIER_OWNS).join(', ')}): name the paths it owns in tools/tokens/validate.js MODIFIER_OWNS`);
+        unknown.add(n.fe.modifier);
+      } else if (!owns(list, n.path)) {
+        P.error('P63', n.file, n.pointer, n.path, `the modifier ${n.fe.modifier} owns only ${list.join(', ')}, not ${n.path}`);
+      }
+    } else {
+      for (const [m, list] of Object.entries(MODIFIER_OWNS)) {
+        if (owns(list, n.path)) P.error('P63', n.file, n.pointer, n.path, `${n.path} belongs to the modifier ${m} (${list.join(', ')}): define it in its context files only`);
       }
     }
   }

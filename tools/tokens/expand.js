@@ -19,12 +19,16 @@ const AUTHOR_BOX = ['bg-color', 'border-color', 'border-width', ...SIDES.map((s)
   'content-margin', 'content-margin-block', 'content-margin-inline', ...SIDES.map((s) => `content-margin-${s}`),
   'expand-margin', 'expand-margin-block', 'expand-margin-inline', ...SIDES.map((s) => `expand-margin-${s}`)];
 
-// §3.5 "State groups per class" and P42.
+// §3.5 "State groups per class" and P42. `textures`: the class's theme icons a variant may name in godot.textures (P61),
+// kebab-case like items (godot-facts §9 table: option_button.cpp binds `arrow`; slider.cpp `grabber`,
+// `grabber_highlight`, `grabber_disabled`, `tick`; popup_menu.cpp its check, radio, submenu and search icons). A class
+// without the list takes none.
 const CLASSES = {
   Button: { states: ['normal', 'hover', 'pressed', 'hover-pressed', 'disabled', 'focus'],
     font: ['normal', 'hover', 'pressed', 'hover-pressed', 'disabled', 'focus'], shadow: [], label: true, press: true },
   OptionButton: { states: ['normal', 'hover', 'pressed', 'hover-pressed', 'disabled', 'focus'],
-    font: ['normal', 'hover', 'pressed', 'hover-pressed', 'disabled', 'focus'], shadow: [], label: true, press: false },
+    font: ['normal', 'hover', 'pressed', 'hover-pressed', 'disabled', 'focus'], shadow: [], label: true, press: false,
+    textures: ['arrow'] },
   LineEdit: { states: ['normal', 'focus', 'read-only'], font: ['normal', 'read-only'], shadow: [], label: true, press: false },
   PanelContainer: { states: ['panel'], font: [], shadow: [], label: false, press: false },
   Panel: { states: ['panel'], font: [], shadow: [], label: false, press: false },
@@ -34,9 +38,19 @@ const CLASSES = {
   // grabber_disabled icons are textures, not tokens). `focus` is the Toy outer ring: Godot 4.7.2's Slider draws no focus
   // StyleBox itself, so the game draws this one over the slider while it has visible focus.
   HSlider: { states: ['slider', 'grabber-area', 'grabber-area-highlight', 'focus'], font: [], shadow: [], label: false, press: false,
-    items: ['center-grabber', 'grabber-offset'] },
+    items: ['center-grabber', 'grabber-offset'], textures: ['grabber', 'grabber-highlight', 'grabber-disabled', 'tick'] },
   VScrollBar: { states: ['scroll', 'scroll-focus', 'grabber', 'grabber-highlight', 'grabber-pressed'], font: [], shadow: [], label: false,
     press: false, items: [] },
+  // PopupMenu (popup_menu.cpp L3548-L3591 binds panel, hover, separator, labeled_separator_left/right; its font colours,
+  // constants and icons are theme items, not StyleBox fields). Toy binds the three StyleBoxes and the items below; the
+  // panel is the list's frame, hover the hovered or keyboard-focused row (drawn over the row and half its v_separation
+  // above and below), separator a separator row (as tall as its minimum size: its content margins). `requiredItems`:
+  // without them the list's text falls back to the default theme's light grey (P47).
+  PopupMenu: { states: ['panel', 'hover', 'separator'], font: [], shadow: [], label: true, press: false,
+    items: ['font-color', 'font-hover-color', 'font-disabled-color', 'v-separation', 'h-separation', 'item-start-padding', 'item-end-padding'],
+    requiredItems: ['font-color', 'font-hover-color', 'font-disabled-color'],
+    textures: ['checked', 'checked-disabled', 'unchecked', 'unchecked-disabled', 'radio-checked', 'radio-checked-disabled',
+      'radio-unchecked', 'radio-unchecked-disabled', 'submenu', 'submenu-mirrored', 'search'] },
   // Containers draw nothing: their variations hold only the separation constants (the screens' gaps, space.*).
   VBoxContainer: { states: [], font: [], shadow: [], label: false, press: false, items: ['separation'], container: true },
   HBoxContainer: { states: [], font: [], shadow: [], label: false, press: false, items: ['separation'], container: true },
@@ -51,7 +65,7 @@ const INHERITS = {
   VScrollBar: { 'scroll-focus': 'scroll', 'grabber-highlight': 'grabber', 'grabber-pressed': 'grabber' },
 };
 // The states that inherit nothing, where zero expand margins are omitted (P43).
-const BASE_STATES = ['normal', 'panel', 'fill', 'background', 'slider', 'grabber-area', 'scroll', 'grabber'];
+const BASE_STATES = ['normal', 'panel', 'fill', 'background', 'slider', 'grabber-area', 'scroll', 'grabber', 'separator'];
 const PRESS_MEMBERS = ['depth', 'hover', 'held', 'disabled'];
 const SIZE_NAMES = ['width', 'height', 'wide-width', 'min-width', 'wide-min-width'];
 const CLEAR = { type: 'color', hex: '#000000', rgba: [0, 0, 0, 0] };
@@ -72,6 +86,9 @@ function collectVariants(model) {
       base: isObj(g.base) ? g.base : null,
       toggle: isObj(g.toggle) ? g.toggle : null,
       on: Array.isArray(g.on) ? g.on.filter((s) => typeof s === 'string') : null,
+      textures: isObj(g.textures) ? g.textures : null,
+      replacement: typeof g.replacement === 'string' ? g.replacement : null,
+      deprecated: n.deprecated,
       context: typeof n.ext.context === 'string' ? n.ext.context : null,
       description: n.description,
       proposal: n.proposal,
@@ -244,6 +261,9 @@ function expandVariant(v, structs, res) {
     if (fcR) states['read-only']['font-color'] = fcR;
   } else if (info && (v.cls === 'Panel' || v.cls === 'PanelContainer')) {
     states.panel = completeBase(part('panel'), clear);
+  } else if (info && v.cls === 'PopupMenu') {
+    // Three independent StyleBoxes: each completes from StyleBoxFlat's defaults.
+    for (const s of info.states) states[s] = completeBase(part(s), clear);
   } else if (info && v.cls === 'Label') {
     const p = part('normal');
     if (hasBox(p)) states.normal = completeBase(p, clear);
@@ -290,6 +310,9 @@ function expandVariant(v, structs, res) {
     size: fieldsOfGroup(v.child('size'), val, v.node.segs.length + 1),
     ramp, stops: rampStops(v.prefix, ramp),
     proposal: proposalChildren(v),
+    // godot.textures as authored (P61 checks each names a pack icon); $deprecated with its replacement (P62)
+    textures: v.textures ? Object.fromEntries(Object.entries(v.textures).filter(([, p]) => typeof p === 'string')) : null,
+    deprecated: v.deprecated ? { replacement: v.replacement, note: typeof v.deprecated === 'string' ? v.deprecated : null } : null,
     stateProposal: Object.fromEntries(Object.keys(states).map((st) => [st, v.child(st) ? !!v.child(st).proposal : !!v.proposal])),
     description: v.description, file: v.file, pointer: v.pointer,
   };
