@@ -3,12 +3,13 @@
   "wireframe": "s2",
   "title": "Main menu",
   "background": "menu",
-  "note": "The live lobby stays behind a dim backdrop with an idle camera. There is no server browser: Host makes a game with a code, Join takes a code, Join by address (Direct) joins or hosts directly. Join, Direct and Settings are one ButtonGroup with allow_unpress: pressing one opens its panel beside the items, top-aligned with Host; pressing it again, Back or Esc (ui_cancel) closes it. Settings opens the Esc menu's Settings panel (s5 settings-sound), not drawn here.",
+  "note": "The live lobby stays behind a dim backdrop with an idle camera. There is no server browser: Host makes a game with a code, Join takes a code, Join by address (Direct) joins or hosts directly. Join, Direct and Settings are one ButtonGroup with allow_unpress: pressing one opens its panel to the right of the items (Join's and Direct's top on Host's top; Settings' a taller root of its own); pressing it again, Back or Esc (ui_cancel) closes it. The panels have no title: the pressed item names the open panel.",
   "states": [
     { "id": "main", "label": "Меню", "note": "The menu alone; keyboard focus starts on Host." },
-    { "id": "code", "label": "Код", "note": "Join pressed: the code panel, the field focused (empty when it opens; here three characters typed), Join unplugged." },
+    { "id": "code", "label": "Код", "note": "Join pressed: the code panel opens with the field focused and empty, Join unplugged." },
     { "id": "code-ready", "label": "Код готовий", "note": "Six valid characters typed: Join is enabled." },
-    { "id": "direct", "label": "За адресою", "note": "Join by address pressed: the Direct panel, the address focused." }
+    { "id": "direct", "label": "За адресою", "note": "Join by address pressed: the Direct panel, the address focused." },
+    { "id": "settings", "label": "Налаштування", "note": "Settings pressed: the Settings panel on its Sound and voice page, focus on Sound and voice." }
   ],
   "nodes": [
     {
@@ -17,18 +18,21 @@
     },
     {
       "name": "Column", "type": "VBoxContainer", "variation": "ToyColumnTwentyFour",
-      "anchors_preset": "top_left", "offset_left": 134, "offset_top": 259, "offset_right": 134, "offset_bottom": 259,
-      "note": "The game's name (Label ToyLogo, the working title \"prime-game\", auto_translate_mode DISABLED) is the first child, above NameRow; it is left out of this mock-up until the format can draw a text that is not a deck key.",
+      "anchors_preset": "top_left", "offset_left": 136, "offset_top": 256, "offset_right": 136, "offset_bottom": 256,
       "children": [
         {
+          "name": "Logo", "type": "Label", "variation": "ToyLogo", "text": "prime-game",
+          "note": "The game's name, the working title \"prime-game\" (auto_translate_mode DISABLED; not a deck key)."
+        },
+        {
           "name": "NameRow", "type": "HBoxContainer", "variation": "ToyRowTwelve", "size_flags_horizontal": "shrink_begin",
-          "custom_minimum_size": [576, 0],
+          "custom_minimum_size": [592, 0],
           "children": [
             { "name": "NameLabel", "type": "Label", "variation": "ToyTextMutedOnDark", "key": "player.name", "size_flags_vertical": "shrink_center" },
             {
               "name": "Name", "type": "LineEdit", "variation": "ToyField", "text": { "uk": "Олена", "en": "Olena" },
               "size_flags_horizontal": "expand_fill",
-              "note": "The player's name, kept between sessions (user://); never empty: the last name used, else the system user name. max_length as the game's name rule. auto_translate_mode DISABLED."
+              "note": "The player's name, kept between sessions (user://); never empty: the last name used, else the system user name. max_length 16 (characters, the same limit in both languages: wave 1's proposal until the game sets its name rule; the host checks String.length() too); a longer text scrolls inside the field. auto_translate_mode DISABLED."
             }
           ]
         },
@@ -37,24 +41,24 @@
           "note": "The items, then the open panel (if any) to their right, its top on Host's top.",
           "children": [
             {
-              "name": "Items", "type": "VBoxContainer", "variation": "ToyColumnFour", "custom_minimum_size": [576, 0],
+              "name": "Items", "type": "VBoxContainer", "variation": "ToyColumnFour", "custom_minimum_size": [592, 0],
               "size_flags_vertical": "shrink_begin",
               "note": "Up and down move the focus through the items; the focused, hovered or pressed item shows its pointer icon.",
               "children": [
                 {
                   "name": "Host", "type": "Button", "variation": "ToyMenuItem", "key": "menu.host", "icon": "pointer", "icon_size": 24,
-                  "alignment": "left", "state": "focus", "per_state": { "code": { "state": "normal" }, "code-ready": { "state": "normal" }, "direct": { "state": "normal" } },
+                  "alignment": "left", "state": "focus", "per_state": { "code": { "state": "normal" }, "code-ready": { "state": "normal" }, "direct": { "state": "normal" }, "settings": { "state": "normal" } },
                   "note": "Focus on open. Hosts a game with a code (WebRTC) and goes straight to the lobby (s4); a failure shows s3 host-failed."
                 },
                 {
                   "name": "Join", "type": "Button", "variation": "ToyMenuItem", "key": "menu.join", "icon": "pointer", "icon_size": 24,
-                  "alignment": "left", "per_state": { "code": { "state": "held" }, "code-ready": { "state": "held" } },
-                  "note": "toggle_mode true, in the menu ButtonGroup; button_pressed while CodePanel is open (ToyMenuItem's pressed StyleBox and pointer; drawn here as held). Toggles CodePanel."
+                  "alignment": "left", "toggle_mode": true, "per_state": { "code": { "state": "selected" }, "code-ready": { "state": "selected" } },
+                  "note": "In the menu ButtonGroup; button_pressed while CodePanel is open (ToyMenuItem's own pressed StyleBox and pointer). Toggles CodePanel."
                 },
                 {
                   "name": "Direct", "type": "Button", "variation": "ToyMenuItem", "key": "menu.direct", "icon": "pointer", "icon_size": 24,
-                  "alignment": "left", "per_state": { "direct": { "state": "held" } },
-                  "note": "toggle_mode true, in the menu ButtonGroup; button_pressed while DirectPanel is open (drawn here as held). Toggles DirectPanel."
+                  "alignment": "left", "toggle_mode": true, "per_state": { "direct": { "state": "selected" } },
+                  "note": "In the menu ButtonGroup; button_pressed while DirectPanel is open (its own pressed StyleBox). Toggles DirectPanel."
                 },
                 {
                   "name": "Tutorial", "type": "Button", "variation": "ToyMenuItem", "key": "menu.tutorial", "icon": "pointer", "icon_size": 24,
@@ -62,8 +66,8 @@
                 },
                 {
                   "name": "Settings", "type": "Button", "variation": "ToyMenuItem", "key": "menu.settings", "icon": "pointer", "icon_size": 24,
-                  "alignment": "left",
-                  "note": "toggle_mode true, in the menu ButtonGroup. Toggles the Esc menu's Settings panel code (s5 settings-sound, #301) in a ToyPanelMenu titled esc.tab.settings, a root of its own at @TOP_LEFT (838, 97), 941x886 (its left edge on the other panels' left edge; too tall to sit in Body): the mic, the mode, the threshold with its live meter, noise suppression and the volumes work without a session; nothing is sent."
+                  "alignment": "left", "toggle_mode": true, "per_state": { "settings": { "state": "selected" } },
+                  "note": "In the menu ButtonGroup; button_pressed while SettingsPanel is open (its own pressed StyleBox). Toggles SettingsPanel."
                 },
                 {
                   "name": "Quit", "type": "Button", "variation": "ToyMenuItem", "key": "menu.quit", "icon": "pointer", "icon_size": 24,
@@ -77,19 +81,18 @@
             },
             {
               "name": "CodePanel", "type": "PanelContainer", "variation": "ToyPanelMenu", "states": ["code", "code-ready"],
-              "custom_minimum_size": [672, 0], "size_flags_vertical": "shrink_begin",
-              "note": "Join with a code. Shown while Join is pressed.",
+              "custom_minimum_size": [784, 0], "size_flags_vertical": "shrink_begin",
+              "note": "Join with a code. Shown while Join is pressed. As wide as DirectPanel, so the two panels never differ.",
               "children": [
                 {
                   "name": "V", "type": "VBoxContainer", "variation": "ToyColumnSixteen",
                   "children": [
-                    { "name": "Title", "type": "Label", "variation": "ToyTitleOnLight", "key": "menu.join" },
                     {
                       "name": "Field", "type": "VBoxContainer", "variation": "ToyColumnEight",
                       "children": [
                         { "name": "CodeLabel", "type": "Label", "variation": "ToyTextMutedOnLight", "key": "common.code" },
                         {
-                          "name": "Code", "type": "LineEdit", "variation": "ToyField", "text": "K7Q", "state": "focus",
+                          "name": "Code", "type": "LineEdit", "variation": "ToyField", "text": "", "state": "focus",
                           "per_state": { "code-ready": { "text": "K7Q2XR" } },
                           "note": "Focused and empty when the panel opens. max_length 6; upper-cases as typed, drops spaces and dashes on paste, accepts only the 31-letter code alphabet (no 0, O, 1, I, L). Keeps what was typed after a failure (back from s3). Enter = Join when it is enabled. auto_translate_mode DISABLED."
                         }
@@ -112,13 +115,12 @@
             },
             {
               "name": "DirectPanel", "type": "PanelContainer", "variation": "ToyPanelMenu", "states": ["direct"],
-              "custom_minimum_size": [672, 0], "size_flags_vertical": "shrink_begin",
+              "custom_minimum_size": [784, 0], "size_flags_vertical": "shrink_begin",
               "note": "Join or host directly over ENet (LAN, VPN, playit.gg). Shown while Direct is pressed. No address is shown anywhere else (streams).",
               "children": [
                 {
                   "name": "V", "type": "VBoxContainer", "variation": "ToyColumnSixteen",
                   "children": [
-                    { "name": "Title", "type": "Label", "variation": "ToyTitleOnLight", "key": "menu.direct" },
                     {
                       "name": "Field", "type": "VBoxContainer", "variation": "ToyColumnEight",
                       "children": [
@@ -156,8 +158,154 @@
       ]
     },
     {
+      "name": "SettingsPanel", "type": "PanelContainer", "variation": "ToyPanelMenu", "states": ["settings"],
+      "anchors_preset": "top_left", "offset_left": 856, "offset_top": 96, "offset_right": 1816, "offset_bottom": 984,
+      "note": "Shown while Settings is pressed. A root of its own (too tall for Body): its left edge on the code and Direct panels' left edge (856), 960x888 (the five page chips fit at large text), centred vertically; raised on its ToyRaised wrapper. It holds the Esc menu's Settings scene (s5/Menu/H/Page/Settings), one scene that both menus instance (#301): the mic, the mode, the threshold with its live meter, noise suppression and the volumes work without a session; nothing is sent. Focus goes to Settings/Sub/Sound when it opens; Settings again or Esc (ui_cancel) closes it and gives the focus back to Items/Settings.",
+      "children": [
+        {
+          "name": "Settings", "type": "VBoxContainer", "variation": "ToyColumnSixteen", "note": "The s5 Settings scene (s5/Menu/H/Page/Settings), instanced here on its Sound and voice page; its nodes, notes and other pages are s5's. Build it once, in s5.",
+          "children": [
+            {
+              "name": "Sub", "type": "HBoxContainer", "variation": "ToyRowEight",
+              "children": [
+                { "name": "Sound", "type": "Button", "variation": "ToyChipToggleOnLight", "key": "settings.tab.sound", "toggle_mode": true, "state": "selected-focus" },
+                { "name": "Controls", "type": "Button", "variation": "ToyChipToggleOnLight", "key": "settings.tab.controls", "toggle_mode": true },
+                { "name": "Display", "type": "Button", "variation": "ToyChipToggleOnLight", "key": "settings.tab.display", "toggle_mode": true },
+                { "name": "Access", "type": "Button", "variation": "ToyChipToggleOnLight", "key": "settings.tab.accessibility", "toggle_mode": true },
+                { "name": "Language", "type": "Button", "variation": "ToyChipToggleOnLight", "key": "settings.tab.language", "toggle_mode": true }
+              ]
+            },
+            {
+              "name": "Scroll", "type": "ScrollContainer", "variation": "ToyScroll", "size_flags_vertical": "expand_fill",
+              "children": [
+                {
+                  "name": "Rows", "type": "VBoxContainer", "variation": "ToyColumnEight", "size_flags_horizontal": "expand_fill",
+                  "children": [
+                    {
+                      "name": "Mic", "type": "PanelContainer", "variation": "ToySettingRow", "custom_minimum_size": [0, 64],
+                      "children": [
+                        {
+                          "name": "H", "type": "HBoxContainer", "variation": "ToyRowTwelve",
+                          "children": [
+                            { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "settings.mic", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
+                            { "name": "Device", "type": "OptionButton", "variation": "ToyDropdown", "key": "settings.mic.default", "items": ["settings.mic.default"], "custom_minimum_size": [500, 0], "size_flags_vertical": "shrink_center", "clip_text": true, "text_overrun_behavior": "trim_ellipsis" }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "TalkMode", "type": "PanelContainer", "variation": "ToySettingRow", "custom_minimum_size": [0, 64],
+                      "children": [
+                        {
+                          "name": "H", "type": "HBoxContainer", "variation": "ToyRowTwelve",
+                          "children": [
+                            { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "settings.talk_mode", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
+                            { "name": "Mode", "type": "OptionButton", "variation": "ToyDropdown", "key": "settings.talk_mode.open", "items": ["settings.talk_mode.open", "settings.talk_mode.push", "common.off"], "custom_minimum_size": [500, 0], "size_flags_vertical": "shrink_center" }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "Threshold", "type": "PanelContainer", "variation": "ToySettingRow", "custom_minimum_size": [0, 64],
+                      "children": [
+                        {
+                          "name": "H", "type": "HBoxContainer", "variation": "ToyRowTwelve",
+                          "children": [
+                            { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "settings.voice_threshold", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
+                            { "name": "Slider", "type": "HSlider", "variation": "ToySlider", "value": 40, "custom_minimum_size": [500, 0], "size_flags_vertical": "shrink_center" }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "MicTest", "type": "PanelContainer", "variation": "ToySettingRow", "custom_minimum_size": [0, 64],
+                      "children": [
+                        {
+                          "name": "H", "type": "HBoxContainer", "variation": "ToyRowTwelve",
+                          "children": [
+                            { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "settings.mic_test", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
+                            { "name": "Meter", "type": "ProgressBar", "variation": "ToyBarSlider", "value": 40, "show_percentage": false, "custom_minimum_size": [500, 10], "size_flags_vertical": "shrink_center" }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "Noise", "type": "PanelContainer", "variation": "ToySettingRow", "custom_minimum_size": [0, 64],
+                      "children": [
+                        {
+                          "name": "H", "type": "HBoxContainer", "variation": "ToyRowTwelve",
+                          "children": [
+                            { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "settings.noise_suppression", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
+                            {
+                              "name": "Toggle", "type": "HBoxContainer", "variation": "ToyRowEight", "custom_minimum_size": [500, 0], "size_flags_vertical": "shrink_center",
+                              "children": [
+                                { "name": "Off", "type": "Button", "variation": "ToyChipToggleOnLight", "key": "common.off", "toggle_mode": true },
+                                { "name": "On", "type": "Button", "variation": "ToyChipToggleOnLight", "key": "common.on", "toggle_mode": true, "state": "selected" }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "Overall", "type": "PanelContainer", "variation": "ToySettingRow", "custom_minimum_size": [0, 64],
+                      "children": [
+                        {
+                          "name": "H", "type": "HBoxContainer", "variation": "ToyRowTwelve",
+                          "children": [
+                            { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "settings.game_volume", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
+                            { "name": "Slider", "type": "HSlider", "variation": "ToySlider", "value": 55, "custom_minimum_size": [500, 0], "size_flags_vertical": "shrink_center" }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "Voices", "type": "PanelContainer", "variation": "ToySettingRow", "custom_minimum_size": [0, 64],
+                      "children": [
+                        {
+                          "name": "H", "type": "HBoxContainer", "variation": "ToyRowTwelve",
+                          "children": [
+                            { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "settings.voice_volume", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
+                            { "name": "Slider", "type": "HSlider", "variation": "ToySlider", "value": 70, "custom_minimum_size": [500, 0], "size_flags_vertical": "shrink_center" }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "Effects", "type": "PanelContainer", "variation": "ToySettingRow", "custom_minimum_size": [0, 64],
+                      "children": [
+                        {
+                          "name": "H", "type": "HBoxContainer", "variation": "ToyRowTwelve",
+                          "children": [
+                            { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "settings.effects_volume", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
+                            { "name": "Slider", "type": "HSlider", "variation": "ToySlider", "value": 80, "custom_minimum_size": [500, 0], "size_flags_vertical": "shrink_center" }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "Music", "type": "PanelContainer", "variation": "ToySettingRow", "custom_minimum_size": [0, 64],
+                      "children": [
+                        {
+                          "name": "H", "type": "HBoxContainer", "variation": "ToyRowTwelve",
+                          "children": [
+                            { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "settings.music_volume", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
+                            { "name": "Slider", "type": "HSlider", "variation": "ToySlider", "value": 50, "custom_minimum_size": [500, 0], "size_flags_vertical": "shrink_center" }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
       "name": "Version", "type": "Label", "variation": "ToyTextMutedOnDark", "key": "menu.version", "args": { "version": "0.4" },
-      "anchors_preset": "bottom_right", "offset_left": -40, "offset_top": -32, "offset_right": -40, "offset_bottom": -32,
+      "anchors_preset": "bottom_right", "offset_left": -40, "offset_top": -40, "offset_right": -40, "offset_bottom": -40,
       "grow_horizontal": "begin", "grow_vertical": "begin",
       "note": "The build's version (ProjectSettings application/config/version)."
     }

@@ -316,11 +316,11 @@
   padding-right: calc((var(--toy-slot-idle-panel-content-margin) - var(--toy-slot-idle-panel-border-width)) * var(--px));
   padding-bottom: calc((var(--toy-slot-idle-panel-content-margin) - var(--toy-slot-idle-panel-border-width)) * var(--px));
   padding-left: calc((var(--toy-slot-idle-panel-content-margin) - var(--toy-slot-idle-panel-border-width)) * var(--px));
-  width: calc(var(--toy-slot-idle-size-width) * var(--px));
+  min-width: calc(var(--toy-slot-idle-size-width) * var(--px));
   height: calc(var(--toy-slot-idle-size-height) * var(--px));
 }
 .tv-ToySlot.tv-wide {
-  width: calc(var(--toy-slot-idle-size-wide-width) * var(--px));
+  min-width: calc(var(--toy-slot-idle-size-wide-width) * var(--px));
 }
 /* ToySlotActive: PanelContainer · slot.active · dark */
 .tv-ToySlotActive {
@@ -341,11 +341,11 @@
   padding-right: calc((var(--toy-slot-active-panel-content-margin) - var(--toy-slot-active-panel-border-width)) * var(--px));
   padding-bottom: calc((var(--toy-slot-active-panel-content-margin) - var(--toy-slot-active-panel-border-width)) * var(--px));
   padding-left: calc((var(--toy-slot-active-panel-content-margin) - var(--toy-slot-active-panel-border-width)) * var(--px));
-  width: calc(var(--toy-slot-active-size-width) * var(--px));
+  min-width: calc(var(--toy-slot-active-size-width) * var(--px));
   height: calc(var(--toy-slot-active-size-height) * var(--px));
 }
 .tv-ToySlotActive.tv-wide {
-  width: calc(var(--toy-slot-active-size-wide-width) * var(--px));
+  min-width: calc(var(--toy-slot-active-size-wide-width) * var(--px));
 }
 /* ToySlotText: Label · slot.text · dark */
 .tv-ToySlotText {

@@ -3,10 +3,11 @@
 // they are sent to Edge as source text, so they can use nothing from Node.
 //
 // Per frame (.sc-frame[data-screen][data-state], in source order) it records every [data-node] element and every
-// [data-key] element. Lengths are CSS px relative to the frame's top-left corner, rounded to 0.01; in measuring mode
-// 1 CSS px = 1 reference px.
-//   node: { node, type, variation, key, visible, display, opacity, box, content, scroll: {w, h, cw, ch},
+// text element: [data-key] (a deck text) and [data-text] (a data text, recorded with the key "(data)"). Lengths are CSS
+// px relative to the frame's top-left corner, rounded to 0.01; in measuring mode 1 CSS px = 1 reference px.
+//   node: { node, type, variation, key, clip, visible, display, opacity, box, content, scroll: {w, h, cw, ch},
 //           overflow: [x, y], parent, clipX, clipY }
+//     clip     data-clip: "ellipsis" or "clip" when the node cuts its text on purpose (clip_text, text_overrun_behavior)
 //     box      the border box; content: the box minus borders and padding
 //     parent   the nearest [data-node] ancestor inside the frame (its data-node), or null
 //     clipX/Y  the nearest element between the node and the frame (both excluded) whose overflow in that axis is not
@@ -25,7 +26,7 @@
 // Comfortaa face at all (nothing to load), so the faces are counted too.
 function fontState() {
   var shown = "";
-  document.querySelectorAll("[data-key]").forEach(function (el) {
+  document.querySelectorAll("[data-key], [data-text]").forEach(function (el) {
     if (el.getClientRects().length) shown += el.textContent;
   });
   var faces = [];
@@ -116,7 +117,7 @@ function measure(opts, fontState) {
       }
       rec.nodes.push({
         node: el.getAttribute("data-node"), type: el.getAttribute("data-type"),
-        variation: el.getAttribute("data-variation"), key: el.getAttribute("data-key"),
+        variation: el.getAttribute("data-variation"), key: el.getAttribute("data-key"), clip: el.getAttribute("data-clip"),
         visible: visible(el, cs), display: cs.display, opacity: Number(cs.opacity),
         box: rel(el.getBoundingClientRect()), content: inner(el, cs, true),
         scroll: { w: el.scrollWidth, h: el.scrollHeight, cw: el.clientWidth, ch: el.clientHeight },
@@ -124,7 +125,7 @@ function measure(opts, fontState) {
       });
     });
 
-    fr.querySelectorAll("[data-key]").forEach(function (el) {
+    fr.querySelectorAll("[data-key], [data-text]").forEach(function (el) {
       var cs = getComputedStyle(el);
       var host = el.closest("[data-node]");
       if (host && !fr.contains(host)) host = null;
@@ -148,7 +149,7 @@ function measure(opts, fontState) {
         if (a === fr) break;
       }
       rec.texts.push({
-        key: el.getAttribute("data-key"), host: host ? host.getAttribute("data-node") : null,
+        key: el.getAttribute("data-key") || "(data)", host: host ? host.getAttribute("data-node") : null,
         text: el.textContent, visible: visible(el, cs), children: el.children.length,
         box: rel(el.getBoundingClientRect()), rects: rects,
         union: u ? { x: R(u.x), y: R(u.y), w: R(u.r - u.x), h: R(u.b - u.y) } : null,

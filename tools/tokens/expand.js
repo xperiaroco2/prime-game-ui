@@ -41,6 +41,9 @@ const CLASSES = {
   VBoxContainer: { states: [], font: [], shadow: [], label: false, press: false, items: ['separation'], container: true },
   HBoxContainer: { states: [], font: [], shadow: [], label: false, press: false, items: ['separation'], container: true },
   GridContainer: { states: [], font: [], shadow: [], label: false, press: false, items: ['h-separation', 'v-separation'], container: true },
+  // ScrollContainer (vertical scrolling only): scrollbar_h_separation is the gap between the content and the vertical
+  // bar (Godot 4.7 class reference: "the space between the ScrollContainer's vertical scroll bar and its content").
+  ScrollContainer: { states: [], font: [], shadow: [], label: false, press: false, items: ['scrollbar-h-separation'], container: true },
 };
 // The state an inheriting state completes from (the other states complete from StyleBoxFlat's defaults).
 const INHERITS = {

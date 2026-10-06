@@ -5,11 +5,11 @@
   "background": "room-dark",
   "note": "The same HUD as s7: Hud and its nodes are s7's (same names and places); this screen only hides and returns them and adds the downed, spectating and protection plates. Aim and the name plates behave as in s7 and are left out here. Every node has mouse_filter IGNORE. Never show who knocked the player down.",
   "states": [
-    { "id": "down", "label": "Повалений", "note": "Downed and bleeding out: only the two plates and the mic (off) show; the rest of the HUD hides." },
+    { "id": "down", "label": "Нокдаун", "note": "Downed and bleeding out: only the two plates and the mic (off) show; the rest of the HUD hides." },
     { "id": "down-holding", "label": "Утримуєш F", "note": "The give-up key is held: the hold bar fills over 1 s." },
     { "id": "raise", "label": "Тебе піднімають", "note": "A teammate is raising the player: the raise progress replaces the bleed-out bar; giving up hides." },
-    { "id": "dead", "label": "Мертвий: дивишся", "note": "Spectating another player: only the time to respawn and the watched player's name." },
-    { "id": "back", "label": "Повернення", "note": "Back in the round: the s7 HUD returns with a 3 s protection chip." }
+    { "id": "dead", "label": "Смерть: спостереження", "note": "Spectating another player: only the time to respawn and the watched player's name." },
+    { "id": "back", "label": "Повернення", "note": "Back in the round: the s7 HUD returns with a 3 s protection chip. Stamina returns full in the game; the sample shows it part-empty only so the bar is reviewed over a dark room." }
   ],
   "nodes": [
     {
@@ -21,9 +21,8 @@
           "anchors_preset": "center_top", "offset_top": 40, "offset_bottom": 40, "grow_horizontal": "both",
           "children": [
             {
-              "name": "Time", "type": "Label", "variation": "ToyTimer", "key": "map.time", "value_of": "time",
-              "args": { "time": "05:10" }, "horizontal_alignment": "center", "custom_minimum_size": [128, 0],
-              "note": "As s7: the round's time left as mm:ss from code."
+              "name": "Time", "type": "Label", "variation": "ToyTimer", "text": "05:10", "horizontal_alignment": "center", "custom_minimum_size": [140, 0],
+              "note": "As s7: the round's time left as mm:ss from code; the minimum width holds \"44:44\"."
             }
           ]
         },
@@ -70,7 +69,8 @@
                   "children": [
                     {
                       "name": "Fill", "type": "ProgressBar", "variation": "ToyBarStamina", "show_percentage": false,
-                      "max_value": 1, "value": 1, "custom_minimum_size": [0, 10]
+                      "max_value": 1, "value": 1, "custom_minimum_size": [0, 10],
+                      "per_state": { "back": { "value": 0.35 } }
                     }
                   ]
                 }
@@ -137,9 +137,9 @@
       ]
     },
     {
-      "name": "Downed", "type": "PanelContainer", "variation": "ToyPlateNight", "states": ["down", "down-holding", "raise"],
+      "name": "Downed", "type": "PanelContainer", "variation": "ToyPlate", "states": ["down", "down-holding", "raise"],
       "anchors_preset": "center_top", "offset_top": 152, "offset_bottom": 152, "grow_horizontal": "both",
-      "custom_minimum_size": [690, 0],
+      "custom_minimum_size": [688, 0],
       "note": "Shown from the moment the player is downed until they are raised, give up or bleed out.",
       "children": [
         {
@@ -182,15 +182,15 @@
     },
     {
       "name": "GiveUp", "type": "PanelContainer", "variation": "ToyPlate", "states": ["down", "down-holding"],
-      "anchors_preset": "center_bottom", "offset_top": -130, "offset_bottom": -130, "grow_horizontal": "both",
+      "anchors_preset": "center_bottom", "offset_top": -128, "offset_bottom": -128, "grow_horizontal": "both",
       "note": "Hidden while someone raises the player.",
       "children": [
         {
           "name": "V", "type": "VBoxContainer", "variation": "ToyColumnEight",
           "children": [
             {
-              "name": "Line", "type": "HBoxContainer", "variation": "ToyRowEight", "alignment": "center",
-              "note": "tr(\"downed.give_up_hold\") split at {key}: the words around a keycap.",
+              "name": "Line", "type": "HBoxContainer", "variation": "ToyRowFour", "alignment": "center",
+              "note": "tr(\"downed.give_up_hold\") split at {key}: the words around a keycap, each piece through strip_edges() (the 4 px gap and the keycap's own padding stand in for the spaces, so the uk comma sits by the key). A piece that is empty after strip_edges() is hidden.",
               "children": [
                 {
                   "name": "Before", "type": "Label", "variation": "ToyTextOnDark", "key": "downed.give_up_hold", "piece": 0,

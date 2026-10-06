@@ -251,6 +251,21 @@
 .tv-ToyButtonPrimary.is-focus > .tv-focus, .tv-ToyButtonPrimary:focus-visible > .tv-focus {
   display: block;
 }
+.tv-ToyButtonPrimary .tv-icon {
+  color: var(--toy-button-primary-items-icon-normal-color);
+}
+.tv-ToyButtonPrimary.is-focus .tv-icon, .tv-ToyButtonPrimary:focus-visible .tv-icon {
+  color: var(--toy-button-primary-items-icon-focus-color);
+}
+.tv-ToyButtonPrimary.is-hover .tv-icon {
+  color: var(--toy-button-primary-items-icon-hover-color);
+}
+.tv-ToyButtonPrimary.is-held .tv-icon {
+  color: var(--toy-button-primary-items-icon-pressed-color);
+}
+.tv-ToyButtonPrimary.is-disabled .tv-icon {
+  color: var(--toy-button-primary-items-icon-disabled-color);
+}
 /* ToyButtonSecondary: Button → ToyButton · button.secondary · any */
 .tv-ToyButtonSecondary {
   box-sizing: border-box;
@@ -1247,11 +1262,11 @@
   padding-right: calc((var(--toy-slot-idle-panel-content-margin) - var(--toy-slot-idle-panel-border-width)) * var(--px));
   padding-bottom: calc((var(--toy-slot-idle-panel-content-margin) - var(--toy-slot-idle-panel-border-width)) * var(--px));
   padding-left: calc((var(--toy-slot-idle-panel-content-margin) - var(--toy-slot-idle-panel-border-width)) * var(--px));
-  width: calc(var(--toy-slot-idle-size-width) * var(--px));
+  min-width: calc(var(--toy-slot-idle-size-width) * var(--px));
   height: calc(var(--toy-slot-idle-size-height) * var(--px));
 }
 .tv-ToySlot.tv-wide {
-  width: calc(var(--toy-slot-idle-size-wide-width) * var(--px));
+  min-width: calc(var(--toy-slot-idle-size-wide-width) * var(--px));
 }
 /* ToySlotActive: PanelContainer · slot.active · dark */
 .tv-ToySlotActive {
@@ -1272,11 +1287,11 @@
   padding-right: calc((var(--toy-slot-active-panel-content-margin) - var(--toy-slot-active-panel-border-width)) * var(--px));
   padding-bottom: calc((var(--toy-slot-active-panel-content-margin) - var(--toy-slot-active-panel-border-width)) * var(--px));
   padding-left: calc((var(--toy-slot-active-panel-content-margin) - var(--toy-slot-active-panel-border-width)) * var(--px));
-  width: calc(var(--toy-slot-active-size-width) * var(--px));
+  min-width: calc(var(--toy-slot-active-size-width) * var(--px));
   height: calc(var(--toy-slot-active-size-height) * var(--px));
 }
 .tv-ToySlotActive.tv-wide {
-  width: calc(var(--toy-slot-active-size-wide-width) * var(--px));
+  min-width: calc(var(--toy-slot-active-size-wide-width) * var(--px));
 }
 /* ToySlotText: Label · slot.text · dark */
 .tv-ToySlotText {
@@ -2240,6 +2255,21 @@
 }
 .opt-q10-b .tv-ToyButtonPrimary > .tv-focus {
   border-color: var(--toy-choice-q10-b-button-primary-focus-border-color);
+}
+.opt-q10-b .tv-ToyButtonPrimary .tv-icon {
+  color: var(--toy-choice-q10-b-button-primary-items-icon-normal-color);
+}
+.opt-q10-b .tv-ToyButtonPrimary.is-focus .tv-icon, .opt-q10-b .tv-ToyButtonPrimary:focus-visible .tv-icon {
+  color: var(--toy-choice-q10-b-button-primary-items-icon-focus-color);
+}
+.opt-q10-b .tv-ToyButtonPrimary.is-hover .tv-icon {
+  color: var(--toy-choice-q10-b-button-primary-items-icon-hover-color);
+}
+.opt-q10-b .tv-ToyButtonPrimary.is-held .tv-icon {
+  color: var(--toy-choice-q10-b-button-primary-items-icon-pressed-color);
+}
+.opt-q10-b .tv-ToyButtonPrimary.is-disabled .tv-icon {
+  color: var(--toy-button-primary-items-icon-disabled-color);
 }
 /* .opt-q10-b · ToyButtonGhostOnLight: Button → ToyButton · button.ghost-on-light · light */
 .opt-q10-b .tv-ToyButtonGhostOnLight {

@@ -171,6 +171,18 @@
         "h-separation": { "$type": "dimension", "$value": "{space.12}" },
         "v-separation": { "$type": "dimension", "$value": "{space.12}" }
       }
+    },
+    "scroll": {
+      "$description": "A list that scrolls vertically: 8 px between its content and the vertical scroll bar (ScrollContainer scrollbar_h_separation), so the rows never touch the bar.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyScroll", "class": "ScrollContainer" },
+          "context": "any"
+        }
+      },
+      "items": {
+        "scrollbar-h-separation": { "$type": "dimension", "$value": "{space.8}" }
+      }
     }
   }
 }

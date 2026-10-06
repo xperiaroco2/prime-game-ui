@@ -529,6 +529,21 @@
 .tv-ToyButtonPrimary.is-focus > .tv-focus, .tv-ToyButtonPrimary:focus-visible > .tv-focus {
   display: block;
 }
+.tv-ToyButtonPrimary .tv-icon {
+  color: var(--toy-button-primary-items-icon-normal-color);
+}
+.tv-ToyButtonPrimary.is-focus .tv-icon, .tv-ToyButtonPrimary:focus-visible .tv-icon {
+  color: var(--toy-button-primary-items-icon-focus-color);
+}
+.tv-ToyButtonPrimary.is-hover .tv-icon {
+  color: var(--toy-button-primary-items-icon-hover-color);
+}
+.tv-ToyButtonPrimary.is-held .tv-icon {
+  color: var(--toy-button-primary-items-icon-pressed-color);
+}
+.tv-ToyButtonPrimary.is-disabled .tv-icon {
+  color: var(--toy-button-primary-items-icon-disabled-color);
+}
 /* ToyButtonSecondary: Button → ToyButton · button.secondary · any */
 .tv-ToyButtonSecondary {
   box-sizing: border-box;
@@ -1902,6 +1917,10 @@
   column-gap: calc(var(--toy-layout-grid-swatch-items-h-separation) * var(--px));
   row-gap: calc(var(--toy-layout-grid-swatch-items-v-separation) * var(--px));
 }
+/* ToyScroll: ScrollContainer · layout.scroll · any */
+.tv-ToyScroll {
+  column-gap: calc(var(--toy-layout-scroll-items-scrollbar-h-separation) * var(--px));
+}
 /* ToyMapBoard: PanelContainer · map.board · light */
 .tv-ToyMapBoard {
   box-sizing: border-box;
@@ -2012,7 +2031,7 @@
   padding-right: calc(var(--toy-mic-plate-panel-content-margin) * var(--px));
   padding-bottom: calc(var(--toy-mic-plate-panel-content-margin) * var(--px));
   padding-left: calc(var(--toy-mic-plate-panel-content-margin) * var(--px));
-  width: calc(var(--toy-mic-plate-size-width) * var(--px));
+  min-width: calc(var(--toy-mic-plate-size-width) * var(--px));
   height: calc(var(--toy-mic-plate-size-height) * var(--px));
 }
 .tv-ToyMic .tv-icon-on {
@@ -2204,7 +2223,7 @@
   line-height: var(--toy-pick-radio-label-line-height);
   letter-spacing: calc(var(--toy-pick-radio-label-letter-spacing) * var(--px));
   color: var(--toy-pick-radio-normal-font-color);
-  width: calc(var(--toy-pick-radio-size-width) * var(--px));
+  min-width: calc(var(--toy-pick-radio-size-width) * var(--px));
   height: calc(var(--toy-pick-radio-size-height) * var(--px));
   cursor: pointer;
 }
@@ -2261,7 +2280,7 @@
   line-height: var(--toy-pick-radio-selected-label-line-height);
   letter-spacing: calc(var(--toy-pick-radio-selected-label-letter-spacing) * var(--px));
   color: var(--toy-pick-radio-selected-normal-font-color);
-  width: calc(var(--toy-pick-radio-selected-size-width) * var(--px));
+  min-width: calc(var(--toy-pick-radio-selected-size-width) * var(--px));
   height: calc(var(--toy-pick-radio-selected-size-height) * var(--px));
   cursor: pointer;
 }
@@ -2739,11 +2758,11 @@
   padding-right: calc((var(--toy-slot-idle-panel-content-margin) - var(--toy-slot-idle-panel-border-width)) * var(--px));
   padding-bottom: calc((var(--toy-slot-idle-panel-content-margin) - var(--toy-slot-idle-panel-border-width)) * var(--px));
   padding-left: calc((var(--toy-slot-idle-panel-content-margin) - var(--toy-slot-idle-panel-border-width)) * var(--px));
-  width: calc(var(--toy-slot-idle-size-width) * var(--px));
+  min-width: calc(var(--toy-slot-idle-size-width) * var(--px));
   height: calc(var(--toy-slot-idle-size-height) * var(--px));
 }
 .tv-ToySlot.tv-wide {
-  width: calc(var(--toy-slot-idle-size-wide-width) * var(--px));
+  min-width: calc(var(--toy-slot-idle-size-wide-width) * var(--px));
 }
 /* ToySlotActive: PanelContainer · slot.active · dark */
 .tv-ToySlotActive {
@@ -2764,11 +2783,11 @@
   padding-right: calc((var(--toy-slot-active-panel-content-margin) - var(--toy-slot-active-panel-border-width)) * var(--px));
   padding-bottom: calc((var(--toy-slot-active-panel-content-margin) - var(--toy-slot-active-panel-border-width)) * var(--px));
   padding-left: calc((var(--toy-slot-active-panel-content-margin) - var(--toy-slot-active-panel-border-width)) * var(--px));
-  width: calc(var(--toy-slot-active-size-width) * var(--px));
+  min-width: calc(var(--toy-slot-active-size-width) * var(--px));
   height: calc(var(--toy-slot-active-size-height) * var(--px));
 }
 .tv-ToySlotActive.tv-wide {
-  width: calc(var(--toy-slot-active-size-wide-width) * var(--px));
+  min-width: calc(var(--toy-slot-active-size-wide-width) * var(--px));
 }
 /* ToySlotText: Label · slot.text · dark */
 .tv-ToySlotText {

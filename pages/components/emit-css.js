@@ -276,12 +276,18 @@ function emitComponentsCss(sys) {
       for (const [p, x] of fontDecls(variant.label, textRec && textRec['font-color'])) base.set(p, x);
     }
 
-    // Sizes (§13.2): width/height/min-width on the base rule; wide-* on .tv-wide.
+    // Sizes (§13.2): width/height/min-width on the base rule; wide-* on .tv-wide. The game reads them into
+    // custom_minimum_size, so a control that holds content (a PanelContainer or a Button: a slot, the mic plate, a
+    // radio) gets its width as a minimum and grows with a longer text, as in Godot; a Panel draws no content, so its
+    // width stays fixed (a block box would otherwise stretch across its line). Heights stay fixed: no content is
+    // taller than its control's height, and a percentage height inside (a bar in its track) needs a definite one.
+    const grows = variant.class !== 'Panel';
     const wide = new Map();
     for (const [name, f] of Object.entries(variant.size || {})) {
       const css = len(variant, f, `size.${name}`);
-      if (name === 'width' || name === 'height' || name === 'min-width') base.set(name, css);
-      else if (name === 'wide-width') wide.set('width', css);
+      if (name === 'min-width' || name === 'height') base.set(name, css);
+      else if (name === 'width') base.set(grows ? 'min-width' : 'width', css);
+      else if (name === 'wide-width') wide.set(grows ? 'min-width' : 'width', css);
       else if (name === 'wide-min-width') wide.set('min-width', css);
       else fail(variant, `size.${name} has no CSS form`);
     }
@@ -302,6 +308,9 @@ function emitComponentsCss(sys) {
       if (name === 'separation') { base.set('gap', len(variant, f, 'separation')); continue; }
       if (name === 'h-separation') { base.set('column-gap', len(variant, f, 'h-separation')); continue; }
       if (name === 'v-separation') { base.set('row-gap', len(variant, f, 'v-separation')); continue; }
+      // A ScrollContainer's scrollbar_h_separation: the page lays the view and the bar out as two grid columns while the
+      // bar shows, so the gap between them is the column gap (one column, and no gap, while it is hidden).
+      if (name === 'scrollbar-h-separation') { base.set('column-gap', len(variant, f, 'scrollbar-h-separation')); continue; }
       if (name === 'arrow-margin') {
         // Godot draws the arrow arrow_margin from the right edge and reserves its width itself; in CSS the arrow is the
         // last flex child, so its right margin is arrow_margin minus the right content margin.

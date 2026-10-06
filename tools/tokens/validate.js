@@ -490,7 +490,7 @@ function checkValues(model, structs, variants, res, P) {
   }
 }
 
-// A token in the items group of a container variant (VBoxContainer, HBoxContainer, GridContainer).
+// A token in the items group of a container variant (VBoxContainer, HBoxContainer, GridContainer, ScrollContainer).
 function isItemOf(n, variantNodes, structs) {
   const g = n.parent;
   if (!g || g.name !== 'items' || !variantNodes.has(g.parent)) return false;

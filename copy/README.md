@@ -10,14 +10,16 @@ keys ([prime-game#208](https://github.com/xperiaroco2/prime-game/issues/208)); t
   The deck keeps the current wording until the engineer answers on the copy page (`pages/copy/`), then the answer is
   applied here.
 - `node tools/copy/check.js` checks both (it is a step of `tools/check.js`); `--write` regenerates
-  `pages/wireframes/en.json` and the English map inlined in `pages/wireframes/wireframes.html`.
+  `pages/wireframes/en.json` and the English map inlined in `pages/wireframes/wireframes.html`. It also lists the keys
+  no styled screen (`pages/screens/src`) draws or names in a note: wire them into a screen, or ask to remove them.
 
 ## Columns
 `keys,en,uk,?plural,?context`, UTF-8, LF, RFC 4180 quoting (a cell with a comma is quoted).
 
 - `keys`: snake_case `screen.element`, for example `menu.host`, `downed.give_up_hold`, `esc.lobby.ready`. Strings
   used on several screens take a shared prefix: `common.*` (Back, Cancel, Close), `player.*`, `role.*`, `task.*`,
-  `room.*`, `item.*`, `unit.*`, `lang.*`.
+  `room.*`, `item.*`, `unit.*`, `lang.*`. `lobby.*` is the lobby as one concept, shared by the lobby HUD (s4) and the
+  Esc menu's Lobby tab (s5), as `lobby.setting.*` already is (`lobby.player_count`, `lobby.host_mark`).
 - `en`, `uk`: both always filled. Language names are written in their own language in both columns.
 - `?plural`: filled only on a counted string, and it repeats the key: the game calls `tr_n(key, key, n)`.
 - `?context`: empty. Every meaning already has its own key, so no key needs a context; a filled context would make

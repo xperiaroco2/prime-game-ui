@@ -1071,7 +1071,8 @@
             "ToyRowTwentyFour",
             "ToyRowThirtyTwo",
             "ToyGridList",
-            "ToyGridSwatch"
+            "ToyGridSwatch",
+            "ToyScroll"
           ]
         }
       ]

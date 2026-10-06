@@ -20,16 +20,20 @@
 // screens.html?only=all&lang=..&size=.. (1 reference px = 1 CSS px, frames stacked at multiples of 1080 px), waits for
 // <html data-ready="1">, checks that Comfortaa is loaded (if not, the run stops: fallback metrics would make every
 // number wrong) and runs tools/screens/measure.js in the page. The problems, per screen, state, language and size
-// (lengths in reference px; a problem needs more than 1 px for a text, 0.5 px for a box):
+// (lengths in reference px; a problem needs more than 1 px for a text, 0.5 px for a box; a text is a data-key element,
+// a deck text, or a data-text element, a data text such as a name, reported as [(data)]):
 //   text-overflow   a data-key text is wider or taller than its node's content box (the node: the nearest data-node
 //                   at or above the text; in Godot the control would grow)
 //   text-clipped    a data-key text is cut by an ancestor whose overflow is hidden or clip, up to and including the
 //                   frame (a scroll container's overflow in its scroll axis is not a cut)
 //   outside-frame   a visible node runs past its 1920x1080 frame, unless an ancestor below the frame clips or
 //                   scrolls in that axis (only the outermost such node is reported)
-//   overlap         two visible children of a Box, HBox, VBox, Grid or Flow container overlap
+//   overlap         two visible children of a Box, HBox, VBox, Grid or Flow container overlap, or two drawn siblings
+//                   placed by anchors (under the frame, a Control, a Panel or a Button) partly overlap (one fully over
+//                   the other is a layer, fine; OVERLAY_OK lists intended partial overlays)
 //   outside-parent  a visible child runs past its parent container (any *Container but Container and
-//                   ScrollContainer; Godot containers always hold their children)
+//                   ScrollContainer; Godot containers always hold their children); a PanelContainer's or
+//                   MarginContainer's child, past its content rect (inside the StyleBox's content margins)
 //   empty-text      a data-key element has no text (hidden or not)
 //   key-shown       a data-key element shows its own key (the deck has no text for it)
 //   contract        the page breaks the screens page contract (frame size or place, lang attributes, a node without
@@ -76,6 +80,16 @@ const worst = (p, axes) => Math.max(0, ...["left", "right", "top", "bottom"]
 const scrolls = (o) => o === "auto" || o === "scroll";
 const clipsAxis = (o) => o !== "visible";
 const isContainer = (t) => /Container$/.test(t || "") && t !== "Container" && t !== "ScrollContainer";
+// A PanelContainer or MarginContainer fits its children into its content rect (inside the StyleBox's content margins).
+const FITS_CONTENT = new Set(["PanelContainer", "MarginContainer"]);
+// The classes that draw something (a spacing container's variation draws nothing).
+const DRAWN = new Set(["Panel", "PanelContainer", "Label", "Button", "OptionButton", "LineEdit", "ProgressBar", "TextureRect",
+  "HSlider", "VScrollBar"]);
+// Parents whose children place themselves by anchors and so may land on each other.
+const ANCHORING = new Set(["Control", "Panel", "Button"]);
+// Anchored siblings meant to overlap partly (a layer over another): [screen-relative path pattern, other pattern].
+const OVERLAY_OK = [];
+const contains = (a, b) => b.x >= a.x - TOL && b.y >= a.y - TOL && b.x + b.w <= a.x + a.w + TOL && b.y + b.h <= a.y + a.h + TOL;
 
 // run: { lang, size, data } where data is measure()'s result; returns the problems
 function check(run, opt) {
@@ -133,7 +147,7 @@ function check(run, opt) {
           over = true;
           const selfCut = clipsAxis(host.overflow[0]) || clipsAxis(host.overflow[1]) || clipsAxis(t.overflow[0]) || clipsAxis(t.overflow[1]);
           add(fr, "text-overflow", subj, `text ${r1(u.w)}x${r1(u.h)} in content box ${r1(host.content.w)}x${r1(host.content.h)}: ` +
-            s.join(", ") + (selfCut ? " (cut by the node itself)" : ""), worst(p), { node: t.host, key: t.key });
+            s.join(", ") + (host.clip ? ` (clip_text: Godot cuts it${host.clip === "ellipsis" ? " with an ellipsis" : ""}; size the node so a realistic value fits)` : selfCut ? " (cut by the node itself)" : ""), worst(p), { node: t.host, key: t.key });
         }
       }
       // the clipping ancestors, from the text element up to the frame; an axis stops at its first scroll or cut
@@ -178,9 +192,36 @@ function check(run, opt) {
       }
       const par = n.parent ? byName.get(n.parent) : null;
       if (par && par.visible && isContainer(par.type)) {
-        const pp = past(n.box, par.box);
+        const inner = FITS_CONTENT.has(par.type) && par.content ? par.content : par.box;
+        const pp = past(n.box, inner);
         const ps = sides(pp, TOL);
-        if (ps.length) add(fr, "outside-parent", n.node, `past ${par.node} (${par.type}): ` + ps.join(", "), worst(pp), { node: n.node });
+        if (ps.length) add(fr, "outside-parent", n.node, `past ${par.node} (${par.type}${inner === par.box ? "" : ", its content rect"}): ` + ps.join(", "), worst(pp), { node: n.node });
+      }
+    }
+
+    // anchored siblings that draw (under a root, a Control, a Panel or a Button) and partly overlap: a layer fully over
+    // another (a dialog over its dim) is fine, and so are the pairs listed in OVERLAY_OK
+    const groups = new Map();
+    for (const n of fr.nodes) {
+      if (!n.visible || !DRAWN.has(n.type) || !(n.box.w > 0 && n.box.h > 0)) continue;
+      const par = n.parent ? byName.get(n.parent) : null;
+      if (par && !ANCHORING.has(par.type)) continue;
+      const k = n.parent || "";
+      if (!groups.has(k)) groups.set(k, []);
+      groups.get(k).push(n);
+    }
+    const rel = (x) => x.slice(fr.screen.length + 1);
+    for (const kids of groups.values()) {
+      for (let i = 0; i < kids.length; i++) {
+        for (let j = i + 1; j < kids.length; j++) {
+          const a = kids[i].box, b = kids[j].box;
+          const ix = Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x);
+          const iy = Math.min(a.y + a.h, b.y + b.h) - Math.max(a.y, b.y);
+          if (!(ix > TOL && iy > TOL) || contains(a, b) || contains(b, a)) continue;
+          const p = rel(kids[i].node), q = rel(kids[j].node);
+          if (OVERLAY_OK.some(([x, y]) => (x.test(p) && y.test(q)) || (x.test(q) && y.test(p)))) continue;
+          add(fr, "overlap", kids[i].node + " & " + kids[j].node, `${r1(ix)}x${r1(iy)}, anchored siblings`, Math.min(ix, iy), { node: kids[i].node, other: kids[j].node });
+        }
       }
     }
 
@@ -298,10 +339,12 @@ function synthetic() {
     node("s9/v/b", "Panel", { x: 0, y: 99.6, w: 100, h: 100 }, { parent: "s9/v" }),
     node("s9/v/c", "Panel", { x: 0, y: 199, w: 100, h: 100 }, { parent: "s9/v" })], [])]))),
   ["overlap:s9/v/b & s9/v/c"]);
-  t("siblings under a plain Control may overlap", kinds(check(run([frame([
+  t("anchored siblings: a layer fully over another passes, a partial overlap of drawn nodes fails", kinds(check(run([frame([
     node("s9/c", "Control", { x: 0, y: 0, w: 100, h: 300 }),
     node("s9/c/a", "Panel", { x: 0, y: 0, w: 100, h: 100 }, { parent: "s9/c" }),
-    node("s9/c/b", "Panel", { x: 0, y: 50, w: 100, h: 100 }, { parent: "s9/c" })], [])]))), []);
+    node("s9/c/b", "Panel", { x: 0, y: 50, w: 100, h: 100 }, { parent: "s9/c" }),
+    node("s9/c/d", "Label", { x: 10, y: 10, w: 20, h: 20 }, { parent: "s9/c" }),
+    node("s9/c/e", "Control", { x: 0, y: 40, w: 100, h: 100 }, { parent: "s9/c" })], [])]))), ["overlap:s9/c/a & s9/c/b"]);
   t("only the outermost node past the frame is reported; a scroll container excuses its axis", kinds(check(run([frame([
     node("s9/p", "Panel", { x: 1800, y: 0, w: 200, h: 100 }),
     node("s9/p/c", "Label", { x: 1850, y: 0, w: 100, h: 100 }, { parent: "s9/p" }),

@@ -3,11 +3,15 @@
   "wireframe": "s1",
   "title": "Tutorial",
   "background": "room-light",
-  "note": "The tutorial room. On the first launch the invite with the language choice; in the room, the current lesson at the top and the lesson list at the right. In a lesson the s7 round HUD shows too, without the timer and the role chip (s7's own nodes, not repeated here). After lesson 9 the game returns to the main menu (s2) with no end screen.",
+  "note": "The tutorial room. On the first launch the invite with the language choice; in the room, the current lesson at the top and the lesson list at the right, over the s7 round HUD without the timer and the role chip (Hud). After lesson 9 the game returns to the main menu (s2) with no end screen.",
   "states": [
     { "id": "invite", "label": "Запрошення", "note": "First launch only (a user:// flag). Focus starts on Start the tutorial." },
     { "id": "step", "label": "Крок навчання", "note": "Lesson 2, its first instruction: a sentence with one keycap." },
-    { "id": "step-keys", "label": "Крок: керування", "note": "Lesson 1 (Controls): a row of keycaps instead of the sentence." }
+    { "id": "step-keys", "label": "Крок: керування", "note": "Lesson 1 (Controls): a row of keycaps instead of the sentence." },
+    {
+      "id": "step-howto", "label": "Крок: «?» на мапі",
+      "note": "Lesson 5, its second instruction: the round «?» keycap inside the sentence. The map (s8) is open in this lesson; it is not drawn here, nor the HUD under its dim."
+    }
   ],
   "nodes": [
     {
@@ -19,13 +23,13 @@
       "anchors_preset": "top_right", "offset_left": -40, "offset_top": 40, "offset_right": -40, "offset_bottom": 40,
       "note": "The two chips share one ButtonGroup. The default is Ukrainian when OS.get_locale_language() is \"uk\", else English. A press applies at once (TranslationServer.set_locale) and is saved; the invite's texts rebuild on NOTIFICATION_TRANSLATION_CHANGED.",
       "children": [
-        { "name": "Uk", "type": "Button", "variation": "ToyChipToggleOnDark", "key": "lang.uk", "toggle_mode": true, "state": "selected", "note": "auto_translate_mode DISABLED: a language's name is always in its own language." },
-        { "name": "En", "type": "Button", "variation": "ToyChipToggleOnDark", "key": "lang.en", "toggle_mode": true, "note": "auto_translate_mode DISABLED." }
+        { "name": "Uk", "type": "Button", "variation": "ToyChipToggleOnDark", "key": "lang.uk", "toggle_mode": true, "state": "selected", "note": "A language's name is always in its own language: lang.uk holds the same word in every locale, so the key translates to it." },
+        { "name": "En", "type": "Button", "variation": "ToyChipToggleOnDark", "key": "lang.en", "toggle_mode": true, "note": "lang.en holds the same word in every locale." }
       ]
     },
     {
       "name": "Box", "type": "PanelContainer", "variation": "ToyPanelDialog", "states": ["invite"],
-      "anchors_preset": "center", "custom_minimum_size": [690, 0],
+      "anchors_preset": "center", "custom_minimum_size": [688, 0],
       "children": [
         {
           "name": "V", "type": "VBoxContainer", "variation": "ToyColumnThirtyTwo",
@@ -49,45 +53,139 @@
       ]
     },
     {
-      "name": "Cross", "type": "Panel", "variation": "ToyCrosshair", "anchors_preset": "center", "states": ["step", "step-keys"],
-      "note": "mouse_filter IGNORE. The round's crosshair (P5)."
+      "name": "Hud", "type": "Control", "anchors_preset": "full_rect", "states": ["step", "step-keys"],
+      "note": "Not part of this scene: the round HUD of s7 (s7/Hud) as in a round, without Timer and Role; Aim shows as in s7. Drawn here only to show what the lesson plates share the screen with. Build it once, in s7.",
+      "children": [
+        { "name": "Cross", "type": "Panel", "variation": "ToyCrosshair", "anchors_preset": "center" },
+        {
+          "name": "Vitals", "type": "VBoxContainer", "variation": "ToyColumnTwelve", "anchors_preset": "bottom_left", "offset_left": 40, "offset_top": -40, "offset_right": 40, "offset_bottom": -40,
+          "children": [
+            {
+              "name": "Health", "type": "VBoxContainer", "variation": "ToyColumnFour", "custom_minimum_size": [320, 0],
+              "children": [
+                {
+                  "name": "Cap", "type": "PanelContainer", "variation": "ToyBarLabel", "size_flags_horizontal": "shrink_begin",
+                  "children": [
+                    { "name": "Text", "type": "Label", "variation": "ToyHudCaption", "key": "hud.health" }
+                  ]
+                },
+                {
+                  "name": "Track", "type": "PanelContainer", "variation": "ToyBarTrack", "custom_minimum_size": [320, 16],
+                  "children": [
+                    { "name": "Fill", "type": "ProgressBar", "variation": "ToyBarHealth", "show_percentage": false, "max_value": 1, "value": 1, "custom_minimum_size": [0, 10] }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Stamina", "type": "VBoxContainer", "variation": "ToyColumnFour", "custom_minimum_size": [320, 0],
+              "children": [
+                {
+                  "name": "Cap", "type": "PanelContainer", "variation": "ToyBarLabel", "size_flags_horizontal": "shrink_begin",
+                  "children": [
+                    { "name": "Text", "type": "Label", "variation": "ToyHudCaption", "key": "hud.stamina" }
+                  ]
+                },
+                {
+                  "name": "Track", "type": "PanelContainer", "variation": "ToyBarTrack", "custom_minimum_size": [320, 16],
+                  "children": [
+                    { "name": "Fill", "type": "ProgressBar", "variation": "ToyBarStamina", "show_percentage": false, "max_value": 1, "value": 1, "custom_minimum_size": [0, 10] }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Mic", "type": "PanelContainer", "variation": "ToyMic", "size_flags_horizontal": "shrink_begin",
+              "children": [
+                { "name": "Icon", "type": "TextureRect", "icon": "mic", "theme_color": "icon-on", "custom_minimum_size": [28, 28], "size_flags_horizontal": "shrink_center", "size_flags_vertical": "shrink_center" }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Slots", "type": "HBoxContainer", "variation": "ToyRowTwelve", "anchors_preset": "bottom_right", "offset_left": -40, "offset_top": -40, "offset_right": -40, "offset_bottom": -40,
+          "children": [
+            {
+              "name": "Hand", "type": "PanelContainer", "variation": "ToySlotActive",
+              "children": [
+                {
+                  "name": "Center", "type": "CenterContainer",
+                  "children": [
+                    {
+                      "name": "Row", "type": "HBoxContainer", "variation": "ToyRowEight",
+                      "children": [
+                        { "name": "Name", "type": "Label", "variation": "ToySlotTextEmpty", "key": "hud.slot.hand", "size_flags_vertical": "shrink_center" }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Belt", "type": "PanelContainer", "variation": "ToySlot",
+              "children": [
+                {
+                  "name": "Center", "type": "CenterContainer",
+                  "children": [
+                    {
+                      "name": "Row", "type": "HBoxContainer", "variation": "ToyRowEight",
+                      "children": [
+                        { "name": "Name", "type": "Label", "variation": "ToySlotTextEmpty", "key": "hud.slot.belt", "size_flags_vertical": "shrink_center" }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
     },
     {
-      "name": "Step", "type": "PanelContainer", "variation": "ToyPlate", "states": ["step", "step-keys"],
-      "anchors_preset": "center_top", "offset_top": 54, "offset_bottom": 54, "custom_minimum_size": [845, 0],
-      "note": "mouse_filter IGNORE (and its children). The current lesson. A lesson advances when the game sees its action; a lesson with two instructions swaps Title and How within the same step number (pick_up then put_down; map then howto).",
+      "name": "Step", "type": "PanelContainer", "variation": "ToyPlate", "states": ["step", "step-keys", "step-howto"],
+      "anchors_preset": "center_top", "offset_top": 40, "offset_bottom": 40, "custom_minimum_size": [912, 0],
+      "note": "mouse_filter IGNORE (and its children). The current lesson. A lesson advances when the game sees its action; a lesson with two instructions swaps Title and How within the same step number. The lessons (Progress {count} of 9; the list key; the title key, the how key and the binding that fills {key}): 1 tutorial.list.move: tutorial.step.move.title with the key row HowKeys (control.forward, control.left, control.backward, control.right, control.sprint, control.jump), advancing once the player has moved. 2 tutorial.list.pick_up: tutorial.step.pick_up.title, tutorial.step.pick_up.how, control.interact (E); then tutorial.step.put_down.title, tutorial.step.press, control.put_down (Q). 3 tutorial.list.hand_belt: tutorial.step.hand_belt.title, tutorial.step.press, control.swap (X). 4 tutorial.list.deliver: tutorial.step.deliver.title, tutorial.step.deliver.how, no key. 5 tutorial.list.map: tutorial.step.map.title, tutorial.step.press, control.map (M); then tutorial.step.howto.title, tutorial.step.howto.how with the round «?» keycap (the map's «?» button). 6 tutorial.list.downed: tutorial.step.downed.title, tutorial.step.downed.how, control.interact held (E). 7 tutorial.list.death: tutorial.step.death.title, tutorial.step.death.how, control.spectate_next (key.mouse_left). 8 tutorial.list.voice: tutorial.step.voice.title, tutorial.step.voice.how, no key. 9 tutorial.list.menu: tutorial.step.menu.title, tutorial.step.press, Esc (ui_cancel, a wide keycap).",
       "children": [
         {
           "name": "V", "type": "VBoxContainer", "variation": "ToyColumnEight", "alignment": "center",
           "children": [
             {
               "name": "Progress", "type": "Label", "variation": "ToyTextMutedOnDark", "key": "tutorial.step.progress", "args": { "count": "2", "total": "9" },
-              "horizontal_alignment": "center", "per_state": { "step-keys": { "args": { "count": "1", "total": "9" } } }
+              "horizontal_alignment": "center",
+              "per_state": { "step-keys": { "args": { "count": "1", "total": "9" } }, "step-howto": { "args": { "count": "5", "total": "9" } } }
             },
             {
               "name": "Title", "type": "Label", "variation": "ToyTitleOnDark", "key": "tutorial.step.pick_up.title",
               "horizontal_alignment": "center", "autowrap_mode": "word_smart", "custom_minimum_size": [600, 0],
-              "per_state": { "step-keys": { "key": "tutorial.step.move.title" } }
+              "per_state": { "step-keys": { "key": "tutorial.step.move.title" }, "step-howto": { "key": "tutorial.step.howto.title" } }
             },
             {
-              "name": "How", "type": "HBoxContainer", "variation": "ToyRowEight", "alignment": "center", "states": ["step"],
-              "note": "A sentence with a keycap (P3), built in code: tr() the lesson's how-string, split it at {key}, add a Label per non-empty piece and the keycap between them. The keycap's text is DisplayServer.keyboard_get_label_from_physical() of the action's binding (#211); Space and the mouse buttons use key.space, key.mouse_left, key.mouse_right, and Space, Shift, Tab and Esc keycaps take the wide size.",
+              "name": "How", "type": "HBoxContainer", "variation": "ToyRowEight", "alignment": "center", "states": ["step", "step-howto"],
+              "note": "A sentence with a keycap (P3), built in code: tr() the lesson's how-string, split it at {key}, strip_edges() each piece, add a Label per non-empty piece and the keycap between them; a how-string without {key} (deliver, voice) is one Label. The keycap is a ToyKeyOnDark PanelContainer holding a ToyKeyText Label: DisplayServer.keyboard_get_label_from_physical() of the action's binding (#211); Space and the mouse buttons use key.space, key.mouse_left, key.mouse_right, and Space, Shift, Tab and Esc keycaps take the wide size. Lesson 5's «?» is a ToyKeyRound keycap with the text «?», the look of the map's «?» button.",
               "children": [
                 {
                   "name": "Before", "type": "Label", "variation": "ToyTextOnDark", "key": "tutorial.step.pick_up.how", "piece": 0,
-                  "args": { "key": "E" }, "size_flags_vertical": "shrink_center"
+                  "args": { "key": "E" }, "size_flags_vertical": "shrink_center",
+                  "per_state": { "step-howto": { "key": "tutorial.step.howto.how", "args": { "key": "?" } } }
                 },
                 {
-                  "name": "Key", "type": "PanelContainer", "variation": "ToyKeyOnDark",
+                  "name": "Key", "type": "PanelContainer", "variation": "ToyKeyOnDark", "per_state": { "step-howto": { "variation": "ToyKeyRound" } },
                   "children": [
-                    { "name": "Text", "type": "Label", "variation": "ToyKeyText", "key": "tutorial.step.pick_up.how", "value_of": "key", "args": { "key": "E" }, "horizontal_alignment": "center" }
+                    {
+                      "name": "Text", "type": "Label", "variation": "ToyKeyText", "key": "tutorial.step.pick_up.how", "value_of": "key", "args": { "key": "E" }, "horizontal_alignment": "center",
+                      "per_state": { "step-howto": { "key": "tutorial.step.howto.how", "args": { "key": "?" } } }
+                    }
                   ]
+                },
+                {
+                  "name": "After", "type": "Label", "variation": "ToyTextOnDark", "key": "tutorial.step.howto.how", "piece": 1,
+                  "args": { "key": "?" }, "size_flags_vertical": "shrink_center", "states": ["step-howto"]
                 }
               ]
             },
             {
               "name": "HowKeys", "type": "HBoxContainer", "variation": "ToyRowTwentyFour", "alignment": "center", "states": ["step-keys"],
-              "note": "The Controls lesson: the bound keys of walking, sprinting and jumping, each group followed by its action name; it advances once the player has moved. Each keycap shows the label of its action's binding (DisplayServer.keyboard_get_label_from_physical(), #211; Space is key.space); the deck key named on a letter keycap only carries the sample. Shift and Space keycaps take the wide size.",
+              "note": "The Controls lesson: the bound keys of walking, sprinting and jumping, each group followed by its action name; it advances once the player has moved. Each keycap shows the label of its action's binding as a data text (DisplayServer.keyboard_get_label_from_physical(), #211; auto_translate_mode DISABLED); Space is key.space. Shift and Space keycaps take the wide size.",
               "children": [
                 {
                   "name": "Walk", "type": "HBoxContainer", "variation": "ToyRowEight",
@@ -95,10 +193,10 @@
                     {
                       "name": "Keys", "type": "HBoxContainer", "variation": "ToyRowFour",
                       "children": [
-                        { "name": "Forward", "type": "PanelContainer", "variation": "ToyKeyOnDark", "children": [{ "name": "Text", "type": "Label", "variation": "ToyKeyText", "key": "tutorial.step.press", "value_of": "key", "args": { "key": "W" }, "horizontal_alignment": "center" }] },
-                        { "name": "Left", "type": "PanelContainer", "variation": "ToyKeyOnDark", "children": [{ "name": "Text", "type": "Label", "variation": "ToyKeyText", "key": "tutorial.step.press", "value_of": "key", "args": { "key": "A" }, "horizontal_alignment": "center" }] },
-                        { "name": "Backward", "type": "PanelContainer", "variation": "ToyKeyOnDark", "children": [{ "name": "Text", "type": "Label", "variation": "ToyKeyText", "key": "tutorial.step.press", "value_of": "key", "args": { "key": "S" }, "horizontal_alignment": "center" }] },
-                        { "name": "Right", "type": "PanelContainer", "variation": "ToyKeyOnDark", "children": [{ "name": "Text", "type": "Label", "variation": "ToyKeyText", "key": "tutorial.step.press", "value_of": "key", "args": { "key": "D" }, "horizontal_alignment": "center" }] }
+                        { "name": "Forward", "type": "PanelContainer", "variation": "ToyKeyOnDark", "children": [{ "name": "Text", "type": "Label", "variation": "ToyKeyText", "text": "W", "horizontal_alignment": "center" }] },
+                        { "name": "Left", "type": "PanelContainer", "variation": "ToyKeyOnDark", "children": [{ "name": "Text", "type": "Label", "variation": "ToyKeyText", "text": "A", "horizontal_alignment": "center" }] },
+                        { "name": "Backward", "type": "PanelContainer", "variation": "ToyKeyOnDark", "children": [{ "name": "Text", "type": "Label", "variation": "ToyKeyText", "text": "S", "horizontal_alignment": "center" }] },
+                        { "name": "Right", "type": "PanelContainer", "variation": "ToyKeyOnDark", "children": [{ "name": "Text", "type": "Label", "variation": "ToyKeyText", "text": "D", "horizontal_alignment": "center" }] }
                       ]
                     },
                     { "name": "Label", "type": "Label", "variation": "ToyTextOnDark", "key": "control.walk", "size_flags_vertical": "shrink_center" }
@@ -107,7 +205,7 @@
                 {
                   "name": "Sprint", "type": "HBoxContainer", "variation": "ToyRowEight",
                   "children": [
-                    { "name": "Key", "type": "PanelContainer", "variation": "ToyKeyOnDark", "wide": true, "children": [{ "name": "Text", "type": "Label", "variation": "ToyKeyText", "key": "tutorial.step.press", "value_of": "key", "args": { "key": "Shift" }, "horizontal_alignment": "center" }] },
+                    { "name": "Key", "type": "PanelContainer", "variation": "ToyKeyOnDark", "wide": true, "children": [{ "name": "Text", "type": "Label", "variation": "ToyKeyText", "text": "Shift", "horizontal_alignment": "center" }] },
                     { "name": "Label", "type": "Label", "variation": "ToyTextOnDark", "key": "control.sprint", "size_flags_vertical": "shrink_center" }
                   ]
                 },
@@ -125,10 +223,10 @@
       ]
     },
     {
-      "name": "List", "type": "PanelContainer", "variation": "ToyPlate", "states": ["step", "step-keys"],
-      "anchors_preset": "top_right", "offset_left": -40, "offset_top": 259, "offset_right": -40, "offset_bottom": 259,
-      "custom_minimum_size": [384, 0],
-      "note": "mouse_filter IGNORE; not clickable. The nine lessons in order, built in code: a done lesson is its name with a check at the right edge, the current one a light chip, the rest muted. The chip does not wrap: a current lesson longer than the list (Death) widens the plate to the left for that lesson.",
+      "name": "List", "type": "PanelContainer", "variation": "ToyPlate", "states": ["step", "step-keys", "step-howto"],
+      "anchors_preset": "top_right", "offset_left": -40, "offset_top": 256, "offset_right": -40, "offset_bottom": 256,
+      "custom_minimum_size": [440, 0],
+      "note": "mouse_filter IGNORE; not clickable. The nine lessons in order, built in code: a done lesson is its name with a check at the right edge (XDone), the current one a one-line light chip (XNow), the rest muted and wrapping (the plain names). 440 px holds every current lesson's chip at large text but Death's (tutorial.list.death), which widens the plate to the left for that lesson.",
       "children": [
         {
           "name": "V", "type": "VBoxContainer", "variation": "ToyColumnSixteen",
@@ -138,16 +236,24 @@
               "name": "Rows", "type": "VBoxContainer", "variation": "ToyColumnEight",
               "children": [
                 {
-                  "name": "MoveDone", "type": "HBoxContainer", "variation": "ToyRowEight", "states": ["step"],
+                  "name": "MoveDone", "type": "HBoxContainer", "variation": "ToyRowEight", "states": ["step", "step-howto"],
                   "children": [
                     { "name": "Name", "type": "Label", "variation": "ToyTextOnDark", "key": "tutorial.list.move", "size_flags_horizontal": "expand_fill", "autowrap_mode": "word_smart", "custom_minimum_size": [240, 0] },
-                    { "name": "Check", "type": "TextureRect", "icon": "check", "custom_minimum_size": [24, 24], "size_flags_vertical": "shrink_center", "note": "self_modulate = get_theme_color(\"font_color\", \"ToyTextOnDark\")." }
+                    { "name": "Check", "type": "TextureRect", "icon": "check", "custom_minimum_size": [24, 24], "size_flags_vertical": "shrink_center" }
                   ]
                 },
                 {
                   "name": "MoveNow", "type": "PanelContainer", "variation": "ToyChipLight", "states": ["step-keys"], "size_flags_horizontal": "shrink_begin",
+                  "note": "The current lesson: a one-line chip (a pill does not wrap).",
                   "children": [
                     { "name": "Name", "type": "Label", "variation": "ToyChipLightText", "key": "tutorial.list.move" }
+                  ]
+                },
+                {
+                  "name": "PickUpDone", "type": "HBoxContainer", "variation": "ToyRowEight", "states": ["step-howto"],
+                  "children": [
+                    { "name": "Name", "type": "Label", "variation": "ToyTextOnDark", "key": "tutorial.list.pick_up", "size_flags_horizontal": "expand_fill", "autowrap_mode": "word_smart", "custom_minimum_size": [240, 0] },
+                    { "name": "Check", "type": "TextureRect", "icon": "check", "custom_minimum_size": [24, 24], "size_flags_vertical": "shrink_center" }
                   ]
                 },
                 {
@@ -157,9 +263,29 @@
                   ]
                 },
                 { "name": "PickUpNext", "type": "Label", "variation": "ToyTextMutedOnDark", "key": "tutorial.list.pick_up", "states": ["step-keys"], "autowrap_mode": "word_smart", "custom_minimum_size": [240, 0] },
-                { "name": "HandBelt", "type": "Label", "variation": "ToyTextMutedOnDark", "key": "tutorial.list.hand_belt", "autowrap_mode": "word_smart", "custom_minimum_size": [240, 0] },
-                { "name": "Deliver", "type": "Label", "variation": "ToyTextMutedOnDark", "key": "tutorial.list.deliver", "autowrap_mode": "word_smart", "custom_minimum_size": [240, 0] },
-                { "name": "Map", "type": "Label", "variation": "ToyTextMutedOnDark", "key": "tutorial.list.map", "args": { "key": "M" }, "autowrap_mode": "word_smart", "custom_minimum_size": [240, 0], "note": "{key} is the bound key of the map action." },
+                {
+                  "name": "HandBeltDone", "type": "HBoxContainer", "variation": "ToyRowEight", "states": ["step-howto"],
+                  "children": [
+                    { "name": "Name", "type": "Label", "variation": "ToyTextOnDark", "key": "tutorial.list.hand_belt", "size_flags_horizontal": "expand_fill", "autowrap_mode": "word_smart", "custom_minimum_size": [240, 0] },
+                    { "name": "Check", "type": "TextureRect", "icon": "check", "custom_minimum_size": [24, 24], "size_flags_vertical": "shrink_center" }
+                  ]
+                },
+                { "name": "HandBelt", "type": "Label", "variation": "ToyTextMutedOnDark", "key": "tutorial.list.hand_belt", "states": ["step", "step-keys"], "autowrap_mode": "word_smart", "custom_minimum_size": [240, 0] },
+                {
+                  "name": "DeliverDone", "type": "HBoxContainer", "variation": "ToyRowEight", "states": ["step-howto"],
+                  "children": [
+                    { "name": "Name", "type": "Label", "variation": "ToyTextOnDark", "key": "tutorial.list.deliver", "size_flags_horizontal": "expand_fill", "autowrap_mode": "word_smart", "custom_minimum_size": [240, 0] },
+                    { "name": "Check", "type": "TextureRect", "icon": "check", "custom_minimum_size": [24, 24], "size_flags_vertical": "shrink_center" }
+                  ]
+                },
+                { "name": "Deliver", "type": "Label", "variation": "ToyTextMutedOnDark", "key": "tutorial.list.deliver", "states": ["step", "step-keys"], "autowrap_mode": "word_smart", "custom_minimum_size": [240, 0] },
+                {
+                  "name": "MapNow", "type": "PanelContainer", "variation": "ToyChipLight", "states": ["step-howto"], "size_flags_horizontal": "shrink_begin",
+                  "children": [
+                    { "name": "Name", "type": "Label", "variation": "ToyChipLightText", "key": "tutorial.list.map", "args": { "key": "M" } }
+                  ]
+                },
+                { "name": "Map", "type": "Label", "variation": "ToyTextMutedOnDark", "key": "tutorial.list.map", "args": { "key": "M" }, "states": ["step", "step-keys"], "autowrap_mode": "word_smart", "custom_minimum_size": [240, 0], "note": "{key} is the bound key of the map action (control.map)." },
                 { "name": "Downed", "type": "Label", "variation": "ToyTextMutedOnDark", "key": "tutorial.list.downed", "autowrap_mode": "word_smart", "custom_minimum_size": [240, 0] },
                 { "name": "Death", "type": "Label", "variation": "ToyTextMutedOnDark", "key": "tutorial.list.death", "autowrap_mode": "word_smart", "custom_minimum_size": [240, 0] },
                 { "name": "Voice", "type": "Label", "variation": "ToyTextMutedOnDark", "key": "tutorial.list.voice", "autowrap_mode": "word_smart", "custom_minimum_size": [240, 0] },

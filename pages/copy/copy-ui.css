@@ -121,6 +121,21 @@
 .tv-ToyButtonPrimary.is-focus > .tv-focus, .tv-ToyButtonPrimary:focus-visible > .tv-focus {
   display: block;
 }
+.tv-ToyButtonPrimary .tv-icon {
+  color: var(--toy-button-primary-items-icon-normal-color);
+}
+.tv-ToyButtonPrimary.is-focus .tv-icon, .tv-ToyButtonPrimary:focus-visible .tv-icon {
+  color: var(--toy-button-primary-items-icon-focus-color);
+}
+.tv-ToyButtonPrimary.is-hover .tv-icon {
+  color: var(--toy-button-primary-items-icon-hover-color);
+}
+.tv-ToyButtonPrimary.is-held .tv-icon {
+  color: var(--toy-button-primary-items-icon-pressed-color);
+}
+.tv-ToyButtonPrimary.is-disabled .tv-icon {
+  color: var(--toy-button-primary-items-icon-disabled-color);
+}
 /* ToyButtonSecondary: Button → ToyButton · button.secondary · any */
 .tv-ToyButtonSecondary {
   box-sizing: border-box;

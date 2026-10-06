@@ -282,6 +282,12 @@
   --toy-button-primary-press-hover: -1;
   --toy-button-primary-press-held: 5;
   --toy-button-primary-press-disabled: 0;
+  --toy-button-primary-items-icon-normal-color: var(--toy-color-on-accent-text);
+  --toy-button-primary-items-icon-hover-color: var(--toy-color-on-accent-text);
+  --toy-button-primary-items-icon-pressed-color: var(--toy-color-on-accent-text);
+  --toy-button-primary-items-icon-hover-pressed-color: var(--toy-color-on-accent-text);
+  --toy-button-primary-items-icon-disabled-color: var(--toy-color-state-disabled-ink);
+  --toy-button-primary-items-icon-focus-color: var(--toy-color-on-accent-text);
   --toy-button-secondary-label-font-family: var(--toy-type-body-large-bold-font-family);
   --toy-button-secondary-label-font-size: var(--toy-type-body-large-bold-font-size);
   --toy-button-secondary-label-font-weight: var(--toy-type-body-large-bold-font-weight);
@@ -792,6 +798,7 @@
   --toy-layout-grid-list-items-v-separation: var(--toy-space-8);
   --toy-layout-grid-swatch-items-h-separation: var(--toy-space-12);
   --toy-layout-grid-swatch-items-v-separation: var(--toy-space-12);
+  --toy-layout-scroll-items-scrollbar-h-separation: var(--toy-space-8);
   --toy-map-board-panel-bg-color: var(--toy-color-surface-board);
   --toy-map-board-panel-border-color: var(--toy-color-outline);
   --toy-map-board-panel-border-width: var(--toy-stroke-surface);
@@ -1072,16 +1079,16 @@
   --toy-slot-idle-panel-border-width: var(--toy-stroke-control);
   --toy-slot-idle-panel-corner-radius: var(--toy-radius-control);
   --toy-slot-idle-panel-content-margin: 7;
-  --toy-slot-idle-size-width: 84;
-  --toy-slot-idle-size-height: 84;
+  --toy-slot-idle-size-width: 88;
+  --toy-slot-idle-size-height: 88;
   --toy-slot-idle-size-wide-width: 180;
   --toy-slot-active-panel-bg-color: var(--toy-color-surface-plate);
   --toy-slot-active-panel-border-color: var(--toy-palette-yellow);
   --toy-slot-active-panel-border-width: var(--toy-stroke-bold);
   --toy-slot-active-panel-corner-radius: var(--toy-radius-control);
   --toy-slot-active-panel-content-margin: 9;
-  --toy-slot-active-size-width: 84;
-  --toy-slot-active-size-height: 84;
+  --toy-slot-active-size-width: 88;
+  --toy-slot-active-size-height: 88;
   --toy-slot-active-size-wide-width: 180;
   --toy-slot-text-label-font-family: var(--toy-type-caption-font-family);
   --toy-slot-text-label-font-size: var(--toy-type-caption-font-size);
@@ -1568,11 +1575,11 @@
   padding-right: calc((var(--toy-slot-idle-panel-content-margin) - var(--toy-slot-idle-panel-border-width)) * var(--px));
   padding-bottom: calc((var(--toy-slot-idle-panel-content-margin) - var(--toy-slot-idle-panel-border-width)) * var(--px));
   padding-left: calc((var(--toy-slot-idle-panel-content-margin) - var(--toy-slot-idle-panel-border-width)) * var(--px));
-  width: calc(var(--toy-slot-idle-size-width) * var(--px));
+  min-width: calc(var(--toy-slot-idle-size-width) * var(--px));
   height: calc(var(--toy-slot-idle-size-height) * var(--px));
 }
 .tv-ToySlot.tv-wide {
-  width: calc(var(--toy-slot-idle-size-wide-width) * var(--px));
+  min-width: calc(var(--toy-slot-idle-size-wide-width) * var(--px));
 }
 /* ToySlotActive: PanelContainer · slot.active · dark */
 .tv-ToySlotActive {
@@ -1593,11 +1600,11 @@
   padding-right: calc((var(--toy-slot-active-panel-content-margin) - var(--toy-slot-active-panel-border-width)) * var(--px));
   padding-bottom: calc((var(--toy-slot-active-panel-content-margin) - var(--toy-slot-active-panel-border-width)) * var(--px));
   padding-left: calc((var(--toy-slot-active-panel-content-margin) - var(--toy-slot-active-panel-border-width)) * var(--px));
-  width: calc(var(--toy-slot-active-size-width) * var(--px));
+  min-width: calc(var(--toy-slot-active-size-width) * var(--px));
   height: calc(var(--toy-slot-active-size-height) * var(--px));
 }
 .tv-ToySlotActive.tv-wide {
-  width: calc(var(--toy-slot-active-size-wide-width) * var(--px));
+  min-width: calc(var(--toy-slot-active-size-wide-width) * var(--px));
 }
 /* ToySlotText: Label · slot.text · dark */
 .tv-ToySlotText {
@@ -1904,6 +1911,7 @@ footer { color: var(--c-muted); font-size: 12px; margin-top: 32px; }
 .sc-lay-col { display: flex; flex-direction: column; align-items: flex-start; }
 .sc-lay-row { display: flex; align-items: flex-start; }
 .sc-lay-grid { display: grid; grid-template-columns: repeat(3, auto); }
+.sc-lay-scroll { display: grid; grid-template-columns: auto auto; align-items: stretch; }
 .sc-lay-box { display: block; width: calc(44 * var(--px)); height: calc(24 * var(--px)); border-radius: calc(6 * var(--px)); background: var(--toy-color-surface-board); border: calc(2 * var(--px)) solid var(--toy-color-outline); box-sizing: border-box; }
 </style>
 <style id="rs-world">
