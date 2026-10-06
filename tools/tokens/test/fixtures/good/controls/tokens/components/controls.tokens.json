@@ -90,7 +90,12 @@
         "io.github.xperiaroco2.prime-game": {
           "godot": {
             "variation": "ToySlider",
-            "class": "HSlider"
+            "class": "HSlider",
+            "textures": {
+              "grabber": "icons/knob.svg",
+              "grabber-highlight": "icons/knob.svg",
+              "grabber-disabled": "icons/mark.svg"
+            }
           },
           "context": "any"
         }
@@ -273,6 +278,26 @@
           "$value": "{space.16}"
         },
         "v-separation": {
+          "$type": "dimension",
+          "$value": "{space.8}"
+        }
+      }
+    },
+    "column-old": {
+      "$description": "The old 8 px column, kept until the next major.",
+      "$deprecated": "Use ToyColumnEight.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": {
+            "variation": "ToyColumnOld",
+            "class": "VBoxContainer",
+            "replacement": "ToyColumnEight"
+          },
+          "context": "any"
+        }
+      },
+      "items": {
+        "separation": {
           "$type": "dimension",
           "$value": "{space.8}"
         }

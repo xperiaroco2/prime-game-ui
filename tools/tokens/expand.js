@@ -19,12 +19,15 @@ const AUTHOR_BOX = ['bg-color', 'border-color', 'border-width', ...SIDES.map((s)
   'content-margin', 'content-margin-block', 'content-margin-inline', ...SIDES.map((s) => `content-margin-${s}`),
   'expand-margin', 'expand-margin-block', 'expand-margin-inline', ...SIDES.map((s) => `expand-margin-${s}`)];
 
-// §3.5 "State groups per class" and P42.
+// §3.5 "State groups per class" and P42. `textures`: the class's theme icons a variant may name in godot.textures (P61),
+// kebab-case like items (godot-facts §9 table: option_button.cpp binds `arrow`; slider.cpp `grabber`,
+// `grabber_highlight`, `grabber_disabled`, `tick`). A class without the list takes none.
 const CLASSES = {
   Button: { states: ['normal', 'hover', 'pressed', 'hover-pressed', 'disabled', 'focus'],
     font: ['normal', 'hover', 'pressed', 'hover-pressed', 'disabled', 'focus'], shadow: [], label: true, press: true },
   OptionButton: { states: ['normal', 'hover', 'pressed', 'hover-pressed', 'disabled', 'focus'],
-    font: ['normal', 'hover', 'pressed', 'hover-pressed', 'disabled', 'focus'], shadow: [], label: true, press: false },
+    font: ['normal', 'hover', 'pressed', 'hover-pressed', 'disabled', 'focus'], shadow: [], label: true, press: false,
+    textures: ['arrow'] },
   LineEdit: { states: ['normal', 'focus', 'read-only'], font: ['normal', 'read-only'], shadow: [], label: true, press: false },
   PanelContainer: { states: ['panel'], font: [], shadow: [], label: false, press: false },
   Panel: { states: ['panel'], font: [], shadow: [], label: false, press: false },
@@ -34,7 +37,7 @@ const CLASSES = {
   // grabber_disabled icons are textures, not tokens). `focus` is the Toy outer ring: Godot 4.7.2's Slider draws no focus
   // StyleBox itself, so the game draws this one over the slider while it has visible focus.
   HSlider: { states: ['slider', 'grabber-area', 'grabber-area-highlight', 'focus'], font: [], shadow: [], label: false, press: false,
-    items: ['center-grabber', 'grabber-offset'] },
+    items: ['center-grabber', 'grabber-offset'], textures: ['grabber', 'grabber-highlight', 'grabber-disabled', 'tick'] },
   VScrollBar: { states: ['scroll', 'scroll-focus', 'grabber', 'grabber-highlight', 'grabber-pressed'], font: [], shadow: [], label: false,
     press: false, items: [] },
   // Containers draw nothing: their variations hold only the separation constants (the screens' gaps, space.*).
@@ -72,6 +75,9 @@ function collectVariants(model) {
       base: isObj(g.base) ? g.base : null,
       toggle: isObj(g.toggle) ? g.toggle : null,
       on: Array.isArray(g.on) ? g.on.filter((s) => typeof s === 'string') : null,
+      textures: isObj(g.textures) ? g.textures : null,
+      replacement: typeof g.replacement === 'string' ? g.replacement : null,
+      deprecated: n.deprecated,
       context: typeof n.ext.context === 'string' ? n.ext.context : null,
       description: n.description,
       proposal: n.proposal,
@@ -290,6 +296,9 @@ function expandVariant(v, structs, res) {
     size: fieldsOfGroup(v.child('size'), val, v.node.segs.length + 1),
     ramp, stops: rampStops(v.prefix, ramp),
     proposal: proposalChildren(v),
+    // godot.textures as authored (P61 checks each names a pack icon); $deprecated with its replacement (P62)
+    textures: v.textures ? Object.fromEntries(Object.entries(v.textures).filter(([, p]) => typeof p === 'string')) : null,
+    deprecated: v.deprecated ? { replacement: v.replacement, note: typeof v.deprecated === 'string' ? v.deprecated : null } : null,
     stateProposal: Object.fromEntries(Object.keys(states).map((st) => [st, v.child(st) ? !!v.child(st).proposal : !!v.proposal])),
     description: v.description, file: v.file, pointer: v.pointer,
   };

@@ -1,0 +1,25 @@
+{
+  "id": "s1",
+  "nodes": [
+    {
+      "name": "Root",
+      "type": "VBoxContainer",
+      "children": [
+        {
+          "name": "Mark",
+          "type": "TextureRect",
+          "icon": "mark",
+          "custom_minimum_size": [
+            48,
+            40
+          ]
+        },
+        {
+          "name": "Slider",
+          "type": "HSlider",
+          "variation": "ToySlider"
+        }
+      ]
+    }
+  ]
+}

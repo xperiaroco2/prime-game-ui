@@ -276,7 +276,9 @@ const placeholdersOf = (s) => [...new Set([...String(s).matchAll(PH_RE)].map((m)
 // ---------------------------------------------------------------------------------------------------------------
 // Inputs: the pack, the deck, the wireframe titles and the icons.
 
-function loadIcons() {
+// pack: the token pack, whose assets give each icon's copy in the game (dist/pack/icons/…), its tint and its svg/scale.
+function loadIcons(pack) {
+  const assets = new Map(((pack && pack.assets) || []).map((a) => [a.source, a]));
   const icons = new Map();
   for (const src of ICON_SOURCES) {
     let lic = {};
@@ -298,10 +300,14 @@ function loadIcons() {
       const head = open[0].replace(/\s(width|height|aria-hidden|focusable)="[^"]*"/g, '').replace(/>$/, ' width="100%" height="100%" aria-hidden="true" focusable="false">');
       // A tinted icon draws in currentColor on the page; the game imports its white copy (dist/pack/icons, written by
       // tools/tokens/build.js) and tints it. An icon in its own colours (the room pictograms, the slider knobs) is not.
+      // The pack's assets record says where the game's copy is, whether it is white (tint "multiply") and, for an icon the
+      // pages always draw in one colour (the room pictograms' ink), the self_modulate that gives that colour back.
       const tinted = /currentColor/.test(text);
+      const asset = assets.get(rel) || null;
       icons.set(src.prefix + f.replace(/\.svg$/, ''), {
         file: rel, svg: head + text.slice(open[0].length), w, h, tinted,
-        game: tinted && !src.prefix ? `${GAME_ICONS}/${f}` : rel,
+        game: asset ? `dist/pack/${asset.path}` : tinted && !src.prefix ? `${GAME_ICONS}/${f}` : rel,
+        white: asset ? asset.tint === 'multiply' : tinted, tintColor: asset && asset.tint_color ? asset.tint_color : null, asset,
         licence: entry && typeof entry.licence === 'string' && LICENCES_OK.test(entry.licence) ? entry.licence : null,
       });
     }
@@ -324,7 +330,7 @@ function loadInputs(pack) {
   }
   return {
     pack, selectedOf, deckValues, byKey: new Map(deck.entries.map((e) => [e.key, e])),
-    titles: D.screenTitles(readText(D.WIREFRAMES)), icons: loadIcons(),
+    titles: D.screenTitles(readText(D.WIREFRAMES)), icons: loadIcons(pack),
   };
 }
 const readPack = () => { try { return JSON.parse(readText(PACK)); } catch (e) { return fail(`${PACK}: ${e.message}`); } };
@@ -1361,6 +1367,8 @@ function renderPage(screens, C, sys, ui, layout) {
 
 // The icons a screen draws, each at the largest size it is drawn (px) and the svg/scale Godot imports it at, so that
 // EXPAND_IGNORE_SIZE never stretches a small bitmap (Godot rasterises an SVG at import, svg/scale 1 = its viewBox).
+// One file has one import setting, so the values are the pack's (assets: drawn_px and svg_scale, the largest over every
+// screen, tools/tokens/icons.js); this screen's own measure is the fallback for an icon the pack does not list.
 function iconImportNotes(S, C) {
   const best = new Map();
   const see = (name, px) => { if (C.icons.get(name)) best.set(name, Math.max(best.get(name) || 0, px)); };
@@ -1376,14 +1384,15 @@ function iconImportNotes(S, C) {
   }
   if (!best.size) return [];
   const tick = '`';
-  const list = [...best].sort((a, b) => a[0].localeCompare(b[0])).map(([name, px]) => {
+  const list = [...best].sort((a, b) => a[0].localeCompare(b[0])).map(([name, own]) => {
     const ic = C.icons.get(name);
-    const scale = Math.ceil((px / Math.max(ic.w, ic.h)) * 100) / 100;
+    const px = ic.asset ? ic.asset.drawn_px : own;
+    const scale = ic.asset ? ic.asset.svg_scale : Math.ceil((own / Math.max(ic.w, ic.h)) * 100) / 100;
     return `${tick}${name}${tick} ${scale} (${fmt(px)} px)`;
   });
   return [
-    `- Icons: the tinted ones are white SVGs in ${tick}${GAME_ICONS}/${tick} (the pack's copy of ${tick}pages/components/icons${tick}, currentColor written as white): a TextureRect tints one with the ${tick}self_modulate${tick} its line gives (the colour the page draws it in), a Button with its variation's ${tick}icon_*_color${tick}, an OptionButton its arrow with ${tick}modulate_arrow${tick}. The room pictograms are ink and are not tinted.`,
-    `- SVG import: Godot rasterises an SVG at import, so import each at ${tick}svg/scale${tick} = the largest size it is drawn ÷ its viewBox (the largest over every screen that draws it): ${list.join(', ')}.`,
+    `- Icons: the tinted ones are white SVGs in ${tick}${GAME_ICONS}/${tick} (the pack's copy of ${tick}pages/components/icons${tick}, currentColor written as white): a TextureRect tints one with the ${tick}self_modulate${tick} its line gives (the colour the page draws it in), a Button with its variation's ${tick}icon_*_color${tick}, an OptionButton its arrow with ${tick}modulate_arrow${tick}. The room pictograms are white copies too (${tick}${GAME_ICONS}/room/${tick}), drawn in ink: their lines give the ${tick}self_modulate${tick}. The pack's ${tick}assets${tick} list every icon with its tint and ${tick}svg_scale${tick}.`,
+    `- SVG import: Godot rasterises an SVG at import, so import each at ${tick}svg/scale${tick} = the largest size it is drawn ÷ its viewBox (the largest over every screen that draws it, as the pack's ${tick}assets${tick} give it): ${list.join(', ')}.`,
   ];
 }
 
@@ -1572,11 +1581,12 @@ function handoff(S, C) {
     }
     if (T === 'TextureRect') {
       const ic = C.icons.get(p.icon);
-      bits.push(`texture \`${p.icon}\` (${ic.game}${ic.tinted ? ', white' : ''}, ${ic.licence}), expand_mode \`EXPAND_IGNORE_SIZE\`, stretch_mode \`STRETCH_KEEP_ASPECT_CENTERED\``);
+      bits.push(`texture \`${p.icon}\` (${ic.game}${ic.white ? ', white' : ''}, ${ic.licence}), expand_mode \`EXPAND_IGNORE_SIZE\`, stretch_mode \`STRETCH_KEEP_ASPECT_CENTERED\``);
       if (p.theme_color) bits.push(`self_modulate = get_theme_color("${p.theme_color.replace(/-/g, '_')}", "${surface.name}")`);
       else if (p.self_modulate) bits.push(`self_modulate from data (a content colour, not a theme colour), sample ${p.self_modulate}`);
       // An icon with no tint of its own draws in the text colour of its context (as the page draws it).
       else if (ic.tinted) bits.push(`self_modulate = get_theme_color("font_color", "${surface.context === 'light' ? 'ToyTextOnLight' : 'ToyTextOnDark'}")`);
+      else if (ic.tintColor) bits.push(`self_modulate ${ic.tintColor} (the colour the pages draw it in; the pack's copy is white)`);
       else bits.push('not tinted (drawn in its own colours)');
     }
     return bits;
@@ -1661,7 +1671,7 @@ function handoff(S, C) {
   out.push(...iconImportNotes(S, C));
   if (S.all.some((n) => n.type === 'OptionButton' || n.type === 'LineEdit')) out.push('- An OptionButton\'s open list is its `get_popup()`, a PopupMenu in a window of its own, and a LineEdit\'s right-click menu is one too: Toy has no PopupMenu variation yet, so they would draw in Godot\'s default theme. Until it comes (a prime-game-ui follow-up), LineEdits set `context_menu_enabled = false`.');
   if (S.all.some((n) => n.G.spacing)) out.push('- Boxes and grids take their gaps only from their spacing variation (ToyColumn…, ToyRow…, ToyGrid…), and a ScrollContainer the gap to its bar from ToyScroll; a box without one has a single child. No `theme_override_constants`: the theme test forbids them.');
-  if (S.all.some((n) => n.type === 'HSlider')) out.push(`- An HSlider's grabber is a texture: the theme icons \`grabber\` and \`grabber_highlight\` are \`${C.icons.get(KNOB_ICON).file}\`, \`grabber_disabled\` \`${C.icons.get(KNOB_DISABLED_ICON).file}\` (own work). Slider draws no focus StyleBox of its own: draw the variation's \`focus\` StyleBox over the slider while it has visible focus.`);
+  if (S.all.some((n) => n.type === 'HSlider')) out.push(`- An HSlider's grabber is a texture: the theme icons \`grabber\` and \`grabber_highlight\` are \`${C.icons.get(KNOB_ICON).game}\`, \`grabber_disabled\` \`${C.icons.get(KNOB_DISABLED_ICON).game}\` (own work, in their own colours, not tinted; the pack names them in the variation's \`textures\`). Slider draws no focus StyleBox of its own: draw the variation's \`focus\` StyleBox over the slider while it has visible focus.`);
   if (S.all.some((n) => n.type === 'ScrollContainer')) out.push(`- A ScrollContainer's bar is its own \`VScrollBar\`: set its \`theme_type_variation\` to \`${SCROLL_BAR}\` in code (\`get_v_scroll_bar()\`); the child fills the width (\`SIZE_EXPAND_FILL\`) and keeps its minimum height.`);
   out.push('');
   out.push(...keysSection(S, C));

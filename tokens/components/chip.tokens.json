@@ -65,7 +65,7 @@
       "$deprecated": "The NEW tag is gone (copy round 2): use ToyChipAlert. Removed at the next major release.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
-          "godot": { "variation": "ToyChipNew", "class": "PanelContainer" },
+          "godot": { "variation": "ToyChipNew", "class": "PanelContainer", "replacement": "ToyChipAlert" },
           "context": "light"
         }
       },
@@ -83,7 +83,7 @@
       "$deprecated": "Use ToyChipAlertText. Removed at the next major release.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
-          "godot": { "variation": "ToyChipNewText", "class": "Label", "on": ["ToyChipNew"] },
+          "godot": { "variation": "ToyChipNewText", "class": "Label", "on": ["ToyChipNew"], "replacement": "ToyChipAlertText" },
           "context": "light"
         }
       },

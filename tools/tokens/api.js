@@ -13,53 +13,10 @@ const R = require('./resolve.js');
 const { analyze } = require('./validate.js');
 const { packTokens, computeModes, buildPack, serializePack } = require('./emit-pack.js');
 const { renderCss } = require('./emit-css.js');
+const { iconSet } = require('./icons.js');
 
 const OUTPUTS = { css: 'dist/css/toy-tokens.css', pack: 'dist/pack/toy.pack.json' };
-// The icons the game imports beside the pack: pages/components/icons/*.svg with currentColor written as white, and their
-// LICENCES.json. The pages draw an icon in its context's colour (CSS currentColor); Godot's SVG importer (ThorVG) has no
-// such context, and the game tints an icon by multiplying it (TextureRect self_modulate, a Button's icon_*_color,
-// OptionButton's modulate_arrow), so the game's copy is white and the tint gives its colour. Icons drawn in their own hex
-// (the slider knobs) are copied as they are. A root without pages/components/icons (a test fixture, an overlay) has none.
-const ICONS_SRC = 'pages/components/icons';
-const ICONS_OUT = 'dist/pack/icons';
-function iconOutputs(root) {
-  let files = [];
-  try { files = fs.readdirSync(path.join(root, ...ICONS_SRC.split('/'))).filter((n) => n.endsWith('.svg') || n === 'LICENCES.json').sort(); } catch { return {}; }
-  const out = {};
-  for (const name of files) {
-    const text = fs.readFileSync(path.join(root, ...ICONS_SRC.split('/'), name), 'utf8').replace(/\r\n/g, '\n').replace(/\s+$/, '') + '\n';
-    if (!name.endsWith('.svg') || !text.includes('currentColor')) { out[`${ICONS_OUT}/${name}`] = text; continue; }
-    const note = `<!-- generated from ${ICONS_SRC}/${name} by tools/tokens/build.js: currentColor written as #ffffff, for Godot's tint -->\n`;
-    out[`${ICONS_OUT}/${name}`] = note + text.replace(/currentColor/g, '#ffffff');
-  }
-  Object.assign(out, roomIconOutputs(root));
-  return out;
-}
-// The room pictograms (the engineer's room-signs decision: system B's icons, plain on packages and the map) go to
-// dist/pack/icons/room/ with their licence records. They are drawn in one ink colour, written as white for the same
-// tint; an icon with any other colour is copied as it is.
-const ROOM_SRC = 'pages/room-signs/systems/b';
-const ROOM_INK = '#2a1f33';
-function roomIconOutputs(root) {
-  const dir = path.join(root, ...ROOM_SRC.split('/'), 'icons');
-  let files = [];
-  try { files = fs.readdirSync(dir).filter((n) => n.endsWith('.svg')).sort(); } catch { return {}; }
-  let licences = {};
-  try { licences = JSON.parse(fs.readFileSync(path.join(root, ...ROOM_SRC.split('/'), 'LICENCES.json'), 'utf8')); } catch { /* none */ }
-  const out = {};
-  const records = [];
-  for (const name of files) {
-    const text = fs.readFileSync(path.join(dir, name), 'utf8').replace(/\r\n/g, '\n').replace(/\s+$/, '') + '\n';
-    const colours = new Set((text.match(/#[0-9a-fA-F]{6}\b/g) || []).map((c) => c.toLowerCase()));
-    const ink = colours.size === 1 && colours.has(ROOM_INK);
-    const note = `<!-- generated from ${ROOM_SRC}/icons/${name} by tools/tokens/build.js${ink ? `: ${ROOM_INK} written as #ffffff, for Godot's tint` : ''} -->\n`;
-    out[`${ICONS_OUT}/room/${name}`] = note + (ink ? text.split(ROOM_INK).join('#ffffff') : text);
-    const rec = licences[`icons/${name}`];
-    if (rec) records.push(`  ${JSON.stringify(name)}: ${JSON.stringify(rec).replace(/":/g, '": ').replace(/,"/g, ', "')}`);
-  }
-  out[`${ICONS_OUT}/room/LICENCES.json`] = `{\n${records.join(',\n')}\n}\n`;
-  return out;
-}
+// The icons the game imports beside the pack (dist/pack/icons/**) and their `assets` records: tools/tokens/icons.js.
 const RELEASE_FILE = 'tokens/release.json';
 
 // tokens/release.json = {"version": "X.Y.Z"} (spec §1, §9.2). Its problems use the build rule id B01.
@@ -91,16 +48,22 @@ function readRelease(root, P) {
 // analyzeAll(root, opts) -> { problems, sys | null }: never throws on token problems.
 // opts.overlay: a DTCG file (absolute, or relative to root) applied on a temporary copy of tokens/ (see withOverlay).
 // opts.allow: rule ids reported as warnings instead of errors (an overlay that deliberately changes a rule's look).
+// opts.assetsRoot: where the icons and the screens are read (default root; an overlay's temporary copy holds only tokens/).
 function analyzeAll(root, opts) {
   if (opts && opts.overlay) {
     return withOverlay(root, opts.overlay, (tmp) => {
-      const r = analyzeAll(tmp, Object.assign({}, opts, { overlay: null }));
+      const r = analyzeAll(tmp, Object.assign({}, opts, { overlay: null, assetsRoot: (opts && opts.assetsRoot) || root }));
       if (r.sys) { r.sys.root = root; r.sys.overlay = rel(root, opts.overlay); }
       return r;
     });
   }
-  const a = analyze(root);
+  // the icons (P61 names them as textures) and the pack's assets; a screen source that is not JSON stops the build (B02)
+  let icons = { outputs: {}, assets: [], icons: [] };
+  let iconError = null;
+  try { icons = iconSet((opts && opts.assetsRoot) || root); } catch (e) { iconError = e.message; }
+  const a = analyze(root, { icons: icons.icons });
   const P = a.problems;
+  if (iconError) P.error('B02', null, '', null, iconError);
   const allow = (opts && opts.allow) || [];
   for (const p of P.list) if (p.severity === 'error' && allow.includes(p.rule)) { p.severity = 'warning'; p.allowed = true; }
   const version = readRelease(root, P);
@@ -108,7 +71,7 @@ function analyzeAll(root, opts) {
   for (const r of a.results) r.packTokens = packTokens(r);
   const modes = computeModes(a.model, a.results, P);
   if (P.errors.length) return { problems: P, sys: null };
-  const pack = buildPack(a.model, a.results, modes, version);
+  const pack = buildPack(a.model, a.results, modes, version, icons.assets);
   const packText = serializePack(pack);
   const css = renderCss(a.model, a.results);
   const r0 = a.results[0];
@@ -131,7 +94,7 @@ function analyzeAll(root, opts) {
     cssVar: R.cssVar,
     pack,
     css,
-    outputs: Object.assign({ [OUTPUTS.css]: css, [OUTPUTS.pack]: packText }, iconOutputs(root)),
+    outputs: Object.assign({ [OUTPUTS.css]: css, [OUTPUTS.pack]: packText }, icons.outputs),
     modifiers: a.model.modifiers.map((m) => ({ name: m.name, contexts: m.contexts.slice(), default: m.default })),
     warnings: P.warnings,
     counts: { tiers, authored: sources.size, packTokens: r0.packTokens.size, variations: Object.keys(pack.variations).length,

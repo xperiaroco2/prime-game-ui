@@ -50,10 +50,11 @@ node tools/check.js                 # every check: tokens, lint, contrast gates,
 (`self_modulate`, a Button's `icon_*_color`, OptionButton's `modulate_arrow`); an icon in its own colours (the slider
 knobs) and `LICENCES.json` are copied as they are. `dist/pack/icons/room/` holds the room pictograms (room-signs system B, the
 engineer's room-signs decision: plain on packages and the map), their ink written white the same way, with their own
-`LICENCES.json`; the game names a room's sign by its file name (`room/lab`).
+`LICENCES.json`; the game names a room's sign by its file name (`room/lab`). The pack's `assets` list every one of
+these icons with how it is imported (below, "The pack's assets"); `tools/tokens/icons.js` writes both.
 
-Every error names the rule (D01–D39, P40–P60, or B01 for `release.json`) and the file; where the file parses it also
-gives the line and column, the JSON Pointer and the token path.
+Every error names the rule (D01–D39, P40–P62, B01 for `release.json`, or B02 for a screen source the icon sizes cannot
+read) and the file; where the file parses it also gives the line and column, the JSON Pointer and the token path.
 
 ## Classes
 
@@ -74,7 +75,7 @@ A variant's `godot.class` is one of these (`tools/tokens/expand.js` CLASSES); it
 | ScrollContainer | none | scrollbar-h-separation (required, a `space.*` alias: the gap between the content and the vertical bar) |
 
 - **HSlider:** its grabber, grabber_highlight and grabber_disabled are textures, not tokens
-  (`pages/components/icons/slider-knob.svg` and `slider-knob-disabled.svg`, 28 px). Its `focus` is the Toy outer ring;
+  (`pages/components/icons/slider-knob.svg` and `slider-knob-disabled.svg`, 28 px), named in `godot.textures` (below). Its `focus` is the Toy outer ring;
   Godot 4.7.2's Slider draws no focus StyleBox (slider.cpp binds slider, grabber_area, grabber_area_highlight only), so
   the game draws this one over the slider while it has visible focus.
 - **Containers** draw nothing: the game's theme test forbids theme overrides, so a box or grid takes its gap from a
@@ -102,10 +103,68 @@ showcase puts a proposal badge on each. When a proposal is approved, remove its 
 `caret-color`, `selection-color`, `selected-font-color` (ToyField) and `icon-on`, `icon-off` (ToyMic) keep their names.
 Every item needs a CSS form in `pages/components/emit-css.js` (or a stated reason it has none), or the showcase build fails.
 
+## Textures
+
+A theme icon of a class is a texture, not a token: a variant names it in `godot.textures`, keyed by the Godot icon in
+kebab-case (`grabber-highlight` is `grabber_highlight`), with the pack path of an icon as the value (`icons/<name>.svg`
+for `pages/components/icons/<name>.svg`, `icons/room/<name>.svg` for a room pictogram):
+
+```json
+"godot": { "variation": "ToySlider", "class": "HSlider",
+  "textures": { "grabber": "icons/slider-knob.svg", "grabber-highlight": "icons/slider-knob.svg",
+                "grabber-disabled": "icons/slider-knob-disabled.svg" } }
+```
+
+The class's icons are listed in `tools/tokens/expand.js` CLASSES (`textures`): OptionButton `arrow`; HSlider `grabber`,
+`grabber-highlight`, `grabber-disabled`, `tick` (godot-facts §9). A new class adds its own there (PopupMenu's
+`radio-checked`, `radio-unchecked` for ToyDropdownList). P61 checks that each name is one of the class's icons and that
+the file exists with an allowed licence record. Today: ToySlider's three knobs and ToyDropdown's `arrow`
+(`icons/chevron-down.svg`).
+
 ## Deprecated variations
 
 `ToyChipNew` and `ToyChipNewText` carry `$deprecated` since ui-0.2.0 (the NEW tag is gone; `ToyChipAlert` replaces them). A
-removal is a major bump, so they leave with the next major release.
+removal is a major bump, so they leave with the next major release. A deprecated variant names its replacement in
+`godot.replacement` (`ToyChipAlert`, `ToyChipAlertText`); P62 checks it is a variant of the same class that is not
+deprecated itself. The pack marks both (below).
+
+## The pack's members since ui-0.3.0
+
+`schema` stays 1: every member below is new and optional, so a generator that ignores it still works.
+
+- **`assets`**: one entry per icon in `dist/pack/icons/` (and `icons/room/`), sorted by path:
+  `{ "path": "icons/check.svg", "kind": "icon", "sha256": "<64 hex of the file>", "licence": "own work",
+  "licence_file": "icons/LICENCES.json", "source": "pages/components/icons/check.svg", "size": [24, 24], "drawn_px": 120,
+  "svg_scale": 5, "tint": "multiply" }`.
+  - `size` is the SVG's own size (width and height, else its viewBox); `drawn_px` the largest size a screen of
+    `pages/screens/src` draws it at (a TextureRect by its custom_minimum_size, a Button icon by `icon_size` or its own
+    size, an OptionButton's arrow and an HSlider's knobs at their own size; an icon no screen draws keeps its own size);
+    `svg_scale` = `drawn_px` ÷ the larger side of `size`, rounded up to 0.01: the `svg/scale` to import it at, as the
+    screens' handoffs list it. The pack is rebuilt when a screen changes an icon's size.
+  - `tint`: `"multiply"` for a white copy (currentColor or the room ink written as `#ffffff`): the game colours it by
+    multiplying (`self_modulate`, a Button's `icon_*_color`, OptionButton's `modulate_arrow`); `"none"` for an icon in
+    its own colours (the slider knobs), never tinted.
+  - `tint_color` (only where the pages always draw the icon in one colour): the `self_modulate` that draws it as the
+    pages do, `#2a1f33` (ink) for the room pictograms.
+  - **Importing them:** ui-sync puts a `.gdignore` in the pack's folder, so Godot imports nothing under it. The game
+    copies the icons into a folder Godot imports, keeps them under the same sha256 lock (`sha256` here is the file's), and
+    imports each at its `svg_scale`.
+- **`variations.<name>.textures`** (only where a variant names textures): `{ "<theme icon, kebab-case>": "<assets path>" }`,
+  e.g. ToySlider `{ "grabber": "icons/slider-knob.svg", "grabber-highlight": "icons/slider-knob.svg",
+  "grabber-disabled": "icons/slider-knob-disabled.svg" }` and ToyDropdown `{ "arrow": "icons/chevron-down.svg" }`: the
+  generator sets each as the theme icon (`grabber_highlight`) of that variation.
+- **`variations.<name>.deprecated`** (only on a deprecated variation): `{ "replacement": "<variation>" | null, "note":
+  "<the $deprecated text>" | null }`, e.g. ToyChipNew `{ "replacement": "ToyChipAlert", … }`. The variation stays in the
+  pack, complete, until the next major release.
+
+## Profile rules since ui-0.3.0
+
+These extend spec §7.2 (P40–P60):
+
+| Id | Rule |
+|---|---|
+| P61 | `godot.textures` is a non-empty object; each key is one of the class's theme icons (`expand.js` CLASSES `textures`), each value the pack path of an icon that exists and has an allowed licence record |
+| P62 | `godot.replacement` only on a variant with `$deprecated`; it names a variant of the same class that is not deprecated |
 
 ## Releases
 
@@ -113,9 +172,10 @@ removal is a major bump, so they leave with the next major release.
 `node tools/check.js --release ui-X.Y.Z` checks that the tag, `release.json` and the pack agree and that the bump is big
 enough against the previous `ui-*` tag's pack:
 
-- **major**: a token path or variation removed, renamed or retyped, or the pack `schema` bumped;
+- **major**: a token path, variation, variation member (`textures`, `deprecated`), asset or pack member removed, renamed
+  or retyped, or the pack `schema` bumped;
 - **minor**: one added;
-- **patch**: only values changed.
+- **patch**: only values changed (an asset's file or import values included).
 
 The PR is merged once CI is green and the merge commit is tagged (by the agent, under the trust rules in
 `CLAUDE.md`); prime-game then copies `dist/pack/` at that tag byte for byte and

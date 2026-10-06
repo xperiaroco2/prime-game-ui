@@ -46,7 +46,7 @@
       "$description": "A dropdown: as the field; no parent, so OptionButton's own items still resolve.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
-          "godot": { "variation": "ToyDropdown", "class": "OptionButton" },
+          "godot": { "variation": "ToyDropdown", "class": "OptionButton", "textures": { "arrow": "icons/chevron-down.svg" } },
           "context": "any"
         }
       },

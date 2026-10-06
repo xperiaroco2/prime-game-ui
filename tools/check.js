@@ -86,9 +86,10 @@ function releaseCheck(tag) {
 
 function requiredBump(old, cur) {
   if (old.schema !== cur.schema) return { level: "major", why: `schema ${old.schema} -> ${cur.schema}` };
-  const why = [];
+  // the reasons are kept per level; the report names the first five of the level the diff needs
+  const why = { patch: [], minor: [], major: [] };
   let level = "none";
-  const raise = (l, w) => { const r = { none: 0, patch: 1, minor: 2, major: 3 }; if (r[l] > r[level]) level = l; if (why.length < 5) why.push(w); };
+  const raise = (l, w) => { const r = { none: 0, patch: 1, minor: 2, major: 3 }; if (r[l] > r[level]) level = l; why[l].push(w); };
   const ot = old.tokens || {}, nt = cur.tokens || {};
   for (const k of Object.keys(ot)) {
     if (!(k in nt)) raise("major", "token removed: " + k);
@@ -97,14 +98,33 @@ function requiredBump(old, cur) {
   }
   for (const k of Object.keys(nt)) if (!(k in ot)) raise("minor", "token added: " + k);
   const ov = old.variations || {}, nv = cur.variations || {};
+  // a variation's optional members (textures, deprecated): one added is a minor bump, one removed a major
   for (const k of Object.keys(ov)) {
     if (!(k in nv)) raise("major", "variation removed: " + k);
     else if (ov[k].class !== nv[k].class) raise("major", "variation retyped: " + k);
-    else if (JSON.stringify(ov[k]) !== JSON.stringify(nv[k])) raise("patch", "variation changed: " + k);
+    else if (JSON.stringify(ov[k]) !== JSON.stringify(nv[k])) {
+      const gone = Object.keys(ov[k]).filter(f => !(f in nv[k]));
+      const added = Object.keys(nv[k]).filter(f => !(f in ov[k]));
+      if (gone.length) raise("major", `variation member removed: ${k}.${gone[0]}`);
+      if (added.length) raise("minor", `variation member added: ${k}.${added[0]}`);
+      if (!gone.length && !added.length) raise("patch", "variation changed: " + k);
+    }
   }
   for (const k of Object.keys(nv)) if (!(k in ov)) raise("minor", "variation added: " + k);
   if (JSON.stringify(old.modes) !== JSON.stringify(cur.modes)) raise("patch", "mode values changed");
-  return { level, why: why.join("; ") || "no change" };
+  // assets (spec §9.1): files beside the JSON, by path
+  const oa = new Map((old.assets || []).map(a => [a.path, a])), na = new Map((cur.assets || []).map(a => [a.path, a]));
+  for (const [p, a] of oa) {
+    if (!na.has(p)) raise("major", "asset removed: " + p);
+    else if (JSON.stringify(a) !== JSON.stringify(na.get(p))) raise("patch", "asset changed: " + p);
+  }
+  for (const p of na.keys()) if (!oa.has(p)) raise("minor", "asset added: " + p);
+  // top-level members: a new one is a minor bump, a removed one a major
+  for (const k of Object.keys(old)) if (!(k in cur)) raise("major", "pack member removed: " + k);
+  for (const k of Object.keys(cur)) if (!(k in old)) raise("minor", "pack member added: " + k);
+  const list = level === "none" ? [] : why[level];
+  const more = list.length > 5 ? `; and ${list.length - 5} more` : "";
+  return { level, why: list.length ? list.slice(0, 5).join("; ") + more : "no change" };
 }
 
 function bumpOf(a, b) {

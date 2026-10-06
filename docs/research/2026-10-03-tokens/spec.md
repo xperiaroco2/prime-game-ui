@@ -1351,9 +1351,17 @@ every alias.
   every typography token and label, durations, transitions. Any permutation is the defaults plus each chosen context's
   overrides; the build verifies this for all four before writing.
 - **`proposals`** lists every path or group path marked proposal.
-- **`assets`** lists files shipped beside the JSON, as `{ "path", "sha256", "licence", "licence_file", "source" }`. It
-  stays empty until the engineer approves the Comfortaa download batch (CLAUDE.md, Downloads). Own-work SVG icons come
-  later, licence "own work".
+- **`assets`** lists files shipped beside the JSON, as `{ "path", "sha256", "licence", "licence_file", "source" }`. Since
+  ui-0.3.0 it lists every own-work SVG icon of `icons/` and `icons/room/` (licence "own work"), each with
+  `"kind": "icon"` and its import: `size` (the SVG's own), `drawn_px` (the largest size a screen draws it at),
+  `svg_scale` (`drawn_px` ÷ the larger side, rounded up to 0.01), `tint` (`"multiply"` for a white copy, `"none"` for an
+  icon in its own colours) and, for an icon the pages always draw in one colour, `tint_color` (the room pictograms'
+  `#2a1f33`); `tokens/README.md` ("The pack's members since ui-0.3.0") has the details. Fonts follow once the engineer
+  approves the Comfortaa download batch (CLAUDE.md, Downloads).
+- **`variations`** may carry two optional members (since ui-0.3.0, schema 1): `textures`
+  `{ "<theme icon, kebab-case>": "<assets path>" }` (ToySlider's knobs, ToyDropdown's `arrow`) and `deprecated`
+  `{ "replacement": "<variation>" | null, "note": "<the $deprecated text>" | null }` (ToyChipNew, ToyChipNewText).
+  Both are absent where they do not apply.
 - **`schema`** bumps only when this shape changes; the generator refuses a schema it does not know. **`version`** is
   `tokens/release.json`.
 - There is no commit field: the lock file records the commit.
@@ -1381,7 +1389,9 @@ every alias.
    ```
 
    It also puts a `.gdignore` in `client/ui/theme/pack/`. Whether Godot would otherwise import the JSON is
-   (unconfirmed); the generator reads it with `FileAccess`.
+   (unconfirmed); the generator reads it with `FileAccess`. The `.gdignore` also stops Godot importing the icons under
+   `icons/`, so the game copies the `assets` into a folder it imports, under the same sha256 lock, and imports each SVG
+   at its `svg_scale`.
 3. **The mapping table lives in prime-game next to the generator** (`tools/theme/mapping.json` beside
    `tools/theme/build_theme.gd`). It maps the pack's state and field names to theme items per class (§4.18), and the old
    variation names to Toy ones (§19).

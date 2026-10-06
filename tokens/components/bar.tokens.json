@@ -114,7 +114,15 @@
       "$description": "The panel slider (volumes, voice threshold): the ToyBarSlider track and ink fill, a 28 px knob texture (slider-knob.svg; slider-knob-disabled.svg when not editable), an outer focus ring.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
-          "godot": { "variation": "ToySlider", "class": "HSlider" },
+          "godot": {
+            "variation": "ToySlider",
+            "class": "HSlider",
+            "textures": {
+              "grabber": "icons/slider-knob.svg",
+              "grabber-highlight": "icons/slider-knob.svg",
+              "grabber-disabled": "icons/slider-knob-disabled.svg"
+            }
+          },
           "context": "light"
         }
       },

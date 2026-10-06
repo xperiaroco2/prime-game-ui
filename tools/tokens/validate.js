@@ -1,5 +1,5 @@
 // The token validator (spec §7.1 step 2, §7.2): runs the DTCG rules of resolve.js on every permutation (D38) and the
-// component profile rules P40-P60. analyze(root) is the one entry used by api.js, build.js and the self-test.
+// component profile rules P40-P62 (P61-P62 since ui-0.3.0: tokens/README.md, "Profile rules since ui-0.3.0"). analyze(root) is the one entry used by api.js, build.js and the self-test.
 // CLI: node tools/tokens/validate.js [--root <dir>] [--json]
 // Node 20, no packages.
 'use strict';
@@ -12,7 +12,7 @@ const X = require('./expand.js');
 // blocks by `/* Toy[A-Za-z]+: `. A number is spelled (ToyColumnSixteen for space.16).
 const VARIATION_RE = /^Toy[A-Za-z]+$/;
 const CONTEXTS = ['dark', 'light', 'any'];
-const GODOT_VARIANT_KEYS = ['variation', 'class', 'parent', 'abstract', 'base', 'toggle', 'on'];
+const GODOT_VARIANT_KEYS = ['variation', 'class', 'parent', 'abstract', 'base', 'toggle', 'on', 'textures', 'replacement'];
 const NS_KEYS = ['godot', 'context', 'proposal'];
 // P58 names PanelContainer and Panel; spec §3.7 (whose tables win, spec intro) also puts preset-card notes on the
 // ToyPresetCard buttons, so a Button or OptionButton surface is accepted too.
@@ -20,13 +20,15 @@ const ON_CLASSES = ['PanelContainer', 'Panel', 'Button', 'OptionButton'];
 const { SIDES, CORNERS, CLASSES, AUTHOR_BOX, PRESS_MEMBERS, SIZE_NAMES } = X;
 const extPtr = (v, ...rest) => R.ptrJoin(v.pointer, '$extensions', R.NS, ...rest);
 
-function analyze(root) {
+// opts.icons: the pack's icons (tools/tokens/icons.js listIcons), which godot.textures may name (P61).
+function analyze(root, opts) {
   const P = new R.Problems();
   const model = R.loadModel(root, P);
   if (!model) return { problems: P, model: null, structs: null, results: [] };
+  const icons = new Map(((opts && opts.icons) || []).map((ic) => [ic.path, ic]));
   const structs = X.collectVariants(model);
   checkNamespace(model, structs, P);
-  checkStructure(model, structs, P);
+  checkStructure(model, structs, P, icons);
   const results = [];
   const defaultKeys = new Set();
   const d38 = new Set();
@@ -88,7 +90,7 @@ function checkNamespace(model, structs, P) {
   }
 }
 
-function checkStructure(model, structs, P) {
+function checkStructure(model, structs, P, icons) {
   const seen = new Map();
   const variantNodes = new Set(structs.list.map((v) => v.node));
   for (const v of structs.list) {
@@ -233,6 +235,33 @@ function checkStructure(model, structs, P) {
           for (const c of sv.node.children) if (!ok.includes(c.name)) P.error('P57', c.file, c.pointer, c.path, `a selected toggle variation authors only ${ok.join(', ')}; ${c.name} completes from normal`);
         }
       }
+    }
+    // P61: the class's theme icons, each a pack icon with a licence record
+    if ('textures' in v.godot) {
+      const tptr = extPtr(v, 'godot', 'textures');
+      const t = v.godot.textures;
+      const names = info.textures || [];
+      if (!R.isObj(t) || !R.keysOf(t).length) P.error('P61', v.file, tptr, tp, 'textures is a non-empty object {"<theme icon, kebab-case>": "icons/<name>.svg"}');
+      else {
+        for (const k of R.keysOf(t)) {
+          const kp = R.ptrJoin(tptr, k);
+          const ic = typeof t[k] === 'string' ? icons.get(t[k]) : null;
+          if (!names.includes(k)) P.error('P61', v.file, kp, tp, `${k} is not a theme icon of a ${v.cls} variant; ${names.length ? `its icons are ${names.join(', ')}` : 'it takes none'}`);
+          else if (typeof t[k] !== 'string') P.error('P61', v.file, kp, tp, 'a texture is the pack path of an icon: "icons/<name>.svg" (pages/components/icons) or "icons/room/<name>.svg" (the room pictograms)');
+          else if (!ic) P.error('P61', v.file, kp, tp, `${JSON.stringify(t[k])} is no icon of the pack: "icons/<name>.svg" is pages/components/icons/<name>.svg, "icons/room/<name>.svg" a room pictogram`);
+          else if (!ic.licenceOk) P.error('P61', v.file, kp, tp, `${ic.source} has no licence record with an allowed licence (own work, OFL, CC0, MIT, ISC, Apache-2.0) in its LICENCES.json`);
+        }
+      }
+    }
+    // P62: a deprecated variant may name its replacement: a variant of the same class that is not deprecated itself
+    if ('replacement' in v.godot) {
+      const rp = extPtr(v, 'godot', 'replacement');
+      const rv = typeof v.godot.replacement === 'string' ? structs.byName.get(v.godot.replacement) : null;
+      if (!v.node.deprecated) P.error('P62', v.file, rp, tp, 'replacement belongs on a deprecated variant (one with $deprecated)');
+      else if (!rv) P.error('P62', v.file, rp, tp, `replacement ${JSON.stringify(v.godot.replacement)} names no variant`);
+      else if (rv === v) P.error('P62', v.file, rp, tp, 'a variant is not its own replacement');
+      else if (rv.cls !== v.cls) P.error('P62', v.file, rp, tp, `replacement ${rv.variation} is a ${rv.cls}, not a ${v.cls}`);
+      else if (rv.node.deprecated) P.error('P62', v.file, rp, tp, `replacement ${rv.variation} is deprecated itself`);
     }
     // P58
     if ('on' in v.godot) {
