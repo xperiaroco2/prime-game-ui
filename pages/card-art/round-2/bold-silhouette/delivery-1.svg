@@ -1,0 +1,70 @@
+<!-- own work, prime-game-ui, licence: own work -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" width="320" height="240">
+  <defs>
+    <filter id="d1-w" filterUnits="userSpaceOnUse" x="0" y="0" width="320" height="240">
+      <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="4" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="1.8" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <symbol id="d1-flask" viewBox="0 0 48 48">
+      <path d="M17.5,4 L30.5,4 A2.5,2.5 0 0 1 33,6.5 L33,7.5 A2.5,2.5 0 0 1 30.5,10 L17.5,10 A2.5,2.5 0 0 1 15,7.5 L15,6.5 A2.5,2.5 0 0 1 17.5,4 Z"/>
+      <path fill-rule="evenodd" d="M19,8 L29,8 L29,17.45 A2,2 0 0 0 29.29,18.48 L40.43,37.05 A4,4 0 0 1 41,39.11 L41,41 A3,3 0 0 1 38,44 L10,44 A3,3 0 0 1 7,41 L7,39.11 A4,4 0 0 1 7.57,37.05 L18.71,18.48 A2,2 0 0 0 19,17.45 L19,8 Z M15.5,36 A3.5,3.5 0 1 0 22.5,36 A3.5,3.5 0 1 0 15.5,36 Z M25,29 A3,3 0 1 0 31,29 A3,3 0 1 0 25,29 Z"/>
+    </symbol>
+  </defs>
+  <g filter="url(#d1-w)" stroke-linecap="round" stroke-linejoin="round">
+    <!-- shelf unit, storage room -->
+    <g stroke="#3b2340" stroke-width="3">
+      <rect x="212" y="86" width="34" height="30" rx="3" fill="#e2c193"/>
+      <path d="M229,86 v9" stroke="#b98c55" stroke-width="5"/>
+      <rect x="252" y="94" width="40" height="22" rx="3" fill="#e2c193"/>
+      <path d="M272,94 v8" stroke="#b98c55" stroke-width="5"/>
+      <rect x="258" y="136" width="34" height="30" rx="3" fill="#e2c193"/>
+      <path d="M275,136 v9" stroke="#b98c55" stroke-width="5"/>
+      <rect x="218" y="182" width="44" height="30" rx="3" fill="#e2c193"/>
+      <path d="M240,182 v9" stroke="#b98c55" stroke-width="5"/>
+      <rect x="200" y="116" width="102" height="7" rx="2" fill="#cfc3dd"/>
+      <rect x="200" y="166" width="102" height="7" rx="2" fill="#cfc3dd"/>
+      <rect x="200" y="58" width="102" height="7" rx="2" fill="#cfc3dd"/>
+      <path d="M204,58 V212 M298,58 V212" stroke-width="5"/>
+    </g>
+    <!-- floor -->
+    <path d="M18,212 H302" stroke="#3b2340" stroke-width="4"/>
+    <!-- motion: the box just came off the shelf -->
+    <g stroke="#3b2340" stroke-width="3.5" fill="none">
+      <path d="M196,138 h-10 M200,150 h-16 M196,162 h-10"/>
+    </g>
+    <!-- the figure, leaning back: hup! -->
+    <g transform="translate(108,212)">
+      <g fill="none" stroke="#3b2340" stroke-width="12">
+        <path d="M6,-50 L17,-28 L22,-8"/>
+        <path d="M-6,-50 L-15,-27 L-22,-8"/>
+      </g>
+      <g stroke="#3b2340" stroke-width="10">
+        <path d="M22,-5 h8 M-22,-5 h8"/>
+      </g>
+      <g transform="rotate(-12 0 -50)">
+        <rect x="-16" y="-100" width="32" height="52" rx="13" fill="#3b2340"/>
+        <circle cx="0" cy="-123" r="18" fill="#3b2340"/>
+        <circle cx="7" cy="-125" r="2.7" fill="#fff4e2"/>
+        <circle cx="13.5" cy="-125" r="2.7" fill="#fff4e2"/>
+        <!-- strain: knitted brows, gritted teeth -->
+        <path d="M2,-133 l7,3 M11.5,-130 l7,-3" stroke="#fff4e2" stroke-width="2.6" fill="none"/>
+        <rect x="2" y="-117" width="12" height="6" rx="1.5" fill="#fff4e2"/>
+        <path d="M3,-114 h10 M8,-117 v6" stroke="#3b2340" stroke-width="1.3"/>
+        <!-- package -->
+        <g stroke="#3b2340" stroke-width="3">
+          <rect x="38" y="-98" width="46" height="40" rx="4" fill="#e2c193"/>
+          <path d="M61,-98 v5" stroke="#b98c55" stroke-width="6"/>
+        </g>
+        <use href="#d1-flask" x="49" y="-86" width="24" height="24" fill="#3b2340"/>
+        <!-- both arms under the package -->
+        <g fill="none" stroke="#3b2340" stroke-width="11">
+          <path d="M4,-90 L24,-80 L42,-86"/>
+          <path d="M6,-80 L26,-64 L44,-62"/>
+        </g>
+      </g>
+      <!-- sweat drop -->
+      <path d="M-30,-146 q-7,9 -2,13 q6,3 8,-4 q0,-5 -6,-9 z" fill="#9ad3ee" stroke="#3b2340" stroke-width="2.5"/>
+      <path d="M-40,-128 l-8,-3 M-38,-138 l-7,-6" stroke="#3b2340" stroke-width="3" fill="none"/>
+    </g>
+  </g>
+</svg>

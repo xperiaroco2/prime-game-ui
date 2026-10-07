@@ -1,0 +1,57 @@
+<!-- own work, prime-game-ui, licence: own work -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" width="320" height="240">
+  <defs>
+    <filter id="d4-w" filterUnits="userSpaceOnUse" x="0" y="0" width="320" height="240">
+      <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="4" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="1.8" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <symbol id="d4-flask" viewBox="0 0 48 48">
+      <path d="M17.5,4 L30.5,4 A2.5,2.5 0 0 1 33,6.5 L33,7.5 A2.5,2.5 0 0 1 30.5,10 L17.5,10 A2.5,2.5 0 0 1 15,7.5 L15,6.5 A2.5,2.5 0 0 1 17.5,4 Z"/>
+      <path fill-rule="evenodd" d="M19,8 L29,8 L29,17.45 A2,2 0 0 0 29.29,18.48 L40.43,37.05 A4,4 0 0 1 41,39.11 L41,41 A3,3 0 0 1 38,44 L10,44 A3,3 0 0 1 7,41 L7,39.11 A4,4 0 0 1 7.57,37.05 L18.71,18.48 A2,2 0 0 0 19,17.45 L19,8 Z M15.5,36 A3.5,3.5 0 1 0 22.5,36 A3.5,3.5 0 1 0 15.5,36 Z M25,29 A3,3 0 1 0 31,29 A3,3 0 1 0 25,29 Z"/>
+    </symbol>
+  </defs>
+  <g filter="url(#d4-w)" stroke-linecap="round" stroke-linejoin="round">
+    <!-- the room: door with its plate -->
+    <rect x="244" y="92" width="50" height="120" rx="4" fill="#e6def0" stroke="#3b2340" stroke-width="3.5"/>
+    <circle cx="284" cy="156" r="4" fill="#3b2340"/>
+    <path d="M214,96 l15,8.7 v17.3 l-15,8.7 l-15,-8.7 v-17.3 z" fill="#fff4e2" stroke="#3b2340" stroke-width="3.5"/>
+    <use href="#d4-flask" x="203" y="102" width="22" height="22" fill="#3b2340"/>
+    <!-- lit drop zone: one flat beam -->
+    <path d="M136,100 H172 L210,212 H98 Z" fill="#f8dca0" stroke="none"/>
+    <path d="M18,212 H302" stroke="#3b2340" stroke-width="4"/>
+    <ellipse cx="154" cy="213" rx="54" ry="10" fill="#f5a524" stroke="#3b2340" stroke-width="3"/>
+    <!-- the figure sets the package down -->
+    <g transform="translate(78,212)">
+      <g fill="none" stroke="#3b2340" stroke-width="12">
+        <path d="M6,-50 L20,-30 L16,-8"/>
+        <path d="M-6,-50 L-10,-28 L-18,-8"/>
+      </g>
+      <path d="M16,-5 h8 M-18,-5 h8" stroke="#3b2340" stroke-width="10"/>
+      <rect x="-16" y="-100" width="32" height="52" rx="13" fill="#3b2340" transform="rotate(40 0 -50)"/>
+      <circle cx="47" cy="-106" r="18" fill="#3b2340"/>
+      <circle cx="50" cy="-106" r="2.7" fill="#fff4e2"/>
+      <circle cx="57" cy="-109" r="2.7" fill="#fff4e2"/>
+      <!-- pleased grin -->
+      <path d="M44,-97 l17,-7 q3,8 -5,11 q-8,3 -12,-4 z" fill="#fff4e2"/>
+      <g stroke="#3b2340" stroke-width="3">
+        <rect x="54" y="-44" width="46" height="40" rx="4" fill="#e2c193"/>
+        <path d="M77,-44 v4" stroke="#b98c55" stroke-width="6"/>
+      </g>
+      <use href="#d4-flask" x="65" y="-34" width="24" height="24" fill="#3b2340"/>
+      <!-- both hands grip the box's sides from above; no arm crosses it -->
+      <g fill="none" stroke="#3b2340" stroke-width="11">
+        <path d="M24,-80 L38,-60 L50,-38"/>
+        <path d="M30,-84 L68,-66 L104,-56 L107,-36"/>
+      </g>
+      <g fill="#3b2340">
+        <circle cx="52" cy="-34" r="6.5"/>
+        <circle cx="105" cy="-33" r="6.5"/>
+      </g>
+      <!-- thunk -->
+      <path d="M46,-10 l-8,-4 M108,-10 l8,-4" stroke="#3b2340" stroke-width="3.5"/>
+    </g>
+    <!-- done -->
+    <path d="M140,62 l12,12 l24,-26" fill="none" stroke="#3b2340" stroke-width="13"/>
+    <path d="M140,62 l12,12 l24,-26" fill="none" stroke="#f5a524" stroke-width="6"/>
+  </g>
+</svg>

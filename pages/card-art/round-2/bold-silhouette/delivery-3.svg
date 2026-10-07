@@ -1,0 +1,63 @@
+<!-- own work, prime-game-ui, licence: own work -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" width="320" height="240">
+  <defs>
+    <filter id="d3-w" filterUnits="userSpaceOnUse" x="0" y="0" width="320" height="240">
+      <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="4" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="1.8" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <symbol id="d3-flask" viewBox="0 0 48 48">
+      <path d="M17.5,4 L30.5,4 A2.5,2.5 0 0 1 33,6.5 L33,7.5 A2.5,2.5 0 0 1 30.5,10 L17.5,10 A2.5,2.5 0 0 1 15,7.5 L15,6.5 A2.5,2.5 0 0 1 17.5,4 Z"/>
+      <path fill-rule="evenodd" d="M19,8 L29,8 L29,17.45 A2,2 0 0 0 29.29,18.48 L40.43,37.05 A4,4 0 0 1 41,39.11 L41,41 A3,3 0 0 1 38,44 L10,44 A3,3 0 0 1 7,41 L7,39.11 A4,4 0 0 1 7.57,37.05 L18.71,18.48 A2,2 0 0 0 19,17.45 L19,8 Z M15.5,36 A3.5,3.5 0 1 0 22.5,36 A3.5,3.5 0 1 0 15.5,36 Z M25,29 A3,3 0 1 0 31,29 A3,3 0 1 0 25,29 Z"/>
+    </symbol>
+  </defs>
+  <g filter="url(#d3-w)" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M18,212 H302" stroke="#3b2340" stroke-width="4"/>
+    <!-- the map: plain tiles, only the matching room speaks -->
+    <rect x="150" y="22" width="152" height="128" rx="10" fill="#fffaf0" stroke="#3b2340" stroke-width="4"/>
+    <g fill="#e6def0" stroke="#3b2340" stroke-width="3">
+      <rect x="160" y="32" width="40" height="40" rx="4"/>
+      <rect x="206" y="32" width="40" height="40" rx="4"/>
+      <rect x="160" y="96" width="56" height="44" rx="4"/>
+      <rect x="222" y="96" width="32" height="44" rx="4"/>
+      <rect x="260" y="96" width="32" height="44" rx="4"/>
+    </g>
+    <!-- the matching room -->
+    <g stroke="#f5a524" stroke-width="4" fill="none">
+      <path d="M258,20 l-4,-6 M284,18 l4,-6 M304,40 l7,-2"/>
+    </g>
+    <rect x="252" y="28" width="44" height="48" rx="5" fill="#f5a524" stroke="#3b2340" stroke-width="3.5"/>
+    <use href="#d3-flask" x="259" y="37" width="30" height="30" fill="#3b2340"/>
+    <!-- the figure, box under one arm, points at the room with the other -->
+    <g transform="translate(78,212)">
+      <g fill="none" stroke="#3b2340" stroke-width="12">
+        <path d="M7,-50 L10,-28 L12,-8"/>
+        <path d="M-7,-50 L-10,-28 L-14,-8"/>
+      </g>
+      <path d="M12,-5 h8 M-14,-5 h8" stroke="#3b2340" stroke-width="10"/>
+      <g transform="rotate(-4 0 -50)">
+        <rect x="-16" y="-100" width="32" height="52" rx="13" fill="#3b2340"/>
+        <circle cx="0" cy="-123" r="18" fill="#3b2340"/>
+        <circle cx="9" cy="-128" r="2.7" fill="#fff4e2"/>
+        <circle cx="15" cy="-129" r="2.7" fill="#fff4e2"/>
+        <!-- aha: brows up, mouth open -->
+        <path d="M5,-136 q3,-3 7,-2 M13,-137 q3,-2 6,0" stroke="#fff4e2" stroke-width="2.4" fill="none"/>
+        <ellipse cx="12" cy="-115" rx="3.4" ry="4" fill="#fff4e2"/>
+      </g>
+      <!-- box tucked under the back arm -->
+      <g stroke="#3b2340" stroke-width="3">
+        <rect x="-46" y="-86" width="40" height="32" rx="4" fill="#e2c193"/>
+        <path d="M-26,-86 v4" stroke="#b98c55" stroke-width="6"/>
+      </g>
+      <use href="#d3-flask" x="-35" y="-80" width="20" height="20" fill="#3b2340"/>
+      <g fill="none" stroke="#3b2340" stroke-width="11">
+        <path d="M-6,-94 L-30,-93 L-50,-72 L-44,-52"/>
+        <!-- pointing arm -->
+        <path d="M8,-92 L29,-103 L51,-115"/>
+      </g>
+      <path d="M53,-116 L64,-122" stroke="#3b2340" stroke-width="5"/>
+      <!-- ! -->
+      <path d="M26,-176 l4,24" stroke="#3b2340" stroke-width="7"/>
+      <circle cx="32" cy="-142" r="4" fill="#3b2340"/>
+    </g>
+  </g>
+</svg>
