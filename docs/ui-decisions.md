@@ -34,6 +34,16 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
   The first four agent-drawn styles (`pages/card-art/`, 2026-10-07) were all rejected as ugly (big noses, clumsy hands);
   the next round starts from references
   ([prime-game-ui#3](https://github.com/xperiaroco2/prime-game-ui/issues/3#issuecomment-6033534497)).
+- **The cards look like Overcooked's chalkboard recipe card** (the engineer, 2026-10-07, chat, sharing a screenshot of
+  Overcooked's "how to make sashimi" board: «Я це мав на увазі»). The features to match:
+  - a picture drawn in chalk on a dark board: a rough white outline and coloured chalk fill with visible grain;
+  - the same comic character in every step, with a gag face;
+  - steps joined by hand-drawn chalk arrows, not separate framed panels;
+  - the result inside a circle with burst rays.
+
+  The screenshot stays out of this repo (another studio's art). How the card's layout in the UI changes (one board
+  picture instead of a row of panels) is settled when round 2 shows it. The reference board of round 2
+  ([page](https://claude.ai/artifact/Kvs7FghnBKwuCsYBLexMr9)) is kept but is no longer needed for the choice.
 - **Loading-screen tips** are funny.
 - **A "with hints" host setting** (markers through walls, highlights) is dropped for now: a future idea, only if real
   maps prove too hard.
