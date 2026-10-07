@@ -37,7 +37,9 @@ human's language (Ukrainian); everything in this repo is English.
     - money, subscriptions and downloads;
     - decisions that affect the whole game or a large scope;
     - changes to these rules.
-    A workflow above about 1.5M subagent tokens is agreed first; smaller ones run and are reported.
+    A workflow above about 1.5M subagent tokens is agreed first; smaller ones run and are reported. Every `agent()` in
+    a workflow passes `agentType`, one of the lean types in `.claude/agents/` (see Layout); only a rare agent that
+    needs the browser launches untyped.
   - **Reporting.** A comment on prime-game #150 after each wave and a short message to the engineer when something
     happens. When the engineer's attention or decision is needed, say so and stop.
 - **The game's code is not edited from here.** What the game needs becomes an issue in prime-game (with its `area:` label)
@@ -54,6 +56,8 @@ human's language (Ukrainian); everything in this repo is English.
 - `tools/check.js`: runs every check (the token build, the Godot-safe lint, the contrast gates, the page builds); run it
   before every commit, CI runs it too. `tools/tokens/`, `tools/lint/`, `tools/contrast/`, `tools/visual/` (the local
   zero-change probe), `tools/a11y/`: node 20, no packages.
+- `.claude/agents/`: the lean workflow agent types (#22): `ui-reader` (Sonnet, read-only) for web gatherers and scouts,
+  `ui-judge` (Opus, read-only) for critics of the look and verifiers, `ui-writer` (Opus) for every agent that writes.
 
 ## The process
 References, then wireframes of every screen, then three style directions, the choice, tokens and components, the styled
