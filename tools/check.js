@@ -30,6 +30,8 @@ const STEPS = [
   ["page:copy", ["pages/copy/build.js", "--check"]],
   ["screens", ["pages/screens/build.js", "--validate"]],
   ["page:screens", ["pages/screens/build.js", "--check"]],
+  // the self-test only: CI has no manager transcripts
+  ["manager:selftest", ["tools/manager/context.js", "--self-test"]],
 ];
 const MAX_LINES = 200;
 
