@@ -1,5 +1,5 @@
 // The manager's own context (#21): how old the manager session is and how large its newest call's context was, so it
-// knows when a handover is due (CLAUDE.md, "Starting a new manager session").
+// knows when a handover is due (prime-game docs/MANAGERS.md §5, through CLAUDE.md "Manager rules").
 //
 //   node tools/manager/context.js                the manager session of this repo that made the newest call
 //   node tools/manager/context.js <id|path>      a session id (or its first characters) or a transcript path
