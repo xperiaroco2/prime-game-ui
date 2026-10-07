@@ -1,7 +1,7 @@
 // The manager's own context (#21): how old the manager session is and how large its newest call's context was, so it
 // knows when a handover is due (CLAUDE.md, "Starting a new manager session").
 //
-//   node tools/manager/context.js                the newest manager session transcript of this repo
+//   node tools/manager/context.js                the manager session of this repo that made the newest call
 //   node tools/manager/context.js <id|path>      a session id (or its first characters) or a transcript path
 //   node tools/manager/context.js --self-test    the fixtures under tools/manager/fixtures/ (CI has no transcripts)
 //   options: --dir <folder of the transcripts>   default: <CLAUDE_CONFIG_DIR or ~/.claude>/projects/<this repo>
@@ -31,9 +31,14 @@ function transcriptDir() {
   return path.join(home, "projects", path.resolve(checkout).replace(/[^a-zA-Z0-9]/g, "-"));
 }
 
+const isFile = p => { try { return fs.statSync(p).isFile(); } catch { return false; } };
+
+// The newest session is the one whose newest call is the latest, not the newest file: an ended session's transcript
+// still gets lines appended (an artifact's "artifact-autoreact-ledger" line, with no timestamp), which moves its mtime.
+// A transcript with no call yet counts by its mtime.
 function findTranscript(dir, arg) {
-  if (arg && (arg.endsWith(".jsonl") || fs.existsSync(arg))) {
-    if (!fs.existsSync(arg)) throw new Error(`no transcript ${arg}`);
+  if (arg && (arg.endsWith(".jsonl") || isFile(arg))) {
+    if (!isFile(arg)) throw new Error(`no transcript ${arg}`);
     return arg;
   }
   let names;
@@ -41,30 +46,58 @@ function findTranscript(dir, arg) {
   if (arg) names = names.filter(n => n.startsWith(arg));
   if (!names.length) throw new Error(arg ? `no transcript of session ${arg} in ${dir}` : `no transcript in ${dir}`);
   if (arg && names.length > 1) throw new Error(`session ${arg} is ambiguous: ${names.join(", ")}`);
-  const withTime = names.map(n => ({ file: path.join(dir, n), mtime: fs.statSync(path.join(dir, n)).mtimeMs }));
-  withTime.sort((a, b) => b.mtime - a.mtime);
+  const withTime = names.map(n => {
+    const file = path.join(dir, n);
+    const call = lastCall(file);
+    return { file, at: call ? Date.parse(call.timestamp) : fs.statSync(file).mtimeMs };
+  });
+  withTime.sort((a, b) => b.at - a.at);
   return withTime[0].file;
 }
 
-// The first line that carries a timestamp, and the newest call of the session itself (not a sidechain, not a
-// synthetic message). One call can span several lines with the same usage; the newest one is enough.
-function readTranscript(file) {
-  const lines = fs.readFileSync(file, "utf8").split("\n");
-  let first = null, newest = null, sessionId = null;
-  for (const line of lines) {
-    if (!line.includes('"timestamp"')) continue;
-    try { const o = JSON.parse(line); if (o.timestamp) { first = o.timestamp; sessionId = o.sessionId || null; break; } } catch { /* a torn line */ }
-  }
-  for (let i = lines.length - 1; i >= 0 && !newest; i--) {
+// The newest call of the session itself (not a sidechain, not a synthetic message) among the lines, or null. One call
+// can span several lines with the same usage; the newest one is enough.
+function newestCall(lines) {
+  for (let i = lines.length - 1; i >= 0; i--) {
     const line = lines[i];
     if (!line.includes('"assistant"') || !line.includes('"usage"')) continue;
     let o;
     try { o = JSON.parse(line); } catch { continue; }
     const m = o.message;
     if (o.type !== "assistant" || o.isSidechain || !m || !m.usage || m.model === "<synthetic>") continue;
-    newest = { timestamp: o.timestamp, usage: m.usage };
-    sessionId = o.sessionId || sessionId;
+    return { timestamp: o.timestamp, usage: m.usage, sessionId: o.sessionId || null };
   }
+  return null;
+}
+
+// The newest call from the transcript's last MiB (the whole file only when that holds none), so choosing the newest
+// session does not read every transcript whole.
+function lastCall(file) {
+  const fd = fs.openSync(file, "r");
+  let lines, whole;
+  try {
+    const size = fs.fstatSync(fd).size;
+    const len = Math.min(size, 1 << 20);
+    const buf = Buffer.alloc(len);
+    fs.readSync(fd, buf, 0, len, size - len);
+    lines = buf.toString("utf8").split("\n");
+    whole = len === size;
+  } finally {
+    fs.closeSync(fd);
+  }
+  return newestCall(lines) || (whole ? null : newestCall(fs.readFileSync(file, "utf8").split("\n")));
+}
+
+// The first line that carries a timestamp, and the newest call of the session itself.
+function readTranscript(file) {
+  const lines = fs.readFileSync(file, "utf8").split("\n");
+  let first = null, sessionId = null;
+  for (const line of lines) {
+    if (!line.includes('"timestamp"')) continue;
+    try { const o = JSON.parse(line); if (o.timestamp) { first = o.timestamp; sessionId = o.sessionId || null; break; } } catch { /* a torn line */ }
+  }
+  const newest = newestCall(lines);
+  if (newest && newest.sessionId) sessionId = newest.sessionId;
   return { first, newest, sessionId: sessionId || path.basename(file, ".jsonl") };
 }
 
@@ -93,11 +126,14 @@ function selfTest() {
   };
   try {
     for (const n of fs.readdirSync(fix)) fs.copyFileSync(path.join(fix, n), path.join(tmp, n));
-    // the small session is the newer file, so it is the default
-    fs.utimesSync(path.join(tmp, "aaaa1111-0000-4000-8000-000000000001.jsonl"), new Date("2026-10-01T00:00:00Z"), new Date("2026-10-01T00:00:00Z"));
-    fs.utimesSync(path.join(tmp, "bbbb2222-0000-4000-8000-000000000002.jsonl"), new Date("2026-10-02T00:00:00Z"), new Date("2026-10-02T00:00:00Z"));
+    // The small session made the newest call, so it is the default, though the ended big session is the newer file:
+    // a ledger line was appended to it after its last call, as Claude Code does.
+    const big = path.join(tmp, "aaaa1111-0000-4000-8000-000000000001.jsonl");
+    fs.appendFileSync(big, '{"type":"artifact-autoreact-ledger","v":1,"sessionId":"aaaa1111-0000-4000-8000-000000000001","artifacts":{}}\n');
+    fs.utimesSync(big, new Date("2026-10-07T00:00:00Z"), new Date("2026-10-07T00:00:00Z"));
+    fs.utimesSync(path.join(tmp, "bbbb2222-0000-4000-8000-000000000002.jsonl"), new Date("2026-10-06T10:31:00Z"), new Date("2026-10-06T10:31:00Z"));
     const at = iso => Date.parse(iso);
-    expect("newest transcript, young and small", report(findTranscript(tmp, null), at("2026-10-06T12:00:00Z")),
+    expect("newest call, not newest file: young and small", report(findTranscript(tmp, null), at("2026-10-06T12:00:00Z")),
       "session bbbb2222-0000-4000-8000-000000000002, age 2.0 h, context 120500 tokens: handover not due");
     expect("over 12 hours", report(findTranscript(tmp, "bbbb"), at("2026-10-06T22:30:00Z")),
       "session bbbb2222-0000-4000-8000-000000000002, age 12.5 h, context 120500 tokens: handover due at the next wave boundary (over 12 h)");

@@ -55,7 +55,7 @@ human's language (Ukrainian); everything in this repo is English.
   generated from them (the pages' CSS, the game's pack, the contrast results) and never edited by hand.
 - `tools/check.js`: runs every check (the token build, the Godot-safe lint, the contrast gates, the page builds); run it
   before every commit, CI runs it too. `tools/tokens/`, `tools/lint/`, `tools/contrast/`, `tools/visual/` (the local
-  zero-change probe), `tools/a11y/`: node 20, no packages.
+  zero-change probe), `tools/a11y/`, `tools/manager/` (the manager's context command, #21): node 20, no packages.
 - `.claude/agents/`: the lean workflow agent types (#22): `ui-reader` (Sonnet, read-only) for web gatherers and scouts,
   `ui-judge` (Opus, read-only) for critics of the look and verifiers, `ui-writer` (Opus) for every agent that writes.
 
