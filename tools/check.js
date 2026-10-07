@@ -26,6 +26,7 @@ const STEPS = [
   ["page:components", ["pages/components/build.js", "--check"]],
   ["page:choices", ["pages/choices/build.js", "--check"]],
   ["page:room-signs", ["pages/room-signs/build.js", "--check"]],
+  ["page:card-art", ["pages/card-art/build.js", "--check"]],
   ["copy", ["tools/copy/check.js"]],
   ["page:copy", ["pages/copy/build.js", "--check"]],
   ["screens:selftest", ["pages/screens/build.js", "--self-test"]],

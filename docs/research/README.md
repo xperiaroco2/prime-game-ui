@@ -12,5 +12,6 @@ these folders was downloaded except where a report says so.
 | `2026-10-03-tokens/` | Godot 4.7.2 and DTCG 2025.10 facts, the Toy inventory, two token architectures, the judge and the build spec | 6 |
 | `2026-10-03-room-signs/` | The first map (no rooms yet), wayfinding and pictogram practice, Godot sign placement and sizes | 1 |
 | `2026-10-05-ukrainian-localization/` | How Ukrainian game localizations handle gender, ти/ви, terms, tone and plurals; rules for the copy deck | 1 |
+| `2026-10-07-card-art/` | The how-to cards' art: readable and funny wordless panels, a plasticine look that Godot's SVG importer draws, the game's characters, who draws and at what cost | 4 |
 
 Later decisions replace some recommendations (for example the package colours): see `../ui-decisions.md`.

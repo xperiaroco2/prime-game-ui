@@ -1,0 +1,139 @@
+/* The card-art choice page's chrome (prime-game-ui#3): one phone-first column; each style is one big button with the two
+   how-to cards as the game draws them and the 8 panels larger. Not linted: it never draws a component's look; the
+   cards' colours, borders and type come only from the generated card-ui.css. Layout rules on components use :where()
+   so they never outrank a generated rule. --px scales the cards: the game's pixels, fitted to the column. */
+:root {
+  --px: 1px;
+  --bg: #fff4e2;          /* cream */
+  --panel: #ffffff;
+  --ink: #2a1f33;         /* plum ink */
+  --muted: #64566f;
+  --line: #e2d6ea;
+  --accent: #ffc23a;      /* toy yellow */
+  --accent-ink: #2a1f33;
+  --soft: #e9dff0;        /* lavender */
+  --chosen: #fff1cc;
+  --ok: #1f7a5f;
+  --warn: #b33a22;
+  --link: #6b3fa0;
+  --font-display: "Comfortaa", "Trebuchet MS", system-ui, sans-serif;
+  --font-body: system-ui, "Segoe UI", Roboto, sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1f1727; --panel: #2c2236; --ink: #fff4e2; --muted: #c9bcd6; --line: #4a3c5c; --soft: #352a41;
+    --chosen: #3d3324; --ok: #7fe0c6; --warn: #ff8466; --link: #d4b8ff; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #1f1727; --panel: #2c2236; --ink: #fff4e2; --muted: #c9bcd6; --line: #4a3c5c; --soft: #352a41;
+  --chosen: #3d3324; --ok: #7fe0c6; --warn: #ff8466; --link: #d4b8ff; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.5 var(--font-body); }
+.wrap { max-width: 760px; margin: 0 auto; padding: 20px 16px 48px; display: flex; flex-direction: column; gap: 16px; }
+h1, h2 { font-family: var(--font-display); font-weight: 700; margin: 0; text-wrap: balance; }
+h1 { font-size: 26px; line-height: 1.2; }
+h2 { font-size: 20px; line-height: 1.25; }
+p { margin: 0; }
+a { color: var(--link); }
+.head { display: flex; flex-direction: column; gap: 8px; }
+.eyebrow { font: 700 12px/1.3 var(--font-body); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.lead { max-width: 62ch; }
+.source { font-size: 14px; color: var(--muted); max-width: 62ch; }
+
+/* The sticky bar: the caption language and what is picked. */
+.bar {
+  position: sticky; top: 0; z-index: 5; display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  margin: 0 -16px; padding: 8px 16px; background: var(--bg); border-bottom: 2px solid var(--line);
+}
+.picked { font: 700 14px/1.3 var(--font-display); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.picked b { font-weight: 700; }
+.seg { flex: none; display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); }
+.seg-btns { display: flex; border: 2px solid var(--ink); border-radius: 12px; overflow: hidden; background: var(--panel); }
+.seg button {
+  appearance: none; border: 0; margin: 0; background: transparent; color: var(--ink); font: 700 14px/1 var(--font-display);
+  padding: 8px 12px; min-height: 36px; min-width: 44px; cursor: pointer;
+}
+.seg button + button { border-left: 2px solid var(--ink); }
+.seg button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
+.seg button:focus-visible { outline: 3px solid var(--link); outline-offset: -3px; }
+.db { font-size: 14px; color: var(--muted); padding: 8px 12px; border-radius: 12px; background: var(--soft); border: 2px solid var(--line); }
+.db[data-state="write-error"], .db[data-state="live-error"] { color: var(--warn); border-color: var(--warn); }
+
+/* A style: the whole block is one button. */
+.styles { display: flex; flex-direction: column; gap: 18px; }
+.style {
+  appearance: none; display: flex; flex-direction: column; gap: 10px; width: 100%; margin: 0; padding: 12px 10px 14px;
+  text-align: left; font: inherit; color: inherit; background: var(--panel); border: 3px solid var(--ink); border-radius: 18px;
+  cursor: pointer; -webkit-tap-highlight-color: transparent;
+}
+.style:focus-visible { outline: 3px solid var(--link); outline-offset: 3px; }
+.style.is-chosen { background: var(--chosen); box-shadow: 0 0 0 5px var(--accent); }
+.style > span { display: block; }
+.style-head { display: flex !important; align-items: center; gap: 10px; flex-wrap: wrap; }
+.num {
+  flex: none; width: 30px; height: 30px; border-radius: 50%; display: inline-grid; place-items: center; background: var(--ink);
+  color: var(--bg); font: 700 16px/1 var(--font-display);
+}
+.name { font: 700 20px/1.25 var(--font-display); }
+.name-en { font-size: 13px; color: var(--muted); font-weight: 600; }
+.badge { display: inline-block; font: 700 12px/1 var(--font-body); padding: 6px 9px; border-radius: 999px; background: var(--accent); color: var(--accent-ink); white-space: nowrap; }
+.why { font-size: 14px; padding: 8px 10px; border-radius: 12px; background: var(--soft); }
+.sub { font: 700 12px/1.3 var(--font-body); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+.pick-state {
+  align-self: flex-start; display: inline-block !important; font: 700 15px/1.1 var(--font-display); color: var(--ink);
+  background: var(--panel); border: 3px solid var(--ink); border-radius: 14px; padding: 10px 16px; box-shadow: 0 4px 0 var(--ink);
+}
+.style.is-chosen .pick-state { background: var(--accent); color: var(--accent-ink); border-color: var(--accent-ink); box-shadow: 0 4px 0 var(--accent-ink); }
+
+/* The cards as the game draws them: 832 game pixels wide, scaled to the column (never above 1:1). */
+.cards { display: flex !important; flex-direction: column; gap: 10px; }
+.card-fit { display: block; width: 100%; container-type: inline-size; }
+.card-fit > .card { --px: min(1px, calc(100cqw / 832)); width: calc(832 * var(--px)); display: flex; flex-direction: column; }
+:where(.card, .big) :where(span[class*="tv-"]) { display: flex; min-width: 0; }
+:where(.card, .big) :where(.tv-ToyColumnSixteen, .tv-ToyColumnEight, .tv-ToyHowtoFrame, .tv-ToyHowtoFrameDone, .tv-ToyPanelHowto) { flex-direction: column; }
+:where(.card) :where(.tv-ToyRowSixteen) { flex-direction: row; align-items: center; }
+:where(.card) :where(.tv-ToyRowTwelve) { flex-direction: row; align-items: stretch; }
+:where(.card) :where(.tv-ToyTitleOnLight) { flex: 1 1 auto; }
+:where(.card) :where(.tv-ToyHowtoNote) { flex: none; }
+:where(.card) :where(.tv-ToyHowtoFrame, .tv-ToyHowtoFrameDone) { flex: 1 1 0; }
+:where(.card, .big) :where(.tv-ToyHowtoCaption) { display: block; text-align: center; overflow-wrap: break-word; }
+:where(.card) :where(.tv-ToyHowtoCaption) { min-width: calc(120 * var(--px)); }
+.card .art { display: block; flex: none; width: calc(160 * var(--px)); height: calc(120 * var(--px)); align-self: center; }
+
+/* The 8 panels larger: two per row, each in its game frame. */
+.big { --px: .8px; display: grid !important; grid-template-columns: 1fr 1fr; gap: 8px; }
+.big .art { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; }
+
+/* Captions in one language at a time. */
+.l-en { display: none; }
+:root[data-lang="en"] .l-uk { display: none; }
+:root[data-lang="en"] .l-en { display: inline; }
+
+/* The note and what is saved. */
+.note { display: flex; flex-direction: column; gap: 8px; background: var(--soft); border: 2px solid var(--line); border-radius: 16px; padding: 12px; }
+.note label { font: 700 16px/1.3 var(--font-display); }
+.note textarea {
+  width: 100%; min-height: 80px; font: 15px/1.45 var(--font-body); color: var(--ink); background: var(--panel);
+  border: 2px solid var(--line); border-radius: 12px; padding: 10px; resize: vertical;
+}
+.note textarea:focus-visible { outline: 3px solid var(--accent); outline-offset: 1px; }
+.btn {
+  align-self: flex-start; font: 700 15px/1.1 var(--font-display); color: var(--ink); background: var(--panel); border: 3px solid var(--ink);
+  border-radius: 14px; padding: 10px 16px; min-height: 46px; cursor: pointer; box-shadow: 0 5px 0 var(--ink);
+}
+.btn:active { transform: translateY(4px); box-shadow: 0 1px 0 var(--ink); }
+.btn:focus-visible { outline: 3px solid var(--link); outline-offset: 3px; }
+.btn[disabled] { opacity: .5; cursor: default; box-shadow: none; transform: none; }
+.saved { font: 600 14px/1.4 var(--font-body); color: var(--muted); white-space: pre-line; }
+.saved.is-done { color: var(--ok); }
+.foot { color: var(--muted); font-size: 13px; }
+
+@media (min-width: 700px) {
+  .style { padding: 16px; gap: 12px; }
+  .big { --px: 1px; gap: 12px; }
+}
+@media (prefers-reduced-motion: reduce) { .btn:active { transform: none; } }

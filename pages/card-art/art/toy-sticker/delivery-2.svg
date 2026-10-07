@@ -1,0 +1,55 @@
+<!-- own work, prime-game-ui, licence: own work -->
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="240" viewBox="0 0 320 240">
+<defs>
+<g id="d2-lab">
+<path d="M17.5,4 L30.5,4 A2.5,2.5 0 0 1 33,6.5 L33,7.5 A2.5,2.5 0 0 1 30.5,10 L17.5,10 A2.5,2.5 0 0 1 15,7.5 L15,6.5 A2.5,2.5 0 0 1 17.5,4 Z" fill="#2a1f33"/>
+<path d="M19,8 L29,8 L29,17.45 A2,2 0 0 0 29.29,18.48 L40.43,37.05 A4,4 0 0 1 41,39.11 L41,41 A3,3 0 0 1 38,44 L10,44 A3,3 0 0 1 7,41 L7,39.11 A4,4 0 0 1 7.57,37.05 L18.71,18.48 A2,2 0 0 0 19,17.45 L19,8 Z M15.5,36 A3.5,3.5 0 1 0 22.5,36 A3.5,3.5 0 1 0 15.5,36 Z M25,29 A3,3 0 1 0 31,29 A3,3 0 1 0 25,29 Z" fill="#2a1f33" fill-rule="evenodd"/>
+</g>
+</defs>
+<rect x="16" y="150" width="288" height="78" fill="#e9dff0"/>
+<g stroke="#2a1f33" stroke-width="12" stroke-linejoin="round" paint-order="stroke">
+<rect x="149.6" y="101" width="16.9" height="20.8" rx="7.8" fill="#e6c3ad"/>
+<path d="M142.4,116.6L173.6,116.6Q185.3,116.6 185.3,129.6L187.9,171.2Q189.2,181.6 178.8,181.6L137.2,181.6Q126.8,181.6 128.1,171.2L130.7,129.6Q130.7,116.6 142.4,116.6Z" fill="#78ada5"/>
+</g>
+<path d="M187,155.6L187.9,171.2Q189.2,181.6 178.8,181.6L154.1,181.6Q177.5,176.4 187,155.6Z" fill="#5d8f87"/>
+<path d="M148.9,116.6Q158,124.4 167.1,116.6" fill="none" stroke="#2a1f33" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<g stroke="#2a1f33" stroke-width="12" stroke-linejoin="round" paint-order="stroke">
+<circle cx="128.1" cy="75" r="7.2" fill="#e6c3ad"/>
+<path d="M126.8,64.6C126.8,46.4 141.1,36 158,36C174.9,36 189.2,46.4 189.2,64.6C189.2,88 174.9,106.2 158,106.2C141.1,106.2 126.8,88 126.8,64.6Z" fill="#e6c3ad"/>
+</g>
+<path d="M189.2,64.6C189.2,88 174.9,106.2 158,106.2C171,98.4 180.1,84.1 182.1,67.2Q184,60.7 189.2,64.6Z" fill="#c9a089"/>
+<path d="M126.8,67.2Q121.6,52.9 129.4,39.9Q121.6,33.4 125.5,25.6Q134.6,30.8 141.1,32.1Q139.8,24.3 151.5,21.7Q156.7,26.9 161.9,29.5Q168.4,21.7 181.4,23Q180.1,26.9 178.8,30.8Q191.8,28.2 200.9,34.7Q194.4,45.1 186.6,52.9Q176.2,34.7 158,33.4Q139.8,33.4 133.3,47.7Q130.7,60.7 126.8,67.2Z" fill="#6b4630" stroke="#2a1f33" stroke-width="12" stroke-linejoin="round" paint-order="stroke"/>
+<path d="M186.6,52.9Q194.4,45.1 200.9,34.7Q189.2,34.7 176.2,33.4Q165.8,32.1 158,33.4Q176.2,34.7 186.6,52.9Z" fill="#503322"/>
+<ellipse transform="translate(143.7 29.5) rotate(-45)" rx="5.5" ry="2.7" fill="#ffffff" fill-opacity="0.6"/>
+<ellipse transform="translate(132.7 71.1) rotate(15)" rx="2.9" ry="5.2" fill="#ffffff" fill-opacity="0.6"/>
+<circle cx="156.7" cy="66.6" r="13.3" fill="#2a1f33"/>
+<circle cx="169.1" cy="66.6" r="12" fill="#2a1f33"/>
+<circle cx="156.7" cy="66.6" r="8.1" fill="#f6f2ea"/>
+<circle cx="169.1" cy="66.6" r="6.8" fill="#f6f2ea"/>
+<rect x="152.9" y="64.9" width="6" height="11.2" rx="3" fill="#2a1f33"/>
+<rect x="165.6" y="65" width="5.5" height="10.3" rx="2.8" fill="#2a1f33"/>
+<g stroke="#4a3328" stroke-width="7.15" stroke-linejoin="round" stroke-linecap="round">
+<path d="M146.3,46.4L158,43.1" fill="none"/>
+<path d="M168.4,43.1L178.8,46.4" fill="none"/>
+</g>
+<circle cx="163.6" cy="82.1" r="7.8" fill="#f1cbbd" stroke="#2a1f33" stroke-width="4" stroke-linejoin="round"/>
+<path d="M156.1,95.8Q165.2,104.9 174.3,95.8" fill="none" stroke="#2a1f33" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M138.5,127L104,145.3L102.1,184.2" fill="none" stroke="#2a1f33" stroke-width="27.6" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M138.5,127L104,145.3L102.1,184.2" fill="none" stroke="#78ada5" stroke-width="15.6" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M177.5,127L212,145.3L213.9,184.2" fill="none" stroke="#2a1f33" stroke-width="27.6" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M177.5,127L212,145.3L213.9,184.2" fill="none" stroke="#78ada5" stroke-width="15.6" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M108,140L119,130.3L223,130.3Q227,130.3 227,134.3L227,204.3L218,216Q214,218 208,218L108,218Q102,218 102,212L102,146Q102,140 108,140Z" fill="#c08550" stroke="#2a1f33" stroke-width="12" stroke-linejoin="round" paint-order="stroke"/>
+<path d="M105,140L117,130.3L225,130.3L213,140Z" fill="#e8b882" stroke="#2a1f33" stroke-width="8" stroke-linejoin="round" paint-order="stroke"/>
+<path d="M114.5,133.5L214.5,133.5L213.5,136.7L113.5,136.7Z" fill="#a8713f"/>
+<rect x="102" y="140" width="112" height="78" rx="6" fill="#d9a066" stroke="#2a1f33" stroke-width="8" stroke-linejoin="round" paint-order="stroke"/>
+<ellipse transform="translate(112 148) rotate(-25)" rx="4.5" ry="2.6" fill="#ffffff" fill-opacity="0.6"/>
+<g transform="translate(121 143) scale(1.54)">
+<use href="#d2-lab"/>
+</g>
+<g stroke="#2a1f33" stroke-width="8" stroke-linejoin="round" paint-order="stroke">
+<circle cx="105.9" cy="175.6" r="4.9" fill="#e6c3ad"/>
+<circle cx="102.1" cy="184.2" r="10.4" fill="#e6c3ad"/>
+<circle cx="220.4" cy="177.4" r="4.9" fill="#e6c3ad"/>
+<circle cx="213.9" cy="184.2" r="10.4" fill="#e6c3ad"/>
+</g>
+</svg>
