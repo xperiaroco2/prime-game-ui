@@ -5,7 +5,7 @@
   "lead": "Картка «Як робити» показує завдання в чотирьох кадрах: на мапі, у меню Esc і на екрані завантаження. Тут чотири стилі малюнків для цих кадрів. Усі чотири — веселий мультик, різняться тим, як саме. Торкнись стилю, щоб обрати його.",
   "source": "Усі чотири стилі намалювали агенти як власні SVG (own work): точна палітра й контур Toy, без чужих ліцензій і без оплати ілюстратору. Інші шляхи (ілюстратор на замовлення, набори CC0, емодзі, генератори картинок) порівняно у",
   "source_link": "звіті",
-  "report_url": "https://github.com/xperiaroco2/prime-game-ui/blob/art/3-card-styles/docs/research/2026-10-07-card-art/report.md",
+  "report_url": "https://github.com/xperiaroco2/prime-game-ui/blob/main/docs/research/2026-10-07-card-art/report.md",
   "issue_url": "https://github.com/xperiaroco2/prime-game-ui/issues/3",
   "collection": "cards3",
   "doc": "choice",
