@@ -1,0 +1,9 @@
+{
+  "about": "The how-to card art the pack ships, rendered by tools/card-art/render.js from the clean-sketch SVGs at 2x (640x480, transparent background). source_sha256 is the SVG's LF text, png_sha256 the PNG's bytes; tools/tokens/cards.js copies each PNG into dist/pack/cards/ and refuses one whose SVG changed since.",
+  "renders": [
+    {"png":"delivery-1.png","source":"pages/card-art/round-2/clean-sketch/delivery-1.svg","source_sha256":"aa0d648760b1584c6235f0e9b94ec027541fe8cc861d276aae17892db48c6144","size":[640,480],"scale":2,"png_sha256":"1ec1cc493d4d6914e97c1402f95b4034c0db0360a0319791760b794c4ec33406","task":"delivery","frame":1},
+    {"png":"delivery-2.png","source":"pages/card-art/round-2/clean-sketch/delivery-2.svg","source_sha256":"580b760b77819a18bc8387bf036bcd7e94232459e870b1f62a4857197994002a","size":[640,480],"scale":2,"png_sha256":"908f06d9590e9fbe7dd39f1f96f48c2480ead92dac21d22182cd5d4d3b775edf","task":"delivery","frame":2},
+    {"png":"delivery-3.png","source":"pages/card-art/round-2/clean-sketch/delivery-3.svg","source_sha256":"e2663034be3e68f94c172c6dafda4362a48df7b38223f3a11ffe3c489815ef26","size":[640,480],"scale":2,"png_sha256":"317c2cc59ad15027804ad9452b2666a3825d742c9482b3f5605bc97acc119511","task":"delivery","frame":3},
+    {"png":"delivery-4.png","source":"pages/card-art/round-2/clean-sketch/delivery-4.svg","source_sha256":"c15c6a14b3b82ff6c4b76227f4cac5d1a38712c5c2eb5d61bc3ed9ab828594a8","size":[640,480],"scale":2,"png_sha256":"6ad3198cde63c2250a0c233360a06ce34751039cb000563d71ab9d052c142d0e","task":"delivery","frame":4}
+  ]
+}

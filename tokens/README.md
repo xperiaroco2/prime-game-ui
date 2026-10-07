@@ -56,8 +56,8 @@ engineer's room-signs decision: plain on packages and the map), their ink writte
 `LICENCES.json`; the game names a room's sign by its file name (`room/lab`). The pack's `assets` list every one of
 these icons with how it is imported (below, "The pack's assets"); `tools/tokens/icons.js` writes both.
 
-Every error names the rule (D01–D39, P40–P63, B01 for `release.json`, or B02 for a screen source the icon sizes cannot
-read) and the file; where the file parses it also gives the line and column, the JSON Pointer and the token path.
+Every error names the rule (D01–D39, P40–P63, B01 for `release.json`, B02 for a screen source the icon sizes cannot
+read, or B03 for card art whose PNG is older than its SVG or has no licence record) and the file; where the file parses it also gives the line and column, the JSON Pointer and the token path.
 
 ## Classes
 
@@ -197,6 +197,25 @@ deprecated itself. The pack marks both (below).
   variations' `size.min-width` that reference it (ToyKeyOnDark, ToyKeyOnLight, ToyKeyQuiet, ToyKeyRound,
   ToyKeyRoundQuiet, ToyKeyRoundButton, ToyKeyButton; `from` names `size.keycap`). The large-text theme's `min_width`
   constant of these variations is 42. `wide-min-width` (96) does not change.
+
+## The pack's card art since ui-0.4.0
+
+`schema` stays 1. The how-to cards are wordless (`docs/ui-decisions.md`): a frame holds only its art, and
+`ToyHowtoCaption` is deprecated. The art ships beside the pack as PNG, because the chosen clean-sketch line is an SVG
+filter Godot's SVG importer does not draw:
+
+- `tools/card-art/render.js` (local, headless Edge) renders the Delivery panels of
+  `pages/card-art/round-2/clean-sketch/` at 2x (640×480, transparent background) into `pages/card-art/png/` and records
+  each PNG's and SVG's sha256 in `renders.json`; `--check` (a step of `tools/check.js`) needs no Edge.
+- The token build (`tools/tokens/cards.js`) copies them byte for byte into `dist/pack/cards/` with `cards/LICENCES.json`,
+  and refuses (B03) a PNG whose SVG changed since it was rendered. Switches is a sample card of the pages, not a game
+  task: it is not rendered and not shipped.
+- **`assets`** gains one entry per PNG, sorted by path with the icons:
+  `{ "path": "cards/delivery-1.png", "kind": "card-art", "sha256": "…", "licence": "own work", "licence_file":
+  "cards/LICENCES.json", "source": "pages/card-art/round-2/clean-sketch/delivery-1.svg", "size": [640, 480], "task":
+  "delivery", "frame": 1 }`; the last frame of a task also has `"done": true` (drawn in `ToyHowtoFrameDone`). The
+  game imports them as Texture2D (Lossless, mipmaps on), never tinted, in a TextureRect with `EXPAND_IGNORE_SIZE` and
+  `STRETCH_KEEP_ASPECT_CENTERED`.
 
 ## Profile rules since ui-0.3.0
 

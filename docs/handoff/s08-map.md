@@ -5,7 +5,7 @@
 The styled map and tasks screen from the UI track (xperiaroco2/prime-game-ui), as a Godot 4.7.2 node tree for the 1920×1080 reference.
 
 - **Source:** `pages/screens/src/s08-map.json`; the review page is `pages/screens/screens.html#s8`; the wireframe is section `s8` («Мапа й задачі (M)»).
-- **Theme:** the Toy pack ui-0.3.0 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
+- **Theme:** the Toy pack ui-0.4.0 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
 - **World behind the UI** (not UI): a lit room of the level.
 - **How to read it:** the roots are children of the screen's full-rect root `Control`; every property not listed keeps Godot's default; sizes and offsets are reference px. In a state's **Shown** list, the first node of each subtree gives its path from the screen root.
 - **Texts** are keys of `copy/strings.csv`, and the language switches live (the Esc menu's Settings). A plain key is set as `text` and translates itself. A key with placeholders, a plural key (`tr_n`) and a key drawn in pieces are set from code with `auto_translate_mode = DISABLED`: `tr()`, then `String.format()` with the data (the samples below), rebuilt on `NOTIFICATION_TRANSLATION_CHANGED`. A "text from data" (names, the room code, times, numbers) is set in code and never translated (`auto_translate_mode = DISABLED`).
@@ -100,7 +100,7 @@ M opens and closes this screen over the running round (press, not hold; rebindab
   - **Guide** `CenterContainer` · anchors `full_rect`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both
     - Note: Centres the how-to card of the task whose «?» was pressed (content data per task type, #254) on the screen. Close, Esc (ui_cancel) or M closes it; focus goes back to that «?» only when the card was opened by keyboard or gamepad. mouse_filter IGNORE (Dim2 blocks the mouse).
     - **Card** `PanelContainer` · variation `ToyPanelHowto` (raised: ToyRaised with base `ToyBasePanel`) · centred by its CenterContainer · custom_minimum_size (1536, 0) · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper
-      - Note: The same card tree as s3/Card and the Esc menu's s5 Guide/Card (Head, Frames/Frame1..4 with Art and Caption), plus Bar with Close.
+      - Note: The same card tree as s3/Card and the Esc menu's s5 Guide/Card (Head, Frames/Frame1..4, each holding its Art), plus Bar with Close.
       - **V** `VBoxContainer` · variation `ToyColumnSixteen` · gaps from the variation: separation 16
         - **Head** `HBoxContainer` · variation `ToyRowSixteen` · gaps from the variation: separation 16
           - **Title** `Label` · variation `ToyTitleOnLight` · size flags horizontal `SIZE_EXPAND_FILL` · text `task.delivery`: en "Delivery" · uk "Доставка"
@@ -108,22 +108,14 @@ M opens and closes this screen over the running round (press, not hold; rebindab
         - **Frames** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
           - Note: 3 to 4 frames from the card data; the frame that shows the finish uses ToyHowtoFrameDone.
           - **Frame1** `PanelContainer` · variation `ToyHowtoFrame` · size flags horizontal `SIZE_EXPAND_FILL`
-            - **F** `VBoxContainer` · variation `ToyColumnEight` · gaps from the variation: separation 8
-              - **Art** `TextureRect` · custom_minimum_size (120, 120) · texture `item` (dist/pack/icons/item.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyTextOnLight")
-                - Note: Placeholder art until the card art (prime-game-ui#3): the package, the room pictogram it carries (twice), the check on the done frame. The art fills the frame width at 120 px high (s3's loading card draws it 200 high).
-              - **Caption** `Label` · variation `ToyHowtoCaption` · custom_minimum_size (120, 0) · text `howto.delivery.take`: en "Take a package from the storage room" · uk "Візьми пакунок на складі" · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
+            - **Art** `TextureRect` · custom_minimum_size (320, 240) · texture `card/delivery-1` (dist/pack/cards/delivery-1.png, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · not tinted (drawn in its own colours)
+              - Note: The card's art: one picture per frame from the card data (#254), here the pack's Delivery PNGs dist/pack/cards/delivery-1.png … delivery-4.png (640x480, transparent). expand_mode IGNORE_SIZE, stretch_mode KEEP_ASPECT_CENTERED; 320x240 here, the panel's own size (the PNG is 2x). The cards are wordless: a frame holds only its art, no caption.
           - **Frame2** `PanelContainer` · variation `ToyHowtoFrame` · size flags horizontal `SIZE_EXPAND_FILL`
-            - **F** `VBoxContainer` · variation `ToyColumnEight` · gaps from the variation: separation 8
-              - **Art** `TextureRect` · custom_minimum_size (120, 120) · texture `room/lab` (dist/pack/icons/room/lab.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate #2a1f33 (the colour the pages draw it in; the pack's copy is white)
-              - **Caption** `Label` · variation `ToyHowtoCaption` · custom_minimum_size (120, 0) · text `howto.delivery.sign`: en "Check the sign on it" · uk "Подивись на знак на ньому" · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
+            - **Art** `TextureRect` · custom_minimum_size (320, 240) · texture `card/delivery-2` (dist/pack/cards/delivery-2.png, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · not tinted (drawn in its own colours)
           - **Frame3** `PanelContainer` · variation `ToyHowtoFrame` · size flags horizontal `SIZE_EXPAND_FILL`
-            - **F** `VBoxContainer` · variation `ToyColumnEight` · gaps from the variation: separation 8
-              - **Art** `TextureRect` · custom_minimum_size (120, 120) · texture `room/lab` (dist/pack/icons/room/lab.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate #2a1f33 (the colour the pages draw it in; the pack's copy is white)
-              - **Caption** `Label` · variation `ToyHowtoCaption` · custom_minimum_size (120, 0) · text `howto.delivery.find`: en "Find the room with that sign" · uk "Знайди кімнату з таким знаком" · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
+            - **Art** `TextureRect` · custom_minimum_size (320, 240) · texture `card/delivery-3` (dist/pack/cards/delivery-3.png, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · not tinted (drawn in its own colours)
           - **Frame4** `PanelContainer` · variation `ToyHowtoFrameDone` · size flags horizontal `SIZE_EXPAND_FILL`
-            - **F** `VBoxContainer` · variation `ToyColumnEight` · gaps from the variation: separation 8
-              - **Art** `TextureRect` · custom_minimum_size (120, 120) · texture `check` (dist/pack/icons/check.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyTextOnLight")
-              - **Caption** `Label` · variation `ToyHowtoCaption` · custom_minimum_size (120, 0) · text `howto.delivery.drop`: en "Put it in the delivery zone" · uk "Поклади в зону доставки" · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
+            - **Art** `TextureRect` · custom_minimum_size (320, 240) · texture `card/delivery-4` (dist/pack/cards/delivery-4.png, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · not tinted (drawn in its own colours)
         - **Bar** `HBoxContainer` · alignment `ALIGNMENT_END`
           - **Close** `Button` · variation `ToyButtonSecondary` (raised: ToyRaised with base `ToyBaseRaisedOnLight`, ToyPress; UiParts.button()) · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper · text `common.close`: en "Close" · uk "Закрити" · shown with keyboard focus (grab_focus)
             - Note: Takes focus when the card opens by keyboard or gamepad (the page shows that case).
@@ -135,12 +127,13 @@ M opens and closes this screen over the running round (press, not hold; rebindab
 - Size constants: a variation's `width`, `height`, `min_width`, `wide_width` and `wide_min_width` theme constants are read by code into `custom_minimum_size`, as the node lines give them. A Panel or PanelContainer takes no size from them on its own: an anchored Panel at offsets 0 is 0×0, a slot shrinks to its text.
 - Size constants that follow the text size: `min_width` 36 (42 in the pack's `modes.textSize.large`) of ToyKeyRoundButton. The large-text theme is swapped in while a screen is open, so code that sets custom_minimum_size from such a constant sets it again on `NOTIFICATION_THEME_CHANGED`.
 - Icons: the tinted ones are white SVGs in `dist/pack/icons/` (the pack's copy of `pages/components/icons`, currentColor written as white): a TextureRect tints one with the `self_modulate` its line gives (the colour the page draws it in), a Button with its variation's `icon_*_color`, an OptionButton its arrow with `modulate_arrow`. The room pictograms are white copies too (`dist/pack/icons/room/`), drawn in ink: their lines give the `self_modulate`. The pack's `assets` list every icon with its tint and `svg_scale`.
-- SVG import: Godot rasterises an SVG at import, so import each at `svg/scale` = the largest size it is drawn ÷ its viewBox (the largest over every screen that draws it, as the pack's `assets` give it): `check` 5 (120 px), `item` 5 (120 px), `room/hall` 1 (48 px), `room/kitchen` 1 (48 px), `room/lab` 2.5 (120 px), `room/lounge` 1 (48 px), `room/office` 1 (48 px), `room/storage` 1 (48 px).
+- SVG import: Godot rasterises an SVG at import, so import each at `svg/scale` = the largest size it is drawn ÷ its viewBox (the largest over every screen that draws it, as the pack's `assets` give it): `room/hall` 1 (48 px), `room/kitchen` 1 (48 px), `room/lab` 1 (48 px), `room/lounge` 1 (48 px), `room/office` 1 (48 px), `room/storage` 1 (48 px).
+- Card art: the how-to frames draw the pack's PNGs, `dist/pack/cards/delivery-1.png`, `dist/pack/cards/delivery-2.png`, `dist/pack/cards/delivery-3.png`, `dist/pack/cards/delivery-4.png` (640x480, transparent, own work; rendered from `pages/card-art/round-2/clean-sketch/` by `tools/card-art/render.js`), in their own colours, never tinted. They are drawn smaller than their size (up to 320x240 px here), so import them as Texture2D with `compress/mode` Lossless and `mipmaps/generate` on.
 - Boxes and grids take their gaps only from their spacing variation (ToyColumn…, ToyRow…, ToyGrid…), and a ScrollContainer the gap to its bar from ToyScroll; a box without one has a single child. No `theme_override_constants`: the theme test forbids them.
 
 ## Keys
 
-- **Drawn** (19): `common.close`, `howto.delivery.drop`, `howto.delivery.find`, `howto.delivery.sign`, `howto.delivery.take`, `howto.label`, `map.progress`, `map.tasks`, `map.time`, `map.you_are_here`, `map.zone_hint`, `room.hall`, `room.kitchen`, `room.lab`, `room.lounge`, `room.office`, `room.storage`, `task.delivery`, `task.switches`.
+- **Drawn** (15): `common.close`, `howto.label`, `map.progress`, `map.tasks`, `map.time`, `map.you_are_here`, `map.zone_hint`, `room.hall`, `room.kitchen`, `room.lab`, `room.lounge`, `room.office`, `room.storage`, `task.delivery`, `task.switches`.
 - **Named only in the notes** (wire them too): `map.zone_hint.switches`.
 
 ## Layers and input (every screen)

@@ -94,12 +94,3 @@
 .tv-ToyColumnEight {
   gap: calc(var(--toy-layout-column-8-items-separation) * var(--px));
 }
-/* ToyHowtoCaption: Label · howto.caption · light */
-.tv-ToyHowtoCaption {
-  font-family: var(--toy-howto-caption-label-font-family), system-ui, sans-serif;
-  font-size: calc(var(--toy-howto-caption-label-font-size) * var(--px));
-  font-weight: var(--toy-howto-caption-label-font-weight);
-  line-height: var(--toy-howto-caption-label-line-height);
-  letter-spacing: calc(var(--toy-howto-caption-label-letter-spacing) * var(--px));
-  color: var(--toy-howto-caption-normal-font-color);
-}

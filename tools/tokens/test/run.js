@@ -92,6 +92,7 @@ for (const name of listDirs('good')) {
   const b = api.analyzeAll(dir);
   check(b.sys && same(Object.values(a.sys.outputs), Object.values(b.sys.outputs)), `good/${name}: two runs give the same bytes`);
   for (const [rel, text] of Object.entries(a.sys.outputs)) {
+    if (Buffer.isBuffer(text)) continue; // the card art's PNGs
     check(!text.includes('\r') && text.endsWith('\n') && !text.endsWith('\n\n'), `good/${name}: ${rel} has LF endings and one trailing newline`);
   }
   check(same(Object.keys(a.sys.pack.tokens), Object.keys(a.sys.pack.tokens).slice().sort()), `good/${name}: pack keys are sorted`);
@@ -278,11 +279,18 @@ if (fs.existsSync(path.join(ROOT, 'tokens', 'prime.resolver.json'))) {
       && V.ToyChipNewText.deprecated.replacement === 'ToyChipAlertText', 'tokens/: ToyChipNew and ToyChipNewText are marked deprecated with their replacements');
     const assets = new Map(sys.pack.assets.map((a) => [a.path, a]));
     const files = Object.keys(sys.outputs).filter((k) => /^dist\/pack\/icons\/.+\.svg$/.test(k));
-    check(files.length > 0 && files.every((k) => assets.has(k.slice('dist/pack/'.length))) && assets.size === files.length,
-      'tokens/: every icon in dist/pack/icons has one assets entry', `${assets.size} assets, ${files.length} icons`);
+    const iconAssets = sys.pack.assets.filter((a) => a.kind === 'icon');
+    check(files.length > 0 && files.every((k) => assets.has(k.slice('dist/pack/'.length))) && iconAssets.length === files.length,
+      'tokens/: every icon in dist/pack/icons has one assets entry', `${iconAssets.length} icon assets, ${files.length} icons`);
+    const cards = Object.keys(sys.outputs).filter((k) => /^dist\/pack\/cards\/.+\.png$/.test(k));
+    const cardAssets = sys.pack.assets.filter((a) => a.kind === 'card-art');
+    check(cards.length === 4 && cardAssets.length === 4 && cards.every((k) => Buffer.isBuffer(sys.outputs[k]) && assets.has(k.slice('dist/pack/'.length)))
+      && cardAssets.every((a) => a.task === 'delivery' && a.licence === 'own work' && a.size[0] === 640 && a.size[1] === 480)
+      && cardAssets.filter((a) => a.done).map((a) => a.frame).join() === '4' && !cards.some((k) => /switches/.test(k)),
+    'tokens/: the Delivery card art ships as four 640x480 PNGs, frame 4 done, no Switches', JSON.stringify(cardAssets));
     const knob = assets.get('icons/slider-knob.svg');
     const lab = assets.get('icons/room/lab.svg');
-    check(knob && knob.tint === 'none' && lab && lab.tint === 'multiply' && lab.tint_color === '#2a1f33' && lab.svg_scale === 2.5,
+    check(knob && knob.tint === 'none' && lab && lab.tint === 'multiply' && lab.tint_color === '#2a1f33' && lab.drawn_px >= 48 && lab.svg_scale === Math.ceil((lab.drawn_px / 48) * 100) / 100,
       'tokens/: the knobs keep their colours; a room pictogram is white, drawn in ink, imported at its largest size', JSON.stringify(lab));
   }
 } else {

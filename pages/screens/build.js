@@ -137,6 +137,10 @@ const GAME_ICONS = 'dist/pack/icons'; // the white copies of the tinted icons th
 const ICON_SOURCES = [
   { prefix: '', dir: 'pages/components/icons', licences: 'pages/components/icons/LICENCES.json', entry: (f) => f },
   { prefix: 'room/', dir: 'pages/room-signs/systems/b/icons', licences: 'pages/room-signs/systems/b/LICENCES.json', entry: (f) => `icons/${f}` },
+  // the how-to card art (prime-game-ui#3): the clean-sketch Delivery panels, which the game draws as the pack's PNGs
+  // (dist/pack/cards/, rendered by tools/card-art/render.js); the page draws the SVG they are rendered from, as an
+  // <img>, so its filter (the wobbly line) stays inside the picture. Switches is a sample card: not drawn here.
+  { prefix: 'card/', dir: 'pages/card-art/round-2/clean-sketch', licences: 'pages/card-art/round-2/clean-sketch/LICENCES.json', entry: (f) => f, only: /^delivery-\d+\.svg$/, card: true },
 ];
 
 // Godot 4.7.2 classes the renderer draws: the class chain (a variation fits when its class is in it), what the class
@@ -296,7 +300,7 @@ function loadIcons(pack) {
       try { lic = JSON.parse(readText(src.licences)); } catch (e) { fail(`${src.licences}: ${e.message}`); }
     }
     let files = [];
-    try { files = fs.readdirSync(path.join(ROOT, src.dir)).filter((f) => f.endsWith('.svg')).sort(); } catch (e) { files = []; }
+    try { files = fs.readdirSync(path.join(ROOT, src.dir)).filter((f) => f.endsWith('.svg') && (!src.only || src.only.test(f))).sort(); } catch (e) { files = []; }
     for (const f of files) {
       const rel = `${src.dir}/${f}`;
       const entry = lic[src.entry(f)];
@@ -312,10 +316,13 @@ function loadIcons(pack) {
       // tools/tokens/build.js) and tints it. An icon in its own colours (the room pictograms, the slider knobs) is not.
       // The pack's assets record says where the game's copy is, whether it is white (tint "multiply") and, for an icon the
       // pages always draw in one colour (the room pictograms' ink), the self_modulate that gives that colour back.
-      const tinted = /currentColor/.test(text);
+      const tinted = !src.card && /currentColor/.test(text);
       const asset = assets.get(rel) || null;
+      const svg = src.card
+        ? `<img alt="" width="100%" height="100%" src="data:image/svg+xml;base64,${Buffer.from(text, 'utf8').toString('base64')}">`
+        : head + text.slice(open[0].length);
       icons.set(src.prefix + f.replace(/\.svg$/, ''), {
-        file: rel, svg: head + text.slice(open[0].length), w, h, tinted,
+        file: rel, svg, w, h, tinted, card: !!src.card,
         game: asset ? `dist/pack/${asset.path}` : tinted && !src.prefix ? `${GAME_ICONS}/${f}` : rel,
         white: asset ? asset.tint === 'multiply' : tinted, tintColor: asset && asset.tint_color ? asset.tint_color : null, asset,
         licence: entry && typeof entry.licence === 'string' && LICENCES_OK.test(entry.licence) ? entry.licence : null,
@@ -1455,10 +1462,12 @@ function textSizeConstantsNote(S, C) {
 
 function iconImportNotes(S, C) {
   const best = new Map();
+  const cards = new Map(); // the card art drawn: name -> [w, h] of its largest TextureRect
   const see = (name, px) => { if (C.icons.get(name)) best.set(name, Math.max(best.get(name) || 0, px)); };
   for (const n of S.all) {
     for (const name of iconsOf(n)) {
       const ic = C.icons.get(name);
+      if (ic && ic.card) { const o = cards.get(name); if (!o || n.cmin[0] * n.cmin[1] > o[0] * o[1]) cards.set(name, n.cmin); continue; }
       if (!ic) continue;
       if (n.type === 'TextureRect') see(name, Math.min(n.cmin[0] / ic.w, n.cmin[1] / ic.h) * Math.max(ic.w, ic.h));
       else see(name, n.raw.icon_size || Math.max(ic.w, ic.h));
@@ -1468,8 +1477,9 @@ function iconImportNotes(S, C) {
     const implied = n.type === 'OptionButton' ? [ARROW_ICON, ...LIST_ICONS] : n.type === 'HSlider' ? [KNOB_ICON, KNOB_DISABLED_ICON] : [];
     for (const k of implied) { const a = C.icons.get(k); if (a) see(k, Math.max(a.w, a.h)); }
   }
-  if (!best.size) return [];
   const tick = '`';
+  const cardNotes = cards.size ? [`- Card art: the how-to frames draw the pack's PNGs, ${[...cards.keys()].sort().map((k) => `${tick}${C.icons.get(k).game}${tick}`).join(', ')} (${C.icons.get([...cards.keys()][0]).asset ? C.icons.get([...cards.keys()][0]).asset.size.join('x') : '?'}, transparent, own work; rendered from ${tick}pages/card-art/round-2/clean-sketch/${tick} by ${tick}tools/card-art/render.js${tick}), in their own colours, never tinted. They are drawn smaller than their size (up to ${[...new Set([...cards.values()].map((c) => `${c[0]}x${c[1]}`))].join(', ')} px here), so import them as Texture2D with ${tick}compress/mode${tick} Lossless and ${tick}mipmaps/generate${tick} on.`] : [];
+  if (!best.size) return cardNotes;
   const list = [...best].sort((a, b) => a[0].localeCompare(b[0])).map(([name, own]) => {
     const ic = C.icons.get(name);
     const px = ic.asset ? ic.asset.drawn_px : own;
@@ -1479,6 +1489,7 @@ function iconImportNotes(S, C) {
   return [
     `- Icons: the tinted ones are white SVGs in ${tick}${GAME_ICONS}/${tick} (the pack's copy of ${tick}pages/components/icons${tick}, currentColor written as white): a TextureRect tints one with the ${tick}self_modulate${tick} its line gives (the colour the page draws it in), a Button with its variation's ${tick}icon_*_color${tick}, an OptionButton its arrow with ${tick}modulate_arrow${tick}. The room pictograms are white copies too (${tick}${GAME_ICONS}/room/${tick}), drawn in ink: their lines give the ${tick}self_modulate${tick}. The pack's ${tick}assets${tick} list every icon with its tint and ${tick}svg_scale${tick}.`,
     `- SVG import: Godot rasterises an SVG at import, so import each at ${tick}svg/scale${tick} = the largest size it is drawn ÷ its viewBox (the largest over every screen that draws it, as the pack's ${tick}assets${tick} give it): ${list.join(', ')}.`,
+    ...cardNotes,
   ];
 }
 

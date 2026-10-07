@@ -1,9 +1,9 @@
 {
   "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
   "howto": {
-    "$description": "How-to card frames and captions (the card itself is ToyPanelHowto).",
+    "$description": "How-to card frames (the card itself is ToyPanelHowto). The cards are wordless: a frame holds only its art (dist/pack/cards/*.png), no caption.",
     "frame": {
-      "$description": "A how-to step frame.",
+      "$description": "A how-to step frame: white, the plum outline, holding one art PNG.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyHowtoFrame", "class": "PanelContainer" },
@@ -36,6 +36,7 @@
     },
     "caption": {
       "$description": "The caption under a how-to frame.",
+      "$deprecated": "The how-to cards are wordless (docs/ui-decisions.md): no screen draws a caption, so nothing replaces it. Removed at the next major release.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyHowtoCaption", "class": "Label", "on": ["ToyHowtoFrame", "ToyHowtoFrameDone"] },

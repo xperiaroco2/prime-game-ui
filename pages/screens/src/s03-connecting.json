@@ -221,7 +221,7 @@
       "name": "Card", "type": "PanelContainer", "variation": "ToyPanelHowto", "states": ["load-card"],
       "anchors_preset": "center", "offset_top": 40, "offset_bottom": 40, "grow_horizontal": "both", "grow_vertical": "both",
       "custom_minimum_size": [1616, 0],
-      "note": "The how-to card (P8) of a task type in this round that the player has not completed: at most twice per type and never after its first completion (user:// counters, #254). Content data per task type; here Switches. No line says the task is new.",
+      "note": "The how-to card (P8) of a task type in this round that the player has not completed: at most twice per type and never after its first completion (user:// counters, #254). Content data per task type; here Delivery, the game's one task type. No line says the task is new.",
       "children": [
         {
           "name": "V", "type": "VBoxContainer", "variation": "ToyColumnSixteen",
@@ -229,7 +229,7 @@
             {
               "name": "Head", "type": "HBoxContainer", "variation": "ToyRowSixteen",
               "children": [
-                { "name": "Title", "type": "Label", "variation": "ToyTitleOnLight", "key": "task.switches", "size_flags_horizontal": "expand_fill" },
+                { "name": "Title", "type": "Label", "variation": "ToyTitleOnLight", "key": "task.delivery", "size_flags_horizontal": "expand_fill" },
                 { "name": "Note", "type": "Label", "variation": "ToyHowtoNote", "key": "howto.label", "size_flags_vertical": "shrink_center" }
               ]
             },
@@ -237,52 +237,27 @@
               "name": "Frames", "type": "HBoxContainer", "variation": "ToyRowTwelve",
               "children": [
                 {
+                  "name": "Take", "type": "PanelContainer", "variation": "ToyHowtoFrame", "size_flags_horizontal": "expand_fill",
+                  "children": [
+                    { "name": "Art", "type": "TextureRect", "icon": "card/delivery-1", "custom_minimum_size": [352, 264], "note": "The card's art: one picture per frame from the card data (#254), here the pack's Delivery PNGs dist/pack/cards/delivery-1.png … delivery-4.png (640x480, transparent). expand_mode IGNORE_SIZE, stretch_mode KEEP_ASPECT_CENTERED; 352x264 here, 320x240 in s8. The cards are wordless: a frame holds only its art, no caption." }
+                  ]
+                },
+                {
+                  "name": "Sign", "type": "PanelContainer", "variation": "ToyHowtoFrame", "size_flags_horizontal": "expand_fill",
+                  "children": [
+                    { "name": "Art", "type": "TextureRect", "icon": "card/delivery-2", "custom_minimum_size": [352, 264] }
+                  ]
+                },
+                {
                   "name": "Find", "type": "PanelContainer", "variation": "ToyHowtoFrame", "size_flags_horizontal": "expand_fill",
                   "children": [
-                    {
-                      "name": "F", "type": "VBoxContainer", "variation": "ToyColumnEight",
-                      "children": [
-                        { "name": "Art", "type": "TextureRect", "icon": "item", "custom_minimum_size": [120, 200], "note": "expand_mode IGNORE_SIZE, stretch_mode KEEP_ASPECT_CENTERED; placeholder art until the card art (prime-game-ui#3)." },
-                        { "name": "Caption", "type": "Label", "variation": "ToyHowtoCaption", "key": "howto.switches.find", "horizontal_alignment": "center", "autowrap_mode": "word_smart", "custom_minimum_size": [240, 0] }
-                      ]
-                    }
+                    { "name": "Art", "type": "TextureRect", "icon": "card/delivery-3", "custom_minimum_size": [352, 264] }
                   ]
                 },
                 {
-                  "name": "TurnOn", "type": "PanelContainer", "variation": "ToyHowtoFrame", "size_flags_horizontal": "expand_fill",
+                  "name": "Drop", "type": "PanelContainer", "variation": "ToyHowtoFrameDone", "size_flags_horizontal": "expand_fill", "note": "The frame that shows the finish.",
                   "children": [
-                    {
-                      "name": "F", "type": "VBoxContainer", "variation": "ToyColumnEight",
-                      "children": [
-                        { "name": "Art", "type": "TextureRect", "icon": "item", "custom_minimum_size": [120, 200] },
-                        { "name": "Caption", "type": "Label", "variation": "ToyHowtoCaption", "key": "howto.switches.turn_on", "horizontal_alignment": "center", "autowrap_mode": "word_smart", "custom_minimum_size": [240, 0] }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "name": "Watch", "type": "PanelContainer", "variation": "ToyHowtoFrame", "size_flags_horizontal": "expand_fill",
-                  "children": [
-                    {
-                      "name": "F", "type": "VBoxContainer", "variation": "ToyColumnEight",
-                      "children": [
-                        { "name": "Art", "type": "TextureRect", "icon": "item", "custom_minimum_size": [120, 200] },
-                        { "name": "Caption", "type": "Label", "variation": "ToyHowtoCaption", "key": "howto.switches.watch", "horizontal_alignment": "center", "autowrap_mode": "word_smart", "custom_minimum_size": [240, 0] }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "name": "Done", "type": "PanelContainer", "variation": "ToyHowtoFrameDone", "size_flags_horizontal": "expand_fill",
-                  "note": "The frame that shows the finish.",
-                  "children": [
-                    {
-                      "name": "F", "type": "VBoxContainer", "variation": "ToyColumnEight",
-                      "children": [
-                        { "name": "Art", "type": "TextureRect", "icon": "check", "custom_minimum_size": [120, 200] },
-                        { "name": "Caption", "type": "Label", "variation": "ToyHowtoCaption", "key": "howto.switches.done", "horizontal_alignment": "center", "autowrap_mode": "word_smart", "custom_minimum_size": [240, 0] }
-                      ]
-                    }
+                    { "name": "Art", "type": "TextureRect", "icon": "card/delivery-4", "custom_minimum_size": [352, 264] }
                   ]
                 }
               ]

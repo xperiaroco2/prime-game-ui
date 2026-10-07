@@ -1,5 +1,5 @@
 {
-  "about": "Ukrainian text inside the wireframe frames that is not a player-facing string, so it has no key in copy/strings.csv: world tags and wireframe annotations (with the English the wireframes' EN switch shows) and sample data (names the players or the host type, shown as is). tools/copy/check.js reads it with the deck to build pages/wireframes/en.json.",
+  "about": "Ukrainian text inside the wireframe frames that is not a player-facing string, so it has no key in copy/strings.csv: world tags and wireframe annotations (with the English the wireframes' EN switch shows; the annotations include the old how-to captions the wireframes still draw, retired from the deck because the cards are wordless) and sample data (names the players or the host type, shown as is). tools/copy/check.js reads it with the deck to build pages/wireframes/en.json.",
   "world": {
     "тренувальна кімната": "training room",
     "лобі на фоні": "the lobby behind",
@@ -14,7 +14,11 @@
     "пізніше": "later",
     "список гортається": "the list scrolls",
     "знак кімнати на самому пакунку, у 3D (без слова)": "the room's sign on the package itself, in 3D (no word)",
-    "Інших гравців і пакунки мапа не показує.": "The map never shows other players or packages."
+    "Інших гравців і пакунки мапа не показує.": "The map never shows other players or packages.",
+    "Знайди всі рубильники": "Find every switch",
+    "Увімкни кожен": "Turn each one on",
+    "Стеж, щоб ніхто не вимкнув": "Watch that nobody turns them off",
+    "Готово, коли всі горять": "Done when all are lit"
   },
   "samples": ["Олена", "Тарас", "Марко", "Оксана", "Іван", "Соломія", "Богдан", "Ірина", "Дмитро", "Леся", "Лобі Олени"]
 }
