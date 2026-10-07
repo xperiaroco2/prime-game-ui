@@ -42,6 +42,19 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
   - Keep them as simple as possible. The game is for adults: nothing childish and no hand-holding.
   - Round 2 polishes those sketches instead of drawing a new cartoon world. The reference board of round 2
     ([page](https://claude.ai/artifact/Kvs7FghnBKwuCsYBLexMr9)) is not needed for the choice.
+- **The card art style is the clean sketch** (the engineer, 2026-10-07, chat, on the
+  [round-2 page](https://claude.ai/artifact/VQYpBbpZpM1PSptNyAME8h)): it looks as if drawn in pencil in a notebook.
+  The look is set by `pages/card-art/round-2/clean-sketch/`:
+  - a stick figure with a round head and a few-stroke face;
+  - a dark ink line with a hand-drawn wobble;
+  - one amber accent for what matters;
+  - a small gag per card.
+
+  The bold-silhouette style is not adopted. Card rules (agent):
+  - no letters or digits, only pictorial symbols (? ! a tick, arrows, motion lines);
+  - the same figure and view in every panel;
+  - a room's pictogram is the same glyph on the package, the map and the door plate;
+  - the art ships to the game as PNG at 2× (it uses browser SVG filters).
 - **Loading-screen tips** are funny.
 - **A "with hints" host setting** (markers through walls, highlights) is dropped for now: a future idea, only if real
   maps prove too hard.
