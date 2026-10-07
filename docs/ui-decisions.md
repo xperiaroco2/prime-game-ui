@@ -34,16 +34,14 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
   The first four agent-drawn styles (`pages/card-art/`, 2026-10-07) were all rejected as ugly (big noses, clumsy hands);
   the next round starts from references
   ([prime-game-ui#3](https://github.com/xperiaroco2/prime-game-ui/issues/3#issuecomment-6033534497)).
-- **The cards look like Overcooked's chalkboard recipe card** (the engineer, 2026-10-07, chat, sharing a screenshot of
-  Overcooked's "how to make sashimi" board: «Я це мав на увазі»). The features to match:
-  - a picture drawn in chalk on a dark board: a rough white outline and coloured chalk fill with visible grain;
-  - the same comic character in every step, with a gag face;
-  - steps joined by hand-drawn chalk arrows, not separate framed panels;
-  - the result inside a circle with burst rays.
-
-  The screenshot stays out of this repo (another studio's art). How the card's layout in the UI changes (one board
-  picture instead of a row of panels) is settled when round 2 shows it. The reference board of round 2
-  ([page](https://claude.ai/artifact/Kvs7FghnBKwuCsYBLexMr9)) is kept but is no longer needed for the choice.
+- **The cards are the wireframe sketches done well** (the engineer, 2026-10-07, chat). The engineer shared a screenshot
+  of Overcooked's chalk "how to make sashimi" board. They meant only that each step is clear at a glance, drawn in a
+  fun comic way ("you grab it, you deliver it"), not chalk.
+  - The first sketches of the cards (`pages/learning/`, section "Як це виглядає") already looked good to them, because
+    they had no extra text.
+  - Keep them as simple as possible. The game is for adults: nothing childish and no hand-holding.
+  - Round 2 polishes those sketches instead of drawing a new cartoon world. The reference board of round 2
+    ([page](https://claude.ai/artifact/Kvs7FghnBKwuCsYBLexMr9)) is not needed for the choice.
 - **Loading-screen tips** are funny.
 - **A "with hints" host setting** (markers through walls, highlights) is dropped for now: a future idea, only if real
   maps prove too hard.
