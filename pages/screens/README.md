@@ -12,13 +12,21 @@ node pages/screens/build.js --validate [s2 ...]  validate the sources only (all,
 node pages/screens/build.js --handoff s2         print the screen's Godot handoff (Markdown) to stdout
 node pages/screens/build.js --out <file.html> s2 [s5 ...]
                                                  a private page with only these screens, outside the repo
+node pages/screens/build.js --self-test          the renderer's behaviours on the fixture screens of
+                                                 tools/screens/fixtures/selftest/ (writes nothing)
 ```
 
 `--validate s7` checks one screen while other screens are being edited. `--out` builds a private page with only the
 named screens (validated alone, the CSS inlined) to a path outside the repo (a path inside it is refused), so an author
 can build and measure one screen while others edit theirs; `tools/screens/fit.js --page <file>` and
-`tools/screens/shots.js --page <file>` take it. `tools/check.js` runs `screens` (validate
-everything) and `page:screens` (`--check`).
+`tools/screens/shots.js --page <file>` take it. `tools/check.js` runs `screens:selftest`
+(`--self-test`), `screens` (validate everything) and `page:screens` (`--check`).
+
+`--self-test` builds the small screens of `tools/screens/fixtures/selftest/` (`x<N>-<case>.json`, with the fixture keys
+of `keys.json`, which the deck does not have) and asserts on their layout CSS, page HTML and handoff text: a Button
+whose icon only some states set, `icon_size` with no icon (refused), sentence pieces through `strip_edges()`, and an
+icon tinted by its row's Label or by its context ([prime-game-ui#34](https://github.com/xperiaroco2/prime-game-ui/issues/34)).
+A new renderer behaviour gets a fixture screen and its checks there.
 
 ## Files
 

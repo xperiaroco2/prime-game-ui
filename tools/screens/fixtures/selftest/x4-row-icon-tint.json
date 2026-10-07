@@ -1,0 +1,53 @@
+{
+  "id": "x4",
+  "wireframe": "s5",
+  "title": "Self-test: an icon tinted by its row's label",
+  "background": "black",
+  "note": "prime-game-ui#28: a tinted TextureRect with no theme_color or self_modulate in an HBoxContainer takes the font colour of the row's nearest Label shown in the state (the following one on a tie); with none, the text colour of its context.",
+  "states": [
+    { "id": "tie", "label": "Нарівні" },
+    { "id": "alone", "label": "Один підпис" }
+  ],
+  "nodes": [
+    {
+      "name": "Col", "type": "VBoxContainer", "variation": "ToyColumnEight", "anchors_preset": "center",
+      "children": [
+        {
+          "name": "Far", "type": "HBoxContainer", "variation": "ToyRowEight",
+          "children": [
+            { "name": "Lock", "type": "TextureRect", "icon": "lock", "custom_minimum_size": [20, 20] },
+            { "name": "Mark", "type": "TextureRect", "icon": "check", "custom_minimum_size": [20, 20] },
+            { "name": "Text", "type": "Label", "variation": "ToyTextMutedOnDark", "text": "07:45" }
+          ]
+        },
+        {
+          "name": "Tie", "type": "HBoxContainer", "variation": "ToyRowEight",
+          "children": [
+            { "name": "Before", "type": "Label", "variation": "ToyTitleOnDark", "text": "12" },
+            { "name": "Lock", "type": "TextureRect", "icon": "lock", "custom_minimum_size": [20, 20] },
+            { "name": "After", "type": "Label", "variation": "ToyTextMutedOnDark", "text": "34", "states": ["tie"] }
+          ]
+        },
+        {
+          "name": "Bare", "type": "HBoxContainer", "variation": "ToyRowEight",
+          "children": [
+            { "name": "Lock", "type": "TextureRect", "icon": "lock", "custom_minimum_size": [20, 20] },
+            { "name": "Mark", "type": "TextureRect", "icon": "check", "custom_minimum_size": [20, 20] }
+          ]
+        },
+        {
+          "name": "Card", "type": "PanelContainer", "variation": "ToyPanelMenu",
+          "children": [
+            {
+              "name": "Bare", "type": "HBoxContainer", "variation": "ToyRowEight",
+              "children": [
+                { "name": "Lock", "type": "TextureRect", "icon": "lock", "custom_minimum_size": [20, 20] },
+                { "name": "Mark", "type": "TextureRect", "icon": "check", "custom_minimum_size": [20, 20] }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

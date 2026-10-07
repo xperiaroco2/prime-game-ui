@@ -28,6 +28,7 @@ const STEPS = [
   ["page:room-signs", ["pages/room-signs/build.js", "--check"]],
   ["copy", ["tools/copy/check.js"]],
   ["page:copy", ["pages/copy/build.js", "--check"]],
+  ["screens:selftest", ["pages/screens/build.js", "--self-test"]],
   ["screens", ["pages/screens/build.js", "--validate"]],
   ["page:screens", ["pages/screens/build.js", "--check"]],
 ];
