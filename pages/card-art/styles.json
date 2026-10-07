@@ -1,0 +1,63 @@
+{
+  "title": "Стиль малюнків карток",
+  "eyebrow": "prime-game-ui #3 · картки «Як робити»",
+  "heading": "Як намалювати кадри карток «Як робити»?",
+  "lead": "Картка «Як робити» показує завдання в чотирьох кадрах: на мапі, у меню Esc і на екрані завантаження. Тут чотири стилі малюнків для цих кадрів. Усі чотири — веселий мультик, різняться тим, як саме. Торкнись стилю, щоб обрати його.",
+  "source": "Усі чотири стилі намалювали агенти як власні SVG (own work): точна палітра й контур Toy, без чужих ліцензій і без оплати ілюстратору. Інші шляхи (ілюстратор на замовлення, набори CC0, емодзі, генератори картинок) порівняно у",
+  "source_link": "звіті",
+  "report_url": "https://github.com/xperiaroco2/prime-game-ui/blob/art/3-card-styles/docs/research/2026-10-07-card-art/report.md",
+  "issue_url": "https://github.com/xperiaroco2/prime-game-ui/issues/3",
+  "collection": "cards3",
+  "doc": "choice",
+  "recommended": "comic-gag",
+  "why": "Найкраще читається на телефоні: найбільші голови й очі, найсміливіші силуети, обидва жарти спрацьовують, а товстий сливовий контур — мова самого Toy.",
+  "styles": [
+    {
+      "id": "comic-gag",
+      "name_uk": "Комікс-гег",
+      "name_en": "Comic gag",
+      "one_line_uk": "Виразний мультяшний комікс: сміливі пози, лінії руху й найгучніші жарти."
+    },
+    {
+      "id": "toy-sticker",
+      "name_uk": "Toy-наліпка",
+      "name_en": "Toy sticker",
+      "one_line_uk": "Пласкі кольори й товстий сливовий контур, як у самого Toy-інтерфейсу: меню гри оживає."
+    },
+    {
+      "id": "clay",
+      "name_uk": "Пластилін",
+      "name_en": "Plasticine",
+      "one_line_uk": "Ліплені пластилінові форми з відблисками й тінню та м'яким власним контуром: найближче до персонажів гри."
+    },
+    {
+      "id": "safety-card",
+      "name_uk": "Картка безпеки",
+      "name_en": "Safety card",
+      "one_line_uk": "Спокійна, як картка безпеки в літаку: обмежена палітра, чіткість піктограми й одне підморгування."
+    }
+  ],
+  "cards": [
+    {
+      "id": "delivery",
+      "title_key": "task.delivery",
+      "frames": [
+        { "panel": "delivery-1", "key": "howto.delivery.take" },
+        { "panel": "delivery-2", "key": "howto.delivery.sign" },
+        { "panel": "delivery-3", "key": "howto.delivery.find" },
+        { "panel": "delivery-4", "key": "howto.delivery.drop" }
+      ]
+    },
+    {
+      "id": "switches",
+      "title_key": "task.switches",
+      "frames": [
+        { "panel": "switches-1", "key": "howto.switches.find" },
+        { "panel": "switches-2", "key": "howto.switches.turn_on" },
+        { "panel": "switches-3", "key": "howto.switches.watch" },
+        { "panel": "switches-4", "key": "howto.switches.done" }
+      ]
+    }
+  ],
+  "note_key": "howto.label"
+}

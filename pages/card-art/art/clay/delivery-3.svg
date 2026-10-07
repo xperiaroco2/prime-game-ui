@@ -1,0 +1,102 @@
+<!-- own work, prime-game-ui, licence: own work -->
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="240" viewBox="0 0 320 240">
+<defs>
+<radialGradient id="d3-gs" cx="0.32" cy="0.28" r="0.78">
+<stop offset="0" stop-color="#eed6c7"/>
+<stop offset="1" stop-color="#e6c3ad"/>
+</radialGradient>
+<radialGradient id="d3-gt" cx="0.32" cy="0.28" r="0.78">
+<stop offset="0" stop-color="#a3c7c2"/>
+<stop offset="1" stop-color="#78ada5"/>
+</radialGradient>
+<radialGradient id="d3-gb" cx="0.32" cy="0.28" r="0.78">
+<stop offset="0" stop-color="#e3b88c"/>
+<stop offset="1" stop-color="#d9a066"/>
+</radialGradient>
+<g id="d3-lab">
+<path d="M17.5,4 L30.5,4 A2.5,2.5 0 0 1 33,6.5 L33,7.5 A2.5,2.5 0 0 1 30.5,10 L17.5,10 A2.5,2.5 0 0 1 15,7.5 L15,6.5 A2.5,2.5 0 0 1 17.5,4 Z" fill="#2a1f33"/>
+<path d="M19,8 L29,8 L29,17.45 A2,2 0 0 0 29.29,18.48 L40.43,37.05 A4,4 0 0 1 41,39.11 L41,41 A3,3 0 0 1 38,44 L10,44 A3,3 0 0 1 7,41 L7,39.11 A4,4 0 0 1 7.57,37.05 L18.71,18.48 A2,2 0 0 0 19,17.45 L19,8 Z M15.5,36 A3.5,3.5 0 1 0 22.5,36 A3.5,3.5 0 1 0 15.5,36 Z M25,29 A3,3 0 1 0 31,29 A3,3 0 1 0 25,29 Z" fill="#2a1f33" fill-rule="evenodd"/>
+</g>
+</defs>
+<rect x="16" y="22" width="288" height="188" rx="14" fill="#e9dff0"/>
+<path d="M18 210q0-10 10-10 132-1 264 0 10 0 10 10 3 1 0 2 0 10-10 10-132 3-264 1-10 0-10-10-3-1 0-3z" fill="#dccfe4"/>
+<path d="M152 61q0-9 9-9 9-2 18 0 9 0 9 9 2 67 0 134 0 9-9 9-9 2-18 0-9 0-9-9-1-67 0-134z" fill="#b9a8c7" stroke="#9a87ad" stroke-width="3" stroke-linejoin="round"/>
+<circle cx="180" cy="132" r="3.6" fill="#9a87ad"/>
+<path d="M262 61q0-9 9-9 12-2 24 0 9 0 9 9 2 67 0 134 0 9-9 9-12 1-24 0-9 0-9-9-1-67 0-134z" fill="#b9a8c7" stroke="#9a87ad" stroke-width="3" stroke-linejoin="round"/>
+<circle cx="296" cy="132" r="3.6" fill="#9a87ad"/>
+<g transform="translate(96 52) scale(0.85)">
+<path d="M44,28 L56,28 A4,4 0 0 1 60,32 L60,32 A4,4 0 0 1 56,36 L44,36 A4,4 0 0 1 40,32 L40,32 A4,4 0 0 1 44,28 Z" fill="#2a1f33"/>
+<path d="M7,32 A18,18 0 1 1 43,32 A18,18 0 1 1 7,32 Z" fill="#fff4e2" stroke="#2a1f33" stroke-width="6" stroke-linejoin="round"/>
+<g transform="translate(11.56 18.56) scale(0.56)">
+<path d="M12,42 L36,42 A4,4 0 0 0 40,38 C40,28 34,20 24,20 C14,20 8,28 8,38 A4,4 0 0 0 12,42 Z" fill="#2a1f33"/>
+<path d="M13,33 L6,23" fill="none" stroke="#2a1f33" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M15,20 C15,7 33,7 33,20" fill="none" stroke="#2a1f33" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g transform="translate(202 52)">
+<path d="M35,8.23 L51.08,17.52 A6,6 0 0 1 54.08,22.71 L54.08,41.29 A6,6 0 0 1 51.08,46.48 L35,55.77 A6,6 0 0 1 29,55.77 L12.92,46.48 A6,6 0 0 1 9.92,41.29 L9.92,22.71 A6,6 0 0 1 12.92,17.52 L29,8.23 A6,6 0 0 1 35,8.23 Z" fill="#fff4e2" stroke="#2a1f33" stroke-width="6" stroke-linejoin="round"/>
+<g transform="translate(15.2 15.2) scale(0.7)"><use href="#d3-lab"/></g>
+</g>
+<g transform="translate(4 16.8) scale(0.92)">
+<ellipse cx="52" cy="209" rx="30" ry="5" fill="#2a1f33" fill-opacity="0.18"/>
+<path d="M55 112q1 4 14 9 13 5 29 8 15 3 18 1 2-2 1-5-2-3-17-6-14-3-27-9-13-5-16-4-4 2-2 6z" fill="#78ada5" stroke="#5d8f87" stroke-width="3.26" stroke-linejoin="round"/>
+<g stroke="#c9a089" stroke-width="3.26" stroke-linejoin="round">
+<path d="M126 128q0 3-2 5-2 1-6 0-3 0-4-3 0-3 2-5 2-1 6 0 3 1 4 3z" fill="#e6c3ad"/>
+<path d="M120 126q-2 1-2-1-1-1 1-2 1-1 2-1 2 0 2 1 1 1-1 2-1 1-2 1z" fill="#e6c3ad"/>
+</g>
+<path d="M38 141q-5 3-6 17 0 13 0 27 0 13 4 17 4 3 8 0 4-4 4-17 0-13 2-26 2-13-3-18-4-4-9 0z" fill="#5d6f86" stroke="#4a5a6e" stroke-width="3.26" stroke-linejoin="round"/>
+<path d="M55 201q2 2-1 3-2 2-5 3-3 0-7 0-5-1-7-3-2-2 0-4 1-2 6-3 5-1 9 1 4 1 5 3z" fill="#5a3d2b" stroke="#40291c" stroke-width="3.26" stroke-linejoin="round"/>
+<path d="M51 141q-4 5-3 18 1 13 2 26 2 14 6 17 5 3 8-1 4-4 4-17-1-13-2-26 0-14-6-17-5-4-9 0z" fill="#5d6f86" stroke="#4a5a6e" stroke-width="3.26" stroke-linejoin="round"/>
+<path d="M75 200q2 2 0 4-2 2-5 3-4 0-8 0-4-1-6-3-3-2-1-4 1-2 6-3 4 0 8 0 5 1 6 3z" fill="#5a3d2b" stroke="#40291c" stroke-width="3.26" stroke-linejoin="round"/>
+<path d="M47.7 90.5q-2.7 2.1-3.2 8.1-.6 6 1.8 8.4 2.3 2.5 4.9.4 2.6-2 3.2-8 .5-6-1.8-8.4-2.2-2.5-4.9-.5z" fill="#e6c3ad" stroke="#c9a089" stroke-width="3.26" stroke-linejoin="round"/>
+<path d="M42 102q4-2 10 0 7 2 10 8 3 6 3 16 0 10-2 16-2 6-7 7-5 2-13 0-7-1-10-8-2-6-1-16 0-10 3-16 3-5 7-7z" fill="url(#d3-gt)" stroke="#5d8f87" stroke-width="3.26" stroke-linejoin="round"/>
+<path d="M63 137q2-1 0 5-2 6-7 7-5 2-3-1 2-2 5-5 3-4 5-6z" fill="#5d8f87"/>
+<path d="M35.6 114.9q0-3.8 2.5-6.1 2.5-2.3 4.5-1.5 2 .8 2 3.7-.1 2.8-2.2 5.7-2.1 2.9-4.5 2.4-2.4-.5-2.3-4.2z" fill="#ffffff" fill-opacity="0.45"/>
+<path d="M38.2 138q-.9-2.3 1.3-3.6m-4.6 4.8q-1.9-5.1 2.9-7.8m-6.2 9q-2.9-7.9 4.4-12.1m18.2-.3a.8.8 0 1 0 1.6 0 .8.8 0 1 0-1.6 0" fill="none" stroke="#2a1f33" stroke-width="2.17" stroke-opacity="0.2" stroke-linejoin="round" stroke-linecap="round"/>
+<g transform="translate(52 74) rotate(3) scale(1.1)">
+<g stroke="#c9a089" stroke-width="2.96" stroke-linejoin="round">
+<path d="M-11 1q0 3-1 5-1 2-3 3-2 0-4-2-1-2-1-5 1-2 2-4 2-1 4 0 2 1 3 3z" fill="#e6c3ad"/>
+<path d="M-6-19q6-2 11-1 6 1 9 6 4 5 4 14-1 8-3 12-3 5-8 7-5 3-11 2-5-2-10-9-4-7-5-13 0-7 4-12 4-5 9-6z" fill="url(#d3-gs)"/>
+</g>
+<path d="M15 10q2-2 0 2-3 5-8 7-5 3-11 2-5-2-2-2 3 0 7-1 5-2 9-4 3-3 5-4z" fill="#c9a089"/>
+<path d="M-3.6-13.7q-.2 1.6-2.4 3.4-2.1 1.8-4.2 1.8-2.1 0-2.2-1.7-.1-1.6 2.5-3.5 2.5-1.8 4.5-1.7 2.1.2 1.8 1.7z" fill="#ffffff" fill-opacity="0.5"/>
+<path d="M-10.6 12.4q-1.7-.4-1.9-2.2m1.1 5.1q-3.7-1-4.1-4.8m4.2 3a.8.8 0 1 0 1.6 0 .8.8 0 1 0-1.6 0" fill="none" stroke="#2a1f33" stroke-width="1.98" stroke-opacity="0.2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M-18 4q-2-1-3-8-1-7 2-13 4-5 10-8 6-2 12-1 6 1 10 3 5 2 2 3-2 1-6-1-5-1-10 0-5 1-8 5-4 5-5 13-2 7-4 7zm3-23q-2-9 6-15 4 4 5 10zm8-5q1-9 12-12 4 6 2 12zm10 0q6-9 18-7 0 8-6 12z" fill="#6b4630" stroke="#503322" stroke-width="2.96" stroke-linejoin="round"/>
+<path d="M-9.7-26q1.6-1.5 3.8-2.1 2.1-.6 2.6.1.4.7-1.4 2.3-1.8 1.6-3.6 2.1-1.8.5-2.4-.2-.5-.8 1-2.2z" fill="#ffffff" fill-opacity="0.45"/>
+<g stroke="#c9a089" stroke-width="1.98" stroke-linejoin="round">
+<circle cx="-1" cy="-4.5" r="5" fill="#f6f2ea"/>
+<circle cx="9.5" cy="-4.5" r="5" fill="#f6f2ea"/>
+</g>
+<ellipse cx="1.6" cy="-5.3" rx="1.9" ry="3.1" fill="#2a1f33"/>
+<ellipse cx="12.1" cy="-5.3" rx="1.9" ry="3.1" fill="#2a1f33"/>
+<path d="M0-6.7a.9.9 0 1 0 1.8 0 .9.9 0 1 0-1.8 0m10.5 0a.9.9 0 1 0 1.8 0 .9.9 0 1 0-1.8 0" fill="#ffffff"/>
+<path d="M-6.3-7.5a6.1 6.1 0 0 1 10.6 0zm10.5 0a6.1 6.1 0 0 1 10.6 0z" fill="#c9a089"/>
+<path d="M-5.4-15.6q4.4-2 8.8 0m1.7 0q4.4-2 8.8 0" fill="none" stroke="#4a3328" stroke-width="4.74" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M19.5 1.6q1.2 2 0 4.2-1.2 2.1-4 2.6-2.8.4-5-.9-2.2-1.3-2.3-3.9-.1-2.7 1.9-4 1.9-1.2 5.1-.7 3.1.6 4.3 2.7z" fill="#f1cbbd" stroke="#d9ad9b" stroke-width="2.96" stroke-linejoin="round"/>
+<ellipse cx="12.4" cy="1.7" rx="2.2" ry="1.4" fill="#ffffff" fill-opacity="0.55"/>
+<path d="M4 12q5 1.5 10-1-4 9-10 1z" fill="#4e3632"/>
+<path d="M6.4 12.4h2.2v2.2h-2.2zm3.3-.3h2.2v2.2h-2.2z" fill="#f6f2ea"/>
+<path d="M5.8 15.7q3.7 4.6 6.8-.6" fill="none" stroke="#e0948c" stroke-width="2.17" stroke-linejoin="round" stroke-linecap="round"/>
+</g>
+</g>
+<g transform="translate(80 141)">
+<path d="M27-20.8q0-3 2.3-4.8 1.8-2.4 4.5-3.4 2.3-1.9 2.3 1.1.4 20.9-.3 41.7-.1 3-2.4 4.9-1.5 2.3-4.1 3.3-2.3 1.9-2.3-1.1-.7-20.8 0-41.7z" fill="#c08550" stroke="#a8713f" stroke-width="3" stroke-linejoin="round"/>
+<path d="M-24.1-24.3q-3 0-.6-1.8 1.8-2.1 4.4-3.2 2.4-1.7 5.4-1.7 23.9-1.2 47.8-.2 3-.1.6 1.8-1.8 2.1-4.3 3.3-2.4 1.9-5.4 1.9-23.9 1-47.9-.1z" fill="#e8b882" stroke="#c08550" stroke-width="3" stroke-linejoin="round"/>
+<path d="M-4-24l8 0 9-7-8 0z" fill="#a8713f"/>
+<path d="M-27-17.9q-.1-6 5.9-6 20.9-2.2 41.9-.4 6 0 6 6 1.3 18 0 35.9 0 6-6 6.1-20.8 2.1-41.6.4-6 0-6-6-3.1-18-.2-36z" fill="url(#d3-gb)" stroke="#c08550" stroke-width="3" stroke-linejoin="round"/>
+<path d="M-19 20.7q-4 1.8 20.3 1.8 24.2 0 24.2-20.2 0-20.3-1.5-17.3-1.5 3-2.2 18-.8 15-18.8 15.4-18 .4-22 2.3z" fill="#c08550"/>
+<path d="M-22.2-17.2q.7-1.3 3.4-2.3 2.6-.9 4.2-.2 1.6.7.7 2.1-.9 1.4-3.4 2.2-2.4.8-4 .1-1.5-.6-.9-1.9z" fill="#ffffff" fill-opacity="0.45"/>
+<path d="M-10.8-28.8q1.7.3 1.2 1.1-.6.7-3.1 1.3-2.5.6-4.4.3-1.8-.3-1.3-1.1.5-.7 3.2-1.3 2.6-.6 4.4-.3z" fill="#ffffff" fill-opacity="0.5"/>
+<path d="M-23.3 17.1q2.8.4 3.2 3.2m-2.6-6.7q5.2.9 6.1 6.1m1.8-.7a.8.8 0 1 0 1.6 0 .8.8 0 1 0-1.6 0" fill="none" stroke="#2a1f33" stroke-width="2" stroke-opacity="0.2" stroke-linejoin="round" stroke-linecap="round"/>
+<g transform="translate(-21.1 -20.6) scale(0.92)"><use href="#d3-lab"/></g>
+</g>
+<g transform="translate(4 16.8) scale(0.92)">
+<path d="M36 108q-3 1-7 13-4 13 3 23 6 10 9 10 3 1 4-2 1-4-4-12-6-7-2-17 4-10 3-13-2-4-6-2z" fill="#78ada5" stroke="#5d8f87" stroke-width="3.26" stroke-linejoin="round"/>
+<g stroke="#c9a089" stroke-width="3.26" stroke-linejoin="round">
+<path d="M52 153q0 2-2 4-3 2-6 1-3-1-4-3 0-3 2-5 3-1 6-1 3 1 4 4z" fill="#e6c3ad"/>
+<path d="M45 157q1-1 3 0 1 1 1 3 0 1-1 1-1 1-3 0-1-1-1-3 0-1 1-1z" fill="#e6c3ad"/>
+</g>
+</g>
+<path d="M84 116q26-146 128-54" fill="none" stroke="#2a1f33" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M216 66l-3.4-12.5-9.3 10z" fill="#2a1f33" stroke="#2a1f33" stroke-width="3" stroke-linejoin="round"/>
+</svg>
