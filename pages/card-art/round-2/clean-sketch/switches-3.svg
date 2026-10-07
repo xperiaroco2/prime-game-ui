@@ -1,0 +1,59 @@
+<!-- own work, prime-game-ui, licence: own work -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" width="320" height="240">
+  <defs>
+    <filter id="s3-w" filterUnits="userSpaceOnUse" x="0" y="0" width="320" height="240">
+      <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="17" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="4" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <style>
+      .k{fill:none;stroke:#1f2433;stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
+      .t{stroke-width:4}
+      .f{stroke-width:3}
+      .w{fill:#fff;stroke:#1f2433;stroke-width:5;stroke-linejoin:round}
+      .a{fill:#e8a33a;stroke:#1f2433;stroke-width:5;stroke-linejoin:round}
+      .o{fill:none;stroke:#e8a33a;stroke-width:5;stroke-linecap:round}
+      .i{fill:#1f2433}
+    </style>
+  </defs>
+  <g filter="url(#s3-w)">
+    <ellipse cx="40" cy="213" rx="24" ry="4" fill="#1f2433" opacity=".12"/>
+    <ellipse cx="244" cy="213" rx="28" ry="4" fill="#1f2433" opacity=".12"/>
+    <path class="k t" d="M16 212C96 209 210 214 304 211"/>
+    <!-- switch, still on -->
+    <circle cx="104" cy="74" r="27" fill="#e8a33a" opacity=".3"/>
+    <path class="o" d="M82 74h-10M88 58l-7-7M104 52V42M120 58l7-7M126 74h10"/>
+    <path class="k t" d="M104 96V118"/><rect class="i" x="97" y="85" width="14" height="11" rx="2"/>
+    <path class="a" d="M97 86C87 78 88 59 104 59C120 59 121 78 111 86Z"/><path class="k f" d="M95 78q-2-9 7-13"/>
+    <rect class="w" x="88" y="118" width="32" height="46" rx="5"/>
+    <path class="k" d="M104 141L116 114"/><circle class="i" cx="116" cy="114" r="6.5"/><circle class="i" cx="104" cy="141" r="4"/>
+    <!-- switch, just yanked off -->
+    <path class="k t" d="M168 96V118"/><rect class="i" x="161" y="85" width="14" height="11" rx="2"/>
+    <path class="w" d="M161 86C151 78 152 59 168 59C184 59 185 78 175 86Z"/><path class="k f" d="M159 78q-2-9 7-13"/>
+    <path class="k t" d="M168 52q-7-7 0-12q7-6 0-12"/>
+    <rect class="w" x="152" y="118" width="32" height="46" rx="5"/>
+    <path class="k" d="M168 141L172 171"/><circle class="i" cx="172" cy="171" r="6.5"/><circle class="i" cx="168" cy="141" r="4"/>
+    <path class="k t" d="M142 120Q130 142 142 162M134 157l8 5l2-9"/>
+    <!-- switch, still off -->
+    <path class="k t" d="M290 96V118"/><rect class="i" x="283" y="85" width="14" height="11" rx="2"/>
+    <path class="w" d="M283 86C273 78 274 59 290 59C306 59 307 78 297 86Z"/><path class="k f" d="M281 78q-2-9 7-13"/>
+    <rect class="w" x="274" y="118" width="32" height="46" rx="5"/>
+    <path class="k" d="M290 141L294 171"/><circle class="i" cx="294" cy="171" r="6.5"/><circle class="i" cx="290" cy="141" r="4"/>
+    <!-- someone, sneaking -->
+    <path class="k" d="M240 166L226 186L222 210M240 166L256 186L266 204"/>
+    <path class="k" d="M240 166L222 128"/>
+    <path class="k" d="M222 134L202 158L178 170M223 136L246 128L258 136"/>
+    <circle class="w" cx="214" cy="111" r="19"/>
+    <path class="k t" d="M201 106h8M215 106h8"/>
+    <circle class="i" cx="204" cy="110" r="2.8"/><circle class="i" cx="218" cy="110" r="2.8"/>
+    <path class="k t" d="M204 120q6 3 12-3"/>
+    <!-- you, catching it -->
+    <path class="k" d="M40 152L24 211M40 152L56 211"/>
+    <path class="k" d="M40 152L38 104"/>
+    <path class="k" d="M38 114L80 102M38 118L26 140L24 156"/>
+    <circle class="w" cx="38" cy="84" r="19"/>
+    <circle class="w" cx="42" cy="80" r="4.5" style="stroke-width:3"/><circle class="w" cx="52" cy="80" r="4.5" style="stroke-width:3"/>
+    <circle class="i" cx="44" cy="80" r="2.2"/><circle class="i" cx="54" cy="80" r="2.2"/>
+    <circle class="k t" cx="46" cy="93" r="3"/>
+    <path class="k" d="M38 28v16"/><circle class="i" cx="38" cy="54" r="3.4"/>
+  </g>
+</svg>

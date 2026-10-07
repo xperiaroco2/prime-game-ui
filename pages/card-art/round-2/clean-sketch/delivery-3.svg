@@ -1,0 +1,42 @@
+<!-- own work, prime-game-ui, licence: own work -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" width="320" height="240">
+  <defs>
+    <filter id="d3-w" filterUnits="userSpaceOnUse" x="0" y="0" width="320" height="240">
+      <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="7" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="4" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <symbol id="d3-f" viewBox="0 0 48 48">
+      <path fill="#1f2433" fill-rule="evenodd" d="M17.5,4 L30.5,4 A2.5,2.5 0 0 1 33,6.5 L33,7.5 A2.5,2.5 0 0 1 30.5,10 L17.5,10 A2.5,2.5 0 0 1 15,7.5 L15,6.5 A2.5,2.5 0 0 1 17.5,4 Z M19,8 L29,8 L29,17.45 A2,2 0 0 0 29.29,18.48 L40.43,37.05 A4,4 0 0 1 41,39.11 L41,41 A3,3 0 0 1 38,44 L10,44 A3,3 0 0 1 7,41 L7,39.11 A4,4 0 0 1 7.57,37.05 L18.71,18.48 A2,2 0 0 0 19,17.450 L19,8 Z M15.5,36 A3.5,3.5 0 1 0 22.5,36 A3.5,3.5 0 1 0 15.5,36 Z M25,29 A3,3 0 1 0 31,29 A3,3 0 1 0 25,29 Z"/>
+    </symbol>
+    <style>
+      .k{fill:none;stroke:#1f2433;stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
+      .t{stroke-width:4}
+      .w{fill:#fff;stroke:#1f2433;stroke-width:5;stroke-linejoin:round}
+      .a{fill:#e8a33a;stroke:#1f2433;stroke-width:4;stroke-linejoin:round}
+      .i{fill:#1f2433}
+      .dd{stroke-dasharray:6 7}
+    </style>
+  </defs>
+  <g filter="url(#d3-w)">
+    <ellipse cx="110" cy="213" rx="24" ry="4" fill="#1f2433" opacity=".12"/>
+    <path class="k t" d="M16 212C96 209 210 214 304 211"/>
+    <!-- the wall map -->
+    <rect class="w" x="152" y="26" width="148" height="150" rx="6"/>
+    <rect x="214" y="38" width="74" height="62" fill="#e8a33a"/>
+    <use href="#d3-f" x="231" y="49" width="40" height="40"/>
+    <path class="k t" d="M164 38H288V164H164ZM214 38V164M164 110H214M214 100H288M250 100V164"/>
+    <circle class="i" cx="189" cy="140" r="6"/>
+    <path class="k t dd" d="M189 128C189 100 198 80 222 72"/>
+    <!-- figure, pointing it out -->
+    <path class="k" d="M110 152L94 211M110 152L126 211"/>
+    <path class="k" d="M110 152L108 104"/>
+    <!-- the package, tucked under the other arm -->
+    <rect class="w" x="60" y="120" width="50" height="40" rx="3"/><path class="k t" d="M85 120v10"/>
+    <rect class="a" x="82" y="132" width="23" height="23" rx="4"/>
+    <use href="#d3-f" x="85" y="135" width="17" height="17"/>
+    <path class="k" d="M108 114L148 92M108 116L68 113L58 130"/>
+    <circle class="w" cx="106" cy="84" r="19"/>
+    <circle class="i" cx="112" cy="79" r="2.8"/><circle class="i" cx="120" cy="79" r="2.8"/>
+    <path class="k t" d="M109 90q5 5 11 0"/>
+  </g>
+</svg>

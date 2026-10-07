@@ -1,0 +1,187 @@
+<title>Картки, раунд 2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@600;700&family=Nunito:wght@400;600;700&display=swap">
+<style>
+/* Layout: the choice page of prime-game-ui#3 round 2. One block per style: its two cards as the game frames them
+   (white frames, 3 px plum outline, 16 px corners, mint finish frame), then the same cards at the real map size
+   160x120; a tap on the block picks that style. Toy colours: plum ink, cream, yellow. */
+:root {
+  --bg: #fbf6ec; --card: #ffffff; --ink: #3b2340; --muted: #7a6380; --line: #3b2340; --soft: #f1e8f3;
+  --pick: #ffd23f; --pick-ink: #3b2340; --frame: #ffffff; --finish: #d5f4ec; --frame-line: #3b2340;
+  --display: "Comfortaa", "Trebuchet MS", system-ui, sans-serif;
+  --body: "Nunito", "Segoe UI", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #1d1420; --card: #2a1e2f; --ink: #f6eef8; --muted: #c4b2c9; --line: #8d7393; --soft: #362840; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #1d1420; --card: #2a1e2f; --ink: #f6eef8; --muted: #c4b2c9; --line: #8d7393; --soft: #362840; color-scheme: dark }
+body { background: var(--bg); color: var(--ink); font: 16px/1.5 var(--body); }
+.wrap { max-width: 1240px; margin: 0 auto; padding-inline: 16px; padding-block: 24px 64px; display: grid; gap: 28px; }
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(26px, 5vw, 38px); line-height: 1.15; }
+h2 { font-size: 24px; }
+h3 { font-size: 16px; color: var(--muted); }
+.intro { display: grid; gap: 10px; max-width: 70ch; }
+.intro p { margin: 0; color: var(--muted); }
+.style { display: grid; gap: 16px; text-align: left; font: inherit; color: inherit; cursor: pointer; width: 100%;
+  background: var(--card); border: 3px solid var(--line); border-radius: 20px; padding: 18px; }
+.style:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+.style.is-chosen { border-color: var(--pick); box-shadow: 0 0 0 4px var(--pick); }
+.style-h { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: baseline; justify-content: space-between; }
+.style-h p { margin: 0; color: var(--muted); max-width: 70ch; flex: 1 1 320px; }
+.state { font-weight: 700; padding: 6px 14px; border-radius: 12px; border: 3px solid var(--line); background: var(--card); white-space: nowrap; }
+.style.is-chosen .state { background: var(--pick); color: var(--pick-ink); border-color: var(--pick); }
+.rec { font: 700 12px var(--body); letter-spacing: .06em; text-transform: uppercase; color: var(--pick-ink); background: var(--pick);
+  padding: 2px 8px; border-radius: 8px; margin-left: 8px; vertical-align: middle; }
+.row { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.row img { width: 100%; height: auto; aspect-ratio: 4 / 3; display: block; background: var(--frame);
+  border: 3px solid var(--frame-line); border-radius: 16px; }
+.row img:last-child { background: var(--finish); }
+.real { display: flex; flex-wrap: wrap; gap: 8px; }
+.real img { width: 160px; height: 120px; max-width: calc(50% - 4px); background: var(--frame); border: 3px solid var(--frame-line);
+  border-radius: 12px; box-sizing: border-box; }
+.real img.fin { background: var(--finish); }
+.card { display: grid; gap: 8px; }
+.note { display: grid; gap: 10px; max-width: 720px; }
+.note textarea { font: 16px/1.4 var(--body); min-height: 110px; padding: 12px; border-radius: 14px; border: 3px solid var(--line);
+  background: var(--card); color: var(--ink); resize: vertical; }
+.note button { justify-self: start; font: 700 16px var(--body); padding: 12px 20px; border-radius: 14px;
+  border: 3px solid var(--line); background: var(--pick); color: var(--pick-ink); cursor: pointer; }
+.note button:disabled { opacity: .5; cursor: default; }
+.note button:focus-visible, .note textarea:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+.status { font-size: 14px; color: var(--muted); }
+@media (max-width: 640px) { .row { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+</style>
+
+<div class="wrap">
+  <header class="intro">
+    <h1>Картки, раунд 2</h1>
+    <p>Твої начерки з вайрфреймів, доведені до ладу. Слів немає, один рух на кадр. Два стилі на тих самих картках: Доставка й Перемикачі.</p>
+    <p>Тапни стиль, який береш. Кожен показано двічі: великим і в реальному розмірі на мапі (160×120).</p>
+    <p class="status" id="status" role="status">Підключаю збереження…</p>
+  </header>
+
+  <div id="styles"></div>
+
+  <section class="note" aria-labelledby="h-note">
+    <h2 id="h-note">Що поправити</h2>
+    <label for="note" class="status">Необов’язково: що змінити у вибраному стилі</label>
+    <textarea id="note" maxlength="2000"></textarea>
+    <button type="button" id="save-note">Зберегти нотатку</button>
+    <span class="status" id="note-state"></span>
+  </section>
+</div>
+
+<script id="data" type="application/json">[
+{"key":"clean-sketch","name":"Чистий начерк","rec":true,"line":"Найближче до твоїх начерків: чоловічок, живий контур, один бурштиновий акцент. Гумор: піт, коли тягне коробку, чухання потилиці, хитрун біля рубильника, радісний фінал."},
+{"key":"bold-silhouette","name":"Сміливий силует","rec":false,"line":"Фігура суцільним сливовим кольором, кольорові предмети, найкраще читається з малого розміру. Мінус: обличчя з білими зубами на темному трохи моторошні."}
+]</script>
+<script>
+// The round-2 choice page (prime-game-ui#3). A tap on a style block picks it; «Зберегти нотатку» saves the note with
+// the pick. Saved through the db capability: collection "cards4", document "choice", { style, note, at }. Nothing is
+// written on load; one write at a time. Without db the page still works for this view and says the pick is not saved.
+(function () {
+  'use strict';
+  var STY = [];
+  try { STY = JSON.parse(document.getElementById('data').textContent) || []; } catch (e) { STY = []; }
+  var KEYS = {}; STY.forEach(function (s) { KEYS[s.key] = s.name; });
+  var CARDS = [['delivery', 'Доставка'], ['switches', 'Перемикачі']];
+  var host = document.getElementById('styles');
+  host.style.display = 'grid'; host.style.gap = '24px';
+  function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
+
+  STY.forEach(function (s) {
+    var b = el('button', 'style'); b.type = 'button'; b.id = 'pick-' + s.key; b.setAttribute('data-style', s.key);
+    b.setAttribute('aria-pressed', 'false');
+    var h = el('div', 'style-h');
+    var t = el('h2', null, s.name); if (s.rec) t.appendChild(el('span', 'rec', 'рекомендую'));
+    var st = el('span', 'state', 'Обрати'); st.setAttribute('data-state', '');
+    h.appendChild(t); h.appendChild(el('p', null, s.line)); h.appendChild(st);
+    b.appendChild(h);
+    CARDS.forEach(function (c) {
+      var card = el('div', 'card');
+      card.appendChild(el('h3', null, c[1]));
+      var row = el('div', 'row'), real = el('div', 'real');
+      for (var i = 1; i <= 4; i++) {
+        var src = s.key + '/' + c[0] + '-' + i + '.svg';
+        var a = el('img'); a.src = src; a.alt = s.name + ', ' + c[1] + ', кадр ' + i; a.loading = 'lazy'; row.appendChild(a);
+        var r = el('img'); r.src = src; r.alt = ''; r.loading = 'lazy'; if (i === 4) r.className = 'fin'; real.appendChild(r);
+      }
+      card.appendChild(row); card.appendChild(real);
+      b.appendChild(card);
+    });
+    b.addEventListener('click', function () { pick(s.key); });
+    host.appendChild(b);
+  });
+
+  var saved = null, local = null, ref = null, inflight = false, queued = null, readOnly = false, hasDb = false;
+  var statusEl = document.getElementById('status'), noteEl = document.getElementById('note');
+  var noteBtn = document.getElementById('save-note'), noteState = document.getElementById('note-state');
+  function cur() { return local || saved; }
+  function render() {
+    var c = cur(), style = c && KEYS[c.style] ? c.style : null;
+    Array.prototype.forEach.call(document.querySelectorAll('.style'), function (b) {
+      var on = b.getAttribute('data-style') === style;
+      b.classList.toggle('is-chosen', on); b.setAttribute('aria-pressed', String(on));
+      b.querySelector('.state').textContent = on ? '✓ Обрано' : 'Обрати';
+    });
+    noteBtn.disabled = readOnly;
+    if (c && document.activeElement !== noteEl && !local) noteEl.value = c.note || '';
+  }
+  function status(t) { statusEl.textContent = t; }
+  function write(d) {
+    if (readOnly) return;
+    local = d; render();
+    if (!ref) return;
+    if (inflight) { queued = d; return; }
+    send(d);
+  }
+  function send(d) {
+    inflight = true; status('Зберігаю…');
+    var p; try { p = ref.set(d); } catch (e) { p = Promise.reject(e); }
+    p.then(function () {
+      inflight = false; saved = d;
+      if (queued) { var n = queued; queued = null; send(n); return; }
+      local = null; status('Збережено: ' + (KEYS[d.style] || 'стиль ще не обрано') + '. Я це побачу.');
+      noteState.textContent = d.note ? 'Нотатку збережено.' : '';
+      render();
+    }, function (e) {
+      inflight = false; queued = null; local = null;
+      var code = e && e.code;
+      if (code === 'not_granted' || code === 'permission_denied') { readOnly = true; status('Тут лише перегляд: вибір не зберігається.'); }
+      else status('Не вдалося зберегти (' + (code || 'помилка') + '). Спробуй ще раз трохи пізніше.');
+      render();
+    });
+  }
+  function noteVal() { return noteEl.value.trim().slice(0, 2000); }
+  function pick(k) { write({ style: k, note: noteVal(), at: new Date().toISOString() }); }
+  noteBtn.addEventListener('click', function () { var c = cur(); write({ style: c ? c.style : null, note: noteVal(), at: new Date().toISOString() }); });
+
+  function noDb() { if (!hasDb) status('Тут вибір не зберігається (немає сховища). Напиши мені в чат, який стиль береш.'); }
+  function start(db) {
+    try {
+      hasDb = true;
+      ref = db.collection('cards4').doc('choice');
+      ref.onSnapshot(function (snap) {
+        var v = snap && snap.exists ? snap.data() : null;
+        saved = v && typeof v === 'object' ? { style: typeof v.style === 'string' ? v.style.slice(0, 40) : null, note: typeof v.note === 'string' ? v.note.slice(0, 2000) : '', at: v.at } : null;
+        render();
+      }, function (e) { status('Збережений вибір зараз не оновлюється (' + ((e && e.code) || 'помилка') + '). Перезавантаж сторінку.'); });
+      if (!readOnly) status('Вибір і нотатка зберігаються разом зі сторінкою.');
+      if (local && !inflight) send(local);
+    } catch (e) { ref = null; hasDb = false; noDb(); }
+  }
+  render();
+  try {
+    var c = window.claude;
+    if (!c || typeof c.use !== 'function') noDb();
+    else {
+      c.use('user').then(function (u) {
+        if (!u || typeof u.can !== 'function') return;
+        return u.can('data.write').then(function (ok) { if (ok === false) { readOnly = true; status('Тут лише перегляд: вибір не зберігається.'); render(); } });
+      }).catch(function () {});
+      c.use('db').then(function (db) { if (db) start(db); else noDb(); }, noDb);
+    }
+  } catch (e) { noDb(); }
+})();
+</script>

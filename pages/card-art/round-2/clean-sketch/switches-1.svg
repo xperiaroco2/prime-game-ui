@@ -1,0 +1,43 @@
+<!-- own work, prime-game-ui, licence: own work -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" width="320" height="240">
+  <defs>
+    <filter id="s1-w" filterUnits="userSpaceOnUse" x="0" y="0" width="320" height="240">
+      <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="11" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="4" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <style>
+      .k{fill:none;stroke:#1f2433;stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
+      .t{stroke-width:4}
+      .f{stroke-width:3}
+      .w{fill:#fff;stroke:#1f2433;stroke-width:5;stroke-linejoin:round}
+      .i{fill:#1f2433}
+    </style>
+  </defs>
+  <g filter="url(#s1-w)">
+    <ellipse cx="128" cy="213" rx="24" ry="4" fill="#1f2433" opacity=".12"/>
+    <path class="k t" d="M16 212C96 209 210 214 304 211"/>
+    <!-- switch, off: low left -->
+    <path class="k t" d="M44 118V140"/><rect class="i" x="37" y="107" width="14" height="11" rx="2"/>
+    <path class="w" d="M37 108C27 100 28 81 44 81C60 81 61 100 51 108Z"/><path class="k f" d="M35 100q-2-9 7-13"/>
+    <rect class="w" x="28" y="140" width="32" height="46" rx="5"/>
+    <path class="k" d="M44 163L48 193"/><circle class="i" cx="48" cy="193" r="6.5"/><circle class="i" cx="44" cy="163" r="4"/>
+    <!-- switch, off: high -->
+    <path class="k t" d="M214 52V74"/><rect class="i" x="207" y="41" width="14" height="11" rx="2"/>
+    <path class="w" d="M207 42C197 34 198 15 214 15C230 15 231 34 221 42Z"/><path class="k f" d="M205 34q-2-9 7-13"/>
+    <rect class="w" x="198" y="74" width="32" height="46" rx="5"/>
+    <path class="k" d="M214 97L218 127"/><circle class="i" cx="218" cy="127" r="6.5"/><circle class="i" cx="214" cy="97" r="4"/>
+    <!-- switch, off: low right -->
+    <path class="k t" d="M280 120V142"/><rect class="i" x="273" y="109" width="14" height="11" rx="2"/>
+    <path class="w" d="M273 110C263 102 264 83 280 83C296 83 297 102 287 110Z"/><path class="k f" d="M271 102q-2-9 7-13"/>
+    <rect class="w" x="264" y="142" width="32" height="46" rx="5"/>
+    <path class="k" d="M280 165L284 195"/><circle class="i" cx="284" cy="195" r="6.5"/><circle class="i" cx="280" cy="165" r="4"/>
+    <!-- figure, scanning the room -->
+    <path class="k" d="M128 152L112 211M128 152L144 211"/>
+    <path class="k" d="M128 152L127 104"/>
+    <path class="k" d="M127 114L94 90L114 60M127 118L113 134L123 148"/>
+    <circle class="w" cx="126" cy="85" r="19"/>
+    <circle class="i" cx="132" cy="83" r="2.8"/><circle class="i" cx="140" cy="83" r="2.8"/>
+    <path class="k t" d="M131 95h7"/>
+    <path class="k" d="M156 34q0-10 9-10q9 0 9 9q0 7-8 10v5"/><circle class="i" cx="166" cy="58" r="3.4"/>
+  </g>
+</svg>

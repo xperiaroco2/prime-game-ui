@@ -1,0 +1,48 @@
+<!-- own work, prime-game-ui, licence: own work -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" width="320" height="240">
+  <defs>
+    <filter id="d4-w" filterUnits="userSpaceOnUse" x="0" y="0" width="320" height="240">
+      <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="9" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="4" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <symbol id="d4-f" viewBox="0 0 48 48">
+      <path fill="#1f2433" fill-rule="evenodd" d="M17.5,4 L30.5,4 A2.5,2.5 0 0 1 33,6.5 L33,7.5 A2.5,2.5 0 0 1 30.5,10 L17.5,10 A2.5,2.5 0 0 1 15,7.5 L15,6.5 A2.5,2.5 0 0 1 17.5,4 Z M19,8 L29,8 L29,17.45 A2,2 0 0 0 29.29,18.48 L40.43,37.05 A4,4 0 0 1 41,39.11 L41,41 A3,3 0 0 1 38,44 L10,44 A3,3 0 0 1 7,41 L7,39.11 A4,4 0 0 1 7.57,37.05 L18.71,18.48 A2,2 0 0 0 19,17.450 L19,8 Z M15.5,36 A3.5,3.5 0 1 0 22.5,36 A3.5,3.5 0 1 0 15.5,36 Z M25,29 A3,3 0 1 0 31,29 A3,3 0 1 0 25,29 Z"/>
+    </symbol>
+    <style>
+      .k{fill:none;stroke:#1f2433;stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
+      .t{stroke-width:4}
+      .w{fill:#fff;stroke:#1f2433;stroke-width:5;stroke-linejoin:round}
+      .a{fill:#e8a33a;stroke:#1f2433;stroke-width:4;stroke-linejoin:round}
+      .o{fill:none;stroke:#e8a33a;stroke-width:5;stroke-linecap:round}
+      .i{fill:#1f2433}
+    </style>
+  </defs>
+  <g filter="url(#d4-w)">
+    <!-- light rising from the drop zone -->
+    <ellipse cx="68" cy="213" rx="24" ry="4" fill="#1f2433" opacity=".12"/>
+    <path class="k t" d="M16 212C96 209 210 214 304 211"/>
+    <ellipse cx="150" cy="210" rx="66" ry="14" fill="#e8a33a" opacity=".22"/>
+    <ellipse cx="150" cy="210" rx="54" ry="9" fill="#e8a33a" opacity=".55"/>
+    <ellipse cx="150" cy="210" rx="54" ry="9" class="o"/>
+    <path class="o" d="M104 192l-6-14M196 192l6-14M90 202l-14-6M210 202l14-6"/>
+    <!-- the room: door and its plate -->
+    <rect class="w" x="234" y="72" width="60" height="140" rx="3"/>
+    <circle class="i" cx="245" cy="146" r="4.5"/>
+    <path class="k t" d="M222 92H236M222 120H236"/>
+    <rect class="a" x="174" y="82" width="48" height="48" rx="7" style="stroke-width:5"/>
+    <use href="#d4-f" x="180" y="88" width="36" height="36"/>
+    <!-- the package, set down -->
+    <rect class="w" x="125" y="166" width="50" height="40" rx="3"/><path class="k t" d="M150 166v10"/>
+    <rect class="a" x="146" y="177" width="23" height="23" rx="4"/>
+    <use href="#d4-f" x="149" y="180" width="17" height="17"/>
+    <!-- figure, bending to set it down -->
+    <path class="k" d="M72 150L58 180L52 211M72 150L90 181L84 211"/>
+    <path class="k" d="M72 150L98 116"/>
+    <path class="k" d="M96 122Q104 156 126 174M95 126Q98 172 126 194"/>
+    <circle class="w" cx="111" cy="99" r="19"/>
+    <circle class="i" cx="117" cy="102" r="2.8"/><circle class="i" cx="125" cy="101" r="2.8"/>
+    <path class="k t" d="M114 109q5 4 10-1"/>
+    <!-- done -->
+    <path class="k" d="M140 46l12 12l24-26" style="stroke-width:8"/>
+  </g>
+</svg>

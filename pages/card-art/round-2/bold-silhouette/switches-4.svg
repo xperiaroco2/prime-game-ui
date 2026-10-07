@@ -1,0 +1,62 @@
+<!-- own work, prime-game-ui, licence: own work -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" width="320" height="240">
+  <defs>
+    <filter id="s4-w" filterUnits="userSpaceOnUse" x="0" y="0" width="320" height="240">
+      <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="4" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="1.8" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+  <g filter="url(#s4-w)" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M18,212 H302" stroke="#3b2340" stroke-width="4"/>
+    <circle cx="58" cy="46" r="24" fill="#f5a524" opacity="0.22"/>
+    <circle cx="166" cy="46" r="24" fill="#f5a524" opacity="0.22"/>
+    <circle cx="268" cy="46" r="24" fill="#f5a524" opacity="0.22"/>
+    <g stroke="#f5a524" stroke-width="4" fill="none">
+      <path d="M36,46 h-6 M42,30 l-5,-5 M58,24 v-6 M74,30 l5,-5 M80,46 h6"/>
+      <path d="M144,46 h-6 M150,30 l-5,-5 M166,24 v-6 M182,30 l5,-5 M188,46 h6"/>
+      <path d="M246,46 h-6 M252,30 l-5,-5 M268,24 v-6 M284,30 l5,-5 M290,46 h6"/>
+    </g>
+    <g stroke="#3b2340" stroke-width="3">
+      <path d="M58,62 V98 M166,62 V98 M268,62 V98" fill="none"/>
+      <circle cx="58" cy="46" r="13" fill="#f5a524"/>
+      <circle cx="166" cy="46" r="13" fill="#f5a524"/>
+      <circle cx="268" cy="46" r="13" fill="#f5a524"/>
+      <rect x="43" y="98" width="30" height="44" rx="6" fill="#e6def0"/>
+      <rect x="151" y="98" width="30" height="44" rx="6" fill="#e6def0"/>
+      <rect x="253" y="98" width="30" height="44" rx="6" fill="#e6def0"/>
+    </g>
+    <g fill="#3b2340">
+      <rect x="52" y="58" width="12" height="7" rx="2"/>
+      <rect x="160" y="58" width="12" height="7" rx="2"/>
+      <rect x="262" y="58" width="12" height="7" rx="2"/>
+    </g>
+    <g stroke="#3b2340" stroke-width="6" fill="#3b2340">
+      <path d="M58,120 L62,104 M166,120 L170,104 M268,120 L272,104"/>
+      <circle cx="62" cy="104" r="3.5"/>
+      <circle cx="170" cy="104" r="3.5"/>
+      <circle cx="272" cy="104" r="3.5"/>
+    </g>
+    <!-- the figure, hands on hips -->
+    <g transform="translate(114,212)">
+      <g fill="none" stroke="#3b2340" stroke-width="12">
+        <path d="M7,-50 L13,-28 L16,-8"/>
+        <path d="M-7,-50 L-13,-28 L-16,-8"/>
+      </g>
+      <path d="M16,-5 h8 M-16,-5 h-8" stroke="#3b2340" stroke-width="10"/>
+      <rect x="-16" y="-100" width="32" height="52" rx="13" fill="#3b2340"/>
+      <circle cx="0" cy="-123" r="18" fill="#3b2340"/>
+      <circle cx="-4" cy="-125" r="2.7" fill="#fff4e2"/>
+      <circle cx="4" cy="-125" r="2.7" fill="#fff4e2"/>
+      <!-- pleased grin and raised brows -->
+      <path d="M-8,-118 h16 q-1,9 -8,9 q-7,0 -8,-9 z" fill="#fff4e2"/>
+      <path d="M-8,-131 q3,-3 6,-1 M2,-132 q3,-2 6,1" stroke="#fff4e2" stroke-width="2.4" fill="none"/>
+      <g fill="none" stroke="#3b2340" stroke-width="11">
+        <path d="M10,-92 L30,-76 L14,-58"/>
+        <path d="M-10,-92 L-30,-76 L-14,-58"/>
+      </g>
+    </g>
+    <!-- done -->
+    <path d="M204,116 l12,12 l24,-26" fill="none" stroke="#3b2340" stroke-width="13"/>
+    <path d="M204,116 l12,12 l24,-26" fill="none" stroke="#f5a524" stroke-width="6"/>
+  </g>
+</svg>
