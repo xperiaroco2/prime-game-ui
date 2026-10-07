@@ -45,10 +45,11 @@ const CLASSES = {
   // constants and icons are theme items, not StyleBox fields). Toy binds the three StyleBoxes and the items below; the
   // panel is the list's frame, hover the hovered or keyboard-focused row (drawn over the row and half its v_separation
   // above and below), separator a separator row (as tall as its minimum size: its content margins). `requiredItems`:
-  // without them the list's text falls back to the default theme's light grey (P47).
+  // without the font colours the list's text falls back to the default theme's light grey; without v-separation the
+  // rows take the default theme's spacing, and pages/components/emit-css.js, which draws each row from it, stops (P47).
   PopupMenu: { states: ['panel', 'hover', 'separator'], font: [], shadow: [], label: true, press: false,
     items: ['font-color', 'font-hover-color', 'font-disabled-color', 'v-separation', 'h-separation', 'item-start-padding', 'item-end-padding'],
-    requiredItems: ['font-color', 'font-hover-color', 'font-disabled-color'],
+    requiredItems: ['font-color', 'font-hover-color', 'font-disabled-color', 'v-separation'],
     textures: ['checked', 'checked-disabled', 'unchecked', 'unchecked-disabled', 'radio-checked', 'radio-checked-disabled',
       'radio-unchecked', 'radio-unchecked-disabled', 'submenu', 'submenu-mirrored', 'search'] },
   // Containers draw nothing: their variations hold only the separation constants (the screens' gaps, space.*).

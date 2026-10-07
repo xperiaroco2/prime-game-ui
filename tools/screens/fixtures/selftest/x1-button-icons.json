@@ -1,0 +1,28 @@
+{
+  "id": "x1",
+  "wireframe": "s7",
+  "title": "Self-test: button icons set per state",
+  "background": "black",
+  "note": "prime-game-ui#28: a Button whose icon only some states set takes icon_size and gets its size rule, per state when the sizes differ.",
+  "states": [
+    { "id": "off", "label": "Без значка" },
+    { "id": "on", "label": "Замок" },
+    { "id": "on-again", "label": "Замок знову" },
+    { "id": "cut", "label": "Ніж" }
+  ],
+  "nodes": [
+    {
+      "name": "Col", "type": "VBoxContainer", "variation": "ToyColumnEight", "anchors_preset": "center",
+      "children": [
+        {
+          "name": "Sized", "type": "Button", "variation": "ToyMenuItem", "text": "Q", "icon_size": 20,
+          "per_state": { "on": { "icon": "mic" }, "on-again": { "icon": "mic" }, "cut": { "icon": "mic-off" } }
+        },
+        {
+          "name": "Natural", "type": "Button", "variation": "ToyMenuItem", "text": "Z",
+          "per_state": { "on": { "icon": "lock" }, "on-again": { "icon": "lock" }, "cut": { "icon": "knife" } }
+        }
+      ]
+    }
+  ]
+}
