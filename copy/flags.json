@@ -15,7 +15,15 @@
   "join.title",
   "join.lan_only",
   "end.your_team_won",
-  "end.your_team_lost"
+  "end.your_team_lost",
+  "howto.switches.find",
+  "howto.switches.turn_on",
+  "howto.switches.watch",
+  "howto.switches.done",
+  "howto.delivery.take",
+  "howto.delivery.sign",
+  "howto.delivery.find",
+  "howto.delivery.drop"
  ],
  "decided": [
   {

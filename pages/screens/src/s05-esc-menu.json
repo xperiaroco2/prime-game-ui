@@ -615,8 +615,8 @@
                             { "name": "Downed", "type": "Button", "variation": "ToyChipToggleOnLight", "key": "guide.downed", "toggle_mode": true, "size_flags_horizontal": "shrink_begin", "note": "Card frames: tutorial.step.downed.title, downed.give_up_hold, tutorial.step.death.title, tutorial.step.death.how." },
                             { "name": "Gap", "type": "Control", "custom_minimum_size": [0, 8], "note": "A spacer: 8 + 8 + 8 = 24 px between the Downed chip and the Tasks caption." },
                             { "name": "Tasks", "type": "Label", "variation": "ToyTextMutedOnLight", "key": "guide.tasks" },
-                            { "name": "Delivery", "type": "Button", "variation": "ToyChipToggleOnLight", "key": "task.delivery", "toggle_mode": true, "size_flags_horizontal": "shrink_begin", "note": "Card frames: howto.delivery.take, .sign, .find, .drop (done frame)." },
-                            { "name": "Switches", "type": "Button", "variation": "ToyChipToggleOnLight", "key": "task.switches", "toggle_mode": true, "size_flags_horizontal": "shrink_begin", "state": "selected" }
+                            { "name": "Delivery", "type": "Button", "variation": "ToyChipToggleOnLight", "key": "task.delivery", "toggle_mode": true, "size_flags_horizontal": "shrink_begin", "state": "selected", "note": "Card frames: the pack's dist/pack/cards/delivery-1.png … delivery-4.png (the fourth is the done frame); no captions." },
+                            { "name": "Switches", "type": "Button", "variation": "ToyChipToggleOnLight", "key": "task.switches", "toggle_mode": true, "size_flags_horizontal": "shrink_begin", "note": "Only once the game has the Switches task: its card art is a sample of the card-art pages, not in the pack." }
                           ]
                         }
                       ]
@@ -630,7 +630,7 @@
                             {
                               "name": "Head", "type": "HBoxContainer", "variation": "ToyRowSixteen",
                               "children": [
-                                { "name": "Title", "type": "Label", "variation": "ToyTitleOnLight", "key": "task.switches", "size_flags_horizontal": "expand_fill" },
+                                { "name": "Title", "type": "Label", "variation": "ToyTitleOnLight", "key": "task.delivery", "size_flags_horizontal": "expand_fill" },
                                 { "name": "Note", "type": "Label", "variation": "ToyHowtoNote", "key": "howto.label", "size_flags_vertical": "shrink_center" }
                               ]
                             },
@@ -640,49 +640,25 @@
                                 {
                                   "name": "Frame1", "type": "PanelContainer", "variation": "ToyHowtoFrame", "size_flags_horizontal": "expand_fill",
                                   "children": [
-                                    {
-                                      "name": "F", "type": "VBoxContainer", "variation": "ToyColumnEight",
-                                      "children": [
-                                        { "name": "Art", "type": "TextureRect", "icon": "item", "custom_minimum_size": [120, 120], "note": "Placeholder art until the card art (prime-game-ui#3). The same card tree as s3/Card and s8/Guide/Card; the art is 120 px high here and in s8, 200 in s3's loading card." },
-                                        { "name": "Caption", "type": "Label", "variation": "ToyHowtoCaption", "key": "howto.switches.find", "autowrap_mode": "word_smart", "horizontal_alignment": "center", "custom_minimum_size": [120, 0] }
-                                      ]
-                                    }
+                                    { "name": "Art", "type": "TextureRect", "icon": "card/delivery-1", "custom_minimum_size": [160, 120], "note": "The card's art: one picture per frame from the card data (#254), here the pack's Delivery PNGs dist/pack/cards/delivery-1.png … delivery-4.png (640x480, transparent). expand_mode IGNORE_SIZE, stretch_mode KEEP_ASPECT_CENTERED; 160x120 here, 320x240 in s8 and 352x264 in s3's loading card; the same card tree as s3/Card and s8/Guide/Card. The cards are wordless: a frame holds only its art, no caption." }
                                   ]
                                 },
                                 {
                                   "name": "Frame2", "type": "PanelContainer", "variation": "ToyHowtoFrame", "size_flags_horizontal": "expand_fill",
                                   "children": [
-                                    {
-                                      "name": "F", "type": "VBoxContainer", "variation": "ToyColumnEight",
-                                      "children": [
-                                        { "name": "Art", "type": "TextureRect", "icon": "item", "custom_minimum_size": [120, 120] },
-                                        { "name": "Caption", "type": "Label", "variation": "ToyHowtoCaption", "key": "howto.switches.turn_on", "autowrap_mode": "word_smart", "horizontal_alignment": "center", "custom_minimum_size": [120, 0] }
-                                      ]
-                                    }
+                                    { "name": "Art", "type": "TextureRect", "icon": "card/delivery-2", "custom_minimum_size": [160, 120] }
                                   ]
                                 },
                                 {
                                   "name": "Frame3", "type": "PanelContainer", "variation": "ToyHowtoFrame", "size_flags_horizontal": "expand_fill",
                                   "children": [
-                                    {
-                                      "name": "F", "type": "VBoxContainer", "variation": "ToyColumnEight",
-                                      "children": [
-                                        { "name": "Art", "type": "TextureRect", "icon": "item", "custom_minimum_size": [120, 120] },
-                                        { "name": "Caption", "type": "Label", "variation": "ToyHowtoCaption", "key": "howto.switches.watch", "autowrap_mode": "word_smart", "horizontal_alignment": "center", "custom_minimum_size": [120, 0] }
-                                      ]
-                                    }
+                                    { "name": "Art", "type": "TextureRect", "icon": "card/delivery-3", "custom_minimum_size": [160, 120] }
                                   ]
                                 },
                                 {
                                   "name": "Frame4", "type": "PanelContainer", "variation": "ToyHowtoFrameDone", "size_flags_horizontal": "expand_fill",
                                   "children": [
-                                    {
-                                      "name": "F", "type": "VBoxContainer", "variation": "ToyColumnEight",
-                                      "children": [
-                                        { "name": "Art", "type": "TextureRect", "icon": "check", "custom_minimum_size": [120, 120] },
-                                        { "name": "Caption", "type": "Label", "variation": "ToyHowtoCaption", "key": "howto.switches.done", "autowrap_mode": "word_smart", "horizontal_alignment": "center", "custom_minimum_size": [120, 0] }
-                                      ]
-                                    }
+                                    { "name": "Art", "type": "TextureRect", "icon": "card/delivery-4", "custom_minimum_size": [160, 120] }
                                   ]
                                 }
                               ]

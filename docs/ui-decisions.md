@@ -194,7 +194,7 @@ the agents took where the decisions were silent, after five reviews (agent):
   is muted text.
 - **Connecting:** one failure layout for every failure (title, body, then the buttons 32 px below); a failed join shows
   its reason there, and Back returns to the menu with the code or address kept; a dismiss button standing alone is
-  raised, beside a primary it is a ghost; the loading header is 768 px and the loading card is centred with 200 px art.
+  raised, beside a primary it is a ghost; the loading header is 768 px and the loading card is centred with 264 px art.
 - **Lobby:** the lobby HUD shows the code only (Copy is in the Esc Lobby tab, since the mouse is captured in the lobby);
   the players plate is 400 px, in two groups (the lobby name and code, then the count and the rows); names are cut with
   an ellipsis; a not-ready player shows no mark.
@@ -221,6 +221,13 @@ the agents took where the decisions were silent, after five reviews (agent):
 - **Reduced motion** makes the raised buttons' press instant (the pressed look still shows).
 - **Icons beside text** (prime-game-ui#28) (agent): an icon with no tint of its own in a row takes the font colour of the
   row's nearest Label, so the lock beside muted text is muted; elsewhere it takes its surface's text colour.
+- **Wordless how-to frames** (prime-game-ui#3) (agent): the how-to card's frames carry no captions (white frames, 3 px
+  plum outline, 16 px corners, the finish frame mint, as before); the Delivery card art ships in the pack as 640×480 PNG
+  (`dist/pack/cards/delivery-1.png` to `delivery-4.png`, transparent) rendered from the clean-sketch panels by
+  `tools/card-art/render.js`. The art is 4:3 in every frame: 320×240 in the map's card, 352×264 in the loading card,
+  160×120 in the Esc Guide; the loading card and the Guide show Delivery, the game's one task type (Switches stays a
+  sample of the card-art pages). `ToyHowtoCaption` is deprecated (removed at the next major release) and the caption
+  keys `howto.delivery.*` and `howto.switches.*` are retired from the deck.
 
 **The engineer's answers on the screens** (2026-10-06, the
 [wave-19 question page](https://claude.ai/artifact/PnHGtBSbMzHMi28hmR6Cpd), each option shown as a render; all nine

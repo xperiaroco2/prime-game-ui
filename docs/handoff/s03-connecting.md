@@ -5,7 +5,7 @@
 The styled connecting, failures and loading screen from the UI track (xperiaroco2/prime-game-ui), as a Godot 4.7.2 node tree for the 1920×1080 reference.
 
 - **Source:** `pages/screens/src/s03-connecting.json`; the review page is `pages/screens/screens.html#s3`; the wireframe is section `s3` («Підключення й завантаження»).
-- **Theme:** the Toy pack ui-0.3.0 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
+- **Theme:** the Toy pack ui-0.4.0 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
 - **World behind the UI** (not UI): black, no world (intro, outro, loading).
 - **How to read it:** the roots are children of the screen's full-rect root `Control`; every property not listed keeps Godot's default; sizes and offsets are reference px. In a state's **Shown** list, the first node of each subtree gives its path from the screen root.
 - **Texts** are keys of `copy/strings.csv`, and the language switches live (the Esc menu's Settings). A plain key is set as `text` and translates itself. A key with placeholders, a plural key (`tr_n`) and a key drawn in pieces are set from code with `auto_translate_mode = DISABLED`: `tr()`, then `String.format()` with the data (the samples below), rebuilt on `NOTIFICATION_TRANSLATION_CHANGED`. A "text from data" (names, the room code, times, numbers) is set in code and never translated (`auto_translate_mode = DISABLED`).
@@ -271,30 +271,22 @@ One screen on the opaque night backdrop for the join (its steps and each failure
     - **Title** `Label` · variation `ToyTitleOnDark` · text `loading.title`: en "Loading the map" · uk "Завантаження мапи" · horizontal_alignment `CENTER`
     - **Bar** `ProgressBar` · variation `ToyBarProgress` · custom_minimum_size (768, 16) · value 62 of max_value 100, show_percentage false
   - **Card** `PanelContainer` · variation `ToyPanelHowto` (raised: ToyRaised with base `ToyBasePanel`) · anchors `center`, offsets 0, 40, 0, 40 (left, top, right, bottom), grow both/both · custom_minimum_size (1616, 0) · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper
-    - Note: The how-to card (P8) of a task type in this round that the player has not completed: at most twice per type and never after its first completion (user:// counters, #254). Content data per task type; here Switches. No line says the task is new.
+    - Note: The how-to card (P8) of a task type in this round that the player has not completed: at most twice per type and never after its first completion (user:// counters, #254). Content data per task type; here Delivery, the game's one task type. No line says the task is new.
     - **V** `VBoxContainer` · variation `ToyColumnSixteen` · gaps from the variation: separation 16
       - **Head** `HBoxContainer` · variation `ToyRowSixteen` · gaps from the variation: separation 16
-        - **Title** `Label` · variation `ToyTitleOnLight` · size flags horizontal `SIZE_EXPAND_FILL` · text `task.switches`: en "Switches" · uk "Рубильники"
+        - **Title** `Label` · variation `ToyTitleOnLight` · size flags horizontal `SIZE_EXPAND_FILL` · text `task.delivery`: en "Delivery" · uk "Доставка"
         - **Note** `Label` · variation `ToyHowtoNote` · size flags vertical `SIZE_SHRINK_CENTER` · text `howto.label`: en "How to" · uk "Як робити"
       - **Frames** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
+        - **Take** `PanelContainer` · variation `ToyHowtoFrame` · size flags horizontal `SIZE_EXPAND_FILL`
+          - **Art** `TextureRect` · custom_minimum_size (352, 264) · texture `card/delivery-1` (dist/pack/cards/delivery-1.png, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · not tinted (drawn in its own colours)
+            - Note: The card's art: one picture per frame from the card data (#254), here the pack's Delivery PNGs dist/pack/cards/delivery-1.png … delivery-4.png (640x480, transparent). expand_mode IGNORE_SIZE, stretch_mode KEEP_ASPECT_CENTERED; 352x264 here, 320x240 in s8. The cards are wordless: a frame holds only its art, no caption.
+        - **Sign** `PanelContainer` · variation `ToyHowtoFrame` · size flags horizontal `SIZE_EXPAND_FILL`
+          - **Art** `TextureRect` · custom_minimum_size (352, 264) · texture `card/delivery-2` (dist/pack/cards/delivery-2.png, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · not tinted (drawn in its own colours)
         - **Find** `PanelContainer` · variation `ToyHowtoFrame` · size flags horizontal `SIZE_EXPAND_FILL`
-          - **F** `VBoxContainer` · variation `ToyColumnEight` · gaps from the variation: separation 8
-            - **Art** `TextureRect` · custom_minimum_size (120, 200) · texture `item` (dist/pack/icons/item.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyTextOnLight")
-              - Note: expand_mode IGNORE_SIZE, stretch_mode KEEP_ASPECT_CENTERED; placeholder art until the card art (prime-game-ui#3).
-            - **Caption** `Label` · variation `ToyHowtoCaption` · custom_minimum_size (240, 0) · text `howto.switches.find`: en "Find every switch" · uk "Знайди всі рубильники" · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
-        - **TurnOn** `PanelContainer` · variation `ToyHowtoFrame` · size flags horizontal `SIZE_EXPAND_FILL`
-          - **F** `VBoxContainer` · variation `ToyColumnEight` · gaps from the variation: separation 8
-            - **Art** `TextureRect` · custom_minimum_size (120, 200) · texture `item` (dist/pack/icons/item.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyTextOnLight")
-            - **Caption** `Label` · variation `ToyHowtoCaption` · custom_minimum_size (240, 0) · text `howto.switches.turn_on`: en "Turn each one on" · uk "Увімкни кожен" · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
-        - **Watch** `PanelContainer` · variation `ToyHowtoFrame` · size flags horizontal `SIZE_EXPAND_FILL`
-          - **F** `VBoxContainer` · variation `ToyColumnEight` · gaps from the variation: separation 8
-            - **Art** `TextureRect` · custom_minimum_size (120, 200) · texture `item` (dist/pack/icons/item.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyTextOnLight")
-            - **Caption** `Label` · variation `ToyHowtoCaption` · custom_minimum_size (240, 0) · text `howto.switches.watch`: en "Watch that nobody turns them off" · uk "Стеж, щоб ніхто не вимкнув" · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
-        - **Done** `PanelContainer` · variation `ToyHowtoFrameDone` · size flags horizontal `SIZE_EXPAND_FILL`
+          - **Art** `TextureRect` · custom_minimum_size (352, 264) · texture `card/delivery-3` (dist/pack/cards/delivery-3.png, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · not tinted (drawn in its own colours)
+        - **Drop** `PanelContainer` · variation `ToyHowtoFrameDone` · size flags horizontal `SIZE_EXPAND_FILL`
           - Note: The frame that shows the finish.
-          - **F** `VBoxContainer` · variation `ToyColumnEight` · gaps from the variation: separation 8
-            - **Art** `TextureRect` · custom_minimum_size (120, 200) · texture `check` (dist/pack/icons/check.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyTextOnLight")
-            - **Caption** `Label` · variation `ToyHowtoCaption` · custom_minimum_size (240, 0) · text `howto.switches.done`: en "Done when all are lit" · uk "Готово, коли всі горять" · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
+          - **Art** `TextureRect` · custom_minimum_size (352, 264) · texture `card/delivery-4` (dist/pack/cards/delivery-4.png, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · not tinted (drawn in its own colours)
 
 ## Notes
 
@@ -302,13 +294,12 @@ One screen on the opaque night backdrop for the join (its steps and each failure
 - A raised variation is built as the tokens spec (§6) says: a `ToyRaised` MarginContainer holding first the base `Panel` (the base named above, chosen by the context it sits in), then the face. The wrapper is the node in its parent: anchors, offsets, grow, size flags, stretch ratio, custom_minimum_size and visibility belong to the wrapper; the variation, the text, toggle_mode, disabled, focus and the signals belong to the face. Hide or show the wrapper, not the face.
 - Size constants: a variation's `width`, `height`, `min_width`, `wide_width` and `wide_min_width` theme constants are read by code into `custom_minimum_size`, as the node lines give them. A Panel or PanelContainer takes no size from them on its own: an anchored Panel at offsets 0 is 0×0, a slot shrinks to its text.
 - Size constants that follow the text size: `min_width` 36 (42 in the pack's `modes.textSize.large`) of ToyKeyOnDark. The large-text theme is swapped in while a screen is open, so code that sets custom_minimum_size from such a constant sets it again on `NOTIFICATION_THEME_CHANGED`.
-- Icons: the tinted ones are white SVGs in `dist/pack/icons/` (the pack's copy of `pages/components/icons`, currentColor written as white): a TextureRect tints one with the `self_modulate` its line gives (the colour the page draws it in), a Button with its variation's `icon_*_color`, an OptionButton its arrow with `modulate_arrow`. The room pictograms are white copies too (`dist/pack/icons/room/`), drawn in ink: their lines give the `self_modulate`. The pack's `assets` list every icon with its tint and `svg_scale`.
-- SVG import: Godot rasterises an SVG at import, so import each at `svg/scale` = the largest size it is drawn ÷ its viewBox (the largest over every screen that draws it, as the pack's `assets` give it): `check` 5 (120 px), `item` 5 (120 px).
+- Card art: the how-to frames draw the pack's PNGs, `dist/pack/cards/delivery-1.png`, `dist/pack/cards/delivery-2.png`, `dist/pack/cards/delivery-3.png`, `dist/pack/cards/delivery-4.png` (640x480, transparent, own work; rendered from `pages/card-art/round-2/clean-sketch/` by `tools/card-art/render.js`), in their own colours, never tinted. They are drawn smaller than their size (up to 352x264 px here), so import them as Texture2D with `compress/mode` Lossless and `mipmaps/generate` on.
 - Boxes and grids take their gaps only from their spacing variation (ToyColumn…, ToyRow…, ToyGrid…), and a ScrollContainer the gap to its bar from ToyScroll; a box without one has a single child. No `theme_override_constants`: the theme test forbids them.
 
 ## Keys
 
-- **Drawn** (38): `common.back`, `common.cancel`, `common.code`, `connect.connecting`, `connect.connecting_unnamed`, `connect.error.body`, `connect.error.title`, `connect.fail.body`, `connect.fail.direct`, `connect.fail.full`, `connect.fail.no_room`, `connect.fail.retry`, `connect.fail.service`, `connect.fail.started`, `connect.fail.title`, `connect.fail.unreachable`, `connect.fail.version`, `connect.fail.version_host`, `connect.fail.version_own`, `connect.host_fail.title`, `connect.lost.body`, `connect.lost.title`, `connect.map_fail.body`, `connect.map_fail.title`, `connect.step.connecting`, `connect.step.finding`, `connect.step.joined`, `howto.label`, `howto.switches.done`, `howto.switches.find`, `howto.switches.turn_on`, `howto.switches.watch`, `loading.player_loading`, `loading.player_ready`, `loading.title`, `player.you`, `task.switches`, `tip.two_hands`.
+- **Drawn** (34): `common.back`, `common.cancel`, `common.code`, `connect.connecting`, `connect.connecting_unnamed`, `connect.error.body`, `connect.error.title`, `connect.fail.body`, `connect.fail.direct`, `connect.fail.full`, `connect.fail.no_room`, `connect.fail.retry`, `connect.fail.service`, `connect.fail.started`, `connect.fail.title`, `connect.fail.unreachable`, `connect.fail.version`, `connect.fail.version_host`, `connect.fail.version_own`, `connect.host_fail.title`, `connect.lost.body`, `connect.lost.title`, `connect.map_fail.body`, `connect.map_fail.title`, `connect.step.connecting`, `connect.step.finding`, `connect.step.joined`, `howto.label`, `loading.player_loading`, `loading.player_ready`, `loading.title`, `player.you`, `task.delivery`, `tip.two_hands`.
 - **Named only in the notes** (wire them too): `lobby.default_name`.
 
 ## Layers and input (every screen)

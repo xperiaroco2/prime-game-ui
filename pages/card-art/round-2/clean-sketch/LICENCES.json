@@ -1,0 +1,10 @@
+{
+  "delivery-1.svg": { "licence": "own work", "author": "prime-game-ui", "what": "how-to card art, Delivery step 1 (take a package from the storage room), clean sketch (the chosen style); shipped as dist/pack/cards/delivery-1.png" },
+  "delivery-2.svg": { "licence": "own work", "author": "prime-game-ui", "what": "how-to card art, Delivery step 2 (check the sign on the package), clean sketch; shipped as dist/pack/cards/delivery-2.png" },
+  "delivery-3.svg": { "licence": "own work", "author": "prime-game-ui", "what": "how-to card art, Delivery step 3 (find the room with that sign), clean sketch; shipped as dist/pack/cards/delivery-3.png" },
+  "delivery-4.svg": { "licence": "own work", "author": "prime-game-ui", "what": "how-to card art, Delivery step 4 (put it in the delivery zone, the done frame), clean sketch; shipped as dist/pack/cards/delivery-4.png" },
+  "switches-1.svg": { "licence": "own work", "author": "prime-game-ui", "what": "how-to card art, Switches step 1 (find every switch), clean sketch; a sample card of the card-art pages, not a game task, not in the pack" },
+  "switches-2.svg": { "licence": "own work", "author": "prime-game-ui", "what": "how-to card art, Switches step 2 (turn each one on), clean sketch; a sample card, not in the pack" },
+  "switches-3.svg": { "licence": "own work", "author": "prime-game-ui", "what": "how-to card art, Switches step 3 (watch that nobody turns them off), clean sketch; a sample card, not in the pack" },
+  "switches-4.svg": { "licence": "own work", "author": "prime-game-ui", "what": "how-to card art, Switches step 4 (done when all are lit), clean sketch; a sample card, not in the pack" }
+}

@@ -42,20 +42,20 @@
       "id": "delivery",
       "title_key": "task.delivery",
       "frames": [
-        { "panel": "delivery-1", "key": "howto.delivery.take" },
-        { "panel": "delivery-2", "key": "howto.delivery.sign" },
-        { "panel": "delivery-3", "key": "howto.delivery.find" },
-        { "panel": "delivery-4", "key": "howto.delivery.drop" }
+        { "panel": "delivery-1", "alt_uk": "Візьми пакунок на складі" },
+        { "panel": "delivery-2", "alt_uk": "Подивись на знак на ньому" },
+        { "panel": "delivery-3", "alt_uk": "Знайди кімнату з таким знаком" },
+        { "panel": "delivery-4", "alt_uk": "Поклади в зону доставки" }
       ]
     },
     {
       "id": "switches",
       "title_key": "task.switches",
       "frames": [
-        { "panel": "switches-1", "key": "howto.switches.find" },
-        { "panel": "switches-2", "key": "howto.switches.turn_on" },
-        { "panel": "switches-3", "key": "howto.switches.watch" },
-        { "panel": "switches-4", "key": "howto.switches.done" }
+        { "panel": "switches-1", "alt_uk": "Знайди всі рубильники" },
+        { "panel": "switches-2", "alt_uk": "Увімкни кожен" },
+        { "panel": "switches-3", "alt_uk": "Стеж, щоб ніхто не вимкнув" },
+        { "panel": "switches-4", "alt_uk": "Готово, коли всі горять" }
       ]
     }
   ],

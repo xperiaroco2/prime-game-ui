@@ -203,7 +203,7 @@
       "children": [
         {
           "name": "Card", "type": "PanelContainer", "variation": "ToyPanelHowto", "custom_minimum_size": [1536, 0],
-          "note": "The same card tree as s3/Card and the Esc menu's s5 Guide/Card (Head, Frames/Frame1..4 with Art and Caption), plus Bar with Close.",
+          "note": "The same card tree as s3/Card and the Esc menu's s5 Guide/Card (Head, Frames/Frame1..4, each holding its Art), plus Bar with Close.",
           "children": [
             {
               "name": "V", "type": "VBoxContainer", "variation": "ToyColumnSixteen",
@@ -222,49 +222,25 @@
                     {
                       "name": "Frame1", "type": "PanelContainer", "variation": "ToyHowtoFrame", "size_flags_horizontal": "expand_fill",
                       "children": [
-                        {
-                          "name": "F", "type": "VBoxContainer", "variation": "ToyColumnEight",
-                          "children": [
-                            { "name": "Art", "type": "TextureRect", "icon": "item", "custom_minimum_size": [120, 120], "note": "Placeholder art until the card art (prime-game-ui#3): the package, the room pictogram it carries (twice), the check on the done frame. The art fills the frame width at 120 px high (s3's loading card draws it 200 high)." },
-                            { "name": "Caption", "type": "Label", "variation": "ToyHowtoCaption", "key": "howto.delivery.take", "horizontal_alignment": "center", "autowrap_mode": "word_smart", "custom_minimum_size": [120, 0] }
-                          ]
-                        }
+                        { "name": "Art", "type": "TextureRect", "icon": "card/delivery-1", "custom_minimum_size": [320, 240], "note": "The card's art: one picture per frame from the card data (#254), here the pack's Delivery PNGs dist/pack/cards/delivery-1.png … delivery-4.png (640x480, transparent). expand_mode IGNORE_SIZE, stretch_mode KEEP_ASPECT_CENTERED; 320x240 here, the panel's own size (the PNG is 2x). The cards are wordless: a frame holds only its art, no caption." }
                       ]
                     },
                     {
                       "name": "Frame2", "type": "PanelContainer", "variation": "ToyHowtoFrame", "size_flags_horizontal": "expand_fill",
                       "children": [
-                        {
-                          "name": "F", "type": "VBoxContainer", "variation": "ToyColumnEight",
-                          "children": [
-                            { "name": "Art", "type": "TextureRect", "icon": "room/lab", "custom_minimum_size": [120, 120] },
-                            { "name": "Caption", "type": "Label", "variation": "ToyHowtoCaption", "key": "howto.delivery.sign", "horizontal_alignment": "center", "autowrap_mode": "word_smart", "custom_minimum_size": [120, 0] }
-                          ]
-                        }
+                        { "name": "Art", "type": "TextureRect", "icon": "card/delivery-2", "custom_minimum_size": [320, 240] }
                       ]
                     },
                     {
                       "name": "Frame3", "type": "PanelContainer", "variation": "ToyHowtoFrame", "size_flags_horizontal": "expand_fill",
                       "children": [
-                        {
-                          "name": "F", "type": "VBoxContainer", "variation": "ToyColumnEight",
-                          "children": [
-                            { "name": "Art", "type": "TextureRect", "icon": "room/lab", "custom_minimum_size": [120, 120] },
-                            { "name": "Caption", "type": "Label", "variation": "ToyHowtoCaption", "key": "howto.delivery.find", "horizontal_alignment": "center", "autowrap_mode": "word_smart", "custom_minimum_size": [120, 0] }
-                          ]
-                        }
+                        { "name": "Art", "type": "TextureRect", "icon": "card/delivery-3", "custom_minimum_size": [320, 240] }
                       ]
                     },
                     {
                       "name": "Frame4", "type": "PanelContainer", "variation": "ToyHowtoFrameDone", "size_flags_horizontal": "expand_fill",
                       "children": [
-                        {
-                          "name": "F", "type": "VBoxContainer", "variation": "ToyColumnEight",
-                          "children": [
-                            { "name": "Art", "type": "TextureRect", "icon": "check", "custom_minimum_size": [120, 120] },
-                            { "name": "Caption", "type": "Label", "variation": "ToyHowtoCaption", "key": "howto.delivery.drop", "horizontal_alignment": "center", "autowrap_mode": "word_smart", "custom_minimum_size": [120, 0] }
-                          ]
-                        }
+                        { "name": "Art", "type": "TextureRect", "icon": "card/delivery-4", "custom_minimum_size": [320, 240] }
                       ]
                     }
                   ]

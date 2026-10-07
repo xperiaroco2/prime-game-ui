@@ -1,4 +1,5 @@
-// The token build (spec §7): validate, resolve, expand, then emit dist/css/toy-tokens.css and dist/pack/toy.pack.json.
+// The token build (spec §7): validate, resolve, expand, then emit dist/css/toy-tokens.css and dist/pack/toy.pack.json,
+// with the pack's icons (dist/pack/icons/) and how-to card art (dist/pack/cards/, PNG: binary outputs are Buffers).
 //   node tools/tokens/build.js            write both outputs and print counts
 //   node tools/tokens/build.js --check    build in memory, compare bytes with dist/, name each stale file, exit 1
 // Options: --root <dir> (default: the repo root; reads <root>/tokens), --out <dir> (default: <root>; writes <out>/dist).
@@ -45,7 +46,7 @@ function main(argv) {
       let cur = null;
       try { cur = fs.readFileSync(path.join(outRoot, ...rel.split('/'))); } catch { cur = null; }
       if (cur === null) { console.error(`missing: ${rel}`); bad++; }
-      else if (!cur.equals(Buffer.from(text, 'utf8'))) { console.error(`stale: ${rel}`); bad++; }
+      else if (!cur.equals(Buffer.isBuffer(text) ? text : Buffer.from(text, 'utf8'))) { console.error(`stale: ${rel}`); bad++; }
     }
     if (bad) {
       console.error(`${bad} output(s) out of date: run node tools/tokens/build.js and commit dist/`);
