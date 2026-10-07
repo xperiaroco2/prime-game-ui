@@ -28,6 +28,12 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
   done yet (at most twice); all of them in a Guide tab of the Esc menu. Cards for tasks first. No practice stations in the
   lobby. ([prime-game #254](https://github.com/xperiaroco2/prime-game/issues/254),
   [answers](https://github.com/xperiaroco2/prime-game/issues/150#issuecomment-5968611538))
+- **The cards are wordless** (the engineer, 2026-10-07, chat; this replaces "a few words" above): the pictures alone
+  explain the task, with no captions; a caption under each panel reads like explaining to a child. The card art should
+  be a fun, good-looking cartoon; the engineer named Overcooked's characters as an example of what looks good.
+  The first four agent-drawn styles (`pages/card-art/`, 2026-10-07) were all rejected as ugly (big noses, clumsy hands);
+  the next round starts from references
+  ([prime-game-ui#3](https://github.com/xperiaroco2/prime-game-ui/issues/3#issuecomment-6033534497)).
 - **Loading-screen tips** are funny.
 - **A "with hints" host setting** (markers through walls, highlights) is dropped for now: a future idea, only if real
   maps prove too hard.
