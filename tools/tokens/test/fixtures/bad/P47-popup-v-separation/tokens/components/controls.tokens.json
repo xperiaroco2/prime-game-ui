@@ -1,0 +1,97 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "ctl": {
+    "$description": "Fixture controls.",
+    "list": {
+      "$description": "A dropdown list without its row separation.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": {
+            "variation": "ToyDropdownList",
+            "class": "PopupMenu"
+          },
+          "context": "light"
+        }
+      },
+      "panel": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{color.panel}"
+        },
+        "border-color": {
+          "$type": "color",
+          "$value": "{color.outline}"
+        },
+        "border-width": {
+          "$type": "dimension",
+          "$value": "{stroke.control}"
+        },
+        "corner-radius": {
+          "$type": "dimension",
+          "$value": "{radius.small}"
+        },
+        "content-margin": {
+          "$type": "dimension",
+          "$value": {
+            "value": 7,
+            "unit": "px"
+          }
+        }
+      },
+      "hover": {
+        "bg-color": {
+          "$type": "color",
+          "$value": "{palette.cream}"
+        }
+      },
+      "separator": {
+        "border-color": {
+          "$type": "color",
+          "$value": "{color.outline}"
+        },
+        "border-width-top": {
+          "$type": "dimension",
+          "$value": {
+            "value": 2,
+            "unit": "px"
+          }
+        },
+        "border-width-right": {
+          "$type": "dimension",
+          "$value": {
+            "value": 0,
+            "unit": "px"
+          }
+        },
+        "border-width-bottom": {
+          "$type": "dimension",
+          "$value": {
+            "value": 0,
+            "unit": "px"
+          }
+        },
+        "border-width-left": {
+          "$type": "dimension",
+          "$value": {
+            "value": 0,
+            "unit": "px"
+          }
+        }
+      },
+      "items": {
+        "font-color": {
+          "$type": "color",
+          "$value": "{color.outline}"
+        },
+        "font-hover-color": {
+          "$type": "color",
+          "$value": "{color.outline}"
+        },
+        "font-disabled-color": {
+          "$type": "color",
+          "$value": "{color.outline}"
+        }
+      }
+    }
+  }
+}

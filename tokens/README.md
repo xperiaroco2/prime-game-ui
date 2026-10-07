@@ -206,7 +206,7 @@ These extend spec §7.2 (P40–P60):
 |---|---|
 | P42 | (extended) a listed `*-color` item (PopupMenu's font colours) is a colour; the other listed items are dimensions, `center-grabber` a number |
 | P44 | (extended) a listed `*-padding` item (PopupMenu's `item-start-padding`, `item-end-padding`) is ≥ 0, as separations are |
-| P47 | (extended) a PopupMenu variant needs the states `panel`, `hover`, `separator` and the items `font-color`, `font-hover-color`, `font-disabled-color` (CLASSES `requiredItems`) |
+| P47 | (extended) a PopupMenu variant needs the states `panel`, `hover`, `separator` and the items `font-color`, `font-hover-color`, `font-disabled-color`, `v-separation` (CLASSES `requiredItems`) |
 | P53 | (extended) a variant's `size` member may also alias `size.*`, and only a `size.*` a modifier owns |
 | P61 | `godot.textures` is a non-empty object; each key is one of the class's theme icons (`expand.js` CLASSES `textures`), each value the pack path of an icon that exists and has an allowed licence record |
 | P62 | `godot.replacement` only on a variant with `$deprecated`; it names a variant of the same class that is not deprecated |

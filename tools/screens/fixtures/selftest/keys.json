@@ -1,0 +1,5 @@
+{
+  "selftest.piece.both_sides": { "en": "Press {key} to open", "uk": "Натисни {key}, щоб відкрити" },
+  "selftest.piece.at_end": { "en": "Hold {key}", "uk": "Утримуй {key}" },
+  "selftest.piece.edges": { "en": "Go\t{key}\u00a0now", "uk": "Іди\n{key} \u00a0зараз" }
+}

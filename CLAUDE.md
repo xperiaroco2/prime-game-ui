@@ -37,7 +37,9 @@ human's language (Ukrainian); everything in this repo is English.
     - money, subscriptions and downloads;
     - decisions that affect the whole game or a large scope;
     - changes to these rules.
-    A workflow above about 1.5M subagent tokens is agreed first; smaller ones run and are reported.
+    A workflow above about 1.5M subagent tokens is agreed first; smaller ones run and are reported. Every `agent()` in
+    a workflow passes `agentType`, one of the lean types in `.claude/agents/` (see Layout); only a rare agent that
+    needs the browser launches untyped.
   - **Reporting.** A comment on prime-game #150 after each wave and a short message to the engineer when something
     happens. When the engineer's attention or decision is needed, say so and stop.
 - **The game's code is not edited from here.** What the game needs becomes an issue in prime-game (with its `area:` label)
@@ -53,7 +55,9 @@ human's language (Ukrainian); everything in this repo is English.
   generated from them (the pages' CSS, the game's pack, the contrast results) and never edited by hand.
 - `tools/check.js`: runs every check (the token build, the Godot-safe lint, the contrast gates, the page builds); run it
   before every commit, CI runs it too. `tools/tokens/`, `tools/lint/`, `tools/contrast/`, `tools/visual/` (the local
-  zero-change probe), `tools/a11y/`: node 20, no packages.
+  zero-change probe), `tools/a11y/`, `tools/manager/` (the manager's context command, #21): node 20, no packages.
+- `.claude/agents/`: the lean workflow agent types (#22): `ui-reader` (Sonnet, read-only) for web gatherers and scouts,
+  `ui-judge` (Opus, read-only) for critics of the look and verifiers, `ui-writer` (Opus) for every agent that writes.
 
 ## The process
 References, then wireframes of every screen, then three style directions, the choice, tokens and components, the styled
@@ -61,7 +65,16 @@ screens, and finally handoff issues in prime-game.
 
 ## Starting a new manager session
 Start a new session for each wave instead of compacting a long one: the repo, `docs/ui-decisions.md` and the wave
-comments on prime-game #150 carry everything a session needs. The engineer's first message:
+comments on prime-game #150 carry everything a session needs.
+- **Handover.** It is due at a wave boundary (no workflow in flight, its results reported) once the session is over 12
+  hours old or its context over 300k tokens: check with `node tools/manager/context.js`. Never hand over mid-wave. The
+  outgoing manager posts the handover comment on prime-game #150; the next session continues from it.
+- **Keep-alive** (from prime-game orchestrate-stage §7): while a workflow runs or the engineer's reply is expected, one
+  background `sleep 3000` (Bash, `run_in_background`, `timeout` 3300000) keeps the 1-hour cache warm and re-arms at
+  each wake. A wake re-reads only its state lines (session start, timer, wake count). At most 14 wakes in a row (a
+  message from the engineer resets the count); none after a handover or once the session ends.
+
+The engineer's first message:
 
 ```text
 ultracode: ти менеджер UX/UI-треку prime-game. Прочитай CLAUDE.md і docs/ui-decisions.md у D:\prime-game-ui,

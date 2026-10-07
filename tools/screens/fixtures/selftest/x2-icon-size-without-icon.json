@@ -1,0 +1,19 @@
+{
+  "id": "x2",
+  "wireframe": "s7",
+  "title": "Self-test: icon_size without an icon",
+  "background": "black",
+  "note": "prime-game-ui#28: icon_size with no icon on the node or in any per_state is refused.",
+  "states": [
+    { "id": "one", "label": "Один" },
+    { "id": "two", "label": "Два" }
+  ],
+  "nodes": [
+    {
+      "name": "Col", "type": "VBoxContainer", "variation": "ToyColumnEight", "anchors_preset": "center",
+      "children": [
+        { "name": "Bare", "type": "Button", "variation": "ToyMenuItem", "text": "Q", "icon_size": 20, "per_state": { "two": { "text": "Z" } } }
+      ]
+    }
+  ]
+}

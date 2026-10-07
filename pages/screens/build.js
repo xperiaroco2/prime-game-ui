@@ -10,6 +10,9 @@
 //                                                    a private page with only these screens (validated alone), written
 //                                                    outside the repo, CSS inlined: build and measure one screen while
 //                                                    other screens are being edited (tools/screens/fit.js --page <file>)
+//   node pages/screens/build.js --self-test          the renderer's behaviours on the fixture screens of
+//                                                    tools/screens/fixtures/selftest/ (asserts on their CSS, page and
+//                                                    handoff text; writes nothing)
 //
 // THE FORMAT (pages/screens/README.md has the long form). One file per screen, src/s01-tutorial.json …
 // src/s10-post-game.json; a missing file is a screen not drawn yet. Godot's defaults are the format's defaults, so a
@@ -1771,6 +1774,128 @@ function handoff(S, C) {
 }
 
 // ---------------------------------------------------------------------------------------------------------------
+// The self-test (prime-game-ui#34): the renderer's behaviours on small fixture screens, SELFTEST/x<N>-<case>.json,
+// read with the real pack, icons and wireframes and with the fixture keys of SELFTEST/keys.json (keys the deck does not
+// have, so a copy change never moves the test). Each case asserts on the generated layout CSS, page HTML or handoff.
+
+const SELFTEST = 'tools/screens/fixtures/selftest';
+
+function selfTest() {
+  let passed = 0;
+  const failed = [];
+  const check = (ok, name, detail) => {
+    if (ok) passed++;
+    else failed.push(`FAIL ${name}${detail === undefined ? '' : `: ${detail}`}`);
+    return ok;
+  };
+  const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
+  const reEsc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const C = loadInputs(readPack());
+  for (const [key, e] of Object.entries(J.parse(readText(`${SELFTEST}/keys.json`)).value)) {
+    if (C.byKey.has(key)) fail(`${SELFTEST}/keys.json: ${key} is a deck key; a fixture key is one the deck does not have`);
+    C.byKey.set(key, { key, en: [e.en], uk: [e.uk], plural: '', context: '', line: 0 });
+  }
+  const files = fs.readdirSync(path.join(ROOT, SELFTEST)).filter((f) => /^x\d+-[a-z0-9-]+\.json$/.test(f)).sort();
+  const loaded = new Set();
+  // A fixture validated alone: { errors, screens }.
+  const load = (id) => {
+    const file = files.find((f) => f.startsWith(`${id}-`));
+    if (!check(file, `${id}: a fixture ${SELFTEST}/${id}-<case>.json`)) return null;
+    loaded.add(file);
+    const rel = `${SELFTEST}/${file}`;
+    const r = J.parse(readText(rel));
+    return validateAll([{ id, file, rel, data: r.value, position: r.position }], C);
+  };
+  const screen = (id) => {
+    const r = load(id);
+    if (!r) return null;
+    check(!r.errors.length, `${id}: validates`, r.errors.join(' | '));
+    return r.screens[0] || null;
+  };
+  const page = (S, st) => S.roots.map((n) => renderNode(n, st, S, C, { used: new Set() })).join('');
+  // A node's opening tag on the page, one of its attributes (null when absent) and a Label's text.
+  const tagOf = (html, node) => { const m = new RegExp(`<[a-z]+ [^>]*data-node="${reEsc(node)}"[^>]*>`).exec(html); return m ? m[0] : ''; };
+  const attrOf = (tag, name) => { const m = new RegExp(` ${name}="([^"]*)"`).exec(tag); return m ? m[1] : null; };
+  const labelText = (html, node) => { const m = new RegExp(`data-node="${reEsc(node)}"[^>]*>([^<]*)<`).exec(html); return m ? m[1] : null; };
+
+  // 1. A Button whose icon only some states set (per_state) takes icon_size and gets its icon's size rule, one per
+  //    state when the sizes differ; icon_size with no icon on the node or in any per_state is refused.
+  const x1 = screen('x1');
+  if (x1) {
+    const css = layoutCss([x1], C).split('\n');
+    const box = (px) => `{ width: calc(${px} * var(--px)); height: calc(${px} * var(--px)); }`;
+    for (const line of [`[data-node="x1/Col/Sized"] > .gd-icon ${box(20)}`, `[data-node="x1/Col/Natural"] > .gd-icon ${box(24)}`,
+      `.sc-frame[data-state="cut"] [data-node="x1/Col/Natural"] > .gd-icon ${box(48)}`]) check(css.includes(line), `x1: the layout CSS has ${line}`);
+    check(!css.some((l) => l.startsWith('.sc-frame[') && l.includes('"x1/Col/Sized"] > .gd-icon')), 'x1: icon_size sizes the icon of every state (no per-state rule)');
+    check(!page(x1, 'off').includes('gd-icon') && (page(x1, 'on').match(/class="gd-icon/g) || []).length === 2, 'x1: the page draws an icon only in the states that set one');
+    const md = handoff(x1, C);
+    check(/`Col\/Sized`: icon `mic` \([^)]*\) at 20 px/.test(md) && /`Col\/Natural`: icon `knife` \([^)]*\) at 48 px/.test(md), 'x1: the handoff gives each per-state icon its size');
+  }
+  const x2 = load('x2');
+  if (x2) {
+    check(x2.errors.length === 1 && /: \/nodes\/0\/children\/0\/icon_size: icon_size without an icon \(on the node or in a per_state\)$/.test(x2.errors[0]),
+      'x2: icon_size with no icon anywhere is refused', x2.errors.join(' | ') || 'no error');
+  }
+
+  // 2. The pieces of a sentence split at {key} go through Godot's strip_edges(): every character up to 32 off both
+  //    ends (a space, a tab, a newline) and nothing else (a no-break space stays); a piece empty after it is hidden.
+  const x3 = screen('x3');
+  if (x3) {
+    const piece = (st, name, uk, en, empty, why) => {
+      const html = page(x3, st);
+      const node = `x3/How/${name}`;
+      const tag = tagOf(html, node);
+      const got = { uk: labelText(html, node), en: attrOf(tag, 'data-en'), empty: attrOf(tag, 'data-piece-empty') };
+      check(same(got, { uk, en, empty }), `x3 ${st}: ${name} ${why}`, JSON.stringify(got));
+    };
+    piece('middle', 'Before', 'Натисни', 'Press', null, 'loses the space before the keycap');
+    piece('middle', 'After', ', щоб відкрити', 'to open', null, 'loses the space after the keycap');
+    piece('end', 'Before', 'Утримуй', 'Hold', null, 'loses the space before the keycap');
+    piece('end', 'After', '', '', 'uk en', 'is empty after the keycap, so hidden in both languages');
+    piece('edges', 'Before', 'Іди', 'Go', null, 'loses a newline and a tab');
+    piece('edges', 'After', ' зараз', ' now', null, 'loses a space but keeps a no-break space (U+00A0 is above 32)');
+    const md = handoff(x3, C);
+    check(md.includes('en "Go" · uk "Іди"') && md.includes('en " now" · uk " зараз"'), 'x3: the handoff samples are the stripped pieces');
+    check(md.includes('split at {key}/{preset} (strip_edges(); hidden when the piece is empty)'), 'x3: the handoff tells the game to strip_edges() each piece');
+  }
+
+  // 3. A tinted TextureRect with no theme_color or self_modulate in a row (HBoxContainer) draws in the font colour of
+  //    the row's nearest Label shown in the state (the following one on a tie); with none, in its context's text colour.
+  const x4 = screen('x4');
+  if (x4) {
+    const tokensCss = readText(TOKENS_CSS);
+    const colour = (name) => {
+      check(tokensCss.includes(`${name}:`), `x4: ${TOKENS_CSS} defines ${name}`);
+      return `color: var(${name})`;
+    };
+    const muted = colour('--toy-text-muted-on-dark-normal-font-color');
+    const title = colour('--toy-text-title-on-dark-normal-font-color');
+    for (const [st, node, want, why] of [
+      ['tie', 'Col/Far/Lock', muted, 'takes the nearest Label two places away'],
+      ['tie', 'Col/Far/Mark', muted, 'takes the Label beside it'],
+      ['tie', 'Col/Tie/Lock', muted, 'takes the following Label on a tie'],
+      ['alone', 'Col/Tie/Lock', title, 'takes the Label before it while the following one is hidden'],
+      ['tie', 'Col/Bare/Lock', null, 'with no Label in its row keeps its context\'s text colour'],
+      ['tie', 'Col/Card/Bare/Lock', null, 'with no Label in its row keeps its context\'s text colour (light)'],
+    ]) {
+      const style = attrOf(tagOf(page(x4, st), `x4/${node}`), 'style');
+      check(style === want, `x4 ${st}: ${node} ${why}`, style);
+    }
+    const md = handoff(x4, C);
+    const tree = (md.split('## Node tree in `tie`')[1] || '').split('\n## ')[0];
+    const got = [...tree.matchAll(/self_modulate = get_theme_color\("font_color", "(\w+)"\)/g)].map((m) => m[1]);
+    const want = ['ToyTextMutedOnDark', 'ToyTextMutedOnDark', 'ToyTextMutedOnDark', 'ToyTextOnDark', 'ToyTextOnDark', 'ToyTextOnLight', 'ToyTextOnLight'];
+    check(same(got, want), 'x4: the handoff\'s self_modulate lines (Far Lock, Mark; Tie Lock; Bare Lock, Mark; Card Lock, Mark)', got.join(', '));
+    check(md.includes('**Changed** `Col/Tie/Lock`: self_modulate = get_theme_color("font_color", "ToyTitleOnDark")'), 'x4 alone: the handoff retints the lock with the Label before it');
+  }
+
+  for (const f of files) check(loaded.has(f), `${SELFTEST}/${f} is a case of the self-test`);
+  for (const line of failed) console.log(line);
+  console.log(failed.length ? `FAILED: ${failed.length} of ${passed + failed.length} checks` : `ALL CLEAN: ${passed} checks on ${files.length} fixture screens`);
+  return failed.length ? 1 : 0;
+}
+
+// ---------------------------------------------------------------------------------------------------------------
 
 // A private page goes outside the repo (it is never committed): null when `file` is fine, else why not.
 function privateOutProblem(file) {
@@ -1782,7 +1907,7 @@ function privateOutProblem(file) {
 }
 
 function main(argv) {
-  const usage = 'usage: node pages/screens/build.js [--check | --validate [s2 ...] | --handoff s2 | --out <file.html> s2 [s5 ...]]';
+  const usage = 'usage: node pages/screens/build.js [--check | --validate [s2 ...] | --handoff s2 | --out <file.html> s2 [s5 ...] | --self-test]';
   let out = null;
   const oi = argv.indexOf('--out');
   if (oi >= 0) {
@@ -1790,14 +1915,15 @@ function main(argv) {
     if (!out || out.startsWith('--')) { console.error(`--out needs a file\n${usage}`); return 2; }
     argv = argv.slice(0, oi).concat(argv.slice(oi + 2));
   }
-  const mode = out ? 'private' : argv.includes('--check') ? 'check' : argv.includes('--validate') ? 'validate' : argv.includes('--handoff') ? 'handoff' : 'write';
+  const mode = out ? 'private' : argv.includes('--check') ? 'check' : argv.includes('--validate') ? 'validate' : argv.includes('--handoff') ? 'handoff'
+    : argv.includes('--self-test') ? 'selftest' : 'write';
   const flags = argv.filter((a) => a.startsWith('--'));
   const ids = argv.filter((a) => !a.startsWith('--')).map((a) => {
     const m = /^s0*(\d+)(?:-[a-z-]+)?(?:\.json)?$/.exec(a);
     return m ? `s${m[1]}` : a;
   });
-  if (flags.length > (out ? 0 : 1) || flags.some((f) => !['--check', '--validate', '--handoff'].includes(f))) { console.error(usage); return 2; }
-  if ((mode === 'write' || mode === 'check') && ids.length) { console.error(usage); return 2; }
+  if (flags.length > (out ? 0 : 1) || flags.some((f) => !['--check', '--validate', '--handoff', '--self-test'].includes(f))) { console.error(usage); return 2; }
+  if ((mode === 'write' || mode === 'check' || mode === 'selftest') && ids.length) { console.error(usage); return 2; }
   if (mode === 'handoff' && ids.length !== 1) { console.error(usage); return 2; }
   if (mode === 'private') {
     if (!ids.length) { console.error(`--out builds the screens you name: --out <file.html> s2 [s5 ...]\n${usage}`); return 2; }
@@ -1806,6 +1932,7 @@ function main(argv) {
   }
   if (ids.some((id) => !SCREENS.some(([x]) => x === id))) { console.error(`unknown screen ${ids.find((id) => !SCREENS.some(([x]) => x === id))}; the screens are s1 … s10\n${usage}`); return 2; }
   try {
+    if (mode === 'selftest') return selfTest();
     const { sources, errors: readErrors } = readSources(ids.length ? ids : null);
     if (mode === 'validate' || mode === 'handoff') {
       const C = loadInputs(readPack());

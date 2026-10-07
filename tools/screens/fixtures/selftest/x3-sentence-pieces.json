@@ -1,0 +1,37 @@
+{
+  "id": "x3",
+  "wireframe": "s1",
+  "title": "Self-test: sentence pieces around a keycap",
+  "background": "black",
+  "note": "prime-game-ui#28: each piece of a sentence split at {key} goes through Godot's strip_edges() (characters up to 32 off both ends, nothing else), and a piece empty after it is hidden. The keys are tools/screens/fixtures/selftest/keys.json.",
+  "states": [
+    { "id": "middle", "label": "Клавіша всередині" },
+    { "id": "end", "label": "Клавіша в кінці" },
+    { "id": "edges", "label": "Краї" }
+  ],
+  "nodes": [
+    {
+      "name": "How", "type": "HBoxContainer", "variation": "ToyRowEight", "anchors_preset": "center",
+      "children": [
+        {
+          "name": "Before", "type": "Label", "variation": "ToyTextOnDark", "key": "selftest.piece.both_sides", "piece": 0, "args": { "key": "E" },
+          "per_state": { "end": { "key": "selftest.piece.at_end" }, "edges": { "key": "selftest.piece.edges" } }
+        },
+        {
+          "name": "Key", "type": "PanelContainer", "variation": "ToyKeyOnDark",
+          "children": [
+            {
+              "name": "Text", "type": "Label", "variation": "ToyKeyText", "key": "selftest.piece.both_sides", "value_of": "key", "args": { "key": "E" },
+              "horizontal_alignment": "center",
+              "per_state": { "end": { "key": "selftest.piece.at_end" }, "edges": { "key": "selftest.piece.edges" } }
+            }
+          ]
+        },
+        {
+          "name": "After", "type": "Label", "variation": "ToyTextOnDark", "key": "selftest.piece.both_sides", "piece": 1, "args": { "key": "E" },
+          "per_state": { "end": { "key": "selftest.piece.at_end" }, "edges": { "key": "selftest.piece.edges" } }
+        }
+      ]
+    }
+  ]
+}
