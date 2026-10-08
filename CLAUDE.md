@@ -63,23 +63,11 @@ human's language (Ukrainian); everything in this repo is English.
 References, then wireframes of every screen, then three style directions, the choice, tokens and components, the styled
 screens, and finally handoff issues in prime-game.
 
-## Starting a new manager session
-Start a new session for each wave instead of compacting a long one: the repo, `docs/ui-decisions.md` and the wave
-comments on prime-game #150 carry everything a session needs.
-- **Handover.** It is due at a wave boundary (no workflow in flight, its results reported) once the session is over 12
-  hours old or its context over 300k tokens: check with `node tools/manager/context.js`. Never hand over mid-wave. The
-  outgoing manager posts the handover comment on prime-game #150; the next session continues from it.
-- **Keep-alive** (from prime-game orchestrate-stage §7): while a workflow runs or the engineer's reply is expected, one
-  background `sleep 3000` (Bash, `run_in_background`, `timeout` 3300000) keeps the 1-hour cache warm and re-arms at
-  each wake. A wake re-reads only its state lines (session start, timer, wake count). At most 14 wakes in a row (a
-  message from the engineer resets the count); none after a handover or once the session ends.
-
-The engineer's first message:
-
-```text
-ultracode: ти менеджер UX/UI-треку prime-game. Прочитай CLAUDE.md і docs/ui-decisions.md у D:\prime-game-ui,
-останні коментарі на xperiaroco2/prime-game#150 і відкриті задачі xperiaroco2/prime-game-ui. Продовжуй з <задача>.
-Правила в CLAUDE.md (довіра, 2026-10-03): технічне й дрібне вирішуй і зливай у main сам після зеленого CI; характер
-вигляду, тексти, гроші, завантаження й великі рішення питай; workflow понад ~1,5M токенів узгоджуй. Звіт — коментар на
-#150 після хвилі.
-```
+## Manager rules (one set for every prime-game track)
+A manager session of this repo follows `D:\prime-game\docs\MANAGERS.md` (prime-game's main checkout beside this one;
+missing or unreadable: https://github.com/xperiaroco2/prime-game/blob/main/docs/MANAGERS.md). Read it whole at the
+session's start, before anything else, and again after a change to it reaches prime-game's `main`. It holds the mode
+and effort, the kickoff (no "ultracode"), the "For you:" block, the keep-alive, when to hand over and the handover
+comment with the ready kickoff the engineer pastes, and every launch's estimate with the check after a large
+launch's first phase (§9); where this file differs on those, it wins.
+Track: ui. Plan issue: xperiaroco2/prime-game#150; the context: `node tools/manager/context.js`.
