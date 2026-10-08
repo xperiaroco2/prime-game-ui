@@ -15,10 +15,12 @@ const { packTokens, computeModes, buildPack, serializePack } = require('./emit-p
 const { renderCss } = require('./emit-css.js');
 const { iconSet } = require('./icons.js');
 const { cardSet } = require('./cards.js');
+const { fontSet } = require('./fonts.js');
 
 const OUTPUTS = { css: 'dist/css/toy-tokens.css', pack: 'dist/pack/toy.pack.json' };
 // The icons the game imports beside the pack (dist/pack/icons/**) and their `assets` records: tools/tokens/icons.js; the
-// how-to card art (dist/pack/cards/*.png, binary outputs: Buffers) and theirs: tools/tokens/cards.js.
+// how-to card art (dist/pack/cards/*.png, binary outputs: Buffers) and theirs: tools/tokens/cards.js; the fonts
+// (dist/pack/fonts/, binary) and theirs: tools/tokens/fonts.js.
 const RELEASE_FILE = 'tokens/release.json';
 
 // tokens/release.json = {"version": "X.Y.Z"} (spec §1, §9.2). Its problems use the build rule id B01.
@@ -69,7 +71,10 @@ function analyzeAll(root, opts) {
   // the card art: PNGs rendered from their SVGs (B03: a PNG older than its SVG, or an SVG without a licence record)
   const cards = cardSet((opts && opts.assetsRoot) || root);
   for (const m of cards.problems) P.error('B03', null, '', null, m);
-  const assets = icons.assets.concat(cards.assets).sort((x, y) => (x.path < y.path ? -1 : x.path > y.path ? 1 : 0));
+  // the fonts: third-party files shipped unmodified (B04: a changed file, a missing licence, a family or weight the tokens do not match)
+  const fonts = fontSet((opts && opts.assetsRoot) || root);
+  for (const m of fonts.problems) P.error('B04', null, '', null, m);
+  const assets = icons.assets.concat(cards.assets, fonts.assets).sort((x, y) => (x.path < y.path ? -1 : x.path > y.path ? 1 : 0));
   const allow = (opts && opts.allow) || [];
   for (const p of P.list) if (p.severity === 'error' && allow.includes(p.rule)) { p.severity = 'warning'; p.allowed = true; }
   const version = readRelease(root, P);
@@ -100,7 +105,7 @@ function analyzeAll(root, opts) {
     cssVar: R.cssVar,
     pack,
     css,
-    outputs: Object.assign({ [OUTPUTS.css]: css, [OUTPUTS.pack]: packText }, icons.outputs, cards.outputs),
+    outputs: Object.assign({ [OUTPUTS.css]: css, [OUTPUTS.pack]: packText }, icons.outputs, cards.outputs, fonts.outputs),
     modifiers: a.model.modifiers.map((m) => ({ name: m.name, contexts: m.contexts.slice(), default: m.default })),
     warnings: P.warnings,
     counts: { tiers, authored: sources.size, packTokens: r0.packTokens.size, variations: Object.keys(pack.variations).length,
