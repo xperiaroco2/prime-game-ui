@@ -247,3 +247,13 @@ took the recommended option):
 ## Type
 Comfortaa for titles and text, provisionally, until the style is chosen (SIL OFL 1.1 with the Reserved Font Name
 "Comfortaa": ship it unmodified) ([font pick](https://github.com/xperiaroco2/prime-game/issues/150#issuecomment-5960452846)).
+The engineer confirmed Comfortaa for the game's vertical slice, M6.2
+([#44](https://github.com/xperiaroco2/prime-game-ui/issues/44#issuecomment-6044249338)). The tokens use two weights, SemiBold 600
+and Bold 700 (`font.weight` in `tokens/primitives.tokens.json`); the upstream font is one variable file with a `wght`
+axis of 300 to 700 and Cyrillic coverage, so Godot draws both weights from it with two `FontVariation`s.
+
+## Sound
+**UI clicks** (prime-game-ui#44) (agent): a control clicks when it is pressed, on Godot's `pressed` (or `toggled`,
+`item_selected`) signal, never on hover or on focus moving, so keyboard and gamepad navigation stay silent. A disabled
+control makes no sound. A slider clicks once when the drag ends (`drag_ended`), not per step; a stepper's arrows click
+per press, and a held stepper only on its first step. A dropdown clicks when it opens and when an item is chosen.
