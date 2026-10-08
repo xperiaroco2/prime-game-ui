@@ -7,8 +7,10 @@
 //   options: --dir <folder of the transcripts>   default: <CLAUDE_CONFIG_DIR or ~/.claude>/projects/<this repo>
 //
 // It prints one line: the session id, its age in hours since the transcript's first line, the context of its newest
-// call (input + cache read + cache write) and whether a handover is due (over 12 hours or over 300k tokens). The
-// workflow agents' transcripts live in sub-folders and are never read. Exit 2 when no transcript is found.
+// call (input + cache read + cache write) and whether a handover is due, by MANAGERS.md §5: now, even mid-wave, over
+// 12 hours or over 500k tokens; over 250k only at a stop for the engineer (no run in flight), which the script cannot
+// see, so it says so. The workflow agents' transcripts live in sub-folders and are never read. Exit 2 when no
+// transcript is found.
 "use strict";
 const fs = require("fs");
 const os = require("os");
@@ -17,7 +19,8 @@ const { execFileSync } = require("child_process");
 
 const ROOT = path.resolve(__dirname, "..", "..");
 const MAX_HOURS = 12;
-const MAX_CONTEXT = 300000;
+const MAX_CONTEXT = 500000;
+const STOP_CONTEXT = 250000;
 
 // Claude Code keeps a project's transcripts in a folder named after the checkout's path with every character other
 // than a letter or a digit replaced by "-". A worktree's sessions belong to the main checkout, found through git.
@@ -110,7 +113,9 @@ function report(file, now) {
   const why = [];
   if (hours > MAX_HOURS) why.push(`over ${MAX_HOURS} h`);
   if (context > MAX_CONTEXT) why.push(`context over ${MAX_CONTEXT / 1000}k`);
-  const verdict = why.length ? `handover due at the next wave boundary (${why.join(", ")})` : "handover not due";
+  let verdict = "handover not due";
+  if (why.length) verdict = `handover due now, even mid-wave (${why.join(", ")})`;
+  else if (context > STOP_CONTEXT) verdict = `handover due at a stop for the engineer (context over ${STOP_CONTEXT / 1000}k), not while a run is in flight`;
   const ctx = t.newest ? `context ${context} tokens` : "context unknown (no call yet)";
   return `session ${t.sessionId}, age ${hours.toFixed(1)} h, ${ctx}: ${verdict}`;
 }
@@ -136,14 +141,16 @@ function selfTest() {
     expect("newest call, not newest file: young and small", report(findTranscript(tmp, null), at("2026-10-06T12:00:00Z")),
       "session bbbb2222-0000-4000-8000-000000000002, age 2.0 h, context 120500 tokens: handover not due");
     expect("over 12 hours", report(findTranscript(tmp, "bbbb"), at("2026-10-06T22:30:00Z")),
-      "session bbbb2222-0000-4000-8000-000000000002, age 12.5 h, context 120500 tokens: handover due at the next wave boundary (over 12 h)");
-    expect("over 300k, skipping the sidechain and synthetic lines", report(findTranscript(tmp, "aaaa1111"), at("2026-10-05T11:00:00Z")),
-      "session aaaa1111-0000-4000-8000-000000000001, age 1.0 h, context 300004 tokens: handover due at the next wave boundary (context over 300k)");
+      "session bbbb2222-0000-4000-8000-000000000002, age 12.5 h, context 120500 tokens: handover due now, even mid-wave (over 12 h)");
+    expect("over 500k, skipping the sidechain and synthetic lines", report(findTranscript(tmp, "aaaa1111"), at("2026-10-05T11:00:00Z")),
+      "session aaaa1111-0000-4000-8000-000000000001, age 1.0 h, context 500004 tokens: handover due now, even mid-wave (context over 500k)");
     expect("both, by path", report(findTranscript(tmp, path.join(tmp, "aaaa1111-0000-4000-8000-000000000001.jsonl")), at("2026-10-06T10:00:00Z")),
-      "session aaaa1111-0000-4000-8000-000000000001, age 24.0 h, context 300004 tokens: handover due at the next wave boundary (over 12 h, context over 300k)");
+      "session aaaa1111-0000-4000-8000-000000000001, age 24.0 h, context 500004 tokens: handover due now, even mid-wave (over 12 h, context over 500k)");
+    expect("over 250k only: at a stop for the engineer", report(findTranscript(tmp, "cccc3333"), at("2026-10-04T10:00:00Z")),
+      "session cccc3333-0000-4000-8000-000000000003, age 2.0 h, context 254006 tokens: handover due at a stop for the engineer (context over 250k), not while a run is in flight");
     let err = "";
-    try { findTranscript(tmp, "cccc"); } catch (e) { err = e.message; }
-    expect("an unknown session", err.startsWith("no transcript of session cccc"), true);
+    try { findTranscript(tmp, "eeee"); } catch (e) { err = e.message; }
+    expect("an unknown session", err.startsWith("no transcript of session eeee"), true);
   } finally {
     fs.rmSync(tmp, { recursive: true, force: true });
   }
