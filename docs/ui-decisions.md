@@ -250,7 +250,10 @@ Comfortaa for titles and text, provisionally, until the style is chosen (SIL OFL
 The engineer confirmed Comfortaa for the game's vertical slice, M6.2
 ([#44](https://github.com/xperiaroco2/prime-game-ui/issues/44#issuecomment-6044249338)). The tokens use two weights, SemiBold 600
 and Bold 700 (`font.weight` in `tokens/primitives.tokens.json`); the upstream font is one variable file with a `wght`
-axis of 300 to 700 and Cyrillic coverage, so Godot draws both weights from it with two `FontVariation`s.
+axis of 300 to 700 and Cyrillic coverage, so Godot draws both weights from it with two `FontVariation`s. Since ui-0.5.0 the
+pack ships it (`dist/pack/fonts/`, the engineer's yes to the download, 2026-10-08), byte for byte from google/fonts at
+db64f6b with its `OFL.txt`; it is renamed `Comfortaa-VariableFont_wght.ttf`, Google Fonts' download name, because
+brackets in a path are wildcards to PowerShell and globs (agent).
 
 ## Sound
 **UI clicks** (prime-game-ui#44) (agent): a control clicks when it is pressed, on Godot's `pressed` (or `toggled`,

@@ -1,7 +1,7 @@
 {
   "format": "prime-game-ui/pack",
   "schema": 1,
-  "version": "0.4.0",
+  "version": "0.5.0",
   "style": "toy",
   "dtcg": "2025.10",
   "reference": {"width":1920,"height":1080},
@@ -4470,6 +4470,7 @@
     {"path":"cards/delivery-2.png","kind":"card-art","sha256":"908f06d9590e9fbe7dd39f1f96f48c2480ead92dac21d22182cd5d4d3b775edf","licence":"own work","licence_file":"cards/LICENCES.json","source":"pages/card-art/round-2/clean-sketch/delivery-2.svg","size":[640,480],"task":"delivery","frame":2},
     {"path":"cards/delivery-3.png","kind":"card-art","sha256":"317c2cc59ad15027804ad9452b2666a3825d742c9482b3f5605bc97acc119511","licence":"own work","licence_file":"cards/LICENCES.json","source":"pages/card-art/round-2/clean-sketch/delivery-3.svg","size":[640,480],"task":"delivery","frame":3},
     {"path":"cards/delivery-4.png","kind":"card-art","sha256":"6ad3198cde63c2250a0c233360a06ce34751039cb000563d71ab9d052c142d0e","licence":"own work","licence_file":"cards/LICENCES.json","source":"pages/card-art/round-2/clean-sketch/delivery-4.svg","size":[640,480],"task":"delivery","frame":4,"done":true},
+    {"path":"fonts/Comfortaa-VariableFont_wght.ttf","kind":"font","sha256":"0fc3f45dc48b614db9c39181502544b37217ecbf8bee2fb35886992bc96c5bd3","licence":"OFL-1.1","licence_file":"fonts/LICENCES.json","licence_text":"fonts/OFL.txt","source":"fonts/comfortaa/Comfortaa-VariableFont_wght.ttf","family":"Comfortaa","axes":{"wght":[300,700]},"weights":[600,700]},
     {"path":"icons/check.svg","kind":"icon","sha256":"075bc05d17706a82166f60f442a4cb5f46a4570c5ae01caf963a1666224e22a9","licence":"own work","licence_file":"icons/LICENCES.json","source":"pages/components/icons/check.svg","size":[24,24],"drawn_px":24,"svg_scale":1,"tint":"multiply"},
     {"path":"icons/chevron-down.svg","kind":"icon","sha256":"79f4e00556440671049e289a5fc78eb1605fbbc722b02d0dc44ac08b17ac996b","licence":"own work","licence_file":"icons/LICENCES.json","source":"pages/components/icons/chevron-down.svg","size":[24,24],"drawn_px":24,"svg_scale":1,"tint":"multiply"},
     {"path":"icons/chevron-left.svg","kind":"icon","sha256":"44982e3c824e0b0d4d1b24763f8b51ad52501587b41e8fc126d99a7ef8adc4ef","licence":"own work","licence_file":"icons/LICENCES.json","source":"pages/components/icons/chevron-left.svg","size":[24,24],"drawn_px":24,"svg_scale":1,"tint":"multiply"},

@@ -4,3 +4,7 @@
 *.webp binary
 *.ttf binary
 *.otf binary
+
+# third-party font files stay byte for byte as upstream ships them (OFL.txt has CRLF line ends)
+fonts/**/OFL.txt binary
+dist/pack/fonts/OFL.txt binary

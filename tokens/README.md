@@ -57,7 +57,7 @@ engineer's room-signs decision: plain on packages and the map), their ink writte
 these icons with how it is imported (below, "The pack's assets"); `tools/tokens/icons.js` writes both.
 
 Every error names the rule (D01–D39, P40–P63, B01 for `release.json`, B02 for a screen source the icon sizes cannot
-read, or B03 for card art whose PNG is older than its SVG or has no licence record) and the file; where the file parses it also gives the line and column, the JSON Pointer and the token path.
+read, B03 for card art whose PNG is older than its SVG or has no licence record, or B04 for a font that is not its record's file, has no allowed licence or does not match the tokens' family and weights) and the file; where the file parses it also gives the line and column, the JSON Pointer and the token path.
 
 ## Classes
 
@@ -216,6 +216,26 @@ filter Godot's SVG importer does not draw:
   "delivery", "frame": 1 }`; the last frame of a task also has `"done": true` (drawn in `ToyHowtoFrameDone`). The
   game imports them as Texture2D (Lossless, mipmaps on), never tinted, in a TextureRect with `EXPAND_IGNORE_SIZE` and
   `STRETCH_KEEP_ASPECT_CENTERED`.
+
+## The pack's font since ui-0.5.0
+
+`schema` stays 1. The Toy style's one typeface, Comfortaa (SIL OFL 1.1, Reserved Font Name "Comfortaa"), ships beside
+the pack, so the game takes it from one pinned source (prime-game-ui#44):
+
+- `fonts/comfortaa/` holds the upstream files byte for byte: google/fonts' `ofl/comfortaa/Comfortaa[wght].ttf` at
+  db64f6b, renamed `Comfortaa-VariableFont_wght.ttf` (Google Fonts' download name: no brackets, which PowerShell and
+  globs read as wildcards), and its `OFL.txt` (CRLF, kept by `.gitattributes`). `LICENCES.json` records each file's
+  upstream URL, git blob and sha256.
+- The token build (`tools/tokens/fonts.js`) copies them into `dist/pack/fonts/` with `fonts/LICENCES.json`, and refuses
+  (B04) a file whose sha256 is not its record's (the font ships unmodified), a font without an allowed licence or its
+  licence text, a family no `font.family.*` token names and a `font.weight.*` token outside the font's `wght` axis.
+- **`assets`** gains one entry per font, sorted by path with the others:
+  `{ "path": "fonts/Comfortaa-VariableFont_wght.ttf", "kind": "font", "sha256": "…", "licence": "OFL-1.1",
+  "licence_file": "fonts/LICENCES.json", "licence_text": "fonts/OFL.txt", "source": "fonts/comfortaa/…", "family":
+  "Comfortaa", "axes": { "wght": [300, 700] }, "weights": [600, 700] }`; `weights` are the `font.weight.*` tokens.
+- **In Godot:** one `FontFile` from the file (it has Latin and Cyrillic), and one `FontVariation` per weight, its
+  `base_font` that file and `variation_opentype` `{ "wght": 600 }` or `{ "wght": 700 }`. The theme generator gives each
+  typography token the variation of its `fontWeight`. The game ships `OFL.txt` with the font.
 
 ## Profile rules since ui-0.3.0
 

@@ -1,5 +1,6 @@
 // The token build (spec §7): validate, resolve, expand, then emit dist/css/toy-tokens.css and dist/pack/toy.pack.json,
-// with the pack's icons (dist/pack/icons/) and how-to card art (dist/pack/cards/, PNG: binary outputs are Buffers).
+// with the pack's icons (dist/pack/icons/), how-to card art (dist/pack/cards/, PNG) and fonts (dist/pack/fonts/); binary
+// outputs are Buffers.
 //   node tools/tokens/build.js            write both outputs and print counts
 //   node tools/tokens/build.js --check    build in memory, compare bytes with dist/, name each stale file, exit 1
 // Options: --root <dir> (default: the repo root; reads <root>/tokens), --out <dir> (default: <root>; writes <out>/dist).

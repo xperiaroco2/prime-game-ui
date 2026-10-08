@@ -288,6 +288,12 @@ if (fs.existsSync(path.join(ROOT, 'tokens', 'prime.resolver.json'))) {
       && cardAssets.every((a) => a.task === 'delivery' && a.licence === 'own work' && a.size[0] === 640 && a.size[1] === 480)
       && cardAssets.filter((a) => a.done).map((a) => a.frame).join() === '4' && !cards.some((k) => /switches/.test(k)),
     'tokens/: the Delivery card art ships as four 640x480 PNGs, frame 4 done, no Switches', JSON.stringify(cardAssets));
+    const fontAssets = sys.pack.assets.filter((a) => a.kind === 'font');
+    const ttf = sys.outputs['dist/pack/fonts/Comfortaa-VariableFont_wght.ttf'];
+    check(fontAssets.length === 1 && fontAssets[0].family === 'Comfortaa' && fontAssets[0].licence === 'OFL-1.1' && fontAssets[0].weights.join() === '600,700'
+      && fontAssets[0].licence_text === 'fonts/OFL.txt' && Buffer.isBuffer(ttf) && require('crypto').createHash('sha256').update(ttf).digest('hex') === fontAssets[0].sha256
+      && Buffer.isBuffer(sys.outputs['dist/pack/fonts/OFL.txt']),
+    'tokens/: Comfortaa ships unmodified with its OFL text, the two token weights on its wght axis', JSON.stringify(fontAssets));
     const knob = assets.get('icons/slider-knob.svg');
     const lab = assets.get('icons/room/lab.svg');
     check(knob && knob.tint === 'none' && lab && lab.tint === 'multiply' && lab.tint_color === '#2a1f33' && lab.drawn_px >= 48 && lab.svg_scale === Math.ceil((lab.drawn_px / 48) * 100) / 100,
