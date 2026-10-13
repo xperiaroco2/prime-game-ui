@@ -1,0 +1,27 @@
+/* The base-controls page's chrome, over pages/components/page.css and pages/choices/page.css. Not linted: it never draws
+   a component's look (that comes only from base-controls.css); it lays out the samples, sizes the icon textures and
+   shows the box texture that matches a CheckBox's checked state. */
+.bc-why { color: var(--c-fg); }
+.bc-mode { margin: 10px 0 0; font-size: 13px; font-weight: 700; }
+.bc-states { display: flex; flex-wrap: wrap; gap: calc(16 * var(--px)) calc(20 * var(--px)); align-items: flex-end; min-width: 0; max-width: 100%; }
+.bc-state { display: inline-flex; flex-direction: column; align-items: flex-start; gap: 4px; min-width: 0; }
+.bc-cap { font-family: system-ui, sans-serif; font-size: 11px; line-height: 1.2; color: #64566f; white-space: nowrap; }
+[data-context="dark"] .bc-cap { color: #d8cce3; }
+/* Textures at their size: the CheckBox's box 28 px, the SpinBox's chevrons 18 px. */
+.bc-ico { display: inline-flex; flex: none; width: calc(28 * var(--px)); height: calc(28 * var(--px)); }
+.bc-ico svg { display: block; width: 100%; height: 100%; }
+.bc-ico .bc-on { display: none; }
+.bc-checked > .bc-ico .bc-on, [aria-pressed="true"] > .bc-ico .bc-on { display: block; }
+[aria-pressed="true"] > .bc-ico .bc-off { display: none; }
+.bc-chev { display: inline-flex; flex: none; width: calc(18 * var(--px)); height: calc(18 * var(--px)); }
+.bc-chev svg { display: block; width: 100%; height: 100%; }
+/* The SpinBox: the field and its two buttons stacked (a: beside the field, 8 apart; b: inside it). */
+.bc-spin { display: inline-flex; align-items: stretch; gap: calc(8 * var(--px)); }
+.bc-arrows { display: inline-flex; flex-direction: column; gap: calc(4 * var(--px)); }
+.bc-arrows > * { flex: 1 1 0; display: inline-flex !important; }
+.bc-spin-in { align-items: stretch !important; gap: calc(10 * var(--px)) !important; }
+.bc-spin-in > [data-s] { align-self: center; flex: 1 1 auto; }
+.bc-spin-in .bc-arrows { gap: 0; }
+/* q4: the two sizes one under the other. */
+.bc-sizes { display: flex; flex-direction: column; align-items: flex-start; gap: calc(6 * var(--px)); }
+.bc-sizes .bc-cap + [data-s] { margin-bottom: calc(10 * var(--px)); }

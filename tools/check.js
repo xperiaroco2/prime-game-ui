@@ -25,6 +25,7 @@ const STEPS = [
   ["page:styles", ["pages/styles/build-styles-page.js", "--check"]],
   ["page:components", ["pages/components/build.js", "--check"]],
   ["page:choices", ["pages/choices/build.js", "--check"]],
+  ["page:base-controls", ["pages/base-controls/build.js", "--check"]],
   ["page:room-signs", ["pages/room-signs/build.js", "--check"]],
   ["page:card-art", ["pages/card-art/build.js", "--check"]],
   // the card PNGs against their SVGs, without Edge (the rendering itself is local: node tools/card-art/render.js)

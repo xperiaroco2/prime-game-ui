@@ -2,7 +2,9 @@
 // toggles and the sample-language switch. This adds: the per-question "show focus / hover / disabled" switches, the
 // «Беру цей» and note buttons, and saving them through the artifact runtime's db capability when this view has it.
 // Collection "choices", one document per question id: { option: "a".."d" | "other" | null, note, at } (null: a note
-// without a choice). Nothing is written on load; a write happens only on a tap, one at a time per document. A tap made
+// without a choice). A page that reuses this script may name its own collection and answer field in its data
+// ({ collection, field }); with a field other than "option" a document also carries the chosen option's title:
+// { <field>, text, note, at }. Nothing is written on load; a write happens only on a tap, one at a time per document. A tap made
 // before the store answers waits and is written when it arrives; a refused write puts back the last saved answer.
 // Without db the page still works and says so.
 (function () {
@@ -10,6 +12,8 @@
   var DATA = { questions: [] };
   try { DATA = JSON.parse(document.getElementById('ch-data').textContent); } catch (e) { DATA = { questions: [] }; }
   var OPTIONS = ['a', 'b', 'c', 'd', 'other'];
+  var COLLECTION = typeof DATA.collection === 'string' && DATA.collection ? DATA.collection : 'choices';
+  var FIELD = typeof DATA.field === 'string' && DATA.field ? DATA.field : 'option';
   var saved = {};    // the last snapshot, plus writes confirmed since
   var local = {};    // taps not confirmed yet, shown over saved
   var state = {};    // what is shown
@@ -125,7 +129,7 @@
     inflight[qid] = true;
     show();
     var p;
-    try { p = col.doc(qid).set(doc); } catch (e) { p = Promise.reject(e); }
+    try { p = col.doc(qid).set(stored(qid, doc)); } catch (e) { p = Promise.reject(e); }
     p.then(function () {
       inflight[qid] = false;
       saved[qid] = doc;
@@ -144,6 +148,16 @@
       else notice('db', 'Не вдалося зберегти (' + (code || 'помилка') + '). Відповідь не змінилася; спробуйте ще раз трохи пізніше.', 'write-error');
       show();
     });
+  }
+  // The stored form of a shown answer { option, note, at }.
+  function stored(qid, doc) {
+    if (FIELD === 'option') return doc;
+    var out = {};
+    out[FIELD] = doc.option;
+    out.text = doc.option ? titleOf(qid, doc.option) : '';
+    out.note = doc.note;
+    out.at = doc.at;
+    return out;
   }
   function current(qid) { return state[qid] || {}; }
   function noteOf(sec) { var t = sec.querySelector('[data-note-input]'); return t ? t.value.trim().slice(0, 2000) : ''; }
@@ -174,14 +188,14 @@
   // The runtime: window.claude.use("db") resolves the store or null. Absent outside a claude.ai view.
   function start(db) {
     try {
-      col = db.collection('choices');
+      col = db.collection(COLLECTION);
       col.onSnapshot(function (snap) {
         try {
           var next = {};
           snap.docs.forEach(function (d) {
             var v = d.exists ? d.data() : null;
             if (!v || typeof v !== 'object') return;
-            next[d.id] = { option: OPTIONS.indexOf(v.option) >= 0 ? v.option : null, note: typeof v.note === 'string' ? v.note : '', at: typeof v.at === 'string' ? v.at : '' };
+            next[d.id] = { option: OPTIONS.indexOf(v[FIELD]) >= 0 ? v[FIELD] : null, note: typeof v.note === 'string' ? v.note : '', at: typeof v.at === 'string' ? v.at : '' };
           });
           saved = next;
           show();
