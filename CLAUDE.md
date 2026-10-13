@@ -66,8 +66,8 @@ screens, and finally handoff issues in prime-game.
 ## Manager rules (one set for every prime-game track)
 A manager session of this repo follows `D:\prime-game\docs\MANAGERS.md` (prime-game's main checkout beside this one;
 missing or unreadable: https://github.com/xperiaroco2/prime-game/blob/main/docs/MANAGERS.md). Read it whole at the
-session's start, before anything else, and again after a change to it reaches prime-game's `main`. It holds the mode
-and effort, the kickoff (no "ultracode"), the "For you:" block, the keep-alive, when to hand over and the handover
+session's start, before anything else; after a change to it reaches prime-game's `main`, read its diff. It holds the
+mode and effort, the kickoff (no "ultracode"), the "For you:" block, the keep-alive, when to hand over and the handover
 comment with the ready kickoff the engineer pastes, and every launch's estimate with the check after a large
 launch's first phase (§9); where this file differs on those, it wins.
 Track: ui. Plan issue: xperiaroco2/prime-game#150; the context: `node tools/manager/context.js`.
