@@ -37,6 +37,7 @@ const readJson = (r) => JSON.parse(readText(r));
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const num = (x) => String(x).replace('.', ',');
 const ruleText = (sel, decls) => [`${sel} {`, ...decls.map(([p, v]) => `  ${p}: ${v};`), '}'].join('\n');
+const RAISED = new Set(['box-shadow', 'transform', 'transition', '--tv-offset', '--tv-depth', '--tv-base']);
 const varRefs = (text) => [...text.matchAll(/var\((--toy-[\w-]+)\)/g)].map((m) => m[1]);
 
 // ---------------------------------------------------------------------------------------------------------------
@@ -78,15 +79,28 @@ function looks() {
     rule(`${c}.is-hover`, [['background', T('color-state-hover-on-light')]]);
     rule(`${c}.is-disabled`, [['background', T('color-state-disabled-face')], ['border-color', T('color-state-disabled-ink')], ['color', T('color-state-disabled-ink')]]);
   }
-  // b: checked (Godot's pressed and hover_pressed styleboxes) paints the plate yellow; disabled and checked: lavender.
+  // b: checked (Godot's pressed and hover_pressed styleboxes) paints the plate yellow. Disabled and checked draws the one
+  // disabled stylebox Godot has for a Button (no disabled_pressed): the same plate as disabled, only the box differs.
   rule('.tv-BcCheckBOn', [...box(Object.assign({}, plate, { bg: 'palette-yellow' })), ...font('body', 'color-on-accent-text'), ['column-gap', len('space-12')], ['cursor', 'pointer']]);
-  rule('.tv-BcCheckBOn.is-disabled', [['background', T('palette-lavender')], ['border-color', T('color-state-disabled-ink')], ['color', T('color-state-disabled-ink')]]);
+  rule('.tv-BcCheckBOn.is-disabled', [['background', T('color-state-disabled-face')], ['border-color', T('color-state-disabled-ink')], ['color', T('color-state-disabled-ink')]]);
   rule('.tv-BcCheckC', [...box({ bg: 'palette-clear', radius: 'radius-small', block: 'space-4', inline: 'space-8' }), ...font('body', 'color-on-light-text'), ['column-gap', len('space-12')], ['cursor', 'pointer']]);
   rule('.tv-BcCheckC.is-hover', [['background', T('color-state-hover-on-light')]]);
   rule('.tv-BcCheckC.is-disabled', [['color', T('color-state-disabled-ink')]]);
+  // The focus stylebox, the Toy buttons' ring (an ink line focus-width wide, no fill) just inside the plate's border.
+  for (const [k, radius, border] of [['A', 'radius-medium', 'stroke-thin'], ['B', 'radius-medium', 'stroke-thin'], ['BOn', 'radius-medium', 'stroke-thin'], ['C', 'radius-small', null]]) {
+    const c = `.tv-BcCheck${k}`;
+    const r = border ? `calc((${T(radius)} - ${T(border)}) * var(--px))` : len(radius);
+    rule(`${c} > .tv-focus`, [['display', 'none'], ['position', 'absolute'], ['pointer-events', 'none'], ['box-sizing', 'border-box'], ['border-style', 'solid'], ['border-color', T('color-outline')],
+      ...['top', 'right', 'bottom', 'left'].map((s) => [`border-${s}-width`, len('focus-width')]),
+      ...['top-left', 'top-right', 'bottom-right', 'bottom-left'].map((s) => [`border-${s}-radius`, r]),
+      ...['top', 'right', 'bottom', 'left'].map((s) => [s, '0'])]);
+    rule(`${c}.is-focus > .tv-focus, ${c}:focus-visible > .tv-focus`, [['display', 'block']]);
+  }
 
   // q2 a: two stacked buttons beside the field in the setting stepper's colours, small corners.
   const st = (n) => `setting-stepper-${n}`;
+  // a's field (SpinBoxInnerLineEdit): 12 px above and below instead of ToyField's 10, so each arrow is at least 24 high.
+  rule('.tv-BcSpinFieldA', [['padding-top', pad('space-12', 'field-input-normal-border-width')], ['padding-bottom', pad('space-12', 'field-input-normal-border-width')]]);
   rule('.tv-BcSpinA', [...box({ bg: st('normal-bg-color'), line: st('normal-border-color'), width: st('normal-border-width'), radius: 'radius-small', block: 'space-4', inline: 'space-8' }), ['cursor', 'pointer']]);
   rule('.tv-BcSpinA.is-held', [['background', T(st('pressed-bg-color'))]]);
   rule('.tv-BcSpinA.is-disabled', [['background', T(st('disabled-bg-color'))], ['border-color', T(st('disabled-border-color'))]]);
@@ -168,10 +182,12 @@ function build() {
     const onIcon = k === 'B' ? 'onWhite' : 'onYellow';
     const label = S('delivery');
     return states([
-      ['торкніться', `<button type="button" class="tv-${off}" data-live data-toggle="${off} ${on}" aria-pressed="false">${ico('off', onIcon)}${label}</button>`],
+      ['торкніться', `<button type="button" class="tv-${off}" data-live data-toggle="${off} ${on}" aria-pressed="false">${ico('off', onIcon)}${label}<span class="tv-focus"></span></button>`],
       ['знято', `<div class="tv-${off}">${ico('off')}${label}</div>`],
       ['позначено', `<div class="tv-${on} bc-checked">${ico(onIcon)}${label}</div>`],
       ['наведення', `<div class="tv-${off} is-hover">${ico('off')}${label}</div>`],
+      [k === 'B' ? 'позначено + наведення (як позначено)' : 'позначено + наведення', `<div class="tv-${on} is-hover bc-checked">${ico(onIcon)}${label}</div>`],
+      ['фокус', `<div class="tv-${off} is-focus">${ico('off')}${label}<span class="tv-focus"></span></div>`],
       ['вимкнено', `<div class="tv-${off} is-disabled">${ico('offDisabled')}${label}</div>`],
       ['вимкнено, позначено', `<div class="tv-${on} is-disabled bc-checked">${ico('onDisabled')}${label}</div>`],
     ]);
@@ -187,7 +203,7 @@ function build() {
       const field = `tv-${V('ToyField')}${ro ? ' is-readonly' : ''}`;
       const arrows = `<span class="bc-arrows">${arrow(cls, 'up', upState, live)}${arrow(cls, 'down', downState, live)}</span>`;
       return k === 'A'
-        ? `<span class="bc-spin"><div class="${field}">${S('port_value')}</div>${arrows}</span>`
+        ? `<span class="bc-spin"><div class="${field} tv-BcSpinFieldA">${S('port_value')}</div>${arrows}</span>`
         : `<div class="${field} bc-spin-in">${S('port_value')}<span class="tv-BcSpinSep"></span>${arrows}</div>`;
     };
     return states([
@@ -206,15 +222,17 @@ function build() {
       ? `<button type="button" class="tv-${name}" data-live>${content}<span class="tv-focus"></span></button>`
       : `<div class="tv-${name}${st ? ` is-${st}` : ''}">${content}<span class="tv-focus"></span></div>`;
   };
-  const buttons = (name) => states([
+  // A bare Button has no ToyRaised wrapper: no base under it and no press movement, so the Toy buttons whose hover and
+  // pressed styleboxes equal normal look the same in those states.
+  const buttons = (name) => { const same = name === 'ToyKeyButton' ? '' : ' (як звичайна)'; return states([
     ['торкніться', button(name, 'copy', null, true)],
     ['звичайна', button(name, 'ready')],
-    ['наведення', button(name, 'ready', 'hover')],
-    ['натиснута', button(name, 'ready', 'held')],
+    [`наведення${same}`, button(name, 'ready', 'hover')],
+    [`натиснута${same}`, button(name, 'ready', 'held')],
     ['фокус', button(name, 'ready', 'focus')],
     ['вимкнена', button(name, 'ready', 'disabled')],
     ['клавіша', button(name, 'key_e')],
-  ]);
+  ]); };
 
   const sizes = (o) => CTX.map(([c, l]) => stage(c, l, `<div class="bc-sizes">`
     + `<span class="bc-cap">звичайний · ${o.size.default} px</span>${S('players', `tv-BcBare tv-BcBare-${o.id}-default`)}`
@@ -227,11 +245,22 @@ function build() {
     q4: (o) => sizes(o),
   };
   const FACTS = {
-    q1: () => ['коробочка — текстура 28 px (checked, unchecked і їхні disabled), позначка — та сама галочка, що й у списку', 'напис: основний текст (22 px, великий 28 px)'],
+    q1: (o) => ['коробочка — текстура 28 px (checked, unchecked і їхні disabled), позначка — та сама галочка, що й у списку',
+      'напис: основний текст, 22 px замість нинішніх 27 (великий 28 px)',
+      o.id === 'c' ? 'вимкнений позначений малює той самий disabled, що й вимкнений (у Button немає disabled_pressed); різниця лише в коробочці checked_disabled'
+        : 'вимкнений позначений бере ту саму плитку disabled, що й вимкнений (у Button немає disabled_pressed); різниця лише в коробочці checked_disabled',
+      o.id === 'c' ? 'фокус: те саме чорнильне кільце 3 px, що в кнопок Toy, по краю напису з коробочкою' : 'фокус: те саме чорнильне кільце 3 px, що в кнопок Toy, усередині рамки плитки',
+      'рядок CheckBox у темі задасть усі елементи Button сам (normal, hover, pressed, hover_pressed, disabled, focus, кольори шрифту й іконок), щоб рядок Button із питання 3 до нього не дійшов'],
     q2: (o) => (o.id === 'a'
-      ? ['кнопки: up_background / down_background з кольорами ToyStepper, шеврони 18 px', 'між полем і кнопками 8 px, між кнопками 4 px']
-      : ['кнопки без фону; наведення й натискання — up_background_hovered / _pressed', 'риска: field_and_buttons_separator, 2 px']),
-    q3: (o) => [`base_types: Button from ${{ a: 'ToyButtonSecondary', b: 'ToyButtonPrimary', c: 'ToyKeyButton' }[o.id]}, без нових токенів`],
+      ? ['кнопки: up_background / down_background з кольорами ToyStepper, шеврони 18 px',
+        'між полем і кнопками 8 px, між кнопками 2 px (buttons_vertical_separation); поле SpinBox (SpinBoxInnerLineEdit) з відступом 12 px згори й знизу замість 10',
+        'кожна стрілка при масштабі 1, виміряно на сторінці: 34 × 26 px (великий текст 34 × 28); з нинішніми 10 px і 4 px було б 34 × 23 (великий 34 × 25). Висота — половина поля; у Godot поле бере висоту шрифту, тож числа ще перевірить проба 4.7.2 (unconfirmed)']
+      : ['кнопки без фону; наведення й натискання — up_background_hovered / _pressed', 'риска: field_and_buttons_separator, 2 px',
+        'потрібно: SpinBoxInnerLineEdit зі своїм stylebox, права рамка 0 і праві радіуси 0; up_background і down_background (і _hovered, _pressed, _disabled) малюють рамку поля праворуч, ▲ згори з радіусом угорі праворуч, ▼ знизу з радіусом унизу праворуч',
+        'кільце фокуса ToyField обведе лише текстову частину, не стрілки; без проби в Godot 4.7.2 це не перевірено (unconfirmed)']),
+    q3: (o) => [`base_types: Button from ${{ a: 'ToyButtonSecondary', b: 'ToyButtonPrimary', c: 'ToyKeyButton' }[o.id]}, без нових токенів`,
+      'без основи й руху: їх малює лише ToyRaised',
+      'рядок Button також для CheckButton, MenuButton, ColorPickerButton; у грі їх зараз немає'],
     q4: (o) => (o.id === 'a' ? ['правило великого тексту (tokens/text-size/large.tokens.json): ×1,25 з округленням половини вгору до 36 px; від 48 px розмір не змінюється'] : [`type.body: ${bodyPx} px, великий ${bodyBig} px`]),
   };
 
@@ -257,8 +286,10 @@ function build() {
   const css = [HEADER, '', '/* The base tokens: every variation the page reuses. */'];
   for (const [name, b] of blocks) {
     if (!used.has(name)) continue;
-    css.push(b.head, ...b.rules.map((r) => ruleText(r.sel, r.decls)));
-    rules.push(...b.rules);
+    // No base and no motion: a bare control has no ToyRaised wrapper, which alone draws them in the game.
+    const flat = b.rules.map((r) => ({ sel: r.sel, decls: r.decls.filter(([p]) => !RAISED.has(p)) })).filter((r) => r.decls.length);
+    css.push(b.head, ...flat.map((r) => ruleText(r.sel, r.decls)));
+    rules.push(...flat);
   }
   css.push('', '/* The new looks, from token variables (pages/base-controls/build.js looks()). */');
   for (const r of looks()) { css.push(ruleText(r.sel, r.decls)); rules.push(r); }

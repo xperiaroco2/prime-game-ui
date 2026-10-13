@@ -15,9 +15,9 @@
 [aria-pressed="true"] > .bc-ico .bc-off { display: none; }
 .bc-chev { display: inline-flex; flex: none; width: calc(18 * var(--px)); height: calc(18 * var(--px)); }
 .bc-chev svg { display: block; width: 100%; height: 100%; }
-/* The SpinBox: the field and its two buttons stacked (a: beside the field, 8 apart; b: inside it). */
+/* The SpinBox: the field and its two buttons, 2 apart (a: beside the field, 8 apart; b: inside it). */
 .bc-spin { display: inline-flex; align-items: stretch; gap: calc(8 * var(--px)); }
-.bc-arrows { display: inline-flex; flex-direction: column; gap: calc(4 * var(--px)); }
+.bc-arrows { display: inline-flex; flex-direction: column; gap: calc(2 * var(--px)); }
 .bc-arrows > * { flex: 1 1 0; display: inline-flex !important; }
 .bc-spin-in { align-items: stretch !important; gap: calc(10 * var(--px)) !important; }
 .bc-spin-in > [data-s] { align-self: center; flex: 1 1 auto; }

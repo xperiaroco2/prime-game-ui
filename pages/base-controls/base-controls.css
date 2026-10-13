@@ -26,29 +26,12 @@
   line-height: var(--toy-button-primary-label-line-height);
   letter-spacing: calc(var(--toy-button-primary-label-letter-spacing) * var(--px));
   color: var(--toy-button-primary-normal-font-color);
-  --tv-offset: 0;
-  --tv-depth: var(--toy-button-primary-press-depth);
-  --tv-base: var(--toy-button-base-primary-on-dark-panel-bg-color);
-  transform: translateY(calc(var(--tv-offset) * var(--px)));
-  box-shadow: 0 calc((var(--tv-depth) - var(--tv-offset)) * var(--px)) 0 var(--tv-base);
-  transition: transform var(--toy-button-common-motion-duration) var(--toy-button-common-motion-timing-function), box-shadow var(--toy-button-common-motion-duration) var(--toy-button-common-motion-timing-function);
   cursor: pointer;
-}
-[data-context="light"] .tv-ToyButtonPrimary {
-  --tv-base: var(--toy-button-base-primary-on-light-panel-bg-color);
-}
-.tv-ToyButtonPrimary.is-hover {
-  --tv-offset: var(--toy-button-primary-press-hover);
-}
-.tv-ToyButtonPrimary.is-held {
-  --tv-offset: var(--toy-button-primary-press-held);
 }
 .tv-ToyButtonPrimary.is-disabled {
   background: var(--toy-button-primary-disabled-bg-color);
   border-color: var(--toy-button-primary-disabled-border-color);
   color: var(--toy-button-primary-disabled-font-color);
-  --tv-offset: var(--toy-button-primary-press-disabled);
-  box-shadow: none;
 }
 .tv-ToyButtonPrimary > .tv-focus {
   display: none;
@@ -113,29 +96,12 @@
   line-height: var(--toy-button-secondary-label-line-height);
   letter-spacing: calc(var(--toy-button-secondary-label-letter-spacing) * var(--px));
   color: var(--toy-button-secondary-normal-font-color);
-  --tv-offset: 0;
-  --tv-depth: var(--toy-button-secondary-press-depth);
-  --tv-base: var(--toy-button-base-raised-on-dark-panel-bg-color);
-  transform: translateY(calc(var(--tv-offset) * var(--px)));
-  box-shadow: 0 calc((var(--tv-depth) - var(--tv-offset)) * var(--px)) 0 var(--tv-base);
-  transition: transform var(--toy-button-common-motion-duration) var(--toy-button-common-motion-timing-function), box-shadow var(--toy-button-common-motion-duration) var(--toy-button-common-motion-timing-function);
   cursor: pointer;
-}
-[data-context="light"] .tv-ToyButtonSecondary {
-  --tv-base: var(--toy-button-base-raised-on-light-panel-bg-color);
-}
-.tv-ToyButtonSecondary.is-hover {
-  --tv-offset: var(--toy-button-secondary-press-hover);
-}
-.tv-ToyButtonSecondary.is-held {
-  --tv-offset: var(--toy-button-secondary-press-held);
 }
 .tv-ToyButtonSecondary.is-disabled {
   background: var(--toy-button-secondary-disabled-bg-color);
   border-color: var(--toy-button-secondary-disabled-border-color);
   color: var(--toy-button-secondary-disabled-font-color);
-  --tv-offset: var(--toy-button-secondary-press-disabled);
-  box-shadow: none;
 }
 .tv-ToyButtonSecondary > .tv-focus {
   display: none;
@@ -395,7 +361,7 @@
   cursor: pointer;
 }
 .tv-BcCheckBOn.is-disabled {
-  background: var(--toy-palette-lavender);
+  background: var(--toy-color-state-disabled-face);
   border-color: var(--toy-color-state-disabled-ink);
   color: var(--toy-color-state-disabled-ink);
 }
@@ -425,6 +391,102 @@
 }
 .tv-BcCheckC.is-disabled {
   color: var(--toy-color-state-disabled-ink);
+}
+.tv-BcCheckA > .tv-focus {
+  display: none;
+  position: absolute;
+  pointer-events: none;
+  box-sizing: border-box;
+  border-style: solid;
+  border-color: var(--toy-color-outline);
+  border-top-width: calc(var(--toy-focus-width) * var(--px));
+  border-right-width: calc(var(--toy-focus-width) * var(--px));
+  border-bottom-width: calc(var(--toy-focus-width) * var(--px));
+  border-left-width: calc(var(--toy-focus-width) * var(--px));
+  border-top-left-radius: calc((var(--toy-radius-medium) - var(--toy-stroke-thin)) * var(--px));
+  border-top-right-radius: calc((var(--toy-radius-medium) - var(--toy-stroke-thin)) * var(--px));
+  border-bottom-right-radius: calc((var(--toy-radius-medium) - var(--toy-stroke-thin)) * var(--px));
+  border-bottom-left-radius: calc((var(--toy-radius-medium) - var(--toy-stroke-thin)) * var(--px));
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+.tv-BcCheckA.is-focus > .tv-focus, .tv-BcCheckA:focus-visible > .tv-focus {
+  display: block;
+}
+.tv-BcCheckB > .tv-focus {
+  display: none;
+  position: absolute;
+  pointer-events: none;
+  box-sizing: border-box;
+  border-style: solid;
+  border-color: var(--toy-color-outline);
+  border-top-width: calc(var(--toy-focus-width) * var(--px));
+  border-right-width: calc(var(--toy-focus-width) * var(--px));
+  border-bottom-width: calc(var(--toy-focus-width) * var(--px));
+  border-left-width: calc(var(--toy-focus-width) * var(--px));
+  border-top-left-radius: calc((var(--toy-radius-medium) - var(--toy-stroke-thin)) * var(--px));
+  border-top-right-radius: calc((var(--toy-radius-medium) - var(--toy-stroke-thin)) * var(--px));
+  border-bottom-right-radius: calc((var(--toy-radius-medium) - var(--toy-stroke-thin)) * var(--px));
+  border-bottom-left-radius: calc((var(--toy-radius-medium) - var(--toy-stroke-thin)) * var(--px));
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+.tv-BcCheckB.is-focus > .tv-focus, .tv-BcCheckB:focus-visible > .tv-focus {
+  display: block;
+}
+.tv-BcCheckBOn > .tv-focus {
+  display: none;
+  position: absolute;
+  pointer-events: none;
+  box-sizing: border-box;
+  border-style: solid;
+  border-color: var(--toy-color-outline);
+  border-top-width: calc(var(--toy-focus-width) * var(--px));
+  border-right-width: calc(var(--toy-focus-width) * var(--px));
+  border-bottom-width: calc(var(--toy-focus-width) * var(--px));
+  border-left-width: calc(var(--toy-focus-width) * var(--px));
+  border-top-left-radius: calc((var(--toy-radius-medium) - var(--toy-stroke-thin)) * var(--px));
+  border-top-right-radius: calc((var(--toy-radius-medium) - var(--toy-stroke-thin)) * var(--px));
+  border-bottom-right-radius: calc((var(--toy-radius-medium) - var(--toy-stroke-thin)) * var(--px));
+  border-bottom-left-radius: calc((var(--toy-radius-medium) - var(--toy-stroke-thin)) * var(--px));
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+.tv-BcCheckBOn.is-focus > .tv-focus, .tv-BcCheckBOn:focus-visible > .tv-focus {
+  display: block;
+}
+.tv-BcCheckC > .tv-focus {
+  display: none;
+  position: absolute;
+  pointer-events: none;
+  box-sizing: border-box;
+  border-style: solid;
+  border-color: var(--toy-color-outline);
+  border-top-width: calc(var(--toy-focus-width) * var(--px));
+  border-right-width: calc(var(--toy-focus-width) * var(--px));
+  border-bottom-width: calc(var(--toy-focus-width) * var(--px));
+  border-left-width: calc(var(--toy-focus-width) * var(--px));
+  border-top-left-radius: calc(var(--toy-radius-small) * var(--px));
+  border-top-right-radius: calc(var(--toy-radius-small) * var(--px));
+  border-bottom-right-radius: calc(var(--toy-radius-small) * var(--px));
+  border-bottom-left-radius: calc(var(--toy-radius-small) * var(--px));
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+.tv-BcCheckC.is-focus > .tv-focus, .tv-BcCheckC:focus-visible > .tv-focus {
+  display: block;
+}
+.tv-BcSpinFieldA {
+  padding-top: calc((var(--toy-space-12) - var(--toy-field-input-normal-border-width)) * var(--px));
+  padding-bottom: calc((var(--toy-space-12) - var(--toy-field-input-normal-border-width)) * var(--px));
 }
 .tv-BcSpinA {
   box-sizing: border-box;
