@@ -7,6 +7,8 @@
     { "file": "pages/components/toy-components.css", "profile": "generated" },
     { "file": "pages/choices/choices-tokens.css", "profile": "tokens" },
     { "file": "pages/choices/choices.css", "profile": "generated", "tokens": ["pages/choices/choices-tokens.css"] },
+    { "file": "pages/base-controls/base-controls-tokens.css", "profile": "tokens" },
+    { "file": "pages/base-controls/base-controls.css", "profile": "generated", "tokens": ["pages/base-controls/base-controls-tokens.css"] },
     { "file": "pages/room-signs/signs-ui.css", "profile": "generated" },
     { "file": "pages/card-art/card-ui.css", "profile": "generated" },
     { "file": "pages/copy/copy-ui.css", "profile": "generated" },
