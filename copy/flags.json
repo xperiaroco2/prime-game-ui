@@ -2,834 +2,7 @@
  "about": "The copy review (prime-game-ui#4; round 4, prime-game-ui#51: the deck rows the game's M7 asked for on prime-game#150). Round 2 was answered on 2026-10-05 and applied. Round 3 (2026-10-06, wave prime-game-ui#19), about the texts the styled screens added or reworded, was answered the same day and applied. open: questions still waiting for the engineer, each with options a-c; an option lists the rows it would write (empty uk and en remove the key), an option without rows keeps the deck and says so in its label. The deck keeps its current wording until an open question is answered on pages/copy/; where option a has rows, the deck could not take the change yet (an old wireframe frame still shows the current text). decided: what was applied, round 2 first. removed: keys taken out of the deck. asked: when round 3 was put to the engineer; the page ignores answers saved before it. Rules: copy/README.md and docs/research/2026-10-05-ukrainian-localization/report.md.",
  "asked": "2026-10-13T19:51:50Z",
  "principle": "Гравці досвідчені, гра не для дітей: не пояснюємо звичне й очевидне (що меню не ставить на паузу, що щось нове, знайоме керування), без «водіння за руку».",
- "open": [
-  {
-   "id": "control.throw",
-   "keys": [
-    "control.throw"
-   ],
-   "kind": "word",
-   "round": "new",
-   "why": "Назва дії в Налаштуваннях › Керування, рядок поруч зі «Стрибнути», «Використати», «Покласти» (клавіша G за замовчуванням). Гравець кидає предмет, що в руці; приціл — нахилом камери, одне натискання. Раджу «Кинути» / «Throw»: інфінітив, одне звичне слово, як у сусідніх рядках, і пара до «Покласти» без додатка.",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "note": "«Кинути» / «Throw»: коротко, нейтрально, у тій самій формі, що «Покласти» / «Put down».",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "label": "Жбурнути",
-     "note": "Живіше й грайливіше, під хаотичний настрій гри, але решта списку керування суха; англійське «Toss» теж розмовне.",
-     "rows": [
-      {
-       "key": "control.throw",
-       "en": "Toss",
-       "uk": "Жбурнути"
-      }
-     ]
-    },
-    {
-     "id": "c",
-     "label": "Кинути предмет",
-     "note": "Явно каже, що летить предмет з руки; довше за сусідні рядки, а «Покласти» й «Використати» обходяться без додатка.",
-     "rows": [
-      {
-       "key": "control.throw",
-       "en": "Throw item",
-       "uk": "Кинути предмет"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "topic.house_rooms",
-   "keys": [
-    "room.darkroom",
-    "room.corridor",
-    "room.boiler_room",
-    "room.generator_hall",
-    "room.pump_room",
-    "room.switch_room",
-    "room.passage",
-    "room.yard",
-    "room.street",
-    "room.path",
-    "room.driveway",
-    "room.garden",
-    "room.greenhouse",
-    "room.photo_zone",
-    "room.terrace",
-    "room.chill_zone",
-    "room.outdoor_stairs",
-    "room.garage",
-    "room.wc",
-    "room.pantry",
-    "room.dining_room",
-    "room.living_room",
-    "room.stairs",
-    "room.hallway",
-    "room.bedroom",
-    "room.kids_room",
-    "room.landing",
-    "room.study",
-    "room.bathroom",
-    "room.guest_room",
-    "room.balcony",
-    "room.attic",
-    "room.roof",
-    "room.tutorial"
-   ],
-   "kind": "word",
-   "round": "new",
-   "why": "Назви кімнат Дому на мапі (підпис усередині контуру кімнати), по одному ключу room.<id> на кімнату, плюс кімната навчання. Кухня вже є в колоді й лишається; Склад теж є, про нього окреме питання нижче. Тут затверджуєш увесь набір одразу; окремі питання нижче лише там, де є справжній вибір. Рекомендую короткі іменники: малі кімнати (Туалет 6×6 м, Доріжка 2×16 м, Ванна 8×4 м) не вмістять довгих назв.",
-   "options": [
-    {
-     "id": "a",
-     "label": "Усі як у колоді (рекомендую)",
-     "rows": [],
-     "note": "Короткі побутові слова, як на планах будинків: Дитяча, Гостьова, Ванна, Генераторна, Насосна, Щитова."
-    },
-    {
-     "id": "b",
-     "label": "Повні назви там, де колода скорочує",
-     "note": "Звучить офіційніше й довше; у малих кімнатах підпис перенесеться на два рядки.",
-     "rows": [
-      {
-       "key": "room.kids_room",
-       "en": "Kids' room",
-       "uk": "Дитяча кімната"
-      },
-      {
-       "key": "room.guest_room",
-       "en": "Guest room",
-       "uk": "Кімната для гостей"
-      },
-      {
-       "key": "room.bathroom",
-       "en": "Bathroom",
-       "uk": "Ванна кімната"
-      },
-      {
-       "key": "room.generator_hall",
-       "en": "Generator hall",
-       "uk": "Генераторна зала"
-      },
-      {
-       "key": "room.pump_room",
-       "en": "Pump room",
-       "uk": "Насосна кімната"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "room.storage",
-   "keys": [
-    "room.storage"
-   ],
-   "kind": "word",
-   "round": "new",
-   "why": "Склад у підвалі: хаб, звідки стартують доставка, бургери й ремонт авто. Ключ уже є в колоді («Склад»), тепер це кімната Дому. Рекомендую лишити: слово коротке й одразу каже, що тут лежать речі.",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "note": "Атмосферніше, але погріб звучить як місце лише для їжі, а тут ще й запчастини.",
-     "rows": [
-      {
-       "key": "room.storage",
-       "en": "Cellar",
-       "uk": "Погріб"
-      }
-     ]
-    },
-    {
-     "id": "c",
-     "note": "Побутово, але підсобка звучить як маленька кімнатка, а склад має 16×16 м.",
-     "rows": [
-      {
-       "key": "room.storage",
-       "en": "Storeroom",
-       "uk": "Підсобка"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "room.darkroom",
-   "keys": [
-    "room.darkroom"
-   ],
-   "kind": "word",
-   "round": "new",
-   "why": "Кімната в підвалі, де вішають надруковані фото (ланцюжок фото). Рекомендую «Фотолабораторія»: так називають кімнату для проявлення, і слово одразу каже про фото. Довге, але кімната велика (16×10 м).",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "note": "Дослівний переклад, коротший; без контексту може читатися як просто темна кімната.",
-     "rows": [
-      {
-       "key": "room.darkroom",
-       "en": "Darkroom",
-       "uk": "Темна кімната"
-      }
-     ]
-    },
-    {
-     "id": "c",
-     "note": "Та сама українська, простіша англійська.",
-     "rows": [
-      {
-       "key": "room.darkroom",
-       "en": "Photo lab",
-       "uk": "Фотолабораторія"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "room.switch_room",
-   "keys": [
-    "room.switch_room"
-   ],
-   "kind": "consistency",
-   "round": "new",
-   "why": "Електрощитова в глухому куті біля генераторної, там один із чотирьох рубильників. Робоча назва «Switch room» англійською дублює предмет Switch (рубильник), тож гравець може подумати, що всі рубильники тут. Рекомендую en «Electrical room», uk «Щитова»: українською слово й так інше, ніж «Рубильник».",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "note": "Робоча назва з мапи; англійською збігається зі словом Switch.",
-     "rows": [
-      {
-       "key": "room.switch_room",
-       "en": "Switch room",
-       "uk": "Щитова"
-      }
-     ]
-    },
-    {
-     "id": "c",
-     "note": "Повне українське слово, довше.",
-     "rows": [
-      {
-       "key": "room.switch_room",
-       "en": "Fuse room",
-       "uk": "Електрощитова"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "room.passage",
-   "keys": [
-    "room.passage"
-   ],
-   "kind": "clarity",
-   "round": "new",
-   "why": "Прохід у підвалі від генераторної до сходів у підвал за гаражем. У підвалі вже є «Коридор» (від складу до генераторної), тож друге слово має бути іншим. Рекомендую «Перехід»: коротко й не плутається з коридором.",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "note": "Чітко відрізняється від коридору, але 8×6 м для тунелю замало.",
-     "rows": [
-      {
-       "key": "room.passage",
-       "en": "Tunnel",
-       "uk": "Тунель"
-      }
-     ]
-    },
-    {
-     "id": "c",
-     "note": "Найпростіше слово, але за змістом майже те саме, що «Коридор» поруч.",
-     "rows": [
-      {
-       "key": "room.passage",
-       "en": "Passage",
-       "uk": "Прохід"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "room.path",
-   "keys": [
-    "room.path"
-   ],
-   "kind": "less-text",
-   "round": "new",
-   "why": "Доріжка від хвіртки до головного входу, 2×16 м: найвужча кімната на мапі, підпис має бути коротким. Рекомендую «Доріжка»: звичне слово для доріжки біля дому.",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "note": "Стежка звучить як ґрунтова, у полі чи лісі.",
-     "rows": [
-      {
-       "key": "room.path",
-       "en": "Footpath",
-       "uk": "Стежка"
-      }
-     ]
-    },
-    {
-     "id": "c",
-     "note": "Точніше, але довше для вузької смуги.",
-     "rows": [
-      {
-       "key": "room.path",
-       "en": "Front path",
-       "uk": "Вхідна доріжка"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "room.driveway",
-   "keys": [
-    "room.driveway"
-   ],
-   "kind": "word",
-   "round": "new",
-   "why": "Майданчик від воріт до гаража, 10×12 м. Рекомендую «Заїзд»: коротко й про машину. «Підʼїзд» багато хто читає як вхід у багатоповерхівку, тому його серед варіантів немає.",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "note": "Так само коротко; більше про ворота, ніж про майданчик перед гаражем.",
-     "rows": [
-      {
-       "key": "room.driveway",
-       "en": "Driveway",
-       "uk": "Вʼїзд"
-      }
-     ]
-    },
-    {
-     "id": "c",
-     "note": "Найточніше, але довге.",
-     "rows": [
-      {
-       "key": "room.driveway",
-       "en": "Driveway",
-       "uk": "Підʼїзна доріжка"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "room.photo_zone",
-   "keys": [
-    "room.photo_zone"
-   ],
-   "kind": "word",
-   "round": "new",
-   "why": "Альтанка-фотозона на північному заході двору, початок ланцюжка фото. Рекомендую «Фотозона»: звичне слово, і воно одразу каже, що тут фотографують.",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "note": "Каже, як місце виглядає, але не підказує звʼязку з фото.",
-     "rows": [
-      {
-       "key": "room.photo_zone",
-       "en": "Gazebo",
-       "uk": "Альтанка"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "room.chill_zone",
-   "keys": [
-    "room.chill_zone"
-   ],
-   "kind": "tone",
-   "round": "new",
-   "why": "Південно-західний кут двору: гриль, шезлонги, музика; тут смажать мʼясо для бургерів. Рекомендую «Чил-зона»: це твоя назва з мапи (chill zone), вона коротка, а гравці дорослі. Варіант b прямо називає гриль, потрібний для задачі.",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "note": "Одразу каже, де смажити мʼясо; втрачає настрій музики й відпочинку.",
-     "rows": [
-      {
-       "key": "room.chill_zone",
-       "en": "Barbecue",
-       "uk": "Барбекю"
-      }
-     ]
-    },
-    {
-     "id": "c",
-     "note": "Нейтрально, довше; схоже на старий ключ «Кімната відпочинку».",
-     "rows": [
-      {
-       "key": "room.chill_zone",
-       "en": "Lounge area",
-       "uk": "Зона відпочинку"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "topic.house_stairs",
-   "keys": [
-    "room.stairs",
-    "room.landing",
-    "room.outdoor_stairs"
-   ],
-   "kind": "clarity",
-   "round": "new",
-   "why": "Три сходові кімнати на різних рівнях треба розрізняти: головні сходи на першому поверсі (8×6 м), простір нагорі зі сходами вниз і люком на горище (8×20 м), сходи в підвал за гаражем (4×4 м). «Outdoor stairs» плутаються із зовнішніми сходами з балкона на терасу, тому рекомендую назвати, куди вони ведуть: «Сходи в підвал» (другий спуск, із комори, — частина комори, окремої назви не має). Простір нагорі завеликий для «майданчика», тому рекомендую «Верхній хол»: просто «Хол» уже має стара кімната сірого стенду (room.hall), а передпокій унизу лишається «Передпокій».",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "note": "Робочі назви з мапи; «Зовнішні сходи» плутаються зі сходами з балкона.",
-     "rows": [
-      {
-       "key": "room.stairs",
-       "en": "Main stairs",
-       "uk": "Головні сходи"
-      },
-      {
-       "key": "room.landing",
-       "en": "Landing",
-       "uk": "Сходовий майданчик"
-      },
-      {
-       "key": "room.outdoor_stairs",
-       "en": "Outdoor stairs",
-       "uk": "Зовнішні сходи"
-      }
-     ]
-    },
-    {
-     "id": "c",
-     "note": "Як у колоді, але сходи за гаражем — «Спуск у підвал»: звучить як рух, а не місце.",
-     "rows": [
-      {
-       "key": "room.outdoor_stairs",
-       "en": "Cellar steps",
-       "uk": "Спуск у підвал"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "room.tutorial",
-   "keys": [
-    "room.tutorial"
-   ],
-   "kind": "word",
-   "round": "new",
-   "why": "Єдина кімната навчання; її назву видно на мапі в пʼятому уроці. «Tutorial» / «Навчання» запропонував PR #712 тимчасово, а #600 лишив назву тобі. Рекомендую так і лишити: те саме слово, що на кнопці «Почати навчання» і в меню.",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "note": "Читається як місце, а не як режим; прикметник без іменника.",
-     "rows": [
-      {
-       "key": "room.tutorial",
-       "en": "Training room",
-       "uk": "Тренувальна"
-      }
-     ]
-    },
-    {
-     "id": "c",
-     "note": "Коротке, але звучить по-військовому.",
-     "rows": [
-      {
-       "key": "room.tutorial",
-       "en": "Practice range",
-       "uk": "Полігон"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "tutorial.list.throw",
-   "keys": [
-    "tutorial.list.throw"
-   ],
-   "kind": "word",
-   "round": "new",
-   "why": "Назва нового уроку в списку навчання (після «Рука й пояс»): гравець бачить її в переліку уроків. Рекомендую «Кидання»: іменник, як «Керування» і «Нокдаун», без зайвих слів.",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "note": "Throwing / «Кидання».",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "note": "Інфінітив, як «Взяти й покласти» і, найпевніше, як клавіша control.throw.",
-     "rows": [
-      {
-       "key": "tutorial.list.throw",
-       "en": "Throw",
-       "uk": "Кинути"
-      }
-     ]
-    },
-    {
-     "id": "c",
-     "note": "Прямо каже, що саме кидаємо, але довше.",
-     "rows": [
-      {
-       "key": "tutorial.list.throw",
-       "en": "Throwing items",
-       "uk": "Кидання предметів"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "tutorial.step.throw.title",
-   "keys": [
-    "tutorial.step.throw.title"
-   ],
-   "kind": "word",
-   "round": "new",
-   "why": "Заголовок кроку уроку кидання на табличці навчання. Рекомендую «Кинь предмет»: кинути можна будь-який предмет у руці (ніж або пакунок), і урок зараховує будь-який власний кидок.",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "note": "Throw an item / «Кинь предмет».",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "note": "Називає ніж з уроку «Рука й пояс», як «Візьми пакунок» називає пакунок. Але пакунок теж можна кинути, і тоді текст не збігається з тим, що в руці.",
-     "rows": [
-      {
-       "key": "tutorial.step.throw.title",
-       "en": "Throw the knife",
-       "uk": "Кинь ніж"
-      }
-     ]
-    },
-    {
-     "id": "c",
-     "note": "Одразу каже, що кидається лише предмет із руки; тоді опис може бути коротким.",
-     "rows": [
-      {
-       "key": "tutorial.step.throw.title",
-       "en": "Throw what's in your hand",
-       "uk": "Кинь те, що в руці"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "tutorial.step.throw.how",
-   "keys": [
-    "tutorial.step.throw.how"
-   ],
-   "kind": "clarity",
-   "round": "new",
-   "why": "Рядок під заголовком: як кинути, {key} — клавіша кидка. Після уроку «Рука й пояс» ніж може бути на поясі, а з пояса кинути не можна, тож крок має сказати взяти предмет у руку (вимога #901). Рекомендую «Візьми предмет у руку й натисни {key}», за зразком «Наведи приціл на пакунок і натисни {key}».",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "note": "Take an item in your hand and press {key} / «Візьми предмет у руку й натисни {key}».",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "note": "Без окремого рядка: крок бере спільний «Натисни {key}», як у чернетці дизайну. Менше слів, але гравець із ножем на поясі отримає відмову без підказки.",
-     "rows": [
-      {
-       "key": "tutorial.step.throw.how",
-       "en": "",
-       "uk": ""
-      }
-     ]
-    },
-    {
-     "id": "c",
-     "note": "Те саме, але «тримай»: природніше, коли предмет уже в руці; гірше, коли він на поясі.",
-     "rows": [
-      {
-       "key": "tutorial.step.throw.how",
-       "en": "With an item in your hand, press {key}",
-       "uk": "Тримай предмет у руці й натисни {key}"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "lobby.too_many",
-   "keys": [
-    "lobby.too_many"
-   ],
-   "kind": "word",
-   "round": "new",
-   "why": "Рядок статусу лобі (табличка Status і напис Shortfalls), коли гравців більше, ніж дозволяє режим (players_many). Хост передає count (скільки зайвих), min і max. Обидва числа гравець і так бачить у «Гравці {count} / {total}», бо {total} там і є межа режиму. Раджу назвати межу {max}: так рядок сам каже правило. Число стоїть після двокрапки, тож множина не потрібна.",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "note": "Що не так і яка межа, без докору.",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "label": "Коротка мітка",
-     "note": "Лише межа, а «забагато» читається з контексту.",
-     "rows": [
-      {
-       "key": "lobby.too_many",
-       "en": "Player limit: {max}",
-       "uk": "Ліміт гравців: {max}"
-      }
-     ]
-    },
-    {
-     "id": "c",
-     "label": "Порівняння",
-     "note": "Звичайне речення, межа після двокрапки.",
-     "rows": [
-      {
-       "key": "lobby.too_many",
-       "en": "More players than allowed: {max}",
-       "uk": "Гравців більше, ніж можна: {max}"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "lobby.need_markers",
-   "keys": [
-    "lobby.need_markers"
-   ],
-   "kind": "word",
-   "round": "new",
-   "why": "Рядок статусу лобі, коли на мапі замало точок (маркерів) для того, що просять налаштування: гравців, ножів, пакунків, задач (markers). Хост передає need і have. Назву тега гравцю не показати, бо в колоді немає ключів для тегів, тому рядок каже лише числа. «{have} з {need}» побудовано як «Готові {count} з {total}», множина не потрібна. Раджу «точки появи»: «поява» — слово колоди для spawn (правило 7). «Місце» в лобі вже означає вільне місце для гравця («Якщо в лобі є місце», connect.fail.unreachable), тож «замало місць» читалося б як «лобі заповнене».",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "note": "Слово колоди для spawn, без плутанини з місцями в лобі.",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "label": "Технічне слово",
-     "note": "«Маркери» точніші, гравці — інженери, але це слово мапотворця.",
-     "rows": [
-      {
-       "key": "lobby.need_markers",
-       "en": "Not enough markers on the map: {have} of {need}",
-       "uk": "На мапі замало маркерів: {have} з {need}"
-      }
-     ]
-    },
-    {
-     "id": "c",
-     "label": "Через налаштування",
-     "note": "Підказує хосту, що причина в налаштуваннях, але числа без назви читаються гірше.",
-     "rows": [
-      {
-       "key": "lobby.need_markers",
-       "en": "The map is too small for these settings: {have} of {need}",
-       "uk": "Мапа замала для цих налаштувань: {have} з {need}"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "lobby.no_layout",
-   "keys": [
-    "lobby.no_layout"
-   ],
-   "kind": "clarity",
-   "round": "new",
-   "why": "Рядок статусу лобі, коли вибрану мапу не вдається розкласти (no_layout, без аргументів; мапу називає саме лобі). Тепер це рідкість: мапу в лобі не вибирають, є лише House (#767). Раджу короткий стан без технічних подробиць.",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "note": "Стан, як «Підключення…».",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "label": "Не готова",
-     "note": "М'якше, але натякає, що треба чекати.",
-     "rows": [
-      {
-       "key": "lobby.no_layout",
-       "en": "The map isn't ready",
-       "uk": "Мапа не готова"
-      }
-     ]
-    },
-    {
-     "id": "c",
-     "label": "Технічно точно",
-     "note": "Як це називає гра.",
-     "rows": [
-      {
-       "key": "lobby.no_layout",
-       "en": "The map has no layout",
-       "uk": "Мапа без розмітки"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "lobby.no_task_types",
-   "keys": [
-    "lobby.no_task_types"
-   ],
-   "kind": "clarity",
-   "round": "new",
-   "why": "Рядок статусу лобі, коли налаштування просять задачі, але після вимкнених хостом типів задач для мапи не лишилося жодного (no_task_types, без аргументів). Раджу «не лишилося»: це натякає на вимкнені задачі й лишається правдою, якщо задач для мапи немає взагалі.",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "note": "Точно в обох випадках.",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "label": "Прямо про вимкнення",
-     "note": "Ясніше хосту, але неправда, якщо задач для мапи немає взагалі.",
-     "rows": [
-      {
-       "key": "lobby.no_task_types",
-       "en": "All tasks for this map are off",
-       "uk": "Усі задачі для цієї мапи вимкнено"
-      }
-     ]
-    },
-    {
-     "id": "c",
-     "label": "Нейтрально",
-     "note": "Найкоротше, без причини.",
-     "rows": [
-      {
-       "key": "lobby.no_task_types",
-       "en": "No tasks for this map",
-       "uk": "Для цієї мапи немає задач"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "tutorial.step.voice.down",
-   "keys": [
-    "tutorial.step.voice.down"
-   ],
-   "kind": "word",
-   "round": "new",
-   "why": "Новий рядок для третього кадру картки «Голос» у Посібнику (prime-game#669; зараз там помилково «Смерть»). Гравець бачить його під картинкою без слів, після «Поговори з кимось поруч» і «Тебе чують лише ті, хто поруч». Правило гри: гравця в нокдауні чи мертвого не чує ніхто, мертві теж нікого не чують, а гравець у нокдауні чує живих поруч. Рекомендую a: це правило гравець легко зрозуміє неправильно (говорить у нокдауні й думає, що його чують), і воно стосується обох станів. Українською іменники «нокдаун» і «смерть», тож без роду.",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "note": "Down or dead, no one hears you / У нокдауні й після смерті тебе ніхто не чує. Одне правило на обидва стани: тебе не чути.",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "label": "Що чують мертві (твоя ідея)",
-     "note": "Лише про мертвих, в обидва боки. Про нокдаун ні слова, а там гравець теж німий.",
-     "rows": [
-      {
-       "key": "tutorial.step.voice.down",
-       "en": "The dead don't hear or speak",
-       "uk": "Мертві не чують і не говорять"
-      }
-     ]
-    },
-    {
-     "id": "c",
-     "label": "Стіни глушать голос",
-     "note": "Інше справжнє правило: за стіною голос тихіший і глухіший (заглушення вже працює в грі). Про нокдаун і смерть картка тоді мовчить.",
-     "rows": [
-      {
-       "key": "tutorial.step.voice.down",
-       "en": "Walls muffle voices",
-       "uk": "Стіни глушать голос"
-      }
-     ]
-    }
-   ]
-  }
- ],
+ "open": [],
  "removed": [
   "downed.can_raise",
   "esc.running",
@@ -1249,6 +422,181 @@
   {
    "id": "control.crouch",
    "how": "Прийнято: «Присісти» / «Crouch» (prime-game PR #947, 2026-10-13)."
+  },
+  {
+   "id": "control.throw",
+   "keys": [
+    "control.throw"
+   ],
+   "how": "Коло 4 (2026-10-13, prime-game-ui#51): прийнято b, «Жбурнути» / \"Toss\"."
+  },
+  {
+   "id": "topic.house_rooms",
+   "keys": [
+    "room.darkroom",
+    "room.corridor",
+    "room.boiler_room",
+    "room.generator_hall",
+    "room.pump_room",
+    "room.switch_room",
+    "room.passage",
+    "room.yard",
+    "room.street",
+    "room.path",
+    "room.driveway",
+    "room.garden",
+    "room.greenhouse",
+    "room.photo_zone",
+    "room.terrace",
+    "room.chill_zone",
+    "room.outdoor_stairs",
+    "room.garage",
+    "room.wc",
+    "room.pantry",
+    "room.dining_room",
+    "room.living_room",
+    "room.stairs",
+    "room.hallway",
+    "room.bedroom",
+    "room.kids_room",
+    "room.landing",
+    "room.study",
+    "room.bathroom",
+    "room.guest_room",
+    "room.balcony",
+    "room.attic",
+    "room.roof",
+    "room.tutorial"
+   ],
+   "how": "Коло 4 (2026-10-13, prime-game-ui#51): прийнято a, Усі як у колоді (рекомендую)."
+  },
+  {
+   "id": "room.storage",
+   "keys": [
+    "room.storage"
+   ],
+   "how": "Коло 4 (2026-10-13, prime-game-ui#51): прийнято a, Як у колоді (рекомендую)."
+  },
+  {
+   "id": "room.darkroom",
+   "keys": [
+    "room.darkroom"
+   ],
+   "how": "Коло 4 (2026-10-13, prime-game-ui#51): прийнято a, Як у колоді (рекомендую)."
+  },
+  {
+   "id": "room.switch_room",
+   "keys": [
+    "room.switch_room"
+   ],
+   "how": "Коло 4 (2026-10-13, prime-game-ui#51): прийнято a, Як у колоді (рекомендую)."
+  },
+  {
+   "id": "room.passage",
+   "keys": [
+    "room.passage"
+   ],
+   "how": "Коло 4 (2026-10-13, prime-game-ui#51): прийнято a, Як у колоді (рекомендую)."
+  },
+  {
+   "id": "room.path",
+   "keys": [
+    "room.path"
+   ],
+   "how": "Коло 4 (2026-10-13, prime-game-ui#51): прийнято a, Як у колоді (рекомендую)."
+  },
+  {
+   "id": "room.driveway",
+   "keys": [
+    "room.driveway"
+   ],
+   "how": "Коло 4 (2026-10-13, prime-game-ui#51): прийнято a, Як у колоді (рекомендую)."
+  },
+  {
+   "id": "room.photo_zone",
+   "keys": [
+    "room.photo_zone"
+   ],
+   "how": "Коло 4 (2026-10-13, prime-game-ui#51): прийнято a, Як у колоді (рекомендую)."
+  },
+  {
+   "id": "room.chill_zone",
+   "keys": [
+    "room.chill_zone"
+   ],
+   "how": "Коло 4 (2026-10-13, prime-game-ui#51): прийнято a, Як у колоді (рекомендую)."
+  },
+  {
+   "id": "topic.house_stairs",
+   "keys": [
+    "room.stairs",
+    "room.landing",
+    "room.outdoor_stairs"
+   ],
+   "how": "Коло 4 (2026-10-13, prime-game-ui#51): прийнято a, Як у колоді (рекомендую)."
+  },
+  {
+   "id": "room.tutorial",
+   "keys": [
+    "room.tutorial"
+   ],
+   "how": "Коло 4 (2026-10-13, prime-game-ui#51): прийнято a, Як у колоді (рекомендую)."
+  },
+  {
+   "id": "tutorial.list.throw",
+   "keys": [
+    "tutorial.list.throw"
+   ],
+   "how": "Коло 4 (2026-10-13, prime-game-ui#51): прийнято a, Як у колоді (рекомендую)."
+  },
+  {
+   "id": "tutorial.step.throw.title",
+   "keys": [
+    "tutorial.step.throw.title"
+   ],
+   "how": "Коло 4 (2026-10-13, prime-game-ui#51): прийнято a, Як у колоді (рекомендую)."
+  },
+  {
+   "id": "tutorial.step.throw.how",
+   "keys": [
+    "tutorial.step.throw.how"
+   ],
+   "how": "Коло 4 (2026-10-13, prime-game-ui#51): прийнято a, Як у колоді (рекомендую)."
+  },
+  {
+   "id": "lobby.too_many",
+   "keys": [
+    "lobby.too_many"
+   ],
+   "how": "Коло 4 (2026-10-13, prime-game-ui#51): прийнято a, Як у колоді (рекомендую)."
+  },
+  {
+   "id": "lobby.need_markers",
+   "keys": [
+    "lobby.need_markers"
+   ],
+   "how": "Коло 4 (2026-10-13, prime-game-ui#51): прийнято a, Як у колоді (рекомендую)."
+  },
+  {
+   "id": "lobby.no_layout",
+   "keys": [
+    "lobby.no_layout"
+   ],
+   "how": "Коло 4 (2026-10-13, prime-game-ui#51): прийнято a, Як у колоді (рекомендую)."
+  },
+  {
+   "id": "lobby.no_task_types",
+   "keys": [
+    "lobby.no_task_types"
+   ],
+   "how": "Коло 4 (2026-10-13, prime-game-ui#51): прийнято a, Як у колоді (рекомендую)."
+  },
+  {
+   "id": "tutorial.step.voice.down",
+   "keys": [
+    "tutorial.step.voice.down"
+   ],
+   "how": "Коло 4 (2026-10-13, prime-game-ui#51): прийнято a, Як у колоді (рекомендую)."
   }
  ]
 }

@@ -137,6 +137,12 @@ The engineer's word choices and removals, 2026-10-05, on the [copy page](https:/
   адресою» (Direct); the voice mode is «Голосова активація» (the engineer offered it or «Активація голосом»; the agent
   took the first) (agent); the master slider is «Загальна гучність»; «Приєднатися до гри» and «Лише та сама мережа» are
   removed.
+- **Round 4** (the engineer, 2026-10-13, the rows the game's M7 asked for, prime-game-ui#51, released in ui-0.6.0): the
+  throw control is «Жбурнути» / "Toss"; crouch is «Присісти» / "Crouch" (prime-game PR #947); everything else as
+  recommended: 33 House rooms plus «Навчання» for the tutorial room (`room.<id>`, «Склад» and «Кухня» reused), the
+  throw lesson («Кидання», «Кинь предмет», «Візьми предмет у руку й натисни {key}»), four lobby shortfall lines and the
+  Voice card's third frame «У нокдауні й після смерті тебе ніхто не чує». The upper floor's landing is «Верхній хол»,
+  not «Хол», because the greybox's `room.hall` already reads «Хол» (agent).
 
 ## Style
 The engineer chose **Toy** (2026-10-03): chunky rounded shapes with a thick plum outline, cream panels, sunny-yellow buttons with a solid toy base that look pressable, and a small, calm HUD; it reads as arcade and game-like. **No tilted plates** (they break the design). **Press feedback** on the voluminous buttons: the button sinks onto its base when pressed (a pressed StyleBox and a short Tween in Godot; previewed in `pages/styles/motion-preview.css`). Safety card was liked but reads too much like an office; Quiet retro was not chosen. The 10 character colours proposed by the retro skin are not adopted. ([prime-game-ui#2](https://github.com/xperiaroco2/prime-game-ui/issues/2))
