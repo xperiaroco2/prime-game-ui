@@ -29,6 +29,16 @@ const CLASSES = {
   OptionButton: { states: ['normal', 'hover', 'pressed', 'hover-pressed', 'disabled', 'focus'],
     font: ['normal', 'hover', 'pressed', 'hover-pressed', 'disabled', 'focus'], shadow: [], label: true, press: false,
     textures: ['arrow'] },
+  // CheckBox (check_box.cpp binds h_separation, check_v_offset, the normal StyleBox, the check and radio icons and
+  // checkbox_checked_color / checkbox_unchecked_color; Button's StyleBoxes, colours and constants apply too). Its states
+  // are Button's: `pressed` is the checked state. A base-type source sets every item a Button sets, so the game's Button
+  // base type never reaches it (a theme on a node is searched through a control's whole type chain first).
+  CheckBox: { states: ['normal', 'hover', 'pressed', 'hover-pressed', 'disabled', 'focus'],
+    font: ['normal', 'hover', 'pressed', 'hover-pressed', 'disabled', 'focus'], shadow: [], label: true, press: false,
+    items: ['icon-normal-color', 'icon-hover-color', 'icon-pressed-color', 'icon-hover-pressed-color', 'icon-focus-color',
+      'icon-disabled-color', 'h-separation', 'check-v-offset', 'checkbox-checked-color', 'checkbox-unchecked-color'],
+    textures: ['checked', 'checked-disabled', 'unchecked', 'unchecked-disabled', 'radio-checked', 'radio-checked-disabled',
+      'radio-unchecked', 'radio-unchecked-disabled'] },
   LineEdit: { states: ['normal', 'focus', 'read-only'], font: ['normal', 'read-only'], shadow: [], label: true, press: false },
   PanelContainer: { states: ['panel'], font: [], shadow: [], label: false, press: false },
   Panel: { states: ['panel'], font: [], shadow: [], label: false, press: false },
@@ -52,6 +62,23 @@ const CLASSES = {
     requiredItems: ['font-color', 'font-hover-color', 'font-disabled-color', 'v-separation'],
     textures: ['checked', 'checked-disabled', 'unchecked', 'unchecked-disabled', 'radio-checked', 'radio-checked-disabled',
       'radio-unchecked', 'radio-unchecked-disabled', 'submenu', 'submenu-mirrored', 'search'] },
+  // SpinBox (spin_box.cpp L694-L730 binds the up_ and down_background StyleBoxes and their _hovered, _pressed and
+  // _disabled forms, the two separator StyleBoxes, the arrow icons, their *_icon_modulate colours and the constants
+  // buttons_width, field_and_buttons_separation, buttons_vertical_separation). Godot stacks the two buttons right of the
+  // field, each half the field's height less the vertical separation, and draws each StyleBox over its button's rect and
+  // the arrow centred in it (its content margins lay nothing out). The down button and every state complete from
+  // up-background (INHERITS); the separators are not bound (the default theme's are empty). The field is the LineEdit
+  // SpinBoxInnerLineEdit, a variation of its own.
+  SpinBox: { states: ['up-background', 'up-background-hovered', 'up-background-pressed', 'up-background-disabled',
+    'down-background', 'down-background-hovered', 'down-background-pressed', 'down-background-disabled'],
+    font: [], shadow: [], label: false, press: false,
+    items: ['buttons-width', 'field-and-buttons-separation', 'buttons-vertical-separation',
+      'up-icon-modulate', 'up-hover-icon-modulate', 'up-pressed-icon-modulate', 'up-disabled-icon-modulate',
+      'down-icon-modulate', 'down-hover-icon-modulate', 'down-pressed-icon-modulate', 'down-disabled-icon-modulate'],
+    requiredItems: ['buttons-width', 'field-and-buttons-separation', 'buttons-vertical-separation',
+      'up-icon-modulate', 'up-hover-icon-modulate', 'up-pressed-icon-modulate', 'up-disabled-icon-modulate',
+      'down-icon-modulate', 'down-hover-icon-modulate', 'down-pressed-icon-modulate', 'down-disabled-icon-modulate'],
+    textures: ['updown', 'up', 'up-hover', 'up-pressed', 'up-disabled', 'down', 'down-hover', 'down-pressed', 'down-disabled'] },
   // Containers draw nothing: their variations hold only the separation constants (the screens' gaps, space.*).
   VBoxContainer: { states: [], font: [], shadow: [], label: false, press: false, items: ['separation'], container: true },
   HBoxContainer: { states: [], font: [], shadow: [], label: false, press: false, items: ['separation'], container: true },
@@ -64,9 +91,13 @@ const CLASSES = {
 const INHERITS = {
   HSlider: { 'grabber-area-highlight': 'grabber-area' },
   VScrollBar: { 'scroll-focus': 'scroll', 'grabber-highlight': 'grabber', 'grabber-pressed': 'grabber' },
+  SpinBox: { 'up-background-hovered': 'up-background', 'up-background-pressed': 'up-background',
+    'up-background-disabled': 'up-background', 'down-background': 'up-background',
+    'down-background-hovered': 'up-background-hovered', 'down-background-pressed': 'up-background-pressed',
+    'down-background-disabled': 'up-background-disabled' },
 };
 // The states that inherit nothing, where zero expand margins are omitted (P43).
-const BASE_STATES = ['normal', 'panel', 'fill', 'background', 'slider', 'grabber-area', 'scroll', 'grabber', 'separator'];
+const BASE_STATES = ['normal', 'panel', 'fill', 'background', 'slider', 'grabber-area', 'scroll', 'grabber', 'separator', 'up-background'];
 const PRESS_MEMBERS = ['depth', 'hover', 'held', 'disabled'];
 const SIZE_NAMES = ['width', 'height', 'wide-width', 'min-width', 'wide-min-width'];
 const CLEAR = { type: 'color', hex: '#000000', rgba: [0, 0, 0, 0] };
@@ -235,7 +266,7 @@ function expandVariant(v, structs, res) {
   const states = {};
   const empty = [];
   const part = (name) => authored(v.child(name), val);
-  if (info && (v.cls === 'Button' || v.cls === 'OptionButton') && !v.abstract) {
+  if (info && (v.cls === 'Button' || v.cls === 'OptionButton' || v.cls === 'CheckBox') && !v.abstract) {
     const p = Object.fromEntries(info.states.map((s) => [s, part(s)]));
     const normal = completeBase(p.normal, clear);
     const pressed = inheritFrom(normal, p.pressed);
@@ -279,7 +310,7 @@ function expandVariant(v, structs, res) {
     if (bg && bg.kind === 'group') states.background = completeBase(part('background'), clear);
     else empty.push('background');
     states.fill = completeBase(part('fill'), clear);
-  } else if (info && (v.cls === 'HSlider' || v.cls === 'VScrollBar')) {
+  } else if (info && (v.cls === 'HSlider' || v.cls === 'VScrollBar' || v.cls === 'SpinBox')) {
     // Base states complete from the defaults, an inheriting state from its base (INHERITS), focus only when authored.
     const inh = INHERITS[v.cls];
     for (const s of info.states) {

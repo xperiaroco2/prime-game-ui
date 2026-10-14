@@ -186,7 +186,7 @@ function checkStructure(model, structs, P, icons) {
     }
     // P47
     let required = [];
-    if ((v.cls === 'Button' || v.cls === 'OptionButton') && !v.abstract) required = ['normal', 'disabled', 'focus'];
+    if ((v.cls === 'Button' || v.cls === 'OptionButton' || v.cls === 'CheckBox') && !v.abstract) required = ['normal', 'disabled', 'focus'];
     else if (v.cls === 'LineEdit') required = ['normal', 'focus', 'read-only'];
     else if (v.cls === 'Panel' || v.cls === 'PanelContainer') required = ['panel'];
     else if (v.cls === 'ProgressBar') required = ['fill'];
@@ -194,6 +194,7 @@ function checkStructure(model, structs, P, icons) {
     else if (v.cls === 'HSlider') required = ['slider', 'grabber-area'];
     else if (v.cls === 'VScrollBar') required = ['scroll', 'grabber'];
     else if (v.cls === 'PopupMenu') required = ['panel', 'hover', 'separator'];
+    else if (v.cls === 'SpinBox') required = ['up-background'];
     for (const s of required) if (!v.child(s)) P.error('P47', v.file, v.pointer, tp, `a ${v.cls} variant needs the state ${s}`);
     // the items a class cannot do without (PopupMenu's font colours: the default theme's are light grey)
     for (const k of info.requiredItems || []) {
@@ -321,14 +322,14 @@ function checkValues(model, structs, variants, res, P) {
       if (g && g.kind === 'group') checkConvention(g, val, P, X.BASE_STATES.includes(st));
     }
     // P42 and P44 on the listed theme items: separations are dimensions of 0 or more, grabber_offset and PopupMenu's
-    // paddings dimensions, center_grabber the number 0 or 1, a *-color item a colour.
+    // paddings dimensions, center_grabber the number 0 or 1, a *-color or *-modulate item a colour.
     const itemsNode = s.child('items');
     if (info.items && itemsNode && itemsNode.kind === 'group') {
       for (const m of itemsNode.children) {
         if (m.kind !== 'token' || !info.items.includes(m.name)) continue;
         const ty = res.typeOf(m.path);
         const vv = val(m.path);
-        const want = m.name === 'center-grabber' ? 'number' : /-color$/.test(m.name) ? 'color' : 'dimension';
+        const want = m.name === 'center-grabber' ? 'number' : /-(color|modulate)$/.test(m.name) ? 'color' : 'dimension';
         if (ty && ty !== want) P.error('P42', ...loc(m), `items.${m.name} is a ${want}, not a ${ty}`);
         else if (want === 'number' && vv && vv.value !== 0 && vv.value !== 1) P.error('P42', ...loc(m), `items.center-grabber is 0 or 1 (Godot's constant used as a flag), not ${vv.value}`);
         else if (/(separation|padding)$/.test(m.name) && vv && typeof vv.px === 'number' && vv.px < 0) P.error('P44', ...loc(m), `items.${m.name} is ${vv.px}; separations and paddings are ≥ 0`);
@@ -382,7 +383,7 @@ function checkValues(model, structs, variants, res, P) {
       const t = [g('top'), g('bottom'), g('left'), g('right')];
       return t.some((x) => x == null) ? null : [t[0] + t[1], t[2] + t[3]];
     };
-    if ((s.cls === 'Button' || s.cls === 'OptionButton') && !s.abstract && v.states.normal) {
+    if ((s.cls === 'Button' || s.cls === 'OptionButton' || s.cls === 'CheckBox') && !s.abstract && v.states.normal) {
       const ref = sums(v.states.normal);
       for (const st of ['hover', 'pressed', 'hover-pressed', 'disabled']) {
         const x = v.states[st] ? sums(v.states[st]) : null;
@@ -402,7 +403,7 @@ function checkValues(model, structs, variants, res, P) {
     // P48
     const fg = s.child('focus');
     const own = v.states.normal || v.states.slider;
-    if (fg && fg.kind === 'group' && v.states.focus && own && ['Button', 'OptionButton', 'LineEdit', 'HSlider'].includes(s.cls)) {
+    if (fg && fg.kind === 'group' && v.states.focus && own && ['Button', 'OptionButton', 'CheckBox', 'LineEdit', 'HSlider'].includes(s.cls)) {
       checkFocus(s, v, fg, res, P);
     }
     // P49

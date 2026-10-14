@@ -1,7 +1,7 @@
 {
   "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
   "pick": {
-    "$description": "Pickers: colour swatches and round radios.",
+    "$description": "Pickers: colour swatches, round radios and the check box.",
     "swatch-ring": {
       "$description": "The ring around a colour swatch (the fill is a white Panel tinted by self_modulate).",
       "$extensions": {
@@ -52,6 +52,65 @@
         "border-width": { "$type": "dimension", "$value": "{focus.width}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
         "expand-margin": { "$type": "dimension", "$value": { "value": 3, "unit": "px" } }
+      }
+    },
+    "check-box": {
+      "$description": "A bare CheckBox's look (Godot's CheckBox base type, prime-game-ui#52): a white plate with a thin ink outline, the box texture at its left (28 px: empty white, checked yellow with an ink check) and the label 12 px after it. Hover turns the plate lavender, checked or not; checked keeps the plate white (the box shows it). It sets every item a Button sets, so the Button base type never reaches it.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": {
+            "variation": "ToyCheckBox", "class": "CheckBox",
+            "textures": {
+              "checked": "icons/checkbox-checked.svg", "checked-disabled": "icons/checkbox-checked-disabled.svg",
+              "unchecked": "icons/checkbox-unchecked.svg", "unchecked-disabled": "icons/checkbox-unchecked-disabled.svg"
+            }
+          },
+          "context": "any"
+        }
+      },
+      "label": { "$type": "typography", "$value": "{type.body}" },
+      "normal": {
+        "$description": "The plate: Godot draws the box at the left content margin, centred in the height.",
+        "bg-color": { "$type": "color", "$value": "{palette.white}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-width": { "$type": "dimension", "$value": "{stroke.thin}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.medium}" },
+        "content-margin-block": { "$type": "dimension", "$value": { "value": 9, "unit": "px" } },
+        "content-margin-right": { "$type": "dimension", "$value": "{space.16}" },
+        "content-margin-left": { "$type": "dimension", "$value": "{space.12}" },
+        "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
+      },
+      "hover": {
+        "$description": "Hover fill.",
+        "bg-color": { "$type": "color", "$value": "{color.state.hover-on-light}" }
+      },
+      "hover-pressed": {
+        "$description": "Checked and hovered: the same hover fill.",
+        "bg-color": { "$type": "color", "$value": "{color.state.hover-on-light}" }
+      },
+      "disabled": {
+        "$description": "Unplugged, checked or not (Godot has one disabled StyleBox; the box texture shows the check): pale and quiet.",
+        "bg-color": { "$type": "color", "$value": "{color.state.disabled-face}" },
+        "border-color": { "$type": "color", "$value": "{color.state.disabled-ink}" },
+        "font-color": { "$type": "color", "$value": "{color.state.disabled-ink}" }
+      },
+      "focus": {
+        "$description": "Inner focus: an ink ring of the focus width just inside the plate's outline.",
+        "bg-color": { "$type": "color", "$value": "{palette.clear}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-width": { "$type": "dimension", "$value": "{focus.width}" },
+        "corner-radius": { "$type": "dimension", "$value": { "value": 10, "unit": "px" } },
+        "expand-margin": { "$type": "dimension", "$value": { "value": -2, "unit": "px" } }
+      },
+      "items": {
+        "$description": "The gap between the box and the label, and an icon (Button's own) in the label colour of each state.",
+        "h-separation": { "$type": "dimension", "$value": "{space.12}" },
+        "icon-normal-color": { "$type": "color", "$value": "{color.on-light.text}" },
+        "icon-hover-color": { "$type": "color", "$value": "{color.on-light.text}" },
+        "icon-pressed-color": { "$type": "color", "$value": "{color.on-light.text}" },
+        "icon-hover-pressed-color": { "$type": "color", "$value": "{color.on-light.text}" },
+        "icon-disabled-color": { "$type": "color", "$value": "{color.state.disabled-ink}" },
+        "icon-focus-color": { "$type": "color", "$value": "{color.on-light.text}" }
       }
     },
     "radio": {

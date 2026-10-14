@@ -190,11 +190,19 @@ function compute(pack, gates) {
       if (v.abstract) continue;
       const pre = v.prefix;
       const boxes = (v.styleboxes || []).concat(v.empty || []);
-      const isButton = v.class === "Button" || v.class === "OptionButton";
+      const isButton = v.class === "Button" || v.class === "OptionButton" || v.class === "CheckBox";
       if (auto["component-text"] && isButton) {
         for (const s of BUTTON_STATES) if (boxes.includes(s)) {
           const fg = layer("font", `${pre}.${s}.font-color`);
           for (const st of faceStacks(vname, s, "face")) autoEval(`auto:${vname}:${s}`, fg, st, s === "disabled" ? "inactive-text" : textMin(vname));
+        }
+      }
+      // A SpinBox's arrows: each button's icon modulate on its own face, as a UI graphic (the chevron, 3:1).
+      if (auto["component-text"] && v.class === "SpinBox") {
+        for (const side of ["up", "down"]) for (const [st, mod] of [["", ""], ["-hovered", "hover-"], ["-pressed", "pressed-"], ["-disabled", "disabled-"]]) {
+          const s = `${side}-background${st}`;
+          if (!boxes.includes(s)) continue;
+          for (const stack of faceStacks(vname, s, "face")) autoEval(`auto:${vname}:${s}`, layer("icon", `${pre}.items.${side}-${mod}icon-modulate`), stack, st === "-disabled" ? "inactive-text" : "ui");
         }
       }
       if (auto["component-text"] && v.class === "LineEdit") {

@@ -1,7 +1,7 @@
 {
   "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
   "field": {
-    "$description": "Text field and dropdown.",
+    "$description": "Text field, dropdown and number field (SpinBox).",
     "input": {
       "$description": "A text field: white box, ink outline.",
       "$extensions": {
@@ -134,6 +134,93 @@
         "h-separation": { "$type": "dimension", "$value": "{space.8}" },
         "item-start-padding": { "$type": "dimension", "$value": "{space.8}" },
         "item-end-padding": { "$type": "dimension", "$value": "{space.16}" }
+      }
+    },
+    "spin-input": {
+      "$description": "A SpinBox's field (Godot's SpinBoxInnerLineEdit, prime-game-ui#52): the text field with 12 px above and below instead of 10, so each of the SpinBox's two arrow buttons beside it is at least 24 px high.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToySpinField", "class": "LineEdit" },
+          "context": "any"
+        }
+      },
+      "label": { "$type": "typography", "$value": "{type.body-bold}" },
+      "normal": {
+        "bg-color": { "$type": "color", "$value": "{palette.white}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.medium}" },
+        "content-margin-block": { "$type": "dimension", "$value": "{space.12}" },
+        "content-margin-inline": { "$type": "dimension", "$value": "{space.16}" },
+        "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
+      },
+      "focus": {
+        "$description": "Inner focus: the outline thickens inward by the focus width.",
+        "bg-color": { "$type": "color", "$value": "{palette.clear}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-width": { "$type": "dimension", "$value": "{focus.width}" },
+        "corner-radius": { "$type": "dimension", "$value": { "value": 9, "unit": "px" } },
+        "expand-margin": { "$type": "dimension", "$value": { "value": -3, "unit": "px" } }
+      },
+      "read-only": {
+        "$description": "Read-only, also the guest's view: a quiet box with readable text.",
+        "bg-color": { "$type": "color", "$value": "{color.state.disabled-face}" },
+        "border-color": { "$type": "color", "$value": "{color.state.disabled-ink}" },
+        "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
+      },
+      "items": {
+        "$description": "Placeholder, caret and selection colours.",
+        "placeholder-color": { "$type": "color", "$value": "{palette.muted}" },
+        "caret-color": { "$type": "color", "$value": "{color.outline}" },
+        "selection-color": { "$type": "color", "$value": "{palette.yellow}" },
+        "selected-font-color": { "$type": "color", "$value": "{color.on-accent.text}" }
+      }
+    },
+    "spin": {
+      "$description": "A bare SpinBox's arrows (Godot's SpinBox base type, prime-game-ui#52): two stacked buttons 8 px right of the field, 2 px apart, in the setting stepper's colours (yellow, a thin ink outline, ink chevrons; honey while held, pale when unplugged), small corners. Its field is ToySpinField.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": {
+            "variation": "ToySpinBox", "class": "SpinBox",
+            "textures": {
+              "up": "icons/spin-up.svg", "up-hover": "icons/spin-up.svg", "up-pressed": "icons/spin-up.svg", "up-disabled": "icons/spin-up.svg",
+              "down": "icons/spin-down.svg", "down-hover": "icons/spin-down.svg", "down-pressed": "icons/spin-down.svg", "down-disabled": "icons/spin-down.svg"
+            }
+          },
+          "context": "any"
+        }
+      },
+      "up-background": {
+        "$description": "The up button; the down button and every state complete from it.",
+        "bg-color": { "$type": "color", "$value": "{palette.yellow}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-width": { "$type": "dimension", "$value": "{stroke.thin}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.small}" },
+        "content-margin-block": { "$type": "dimension", "$value": "{space.4}" },
+        "content-margin-inline": { "$type": "dimension", "$value": "{space.8}" }
+      },
+      "up-background-pressed": {
+        "$description": "Held: the face turns honey.",
+        "bg-color": { "$type": "color", "$value": "{color.state.held-accent}" }
+      },
+      "up-background-disabled": {
+        "$description": "Unplugged at the limit or for a guest: pale and quiet.",
+        "bg-color": { "$type": "color", "$value": "{color.state.disabled-face}" },
+        "border-color": { "$type": "color", "$value": "{color.state.disabled-ink}" }
+      },
+      "items": {
+        "$description": "The layout (the buttons 34 px wide, 8 px from the field, 2 px apart) and the chevrons' tint: ink, the unplugged ink when disabled.",
+        "buttons-width": { "$type": "dimension", "$value": { "value": 34, "unit": "px" } },
+        "field-and-buttons-separation": { "$type": "dimension", "$value": "{space.8}" },
+        "buttons-vertical-separation": { "$type": "dimension", "$value": { "value": 2, "unit": "px" } },
+        "up-icon-modulate": { "$type": "color", "$value": "{color.on-accent.text}" },
+        "up-hover-icon-modulate": { "$type": "color", "$value": "{color.on-accent.text}" },
+        "up-pressed-icon-modulate": { "$type": "color", "$value": "{color.on-accent.text}" },
+        "up-disabled-icon-modulate": { "$type": "color", "$value": "{color.state.disabled-ink}" },
+        "down-icon-modulate": { "$type": "color", "$value": "{color.on-accent.text}" },
+        "down-hover-icon-modulate": { "$type": "color", "$value": "{color.on-accent.text}" },
+        "down-pressed-icon-modulate": { "$type": "color", "$value": "{color.on-accent.text}" },
+        "down-disabled-icon-modulate": { "$type": "color", "$value": "{color.state.disabled-ink}" }
       }
     }
   }

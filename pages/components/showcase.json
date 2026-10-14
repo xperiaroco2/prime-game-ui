@@ -45,6 +45,26 @@
           "live": true
         },
         {
+          "id": "button-plain",
+          "kind": "button",
+          "variations": [
+            "ToyButtonPlain"
+          ],
+          "contexts": [
+            "dark",
+            "light"
+          ],
+          "states": [
+            "normal",
+            "hover",
+            "held",
+            "disabled",
+            "focus"
+          ],
+          "label": "copy",
+          "live": true
+        },
+        {
           "id": "button-danger",
           "kind": "button",
           "variations": [
@@ -673,6 +693,20 @@
           "live": true
         },
         {
+          "id": "spin-box",
+          "kind": "spinbox",
+          "variations": [
+            "ToySpinBox",
+            "ToySpinField"
+          ],
+          "contexts": [
+            "dark",
+            "light"
+          ],
+          "label": "port_value",
+          "live": true
+        },
+        {
           "id": "field-dropdown",
           "kind": "button",
           "variations": [
@@ -1077,6 +1111,19 @@
             "two",
             "three"
           ]
+        },
+        {
+          "id": "check-box",
+          "kind": "checkbox",
+          "variations": [
+            "ToyCheckBox"
+          ],
+          "contexts": [
+            "dark",
+            "light"
+          ],
+          "label": "delivery",
+          "live": true
         }
       ]
     },

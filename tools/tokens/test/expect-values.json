@@ -59,6 +59,19 @@
     { "path": "keycap.on-light.size.min-width", "expect": { "px": 36, "from": "size.keycap" } },
     { "mode": "textSize/large", "path": "keycap.button.size.min-width", "expect": { "px": 42, "from": "size.keycap" } },
     { "mode": "textSize/large", "path": "keycap.round.size.min-width", "expect": { "px": 42 } },
-    { "mode": "textSize/large", "path": "keycap.button.size.wide-min-width", "absent": true }
+    { "mode": "textSize/large", "path": "keycap.button.size.wide-min-width", "absent": true },
+    { "path": "font.size.theme-default", "expect": { "px": 27 } },
+    { "mode": "textSize/large", "path": "font.size.theme-default", "expect": { "px": 34 } },
+    { "path": "button.plain.hover.bg-color", "expect": { "hex": "#ffffff", "from": "button.plain.normal.bg-color" } },
+    { "path": "button.plain.press.depth", "absent": true },
+    { "path": "pick.check-box.pressed.bg-color", "expect": { "hex": "#ffffff" } },
+    { "path": "pick.check-box.hover-pressed.bg-color", "expect": { "hex": "#e9dff0" } },
+    { "path": "pick.check-box.focus.expand-margin-top", "expect": { "px": -2 } },
+    { "path": "pick.check-box.items.h-separation", "expect": { "px": 12 } },
+    { "mode": "textSize/large", "path": "pick.check-box.label", "expect": { "fontSizePx": 28 } },
+    { "path": "field.spin.down-background-pressed.bg-color", "expect": { "hex": "#c98a10", "from": "field.spin.up-background-pressed.bg-color" } },
+    { "path": "field.spin.down-background-hovered.bg-color", "expect": { "hex": "#ffc23a" } },
+    { "path": "field.spin.items.buttons-width", "expect": { "px": 34 } },
+    { "path": "field.spin-input.normal.content-margin-top", "expect": { "px": 12 } }
   ]
 }

@@ -11,8 +11,8 @@ spec, [`docs/research/2026-10-03-tokens/spec.md`](../docs/research/2026-10-03-to
 | `prime.resolver.json` | The resolver: one base set (the files below, in order) and two modifiers, `textSize` and `motion` |
 | `primitives.tokens.json` | Literals: the palette, font family, weights, letter spacing, line height, `ease.press`, `duration.none`, `focus.*`, `stroke.*`, `radius.*`, `space.*` (the screens' gaps: 4, 8, 12, 16, 24, 32) |
 | `semantic.tokens.json` | Aliases of primitives: colour roles by context (`color.*`), the 14 type roles (`type.*`), `motion.press` |
-| `components/<name>.tokens.json` | 21 files, 121 Godot type variations (the abstract ToyButton and the two deprecated chips included): one variant group per variation, with its StyleBox states, `label`, `press`, `size`, `items`, `ramp` |
-| `text-size/default.tokens.json`, `text-size/large.tokens.json` | `font.size.*` and `size.keycap` (a keycap's minimum width) for the player's text size setting |
+| `components/<name>.tokens.json` | 21 files, 125 Godot type variations (the abstract ToyButton and the two deprecated chips included): one variant group per variation, with its StyleBox states, `label`, `press`, `size`, `items`, `ramp` |
+| `text-size/default.tokens.json`, `text-size/large.tokens.json` | `font.size.*` (with `font.size.theme-default`, the theme's `default_font_size`) and `size.keycap` (a keycap's minimum width) for the player's text size setting |
 | `motion/default.tokens.json`, `motion/reduced.tokens.json` | `duration.press` for the reduced-motion setting |
 | `release.json` | The semver the next `ui-<semver>` tag carries |
 | `gates.json` | Contrast pairs, surfaces and waivers for `tools/contrast/gates.js` (not a DTCG file) |
@@ -67,6 +67,7 @@ A variant's `godot.class` is one of these (`tools/tokens/expand.js` CLASSES); it
 | Class | States (StyleBoxes) | Items |
 |---|---|---|
 | Button, OptionButton | normal, hover, pressed, hover-pressed, disabled, focus | any (each needs a CSS form) |
+| CheckBox | as Button (`pressed` is checked) | icon-*-color (as Button's), h-separation, check-v-offset, checkbox-checked-color, checkbox-unchecked-color |
 | LineEdit | normal, focus, read-only | any |
 | Panel, PanelContainer | panel | any |
 | Label | normal | any |
@@ -76,6 +77,7 @@ A variant's `godot.class` is one of these (`tools/tokens/expand.js` CLASSES); it
 | VBoxContainer, HBoxContainer | none | separation (required, a `space.*` alias) |
 | GridContainer | none | h-separation, v-separation (both required, `space.*` aliases) |
 | ScrollContainer | none | scrollbar-h-separation (required, a `space.*` alias: the gap between the content and the vertical bar) |
+| SpinBox | up-background (required), up-background-hovered, -pressed, -disabled, down-background and its three (all from up-background) | buttons-width, field-and-buttons-separation, buttons-vertical-separation, up-/down- icon-modulate, hover-icon-modulate, pressed-icon-modulate, disabled-icon-modulate (all required) |
 | PopupMenu | panel, hover, separator (all three required) | font-color, font-hover-color, font-disabled-color (required), v-separation, h-separation, item-start-padding, item-end-padding |
 
 - **HSlider:** its grabber, grabber_highlight and grabber_disabled are textures, not tokens
@@ -146,12 +148,14 @@ for `pages/components/icons/<name>.svg`, `icons/room/<name>.svg` for a room pict
 
 The class's icons are listed in `tools/tokens/expand.js` CLASSES (`textures`): OptionButton `arrow`; HSlider `grabber`,
 `grabber-highlight`, `grabber-disabled`, `tick` (godot-facts §9); PopupMenu `checked`, `unchecked`, `radio-checked`,
-`radio-unchecked` (each also `-disabled`), `submenu`, `submenu-mirrored`, `search`. A new class adds its own there. P61
+`radio-unchecked` (each also `-disabled`), `submenu`, `submenu-mirrored`, `search`; CheckBox `checked`, `unchecked`,
+`radio-checked`, `radio-unchecked` (each also `-disabled`); SpinBox `updown`, `up`, `up-hover`, `up-pressed`,
+`up-disabled` and the same four `down`. A new class adds its own there. P61
 checks that each name is one of the class's icons and that the file exists with an allowed licence record. Today:
 ToySlider's three knobs, ToyDropdown's `arrow` (`icons/chevron-down.svg`) and ToyDropdownList's `radio-checked`
 (`icons/radio-checked.svg`, an ink check), `radio-checked-disabled` (`icons/radio-checked-disabled.svg`, the check in
 the muted ink), `radio-unchecked` and `radio-unchecked-disabled` (both `icons/radio-unchecked.svg`, an empty 24 px
-icon that keeps the check's gutter).
+icon that keeps the check's gutter), ToyCheckBox's four boxes and ToySpinBox's two chevrons (below).
 
 ## Deprecated variations
 
@@ -237,15 +241,45 @@ the pack, so the game takes it from one pinned source (prime-game-ui#44):
   `base_font` that file and `variation_opentype` `{ "wght": 600 }` or `{ "wght": 700 }`. The theme generator gives each
   typography token the variation of its `fontWeight`. The game ships `OFL.txt` with the font.
 
+## The pack's base-type sources since ui-0.7.0
+
+`schema` stays 1. The game's theme styles a bare control (one with no `theme_type_variation`) through a base type named
+after its engine class, copied from a pack variation of that very class with no parent (prime-game#576, its
+`tools/theme/mapping.json` `base_types`). The engineer's answers on the base-controls page (prime-game-ui#52,
+2026-10-14) add the looks it lacked, so the game can set `gui/theme/default_theme_scale` to 1 (prime-game#620):
+
+- **CheckBox: `ToyCheckBox`** (`pick.check-box`, class CheckBox, context any): a white plate (`stroke.thin` ink outline,
+  `radius.medium`, content margins 9 / 16 / 9 / 12) with the box texture at its left and the label (`type.body`) 12 px
+  after it (`h-separation`). Hover and checked-and-hovered turn the plate lavender; checked keeps it white; focus is an
+  inner ink ring; disabled is pale. It sets every item a Button sets (the six StyleBoxes, the six font colours, the six
+  icon colours, `h-separation`, the font size), so the game's Button base type never reaches it. Its `textures`:
+  `checked` `icons/checkbox-checked.svg` (yellow, ink check), `unchecked` `icons/checkbox-unchecked.svg` (white),
+  `checked-disabled` and `unchecked-disabled` (lavender with a muted check, the unplugged face): 28 px, own colours
+  (`tint: "none"`), so `checkbox_checked_color` and `checkbox_unchecked_color` stay the default white. The radio icons
+  (a CheckBox in a ButtonGroup) are not bound: no Toy screen has one.
+- **SpinBox: `ToySpinBox`** (`field.spin`, class SpinBox, context any): its eight button StyleBoxes (the stepper's
+  yellow, `stroke.thin` ink outline, `radius.small`; `-pressed` honey, `-disabled` pale; `-hovered` as normal, as the
+  stepper's), `buttons-width` 34, `field-and-buttons-separation` 8, `buttons-vertical-separation` 2, the eight
+  `*-icon-modulate` colours (ink; the muted ink when disabled) and the arrows `icons/spin-up.svg`, `icons/spin-down.svg`
+  (18 px white chevrons, `tint: "multiply"`). Its separators stay the default theme's empty ones.
+- **SpinBox's field: `ToySpinField`** (`field.spin-input`, class LineEdit, context any): `ToyField` with 12 px above and
+  below instead of 10, so each arrow button is at least 24 px high. Godot names the field's variation
+  `SpinBoxInnerLineEdit`; the game gives it this variation's items.
+- **Button: `ToyButtonPlain`** (`button.plain`, class Button, no parent, context any): the white secondary face, flat (no
+  `base`, no `press`: a bare Button has no ToyRaised); hover and held as normal, the secondary button's focus ring and
+  disabled look, icon colours in the label's colour.
+- **`font.size.theme-default`**: the theme's `default_font_size`, 27 (the greybox's 16 × 5/3); the large text size's is 34
+  (27 × 1.25 rounded), in `modes.textSize.large`.
+
 ## Profile rules since ui-0.3.0
 
 These extend spec §7.2 (P40–P60):
 
 | Id | Rule |
 |---|---|
-| P42 | (extended) a listed `*-color` item (PopupMenu's font colours) is a colour; the other listed items are dimensions, `center-grabber` a number |
+| P42 | (extended) a listed `*-color` or `*-modulate` item (PopupMenu's font colours, SpinBox's icon modulates) is a colour; the other listed items are dimensions, `center-grabber` a number |
 | P44 | (extended) a listed `*-padding` item (PopupMenu's `item-start-padding`, `item-end-padding`) is ≥ 0, as separations are |
-| P47 | (extended) a PopupMenu variant needs the states `panel`, `hover`, `separator` and the items `font-color`, `font-hover-color`, `font-disabled-color`, `v-separation` (CLASSES `requiredItems`) |
+| P47 | (extended) a PopupMenu variant needs the states `panel`, `hover`, `separator` and the items `font-color`, `font-hover-color`, `font-disabled-color`, `v-separation` (CLASSES `requiredItems`); a CheckBox variant `normal`, `disabled`, `focus`; a SpinBox variant `up-background` and all its listed items |
 | P53 | (extended) a variant's `size` member may also alias `size.*`, and only a `size.*` a modifier owns |
 | P61 | `godot.textures` is a non-empty object; each key is one of the class's theme icons (`expand.js` CLASSES `textures`), each value the pack path of an icon that exists and has an allowed licence record |
 | P62 | `godot.replacement` only on a variant with `$deprecated`; it names a variant of the same class that is not deprecated |

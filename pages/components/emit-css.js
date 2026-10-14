@@ -27,6 +27,9 @@ const LOGO_ITEMS = new Set(['shadow-offset-x', 'shadow-offset-y', 'shadow-outlin
 const ICON_STATE = [['icon-normal-color', null], ['icon-focus-color', 'is-focus'], ['icon-hover-color', 'is-hover'],
   ['icon-pressed-color', 'is-held'], ['icon-disabled-color', 'is-disabled']];
 const NO_CSS_ITEMS = new Set(['icon-hover-pressed-color',
+  // CheckBox: check_v_offset moves the box texture, checkbox_*_color tint it; Toy's boxes are drawn in their own
+  // colours, centred, so it sets none of them (the page draws the texture as it is).
+  'check-v-offset', 'checkbox-checked-color', 'checkbox-unchecked-color',
   // OptionButton's modulate_arrow = 1 tints the arrow with the label colour: in CSS the .tv-arrow child's currentColor.
   'modulate-arrow']);
 
@@ -275,10 +278,45 @@ function emitComponentsCss(sys) {
     rule(`${cls} > .tv-row.tv-sep > .tv-separator`, line);
   }
 
+  // SpinBox (spin_box.cpp _compute_sizes and NOTIFICATION_DRAW, Godot 4.7.2): the field (its own LineEdit variation),
+  // then field_and_buttons_separation, then the two buttons stacked in a column buttons_width wide, each half the field's
+  // height less buttons_vertical_separation; each button draws its state's StyleBox over its rect and the arrow centred,
+  // tinted by its *_icon_modulate. Markup:
+  //   .tv-ToySpinBox > (div.tv-<field variation>, span.tv-arrows > (span.tv-up, span.tv-down) > span.tv-icon > svg)
+  // A button's state is its class (.is-hover, .is-held, .is-disabled), as a Button's.
+  function emitSpinBox(variant, cls) {
+    const st = variant.states;
+    const it = variant.items || {};
+    for (const name of ['buttons-width', 'field-and-buttons-separation', 'buttons-vertical-separation']) if (!it[name]) fail(variant, `a SpinBox needs items.${name}`);
+    rule(cls, ['display: inline-flex;', 'align-items: stretch;', `column-gap: ${len(variant, it['field-and-buttons-separation'], 'field-and-buttons-separation')};`]);
+    rule(`${cls} > .tv-arrows`, ['display: flex;', 'flex-direction: column;', 'flex: none;',
+      `width: ${len(variant, it['buttons-width'], 'buttons-width')};`, `row-gap: ${len(variant, it['buttons-vertical-separation'], 'buttons-vertical-separation')};`]);
+    for (const side of ['up', 'down']) {
+      const base = st[`${side}-background`];
+      if (!base) fail(variant, `a SpinBox needs the state ${side}-background`);
+      const d = layerDecls(variant, base);
+      d.set('display', 'flex');
+      d.set('align-items', 'center');
+      d.set('justify-content', 'center');
+      d.set('flex-grow', '1');
+      d.set('cursor', 'pointer');
+      rule(`${cls} > .tv-arrows > .tv-${side}`, d);
+      for (const [state, klass] of [['hovered', 'is-hover'], ['pressed', 'is-held'], ['disabled', 'is-disabled']]) {
+        const rec = st[`${side}-background-${state}`];
+        if (rec) rule(`${cls} > .tv-arrows > .tv-${side}.${klass}`, diff(layerDecls(variant, base), layerDecls(variant, rec)));
+      }
+      for (const [state, klass] of [['', null], ['hover-', 'is-hover'], ['pressed-', 'is-held'], ['disabled-', 'is-disabled']]) {
+        const f = it[`${side}-${state}icon-modulate`];
+        if (!f) fail(variant, `a SpinBox needs items.${side}-${state}icon-modulate`);
+        rule(`${cls} > .tv-arrows > .tv-${side}${klass ? `.${klass}` : ''} .tv-icon`, [`color: ${v(f.source)};`]);
+      }
+    }
+  }
+
   for (const variant of sys.variants) {
     if (variant.abstract) continue;
     const cls = `.tv-${variant.variation}`;
-    const isButton = variant.class === 'Button' || variant.class === 'OptionButton';
+    const isButton = variant.class === 'Button' || variant.class === 'OptionButton' || variant.class === 'CheckBox';
     const isLineEdit = variant.class === 'LineEdit';
     const isBar = variant.class === 'ProgressBar';
     const boxes = new Set(variant.styleboxes || []);
@@ -314,6 +352,7 @@ function emitComponentsCss(sys) {
     if (variant.class === 'HSlider') { emitSlider(variant, cls); continue; }
     if (variant.class === 'VScrollBar') { emitScrollBar(variant, cls); continue; }
     if (variant.class === 'PopupMenu') { emitPopupMenu(variant, cls); continue; }
+    if (variant.class === 'SpinBox') { emitSpinBox(variant, cls); continue; }
 
     const mainKey = boxes.has('panel') ? 'panel' : boxes.has('normal') ? 'normal' : null;
     const mainRec = mainKey ? variant.states[mainKey] : null;
