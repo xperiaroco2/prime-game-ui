@@ -252,8 +252,8 @@ the agents took where the decisions were silent, after five reviews (agent):
   plum outline, 16 px corners, the finish frame mint, as before); the Delivery card art ships in the pack as 640×480 PNG
   (`dist/pack/cards/delivery-1.png` to `delivery-4.png`, transparent) rendered from the clean-sketch panels by
   `tools/card-art/render.js`. The art is 4:3 in every frame: 320×240 in the map's card, 352×264 in the loading card,
-  160×120 in the Esc Guide; the loading card and the Guide show Delivery, the game's one task type (Switches stays a
-  sample of the card-art pages). `ToyHowtoCaption` is deprecated (removed at the next major release) and the caption
+  160×120 in the Esc Guide; the loading card and the Guide show Delivery (since ui-0.8.0 the Delivery-by-meaning frames,
+  `delivery-meaning-1..4`; prime-game-ui#63); Switches stays a sample of the card-art pages. `ToyHowtoCaption` is deprecated (removed at the next major release) and the caption
   keys `howto.delivery.*` and `howto.switches.*` are retired from the deck.
 
 **The engineer's answers on the screens** (2026-10-06, the
