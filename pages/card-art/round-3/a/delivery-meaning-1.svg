@@ -35,8 +35,8 @@
     <path class="k t" d="M16 212C96 209 210 214 304 211"/>
     <!-- storage shelf: one wine case, one oil canister, one closed parasol, and the gap the gnome left -->
     <path class="k" d="M196 34V212M300 34V212M196 124H300"/>
-    <!-- top: where the gnome stood (its cone-and-body outline), a case of wine -->
-    <path class="k t dd" d="M211 124C207 106 208 94 213 84M245 124C249 106 248 94 243 84M205 79H251L228 42Z"/>
+    <!-- top: where the gnome stood (its own outline at the gnome's size: boots, coat, beard, hat), a case of wine -->
+    <path class="k t" d="M212 124C209 103 210 92 216 86L209 75Q228 69 247 75L240 86C246 92 247 103 244 124M211 74L231 46L245 74" style="stroke-dasharray:5 5"/>
     <path class="w" d="M258 112V96Q258 90 263 88V78H269V88Q274 90 274 96V112Z"/>
     <path class="w" d="M276 112V96Q276 90 281 88V78H287V88Q292 90 292 96V112Z"/>
     <rect class="w" x="254" y="102" width="42" height="22" rx="3"/>

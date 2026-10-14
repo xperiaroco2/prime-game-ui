@@ -55,6 +55,18 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
   - the same figure and view in every panel;
   - a room's pictogram is the same glyph on the package, the map and the door plate;
   - the art ships to the game as PNG at 2× (it uses browser SVG filters).
+- **The House's Delivery by meaning card is set A, the gnome to the garden** (the engineer, 2026-10-14, chat,
+  [prime-game-ui#60](https://github.com/xperiaroco2/prime-game-ui/issues/60)): take the gnome off the storage shelf,
+  picture it among flowers, set it down in the garden's bed; the finish frame's gag is the figure resting under the
+  terrace parasol. Sources `pages/card-art/round-3/a/`, shipped as `dist/pack/cards/delivery-meaning-1.png` to
+  `delivery-meaning-4.png` (task `delivery`); the round-2 colour frames `delivery-1..4.png` stay for the greybox's
+  `colour_delivery`. The critic's last small points, polished before shipping (agent):
+  - frame 1: the dashed gap the gnome left on the shelf is the gnome's own outline at its size (boots, coat, hat brim,
+    cone), not a larger arch with a triangle that read as a house;
+  - frame 3: the round bush is a small garden tree with a trunk on the ground and a taller crown, so at 160×120 it no
+    longer reads as a cloud and the scene's top is less empty;
+  - frame 4: the resting figure in the background has a plain smiling face in profile (one eye, a smile) instead of
+    sunglasses, which merged into one dark blob at 160×120.
 - **Loading-screen tips** are funny.
 - **A "with hints" host setting** (markers through walls, highlights) is dropped for now: a future idea, only if real
   maps prove too hard.

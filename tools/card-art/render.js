@@ -5,8 +5,10 @@
 //   node tools/card-art/render.js          render every card of CARDS into pages/card-art/png/ and write renders.json
 //   node tools/card-art/render.js --check  no Edge: exit 1 when a PNG or renders.json is out of date with its SVG
 //
-// The game has one task type, Delivery, so only its four panels ship. Switches is a sample card of the card-art pages,
-// not a game task: its SVGs stay in pages/ and are never rendered here.
+// Two Delivery cards ship (prime-game's Delivery-by-meaning ADR, DE15): the House's Delivery by meaning (task id
+// `delivery`, round 3 set A, the gnome to the garden, chosen on prime-game-ui#60) as delivery-meaning-1..4, and the
+// greybox's colour Delivery (task id `colour_delivery`, the round-2 panels) as delivery-1..4, which keep their names.
+// Switches is a sample card of the card-art pages, not a game task: its SVGs stay in pages/ and are never rendered here.
 //
 // How: one headless Edge (tools/screens/edge.js) with a 320x240 viewport at device scale 2 and a transparent default
 // background loads a page holding only the SVG as an <img>, and captures the viewport: a 640x480 RGBA PNG whose
@@ -28,9 +30,13 @@ const MANIFEST = `${OUT}/renders.json`;
 const W = 320;
 const H = 240;
 const SCALE = 2;
-const SRC = "pages/card-art/round-2/clean-sketch";
-// the Delivery card: frame 4 shows the finish (ToyHowtoFrameDone)
-const CARDS = [1, 2, 3, 4].map((i) => ({ png: `delivery-${i}.png`, source: `${SRC}/delivery-${i}.svg`, task: "delivery", frame: i }));
+const COLOUR = "pages/card-art/round-2/clean-sketch";
+const MEANING = "pages/card-art/round-3/a";
+// each card's frame 4 shows the finish (ToyHowtoFrameDone)
+const CARDS = [
+  ...[1, 2, 3, 4].map((i) => ({ png: `delivery-${i}.png`, source: `${COLOUR}/delivery-${i}.svg`, task: "colour_delivery", frame: i })),
+  ...[1, 2, 3, 4].map((i) => ({ png: `delivery-meaning-${i}.png`, source: `${MEANING}/delivery-meaning-${i}.svg`, task: "delivery", frame: i })),
+];
 
 const abs = (rel) => path.join(ROOT, ...rel.split("/"));
 const sha256 = (buf) => crypto.createHash("sha256").update(buf).digest("hex");
@@ -71,7 +77,7 @@ function readPng(buf) {
 function manifestText(entries) {
   const lines = entries.map((e) => "    " + JSON.stringify(e));
   return "{\n"
-    + `  "about": ${JSON.stringify(`The how-to card art the pack ships, rendered by tools/card-art/render.js from the clean-sketch SVGs at ${SCALE}x (${W * SCALE}x${H * SCALE}, transparent background). source_sha256 is the SVG's LF text, png_sha256 the PNG's bytes; tools/tokens/cards.js copies each PNG into dist/pack/cards/ and refuses one whose SVG changed since.`)},\n`
+    + `  "about": ${JSON.stringify(`The how-to card art the pack ships, rendered by tools/card-art/render.js from the clean-sketch SVGs (round 2's colour Delivery, round 3's Delivery by meaning) at ${SCALE}x (${W * SCALE}x${H * SCALE}, transparent background). source_sha256 is the SVG's LF text, png_sha256 the PNG's bytes; tools/tokens/cards.js copies each PNG into dist/pack/cards/ and refuses one whose SVG changed since.`)},\n`
     + `  "renders": [\n${lines.join(",\n")}\n  ]\n}\n`;
 }
 
