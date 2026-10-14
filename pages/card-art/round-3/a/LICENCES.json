@@ -1,0 +1,10 @@
+{
+  "delivery-meaning-1.svg": { "licence": "own work", "author": "prime-game-ui", "what": "how-to card art, Delivery by meaning step 1 (storage holds different items: wine, oil, a gnome, a parasol; lift the gnome with both arms), clean sketch, round 3 candidate a; rendered as delivery-meaning-1.png" },
+  "delivery-meaning-2.svg": { "licence": "own work", "author": "prime-game-ui", "what": "how-to card art, Delivery by meaning step 2 (the meaning: a gnome belongs in the garden, a thought bubble), clean sketch, round 3 candidate a; rendered as delivery-meaning-2.png" },
+  "delivery-meaning-3.svg": { "licence": "own work", "author": "prime-game-ui", "what": "how-to card art, Delivery by meaning step 3 (set the gnome down in the garden's flower bed), clean sketch, round 3 candidate a; rendered as delivery-meaning-3.png" },
+  "delivery-meaning-4.svg": { "licence": "own work", "author": "prime-game-ui", "what": "how-to card art, Delivery by meaning step 4 (the finish frame: the gnome in the garden, the parasol at the terrace table, the figure resting in its shade), clean sketch, round 3 candidate a; rendered as delivery-meaning-4.png" },
+  "delivery-meaning-1.png": { "licence": "own work", "author": "prime-game-ui", "what": "640x480 transparent render of delivery-meaning-1.svg (headless Edge, 2x)" },
+  "delivery-meaning-2.png": { "licence": "own work", "author": "prime-game-ui", "what": "640x480 transparent render of delivery-meaning-2.svg (headless Edge, 2x)" },
+  "delivery-meaning-3.png": { "licence": "own work", "author": "prime-game-ui", "what": "640x480 transparent render of delivery-meaning-3.svg (headless Edge, 2x)" },
+  "delivery-meaning-4.png": { "licence": "own work", "author": "prime-game-ui", "what": "640x480 transparent render of delivery-meaning-4.svg (headless Edge, 2x)" }
+}

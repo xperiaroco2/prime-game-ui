@@ -1,0 +1,66 @@
+<!-- own work, prime-game-ui, licence: own work -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" width="320" height="240">
+  <defs>
+    <filter id="m1-w" filterUnits="userSpaceOnUse" x="0" y="0" width="320" height="240">
+      <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="21" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="4" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <style>
+      .k{fill:none;stroke:#1f2433;stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
+      .t{stroke-width:4}
+      .f{stroke-width:3}
+      .w{fill:#fff;stroke:#1f2433;stroke-width:5;stroke-linejoin:round}
+      .a{fill:#e8a33a;stroke:#1f2433;stroke-width:5;stroke-linejoin:round}
+      .i{fill:#1f2433}
+      .dd{stroke-dasharray:7 7}
+    </style>
+    <!-- the garden gnome, base at 0,0: boots, coat, face, beard and the amber hat (the card's one accent: the item) -->
+    <g id="m1-g">
+      <ellipse class="i" cx="-10" cy="-5" rx="10" ry="6"/><ellipse class="i" cx="10" cy="-5" rx="10" ry="6"/>
+      <path class="w" d="M-19 -9C-24 -26 -23 -40 -16 -48H16C23 -40 24 -26 19 -9Z"/>
+      <circle class="w" cx="0" cy="-58" r="15"/>
+      <path class="w" d="M-18 -56C-12 -48 -4 -48 0 -51C4 -48 12 -48 18 -56C18 -37 8 -26 0 -21C-8 -26 -18 -37 -18 -56Z"/>
+      <path class="a" d="M-21 -63C-12 -70 12 -70 21 -63L10 -94Q5 -101 1 -95Z"/>
+      <circle class="i" cx="-5.5" cy="-60" r="2.6"/><circle class="i" cx="5.5" cy="-60" r="2.6"/>
+    </g>
+    <!-- a flower head, centre at 0,0: the outline of five petals, their fill, an ink centre -->
+    <g id="m1-fl">
+      <g fill="#fff" stroke="#1f2433" stroke-width="3"><circle cx="0" cy="-5.5" r="4.5"/><circle cx="5.2" cy="-1.7" r="4.5"/><circle cx="3.2" cy="4.4" r="4.5"/><circle cx="-3.2" cy="4.4" r="4.5"/><circle cx="-5.2" cy="-1.7" r="4.5"/></g>
+      <g fill="#fff"><circle cx="0" cy="-5.5" r="4.5"/><circle cx="5.2" cy="-1.7" r="4.5"/><circle cx="3.2" cy="4.4" r="4.5"/><circle cx="-3.2" cy="4.4" r="4.5"/><circle cx="-5.2" cy="-1.7" r="4.5"/></g>
+      <circle class="i" r="2.8"/>
+    </g>
+  </defs>
+  <g filter="url(#m1-w)">
+    <ellipse cx="108" cy="213" rx="30" ry="4" fill="#1f2433" opacity=".12"/>
+    <path class="k t" d="M16 212C96 209 210 214 304 211"/>
+    <!-- storage shelf: one wine case, one oil canister, one closed parasol, and the gap the gnome left -->
+    <path class="k" d="M196 34V212M300 34V212M196 124H300"/>
+    <!-- top: where the gnome stood (its cone-and-body outline), a case of wine -->
+    <path class="k t dd" d="M211 124C207 106 208 94 213 84M245 124C249 106 248 94 243 84M205 79H251L228 42Z"/>
+    <path class="w" d="M258 112V96Q258 90 263 88V78H269V88Q274 90 274 96V112Z"/>
+    <path class="w" d="M276 112V96Q276 90 281 88V78H287V88Q292 90 292 96V112Z"/>
+    <rect class="w" x="254" y="102" width="42" height="22" rx="3"/>
+    <path class="k f" d="M268 112h14"/>
+    <!-- bottom: a canister of oil (handle, cap, an oil drop), a closed parasol on its tip -->
+    <path class="k t" d="M213 160V151Q213 147 217 147H226Q230 147 230 151V160"/>
+    <rect class="w" x="235" y="151" width="9" height="10" rx="2" style="stroke-width:4"/>
+    <path class="w" d="M210 160H244Q248 160 248 164V212H206V164Q206 160 210 160Z"/>
+    <path class="i" d="M227 172C222 180 219 185 219 189A8 8 0 0 0 235 189C235 185 232 180 227 172Z"/>
+    <path class="k t" d="M276 200V210M276 158V146Q276 137 269 137Q263 137 263 143"/>
+    <path class="w" d="M276 202C267 188 268 168 272 156H280C284 168 285 188 276 202Z" style="stroke-width:4"/>
+    <path class="k f" d="M270 176h12"/>
+    <!-- yank lines -->
+    <path class="k t" d="M178 92h10M176 105h14M178 118h10"/>
+    <!-- figure, leaning back with the weight, the gnome hugged to the chest -->
+    <path class="k" d="M106 152L80 211M106 152L126 181L136 211"/>
+    <path class="k" d="M106 152L97 104"/>
+    <use href="#m1-g" transform="translate(148 150) scale(.8)"/>
+    <path class="k" d="M99 114L139 120M99 118Q106 142 139 140"/>
+    <circle class="w" cx="91" cy="84" r="19"/>
+    <circle class="i" cx="97" cy="81" r="2.8"/><circle class="i" cx="105" cy="81" r="2.8"/>
+    <path class="k t" d="M94 92q3-3 5 0t5 0"/>
+    <!-- effort -->
+    <path d="M62 64q-6 8 0 10q6-2 0-10z" fill="#fff" stroke="#1f2433" stroke-width="3" stroke-linejoin="round"/>
+    <path class="k t" d="M80 56l-3-7M93 53l1-8"/>
+  </g>
+</svg>

@@ -1,0 +1,81 @@
+<!-- own work, prime-game-ui, licence: own work -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" width="320" height="240">
+  <defs>
+    <filter id="m2-w" filterUnits="userSpaceOnUse" x="0" y="0" width="320" height="240">
+      <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="3" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="4" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <style>
+      .k{fill:none;stroke:#1f2433;stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
+      .t{stroke-width:4}
+      .f{stroke-width:3}
+      .w{fill:#fff;stroke:#1f2433;stroke-width:5;stroke-linejoin:round}
+      .i{fill:#1f2433}
+      .a{fill:#e8a33a;stroke:#1f2433;stroke-width:5;stroke-linejoin:round}
+      .o{fill:none;stroke:#e8a33a;stroke-width:5;stroke-linecap:round}
+      .dd{stroke-dasharray:7 7}
+    </style>
+    <!-- a case of wine, a wooden crate of bottles: origin at the crate's top-left, 52x34 -->
+    <g id="m2-wine">
+      <path class="i" d="M3 2Q3-6 7-8V-20H13V-8Q17-6 17 2ZM19 2Q19-6 23-8V-22H29V-8Q33-6 33 2ZM35 2Q35-6 39-8V-20H45V-8Q49-6 49 2Z"/>
+      <rect class="a" x="0" y="0" width="52" height="34" rx="3"/>
+      <path class="k f" d="M2 18H50"/>
+      <rect class="i" x="19" y="6" width="14" height="5" rx="2.5"/>
+    </g>
+    <!-- a canister of motor oil: origin at its bottom-left, 30x40 -->
+    <g id="m2-oil">
+      <path class="k t" d="M17 -40Q17 -52 27 -49L28 -40"/>
+      <rect class="i" x="3" y="-48" width="10" height="9" rx="2"/>
+      <rect class="w" x="0" y="-40" width="30" height="40" rx="5"/>
+      <path class="i" d="M15 -29q-7 9 0 13q7-4 0-13z"/>
+    </g>
+    <!-- a large garden gnome: origin at its base centre, about 36x86 -->
+    <g id="m2-gnome">
+      <path class="w" d="M-17 0Q-19 -24 -10 -30H10Q19 -24 17 0Z"/>
+      <path class="k t" d="M-12 -4h8M4 -4h8"/>
+      <circle class="w" cx="0" cy="-40" r="12" style="stroke-width:4"/>
+      <path class="w" d="M-13 -38Q-17 -12 0 -6Q17 -12 13 -38Q8 -32 0 -33Q-8 -32 -13 -38Z" style="stroke-width:4"/>
+      <path class="w" d="M-15 -47Q-12 -70 6 -82Q18 -86 20 -74Q12 -74 12 -66Q12 -56 15 -47Q0 -52 -15 -47Z" style="stroke-width:4"/>
+      <circle class="i" cx="-4.5" cy="-41" r="2.4"/><circle class="i" cx="4.5" cy="-41" r="2.4"/>
+    </g>
+    <!-- a closed parasol: origin at the pole's foot, pointing up, 150 tall -->
+    <g id="m2-parasol">
+      <path class="k t" d="M0 0V-156"/>
+      <path class="w" d="M0 -146Q-13 -104 -7 -64H7Q13 -104 0 -146Z"/>
+      <path class="k f" d="M0 -140V-70M-9 -96H9"/>
+    </g>
+    <!-- a wine glass with red wine: origin at its foot centre, 18x32 -->
+    <g id="m2-glass">
+      <path class="k t" d="M0 -4V-16M-7 -2H7"/>
+      <path d="M-9 -32Q-10 -15 0 -15Q10 -15 9 -32Z" fill="#fff" stroke="#1f2433" stroke-width="3.5" stroke-linejoin="round"/>
+      <path class="i" d="M-8.5 -24Q-8 -17 0 -17Q8 -17 8.5 -24Z"/>
+    </g>
+  </defs>
+  <g filter="url(#m2-w)">
+    <!-- floor -->
+    <ellipse cx="72" cy="213" rx="26" ry="4" fill="#1f2433" opacity=".12"/>
+    <path class="k t" d="M16 212C96 209 210 214 304 211"/>
+    <!-- the thought: wine belongs on the dining table -->
+    <path class="w" d="M168 140Q144 140 148 118Q130 104 148 86Q144 60 170 58Q178 34 206 40Q226 22 250 38Q278 30 288 56Q312 66 300 90Q314 112 292 124Q290 144 264 140Q246 154 226 142Q204 154 188 140Q178 146 168 140Z"/>
+    <circle class="w" cx="106" cy="66" r="4" style="stroke-width:4"/>
+    <circle class="w" cx="125" cy="84" r="7" style="stroke-width:4"/>
+    <!-- the dining table under its lamp, set with glasses -->
+    <path class="k f" d="M228 44V52"/>
+    <path class="w" d="M214 62Q214 50 228 50Q242 50 242 62Z" style="stroke-width:4"/>
+    <path class="k t" d="M190 118V132M266 118V132"/>
+    <path class="w" d="M176 100V116Q186.4 122 196.8 116Q207.2 122 217.6 116Q228.0 122 238.4 116Q248.8 122 259.2 116Q269.6 122 280.0 116V100Z" style="stroke-width:4"/>
+    <use href="#m2-glass" transform="translate(196 99)"/>
+    <use href="#m2-glass" transform="translate(260 99)"/>
+    <path class="i" d="M222 99Q222 86 226 84V70H231V84Q235 86 235 99Z"/>
+    <!-- figure, walking with the case, already knowing where -->
+    <path class="k" d="M70 152L52 211M70 152L90 181L98 211"/>
+    <path class="k" d="M70 152L73 104"/>
+    <use href="#m2-wine" transform="translate(92 116)"/>
+    <path class="k" d="M74 114L93 121M74 117Q82 146 93 144"/>
+    <circle class="w" cx="78" cy="84" r="19"/>
+    <circle class="i" cx="84" cy="80" r="2.8"/><circle class="i" cx="92" cy="80" r="2.8"/>
+    <path class="k t" d="M83 91q5 5 11 0"/>
+    <!-- motion lines -->
+    <path class="k t" d="M22 124h14M16 140h20M24 156h12"/>
+  </g>
+</svg>

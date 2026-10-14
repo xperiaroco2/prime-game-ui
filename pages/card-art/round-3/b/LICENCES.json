@@ -1,0 +1,10 @@
+{
+  "delivery-meaning-1.svg": { "licence": "own work", "author": "prime-game-ui", "what": "how-to card art, Delivery by meaning step 1 (lift a case of wine from the storage shelf of different items: gnome, motor oil, wine), clean sketch; rendered as delivery-meaning-1.png" },
+  "delivery-meaning-2.svg": { "licence": "own work", "author": "prime-game-ui", "what": "how-to card art, Delivery by meaning step 2 (carrying the wine, the figure thinks of the dining table set with glasses), clean sketch; rendered as delivery-meaning-2.png" },
+  "delivery-meaning-3.svg": { "licence": "own work", "author": "prime-game-ui", "what": "how-to card art, Delivery by meaning step 3 (set the case down on the dining table), clean sketch; rendered as delivery-meaning-3.png" },
+  "delivery-meaning-4.svg": { "licence": "own work", "author": "prime-game-ui", "what": "how-to card art, Delivery by meaning step 4 (the done frame: the wine counted on the table, a toast to the gnome in its garden through the window), clean sketch; rendered as delivery-meaning-4.png" },
+  "delivery-meaning-1.png": { "licence": "own work", "author": "prime-game-ui", "what": "640x480 transparent render of delivery-meaning-1.svg (headless Edge, 2x)" },
+  "delivery-meaning-2.png": { "licence": "own work", "author": "prime-game-ui", "what": "640x480 transparent render of delivery-meaning-2.svg (headless Edge, 2x)" },
+  "delivery-meaning-3.png": { "licence": "own work", "author": "prime-game-ui", "what": "640x480 transparent render of delivery-meaning-3.svg (headless Edge, 2x)" },
+  "delivery-meaning-4.png": { "licence": "own work", "author": "prime-game-ui", "what": "640x480 transparent render of delivery-meaning-4.svg (headless Edge, 2x)" }
+}
