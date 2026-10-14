@@ -1,8 +1,262 @@
 {
- "about": "The copy review (prime-game-ui#4; round 4, prime-game-ui#51: the deck rows the game's M7 asked for on prime-game#150). Round 2 was answered on 2026-10-05 and applied. Round 3 (2026-10-06, wave prime-game-ui#19), about the texts the styled screens added or reworded, was answered the same day and applied. open: questions still waiting for the engineer, each with options a-c; an option lists the rows it would write (empty uk and en remove the key), an option without rows keeps the deck and says so in its label. The deck keeps its current wording until an open question is answered on pages/copy/; where option a has rows, the deck could not take the change yet (an old wireframe frame still shows the current text). decided: what was applied, round 2 first. removed: keys taken out of the deck. asked: when round 3 was put to the engineer; the page ignores answers saved before it. Rules: copy/README.md and docs/research/2026-10-05-ukrainian-localization/report.md.",
- "asked": "2026-10-13T19:51:50Z",
+ "about": "The copy review (prime-game-ui#4; round 4, prime-game-ui#51, and round 5, prime-game-ui#57: the deck rows the game's M7 asked for on prime-game#150). Round 2 was answered on 2026-10-05 and applied. Round 3 (2026-10-06, wave prime-game-ui#19), about the texts the styled screens added or reworded, was answered the same day and applied. open: questions still waiting for the engineer, each with options a-c; an option lists the rows it would write (empty uk and en remove the key), an option without rows keeps the deck and says so in its label. The deck keeps its current wording until an open question is answered on pages/copy/; where option a has rows, the deck could not take the change yet (an old wireframe frame still shows the current text). decided: what was applied, round 2 first. removed: keys taken out of the deck. asked: when the current round was put to the engineer; the page ignores answers saved before it. Rules: copy/README.md and docs/research/2026-10-05-ukrainian-localization/report.md.",
+ "asked": "2026-10-14T11:51:03Z",
  "principle": "Гравці досвідчені, гра не для дітей: не пояснюємо звичне й очевидне (що меню не ставить на паузу, що щось нове, знайоме керування), без «водіння за руку».",
- "open": [],
+ "open": [
+  {
+   "id": "item.wine",
+   "keys": [
+    "item.wine"
+   ],
+   "kind": "word",
+   "round": "new",
+   "why": "Назва предмета в слоті руки на HUD (Доставка за змістом, prime-game D2): ящик пляшок, який несуть обома руками до столу в Їдальні. Англійське «Wine» ти затвердив в ADR §5.1, воно лишається; питання — українська. Слот руки показує назву дворучного предмета в 106 px (Comfortaa 18 px), далі «…»; найдовша назва зараз «Рубильник», ≈ 101 px. Раджу «Вино»: те саме слово, що «Wine», ≈ 49 px, а що це ящик, видно з моделі в руках.",
+   "options": [
+    {
+     "id": "a",
+     "label": "Як у колоді (рекомендую)",
+     "note": "«Вино» / «Wine»: коротко, так само, як англійською.",
+     "rows": []
+    },
+    {
+     "id": "b",
+     "label": "Ящик вина",
+     "note": "Прямо каже, що в руках ящик; ≈ 105 px, на межі слота: напівжирний шрифт може обрізати до «Ящик ви…».",
+     "rows": [
+      {
+       "key": "item.wine",
+       "en": "Wine",
+       "uk": "Ящик вина"
+      }
+     ]
+    },
+    {
+     "id": "c",
+     "label": "Пляшки вина",
+     "note": "Каже, що там пляшки; ≈ 128 px, в один рядок слота не влазить.",
+     "rows": [
+      {
+       "key": "item.wine",
+       "en": "Wine",
+       "uk": "Пляшки вина"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "item.oil",
+   "keys": [
+    "item.oil"
+   ],
+   "kind": "word",
+   "round": "new",
+   "why": "Каністра моторної оливи, яку несуть обома руками до верстака в Гаражі. «Motor oil» — твоє слово (ADR §5.1): «Motor», щоб ніхто не ніс її на кухню. Українською це «олива» (технічна), не «олія» (харчова, повела б на кухню); сама «Олива» — ще й дерево та плід, тобто знову кухня. Раджу «Моторна олива»: точний відповідник «Motor oil». Слот руки показує назву дворучного предмета в 106 px (Comfortaa 18 px), далі «…»; найдовша назва зараз «Рубильник», ≈ 101 px. «Моторна олива» ≈ 160 px. В один рядок слота не влазить, як і вже затверджене «Garden gnome» (≈ 140 px), а кожне слово окремо влазить: перенос назви на другий рядок треба зробити в грі незалежно від цього вибору.",
+   "options": [
+    {
+     "id": "a",
+     "label": "Як у колоді (рекомендую)",
+     "note": "«Моторна олива» / «Motor oil»: точно, як англійською; у слоті два рядки: «Моторна» ≈ 96 px, «олива» ≈ 58 px.",
+     "rows": []
+    },
+    {
+     "id": "b",
+     "label": "Мастило",
+     "note": "Одне слово, ≈ 93 px, влазить у слот і ясно веде в гараж; але «мастило» — радше густе мастило, а не олива в каністрі.",
+     "rows": [
+      {
+       "key": "item.oil",
+       "en": "Motor oil",
+       "uk": "Мастило"
+      }
+     ]
+    },
+    {
+     "id": "c",
+     "label": "Каністра оливи",
+     "note": "Каже, що в руках каністра; ≈ 158 px, теж два рядки; без «моторна» менш ясно, що це для авто.",
+     "rows": [
+      {
+       "key": "item.oil",
+       "en": "Motor oil",
+       "uk": "Каністра оливи"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "item.gnome",
+   "keys": [
+    "item.gnome"
+   ],
+   "kind": "word",
+   "round": "new",
+   "why": "Великий садовий гном, якого несуть обома руками в Сад. «Garden gnome» затверджено (ADR §5.1). Раджу «Садовий гном»: так цю фігурку й називають, а «садовий» підказує місце так само, як англійське «Garden». Слот руки показує назву дворучного предмета в 106 px (Comfortaa 18 px), далі «…»; найдовша назва зараз «Рубильник», ≈ 101 px. «Садовий гном» ≈ 139 px. В один рядок слота не влазить, як і вже затверджене «Garden gnome» (≈ 140 px), а кожне слово окремо влазить: перенос назви на другий рядок треба зробити в грі незалежно від цього вибору.",
+   "options": [
+    {
+     "id": "a",
+     "label": "Як у колоді (рекомендую)",
+     "note": "«Садовий гном» / «Garden gnome»: як англійською; у слоті два рядки: «Садовий» ≈ 86 px, «гном» ≈ 48 px.",
+     "rows": []
+    },
+    {
+     "id": "b",
+     "label": "Гном",
+     "note": "Коротко, ≈ 50 px, влазить в один рядок; але без «садовий» це казковий гном, а не фігурка, і назва вже не підказує Сад, як англійська.",
+     "rows": [
+      {
+       "key": "item.gnome",
+       "en": "Garden gnome",
+       "uk": "Гном"
+      }
+     ]
+    },
+    {
+     "id": "c",
+     "label": "Гномик",
+     "note": "Грайливо, у дусі гри, ≈ 72 px, влазить; але гном великий, а зменшувальне слово робить його маленьким.",
+     "rows": [
+      {
+       "key": "item.gnome",
+       "en": "Garden gnome",
+       "uk": "Гномик"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "item.parasol",
+   "keys": [
+    "item.parasol"
+   ],
+   "kind": "word",
+   "round": "new",
+   "why": "Складена парасоля, яку несуть обома руками до столу на Терасі. «Parasol» затверджено (ADR §5.1). Слот руки показує назву дворучного предмета в 106 px (Comfortaa 18 px), далі «…»; найдовша назва зараз «Рубильник», ≈ 101 px. Раджу «Парасоля»: ≈ 96 px, влазить; «парасоля» — велика, на відміну від ручної «парасольки». Не «Садова парасоля»: «садова» повела б у Сад, до гнома.",
+   "options": [
+    {
+     "id": "a",
+     "label": "Як у колоді (рекомендую)",
+     "note": "«Парасоля» / «Parasol»: одне слово, влазить у слот.",
+     "rows": []
+    },
+    {
+     "id": "b",
+     "label": "Парасоля від сонця",
+     "note": "Однозначно не від дощу, але ≈ 193 px: потребує двох рядків («Парасоля» / «від сонця» ≈ 92 px), а переносу в слоті гра ще не робить.",
+     "rows": [
+      {
+       "key": "item.parasol",
+       "en": "Parasol",
+       "uk": "Парасоля від сонця"
+      }
+     ]
+    },
+    {
+     "id": "c",
+     "label": "Парасолька",
+     "note": "Звичніше в побуті, але це маленька ручна парасолька від дощу, а не велика для столу; ≈ 118 px, не влазить у слот.",
+     "rows": [
+      {
+       "key": "item.parasol",
+       "en": "Parasol",
+       "uk": "Парасолька"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "control.sneak",
+   "keys": [
+    "control.sneak"
+   ],
+   "kind": "word",
+   "round": "new",
+   "why": "Назва дії в Налаштуваннях › Керування і в рядку клавіш уроку 1 навчання, поруч із «Присісти» (prime-game#989): утримуєш лівий Alt — повільна хода стоячи, і кроків не чути нікому. Окремий стан, не присідання. Відкриті обидві мови. Раджу «Крастися» / «Sneak»: одне дієслово в інфінітиві, як «Присісти», «Бігти», «Жбурнути»; «Sneak» — звичне в іграх слово саме для цього, дієслово, як «Crouch». Збігів із наявними словами колоди немає. Рядок уроку 1 (Comfortaa 22 px) уже має «Ходити», «Бігти», «Стрибнути», «Присісти»; нове слово додає ще одну групу «клавіша + підпис».",
+   "options": [
+    {
+     "id": "a",
+     "label": "Як у колоді (рекомендую)",
+     "note": "«Крастися» / «Sneak»: ≈ 120 px у рядку уроку, як «Присісти» (≈ 117 px).",
+     "rows": []
+    },
+    {
+     "id": "b",
+     "label": "Скрадатися",
+     "note": "Те саме значення, але книжніше й довше (≈ 151 px).",
+     "rows": [
+      {
+       "key": "control.sneak",
+       "en": "Sneak",
+       "uk": "Скрадатися"
+      }
+     ]
+    },
+    {
+     "id": "c",
+     "label": "Ходити тихо",
+     "note": "Через «Ходити» (control.walk «Ходити» / «Walk»), тож для ходи лишається одне дієслово; але два слова, ≈ 165 px, найдовший підпис у рядку уроку. «Іти тихо» не раджу: друге дієслово для ходи поруч із «Ходити». «Tiptoe» / «навшпиньки» теж ні: це хода на пальцях, звучить по-дитячому, а «навшпиньки» не має інфінітива.",
+     "rows": [
+      {
+       "key": "control.sneak",
+       "en": "Walk quietly",
+       "uk": "Ходити тихо"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "topic.throw_word",
+   "keys": [
+    "control.throw",
+    "tutorial.step.throw.title",
+    "tutorial.list.throw"
+   ],
+   "kind": "consistency",
+   "round": "new",
+   "why": "Кидок предмета названо двома словами: дія в Керуванні — «Жбурнути» (коло 4, твій вибір b), а урок — «Кинь предмет», у списку уроків «Кидання» (коло 4, прийнято). Правило «одне слово на поняття» за те, щоб звести до одного; але обидва варіанти ти затвердив на одній сторінці, а назва дії в списку керування може бути живішою за інструкцію уроку. Раджу лишити як є. Англійська не змінюється (Toss, Throw an item, Throwing).",
+   "options": [
+    {
+     "id": "a",
+     "label": "Лишити як є (рекомендую)",
+     "note": "У Керуванні живе «Жбурнути», в уроці звичайне «Кинь предмет» і «Кидання».",
+     "rows": []
+    },
+    {
+     "id": "b",
+     "label": "Урок за керуванням",
+     "note": "Одне слово скрізь; але «Жбурляння» в списку уроків звучить незграбно.",
+     "rows": [
+      {
+       "key": "tutorial.step.throw.title",
+       "en": "Throw an item",
+       "uk": "Жбурни предмет"
+      },
+      {
+       "key": "tutorial.list.throw",
+       "en": "Throwing",
+       "uk": "Жбурляння"
+      }
+     ]
+    },
+    {
+     "id": "c",
+     "label": "Керування за уроком",
+     "note": "Одне слово скрізь, сухіше; скасовує твій вибір b з кола 4.",
+     "rows": [
+      {
+       "key": "control.throw",
+       "en": "Toss",
+       "uk": "Кинути"
+      }
+     ]
+    }
+   ]
+  }
+ ],
  "removed": [
   "downed.can_raise",
   "esc.running",
