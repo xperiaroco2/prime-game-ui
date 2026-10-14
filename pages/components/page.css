@@ -214,6 +214,16 @@ h2 { font-size: 21px; margin: 34px 0 10px; padding-top: 4px; }
 .sc-frame .sc-icon { width: calc(56 * var(--px)); height: calc(56 * var(--px)); }
 .sc-frame [class*="tv-ToyHowtoCaption"] { white-space: normal; text-align: center; }
 .sc-setrow { width: calc(600 * var(--px)); justify-content: space-between !important; gap: calc(16 * var(--px)); }
+/* A CheckBox's box texture at its size (28 px); the live one shows the box of its aria-pressed. */
+.sc-cbox { display: inline-flex; flex: none; width: calc(28 * var(--px)); height: calc(28 * var(--px)); }
+.sc-cbox svg { display: block; width: 100%; height: 100%; }
+.sc-cbox-on, [aria-pressed="true"] > .sc-cbox-off { display: none; }
+[aria-pressed="true"] > .sc-cbox-on { display: inline-flex; }
+:where(.tv-ToyCheckBox) { justify-content: flex-start !important; }
+/* A SpinBox: its field is narrower than a text field; the arrows are 18 px textures. */
+:where(.tv-ToySpinField) { width: calc(160 * var(--px)); justify-content: flex-start !important; cursor: text; }
+:where(.tv-ToySpinBox) .tv-icon { display: inline-flex; width: calc(18 * var(--px)); height: calc(18 * var(--px)); }
+:where(.tv-ToySpinBox) .tv-icon svg { display: block; width: 100%; height: 100%; }
 .sc-stepper { display: inline-flex; align-items: center; gap: calc(12 * var(--px)); }
 .sc-setcol { display: flex; flex-direction: column; align-items: flex-start; gap: calc(10 * var(--px)); }
 .sc-map { display: block !important; }

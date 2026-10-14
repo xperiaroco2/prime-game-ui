@@ -118,6 +118,48 @@
         "disabled": { "$value": { "value": 0, "unit": "px" } }
       }
     },
+    "plain": {
+      "$description": "A bare Button's look (Godot's Button base type, prime-game-ui#52): the white secondary face, flat. No parent and no press: a bare Button has no ToyRaised wrapper, so no base under it and no movement; hover and held look as normal, focus and disabled as the secondary button's.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyButtonPlain", "class": "Button" },
+          "context": "any"
+        }
+      },
+      "label": { "$type": "typography", "$value": "{type.body-large-bold}" },
+      "normal": {
+        "bg-color": { "$type": "color", "$value": "{palette.white}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.control}" },
+        "content-margin-block": { "$type": "dimension", "$value": { "value": 12, "unit": "px" } },
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 22, "unit": "px" } },
+        "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
+      },
+      "disabled": {
+        "$description": "Unplugged: pale and quiet.",
+        "bg-color": { "$type": "color", "$value": "{color.state.disabled-face}" },
+        "border-color": { "$type": "color", "$value": "{color.state.disabled-ink}" },
+        "font-color": { "$type": "color", "$value": "{color.state.disabled-ink}" }
+      },
+      "focus": {
+        "$description": "Inner focus: the outline thickens inward by the focus width.",
+        "bg-color": { "$type": "color", "$value": "{palette.clear}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-width": { "$type": "dimension", "$value": "{focus.width}" },
+        "corner-radius": { "$type": "dimension", "$value": { "value": 15, "unit": "px" } },
+        "expand-margin": { "$type": "dimension", "$value": { "value": -3, "unit": "px" } }
+      },
+      "items": {
+        "$description": "An icon in the label colour of each state; without these Godot tints it white.",
+        "icon-normal-color": { "$type": "color", "$value": "{color.on-light.text}" },
+        "icon-hover-color": { "$type": "color", "$value": "{color.on-light.text}" },
+        "icon-pressed-color": { "$type": "color", "$value": "{color.on-light.text}" },
+        "icon-hover-pressed-color": { "$type": "color", "$value": "{color.on-light.text}" },
+        "icon-disabled-color": { "$type": "color", "$value": "{color.state.disabled-ink}" },
+        "icon-focus-color": { "$type": "color", "$value": "{color.on-light.text}" }
+      }
+    },
     "danger": {
       "$description": "Leave, quit and confirm: coral face, ink outline, a 5 px toy base.",
       "$extensions": {

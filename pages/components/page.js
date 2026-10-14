@@ -128,6 +128,11 @@
     });
   });
 
+  // A live CheckBox: a click checks or clears it (Godot's toggle_mode); page.css shows the box that matches.
+  all('[data-check]').forEach(function (el) {
+    el.addEventListener('click', function () { el.setAttribute('aria-pressed', String(el.getAttribute('aria-pressed') !== 'true')); });
+  });
+
   // Live bars: the value, and for the health bar the stored stop step = floor(hp × steps + 0.5).
   all('[data-bar-input]').forEach(function (input) {
     var cell = input.closest('.sc-cell');

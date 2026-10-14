@@ -616,6 +616,76 @@
 .tv-ToyButtonSecondary.is-focus > .tv-focus, .tv-ToyButtonSecondary:focus-visible > .tv-focus {
   display: block;
 }
+/* ToyButtonPlain: Button · button.plain · any */
+.tv-ToyButtonPlain {
+  box-sizing: border-box;
+  position: relative;
+  background: var(--toy-button-plain-normal-bg-color);
+  border-style: solid;
+  border-color: var(--toy-button-plain-normal-border-color);
+  border-top-width: calc(var(--toy-button-plain-normal-border-width) * var(--px));
+  border-right-width: calc(var(--toy-button-plain-normal-border-width) * var(--px));
+  border-bottom-width: calc(var(--toy-button-plain-normal-border-width) * var(--px));
+  border-left-width: calc(var(--toy-button-plain-normal-border-width) * var(--px));
+  border-top-left-radius: calc(var(--toy-button-plain-normal-corner-radius) * var(--px));
+  border-top-right-radius: calc(var(--toy-button-plain-normal-corner-radius) * var(--px));
+  border-bottom-right-radius: calc(var(--toy-button-plain-normal-corner-radius) * var(--px));
+  border-bottom-left-radius: calc(var(--toy-button-plain-normal-corner-radius) * var(--px));
+  padding-top: calc((var(--toy-button-plain-normal-content-margin-block) - var(--toy-button-plain-normal-border-width)) * var(--px));
+  padding-right: calc((var(--toy-button-plain-normal-content-margin-inline) - var(--toy-button-plain-normal-border-width)) * var(--px));
+  padding-bottom: calc((var(--toy-button-plain-normal-content-margin-block) - var(--toy-button-plain-normal-border-width)) * var(--px));
+  padding-left: calc((var(--toy-button-plain-normal-content-margin-inline) - var(--toy-button-plain-normal-border-width)) * var(--px));
+  font-family: var(--toy-button-plain-label-font-family), system-ui, sans-serif;
+  font-size: calc(var(--toy-button-plain-label-font-size) * var(--px));
+  font-weight: var(--toy-button-plain-label-font-weight);
+  line-height: var(--toy-button-plain-label-line-height);
+  letter-spacing: calc(var(--toy-button-plain-label-letter-spacing) * var(--px));
+  color: var(--toy-button-plain-normal-font-color);
+  cursor: pointer;
+}
+.tv-ToyButtonPlain.is-disabled {
+  background: var(--toy-button-plain-disabled-bg-color);
+  border-color: var(--toy-button-plain-disabled-border-color);
+  color: var(--toy-button-plain-disabled-font-color);
+}
+.tv-ToyButtonPlain > .tv-focus {
+  display: none;
+  position: absolute;
+  pointer-events: none;
+  box-sizing: border-box;
+  border-style: solid;
+  border-color: var(--toy-button-plain-focus-border-color);
+  border-top-width: calc(var(--toy-button-plain-focus-border-width) * var(--px));
+  border-right-width: calc(var(--toy-button-plain-focus-border-width) * var(--px));
+  border-bottom-width: calc(var(--toy-button-plain-focus-border-width) * var(--px));
+  border-left-width: calc(var(--toy-button-plain-focus-border-width) * var(--px));
+  border-top-left-radius: calc(var(--toy-button-plain-focus-corner-radius) * var(--px));
+  border-top-right-radius: calc(var(--toy-button-plain-focus-corner-radius) * var(--px));
+  border-bottom-right-radius: calc(var(--toy-button-plain-focus-corner-radius) * var(--px));
+  border-bottom-left-radius: calc(var(--toy-button-plain-focus-corner-radius) * var(--px));
+  top: calc((0 - var(--toy-button-plain-normal-border-width) - var(--toy-button-plain-focus-expand-margin)) * var(--px));
+  right: calc((0 - var(--toy-button-plain-normal-border-width) - var(--toy-button-plain-focus-expand-margin)) * var(--px));
+  bottom: calc((0 - var(--toy-button-plain-normal-border-width) - var(--toy-button-plain-focus-expand-margin)) * var(--px));
+  left: calc((0 - var(--toy-button-plain-normal-border-width) - var(--toy-button-plain-focus-expand-margin)) * var(--px));
+}
+.tv-ToyButtonPlain.is-focus > .tv-focus, .tv-ToyButtonPlain:focus-visible > .tv-focus {
+  display: block;
+}
+.tv-ToyButtonPlain .tv-icon {
+  color: var(--toy-button-plain-items-icon-normal-color);
+}
+.tv-ToyButtonPlain.is-focus .tv-icon, .tv-ToyButtonPlain:focus-visible .tv-icon {
+  color: var(--toy-button-plain-items-icon-focus-color);
+}
+.tv-ToyButtonPlain.is-hover .tv-icon {
+  color: var(--toy-button-plain-items-icon-hover-color);
+}
+.tv-ToyButtonPlain.is-held .tv-icon {
+  color: var(--toy-button-plain-items-icon-pressed-color);
+}
+.tv-ToyButtonPlain.is-disabled .tv-icon {
+  color: var(--toy-button-plain-items-icon-disabled-color);
+}
 /* ToyButtonDanger: Button → ToyButton · button.danger · any */
 .tv-ToyButtonDanger {
   box-sizing: border-box;
@@ -1576,6 +1646,169 @@
   height: calc((var(--toy-field-list-separator-border-width-top) + var(--toy-field-list-separator-border-width-bottom)) * var(--px));
   flex-grow: 1;
 }
+/* ToySpinField: LineEdit · field.spin-input · any */
+.tv-ToySpinField {
+  box-sizing: border-box;
+  position: relative;
+  background: var(--toy-field-spin-input-normal-bg-color);
+  border-style: solid;
+  border-color: var(--toy-field-spin-input-normal-border-color);
+  border-top-width: calc(var(--toy-field-spin-input-normal-border-width) * var(--px));
+  border-right-width: calc(var(--toy-field-spin-input-normal-border-width) * var(--px));
+  border-bottom-width: calc(var(--toy-field-spin-input-normal-border-width) * var(--px));
+  border-left-width: calc(var(--toy-field-spin-input-normal-border-width) * var(--px));
+  border-top-left-radius: calc(var(--toy-field-spin-input-normal-corner-radius) * var(--px));
+  border-top-right-radius: calc(var(--toy-field-spin-input-normal-corner-radius) * var(--px));
+  border-bottom-right-radius: calc(var(--toy-field-spin-input-normal-corner-radius) * var(--px));
+  border-bottom-left-radius: calc(var(--toy-field-spin-input-normal-corner-radius) * var(--px));
+  padding-top: calc((var(--toy-field-spin-input-normal-content-margin-block) - var(--toy-field-spin-input-normal-border-width)) * var(--px));
+  padding-right: calc((var(--toy-field-spin-input-normal-content-margin-inline) - var(--toy-field-spin-input-normal-border-width)) * var(--px));
+  padding-bottom: calc((var(--toy-field-spin-input-normal-content-margin-block) - var(--toy-field-spin-input-normal-border-width)) * var(--px));
+  padding-left: calc((var(--toy-field-spin-input-normal-content-margin-inline) - var(--toy-field-spin-input-normal-border-width)) * var(--px));
+  font-family: var(--toy-field-spin-input-label-font-family), system-ui, sans-serif;
+  font-size: calc(var(--toy-field-spin-input-label-font-size) * var(--px));
+  font-weight: var(--toy-field-spin-input-label-font-weight);
+  line-height: var(--toy-field-spin-input-label-line-height);
+  letter-spacing: calc(var(--toy-field-spin-input-label-letter-spacing) * var(--px));
+  color: var(--toy-field-spin-input-normal-font-color);
+}
+.tv-ToySpinField.is-readonly {
+  background: var(--toy-field-spin-input-read-only-bg-color);
+  border-color: var(--toy-field-spin-input-read-only-border-color);
+  color: var(--toy-field-spin-input-read-only-font-color);
+}
+.tv-ToySpinField > .tv-focus {
+  display: none;
+  position: absolute;
+  pointer-events: none;
+  box-sizing: border-box;
+  border-style: solid;
+  border-color: var(--toy-field-spin-input-focus-border-color);
+  border-top-width: calc(var(--toy-field-spin-input-focus-border-width) * var(--px));
+  border-right-width: calc(var(--toy-field-spin-input-focus-border-width) * var(--px));
+  border-bottom-width: calc(var(--toy-field-spin-input-focus-border-width) * var(--px));
+  border-left-width: calc(var(--toy-field-spin-input-focus-border-width) * var(--px));
+  border-top-left-radius: calc(var(--toy-field-spin-input-focus-corner-radius) * var(--px));
+  border-top-right-radius: calc(var(--toy-field-spin-input-focus-corner-radius) * var(--px));
+  border-bottom-right-radius: calc(var(--toy-field-spin-input-focus-corner-radius) * var(--px));
+  border-bottom-left-radius: calc(var(--toy-field-spin-input-focus-corner-radius) * var(--px));
+  top: calc((0 - var(--toy-field-spin-input-normal-border-width) - var(--toy-field-spin-input-focus-expand-margin)) * var(--px));
+  right: calc((0 - var(--toy-field-spin-input-normal-border-width) - var(--toy-field-spin-input-focus-expand-margin)) * var(--px));
+  bottom: calc((0 - var(--toy-field-spin-input-normal-border-width) - var(--toy-field-spin-input-focus-expand-margin)) * var(--px));
+  left: calc((0 - var(--toy-field-spin-input-normal-border-width) - var(--toy-field-spin-input-focus-expand-margin)) * var(--px));
+}
+.tv-ToySpinField.is-focus > .tv-focus, .tv-ToySpinField:focus-visible > .tv-focus {
+  display: block;
+}
+.tv-ToySpinField .tv-placeholder {
+  color: var(--toy-field-spin-input-items-placeholder-color);
+}
+.tv-ToySpinField .tv-caret {
+  background: var(--toy-field-spin-input-items-caret-color);
+}
+.tv-ToySpinField .tv-selection {
+  background: var(--toy-field-spin-input-items-selection-color);
+  color: var(--toy-field-spin-input-items-selected-font-color);
+}
+/* ToySpinBox: SpinBox · field.spin · any */
+.tv-ToySpinBox {
+  display: inline-flex;
+  align-items: stretch;
+  column-gap: calc(var(--toy-field-spin-items-field-and-buttons-separation) * var(--px));
+}
+.tv-ToySpinBox > .tv-arrows {
+  display: flex;
+  flex-direction: column;
+  flex: none;
+  width: calc(var(--toy-field-spin-items-buttons-width) * var(--px));
+  row-gap: calc(var(--toy-field-spin-items-buttons-vertical-separation) * var(--px));
+}
+.tv-ToySpinBox > .tv-arrows > .tv-up {
+  box-sizing: border-box;
+  position: relative;
+  background: var(--toy-field-spin-up-background-bg-color);
+  border-style: solid;
+  border-color: var(--toy-field-spin-up-background-border-color);
+  border-top-width: calc(var(--toy-field-spin-up-background-border-width) * var(--px));
+  border-right-width: calc(var(--toy-field-spin-up-background-border-width) * var(--px));
+  border-bottom-width: calc(var(--toy-field-spin-up-background-border-width) * var(--px));
+  border-left-width: calc(var(--toy-field-spin-up-background-border-width) * var(--px));
+  border-top-left-radius: calc(var(--toy-field-spin-up-background-corner-radius) * var(--px));
+  border-top-right-radius: calc(var(--toy-field-spin-up-background-corner-radius) * var(--px));
+  border-bottom-right-radius: calc(var(--toy-field-spin-up-background-corner-radius) * var(--px));
+  border-bottom-left-radius: calc(var(--toy-field-spin-up-background-corner-radius) * var(--px));
+  padding-top: calc((var(--toy-field-spin-up-background-content-margin-block) - var(--toy-field-spin-up-background-border-width)) * var(--px));
+  padding-right: calc((var(--toy-field-spin-up-background-content-margin-inline) - var(--toy-field-spin-up-background-border-width)) * var(--px));
+  padding-bottom: calc((var(--toy-field-spin-up-background-content-margin-block) - var(--toy-field-spin-up-background-border-width)) * var(--px));
+  padding-left: calc((var(--toy-field-spin-up-background-content-margin-inline) - var(--toy-field-spin-up-background-border-width)) * var(--px));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  cursor: pointer;
+}
+.tv-ToySpinBox > .tv-arrows > .tv-up.is-held {
+  background: var(--toy-field-spin-up-background-pressed-bg-color);
+}
+.tv-ToySpinBox > .tv-arrows > .tv-up.is-disabled {
+  background: var(--toy-field-spin-up-background-disabled-bg-color);
+  border-color: var(--toy-field-spin-up-background-disabled-border-color);
+}
+.tv-ToySpinBox > .tv-arrows > .tv-up .tv-icon {
+  color: var(--toy-field-spin-items-up-icon-modulate);
+}
+.tv-ToySpinBox > .tv-arrows > .tv-up.is-hover .tv-icon {
+  color: var(--toy-field-spin-items-up-hover-icon-modulate);
+}
+.tv-ToySpinBox > .tv-arrows > .tv-up.is-held .tv-icon {
+  color: var(--toy-field-spin-items-up-pressed-icon-modulate);
+}
+.tv-ToySpinBox > .tv-arrows > .tv-up.is-disabled .tv-icon {
+  color: var(--toy-field-spin-items-up-disabled-icon-modulate);
+}
+.tv-ToySpinBox > .tv-arrows > .tv-down {
+  box-sizing: border-box;
+  position: relative;
+  background: var(--toy-field-spin-up-background-bg-color);
+  border-style: solid;
+  border-color: var(--toy-field-spin-up-background-border-color);
+  border-top-width: calc(var(--toy-field-spin-up-background-border-width) * var(--px));
+  border-right-width: calc(var(--toy-field-spin-up-background-border-width) * var(--px));
+  border-bottom-width: calc(var(--toy-field-spin-up-background-border-width) * var(--px));
+  border-left-width: calc(var(--toy-field-spin-up-background-border-width) * var(--px));
+  border-top-left-radius: calc(var(--toy-field-spin-up-background-corner-radius) * var(--px));
+  border-top-right-radius: calc(var(--toy-field-spin-up-background-corner-radius) * var(--px));
+  border-bottom-right-radius: calc(var(--toy-field-spin-up-background-corner-radius) * var(--px));
+  border-bottom-left-radius: calc(var(--toy-field-spin-up-background-corner-radius) * var(--px));
+  padding-top: calc((var(--toy-field-spin-up-background-content-margin-block) - var(--toy-field-spin-up-background-border-width)) * var(--px));
+  padding-right: calc((var(--toy-field-spin-up-background-content-margin-inline) - var(--toy-field-spin-up-background-border-width)) * var(--px));
+  padding-bottom: calc((var(--toy-field-spin-up-background-content-margin-block) - var(--toy-field-spin-up-background-border-width)) * var(--px));
+  padding-left: calc((var(--toy-field-spin-up-background-content-margin-inline) - var(--toy-field-spin-up-background-border-width)) * var(--px));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  cursor: pointer;
+}
+.tv-ToySpinBox > .tv-arrows > .tv-down.is-held {
+  background: var(--toy-field-spin-up-background-pressed-bg-color);
+}
+.tv-ToySpinBox > .tv-arrows > .tv-down.is-disabled {
+  background: var(--toy-field-spin-up-background-disabled-bg-color);
+  border-color: var(--toy-field-spin-up-background-disabled-border-color);
+}
+.tv-ToySpinBox > .tv-arrows > .tv-down .tv-icon {
+  color: var(--toy-field-spin-items-down-icon-modulate);
+}
+.tv-ToySpinBox > .tv-arrows > .tv-down.is-hover .tv-icon {
+  color: var(--toy-field-spin-items-down-hover-icon-modulate);
+}
+.tv-ToySpinBox > .tv-arrows > .tv-down.is-held .tv-icon {
+  color: var(--toy-field-spin-items-down-pressed-icon-modulate);
+}
+.tv-ToySpinBox > .tv-arrows > .tv-down.is-disabled .tv-icon {
+  color: var(--toy-field-spin-items-down-disabled-icon-modulate);
+}
 /* ToyHowtoFrame: PanelContainer · howto.frame · light */
 .tv-ToyHowtoFrame {
   box-sizing: border-box;
@@ -2299,6 +2532,80 @@
   margin-right: calc(var(--toy-pick-swatch-focus-panel-expand-margin) * -1 * var(--px));
   margin-bottom: calc(var(--toy-pick-swatch-focus-panel-expand-margin) * -1 * var(--px));
   margin-left: calc(var(--toy-pick-swatch-focus-panel-expand-margin) * -1 * var(--px));
+}
+/* ToyCheckBox: CheckBox · pick.check-box · any */
+.tv-ToyCheckBox {
+  box-sizing: border-box;
+  position: relative;
+  background: var(--toy-pick-check-box-normal-bg-color);
+  border-style: solid;
+  border-color: var(--toy-pick-check-box-normal-border-color);
+  border-top-width: calc(var(--toy-pick-check-box-normal-border-width) * var(--px));
+  border-right-width: calc(var(--toy-pick-check-box-normal-border-width) * var(--px));
+  border-bottom-width: calc(var(--toy-pick-check-box-normal-border-width) * var(--px));
+  border-left-width: calc(var(--toy-pick-check-box-normal-border-width) * var(--px));
+  border-top-left-radius: calc(var(--toy-pick-check-box-normal-corner-radius) * var(--px));
+  border-top-right-radius: calc(var(--toy-pick-check-box-normal-corner-radius) * var(--px));
+  border-bottom-right-radius: calc(var(--toy-pick-check-box-normal-corner-radius) * var(--px));
+  border-bottom-left-radius: calc(var(--toy-pick-check-box-normal-corner-radius) * var(--px));
+  padding-top: calc((var(--toy-pick-check-box-normal-content-margin-block) - var(--toy-pick-check-box-normal-border-width)) * var(--px));
+  padding-right: calc((var(--toy-pick-check-box-normal-content-margin-right) - var(--toy-pick-check-box-normal-border-width)) * var(--px));
+  padding-bottom: calc((var(--toy-pick-check-box-normal-content-margin-block) - var(--toy-pick-check-box-normal-border-width)) * var(--px));
+  padding-left: calc((var(--toy-pick-check-box-normal-content-margin-left) - var(--toy-pick-check-box-normal-border-width)) * var(--px));
+  font-family: var(--toy-pick-check-box-label-font-family), system-ui, sans-serif;
+  font-size: calc(var(--toy-pick-check-box-label-font-size) * var(--px));
+  font-weight: var(--toy-pick-check-box-label-font-weight);
+  line-height: var(--toy-pick-check-box-label-line-height);
+  letter-spacing: calc(var(--toy-pick-check-box-label-letter-spacing) * var(--px));
+  color: var(--toy-pick-check-box-normal-font-color);
+  column-gap: calc(var(--toy-pick-check-box-items-h-separation) * var(--px));
+  cursor: pointer;
+}
+.tv-ToyCheckBox.is-hover {
+  background: var(--toy-pick-check-box-hover-bg-color);
+}
+.tv-ToyCheckBox.is-disabled {
+  background: var(--toy-pick-check-box-disabled-bg-color);
+  border-color: var(--toy-pick-check-box-disabled-border-color);
+  color: var(--toy-pick-check-box-disabled-font-color);
+}
+.tv-ToyCheckBox > .tv-focus {
+  display: none;
+  position: absolute;
+  pointer-events: none;
+  box-sizing: border-box;
+  border-style: solid;
+  border-color: var(--toy-pick-check-box-focus-border-color);
+  border-top-width: calc(var(--toy-pick-check-box-focus-border-width) * var(--px));
+  border-right-width: calc(var(--toy-pick-check-box-focus-border-width) * var(--px));
+  border-bottom-width: calc(var(--toy-pick-check-box-focus-border-width) * var(--px));
+  border-left-width: calc(var(--toy-pick-check-box-focus-border-width) * var(--px));
+  border-top-left-radius: calc(var(--toy-pick-check-box-focus-corner-radius) * var(--px));
+  border-top-right-radius: calc(var(--toy-pick-check-box-focus-corner-radius) * var(--px));
+  border-bottom-right-radius: calc(var(--toy-pick-check-box-focus-corner-radius) * var(--px));
+  border-bottom-left-radius: calc(var(--toy-pick-check-box-focus-corner-radius) * var(--px));
+  top: calc((0 - var(--toy-pick-check-box-normal-border-width) - var(--toy-pick-check-box-focus-expand-margin)) * var(--px));
+  right: calc((0 - var(--toy-pick-check-box-normal-border-width) - var(--toy-pick-check-box-focus-expand-margin)) * var(--px));
+  bottom: calc((0 - var(--toy-pick-check-box-normal-border-width) - var(--toy-pick-check-box-focus-expand-margin)) * var(--px));
+  left: calc((0 - var(--toy-pick-check-box-normal-border-width) - var(--toy-pick-check-box-focus-expand-margin)) * var(--px));
+}
+.tv-ToyCheckBox.is-focus > .tv-focus, .tv-ToyCheckBox:focus-visible > .tv-focus {
+  display: block;
+}
+.tv-ToyCheckBox .tv-icon {
+  color: var(--toy-pick-check-box-items-icon-normal-color);
+}
+.tv-ToyCheckBox.is-focus .tv-icon, .tv-ToyCheckBox:focus-visible .tv-icon {
+  color: var(--toy-pick-check-box-items-icon-focus-color);
+}
+.tv-ToyCheckBox.is-hover .tv-icon {
+  color: var(--toy-pick-check-box-items-icon-hover-color);
+}
+.tv-ToyCheckBox.is-held .tv-icon {
+  color: var(--toy-pick-check-box-items-icon-pressed-color);
+}
+.tv-ToyCheckBox.is-disabled .tv-icon {
+  color: var(--toy-pick-check-box-items-icon-disabled-color);
 }
 /* ToyRadio: Button → ToyButton · pick.radio · light */
 .tv-ToyRadio {

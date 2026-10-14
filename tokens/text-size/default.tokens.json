@@ -12,7 +12,11 @@
       "title": { "$value": { "value": 36, "unit": "px" } },
       "display": { "$value": { "value": 48, "unit": "px" } },
       "display-large": { "$value": { "value": 64, "unit": "px" } },
-      "hero": { "$value": { "value": 96, "unit": "px" } }
+      "hero": { "$value": { "value": 96, "unit": "px" } },
+      "theme-default": {
+        "$description": "Godot's Theme.default_font_size: the size of text whose type sets none of its own (a bare Label, a ProgressBar's percentage). 27, the greybox's 16 x 5/3, kept so bare text does not change (prime-game-ui#52).",
+        "$value": { "value": 27, "unit": "px" }
+      }
     }
   },
   "size": {

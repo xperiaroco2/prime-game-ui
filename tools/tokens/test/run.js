@@ -275,6 +275,15 @@ if (fs.existsSync(path.join(ROOT, 'tokens', 'prime.resolver.json'))) {
     check(V.ToyDropdownList && V.ToyDropdownList.class === 'PopupMenu' && same(V.ToyDropdownList.textures, { 'radio-checked': 'icons/radio-checked.svg',
       'radio-checked-disabled': 'icons/radio-checked-disabled.svg', 'radio-unchecked': 'icons/radio-unchecked.svg', 'radio-unchecked-disabled': 'icons/radio-unchecked.svg' }),
     'tokens/: ToyDropdownList (PopupMenu) names its radio textures', JSON.stringify(V.ToyDropdownList && V.ToyDropdownList.textures));
+    // the game's base-type sources (prime-game-ui#52): a live variation of that very class with no parent
+    for (const [name, cls] of [['ToyButtonPlain', 'Button'], ['ToyCheckBox', 'CheckBox'], ['ToySpinBox', 'SpinBox'], ['ToySpinField', 'LineEdit']]) {
+      check(V[name] && V[name].class === cls && V[name].parent === null && !V[name].deprecated && !V[name].abstract && V[name].base === null,
+        `tokens/: ${name} is a parentless ${cls} variation (a base-type source)`, JSON.stringify(V[name]));
+    }
+    check(same(V.ToyCheckBox.textures, { checked: 'icons/checkbox-checked.svg', 'checked-disabled': 'icons/checkbox-checked-disabled.svg',
+      unchecked: 'icons/checkbox-unchecked.svg', 'unchecked-disabled': 'icons/checkbox-unchecked-disabled.svg' }), 'tokens/: ToyCheckBox names its box textures', JSON.stringify(V.ToyCheckBox.textures));
+    check(Object.keys(V.ToySpinBox.textures).length === 8 && Object.entries(V.ToySpinBox.textures).every(([k, f]) => f === `icons/spin-${k.split('-')[0]}.svg`),
+      'tokens/: ToySpinBox names its arrow textures', JSON.stringify(V.ToySpinBox.textures));
     check(V.ToyChipNew.deprecated && V.ToyChipNew.deprecated.replacement === 'ToyChipAlert' && V.ToyChipNewText.deprecated
       && V.ToyChipNewText.deprecated.replacement === 'ToyChipAlertText', 'tokens/: ToyChipNew and ToyChipNewText are marked deprecated with their replacements');
     const assets = new Map(sys.pack.assets.map((a) => [a.path, a]));

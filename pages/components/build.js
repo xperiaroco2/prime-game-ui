@@ -19,7 +19,8 @@ const TOKENS_CSS = 'dist/css/toy-tokens.css';
 const GATES = 'dist/gates.json';
 const EN_JSON = 'pages/wireframes/en.json';
 const ICONS = ['check', 'item', 'mic', 'mic-off', 'pointer', 'chevron-left', 'chevron-right', 'chevron-down', 'lock', 'teammate-mark',
-  'knife', 'slider-knob', 'slider-knob-disabled', 'swatch-disc', 'radio-checked', 'radio-checked-disabled', 'radio-unchecked'];
+  'knife', 'slider-knob', 'slider-knob-disabled', 'swatch-disc', 'radio-checked', 'radio-checked-disabled', 'radio-unchecked',
+  'checkbox-checked', 'checkbox-checked-disabled', 'checkbox-unchecked', 'checkbox-unchecked-disabled', 'spin-up', 'spin-down'];
 const ICON_HEAD = '<!-- own work, prime-game-ui, licence: own work -->';
 const FONT_LINK = 'https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap';
 const TILES = [['white', '#ffffff'], ['grey', '#c9c9c9'], ['dim', '#979797']];
@@ -346,6 +347,73 @@ function renderPage(sys, componentsCss) {
     }
     return stages.join('');
   }
+  // A variant's texture (godot.textures, an icons/<name>.svg of this page) as inline SVG.
+  const texture = (v, key) => {
+    const m = /^icons\/([a-z0-9-]+)\.svg$/.exec((v.textures && v.textures[key]) || '');
+    if (!m || !icons[m[1]]) fail(`showcase.json: ${v.variation} has no page icon for its texture ${key}`);
+    return icons[m[1]];
+  };
+  // CheckBox: the box texture at the left content margin, then h_separation, then the label. Checked is Godot's pressed
+  // state (and hover_pressed while hovered); the box texture shows it. The live one toggles aria-pressed (page.js
+  // data-check) and page.css shows the box that matches.
+  function rowCheckBox(row) {
+    const name = row.variations[0];
+    const v = V(name);
+    const box = (key, cls) => `<span class="sc-cbox${cls ? ` ${cls}` : ''}">${texture(v, key)}</span>`;
+    const el = (stateCls, boxes, o = {}) => {
+      const a = ['type="button"', `class="tv-${name}${stateCls ? ` ${stateCls}` : ''}"`];
+      if (o.live) a.push('data-live', 'data-check', 'aria-pressed="false"');
+      else a.push('tabindex="-1"');
+      return `<button ${a.join(' ')}>${boxes}${sampleSpan(row.label)}<span class="tv-focus"></span></button>`;
+    };
+    const STATES = [
+      ['st_unchecked', 'normal', '', 'unchecked'], ['st_checked', 'pressed', '', 'checked'],
+      ['st_hover', 'hover', 'is-hover', 'unchecked'], ['st_checked-hover', 'hover-pressed', 'is-hover', 'checked'],
+      ['st_focus', 'focus', 'is-focus', 'unchecked'], ['st_off', 'disabled', 'is-disabled', 'unchecked-disabled'],
+      ['st_checked-off', 'disabled', 'is-disabled', 'checked-disabled'],
+    ];
+    const stages = [];
+    for (const ctx of row.contexts) {
+      const cells = [];
+      if (row.live) {
+        cells.push(cell(T('live'), proposal(['normal', 'hover', 'pressed', 'hover-pressed', 'focus'].map((s) => [name, s, { items: ['h-separation'] }])),
+          el('', box('unchecked', 'sc-cbox-off') + box('checked', 'sc-cbox-on'), { live: true }), { live: true }));
+      }
+      for (const [cap, gstate, cls, key] of STATES) {
+        const uses = [[name, gstate, { items: ['h-separation'] }]];
+        if (gstate === 'focus') uses.push([name, 'normal']);
+        cells.push(cell(T(cap), proposal(uses), el(cls, box(key))));
+      }
+      stages.push(stage(ctx, cells));
+    }
+    return stages.join('');
+  }
+  // SpinBox: its field (the second variation, SpinBoxInnerLineEdit's look), then its two arrow buttons; each button is
+  // live on its own, as Godot's are.
+  function rowSpinBox(row) {
+    const [name, fieldName] = row.variations;
+    const v = V(name);
+    V(fieldName);
+    const all = ['buttons-width', 'field-and-buttons-separation', 'buttons-vertical-separation'];
+    const arrow = (side, cls, live) => `<span class="tv-${side}${cls ? ` ${cls}` : ''}"${live ? ' data-live' : ''}><span class="tv-icon">${texture(v, side)}</span></span>`;
+    const spin = (up, down, fieldCls, live) => `<span class="tv-${name}"><div class="tv-${fieldName}${fieldCls ? ` ${fieldCls}` : ''}">`
+      + `${sampleSpan(row.label)}<span class="tv-focus"></span></div><span class="tv-arrows">${arrow('up', up, live)}${arrow('down', down, live)}</span></span>`;
+    const cases = [
+      ['st_normal', [[name, 'up-background', { items: all }], [fieldName, 'normal']], spin('', '', '')],
+      ['st_up-hover', [[name, 'up-background-hovered']], spin('is-hover', '', '')],
+      ['st_up-held', [[name, 'up-background-pressed']], spin('is-held', '', '')],
+      ['st_focus', [[fieldName, 'focus']], spin('', '', 'is-focus')],
+      ['st_off', [[name, 'up-background-disabled'], [fieldName, 'read-only']], spin('is-disabled', 'is-disabled', 'is-readonly')],
+    ];
+    const stages = [];
+    for (const ctx of row.contexts) {
+      const cells = [];
+      if (row.live) cells.push(cell(T('live'), proposal([[name, 'up-background', { items: all }], [name, 'up-background-pressed'], [fieldName, 'normal']]), spin('', '', '', true), { live: true }));
+      for (const [cap, uses, html] of cases) cells.push(cell(T(cap), proposal(uses), html));
+      stages.push(stage(ctx, cells));
+    }
+    return stages.join('');
+  }
   // VScrollBar: value and page as fractions of the range (emit-css.js), at a fixed sample length.
   function rowScrollBar(row) {
     const name = row.variations[0];
@@ -641,7 +709,7 @@ function renderPage(sys, componentsCss) {
     'hud-bar': rowHudBar, menu: rowMenu, dialog: rowDialog, backdrops: rowBackdrops, howto: rowHowto, settings: rowSettings,
     map: rowMap, mic: rowMic, swatches: rowSwatches, palette: rowPalette, 'type-scale': rowTypeScale, ramp: rowRamp,
     contrast: rowContrast, icons: rowIcons, slider: rowSlider, scrollbar: rowScrollBar, layout: rowLayout,
-    'dropdown-list': rowDropdownList,
+    'dropdown-list': rowDropdownList, checkbox: rowCheckBox, spinbox: rowSpinBox,
   };
   const TOKEN_KINDS = new Set(['palette', 'type-scale', 'ramp', 'contrast', 'icons']);
 

@@ -143,6 +143,11 @@ The engineer's word choices and removals, 2026-10-05, on the [copy page](https:/
   throw lesson («Кидання», «Кинь предмет», «Візьми предмет у руку й натисни {key}»), four lobby shortfall lines and the
   Voice card's third frame «У нокдауні й після смерті тебе ніхто не чує». The upper floor's landing is «Верхній хол»,
   not «Хол», because the greybox's `room.hall` already reads «Хол» (agent).
+- **Round 5** (the engineer, 2026-10-14, Delivery D2's item names and the sneak control, prime-game-ui#57, released in
+  ui-0.7.0): every question as recommended: «Вино» / "Wine", «Моторна олива» / "Motor oil", «Садовий гном» / "Garden
+  gnome", «Парасоля» / "Parasol" (`item.wine`, `item.oil`, `item.gnome`, `item.parasol`); the sneak control is
+  «Крастися» / "Sneak" (`control.sneak`); the throw keeps two words, «Жбурнути» in Controls and «Кинь предмет» /
+  «Кидання» in the lesson.
 
 ## Style
 The engineer chose **Toy** (2026-10-03): chunky rounded shapes with a thick plum outline, cream panels, sunny-yellow buttons with a solid toy base that look pressable, and a small, calm HUD; it reads as arcade and game-like. **No tilted plates** (they break the design). **Press feedback** on the voluminous buttons: the button sinks onto its base when pressed (a pressed StyleBox and a short Tween in Godot; previewed in `pages/styles/motion-preview.css`). Safety card was liked but reads too much like an office; Quiet retro was not chosen. The 10 character colours proposed by the retro skin are not adopted. ([prime-game-ui#2](https://github.com/xperiaroco2/prime-game-ui/issues/2))
@@ -216,6 +221,10 @@ the agents took where the decisions were silent, after five reviews (agent):
   140 px minimum width (it holds 44:44); the downed plate is a HUD plate like the others; while downed only the downed
   plates and the mic show, while dead only the spectating plate; the give-up hold bar stays visible and empty until the
   key is held.
+- **A long item name in the hand slot** (prime-game-ui#57) (agent): the wide hand slot wraps a two-handed item's name
+  at word boundaries onto at most two lines and puts the ellipsis only after the second line, because "Garden gnome"
+  and «Моторна олива» do not fit in 106 px; a name that fits in one line looks as before
+  ([prime-game#1017](https://github.com/xperiaroco2/prime-game/issues/1017)).
 - **Map and tutorial:** the task panel grows from the top to its content; the sample map's rooms sit on one grid with
   48 px pictograms; a lit zone sits inside its room under the pictogram; «Ти тут» beside the pin; the how-to card is
   centred with Close inside it; the map's «?» is a 42 px round keycap; the tutorial's lesson plate is 912 px and its
@@ -249,6 +258,25 @@ took the recommended option):
 - **The death lesson** is named «Смерть» / Death.
 - **The ready key** is not taught: the Esc Lobby tab has the Ready button and Settings › Controls shows the key.
 - **Raising a teammate:** the raiser sees a thin progress bar under the crosshair in place of the object's name, no text.
+
+**Base controls** (the engineer, 2026-10-14, every question as recommended, option a, on the base-controls page,
+[prime-game-ui#52](https://github.com/xperiaroco2/prime-game-ui/issues/52), for the game's theme scale flip,
+prime-game#620 and #576; released in ui-0.7.0): the looks of a control the screens build bare, with no variation of
+its own (`tokens/README.md`, "The pack's base-type sources"):
+- **CheckBox** (`ToyCheckBox`): a white tile with a thin ink outline and a 28 px box at its left, empty white or
+  checked yellow with an ink check; hover turns the tile lavender, checked or not; focus is the buttons' ink ring;
+  disabled is pale with a muted box. It sets every item a Button sets, so the plain Button's look never reaches it.
+- **SpinBox arrows** (`ToySpinBox`, its field `ToySpinField`): two yellow buttons stacked 8 px right of the field, 2 px
+  apart, in the stepper's colours (honey while held, pale when unplugged), 18 px ink chevrons; the number field has
+  12 px above and below instead of 10, so each arrow is at least 24 px high.
+- **Plain Button** (`ToyButtonPlain`): the white secondary button, flat (a bare Button has no toy base and does not
+  move); hover and held look as normal.
+- **Large-text `default_font_size`** (`font.size.theme-default`): 34, the large-text rule's 27 × 1.25; the default
+  stays 27.
+- (agent) The CheckBox tile has 9 px above and below its content instead of the page's 8, so the inner focus ring keeps
+  4 px from the box (the tokens' focus rule); the plain Button and the CheckBox tint a Button icon of their own in the
+  label's colour, as the yellow button does; the CheckBox's radio icons (a CheckBox in a button group) are not drawn,
+  as no screen has one.
 
 ## Type
 Comfortaa for titles and text, provisionally, until the style is chosen (SIL OFL 1.1 with the Reserved Font Name
