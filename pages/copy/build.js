@@ -1,7 +1,7 @@
-// The copy review page, round 4 (prime-game-ui#4, #19, #51): the open questions of copy/flags.json first (round 3), each with its options
+// The copy review page, round 5 (prime-game-ui#4, #19, #51, #57): the open questions of copy/flags.json first (round 5), each with its options
 // a-c as taps («Беру цей») and «Інакше» with an own text and a note, saved through the artifact runtime's db capability
 // (collection "copy", one document per question id: {answer: option id | "other", text, note, at}); then what was
-// decided in rounds 1 and 2 and every string of copy/strings.csv per wireframe screen, both folded and read-only.
+// decided in earlier rounds and every string of copy/strings.csv per wireframe screen, both folded and read-only.
 //
 //   node pages/copy/build.js          write copy-ui.css and copy.html
 //   node pages/copy/build.js --check  fail when either is stale
@@ -137,7 +137,7 @@ function build() {
       + '</div></article>';
   }).join('\n');
 
-  // ----- decided in rounds 1 and 2 -----
+  // ----- decided in earlier rounds -----
   const decided = L.flags.decided.map((d) => {
     const lines = d.keys.map((k) => {
       const e = byKey.get(k);
@@ -176,7 +176,7 @@ function build() {
     '</head>',
     '<body>',
     '<main>',
-    '<h1>Тексти гри: коло 4</h1>',
+    '<h1>Тексти гри: коло 5</h1>',
     `<p class="cp-rule"><b>Принцип.</b> ${esc(L.flags.principle)}</p>`,
     flags.length
       ? `<p class="sc-lead">Відкритих питань: ${flags.length}${rejected ? ` (${rejected} ще раз, після твоєї відповіді «інакше»)` : ''}. Тапни «Беру цей» біля варіанта або «Інакше» з нотаткою; «Беру всі рекомендовані» одним тапом обирає варіант a там, де відповіді ще немає. Прийняте вже внесено й згорнуте внизу.</p>`
