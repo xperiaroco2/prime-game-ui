@@ -208,16 +208,19 @@ deprecated itself. The pack marks both (below).
 `ToyHowtoCaption` is deprecated. The art ships beside the pack as PNG, because the chosen clean-sketch line is an SVG
 filter Godot's SVG importer does not draw:
 
-- `tools/card-art/render.js` (local, headless Edge) renders the Delivery panels of
-  `pages/card-art/round-2/clean-sketch/` at 2x (640×480, transparent background) into `pages/card-art/png/` and records
-  each PNG's and SVG's sha256 in `renders.json`; `--check` (a step of `tools/check.js`) needs no Edge.
+- `tools/card-art/render.js` (local, headless Edge) renders the Delivery panels at 2x (640×480, transparent
+  background) into `pages/card-art/png/` and records each PNG's and SVG's sha256 in `renders.json`; `--check` (a step
+  of `tools/check.js`) needs no Edge. Two Delivery cards ship since ui-0.8.0: `delivery-1..4.png` from
+  `pages/card-art/round-2/clean-sketch/` (the greybox's colour Delivery, task `colour_delivery`; `delivery` until
+  ui-0.7.0) and `delivery-meaning-1..4.png` from `pages/card-art/round-3/a/` (the House's Delivery by meaning, task
+  `delivery`).
 - The token build (`tools/tokens/cards.js`) copies them byte for byte into `dist/pack/cards/` with `cards/LICENCES.json`,
   and refuses (B03) a PNG whose SVG changed since it was rendered. Switches is a sample card of the pages, not a game
   task: it is not rendered and not shipped.
 - **`assets`** gains one entry per PNG, sorted by path with the icons:
   `{ "path": "cards/delivery-1.png", "kind": "card-art", "sha256": "…", "licence": "own work", "licence_file":
   "cards/LICENCES.json", "source": "pages/card-art/round-2/clean-sketch/delivery-1.svg", "size": [640, 480], "task":
-  "delivery", "frame": 1 }`; the last frame of a task also has `"done": true` (drawn in `ToyHowtoFrameDone`). The
+  "colour_delivery", "frame": 1 }`; the last frame of a task also has `"done": true` (drawn in `ToyHowtoFrameDone`). The
   game imports them as Texture2D (Lossless, mipmaps on), never tinted, in a TextureRect with `EXPAND_IGNORE_SIZE` and
   `STRETCH_KEEP_ASPECT_CENTERED`.
 

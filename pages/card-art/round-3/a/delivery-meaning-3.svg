@@ -33,8 +33,10 @@
   <g filter="url(#m3-w)">
     <ellipse cx="80" cy="213" rx="24" ry="4" fill="#1f2433" opacity=".12"/>
     <path class="k t" d="M16 212C96 209 210 214 304 211"/>
-    <!-- a bush behind the bed -->
-    <path class="w" d="M309.5 172.0A11.8 11.8 0 0 1 293.6 187.0A12.9 12.9 0 0 1 270.1 183.0A11.0 11.0 0 0 1 262.5 164.0A11.8 11.8 0 0 1 278.4 149.0A12.9 12.9 0 0 1 301.9 153.0A11.0 11.0 0 0 1 309.5 172.0Z" style="stroke-width:4"/>
+    <!-- a small garden tree behind the bed: a trunk on the ground, so its crown reads as leaves, not a cloud -->
+    <path class="k" d="M282 212V116M282 156L268 140M282 144L294 130" style="stroke-width:7"/>
+    <path class="k t" d="M272 212Q282 206 282 196Q282 206 292 212"/>
+    <path class="w" d="M309.5 172.0A11.8 11.8 0 0 1 293.6 187.0A12.9 12.9 0 0 1 270.1 183.0A11.0 11.0 0 0 1 262.5 164.0A11.8 11.8 0 0 1 278.4 149.0A12.9 12.9 0 0 1 301.9 153.0A11.0 11.0 0 0 1 309.5 172.0Z" transform="translate(282 104) scale(1.15) translate(-286 -168)" style="stroke-width:3.4"/>
     <!-- the flower bed and its three flowers -->
     <path class="k f" d="M214 204V176M236 202V168M258 204V178"/>
     <path class="k f" d="M214 194q-6-1-8-7M236 190q6-1 8-7M258 196q-6-1-8-6"/>

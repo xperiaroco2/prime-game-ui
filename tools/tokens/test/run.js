@@ -293,10 +293,17 @@ if (fs.existsSync(path.join(ROOT, 'tokens', 'prime.resolver.json'))) {
       'tokens/: every icon in dist/pack/icons has one assets entry', `${iconAssets.length} icon assets, ${files.length} icons`);
     const cards = Object.keys(sys.outputs).filter((k) => /^dist\/pack\/cards\/.+\.png$/.test(k));
     const cardAssets = sys.pack.assets.filter((a) => a.kind === 'card-art');
-    check(cards.length === 4 && cardAssets.length === 4 && cards.every((k) => Buffer.isBuffer(sys.outputs[k]) && assets.has(k.slice('dist/pack/'.length)))
-      && cardAssets.every((a) => a.task === 'delivery' && a.licence === 'own work' && a.size[0] === 640 && a.size[1] === 480)
-      && cardAssets.filter((a) => a.done).map((a) => a.frame).join() === '4' && !cards.some((k) => /switches/.test(k)),
-    'tokens/: the Delivery card art ships as four 640x480 PNGs, frame 4 done, no Switches', JSON.stringify(cardAssets));
+    // two Delivery cards (ui-0.8.0): the House's by meaning (task delivery, delivery-meaning-1..4), the greybox's colour
+    // Delivery (task colour_delivery, delivery-1..4)
+    const cardOf = (task, stem) => {
+      const of = cardAssets.filter((a) => a.task === task);
+      return of.length === 4 && of.map((a) => a.path).join() === [1, 2, 3, 4].map((i) => `cards/${stem}-${i}.png`).join()
+        && of.filter((a) => a.done).map((a) => a.frame).join() === '4';
+    };
+    check(cards.length === 8 && cardAssets.length === 8 && cards.every((k) => Buffer.isBuffer(sys.outputs[k]) && assets.has(k.slice('dist/pack/'.length)))
+      && cardAssets.every((a) => a.licence === 'own work' && a.size[0] === 640 && a.size[1] === 480)
+      && cardOf('delivery', 'delivery-meaning') && cardOf('colour_delivery', 'delivery') && !cards.some((k) => /switches/.test(k)),
+    'tokens/: the two Delivery cards ship as four 640x480 PNGs each (by meaning: delivery, colour: colour_delivery), frame 4 done, no Switches', JSON.stringify(cardAssets));
     const fontAssets = sys.pack.assets.filter((a) => a.kind === 'font');
     const ttf = sys.outputs['dist/pack/fonts/Comfortaa-VariableFont_wght.ttf'];
     check(fontAssets.length === 1 && fontAssets[0].family === 'Comfortaa' && fontAssets[0].licence === 'OFL-1.1' && fontAssets[0].weights.join() === '600,700'

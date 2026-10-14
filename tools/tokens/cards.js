@@ -3,7 +3,8 @@
 //
 //   cards/<name>.png       the PNGs tools/card-art/render.js renders from the chosen clean-sketch panels (2x, 640x480,
 //                          transparent), listed in pages/card-art/png/renders.json; copied byte for byte.
-//   cards/LICENCES.json    the licence record of each PNG's SVG (pages/card-art/round-2/clean-sketch/LICENCES.json).
+//   cards/LICENCES.json    the licence record of each PNG's SVG (the LICENCES.json beside it: pages/card-art/round-2/
+//                          clean-sketch/ for the colour Delivery, pages/card-art/round-3/a/ for Delivery by meaning).
 //
 // The PNGs are rendered with Edge, which CI does not have, so the build does not render: it refuses a PNG whose bytes or
 // whose SVG changed since renders.json was written (run node tools/card-art/render.js), and an SVG without an allowed

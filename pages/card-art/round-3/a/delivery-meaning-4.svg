@@ -52,7 +52,7 @@
     <use href="#m4-g" transform="translate(132 199) scale(1.15)"/>
     <!-- done -->
     <path class="k" d="M118 52l12 12l24-26" style="stroke-width:8"/>
-    <!-- in the background: the figure resting under the terrace parasol, sunglasses on -->
+    <!-- in the background: the figure resting under the terrace parasol, a plain smiling face in profile -->
     <g class="bg" transform="translate(250 212) scale(-.55 .55) translate(-135.5 -212)">
       <path class="k" d="M142 60V206"/>
       <path class="k t" d="M126 212L142 202L158 212"/>
@@ -65,9 +65,8 @@
       <path class="k" d="M78 178L52 142"/>
       <path class="k" d="M54 146L74 120L44 106"/>
       <circle class="w" cx="44" cy="122" r="17"/>
-      <path class="k f" d="M44 117L64 112"/>
-      <ellipse class="i" cx="48" cy="118" rx="7" ry="5.5" transform="rotate(-14 49 117)"/><ellipse class="i" cx="62" cy="114" rx="7" ry="5.5" transform="rotate(-14 60 114)"/>
-      <path class="k t" d="M50 128q5 3 9-1"/>
+      <circle class="i" cx="51" cy="116" r="4.6"/>
+      <path class="k t" d="M44 128q8 6 15-2"/>
     </g>
   </g>
 </svg>
