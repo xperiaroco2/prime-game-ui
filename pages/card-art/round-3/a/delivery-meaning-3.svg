@@ -1,0 +1,56 @@
+<!-- own work, prime-game-ui, licence: own work -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" width="320" height="240">
+  <defs>
+    <filter id="m3-w" filterUnits="userSpaceOnUse" x="0" y="0" width="320" height="240">
+      <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="25" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="4" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <style>
+      .k{fill:none;stroke:#1f2433;stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
+      .t{stroke-width:4}
+      .f{stroke-width:3}
+      .w{fill:#fff;stroke:#1f2433;stroke-width:5;stroke-linejoin:round}
+      .a{fill:#e8a33a;stroke:#1f2433;stroke-width:5;stroke-linejoin:round}
+      .i{fill:#1f2433}
+      .dd{stroke-dasharray:7 7}
+    </style>
+    <!-- the garden gnome, base at 0,0: boots, coat, face, beard and the amber hat (the card's one accent: the item) -->
+    <g id="m3-g">
+      <ellipse class="i" cx="-10" cy="-5" rx="10" ry="6"/><ellipse class="i" cx="10" cy="-5" rx="10" ry="6"/>
+      <path class="w" d="M-19 -9C-24 -26 -23 -40 -16 -48H16C23 -40 24 -26 19 -9Z"/>
+      <circle class="w" cx="0" cy="-58" r="15"/>
+      <path class="w" d="M-18 -56C-12 -48 -4 -48 0 -51C4 -48 12 -48 18 -56C18 -37 8 -26 0 -21C-8 -26 -18 -37 -18 -56Z"/>
+      <path class="a" d="M-21 -63C-12 -70 12 -70 21 -63L10 -94Q5 -101 1 -95Z"/>
+      <circle class="i" cx="-5.5" cy="-60" r="2.6"/><circle class="i" cx="5.5" cy="-60" r="2.6"/>
+    </g>
+    <!-- a flower head, centre at 0,0: the outline of five petals, their fill, an ink centre -->
+    <g id="m3-fl">
+      <g fill="#fff" stroke="#1f2433" stroke-width="3"><circle cx="0" cy="-5.5" r="4.5"/><circle cx="5.2" cy="-1.7" r="4.5"/><circle cx="3.2" cy="4.4" r="4.5"/><circle cx="-3.2" cy="4.4" r="4.5"/><circle cx="-5.2" cy="-1.7" r="4.5"/></g>
+      <g fill="#fff"><circle cx="0" cy="-5.5" r="4.5"/><circle cx="5.2" cy="-1.7" r="4.5"/><circle cx="3.2" cy="4.4" r="4.5"/><circle cx="-3.2" cy="4.4" r="4.5"/><circle cx="-5.2" cy="-1.7" r="4.5"/></g>
+      <circle class="i" r="2.8"/>
+    </g>
+  </defs>
+  <g filter="url(#m3-w)">
+    <ellipse cx="80" cy="213" rx="24" ry="4" fill="#1f2433" opacity=".12"/>
+    <path class="k t" d="M16 212C96 209 210 214 304 211"/>
+    <!-- a bush behind the bed -->
+    <path class="w" d="M309.5 172.0A11.8 11.8 0 0 1 293.6 187.0A12.9 12.9 0 0 1 270.1 183.0A11.0 11.0 0 0 1 262.5 164.0A11.8 11.8 0 0 1 278.4 149.0A12.9 12.9 0 0 1 301.9 153.0A11.0 11.0 0 0 1 309.5 172.0Z" style="stroke-width:4"/>
+    <!-- the flower bed and its three flowers -->
+    <path class="k f" d="M214 204V176M236 202V168M258 204V178"/>
+    <path class="k f" d="M214 194q-6-1-8-7M236 190q6-1 8-7M258 196q-6-1-8-6"/>
+    <use href="#m3-fl" transform="translate(214 173)"/>
+    <use href="#m3-fl" transform="translate(236 164) scale(1.1)"/>
+    <use href="#m3-fl" transform="translate(258 176) scale(.9)"/>
+    <path class="w" d="M126 212C134 190 274 190 284 212Z" style="stroke-width:4"/>
+    <path class="k f" d="M150 205h6M178 201h6M196 206h6"/>
+    <!-- the gnome, lowered onto the bed -->
+    <use href="#m3-g" transform="translate(166 186) scale(.8)"/>
+    <!-- figure, bending to set it down -->
+    <path class="k" d="M84 150L70 180L64 211M84 150L102 181L96 211"/>
+    <path class="k" d="M84 150L110 116"/>
+    <path class="k" d="M108 122Q118 148 152 158M107 126Q112 166 152 174"/>
+    <circle class="w" cx="123" cy="99" r="19"/>
+    <circle class="i" cx="129" cy="102" r="2.8"/><circle class="i" cx="137" cy="101" r="2.8"/>
+    <path class="k t" d="M126 109q5 4 10-1"/>
+  </g>
+</svg>

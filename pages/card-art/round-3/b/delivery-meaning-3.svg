@@ -1,0 +1,84 @@
+<!-- own work, prime-game-ui, licence: own work -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" width="320" height="240">
+  <defs>
+    <filter id="m3-w" filterUnits="userSpaceOnUse" x="0" y="0" width="320" height="240">
+      <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="3" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="4" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <style>
+      .k{fill:none;stroke:#1f2433;stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
+      .t{stroke-width:4}
+      .f{stroke-width:3}
+      .w{fill:#fff;stroke:#1f2433;stroke-width:5;stroke-linejoin:round}
+      .i{fill:#1f2433}
+      .a{fill:#e8a33a;stroke:#1f2433;stroke-width:5;stroke-linejoin:round}
+      .o{fill:none;stroke:#e8a33a;stroke-width:5;stroke-linecap:round}
+      .dd{stroke-dasharray:7 7}
+    </style>
+    <!-- a case of wine, a wooden crate of bottles: origin at the crate's top-left, 52x34 -->
+    <g id="m3-wine">
+      <path class="i" d="M3 2Q3-6 7-8V-20H13V-8Q17-6 17 2ZM19 2Q19-6 23-8V-22H29V-8Q33-6 33 2ZM35 2Q35-6 39-8V-20H45V-8Q49-6 49 2Z"/>
+      <rect class="a" x="0" y="0" width="52" height="34" rx="3"/>
+      <path class="k f" d="M2 18H50"/>
+      <rect class="i" x="19" y="6" width="14" height="5" rx="2.5"/>
+    </g>
+    <!-- a canister of motor oil: origin at its bottom-left, 30x40 -->
+    <g id="m3-oil">
+      <path class="k t" d="M17 -40Q17 -52 27 -49L28 -40"/>
+      <rect class="i" x="3" y="-48" width="10" height="9" rx="2"/>
+      <rect class="w" x="0" y="-40" width="30" height="40" rx="5"/>
+      <path class="i" d="M15 -29q-7 9 0 13q7-4 0-13z"/>
+    </g>
+    <!-- a large garden gnome: origin at its base centre, about 46x98; a hat band, rosy cheeks, a big beard, the hat's tip drooping to the right, no nose -->
+    <g id="m3-gnome">
+      <path class="w" d="M-17 0Q-19 -24 -10 -30H10Q19 -24 17 0Z"/>
+      <path class="k t" d="M-12 -4h8M4 -4h8"/>
+      <path class="w" d="M-12 -60C-11 -77 -7 -91 4 -95C16 -99 26 -87 28 -71C24 -79 18 -83 12 -81C11 -73 11 -67 12 -60Z" style="stroke-width:4"/>
+      <circle class="w" cx="28" cy="-70" r="3.5" style="stroke-width:3"/>
+      <circle class="w" cx="0" cy="-46" r="12" style="stroke-width:4"/>
+      <path class="k f" d="M-16 -20q-5 8 1 13M16 -20q5 8 -1 13"/>
+      <path class="w" d="M-15 -42Q-21 -18 -9 -9Q-4 -3 0 -1Q4 -3 9 -9Q21 -18 15 -42Q9 -35 0 -37Q-9 -35 -15 -42Z" style="stroke-width:4"/>
+      <path class="k f" d="M-6 -28q2 6 -1 11M6 -28q-2 6 1 11"/>
+      <circle cx="-8" cy="-44" r="2.8" fill="#e8a33a"/><circle cx="8" cy="-44" r="2.8" fill="#e8a33a"/>
+      <circle class="i" cx="-4.5" cy="-49" r="2.4"/><circle class="i" cx="4.5" cy="-49" r="2.4"/>
+      <rect class="a" x="-14" y="-62" width="28" height="7" rx="3.5" style="stroke-width:4"/>
+    </g>
+    <!-- a closed parasol: origin at the pole's foot, pointing up, 150 tall -->
+    <g id="m3-parasol">
+      <path class="k t" d="M0 0V-156"/>
+      <path class="w" d="M0 -146Q-13 -104 -7 -64H7Q13 -104 0 -146Z"/>
+      <path class="k f" d="M0 -140V-70M-9 -96H9"/>
+    </g>
+    <!-- a wine glass with red wine: origin at its foot centre, 18x32 -->
+    <g id="m3-glass">
+      <path class="k t" d="M0 -4V-16M-7 -2H7"/>
+      <path d="M-9 -32Q-10 -15 0 -15Q10 -15 9 -32Z" fill="#fff" stroke="#1f2433" stroke-width="3.5" stroke-linejoin="round"/>
+      <path class="i" d="M-8.5 -24Q-8 -17 0 -17Q8 -17 8.5 -24Z"/>
+    </g>
+  </defs>
+  <g filter="url(#m3-w)">
+    <!-- floor -->
+    <ellipse cx="72" cy="213" rx="26" ry="4" fill="#1f2433" opacity=".12"/>
+    <path class="k t" d="M16 212C96 209 210 214 304 211"/>
+    <!-- the dining room: the lamp over the table -->
+    <path class="k t" d="M178 0V40"/>
+    <path class="w" d="M156 60Q156 40 178 40Q200 40 200 60Z"/>
+    <path class="k t" d="M160 180V211M260 180V211"/>
+    <path class="w" d="M140 150V178Q145 184 150 178Q155 184 160 178Q165 184 170 178Q175 184 180 178Q185 184 190 178Q195 184 200 178Q205 184 210 178Q215 184 220 178Q225 184 230 178Q235 184 240 178Q245 184 250 178Q255 184 260 178Q265 184 270 178Q275 184 280 178V150Z"/>
+    <use href="#m3-glass" transform="translate(240 149)"/>
+    <use href="#m3-glass" transform="translate(264 149)"/>
+    <!-- the far arm, behind the case -->
+    <path class="k" d="M106 112L204 116"/>
+    <!-- the case, a few pixels above the cloth, being lowered -->
+    <use href="#m3-wine" transform="translate(152 110)"/>
+    <path class="k t" d="M204 112Q213 118 205 128"/>
+    <path class="k t" d="M216 76Q230 92 218 112M211 105l7 8l8-6"/>
+    <!-- figure, bent forward, both hands on the case's sides -->
+    <path class="k" d="M72 150L58 180L52 211M72 150L90 181L84 211"/>
+    <path class="k" d="M72 150L106 110"/>
+    <path class="k" d="M104 116Q112 142 153 134"/>
+    <circle class="w" cx="120" cy="91" r="19"/>
+    <circle class="i" cx="126" cy="95" r="2.8"/><circle class="i" cx="134" cy="94" r="2.8"/>
+    <path class="k t" d="M124 103q5 3 10-1"/>
+  </g>
+</svg>

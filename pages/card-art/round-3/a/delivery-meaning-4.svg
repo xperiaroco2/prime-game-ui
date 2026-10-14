@@ -1,0 +1,73 @@
+<!-- own work, prime-game-ui, licence: own work -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" width="320" height="240">
+  <defs>
+    <filter id="m4-w" filterUnits="userSpaceOnUse" x="0" y="0" width="320" height="240">
+      <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="27" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="4" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <style>
+      .k{fill:none;stroke:#1f2433;stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
+      .t{stroke-width:4}
+      .f{stroke-width:3}
+      .w{fill:#fff;stroke:#1f2433;stroke-width:5;stroke-linejoin:round}
+      .a{fill:#e8a33a;stroke:#1f2433;stroke-width:5;stroke-linejoin:round}
+      .i{fill:#1f2433}
+      .o{fill:none;stroke:#e8a33a;stroke-width:5;stroke-linecap:round}
+      .bg .k{stroke-width:9}
+      .bg .t{stroke-width:7}
+      .bg .f{stroke-width:5}
+      .bg .w{stroke-width:8}
+    </style>
+    <!-- the garden gnome, base at 0,0: boots, coat, face, beard and the amber hat (the card's one accent: the item) -->
+    <g id="m4-g">
+      <ellipse class="i" cx="-10" cy="-5" rx="10" ry="6"/><ellipse class="i" cx="10" cy="-5" rx="10" ry="6"/>
+      <path class="w" d="M-19 -9C-24 -26 -23 -40 -16 -48H16C23 -40 24 -26 19 -9Z"/>
+      <circle class="w" cx="0" cy="-58" r="15"/>
+      <path class="w" d="M-18 -56C-12 -48 -4 -48 0 -51C4 -48 12 -48 18 -56C18 -37 8 -26 0 -21C-8 -26 -18 -37 -18 -56Z"/>
+      <path class="a" d="M-21 -63C-12 -70 12 -70 21 -63L10 -94Q5 -101 1 -95Z"/>
+      <circle class="i" cx="-5.5" cy="-60" r="2.6"/><circle class="i" cx="5.5" cy="-60" r="2.6"/>
+    </g>
+    <!-- a flower head, centre at 0,0: the outline of five petals, their fill, an ink centre -->
+    <g id="m4-fl">
+      <g fill="#fff" stroke="#1f2433" stroke-width="3"><circle cx="0" cy="-5.5" r="4.5"/><circle cx="5.2" cy="-1.7" r="4.5"/><circle cx="3.2" cy="4.4" r="4.5"/><circle cx="-3.2" cy="4.4" r="4.5"/><circle cx="-5.2" cy="-1.7" r="4.5"/></g>
+      <g fill="#fff"><circle cx="0" cy="-5.5" r="4.5"/><circle cx="5.2" cy="-1.7" r="4.5"/><circle cx="3.2" cy="4.4" r="4.5"/><circle cx="-3.2" cy="4.4" r="4.5"/><circle cx="-5.2" cy="-1.7" r="4.5"/></g>
+      <circle class="i" r="2.8"/>
+    </g>
+  </defs>
+  <g filter="url(#m4-w)">
+    <path class="k t" d="M16 212C96 209 210 214 304 211"/>
+    <!-- the delivered gnome, counted: light rising from its bed -->
+    <ellipse cx="132" cy="210" rx="84" ry="14" fill="#e8a33a" opacity=".22"/>
+    <ellipse cx="132" cy="210" rx="76" ry="9" fill="#e8a33a" opacity=".55"/>
+    <ellipse cx="132" cy="210" rx="76" ry="9" class="o"/>
+    <path class="o" d="M98 114l-9-9M166 114l9-9M92 142h-13M172 142h13"/>
+    <!-- the flower bed, its three flowers and the gnome -->
+    <path class="k f" d="M84 202V170M172 200V162M190 204V178"/>
+    <path class="k f" d="M84 190q6-1 8-7M172 186q-6-1-8-7M190 196q6-1 8-6"/>
+    <use href="#m4-fl" transform="translate(84 167)"/>
+    <use href="#m4-fl" transform="translate(172 159) scale(1.1)"/>
+    <use href="#m4-fl" transform="translate(190 176) scale(.85)"/>
+    <path class="w" d="M62 212C72 188 192 188 202 212Z" style="stroke-width:4"/>
+    <path class="k f" d="M78 205h6M182 206h6"/>
+    <use href="#m4-g" transform="translate(132 199) scale(1.15)"/>
+    <!-- done -->
+    <path class="k" d="M118 52l12 12l24-26" style="stroke-width:8"/>
+    <!-- in the background: the figure resting under the terrace parasol, sunglasses on -->
+    <g class="bg" transform="translate(250 212) scale(-.55 .55) translate(-135.5 -212)">
+      <path class="k" d="M142 60V206"/>
+      <path class="k t" d="M126 212L142 202L158 212"/>
+      <g transform="translate(-16 0)">
+        <path class="w" d="M56 80C76 50 128 36 158 36C188 36 240 50 260 80C246 75 232 75 226 80C214 74 202 74 192 80C180 74 168 74 158 80C148 74 136 74 124 80C114 74 102 74 90 80C84 75 70 75 56 80Z"/>
+        <path class="k f" d="M158 36L124 78M158 36L192 78M158 36L90 78M158 36L226 78"/>
+      </g>
+      <path class="k t" d="M30 122L60 184H126M60 184L54 211M122 184L128 211"/>
+      <path class="k" d="M78 178L112 162L136 176"/>
+      <path class="k" d="M78 178L52 142"/>
+      <path class="k" d="M54 146L74 120L44 106"/>
+      <circle class="w" cx="44" cy="122" r="17"/>
+      <path class="k f" d="M44 117L64 112"/>
+      <ellipse class="i" cx="48" cy="118" rx="7" ry="5.5" transform="rotate(-14 49 117)"/><ellipse class="i" cx="62" cy="114" rx="7" ry="5.5" transform="rotate(-14 60 114)"/>
+      <path class="k t" d="M50 128q5 3 9-1"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,57 @@
+<!-- own work, prime-game-ui, licence: own work -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" width="320" height="240">
+  <defs>
+    <filter id="m2-w" filterUnits="userSpaceOnUse" x="0" y="0" width="320" height="240">
+      <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="23" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="4" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <style>
+      .k{fill:none;stroke:#1f2433;stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
+      .t{stroke-width:4}
+      .f{stroke-width:3}
+      .w{fill:#fff;stroke:#1f2433;stroke-width:5;stroke-linejoin:round}
+      .a{fill:#e8a33a;stroke:#1f2433;stroke-width:5;stroke-linejoin:round}
+      .i{fill:#1f2433}
+      .dd{stroke-dasharray:7 7}
+    </style>
+    <!-- the garden gnome, base at 0,0: boots, coat, face, beard and the amber hat (the card's one accent: the item) -->
+    <g id="m2-g">
+      <ellipse class="i" cx="-10" cy="-5" rx="10" ry="6"/><ellipse class="i" cx="10" cy="-5" rx="10" ry="6"/>
+      <path class="w" d="M-19 -9C-24 -26 -23 -40 -16 -48H16C23 -40 24 -26 19 -9Z"/>
+      <circle class="w" cx="0" cy="-58" r="15"/>
+      <path class="w" d="M-18 -56C-12 -48 -4 -48 0 -51C4 -48 12 -48 18 -56C18 -37 8 -26 0 -21C-8 -26 -18 -37 -18 -56Z"/>
+      <path class="a" d="M-21 -63C-12 -70 12 -70 21 -63L10 -94Q5 -101 1 -95Z"/>
+      <circle class="i" cx="-5.5" cy="-60" r="2.6"/><circle class="i" cx="5.5" cy="-60" r="2.6"/>
+    </g>
+    <!-- a flower head, centre at 0,0: the outline of five petals, their fill, an ink centre -->
+    <g id="m2-fl">
+      <g fill="#fff" stroke="#1f2433" stroke-width="3"><circle cx="0" cy="-5.5" r="4.5"/><circle cx="5.2" cy="-1.7" r="4.5"/><circle cx="3.2" cy="4.4" r="4.5"/><circle cx="-3.2" cy="4.4" r="4.5"/><circle cx="-5.2" cy="-1.7" r="4.5"/></g>
+      <g fill="#fff"><circle cx="0" cy="-5.5" r="4.5"/><circle cx="5.2" cy="-1.7" r="4.5"/><circle cx="3.2" cy="4.4" r="4.5"/><circle cx="-3.2" cy="4.4" r="4.5"/><circle cx="-5.2" cy="-1.7" r="4.5"/></g>
+      <circle class="i" r="2.8"/>
+    </g>
+  </defs>
+  <g filter="url(#m2-w)">
+    <ellipse cx="84" cy="213" rx="26" ry="4" fill="#1f2433" opacity=".12"/>
+    <path class="k t" d="M16 212C96 209 210 214 304 211"/>
+    <!-- figure, hugging the gnome to the chest -->
+    <path class="k" d="M78 152L62 211M78 152L94 211"/>
+    <path class="k" d="M78 152L80 104"/>
+    <use href="#m2-g" transform="translate(121 152) scale(.8)"/>
+    <path class="k" d="M80 114L112 121M80 118Q87 143 112 141"/>
+    <circle class="w" cx="83" cy="84" r="19"/>
+    <circle class="i" cx="91" cy="78" r="2.8"/><circle class="i" cx="99" cy="78" r="2.8"/>
+    <path class="k t" d="M88 92q5 4 10 0"/>
+    <!-- the thought: the gnome among flowers -->
+    <circle class="w" cx="112" cy="56" r="4" style="stroke-width:4"/>
+    <circle class="w" cx="134" cy="44" r="7" style="stroke-width:4"/>
+    <path class="w" d="M291.0 106.5A20.1 20.1 0 0 1 266.7 134.8A22.3 22.3 0 0 1 227.0 146.0A22.4 22.4 0 0 1 186.8 135.8A20.2 20.2 0 0 1 161.6 108.1A18.7 18.7 0 0 1 161.0 73.5A20.1 20.1 0 0 1 185.3 45.2A22.3 22.3 0 0 1 225.0 34.0A22.4 22.4 0 0 1 265.2 44.2A20.2 20.2 0 0 1 290.4 71.9A18.7 18.7 0 0 1 291.0 106.5Z"/>
+    <path class="k t" d="M176 130C198 124 254 124 276 130"/>
+    <path class="k f" d="M186 128V106M200 126V96M252 126V96M266 128V106"/>
+    <path class="k f" d="M186 120q-6-1-8-7M266 120q6-1 8-7M200 116q6-1 8-6M252 116q-6-1-8-6"/>
+    <use href="#m2-fl" transform="translate(186 103) scale(.9)"/>
+    <use href="#m2-fl" transform="translate(200 92) scale(1.1)"/>
+    <use href="#m2-fl" transform="translate(252 92) scale(1.1)"/>
+    <use href="#m2-fl" transform="translate(266 103) scale(.9)"/>
+    <use href="#m2-g" transform="translate(226 128) scale(.7)"/>
+  </g>
+</svg>
