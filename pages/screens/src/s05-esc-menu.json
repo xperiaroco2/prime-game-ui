@@ -615,7 +615,7 @@
                             { "name": "Downed", "type": "Button", "variation": "ToyChipToggleOnLight", "key": "guide.downed", "toggle_mode": true, "size_flags_horizontal": "shrink_begin", "note": "Card frames: tutorial.step.downed.title, downed.give_up_hold, tutorial.step.death.title, tutorial.step.death.how." },
                             { "name": "Gap", "type": "Control", "custom_minimum_size": [0, 8], "note": "A spacer: 8 + 8 + 8 = 24 px between the Downed chip and the Tasks caption." },
                             { "name": "Tasks", "type": "Label", "variation": "ToyTextMutedOnLight", "key": "guide.tasks" },
-                            { "name": "Delivery", "type": "Button", "variation": "ToyChipToggleOnLight", "key": "task.delivery", "toggle_mode": true, "size_flags_horizontal": "shrink_begin", "state": "selected", "note": "Card frames: the pack's dist/pack/cards/delivery-1.png … delivery-4.png (the fourth is the done frame); no captions." },
+                            { "name": "Delivery", "type": "Button", "variation": "ToyChipToggleOnLight", "key": "task.delivery", "toggle_mode": true, "size_flags_horizontal": "shrink_begin", "state": "selected", "note": "Card frames: the pack's dist/pack/cards/delivery-meaning-1.png … delivery-meaning-4.png (the fourth is the done frame); no captions." },
                             { "name": "Switches", "type": "Button", "variation": "ToyChipToggleOnLight", "key": "task.switches", "toggle_mode": true, "size_flags_horizontal": "shrink_begin", "note": "Only once the game has the Switches task: its card art is a sample of the card-art pages, not in the pack." }
                           ]
                         }
@@ -640,25 +640,25 @@
                                 {
                                   "name": "Frame1", "type": "PanelContainer", "variation": "ToyHowtoFrame", "size_flags_horizontal": "expand_fill",
                                   "children": [
-                                    { "name": "Art", "type": "TextureRect", "icon": "card/delivery-1", "custom_minimum_size": [160, 120], "note": "The card's art: one picture per frame from the card data (#254), here the pack's Delivery PNGs dist/pack/cards/delivery-1.png … delivery-4.png (640x480, transparent). expand_mode IGNORE_SIZE, stretch_mode KEEP_ASPECT_CENTERED; 160x120 here, 320x240 in s8 and 352x264 in s3's loading card; the same card tree as s3/Card and s8/Guide/Card. The cards are wordless: a frame holds only its art, no caption." }
+                                    { "name": "Art", "type": "TextureRect", "icon": "card/delivery-meaning-1", "custom_minimum_size": [160, 120], "note": "The card's art: one picture per frame from the card data (#254), here the pack's Delivery-by-meaning PNGs (the House's Delivery) dist/pack/cards/delivery-meaning-1.png … delivery-meaning-4.png (640x480, transparent). expand_mode IGNORE_SIZE, stretch_mode KEEP_ASPECT_CENTERED; 160x120 here, 320x240 in s8 and 352x264 in s3's loading card; the same card tree as s3/Card and s8/Guide/Card. The cards are wordless: a frame holds only its art, no caption." }
                                   ]
                                 },
                                 {
                                   "name": "Frame2", "type": "PanelContainer", "variation": "ToyHowtoFrame", "size_flags_horizontal": "expand_fill",
                                   "children": [
-                                    { "name": "Art", "type": "TextureRect", "icon": "card/delivery-2", "custom_minimum_size": [160, 120] }
+                                    { "name": "Art", "type": "TextureRect", "icon": "card/delivery-meaning-2", "custom_minimum_size": [160, 120] }
                                   ]
                                 },
                                 {
                                   "name": "Frame3", "type": "PanelContainer", "variation": "ToyHowtoFrame", "size_flags_horizontal": "expand_fill",
                                   "children": [
-                                    { "name": "Art", "type": "TextureRect", "icon": "card/delivery-3", "custom_minimum_size": [160, 120] }
+                                    { "name": "Art", "type": "TextureRect", "icon": "card/delivery-meaning-3", "custom_minimum_size": [160, 120] }
                                   ]
                                 },
                                 {
                                   "name": "Frame4", "type": "PanelContainer", "variation": "ToyHowtoFrameDone", "size_flags_horizontal": "expand_fill",
                                   "children": [
-                                    { "name": "Art", "type": "TextureRect", "icon": "card/delivery-4", "custom_minimum_size": [160, 120] }
+                                    { "name": "Art", "type": "TextureRect", "icon": "card/delivery-meaning-4", "custom_minimum_size": [160, 120] }
                                   ]
                                 }
                               ]

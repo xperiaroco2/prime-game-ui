@@ -140,7 +140,10 @@ const ICON_SOURCES = [
   // the how-to card art (prime-game-ui#3): the clean-sketch Delivery panels, which the game draws as the pack's PNGs
   // (dist/pack/cards/, rendered by tools/card-art/render.js); the page draws the SVG they are rendered from, as an
   // <img>, so its filter (the wobbly line) stays inside the picture. Switches is a sample card: not drawn here.
+  // Round 2's colour Delivery (delivery-N, the greybox's colour_delivery) and, since ui-0.8.0, the House's Delivery by
+  // meaning (delivery-meaning-N, round 3 set A, prime-game-ui#60), which the screens draw (prime-game-ui#63).
   { prefix: 'card/', dir: 'pages/card-art/round-2/clean-sketch', licences: 'pages/card-art/round-2/clean-sketch/LICENCES.json', entry: (f) => f, only: /^delivery-\d+\.svg$/, card: true },
+  { prefix: 'card/', dir: 'pages/card-art/round-3/a', licences: 'pages/card-art/round-3/a/LICENCES.json', entry: (f) => f, only: /^delivery-meaning-\d+\.svg$/, card: true },
 ];
 
 // Godot 4.7.2 classes the renderer draws: the class chain (a variation fits when its class is in it), what the class
@@ -1478,7 +1481,7 @@ function iconImportNotes(S, C) {
     for (const k of implied) { const a = C.icons.get(k); if (a) see(k, Math.max(a.w, a.h)); }
   }
   const tick = '`';
-  const cardNotes = cards.size ? [`- Card art: the how-to frames draw the pack's PNGs, ${[...cards.keys()].sort().map((k) => `${tick}${C.icons.get(k).game}${tick}`).join(', ')} (${C.icons.get([...cards.keys()][0]).asset ? C.icons.get([...cards.keys()][0]).asset.size.join('x') : '?'}, transparent, own work; rendered from ${tick}pages/card-art/round-2/clean-sketch/${tick} by ${tick}tools/card-art/render.js${tick}), in their own colours, never tinted. They are drawn smaller than their size (up to ${[...new Set([...cards.values()].map((c) => `${c[0]}x${c[1]}`))].join(', ')} px here), so import them as Texture2D with ${tick}compress/mode${tick} Lossless and ${tick}mipmaps/generate${tick} on.`] : [];
+  const cardNotes = cards.size ? [`- Card art: the how-to frames draw the pack's PNGs, ${[...cards.keys()].sort().map((k) => `${tick}${C.icons.get(k).game}${tick}`).join(', ')} (${C.icons.get([...cards.keys()][0]).asset ? C.icons.get([...cards.keys()][0]).asset.size.join('x') : '?'}, transparent, own work; rendered from ${[...new Set([...cards.keys()].sort().map((k) => C.icons.get(k).file.replace(/[^/]*$/, '')))].map((d) => `${tick}${d}${tick}`).join(', ')} by ${tick}tools/card-art/render.js${tick}), in their own colours, never tinted. They are drawn smaller than their size (up to ${[...new Set([...cards.values()].map((c) => `${c[0]}x${c[1]}`))].join(', ')} px here), so import them as Texture2D with ${tick}compress/mode${tick} Lossless and ${tick}mipmaps/generate${tick} on.`] : [];
   if (!best.size) return cardNotes;
   const list = [...best].sort((a, b) => a[0].localeCompare(b[0])).map(([name, own]) => {
     const ic = C.icons.get(name);
