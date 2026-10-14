@@ -143,6 +143,11 @@ The engineer's word choices and removals, 2026-10-05, on the [copy page](https:/
   throw lesson («Кидання», «Кинь предмет», «Візьми предмет у руку й натисни {key}»), four lobby shortfall lines and the
   Voice card's third frame «У нокдауні й після смерті тебе ніхто не чує». The upper floor's landing is «Верхній хол»,
   not «Хол», because the greybox's `room.hall` already reads «Хол» (agent).
+- **Round 5** (the engineer, 2026-10-14, Delivery D2's item names and the sneak control, prime-game-ui#57, released in
+  ui-0.7.0): every question as recommended: «Вино» / "Wine", «Моторна олива» / "Motor oil", «Садовий гном» / "Garden
+  gnome", «Парасоля» / "Parasol" (`item.wine`, `item.oil`, `item.gnome`, `item.parasol`); the sneak control is
+  «Крастися» / "Sneak" (`control.sneak`); the throw keeps two words, «Жбурнути» in Controls and «Кинь предмет» /
+  «Кидання» in the lesson.
 
 ## Style
 The engineer chose **Toy** (2026-10-03): chunky rounded shapes with a thick plum outline, cream panels, sunny-yellow buttons with a solid toy base that look pressable, and a small, calm HUD; it reads as arcade and game-like. **No tilted plates** (they break the design). **Press feedback** on the voluminous buttons: the button sinks onto its base when pressed (a pressed StyleBox and a short Tween in Godot; previewed in `pages/styles/motion-preview.css`). Safety card was liked but reads too much like an office; Quiet retro was not chosen. The 10 character colours proposed by the retro skin are not adopted. ([prime-game-ui#2](https://github.com/xperiaroco2/prime-game-ui/issues/2))
@@ -216,6 +221,10 @@ the agents took where the decisions were silent, after five reviews (agent):
   140 px minimum width (it holds 44:44); the downed plate is a HUD plate like the others; while downed only the downed
   plates and the mic show, while dead only the spectating plate; the give-up hold bar stays visible and empty until the
   key is held.
+- **A long item name in the hand slot** (prime-game-ui#57) (agent): the wide hand slot wraps a two-handed item's name
+  at word boundaries onto at most two lines and puts the ellipsis only after the second line, because "Garden gnome"
+  and «Моторна олива» do not fit in 106 px; a name that fits in one line looks as before
+  ([prime-game#1017](https://github.com/xperiaroco2/prime-game/issues/1017)).
 - **Map and tutorial:** the task panel grows from the top to its content; the sample map's rooms sit on one grid with
   48 px pictograms; a lit zone sits inside its room under the pictogram; «Ти тут» beside the pin; the how-to card is
   centred with Close inside it; the map's «?» is a 42 px round keycap; the tutorial's lesson plate is 912 px and its
