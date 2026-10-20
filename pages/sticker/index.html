@@ -51,7 +51,7 @@ p { margin: 0; max-width: 66ch; }
 .st { --pu:#2B1846; --pud:#1F1033; --ink:#1E1230; --mint:#CFF3DF; --gr:#A6E85A; --co:#FF8A6B; --ye:#FFD60A; --mu:#B7A8D6; --wh:#FFFFFF;
   --ft: "Nunito", "Segoe UI", sans-serif; --fn: "Rubik", "Segoe UI", sans-serif; }
 .st.va { --ow: 3px; --sh: 3px; --rot: 0deg; --rot2: 0deg; --fd: "Nunito", "Segoe UI", sans-serif; --fdw: 900; --fdx: 1; --fl: "Nunito", "Segoe UI", sans-serif; --flw: 900; --flx: 1; }
-.st.vb { --ow: 4px; --sh: 5px; --rot: -4deg; --rot2: 6deg; --fd: "Nunito", "Segoe UI", sans-serif; --fdw: 900; --fdx: 1; --fl: "Kablammo", "Arial Black", sans-serif; --flw: 400; --flx: 1.1; }
+.st.vb { --ow: 4px; --sh: 5px; --rot: 0deg; --rot2: 0deg; --fd: "Nunito", "Segoe UI", sans-serif; --fdw: 900; --fdx: 1; --fl: "Kablammo", "Arial Black", sans-serif; --flw: 400; --flx: 1.1; }
 .st.vc { --ow: 5px; --sh: 8px; --rot: -7deg; --rot2: 9deg; --fd: "Underdog", "Arial Black", sans-serif; --fdw: 400; --fdx: 1.05; --fl: "Underdog", "Arial Black", sans-serif; --flw: 400; --flx: 1.05; }
 .st .abs { position: absolute; }
 .st .plate { background: var(--mint); color: var(--ink); border: var(--ow) solid var(--ink); border-radius: 16px; box-shadow: var(--sh) var(--sh) 0 var(--ink); }
@@ -131,7 +131,7 @@ p { margin: 0; max-width: 66ch; }
     <h3>prime-game · UI · напрям 4 · 20.10.2026</h3>
     <h1>«Наліпка: м'ята й чорнило» на справжніх екранах</h1>
     <p class="lede">Ви обрали четвертий напрям через кольори. Тут та сама палітра на п'яти екранах гри: головне меню, лобі, раунд, налаштування, кінець. Перемикач нагорі змінює силу стилю на всій сторінці: від спокійнішого до гучнішого.</p>
-    <div class="how"><p><b>Обрано (20.10):</b> сила Б; мультяшний шрифт заголовків лише в логотипі, бо всюди його забагато. A і В лишаються для порівняння. Тексти — лише зразки, а намальовано все тим, що вміє Godot.</p></div>
+    <div class="how"><p><b>Обрано (20.10):</b> сила Б без нахилів; мультяшний шрифт заголовків лише в логотипі, бо всюди його забагато. Ідея на потім: кнопка труситься, коли на неї наводиш, а натискання дає маленький ефект. A і В лишаються для порівняння. Тексти — лише зразки, а намальовано все тим, що вміє Godot.</p></div>
   </header>
 
   <div class="switch">
@@ -168,7 +168,7 @@ p { margin: 0; max-width: 66ch; }
 <script>
 const NOTES = {
   va: "Спокійніше: контури 3 px, тінь 3 px, нічого не нахилено, заголовки набрано звичайним жирним шрифтом. Найдоросліший вигляд і найкраща читабельність.",
-  vb: "Ваш вибір: контури 4 px, тінь 5 px, наліпки трохи нахилені. Мультяшний шрифт Kablammo лише в логотипі, усі інші заголовки — Nunito Black.",
+  vb: "Ваш вибір: контури 4 px, тінь 5 px, нічого не нахилено (нахили й рух — пізніше, за потреби). Мультяшний шрифт Kablammo лише в логотипі, усі інші заголовки — Nunito Black.",
   vc: "Гучніше: контури 5 px, тінь 8 px, наліпки нахилені сильніше, заголовки гумовими рукописними капітелями."
 };
 const track = (w, c) => `<div class="track"><b style="width:${w}%;background:${c}"></b></div>`;
