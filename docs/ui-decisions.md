@@ -47,6 +47,8 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
   and a coral "людина" tag on the other humans in a human's list (agent); the human's role reveal names the other
   humans. Whether a mark over another human's head is still needed in the world stays open. The game-design side (the
   humans know each other) is passed to the design track, prime-game#1095.
+- **The round timer has no plate** (the engineer, 2026-10-20, chat, on the MVP screens page): mint Rubik digits with
+  the ink text outline, centred at the top, the anger bar under it.
 - **The sticker tokens, ui-1.0.0** (the re-skin of every Toy variation; the guide is
   `docs/research/2026-10-20-vibe/restyle-guide.md`). The look choices the agent took alone:
   - state shades inside the palette: mint, green and coral each one step lighter for hover and darker for held, a
