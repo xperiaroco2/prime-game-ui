@@ -40,6 +40,7 @@
 .tv-ToyBarStamina > .tv-fill { height: 100%; width: calc(var(--value) * 100%); background: var(--toy-bar-stamina-fill-bg-color); }
 .tv-ToyLogo {
   font-size: calc(var(--toy-type-body-font-size) * var(--px));
+  line-height: calc(var(--toy-type-body-line-box) * var(--px));
   font-weight: var(--toy-type-body-font-weight);
   letter-spacing: calc(var(--toy-type-body-letter-spacing) * var(--px));
   text-shadow: calc(var(--toy-title-logo-items-shadow-offset-x) * var(--px)) calc(var(--toy-title-logo-items-shadow-offset-y) * var(--px)) 0 var(--toy-palette-coral);

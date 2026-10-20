@@ -22,7 +22,7 @@ const RULES = {
   L16: "no em, rem, %, viewport or container units in lengths",
   L17: "ints only: integer literals in length calc(), the only literal multiplier is -1; token dimensions are ints",
   L18: "no literal colour outside the tokens file",
-  L19: "every length is 0, none or calc(S * var(--px)) / calc(S * -1 * var(--px)); font weights are var(--toy-…)",
+  L19: "every length is 0, none or calc(S * var(--px)) / calc(S * -1 * var(--px)); font weights are var(--toy-…); a line height is a number, var(--toy-…) or calc(var(--toy-…-line-box) * var(--px))",
   L20: "every variable exists: --toy-* in the tokens file, --ctx-* and --tv-* in the same file; only --px, --zoom, --value besides",
   L21: "transform: rotate(<n>deg) in skin, translateY(calc(… * var(--px))) in motion and generated; transition: transform and box-shadow with var(--toy-…) timing",
   L22: "no CSS colour functions (color-mix, oklab, oklch, lab, lch, hsl, hwb, color, light-dark)",

@@ -27,13 +27,17 @@
 //   text-clipped    a data-key text is cut by an ancestor whose overflow is hidden or clip, up to and including the
 //                   frame (a scroll container's overflow in its scroll axis is not a cut)
 //   outside-frame   a visible node runs past its 1920x1080 frame, unless an ancestor below the frame clips or
-//                   scrolls in that axis (only the outermost such node is reported)
+//                   scrolls in that axis (only the outermost such node is reported); its drawn box, expand margins
+//                   included (the window cuts them)
 //   overlap         two visible children of a Box, HBox, VBox, Grid or Flow container overlap, or two drawn siblings
 //                   placed by anchors (under the frame, a Control, a Panel or a Button) partly overlap (one fully over
 //                   the other is a layer, fine; OVERLAY_OK lists intended partial overlays)
 //   outside-parent  a visible child runs past its parent container (any *Container but Container and
 //                   ScrollContainer; Godot containers always hold their children); a PanelContainer's or
 //                   MarginContainer's child, past its content rect (inside the StyleBox's content margins)
+// Lay-out checks (outside-parent, overlap) take a node's Godot rect: its box less the StyleBox expand margins the page
+// draws inside it (measure.js `expand`: the sticker's hard-shadow edge), as Godot draws those outside the control's
+// rect and lays out by the rect; a base layer is a box-shadow, outside every box already.
 //   empty-text      a data-key element has no text (hidden or not)
 //   key-shown       a data-key element shows its own key (the deck has no text for it)
 //   contract        the page breaks the screens page contract (frame size or place, lang attributes, a node without
@@ -89,6 +93,12 @@ const DRAWN = new Set(["Panel", "PanelContainer", "Label", "Button", "OptionButt
 const ANCHORING = new Set(["Control", "Panel", "Button"]);
 // Anchored siblings meant to overlap partly (a layer over another): [screen-relative path pattern, other pattern].
 const OVERLAY_OK = [];
+// a node's Godot rect: its border box less the expand margins drawn inside it
+function rectOf(n) {
+  const e = n.expand;
+  if (!e) return n.box;
+  return { x: n.box.x + e.left, y: n.box.y + e.top, w: n.box.w - e.left - e.right, h: n.box.h - e.top - e.bottom };
+}
 const contains = (a, b) => b.x >= a.x - TOL && b.y >= a.y - TOL && b.x + b.w <= a.x + a.w + TOL && b.y + b.h <= a.y + a.h + TOL;
 
 // run: { lang, size, data } where data is measure()'s result; returns the problems
@@ -193,10 +203,11 @@ function check(run, opt) {
       }
       const par = n.parent ? byName.get(n.parent) : null;
       if (par && par.visible && isContainer(par.type)) {
-        const inner = FITS_CONTENT.has(par.type) && par.content ? par.content : par.box;
-        const pp = past(n.box, inner);
+        const fits = FITS_CONTENT.has(par.type) && par.content;
+        const inner = fits ? par.content : rectOf(par);
+        const pp = past(rectOf(n), inner);
         const ps = sides(pp, TOL);
-        if (ps.length) add(fr, "outside-parent", n.node, `past ${par.node} (${par.type}${inner === par.box ? "" : ", its content rect"}): ` + ps.join(", "), worst(pp), { node: n.node });
+        if (ps.length) add(fr, "outside-parent", n.node, `past ${par.node} (${par.type}${fits ? ", its content rect" : ""}): ` + ps.join(", "), worst(pp), { node: n.node });
       }
     }
 
@@ -215,7 +226,7 @@ function check(run, opt) {
     for (const kids of groups.values()) {
       for (let i = 0; i < kids.length; i++) {
         for (let j = i + 1; j < kids.length; j++) {
-          const a = kids[i].box, b = kids[j].box;
+          const a = rectOf(kids[i]), b = rectOf(kids[j]);
           const ix = Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x);
           const iy = Math.min(a.y + a.h, b.y + b.h) - Math.max(a.y, b.y);
           if (!(ix > TOL && iy > TOL) || contains(a, b) || contains(b, a)) continue;
@@ -232,7 +243,7 @@ function check(run, opt) {
       const kids = fr.nodes.filter((n) => n.parent === c.node && n.visible && n.box.w > 0 && n.box.h > 0);
       for (let i = 0; i < kids.length; i++) {
         for (let j = i + 1; j < kids.length; j++) {
-          const a = kids[i].box, b = kids[j].box;
+          const a = rectOf(kids[i]), b = rectOf(kids[j]);
           const ix = Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x);
           const iy = Math.min(a.y + a.h, b.y + b.h) - Math.max(a.y, b.y);
           if (ix > TOL && iy > TOL) {
@@ -316,7 +327,7 @@ function report(runs, problems, page, seconds) {
 function synthetic() {
   // one frame of records, built by hand
   const node = (name, type, box, extra) => Object.assign({ node: name, type, variation: null, key: null, visible: true,
-    display: "block", opacity: 1, box, content: box, scroll: { w: box.w, h: box.h, cw: box.w, ch: box.h },
+    display: "block", opacity: 1, box, content: box, expand: { top: 0, right: 0, bottom: 0, left: 0 }, scroll: { w: box.w, h: box.h, cw: box.w, ch: box.h },
     overflow: ["visible", "visible"], parent: null, clipX: null, clipY: null }, extra || {});
   const text = (key, host, union, extra) => Object.assign({ key, host, text: "Text", visible: true, children: 0, box: union,
     rects: [union], union, scroll: { w: 0, h: 0, cw: 0, ch: 0 }, overflow: ["visible", "visible"], textOverflow: "clip",
@@ -368,6 +379,14 @@ function synthetic() {
     node("s9/c", "Control", { x: 400, y: 0, w: 100, h: 100 }),
     node("s9/c/a", "Panel", { x: 400, y: 0, w: 300, h: 100 }, { parent: "s9/c" })], [])]))),
   ["outside-parent:s9/m/a"]);
+  t("an expand margin drawn past the container is no overflow; a rect past it is, and so is an overlap of rects", kinds(check(run([frame([
+    node("s9/v", "VBoxContainer", { x: 0, y: 0, w: 100, h: 300 }),
+    node("s9/v/a", "Button", { x: 0, y: 0, w: 105, h: 105 }, { parent: "s9/v", expand: { top: 0, right: 5, bottom: 5, left: 0 } }),
+    node("s9/v/b", "Button", { x: 0, y: 108, w: 105, h: 105 }, { parent: "s9/v", expand: { top: 0, right: 5, bottom: 5, left: 0 } }),
+    node("s9/v/c", "Button", { x: 0, y: 200, w: 105, h: 110 }, { parent: "s9/v", expand: { top: 0, right: 5, bottom: 5, left: 0 } }),
+    node("s9/h", "PanelContainer", { x: 200, y: 0, w: 105, h: 105 }, { content: { x: 210, y: 10, w: 80, h: 80 }, expand: { top: 0, right: 5, bottom: 5, left: 0 } }),
+    node("s9/h/a", "Label", { x: 210, y: 10, w: 80, h: 80 }, { parent: "s9/h" })], [])]))),
+  ["outside-parent:s9/v/c", "overlap:s9/v/b & s9/v/c"]);
   t("empty text, a shown key and an element inside a data-key element", kinds(check(run([frame([node("s9/a", "Label", { x: 0, y: 0, w: 300, h: 40 })], [
     text("k.e", "s9/a", null, { text: " ", visible: false }), text("k.k", "s9/a", { x: 0, y: 0, w: 50, h: 40 }, { text: "k.k" }),
     text("k.c", "s9/a", { x: 0, y: 0, w: 50, h: 40 }, { children: 1 })])]))),

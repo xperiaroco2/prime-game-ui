@@ -35,6 +35,7 @@
   --toy-type-body-font-weight: var(--toy-font-weight-bold);
   --toy-type-body-letter-spacing: 0;
   --toy-type-body-line-height: var(--toy-font-line-height-base);
+  --toy-type-body-line-box: 31;
   --toy-motion-press-duration: var(--toy-duration-press);
   --toy-motion-press-delay: 0ms;
   --toy-motion-press-timing-function: var(--toy-ease-press);

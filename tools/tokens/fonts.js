@@ -10,8 +10,10 @@
 // holds, a record without an allowed licence or its licence text, a family the tokens do not name (`font.family.*`),
 // a family no type role uses, and a weight a type role (`type.*` in the semantic file) gives a family outside that
 // family's `wght` axis; a font without a `wght` axis is used at its default instance, so its roles' weight must be its
-// OS/2 weight class. A root without fonts/ (a test fixture, an overlay's temporary copy) has no fonts. Node 20, no
-// packages.
+// OS/2 weight class. It also refuses a type role whose lineHeight is not its family's own line box ((ascender +
+// descender) / units per em, as FreeType reads them) and gives the CSS emitter each family's metrics (`metrics`), from
+// which lineBoxPx() makes the whole px line Godot 4.7.2 draws. A root without fonts/ (a test fixture, an overlay's
+// temporary copy) has no fonts. Node 20, no packages.
 'use strict';
 
 const fs = require('fs');
@@ -40,6 +42,55 @@ function weightClass(buf) {
   return null;
 }
 
+// A face's vertical metrics as FreeType takes them (Godot 4.7.2's copy, thirdparty/freetype/src/sfnt/sfobjs.c
+// L1380-L1411): OS/2 sTypoAscender and sTypoDescender when fsSelection bit 7 (USE_TYPO_METRICS) is set, else hhea's
+// ascender and descender, and when both are 0 the OS/2 typo, then win values. { ascender, descender (both positive,
+// font units), unitsPerEm } or null. A variable font's MVAR could move them per instance: refused (B04) when its
+// MVAR names hasc or hdsc, so one set of metrics holds at every weight.
+function faceMetrics(buf) {
+  try {
+    const t = {};
+    const n = buf.readUInt16BE(4);
+    for (let i = 0; i < n; i++) { const o = 12 + 16 * i; t[buf.toString('latin1', o, o + 4)] = buf.readUInt32BE(o + 8); }
+    if (t.head === undefined || t.hhea === undefined) return null;
+    const upem = buf.readUInt16BE(t.head + 18);
+    let asc = buf.readInt16BE(t.hhea + 4);
+    let desc = buf.readInt16BE(t.hhea + 6);
+    const os2 = t['OS/2'];
+    if (os2 !== undefined) {
+      const typoAsc = buf.readInt16BE(os2 + 68);
+      const typoDesc = buf.readInt16BE(os2 + 70);
+      if (buf.readUInt16BE(os2 + 62) & 128) { asc = typoAsc; desc = typoDesc; }
+      else if (!asc && !desc) {
+        if (typoAsc || typoDesc) { asc = typoAsc; desc = typoDesc; }
+        else { asc = buf.readUInt16BE(os2 + 74); desc = -buf.readUInt16BE(os2 + 76); }
+      }
+    }
+    const mvar = [];
+    if (t.MVAR !== undefined) {
+      const size = buf.readUInt16BE(t.MVAR + 6);
+      const count = buf.readUInt16BE(t.MVAR + 8);
+      for (let i = 0; i < count; i++) mvar.push(buf.toString('latin1', t.MVAR + 12 + i * size, t.MVAR + 16 + i * size));
+    }
+    return { ascender: asc, descender: -desc, unitsPerEm: upem, varies: mvar.some((x) => x === 'hasc' || x === 'hdsc') };
+  } catch (e) { return null; }
+}
+
+// The height of one line of text in Godot 4.7.2 at the whole pixel size `sizePx`: the font's ascent plus its descent
+// (scene/gui/label.cpp L392-L400 adds a line's ascent and descent; modules/text_server_adv/text_server_adv.cpp
+// L1638-L1659 takes them from FreeType's size metrics after a nominal size request, at scale 1). FreeType grid-fits
+// them: the ascender rounded up, the descender down to a whole pixel (base/ftobjs.c L102 GRID_FIT_METRICS,
+// L3176-L3182), from its 16.16 scale (FT_DivFix, FT_MulFix: base/ftcalc.c L212-L250), computed here the same way.
+function lineBoxPx(sizePx, m) {
+  const yScale = Math.floor((sizePx * 64 * 65536 + Math.floor(m.unitsPerEm / 2)) / m.unitsPerEm);
+  const asc = Math.floor((m.ascender * yScale + 0x8000) / 65536); // 26.6
+  const desc = Math.floor((-m.descender * yScale + 0x8000 - 1) / 65536); // 26.6, negative
+  return Math.ceil(asc / 64) - Math.floor(desc / 64);
+}
+
+// The line height ratio a family's metrics give: (ascender + descender) / units per em, to 4 places.
+const ownLineHeight = (m) => Math.round(((m.ascender + m.descender) / m.unitsPerEm) * 1e4) / 1e4;
+
 // Map family -> Set(weight) from the type roles: each `type.*` composite's fontFamily and fontWeight, either an alias
 // of a primitive (`{font.family.title}`) or a literal.
 function familyWeights(primitives, semantic) {
@@ -63,10 +114,33 @@ function familyWeights(primitives, semantic) {
   return out;
 }
 
-// { outputs: { 'dist/pack/fonts/<file>': Buffer, 'dist/pack/fonts/LICENCES.json': text }, assets, problems: [text] }
+// Map family -> [{ role, lineHeight }] from the type roles: each `type.*` composite's fontFamily and lineHeight
+// (aliases of primitives, `{font.line-height.text}`, or literals).
+function familyLineHeights(primitives, semantic) {
+  const font = primitives.font || {};
+  const lookup = (v) => {
+    const m = typeof v === 'string' && /^\{font\.(family|line-height)\.([^{}]+)\}$/.exec(v);
+    if (!m) return v;
+    const t = (font[m[1]] || {})[m[2]];
+    return t && '$value' in t ? t.$value : undefined;
+  };
+  const out = new Map();
+  for (const [name, role] of members(semantic.type)) {
+    const v = role.$value;
+    if (!v || typeof v !== 'object') continue;
+    const family = lookup(v.fontFamily);
+    if (typeof family !== 'string') continue;
+    if (!out.has(family)) out.set(family, []);
+    out.get(family).push({ role: `type.${name}`, lineHeight: Number(lookup(v.lineHeight)) });
+  }
+  return out;
+}
+
+// { outputs: { 'dist/pack/fonts/<file>': Buffer, 'dist/pack/fonts/LICENCES.json': text }, assets, problems: [text],
+//   metrics: { <family>: { ascender, descender, unitsPerEm } } }
 function fontSet(root) {
   const abs = (rel) => path.join(root, ...rel.split('/'));
-  const out = { outputs: {}, assets: [], problems: [] };
+  const out = { outputs: {}, assets: [], problems: [], metrics: {} };
   if (!fs.existsSync(abs(SRC))) return out;
   let primitives;
   let semantic;
@@ -74,6 +148,7 @@ function fontSet(root) {
   try { semantic = JSON.parse(fs.readFileSync(abs(SEMANTIC), 'utf8')); } catch (e) { out.problems.push(`${SEMANTIC}: ${e.message}`); return out; }
   const families = values((primitives.font || {}).family);
   const byFamily = familyWeights(primitives, semantic);
+  const byLine = familyLineHeights(primitives, semantic);
   const records = [];
   const shipped = new Map();
   const ship = (name, buf, from) => {
@@ -111,6 +186,20 @@ function fontSet(root) {
         const own = weightClass(buf);
         for (const w of weights) if (w !== own) out.problems.push(`${where}: a type role gives ${rec.family} the weight ${w}; it has no wght axis, so only its default weight ${own} draws`);
       }
+      // the line height: every type role of the family takes the font's own line box, as Godot draws a line
+      const m = faceMetrics(buf);
+      if (!m || !(m.unitsPerEm > 0)) out.problems.push(`${where}: no vertical metrics (head, hhea, OS/2) to read`);
+      else if (m.varies) out.problems.push(`${where}: its MVAR moves the ascender or descender per instance, so one line height cannot hold`);
+      else if (out.metrics[rec.family]) {
+        const o = out.metrics[rec.family];
+        if (o.ascender !== m.ascender || o.descender !== m.descender || o.unitsPerEm !== m.unitsPerEm) out.problems.push(`${where}: its vertical metrics differ from ${o.source}'s, the same family`);
+      } else {
+        out.metrics[rec.family] = { ascender: m.ascender, descender: m.descender, unitsPerEm: m.unitsPerEm, source: where };
+        const own = ownLineHeight(m);
+        for (const r of byLine.get(rec.family) || []) {
+          if (r.lineHeight !== own) out.problems.push(`${where}: ${r.role} gives ${rec.family} the line height ${r.lineHeight}, not the font's own ${own} ((ascender ${m.ascender} + descender ${m.descender}) / ${m.unitsPerEm}), the line Godot draws`);
+        }
+      }
       const dot = text.lastIndexOf('.');
       const textName = `${dot > 0 ? text.slice(0, dot) : text}-${rec.family.replace(/ /g, '')}${dot > 0 ? text.slice(dot) : ''}`;
       if (!ship(f, buf, where) || !ship(textName, textBuf, `${dir}/${text}`)) continue;
@@ -127,4 +216,4 @@ function fontSet(root) {
   return out;
 }
 
-module.exports = { fontSet, familyWeights, weightClass, OUT };
+module.exports = { fontSet, familyWeights, familyLineHeights, weightClass, faceMetrics, lineBoxPx, ownLineHeight, OUT };

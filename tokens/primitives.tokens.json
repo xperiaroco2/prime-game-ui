@@ -104,7 +104,13 @@
       "none": { "$value": { "value": 0, "unit": "px" } },
       "tight": { "$value": { "value": -1, "unit": "px" } }
     },
-    "line-height": { "$type": "number", "base": { "$value": 1.25 } }
+    "line-height": {
+      "$type": "number",
+      "$description": "Each family's own line box, (ascender + descender) / units per em from its file (OS/2 typo, USE_TYPO_METRICS set): Godot 4.7.2 draws a line as the ascent plus the descent, each rounded up to a pixel, with no line gap. The build checks each against fonts/ (B04).",
+      "base": { "$description": "The text, Nunito: (1011 + 353) / 1000 (the ui-1.0.0 name kept, so no token is removed).", "$value": 1.364 },
+      "number": { "$description": "Rubik: (935 + 250) / 1000.", "$value": 1.185 },
+      "logo": { "$description": "Kablammo: (2078 + 506) / 2000.", "$value": 1.292 }
+    }
   },
   "ease": {
     "$type": "cubicBezier",

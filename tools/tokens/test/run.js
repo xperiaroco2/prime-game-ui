@@ -57,22 +57,35 @@ check(parseErr('{"a":01}')?.rule === 'D01', 'json-strict rejects a leading zero'
 {
   // fonts.js (ui-1.0.0): each family's weights come from the type roles and are checked against its own axis; a font
   // without a wght axis draws only its default weight; a family no role uses is refused
-  const { fontSet } = require('../fonts.js');
+  const { fontSet, lineBoxPx } = require('../fonts.js');
   const root = path.join(tmp, 'fonts-unit');
   for (const d of ['nunito', 'kablammo']) fs.cpSync(path.join(ROOT, 'fonts', d), path.join(root, 'fonts', d), { recursive: true });
   fs.mkdirSync(path.join(root, 'tokens'), { recursive: true });
-  const write = (fam, roles) => {
+  const write = (fam, roles, lines) => {
     fs.writeFileSync(path.join(root, 'tokens', 'primitives.tokens.json'), JSON.stringify({ font: {
       family: Object.fromEntries(fam.map((f) => [f.toLowerCase(), { $value: f }])),
-      weight: { w150: { $value: 150 }, w400: { $value: 400 }, w700: { $value: 700 }, w900: { $value: 900 } } } }));
+      weight: { w150: { $value: 150 }, w400: { $value: 400 }, w700: { $value: 700 }, w900: { $value: 900 } },
+      'line-height': Object.fromEntries(Object.entries(lines || { nunito: 1.364, kablammo: 1.292 }).map(([k, v]) => [k, { $value: v }])) } }));
     fs.writeFileSync(path.join(root, 'tokens', 'semantic.tokens.json'), JSON.stringify({ type: Object.fromEntries(roles.map(([n, f, w]) => [n,
-      { $value: { fontFamily: `{font.family.${f}}`, fontSize: '{font.size.body}', fontWeight: `{font.weight.${w}}` } }])) }));
+      { $value: { fontFamily: `{font.family.${f}}`, fontSize: '{font.size.body}', fontWeight: `{font.weight.${w}}`,
+        lineHeight: `{font.line-height.${f}}` } }])) }));
     return fontSet(root);
   };
   let r = write(['Nunito', 'Kablammo'], [['body', 'nunito', 'w700'], ['title', 'nunito', 'w900'], ['logo', 'kablammo', 'w400']]);
   check(!r.problems.length && same(r.assets.map((a) => `${a.family}:${a.weights.join('/')}:${a.licence_text}`), ['Kablammo:400:fonts/OFL-Kablammo.txt', 'Nunito:700/900:fonts/OFL-Nunito.txt'])
     && Buffer.isBuffer(r.outputs['dist/pack/fonts/OFL-Nunito.txt']) && Buffer.isBuffer(r.outputs['dist/pack/fonts/OFL-Kablammo.txt']),
   'fonts.js: two families, each with its roles\' weights and its own licence text name', JSON.stringify(r.problems));
+  // the line box Godot 4.7.2 draws: FreeType's ascender rounded up plus its descender rounded down (#75)
+  const m = r.metrics;
+  check(m.Nunito && m.Nunito.ascender === 1011 && m.Nunito.descender === 353 && m.Nunito.unitsPerEm === 1000
+    && m.Kablammo && m.Kablammo.ascender === 2078 && m.Kablammo.descender === 506 && m.Kablammo.unitsPerEm === 2000,
+  "fonts.js: each family's metrics as FreeType reads them (OS/2 typo, USE_TYPO_METRICS)", JSON.stringify(m));
+  check(same([18, 20, 22, 28, 96].map((x) => lineBoxPx(x, m.Nunito)), [26, 29, 31, 39, 132]) && lineBoxPx(64, m.Kablammo) === 84
+    && lineBoxPx(48, { ascender: 935, descender: 250, unitsPerEm: 1000 }) === 57,
+  "fonts.js: lineBoxPx gives Godot's line (Nunito 22 px: 23 + 8 = 31; Rubik 48 px: a whole 12 px descent stays 12)");
+  r = write(['Nunito', 'Kablammo'], [['body', 'nunito', 'w700'], ['logo', 'kablammo', 'w400']], { nunito: 1.25, kablammo: 1.292 });
+  check(r.problems.length === 1 && /type\.body gives Nunito the line height 1\.25, not the font's own 1\.364/.test(r.problems[0]),
+    "fonts.js: a type role whose line height is not its family's own line box is refused", JSON.stringify(r.problems));
   r = write(['Nunito', 'Kablammo'], [['body', 'nunito', 'w150'], ['logo', 'kablammo', 'w700']]);
   check(r.problems.some((p) => /Nunito the weight 150, outside its wght axis 200\.\.1000/.test(p)) && r.problems.some((p) => /Kablammo the weight 700; it has no wght axis, so only its default weight 400/.test(p)),
     'fonts.js: a weight off a family\'s wght axis, and a weight other than the default on a font without one, are refused', JSON.stringify(r.problems));

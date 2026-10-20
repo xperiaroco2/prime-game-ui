@@ -496,7 +496,7 @@
   font-family: var(--toy-button-primary-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-button-primary-label-font-size) * var(--px));
   font-weight: var(--toy-button-primary-label-font-weight);
-  line-height: var(--toy-button-primary-label-line-height);
+  line-height: calc(var(--toy-button-primary-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-button-primary-label-letter-spacing) * var(--px));
   color: var(--toy-button-primary-normal-font-color);
   --tv-offset: 0;
@@ -585,7 +585,7 @@
   font-family: var(--toy-button-secondary-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-button-secondary-label-font-size) * var(--px));
   font-weight: var(--toy-button-secondary-label-font-weight);
-  line-height: var(--toy-button-secondary-label-line-height);
+  line-height: calc(var(--toy-button-secondary-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-button-secondary-label-letter-spacing) * var(--px));
   color: var(--toy-button-secondary-normal-font-color);
   --tv-offset: 0;
@@ -674,7 +674,7 @@
   font-family: var(--toy-button-plain-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-button-plain-label-font-size) * var(--px));
   font-weight: var(--toy-button-plain-label-font-weight);
-  line-height: var(--toy-button-plain-label-line-height);
+  line-height: calc(var(--toy-button-plain-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-button-plain-label-letter-spacing) * var(--px));
   color: var(--toy-button-plain-normal-font-color);
   cursor: pointer;
@@ -750,7 +750,7 @@
   font-family: var(--toy-button-danger-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-button-danger-label-font-size) * var(--px));
   font-weight: var(--toy-button-danger-label-font-weight);
-  line-height: var(--toy-button-danger-label-line-height);
+  line-height: calc(var(--toy-button-danger-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-button-danger-label-letter-spacing) * var(--px));
   color: var(--toy-button-danger-normal-font-color);
   --tv-offset: 0;
@@ -838,7 +838,7 @@
   font-family: var(--toy-button-ghost-on-dark-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-button-ghost-on-dark-label-font-size) * var(--px));
   font-weight: var(--toy-button-ghost-on-dark-label-font-weight);
-  line-height: var(--toy-button-ghost-on-dark-label-line-height);
+  line-height: calc(var(--toy-button-ghost-on-dark-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-button-ghost-on-dark-label-letter-spacing) * var(--px));
   color: var(--toy-button-ghost-on-dark-normal-font-color);
   cursor: pointer;
@@ -896,7 +896,7 @@
   font-family: var(--toy-button-ghost-on-light-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-button-ghost-on-light-label-font-size) * var(--px));
   font-weight: var(--toy-button-ghost-on-light-label-font-weight);
-  line-height: var(--toy-button-ghost-on-light-label-line-height);
+  line-height: calc(var(--toy-button-ghost-on-light-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-button-ghost-on-light-label-letter-spacing) * var(--px));
   color: var(--toy-button-ghost-on-light-normal-font-color);
   cursor: pointer;
@@ -957,7 +957,7 @@
   font-family: var(--toy-button-menu-item-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-button-menu-item-label-font-size) * var(--px));
   font-weight: var(--toy-button-menu-item-label-font-weight);
-  line-height: var(--toy-button-menu-item-label-line-height);
+  line-height: calc(var(--toy-button-menu-item-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-button-menu-item-label-letter-spacing) * var(--px));
   color: var(--toy-button-menu-item-normal-font-color);
   column-gap: calc(var(--toy-button-menu-item-items-h-separation) * var(--px));
@@ -1145,7 +1145,7 @@
   font-family: var(--toy-chip-plate-text-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-chip-plate-text-label-font-size) * var(--px));
   font-weight: var(--toy-chip-plate-text-label-font-weight);
-  line-height: var(--toy-chip-plate-text-label-line-height);
+  line-height: calc(var(--toy-chip-plate-text-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-chip-plate-text-label-letter-spacing) * var(--px));
   color: var(--toy-chip-plate-text-normal-font-color);
 }
@@ -1174,7 +1174,7 @@
   font-family: var(--toy-chip-light-text-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-chip-light-text-label-font-size) * var(--px));
   font-weight: var(--toy-chip-light-text-label-font-weight);
-  line-height: var(--toy-chip-light-text-label-line-height);
+  line-height: calc(var(--toy-chip-light-text-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-chip-light-text-label-letter-spacing) * var(--px));
   color: var(--toy-chip-light-text-normal-font-color);
 }
@@ -1203,7 +1203,7 @@
   font-family: var(--toy-chip-new-text-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-chip-new-text-label-font-size) * var(--px));
   font-weight: var(--toy-chip-new-text-label-font-weight);
-  line-height: var(--toy-chip-new-text-label-line-height);
+  line-height: calc(var(--toy-chip-new-text-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-chip-new-text-label-letter-spacing) * var(--px));
   color: var(--toy-chip-new-text-normal-font-color);
 }
@@ -1232,7 +1232,7 @@
   font-family: var(--toy-chip-alert-text-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-chip-alert-text-label-font-size) * var(--px));
   font-weight: var(--toy-chip-alert-text-label-font-weight);
-  line-height: var(--toy-chip-alert-text-label-line-height);
+  line-height: calc(var(--toy-chip-alert-text-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-chip-alert-text-label-letter-spacing) * var(--px));
   color: var(--toy-chip-alert-text-normal-font-color);
 }
@@ -1261,7 +1261,7 @@
   font-family: var(--toy-chip-line-on-dark-text-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-chip-line-on-dark-text-label-font-size) * var(--px));
   font-weight: var(--toy-chip-line-on-dark-text-label-font-weight);
-  line-height: var(--toy-chip-line-on-dark-text-label-line-height);
+  line-height: calc(var(--toy-chip-line-on-dark-text-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-chip-line-on-dark-text-label-letter-spacing) * var(--px));
   color: var(--toy-chip-line-on-dark-text-normal-font-color);
 }
@@ -1290,7 +1290,7 @@
   font-family: var(--toy-chip-line-on-light-text-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-chip-line-on-light-text-label-font-size) * var(--px));
   font-weight: var(--toy-chip-line-on-light-text-label-font-weight);
-  line-height: var(--toy-chip-line-on-light-text-label-line-height);
+  line-height: calc(var(--toy-chip-line-on-light-text-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-chip-line-on-light-text-label-letter-spacing) * var(--px));
   color: var(--toy-chip-line-on-light-text-normal-font-color);
 }
@@ -1316,7 +1316,7 @@
   font-family: var(--toy-chip-toggle-on-dark-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-chip-toggle-on-dark-label-font-size) * var(--px));
   font-weight: var(--toy-chip-toggle-on-dark-label-font-weight);
-  line-height: var(--toy-chip-toggle-on-dark-label-line-height);
+  line-height: calc(var(--toy-chip-toggle-on-dark-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-chip-toggle-on-dark-label-letter-spacing) * var(--px));
   color: var(--toy-chip-toggle-on-dark-normal-font-color);
   cursor: pointer;
@@ -1379,7 +1379,7 @@
   font-family: var(--toy-chip-toggle-on-dark-selected-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-chip-toggle-on-dark-selected-label-font-size) * var(--px));
   font-weight: var(--toy-chip-toggle-on-dark-selected-label-font-weight);
-  line-height: var(--toy-chip-toggle-on-dark-selected-label-line-height);
+  line-height: calc(var(--toy-chip-toggle-on-dark-selected-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-chip-toggle-on-dark-selected-label-letter-spacing) * var(--px));
   color: var(--toy-chip-toggle-on-dark-selected-normal-font-color);
   cursor: pointer;
@@ -1453,7 +1453,7 @@
   font-family: var(--toy-chip-toggle-on-light-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-chip-toggle-on-light-label-font-size) * var(--px));
   font-weight: var(--toy-chip-toggle-on-light-label-font-weight);
-  line-height: var(--toy-chip-toggle-on-light-label-line-height);
+  line-height: calc(var(--toy-chip-toggle-on-light-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-chip-toggle-on-light-label-letter-spacing) * var(--px));
   color: var(--toy-chip-toggle-on-light-normal-font-color);
   cursor: pointer;
@@ -1516,7 +1516,7 @@
   font-family: var(--toy-chip-toggle-on-light-selected-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-chip-toggle-on-light-selected-label-font-size) * var(--px));
   font-weight: var(--toy-chip-toggle-on-light-selected-label-font-weight);
-  line-height: var(--toy-chip-toggle-on-light-selected-label-line-height);
+  line-height: calc(var(--toy-chip-toggle-on-light-selected-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-chip-toggle-on-light-selected-label-letter-spacing) * var(--px));
   color: var(--toy-chip-toggle-on-light-selected-normal-font-color);
   cursor: pointer;
@@ -1592,7 +1592,7 @@
   font-family: var(--toy-field-input-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-field-input-label-font-size) * var(--px));
   font-weight: var(--toy-field-input-label-font-weight);
-  line-height: var(--toy-field-input-label-line-height);
+  line-height: calc(var(--toy-field-input-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-field-input-label-letter-spacing) * var(--px));
   color: var(--toy-field-input-normal-font-color);
 }
@@ -1674,7 +1674,7 @@
   font-family: var(--toy-field-dropdown-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-field-dropdown-label-font-size) * var(--px));
   font-weight: var(--toy-field-dropdown-label-font-weight);
-  line-height: var(--toy-field-dropdown-label-line-height);
+  line-height: calc(var(--toy-field-dropdown-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-field-dropdown-label-letter-spacing) * var(--px));
   color: var(--toy-field-dropdown-normal-font-color);
   column-gap: calc(var(--toy-field-dropdown-items-h-separation) * var(--px));
@@ -1755,7 +1755,7 @@
   font-family: var(--toy-field-list-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-field-list-label-font-size) * var(--px));
   font-weight: var(--toy-field-list-label-font-weight);
-  line-height: var(--toy-field-list-label-line-height);
+  line-height: calc(var(--toy-field-list-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-field-list-label-letter-spacing) * var(--px));
   color: var(--toy-field-list-items-font-color);
   display: flex;
@@ -1833,7 +1833,7 @@
   font-family: var(--toy-field-spin-input-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-field-spin-input-label-font-size) * var(--px));
   font-weight: var(--toy-field-spin-input-label-font-weight);
-  line-height: var(--toy-field-spin-input-label-line-height);
+  line-height: calc(var(--toy-field-spin-input-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-field-spin-input-label-letter-spacing) * var(--px));
   color: var(--toy-field-spin-input-normal-font-color);
 }
@@ -2029,7 +2029,7 @@
   font-family: var(--toy-howto-caption-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-howto-caption-label-font-size) * var(--px));
   font-weight: var(--toy-howto-caption-label-font-weight);
-  line-height: var(--toy-howto-caption-label-line-height);
+  line-height: calc(var(--toy-howto-caption-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-howto-caption-label-letter-spacing) * var(--px));
   color: var(--toy-howto-caption-normal-font-color);
 }
@@ -2038,7 +2038,7 @@
   font-family: var(--toy-howto-note-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-howto-note-label-font-size) * var(--px));
   font-weight: var(--toy-howto-note-label-font-weight);
-  line-height: var(--toy-howto-note-label-line-height);
+  line-height: calc(var(--toy-howto-note-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-howto-note-label-letter-spacing) * var(--px));
   color: var(--toy-howto-note-normal-font-color);
 }
@@ -2222,7 +2222,7 @@
   font-family: var(--toy-keycap-round-button-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-keycap-round-button-label-font-size) * var(--px));
   font-weight: var(--toy-keycap-round-button-label-font-weight);
-  line-height: var(--toy-keycap-round-button-label-line-height);
+  line-height: calc(var(--toy-keycap-round-button-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-keycap-round-button-label-letter-spacing) * var(--px));
   color: var(--toy-keycap-round-button-normal-font-color);
   min-width: calc(var(--toy-keycap-round-button-size-min-width) * var(--px));
@@ -2284,7 +2284,7 @@
   font-family: var(--toy-keycap-button-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-keycap-button-label-font-size) * var(--px));
   font-weight: var(--toy-keycap-button-label-font-weight);
-  line-height: var(--toy-keycap-button-label-line-height);
+  line-height: calc(var(--toy-keycap-button-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-keycap-button-label-letter-spacing) * var(--px));
   color: var(--toy-keycap-button-normal-font-color);
   min-width: calc(var(--toy-keycap-button-size-min-width) * var(--px));
@@ -2332,7 +2332,7 @@
   font-family: var(--toy-keycap-text-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-keycap-text-label-font-size) * var(--px));
   font-weight: var(--toy-keycap-text-label-font-weight);
-  line-height: var(--toy-keycap-text-label-line-height);
+  line-height: calc(var(--toy-keycap-text-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-keycap-text-label-letter-spacing) * var(--px));
   color: var(--toy-keycap-text-normal-font-color);
 }
@@ -2341,7 +2341,7 @@
   font-family: var(--toy-keycap-quiet-text-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-keycap-quiet-text-label-font-size) * var(--px));
   font-weight: var(--toy-keycap-quiet-text-label-font-weight);
-  line-height: var(--toy-keycap-quiet-text-label-line-height);
+  line-height: calc(var(--toy-keycap-quiet-text-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-keycap-quiet-text-label-letter-spacing) * var(--px));
   color: var(--toy-keycap-quiet-text-normal-font-color);
 }
@@ -2453,7 +2453,7 @@
   font-family: var(--toy-map-room-text-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-map-room-text-label-font-size) * var(--px));
   font-weight: var(--toy-map-room-text-label-font-weight);
-  line-height: var(--toy-map-room-text-label-line-height);
+  line-height: calc(var(--toy-map-room-text-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-map-room-text-label-letter-spacing) * var(--px));
   color: var(--toy-map-room-text-normal-font-color);
 }
@@ -2556,7 +2556,7 @@
   font-family: var(--toy-name-plate-text-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-name-plate-text-label-font-size) * var(--px));
   font-weight: var(--toy-name-plate-text-label-font-weight);
-  line-height: var(--toy-name-plate-text-label-line-height);
+  line-height: calc(var(--toy-name-plate-text-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-name-plate-text-label-letter-spacing) * var(--px));
   color: var(--toy-name-plate-text-normal-font-color);
 }
@@ -2737,7 +2737,7 @@
   font-family: var(--toy-pick-check-box-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-pick-check-box-label-font-size) * var(--px));
   font-weight: var(--toy-pick-check-box-label-font-weight);
-  line-height: var(--toy-pick-check-box-label-line-height);
+  line-height: calc(var(--toy-pick-check-box-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-pick-check-box-label-letter-spacing) * var(--px));
   color: var(--toy-pick-check-box-normal-font-color);
   column-gap: calc(var(--toy-pick-check-box-items-h-separation) * var(--px));
@@ -2809,7 +2809,7 @@
   font-family: var(--toy-pick-radio-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-pick-radio-label-font-size) * var(--px));
   font-weight: var(--toy-pick-radio-label-font-weight);
-  line-height: var(--toy-pick-radio-label-line-height);
+  line-height: calc(var(--toy-pick-radio-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-pick-radio-label-letter-spacing) * var(--px));
   color: var(--toy-pick-radio-normal-font-color);
   min-width: calc(var(--toy-pick-radio-size-width) * var(--px));
@@ -2872,7 +2872,7 @@
   font-family: var(--toy-pick-radio-selected-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-pick-radio-selected-label-font-size) * var(--px));
   font-weight: var(--toy-pick-radio-selected-label-font-weight);
-  line-height: var(--toy-pick-radio-selected-label-line-height);
+  line-height: calc(var(--toy-pick-radio-selected-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-pick-radio-selected-label-letter-spacing) * var(--px));
   color: var(--toy-pick-radio-selected-normal-font-color);
   min-width: calc(var(--toy-pick-radio-selected-size-width) * var(--px));
@@ -2981,7 +2981,7 @@
   font-family: var(--toy-plate-text-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-plate-text-label-font-size) * var(--px));
   font-weight: var(--toy-plate-text-label-font-weight);
-  line-height: var(--toy-plate-text-label-line-height);
+  line-height: calc(var(--toy-plate-text-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-plate-text-label-letter-spacing) * var(--px));
   color: var(--toy-plate-text-normal-font-color);
 }
@@ -2990,7 +2990,7 @@
   font-family: var(--toy-plate-text-muted-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-plate-text-muted-label-font-size) * var(--px));
   font-weight: var(--toy-plate-text-muted-label-font-weight);
-  line-height: var(--toy-plate-text-muted-label-line-height);
+  line-height: calc(var(--toy-plate-text-muted-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-plate-text-muted-label-letter-spacing) * var(--px));
   color: var(--toy-plate-text-muted-normal-font-color);
 }
@@ -2999,7 +2999,7 @@
   font-family: var(--toy-plate-title-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-plate-title-label-font-size) * var(--px));
   font-weight: var(--toy-plate-title-label-font-weight);
-  line-height: var(--toy-plate-title-label-line-height);
+  line-height: calc(var(--toy-plate-title-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-plate-title-label-letter-spacing) * var(--px));
   color: var(--toy-plate-title-normal-font-color);
 }
@@ -3008,7 +3008,7 @@
   font-family: var(--toy-plate-timer-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-plate-timer-label-font-size) * var(--px));
   font-weight: var(--toy-plate-timer-label-font-weight);
-  line-height: var(--toy-plate-timer-label-line-height);
+  line-height: calc(var(--toy-plate-timer-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-plate-timer-label-letter-spacing) * var(--px));
   color: var(--toy-plate-timer-normal-font-color);
 }
@@ -3034,7 +3034,7 @@
   font-family: var(--toy-preset-card-idle-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-preset-card-idle-label-font-size) * var(--px));
   font-weight: var(--toy-preset-card-idle-label-font-weight);
-  line-height: var(--toy-preset-card-idle-label-line-height);
+  line-height: calc(var(--toy-preset-card-idle-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-preset-card-idle-label-letter-spacing) * var(--px));
   color: var(--toy-preset-card-idle-normal-font-color);
   --tv-offset: 0;
@@ -3105,7 +3105,7 @@
   font-family: var(--toy-preset-card-selected-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-preset-card-selected-label-font-size) * var(--px));
   font-weight: var(--toy-preset-card-selected-label-font-weight);
-  line-height: var(--toy-preset-card-selected-label-line-height);
+  line-height: calc(var(--toy-preset-card-selected-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-preset-card-selected-label-letter-spacing) * var(--px));
   color: var(--toy-preset-card-selected-normal-font-color);
   --tv-offset: 0;
@@ -3175,7 +3175,7 @@
   font-family: var(--toy-preset-card-quiet-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-preset-card-quiet-label-font-size) * var(--px));
   font-weight: var(--toy-preset-card-quiet-label-font-weight);
-  line-height: var(--toy-preset-card-quiet-label-line-height);
+  line-height: calc(var(--toy-preset-card-quiet-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-preset-card-quiet-label-letter-spacing) * var(--px));
   color: var(--toy-preset-card-quiet-normal-font-color);
   cursor: pointer;
@@ -3214,7 +3214,7 @@
   font-family: var(--toy-preset-card-note-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-preset-card-note-label-font-size) * var(--px));
   font-weight: var(--toy-preset-card-note-label-font-weight);
-  line-height: var(--toy-preset-card-note-label-line-height);
+  line-height: calc(var(--toy-preset-card-note-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-preset-card-note-label-letter-spacing) * var(--px));
   color: var(--toy-preset-card-note-normal-font-color);
 }
@@ -3223,7 +3223,7 @@
   font-family: var(--toy-preset-card-note-selected-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-preset-card-note-selected-label-font-size) * var(--px));
   font-weight: var(--toy-preset-card-note-selected-label-font-weight);
-  line-height: var(--toy-preset-card-note-selected-label-line-height);
+  line-height: calc(var(--toy-preset-card-note-selected-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-preset-card-note-selected-label-letter-spacing) * var(--px));
   color: var(--toy-preset-card-note-selected-normal-font-color);
 }
@@ -3232,7 +3232,7 @@
   font-family: var(--toy-preset-card-name-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-preset-card-name-label-font-size) * var(--px));
   font-weight: var(--toy-preset-card-name-label-font-weight);
-  line-height: var(--toy-preset-card-name-label-line-height);
+  line-height: calc(var(--toy-preset-card-name-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-preset-card-name-label-letter-spacing) * var(--px));
   color: var(--toy-preset-card-name-normal-font-color);
 }
@@ -3284,7 +3284,7 @@
   font-family: var(--toy-setting-text-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-setting-text-label-font-size) * var(--px));
   font-weight: var(--toy-setting-text-label-font-weight);
-  line-height: var(--toy-setting-text-label-line-height);
+  line-height: calc(var(--toy-setting-text-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-setting-text-label-letter-spacing) * var(--px));
   color: var(--toy-setting-text-normal-font-color);
 }
@@ -3293,7 +3293,7 @@
   font-family: var(--toy-setting-value-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-setting-value-label-font-size) * var(--px));
   font-weight: var(--toy-setting-value-label-font-weight);
-  line-height: var(--toy-setting-value-label-line-height);
+  line-height: calc(var(--toy-setting-value-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-setting-value-label-letter-spacing) * var(--px));
   color: var(--toy-setting-value-normal-font-color);
 }
@@ -3319,7 +3319,7 @@
   font-family: var(--toy-setting-stepper-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-setting-stepper-label-font-size) * var(--px));
   font-weight: var(--toy-setting-stepper-label-font-weight);
-  line-height: var(--toy-setting-stepper-label-line-height);
+  line-height: calc(var(--toy-setting-stepper-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-setting-stepper-label-letter-spacing) * var(--px));
   color: var(--toy-setting-stepper-normal-font-color);
   cursor: pointer;
@@ -3432,7 +3432,7 @@
   font-family: var(--toy-slot-text-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-slot-text-label-font-size) * var(--px));
   font-weight: var(--toy-slot-text-label-font-weight);
-  line-height: var(--toy-slot-text-label-line-height);
+  line-height: calc(var(--toy-slot-text-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-slot-text-label-letter-spacing) * var(--px));
   color: var(--toy-slot-text-normal-font-color);
 }
@@ -3441,7 +3441,7 @@
   font-family: var(--toy-slot-text-empty-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-slot-text-empty-label-font-size) * var(--px));
   font-weight: var(--toy-slot-text-empty-label-font-weight);
-  line-height: var(--toy-slot-text-empty-label-line-height);
+  line-height: calc(var(--toy-slot-text-empty-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-slot-text-empty-label-letter-spacing) * var(--px));
   color: var(--toy-slot-text-empty-normal-font-color);
 }
@@ -3466,7 +3466,7 @@
   font-family: var(--toy-tab-idle-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-tab-idle-label-font-size) * var(--px));
   font-weight: var(--toy-tab-idle-label-font-weight);
-  line-height: var(--toy-tab-idle-label-line-height);
+  line-height: calc(var(--toy-tab-idle-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-tab-idle-label-letter-spacing) * var(--px));
   color: var(--toy-tab-idle-normal-font-color);
   cursor: pointer;
@@ -3525,7 +3525,7 @@
   font-family: var(--toy-tab-selected-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-tab-selected-label-font-size) * var(--px));
   font-weight: var(--toy-tab-selected-label-font-weight);
-  line-height: var(--toy-tab-selected-label-line-height);
+  line-height: calc(var(--toy-tab-selected-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-tab-selected-label-letter-spacing) * var(--px));
   color: var(--toy-tab-selected-normal-font-color);
   cursor: pointer;
@@ -3566,7 +3566,7 @@
   font-family: var(--toy-text-on-dark-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-text-on-dark-label-font-size) * var(--px));
   font-weight: var(--toy-text-on-dark-label-font-weight);
-  line-height: var(--toy-text-on-dark-label-line-height);
+  line-height: calc(var(--toy-text-on-dark-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-text-on-dark-label-letter-spacing) * var(--px));
   color: var(--toy-text-on-dark-normal-font-color);
 }
@@ -3575,7 +3575,7 @@
   font-family: var(--toy-text-muted-on-dark-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-text-muted-on-dark-label-font-size) * var(--px));
   font-weight: var(--toy-text-muted-on-dark-label-font-weight);
-  line-height: var(--toy-text-muted-on-dark-label-line-height);
+  line-height: calc(var(--toy-text-muted-on-dark-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-text-muted-on-dark-label-letter-spacing) * var(--px));
   color: var(--toy-text-muted-on-dark-normal-font-color);
 }
@@ -3584,7 +3584,7 @@
   font-family: var(--toy-text-title-on-dark-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-text-title-on-dark-label-font-size) * var(--px));
   font-weight: var(--toy-text-title-on-dark-label-font-weight);
-  line-height: var(--toy-text-title-on-dark-label-line-height);
+  line-height: calc(var(--toy-text-title-on-dark-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-text-title-on-dark-label-letter-spacing) * var(--px));
   color: var(--toy-text-title-on-dark-normal-font-color);
   -webkit-text-stroke: calc((var(--toy-text-title-on-dark-items-shadow-outline-size) + var(--toy-text-title-on-dark-items-shadow-outline-size)) * var(--px)) var(--toy-text-title-on-dark-normal-font-shadow-color);
@@ -3595,7 +3595,7 @@
   font-family: var(--toy-text-on-light-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-text-on-light-label-font-size) * var(--px));
   font-weight: var(--toy-text-on-light-label-font-weight);
-  line-height: var(--toy-text-on-light-label-line-height);
+  line-height: calc(var(--toy-text-on-light-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-text-on-light-label-letter-spacing) * var(--px));
   color: var(--toy-text-on-light-normal-font-color);
 }
@@ -3604,7 +3604,7 @@
   font-family: var(--toy-text-muted-on-light-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-text-muted-on-light-label-font-size) * var(--px));
   font-weight: var(--toy-text-muted-on-light-label-font-weight);
-  line-height: var(--toy-text-muted-on-light-label-line-height);
+  line-height: calc(var(--toy-text-muted-on-light-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-text-muted-on-light-label-letter-spacing) * var(--px));
   color: var(--toy-text-muted-on-light-normal-font-color);
 }
@@ -3613,7 +3613,7 @@
   font-family: var(--toy-text-title-on-light-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-text-title-on-light-label-font-size) * var(--px));
   font-weight: var(--toy-text-title-on-light-label-font-weight);
-  line-height: var(--toy-text-title-on-light-label-line-height);
+  line-height: calc(var(--toy-text-title-on-light-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-text-title-on-light-label-letter-spacing) * var(--px));
   color: var(--toy-text-title-on-light-normal-font-color);
   -webkit-text-stroke: calc((var(--toy-text-title-on-light-items-shadow-outline-size) + var(--toy-text-title-on-light-items-shadow-outline-size)) * var(--px)) var(--toy-text-title-on-light-normal-font-shadow-color);
@@ -3624,7 +3624,7 @@
   font-family: var(--toy-text-display-on-light-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-text-display-on-light-label-font-size) * var(--px));
   font-weight: var(--toy-text-display-on-light-label-font-weight);
-  line-height: var(--toy-text-display-on-light-label-line-height);
+  line-height: calc(var(--toy-text-display-on-light-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-text-display-on-light-label-letter-spacing) * var(--px));
   color: var(--toy-text-display-on-light-normal-font-color);
 }
@@ -3633,7 +3633,7 @@
   font-family: var(--toy-text-timer-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-text-timer-label-font-size) * var(--px));
   font-weight: var(--toy-text-timer-label-font-weight);
-  line-height: var(--toy-text-timer-label-line-height);
+  line-height: calc(var(--toy-text-timer-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-text-timer-label-letter-spacing) * var(--px));
   color: var(--toy-text-timer-normal-font-color);
 }
@@ -3642,7 +3642,7 @@
   font-family: var(--toy-text-hud-caption-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-text-hud-caption-label-font-size) * var(--px));
   font-weight: var(--toy-text-hud-caption-label-font-weight);
-  line-height: var(--toy-text-hud-caption-label-line-height);
+  line-height: calc(var(--toy-text-hud-caption-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-text-hud-caption-label-letter-spacing) * var(--px));
   color: var(--toy-text-hud-caption-normal-font-color);
 }
@@ -3672,7 +3672,7 @@
   font-family: var(--toy-title-plate-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-title-plate-label-font-size) * var(--px));
   font-weight: var(--toy-title-plate-label-font-weight);
-  line-height: var(--toy-title-plate-label-line-height);
+  line-height: calc(var(--toy-title-plate-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-title-plate-label-letter-spacing) * var(--px));
   color: var(--toy-title-plate-normal-font-color);
   -webkit-text-stroke: calc((var(--toy-title-plate-items-shadow-outline-size) + var(--toy-title-plate-items-shadow-outline-size)) * var(--px)) var(--toy-title-plate-normal-font-shadow-color);
@@ -3707,7 +3707,7 @@
   font-family: var(--toy-title-logo-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-title-logo-label-font-size) * var(--px));
   font-weight: var(--toy-title-logo-label-font-weight);
-  line-height: var(--toy-title-logo-label-line-height);
+  line-height: calc(var(--toy-title-logo-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-title-logo-label-letter-spacing) * var(--px));
   color: var(--toy-title-logo-normal-font-color);
   -webkit-text-stroke: calc((var(--toy-title-logo-items-shadow-outline-size) + var(--toy-title-logo-items-shadow-outline-size)) * var(--px)) var(--toy-title-logo-normal-font-shadow-color);
