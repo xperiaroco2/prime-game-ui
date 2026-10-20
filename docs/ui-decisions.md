@@ -32,6 +32,10 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
   title face (Kablammo) stays only on the logo for now, because using it everywhere is too much; every other title is
   Nunito Black, the text Nunito, the numbers Rubik. This is the new style that replaces Toy; its tokens and components
   come next.
+- **No tilts for now; motion later** (the engineer, 2026-10-20, chat, translated): the colours and fonts look great;
+  drop every tilted sticker and plate for a start, and add tilts back only where needed. An idea he likes, for later:
+  a button shakes while the pointer is over it (the Ready button, for example), and pressing it gives a small effect,
+  "a micro-game" that feels good to the player; he calls such things showing off, so not in the first version.
 
 ## Principles
 - **The UI never tells the player what to do.** No "take it to X" line, no destination marker, no key prompts on the HUD;
