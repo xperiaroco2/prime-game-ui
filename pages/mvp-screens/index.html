@@ -1,0 +1,369 @@
+<title>MVP: нові частини екранів</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&family=Rubik:wght@600;700&family=Commissioner:wght@400;600;700&display=swap">
+<style>
+/* Layout: sketches of the screen pieces the MVP match (prime-game docs/design/m8-match.md, frozen 2026-10-20) adds
+   or changes, in the picked "Ink and mint sticker" (strength B, no tilts). Each 960x540 frame sits over a plain world
+   colour and scales like pages/sticker. Quiet graphite chrome, the same as the sticker page. The audit behind it:
+   docs/research/2026-10-20-mvp-screens/audit.md. */
+:root {
+  color-scheme: dark;
+  --ground: #141317;
+  --raise: #1C1B21;
+  --line: #2E2C35;
+  --ink-c: #ECE9F1;
+  --dim: #A6A2B1;
+  --chrome: "Commissioner", "Segoe UI", system-ui, sans-serif;
+}
+body { margin: 0; background: var(--ground); color: var(--ink-c); font: 16px/1.5 var(--chrome); overflow-wrap: anywhere; }
+.wrap { max-width: 1040px; margin: 0 auto; padding-block: 28px 64px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid; gap: 40px; }
+h1 { font-size: clamp(30px, 6vw, 46px); line-height: 1.05; margin: 0; text-wrap: balance; letter-spacing: -0.01em; }
+h2 { font-size: clamp(22px, 4vw, 28px); line-height: 1.1; margin: 0; text-wrap: balance; }
+h3 { font-size: 13px; text-transform: uppercase; letter-spacing: .1em; color: var(--dim); margin: 0; font-weight: 600; }
+p, ul { margin: 0; max-width: 66ch; }
+ul { padding-left: 20px; display: grid; gap: 4px; }
+.lede { color: var(--dim); font-size: 17px; }
+.intro { display: grid; gap: 14px; }
+.how { border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; background: var(--raise); display: grid; gap: 6px; }
+.screen { display: grid; gap: 10px; }
+.screen .cap { color: var(--dim); font-size: 14px; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag { font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; border: 1px solid var(--line); border-radius: 999px; padding: 2px 10px; color: var(--dim); }
+.tag.new { color: #A6E85A; border-color: #A6E85A; }
+.tag.chg { color: #FFD60A; border-color: #FFD60A; }
+.tag.draft { color: var(--dim); }
+.q { border-left: 3px solid #FF8A6B; padding: 4px 0 4px 12px; color: var(--ink-c); font-size: 15px; display: grid; gap: 4px; }
+.q b { color: #FF8A6B; }
+.frame { position: relative; width: 100%; max-width: 100%; aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden; background: #55606A; }
+.stage { position: absolute; left: 0; top: 0; width: 960px; height: 540px; transform-origin: 0 0; transform: scale(var(--s, 1)); overflow: hidden; }
+.foot { color: var(--dim); font-size: 14px; display: grid; gap: 6px; }
+
+/* ---------- Inside the frames: the sticker's .st / .st.vb look, Godot-safe (solid fills, one-colour borders, radii,
+   one hard shadow without spread, one text outline). No new colours or fonts: the palette is pages/sticker's, plus
+   the agent's lighter purple and soft ink state shades of ui-1.0.0. ---------- */
+.st { overflow-wrap: normal; --pu:#2B1846; --pud:#1F1033; --pul:#3C2660; --ink:#1E1230; --soft:#54457A; --mint:#CFF3DF; --gr:#A6E85A; --co:#FF8A6B; --ye:#FFD60A; --mu:#B7A8D6; --wh:#FFFFFF;
+  --ft: "Nunito", "Segoe UI", sans-serif; --fn: "Rubik", "Segoe UI", sans-serif;
+  --ow: 4px; --sh: 5px; --fd: "Nunito", "Segoe UI", sans-serif; }
+.st .abs { position: absolute; }
+.st .plate { background: var(--mint); color: var(--ink); border: var(--ow) solid var(--ink); border-radius: 16px; box-shadow: var(--sh) var(--sh) 0 var(--ink); }
+.st .plate.co { background: var(--co); }
+.st .panel { background: var(--pu); color: var(--mint); border: var(--ow) solid var(--ink); border-radius: 20px; box-shadow: var(--sh) var(--sh) 0 var(--ink); }
+.st .title { font-family: var(--fd); font-weight: 900; color: var(--gr); -webkit-text-stroke: calc(var(--ow) * 2) var(--ink); paint-order: stroke fill; line-height: 1.02; }
+.st .title.co { color: var(--co); }
+.st .btn { display: block; text-align: center; padding: 7px 16px; border: var(--ow) solid var(--ink); border-radius: 14px; box-shadow: var(--sh) var(--sh) 0 var(--ink); font: 900 18px/1.2 var(--ft); color: var(--ink); background: var(--mint); }
+.st .btn.p { background: var(--gr); }
+.st .btn.off { background: var(--mu); border-color: var(--soft); color: var(--soft); box-shadow: none; }
+.st .stk { display: inline-block; border: var(--ow) solid var(--ink); border-radius: 10px; padding: 3px 10px; font: 900 15px/1.25 var(--ft); color: var(--ink); }
+.st .stk.gr { background: var(--gr); } .st .stk.co { background: var(--co); } .st .stk.mi { background: var(--mint); } .st .stk.ye { background: var(--ye); }
+.st .chipp { display: inline-block; background: var(--pu); color: var(--mint); border: var(--ow) solid var(--ink); border-radius: 999px; padding: 3px 12px; font: 900 15px/1.25 var(--ft); }
+.st .lab { font: 800 15px/1.2 var(--ft); }
+.st .muted { color: var(--mu); }
+.st .track { position: relative; height: 16px; background: var(--wh); border: 3px solid var(--ink); border-radius: 10px; overflow: hidden; }
+.st .track b { position: absolute; left: 0; top: 0; bottom: 0; display: block; border-right: 3px solid var(--ink); }
+.st .hue { display: inline-block; width: 18px; height: 18px; border-radius: 50%; border: 3px solid var(--ink); vertical-align: -4px; margin-right: 8px; }
+.st .num { font: 700 30px/1.2 var(--fn); }
+.st .cross { left: 476px; top: 266px; width: 8px; height: 8px; border-radius: 50%; background: var(--wh); border: 2px solid var(--ink); box-sizing: border-box; }
+.st .shade { position: absolute; left: 0; top: 0; width: 960px; height: 540px; background: rgba(31, 16, 51, .82); }
+
+/* round HUD: edges 26 px in */
+.st .role { left: 26px; top: 26px; }
+.st .pts { left: 26px; top: 66px; display: flex; align-items: center; gap: 10px; padding: 0 14px; }
+.st .pts .num { font-size: 26px; }
+.st .pop { left: 150px; top: 76px; }
+.st .timer { left: 50%; top: 26px; transform: translateX(-50%); padding: 2px 18px; min-width: 96px; text-align: center; }
+.st .anger { right: 26px; top: 26px; width: 240px; padding: 10px 12px; display: grid; gap: 8px; }
+.st .anger .head { display: flex; justify-content: space-between; align-items: center; }
+.st .aim { left: 50%; top: 290px; transform: translateX(-50%); }
+.st .bars { left: 26px; bottom: 26px; width: 200px; display: grid; gap: 8px; }
+.st .mic { left: 244px; bottom: 26px; width: 50px; height: 50px; border-radius: 50%; }
+.st .mic i { position: absolute; left: 50%; top: 7px; width: 12px; height: 18px; margin-left: -6px; border-radius: 6px; background: var(--ink); }
+.st .mic u { position: absolute; left: 50%; top: 14px; width: 22px; height: 13px; margin-left: -11px; border: 3px solid var(--ink); border-top-width: 0; border-radius: 0 0 12px 12px; box-sizing: border-box; }
+.st .mic s { position: absolute; left: 50%; top: 27px; width: 3px; height: 7px; margin-left: -1.5px; background: var(--ink); }
+.st .slots { right: 26px; bottom: 26px; display: flex; gap: 12px; }
+.st .slot { width: 80px; height: 80px; display: grid; place-items: end center; padding-bottom: 8px; box-sizing: border-box; font: 800 14px/1 var(--ft); }
+.st .slot.on { background: var(--gr); }
+.st .ann { left: 50%; top: 104px; transform: translateX(-50%); white-space: nowrap; padding: 8px 22px; font: 900 26px/1.2 var(--ft); }
+.st .cops { left: 50%; top: 122px; transform: translateX(-50%); white-space: nowrap; padding: 10px 26px; display: grid; justify-items: center; gap: 2px; }
+.st .cops .big { font: 900 28px/1.15 var(--ft); }
+.st .cops .num { font-size: 40px; }
+
+/* the dead's room */
+.st .dhead { left: 50%; top: 26px; transform: translateX(-50%); padding: 8px 22px; font: 900 22px/1.2 var(--ft); white-space: nowrap; }
+.st .dcount { left: 50%; top: 150px; transform: translateX(-50%); width: 360px; padding: 16px 22px; display: grid; justify-items: center; gap: 8px; }
+.st .dcount .num { font-size: 64px; line-height: 1; }
+.st .dcount .track { width: 100%; }
+.st .killer { left: 50%; top: 360px; transform: translateX(-50%); white-space: nowrap; padding: 6px 18px; font: 900 20px/1.2 var(--ft); }
+.st .others { left: 26px; bottom: 26px; }
+.st .next { right: 26px; bottom: 26px; }
+
+/* the mutation workbench */
+.st .wb { left: 60px; top: 40px; width: 840px; height: 460px; box-sizing: border-box; padding: 22px 26px; display: grid; grid-template-rows: auto 1fr auto; gap: 18px; }
+.st .wb .top { display: flex; justify-content: space-between; align-items: center; }
+.st .wb .title { font-size: 34px; }
+.st .wb .bal { display: flex; align-items: center; gap: 10px; padding: 0 14px; }
+.st .wb .bal .num { font-size: 26px; }
+.st .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.st .card { padding: 16px; display: grid; grid-template-rows: auto 1fr auto auto; gap: 10px; }
+.st .card .nm { font: 900 22px/1.15 var(--ft); }
+.st .card .fx { font: 800 16px/1.3 var(--ft); }
+.st .card .cost { display: flex; align-items: center; gap: 8px; }
+.st .card .cost .num { font-size: 26px; }
+.st .card.have { background: var(--pul); color: var(--mint); }
+.st .wb .hint { color: var(--mu); }
+
+/* host settings: the Esc menu's Lobby tab */
+.st .esc { left: 70px; top: 46px; width: 820px; height: 448px; display: grid; grid-template-columns: 210px 1fr; overflow: hidden; }
+.st .tabs { display: grid; align-content: start; gap: 8px; padding: 22px 16px; border-right: var(--ow) solid var(--ink); }
+.st .tab { font: 900 18px/1.2 var(--ft); padding: 8px 14px; border-radius: 12px; color: var(--mint); border: var(--ow) solid transparent; }
+.st .tab.on { background: var(--mint); color: var(--ink); border-color: var(--ink); }
+.st .rows { padding: 22px 24px; display: grid; align-content: start; gap: 12px; }
+.st .rows .title { font-size: 30px; margin-bottom: 4px; }
+.st .srow { display: grid; grid-template-columns: 1fr 230px; align-items: center; gap: 14px; padding: 8px 12px; border-radius: 12px; background: var(--pul); font: 800 18px/1.2 var(--ft); color: var(--mint); }
+.st .srow small { display: block; font: 800 14px/1.2 var(--ft); color: var(--mu); }
+.st .stepper { display: flex; align-items: center; justify-content: space-between; padding: 2px 6px; font: 900 22px/1.2 var(--ft); }
+.st .stepper .num { font-size: 22px; }
+.st .chips { display: flex; gap: 10px; }
+.st .chip { padding: 4px 16px; border: var(--ow) solid var(--ink); border-radius: 999px; font: 900 17px/1.2 var(--ft); background: var(--mint); color: var(--ink); }
+.st .chip.on { background: var(--gr); box-shadow: var(--sh) var(--sh) 0 var(--ink); }
+
+/* full screens: the role reveal and the three ends, on the deep purple */
+.st .endf { position: absolute; left: 0; top: 0; width: 960px; height: 540px; background: var(--pud); display: grid; align-content: center; justify-items: center; gap: 20px; text-align: center; }
+.st .endf .title { font-size: 84px; }
+.st .endf .win { font: 900 28px/1.2 var(--ft); padding: 8px 24px; }
+.st .endf .goal { font: 800 20px/1.35 var(--ft); padding: 10px 22px; max-width: 600px; }
+.st .endf .stk { font-size: 19px; }
+.st .endf .lab { color: var(--mu); }
+
+/* the open question: two hint variants side by side */
+.st .var { top: 120px; width: 380px; display: grid; gap: 14px; justify-items: start; }
+.st .var .anger { position: static; width: 100%; box-sizing: border-box; }
+</style>
+
+<main class="wrap">
+  <header class="intro">
+    <h3>prime-game · UI · MVP · 20.10.2026</h3>
+    <h1>Що MVP змінює на екранах</h1>
+    <p class="lede">Гра стала вечіркою прибульців, а екрани ще показують стару: інженерів, дисидентів, спостереження за живими. Тут — ескізи нових і змінених частин у стилі «Наліпка: м'ята й чорнило». Тло кожного кадру — просто колір замість світу гри.</p>
+    <div class="how">
+      <p><b>Як читати.</b> <span class="tag new">нове</span> — такого ще не було; <span class="tag chg">зміна</span> — те саме місце, інший зміст. Усі тексти в кадрах — чернетки: їх затверджуєте ви. Числа — заглушки. Там, де MVP ще не вирішив, кадр показує питання, а не відповідь.</p>
+      <p>Розбір усіх десяти екранів: <code>docs/research/2026-10-20-mvp-screens/audit.md</code>.</p>
+    </div>
+  </header>
+
+  <!-- 1. Round HUD: points, anger, timer -->
+  <section class="screen">
+    <h2>1 · Раунд: очки, гнів сусідів, таймер</h2>
+    <div class="tags"><span class="tag new">нове: очки, гнів</span><span class="tag chg">зміна: роль</span><span class="tag draft">чернетка текстів</span></div>
+    <div class="frame st"><div class="stage">
+      <span class="abs role stk mi">Прибулець</span>
+      <div class="abs pts plate"><span class="lab">Очки</span><span class="num">7</span></div>
+      <span class="abs pop stk gr">+2</span>
+      <div class="abs timer plate num">07:42</div>
+      <div class="abs anger plate"><div class="head"><span class="lab">Сусіди злі</span><span class="stk co">росте</span></div><div class="track"><b style="width:38%;background:var(--co)"></b></div></div>
+      <div class="abs cross"></div>
+      <span class="abs aim chipp">Батарея</span>
+      <div class="abs bars"><div class="track"><b style="width:80%;background:var(--gr)"></b></div><div class="track"><b style="width:55%;background:var(--ye)"></b></div></div>
+      <div class="abs mic plate"><i></i><u></u><s></s></div>
+      <div class="abs slots"><div class="slot plate on">Рука</div><div class="slot plate">Пояс</div></div>
+    </div></div>
+    <p class="cap">Ліворуч угорі — твої очки й коротке «+2», коли робота чи пакість принесли очки. Праворуч — гнів сусідів: росте, поки не прибрали сміття чи не стишили музику; феєрверк дає стрибок. Таймер, здоров'я, витривалість, мікрофон і руки — як були. (m8 §4, §5)</p>
+    <div class="q"><p><b>Відкрито:</b> скільки очок за що (§4 «ще перевірити»). Чи показувати на HUD куплені мутації. Чи бачать люди одне одного (позначка команди над головою).</p></div>
+  </section>
+
+  <!-- 2. The anger hint: an open question shown as two variants -->
+  <section class="screen">
+    <h2>2 · Гнів: що підказує шкала</h2>
+    <div class="tags"><span class="tag new">нове</span><span class="tag draft">чернетка текстів</span></div>
+    <div class="frame st"><div class="stage">
+      <div class="abs var" style="left:60px"><span class="stk mi">А · без підказки</span>
+        <div class="anger plate"><div class="head"><span class="lab">Сусіди злі</span><span class="stk co">росте</span></div><div class="track"><b style="width:38%;background:var(--co)"></b></div></div></div>
+      <div class="abs var" style="left:520px"><span class="stk mi">Б · тип без місця</span>
+        <div class="anger plate"><div class="head"><span class="lab">Сусіди злі</span><span class="stk co">росте</span></div><div class="track"><b style="width:38%;background:var(--co)"></b></div><span class="stk ye" style="justify-self:start">Гучна музика</span></div></div>
+    </div></div>
+    <p class="cap">Прибульці бачать, що гнів росте, і мусять шукати причину. А: лише шкала. Б: шкала каже, що саме (музика, сміття), але не де. (m8 §5, §9)</p>
+    <div class="q"><p><b>Відкрито — ваш вибір:</b> А чи Б. Поки не вирішено, мапа не позначає місце пакості.</p></div>
+  </section>
+
+  <!-- 3. Kill notice -->
+  <section class="screen">
+    <h2>3 · Хто кого вбив</h2>
+    <div class="tags"><span class="tag new">нове</span><span class="tag draft">чернетка текстів</span></div>
+    <div class="frame st"><div class="stage">
+      <span class="abs role stk mi">Прибулець</span>
+      <div class="abs pts plate"><span class="lab">Очки</span><span class="num">7</span></div>
+      <div class="abs timer plate num">05:16</div>
+      <div class="abs anger plate"><div class="head"><span class="lab">Сусіди злі</span></div><div class="track"><b style="width:52%;background:var(--co)"></b></div></div>
+      <div class="abs ann plate"><i class="hue" style="background:#1C7A82"></i>Ґлорп убив <i class="hue" style="background:#E66B57;margin-left:8px"></i>Їжака</div>
+      <div class="abs cross"></div>
+      <div class="abs bars"><div class="track"><b style="width:80%;background:var(--gr)"></b></div><div class="track"><b style="width:55%;background:var(--ye)"></b></div></div>
+      <div class="abs mic plate"><i></i><u></u><s></s></div>
+      <div class="abs slots"><div class="slot plate on">Рука</div><div class="slot plate">Пояс</div></div>
+    </div></div>
+    <p class="cap">Убитий прибулець каже всім, хто його вбив, тож убивство видає вбивцю. Роль не називаємо — лише імена з кольором тіла. Старе правило «ніколи не показувати, хто повалив» тут міняється. (m8 §4, #1040)</p>
+    <div class="q"><p><b>Відкрито:</b> чи лишається в MVP нокдаун (поваленого піднімають). m8 про нього мовчить, а двигун корабля в GDD ще «валить усіх на борту».</p></div>
+  </section>
+
+  <!-- 4. The cops' minute -->
+  <section class="screen">
+    <h2>4 · Шкала повна: копи за хвилину</h2>
+    <div class="tags"><span class="tag new">нове</span><span class="tag draft">чернетка текстів</span></div>
+    <div class="frame st"><div class="stage">
+      <span class="abs role stk mi">Прибулець</span>
+      <div class="abs pts plate"><span class="lab">Очки</span><span class="num">11</span></div>
+      <div class="abs timer plate num">04:12</div>
+      <div class="abs anger plate"><div class="head"><span class="lab">Сусіди злі</span><span class="stk co">повна</span></div><div class="track"><b style="width:100%;background:var(--co);border-right:0"></b></div></div>
+      <div class="abs cops plate co"><span class="big">Сусіди викликали копів!</span><span class="lab">Копи будуть за</span><span class="num">0:58</span></div>
+      <div class="abs cross"></div>
+      <div class="abs bars"><div class="track"><b style="width:80%;background:var(--gr)"></b></div><div class="track"><b style="width:55%;background:var(--ye)"></b></div></div>
+      <div class="abs mic plate"><i></i><u></u><s></s></div>
+      <div class="abs slots"><div class="slot plate on">Рука</div><div class="slot plate">Пояс</div></div>
+    </div></div>
+    <p class="cap">Коли гнів досягає порогу, сусіди самі кличуть копів: у прибульців хвилина, щоб закінчити задачі. Відлік бачать усі. Затримати копів за очки в MVP не можна. (m8 §5)</p>
+    <div class="q"><p><b>Відкрито:</b> показувати обидва відліки (таймер раунду й копів) чи лише той, що закінчиться раніше. Чи буде фінал після хвилини копів (§6). Скільки триває «хвилина».</p></div>
+  </section>
+
+  <!-- 5. The dead's room -->
+  <section class="screen">
+    <h2>5 · Кімната мертвих</h2>
+    <div class="tags"><span class="tag new">нове, замість спостереження</span><span class="tag draft">чернетка текстів</span></div>
+    <div class="frame st"><div class="stage">
+      <div class="abs dhead panel">Кімната мертвих</div>
+      <div class="abs dcount plate"><span class="lab">Повернення через</span><span class="num">0:24</span><div class="track"><b style="width:20%;background:var(--gr)"></b></div></div>
+      <div class="abs killer plate"><i class="hue" style="background:#1C7A82"></i>Тебе вбив Ґлорп</div>
+      <span class="abs others chipp">Тут також: Бульк, Зінґа</span>
+      <span class="abs next stk mi">Випадкова капсула · 3 с захисту</span>
+    </div></div>
+    <p class="cap">Мертві не дивляться на живих: усі разом чекають 30 с в окремій кімнаті, потім з'являються у випадковій капсулі з 3 с невразливості (чип «Захист 3 с» після повернення лишається як був). Решта HUD сховано. (m8 §3, #1032)</p>
+    <div class="q"><p><b>Відкрито:</b> де ця кімната; чи можуть мертві там говорити між собою (GDD §11 писали для спостереження: «ні»); чи бачать вони таймер, гнів і вбивства. Тому таймера й мікрофона в кадрі немає.</p></div>
+  </section>
+
+  <!-- 6. The mutation workbench -->
+  <section class="screen">
+    <h2>6 · Мутаційний верстат</h2>
+    <div class="tags"><span class="tag new">нове</span><span class="tag draft">чернетка текстів</span></div>
+    <div class="frame st"><div class="stage">
+      <div class="shade"></div>
+      <div class="abs wb panel">
+        <div class="top"><span class="title">Мутаційний верстат</span><div class="bal plate"><span class="lab">У тебе очок</span><span class="num">7</span></div></div>
+        <div class="cards">
+          <div class="card plate"><span class="nm">Швидкі ноги</span><span class="fx">Бігаєш швидше</span><div class="cost"><span class="num">4</span><span class="lab">очки</span></div><span class="btn p">Мутувати</span></div>
+          <div class="card plate have"><span class="nm">Пружні ноги</span><span class="fx">Стрибаєш вище</span><div class="cost"><span class="num">3</span><span class="lab">очки</span></div><span class="btn off">Уже є</span></div>
+          <div class="card plate"><span class="nm">Товста шкіра</span><span class="fx">Більше здоров'я</span><div class="cost"><span class="num">9</span><span class="lab">очок</span></div><span class="btn off">Бракує 2</span></div>
+        </div>
+        <span class="lab hint">Esc — закрити</span>
+      </div>
+    </div></div>
+    <p class="cap">У лабораторії: три позитивні мутації за очки — швидший біг, вищий стрибок, більше здоров'я. Три стани картки: можна купити, уже є, бракує очок. Ціни — заглушки. (m8 §4, #1040)</p>
+    <div class="q"><p><b>Відкрито:</b> ціна кожної; чи можна купити ту саму двічі; чи діє мутація до кінця матчу чи до смерті; назви мутацій.</p></div>
+  </section>
+
+  <!-- 7. Host settings -->
+  <section class="screen">
+    <h2>7 · Налаштування хоста</h2>
+    <div class="tags"><span class="tag chg">зміна: вкладка «Лобі» меню Esc</span><span class="tag draft">чернетка текстів</span></div>
+    <div class="frame st"><div class="stage">
+      <div class="shade"></div>
+      <div class="abs esc panel">
+        <div class="tabs"><span class="tab">Гра</span><span class="tab">Роль</span><span class="tab">Довідка</span><span class="tab on">Лобі</span><span class="tab">Персонаж</span><span class="tab">Налаштування</span></div>
+        <div class="rows"><div class="title">Матч</div>
+          <div class="srow"><span>Людей серед гостей<small>з 10 гравців</small></span><div class="stepper plate"><span>−</span><span class="num">3</span><span>+</span></div></div>
+          <div class="srow"><span>Поріг гніву сусідів</span><div class="chips"><span class="chip">50</span><span class="chip on">100</span></div></div>
+          <div class="srow"><span>Тривалість матчу</span><div class="stepper plate"><span>−</span><span class="num">10 хв</span><span>+</span></div></div>
+        </div>
+      </div>
+    </div></div>
+    <p class="cap">Хост задає точну кількість людей (наприклад, 3 з 10) і поріг гніву (наприклад, 50 чи 100). «Дисиденти» стають «людьми», рядок «Пакунки» зникає разом із доставкою. (m8 §2, §5)</p>
+    <div class="q"><p><b>Відкрито:</b> значення за замовчуванням (дослідження пропонує 4→1 … 10→3 людей); які варіанти порогу; чи лишаються «Ножі» та пресет «Без ножів» (зброю відкладено, §7); які налаштування задач лишаються.</p></div>
+  </section>
+
+  <!-- 8. Role reveal: alien -->
+  <section class="screen">
+    <h2>8 · Показ ролі: прибулець</h2>
+    <div class="tags"><span class="tag chg">зміна</span><span class="tag draft">чернетка текстів</span></div>
+    <div class="frame st"><div class="stage">
+      <div class="endf"><span class="lab">Твоя роль</span><div class="title">Прибулець</div><div class="goal plate">Влаштуй найкращу вечірку: виконай усі задачі, поки не скінчився час і не приїхали копи.</div></div>
+    </div></div>
+    <p class="cap">Ті самі 3 с темного екрана перед раундом, нова роль і мета. (m8 §1, §6)</p>
+  </section>
+
+  <!-- 9. Role reveal: human -->
+  <section class="screen">
+    <h2>9 · Показ ролі: людина</h2>
+    <div class="tags"><span class="tag chg">зміна</span><span class="tag draft">чернетка текстів</span></div>
+    <div class="frame st"><div class="stage">
+      <div class="endf"><span class="lab">Твоя роль</span><div class="title co">Людина</div><div class="goal plate">Ти людина під маскою прибульця. Зіпсуй вечірку: протягни час або розлюти сусідів, щоб приїхали копи.</div></div>
+    </div></div>
+    <p class="cap">Людина може робити все те саме, що прибулець; різниться лише мета. Кораловий заголовок відрізняє роль з першого погляду. (m8 §1, §2, §6)</p>
+    <div class="q"><p><b>Відкрито:</b> чи знають люди одне одного. Якщо так — під метою рядок «Твоя команда: …», як у старого дисидента.</p></div>
+  </section>
+
+  <!-- 10-12. The three ends -->
+  <section class="screen">
+    <h2>10 · Кінець: прибульці перемогли</h2>
+    <div class="tags"><span class="tag chg">зміна</span><span class="tag draft">чернетка текстів</span></div>
+    <div class="frame st"><div class="stage">
+      <div class="endf"><div class="title">Вечірка вдалася!</div><div class="win plate">Прибульці перемогли</div><span class="stk gr">Усі задачі виконано за 08:12</span><span class="lab">Повернення на корабель через 3…</span></div>
+    </div></div>
+    <p class="cap">Задачі виконано до кінця таймера й до приїзду копів. (m8 §6)</p>
+  </section>
+
+  <section class="screen">
+    <h2>11 · Кінець: люди перемогли, час вийшов</h2>
+    <div class="tags"><span class="tag chg">зміна</span><span class="tag draft">чернетка текстів</span></div>
+    <div class="frame st"><div class="stage">
+      <div class="endf"><div class="title co">Час вийшов</div><div class="win plate">Люди перемогли</div><span class="stk co">Задачі так і не виконано</span><span class="lab">Повернення на корабель через 3…</span></div>
+    </div></div>
+    <p class="cap">Таймер скінчився, а задачі ні. (m8 §6)</p>
+  </section>
+
+  <section class="screen">
+    <h2>12 · Кінець: копи приїхали</h2>
+    <div class="tags"><span class="tag new">нове</span><span class="tag draft">чернетка текстів</span></div>
+    <div class="frame st"><div class="stage">
+      <div class="endf"><div class="title co">Попались!</div><div class="win plate">Вечірці кінець</div><span class="stk co">Копи приїхали · люди перемогли</span><span class="lab">Повернення на корабель через 3…</span></div>
+    </div></div>
+    <p class="cap">Хвилина минула, задачі не виконано: сирена, «попались: вечірці кінець». (m8 §6)</p>
+    <div class="q"><p><b>Відкрито для всіх трьох кінців:</b> чи показувати, хто був людиною; чи показувати очки; повернення в лобі тепер означає «на корабель» — як саме це виглядає (§1).</p></div>
+  </section>
+
+  <section class="intro">
+    <h2>Що лишається як є</h2>
+    <ul>
+      <li>Головне меню: Хост, Приєднатися, За адресою, Навчання, Налаштування, Вийти (лише логотип чекає на назву гри).</li>
+      <li>Підключення й усі помилки входу; список гравців під час завантаження.</li>
+      <li>Панель лобі: гравці, «Готово», код кімнати, відлік 5 с.</li>
+      <li>Меню Esc: вкладки «Гра», «Персонаж» і всі налаштування (звук, керування, екран, мова, доступність).</li>
+      <li>HUD: таймер, здоров'я, витривалість, мікрофон, руки й пояс, приціл, назва предмета, таблички з іменами.</li>
+      <li>Чип «Захист 3 с» після повернення.</li>
+      <li>Мапа: дошка, список задач, картки «?» — змінюється лише зміст (нові задачі й кімнати).</li>
+      <li>Темні екрани на 3 с перед раундом і після нього.</li>
+    </ul>
+  </section>
+
+  <section class="intro">
+    <h2>Ще відкрито, без кадру</h2>
+    <ul>
+      <li>Лобі — корабель прибульців: як політ на Землю лягає на лобі, відлік, завантаження й показ ролі (§1).</li>
+      <li>Навчання: які уроки в MVP (доставка пішла, смерть тепер інша).</li>
+      <li>Мапа: чи показувати капсули й мутаційний верстат.</li>
+      <li>Назва гри для логотипа (§1).</li>
+    </ul>
+  </section>
+
+  <footer class="foot">
+    <p>Стиль — сила Б без нахилів, ті самі кольори й шрифти (Nunito, Rubik), що на сторінці наліпок; у кадрах лише те, що вміє намалювати Godot. Джерело: <code>pages/mvp-screens/</code> у prime-game-ui. Дизайн матчу: prime-game <code>docs/design/m8-match.md</code>.</p>
+  </footer>
+</main>
+
+<script>
+// Scale each 960x540 stage to its frame's width, as pages/sticker does.
+const fit = () => document.querySelectorAll(".frame").forEach(f => {
+  f.querySelector(".stage").style.setProperty("--s", f.clientWidth / 960);
+});
+fit();
+if ("ResizeObserver" in window) new ResizeObserver(fit).observe(document.body); else addEventListener("resize", fit);
+</script>
