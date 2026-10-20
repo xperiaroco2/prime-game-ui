@@ -538,6 +538,120 @@ function renderPage(sys, componentsCss) {
     cells.push(cell(T('slot_set'), false, set), ...hudTiles(set, false));
     return stage('dark', cells);
   }
+  // The MVP round HUD and its new screens (ui-1.2.0), composed as on pages/mvp-screens at the 0.75 scale: one part per row.
+  // The pictures are the pack's icons drawn as a TextureRect would (sized here by page.css .sc-mvp-*), never tinted.
+  const pic = (name, cls) => {
+    if (!icons[name]) fail(`showcase.json: unknown icon ${name}`);
+    return `<span class="sc-mvp-pic ${cls}">${icons[name]}</span>`;
+  };
+  const dot = (hex) => `<div class="tv-ToyRosterDot" style="background-color: ${hex}"></div>`;
+  function angerMeter(value, siren) {
+    V('ToyBarAngerTrack');
+    return `<div class="sc-mvp-anger"><div class="tv-ToyBarAngerTrack sc-mvp-angertrack">${barEl('ToyBarAnger', value).html}</div>`
+      + `${pic(siren, 'sc-mvp-siren')}</div>`;
+  }
+  function rowMvp(row) {
+    const p = row.part;
+    if (p === 'top') {
+      const top = (value, siren) => `<div class="sc-mvp-top">${sampleSpan('mvp_timer', 'tv-ToyTimerBare')}${angerMeter(value, siren)}</div>`;
+      const uses = [['ToyTimerBare', 'normal'], ['ToyBarAngerTrack'], ['ToyBarAnger', 'fill']];
+      const b = proposal(uses);
+      const cells = [cell(T('mvp_anger_calm'), b, top(0.08, 'siren-off')), cell(T('mvp_anger_rising'), b, top(0.55, 'siren-on')),
+        cell(T('mvp_anger_full'), b, top(1, 'siren-on'))];
+      return stage('dark', [...cells, ...hudTiles(top(0.55, 'siren-on'), b)]);
+    }
+    if (p === 'roster') {
+      ['ToyRoster', 'ToyRosterName', 'ToyRosterNameSelf', 'ToyRosterNameDead', 'ToyRosterDot', 'ToyRosterTag', 'ToyRosterTagText'].forEach(V);
+      const tag = `<div class="tv-ToyRosterTag">${sampleSpan('mvp_human_tag', 'tv-ToyRosterTagText')}</div>`;
+      const r = (hex, key, cls, tagged) => `<div class="tv-ToyRowTwelve sc-mvp-row sc-mvp-fill">${dot(hex)}${sampleSpan(key, cls)}${tagged ? tag : ''}</div>`;
+      const roster = (human) => `<div class="tv-ToyRoster"><div class="tv-ToyColumnEight sc-mvp-col sc-mvp-fill">`
+        + (human
+          ? r('#E8B04A', 'mvp_r_bulk_self', 'tv-ToyRosterNameSelf', true) + r('#7C5CC8', 'mvp_r_olena', 'tv-ToyRosterName')
+          : r('#7C5CC8', 'mvp_r_olena_self', 'tv-ToyRosterNameSelf') + r('#E8B04A', 'mvp_r_bulk', 'tv-ToyRosterName'))
+        + r('#1C7A82', 'mvp_r_glorp', 'tv-ToyRosterName') + r('#4AA3DF', 'mvp_r_zinga', 'tv-ToyRosterName', human)
+        + r('#D46FB0', 'mvp_r_taras_dead', 'tv-ToyRosterNameDead') + '</div></div>';
+      ['ToyRowTwelve', 'ToyColumnEight'].forEach(V);
+      const b = proposal([['ToyRoster'], ['ToyRosterName', 'normal'], ['ToyRosterNameSelf', 'normal'], ['ToyRosterNameDead', 'normal'], ['ToyRosterDot'], ['ToyRosterTag'], ['ToyRosterTagText', 'normal']]);
+      return stage('dark', [cell(T('mvp_roster_alien'), b, roster(false)), cell(T('mvp_roster_human'), b, roster(true)), ...hudTiles(roster(true), b)]);
+    }
+    if (p === 'items') {
+      ['ToySlotHand', 'ToySlotBelt', 'ToySlotTag', 'ToySlotTagText', 'ToyRowSixteen'].forEach(V);
+      const tag = (key) => `<div class="tv-ToySlotTag sc-mvp-tag">${sampleSpan(key, 'tv-ToySlotTagText')}</div>`;
+      const hand = (icon, key) => `<div class="tv-ToySlotHand sc-mvp-slot">${pic(icon, 'sc-mvp-hand')}${key ? tag(key) : ''}</div>`;
+      const belt = (icon, key) => `<div class="tv-ToySlotBelt sc-mvp-slot">${pic(icon, 'sc-mvp-belt')}${key ? tag(key) : ''}</div>`;
+      const bar = (a, b) => `<div class="tv-ToyRowSixteen sc-mvp-row sc-mvp-bottom">${a}${b}</div>`;
+      const bdg = proposal([['ToySlotHand'], ['ToySlotBelt'], ['ToySlotTag'], ['ToySlotTagText', 'normal']]);
+      const full = bar(hand('item-rocket', 'mvp_item_rocket'), belt('item-bun', 'mvp_item_bun'));
+      return stage('dark', [cell(T('mvp_items_full'), bdg, full),
+        cell(T('mvp_items_empty'), bdg, bar(hand('slot-empty-hand'), belt('slot-empty-belt'))),
+        cell(T('mvp_items_mixed'), bdg, bar(hand('item-battery', 'mvp_item_battery'), belt('slot-empty-belt'))),
+        ...hudTiles(full, bdg)]);
+    }
+    if (p === 'notices') {
+      ['ToyPlateNotice', 'ToyPlateTitle', 'ToyPlateBanner', 'ToyPlateText', 'ToyPlateCountdown', 'ToyColumnFour', 'ToyRowTwelve'].forEach(V);
+      const kill = `<div class="tv-ToyPlateNotice"><div class="tv-ToyRowTwelve sc-mvp-row">${dot('#1C7A82')}${sampleSpan('mvp_kill_a', 'tv-ToyPlateTitle')}${dot('#E66B57')}${sampleSpan('mvp_kill_b', 'tv-ToyPlateTitle')}</div></div>`;
+      const cops = `<div class="tv-ToyPlateBanner"><div class="tv-ToyColumnFour sc-mvp-col sc-mvp-center">${sampleSpan('mvp_cops_big', 'tv-ToyPlateTitle')}${sampleSpan('mvp_cops_small', 'tv-ToyPlateText')}${sampleSpan('mvp_cops_count', 'tv-ToyPlateCountdown')}</div></div>`;
+      const bk = proposal([['ToyPlateNotice'], ['ToyPlateTitle', 'normal'], ['ToyRosterDot']]);
+      const bc = proposal([['ToyPlateBanner'], ['ToyPlateTitle', 'normal'], ['ToyPlateText', 'normal'], ['ToyPlateCountdown', 'normal']]);
+      return stage('dark', [cell(T('mvp_kill'), bk, kill), cell(T('mvp_cops'), bc, cops), ...hudTiles(`<div class="sc-col">${kill}${cops}</div>`, bk || bc)]);
+    }
+    if (p === 'dead') {
+      ['ToyPlateHead', 'ToyPlateHeadText', 'ToyPlateCount', 'ToyPlateText', 'ToyPlateCountdown', 'ToyBarProgress', 'ToyPlateNotice', 'ToyPlateHeading',
+        'ToyChipPlate', 'ToyChipPlateText', 'ToySticker', 'ToyStickerText', 'ToyColumnEight', 'ToyRowTwelve'].forEach(V);
+      const head = `<div class="tv-ToyPlateHead">${sampleSpan('mvp_dead_head', 'tv-ToyPlateHeadText')}</div>`;
+      const count = `<div class="tv-ToyPlateCount"><div class="tv-ToyColumnEight sc-mvp-col sc-mvp-center sc-mvp-fill">${sampleSpan('mvp_dead_back', 'tv-ToyPlateText')}${sampleSpan('mvp_dead_count', 'tv-ToyPlateCountdown')}`
+        + `<div class="sc-mvp-stretch">${barEl('ToyBarProgress', 0.2).html}</div></div></div>`;
+      const killer = `<div class="tv-ToyPlateNotice"><div class="tv-ToyRowTwelve sc-mvp-row">${dot('#1C7A82')}${sampleSpan('mvp_dead_killer', 'tv-ToyPlateHeading')}</div></div>`;
+      const also = `<div class="tv-ToyChipPlate">${sampleSpan('mvp_dead_also', 'tv-ToyChipPlateText')}</div>`;
+      const note = `<div class="tv-ToySticker">${sampleSpan('mvp_dead_capsule', 'tv-ToyStickerText')}</div>`;
+      const b = proposal([['ToyPlateHead'], ['ToyPlateHeadText', 'normal'], ['ToyPlateCount'], ['ToyPlateCountdown', 'normal'], ['ToyPlateHeading', 'normal'], ['ToySticker'], ['ToyStickerText', 'normal']]);
+      const room = `<div class="sc-mvp-col sc-mvp-center sc-mvp-gap">${head}${count}${killer}<div class="sc-mvp-row sc-mvp-gap">${also}${note}</div></div>`;
+      return stage('dark', [cell(T('mvp_dead'), b, room), ...hudTiles(room, b)]);
+    }
+    if (p === 'workbench') {
+      ['ToyPanelDialog', 'ToyBasePanel', 'ToyTitleOnLight', 'ToyPlateBalance', 'ToyPlateText', 'ToyPlateTimer', 'ToyMutationCard', 'ToyPlateTitle',
+        'ToyButtonPrimary', 'ToyButtonSecondary', 'ToyTextMutedOnLight', 'ToyColumnTwentyFour', 'ToyRowTwentyFour', 'ToyColumnTwelve', 'ToyRowEight'].forEach(V);
+      const card = (name, fx, cost, unit, btn, state, label) => `<div class="tv-ToyMutationCard sc-mvp-card"><div class="tv-ToyColumnTwelve sc-mvp-col sc-mvp-fill">`
+        + `${sampleSpan(name, 'tv-ToyPlateTitle')}${sampleSpan(fx, 'tv-ToyPlateText')}`
+        + `<div class="tv-ToyRowEight sc-mvp-row sc-mvp-base">${sampleSpan(cost, 'tv-ToyPlateTimer')}${sampleSpan(unit, 'tv-ToyPlateText')}</div>`
+        + `${buttonEl(btn, state, sampleSpan(label))}</div></div>`;
+      const bench = `<div class="tv-ToyPanelDialog sc-mvp-bench"><div class="tv-ToyColumnTwentyFour sc-mvp-col sc-mvp-fill">`
+        + `<div class="sc-mvp-row sc-mvp-between">${sampleSpan('mvp_wb_title', 'tv-ToyTitleOnLight')}<div class="tv-ToyPlateBalance"><div class="tv-ToyRowEight sc-mvp-row sc-mvp-base">${sampleSpan('mvp_wb_have', 'tv-ToyPlateText')}${sampleSpan('mvp_wb_points', 'tv-ToyPlateTimer')}</div></div></div>`
+        + `<div class="tv-ToyRowTwentyFour sc-mvp-row sc-mvp-top-align">`
+        + card('mvp_wb_fast', 'mvp_wb_fast_fx', 'mvp_wb_four', 'mvp_wb_points_few', 'ToyButtonPrimary', '', 'mvp_wb_buy')
+        + card('mvp_wb_jump', 'mvp_wb_jump_fx', 'mvp_wb_three', 'mvp_wb_points_few', 'ToyButtonSecondary', '', 'mvp_wb_buy')
+        + card('mvp_wb_skin', 'mvp_wb_skin_fx', 'mvp_wb_nine', 'mvp_wb_points_many', 'ToyButtonPrimary', 'is-disabled', 'mvp_wb_short')
+        + `</div>${sampleSpan('mvp_wb_hint', 'tv-ToyTextMutedOnLight')}</div></div>`;
+      const b = proposal([['ToyMutationCard'], ['ToyPlateBalance'], ['ToyPlateTimer', 'normal'], ['ToyPanelDialog'], ['ToyButtonPrimary', 'disabled']]);
+      return `<p class="sc-stage-label">${esc(T('mvp_wb_note'))}</p>` + stage('light', [cell(T('mvp_wb'), b, bench)]);
+    }
+    if (p === 'screens') {
+      ['ToyTitleHero', 'ToyTitleHeroAlert', 'ToyPlateGoal', 'ToyPlateGoalText', 'ToyPlateResult', 'ToyPlateTitle', 'ToyStickerAlert', 'ToyStickerHighlight',
+        'ToyStickerTextLarge', 'ToyTextMutedOnDark', 'ToyColumnTwentyFour'].forEach(V);
+      const col = (inner) => `<div class="tv-ToyColumnTwentyFour sc-mvp-col sc-mvp-center sc-mvp-screen">${inner}</div>`;
+      const st = (v, key) => `<div class="tv-${v}">${sampleSpan(key, 'tv-ToyStickerTextLarge')}</div>`;
+      const goal = (key) => `<div class="tv-ToyPlateGoal">${sampleSpan(key, 'tv-ToyPlateGoalText sc-wrap')}</div>`;
+      const res = (key) => `<div class="tv-ToyPlateResult">${sampleSpan(key, 'tv-ToyPlateTitle')}</div>`;
+      const back = sampleSpan('mvp_end_back', 'tv-ToyTextMutedOnDark');
+      const list = [
+        ['mvp_reveal_alien', col(`${sampleSpan('mvp_your_role', 'tv-ToyTextMutedOnDark')}${sampleSpan('mvp_alien', 'tv-ToyTitleHero')}${goal('mvp_goal_alien')}`)],
+        ['mvp_reveal_human', col(`${sampleSpan('mvp_your_role', 'tv-ToyTextMutedOnDark')}${sampleSpan('mvp_human', 'tv-ToyTitleHeroAlert')}${goal('mvp_goal_human')}${st('ToyStickerAlert', 'mvp_your_humans')}`)],
+        ['mvp_end_aliens', col(`${sampleSpan('mvp_end_party', 'tv-ToyTitleHero')}${res('mvp_end_aliens_won')}${st('ToyStickerHighlight', 'mvp_end_done')}${back}`)],
+        ['mvp_end_time', col(`${sampleSpan('mvp_end_time_title', 'tv-ToyTitleHeroAlert')}${res('mvp_end_humans_won')}${st('ToyStickerAlert', 'mvp_end_not_done')}${back}`)],
+        ['mvp_end_cops', col(`${sampleSpan('mvp_end_cops_title', 'tv-ToyTitleHeroAlert')}${res('mvp_end_party_over')}${st('ToyStickerAlert', 'mvp_end_cops_line')}${back}`)],
+      ];
+      const b = proposal([['ToyTitleHero', 'normal'], ['ToyTitleHeroAlert', 'normal'], ['ToyPlateGoal'], ['ToyPlateGoalText', 'normal'], ['ToyPlateResult'], ['ToyStickerTextLarge', 'normal']]);
+      return stage('dark', list.map(([cap, html]) => cell(T(cap), b, html)));
+    }
+    if (p === 'stickers') {
+      ['ToySticker', 'ToyStickerAlert', 'ToyStickerHighlight', 'ToyStickerText'].forEach(V);
+      const s = (v, key) => `<div class="tv-${v}">${sampleSpan(key, 'tv-ToyStickerText')}</div>`;
+      const set = `<div class="sc-group">${s('ToySticker', 'mvp_alien')}${s('ToyStickerAlert', 'mvp_human')}${s('ToyStickerHighlight', 'mvp_end_done')}</div>`;
+      const b = proposal([['ToySticker'], ['ToyStickerAlert'], ['ToyStickerHighlight'], ['ToyStickerText', 'normal']]);
+      return stage('dark', [cell(T('mvp_stickers'), b, set), ...hudTiles(set, b)]);
+    }
+    return fail(`showcase.json: ${row.id}: unknown mvp part ${p}`);
+  }
   function rowHudBar() {
     ['ToyBarLabel', 'ToyHudCaption'].forEach(V);
     const html = `<div class="sc-hudbar"><div class="tv-ToyBarLabel">${sampleSpan('stamina', 'tv-ToyHudCaption')}</div>${barEl('ToyBarStamina', 0.9, true).html}`
@@ -712,7 +826,7 @@ function renderPage(sys, componentsCss) {
     'hud-bar': rowHudBar, menu: rowMenu, dialog: rowDialog, backdrops: rowBackdrops, howto: rowHowto, settings: rowSettings,
     map: rowMap, mic: rowMic, swatches: rowSwatches, palette: rowPalette, 'type-scale': rowTypeScale, ramp: rowRamp,
     contrast: rowContrast, icons: rowIcons, slider: rowSlider, scrollbar: rowScrollBar, layout: rowLayout,
-    'dropdown-list': rowDropdownList, checkbox: rowCheckBox, spinbox: rowSpinBox,
+    'dropdown-list': rowDropdownList, checkbox: rowCheckBox, spinbox: rowSpinBox, mvp: rowMvp,
   };
   const TOKEN_KINDS = new Set(['palette', 'type-scale', 'ramp', 'contrast', 'icons']);
 

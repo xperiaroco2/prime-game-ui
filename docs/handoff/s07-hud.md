@@ -5,7 +5,7 @@
 The styled round hud screen from the UI track (xperiaroco2/prime-game-ui), as a Godot 4.7.2 node tree for the 1920×1080 reference.
 
 - **Source:** `pages/screens/src/s07-hud.json`; the review page is `pages/screens/screens.html#s7`; the wireframe is section `s7` («HUD у раунді»).
-- **Theme:** the Toy pack ui-1.1.0 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
+- **Theme:** the Toy pack ui-1.2.0 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
 - **World behind the UI** (not UI): a lit room of the level.
 - **How to read it:** the roots are children of the screen's full-rect root `Control`; every property not listed keeps Godot's default; sizes and offsets are reference px. In a state's **Shown** list, the first node of each subtree gives its path from the screen root.
 - **Texts** are keys of `copy/strings.csv`, and the language switches live (the Esc menu's Settings). A plain key is set as `text` and translates itself. A key with placeholders, a plural key (`tr_n`) and a key drawn in pieces are set from code with `auto_translate_mode = DISABLED`: `tr()`, then `String.format()` with the data (the samples below), rebuilt on `NOTIFICATION_TRANSLATION_CHANGED`. A "text from data" (names, the room code, times, numbers) is set in code and never translated (`auto_translate_mode = DISABLED`).
@@ -34,7 +34,7 @@ One HUD for the whole round; s9 hides and returns the same nodes (Hud/Timer, Hud
   - **Role** `PanelContainer` · variation `ToyChipPlate` · anchors `top_left`, offsets 40, 40, 40, 40 (left, top, right, bottom), grow end/end
     - **Text** `Label` · variation `ToyChipPlateText` · text `role.engineer`: en "Engineer" · uk "Інженер"
       - Note: The player's own role for the round: role.engineer or role.dissident.
-  - **Cross** `Panel` · variation `ToyCrosshair` · anchors `center`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both · custom_minimum_size (8, 8) = Vector2(get_theme_constant("width", "ToyCrosshair"), get_theme_constant("height", "ToyCrosshair"))
+  - **Cross** `Panel` · variation `ToyCrosshair` · anchors `center`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both · custom_minimum_size (12, 12) = Vector2(get_theme_constant("width", "ToyCrosshair"), get_theme_constant("height", "ToyCrosshair"))
     - Note: The crosshair dot, centred on the screen (its size is the variation's).
   - **Aim** `PanelContainer` · variation `ToyChipPlate` · anchors `center`, offsets 0, 38, 0, 38 (left, top, right, bottom), grow both/both
     - Note: The name of the object under the crosshair within reach (item.package, item.knife, item.switch); hidden when nothing within reach is under the crosshair.
@@ -44,28 +44,28 @@ One HUD for the whole round; s9 hides and returns the same nodes (Hud/Timer, Hud
       - Note: Always shown in a round. No numbers: the bar's length is the real cue, the colour only adds to it.
       - **Cap** `PanelContainer` · variation `ToyBarLabel` · size flags horizontal `SIZE_SHRINK_BEGIN`
         - **Text** `Label` · variation `ToyHudCaption` · text `hud.health`: en "Health" · uk "Здоровʼя"
-      - **Track** `PanelContainer` · variation `ToyBarTrack` · custom_minimum_size (320, 16) = Vector2(320, get_theme_constant("height", "ToyBarTrack"))
+      - **Track** `PanelContainer` · variation `ToyBarTrack` · custom_minimum_size (320, 24) = Vector2(320, get_theme_constant("height", "ToyBarTrack"))
         - **Fill** `ProgressBar` · variation `ToyBarHealth` · custom_minimum_size (0, 10) · value 0.8 of max_value 1, show_percentage false · fill self_modulate = theme colour `ramp_stop_16` of `ToyBarHealth` (step = clampi(floori(hp * 20.0 + 0.5), 0, 20))
           - Note: value = hp (0 to 1). The fill colour follows the fraction: step = clampi(floori(hp * 20.0 + 0.5), 0, 20), Fill.self_modulate = get_theme_color("ramp_stop_%02d" % step, "ToyBarHealth").
     - **Stamina** `VBoxContainer` · variation `ToyColumnFour` · custom_minimum_size (320, 0) · gaps from the variation: separation 4
       - Note: Always shown in a round; drains while sprinting and refills at rest.
       - **Cap** `PanelContainer` · variation `ToyBarLabel` · size flags horizontal `SIZE_SHRINK_BEGIN`
         - **Text** `Label` · variation `ToyHudCaption` · text `hud.stamina`: en "Stamina" · uk "Витривалість"
-      - **Track** `PanelContainer` · variation `ToyBarTrack` · custom_minimum_size (320, 16) = Vector2(320, get_theme_constant("height", "ToyBarTrack"))
+      - **Track** `PanelContainer` · variation `ToyBarTrack` · custom_minimum_size (320, 24) = Vector2(320, get_theme_constant("height", "ToyBarTrack"))
         - **Fill** `ProgressBar` · variation `ToyBarStamina` · custom_minimum_size (0, 10) · value 0.9 of max_value 1, show_percentage false
           - Note: value = stamina (0 to 1).
-    - **Mic** `PanelContainer` · variation `ToyMic` · size flags horizontal `SIZE_SHRINK_BEGIN` · custom_minimum_size (46, 46) = Vector2(get_theme_constant("width", "ToyMic"), get_theme_constant("height", "ToyMic"))
+    - **Mic** `PanelContainer` · variation `ToyMic` · size flags horizontal `SIZE_SHRINK_BEGIN` · custom_minimum_size (75, 75) = Vector2(get_theme_constant("width", "ToyMic"), get_theme_constant("height", "ToyMic"))
       - Note: Whether anyone hears the player. On: mic.svg tinted icon_on. Off (mic off, push-to-talk released, downed, pre and post game): mic-off.svg tinted icon_off (coral).
       - **Icon** `TextureRect` · size flags horizontal `SIZE_SHRINK_CENTER`, vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (28, 28) · texture `mic` (dist/pack/icons/mic.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("icon_on", "ToyMic")
   - **Slots** `HBoxContainer` · variation `ToyRowTwelve` · anchors `bottom_right`, offsets -40, -40, -40, -40 (left, top, right, bottom), grow begin/begin · gaps from the variation: separation 12
     - Note: One slot pattern for both: empty shows the slot's name; a one-handed item shows only its icon (48 px); a two-handed item widens the hand slot and shows its icon and name.
-    - **Hand** `PanelContainer` · variation `ToySlotActive` · custom_minimum_size (88, 88) = Vector2(get_theme_constant("width", "ToySlotActive"), get_theme_constant("height", "ToySlotActive"))
+    - **Hand** `PanelContainer` · variation `ToySlotActive` · custom_minimum_size (132, 132) = Vector2(get_theme_constant("width", "ToySlotActive"), get_theme_constant("height", "ToySlotActive"))
       - Note: Always the active slot. Two-handed carry (a package) uses the slot's wide width.
       - **Center** `CenterContainer`
         - **Row** `HBoxContainer` · variation `ToyRowEight` · centred by its CenterContainer · gaps from the variation: separation 8
           - **Name** `Label` · variation `ToySlotTextEmpty` · size flags vertical `SIZE_SHRINK_CENTER` · text `hud.slot.hand`: en "Hand" · uk "Рука"
             - Note: Shown only while the hand is empty: hud.slot.hand.
-    - **Belt** `PanelContainer` · variation `ToySlot` · custom_minimum_size (88, 88) = Vector2(get_theme_constant("width", "ToySlot"), get_theme_constant("height", "ToySlot"))
+    - **Belt** `PanelContainer` · variation `ToySlot` · custom_minimum_size (132, 132) = Vector2(get_theme_constant("width", "ToySlot"), get_theme_constant("height", "ToySlot"))
       - **Center** `CenterContainer`
         - **Row** `HBoxContainer` · variation `ToyRowEight` · centred by its CenterContainer · gaps from the variation: separation 8
           - **Name** `Label` · variation `ToySlotTextEmpty` · size flags vertical `SIZE_SHRINK_CENTER` · text `hud.slot.belt`: en "Belt" · uk "Пояс"
@@ -74,7 +74,7 @@ One HUD for the whole round; s9 hides and returns the same nodes (Hud/Timer, Hud
 ## `pack`: what differs from `empty`
 
 - **Hidden:** `Hud/Aim`, `Hud/Slots/Hand/Center/Row/Name`.
-- **Changed** `Hud/Slots/Hand`: custom_minimum_size (180, 88) = Vector2(get_theme_constant("wide_width", "ToySlotActive"), get_theme_constant("height", "ToySlotActive")) (wide) (was: custom_minimum_size (88, 88) = Vector2(get_theme_constant("width", "ToySlotActive"), get_theme_constant("height", "ToySlotActive")))
+- **Changed** `Hud/Slots/Hand`: custom_minimum_size (270, 132) = Vector2(get_theme_constant("wide_width", "ToySlotActive"), get_theme_constant("height", "ToySlotActive")) (wide) (was: custom_minimum_size (132, 132) = Vector2(get_theme_constant("width", "ToySlotActive"), get_theme_constant("height", "ToySlotActive")))
 - **Shown:**
   - **Hud/Slots/Hand/Center/Row/Icon** `TextureRect` · custom_minimum_size (48, 48) · texture `item` (dist/pack/icons/item.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToySlotText")
     - Note: The hand slot's item icon (the package here).

@@ -29,7 +29,7 @@
       }
     },
     "title-on-dark": {
-      "$description": "A title on dark: Nunito Black in the alien green with a 4 px ink outline.",
+      "$description": "A title on dark: Nunito Black in the alien green with a 6 px ink outline.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyTitleOnDark", "class": "Label" },
@@ -75,7 +75,7 @@
       }
     },
     "title-on-light": {
-      "$description": "A title inside a panel: Nunito Black in the alien green with a 4 px ink outline.",
+      "$description": "A title inside a panel: Nunito Black in the alien green with a 6 px ink outline.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyTitleOnLight", "class": "Label" },
@@ -131,6 +131,26 @@
       "label": { "$type": "typography", "$value": "{type.caption}" },
       "normal": {
         "font-color": { "$type": "color", "$value": "{color.on-dark.text}" }
+      }
+    },
+    "timer-bare": {
+      "$description": "The round timer with no plate (the engineer, 2026-10-20): mint Rubik digits with the 6 px ink outline, as the titles draw it, so they read on a white wall and a dark room; centred at the top. ToyPlateTimer stays for a timer on a plate.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyTimerBare", "class": "Label" },
+          "context": "dark"
+        }
+      },
+      "label": { "$type": "typography", "$value": "{type.display}" },
+      "normal": {
+        "font-color": { "$type": "color", "$value": "{color.on-dark.text}" },
+        "font-shadow-color": { "$type": "color", "$value": "{color.outline}" }
+      },
+      "items": {
+        "$description": "The ink outline around the letters: a font shadow at no offset whose outline is the outline width (Godot draws shadow_outline_size outside the glyph edge).",
+        "shadow-offset-x": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "shadow-offset-y": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "shadow-outline-size": { "$type": "dimension", "$value": "{stroke.surface}" }
       }
     }
   }

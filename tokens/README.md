@@ -11,7 +11,7 @@ spec, [`docs/research/2026-10-03-tokens/spec.md`](../docs/research/2026-10-03-to
 | `prime.resolver.json` | The resolver: one base set (the files below, in order) and two modifiers, `textSize` and `motion` |
 | `primitives.tokens.json` | Literals: the palette, font families, weights, letter spacing, line height, `ease.press`, `duration.none`, `focus.*`, `stroke.*`, `offset.base` (the hard shadow), `radius.*`, `space.*` (the screens' gaps: 4, 8, 12, 16, 24, 32) |
 | `semantic.tokens.json` | Aliases of primitives: colour roles by context (`color.*`), the 15 type roles (`type.*`, `logo` new in ui-1.0.0), `motion.press` |
-| `components/<name>.tokens.json` | 21 files, 128 Godot type variations (the abstract ToyButton and the two deprecated chips included): one variant group per variation, with its StyleBox states, `label`, `press`, `size`, `items`, `ramp` |
+| `components/<name>.tokens.json` | 24 files, 161 Godot type variations (the abstract ToyButton and the two deprecated chips included): one variant group per variation, with its StyleBox states, `label`, `press`, `size`, `items`, `ramp` |
 | `text-size/default.tokens.json`, `text-size/large.tokens.json` | `font.size.*` (with `font.size.theme-default`, the theme's `default_font_size`) and `size.keycap` (a keycap's minimum width) for the player's text size setting |
 | `motion/default.tokens.json`, `motion/reduced.tokens.json` | `duration.press` for the reduced-motion setting |
 | `release.json` | The semver the next `ui-<semver>` tag carries |
@@ -29,7 +29,9 @@ spec, [`docs/research/2026-10-03-tokens/spec.md`](../docs/research/2026-10-03-to
    size follows the text size with no code in the game.
    The build completes each state to the 19 `StyleBoxFlat` fields (spec §3.5), so the pack needs no inheritance logic.
 
-Lengths are int px at the 1920×1080 reference frame.
+Lengths are int px at the 1920×1080 reference frame. Since ui-1.2.0 the geometry is the MVP sketches at the 0.75 scale
+the engineer picked (pages/mvp-screens): a sketch length L is round(L × 1.5) here (outlines 6, thin strokes 5, the hard
+shadow 8, radii × 1.5), while the font sizes stay as they were (the sketch's 15 px label is the 22 px body).
 
 ## Editing a value
 
@@ -156,6 +158,30 @@ ToySlider's three knobs, ToyDropdown's `arrow` (`icons/chevron-down.svg`) and To
 (`icons/radio-checked.svg`, an ink check), `radio-checked-disabled` (`icons/radio-checked-disabled.svg`, the check in
 the muted ink), `radio-unchecked` and `radio-unchecked-disabled` (both `icons/radio-unchecked.svg`, an empty 24 px
 icon that keeps the check's gutter), ToyCheckBox's four boxes and ToySpinBox's two chevrons (below).
+
+## The MVP round HUD since ui-1.2.0
+
+The variations of the MVP sketch page's round HUD and new screens (the engineer's decisions of 2026-10-20 in
+`docs/ui-decisions.md`). None of their classes has a theme icon, so none names a texture: the siren and the item
+pictures are pack assets (`assets`) drawn by a TextureRect, never tinted.
+
+- **The top:** `ToyTimerBare` (no plate, the ink text outline) centred at the top; under it the anger meter,
+  `ToyBarAngerTrack` (225 × 30) holding the fill-only `ToyBarAnger` (coral, ink end edge), exactly centred; the siren
+  hangs 9 px off the track's right end, a 57 px TextureRect that does not move the centre. The game swaps its texture:
+  `icons/siren-off.svg` while the anger is calm, `icons/siren-on.svg` while it rises and when full.
+- **The roster** (top right): `ToyRoster` around a `ToyColumnEight` of `ToyRowTwelve` rows: `ToyRosterDot`
+  (white, tinted to the body colour with `self_modulate`), the name (`ToyRosterName`, the own `ToyRosterNameSelf`,
+  the dead `ToyRosterNameDead`) and, in a human's roster, `ToyRosterTag` with `ToyRosterTagText` on the other humans.
+- **Item bar A:** `ToySlotHand` (150, green) and `ToySlotBelt` (126, mint) in a `ToyRowSixteen`, bottoms aligned; the
+  picture is the item's `icons/item-*.svg` (111 and 90 px) or `icons/slot-empty-hand.svg` / `slot-empty-belt.svg`;
+  the name tag `ToySlotTag` (`ToySlotTagText`) is centred on the slot's bottom edge, its bottom 18 px below the face.
+- **Notices:** `ToyPlateNotice` (the kill notice, the killer line), `ToyPlateBanner` (the cops), `ToyPlateCount` (the
+  dead's countdown), `ToyPlateHead` (the dead's room head), `ToyPlateGoal` (the role's goal), `ToyPlateResult` (the end
+  screens), with `ToyPlateTitle`, `ToyPlateText`, `ToyPlateTimer`, `ToyPlateHeading`, `ToyPlateCountdown`,
+  `ToyPlateHeadText`, `ToyPlateGoalText`; word stickers `ToySticker`, `ToyStickerAlert`, `ToyStickerHighlight` with
+  `ToyStickerText` (HUD) or `ToyStickerTextLarge` (full screens); full-screen titles `ToyTitleHero`, `ToyTitleHeroAlert`.
+- **The workbench:** `ToyPanelDialog` with `ToyTitleOnLight`, `ToyPlateBalance` and `ToyMutationCard`s; a card's "not
+  enough" state is its button disabled, the card does not change.
 
 ## Deprecated variations
 

@@ -237,6 +237,36 @@ h2 { font-size: 21px; margin: 34px 0 10px; padding-top: 4px; }
 .sc-swatch { position: relative; display: inline-block; }
 .sc-swatch > .sc-overlay { display: block !important; }
 
+/* The MVP round HUD and screens (ui-1.2.0), laid out as pages/mvp-screens at the 0.75 scale (its px x 1.5). Layout
+   only: the looks are the .tv- rules. The pictures are pack icons at the size a TextureRect draws them. */
+.sc-mvp-col { display: flex !important; flex-direction: column; align-items: flex-start !important; justify-content: flex-start !important; }
+.sc-mvp-row { display: flex !important; align-items: center !important; justify-content: flex-start !important; }
+.sc-mvp-center { align-items: center !important; }
+.sc-mvp-fill { align-self: stretch; flex: 1 1 auto; }
+.sc-mvp-row.sc-mvp-fill > .tv-ToyRosterTag { margin-left: auto; }
+.sc-mvp-between { justify-content: space-between !important; align-self: stretch; }
+.sc-mvp-base { align-items: baseline !important; }
+.sc-mvp-gap { gap: calc(24 * var(--px)); }
+.sc-mvp-pic { display: inline-flex; flex: none; }
+.sc-mvp-pic svg { display: block; width: 100%; height: 100%; }
+.sc-mvp-hand { width: calc(111 * var(--px)); height: calc(111 * var(--px)); }
+.sc-mvp-belt { width: calc(90 * var(--px)); height: calc(90 * var(--px)); }
+.sc-mvp-siren { position: absolute; left: calc(100% + 9 * var(--px)); top: 50%; margin-top: calc(-28.5 * var(--px)); width: calc(57 * var(--px)); height: calc(57 * var(--px)); }
+.sc-mvp-top { display: flex; flex-direction: column; align-items: center; gap: calc(6 * var(--px)); padding: 0 calc(66 * var(--px)); }
+.sc-mvp-anger { position: relative; display: inline-flex; }
+.sc-mvp-angertrack { display: flex !important; align-items: stretch !important; }
+.sc-mvp-angertrack > .sc-barbox { width: 100%; }
+.sc-mvp-stretch { align-self: stretch; }
+.sc-mvp-stretch > .sc-barbox { width: 100%; }
+.sc-mvp-bottom { align-items: flex-end !important; padding-bottom: calc(24 * var(--px)); }
+.sc-mvp-slot { position: relative; }
+.sc-mvp-tag { position: absolute !important; left: 50%; bottom: calc(-24 * var(--px)); transform: translateX(-50%); }
+.sc-mvp-bench { width: calc(1260 * var(--px)); display: flex !important; align-items: stretch !important; justify-content: flex-start !important; }
+.sc-mvp-card { flex: 1 1 0; align-items: stretch !important; justify-content: flex-start !important; }
+.sc-mvp-card .sc-mvp-col > button { align-self: stretch; }
+.sc-mvp-screen { width: calc(1100 * var(--px)); padding: calc(48 * var(--px)) 0; text-align: center; }
+.sc-mvp-screen .tv-ToyPlateGoal { width: calc(900 * var(--px)); }
+
 /* Tokens: palette, type scale, health ramp, contrast. */
 .sc-palette { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; margin-top: 8px; }
 .sc-pal { display: grid; grid-template-columns: 44px 1fr; gap: 4px 10px; align-items: center; min-width: 0; }

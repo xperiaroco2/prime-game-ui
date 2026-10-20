@@ -1,0 +1,83 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "sticker": {
+    "$description": "Flat word stickers (the sketches' small stickers): the role on the HUD, the capsule note in the dead's room, the human's team line on the role reveal, the reason line on the end screens. No shadow.",
+    "mint": {
+      "$description": "A mint word sticker: the 6 px ink outline, 15 px corners (10 x 1.5), no shadow.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToySticker", "class": "PanelContainer" },
+          "context": "dark"
+        }
+      },
+      "panel": {
+        "bg-color": { "$type": "color", "$value": "{palette.mint}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
+        "corner-radius": { "$type": "dimension", "$value": { "value": 15, "unit": "px" } },
+        "content-margin-block": { "$type": "dimension", "$value": { "value": 9, "unit": "px" } },
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 21, "unit": "px" } }
+      }
+    },
+    "alert": {
+      "$description": "A coral word sticker (the human's role, the human's team line, a lost end): as ToySticker.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyStickerAlert", "class": "PanelContainer" },
+          "context": "dark"
+        }
+      },
+      "panel": {
+        "bg-color": { "$type": "color", "$value": "{color.status.alert}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
+        "corner-radius": { "$type": "dimension", "$value": { "value": 15, "unit": "px" } },
+        "content-margin-block": { "$type": "dimension", "$value": { "value": 9, "unit": "px" } },
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 21, "unit": "px" } }
+      }
+    },
+    "highlight": {
+      "$description": "A green word sticker (the aliens' won end): as ToySticker.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyStickerHighlight", "class": "PanelContainer" },
+          "context": "dark"
+        }
+      },
+      "panel": {
+        "bg-color": { "$type": "color", "$value": "{palette.green}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
+        "corner-radius": { "$type": "dimension", "$value": { "value": 15, "unit": "px" } },
+        "content-margin-block": { "$type": "dimension", "$value": { "value": 9, "unit": "px" } },
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 21, "unit": "px" } }
+      }
+    },
+    "text": {
+      "$description": "The word on a sticker on the HUD: ink, Nunito Black.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyStickerText", "class": "Label", "on": ["ToySticker", "ToyStickerAlert", "ToyStickerHighlight"] },
+          "context": "dark"
+        }
+      },
+      "label": { "$type": "typography", "$value": "{type.body-bold}" },
+      "normal": {
+        "font-color": { "$type": "color", "$value": "{color.on-accent.text}" }
+      }
+    },
+    "text-large": {
+      "$description": "The words on a sticker on a full screen (the role reveal, the end screens): ink, Nunito Black at the heading size.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyStickerTextLarge", "class": "Label", "on": ["ToySticker", "ToyStickerAlert", "ToyStickerHighlight"] },
+          "context": "dark"
+        }
+      },
+      "label": { "$type": "typography", "$value": "{type.heading-bold}" },
+      "normal": {
+        "font-color": { "$type": "color", "$value": "{color.on-accent.text}" }
+      }
+    }
+  }
+}

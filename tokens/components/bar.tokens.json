@@ -3,7 +3,7 @@
   "bar": {
     "$description": "Bars: the HUD track with a fill-only bar inside, task progress, the slider track, the slider and the scroll bar.",
     "track": {
-      "$description": "The HUD bar track: white, a 3 px ink outline (the bar's length reads over a dark room and a white wall); its 3 px content margin, the outline's width, lays the 10 px fill flush inside the outline.",
+      "$description": "The HUD bar track: white, a 5 px ink outline (the bar's length reads over a dark room and a white wall); its 5 px content margin, the outline's width, lays the 14 px fill flush inside the outline.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyBarTrack", "class": "PanelContainer" },
@@ -14,16 +14,16 @@
         "bg-color": { "$type": "color", "$value": "{palette.white}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width": { "$type": "dimension", "$value": "{stroke.thin}" },
-        "corner-radius": { "$type": "dimension", "$value": { "value": 10, "unit": "px" } },
-        "content-margin": { "$type": "dimension", "$value": { "value": 3, "unit": "px" } }
+        "corner-radius": { "$type": "dimension", "$value": { "value": 15, "unit": "px" } },
+        "content-margin": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } }
       },
       "size": {
         "$type": "dimension",
-        "height": { "$value": { "value": 16, "unit": "px" } }
+        "height": { "$value": { "value": 24, "unit": "px" } }
       }
     },
     "stamina": {
-      "$description": "The stamina fill: the yellow, with a 3 px ink edge on its right side so its end reads on the white track.",
+      "$description": "The stamina fill: the yellow, with a 5 px ink edge on its right side so its end reads on the white track.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyBarStamina", "class": "ProgressBar", "on": ["ToyBarTrack"] },
@@ -37,14 +37,14 @@
         "border-width-right": { "$type": "dimension", "$value": "{stroke.thin}" },
         "border-width-bottom": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
         "border-width-left": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
-        "corner-radius": { "$type": "dimension", "$value": { "value": 6, "unit": "px" } },
-        "content-margin-block": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } },
+        "corner-radius": { "$type": "dimension", "$value": { "value": 9, "unit": "px" } },
+        "content-margin-block": { "$type": "dimension", "$value": { "value": 7, "unit": "px" } },
         "content-margin-left": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
-        "content-margin-right": { "$type": "dimension", "$value": { "value": 3, "unit": "px" } }
+        "content-margin-right": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } }
       }
     },
     "health": {
-      "$description": "The health fill: white, tinted by the nearest of 21 ramp stops (coral to green) at draw time, with a 3 px ink edge on its right side: the ramp does not reach 3:1 on the white track, the ink edge marks where the fill ends.",
+      "$description": "The health fill: white, tinted by the nearest of 21 ramp stops (coral to green) at draw time, with a 5 px ink edge on its right side: the ramp does not reach 3:1 on the white track, the ink edge marks where the fill ends.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyBarHealth", "class": "ProgressBar", "on": ["ToyBarTrack"] },
@@ -58,10 +58,10 @@
         "border-width-right": { "$type": "dimension", "$value": "{stroke.thin}" },
         "border-width-bottom": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
         "border-width-left": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
-        "corner-radius": { "$type": "dimension", "$value": { "value": 6, "unit": "px" } },
-        "content-margin-block": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } },
+        "corner-radius": { "$type": "dimension", "$value": { "value": 9, "unit": "px" } },
+        "content-margin-block": { "$type": "dimension", "$value": { "value": 7, "unit": "px" } },
         "content-margin-left": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
-        "content-margin-right": { "$type": "dimension", "$value": { "value": 3, "unit": "px" } }
+        "content-margin-right": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } }
       },
       "ramp": {
         "full": { "$type": "color", "$value": "{color.status.health-full}" },
@@ -70,7 +70,7 @@
       }
     },
     "progress": {
-      "$description": "Task progress on the HUD and on plates: a white track and a green fill, both with a 3 px ink outline (the fill draws over the track's full height, so its outline meets the track's; its right side is the fill's ink edge).",
+      "$description": "Task progress on the HUD and on plates: a white track and a green fill, both with a 5 px ink outline (the fill draws over the track's full height, so its outline meets the track's; its right side is the fill's ink edge).",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyBarProgress", "class": "ProgressBar" },
@@ -82,8 +82,8 @@
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width": { "$type": "dimension", "$value": "{stroke.thin}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
-        "content-margin-block": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } },
-        "content-margin-inline": { "$type": "dimension", "$value": { "value": 3, "unit": "px" } }
+        "content-margin-block": { "$type": "dimension", "$value": { "value": 12, "unit": "px" } },
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } }
       },
       "fill": {
         "bg-color": { "$type": "color", "$value": "{color.status.progress}" },
@@ -93,7 +93,7 @@
       }
     },
     "slider": {
-      "$description": "Progress in panels: a white track and a green fill, both with a 3 px ink outline, as ToyBarProgress.",
+      "$description": "Progress in panels: a white track and a green fill, both with a 5 px ink outline, as ToyBarProgress.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyBarSlider", "class": "ProgressBar" },
@@ -105,8 +105,8 @@
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width": { "$type": "dimension", "$value": "{stroke.thin}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
-        "content-margin-block": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } },
-        "content-margin-inline": { "$type": "dimension", "$value": { "value": 3, "unit": "px" } }
+        "content-margin-block": { "$type": "dimension", "$value": { "value": 12, "unit": "px" } },
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } }
       },
       "fill": {
         "bg-color": { "$type": "color", "$value": "{color.status.progress}" },
@@ -131,7 +131,7 @@
       }
     },
     "slider-control": {
-      "$description": "The panel slider (volumes, voice threshold): a white track and a green fill, both with a 3 px ink outline, a 28 px mint knob texture (slider-knob.svg; slider-knob-disabled.svg when not editable), an outer focus ring.",
+      "$description": "The panel slider (volumes, voice threshold): a white track and a green fill, both with a 5 px ink outline, a 28 px mint knob texture (slider-knob.svg; slider-knob-disabled.svg when not editable), an outer focus ring.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": {
@@ -147,14 +147,14 @@
         }
       },
       "slider": {
-        "$description": "The track, drawn as tall as its content margins (10 px) across the slider, centred on the knob; its ink outline sits 3 px outside the slider's ends, so the fill's left end meets it.",
+        "$description": "The track, drawn as tall as its content margins (16 px) across the slider, centred on the knob; its ink outline sits 5 px outside the slider's ends, so the fill's left end meets it.",
         "bg-color": { "$type": "color", "$value": "{palette.white}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width": { "$type": "dimension", "$value": "{stroke.thin}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
-        "content-margin-block": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } },
+        "content-margin-block": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } },
         "content-margin-inline": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
-        "expand-margin-inline": { "$type": "dimension", "$value": { "value": 3, "unit": "px" } }
+        "expand-margin-inline": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } }
       },
       "grabber-area": {
         "$description": "The green fill from the start to the knob's centre, as tall as the track, its ink outline over the track's.",
@@ -182,11 +182,11 @@
         "border-color": { "$type": "color", "$value": "{palette.mint}" },
         "border-width": { "$type": "dimension", "$value": "{focus.width}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
-        "expand-margin": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } }
+        "expand-margin": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } }
       }
     },
     "scroll": {
-      "$description": "A vertical scroll bar in panels (a ScrollContainer's bar): a 10 px white track pill and an ink grabber pill.",
+      "$description": "A vertical scroll bar in panels (a ScrollContainer's bar): a 16 px white track pill and an ink grabber pill.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyScrollBar", "class": "VScrollBar" },
@@ -194,11 +194,11 @@
         }
       },
       "scroll": {
-        "$description": "The track: its inline content margins make the bar 10 px wide.",
+        "$description": "The track: its inline content margins make the bar 16 px wide.",
         "bg-color": { "$type": "color", "$value": "{palette.white}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
         "content-margin-block": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
-        "content-margin-inline": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } }
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } }
       },
       "grabber": {
         "$description": "The grabber, the bar's full width; its length is the visible part of the content.",
@@ -214,6 +214,48 @@
         "$description": "Dragged: as the grabber.",
         "bg-color": { "$type": "color", "$value": "{color.outline}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" }
+      }
+    },
+    "anger-track": {
+      "$description": "The neighbours' anger meter's track (meter A, the engineer, 2026-10-20): white, a 5 px ink outline, pill ends, 225 x 30 px (the sketch's 150 x 20 x 1.5), centred under the round timer; its 5 px content margin lays the fill flush inside the outline. The siren hangs off its right end, 9 px after it: a TextureRect of the pack icons siren-off (calm) and siren-on (rising and full), 57 px.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyBarAngerTrack", "class": "PanelContainer" },
+          "context": "dark"
+        }
+      },
+      "panel": {
+        "bg-color": { "$type": "color", "$value": "{palette.white}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-width": { "$type": "dimension", "$value": "{stroke.thin}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
+        "content-margin": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } }
+      },
+      "size": {
+        "$type": "dimension",
+        "width": { "$value": { "value": 225, "unit": "px" } },
+        "height": { "$value": { "value": 30, "unit": "px" } }
+      }
+    },
+    "anger": {
+      "$description": "The anger fill: the coral, with a 5 px ink edge on its right side so its end reads on the white track (at 100 % the edge meets the track's outline).",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyBarAnger", "class": "ProgressBar", "on": ["ToyBarAngerTrack"] },
+          "context": "dark"
+        }
+      },
+      "fill": {
+        "bg-color": { "$type": "color", "$value": "{color.status.alert}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-width-top": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "border-width-right": { "$type": "dimension", "$value": "{stroke.thin}" },
+        "border-width-bottom": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "border-width-left": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "corner-radius": { "$type": "dimension", "$value": { "value": 10, "unit": "px" } },
+        "content-margin-block": { "$type": "dimension", "$value": { "value": 10, "unit": "px" } },
+        "content-margin-left": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "content-margin-right": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } }
       }
     }
   }
