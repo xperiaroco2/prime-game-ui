@@ -4,6 +4,9 @@
 //
 //   node tools/card-art/render.js          render every card of CARDS into pages/card-art/png/ and write renders.json
 //   node tools/card-art/render.js --check  no Edge: exit 1 when a PNG or renders.json is out of date with its SVG
+//   node tools/card-art/render.js --pilot <dir>  a candidate card not picked yet: every SVG of <dir> (inside
+//                                          pages/card-art/) to a PNG beside it the same way, with no renders.json entry,
+//                                          so neither the token build nor the pack sees it
 //
 // Two Delivery cards ship (prime-game's Delivery-by-meaning ADR, DE15): the House's Delivery by meaning (task id
 // `delivery`, round 3 set A, the gnome to the garden, chosen on prime-game-ui#60) as delivery-meaning-1..4, and the
@@ -109,19 +112,36 @@ function check() {
 }
 
 async function render() {
+  const entries = [];
+  await renderAll(CARDS.map((card) => ({ source: card.source, out: `${OUT}/${card.png}`, card })),
+    (job, png) => entries.push(entryOf(job.card, png)));
+  fs.writeFileSync(abs(MANIFEST), manifestText(entries));
+  console.log(`wrote ${MANIFEST}; now run node tools/tokens/build.js to copy them into dist/pack/cards/`);
+}
+
+// a candidate card the engineer has not picked yet: every SVG of one folder inside pages/card-art/ to a PNG beside it,
+// nothing recorded in renders.json, so the token build and the pack never see it
+async function renderPilot(dir) {
+  const rel = path.relative(ROOT, path.resolve(ROOT, dir)).split(path.sep).join("/");
+  if (!rel.startsWith("pages/card-art/") || rel === OUT) throw new Error(`--pilot takes a folder inside pages/card-art/ other than ${OUT}: ${dir}`);
+  const svgs = fs.readdirSync(abs(rel)).filter((f) => f.endsWith(".svg")).sort();
+  if (!svgs.length) throw new Error(`no SVG in ${rel}`);
+  await renderAll(svgs.map((f) => ({ source: `${rel}/${f}`, out: `${rel}/${f.replace(/\.svg$/, ".png")}` })), () => {});
+}
+
+// one headless Edge for a batch of jobs [{ source, out }] (paths from the repo root); done(job, png) after each PNG
+async function renderAll(jobs, done) {
   const { launch } = require("../screens/edge.js");
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "prime-ui-card-art-"));
   const edge = await launch();
-  const entries = [];
   try {
     const page = edge.page;
     await page.send("Emulation.setDeviceMetricsOverride", { width: W, height: H, deviceScaleFactor: SCALE, mobile: false });
     await page.send("Emulation.setDefaultBackgroundColorOverride", { color: { r: 0, g: 0, b: 0, a: 0 } });
-    fs.mkdirSync(abs(OUT), { recursive: true });
-    for (const card of CARDS) {
-      const html = path.join(tmp, card.png.replace(/\.png$/, ".html"));
+    for (const [n, job] of jobs.entries()) {
+      const html = path.join(tmp, `panel-${n}.html`);
       fs.writeFileSync(html, "<!doctype html><html><head><meta charset=\"utf-8\"><style>html,body{margin:0;background:transparent}"
-        + `img{display:block;width:${W}px;height:${H}px}</style></head><body><img alt="" src="${pathToFileURL(abs(card.source)).href}">`
+        + `img{display:block;width:${W}px;height:${H}px}</style></head><body><img alt="" src="${pathToFileURL(abs(job.source)).href}">`
         + "<script>const i=document.querySelector('img');const ok=()=>document.documentElement.dataset.ready='1';"
         + "i.complete?ok():(i.onload=ok,i.onerror=()=>document.documentElement.dataset.ready='error');</script></body></html>");
       await page.open(pathToFileURL(html).href, 30);
@@ -130,18 +150,17 @@ async function render() {
       const png = Buffer.from(r.data, "base64");
       const p = readPng(png);
       if (p.w !== W * SCALE || p.h !== H * SCALE || !p.alpha || p.alpha.corner !== 0) {
-        throw new Error(`${card.png}: Edge gave a ${p.w}x${p.h} PNG of colour type ${p.type}, corner alpha ${p.alpha && p.alpha.corner}; want ${W * SCALE}x${H * SCALE} RGBA with a transparent background`);
+        throw new Error(`${job.out}: Edge gave a ${p.w}x${p.h} PNG of colour type ${p.type}, corner alpha ${p.alpha && p.alpha.corner}; want ${W * SCALE}x${H * SCALE} RGBA with a transparent background`);
       }
-      fs.writeFileSync(abs(`${OUT}/${card.png}`), png);
-      entries.push(entryOf(card, png));
-      console.log(`${OUT}/${card.png}  ${p.w}x${p.h}  ${png.length} bytes  ${Math.round((100 * p.alpha.clear) / p.alpha.total)}% transparent`);
+      fs.mkdirSync(path.dirname(abs(job.out)), { recursive: true });
+      fs.writeFileSync(abs(job.out), png);
+      done(job, png);
+      console.log(`${job.out}  ${p.w}x${p.h}  ${png.length} bytes  ${Math.round((100 * p.alpha.clear) / p.alpha.total)}% transparent`);
     }
   } finally {
     await edge.close();
     fs.rmSync(tmp, { recursive: true, force: true });
   }
-  fs.writeFileSync(abs(MANIFEST), manifestText(entries));
-  console.log(`wrote ${MANIFEST}; now run node tools/tokens/build.js to copy them into dist/pack/cards/`);
 }
 
 async function main(argv) {
@@ -151,7 +170,8 @@ async function main(argv) {
     console.log(problems.length ? `${problems.length} problem(s)` : `up to date: ${CARDS.length} card PNGs`);
     return problems.length ? 1 : 0;
   }
-  if (argv.length) { console.error("usage: node tools/card-art/render.js [--check]"); return 2; }
+  if (argv.length === 2 && argv[0] === "--pilot") { await renderPilot(argv[1]); return 0; }
+  if (argv.length) { console.error("usage: node tools/card-art/render.js [--check | --pilot <dir>]"); return 2; }
   await render();
   const problems = check();
   for (const p of problems) console.log(p);

@@ -1,0 +1,8 @@
+{
+  "wifi-1.svg": { "licence": "own work", "author": "prime-game-ui", "what": "how-to card art, Wi-Fi step 1 (the password's four glyphs on the security room's computer, read out on the house phone), clean sketch, round 4 pilot candidate B (not picked yet)" },
+  "wifi-2.svg": { "licence": "own work", "author": "prime-game-ui", "what": "how-to card art, Wi-Fi step 2 (both ends of the line in one split frame: the glyph described in the security room, its digit called back from the decoder book in the library), clean sketch, round 4 pilot candidate B (not picked yet)" },
+  "wifi-3.svg": { "licence": "own work", "author": "prime-game-ui", "what": "how-to card art, Wi-Fi step 3 (the finish frame: the digit typed, the Wi-Fi on; the gag: a guest beside is at once nose-deep in a lit phone), clean sketch, round 4 pilot candidate B (not picked yet)" },
+  "wifi-1.png": { "licence": "own work", "author": "prime-game-ui", "what": "640x480 transparent render of wifi-1.svg (node tools/card-art/render.js --pilot, headless Edge, 2x)" },
+  "wifi-2.png": { "licence": "own work", "author": "prime-game-ui", "what": "640x480 transparent render of wifi-2.svg (node tools/card-art/render.js --pilot, headless Edge, 2x)" },
+  "wifi-3.png": { "licence": "own work", "author": "prime-game-ui", "what": "640x480 transparent render of wifi-3.svg (node tools/card-art/render.js --pilot, headless Edge, 2x)" }
+}
