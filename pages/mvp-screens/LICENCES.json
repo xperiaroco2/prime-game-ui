@@ -1,0 +1,11 @@
+{
+  "index.html#i-rocket": { "licence": "own work", "author": "prime-game-ui", "what": "item picture: a fireworks rocket with a face, inline SVG symbol, ink outline and palette fills" },
+  "index.html#i-bun": { "licence": "own work", "author": "prime-game-ui", "what": "item picture: a sesame bun with a face, inline SVG symbol" },
+  "index.html#i-battery": { "licence": "own work", "author": "prime-game-ui", "what": "item picture: a battery with a bolt, inline SVG symbol" },
+  "index.html#i-ext": { "licence": "own work", "author": "prime-game-ui", "what": "item picture: a fire extinguisher, inline SVG symbol" },
+  "index.html#i-palm": { "licence": "own work", "author": "prime-game-ui", "what": "the empty hand slot: a faint three-finger palm outline, inline SVG symbol" },
+  "index.html#i-pocket": { "licence": "own work", "author": "prime-game-ui", "what": "the empty belt slot: a faint pocket outline, inline SVG symbol" },
+  "index.html#i-hand": { "licence": "own work", "author": "prime-game-ui", "what": "item bar C: the alien's green hand gripping the rocket, inline SVG symbol" },
+  "index.html#i-house": { "licence": "own work", "author": "prime-game-ui", "what": "the anger bar's icon: an angry house, inline SVG symbol (walls take currentColor: mint, coral when full)" },
+  "index.html#i-up": { "licence": "own work", "author": "prime-game-ui", "what": "the anger bar's rising marker: a coral triangle, inline SVG symbol" }
+}
