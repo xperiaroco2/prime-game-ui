@@ -1,0 +1,58 @@
+<!-- own work, prime-game-ui, licence: own work -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" width="320" height="240">
+  <defs>
+    <filter id="kb1-w" filterUnits="userSpaceOnUse" x="0" y="0" width="320" height="240">
+      <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="51" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="4" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <style>
+      .k{fill:none;stroke:#1f2433;stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
+      .t{stroke-width:4}
+      .f{stroke-width:3}
+      .w{fill:#fff;stroke:#1f2433;stroke-width:5;stroke-linejoin:round}
+      .a{fill:#e8a33a;stroke:#1f2433;stroke-width:5;stroke-linejoin:round}
+      .i{fill:#1f2433}
+      .o{fill:none;stroke:#e8a33a;stroke-width:5;stroke-linecap:round}
+      .d{fill:none;stroke:#1f2433;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:6 7}
+    </style>
+    <!-- the burger, base at 0,0: bottom bun, fried patty, a leaf of the herb, the top bun with seeds (amber: the card's one accent, the food) -->
+    <g id="kb1-bg">
+      <path class="a" d="M-27 -13H27Q27 0 14 0H-14Q-27 0 -27 -13Z"/>
+      <rect class="i" x="-31" y="-26" width="62" height="15" rx="7.5"/>
+      <path class="w" d="M-32 -31H32Q35 -26 30 -22Q24 -27 16 -21Q8 -27 0 -21Q-8 -27 -16 -21Q-24 -27 -30 -22Q-35 -26 -32 -31Z" style="stroke-width:4"/>
+      <path class="a" d="M-30 -31C-30 -60 30 -60 30 -31Z"/>
+      <ellipse cx="-11" cy="-46" rx="3.2" ry="2" fill="#fff"/><ellipse cx="3" cy="-50" rx="3.2" ry="2" fill="#fff"/><ellipse cx="14" cy="-42" rx="3.2" ry="2" fill="#fff"/>
+    </g>
+    <!-- an order ticket, top centre at 0,0: a paper slip with a torn bottom, the burger to make drawn on it, a clip -->
+    <g id="kb1-tk">
+      <path class="w" d="M-44 0H44V118L33 110L22 118L11 110L0 118L-11 110L-22 118L-33 110L-44 118Z"/>
+      <use href="#kb1-bg" transform="translate(0 92) scale(1.05)"/>
+      <rect class="i" x="-11" y="-9" width="22" height="16" rx="3"/>
+    </g>
+    <!-- the order board, top left at 0,0: a board screwed to the wall, 150 x 118 -->
+    <g id="kb1-ob">
+      <rect class="w" x="0" y="0" width="150" height="118" rx="6"/>
+      <circle class="i" cx="12" cy="12" r="3.5"/><circle class="i" cx="138" cy="12" r="3.5"/><circle class="i" cx="12" cy="106" r="3.5"/><circle class="i" cx="138" cy="106" r="3.5"/>
+    </g>
+  </defs>
+  <g filter="url(#kb1-w)">
+    <ellipse cx="218" cy="213" rx="26" ry="4" fill="#1f2433" opacity=".12"/>
+    <path class="k t" d="M16 212C96 209 210 214 304 211"/>
+    <!-- the order board: the order to make pinned big, a second order small beside it -->
+    <use href="#kb1-ob" transform="translate(22 30)"/>
+    <g transform="translate(148 50) rotate(4) scale(.45)">
+      <use href="#kb1-tk"/>
+    </g>
+    <g transform="translate(78 50) rotate(-2) scale(.82)">
+      <use href="#kb1-tk"/>
+    </g>
+    <!-- figure, turned to the board, studying the order, a hand at the chin -->
+    <path class="k" d="M218 152L202 211M218 152L234 211"/>
+    <path class="k" d="M218 152L216 104"/>
+    <path class="k" d="M216 116L192 134L196 104"/>
+    <path class="k" d="M217 118L232 146"/>
+    <circle class="w" cx="212" cy="84" r="19"/>
+    <circle class="i" cx="204" cy="77" r="2.8"/><circle class="i" cx="196" cy="77" r="2.8"/>
+    <path class="k t" d="M198 92l9-2"/>
+  </g>
+</svg>

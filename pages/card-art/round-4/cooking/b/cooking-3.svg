@@ -1,0 +1,48 @@
+<!-- own work, prime-game-ui, licence: own work -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" width="320" height="240">
+  <defs>
+    <filter id="kb3-w" filterUnits="userSpaceOnUse" x="0" y="0" width="320" height="240">
+      <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="55" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="4" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <style>
+      .k{fill:none;stroke:#1f2433;stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
+      .t{stroke-width:4}
+      .f{stroke-width:3}
+      .w{fill:#fff;stroke:#1f2433;stroke-width:5;stroke-linejoin:round}
+      .a{fill:#e8a33a;stroke:#1f2433;stroke-width:5;stroke-linejoin:round}
+      .i{fill:#1f2433}
+      .o{fill:none;stroke:#e8a33a;stroke-width:5;stroke-linecap:round}
+      .d{fill:none;stroke:#1f2433;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:6 7}
+    </style>
+
+  </defs>
+  <g filter="url(#kb3-w)">
+    <ellipse cx="80" cy="213" rx="30" ry="4" fill="#1f2433" opacity=".12"/>
+    <path class="k t" d="M16 212C96 209 210 214 304 211"/>
+    <!-- the kettle grill: legs, the bowl, the flames, the grate -->
+    <path class="k" d="M188 168L176 211M252 168L264 211M220 176V211"/>
+    <path class="w" d="M168 142A52 34 0 0 0 272 142Z"/>
+    <path class="a" d="M180 140C172 130 178 122 182 114C184 124 192 128 188 140Z" style="stroke-width:4"/>
+    <path class="a" d="M254 140C248 130 254 122 258 114C260 124 268 128 264 140Z" style="stroke-width:4"/>
+    <path class="k" d="M164 142H276"/>
+    <!-- the spatula under the patty, the patty frying -->
+    <path class="k t" d="M120 150L182 136"/>
+    <path class="w" d="M178 131L204 132L204 140L178 139Z" style="stroke-width:4"/>
+    <rect class="i" x="196" y="125" width="48" height="15" rx="7.5"/>
+    <path class="k t" d="M208 114q-5-5 0-10t0-10M222 110q-5-5 0-10t0-10M236 114q-5-5 0-10t0-10"/>
+    <!-- the lid held up as a shield, the fat spitting at it -->
+    <path class="w" d="M124 56A36 46 0 0 1 124 148Z"/>
+    <path class="k t" d="M160 94q9 0 9 8t-9 8"/>
+    <circle class="i" cx="178" cy="78" r="3.2"/><circle class="i" cx="188" cy="96" r="3.2"/><circle class="i" cx="174" cy="60" r="3.2"/>
+    <path class="k f" d="M184 72l6-3M196 92l6-1M182 56l5-4"/>
+    <!-- figure, ducked behind the lid, the spatula reaching under it -->
+    <path class="k" d="M80 152L60 211M80 152L102 211"/>
+    <path class="k" d="M80 152L84 106"/>
+    <path class="k" d="M84 114L124 100"/>
+    <path class="k" d="M84 120L122 150"/>
+    <circle class="w" cx="86" cy="86" r="19"/>
+    <path class="k f" d="M86 79l6 4l-6 4M102 79l-6 4l6 4"/>
+    <path class="k t" d="M86 97q3-3 5 0t5 0"/>
+  </g>
+</svg>

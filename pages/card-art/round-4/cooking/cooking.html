@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Картка «Бургери»</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@600;700&family=Nunito:wght@400;600;700&display=swap">
+<style>
+/* Layout: the pilot choice page of the Cooking how-to card (round 4). Two sets of the wordless Cooking how-to card, each as the
+   game frames it (white frames, 3 px plum outline, 16 px corners, mint finish frame), then at the Esc Guide's real
+   size 160x120. The answer goes in the chat. Page chrome only, outside the Godot-safe lint like round 2. */
+:root {
+  --bg: #fbf6ec; --card: #ffffff; --ink: #3b2340; --muted: #7a6380; --line: #3b2340;
+  --pick: #ffd23f; --pick-ink: #3b2340; --frame: #ffffff; --finish: #d5f4ec;
+  --display: "Comfortaa", "Trebuchet MS", system-ui, sans-serif;
+  --body: "Nunito", "Segoe UI", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #1d1420; --card: #2a1e2f; --ink: #f6eef8; --muted: #c4b2c9; --line: #8d7393; color-scheme: dark } }
+:root[data-theme="dark"] { --bg: #1d1420; --card: #2a1e2f; --ink: #f6eef8; --muted: #c4b2c9; --line: #8d7393; color-scheme: dark }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.5 var(--body); }
+.wrap { max-width: 1240px; margin: 0 auto; padding: 24px 16px 64px; display: grid; gap: 28px; }
+h1, h2 { font-family: var(--display); margin: 0; text-wrap: balance; }
+h1 { font-size: clamp(26px, 5vw, 38px); line-height: 1.15; }
+h2 { font-size: 22px; }
+p { margin: 0; }
+.muted { color: var(--muted); max-width: 70ch; }
+.set { display: grid; gap: 14px; background: var(--card); border: 3px solid var(--line); border-radius: 20px; padding: 18px; }
+.set-h { display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: baseline; }
+.rec { font: 700 12px var(--body); letter-spacing: .06em; text-transform: uppercase; color: var(--pick-ink);
+  background: var(--pick); padding: 2px 8px; border-radius: 8px; }
+.row { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.row img { width: 100%; height: auto; aspect-ratio: 4 / 3; display: block; background: var(--frame);
+  border: 3px solid #3b2340; border-radius: 16px; box-sizing: border-box; }
+.row img:last-child { background: var(--finish); }
+.real { display: flex; flex-wrap: wrap; gap: 8px; }
+.real img { width: 160px; height: 120px; background: var(--frame); border: 3px solid #3b2340; border-radius: 12px; box-sizing: border-box; }
+.real img:last-child { background: var(--finish); }
+.note { font-size: 14px; color: var(--muted); }
+@media (max-width: 640px) { .row { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <header style="display:grid;gap:10px">
+    <h1>Картка «Бургери» (пілот)</h1>
+    <p class="muted">Перша картка how-to для завдання MVP «Бургери», у стилі «чистий скетч», як картка Доставки. Чотири кадри: замовлення, принтер їжі, гриль, готовий бургер. Зелень (квітка з оранжереї за значком) окремим кроком не показана, щоб уміститися в чотири кадри. Обери набір і напиши в чат «A» або «B».</p>
+  </header>
+
+  <section class="set">
+    <div class="set-h"><h2>A · Рейка з чеками</h2><span class="rec">Раджу</span></div>
+    <p class="muted">Читаєш чек із бургером; принтер друкує булку шар за шаром, котлета вже в руках; смажиш котлету на грилі на відстані витягнутої руки, ухиляючись від бризок (гег); бургер на тарілці під своїм чеком.</p>
+    <div class="row">
+      <img src="a/cooking-1.png" alt="A, кадр 1">
+      <img src="a/cooking-2.png" alt="A, кадр 2">
+      <img src="a/cooking-3.png" alt="A, кадр 3">
+      <img src="a/cooking-4.png" alt="A, кадр 4">
+    </div>
+    <p class="note">У грі, Esc → Гід (160×120):</p>
+    <div class="real">
+      <img src="a/cooking-1.png" alt=""><img src="a/cooking-2.png" alt=""><img src="a/cooking-3.png" alt=""><img src="a/cooking-4.png" alt="">
+    </div>
+  </section>
+
+  <section class="set">
+    <div class="set-h"><h2>B · Дошка замовлень</h2></div>
+    <p class="muted">Вивчаєш замовлення на дошці; принтер друкує котлету, булка вже в руках; смажиш, сховавшись за кришкою гриля, як за щитом (гег); готовий бургер на стійці під дошкою, фігура радіє.</p>
+    <div class="row">
+      <img src="b/cooking-1.png" alt="B, кадр 1">
+      <img src="b/cooking-2.png" alt="B, кадр 2">
+      <img src="b/cooking-3.png" alt="B, кадр 3">
+      <img src="b/cooking-4.png" alt="B, кадр 4">
+    </div>
+    <p class="note">У грі, Esc → Гід (160×120):</p>
+    <div class="real">
+      <img src="b/cooking-1.png" alt=""><img src="b/cooking-2.png" alt=""><img src="b/cooking-3.png" alt=""><img src="b/cooking-4.png" alt="">
+    </div>
+  </section>
+</main>
+</body>
+</html>

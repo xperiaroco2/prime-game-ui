@@ -1,0 +1,10 @@
+{
+  "cooking-1.svg": { "licence": "own work", "author": "prime-game-ui", "what": "how-to card art, Cooking step 1 (read the order: a ticket on the kitchen's order rail shows the burger to make; the figure points at it), clean sketch, round 4 pilot candidate a; rendered as cooking-1.png" },
+  "cooking-2.svg": { "licence": "own work", "author": "prime-game-ui", "what": "how-to card art, Cooking step 2 (print: the food printer prints the bun layer by layer, the rest a dashed outline; the patty is already in the arms), clean sketch, round 4 pilot candidate a; rendered as cooking-2.png" },
+  "cooking-3.svg": { "licence": "own work", "author": "prime-game-ui", "what": "how-to card art, Cooking step 3, the gag (fry the patty on the grill: the figure holds the spatula at arm's length and leans away from the spitting fat), clean sketch, round 4 pilot candidate a; rendered as cooking-3.png" },
+  "cooking-4.svg": { "licence": "own work", "author": "prime-game-ui", "what": "how-to card art, Cooking step 4 (the finish frame: the burger served on its plate under its ticket, lit, a tick), clean sketch, round 4 pilot candidate a; rendered as cooking-4.png" },
+  "cooking-1.png": { "licence": "own work", "author": "prime-game-ui", "what": "640x480 transparent render of cooking-1.svg (headless Edge, 2x, as tools/card-art/render.js renders)" },
+  "cooking-2.png": { "licence": "own work", "author": "prime-game-ui", "what": "640x480 transparent render of cooking-2.svg (headless Edge, 2x, as tools/card-art/render.js renders)" },
+  "cooking-3.png": { "licence": "own work", "author": "prime-game-ui", "what": "640x480 transparent render of cooking-3.svg (headless Edge, 2x, as tools/card-art/render.js renders)" },
+  "cooking-4.png": { "licence": "own work", "author": "prime-game-ui", "what": "640x480 transparent render of cooking-4.svg (headless Edge, 2x, as tools/card-art/render.js renders)" }
+}
