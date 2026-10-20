@@ -1,9 +1,9 @@
 {
   "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
   "chip": {
-    "$description": "Chips: static pills with their companion Labels, and toggle chips.",
+    "$description": "Chips (Ink and mint, strength B): small pill stickers with a 4 px ink outline, their companion Labels, and toggle chips. A chip lies flat; only the selected toggle chip casts the hard ink shadow (the edge form).",
     "plate": {
-      "$description": "A HUD chip on a dark world: the translucent plate.",
+      "$description": "A HUD chip (the role, the object under the crosshair, not ready, you are here on the map): the purple sticker, flat, as the HUD plates (the mint ToyHudCaption sits on it too).",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyChipPlate", "class": "PanelContainer" },
@@ -12,13 +12,15 @@
       },
       "panel": {
         "bg-color": { "$type": "color", "$value": "{color.surface.plate}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
         "content-margin-block": { "$type": "dimension", "$value": { "value": 4, "unit": "px" } },
         "content-margin-inline": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } }
       }
     },
     "plate-text": {
-      "$description": "The text of a plate chip.",
+      "$description": "The text of a plate chip: mint on the purple face.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyChipPlateText", "class": "Label", "on": ["ToyChipPlate"] },
@@ -31,7 +33,7 @@
       }
     },
     "light": {
-      "$description": "A yellow chip with an ink outline.",
+      "$description": "The highlight chip (ready, the step to do now, an allowed task): the green sticker, flat.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyChipLight", "class": "PanelContainer" },
@@ -48,7 +50,7 @@
       }
     },
     "light-text": {
-      "$description": "The text of a yellow chip.",
+      "$description": "The text of a highlight chip: ink on the green face.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyChipLightText", "class": "Label", "on": ["ToyChipLight"] },
@@ -61,7 +63,7 @@
       }
     },
     "new": {
-      "$description": "The coral \"new\" chip.",
+      "$description": "The coral \"new\" chip: the coral sticker, flat.",
       "$deprecated": "The NEW tag is gone (copy round 2): use ToyChipAlert. Removed at the next major release.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
@@ -93,7 +95,7 @@
       }
     },
     "alert": {
-      "$description": "The coral alert chip: marks a clash, such as a key bound twice.",
+      "$description": "The coral alert chip: marks a clash, such as a key bound twice; the coral sticker, flat.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyChipAlert", "class": "PanelContainer" },
@@ -110,7 +112,7 @@
       }
     },
     "alert-text": {
-      "$description": "The text of an alert chip.",
+      "$description": "The text of an alert chip: ink on the coral face.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyChipAlertText", "class": "Label", "on": ["ToyChipAlert"] },
@@ -123,7 +125,7 @@
       }
     },
     "line-on-dark": {
-      "$description": "An outline chip on dark.",
+      "$description": "An outline chip on dark: no face and no ink sticker, a mint outline on the purple.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyChipLineOnDark", "class": "PanelContainer" },
@@ -140,20 +142,20 @@
       }
     },
     "line-on-dark-text": {
-      "$description": "The text of an outline chip on dark.",
+      "$description": "The text of an outline chip on dark: mint.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyChipLineOnDarkText", "class": "Label" },
           "context": "dark"
         }
       },
-      "label": { "$type": "typography", "$value": "{type.small}" },
+      "label": { "$type": "typography", "$value": "{type.small-bold}" },
       "normal": {
         "font-color": { "$type": "color", "$value": "{color.on-dark.text}" }
       }
     },
     "line-on-light": {
-      "$description": "An outline chip on light.",
+      "$description": "An outline chip on a panel (a banned task): no face and no ink sticker, a mint outline on the purple.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyChipLineOnLight", "class": "PanelContainer" },
@@ -170,20 +172,20 @@
       }
     },
     "line-on-light-text": {
-      "$description": "The text of an outline chip on light.",
+      "$description": "The text of an outline chip on a panel: mint.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyChipLineOnLightText", "class": "Label" },
           "context": "light"
         }
       },
-      "label": { "$type": "typography", "$value": "{type.small}" },
+      "label": { "$type": "typography", "$value": "{type.small-bold}" },
       "normal": {
         "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
       }
     },
     "toggle-on-dark": {
-      "$description": "An idle toggle chip on dark (language, settings sub-tabs, guide list): an outline on no fill.",
+      "$description": "An idle toggle chip on dark (language, settings sub-tabs, guide list): the mint sticker, flat.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": {
@@ -195,31 +197,32 @@
           "context": "dark"
         }
       },
-      "label": { "$type": "typography", "$value": "{type.small}" },
+      "label": { "$type": "typography", "$value": "{type.small-bold}" },
       "normal": {
-        "bg-color": { "$type": "color", "$value": "{palette.clear}" },
-        "border-color": { "$type": "color", "$value": "{color.on-dark.line}" },
+        "bg-color": { "$type": "color", "$value": "{palette.mint}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
         "content-margin-block": { "$type": "dimension", "$value": { "value": 4, "unit": "px" } },
         "content-margin-inline": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } },
-        "font-color": { "$type": "color", "$value": "{color.on-dark.text}" }
+        "font-color": { "$type": "color", "$value": "{color.on-accent.text}" }
       },
       "hover": {
-        "$description": "Hover fill.",
-        "bg-color": { "$type": "color", "$value": "{color.state.hover-on-dark}" }
+        "$description": "Hover: the face lifts to a lighter shade.",
+        "bg-color": { "$type": "color", "$value": "{palette.mint-light}" }
       },
       "pressed": {
-        "$description": "Held: as hover.",
-        "bg-color": { "$type": "color", "$value": "{color.state.hover-on-dark}" }
+        "$description": "Held: the face darkens; the chip does not move.",
+        "bg-color": { "$type": "color", "$value": "{palette.mint-dark}" }
       },
       "disabled": {
-        "$description": "Unplugged: a muted outline and label on no fill.",
-        "border-color": { "$type": "color", "$value": "{color.state.disabled-ink-on-dark}" },
-        "font-color": { "$type": "color", "$value": "{color.state.disabled-ink-on-dark}" }
+        "$description": "Unplugged: a dulled lilac face, its outline and label in the soft ink.",
+        "bg-color": { "$type": "color", "$value": "{color.state.disabled-face}" },
+        "border-color": { "$type": "color", "$value": "{color.state.disabled-ink}" },
+        "font-color": { "$type": "color", "$value": "{color.state.disabled-ink}" }
       },
       "focus": {
-        "$description": "Outer focus: a ring of the focus width, the focus gap outside the outline.",
+        "$description": "Outer focus: a mint ring of the focus width, the focus gap outside the outline (it reads on the purple).",
         "bg-color": { "$type": "color", "$value": "{palette.clear}" },
         "border-color": { "$type": "color", "$value": "{color.on-dark.line}" },
         "border-width": { "$type": "dimension", "$value": "{focus.width}" },
@@ -228,7 +231,7 @@
       }
     },
     "toggle-on-dark-selected": {
-      "$description": "A selected toggle chip on dark: yellow face, ink outline, bold label.",
+      "$description": "A selected toggle chip on dark: the green sticker with its hard ink shadow in the edge form (the right and bottom outlines 9 px, reaching 5 px outside the chip); the label does not move.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyChipToggleOnDarkSelected", "class": "Button", "parent": "ToyButton" },
@@ -239,20 +242,27 @@
       "normal": {
         "bg-color": { "$type": "color", "$value": "{palette.green}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
-        "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
+        "border-width-top": { "$type": "dimension", "$value": "{stroke.control}" },
+        "border-width-right": { "$type": "dimension", "$value": { "value": 9, "unit": "px" } },
+        "border-width-bottom": { "$type": "dimension", "$value": { "value": 9, "unit": "px" } },
+        "border-width-left": { "$type": "dimension", "$value": "{stroke.control}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
         "content-margin-block": { "$type": "dimension", "$value": { "value": 4, "unit": "px" } },
         "content-margin-inline": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } },
+        "expand-margin-right": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } },
+        "expand-margin-bottom": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } },
         "font-color": { "$type": "color", "$value": "{color.on-accent.text}" }
       },
       "disabled": {
-        "$description": "Unplugged selected chip: pale and quiet.",
+        "$description": "Unplugged selected chip: no shadow (a 4 px outline on every side, no expand), a dulled lilac face, its outline and label in the soft ink.",
         "bg-color": { "$type": "color", "$value": "{color.state.disabled-face}" },
         "border-color": { "$type": "color", "$value": "{color.state.disabled-ink}" },
+        "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
+        "expand-margin": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
         "font-color": { "$type": "color", "$value": "{color.state.disabled-ink}" }
       },
       "focus": {
-        "$description": "Outer focus: a ring of the focus width, the focus gap outside the outline.",
+        "$description": "Outer focus: a mint ring of the focus width, the focus gap outside the outline (it reads on the purple).",
         "bg-color": { "$type": "color", "$value": "{palette.clear}" },
         "border-color": { "$type": "color", "$value": "{color.on-dark.line}" },
         "border-width": { "$type": "dimension", "$value": "{focus.width}" },
@@ -261,7 +271,7 @@
       }
     },
     "toggle-on-light": {
-      "$description": "An idle toggle chip on light (language, settings sub-tabs, guide list): an outline on no fill.",
+      "$description": "An idle toggle chip on a panel (language, settings sub-tabs, guide list): the mint sticker, flat.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": {
@@ -273,31 +283,32 @@
           "context": "light"
         }
       },
-      "label": { "$type": "typography", "$value": "{type.small}" },
+      "label": { "$type": "typography", "$value": "{type.small-bold}" },
       "normal": {
-        "bg-color": { "$type": "color", "$value": "{palette.clear}" },
-        "border-color": { "$type": "color", "$value": "{color.on-light.line}" },
+        "bg-color": { "$type": "color", "$value": "{palette.mint}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
         "content-margin-block": { "$type": "dimension", "$value": { "value": 4, "unit": "px" } },
         "content-margin-inline": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } },
-        "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
+        "font-color": { "$type": "color", "$value": "{color.on-accent.text}" }
       },
       "hover": {
-        "$description": "Hover fill.",
-        "bg-color": { "$type": "color", "$value": "{color.state.hover-on-light}" }
+        "$description": "Hover: the face lifts to a lighter shade.",
+        "bg-color": { "$type": "color", "$value": "{palette.mint-light}" }
       },
       "pressed": {
-        "$description": "Held: as hover.",
-        "bg-color": { "$type": "color", "$value": "{color.state.hover-on-light}" }
+        "$description": "Held: the face darkens; the chip does not move.",
+        "bg-color": { "$type": "color", "$value": "{palette.mint-dark}" }
       },
       "disabled": {
-        "$description": "Unplugged: a muted outline and label on no fill.",
+        "$description": "Unplugged: a dulled lilac face, its outline and label in the soft ink.",
+        "bg-color": { "$type": "color", "$value": "{color.state.disabled-face}" },
         "border-color": { "$type": "color", "$value": "{color.state.disabled-ink}" },
         "font-color": { "$type": "color", "$value": "{color.state.disabled-ink}" }
       },
       "focus": {
-        "$description": "Outer focus: a ring of the focus width, the focus gap outside the outline.",
+        "$description": "Outer focus: a mint ring of the focus width, the focus gap outside the outline (it reads on the purple).",
         "bg-color": { "$type": "color", "$value": "{palette.clear}" },
         "border-color": { "$type": "color", "$value": "{color.on-light.line}" },
         "border-width": { "$type": "dimension", "$value": "{focus.width}" },
@@ -306,7 +317,7 @@
       }
     },
     "toggle-on-light-selected": {
-      "$description": "A selected toggle chip on light: yellow face, ink outline, bold label.",
+      "$description": "A selected toggle chip on a panel: the green sticker with its hard ink shadow in the edge form (the right and bottom outlines 9 px, reaching 5 px outside the chip); the label does not move.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyChipToggleOnLightSelected", "class": "Button", "parent": "ToyButton" },
@@ -317,20 +328,27 @@
       "normal": {
         "bg-color": { "$type": "color", "$value": "{palette.green}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
-        "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
+        "border-width-top": { "$type": "dimension", "$value": "{stroke.control}" },
+        "border-width-right": { "$type": "dimension", "$value": { "value": 9, "unit": "px" } },
+        "border-width-bottom": { "$type": "dimension", "$value": { "value": 9, "unit": "px" } },
+        "border-width-left": { "$type": "dimension", "$value": "{stroke.control}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
         "content-margin-block": { "$type": "dimension", "$value": { "value": 4, "unit": "px" } },
         "content-margin-inline": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } },
+        "expand-margin-right": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } },
+        "expand-margin-bottom": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } },
         "font-color": { "$type": "color", "$value": "{color.on-accent.text}" }
       },
       "disabled": {
-        "$description": "Unplugged selected chip: pale and quiet.",
+        "$description": "Unplugged selected chip: no shadow (a 4 px outline on every side, no expand), a dulled lilac face, its outline and label in the soft ink.",
         "bg-color": { "$type": "color", "$value": "{color.state.disabled-face}" },
         "border-color": { "$type": "color", "$value": "{color.state.disabled-ink}" },
+        "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
+        "expand-margin": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
         "font-color": { "$type": "color", "$value": "{color.state.disabled-ink}" }
       },
       "focus": {
-        "$description": "Outer focus: a ring of the focus width, the focus gap outside the outline.",
+        "$description": "Outer focus: a mint ring of the focus width, the focus gap outside the outline (it reads on the purple).",
         "bg-color": { "$type": "color", "$value": "{palette.clear}" },
         "border-color": { "$type": "color", "$value": "{color.on-light.line}" },
         "border-width": { "$type": "dimension", "$value": "{focus.width}" },
