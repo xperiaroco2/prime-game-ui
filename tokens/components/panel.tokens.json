@@ -1,9 +1,9 @@
 {
   "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
   "panel": {
-    "$description": "Cream panels on the dark drop base.",
+    "$description": "Sticker panels: a 4 px ink outline and a hard ink shadow 5 px right and 5 px down (the base layer).",
     "menu": {
-      "$description": "The menu panel: cream face, ink outline, on the drop base.",
+      "$description": "The menu panel: purple face, ink outline, on the hard ink shadow; the light context (its labels are mint).",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyPanelMenu", "class": "PanelContainer", "base": { "any": "ToyBasePanel" } },
@@ -35,7 +35,7 @@
       }
     },
     "howto": {
-      "$description": "The how-to card panel.",
+      "$description": "The how-to card panel: as the menu panel; its frames are the mint plates the sketches sit on.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyPanelHowto", "class": "PanelContainer", "base": { "any": "ToyBasePanel" } },
@@ -51,7 +51,7 @@
       }
     },
     "base": {
-      "$description": "The 10 px drop base under panels and the map board.",
+      "$description": "The hard ink shadow under panels and the map board: the face's shape moved 5 px right and 5 px down.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyBasePanel", "class": "Panel" },
@@ -61,8 +61,10 @@
       "panel": {
         "bg-color": { "$type": "color", "$value": "{color.surface.drop}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.surface}" },
-        "expand-margin-top": { "$type": "dimension", "$value": { "value": -10, "unit": "px" } },
-        "expand-margin-bottom": { "$type": "dimension", "$value": { "value": 10, "unit": "px" } }
+        "expand-margin-top": { "$type": "dimension", "$value": { "value": -5, "unit": "px" } },
+        "expand-margin-right": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } },
+        "expand-margin-bottom": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } },
+        "expand-margin-left": { "$type": "dimension", "$value": { "value": -5, "unit": "px" } }
       }
     }
   }

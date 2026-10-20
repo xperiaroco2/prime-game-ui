@@ -5,7 +5,7 @@
 The styled downed, dead and respawn screen from the UI track (xperiaroco2/prime-game-ui), as a Godot 4.7.2 node tree for the 1920×1080 reference.
 
 - **Source:** `pages/screens/src/s09-downed.json`; the review page is `pages/screens/screens.html#s9`; the wireframe is section `s9` («Повалений, мертвий, повернення»).
-- **Theme:** the Toy pack ui-0.8.0 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
+- **Theme:** the Toy pack ui-1.0.0 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
 - **World behind the UI** (not UI): a dark room of the level.
 - **How to read it:** the roots are children of the screen's full-rect root `Control`; every property not listed keeps Godot's default; sizes and offsets are reference px. In a state's **Shown** list, the first node of each subtree gives its path from the screen root.
 - **Texts** are keys of `copy/strings.csv`, and the language switches live (the Esc menu's Settings). A plain key is set as `text` and translates itself. A key with placeholders, a plural key (`tr_n`) and a key drawn in pieces are set from code with `auto_translate_mode = DISABLED`: `tr()`, then `String.format()` with the data (the samples below), rebuilt on `NOTIFICATION_TRANSLATION_CHANGED`. A "text from data" (names, the room code, times, numbers) is set in code and never translated (`auto_translate_mode = DISABLED`).
@@ -33,23 +33,23 @@ The same HUD as s7: Hud and its nodes are s7's (same names and places); this scr
 - **Downed** `PanelContainer` · variation `ToyPlate` · anchors `center_top`, offsets 0, 152, 0, 152 (left, top, right, bottom), grow both/end · custom_minimum_size (688, 0)
   - Note: Shown from the moment the player is downed until they are raised, give up or bleed out.
   - **V** `VBoxContainer` · variation `ToyColumnEight` · gaps from the variation: separation 8
-    - **Title** `Label` · variation `ToyTitleOnDark` · custom_minimum_size (600, 0) · text `downed.title`: en "You're down" · uk "Тебе повалено" · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
+    - **Title** `Label` · variation `ToyPlateTitle` · custom_minimum_size (600, 0) · text `downed.title`: en "You're down" · uk "Тебе повалено" · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
       - Note: downed.title while bleeding out; downed.raised_by with the raiser's name (auto_translate_mode DISABLED on the name) while someone raises the player.
     - **Bleed** `PanelContainer` · variation `ToyBarTrack` · custom_minimum_size (600, 16) = Vector2(600, get_theme_constant("height", "ToyBarTrack"))
       - **Fill** `ProgressBar` · variation `ToyBarHealth` · custom_minimum_size (0, 10) · value 0.7 of max_value 1, show_percentage false · fill self_modulate = theme colour `ramp_stop_14` of `ToyBarHealth` (step = clampi(floori(hp * 20.0 + 0.5), 0, 20))
         - Note: value = bleed-out time left / bleed-out duration, falling to 0; coloured with the health ramp as s7's health (the time left reads as life).
-    - **Left** `Label` · variation `ToyTextMutedOnDark` · text `downed.time_left` with sample {time} = "0:10": en "0:10 left" · uk "Лишилось 0:10" · horizontal_alignment `CENTER`
+    - **Left** `Label` · variation `ToyPlateTextMuted` · text `downed.time_left` with sample {time} = "0:10": en "0:10 left" · uk "Лишилось 0:10" · horizontal_alignment `CENTER`
       - Note: {time} is the bleed-out time left as m:ss, updated every second.
 - **GiveUp** `PanelContainer` · variation `ToyPlate` · anchors `center_bottom`, offsets 0, -128, 0, -128 (left, top, right, bottom), grow both/begin
   - Note: Hidden while someone raises the player.
   - **V** `VBoxContainer` · variation `ToyColumnEight` · gaps from the variation: separation 8
     - **Line** `HBoxContainer` · variation `ToyRowFour` · gaps from the variation: separation 4 · alignment `ALIGNMENT_CENTER`
       - Note: tr("downed.give_up_hold") split at {key}: the words around a keycap, each piece through strip_edges() (the 4 px gap and the keycap's own padding stand in for the spaces, so the uk comma sits by the key). A piece that is empty after strip_edges() is hidden.
-      - **Before** `Label` · variation `ToyTextOnDark` · size flags vertical `SIZE_SHRINK_CENTER` · text piece 0 of `tr("downed.give_up_hold")` split at {key}/{preset} (strip_edges(); hidden when the piece is empty): en "Hold" · uk "Щоб здатися, утримуй"
+      - **Before** `Label` · variation `ToyPlateText` · size flags vertical `SIZE_SHRINK_CENTER` · text piece 0 of `tr("downed.give_up_hold")` split at {key}/{preset} (strip_edges(); hidden when the piece is empty): en "Hold" · uk "Щоб здатися, утримуй"
       - **Key** `PanelContainer` · variation `ToyKeyOnDark` · custom_minimum_size (36, 0) = Vector2(get_theme_constant("min_width", "ToyKeyOnDark"), 0)
         - **Text** `Label` · variation `ToyKeyText` · text the value of {key} in `downed.give_up_hold` with sample {key} = "F": en "F" · uk "F" · horizontal_alignment `CENTER`
           - Note: The give_up action's key: DisplayServer.keyboard_get_label_from_physical() of its binding (rebindable, #211); F by default.
-      - **After** `Label` · variation `ToyTextOnDark` · size flags vertical `SIZE_SHRINK_CENTER` · text piece 1 of `tr("downed.give_up_hold")` split at {key}/{preset} (strip_edges(); hidden when the piece is empty): en "to give up" · uk ""
+      - **After** `Label` · variation `ToyPlateText` · size flags vertical `SIZE_SHRINK_CENTER` · text piece 1 of `tr("downed.give_up_hold")` split at {key}/{preset} (strip_edges(); hidden when the piece is empty): en "to give up" · uk ""
     - **Hold** `ProgressBar` · variation `ToyBarProgress` · size flags horizontal `SIZE_SHRINK_CENTER` · custom_minimum_size (360, 10) · value 0 of max_value 1, show_percentage false
       - Note: Fills over the 1 s hold while the give-up key is down and empties when it is released; at 1 the player gives up (dead). Empty at rest, so the plate never changes size.
     - **Pad** `Control` · custom_minimum_size (0, 4)
@@ -76,9 +76,9 @@ The same HUD as s7: Hud and its nodes are s7's (same names and places); this scr
   - **Spectate** `PanelContainer` · variation `ToyPlate` · anchors `center_top`, offsets 0, 40, 0, 40 (left, top, right, bottom), grow both/end
     - Note: The only UI while dead (no timer, bars, slots, mic or arrows). The camera follows the watched player; spectate_next and spectate_previous switch (taught in the tutorial). The watched player's HUD, health and role never show; the name updates when they die.
     - **V** `VBoxContainer` · variation `ToyColumnFour` · gaps from the variation: separation 4
-      - **Respawn** `Label` · variation `ToyTextMutedOnDark` · text `dead.respawn_in` with sample {time} = "0:24": en "Back in 0:24" · uk "Повернення через 0:24" · horizontal_alignment `CENTER`
+      - **Respawn** `Label` · variation `ToyPlateTextMuted` · text `dead.respawn_in` with sample {time} = "0:24": en "Back in 0:24" · uk "Повернення через 0:24" · horizontal_alignment `CENTER`
         - Note: {time} is the time to respawn as m:ss.
-      - **Watching** `Label` · variation `ToyTitleOnDark` · text `dead.watching` with sample {name} = "Olena" / "Олена": en "Watching: Olena" · uk "Дивишся: Олена" · horizontal_alignment `CENTER`
+      - **Watching** `Label` · variation `ToyPlateTitle` · text `dead.watching` with sample {name} = "Olena" / "Олена": en "Watching: Olena" · uk "Дивишся: Олена" · horizontal_alignment `CENTER`
         - Note: {name}: the watched player's name (auto_translate_mode DISABLED on the name).
 
 ## `back`: what differs from `down`
@@ -87,7 +87,7 @@ The same HUD as s7: Hud and its nodes are s7's (same names and places); this scr
 - **Changed** `Hud/Vitals/Mic/Icon`: texture `mic` (dist/pack/icons/mic.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("icon_on", "ToyMic") (was: texture `mic-off` (dist/pack/icons/mic-off.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("icon_off", "ToyMic"))
 - **Shown:**
   - **Hud/Timer** `PanelContainer` · variation `ToyPlate` · anchors `center_top`, offsets 0, 40, 0, 40 (left, top, right, bottom), grow both/end
-    - **Time** `Label` · variation `ToyTimer` · custom_minimum_size (140, 0) · text from data (auto_translate_mode = DISABLED), sample: "05:10" · horizontal_alignment `CENTER`
+    - **Time** `Label` · variation `ToyPlateTimer` · custom_minimum_size (140, 0) · text from data (auto_translate_mode = DISABLED), sample: "05:10" · horizontal_alignment `CENTER`
       - Note: As s7: the round's time left as mm:ss from code; the minimum width holds "44:44".
   - **Hud/Role** `PanelContainer` · variation `ToyChipPlate` · anchors `top_left`, offsets 40, 40, 40, 40 (left, top, right, bottom), grow end/end
     - **Text** `Label` · variation `ToyChipPlateText` · text `role.engineer`: en "Engineer" · uk "Інженер"

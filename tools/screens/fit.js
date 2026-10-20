@@ -12,13 +12,13 @@
 //     --timeout   seconds to wait for <html data-ready="1"> per page load (default 60)
 //     --keep      keep Edge's temp folder (profile, stderr)
 //     --self-test the checks on synthetic records, then the fixture tools/screens/fixtures/screens-fixture.html: its
-//                 broken frame must show every problem kind, its clean frame none, and a page without Comfortaa
+//                 broken frame must show every problem kind, its clean frame none, and a page without its web fonts
 //                 must stop the run
 //
 // How: one headless Edge (tools/screens/edge.js: PowerShell Start-Process -Wait, a fresh profile, every host but
 // Google Fonts unresolvable, DevTools Protocol) loads the page's measuring mode once per language and size,
 // screens.html?only=all&lang=..&size=.. (1 reference px = 1 CSS px, frames stacked at multiples of 1080 px), waits for
-// <html data-ready="1">, checks that Comfortaa is loaded (if not, the run stops: fallback metrics would make every
+// <html data-ready="1">, checks that the sticker fonts are loaded (if not, the run stops: fallback metrics would make every
 // number wrong) and runs tools/screens/measure.js in the page. The problems, per screen, state, language and size
 // (lengths in reference px; a problem needs more than 1 px for a text, 0.5 px for a box; a text is a data-key element,
 // a deck text, or a data-text element, a data text such as a name, reported as [(data)]):
@@ -40,7 +40,7 @@
 //                   data-type or outside every frame, a duplicate node, an element inside a data-key element, ...)
 // Output: one table row per frame with the problem count per language/size ("." = none), then each problem once with
 // the runs it occurs in and its worst case. Exit 0 when clean, 1 on any problem, 2 when it could not measure (no Edge,
-// no page, no frames, Comfortaa not loaded, the page never ready).
+// no page, no frames, the fonts not loaded, the page never ready).
 // Node's own modules only.
 "use strict";
 const fs = require("fs");
@@ -417,7 +417,7 @@ async function selfTest(o) {
     say(only.data.frames.length === 1 && check(only).length === 0, "--screens s2 measures only s2");
     let fontErr = null;
     try { await measureRun(edge, C.FIXTURE, "uk", "default", o, { font: "off" }); } catch (e) { fontErr = e; }
-    say(fontErr instanceof C.FontError && /Comfortaa is not loaded/.test(fontErr.message), "a page without Comfortaa stops the run with a clear message",
+    say(fontErr instanceof C.FontError && /fonts are not loaded/.test(fontErr.message), "a page without its fonts stops the run with a clear message",
       fontErr ? fontErr.message : "no error");
   } finally {
     await edge.close();

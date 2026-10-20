@@ -5,7 +5,7 @@
      measuring mode ?only=<screen>:<state>|all&lang=uk|en&size=default|large with <html data-ready="1">.
      Frame s1:broken has one deliberate case of every fit problem; frame s2:clean has none, but has what must not be
      reported (text in padding-free labels, an icon sibling, wrapped text, a scroll list running past its viewport
-     and past the frame, a hidden node outside the frame). ?font=off leaves Comfortaa out (the fonts failure test).
+     and past the frame, a hidden node outside the frame). ?font=off leaves the web font out (the fonts failure test).
      The texts are test strings, not the copy deck. -->
 <html lang="uk" data-lang="uk" data-text-size="default">
 <head>
@@ -16,14 +16,14 @@
   if (!/[?&]font=off(&|$)/.test(location.search)) {
     var l = document.createElement("link");
     l.rel = "stylesheet";
-    l.href = "https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap";
+    l.href = "https://fonts.googleapis.com/css2?family=Nunito:wght@400..900&display=swap";
     document.head.appendChild(l);
   }
 </script>
 <style>
   :root { --zoom: 0.5; --px: calc(var(--zoom) * 1px); --fs: 1; }
   html[data-text-size="large"] { --fs: 1.25; }
-  body { margin: 0; background: #f4efe6; color: #2b2233; font-family: Comfortaa, system-ui, sans-serif; }
+  body { margin: 0; background: #f4efe6; color: #2b2233; font-family: Nunito, system-ui, sans-serif; }
   .chrome { display: flex; gap: 8px; padding: 12px 16px; font-size: 16px; }
   .chrome button { font: inherit; padding: 6px 12px; }
   .stack { display: flex; flex-direction: column; gap: 16px; padding: 0 16px 16px; }
@@ -35,9 +35,9 @@
   .sc-frame[data-screen="s1"] { background: #20304a; color: #ffffff; }
   .sc-frame[data-screen="s2"] { background: #f9d65c; color: #2b2233; }
   .abs { position: absolute; }
-  .t { font-size: calc(32 * var(--fs) * var(--px)); font-weight: 700; line-height: 1.25; white-space: nowrap; }
-  .t-small { font-size: calc(24 * var(--fs) * var(--px)); font-weight: 400; line-height: 1.25; white-space: nowrap; }
-  .t-title { font-size: calc(64 * var(--fs) * var(--px)); font-weight: 700; line-height: 1.25; white-space: nowrap; }
+  .t { font-size: calc(32 * var(--fs) * var(--px)); font-weight: 700; line-height: 1.4; white-space: nowrap; }
+  .t-small { font-size: calc(24 * var(--fs) * var(--px)); font-weight: 400; line-height: 1.4; white-space: nowrap; }
+  .t-title { font-size: calc(64 * var(--fs) * var(--px)); font-weight: 700; line-height: 1.4; white-space: nowrap; }
   .panel { background: #3d5a80; border-radius: calc(16 * var(--px)); }
   .btn { display: flex; align-items: center; gap: calc(16 * var(--px)); box-sizing: border-box;
     height: calc(80 * var(--px)); padding: 0 calc(24 * var(--px)); background: #ffffff; color: #2b2233;

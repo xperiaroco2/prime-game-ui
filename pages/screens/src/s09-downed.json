@@ -21,7 +21,7 @@
           "anchors_preset": "center_top", "offset_top": 40, "offset_bottom": 40, "grow_horizontal": "both",
           "children": [
             {
-              "name": "Time", "type": "Label", "variation": "ToyTimer", "text": "05:10", "horizontal_alignment": "center", "custom_minimum_size": [140, 0],
+              "name": "Time", "type": "Label", "variation": "ToyPlateTimer", "text": "05:10", "horizontal_alignment": "center", "custom_minimum_size": [140, 0],
               "note": "As s7: the round's time left as mm:ss from code; the minimum width holds \"44:44\"."
             }
           ]
@@ -146,7 +146,7 @@
           "name": "V", "type": "VBoxContainer", "variation": "ToyColumnEight",
           "children": [
             {
-              "name": "Title", "type": "Label", "variation": "ToyTitleOnDark", "key": "downed.title",
+              "name": "Title", "type": "Label", "variation": "ToyPlateTitle", "key": "downed.title",
               "horizontal_alignment": "center", "autowrap_mode": "word_smart", "custom_minimum_size": [600, 0],
               "per_state": { "raise": { "key": "downed.raised_by", "args": { "name": { "uk": "Олена", "en": "Olena" } } } },
               "note": "downed.title while bleeding out; downed.raised_by with the raiser's name (auto_translate_mode DISABLED on the name) while someone raises the player."
@@ -163,7 +163,7 @@
               ]
             },
             {
-              "name": "Left", "type": "Label", "variation": "ToyTextMutedOnDark", "key": "downed.time_left",
+              "name": "Left", "type": "Label", "variation": "ToyPlateTextMuted", "key": "downed.time_left",
               "args": { "time": "0:10" }, "horizontal_alignment": "center", "states": ["down", "down-holding"],
               "note": "{time} is the bleed-out time left as m:ss, updated every second."
             },
@@ -193,7 +193,7 @@
               "note": "tr(\"downed.give_up_hold\") split at {key}: the words around a keycap, each piece through strip_edges() (the 4 px gap and the keycap's own padding stand in for the spaces, so the uk comma sits by the key). A piece that is empty after strip_edges() is hidden.",
               "children": [
                 {
-                  "name": "Before", "type": "Label", "variation": "ToyTextOnDark", "key": "downed.give_up_hold", "piece": 0,
+                  "name": "Before", "type": "Label", "variation": "ToyPlateText", "key": "downed.give_up_hold", "piece": 0,
                   "size_flags_vertical": "shrink_center"
                 },
                 {
@@ -207,7 +207,7 @@
                   ]
                 },
                 {
-                  "name": "After", "type": "Label", "variation": "ToyTextOnDark", "key": "downed.give_up_hold", "piece": 1,
+                  "name": "After", "type": "Label", "variation": "ToyPlateText", "key": "downed.give_up_hold", "piece": 1,
                   "size_flags_vertical": "shrink_center"
                 }
               ]
@@ -235,12 +235,12 @@
           "name": "V", "type": "VBoxContainer", "variation": "ToyColumnFour",
           "children": [
             {
-              "name": "Respawn", "type": "Label", "variation": "ToyTextMutedOnDark", "key": "dead.respawn_in",
+              "name": "Respawn", "type": "Label", "variation": "ToyPlateTextMuted", "key": "dead.respawn_in",
               "args": { "time": "0:24" }, "horizontal_alignment": "center",
               "note": "{time} is the time to respawn as m:ss."
             },
             {
-              "name": "Watching", "type": "Label", "variation": "ToyTitleOnDark", "key": "dead.watching",
+              "name": "Watching", "type": "Label", "variation": "ToyPlateTitle", "key": "dead.watching",
               "args": { "name": { "uk": "Олена", "en": "Olena" } }, "horizontal_alignment": "center",
               "note": "{name}: the watched player's name (auto_translate_mode DISABLED on the name)."
             }

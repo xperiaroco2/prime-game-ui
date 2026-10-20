@@ -5,7 +5,7 @@
 The styled round hud screen from the UI track (xperiaroco2/prime-game-ui), as a Godot 4.7.2 node tree for the 1920×1080 reference.
 
 - **Source:** `pages/screens/src/s07-hud.json`; the review page is `pages/screens/screens.html#s7`; the wireframe is section `s7` («HUD у раунді»).
-- **Theme:** the Toy pack ui-0.8.0 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
+- **Theme:** the Toy pack ui-1.0.0 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
 - **World behind the UI** (not UI): a lit room of the level.
 - **How to read it:** the roots are children of the screen's full-rect root `Control`; every property not listed keeps Godot's default; sizes and offsets are reference px. In a state's **Shown** list, the first node of each subtree gives its path from the screen root.
 - **Texts** are keys of `copy/strings.csv`, and the language switches live (the Esc menu's Settings). A plain key is set as `text` and translates itself. A key with placeholders, a plural key (`tr_n`) and a key drawn in pieces are set from code with `auto_translate_mode = DISABLED`: `tr()`, then `String.format()` with the data (the samples below), rebuilt on `NOTIFICATION_TRANSLATION_CHANGED`. A "text from data" (names, the room code, times, numbers) is set in code and never translated (`auto_translate_mode = DISABLED`).
@@ -29,8 +29,8 @@ One HUD for the whole round; s9 hides and returns the same nodes (Hud/Timer, Hud
   - Note: The name plate layer (#257), under the rest of the HUD: one Plate per other player in line of sight within about 10 m. Code: position = camera.unproject_position(head + 0.35 m), the plate centred on it; hidden behind walls (raycast), beyond 10 m or behind the camera. No role, no health.
 - **Hud** `Control` · anchors `full_rect`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both
   - **Timer** `PanelContainer` · variation `ToyPlate` · anchors `center_top`, offsets 0, 40, 0, 40 (left, top, right, bottom), grow both/end
-    - **Time** `Label` · variation `ToyTimer` · custom_minimum_size (140, 0) · text from data (auto_translate_mode = DISABLED), sample: "07:22" · horizontal_alignment `CENTER`
-      - Note: The round's time left as mm:ss from code (auto_translate_mode DISABLED), updated every second. Comfortaa's digits are proportional (4 is the widest), so the minimum width holds the widest time, "44:44" (134.8 px): the centred plate never changes width as the seconds tick. ToyTimer is 48 px, which large text leaves unchanged. s6 after and s9 back use the same node.
+    - **Time** `Label` · variation `ToyPlateTimer` · custom_minimum_size (140, 0) · text from data (auto_translate_mode = DISABLED), sample: "07:22" · horizontal_alignment `CENTER`
+      - Note: The round's time left as mm:ss from code (auto_translate_mode DISABLED), updated every second. Rubik's digits are proportional, so the minimum width holds the widest time: the centred plate never changes width as the seconds tick. ToyPlateTimer is 48 px, which large text leaves unchanged. s6 after and s9 back use the same node.
   - **Role** `PanelContainer` · variation `ToyChipPlate` · anchors `top_left`, offsets 40, 40, 40, 40 (left, top, right, bottom), grow end/end
     - **Text** `Label` · variation `ToyChipPlateText` · text `role.engineer`: en "Engineer" · uk "Інженер"
       - Note: The player's own role for the round: role.engineer or role.dissident.

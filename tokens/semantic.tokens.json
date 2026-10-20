@@ -3,162 +3,172 @@
   "color": {
     "$type": "color",
     "on-dark": {
-      "$description": "Text and lines on dark surroundings: world plates, backdrops, night.",
-      "text": { "$value": "{palette.cream}" },
-      "text-muted": { "$value": "{palette.lilac}" },
-      "title": { "$value": "{palette.yellow}" },
-      "line": { "$value": "{palette.cream}" },
-      "base": { "$value": "{palette.honey}" }
+      "$description": "Text and lines in the dark context: on the deep purple ground, the backdrops over the world and the purple HUD plates.",
+      "text": { "$value": "{palette.mint}" },
+      "text-muted": { "$value": "{palette.muted}" },
+      "title": { "$value": "{palette.green}" },
+      "line": { "$value": "{palette.mint}" },
+      "base": { "$value": "{palette.ink}" }
     },
     "on-light": {
-      "$description": "Text and lines on cream panels and the lavender map board.",
-      "text": { "$value": "{palette.ink}" },
+      "$description": "Text and lines in the light context, the name kept from Toy: inside a panel, now purple (on the panel, the map board and a setting row's tile). Text on a face a component draws itself (mint, green, coral, yellow) is color.on-accent.",
+      "text": { "$value": "{palette.mint}" },
       "text-muted": { "$value": "{palette.muted}" },
-      "title": { "$value": "{palette.ink}" },
-      "line": { "$value": "{palette.ink}" },
+      "title": { "$value": "{palette.green}" },
+      "line": { "$value": "{palette.mint}" },
       "base": { "$value": "{palette.ink}" }
     },
     "on-accent": {
-      "$description": "Text on the yellow, coral and honey accents.",
+      "$description": "Text on a bright face a component draws: the mint plates (fields, cards, keys, the selected tab), the alien green, coral and yellow.",
       "text": { "$value": "{palette.ink}" },
-      "text-muted": { "$value": "{palette.muted-deep}" }
+      "text-muted": { "$value": "{palette.ink-soft}" }
     },
-    "outline": { "$value": "{palette.ink}" },
+    "outline": { "$description": "Every sticker outline and the hard shadow under it.", "$value": "{palette.ink}" },
     "surface": {
-      "night": { "$value": "{palette.night}" },
-      "night-plate": { "$value": "{palette.plate-solid}" },
-      "plate": { "$value": "{palette.plate}" },
+      "night": { "$description": "The full-screen deep purple ground.", "$value": "{palette.purple-deep}" },
+      "night-plate": {
+        "$description": "A solid purple plate on the ground (the loading tip).",
+        "$value": "{palette.purple}"
+      },
+      "plate": {
+        "$description": "A HUD plate: a purple sticker (the dark context's labels sit on it).",
+        "$value": "{palette.purple}"
+      },
       "backdrop": { "$value": "{palette.backdrop}" },
       "backdrop-deep": { "$value": "{palette.backdrop-deep}" },
-      "panel": { "$value": "{palette.cream}" },
-      "board": { "$value": "{palette.lavender}" },
-      "tile": { "$value": "{palette.white}" },
-      "drop": { "$value": "{palette.drop}" }
+      "panel": { "$description": "A panel: purple, its text mint.", "$value": "{palette.purple}" },
+      "board": { "$description": "The map board inside a panel: the deep purple.", "$value": "{palette.purple-deep}" },
+      "tile": {
+        "$description": "A row face on a panel that panel labels sit on (a setting row): a lighter purple. Mint faces with ink text are drawn by the components themselves (palette.mint, color.on-accent).",
+        "$value": "{palette.purple-light}"
+      },
+      "drop": {
+        "$description": "The base under panels and the map board: the hard ink shadow.",
+        "$value": "{palette.ink}"
+      }
     },
     "status": {
       "stamina": { "$value": "{palette.yellow}" },
-      "health-full": { "$value": "{palette.health-full}" },
-      "health-empty": { "$value": "{palette.health-empty}" },
-      "progress": { "$value": "{palette.mint}" },
+      "health-full": { "$value": "{palette.green}" },
+      "health-empty": { "$value": "{palette.coral}" },
+      "progress": { "$value": "{palette.green}" },
       "alert": { "$value": "{palette.coral}" }
     },
     "state": {
-      "$description": "State colours added where the mock-up had none.",
-      "disabled-face": { "$value": "{palette.key-quiet}" },
-      "disabled-ink": { "$value": "{palette.muted}" },
-      "disabled-ink-on-dark": { "$value": "{palette.lilac}" },
-      "hover-on-dark": { "$value": "{palette.plate-solid}" },
-      "hover-on-light": { "$value": "{palette.lavender}" },
-      "held-accent": {
-        "$value": "{palette.honey}",
-        "$description": "The held stepper's honey face."
-      }
+      "$description": "State colours: the sticker page has none; the agent derived them inside the palette (docs/ui-decisions.md).",
+      "disabled-face": { "$value": "{palette.muted}" },
+      "disabled-ink": { "$value": "{palette.ink-soft}" },
+      "disabled-ink-on-dark": { "$value": "{palette.muted}" },
+      "hover-on-dark": { "$value": "{palette.purple-light}" },
+      "hover-on-light": { "$value": "{palette.purple-light}" },
+      "held-accent": { "$description": "A held bright face.", "$value": "{palette.green-dark}" }
     }
   },
   "type": {
     "$type": "typography",
+    "$description": "Titles Nunito Black, text Nunito, numbers Rubik (display, display-large), the logo Kablammo (logo, at the display-large size).",
     "caption": {
       "$value": {
-        "fontFamily": "{font.family.base}",
+        "fontFamily": "{font.family.text}",
         "fontSize": "{font.size.caption}",
-        "fontWeight": "{font.weight.semibold}",
+        "fontWeight": "{font.weight.extrabold}",
         "letterSpacing": "{font.letter-spacing.none}",
         "lineHeight": "{font.line-height.base}"
       }
     },
     "caption-bold": {
       "$value": {
-        "fontFamily": "{font.family.base}",
+        "fontFamily": "{font.family.text}",
         "fontSize": "{font.size.caption}",
-        "fontWeight": "{font.weight.bold}",
+        "fontWeight": "{font.weight.black}",
         "letterSpacing": "{font.letter-spacing.none}",
         "lineHeight": "{font.line-height.base}"
       }
     },
     "small": {
       "$value": {
-        "fontFamily": "{font.family.base}",
+        "fontFamily": "{font.family.text}",
         "fontSize": "{font.size.small}",
-        "fontWeight": "{font.weight.semibold}",
+        "fontWeight": "{font.weight.extrabold}",
         "letterSpacing": "{font.letter-spacing.none}",
         "lineHeight": "{font.line-height.base}"
       }
     },
     "small-bold": {
       "$value": {
-        "fontFamily": "{font.family.base}",
+        "fontFamily": "{font.family.text}",
         "fontSize": "{font.size.small}",
-        "fontWeight": "{font.weight.bold}",
+        "fontWeight": "{font.weight.black}",
         "letterSpacing": "{font.letter-spacing.none}",
         "lineHeight": "{font.line-height.base}"
       }
     },
     "body": {
       "$value": {
-        "fontFamily": "{font.family.base}",
+        "fontFamily": "{font.family.text}",
         "fontSize": "{font.size.body}",
-        "fontWeight": "{font.weight.semibold}",
+        "fontWeight": "{font.weight.extrabold}",
         "letterSpacing": "{font.letter-spacing.none}",
         "lineHeight": "{font.line-height.base}"
       }
     },
     "body-bold": {
       "$value": {
-        "fontFamily": "{font.family.base}",
+        "fontFamily": "{font.family.text}",
         "fontSize": "{font.size.body}",
-        "fontWeight": "{font.weight.bold}",
+        "fontWeight": "{font.weight.black}",
         "letterSpacing": "{font.letter-spacing.none}",
         "lineHeight": "{font.line-height.base}"
       }
     },
     "body-large": {
       "$value": {
-        "fontFamily": "{font.family.base}",
+        "fontFamily": "{font.family.text}",
         "fontSize": "{font.size.body-large}",
-        "fontWeight": "{font.weight.semibold}",
+        "fontWeight": "{font.weight.extrabold}",
         "letterSpacing": "{font.letter-spacing.none}",
         "lineHeight": "{font.line-height.base}"
       }
     },
     "body-large-bold": {
       "$value": {
-        "fontFamily": "{font.family.base}",
+        "fontFamily": "{font.family.text}",
         "fontSize": "{font.size.body-large}",
-        "fontWeight": "{font.weight.bold}",
+        "fontWeight": "{font.weight.black}",
         "letterSpacing": "{font.letter-spacing.none}",
         "lineHeight": "{font.line-height.base}"
       }
     },
     "heading": {
       "$value": {
-        "fontFamily": "{font.family.base}",
+        "fontFamily": "{font.family.text}",
         "fontSize": "{font.size.heading}",
-        "fontWeight": "{font.weight.semibold}",
+        "fontWeight": "{font.weight.extrabold}",
         "letterSpacing": "{font.letter-spacing.none}",
         "lineHeight": "{font.line-height.base}"
       }
     },
     "heading-bold": {
       "$value": {
-        "fontFamily": "{font.family.base}",
+        "fontFamily": "{font.family.text}",
         "fontSize": "{font.size.heading}",
-        "fontWeight": "{font.weight.bold}",
+        "fontWeight": "{font.weight.black}",
         "letterSpacing": "{font.letter-spacing.none}",
         "lineHeight": "{font.line-height.base}"
       }
     },
     "title": {
       "$value": {
-        "fontFamily": "{font.family.base}",
+        "fontFamily": "{font.family.text}",
         "fontSize": "{font.size.title}",
-        "fontWeight": "{font.weight.bold}",
+        "fontWeight": "{font.weight.black}",
         "letterSpacing": "{font.letter-spacing.none}",
         "lineHeight": "{font.line-height.base}"
       }
     },
     "display": {
       "$value": {
-        "fontFamily": "{font.family.base}",
+        "fontFamily": "{font.family.number}",
         "fontSize": "{font.size.display}",
         "fontWeight": "{font.weight.bold}",
         "letterSpacing": "{font.letter-spacing.none}",
@@ -167,19 +177,28 @@
     },
     "display-large": {
       "$value": {
-        "fontFamily": "{font.family.base}",
+        "fontFamily": "{font.family.number}",
         "fontSize": "{font.size.display-large}",
         "fontWeight": "{font.weight.bold}",
-        "letterSpacing": "{font.letter-spacing.tight}",
+        "letterSpacing": "{font.letter-spacing.none}",
         "lineHeight": "{font.line-height.base}"
       }
     },
     "hero": {
       "$value": {
-        "fontFamily": "{font.family.base}",
+        "fontFamily": "{font.family.text}",
         "fontSize": "{font.size.hero}",
-        "fontWeight": "{font.weight.bold}",
+        "fontWeight": "{font.weight.black}",
         "letterSpacing": "{font.letter-spacing.tight}",
+        "lineHeight": "{font.line-height.base}"
+      }
+    },
+    "logo": {
+      "$value": {
+        "fontFamily": "{font.family.logo}",
+        "fontSize": "{font.size.display-large}",
+        "fontWeight": "{font.weight.regular}",
+        "letterSpacing": "{font.letter-spacing.none}",
         "lineHeight": "{font.line-height.base}"
       }
     }

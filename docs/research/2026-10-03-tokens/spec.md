@@ -495,8 +495,9 @@ proposed state group, token or variant group.
 5. `focus` takes **nothing** from `normal`. Missing fields are the StyleBoxFlat defaults above. Its `font-color` is the
    `normal` font colour, because Button's focus colour replaces only the normal state's (godot-facts §3.2).
 6. A missing `press` group, or a missing member of it, is taken from the `parent` variation.
-7. An `XSelected` toggle variation authors only `normal`, `disabled` and `focus`. `hover`, `pressed` and `hover-pressed`
-   all complete from `normal`.
+7. An `XSelected` toggle variation authors `normal`, `disabled` and `focus`, and may author `hover` and `hover-pressed`
+   (a lighter face, so a selected toggle answers the pointer). `pressed` always completes from `normal` (a toggled button
+   rests in the pressed draw mode); `hover` and `hover-pressed`, when not authored, complete from `normal` too.
 
 ### 3.6 `tokens/components/button.tokens.json` (complete)
 
@@ -1126,7 +1127,7 @@ sees `&"[A-Za-z]+"` (godot-facts §0).
 | P54 | `ramp` has `full`, `empty` (colour) and `steps` (number, int ≥ 1); the names `stop-*` are reserved for the build |
 | P55 | `size.*` are ints > 0, names ∈ {width, height, wide-width, min-width, wide-min-width} |
 | P56 | Every variant group and every proposal has a `$description`; `proposal` is the boolean `true` |
-| P57 | `toggle.selected` names a variant of the same class and parent that has no `toggle` and authors only `normal`, `disabled`, `focus` (plus `label`, `press`, `size`) |
+| P57 | `toggle.selected` names a variant of the same class and parent that has no `toggle` and authors only `normal`, `hover`, `hover-pressed`, `disabled`, `focus` (plus `label`, `press`, `size`) |
 | P58 | `on` (Label and ProgressBar only) is an array of PanelContainer or Panel variation names |
 | P59 | Namespace members are only `godot`, `context`, `proposal`; `context` is required on every variant; `godot.trans`/`godot.ease` only on `ease.press`, as `TRANS_*`/`EASE_*` names from godot-facts §4 |
 | P60 | The CSS name of every path, sub-value suffixes included, is unique |

@@ -1,9 +1,9 @@
 {
   "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
   "title": {
-    "$description": "The title plate and the logo.",
+    "$description": "The title plate and the logo: alien green letters with a 4 px ink outline.",
     "plate": {
-      "$description": "The title plate: a yellow Label box on a coral base; expand margins replace the CSS negative margins.",
+      "$description": "The title plate: a purple sticker (ink outline, the hard ink shadow of its base) around a Nunito Black title in the alien green with an ink outline; expand margins replace the CSS negative margins.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyTitlePlate", "class": "Label", "base": { "any": "ToyBaseTitle" } },
@@ -12,18 +12,25 @@
       },
       "label": { "$type": "typography", "$value": "{type.hero}" },
       "normal": {
-        "bg-color": { "$type": "color", "$value": "{palette.yellow}" },
+        "bg-color": { "$type": "color", "$value": "{color.surface.panel}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width": { "$type": "dimension", "$value": "{stroke.surface}" },
-        "corner-radius": { "$type": "dimension", "$value": { "value": 26, "unit": "px" } },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.surface}" },
         "content-margin": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
         "expand-margin-block": { "$type": "dimension", "$value": { "value": 4, "unit": "px" } },
         "expand-margin-inline": { "$type": "dimension", "$value": { "value": 36, "unit": "px" } },
-        "font-color": { "$type": "color", "$value": "{color.on-accent.text}" }
+        "font-color": { "$type": "color", "$value": "{color.on-dark.title}" },
+        "font-shadow-color": { "$type": "color", "$value": "{color.outline}" }
+      },
+      "items": {
+        "$description": "The ink outline around the letters: a font shadow at no offset whose outline is the outline width (Godot draws shadow_outline_size outside the glyph edge).",
+        "shadow-offset-x": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "shadow-offset-y": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "shadow-outline-size": { "$type": "dimension", "$value": "{stroke.surface}" }
       }
     },
     "base": {
-      "$description": "The coral base under the title plate, 10 px lower.",
+      "$description": "The hard ink shadow under the title plate: its shape moved 5 px right and 5 px down.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyBaseTitle", "class": "Panel" },
@@ -31,27 +38,32 @@
         }
       },
       "panel": {
-        "bg-color": { "$type": "color", "$value": "{palette.coral}" },
-        "corner-radius": { "$type": "dimension", "$value": { "value": 26, "unit": "px" } },
-        "expand-margin-top": { "$type": "dimension", "$value": { "value": -6, "unit": "px" } },
-        "expand-margin-inline": { "$type": "dimension", "$value": { "value": 36, "unit": "px" } },
-        "expand-margin-bottom": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } }
+        "bg-color": { "$type": "color", "$value": "{color.on-dark.base}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.surface}" },
+        "expand-margin-top": { "$type": "dimension", "$value": { "value": -1, "unit": "px" } },
+        "expand-margin-right": { "$type": "dimension", "$value": { "value": 41, "unit": "px" } },
+        "expand-margin-bottom": { "$type": "dimension", "$value": { "value": 9, "unit": "px" } },
+        "expand-margin-left": { "$type": "dimension", "$value": { "value": 31, "unit": "px" } }
       }
     },
     "logo": {
-      "$description": "The logo: yellow letters with a coral drop shadow.",
+      "$description": "The logo: Kablammo (the cartoon face, on the logo only) in the alien green with a 4 px ink outline.",
       "$extensions": {
-        "io.github.xperiaroco2.prime-game": { "godot": { "variation": "ToyLogo", "class": "Label" }, "context": "dark" }
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyLogo", "class": "Label" },
+          "context": "dark"
+        }
       },
-      "label": { "$type": "typography", "$value": "{type.display-large}" },
+      "label": { "$type": "typography", "$value": "{type.logo}" },
       "normal": {
         "font-color": { "$type": "color", "$value": "{color.on-dark.title}" },
-        "font-shadow-color": { "$type": "color", "$value": "{palette.coral}" }
+        "font-shadow-color": { "$type": "color", "$value": "{color.outline}" }
       },
       "items": {
+        "$description": "The ink outline around the letters: a font shadow at no offset whose outline is the outline width (Godot draws shadow_outline_size outside the glyph edge).",
         "shadow-offset-x": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
-        "shadow-offset-y": { "$type": "dimension", "$value": { "value": 6, "unit": "px" } },
-        "shadow-outline-size": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } }
+        "shadow-offset-y": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "shadow-outline-size": { "$type": "dimension", "$value": "{stroke.surface}" }
       }
     }
   }

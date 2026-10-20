@@ -68,9 +68,11 @@ function fontVerdict(fonts, where, failed) {
   if (fonts && fonts.ok) return null;
   const f = fonts || {};
   const blocked = (failed || []).filter((u) => /fonts\.(googleapis|gstatic)\.com/.test(u));
-  return new FontError(`Comfortaa is not loaded (${where}): document.fonts.check('700 32px Comfortaa') = ${f.check}, ` +
-    `check with the shown texts = ${f.checkShown}, ${f.loaded || 0} of ${f.faces || 0} Comfortaa faces loaded. ` +
-    "The page must load it from Google Fonts (fonts.googleapis.com and fonts.gstatic.com must be reachable); with a " +
+  const fam = f.families || {};
+  const faces = ["nunito", "rubik", "kablammo"].map((n) => `${n} ${(fam[n] || {}).loaded || 0}/${(fam[n] || {}).faces || 0}`).join(", ");
+  return new FontError(`The sticker fonts are not loaded (${where}): loaded faces ${faces}; ` +
+    `${f.missingCount || 0} shown texts without their face${(f.missing || []).length ? " (" + f.missing.join("; ") + ")" : ""}. ` +
+    "The page must load them from Google Fonts (fonts.googleapis.com and fonts.gstatic.com must be reachable); with a " +
     "fallback font every measurement and picture would be wrong, so nothing is reported." +
     (blocked.length ? " Failed requests: " + blocked.slice(0, 4).join("; ") : ""));
 }

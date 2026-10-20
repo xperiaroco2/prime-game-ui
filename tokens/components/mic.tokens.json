@@ -3,7 +3,7 @@
   "mic": {
     "$description": "The voice chat mic badge.",
     "plate": {
-      "$description": "The mic badge: a round plate; the icon is tinted on or off.",
+      "$description": "The mic badge: a round purple sticker (the coral off icon needs the dark face), 4 px ink outline; the icon is tinted mint (on) or coral (off). The hard shadow is the edge form: the right and bottom outlines are 9 px (4 + 5) and reach 5 px outside the badge.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyMic", "class": "PanelContainer" },
@@ -12,8 +12,15 @@
       },
       "panel": {
         "bg-color": { "$type": "color", "$value": "{color.surface.plate}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-width-top": { "$type": "dimension", "$value": "{stroke.control}" },
+        "border-width-right": { "$type": "dimension", "$value": { "value": 9, "unit": "px" } },
+        "border-width-bottom": { "$type": "dimension", "$value": { "value": 9, "unit": "px" } },
+        "border-width-left": { "$type": "dimension", "$value": "{stroke.control}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
-        "content-margin": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } }
+        "content-margin": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "expand-margin-right": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } },
+        "expand-margin-bottom": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } }
       },
       "size": {
         "$type": "dimension",

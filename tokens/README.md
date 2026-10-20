@@ -1,6 +1,6 @@
-# Toy design tokens
+# Design tokens (the Ink and mint sticker; Toy names)
 
-The single source of truth for the Toy look ([DTCG 2025.10](https://www.designtokens.org/tr/2025.10/)). The showcase CSS
+The single source of truth for the game's look, the Ink and mint sticker since ui-1.0.0 (a re-skin: the variation names, `Toy*`, and the `--toy-` prefix stay from the Toy style on purpose, so the game's scenes keep their variation names and need no code change), in [DTCG 2025.10](https://www.designtokens.org/tr/2025.10/). The showcase CSS
 and the game's Godot theme are both generated from these files, never copied by hand. The full contract is the build
 spec, [`docs/research/2026-10-03-tokens/spec.md`](../docs/research/2026-10-03-tokens/spec.md) (§2 to §6).
 
@@ -9,9 +9,9 @@ spec, [`docs/research/2026-10-03-tokens/spec.md`](../docs/research/2026-10-03-to
 | File | What it holds |
 |---|---|
 | `prime.resolver.json` | The resolver: one base set (the files below, in order) and two modifiers, `textSize` and `motion` |
-| `primitives.tokens.json` | Literals: the palette, font family, weights, letter spacing, line height, `ease.press`, `duration.none`, `focus.*`, `stroke.*`, `radius.*`, `space.*` (the screens' gaps: 4, 8, 12, 16, 24, 32) |
-| `semantic.tokens.json` | Aliases of primitives: colour roles by context (`color.*`), the 14 type roles (`type.*`), `motion.press` |
-| `components/<name>.tokens.json` | 21 files, 125 Godot type variations (the abstract ToyButton and the two deprecated chips included): one variant group per variation, with its StyleBox states, `label`, `press`, `size`, `items`, `ramp` |
+| `primitives.tokens.json` | Literals: the palette, font families, weights, letter spacing, line height, `ease.press`, `duration.none`, `focus.*`, `stroke.*`, `offset.base` (the hard shadow), `radius.*`, `space.*` (the screens' gaps: 4, 8, 12, 16, 24, 32) |
+| `semantic.tokens.json` | Aliases of primitives: colour roles by context (`color.*`), the 15 type roles (`type.*`, `logo` new in ui-1.0.0), `motion.press` |
+| `components/<name>.tokens.json` | 21 files, 128 Godot type variations (the abstract ToyButton and the two deprecated chips included): one variant group per variation, with its StyleBox states, `label`, `press`, `size`, `items`, `ramp` |
 | `text-size/default.tokens.json`, `text-size/large.tokens.json` | `font.size.*` (with `font.size.theme-default`, the theme's `default_font_size`) and `size.keycap` (a keycap's minimum width) for the player's text size setting |
 | `motion/default.tokens.json`, `motion/reduced.tokens.json` | `duration.press` for the reduced-motion setting |
 | `release.json` | The semver the next `ui-<semver>` tag carries |
@@ -23,7 +23,7 @@ spec, [`docs/research/2026-10-03-tokens/spec.md`](../docs/research/2026-10-03-to
    these paths (P63): `textSize` `font.size.*` and `size.keycap`, `motion` `duration.press`.
 2. **Semantic**: aliases of primitives only (`{palette.ink}`), composite sub-values included.
 3. **Component**: one group per variation, marked by `$extensions` `io.github.xperiaroco2.prime-game` `godot.variation`.
-   Colours alias down to `palette.*`; dimensions are int px literals or aliases to the primitives `stroke.*`, `radius.*`,
+   Colours alias down to `palette.*`; dimensions are int px literals or aliases to the primitives `stroke.*`, `radius.*`, `offset.*`,
    `focus.*` and `space.*`; a container's separation is always a `space.*` alias. A `size` member may also alias
    `size.*`, the lengths the text size owns (the keycaps' `min-width` is `{size.keycap}`: 36, 42 at large text), so a
    size follows the text size with no code in the game.
@@ -81,7 +81,7 @@ A variant's `godot.class` is one of these (`tools/tokens/expand.js` CLASSES); it
 | PopupMenu | panel, hover, separator (all three required) | font-color, font-hover-color, font-disabled-color (required), v-separation, h-separation, item-start-padding, item-end-padding |
 
 - **HSlider:** its grabber, grabber_highlight and grabber_disabled are textures, not tokens
-  (`pages/components/icons/slider-knob.svg` and `slider-knob-disabled.svg`, 28 px), named in `godot.textures` (below). Its `focus` is the Toy outer ring;
+  (`pages/components/icons/slider-knob.svg` and `slider-knob-disabled.svg`, 28 px), named in `godot.textures` (below). Its `focus` is an outer ring (mint, as it sits on the purple);
   Godot 4.7.2's Slider draws no focus StyleBox (slider.cpp binds slider, grabber_area, grabber_area_highlight only), so
   the game draws this one over the slider while it has visible focus.
 - **Containers** draw nothing: the game's theme test forbids theme overrides, so a box or grid takes its gap from a
@@ -224,25 +224,33 @@ filter Godot's SVG importer does not draw:
   game imports them as Texture2D (Lossless, mipmaps on), never tinted, in a TextureRect with `EXPAND_IGNORE_SIZE` and
   `STRETCH_KEEP_ASPECT_CENTERED`.
 
-## The pack's font since ui-0.5.0
+## The pack's fonts since ui-0.5.0 (three families since ui-1.0.0)
 
-`schema` stays 1. The Toy style's one typeface, Comfortaa (SIL OFL 1.1, Reserved Font Name "Comfortaa"), ships beside
-the pack, so the game takes it from one pinned source (prime-game-ui#44):
+`schema` stays 1. The fonts ship beside the pack, so the game takes them from one pinned source (prime-game-ui#44).
+Since ui-1.0.0 (the Ink and mint sticker) there are three families, all SIL OFL 1.1 with Latin and Cyrillic: **Nunito**
+(titles at Black 900, text at 800 and 900), **Rubik** (numbers, 700) and **Kablammo** (the logo only, at its default
+instance). Comfortaa left with the Toy style.
 
-- `fonts/comfortaa/` holds the upstream files byte for byte: google/fonts' `ofl/comfortaa/Comfortaa[wght].ttf` at
-  db64f6b, renamed `Comfortaa-VariableFont_wght.ttf` (Google Fonts' download name: no brackets, which PowerShell and
-  globs read as wildcards), and its `OFL.txt` (CRLF, kept by `.gitattributes`). `LICENCES.json` records each file's
-  upstream URL, git blob and sha256.
-- The token build (`tools/tokens/fonts.js`) copies them into `dist/pack/fonts/` with `fonts/LICENCES.json`, and refuses
-  (B04) a file whose sha256 is not its record's (the font ships unmodified), a font without an allowed licence or its
-  licence text, a family no `font.family.*` token names and a `font.weight.*` token outside the font's `wght` axis.
-- **`assets`** gains one entry per font, sorted by path with the others:
-  `{ "path": "fonts/Comfortaa-VariableFont_wght.ttf", "kind": "font", "sha256": "…", "licence": "OFL-1.1",
-  "licence_file": "fonts/LICENCES.json", "licence_text": "fonts/OFL.txt", "source": "fonts/comfortaa/…", "family":
-  "Comfortaa", "axes": { "wght": [300, 700] }, "weights": [600, 700] }`; `weights` are the `font.weight.*` tokens.
-- **In Godot:** one `FontFile` from the file (it has Latin and Cyrillic), and one `FontVariation` per weight, its
-  `base_font` that file and `variation_opentype` `{ "wght": 600 }` or `{ "wght": 700 }`. The theme generator gives each
-  typography token the variation of its `fontWeight`. The game ships `OFL.txt` with the font.
+- `fonts/<family>/` holds the upstream files byte for byte: google/fonts' `ofl/<family>/<Family>[<axes>].ttf` at
+  47d54ca, renamed to Google Fonts' download names (`Nunito-VariableFont_wght.ttf`, `Rubik-VariableFont_wght.ttf`,
+  `Kablammo-VariableFont_MORF.ttf`: no brackets, which PowerShell and globs read as wildcards), and its `OFL.txt`
+  (kept byte for byte by `.gitattributes`). `LICENCES.json` records each file's upstream URL, git blob, sha256, family
+  and axes. The whole Kablammo file ships (no subsetting).
+- The token build (`tools/tokens/fonts.js`) copies them into `dist/pack/fonts/` with `fonts/LICENCES.json`. Each
+  family's licence text ships under the family's name, `OFL-<Family>.txt` (`OFL-Nunito.txt`), bytes unchanged, so two
+  families never collide. It refuses (B04) a file whose sha256 is not its record's (the font ships unmodified), a font
+  without an allowed licence or its licence text, a family no `font.family.*` token names, a family no type role uses,
+  and a weight a type role (`type.*`) gives a family outside that family's own `wght` axis; a font with no `wght`
+  axis (Kablammo: `MORF` only) draws only its default instance, so its roles' weight must be its OS/2 weight class (400).
+- **`assets`** has one entry per font, sorted by path with the others:
+  `{ "path": "fonts/Nunito-VariableFont_wght.ttf", "kind": "font", "sha256": "…", "licence": "OFL-1.1",
+  "licence_file": "fonts/LICENCES.json", "licence_text": "fonts/OFL-Nunito.txt", "source": "fonts/nunito/…", "family":
+  "Nunito", "axes": { "wght": [200, 1000] }, "weights": [800, 900] }`; `weights` are the weights the type roles give
+  that family (Rubik `[700]`, Kablammo `[400]` with `axes` `{ "MORF": [0, 60] }`).
+- **In Godot:** one `FontFile` per file, and per family one `FontVariation` per weight, its `base_font` that file and
+  `variation_opentype` `{ "wght": 900 }`; Kablammo is used as its `FontFile` (no variation). The theme generator gives
+  each typography token the font of its `fontFamily` at its `fontWeight`. The game ships each `OFL-<Family>.txt` with
+  its font. (The game's generator read one font until ui-0.8.0; the families need it to pick by `fontFamily`.)
 
 ## The pack's base-type sources since ui-0.7.0
 
@@ -251,25 +259,23 @@ after its engine class, copied from a pack variation of that very class with no 
 `tools/theme/mapping.json` `base_types`). The engineer's answers on the base-controls page (prime-game-ui#52,
 2026-10-14) add the looks it lacked, so the game can set `gui/theme/default_theme_scale` to 1 (prime-game#620):
 
-- **CheckBox: `ToyCheckBox`** (`pick.check-box`, class CheckBox, context any): a white plate (`stroke.thin` ink outline,
-  `radius.medium`, content margins 9 / 16 / 9 / 12) with the box texture at its left and the label (`type.body`) 12 px
-  after it (`h-separation`). Hover and checked-and-hovered turn the plate lavender; checked keeps it white; focus is an
-  inner ink ring; disabled is pale. It sets every item a Button sets (the six StyleBoxes, the six font colours, the six
+- **CheckBox: `ToyCheckBox`** (`pick.check-box`, class CheckBox, context any): borderless on the purple (no face; hover a lighter-purple
+  band, `radius.medium`) with the box texture at its left and the mint label (`type.body`) 12 px after it
+  (`h-separation`); the texture draws the state; focus is a mint ring; disabled has no face. It sets every item a Button sets (the six StyleBoxes, the six font colours, the six
   icon colours, `h-separation`, the font size), so the game's Button base type never reaches it. Its `textures`:
-  `checked` `icons/checkbox-checked.svg` (yellow, ink check), `unchecked` `icons/checkbox-unchecked.svg` (white),
-  `checked-disabled` and `unchecked-disabled` (lavender with a muted check, the unplugged face): 28 px, own colours
+  `checked` `icons/checkbox-checked.svg` (green, ink check), `unchecked` `icons/checkbox-unchecked.svg` (mint), both
+  with a 4 px ink outline, `checked-disabled` and `unchecked-disabled` (lilac with soft ink, the unplugged face): 28 px, own colours
   (`tint: "none"`), so `checkbox_checked_color` and `checkbox_unchecked_color` stay the default white. The radio icons
   (a CheckBox in a ButtonGroup) are not bound: no Toy screen has one.
-- **SpinBox: `ToySpinBox`** (`field.spin`, class SpinBox, context any): its eight button StyleBoxes (the stepper's
-  yellow, `stroke.thin` ink outline, `radius.small`; `-pressed` honey, `-disabled` pale; `-hovered` as normal, as the
-  stepper's), `buttons-width` 34, `field-and-buttons-separation` 8, `buttons-vertical-separation` 2, the eight
-  `*-icon-modulate` colours (ink; the muted ink when disabled) and the arrows `icons/spin-up.svg`, `icons/spin-down.svg`
+- **SpinBox: `ToySpinBox`** (`field.spin`, class SpinBox, context any): its eight button StyleBoxes (green, 4 px ink
+  outline, flat; `-hovered` lighter green, `-pressed` darker green, `-disabled` lilac), `buttons-width` 34, `field-and-buttons-separation` 8, `buttons-vertical-separation` 2, the eight
+  `*-icon-modulate` colours (ink; soft ink when disabled) and the arrows `icons/spin-up.svg`, `icons/spin-down.svg`
   (18 px white chevrons, `tint: "multiply"`). Its separators stay the default theme's empty ones.
 - **SpinBox's field: `ToySpinField`** (`field.spin-input`, class LineEdit, context any): `ToyField` with 12 px above and
   below instead of 10, so each arrow button is at least 24 px high. Godot names the field's variation
   `SpinBoxInnerLineEdit`; the game gives it this variation's items.
-- **Button: `ToyButtonPlain`** (`button.plain`, class Button, no parent, context any): the white secondary face, flat (no
-  `base`, no `press`: a bare Button has no ToyRaised); hover and held as normal, the secondary button's focus ring and
+- **Button: `ToyButtonPlain`** (`button.plain`, class Button, no parent, context any): the mint secondary face, flat (no
+  `base`, no `press`: a bare Button has no ToyRaised); hover lighter mint, held darker mint, the secondary button's focus ring and
   disabled look, icon colours in the label's colour.
 - **`font.size.theme-default`**: the theme's `default_font_size`, 27 (the greybox's 16 × 5/3); the large text size's is 34
   (27 × 1.25 rounded), in `modes.textSize.large`.
@@ -283,7 +289,8 @@ These extend spec §7.2 (P40–P60):
 | P42 | (extended) a listed `*-color` or `*-modulate` item (PopupMenu's font colours, SpinBox's icon modulates) is a colour; the other listed items are dimensions, `center-grabber` a number |
 | P44 | (extended) a listed `*-padding` item (PopupMenu's `item-start-padding`, `item-end-padding`) is ≥ 0, as separations are |
 | P47 | (extended) a PopupMenu variant needs the states `panel`, `hover`, `separator` and the items `font-color`, `font-hover-color`, `font-disabled-color`, `v-separation` (CLASSES `requiredItems`); a CheckBox variant `normal`, `disabled`, `focus`; a SpinBox variant `up-background` and all its listed items |
-| P53 | (extended) a variant's `size` member may also alias `size.*`, and only a `size.*` a modifier owns |
+| P50 | (extended, ui-1.0.0) a base may also sit dx ≥ 0 to the right (the sticker's hard shadow): its left expand is the owner's − dx and its right the owner's + dx, one offset for all of a face's bases; the showcase draws it as `box-shadow: dx dy 0` (lint L12 now refuses only a shift to the left) |
+| P53 | (extended) a component dimension may also alias `offset.*` (ui-1.0.0); a variant's `size` member may also alias `size.*`, and only a `size.*` a modifier owns |
 | P61 | `godot.textures` is a non-empty object; each key is one of the class's theme icons (`expand.js` CLASSES `textures`), each value the pack path of an icon that exists and has an allowed licence record |
 | P62 | `godot.replacement` only on a variant with `$deprecated`; it names a variant of the same class that is not deprecated |
 | P63 | A modifier's files define only the paths it owns (`validate.js` MODIFIER_OWNS: textSize `font.size.*`, `size.keycap`; motion `duration.press`), and the base set none of them |

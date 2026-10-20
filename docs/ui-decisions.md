@@ -36,6 +36,55 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
   drop every tilted sticker and plate for a start, and add tilts back only where needed. An idea he likes, for later:
   a button shakes while the pointer is over it (the Ready button, for example), and pressing it gives a small effect,
   "a micro-game" that feels good to the player; he calls such things showing off, so not in the first version.
+- **The sticker tokens, ui-1.0.0** (the re-skin of every Toy variation; the guide is
+  `docs/research/2026-10-20-vibe/restyle-guide.md`). The look choices the agent took alone:
+  - state shades inside the palette: mint, green and coral each one step lighter for hover and darker for held, a
+    lighter purple `#3C2660` and a soft ink `#54457A` (agent);
+  - a pressed sticker does not move: hover lightens the face, held darkens it, the shadow stays (agent);
+  - unplugged (disabled): the lilac `#B7A8D6` face, soft-ink outline and label, no shadow (agent);
+  - every context keeps its place in the game, so the inside of a panel is purple with mint text, and text on a mint,
+    green or coral face is ink (agent);
+  - HUD plates are mint stickers with ink text, as on the sticker page (new plate labels for dim text, titles and the
+    timer, so the game switches those labels); the alert plate is coral; the mic badge, name plates and the bar caption
+    stay purple with mint content, since the coral mic-off icon needs the dark face (agent);
+  - a plate with no base layer in the game draws its hard shadow as thicker right and bottom ink edges (agent);
+  - type: text Nunito 800, bold roles and titles Nunito Black 900, numbers Rubik 700 (the display roles), a logo role in
+    Kablammo; the sizes stay (agent);
+  - ghost buttons and main-menu entries are borderless with mint labels; the menu pointer is green (agent);
+  - the title plate is a purple sticker around a green title; titles carry a 4 px ink outline (agent);
+  - the backdrop over the world is the deep purple at 82 % (Toy's was 74 %), so dim text passes 4.5:1 over a white
+    world (agent);
+  - chips are flat pill stickers with a 4 px ink outline, every label Nunito Black; only the selected toggle chip casts
+    the hard shadow; the highlight chip is green; the HUD plate chip stays purple with mint text (the map's "you are
+    here" caption shares it); line chips keep a 4 px mint outline on no fill (agent);
+  - idle Esc tabs are bare mint labels with a lighter-purple hover; the selected tab is a flat mint sticker, radius 12,
+    no shadow (agent);
+  - the check box is borderless on the purple with a mint label, its box (mint, green when checked, 4 px ink) draws the
+    state; radios are mint and green discs with a 4 px ink outline (agent);
+  - a setting row is a borderless lighter-purple band (Toy's underline dropped), its name mint and value lilac; the
+    stepper is a mint sticker (agent);
+  - the text field and dropdown are mint plates with the hard shadow; the SpinBox and its green arrows are flat;
+    read-only and unplugged lose the shadow; the open list is mint with a darker-mint hover row (agent);
+  - focus rings on the purple are mint, inside a mint face ink; the chosen swatch's ring is green (agent);
+  - slots are mint stickers, the active slot green, labels ink (empty: soft ink) (agent);
+  - keycaps are mint with a 3 px ink outline and a 5 px ink bottom edge; quiet keys are lilac with an ink name (soft ink
+    is 3.8:1 there) (agent);
+  - bars: white tracks with a 3 px ink outline; the HUD fills end in a 3 px ink edge; progress and slider fills are
+    green with an ink outline; the slider knob is mint with an ink outline (agent);
+  - progress and slider bars are 16 px tall (as the track), so a 10 px green face shows inside the 3 px ink (agent);
+  - a selected tab, toggle chip, preset card or radio lifts to its lighter shade on hover, as its idle twin (agent);
+  - ghost buttons take Nunito Black like every other button (agent);
+  - map rooms are mint with ink names, no shadow; the room pictograms take the sticker ink; the crosshair is a white dot
+    with an ink ring (agent);
+  - titles on dark and in panels are green Nunito Black with the 4 px ink outline; the big readout and the timer are
+    Rubik in mint (agent);
+  - preset cards are mint stickers that do not move (hover lighter, held darker, selected green, notes soft ink); the
+    quiet "save your own" card is lilac with a soft-ink outline and an ink label (agent);
+  - how-to frames are mint plates (green when done) with the hard shadow as thicker right and bottom ink edges, the
+    caption ink (agent);
+  - contrast: an ink outline or shadow on the purple vanishes (1.0 to 1.1:1), so there the sticker's face carries its
+    edge and the gates pair the face with the purple; bar fills on the white track (1.4 to 2.3:1) are waived, since each
+    fill's ink end edge or outline marks where it ends (agent).
 
 ## Principles
 - **The UI never tells the player what to do.** No "take it to X" line, no destination marker, no key prompts on the HUD;

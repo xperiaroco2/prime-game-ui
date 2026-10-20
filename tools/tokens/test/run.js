@@ -54,6 +54,31 @@ check(parseErr('{"a":01}')?.rule === 'D01', 'json-strict rejects a leading zero'
   check(same(json.keysOf(r.value.b), ['10', 'a']), 'json-strict keeps source key order');
   check(same(r.position('/b/a'), { line: 2, col: 18 }), 'json-strict reports positions', JSON.stringify(r.position('/b/a')));
 }
+{
+  // fonts.js (ui-1.0.0): each family's weights come from the type roles and are checked against its own axis; a font
+  // without a wght axis draws only its default weight; a family no role uses is refused
+  const { fontSet } = require('../fonts.js');
+  const root = path.join(tmp, 'fonts-unit');
+  for (const d of ['nunito', 'kablammo']) fs.cpSync(path.join(ROOT, 'fonts', d), path.join(root, 'fonts', d), { recursive: true });
+  fs.mkdirSync(path.join(root, 'tokens'), { recursive: true });
+  const write = (fam, roles) => {
+    fs.writeFileSync(path.join(root, 'tokens', 'primitives.tokens.json'), JSON.stringify({ font: {
+      family: Object.fromEntries(fam.map((f) => [f.toLowerCase(), { $value: f }])),
+      weight: { w150: { $value: 150 }, w400: { $value: 400 }, w700: { $value: 700 }, w900: { $value: 900 } } } }));
+    fs.writeFileSync(path.join(root, 'tokens', 'semantic.tokens.json'), JSON.stringify({ type: Object.fromEntries(roles.map(([n, f, w]) => [n,
+      { $value: { fontFamily: `{font.family.${f}}`, fontSize: '{font.size.body}', fontWeight: `{font.weight.${w}}` } }])) }));
+    return fontSet(root);
+  };
+  let r = write(['Nunito', 'Kablammo'], [['body', 'nunito', 'w700'], ['title', 'nunito', 'w900'], ['logo', 'kablammo', 'w400']]);
+  check(!r.problems.length && same(r.assets.map((a) => `${a.family}:${a.weights.join('/')}:${a.licence_text}`), ['Kablammo:400:fonts/OFL-Kablammo.txt', 'Nunito:700/900:fonts/OFL-Nunito.txt'])
+    && Buffer.isBuffer(r.outputs['dist/pack/fonts/OFL-Nunito.txt']) && Buffer.isBuffer(r.outputs['dist/pack/fonts/OFL-Kablammo.txt']),
+  'fonts.js: two families, each with its roles\' weights and its own licence text name', JSON.stringify(r.problems));
+  r = write(['Nunito', 'Kablammo'], [['body', 'nunito', 'w150'], ['logo', 'kablammo', 'w700']]);
+  check(r.problems.some((p) => /Nunito the weight 150, outside its wght axis 200\.\.1000/.test(p)) && r.problems.some((p) => /Kablammo the weight 700; it has no wght axis, so only its default weight 400/.test(p)),
+    'fonts.js: a weight off a family\'s wght axis, and a weight other than the default on a font without one, are refused', JSON.stringify(r.problems));
+  r = write(['Nunito', 'Kablammo'], [['body', 'nunito', 'w700']]);
+  check(r.problems.some((p) => /no type role \(type\.\*\) uses the family Kablammo/.test(p)), 'fonts.js: a shipped family no type role uses is refused', JSON.stringify(r.problems));
+}
 check(color.toHex(color.parseHex('#C98A10')) === '#c98a10', 'color hex round trip, lowercase');
 {
   const full = color.parseHex('#5bcb4e');
@@ -99,7 +124,7 @@ for (const name of listDirs('good')) {
   check(a.sys.tokens === a.sys.permutations[0].tokens && a.sys.sources.size > 0 && Array.isArray(a.sys.variants), `good/${name}: api.load shape`);
   check(a.sys.cssVar('button.primary.normal.bg-color') === '--toy-button-primary-normal-bg-color', `good/${name}: cssVar`);
   if (expect.spotValues) {
-    const checks = JSON.parse(fs.readFileSync(path.join(HERE, 'expect-values.json'), 'utf8')).checks;
+    const checks = JSON.parse(fs.readFileSync(path.join(HERE, 'expect-values-kinds.json'), 'utf8')).checks;
     const n = spot(a.sys, checks, true, `good/${name}`);
     check(n >= 30, `good/${name}: at least 30 spot values apply`, String(n));
     check(a.sys.healthStops.length === 21 && same(a.sys.healthStops.map((s) => s.hex), HEALTH), `good/${name}: sys.healthStops`);
@@ -304,15 +329,23 @@ if (fs.existsSync(path.join(ROOT, 'tokens', 'prime.resolver.json'))) {
       && cardAssets.every((a) => a.licence === 'own work' && a.size[0] === 640 && a.size[1] === 480)
       && cardOf('delivery', 'delivery-meaning') && cardOf('colour_delivery', 'delivery') && !cards.some((k) => /switches/.test(k)),
     'tokens/: the two Delivery cards ship as four 640x480 PNGs each (by meaning: delivery, colour: colour_delivery), frame 4 done, no Switches', JSON.stringify(cardAssets));
+    // the sticker's three families (ui-1.0.0): titles and text Nunito, numbers Rubik, the logo Kablammo at its default
+    // instance; each with its own OFL text, shipped under the family's name, byte for byte
     const fontAssets = sys.pack.assets.filter((a) => a.kind === 'font');
-    const ttf = sys.outputs['dist/pack/fonts/Comfortaa-VariableFont_wght.ttf'];
-    check(fontAssets.length === 1 && fontAssets[0].family === 'Comfortaa' && fontAssets[0].licence === 'OFL-1.1' && fontAssets[0].weights.join() === '600,700'
-      && fontAssets[0].licence_text === 'fonts/OFL.txt' && Buffer.isBuffer(ttf) && require('crypto').createHash('sha256').update(ttf).digest('hex') === fontAssets[0].sha256
-      && Buffer.isBuffer(sys.outputs['dist/pack/fonts/OFL.txt']),
-    'tokens/: Comfortaa ships unmodified with its OFL text, the two token weights on its wght axis', JSON.stringify(fontAssets));
+    const sha = (b) => require('crypto').createHash('sha256').update(b).digest('hex');
+    const want = { Kablammo: '400', Nunito: '800,900', Rubik: '700' };
+    check(fontAssets.length === 3 && fontAssets.every((a) => a.licence === 'OFL-1.1' && want[a.family] === a.weights.join()
+      && a.licence_text === `fonts/OFL-${a.family}.txt` && Buffer.isBuffer(sys.outputs[`dist/pack/${a.path}`])
+      && sha(sys.outputs[`dist/pack/${a.path}`]) === a.sha256
+      && sha(sys.outputs[`dist/pack/${a.licence_text}`]) === sha(fs.readFileSync(path.join(ROOT, 'fonts', a.family.toLowerCase(), 'OFL.txt'))))
+      && !('dist/pack/fonts/OFL.txt' in sys.outputs),
+    'tokens/: Nunito, Rubik and Kablammo ship unmodified, each with its own OFL text, each with the weights its type roles use', JSON.stringify(fontAssets));
+    const lic = JSON.parse(sys.outputs['dist/pack/fonts/LICENCES.json']);
+    check(['Kablammo', 'Nunito', 'Rubik'].every((f) => lic[`OFL-${f}.txt`] && lic[`OFL-${f}.txt`].source === `fonts/${f.toLowerCase()}/OFL.txt`),
+      'tokens/: fonts/LICENCES.json records each family\'s licence text under its shipped name', Object.keys(lic).join(', '));
     const knob = assets.get('icons/slider-knob.svg');
     const lab = assets.get('icons/room/lab.svg');
-    check(knob && knob.tint === 'none' && lab && lab.tint === 'multiply' && lab.tint_color === '#2a1f33' && lab.drawn_px >= 48 && lab.svg_scale === Math.ceil((lab.drawn_px / 48) * 100) / 100,
+    check(knob && knob.tint === 'none' && lab && lab.tint === 'multiply' && lab.tint_color === '#1e1230' && lab.drawn_px >= 48 && lab.svg_scale === Math.ceil((lab.drawn_px / 48) * 100) / 100,
       'tokens/: the knobs keep their colours; a room pictogram is white, drawn in ink, imported at its largest size', JSON.stringify(lab));
   }
 } else {

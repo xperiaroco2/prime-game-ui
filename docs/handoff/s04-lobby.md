@@ -5,7 +5,7 @@
 The styled lobby screen from the UI track (xperiaroco2/prime-game-ui), as a Godot 4.7.2 node tree for the 1920×1080 reference.
 
 - **Source:** `pages/screens/src/s04-lobby.json`; the review page is `pages/screens/screens.html#s4`; the wireframe is section `s4` («Лобі»).
-- **Theme:** the Toy pack ui-0.8.0 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
+- **Theme:** the Toy pack ui-1.0.0 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
 - **World behind the UI** (not UI): the lobby room seen behind the main menu.
 - **How to read it:** the roots are children of the screen's full-rect root `Control`; every property not listed keeps Godot's default; sizes and offsets are reference px. In a state's **Shown** list, the first node of each subtree gives its path from the screen root.
 - **Texts** are keys of `copy/strings.csv`, and the language switches live (the Esc menu's Settings). A plain key is set as `text` and translates itself. A key with placeholders, a plural key (`tr_n`) and a key drawn in pieces are set from code with `auto_translate_mode = DISABLED`: `tr()`, then `String.format()` with the data (the samples below), rebuilt on `NOTIFICATION_TRANSLATION_CHANGED`. A "text from data" (names, the room code, times, numbers) is set in code and never translated (`auto_translate_mode = DISABLED`).
@@ -35,38 +35,38 @@ The lobby's HUD in the world: the mouse is captured and every node has mouse_fil
   - Note: The crosshair (P5), centred on the screen (its size is the variation's).
 - **Status** `PanelContainer` · variation `ToyPlate` · anchors `center_top`, offsets 0, 40, 0, 40 (left, top, right, bottom), grow both/end
   - **Text** `Label` · variation `ToyPlateText` · text `lobby.waiting` with sample {count} = "3", {total} = "4": en "3 of 4 ready" · uk "Готові 3 з 4" · horizontal_alignment `CENTER`
-    - Note: lobby.waiting {count} ready of {total} players; lobby.need_more (tr_n) while the lobby has fewer players than the mode needs (other unmet demands of #208 take their own keys later); during the countdown lobby.countdown in ToyTitleOnDark, once a second from 5 to 1.
+    - Note: lobby.waiting {count} ready of {total} players; lobby.need_more (tr_n) while the lobby has fewer players than the mode needs (other unmet demands of #208 take their own keys later); during the countdown lobby.countdown in ToyPlateTitle, once a second from 5 to 1.
 - **Players** `PanelContainer` · variation `ToyPlate` · anchors `top_right`, offsets -40, 40, -40, 40 (left, top, right, bottom), grow begin/end · custom_minimum_size (400, 0)
   - Note: Rebuilt when a player joins, leaves, renames or toggles ready.
   - **V** `VBoxContainer` · variation `ToyColumnSixteen` · gaps from the variation: separation 16
     - **Info** `VBoxContainer` · variation `ToyColumnEight` · gaps from the variation: separation 8
-      - **LobbyName** `Label` · variation `ToyTextMutedOnDark` · text `lobby.default_name` with sample {name} = "Olena" / "Олена": en "Olena's lobby" · uk "Лобі: Олена" · clip_text true · text_overrun_behavior `OVERRUN_TRIM_ELLIPSIS`
+      - **LobbyName** `Label` · variation `ToyPlateTextMuted` · text `lobby.default_name` with sample {name} = "Olena" / "Олена": en "Olena's lobby" · uk "Лобі: Олена" · clip_text true · text_overrun_behavior `OVERRUN_TRIM_ELLIPSIS`
         - Note: The lobby name the host set (#214), user text with auto_translate_mode DISABLED; lobby.default_name with the host's name while it is the default.
       - **CodeRow** `HBoxContainer` · variation `ToyRowEight` · gaps from the variation: separation 8
         - Note: The host and every player who joined with the code (M6 §3); hidden for a Direct joiner. Copy lives in the Esc Lobby tab (the mouse is captured here).
-        - **Label** `Label` · variation `ToyTextMutedOnDark` · size flags vertical `SIZE_SHRINK_CENTER` · text `common.code`: en "Code" · uk "Код"
+        - **Label** `Label` · variation `ToyPlateTextMuted` · size flags vertical `SIZE_SHRINK_CENTER` · text `common.code`: en "Code" · uk "Код"
         - **Code** `PanelContainer` · variation `ToyKeyOnDark` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (36, 0) = Vector2(get_theme_constant("min_width", "ToyKeyOnDark"), 0)
           - **Text** `Label` · variation `ToyKeyText` · text from data (auto_translate_mode = DISABLED), sample: "K7Q2XR" · horizontal_alignment `CENTER`
             - Note: The room code (auto_translate_mode DISABLED); "…" while the code service has not made the room (CODE_WAITING), "—" when the service is gone.
     - **List** `VBoxContainer` · variation `ToyColumnEight` · gaps from the variation: separation 8
-      - **Head** `Label` · variation `ToyTextOnDark` · text `lobby.player_count` with sample {count} = "4", {total} = "10": en "Players 4 / 10" · uk "Гравці 4 / 10"
+      - **Head** `Label` · variation `ToyPlateText` · text `lobby.player_count` with sample {count} = "4", {total} = "10": en "Players 4 / 10" · uk "Гравці 4 / 10"
         - Note: Players in the lobby / the lobby's limit.
       - **Rows** `VBoxContainer` · variation `ToyColumnEight` · gaps from the variation: separation 8
         - Note: One row per player in join order, the host first. Name expands; Ready shows the check while that player is ready and hides otherwise (an empty mark, not a dash).
         - **HostRow** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
-          - **Name** `Label` · variation `ToyTextOnDark` · size flags horizontal `SIZE_EXPAND_FILL` · text `lobby.host_mark` with sample {name} = "Olena" / "Олена": en "Olena · host" · uk "Олена · хост" · clip_text true · text_overrun_behavior `OVERRUN_TRIM_ELLIPSIS`
+          - **Name** `Label` · variation `ToyPlateText` · size flags horizontal `SIZE_EXPAND_FILL` · text `lobby.host_mark` with sample {name} = "Olena" / "Олена": en "Olena · host" · uk "Олена · хост" · clip_text true · text_overrun_behavior `OVERRUN_TRIM_ELLIPSIS`
             - Note: The host's row: lobby.host_mark with the name (auto_translate_mode DISABLED on the name), seen by the other players; on the host's own client it reads player.you, as every own row does.
-          - **Ready** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (24, 24) · texture `check` (dist/pack/icons/check.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyTextOnDark")
+          - **Ready** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (24, 24) · texture `check` (dist/pack/icons/check.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyPlateText")
         - **Row2** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
-          - **Name** `Label` · variation `ToyTextOnDark` · size flags horizontal `SIZE_EXPAND_FILL` · text from data (auto_translate_mode = DISABLED), sample: "Taras" / "Тарас" · clip_text true · text_overrun_behavior `OVERRUN_TRIM_ELLIPSIS`
+          - **Name** `Label` · variation `ToyPlateText` · size flags horizontal `SIZE_EXPAND_FILL` · text from data (auto_translate_mode = DISABLED), sample: "Taras" / "Тарас" · clip_text true · text_overrun_behavior `OVERRUN_TRIM_ELLIPSIS`
             - Note: Another player's row: the name only (auto_translate_mode DISABLED).
-          - **Ready** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (24, 24) · texture `check` (dist/pack/icons/check.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyTextOnDark")
+          - **Ready** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (24, 24) · texture `check` (dist/pack/icons/check.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyPlateText")
         - **OwnRow** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
-          - **Name** `Label` · variation `ToyTextOnDark` · size flags horizontal `SIZE_EXPAND_FILL` · text `player.you`: en "You" · uk "Ти" · clip_text true · text_overrun_behavior `OVERRUN_TRIM_ELLIPSIS`
+          - **Name** `Label` · variation `ToyPlateText` · size flags horizontal `SIZE_EXPAND_FILL` · text `player.you`: en "You" · uk "Ти" · clip_text true · text_overrun_behavior `OVERRUN_TRIM_ELLIPSIS`
             - Note: The own row reads player.you.
         - **Row4** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
-          - **Name** `Label` · variation `ToyTextOnDark` · size flags horizontal `SIZE_EXPAND_FILL` · text from data (auto_translate_mode = DISABLED), sample: "Marko" / "Марко" · clip_text true · text_overrun_behavior `OVERRUN_TRIM_ELLIPSIS`
-          - **Ready** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (24, 24) · texture `check` (dist/pack/icons/check.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyTextOnDark")
+          - **Name** `Label` · variation `ToyPlateText` · size flags horizontal `SIZE_EXPAND_FILL` · text from data (auto_translate_mode = DISABLED), sample: "Marko" / "Марко" · clip_text true · text_overrun_behavior `OVERRUN_TRIM_ELLIPSIS`
+          - **Ready** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (24, 24) · texture `check` (dist/pack/icons/check.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyPlateText")
 - **Bottom** `VBoxContainer` · variation `ToyColumnTwelve` · anchors `bottom_left`, offsets 40, -40, 40, -40 (left, top, right, bottom), grow end/begin · gaps from the variation: separation 12
   - **ReadyChip** `PanelContainer` · variation `ToyChipPlate` · size flags horizontal `SIZE_SHRINK_BEGIN`
     - Note: The own ready state: ToyChipPlate with lobby.ready_no while not ready, ToyChipLight with lobby.ready_yes while ready.
@@ -77,11 +77,11 @@ The lobby's HUD in the world: the mouse is captured and every node has mouse_fil
 
 ## `count`: what differs from `wait`
 
-- **Changed** `Status/Text`: variation `ToyTitleOnDark` · text `lobby.countdown` with sample {count} = "5": en "Starting in 5" · uk "Старт через 5" (was: variation `ToyPlateText` · text `lobby.waiting` with sample {count} = "3", {total} = "4": en "3 of 4 ready" · uk "Готові 3 з 4")
+- **Changed** `Status/Text`: variation `ToyPlateTitle` · text `lobby.countdown` with sample {count} = "5": en "Starting in 5" · uk "Старт через 5" (was: variation `ToyPlateText` · text `lobby.waiting` with sample {count} = "3", {total} = "4": en "3 of 4 ready" · uk "Готові 3 з 4")
 - **Changed** `Bottom/ReadyChip`: variation `ToyChipLight` (was: variation `ToyChipPlate`)
 - **Changed** `Bottom/ReadyChip/Text`: variation `ToyChipLightText` · text `lobby.ready_yes`: en "Ready: yes" · uk "Готовність: так" (was: variation `ToyChipPlateText` · text `lobby.ready_no`: en "Ready: no" · uk "Готовність: ні")
 - **Shown:**
-  - **Players/V/List/Rows/OwnRow/Ready** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (24, 24) · texture `check` (dist/pack/icons/check.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyTextOnDark")
+  - **Players/V/List/Rows/OwnRow/Ready** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (24, 24) · texture `check` (dist/pack/icons/check.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyPlateText")
 
 ## `short`: what differs from `wait`
 

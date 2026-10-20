@@ -258,7 +258,9 @@ function baseSelector(sel) {
 // ---------- the lint ----------
 
 const DRAWING = new Set(["background", "background-color", "color", "box-shadow", "text-shadow", "font-size", "font-weight",
-  "font-family", "letter-spacing", "line-height", "stroke", "fill", "outline-color", "outline", "transform", "opacity"]);
+  "font-family", "letter-spacing", "line-height", "stroke", "fill", "outline-color", "outline", "transform", "opacity",
+  // one text outline (a Label's shadow_outline_size at a zero offset): only on the title selectors (L25)
+  "-webkit-text-stroke", "paint-order"]);
 // The longer logical sides come first, and SIDE_RE is anchored, so border-block-start never reads as border-block.
 const BORDER_SIDE = "(block-start|block-end|inline-start|inline-end|top|right|bottom|left|block|inline)";
 const BORDER_RE = new RegExp(`^border(-${BORDER_SIDE})?(-(width|style|color))?$`);
@@ -274,6 +276,7 @@ const GENERATED_LAYOUT = new Set(["position", "inset", "top", "right", "bottom",
   "flex", "flex-grow"]);
 const FLEX_GROW_RE = /^(?:\d+|var\(--(?:value|page)\)|calc\(1(?: - var\(--(?:value|page)\))+\))$/;
 // Half a PopupMenu variation's v_separation: the only division the generated CSS has (a .tv-row's padding-top/bottom).
+const FILL_WIDTH_RE = /^calc\(var\(--value\) \* \(100% \+ calc\(\(var\(--toy-[a-z0-9-]+\)( \+ var\(--toy-[a-z0-9-]+\))*\) \* var\(--px\)\)\)\)$/;
 const HALF_SEPARATION_RE = /^calc\(var\(--toy-[a-z0-9-]+-items-v-separation\) \/ 2 \* var\(--px\)\)$/;
 const FORBIDDEN_RE = /^(filter|backdrop-filter|clip-path|mix-blend-mode|background-blend-mode|background-image|mask(-.*)?|animation(-.*)?)$/;
 const SIDES = { top: ["t"], right: ["r"], bottom: ["b"], left: ["l"], block: ["t", "b"], inline: ["l", "r"],
@@ -491,6 +494,18 @@ function lintText(text, opts) {
       }
       if (prop === "box-shadow") return boxShadow(val, line);
       if (prop === "text-shadow") return textShadow(rule, val, line);
+      if (prop === "-webkit-text-stroke") {
+        if (!rule.selectors.every(s => textShadowRes.some(re => re.test(s.text)))) add(line, "L25", "a text outline on a selector that is not a title selector");
+        const lens = comps.filter(c => classify(c) === "length");
+        const colours = comps.filter(c => classify(c) === "colour");
+        if (lens.length !== 1 || colours.length !== 1 || comps.length !== 2) add(line, "L25", "-webkit-text-stroke takes one width and one colour: " + val);
+        lens.forEach(c => { const p = R.checkLength(c, ctx); if (p) add(line, p.rule, p.msg); });
+        return;
+      }
+      if (prop === "paint-order") {
+        if (!/^(normal|stroke fill)$/i.test(val.trim())) add(line, "L28", "paint-order takes normal or stroke fill, found " + val);
+        return;
+      }
       if (prop === "font-size") return lengths(1, 1);
       if (prop === "font-weight") {
         if (!(comps.length === 1 && /^--toy-/.test(R.varName(comps[0]) || ""))) add(line, "L19", "font-weight must be var(--toy-…), found " + val);
@@ -538,6 +553,10 @@ function lintText(text, opts) {
         if (profile === "generated" && prop === "width" && rule.selectors.every(s => /\.tv-fill$/.test(s.text))) exempt.push("calc(var(--value) * 100%)");
         const c = comps.length === 1 ? comps[0].replace(/\(\s+/g, "(").replace(/\s+\)/g, ")").replace(/\s*\*\s*/g, " * ") : null;
         if (c && exempt.includes(c)) return;
+        // A ProgressBar fill spans the background's border box as Godot draws it: the value's share of 100% plus the
+        // background's border widths.
+        if (c && profile === "generated" && prop === "width" && rule.selectors.every(s => /\.tv-fill$/.test(s.text))
+          && FILL_WIDTH_RE.test(c)) return;
         return lengths(1, 1);
       }
       add(line, "L28", "no value check for " + prop);
@@ -561,7 +580,11 @@ function lintText(text, opts) {
         if (lens.length > 3) add(line, "L10", "box-shadow with a spread (" + lens.length + " lengths)");
         if (lens.length < 2) add(line, "L28", "box-shadow needs an x and a y offset: " + layer);
         if (lens.length >= 3 && !R.ZERO_RE.test(lens[2])) add(line, "L11", "box-shadow blur " + lens[2]);
-        if (lens.length >= 1 && !R.ZERO_RE.test(lens[0])) add(line, "L12", "box-shadow x offset " + lens[0]);
+        // the x offset is 0 or a shift to the right (the sticker's hard shadow: a base layer with expand margins), never left
+        if (lens.length >= 1 && !R.ZERO_RE.test(lens[0])) {
+          if (/^-|^calc\(\s*\(?\s*-/.test(lens[0])) add(line, "L12", "box-shadow x offset to the left " + lens[0]);
+          else { const p = R.checkLength(lens[0], ctx); if (p) add(line, p.rule, p.msg); }
+        }
         if (colours > 1 || colours + unknowns === 0) add(line, "L28", "box-shadow needs exactly one colour: " + layer);
         if (lens.length >= 2) { const p = R.checkLength(lens[1], ctx); if (p) add(line, p.rule, p.msg); }
       }
@@ -917,6 +940,8 @@ const ADVERSARIAL = [
   ["generated", '.tv-a > div { color: var(--toy-palette-ink); }', ["L24"]],
   ["generated", '.tv-a { width: 100%; height: calc(var(--value) * 100%); }', ["L16"]],
   ["generated", '.tv-a .tv-fill { width: calc(var(--value) * 100%); }', []],
+  ["generated", '.tv-a > .tv-fill { width: calc(var(--value) * (100% + calc((var(--toy-field-list-items-v-separation) + var(--toy-field-list-items-v-separation)) * var(--px)))); }', []],
+  ["generated", '.tv-a > .tv-row { width: calc(var(--value) * (100% + calc((var(--toy-field-list-items-v-separation) + var(--toy-field-list-items-v-separation)) * var(--px)))); }', ["L16"]],
   // A PopupMenu row: half its list's v_separation above and below, on a .tv-row only, and nothing else halved.
   ["generated", '.tv-a > .tv-row { padding-top: calc(var(--toy-field-list-items-v-separation) / 2 * var(--px)); padding-bottom: calc( var(--toy-field-list-items-v-separation) / 2 * var(--px) ); }', []],
   ["generated", '.tv-a > .tv-check { padding-top: calc(var(--toy-field-list-items-v-separation) / 2 * var(--px)); }', ["L17"]],
