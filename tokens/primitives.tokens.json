@@ -126,29 +126,29 @@
   "focus": {
     "$type": "dimension",
     "$description": "Keyboard and gamepad focus ring.",
-    "width": { "$value": { "value": 3, "unit": "px" } },
-    "gap": { "$value": { "value": 2, "unit": "px" } }
+    "width": { "$value": { "value": 5, "unit": "px" } },
+    "gap": { "$value": { "value": 3, "unit": "px" } }
   },
   "stroke": {
     "$type": "dimension",
-    "$description": "Strength B: every sticker outline is 4 px of ink.",
-    "thin": { "$description": "Bar tracks and small marks.", "$value": { "value": 3, "unit": "px" } },
-    "control": { "$description": "The outline of a control.", "$value": { "value": 4, "unit": "px" } },
-    "surface": { "$description": "The outline of a surface.", "$value": { "value": 4, "unit": "px" } },
-    "bold": { "$description": "A key's thick bottom edge.", "$value": { "value": 5, "unit": "px" } }
+    "$description": "Strength B at the 0.75 sketch scale (ui-1.2.0): every sticker outline is 6 px of ink (the sketch page's 4 px x 1.5).",
+    "thin": { "$description": "Bar tracks and small marks.", "$value": { "value": 5, "unit": "px" } },
+    "control": { "$description": "The outline of a control.", "$value": { "value": 6, "unit": "px" } },
+    "surface": { "$description": "The outline of a surface.", "$value": { "value": 6, "unit": "px" } },
+    "bold": { "$description": "A key's thick bottom edge.", "$value": { "value": 8, "unit": "px" } }
   },
   "offset": {
     "$type": "dimension",
-    "$description": "The hard ink shadow of strength B: a base layer 5 px right and 5 px down (no StyleBoxFlat shadow; spec decision 4).",
-    "base": { "$value": { "value": 5, "unit": "px" } }
+    "$description": "The hard ink shadow of strength B: a base layer 8 px right and 8 px down (no StyleBoxFlat shadow; spec decision 4): the sketch page's 5 px x 1.5 = 7.5, rounded up as every other length, so the shadow stays wider than the 6 px outline and equals a key's 8 px bottom edge (ui-1.2.0).",
+    "base": { "$value": { "value": 8, "unit": "px" } }
   },
   "radius": {
     "$type": "dimension",
-    "small": { "$value": { "value": 8, "unit": "px" } },
-    "medium": { "$value": { "value": 12, "unit": "px" } },
-    "large": { "$value": { "value": 16, "unit": "px" } },
-    "control": { "$description": "Buttons.", "$value": { "value": 14, "unit": "px" } },
-    "surface": { "$description": "Panels.", "$value": { "value": 20, "unit": "px" } },
+    "small": { "$value": { "value": 12, "unit": "px" } },
+    "medium": { "$value": { "value": 18, "unit": "px" } },
+    "large": { "$value": { "value": 24, "unit": "px" } },
+    "control": { "$description": "Buttons.", "$value": { "value": 21, "unit": "px" } },
+    "surface": { "$description": "Panels.", "$value": { "value": 30, "unit": "px" } },
     "pill": { "$value": { "value": 999, "unit": "px" } }
   },
   "space": {

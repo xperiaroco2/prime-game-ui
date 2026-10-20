@@ -340,6 +340,117 @@
       ]
     },
     {
+      "id": "mvp",
+      "title_key": "sec_mvp",
+      "rows": [
+        {
+          "id": "mvp-top",
+          "kind": "mvp",
+          "part": "top",
+          "title_key": "row_mvp_top",
+          "hud": true,
+          "variations": [
+            "ToyTimerBare",
+            "ToyBarAngerTrack",
+            "ToyBarAnger"
+          ]
+        },
+        {
+          "id": "mvp-roster",
+          "kind": "mvp",
+          "part": "roster",
+          "title_key": "row_mvp_roster",
+          "hud": true,
+          "variations": [
+            "ToyRoster",
+            "ToyRosterName",
+            "ToyRosterNameSelf",
+            "ToyRosterNameDead",
+            "ToyRosterDot",
+            "ToyRosterTag",
+            "ToyRosterTagText"
+          ]
+        },
+        {
+          "id": "mvp-items",
+          "kind": "mvp",
+          "part": "items",
+          "title_key": "row_mvp_items",
+          "hud": true,
+          "variations": [
+            "ToySlotHand",
+            "ToySlotBelt",
+            "ToySlotTag",
+            "ToySlotTagText"
+          ]
+        },
+        {
+          "id": "mvp-notices",
+          "kind": "mvp",
+          "part": "notices",
+          "title_key": "row_mvp_notices",
+          "hud": true,
+          "variations": [
+            "ToyPlateNotice",
+            "ToyPlateBanner",
+            "ToyPlateCountdown"
+          ]
+        },
+        {
+          "id": "mvp-dead",
+          "kind": "mvp",
+          "part": "dead",
+          "title_key": "row_mvp_dead",
+          "hud": true,
+          "variations": [
+            "ToyPlateHead",
+            "ToyPlateHeadText",
+            "ToyPlateCount",
+            "ToyPlateHeading"
+          ]
+        },
+        {
+          "id": "mvp-workbench",
+          "kind": "mvp",
+          "part": "workbench",
+          "title_key": "row_mvp_workbench",
+          "hud": true,
+          "variations": [
+            "ToyMutationCard",
+            "ToyPlateBalance"
+          ]
+        },
+        {
+          "id": "mvp-screens",
+          "kind": "mvp",
+          "part": "screens",
+          "title_key": "row_mvp_screens",
+          "hud": true,
+          "variations": [
+            "ToyTitleHero",
+            "ToyTitleHeroAlert",
+            "ToyPlateGoal",
+            "ToyPlateGoalText",
+            "ToyPlateResult",
+            "ToyStickerTextLarge"
+          ]
+        },
+        {
+          "id": "mvp-stickers",
+          "kind": "mvp",
+          "part": "stickers",
+          "title_key": "row_mvp_stickers",
+          "hud": true,
+          "variations": [
+            "ToySticker",
+            "ToyStickerAlert",
+            "ToyStickerHighlight",
+            "ToyStickerText"
+          ]
+        }
+      ]
+    },
+    {
       "id": "bars",
       "title_key": "sec_bars",
       "rows": [

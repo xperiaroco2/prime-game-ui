@@ -19,8 +19,8 @@
       "normal": {
         "bg-color": { "$type": "color", "$value": "{palette.clear}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.medium}" },
-        "content-margin-block": { "$type": "dimension", "$value": { "value": 11, "unit": "px" } },
-        "content-margin-inline": { "$type": "dimension", "$value": { "value": 16, "unit": "px" } },
+        "content-margin-block": { "$type": "dimension", "$value": { "value": 18, "unit": "px" } },
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 27, "unit": "px" } },
         "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
       },
       "hover": {
@@ -45,7 +45,7 @@
       }
     },
     "selected": {
-      "$description": "The selected Esc tab: a flat mint sticker, a 4 px ink outline on every side (no shadow), an ink label.",
+      "$description": "The selected Esc tab: a flat mint sticker, a 6 px ink outline on every side (no shadow), an ink label.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyTabSelected", "class": "Button", "parent": "ToyButton" },
@@ -58,8 +58,8 @@
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.medium}" },
-        "content-margin-block": { "$type": "dimension", "$value": { "value": 11, "unit": "px" } },
-        "content-margin-inline": { "$type": "dimension", "$value": { "value": 16, "unit": "px" } },
+        "content-margin-block": { "$type": "dimension", "$value": { "value": 18, "unit": "px" } },
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 27, "unit": "px" } },
         "font-color": { "$type": "color", "$value": "{color.on-accent.text}" }
       },
       "hover": {
@@ -81,8 +81,8 @@
         "bg-color": { "$type": "color", "$value": "{palette.clear}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width": { "$type": "dimension", "$value": "{focus.width}" },
-        "corner-radius": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } },
-        "expand-margin": { "$type": "dimension", "$value": { "value": -4, "unit": "px" } }
+        "corner-radius": { "$type": "dimension", "$value": { "value": 12, "unit": "px" } },
+        "expand-margin": { "$type": "dimension", "$value": { "value": -6, "unit": "px" } }
       }
     }
   }

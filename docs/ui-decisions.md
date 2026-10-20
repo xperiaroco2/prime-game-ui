@@ -123,6 +123,27 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
 - **Line height from the fonts, ui-1.1.0** ([#75](https://github.com/xperiaroco2/prime-game-ui/issues/75)): each
   family's own line box, the line Godot draws (Nunito 1.364, Rubik 1.185, Kablammo 1.292 em, was 1.25); the HUD bar
   track's content margin 4 to 3 px, so the 10 px fill sits flush inside the outline (agent).
+- **The tokens at the 0.75 scale and the MVP HUD, ui-1.2.0** (the engineer's 0.75 above: every sketch length × 1.5 at
+  1920x1080, the font sizes kept; `tokens/README.md`). The look choices the agent took alone:
+  - the hard shadow 8 px (the sketch's 5 × 1.5 = 7.5 rounded up as every length): it stays wider than the 6 px
+    outline and equals a key's 8 px bottom edge (agent);
+  - thin strokes (bar tracks, keycaps, small tags) 5 px and the focus ring 5 px with a 3 px gap (agent);
+  - content margins grow only where the sketches draw the piece roomier (buttons 16/30, main-menu entries 17/33, tabs
+    18/27, chips 10/24, toggle chips 13/30, the stepper 13/15, fields 15/27, setting rows 13/18, the alert plate 16/39);
+    elsewhere they grow by the thicker outline, so a label keeps its room (agent);
+  - the crosshair ring stays 3 px (the sketch's 2 × 1.5), thinner than the thin stroke (agent);
+  - the map pin stays 28 px until the map screen is reworked: at 42 it covers the you-are-here chip (agent);
+  - a keycap is at least 44 px wide (52 at large text), so a one-letter key stays square (agent);
+  - the old slots grow to 132 px; item bar A's hand and belt slots are new variations at the sketch's 150 and 126 (agent);
+  - the anger track is a pill: the sketch's 12 px corners × 1.5 pass half its 30 px height (agent);
+  - the roster's colour dot is a white disc the game tints to the body colour; the kill notice reuses it at 24 px where
+    the sketch draws 27 (agent);
+  - text roles nearest the sketch's sizes: the kill notice and the cops' line at the title size 36, the killer line,
+    the goal and the full-screen stickers at the heading size 28, the tags at the caption size 18, the dead's head at 36,
+    the countdowns Rubik 64 (agent);
+  - the new HUD plates, the roster and the slots cast the edge-form shadow, as the existing plates (agent);
+  - a mutation card's "not enough" state is only its disabled button, as on the sketch; the workbench panel is
+    ToyPanelDialog (42 px inside where the sketch has 39 and 45) (agent).
 
 ## Principles
 - **The UI never tells the player what to do.** No "take it to X" line, no destination marker, no key prompts on the HUD;

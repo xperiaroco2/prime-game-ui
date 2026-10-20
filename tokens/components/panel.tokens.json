@@ -1,7 +1,7 @@
 {
   "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
   "panel": {
-    "$description": "Sticker panels: a 4 px ink outline and a hard ink shadow 5 px right and 5 px down (the base layer).",
+    "$description": "Sticker panels: a 6 px ink outline and a hard ink shadow 8 px right and 8 px down (the base layer).",
     "menu": {
       "$description": "The menu panel: purple face, ink outline, on the hard ink shadow; the light context (its labels are mint).",
       "$extensions": {
@@ -15,7 +15,7 @@
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width": { "$type": "dimension", "$value": "{stroke.surface}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.surface}" },
-        "content-margin": { "$type": "dimension", "$value": { "value": 28, "unit": "px" } }
+        "content-margin": { "$type": "dimension", "$value": { "value": 30, "unit": "px" } }
       }
     },
     "dialog": {
@@ -31,7 +31,7 @@
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width": { "$type": "dimension", "$value": "{stroke.surface}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.surface}" },
-        "content-margin": { "$type": "dimension", "$value": { "value": 40, "unit": "px" } }
+        "content-margin": { "$type": "dimension", "$value": { "value": 42, "unit": "px" } }
       }
     },
     "howto": {
@@ -47,11 +47,11 @@
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width": { "$type": "dimension", "$value": "{stroke.surface}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.surface}" },
-        "content-margin": { "$type": "dimension", "$value": { "value": 26, "unit": "px" } }
+        "content-margin": { "$type": "dimension", "$value": { "value": 28, "unit": "px" } }
       }
     },
     "base": {
-      "$description": "The hard ink shadow under panels and the map board: the face's shape moved 5 px right and 5 px down.",
+      "$description": "The hard ink shadow under panels and the map board: the face's shape moved 8 px right and 8 px down.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyBasePanel", "class": "Panel" },
@@ -61,10 +61,10 @@
       "panel": {
         "bg-color": { "$type": "color", "$value": "{color.surface.drop}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.surface}" },
-        "expand-margin-top": { "$type": "dimension", "$value": { "value": -5, "unit": "px" } },
-        "expand-margin-right": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } },
-        "expand-margin-bottom": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } },
-        "expand-margin-left": { "$type": "dimension", "$value": { "value": -5, "unit": "px" } }
+        "expand-margin-top": { "$type": "dimension", "$value": { "value": -8, "unit": "px" } },
+        "expand-margin-right": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } },
+        "expand-margin-bottom": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } },
+        "expand-margin-left": { "$type": "dimension", "$value": { "value": -8, "unit": "px" } }
       }
     }
   }

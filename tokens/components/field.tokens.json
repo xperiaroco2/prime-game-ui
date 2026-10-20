@@ -1,9 +1,9 @@
 {
   "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
   "field": {
-    "$description": "Text field, dropdown and number field (SpinBox): mint plates with a 4 px ink outline and ink text on the purple panel. The text field and the dropdown cast the hard ink shadow in the edge form (the right and bottom outlines 9 px, reaching 5 px outside); the SpinBox's field and arrows stay flat as one group.",
+    "$description": "Text field, dropdown and number field (SpinBox): mint plates with a 6 px ink outline and ink text on the purple panel. The text field and the dropdown cast the hard ink shadow in the edge form (the right and bottom outlines 14 px, reaching 8 px outside); the SpinBox's field and arrows stay flat as one group.",
     "input": {
-      "$description": "A text field: the mint plate, a 4 px ink outline, its hard shadow in the edge form; ink text, a soft-ink placeholder.",
+      "$description": "A text field: the mint plate, a 6 px ink outline, its hard shadow in the edge form; ink text, a soft-ink placeholder.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyField", "class": "LineEdit" },
@@ -15,14 +15,14 @@
         "bg-color": { "$type": "color", "$value": "{palette.mint}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width-top": { "$type": "dimension", "$value": "{stroke.control}" },
-        "border-width-right": { "$type": "dimension", "$value": { "value": 9, "unit": "px" } },
-        "border-width-bottom": { "$type": "dimension", "$value": { "value": 9, "unit": "px" } },
+        "border-width-right": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } },
+        "border-width-bottom": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } },
         "border-width-left": { "$type": "dimension", "$value": "{stroke.control}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.medium}" },
-        "content-margin-block": { "$type": "dimension", "$value": { "value": 11, "unit": "px" } },
-        "content-margin-inline": { "$type": "dimension", "$value": { "value": 16, "unit": "px" } },
-        "expand-margin-right": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } },
-        "expand-margin-bottom": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } },
+        "content-margin-block": { "$type": "dimension", "$value": { "value": 15, "unit": "px" } },
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 27, "unit": "px" } },
+        "expand-margin-right": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } },
+        "expand-margin-bottom": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } },
         "font-color": { "$type": "color", "$value": "{color.on-accent.text}" }
       },
       "focus": {
@@ -30,11 +30,11 @@
         "bg-color": { "$type": "color", "$value": "{palette.clear}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width": { "$type": "dimension", "$value": "{focus.width}" },
-        "corner-radius": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } },
-        "expand-margin": { "$type": "dimension", "$value": { "value": -4, "unit": "px" } }
+        "corner-radius": { "$type": "dimension", "$value": { "value": 12, "unit": "px" } },
+        "expand-margin": { "$type": "dimension", "$value": { "value": -6, "unit": "px" } }
       },
       "read-only": {
-        "$description": "Read-only, also the guest's view: a quiet lilac box with readable ink text; no shadow (a 4 px outline on every side, no expand).",
+        "$description": "Read-only, also the guest's view: a quiet lilac box with readable ink text; no shadow (a 6 px outline on every side, no expand).",
         "bg-color": { "$type": "color", "$value": "{color.state.disabled-face}" },
         "border-color": { "$type": "color", "$value": "{color.state.disabled-ink}" },
         "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
@@ -62,14 +62,14 @@
         "bg-color": { "$type": "color", "$value": "{palette.mint}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width-top": { "$type": "dimension", "$value": "{stroke.control}" },
-        "border-width-right": { "$type": "dimension", "$value": { "value": 9, "unit": "px" } },
-        "border-width-bottom": { "$type": "dimension", "$value": { "value": 9, "unit": "px" } },
+        "border-width-right": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } },
+        "border-width-bottom": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } },
         "border-width-left": { "$type": "dimension", "$value": "{stroke.control}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.medium}" },
-        "content-margin-block": { "$type": "dimension", "$value": { "value": 11, "unit": "px" } },
-        "content-margin-inline": { "$type": "dimension", "$value": { "value": 16, "unit": "px" } },
-        "expand-margin-right": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } },
-        "expand-margin-bottom": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } },
+        "content-margin-block": { "$type": "dimension", "$value": { "value": 15, "unit": "px" } },
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 27, "unit": "px" } },
+        "expand-margin-right": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } },
+        "expand-margin-bottom": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } },
         "font-color": { "$type": "color", "$value": "{color.on-accent.text}" }
       },
       "hover": {
@@ -81,7 +81,7 @@
         "bg-color": { "$type": "color", "$value": "{palette.mint-dark}" }
       },
       "disabled": {
-        "$description": "Unplugged dropdown: no shadow (a 4 px outline on every side, no expand), a dulled lilac face, its outline and label in the soft ink.",
+        "$description": "Unplugged dropdown: no shadow (a 6 px outline on every side, no expand), a dulled lilac face, its outline and label in the soft ink.",
         "bg-color": { "$type": "color", "$value": "{color.state.disabled-face}" },
         "border-color": { "$type": "color", "$value": "{color.state.disabled-ink}" },
         "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
@@ -93,13 +93,13 @@
         "bg-color": { "$type": "color", "$value": "{palette.clear}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width": { "$type": "dimension", "$value": "{focus.width}" },
-        "corner-radius": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } },
-        "expand-margin": { "$type": "dimension", "$value": { "value": -4, "unit": "px" } }
+        "corner-radius": { "$type": "dimension", "$value": { "value": 12, "unit": "px" } },
+        "expand-margin": { "$type": "dimension", "$value": { "value": -6, "unit": "px" } }
       },
       "items": {
         "$description": "The arrow (chevron-down, a white texture tinted by the label colour): Godot reserves its width itself (OptionButton's internal margin), it sits at the right content edge, 8 px after the text.",
-        "arrow-margin": { "$type": "dimension", "$value": { "value": 16, "unit": "px" } },
-        "h-separation": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } },
+        "arrow-margin": { "$type": "dimension", "$value": { "value": 24, "unit": "px" } },
+        "h-separation": { "$type": "dimension", "$value": { "value": 12, "unit": "px" } },
         "modulate-arrow": { "$type": "number", "$value": 1 }
       }
     },
@@ -119,12 +119,12 @@
       },
       "label": { "$type": "typography", "$value": "{type.body-bold}" },
       "panel": {
-        "$description": "The list's frame: mint, the dropdown's 4 px ink outline and 12 px corners; the rows sit 3 px inside the outline.",
+        "$description": "The list's frame: mint, the dropdown's 6 px ink outline and 18 px corners; the rows sit 3 px inside the outline.",
         "bg-color": { "$type": "color", "$value": "{palette.mint}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.medium}" },
-        "content-margin": { "$type": "dimension", "$value": { "value": 7, "unit": "px" } }
+        "content-margin": { "$type": "dimension", "$value": { "value": 9, "unit": "px" } }
       },
       "hover": {
         "$description": "The hovered or keyboard-focused row (PopupMenu draws its focused item as hovered): the darker mint, its corners rounded inside the list's.",
@@ -132,7 +132,7 @@
         "corner-radius": { "$type": "dimension", "$value": "{radius.small}" }
       },
       "separator": {
-        "$description": "A separator row: a 3 px ink line across the list (its height is its top content margin, the border width).",
+        "$description": "A separator row: a 5 px ink line across the list (its height is its top content margin, the border width).",
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width-top": { "$type": "dimension", "$value": "{stroke.thin}" },
         "border-width-right": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
@@ -151,7 +151,7 @@
       }
     },
     "spin-input": {
-      "$description": "A SpinBox's field (Godot's SpinBoxInnerLineEdit, prime-game-ui#52): the flat mint text field (no shadow; the arrows sit 8 px beside it) with 12 px above and below instead of 10, so each of the SpinBox's two arrow buttons beside it is at least 24 px high.",
+      "$description": "A SpinBox's field (Godot's SpinBoxInnerLineEdit, prime-game-ui#52): the flat mint text field (no shadow; the arrows sit 8 px beside it) with 16 px above and below instead of 10, so each of the SpinBox's two arrow buttons beside it is at least 24 px high.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToySpinField", "class": "LineEdit" },
@@ -164,8 +164,8 @@
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.medium}" },
-        "content-margin-block": { "$type": "dimension", "$value": "{space.12}" },
-        "content-margin-inline": { "$type": "dimension", "$value": "{space.16}" },
+        "content-margin-block": { "$type": "dimension", "$value": { "value": 16, "unit": "px" } },
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 27, "unit": "px" } },
         "font-color": { "$type": "color", "$value": "{color.on-accent.text}" }
       },
       "focus": {
@@ -173,8 +173,8 @@
         "bg-color": { "$type": "color", "$value": "{palette.clear}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width": { "$type": "dimension", "$value": "{focus.width}" },
-        "corner-radius": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } },
-        "expand-margin": { "$type": "dimension", "$value": { "value": -4, "unit": "px" } }
+        "corner-radius": { "$type": "dimension", "$value": { "value": 12, "unit": "px" } },
+        "expand-margin": { "$type": "dimension", "$value": { "value": -6, "unit": "px" } }
       },
       "read-only": {
         "$description": "Read-only, also the guest's view: a quiet lilac box with readable ink text.",
@@ -191,7 +191,7 @@
       }
     },
     "spin": {
-      "$description": "A bare SpinBox's arrows (Godot's SpinBox base type, prime-game-ui#52): two stacked buttons 8 px right of the field, 2 px apart, green stickers, flat (a 4 px ink outline, ink chevrons; lighter on hover, darker while held, lilac when unplugged), small corners. Its field is ToySpinField.",
+      "$description": "A bare SpinBox's arrows (Godot's SpinBox base type, prime-game-ui#52): two stacked buttons 8 px right of the field, 3 px apart, green stickers, flat (a 6 px ink outline, ink chevrons; lighter on hover, darker while held, lilac when unplugged), small corners. Its field is ToySpinField.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": {
@@ -210,8 +210,8 @@
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.small}" },
-        "content-margin-block": { "$type": "dimension", "$value": "{space.4}" },
-        "content-margin-inline": { "$type": "dimension", "$value": "{space.8}" }
+        "content-margin-block": { "$type": "dimension", "$value": { "value": 6, "unit": "px" } },
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 10, "unit": "px" } }
       },
       "up-background-hovered": {
         "$description": "Hover: the face lifts to a lighter shade.",
@@ -227,10 +227,10 @@
         "border-color": { "$type": "color", "$value": "{color.state.disabled-ink}" }
       },
       "items": {
-        "$description": "The layout (the buttons 34 px wide, 8 px from the field, 2 px apart) and the chevrons' tint: ink, the unplugged ink when disabled.",
-        "buttons-width": { "$type": "dimension", "$value": { "value": 34, "unit": "px" } },
+        "$description": "The layout (the buttons 51 px wide, 8 px from the field, 3 px apart) and the chevrons' tint: ink, the unplugged ink when disabled.",
+        "buttons-width": { "$type": "dimension", "$value": { "value": 51, "unit": "px" } },
         "field-and-buttons-separation": { "$type": "dimension", "$value": "{space.8}" },
-        "buttons-vertical-separation": { "$type": "dimension", "$value": { "value": 2, "unit": "px" } },
+        "buttons-vertical-separation": { "$type": "dimension", "$value": { "value": 3, "unit": "px" } },
         "up-icon-modulate": { "$type": "color", "$value": "{color.on-accent.text}" },
         "up-hover-icon-modulate": { "$type": "color", "$value": "{color.on-accent.text}" },
         "up-pressed-icon-modulate": { "$type": "color", "$value": "{color.on-accent.text}" },

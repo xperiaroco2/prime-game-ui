@@ -5,7 +5,7 @@
 The styled downed, dead and respawn screen from the UI track (xperiaroco2/prime-game-ui), as a Godot 4.7.2 node tree for the 1920×1080 reference.
 
 - **Source:** `pages/screens/src/s09-downed.json`; the review page is `pages/screens/screens.html#s9`; the wireframe is section `s9` («Повалений, мертвий, повернення»).
-- **Theme:** the Toy pack ui-1.1.0 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
+- **Theme:** the Toy pack ui-1.2.0 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
 - **World behind the UI** (not UI): a dark room of the level.
 - **How to read it:** the roots are children of the screen's full-rect root `Control`; every property not listed keeps Godot's default; sizes and offsets are reference px. In a state's **Shown** list, the first node of each subtree gives its path from the screen root.
 - **Texts** are keys of `copy/strings.csv`, and the language switches live (the Esc menu's Settings). A plain key is set as `text` and translates itself. A key with placeholders, a plural key (`tr_n`) and a key drawn in pieces are set from code with `auto_translate_mode = DISABLED`: `tr()`, then `String.format()` with the data (the samples below), rebuilt on `NOTIFICATION_TRANSLATION_CHANGED`. A "text from data" (names, the room code, times, numbers) is set in code and never translated (`auto_translate_mode = DISABLED`).
@@ -27,7 +27,7 @@ The same HUD as s7: Hud and its nodes are s7's (same names and places); this scr
 - **Hud** `Control` · anchors `full_rect`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both
   - Note: s7's Hud. While downed only Vitals/Mic shows; while dead nothing shows; on return everything as in s7.
   - **Vitals** `VBoxContainer` · variation `ToyColumnTwelve` · anchors `bottom_left`, offsets 40, -40, 40, -40 (left, top, right, bottom), grow end/begin · gaps from the variation: separation 12
-    - **Mic** `PanelContainer` · variation `ToyMic` · size flags horizontal `SIZE_SHRINK_BEGIN` · custom_minimum_size (46, 46) = Vector2(get_theme_constant("width", "ToyMic"), get_theme_constant("height", "ToyMic"))
+    - **Mic** `PanelContainer` · variation `ToyMic` · size flags horizontal `SIZE_SHRINK_BEGIN` · custom_minimum_size (75, 75) = Vector2(get_theme_constant("width", "ToyMic"), get_theme_constant("height", "ToyMic"))
       - Note: Off while downed (nobody hears a downed player); hidden while dead; on again on return (when the player is heard).
       - **Icon** `TextureRect` · size flags horizontal `SIZE_SHRINK_CENTER`, vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (28, 28) · texture `mic-off` (dist/pack/icons/mic-off.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("icon_off", "ToyMic")
 - **Downed** `PanelContainer` · variation `ToyPlate` · anchors `center_top`, offsets 0, 152, 0, 152 (left, top, right, bottom), grow both/end · custom_minimum_size (688, 0)
@@ -35,7 +35,7 @@ The same HUD as s7: Hud and its nodes are s7's (same names and places); this scr
   - **V** `VBoxContainer` · variation `ToyColumnEight` · gaps from the variation: separation 8
     - **Title** `Label` · variation `ToyPlateTitle` · custom_minimum_size (600, 0) · text `downed.title`: en "You're down" · uk "Тебе повалено" · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
       - Note: downed.title while bleeding out; downed.raised_by with the raiser's name (auto_translate_mode DISABLED on the name) while someone raises the player.
-    - **Bleed** `PanelContainer` · variation `ToyBarTrack` · custom_minimum_size (600, 16) = Vector2(600, get_theme_constant("height", "ToyBarTrack"))
+    - **Bleed** `PanelContainer` · variation `ToyBarTrack` · custom_minimum_size (600, 24) = Vector2(600, get_theme_constant("height", "ToyBarTrack"))
       - **Fill** `ProgressBar` · variation `ToyBarHealth` · custom_minimum_size (0, 10) · value 0.7 of max_value 1, show_percentage false · fill self_modulate = theme colour `ramp_stop_14` of `ToyBarHealth` (step = clampi(floori(hp * 20.0 + 0.5), 0, 20))
         - Note: value = bleed-out time left / bleed-out duration, falling to 0; coloured with the health ramp as s7's health (the time left reads as life).
     - **Left** `Label` · variation `ToyPlateTextMuted` · text `downed.time_left` with sample {time} = "0:10": en "0:10 left" · uk "Лишилось 0:10" · horizontal_alignment `CENTER`
@@ -91,26 +91,26 @@ The same HUD as s7: Hud and its nodes are s7's (same names and places); this scr
       - Note: As s7: the round's time left as mm:ss from code; the minimum width holds "44:44".
   - **Hud/Role** `PanelContainer` · variation `ToyChipPlate` · anchors `top_left`, offsets 40, 40, 40, 40 (left, top, right, bottom), grow end/end
     - **Text** `Label` · variation `ToyChipPlateText` · text `role.engineer`: en "Engineer" · uk "Інженер"
-  - **Hud/Cross** `Panel` · variation `ToyCrosshair` · anchors `center`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both · custom_minimum_size (8, 8) = Vector2(get_theme_constant("width", "ToyCrosshair"), get_theme_constant("height", "ToyCrosshair"))
+  - **Hud/Cross** `Panel` · variation `ToyCrosshair` · anchors `center`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both · custom_minimum_size (12, 12) = Vector2(get_theme_constant("width", "ToyCrosshair"), get_theme_constant("height", "ToyCrosshair"))
   - **Hud/Vitals/Health** `VBoxContainer` · variation `ToyColumnFour` · custom_minimum_size (320, 0) · gaps from the variation: separation 4
     - Note: Hidden while downed; full again on return.
     - **Cap** `PanelContainer` · variation `ToyBarLabel` · size flags horizontal `SIZE_SHRINK_BEGIN`
       - **Text** `Label` · variation `ToyHudCaption` · text `hud.health`: en "Health" · uk "Здоровʼя"
-    - **Track** `PanelContainer` · variation `ToyBarTrack` · custom_minimum_size (320, 16) = Vector2(320, get_theme_constant("height", "ToyBarTrack"))
+    - **Track** `PanelContainer` · variation `ToyBarTrack` · custom_minimum_size (320, 24) = Vector2(320, get_theme_constant("height", "ToyBarTrack"))
       - **Fill** `ProgressBar` · variation `ToyBarHealth` · custom_minimum_size (0, 10) · value 1 of max_value 1, show_percentage false · fill self_modulate = theme colour `ramp_stop_20` of `ToyBarHealth` (step = clampi(floori(hp * 20.0 + 0.5), 0, 20))
   - **Hud/Vitals/Stamina** `VBoxContainer` · variation `ToyColumnFour` · custom_minimum_size (320, 0) · gaps from the variation: separation 4
     - Note: Hidden while downed; full again on return.
     - **Cap** `PanelContainer` · variation `ToyBarLabel` · size flags horizontal `SIZE_SHRINK_BEGIN`
       - **Text** `Label` · variation `ToyHudCaption` · text `hud.stamina`: en "Stamina" · uk "Витривалість"
-    - **Track** `PanelContainer` · variation `ToyBarTrack` · custom_minimum_size (320, 16) = Vector2(320, get_theme_constant("height", "ToyBarTrack"))
+    - **Track** `PanelContainer` · variation `ToyBarTrack` · custom_minimum_size (320, 24) = Vector2(320, get_theme_constant("height", "ToyBarTrack"))
       - **Fill** `ProgressBar` · variation `ToyBarStamina` · custom_minimum_size (0, 10) · value 0.35 of max_value 1, show_percentage false
   - **Hud/Slots** `HBoxContainer` · variation `ToyRowTwelve` · anchors `bottom_right`, offsets -40, -40, -40, -40 (left, top, right, bottom), grow begin/begin · gaps from the variation: separation 12
     - Note: As s7; the player comes back with empty hands.
-    - **Hand** `PanelContainer` · variation `ToySlotActive` · custom_minimum_size (88, 88) = Vector2(get_theme_constant("width", "ToySlotActive"), get_theme_constant("height", "ToySlotActive"))
+    - **Hand** `PanelContainer` · variation `ToySlotActive` · custom_minimum_size (132, 132) = Vector2(get_theme_constant("width", "ToySlotActive"), get_theme_constant("height", "ToySlotActive"))
       - **Center** `CenterContainer`
         - **Row** `HBoxContainer` · variation `ToyRowEight` · centred by its CenterContainer · gaps from the variation: separation 8
           - **Name** `Label` · variation `ToySlotTextEmpty` · size flags vertical `SIZE_SHRINK_CENTER` · text `hud.slot.hand`: en "Hand" · uk "Рука"
-    - **Belt** `PanelContainer` · variation `ToySlot` · custom_minimum_size (88, 88) = Vector2(get_theme_constant("width", "ToySlot"), get_theme_constant("height", "ToySlot"))
+    - **Belt** `PanelContainer` · variation `ToySlot` · custom_minimum_size (132, 132) = Vector2(get_theme_constant("width", "ToySlot"), get_theme_constant("height", "ToySlot"))
       - **Center** `CenterContainer`
         - **Row** `HBoxContainer` · variation `ToyRowEight` · centred by its CenterContainer · gaps from the variation: separation 8
           - **Name** `Label` · variation `ToySlotTextEmpty` · size flags vertical `SIZE_SHRINK_CENTER` · text `hud.slot.belt`: en "Belt" · uk "Пояс"
@@ -122,7 +122,7 @@ The same HUD as s7: Hud and its nodes are s7's (same names and places); this scr
 
 - The review page emulates Godot's containers with CSS grid (expanding children share the free space by stretch ratio, never below their minimum size), so a pixel or two may differ from Godot.
 - Size constants: a variation's `width`, `height`, `min_width`, `wide_width` and `wide_min_width` theme constants are read by code into `custom_minimum_size`, as the node lines give them. A Panel or PanelContainer takes no size from them on its own: an anchored Panel at offsets 0 is 0×0, a slot shrinks to its text.
-- Size constants that follow the text size: `min_width` 36 (42 in the pack's `modes.textSize.large`) of ToyKeyOnDark. The large-text theme is swapped in while a screen is open, so code that sets custom_minimum_size from such a constant sets it again on `NOTIFICATION_THEME_CHANGED`.
+- Size constants that follow the text size: `min_width` 36 (52 in the pack's `modes.textSize.large`) of ToyKeyOnDark. The large-text theme is swapped in while a screen is open, so code that sets custom_minimum_size from such a constant sets it again on `NOTIFICATION_THEME_CHANGED`.
 - Icons: the tinted ones are white SVGs in `dist/pack/icons/` (the pack's copy of `pages/components/icons`, currentColor written as white): a TextureRect tints one with the `self_modulate` its line gives (the colour the page draws it in), a Button with its variation's `icon_*_color`, an OptionButton its arrow with `modulate_arrow`. The room pictograms are white copies too (`dist/pack/icons/room/`), drawn in ink: their lines give the `self_modulate`. The pack's `assets` list every icon with its tint and `svg_scale`.
 - SVG import: Godot rasterises an SVG at import, so import each at `svg/scale` = the largest size it is drawn ÷ its viewBox (the largest over every screen that draws it, as the pack's `assets` give it): `mic` 1.17 (28 px), `mic-off` 1.17 (28 px).
 - Boxes and grids take their gaps only from their spacing variation (ToyColumn…, ToyRow…, ToyGrid…), and a ScrollContainer the gap to its bar from ToyScroll; a box without one has a single child. No `theme_override_constants`: the theme test forbids them.
