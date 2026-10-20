@@ -14,7 +14,7 @@
     { "id": "game-guest", "label": "Гра: гравець", "note": "In a round, a player: Leave and Quit act at once." },
     { "id": "game-confirm", "label": "Гра: підтвердження", "note": "The host pressed Leave: the confirm dialog (P1) over the menu. Quit opens the same dialog titled esc.game.quit_confirm with Confirm esc.game.quit." },
     { "id": "role-alien", "label": "Роль: прибулець", "note": "In a round only: the own role and its goal." },
-    { "id": "role-human", "label": "Роль: людина", "note": "A human also sees the other humans (humans know each other: the engineer, 2026-10-20; one here, Taras, as in s6 and s7); the list scrolls when it is longer than the view. With no other human the Team column is hidden." },
+    { "id": "role-human", "label": "Роль: людина", "note": "A human also sees the other humans (humans know each other: the engineer, 2026-10-20; one here, Zinga, as in s6 and s7); the list scrolls when it is longer than the view. With no other human the Team column is hidden." },
     { "id": "guide", "label": "Посібник", "note": "Every how-to card: the basics from the tutorial and one card per MVP task type; Cooking selected. Its art is a placeholder (Delivery's frames) until the MVP task cards are drawn." },
     { "id": "settings-sound", "label": "Звук і голос", "note": "Settings opens on Sound and voice. Voice activation is selected, so the threshold row shows. The main menu opens this same Settings subtree (s2)." },
     { "id": "settings-controls", "label": "Керування", "note": "Interact is capturing a key; Talk was rebound to M, so Talk and Map show Same key. The list scrolls." },
@@ -141,7 +141,7 @@
                               ]
                             },
                             {
-                              "name": "Humans", "type": "PanelContainer", "variation": "ToySettingRow", "custom_minimum_size": [0, 96], "note": "The exact number of humans among the players (m8 §2, #1032), {total} the lobby's players. Bounds and the default per player count are open (research round 2 suggests 4→1 … 10→3).",
+                              "name": "Humans", "type": "PanelContainer", "variation": "ToySettingRow", "custom_minimum_size": [0, 96], "note": "The exact number of humans among the players (m8 §2, #1032), as lobby.setting.humans_of: {count} of {total}, where {total} is the players now in the lobby (the stepper's maximum). Bounds and the default per player count are open (research round 2 suggests 4→1 … 10→3).",
                               "children": [
                                 {
                                   "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
@@ -151,7 +151,7 @@
                                       "name": "Stepper", "type": "HBoxContainer", "variation": "ToyRowTwelve", "size_flags_vertical": "shrink_center", "custom_minimum_size": [345, 0], "alignment": "end",
                                       "children": [
                                         { "name": "Less", "type": "Button", "variation": "ToyStepper", "icon": "chevron-left", "states": ["lobby-host", "lobby-no-code"] },
-                                        { "name": "Value", "type": "Label", "variation": "ToySettingRowValue", "custom_minimum_size": [156, 0], "horizontal_alignment": "center", "size_flags_vertical": "shrink_center", "key": "lobby.setting.humans_of", "args": { "count": "3", "total": "10" } },
+                                        { "name": "Value", "type": "Label", "variation": "ToySettingRowValue", "custom_minimum_size": [156, 0], "horizontal_alignment": "center", "size_flags_vertical": "shrink_center", "key": "lobby.setting.humans_of", "args": { "count": "3", "total": "10" }, "per_state": { "lobby-guest": { "args": { "count": "1", "total": "4" } } }, "note": "{count} the humans set; {total} the players now in the lobby, which is also the stepper's maximum, so it follows joins and leaves: 3 of 10 in the full lobby, 1 of 4 in the guest's lobby of 4." },
                                         { "name": "More", "type": "Button", "variation": "ToyStepper", "icon": "chevron-right", "states": ["lobby-host", "lobby-no-code"] }
                                       ]
                                     }
@@ -536,14 +536,14 @@
                       "name": "Left", "type": "VBoxContainer", "variation": "ToyColumnTwelve", "size_flags_horizontal": "expand_fill", "size_flags_stretch_ratio": 1.1,
                       "children": [
                         { "name": "You", "type": "Label", "variation": "ToyTextMutedOnLight", "key": "player.you" },
-                        { "name": "Role", "type": "Label", "variation": "ToyDisplayOnLight", "key": "role.alien", "per_state": { "role-human": { "key": "role.human" } } },
+                        { "name": "Role", "type": "Label", "variation": "ToyDisplayOnLight", "key": "role.alien", "per_state": { "role-human": { "key": "role.human", "variation": "ToyDisplayAlertOnLight" } }, "note": "The own side at the display size: ToyDisplayOnLight (mint) with role.alien, ToyDisplayAlertOnLight (coral) with role.human, the human coral as in s6 and s7." },
                         { "name": "Goal", "type": "Label", "variation": "ToyTextOnLight", "key": "role.goal.alien", "autowrap_mode": "word_smart", "custom_minimum_size": [560, 0], "per_state": { "role-human": { "key": "role.goal.human" } } }
                       ]
                     },
                     {
                       "name": "Team", "type": "VBoxContainer", "variation": "ToyColumnSixteen", "states": ["role-human"], "size_flags_horizontal": "expand_fill", "note": "Humans only (humans know each other: the engineer, 2026-10-20); hidden when there is no other human. Aliens see no list.",
                       "children": [
-                        { "name": "Count", "type": "Label", "variation": "ToyTextMutedOnLight", "key": "esc.role.teammates", "args": { "count": "1" }, "note": "The number of the other humans (here one, Taras, as in s6 and s7)." },
+                        { "name": "Count", "type": "Label", "variation": "ToyTextMutedOnLight", "key": "esc.role.teammates", "args": { "count": "1" }, "note": "The number of the other humans (here one, Zinga, as in s6 and s7)." },
                         {
                           "name": "Scroll", "type": "ScrollContainer", "variation": "ToyScroll", "custom_minimum_size": [0, 375], "note": "The view is 375 px tall; the list scrolls when it is longer.",
                           "children": [
@@ -551,10 +551,10 @@
                               "name": "Grid", "type": "GridContainer", "variation": "ToyGridList", "columns": 2, "size_flags_horizontal": "expand_fill", "note": "Two columns, in join order; a long list scrolls in the 375 px view.",
                               "children": [
                                 {
-                                  "name": "Taras", "type": "HBoxContainer", "variation": "ToyRowTwelve", "size_flags_horizontal": "expand_fill",
+                                  "name": "Zinga", "type": "HBoxContainer", "variation": "ToyRowTwelve", "size_flags_horizontal": "expand_fill",
                                   "children": [
                                     { "name": "Mark", "type": "TextureRect", "icon": "teammate-mark", "custom_minimum_size": [30, 30], "size_flags_vertical": "shrink_center" },
-                                    { "name": "Name", "type": "Label", "variation": "ToyTextOnLight", "text": { "uk": "Тарас", "en": "Taras" }, "size_flags_horizontal": "expand_fill", "clip_text": true, "text_overrun_behavior": "trim_ellipsis", "note": "The other human's name (auto_translate_mode DISABLED); a long name is cut with an ellipsis." }
+                                    { "name": "Name", "type": "Label", "variation": "ToyTextOnLight", "text": { "uk": "Зінга", "en": "Zinga" }, "size_flags_horizontal": "expand_fill", "clip_text": true, "text_overrun_behavior": "trim_ellipsis", "note": "The other human's name (auto_translate_mode DISABLED); a long name is cut with an ellipsis." }
                                   ]
                                 }
                               ]

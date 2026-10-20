@@ -25,7 +25,7 @@ The menu over the running game (no pause): Esc (ui_cancel) opens and closes it; 
 | `game-guest` | Гра: гравець | In a round, a player: Leave and Quit act at once. |
 | `game-confirm` | Гра: підтвердження | The host pressed Leave: the confirm dialog (P1) over the menu. Quit opens the same dialog titled esc.game.quit_confirm with Confirm esc.game.quit. |
 | `role-alien` | Роль: прибулець | In a round only: the own role and its goal. |
-| `role-human` | Роль: людина | A human also sees the other humans (humans know each other: the engineer, 2026-10-20; one here, Taras, as in s6 and s7); the list scrolls when it is longer than the view. With no other human the Team column is hidden. |
+| `role-human` | Роль: людина | A human also sees the other humans (humans know each other: the engineer, 2026-10-20; one here, Zinga, as in s6 and s7); the list scrolls when it is longer than the view. With no other human the Team column is hidden. |
 | `guide` | Посібник | Every how-to card: the basics from the tutorial and one card per MVP task type; Cooking selected. Its art is a placeholder (Delivery's frames) until the MVP task cards are drawn. |
 | `settings-sound` | Звук і голос | Settings opens on Sound and voice. Voice activation is selected, so the threshold row shows. The main menu opens this same Settings subtree (s2). |
 | `settings-controls` | Керування | Interact is capturing a key; Talk was rebound to M, so Talk and Map show Same key. The list scrolls. |
@@ -83,12 +83,13 @@ The menu over the running game (no pause): Esc (ui_cancel) opens and closes it; 
                 - **Field** `LineEdit` · variation `ToyField` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (345, 0) · text (sample data) "Olena's lobby" / "Лобі: Олена" · context_menu_enabled false (Godot's right-click menu would show untranslated English labels; see the notes)
                   - Note: The lobby name (#214), lobby.default_name until the host changes it; auto_translate_mode DISABLED. editable false for a player (the quiet read-only box), who cannot scroll it: 345 px (the control column of the MVP sketch) holds about 16 characters at large text; a longer name shows its start. max_length per #214, which has not set it yet.
             - **Humans** `PanelContainer` · variation `ToySettingRow` · custom_minimum_size (0, 96)
-              - Note: The exact number of humans among the players (m8 §2, #1032), {total} the lobby's players. Bounds and the default per player count are open (research round 2 suggests 4→1 … 10→3).
+              - Note: The exact number of humans among the players (m8 §2, #1032), as lobby.setting.humans_of: {count} of {total}, where {total} is the players now in the lobby (the stepper's maximum). Bounds and the default per player count are open (research round 2 suggests 4→1 … 10→3).
               - **H** `HBoxContainer` · variation `ToyRowSixteen` · gaps from the variation: separation 16
                 - **Name** `Label` · variation `ToySettingRowText` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (160, 0) · text `lobby.setting.humans`: en "Humans" · uk "Люди" · autowrap_mode `AUTOWRAP_WORD_SMART`
                 - **Stepper** `HBoxContainer` · variation `ToyRowTwelve` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (345, 0) · gaps from the variation: separation 12 · alignment `ALIGNMENT_END`
                   - **Less** `Button` · variation `ToyStepper` · icon `chevron-left` (dist/pack/icons/chevron-left.svg, own work) at 24 px, tinted by `ToyStepper`'s icon_*_color
                   - **Value** `Label` · variation `ToySettingRowValue` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (156, 0) · text `lobby.setting.humans_of` with sample {count} = "3", {total} = "10": en "3 of 10" · uk "3 з 10" · horizontal_alignment `CENTER`
+                    - Note: {count} the humans set; {total} the players now in the lobby, which is also the stepper's maximum, so it follows joins and leaves: 3 of 10 in the full lobby, 1 of 4 in the guest's lobby of 4.
                   - **More** `Button` · variation `ToyStepper` · icon `chevron-right` (dist/pack/icons/chevron-right.svg, own work) at 24 px, tinted by `ToyStepper`'s icon_*_color
             - **Anger** `PanelContainer` · variation `ToySettingRow` · custom_minimum_size (0, 96)
               - Note: The neighbours' anger threshold that calls the cops (m8 §5). Its choices are open (the engineer's design); 50 and 100 are the sketch's samples.
@@ -183,6 +184,7 @@ The menu over the running game (no pause): Esc (ui_cancel) opens and closes it; 
 
 - **Hidden:** `Menu/H/Page/TitleRow/HostNote`, `Menu/H/Page/Lobby/Presets`, `Menu/H/Page/Lobby/Body/SettingList/Humans/H/Stepper/Less`, `Menu/H/Page/Lobby/Body/SettingList/Humans/H/Stepper/More`, `Menu/H/Page/Lobby/Body/SettingList/Anger/H/Choice`, `Menu/H/Page/Lobby/Body/SettingList/Duration/H/Stepper/Less`, `Menu/H/Page/Lobby/Body/SettingList/Duration/H/Stepper/More`, `Menu/H/Page/Lobby/Body/SettingList/WifiPasswords/H/Stepper/Less`, `Menu/H/Page/Lobby/Body/SettingList/WifiPasswords/H/Stepper/More`, `Menu/H/Page/Lobby/Body/SettingList/Knives/H/Stepper/Less`, `Menu/H/Page/Lobby/Body/SettingList/Knives/H/Stepper/More`, `Menu/H/Page/Lobby/Body/Side/Players/Scroll/Rows/Ivan`, `Menu/H/Page/Lobby/Body/Side/Players/Scroll/Rows/Marko/H/Ready`, `Menu/H/Page/Lobby/Body/Side/Players/Scroll/Rows/Oksana`, `Menu/H/Page/Lobby/Body/Side/Players/Scroll/Rows/Solomiia`, `Menu/H/Page/Lobby/Body/Side/Players/Scroll/Rows/Bohdan`, `Menu/H/Page/Lobby/Body/Side/Players/Scroll/Rows/Iryna`, `Menu/H/Page/Lobby/Body/Side/Players/Scroll/Rows/Dmytro`, `Menu/H/Page/Lobby/Body/Side/Players/Scroll/Rows/Lesia`.
 - **Changed** `Menu/H/Page/Lobby/Body/SettingList/Name/H/Field`: editable false
+- **Changed** `Menu/H/Page/Lobby/Body/SettingList/Humans/H/Stepper/Value`: text `lobby.setting.humans_of` with sample {count} = "1", {total} = "4": en "1 of 4" · uk "1 з 4" (was: text `lobby.setting.humans_of` with sample {count} = "3", {total} = "10": en "3 of 10" · uk "3 з 10")
 - **Changed** `Menu/H/Page/Lobby/Body/Side/Players/Count`: text `lobby.player_count` with sample {count} = "4", {total} = "10": en "Players 4 / 10" · uk "Гравці 4 / 10" (was: text `lobby.player_count` with sample {count} = "10", {total} = "10": en "Players 10 / 10" · uk "Гравці 10 / 10")
 - **Changed** `Menu/H/Page/Lobby/Body/Side/Players/Scroll/Rows/Host/H/Name`: text `lobby.host_mark` with sample {name} = "Olena" / "Олена": en "Olena · host" · uk "Олена · хост" (was: text `player.you`: en "You" · uk "Ти")
 - **Shown:**
@@ -407,6 +409,7 @@ The menu over the running game (no pause): Esc (ui_cancel) opens and closes it; 
     - **Left** `VBoxContainer` · variation `ToyColumnTwelve` · size flags horizontal `SIZE_EXPAND_FILL`, stretch_ratio 1.1 · gaps from the variation: separation 12
       - **You** `Label` · variation `ToyTextMutedOnLight` · text `player.you`: en "You" · uk "Ти"
       - **Role** `Label` · variation `ToyDisplayOnLight` · text `role.alien`: en "Alien" · uk "Прибулець"
+        - Note: The own side at the display size: ToyDisplayOnLight (mint) with role.alien, ToyDisplayAlertOnLight (coral) with role.human, the human coral as in s6 and s7.
       - **Goal** `Label` · variation `ToyTextOnLight` · custom_minimum_size (560, 0) · text `role.goal.alien`: en "Throw the best party: finish every task before time runs out and the cops arrive." · uk "Влаштуй найкращу вечірку: виконай усі задачі, поки не скінчився час і не приїхали копи." · autowrap_mode `AUTOWRAP_WORD_SMART`
 
 ## `role-human`: what differs from `lobby-host`
@@ -420,19 +423,20 @@ The menu over the running game (no pause): Esc (ui_cancel) opens and closes it; 
     - Note: Reads only the own role and, for a human, the other humans.
     - **Left** `VBoxContainer` · variation `ToyColumnTwelve` · size flags horizontal `SIZE_EXPAND_FILL`, stretch_ratio 1.1 · gaps from the variation: separation 12
       - **You** `Label` · variation `ToyTextMutedOnLight` · text `player.you`: en "You" · uk "Ти"
-      - **Role** `Label` · variation `ToyDisplayOnLight` · text `role.human`: en "Human" · uk "Людина"
+      - **Role** `Label` · variation `ToyDisplayAlertOnLight` · text `role.human`: en "Human" · uk "Людина"
+        - Note: The own side at the display size: ToyDisplayOnLight (mint) with role.alien, ToyDisplayAlertOnLight (coral) with role.human, the human coral as in s6 and s7.
       - **Goal** `Label` · variation `ToyTextOnLight` · custom_minimum_size (560, 0) · text `role.goal.human`: en "You're a human in an alien mask. Ruin the party: run out the clock or anger the neighbours until the cops come." · uk "Ти людина під маскою прибульця. Зіпсуй вечірку: протягни час або розлюти сусідів, щоб приїхали копи." · autowrap_mode `AUTOWRAP_WORD_SMART`
     - **Team** `VBoxContainer` · variation `ToyColumnSixteen` · size flags horizontal `SIZE_EXPAND_FILL` · gaps from the variation: separation 16
       - Note: Humans only (humans know each other: the engineer, 2026-10-20); hidden when there is no other human. Aliens see no list.
       - **Count** `Label` · variation `ToyTextMutedOnLight` · text `esc.role.teammates` with sample {count} = "1": en "Your team · 1" · uk "Твоя команда · 1"
-        - Note: The number of the other humans (here one, Taras, as in s6 and s7).
+        - Note: The number of the other humans (here one, Zinga, as in s6 and s7).
       - **Scroll** `ScrollContainer` · variation `ToyScroll` · custom_minimum_size (0, 375) · the gap between the child and the bar from the variation: scrollbar_h_separation 8 · horizontal_scroll_mode `SCROLL_MODE_DISABLED` (vertical scrolling only); `get_v_scroll_bar().theme_type_variation = &"ToyScrollBar"`; the bar shows when the child is taller
         - Note: The view is 375 px tall; the list scrolls when it is longer.
         - **Grid** `GridContainer` · variation `ToyGridList` · size flags horizontal `SIZE_EXPAND_FILL` · gaps from the variation: h_separation 24, v_separation 8 · columns 2
           - Note: Two columns, in join order; a long list scrolls in the 375 px view.
-          - **Taras** `HBoxContainer` · variation `ToyRowTwelve` · size flags horizontal `SIZE_EXPAND_FILL` · gaps from the variation: separation 12
+          - **Zinga** `HBoxContainer` · variation `ToyRowTwelve` · size flags horizontal `SIZE_EXPAND_FILL` · gaps from the variation: separation 12
             - **Mark** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (30, 30) · texture `teammate-mark` (dist/pack/icons/teammate-mark.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyTextOnLight")
-            - **Name** `Label` · variation `ToyTextOnLight` · size flags horizontal `SIZE_EXPAND_FILL` · text from data (auto_translate_mode = DISABLED), sample: "Taras" / "Тарас" · clip_text true · text_overrun_behavior `OVERRUN_TRIM_ELLIPSIS`
+            - **Name** `Label` · variation `ToyTextOnLight` · size flags horizontal `SIZE_EXPAND_FILL` · text from data (auto_translate_mode = DISABLED), sample: "Zinga" / "Зінга" · clip_text true · text_overrun_behavior `OVERRUN_TRIM_ELLIPSIS`
               - Note: The other human's name (auto_translate_mode DISABLED); a long name is cut with an ellipsis.
 
 ## `guide`: what differs from `lobby-host`

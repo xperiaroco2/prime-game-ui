@@ -1193,6 +1193,11 @@
               "v": "ToyDisplayOnLight",
               "label": "volume_value",
               "context": "light"
+            },
+            {
+              "v": "ToyDisplayAlertOnLight",
+              "label": "mvp_human",
+              "context": "light"
             }
           ]
         }
@@ -1308,7 +1313,7 @@
           "id": "type",
           "kind": "type-scale",
           "title_key": "row_type",
-          "label": "pick_package"
+          "label": "pick_battery"
         },
         {
           "id": "ramp",

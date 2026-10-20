@@ -3,7 +3,7 @@
   "wireframe": "s1",
   "title": "Tutorial",
   "background": "room-light",
-  "note": "The tutorial room. On the first launch the invite with the language choice; in the room, the current lesson at the top and the lesson list at the right, over the MVP round HUD of s7 without the timer, the anger meter, the roster and the role (Hud). After lesson 9 the game returns to the main menu (s2) with no end screen. The nine lessons are the game's (GDD §15: Throwing replaced Delivery in #901); which lessons the MVP adds (points and the workbench, the neighbours' anger and the cops, a task) is open, the engineer's design. Lesson 2 still names a package (the room's item is the game's data).",
+  "note": "The tutorial room. On the first launch the invite with the language choice; in the room, the current lesson at the top and the lesson list at the right, over the MVP round HUD of s7 without the timer, the anger meter, the roster and the role (Hud). After lesson 9 the game returns to the main menu (s2) with no end screen. The nine lessons are the game's (GDD §15: Throwing replaced Delivery in #901); which lessons the MVP adds (points and the workbench, the neighbours' anger and the cops, a task) is open, the engineer's design. Lesson 2 names the battery, an MVP item (a draft; which item lies in the room is the game's data).",
   "states": [
     { "id": "invite", "label": "Запрошення", "note": "First launch only (a user:// flag). Focus starts on Start the tutorial." },
     { "id": "step", "label": "Крок навчання", "note": "Lesson 2, its first instruction: a sentence with one keycap." },
@@ -55,37 +55,15 @@
               "name": "Bars", "type": "VBoxContainer", "variation": "ToyColumnTwelve", "size_flags_vertical": "shrink_end",
               "children": [
                 {
-                  "name": "Health", "type": "VBoxContainer", "variation": "ToyColumnEight", "custom_minimum_size": [300, 0],
+                  "name": "Health", "type": "PanelContainer", "variation": "ToyBarTrack", "custom_minimum_size": [300, 24],
                   "children": [
-                    {
-                      "name": "Cap", "type": "PanelContainer", "variation": "ToyBarLabel", "size_flags_horizontal": "shrink_begin",
-                      "children": [
-                        { "name": "Text", "type": "Label", "variation": "ToyHudCaption", "key": "hud.health" }
-                      ]
-                    },
-                    {
-                      "name": "Track", "type": "PanelContainer", "variation": "ToyBarTrack", "custom_minimum_size": [300, 24],
-                      "children": [
-                        { "name": "Fill", "type": "ProgressBar", "variation": "ToyBarHealth", "show_percentage": false, "max_value": 1, "value": 1, "custom_minimum_size": [0, 14] }
-                      ]
-                    }
+                    { "name": "Fill", "type": "ProgressBar", "variation": "ToyBarHealth", "show_percentage": false, "max_value": 1, "value": 1, "custom_minimum_size": [0, 14] }
                   ]
                 },
                 {
-                  "name": "Stamina", "type": "VBoxContainer", "variation": "ToyColumnEight", "custom_minimum_size": [300, 0],
+                  "name": "Stamina", "type": "PanelContainer", "variation": "ToyBarTrack", "custom_minimum_size": [300, 24],
                   "children": [
-                    {
-                      "name": "Cap", "type": "PanelContainer", "variation": "ToyBarLabel", "size_flags_horizontal": "shrink_begin",
-                      "children": [
-                        { "name": "Text", "type": "Label", "variation": "ToyHudCaption", "key": "hud.stamina" }
-                      ]
-                    },
-                    {
-                      "name": "Track", "type": "PanelContainer", "variation": "ToyBarTrack", "custom_minimum_size": [300, 24],
-                      "children": [
-                        { "name": "Fill", "type": "ProgressBar", "variation": "ToyBarStamina", "show_percentage": false, "max_value": 1, "value": 1, "custom_minimum_size": [0, 14] }
-                      ]
-                    }
+                    { "name": "Fill", "type": "ProgressBar", "variation": "ToyBarStamina", "show_percentage": false, "max_value": 1, "value": 1, "custom_minimum_size": [0, 14] }
                   ]
                 }
               ]

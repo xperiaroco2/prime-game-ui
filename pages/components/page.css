@@ -245,6 +245,7 @@ h2 { font-size: 21px; margin: 34px 0 10px; padding-top: 4px; }
 .sc-mvp-fill { align-self: stretch; flex: 1 1 auto; }
 .sc-mvp-row.sc-mvp-fill > .tv-ToyRosterTag { margin-left: auto; }
 .sc-mvp-between { justify-content: space-between !important; align-self: stretch; }
+.sc-mvp-end { justify-content: flex-end !important; align-self: stretch; }
 .sc-mvp-base { align-items: baseline !important; }
 .sc-mvp-gap { gap: calc(24 * var(--px)); }
 .sc-mvp-pic { display: inline-flex; flex: none; }

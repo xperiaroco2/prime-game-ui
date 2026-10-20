@@ -46,7 +46,7 @@ The black outro of about 3 s: the End phase fades to black (0.4 s; a cut under r
 - **Changed** `V/Title`: variation `ToyTitleHeroAlert` · text `end.title.time_up`: en "Time's up" · uk "Час вийшов" (was: variation `ToyTitleHero` · text `end.title.party`: en "Great party!" · uk "Вечірка вдалася!")
 - **Changed** `V/Winner/Text`: text `end.won_humans`: en "The humans won" · uk "Люди перемогли" (was: text `end.won_aliens`: en "The aliens won" · uk "Прибульці перемогли")
 - **Changed** `V/Reason`: variation `ToyStickerAlert` (was: variation `ToyStickerHighlight`)
-- **Changed** `V/Reason/Text`: text `end.reason.time_up`: en "Time's up and the tasks aren't done." · uk "Час вийшов, а задачі ще не виконано." (was: text `end.reason.all_tasks` with sample {time} = "8:12": en "All tasks done in 8:12." · uk "Усі задачі виконано за 8:12.")
+- **Changed** `V/Reason/Text`: text `end.reason.time_up`: en "The tasks aren't done." · uk "Задачі не виконано." (was: text `end.reason.all_tasks` with sample {time} = "8:12": en "All tasks done in 8:12." · uk "Усі задачі виконано за 8:12.")
 
 ## `cops`: what differs from `aliens`
 

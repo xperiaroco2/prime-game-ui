@@ -170,13 +170,15 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
     at × 1.5 the names and their states read apart (agent);
   - the lobby HUD's players plate is 570 px (the sticker sketch's 380 × 1.5) (agent);
   - the tutorial draws the MVP round HUD of s7 without the timer, the anger meter, the roster (the lesson list takes the
-    top right) and the role: the bars with their captions (the sketch omits them) and the mic beside them at the bottom
+    top right) and the role: the bars (no captions since s7 dropped them, below) and the mic beside them at the bottom
     left, item bar A 51 px up at the bottom right; the lesson plate 1140 px, the list 520 px from 270 px down (agent);
   - Controls lose the two spectating keys (spectating left the MVP) and gain Crouch, Sneak and Throw, the game's keys
     since rounds 4 and 5 (agent);
   - icons at the new scale: the slider knob and the check boxes 42 px with a 6 px outline, the spin arrows 27 px; the
     mic drawn at 42, the check at 36, the lock and the teammate mark at 30 (agent);
   - a human's Role tab lists the other humans under the existing «Твоя команда · {count}» (agent);
+  - a human's role on the Role tab is coral, as on the role reveal (s6) and the HUD's role sticker (s7): a new
+    `ToyDisplayAlertOnLight`, the coral `ToyDisplayOnLight` (6.9:1 on the panel, gate a17); an alien's stays mint (agent);
   - every MVP task's how-to card shows Delivery's frames as a placeholder until its own wordless art is drawn (agent).
 - **The screens s06 to s11 at the 0.75 scale, for the MVP** (the same audit and sketches × 1.5; s11, the mutation
   workbench, is new; it replaces the Styled screens lengths below for these screens). The look choices the agent took
@@ -208,7 +210,11 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
     the centre, who else is there at the bottom left, the capsule note at the bottom right (agent);
   - the workbench: the price as one plural string («4 очки») at the card title's size, since the sketch's big number
     and small word would split a plural the game cannot split; a Close button in place of the «Esc — закрити» line, as
-    the how-to card; every buyable card's button primary, the first focused (agent).
+    the how-to card; every buyable card's button primary, the first focused (agent);
+  - no captions on the health and stamina bars (the engineer wants less screen; the sketch draws none): health is the
+    green bar on top, stamina the yellow one under it, 12 px apart (the sketch's 8 × 1.5), as everywhere in the game;
+    the same in every screen that draws s7's vitals (s1, s6, s9); `hud.health` and `hud.stamina` stay in the deck
+    (agent).
 
 ## Principles
 - **The UI never tells the player what to do.** No "take it to X" line, no destination marker, no key prompts on the HUD;
