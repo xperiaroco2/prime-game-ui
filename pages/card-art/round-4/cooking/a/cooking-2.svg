@@ -1,0 +1,52 @@
+<!-- own work, prime-game-ui, licence: own work -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" width="320" height="240">
+  <defs>
+    <filter id="ka2-w" filterUnits="userSpaceOnUse" x="0" y="0" width="320" height="240">
+      <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="43" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="4" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <style>
+      .k{fill:none;stroke:#1f2433;stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
+      .t{stroke-width:4}
+      .f{stroke-width:3}
+      .w{fill:#fff;stroke:#1f2433;stroke-width:5;stroke-linejoin:round}
+      .a{fill:#e8a33a;stroke:#1f2433;stroke-width:5;stroke-linejoin:round}
+      .i{fill:#1f2433}
+      .o{fill:none;stroke:#e8a33a;stroke-width:5;stroke-linecap:round}
+      .d{fill:none;stroke:#1f2433;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:6 7}
+    </style>
+    <!-- a patty, base centre at 0,0: a dark puck, the rim of its top caught by the light -->
+    <g id="ka2-rp">
+      <path class="i" d="M-25 -11V-5A25 7 0 0 0 25 -5V-11Z"/>
+      <ellipse class="i" cx="0" cy="-11" rx="25" ry="7"/>
+      <path d="M-20 -8A22 5 0 0 0 20 -8" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+  </defs>
+  <g filter="url(#ka2-w)">
+    <ellipse cx="68" cy="213" rx="26" ry="4" fill="#1f2433" opacity=".12"/>
+    <path class="k t" d="M16 212C96 209 210 214 304 211"/>
+    <!-- the food printer: an open frame on a base, a spool of feed on top, the bed -->
+    <rect class="w" x="150" y="186" width="128" height="24" rx="6"/>
+    <circle class="w" cx="262" cy="198" r="5" style="stroke-width:4"/>
+    <path class="k" d="M162 186V52M266 186V52M156 52H272"/>
+    <circle class="w" cx="236" cy="38" r="12" style="stroke-width:4"/>
+    <circle class="i" cx="236" cy="38" r="4"/>
+    <path class="k f" d="M228 46C216 64 214 92 214 124"/>
+    <rect class="w" x="170" y="176" width="88" height="8" rx="3" style="stroke-width:4"/>
+    <!-- the bun growing on the bed: the printed layers in amber, the rest still a dashed outline -->
+    <path class="a" d="M176 176A38 36 0 0 1 185.7 152H242.3A38 36 0 0 1 252 176Z"/>
+    <path class="k f" d="M181 167H247M185 159H243"/>
+    <path class="d" d="M185.7 152A38 36 0 0 1 242.3 152"/>
+    <path class="k t" d="M162 134H266"/>
+    <rect class="i" x="204" y="126" width="20" height="14" rx="3"/>
+    <path class="i" d="M208 139H220L214 151Z"/>
+    <!-- figure, waiting with the raw patty hugged to the chest -->
+    <path class="k" d="M68 152L52 211M68 152L84 211"/>
+    <path class="k" d="M68 152L70 104"/>
+    <use href="#ka2-rp" transform="translate(114 139)"/>
+    <path class="k" d="M70 114L100 121M70 118Q78 142 100 140"/>
+    <circle class="w" cx="73" cy="84" r="19"/>
+    <circle class="i" cx="80" cy="81" r="2.8"/><circle class="i" cx="88" cy="81" r="2.8"/>
+    <path class="k t" d="M80 93h8"/>
+  </g>
+</svg>

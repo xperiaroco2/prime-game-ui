@@ -1,0 +1,60 @@
+<!-- own work, prime-game-ui, licence: own work -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" width="320" height="240">
+  <defs>
+    <filter id="ka4-w" filterUnits="userSpaceOnUse" x="0" y="0" width="320" height="240">
+      <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="47" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="4" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <style>
+      .k{fill:none;stroke:#1f2433;stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
+      .t{stroke-width:4}
+      .f{stroke-width:3}
+      .w{fill:#fff;stroke:#1f2433;stroke-width:5;stroke-linejoin:round}
+      .a{fill:#e8a33a;stroke:#1f2433;stroke-width:5;stroke-linejoin:round}
+      .i{fill:#1f2433}
+      .o{fill:none;stroke:#e8a33a;stroke-width:5;stroke-linecap:round}
+      .d{fill:none;stroke:#1f2433;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:6 7}
+    </style>
+    <!-- the burger, base at 0,0: bottom bun, fried patty, a leaf of the herb, the top bun with seeds (amber: the card's one accent, the food) -->
+    <g id="ka4-bg">
+      <path class="a" d="M-27 -13H27Q27 0 14 0H-14Q-27 0 -27 -13Z"/>
+      <rect class="i" x="-31" y="-26" width="62" height="15" rx="7.5"/>
+      <path class="w" d="M-32 -31H32Q35 -26 30 -22Q24 -27 16 -21Q8 -27 0 -21Q-8 -27 -16 -21Q-24 -27 -30 -22Q-35 -26 -32 -31Z" style="stroke-width:4"/>
+      <path class="a" d="M-30 -31C-30 -60 30 -60 30 -31Z"/>
+      <ellipse cx="-11" cy="-46" rx="3.2" ry="2" fill="#fff"/><ellipse cx="3" cy="-50" rx="3.2" ry="2" fill="#fff"/><ellipse cx="14" cy="-42" rx="3.2" ry="2" fill="#fff"/>
+    </g>
+    <!-- an order ticket, top centre at 0,0: a paper slip with a torn bottom, the burger to make drawn on it, a clip -->
+    <g id="ka4-tk">
+      <path class="w" d="M-44 0H44V118L33 110L22 118L11 110L0 118L-11 110L-22 118L-33 110L-44 118Z"/>
+      <use href="#ka4-bg" transform="translate(0 92) scale(1.05)"/>
+      <rect class="i" x="-11" y="-9" width="22" height="16" rx="3"/>
+    </g>
+    <!-- a plate, top centre at 0,0 -->
+    <path id="ka4-pl" class="w" d="M-46 -2H46Q42 8 30 8H-30Q-42 8 -46 -2Z"/>
+  </defs>
+  <g filter="url(#ka4-w)">
+    <ellipse cx="80" cy="213" rx="26" ry="4" fill="#1f2433" opacity=".12"/>
+    <path class="k t" d="M16 212C96 209 210 214 304 211"/>
+    <!-- the order rail with its ticket, the pass shelf below -->
+    <path class="k" d="M246 28H302"/>
+    <g transform="translate(276 32) scale(.62)">
+      <use href="#ka4-tk"/>
+    </g>
+    <path class="k" d="M128 176H302"/>
+    <path class="k t" d="M152 176L164 194M282 176L270 194"/>
+    <!-- the served burger, lit -->
+    <use href="#ka4-pl" transform="translate(192 168)"/>
+    <use href="#ka4-bg" transform="translate(192 166) scale(1.1)"/>
+    <path class="o" d="M146 108l-9-9M238 108l9-9M136 138h-13M248 138h13"/>
+    <!-- done -->
+    <path class="k" d="M166 60l12 12l24-26" style="stroke-width:8"/>
+    <!-- figure, presenting it -->
+    <path class="k" d="M80 152L64 211M80 152L96 211"/>
+    <path class="k" d="M80 152L82 104"/>
+    <path class="k" d="M84 116L124 136"/>
+    <path class="k" d="M82 114L62 90"/>
+    <circle class="w" cx="84" cy="84" r="19"/>
+    <circle class="i" cx="91" cy="79" r="2.8"/><circle class="i" cx="99" cy="79" r="2.8"/>
+    <path class="k t" d="M89 91q5 4 10 0"/>
+  </g>
+</svg>

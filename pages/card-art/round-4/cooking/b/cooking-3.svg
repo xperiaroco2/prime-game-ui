@@ -1,0 +1,62 @@
+<!-- own work, prime-game-ui, licence: own work -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" width="320" height="240">
+  <defs>
+    <filter id="kb3-w" filterUnits="userSpaceOnUse" x="0" y="0" width="320" height="240">
+      <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="55" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="4" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <style>
+      .k{fill:none;stroke:#1f2433;stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
+      .t{stroke-width:4}
+      .f{stroke-width:3}
+      .w{fill:#fff;stroke:#1f2433;stroke-width:5;stroke-linejoin:round}
+      .a{fill:#e8a33a;stroke:#1f2433;stroke-width:5;stroke-linejoin:round}
+      .i{fill:#1f2433}
+      .o{fill:none;stroke:#e8a33a;stroke-width:5;stroke-linecap:round}
+      .d{fill:none;stroke:#1f2433;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:6 7}
+    </style>
+
+  </defs>
+  <g filter="url(#kb3-w)">
+    <ellipse cx="120" cy="213" rx="28" ry="4" fill="#1f2433" opacity=".12"/>
+    <path class="k t" d="M16 212C96 209 210 214 304 211"/>
+    <!-- the food printer: frame, spool, the bun growing on the bed (the printed part amber, the rest dashed) -->
+    <rect class="w" x="14" y="190" width="80" height="20" rx="5" style="stroke-width:4"/>
+    <path class="k t" d="M24 190V74M84 190V74M18 74H90"/>
+    <circle class="w" cx="40" cy="60" r="9" style="stroke-width:3.5"/>
+    <circle class="i" cx="40" cy="60" r="3"/>
+    <path class="k f" d="M45 67C54 84 54 110 54 148"/>
+    <rect class="w" x="28" y="182" width="52" height="6" rx="2" style="stroke-width:3"/>
+    <path class="a" d="M32 182A22 20 0 0 1 36.4 170H71.6A22 20 0 0 1 76 182Z" style="stroke-width:4"/>
+    <path class="d" d="M36.4 170A22 20 0 0 1 71.6 170" style="stroke-width:3"/>
+    <path class="k f" d="M24 154H84"/>
+    <rect class="i" x="46" y="148" width="16" height="11" rx="2"/>
+    <path class="i" d="M49 158H59L54 168Z"/>
+    <!-- the kettle grill: legs, bowl, flames, grate -->
+    <path class="k" d="M228 166L218 211M278 166L288 211M253 172V211"/>
+    <path class="w" d="M210 142A43 30 0 0 0 296 142Z"/>
+    <path class="a" d="M220 140C213 131 218 124 222 117C224 126 231 129 228 140Z" style="stroke-width:4"/>
+    <path class="a" d="M280 140C274 131 279 124 283 117C285 126 292 129 289 140Z" style="stroke-width:4"/>
+    <path class="k" d="M206 142H300"/>
+    <!-- the spatula under the patty, the patty frying: a flat disc -->
+    <path class="k t" d="M160 150L222 138"/>
+    <path class="w" d="M218 133L240 134L240 141L218 140Z" style="stroke-width:3.5"/>
+    <path class="i" d="M232 131V136A21 5.5 0 0 0 274 136V131Z"/>
+    <ellipse class="i" cx="253" cy="131" rx="21" ry="5.5"/>
+    <path d="M236 133A19 4 0 0 0 270 133" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path class="k t" d="M241 116q-5-5 0-10t0-10M254 112q-5-5 0-10t0-10M267 116q-5-5 0-10t0-10"/>
+    <!-- the lid held up as a shield, the fat spitting at it -->
+    <path class="w" d="M162 56A34 46 0 0 1 162 148Z"/>
+    <path class="k t" d="M196 94q8 0 8 8t-8 8"/>
+    <circle class="i" cx="210" cy="78" r="3.2"/><circle class="i" cx="222" cy="94" r="3.2"/><circle class="i" cx="206" cy="60" r="3.2"/>
+    <path class="k f" d="M216 72l6-3M228 90l6-1M214 56l5-4"/>
+    <!-- figure, ducked behind the lid, the spatula reaching under it -->
+    <path class="k" d="M118 152L100 211M118 152L140 211"/>
+    <path class="k" d="M118 152L122 106"/>
+    <path class="k" d="M122 114L162 100"/>
+    <path class="k" d="M122 120L160 150"/>
+    <circle class="w" cx="124" cy="86" r="19"/>
+    <path class="k f" d="M124 79l6 4l-6 4M140 79l-6 4l6 4"/>
+    <path class="k t" d="M124 97q3-3 5 0t5 0"/>
+  </g>
+</svg>

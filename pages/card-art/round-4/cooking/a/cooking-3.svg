@@ -1,0 +1,47 @@
+<!-- own work, prime-game-ui, licence: own work -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" width="320" height="240">
+  <defs>
+    <filter id="ka3-w" filterUnits="userSpaceOnUse" x="0" y="0" width="320" height="240">
+      <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="45" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="4" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <style>
+      .k{fill:none;stroke:#1f2433;stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
+      .t{stroke-width:4}
+      .f{stroke-width:3}
+      .w{fill:#fff;stroke:#1f2433;stroke-width:5;stroke-linejoin:round}
+      .a{fill:#e8a33a;stroke:#1f2433;stroke-width:5;stroke-linejoin:round}
+      .i{fill:#1f2433}
+      .o{fill:none;stroke:#e8a33a;stroke-width:5;stroke-linecap:round}
+      .d{fill:none;stroke:#1f2433;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:6 7}
+    </style>
+
+  </defs>
+  <g filter="url(#ka3-w)">
+    <ellipse cx="74" cy="213" rx="30" ry="4" fill="#1f2433" opacity=".12"/>
+    <path class="k t" d="M16 212C96 209 210 214 304 211"/>
+    <!-- the grill: legs, the trough, the flames, the grate -->
+    <path class="k" d="M182 180L172 211M246 180L256 211"/>
+    <path class="w" d="M160 152H268L254 180H174Z"/>
+    <path class="a" d="M172 150C164 140 170 132 174 124C176 134 184 138 180 150Z" style="stroke-width:4"/>
+    <path class="a" d="M252 150C246 140 252 132 256 124C258 134 266 138 262 150Z" style="stroke-width:4"/>
+    <path class="k" d="M156 151H272"/>
+    <!-- the spatula under the patty, the patty frying -->
+    <path class="w" d="M172 140L198 143L197 151L171 148Z" style="stroke-width:4"/>
+    <rect class="i" x="190" y="134" width="50" height="15" rx="7.5"/>
+    <path class="k t" d="M203 122q-5-5 0-10t0-10M217 118q-5-5 0-10t0-10M231 122q-5-5 0-10t0-10"/>
+    <!-- the fat spitting at the cook -->
+    <circle class="i" cx="176" cy="112" r="3.2"/><circle class="i" cx="160" cy="98" r="3.2"/><circle class="i" cx="178" cy="90" r="3.2"/>
+    <path class="k f" d="M186 118l6 4M170 104l6 4M188 96l6 3"/>
+    <!-- figure, leaning back, the spatula held at arm's length, the other arm up as a guard -->
+    <path class="k" d="M72 152L98 211M72 152L50 211"/>
+    <path class="k" d="M72 152L56 108"/>
+    <path class="k t" d="M112 128L174 143"/>
+    <path class="k" d="M59 118L114 128"/>
+    <path class="k" d="M59 122L86 110L84 88"/>
+    <circle class="w" cx="46" cy="90" r="19"/>
+    <path class="k f" d="M45 83l6 4l-6 4M62 83l-6 4l6 4"/>
+    <path class="k t" d="M44 101q3-3 5 0t5 0"/>
+    <path class="k t" d="M30 64l-4-7M44 60v-9"/>
+  </g>
+</svg>

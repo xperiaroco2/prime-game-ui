@@ -1,0 +1,70 @@
+<!-- own work, prime-game-ui, licence: own work -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" width="320" height="240">
+  <defs>
+    <filter id="kb4-w" filterUnits="userSpaceOnUse" x="0" y="0" width="320" height="240">
+      <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="57" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="4" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <style>
+      .k{fill:none;stroke:#1f2433;stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
+      .t{stroke-width:4}
+      .f{stroke-width:3}
+      .w{fill:#fff;stroke:#1f2433;stroke-width:5;stroke-linejoin:round}
+      .a{fill:#e8a33a;stroke:#1f2433;stroke-width:5;stroke-linejoin:round}
+      .i{fill:#1f2433}
+      .o{fill:none;stroke:#e8a33a;stroke-width:5;stroke-linecap:round}
+      .d{fill:none;stroke:#1f2433;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:6 7}
+    </style>
+    <!-- the burger, base at 0,0: bottom bun, fried patty, the seeded top bun (amber: the food) -->
+    <g id="kb4-bg">
+      <path class="a" d="M-27 -13H27Q27 0 14 0H-14Q-27 0 -27 -13Z"/>
+      <rect class="i" x="-31" y="-27" width="62" height="16" rx="8"/>
+      <path class="a" d="M-30 -27C-30 -56 30 -56 30 -27Z"/>
+      <ellipse cx="-11" cy="-42" rx="3.2" ry="2" fill="#fff"/><ellipse cx="3" cy="-46" rx="3.2" ry="2" fill="#fff"/><ellipse cx="14" cy="-38" rx="3.2" ry="2" fill="#fff"/>
+    </g>
+    <!-- the order's herb icons, centre 0,0, about 16 wide: the star (the one this order wants, amber), the moon, the drop -->
+    <polygon id="kb4-st" class="a" points="0,-9 2.35,-3.24 8.56,-2.78 3.8,1.24 5.29,7.28 0,4 -5.29,7.28 -3.8,1.24 -8.56,-2.78 -2.35,-3.24" style="stroke-width:3"/>
+    <g id="kb4-mo"><circle class="i" r="8"/><circle cx="4.5" cy="-2.5" r="6.5" fill="#fff"/></g>
+    <path id="kb4-dr" class="i" d="M0 -8C-4 -2 -6 1 -6 3A6 6 0 0 0 6 3C6 1 4 -2 0 -8Z"/>
+    <!-- an order ticket, top centre at 0,0: a paper slip with a torn bottom, the burger and the herb's icon, a clip -->
+    <g id="kb4-tk">
+      <path class="w" d="M-44 0H44V136L33 128L22 136L11 128L0 136L-11 128L-22 136L-33 128L-44 136Z"/>
+      <use href="#kb4-bg" transform="translate(0 74) scale(.95)"/>
+      <use href="#kb4-st" transform="translate(0 100) scale(1.15)"/>
+      <rect class="i" x="-11" y="-9" width="22" height="16" rx="3"/>
+    </g>
+    <!-- a greenhouse flower head, centre 0,0: five petals, a disc that carries the round's icon -->
+    <g id="kb4-fl">
+      <g fill="#fff" stroke="#1f2433" stroke-width="3.5" stroke-linejoin="round"><circle cx="0" cy="-11" r="8"/><circle cx="10.46" cy="-3.4" r="8"/><circle cx="6.47" cy="8.9" r="8"/><circle cx="-6.47" cy="8.9" r="8"/><circle cx="-10.46" cy="-3.4" r="8"/></g>
+      <g fill="#fff"><circle cx="0" cy="-11" r="8"/><circle cx="10.46" cy="-3.4" r="8"/><circle cx="6.47" cy="8.9" r="8"/><circle cx="-6.47" cy="8.9" r="8"/><circle cx="-10.46" cy="-3.4" r="8"/></g>
+      <circle class="w" r="10" style="stroke-width:3"/>
+    </g>
+  </defs>
+  <g filter="url(#kb4-w)">
+    <ellipse cx="72" cy="208" rx="22" ry="4" fill="#1f2433" opacity=".12"/>
+    <path class="k t" d="M16 212C96 209 210 214 304 211"/>
+    <!-- the order board with the ticket -->
+    <rect class="w" x="170" y="18" width="132" height="176" rx="6"/>
+    <circle class="i" cx="181" cy="29" r="3.5"/><circle class="i" cx="291" cy="29" r="3.5"/><circle class="i" cx="181" cy="183" r="3.5"/><circle class="i" cx="291" cy="183" r="3.5"/>
+    <g transform="translate(236 34)">
+      <use href="#kb4-tk"/>
+    </g>
+    <!-- the burger, its herb on top, served up to the ticket, lit -->
+    <path class="o" d="M102 62l-7-7M152 62l7-7M92 92h-11"/>
+    <use href="#kb4-bg" transform="translate(126 112) scale(.85)"/>
+    <path class="k f" d="M131 72V60"/>
+    <g transform="translate(131 52) scale(.8)">
+      <use href="#kb4-fl"/>
+    </g>
+    <use href="#kb4-st" transform="translate(131 52) scale(.7)"/>
+    <path class="k" d="M30 40l10 10l22-24" style="stroke-width:8"/>
+    <!-- figure, a small hop: one arm serves, one arm up -->
+    <path class="k" d="M72 146L60 196M72 146L88 194"/>
+    <path class="k" d="M72 146L74 98"/>
+    <path class="k" d="M75 110L104 106"/>
+    <path class="k" d="M74 108L52 80"/>
+    <circle class="w" cx="78" cy="78" r="19"/>
+    <circle class="i" cx="84" cy="73" r="2.8"/><circle class="i" cx="92" cy="73" r="2.8"/>
+    <path class="k t" d="M83 85q5 5 10 0"/>
+  </g>
+</svg>
