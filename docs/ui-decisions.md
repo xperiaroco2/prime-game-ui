@@ -22,6 +22,11 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
   UI must feel alien and toy-like, like the vinyl-toy characters; look at how the alien comedy and space games he
   takes as the game's north star build their UI (a private tone reference, not named here). Round 3 of the research
   starts from that.
+- **Ink and mint sticker** (the engineer, 2026-10-20, chat, translated, on the
+  [alien toy page](https://claude.ai/artifact/2pqA9gzCUXEvLaEHT8432B)): direction 4, "really liked it, especially the
+  colours": deep purple panels, mint plates, ink outlines and hard ink shadows, the alien green for the main action, a
+  coral for alarm. Next, shown on five real screens in three strengths (calmer, as picked, louder) for him to pick
+  ([the screens page](https://claude.ai/artifact/HtfG17WM8Wok5TqMkrQZkf), `pages/sticker/`) (agent).
 
 ## Principles
 - **The UI never tells the player what to do.** No "take it to X" line, no destination marker, no key prompts on the HUD;

@@ -1,0 +1,230 @@
+<title>Ink and Mint Screens</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kablammo&family=Underdog&family=Nunito:wght@400;700;800;900&family=Rubik:wght@600;700&family=Commissioner:wght@400;600;700&display=swap">
+<style>
+/* Layout: one picked direction ("Ink and mint sticker") on five real screens; a switch on top swaps the whole page
+   between three strengths of the same palette (calmer, as picked, louder). Quiet graphite chrome.
+   Single dark theme by choice: the samples are night scenes. */
+:root {
+  color-scheme: dark;
+  --ground: #141317;
+  --raise: #1C1B21;
+  --line: #2E2C35;
+  --ink-c: #ECE9F1;
+  --dim: #A6A2B1;
+  --chrome: "Commissioner", "Segoe UI", system-ui, sans-serif;
+}
+body { background: var(--ground); color: var(--ink-c); font: 16px/1.5 var(--chrome); }
+.wrap { max-width: 1040px; margin: 0 auto; padding-block: 28px 64px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid; gap: 40px; }
+h1 { font-size: clamp(30px, 6vw, 46px); line-height: 1.05; margin: 0; text-wrap: balance; letter-spacing: -0.01em; }
+h2 { font-size: clamp(22px, 4vw, 28px); line-height: 1.1; margin: 0; text-wrap: balance; }
+h3 { font-size: 13px; text-transform: uppercase; letter-spacing: .1em; color: var(--dim); margin: 0; font-weight: 600; }
+p { margin: 0; max-width: 66ch; }
+.lede { color: var(--dim); font-size: 17px; }
+.intro { display: grid; gap: 14px; }
+.how { border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; background: var(--raise); display: grid; gap: 6px; }
+.switch { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--ground); padding-block: 10px; display: grid; gap: 8px; border-bottom: 1px solid var(--line); }
+.seg { display: flex; flex-wrap: wrap; gap: 8px; }
+.seg button { font: 600 15px/1.2 var(--chrome); color: var(--ink-c); background: var(--raise); border: 1px solid var(--line); border-radius: 999px; padding: 8px 16px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--ink-c); color: var(--ground); border-color: var(--ink-c); }
+.seg button:focus-visible { outline: 2px solid var(--ink-c); outline-offset: 2px; }
+.vnote { color: var(--dim); font-size: 14px; min-height: 2.6em; }
+.screen { display: grid; gap: 10px; }
+.screen .cap { color: var(--dim); font-size: 14px; }
+.frame { position: relative; width: 100%; max-width: 100%; aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden; background: #000; }
+.stage { position: absolute; left: 0; top: 0; width: 960px; height: 540px; transform-origin: 0 0; transform: scale(var(--s, 1)); overflow: hidden; }
+.stage > img.bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.shade { position: absolute; inset: 0; background: rgba(20, 8, 36, .32); }
+.shade.deep { background: rgba(20, 8, 36, .72); }
+.pal { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 8px; }
+.sw { display: grid; gap: 4px; font-size: 12px; color: var(--dim); }
+.sw i { display: block; height: 36px; border-radius: 8px; border: 1px solid var(--line); }
+.sw b { color: var(--ink-c); font-weight: 600; }
+.foot { color: var(--dim); font-size: 14px; display: grid; gap: 6px; }
+
+/* ---------- The style. Godot-safe: solid fills, one-colour borders, radii, one shadow without spread, one text
+   outline; rotation is a node transform; the alien picture is content in a TextureRect, not a panel texture. ---------- */
+.st { --pu:#2B1846; --pud:#1F1033; --ink:#1E1230; --mint:#CFF3DF; --gr:#A6E85A; --co:#FF8A6B; --ye:#FFD60A; --mu:#B7A8D6; --wh:#FFFFFF;
+  --ft: "Nunito", "Segoe UI", sans-serif; --fn: "Rubik", "Segoe UI", sans-serif; }
+.st.va { --ow: 3px; --sh: 3px; --rot: 0deg; --rot2: 0deg; --fd: "Nunito", "Segoe UI", sans-serif; --fdw: 900; --fdx: 1; }
+.st.vb { --ow: 4px; --sh: 5px; --rot: -4deg; --rot2: 6deg; --fd: "Kablammo", "Arial Black", sans-serif; --fdw: 400; --fdx: 1.1; }
+.st.vc { --ow: 5px; --sh: 8px; --rot: -7deg; --rot2: 9deg; --fd: "Underdog", "Arial Black", sans-serif; --fdw: 400; --fdx: 1.05; }
+.st .abs { position: absolute; }
+.st .plate { background: var(--mint); color: var(--ink); border: var(--ow) solid var(--ink); border-radius: 16px; box-shadow: var(--sh) var(--sh) 0 var(--ink); }
+.st .panel { background: var(--pu); color: var(--mint); border: var(--ow) solid var(--ink); border-radius: 20px; box-shadow: var(--sh) var(--sh) 0 var(--ink); }
+.st .title { font-family: var(--fd); font-weight: var(--fdw); color: var(--gr); -webkit-text-stroke: calc(var(--ow) * 2) var(--ink); paint-order: stroke fill; line-height: 1.02; }
+.st .btn { display: block; text-align: left; padding: 9px 18px; border: var(--ow) solid var(--ink); border-radius: 14px; box-shadow: var(--sh) var(--sh) 0 var(--ink); font: 900 19px/1.2 var(--ft); color: var(--ink); background: var(--mint); }
+.st .btn.p { background: var(--gr); }
+.st .btn.g { background: transparent; border-color: transparent; box-shadow: none; color: var(--mu); }
+.st .stk { display: inline-block; border: var(--ow) solid var(--ink); border-radius: 10px; padding: 3px 10px; font: 900 15px/1.25 var(--ft); color: var(--ink); transform: rotate(var(--rot)); }
+.st .stk.r2 { transform: rotate(var(--rot2)); }
+.st .stk.gr { background: var(--gr); } .st .stk.co { background: var(--co); } .st .stk.mi { background: var(--mint); } .st .stk.ye { background: var(--ye); }
+.st .lab { font: 800 15px/1.2 var(--ft); }
+.st .muted { color: var(--mu); }
+.st .track { position: relative; height: 18px; background: var(--wh); border: 3px solid var(--ink); border-radius: 10px; overflow: hidden; }
+.st .track b { position: absolute; left: 0; top: 0; bottom: 0; display: block; }
+.st .hue { display: inline-block; width: 18px; height: 18px; border-radius: 50%; border: 3px solid var(--ink); vertical-align: -4px; margin-right: 8px; }
+.st .num { font: 700 30px/1.2 var(--fn); }
+.st .cross { left: 477px; top: 267px; width: 6px; height: 6px; border-radius: 50%; background: var(--wh); }
+
+/* main menu */
+.st .mm { left: 56px; top: 44px; width: 400px; display: grid; gap: 10px; }
+.st .mm .title { font-size: calc(54px * var(--fdx)); margin-bottom: 10px; }
+.st .portrait { right: 70px; top: 70px; width: 300px; padding: 10px; background: var(--mint); border: var(--ow) solid var(--ink); border-radius: 22px; box-shadow: var(--sh) var(--sh) 0 var(--ink); transform: rotate(var(--rot2)); }
+.st .portrait img { display: block; width: 100%; border-radius: 14px; }
+.st .portrait .stk { position: absolute; left: -26px; bottom: 30px; }
+.st .ver { right: 40px; bottom: 26px; }
+
+/* lobby */
+.st .lob { left: 40px; top: 40px; width: 380px; padding: 16px 18px; display: grid; gap: 12px; }
+.st .lob .row { display: flex; align-items: center; justify-content: space-between; gap: 10px; font: 800 18px/1.2 var(--ft); }
+.st .lob .head { display: flex; align-items: center; justify-content: space-between; }
+.st .lob .t { font: 900 22px/1.15 var(--ft); color: var(--mint); }
+.st .code { right: 40px; top: 40px; padding: 8px 16px; display: grid; gap: 2px; }
+.st .code .num { font-size: 26px; letter-spacing: .06em; }
+
+/* round HUD */
+.st .timer { left: 50%; top: 26px; transform: translateX(-50%); padding: 2px 18px; }
+.st .anger { right: 26px; top: 26px; width: 240px; padding: 10px 12px; display: grid; gap: 8px; }
+.st .role { left: 26px; top: 26px; }
+.st .ann { left: 50%; top: 112px; transform: translateX(-50%); white-space: nowrap; padding: 8px 22px; font: 900 26px/1.2 var(--ft); }
+.st .ann .stk { position: absolute; right: -24px; top: -20px; font-size: 22px; }
+.st .slot { left: 26px; bottom: 26px; width: 88px; height: 88px; display: grid; place-items: end center; padding-bottom: 8px; box-sizing: border-box; font: 800 14px/1 var(--ft); }
+.st .bars { left: 132px; bottom: 30px; width: 190px; display: grid; gap: 8px; }
+.st .bars .track { height: 14px; }
+.st .mic { right: 26px; bottom: 26px; width: 58px; height: 58px; border-radius: 50%; display: grid; place-items: center; }
+.st .mic { position: absolute; }
+.st .mic i { position: absolute; left: 50%; top: 9px; width: 12px; height: 20px; margin-left: -6px; border-radius: 6px; background: var(--ink); }
+.st .mic u { position: absolute; left: 50%; top: 17px; width: 22px; height: 13px; margin-left: -11px; border: 3px solid var(--ink); border-top-width: 0; border-radius: 0 0 12px 12px; box-sizing: border-box; }
+.st .mic s { position: absolute; left: 50%; top: 30px; width: 3px; height: 8px; margin-left: -1.5px; background: var(--ink); }
+
+/* settings */
+.st .esc { left: 70px; top: 46px; width: 820px; height: 448px; display: grid; grid-template-columns: 210px 1fr; gap: 0; overflow: hidden; }
+.st .tabs { display: grid; align-content: start; gap: 8px; padding: 22px 16px; border-right: var(--ow) solid var(--ink); }
+.st .tab { font: 900 18px/1.2 var(--ft); padding: 8px 14px; border-radius: 12px; color: var(--mint); border: var(--ow) solid transparent; }
+.st .tab.on { background: var(--mint); color: var(--ink); border-color: var(--ink); }
+.st .rows { padding: 22px 26px; display: grid; align-content: start; gap: 14px; }
+.st .rows .title { font-size: calc(32px * var(--fdx)); margin-bottom: 4px; }
+.st .srow { display: grid; grid-template-columns: 1fr 300px; align-items: center; gap: 16px; font: 800 18px/1.2 var(--ft); color: var(--mint); }
+.st .slider { position: relative; height: 18px; }
+.st .slider .track { height: 18px; }
+.st .slider .knob { position: absolute; top: 50%; width: 28px; height: 28px; margin: -14px 0 0 -14px; border-radius: 50%; background: var(--mint); border: var(--ow) solid var(--ink); }
+.st .drop { padding: 6px 14px; display: flex; justify-content: space-between; font: 800 17px/1.2 var(--ft); border-radius: 12px; }
+.st .chips { display: flex; gap: 10px; }
+.st .chip { padding: 5px 14px; border: var(--ow) solid var(--ink); border-radius: 999px; font: 900 16px/1.2 var(--ft); background: var(--mint); color: var(--ink); }
+.st .chip.on { background: var(--gr); box-shadow: var(--sh) var(--sh) 0 var(--ink); }
+.st .check { width: 30px; height: 30px; border-radius: 8px; display: grid; place-items: center; font: 900 20px/1 var(--ft); background: var(--gr); }
+
+/* end */
+.st .endf { position: absolute; inset: 0; background: var(--pud); display: grid; align-content: center; justify-items: center; gap: 20px; text-align: center; }
+.st .endf .title { font-size: calc(84px * var(--fdx)); }
+.st .endf .win { font: 900 30px/1.2 var(--ft); padding: 8px 24px; transform: rotate(var(--rot)); }
+.st .endf .stk { font-size: 20px; }
+</style>
+
+<main class="wrap">
+  <header class="intro">
+    <h3>prime-game · UI · напрям 4 · 20.10.2026</h3>
+    <h1>«Наліпка: м'ята й чорнило» на справжніх екранах</h1>
+    <p class="lede">Ви обрали четвертий напрям через кольори. Тут та сама палітра на п'яти екранах гри: головне меню, лобі, раунд, налаштування, кінець. Перемикач нагорі змінює силу стилю на всій сторінці: від спокійнішого до гучнішого.</p>
+    <div class="how"><p><b>Як відповісти:</b> скажіть, яка сила ближча (A, Б чи В) і що змінити на конкретному екрані. Тексти — лише зразки, а намальовано все тим, що вміє Godot.</p></div>
+  </header>
+
+  <div class="switch">
+    <div class="seg" role="group" aria-label="Сила стилю">
+      <button type="button" id="b-va" data-v="va">A · Спокійніше</button>
+      <button type="button" id="b-vb" data-v="vb">Б · Як на сторінці</button>
+      <button type="button" id="b-vc" data-v="vc">В · Гучніше</button>
+    </div>
+    <p class="vnote" id="vnote"></p>
+  </div>
+
+  <div id="screens" class="intro" style="gap:36px"></div>
+
+  <section class="intro">
+    <h2>Палітра</h2>
+    <div class="pal">
+      <div class="sw"><i style="background:#2B1846"></i><b>#2B1846</b>фіолетовий: панелі</div>
+      <div class="sw"><i style="background:#1F1033"></i><b>#1F1033</b>глибокий фіолетовий: тло</div>
+      <div class="sw"><i style="background:#1E1230"></i><b>#1E1230</b>чорнило: контури й текст</div>
+      <div class="sw"><i style="background:#CFF3DF"></i><b>#CFF3DF</b>м'ятний: плашки</div>
+      <div class="sw"><i style="background:#A6E85A"></i><b>#A6E85A</b>прибульський зелений: головне</div>
+      <div class="sw"><i style="background:#FF8A6B"></i><b>#FF8A6B</b>кораловий: тривога</div>
+      <div class="sw"><i style="background:#FFD60A"></i><b>#FFD60A</b>жовтий: витривалість</div>
+      <div class="sw"><i style="background:#B7A8D6"></i><b>#B7A8D6</b>приглушений</div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <p>Шрифти: заголовки A — Nunito Black, Б — Kablammo, В — Underdog; текст — Nunito; цифри — Rubik. Усі мають ліцензію OFL і українські літери (перевірено на сторінках раундів 3 і 1).</p>
+    <p>Прибулець і маєток — арт нашої гри з арт-треку. Джерело: <code>pages/sticker/</code> у prime-game-ui.</p>
+  </footer>
+</main>
+
+<script>
+const NOTES = {
+  va: "Спокійніше: контури 3 px, тінь 3 px, нічого не нахилено, заголовки набрано звичайним жирним шрифтом. Найдоросліший вигляд і найкраща читабельність.",
+  vb: "Як на сторінці раунду 3: контури 4 px, тінь 5 px, наліпки трохи нахилені, заголовки «живим» мультяшним шрифтом.",
+  vc: "Гучніше: контури 5 px, тінь 8 px, наліпки нахилені сильніше, заголовки гумовими рукописними капітелями."
+};
+const track = (w, c) => `<div class="track"><b style="width:${w}%;background:${c}"></b></div>`;
+const hue = c => `<i class="hue" style="background:${c}"></i>`;
+const SCREENS = [
+  { cap: "Головне меню", html: `<img class="bg" src="img/estate.jpg" alt=""><div class="shade deep"></div>
+    <div class="abs mm"><div class="title">Вечірка<br>на Землі</div>
+      <span class="btn p">Хост</span><span class="btn">Приєднатися</span><span class="btn">Приєднатися за адресою</span>
+      <span class="btn">Навчання</span><span class="btn">Налаштування</span><span class="btn g">Вийти</span></div>
+    <div class="abs portrait"><img src="img/alien.jpg" alt="Прибулець"><span class="stk co">Новий сезон</span></div>
+    <span class="abs ver stk mi r2">Версія 0.9</span>` },
+  { cap: "Лобі (у світі гри)", html: `<img class="bg" src="img/estate.jpg" alt=""><div class="shade"></div>
+    <div class="abs lob panel"><div class="head"><span class="t">Вечірка Ґлорпа</span><span class="stk gr">Готові 3 з 5</span></div>
+      <div class="row">${hue("#1C7A82")}<span style="flex:1">Ґлорп</span><span class="stk gr">Готово</span></div>
+      <div class="row">${hue("#E66B57")}<span style="flex:1">Їжак</span><span class="stk gr r2">Готово</span></div>
+      <div class="row">${hue("#9475D1")}<span style="flex:1">Зінґа</span><span class="stk gr">Готово</span></div>
+      <div class="row">${hue("#C9A227")}<span style="flex:1">Бульк</span><span class="muted lab">…</span></div>
+      <div class="row">${hue("#3E9A6B")}<span style="flex:1">Єва-77</span><span class="muted lab">…</span></div></div>
+    <div class="abs code plate"><span class="lab">Код кімнати</span><span class="num">7KX-2Q</span></div>
+    <div class="abs cross"></div>` },
+  { cap: "Раунд: HUD", html: `<img class="bg" src="img/estate.jpg" alt=""><div class="shade"></div>
+    <div class="abs timer plate num">07:42</div>
+    <span class="abs role stk mi">Прибулець</span>
+    <div class="abs anger plate"><span class="lab">Сусіди злі</span>${track(62, "var(--co)")}<span class="stk co" style="justify-self:start">Копи за 0:58</span></div>
+    <div class="abs ann plate">${hue("#1C7A82")}Ґлорп вбив Їжака<span class="stk co r2">!</span></div>
+    <div class="abs cross"></div>
+    <div class="abs slot plate">Батарея</div>
+    <div class="abs bars">${track(80, "var(--gr)")}${track(45, "var(--ye)")}</div>
+    <div class="abs mic plate"><i></i><u></u><s></s></div>` },
+  { cap: "Налаштування (меню Esc поверх гри)", html: `<img class="bg" src="img/estate.jpg" alt=""><div class="shade deep"></div>
+    <div class="abs esc panel">
+      <div class="tabs"><span class="tab">Гра</span><span class="tab">Роль</span><span class="tab">Довідка</span><span class="tab">Лобі</span><span class="tab">Персонаж</span><span class="tab on">Налаштування</span></div>
+      <div class="rows"><div class="title">Звук і голос</div>
+        <div class="srow"><span>Загальна гучність</span><div class="slider">${track(70, "var(--gr)")}<i class="knob" style="left:70%"></i></div></div>
+        <div class="srow"><span>Режим мікрофона</span><div class="drop plate"><span>Голосова активація</span><span>▾</span></div></div>
+        <div class="srow"><span>Мова</span><div class="chips"><span class="chip on">Українська</span><span class="chip">English</span></div></div>
+        <div class="srow"><span>Великий текст</span><div class="check plate">✓</div></div>
+      </div></div>` },
+  { cap: "Кінець раунду", html: `<div class="endf"><div class="title">Вечірку<br>закрито</div><div class="win plate">Люди перемогли</div><span class="stk co r2">Копи приїхали о 22:14</span></div>` }
+];
+document.getElementById("screens").innerHTML = SCREENS.map(s => `<section class="screen"><h2>${s.cap}</h2><div class="frame st"><div class="stage">${s.html}</div></div></section>`).join("");
+
+function setV(v) {
+  document.querySelectorAll(".frame.st").forEach(f => { f.classList.remove("va", "vb", "vc"); f.classList.add(v); });
+  document.querySelectorAll(".seg button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.v === v)));
+  document.getElementById("vnote").textContent = NOTES[v];
+  try { localStorage.setItem("sticker-v", v); } catch (e) {}
+}
+let start = "vb";
+try { start = localStorage.getItem("sticker-v") || "vb"; } catch (e) {}
+setV(NOTES[start] ? start : "vb");
+document.querySelectorAll(".seg button").forEach(b => b.addEventListener("click", () => setV(b.dataset.v)));
+
+const fit = () => document.querySelectorAll(".frame").forEach(f => {
+  f.querySelector(".stage").style.setProperty("--s", f.clientWidth / 960);
+});
+fit();
+if ("ResizeObserver" in window) new ResizeObserver(fit).observe(document.body); else addEventListener("resize", fit);
+</script>
