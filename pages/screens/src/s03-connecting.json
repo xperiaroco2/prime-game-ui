@@ -3,7 +3,7 @@
   "wireframe": "s3",
   "title": "Connecting, failures and loading",
   "background": "black",
-  "note": "One screen on the opaque night backdrop for the join (its steps and each failure in plain words), a session that ended (lost, map failed, error), a host that could not start, and the map loading with the players and a tip or a how-to card. Leaving (left, closed) shows nothing here: straight to s2. Every text is rebuilt on NOTIFICATION_TRANSLATION_CHANGED.",
+  "note": "One screen on the opaque night backdrop for the join (its steps and each failure in plain words), a session that ended (lost, map failed, error), a host that could not start, and the map loading with the players and a tip or a how-to card. Leaving (left, closed) shows nothing here: straight to s2. Every text is rebuilt on NOTIFICATION_TRANSLATION_CHANGED. Open (the engineer's design): whether loading shows the aliens' flight to Earth (m8 §1). New work: wordless card art for each MVP task; the load-card frame shows Delivery's art as a placeholder.",
   "states": [
     { "id": "finding", "label": "Пошук", "note": "A code join, step FINDING; the host's name is not known yet. CONNECTING looks the same with connect.step.connecting." },
     { "id": "connecting-direct", "label": "Напряму", "note": "A Direct join (LAN or VPN): it starts at CONNECTING, shows no code row and no address." },
@@ -23,39 +23,20 @@
     { "id": "load-card", "label": "З карткою", "note": "As load, with the how-to card of a task type in this round the player has not completed instead of the players and the tip." }
   ],
   "nodes": [
+    { "name": "Night", "type": "Panel", "variation": "ToyBackdropNight", "anchors_preset": "full_rect", "note": "Opaque; the style's darkest, used as the decided black. mouse_filter STOP, so nothing behind it takes input." },
     {
-      "name": "Night", "type": "Panel", "variation": "ToyBackdropNight", "anchors_preset": "full_rect",
-      "note": "Opaque; the style's darkest, used as the decided black. mouse_filter STOP, so nothing behind it takes input."
-    },
-    {
-      "name": "Connecting", "type": "VBoxContainer", "variation": "ToyColumnTwentyFour", "states": ["finding", "connecting-direct", "joined"],
-      "anchors_preset": "center", "grow_horizontal": "both", "grow_vertical": "both", "custom_minimum_size": [768, 0],
-      "alignment": "center",
-      "note": "Shown from Join until the lobby (s4) or a failure. Under the texts, a code join shows the code (CodeRow) and then the time since Join in m:ss (Elapsed). A Direct join shows no address and no CodeRow.",
+      "name": "Connecting", "type": "VBoxContainer", "variation": "ToyColumnThirtyTwo", "states": ["finding", "connecting-direct", "joined"], "anchors_preset": "center", "grow_horizontal": "both", "grow_vertical": "both", "custom_minimum_size": [1152, 0], "alignment": "center", "note": "Shown from Join until the lobby (s4) or a failure. Under the texts, a code join shows the code (CodeRow) and then the time since Join in m:ss (Elapsed). A Direct join shows no address and no CodeRow.",
       "children": [
+        { "name": "Spinner", "type": "Panel", "variation": "ToySpinner", "custom_minimum_size": [135, 135], "size_flags_horizontal": "shrink_center", "note": "Turns once a second about its centre (pivot_offset_ratio 0.5, 0.5); half speed under reduced motion." },
         {
-          "name": "Spinner", "type": "Panel", "variation": "ToySpinner", "custom_minimum_size": [90, 90], "size_flags_horizontal": "shrink_center",
-          "note": "Turns once a second about its centre (pivot_offset_ratio 0.5, 0.5); half speed under reduced motion."
-        },
-        {
-          "name": "Texts", "type": "VBoxContainer", "variation": "ToyColumnEight",
+          "name": "Texts", "type": "VBoxContainer", "variation": "ToyColumnTwelve",
           "children": [
-            {
-              "name": "Title", "type": "Label", "variation": "ToyTitleOnDark", "key": "connect.connecting_unnamed",
-              "horizontal_alignment": "center", "autowrap_mode": "word_smart", "custom_minimum_size": [768, 0],
-              "per_state": { "joined": { "key": "connect.connecting", "args": { "lobby": { "uk": "Лобі: Олена", "en": "Olena's lobby" } } } },
-              "note": "connect.connecting_unnamed until the host's lobby name arrives (#214), then connect.connecting with {lobby}: a name the host typed is player data and never translated; while the host's lobby name is the default, {lobby} = tr(\"lobby.default_name\") with the host's name, as on s4."
-            },
-            {
-              "name": "Step", "type": "Label", "variation": "ToyTextOnDark", "key": "connect.step.finding", "horizontal_alignment": "center",
-              "per_state": { "connecting-direct": { "key": "connect.step.connecting" }, "joined": { "key": "connect.step.joined" } },
-              "note": "JoinProgress.step(): FINDING -> connect.step.finding, CONNECTING -> connect.step.connecting, JOINED -> connect.step.joined. A Direct join starts at CONNECTING."
-            }
+            { "name": "Title", "type": "Label", "variation": "ToyTitleOnDark", "key": "connect.connecting_unnamed", "horizontal_alignment": "center", "autowrap_mode": "word_smart", "custom_minimum_size": [1152, 0], "per_state": { "joined": { "key": "connect.connecting", "args": { "lobby": { "uk": "Лобі: Олена", "en": "Olena's lobby" } } } }, "note": "connect.connecting_unnamed until the host's lobby name arrives (#214), then connect.connecting with {lobby}: a name the host typed is player data and never translated; while the host's lobby name is the default, {lobby} = tr(\"lobby.default_name\") with the host's name, as on s4." },
+            { "name": "Step", "type": "Label", "variation": "ToyTextOnDark", "key": "connect.step.finding", "horizontal_alignment": "center", "per_state": { "connecting-direct": { "key": "connect.step.connecting" }, "joined": { "key": "connect.step.joined" } }, "note": "JoinProgress.step(): FINDING -> connect.step.finding, CONNECTING -> connect.step.connecting, JOINED -> connect.step.joined. A Direct join starts at CONNECTING." }
           ]
         },
         {
-          "name": "CodeRow", "type": "HBoxContainer", "variation": "ToyRowEight", "size_flags_horizontal": "shrink_center", "states": ["finding", "joined"],
-          "note": "A code join only (hidden for a Direct join).",
+          "name": "CodeRow", "type": "HBoxContainer", "variation": "ToyRowTwelve", "size_flags_horizontal": "shrink_center", "states": ["finding", "joined"], "note": "A code join only (hidden for a Direct join).",
           "children": [
             { "name": "Label", "type": "Label", "variation": "ToyTextMutedOnDark", "key": "common.code", "size_flags_vertical": "shrink_center" },
             {
@@ -66,127 +47,61 @@
             }
           ]
         },
-        {
-          "name": "Elapsed", "type": "Label", "variation": "ToyTextMutedOnDark", "text": "0:04", "horizontal_alignment": "center",
-          "per_state": { "connecting-direct": { "text": "0:02" }, "joined": { "text": "0:09" } },
-          "note": "The time since Join as m:ss, updated every second (auto_translate_mode DISABLED)."
-        },
-        {
-          "name": "Cancel", "type": "Button", "variation": "ToyButtonSecondary", "key": "common.cancel", "size_flags_horizontal": "shrink_center",
-          "state": "focus",
-          "note": "The only button, so raised (ToyButtonSecondary), as the failure layout's lone Back. Focus on open; Esc (ui_cancel) does the same. Aborts the join and returns to s2 with the code or address kept in its field. The traversal timeout is the game's (M6 §2.3)."
-        }
+        { "name": "Elapsed", "type": "Label", "variation": "ToyTextMutedOnDark", "text": "0:04", "horizontal_alignment": "center", "per_state": { "connecting-direct": { "text": "0:02" }, "joined": { "text": "0:09" } }, "note": "The time since Join as m:ss, updated every second (auto_translate_mode DISABLED)." },
+        { "name": "Cancel", "type": "Button", "variation": "ToyButtonSecondary", "key": "common.cancel", "size_flags_horizontal": "shrink_center", "state": "focus", "note": "The only button, so raised (ToyButtonSecondary), as the failure layout's lone Back. Focus on open; Esc (ui_cancel) does the same. Aborts the join and returns to s2 with the code or address kept in its field. The traversal timeout is the game's (M6 §2.3)." }
       ]
     },
     {
-      "name": "Failure", "type": "VBoxContainer", "variation": "ToyColumnThirtyTwo",
-      "states": ["fail-no-room", "fail-started", "fail-version", "fail-full", "fail-service", "fail-unreachable", "fail-no-answer", "lost", "map-failed", "error", "host-failed"],
-      "anchors_preset": "center", "grow_horizontal": "both", "grow_vertical": "both", "custom_minimum_size": [848, 0],
-      "alignment": "center",
-      "note": "One layout for every failure: what happened, then one action and Back. The texts come from the EndReasons id (the table in the spec, s3).",
+      "name": "Failure", "type": "VBoxContainer", "variation": "ToyColumnThirtyTwo", "states": ["fail-no-room", "fail-started", "fail-version", "fail-full", "fail-service", "fail-unreachable", "fail-no-answer", "lost", "map-failed", "error", "host-failed"], "anchors_preset": "center", "grow_horizontal": "both", "grow_vertical": "both", "custom_minimum_size": [1272, 0], "alignment": "center", "note": "One layout for every failure: what happened, then one action and Back. The texts come from the EndReasons id (the table in the spec, s3).",
       "children": [
         {
-          "name": "Texts", "type": "VBoxContainer", "variation": "ToyColumnSixteen",
+          "name": "Texts", "type": "VBoxContainer", "variation": "ToyColumnTwentyFour",
           "children": [
+            { "name": "Title", "type": "Label", "variation": "ToyTitleOnDark", "key": "connect.fail.title", "horizontal_alignment": "center", "autowrap_mode": "word_smart", "custom_minimum_size": [1272, 0], "per_state": { "lost": { "key": "connect.lost.title" }, "map-failed": { "key": "connect.map_fail.title" }, "error": { "key": "connect.error.title" }, "host-failed": { "key": "connect.host_fail.title" } }, "note": "Join failures share connect.fail.title; a session that ended or a host that could not start has its own title." },
+            { "name": "Body", "type": "Label", "variation": "ToyTextMutedOnDark", "key": "connect.fail.no_room", "horizontal_alignment": "center", "autowrap_mode": "word_smart", "custom_minimum_size": [1272, 0], "per_state": { "fail-started": { "key": "connect.fail.started" }, "fail-version": { "key": "connect.fail.version" }, "fail-full": { "key": "connect.fail.full" }, "fail-service": { "key": "connect.fail.service" }, "fail-unreachable": { "key": "connect.fail.unreachable" }, "fail-no-answer": { "key": "connect.fail.body" }, "lost": { "key": "connect.lost.body" }, "map-failed": { "key": "connect.map_fail.body" }, "error": { "key": "connect.error.body" }, "host-failed": { "key": "connect.error.body" } } },
             {
-              "name": "Title", "type": "Label", "variation": "ToyTitleOnDark", "key": "connect.fail.title",
-              "horizontal_alignment": "center", "autowrap_mode": "word_smart", "custom_minimum_size": [848, 0],
-              "per_state": {
-                "lost": { "key": "connect.lost.title" },
-                "map-failed": { "key": "connect.map_fail.title" },
-                "error": { "key": "connect.error.title" },
-                "host-failed": { "key": "connect.host_fail.title" }
-              },
-              "note": "Join failures share connect.fail.title; a session that ended or a host that could not start has its own title."
-            },
-            {
-              "name": "Body", "type": "Label", "variation": "ToyTextMutedOnDark", "key": "connect.fail.no_room",
-              "horizontal_alignment": "center", "autowrap_mode": "word_smart", "custom_minimum_size": [848, 0],
-              "per_state": {
-                "fail-started": { "key": "connect.fail.started" },
-                "fail-version": { "key": "connect.fail.version" },
-                "fail-full": { "key": "connect.fail.full" },
-                "fail-service": { "key": "connect.fail.service" },
-                "fail-unreachable": { "key": "connect.fail.unreachable" },
-                "fail-no-answer": { "key": "connect.fail.body" },
-                "lost": { "key": "connect.lost.body" },
-                "map-failed": { "key": "connect.map_fail.body" },
-                "error": { "key": "connect.error.body" },
-                "host-failed": { "key": "connect.error.body" }
-              }
-            },
-            {
-              "name": "Versions", "type": "VBoxContainer", "variation": "ToyColumnFour", "states": ["fail-version"],
-              "note": "fail-version only, and only when the game can name the versions (protocol and content from JoinProgress.found_detail); hidden when unknown.",
+              "name": "Versions", "type": "VBoxContainer", "variation": "ToyColumnEight", "states": ["fail-version"], "note": "fail-version only, and only when the game can name the versions (protocol and content from JoinProgress.found_detail); hidden when unknown.",
               "children": [
-                {
-                  "name": "Host", "type": "Label", "variation": "ToyTextOnDark", "key": "connect.fail.version_host", "args": { "version": "0.5 (a1b2c3)" },
-                  "horizontal_alignment": "center"
-                },
-                {
-                  "name": "Own", "type": "Label", "variation": "ToyTextOnDark", "key": "connect.fail.version_own", "args": { "version": "0.4 (9f8e7d)" },
-                  "horizontal_alignment": "center"
-                }
+                { "name": "Host", "type": "Label", "variation": "ToyTextOnDark", "key": "connect.fail.version_host", "args": { "version": "0.5 (a1b2c3)" }, "horizontal_alignment": "center" },
+                { "name": "Own", "type": "Label", "variation": "ToyTextOnDark", "key": "connect.fail.version_own", "args": { "version": "0.4 (9f8e7d)" }, "horizontal_alignment": "center" }
               ]
             }
           ]
         },
         {
-          "name": "Buttons", "type": "HBoxContainer", "variation": "ToyRowSixteen", "alignment": "center",
+          "name": "Buttons", "type": "HBoxContainer", "variation": "ToyRowTwentyFour", "alignment": "center",
           "children": [
-            {
-              "name": "Primary", "type": "Button", "variation": "ToyButtonPrimary", "key": "connect.fail.retry", "state": "focus",
-              "states": ["fail-started", "fail-full", "fail-service", "fail-unreachable", "fail-no-answer", "host-failed"],
-              "per_state": { "fail-service": { "key": "connect.fail.direct" }, "fail-unreachable": { "key": "connect.fail.direct" } },
-              "note": "Focus on open. connect.fail.retry tries the same target again (host-failed: hosts again the same way); connect.fail.direct opens s2 direct with the code kept in its field. Absent where the failure has no action."
-            },
-            {
-              "name": "BackGhost", "type": "Button", "variation": "ToyButtonGhostOnDark", "key": "common.back",
-              "states": ["fail-started", "fail-full", "fail-service", "fail-unreachable", "fail-no-answer", "host-failed"],
-              "note": "Back beside Primary (flat, no base): returns to s2 main; after a join failure the code or address stays in its field. Esc does the same."
-            },
-            {
-              "name": "BackSolo", "type": "Button", "variation": "ToyButtonSecondary", "key": "common.back", "state": "focus",
-              "states": ["fail-no-room", "fail-version", "lost", "map-failed", "error"],
-              "note": "Back when it is the only button (no_room, the version failures, lost, map failed, error): raised on its ToyRaised wrapper, focused on open. Same action as BackGhost; the two are separate nodes because only this one has a base."
-            }
+            { "name": "Primary", "type": "Button", "variation": "ToyButtonPrimary", "key": "connect.fail.retry", "state": "focus", "states": ["fail-started", "fail-full", "fail-service", "fail-unreachable", "fail-no-answer", "host-failed"], "per_state": { "fail-service": { "key": "connect.fail.direct" }, "fail-unreachable": { "key": "connect.fail.direct" } }, "note": "Focus on open. connect.fail.retry tries the same target again (host-failed: hosts again the same way); connect.fail.direct opens s2 direct with the code kept in its field. Absent where the failure has no action." },
+            { "name": "BackGhost", "type": "Button", "variation": "ToyButtonGhostOnDark", "key": "common.back", "states": ["fail-started", "fail-full", "fail-service", "fail-unreachable", "fail-no-answer", "host-failed"], "note": "Back beside Primary (flat, no base): returns to s2 main; after a join failure the code or address stays in its field. Esc does the same." },
+            { "name": "BackSolo", "type": "Button", "variation": "ToyButtonSecondary", "key": "common.back", "state": "focus", "states": ["fail-no-room", "fail-version", "lost", "map-failed", "error"], "note": "Back when it is the only button (no_room, the version failures, lost, map failed, error): raised on its ToyRaised wrapper, focused on open. Same action as BackGhost; the two are separate nodes because only this one has a base." }
           ]
         }
       ]
     },
     {
-      "name": "Loading", "type": "VBoxContainer", "variation": "ToyColumnSixteen", "states": ["load"],
-      "anchors_preset": "center_top", "offset_top": 368, "offset_bottom": 368, "grow_horizontal": "both",
-      "custom_minimum_size": [768, 0],
+      "name": "Loading", "type": "VBoxContainer", "variation": "ToyColumnTwentyFour", "states": ["load"], "anchors_preset": "center_top", "offset_top": 392, "offset_bottom": 392, "grow_horizontal": "both", "custom_minimum_size": [960, 0], "note": "Whether loading shows the aliens' flight to Earth (the lobby is their spaceship) is open: m8 §1.",
       "children": [
         { "name": "Title", "type": "Label", "variation": "ToyTitleOnDark", "key": "loading.title", "horizontal_alignment": "center" },
+        { "name": "Bar", "type": "ProgressBar", "variation": "ToyBarProgress", "custom_minimum_size": [960, 24], "show_percentage": false, "value": 62, "note": "This machine's load fraction." },
         {
-          "name": "Bar", "type": "ProgressBar", "variation": "ToyBarProgress", "custom_minimum_size": [768, 16], "show_percentage": false, "value": 62,
-          "note": "This machine's load fraction."
-        },
-        {
-          "name": "Players", "type": "VBoxContainer", "variation": "ToyColumnEight",
-          "note": "One row per player, the host first, then in join order; the own row (Row) reads player.you, the other rows the player's name (auto_translate_mode DISABLED).",
+          "name": "Players", "type": "VBoxContainer", "variation": "ToyColumnTwelve", "note": "One row per player, the host first, then in join order; the own row (Row) reads player.you, the other rows the player's name (auto_translate_mode DISABLED).",
           "children": [
             {
-              "name": "HostRow", "type": "HBoxContainer", "variation": "ToyRowTwelve",
+              "name": "HostRow", "type": "HBoxContainer", "variation": "ToyRowSixteen",
               "children": [
                 { "name": "Name", "type": "Label", "variation": "ToyTextOnDark", "text": { "uk": "Олена", "en": "Olena" }, "size_flags_horizontal": "expand_fill", "clip_text": true, "text_overrun_behavior": "trim_ellipsis" },
                 { "name": "State", "type": "Label", "variation": "ToyTextOnDark", "key": "loading.player_ready" }
               ]
             },
             {
-              "name": "Row", "type": "HBoxContainer", "variation": "ToyRowTwelve",
+              "name": "Row", "type": "HBoxContainer", "variation": "ToyRowSixteen",
               "children": [
                 { "name": "Name", "type": "Label", "variation": "ToyTextOnDark", "key": "player.you", "size_flags_horizontal": "expand_fill", "clip_text": true, "text_overrun_behavior": "trim_ellipsis" },
-                {
-                  "name": "State", "type": "Label", "variation": "ToyTextMutedOnDark", "key": "loading.player_loading",
-                  "note": "loading.player_loading in ToyTextMutedOnDark while the player loads; loading.player_ready in ToyTextOnDark once loaded."
-                }
+                { "name": "State", "type": "Label", "variation": "ToyTextMutedOnDark", "key": "loading.player_loading", "note": "loading.player_loading in ToyTextMutedOnDark while the player loads; loading.player_ready in ToyTextOnDark once loaded." }
               ]
             },
             {
-              "name": "OtherRow", "type": "HBoxContainer", "variation": "ToyRowTwelve",
+              "name": "OtherRow", "type": "HBoxContainer", "variation": "ToyRowSixteen",
               "children": [
                 { "name": "Name", "type": "Label", "variation": "ToyTextOnDark", "text": { "uk": "Тарас", "en": "Taras" }, "size_flags_horizontal": "expand_fill", "clip_text": true, "text_overrun_behavior": "trim_ellipsis" },
                 { "name": "State", "type": "Label", "variation": "ToyTextMutedOnDark", "key": "loading.player_loading" }
@@ -197,49 +112,38 @@
       ]
     },
     {
-      "name": "Tip", "type": "PanelContainer", "variation": "ToyPlate", "states": ["load"],
-      "anchors_preset": "center_bottom", "offset_top": -88, "offset_bottom": -88, "grow_horizontal": "both", "grow_vertical": "both",
-      "custom_minimum_size": [1072, 0],
+      "name": "Tip", "type": "PanelContainer", "variation": "ToyPlate", "states": ["load"], "anchors_preset": "center_bottom", "offset_top": -132, "offset_bottom": -132, "grow_horizontal": "both", "grow_vertical": "both", "custom_minimum_size": [1072, 0],
       "children": [
-        {
-          "name": "Text", "type": "Label", "variation": "ToyPlateText", "key": "tip.two_hands",
-          "horizontal_alignment": "center", "autowrap_mode": "word_smart", "custom_minimum_size": [1036, 0],
-          "note": "One random tip.* key per loading."
-        }
+        { "name": "Text", "type": "Label", "variation": "ToyPlateText", "key": "tip.neighbours", "horizontal_alignment": "center", "autowrap_mode": "word_smart", "custom_minimum_size": [1024, 0], "note": "One random tip.* key per loading (tip.neighbours, tip.two_hands)." }
       ]
     },
     {
-      "name": "Head", "type": "VBoxContainer", "variation": "ToyColumnTwelve", "states": ["load-card"],
-      "anchors_preset": "center_top", "offset_top": 64, "offset_bottom": 64, "grow_horizontal": "both",
-      "custom_minimum_size": [768, 0],
+      "name": "Head", "type": "VBoxContainer", "variation": "ToyColumnSixteen", "states": ["load-card"], "anchors_preset": "center_top", "offset_top": 96, "offset_bottom": 96, "grow_horizontal": "both", "custom_minimum_size": [1152, 0],
       "children": [
         { "name": "Title", "type": "Label", "variation": "ToyTitleOnDark", "key": "loading.title", "horizontal_alignment": "center" },
-        { "name": "Bar", "type": "ProgressBar", "variation": "ToyBarProgress", "custom_minimum_size": [768, 16], "show_percentage": false, "value": 62 }
+        { "name": "Bar", "type": "ProgressBar", "variation": "ToyBarProgress", "custom_minimum_size": [1152, 24], "show_percentage": false, "value": 62 }
       ]
     },
     {
-      "name": "Card", "type": "PanelContainer", "variation": "ToyPanelHowto", "states": ["load-card"],
-      "anchors_preset": "center", "offset_top": 40, "offset_bottom": 40, "grow_horizontal": "both", "grow_vertical": "both",
-      "custom_minimum_size": [1616, 0],
-      "note": "The how-to card (P8) of a task type in this round that the player has not completed: at most twice per type and never after its first completion (user:// counters, #254). Content data per task type; here the House's Delivery. No line says the task is new.",
+      "name": "Card", "type": "PanelContainer", "variation": "ToyPanelHowto", "states": ["load-card"], "anchors_preset": "center", "offset_top": 39, "offset_bottom": 39, "grow_horizontal": "both", "grow_vertical": "both", "custom_minimum_size": [0, 0], "note": "The how-to card (P8) of a task type in this round that the player has not completed: at most twice per type and never after its first completion (user:// counters, #254). Content data per task type; here Cooking, one of the MVP's five, with PLACEHOLDER art (Delivery's frames) until the MVP task cards are drawn (new work: wordless card art per MVP task). No line says the task is new. Its width is its four frames' (352 px art each).",
       "children": [
         {
-          "name": "V", "type": "VBoxContainer", "variation": "ToyColumnSixteen",
+          "name": "V", "type": "VBoxContainer", "variation": "ToyColumnTwentyFour",
           "children": [
             {
-              "name": "Head", "type": "HBoxContainer", "variation": "ToyRowSixteen",
+              "name": "Head", "type": "HBoxContainer", "variation": "ToyRowTwentyFour",
               "children": [
-                { "name": "Title", "type": "Label", "variation": "ToyTitleOnLight", "key": "task.delivery", "size_flags_horizontal": "expand_fill" },
+                { "name": "Title", "type": "Label", "variation": "ToyTitleOnLight", "key": "task.cooking", "size_flags_horizontal": "expand_fill" },
                 { "name": "Note", "type": "Label", "variation": "ToyHowtoNote", "key": "howto.label", "size_flags_vertical": "shrink_center" }
               ]
             },
             {
-              "name": "Frames", "type": "HBoxContainer", "variation": "ToyRowTwelve",
+              "name": "Frames", "type": "HBoxContainer", "variation": "ToyRowSixteen",
               "children": [
                 {
                   "name": "Take", "type": "PanelContainer", "variation": "ToyHowtoFrame", "size_flags_horizontal": "expand_fill",
                   "children": [
-                    { "name": "Art", "type": "TextureRect", "icon": "card/delivery-meaning-1", "custom_minimum_size": [352, 264], "note": "The card's art: one picture per frame from the card data (#254), here the pack's Delivery-by-meaning PNGs (the House's Delivery) dist/pack/cards/delivery-meaning-1.png … delivery-meaning-4.png (640x480, transparent). expand_mode IGNORE_SIZE, stretch_mode KEEP_ASPECT_CENTERED; 352x264 here, 320x240 in s8. The cards are wordless: a frame holds only its art, no caption." }
+                    { "name": "Art", "type": "TextureRect", "icon": "card/delivery-meaning-1", "custom_minimum_size": [352, 264], "note": "PLACEHOLDER art: the pack's Delivery-by-meaning PNGs dist/pack/cards/delivery-meaning-1.png … delivery-meaning-4.png (640x480, transparent), until each MVP task has its own wordless card. expand_mode IGNORE_SIZE, stretch_mode KEEP_ASPECT_CENTERED; 352x264 here, 320x240 in s8 and 272x204 in s5's Guide; the same card as s5/Guide/Card and s8/Guide/Card. The cards are wordless: a frame holds only its art, no caption." }
                   ]
                 },
                 {

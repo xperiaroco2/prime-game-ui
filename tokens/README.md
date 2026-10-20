@@ -83,7 +83,7 @@ A variant's `godot.class` is one of these (`tools/tokens/expand.js` CLASSES); it
 | PopupMenu | panel, hover, separator (all three required) | font-color, font-hover-color, font-disabled-color (required), v-separation, h-separation, item-start-padding, item-end-padding |
 
 - **HSlider:** its grabber, grabber_highlight and grabber_disabled are textures, not tokens
-  (`pages/components/icons/slider-knob.svg` and `slider-knob-disabled.svg`, 28 px), named in `godot.textures` (below). Its `focus` is an outer ring (mint, as it sits on the purple);
+  (`pages/components/icons/slider-knob.svg` and `slider-knob-disabled.svg`, 42 px), named in `godot.textures` (below). Its `focus` is an outer ring (mint, as it sits on the purple);
   Godot 4.7.2's Slider draws no focus StyleBox (slider.cpp binds slider, grabber_area, grabber_area_highlight only), so
   the game draws this one over the slider while it has visible focus.
 - **Containers** draw nothing: the game's theme test forbids theme overrides, so a box or grid takes its gap from a
@@ -306,13 +306,13 @@ after its engine class, copied from a pack variation of that very class with no 
   (`h-separation`); the texture draws the state; focus is a mint ring; disabled has no face. It sets every item a Button sets (the six StyleBoxes, the six font colours, the six
   icon colours, `h-separation`, the font size), so the game's Button base type never reaches it. Its `textures`:
   `checked` `icons/checkbox-checked.svg` (green, ink check), `unchecked` `icons/checkbox-unchecked.svg` (mint), both
-  with a 4 px ink outline, `checked-disabled` and `unchecked-disabled` (lilac with soft ink, the unplugged face): 28 px, own colours
+  with a 6 px ink outline, `checked-disabled` and `unchecked-disabled` (lilac with soft ink, the unplugged face): 42 px, own colours
   (`tint: "none"`), so `checkbox_checked_color` and `checkbox_unchecked_color` stay the default white. The radio icons
   (a CheckBox in a ButtonGroup) are not bound: no Toy screen has one.
 - **SpinBox: `ToySpinBox`** (`field.spin`, class SpinBox, context any): its eight button StyleBoxes (green, 4 px ink
   outline, flat; `-hovered` lighter green, `-pressed` darker green, `-disabled` lilac), `buttons-width` 34, `field-and-buttons-separation` 8, `buttons-vertical-separation` 2, the eight
   `*-icon-modulate` colours (ink; soft ink when disabled) and the arrows `icons/spin-up.svg`, `icons/spin-down.svg`
-  (18 px white chevrons, `tint: "multiply"`). Its separators stay the default theme's empty ones.
+  (27 px white chevrons, `tint: "multiply"`). Its separators stay the default theme's empty ones.
 - **SpinBox's field: `ToySpinField`** (`field.spin-input`, class LineEdit, context any): `ToyField` with 12 px above and
   below instead of 10, so each arrow button is at least 24 px high. Godot names the field's variation
   `SpinBoxInnerLineEdit`; the game gives it this variation's items.

@@ -2571,8 +2571,8 @@
   padding-left: calc((var(--toy-mic-plate-panel-content-margin) - var(--toy-mic-plate-panel-border-width-left)) * var(--px));
   margin-right: calc(var(--toy-mic-plate-panel-expand-margin-right) * -1 * var(--px));
   margin-bottom: calc(var(--toy-mic-plate-panel-expand-margin-bottom) * -1 * var(--px));
-  min-width: calc(var(--toy-mic-plate-size-width) * var(--px));
-  height: calc(var(--toy-mic-plate-size-height) * var(--px));
+  min-width: calc((var(--toy-mic-plate-size-width) + var(--toy-mic-plate-panel-expand-margin-right)) * var(--px));
+  height: calc((var(--toy-mic-plate-size-height) + var(--toy-mic-plate-panel-expand-margin-bottom)) * var(--px));
 }
 .tv-ToyMic .tv-icon-on {
   color: var(--toy-mic-plate-items-icon-on);
@@ -3172,7 +3172,7 @@
   padding-left: calc((var(--toy-plate-count-panel-content-margin-inline) - var(--toy-plate-count-panel-border-width-left)) * var(--px));
   margin-right: calc(var(--toy-plate-count-panel-expand-margin-right) * -1 * var(--px));
   margin-bottom: calc(var(--toy-plate-count-panel-expand-margin-bottom) * -1 * var(--px));
-  min-width: calc(var(--toy-plate-count-size-min-width) * var(--px));
+  min-width: calc((var(--toy-plate-count-size-min-width) + var(--toy-plate-count-panel-expand-margin-right)) * var(--px));
 }
 /* ToyPlateHead: PanelContainer · plate.head · dark */
 .tv-ToyPlateHead {
@@ -3217,7 +3217,7 @@
   padding-left: calc((var(--toy-plate-goal-panel-content-margin-inline) - var(--toy-plate-goal-panel-border-width-left)) * var(--px));
   margin-right: calc(var(--toy-plate-goal-panel-expand-margin-right) * -1 * var(--px));
   margin-bottom: calc(var(--toy-plate-goal-panel-expand-margin-bottom) * -1 * var(--px));
-  min-width: calc(var(--toy-plate-goal-size-width) * var(--px));
+  min-width: calc((var(--toy-plate-goal-size-width) + var(--toy-plate-goal-panel-expand-margin-right)) * var(--px));
 }
 /* ToyPlateResult: PanelContainer · plate.result · dark */
 .tv-ToyPlateResult {
@@ -3545,7 +3545,7 @@
   padding-left: calc((var(--toy-roster-panel-panel-content-margin-inline) - var(--toy-roster-panel-panel-border-width-left)) * var(--px));
   margin-right: calc(var(--toy-roster-panel-panel-expand-margin-right) * -1 * var(--px));
   margin-bottom: calc(var(--toy-roster-panel-panel-expand-margin-bottom) * -1 * var(--px));
-  min-width: calc(var(--toy-roster-panel-size-min-width) * var(--px));
+  min-width: calc((var(--toy-roster-panel-size-min-width) + var(--toy-roster-panel-panel-expand-margin-right)) * var(--px));
 }
 /* ToyRosterName: Label · roster.name · dark */
 .tv-ToyRosterName {
@@ -3760,11 +3760,11 @@
   padding-left: calc((var(--toy-slot-idle-panel-content-margin) - var(--toy-slot-idle-panel-border-width-left)) * var(--px));
   margin-right: calc(var(--toy-slot-idle-panel-expand-margin-right) * -1 * var(--px));
   margin-bottom: calc(var(--toy-slot-idle-panel-expand-margin-bottom) * -1 * var(--px));
-  min-width: calc(var(--toy-slot-idle-size-width) * var(--px));
-  height: calc(var(--toy-slot-idle-size-height) * var(--px));
+  min-width: calc((var(--toy-slot-idle-size-width) + var(--toy-slot-idle-panel-expand-margin-right)) * var(--px));
+  height: calc((var(--toy-slot-idle-size-height) + var(--toy-slot-idle-panel-expand-margin-bottom)) * var(--px));
 }
 .tv-ToySlot.tv-wide {
-  min-width: calc(var(--toy-slot-idle-size-wide-width) * var(--px));
+  min-width: calc((var(--toy-slot-idle-size-wide-width) + var(--toy-slot-idle-panel-expand-margin-right)) * var(--px));
 }
 /* ToySlotActive: PanelContainer · slot.active · dark */
 .tv-ToySlotActive {
@@ -3787,11 +3787,11 @@
   padding-left: calc((var(--toy-slot-active-panel-content-margin) - var(--toy-slot-active-panel-border-width-left)) * var(--px));
   margin-right: calc(var(--toy-slot-active-panel-expand-margin-right) * -1 * var(--px));
   margin-bottom: calc(var(--toy-slot-active-panel-expand-margin-bottom) * -1 * var(--px));
-  min-width: calc(var(--toy-slot-active-size-width) * var(--px));
-  height: calc(var(--toy-slot-active-size-height) * var(--px));
+  min-width: calc((var(--toy-slot-active-size-width) + var(--toy-slot-active-panel-expand-margin-right)) * var(--px));
+  height: calc((var(--toy-slot-active-size-height) + var(--toy-slot-active-panel-expand-margin-bottom)) * var(--px));
 }
 .tv-ToySlotActive.tv-wide {
-  min-width: calc(var(--toy-slot-active-size-wide-width) * var(--px));
+  min-width: calc((var(--toy-slot-active-size-wide-width) + var(--toy-slot-active-panel-expand-margin-right)) * var(--px));
 }
 /* ToySlotText: Label · slot.text · dark */
 .tv-ToySlotText {
@@ -3832,8 +3832,8 @@
   padding-left: calc((var(--toy-slot-hand-panel-content-margin) - var(--toy-slot-hand-panel-border-width-left)) * var(--px));
   margin-right: calc(var(--toy-slot-hand-panel-expand-margin-right) * -1 * var(--px));
   margin-bottom: calc(var(--toy-slot-hand-panel-expand-margin-bottom) * -1 * var(--px));
-  min-width: calc(var(--toy-slot-hand-size-width) * var(--px));
-  height: calc(var(--toy-slot-hand-size-height) * var(--px));
+  min-width: calc((var(--toy-slot-hand-size-width) + var(--toy-slot-hand-panel-expand-margin-right)) * var(--px));
+  height: calc((var(--toy-slot-hand-size-height) + var(--toy-slot-hand-panel-expand-margin-bottom)) * var(--px));
 }
 /* ToySlotBelt: PanelContainer · slot.belt · dark */
 .tv-ToySlotBelt {
@@ -3856,8 +3856,8 @@
   padding-left: calc((var(--toy-slot-belt-panel-content-margin) - var(--toy-slot-belt-panel-border-width-left)) * var(--px));
   margin-right: calc(var(--toy-slot-belt-panel-expand-margin-right) * -1 * var(--px));
   margin-bottom: calc(var(--toy-slot-belt-panel-expand-margin-bottom) * -1 * var(--px));
-  min-width: calc(var(--toy-slot-belt-size-width) * var(--px));
-  height: calc(var(--toy-slot-belt-size-height) * var(--px));
+  min-width: calc((var(--toy-slot-belt-size-width) + var(--toy-slot-belt-panel-expand-margin-right)) * var(--px));
+  height: calc((var(--toy-slot-belt-size-height) + var(--toy-slot-belt-panel-expand-margin-bottom)) * var(--px));
 }
 /* ToySlotTag: PanelContainer · slot.tag · dark */
 .tv-ToySlotTag {
