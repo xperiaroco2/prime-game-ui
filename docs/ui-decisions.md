@@ -36,6 +36,23 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
   drop every tilted sticker and plate for a start, and add tilts back only where needed. An idea he likes, for later:
   a button shakes while the pointer is over it (the Ready button, for example), and pressing it gives a small effect,
   "a micro-game" that feels good to the player; he calls such things showing off, so not in the first version.
+- **The sticker tokens, ui-1.0.0** (the re-skin of every Toy variation; the guide is
+  `docs/research/2026-10-20-vibe/restyle-guide.md`). The look choices the agent took alone:
+  - state shades inside the palette: mint, green and coral each one step lighter for hover and darker for held, a
+    lighter purple `#3C2660` and a soft ink `#54457A` (agent);
+  - a pressed sticker does not move: hover lightens the face, held darkens it, the shadow stays (agent);
+  - unplugged (disabled): the lilac `#B7A8D6` face, soft-ink outline and label, no shadow (agent);
+  - every context keeps its place in the game, so the inside of a panel is purple with mint text, and text on a mint,
+    green or coral face is ink (agent);
+  - HUD plates are purple stickers with mint text, not the page's mint: the game puts the same labels on them as on the
+    dark backdrops; the alert plate is purple with a coral outline (agent);
+  - a plate with no base layer in the game draws its hard shadow as thicker right and bottom ink edges (agent);
+  - type: text Nunito 800, bold roles and titles Nunito Black 900, numbers Rubik 700 (the display roles), a logo role in
+    Kablammo; the sizes stay (agent);
+  - ghost buttons and main-menu entries are borderless with mint labels; the menu pointer is green (agent);
+  - the title plate is a purple sticker around a green title; titles carry a 4 px ink outline (agent);
+  - the backdrop over the world is the deep purple at 82 % (Toy's was 74 %), so dim text passes 4.5:1 over a white
+    world (agent).
 
 ## Principles
 - **The UI never tells the player what to do.** No "take it to X" line, no destination marker, no key prompts on the HUD;

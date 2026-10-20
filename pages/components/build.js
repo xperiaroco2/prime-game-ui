@@ -22,7 +22,7 @@ const ICONS = ['check', 'item', 'mic', 'mic-off', 'pointer', 'chevron-left', 'ch
   'knife', 'slider-knob', 'slider-knob-disabled', 'swatch-disc', 'radio-checked', 'radio-checked-disabled', 'radio-unchecked',
   'checkbox-checked', 'checkbox-checked-disabled', 'checkbox-unchecked', 'checkbox-unchecked-disabled', 'spin-up', 'spin-down'];
 const ICON_HEAD = '<!-- own work, prime-game-ui, licence: own work -->';
-const FONT_LINK = 'https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap';
+const FONT_LINK = 'https://fonts.googleapis.com/css2?family=Kablammo&family=Nunito:wght@800;900&family=Rubik:wght@700&display=swap';
 const TILES = [['white', '#ffffff'], ['grey', '#c9c9c9'], ['dim', '#979797']];
 // Showcase state -> [index into the row's variations, Godot state, CSS state class].
 const STATE = {

@@ -1,9 +1,9 @@
 {
   "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
   "plate": {
-    "$description": "HUD plates on the dark world.",
+    "$description": "HUD plates: stickers on the world, in the dark context (the game puts the dark labels on them).",
     "default": {
-      "$description": "A HUD plate: the translucent plate.",
+      "$description": "A HUD plate: the purple sticker with a 4 px ink outline. The hard shadow is the edge form: the right and bottom outlines are 9 px (4 + 5) and reach 5 px outside the plate, as no base layer sits under a plate in the game.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyPlate", "class": "PanelContainer" },
@@ -12,13 +12,20 @@
       },
       "panel": {
         "bg-color": { "$type": "color", "$value": "{color.surface.plate}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-width-top": { "$type": "dimension", "$value": "{stroke.surface}" },
+        "border-width-right": { "$type": "dimension", "$value": { "value": 9, "unit": "px" } },
+        "border-width-bottom": { "$type": "dimension", "$value": { "value": 9, "unit": "px" } },
+        "border-width-left": { "$type": "dimension", "$value": "{stroke.surface}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.large}" },
         "content-margin-block": { "$type": "dimension", "$value": { "value": 10, "unit": "px" } },
-        "content-margin-inline": { "$type": "dimension", "$value": { "value": 18, "unit": "px" } }
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 18, "unit": "px" } },
+        "expand-margin-right": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } },
+        "expand-margin-bottom": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } }
       }
     },
     "night": {
-      "$description": "A solid night plate.",
+      "$description": "A solid plate on the deep purple ground (the loading tip): the purple sticker. The hard shadow is the edge form: the right and bottom outlines are 9 px (4 + 5) and reach 5 px outside the plate, as no base layer sits under a plate in the game.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyPlateNight", "class": "PanelContainer" },
@@ -27,13 +34,20 @@
       },
       "panel": {
         "bg-color": { "$type": "color", "$value": "{color.surface.night-plate}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-width-top": { "$type": "dimension", "$value": "{stroke.surface}" },
+        "border-width-right": { "$type": "dimension", "$value": { "value": 9, "unit": "px" } },
+        "border-width-bottom": { "$type": "dimension", "$value": { "value": 9, "unit": "px" } },
+        "border-width-left": { "$type": "dimension", "$value": "{stroke.surface}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.large}" },
         "content-margin-block": { "$type": "dimension", "$value": { "value": 10, "unit": "px" } },
-        "content-margin-inline": { "$type": "dimension", "$value": { "value": 18, "unit": "px" } }
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 18, "unit": "px" } },
+        "expand-margin-right": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } },
+        "expand-margin-bottom": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } }
       }
     },
     "alert": {
-      "$description": "An alert plate: a coral outline.",
+      "$description": "An alert plate: the purple sticker outlined in coral, its edge too (one text variation serves every plate, so the face stays purple). The hard shadow is the edge form: the right and bottom outlines are 9 px (4 + 5) and reach 5 px outside the plate, as no base layer sits under a plate in the game.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyPlateAlert", "class": "PanelContainer" },
@@ -43,14 +57,19 @@
       "panel": {
         "bg-color": { "$type": "color", "$value": "{color.surface.plate}" },
         "border-color": { "$type": "color", "$value": "{color.status.alert}" },
-        "border-width": { "$type": "dimension", "$value": "{stroke.surface}" },
+        "border-width-top": { "$type": "dimension", "$value": "{stroke.surface}" },
+        "border-width-right": { "$type": "dimension", "$value": { "value": 9, "unit": "px" } },
+        "border-width-bottom": { "$type": "dimension", "$value": { "value": 9, "unit": "px" } },
+        "border-width-left": { "$type": "dimension", "$value": "{stroke.surface}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.large}" },
         "content-margin-block": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } },
-        "content-margin-inline": { "$type": "dimension", "$value": { "value": 22, "unit": "px" } }
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 22, "unit": "px" } },
+        "expand-margin-right": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } },
+        "expand-margin-bottom": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } }
       }
     },
     "text": {
-      "$description": "The text on a plate.",
+      "$description": "The text on a plate: mint.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": {
@@ -62,9 +81,7 @@
         }
       },
       "label": { "$type": "typography", "$value": "{type.body}" },
-      "normal": {
-        "font-color": { "$type": "color", "$value": "{color.on-dark.text}" }
-      }
+      "normal": { "font-color": { "$type": "color", "$value": "{color.on-dark.text}" } }
     }
   }
 }

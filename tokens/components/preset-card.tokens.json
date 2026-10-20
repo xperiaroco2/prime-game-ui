@@ -36,8 +36,8 @@
         "bg-color": { "$type": "color", "$value": "{palette.clear}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width": { "$type": "dimension", "$value": "{focus.width}" },
-        "corner-radius": { "$type": "dimension", "$value": { "value": 13, "unit": "px" } },
-        "expand-margin": { "$type": "dimension", "$value": { "value": -3, "unit": "px" } }
+        "corner-radius": { "$type": "dimension", "$value": { "value": 12, "unit": "px" } },
+        "expand-margin": { "$type": "dimension", "$value": { "value": -4, "unit": "px" } }
       },
       "press": {
         "$type": "dimension",
@@ -65,7 +65,7 @@
       },
       "label": { "$type": "typography", "$value": "{type.small-bold}" },
       "normal": {
-        "bg-color": { "$type": "color", "$value": "{palette.yellow}" },
+        "bg-color": { "$type": "color", "$value": "{palette.green}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width": { "$type": "dimension", "$value": "{stroke.surface}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.large}" },
@@ -107,12 +107,12 @@
       },
       "label": { "$type": "typography", "$value": "{type.small-bold}" },
       "normal": {
-        "bg-color": { "$type": "color", "$value": "{palette.lavender}" },
-        "border-color": { "$type": "color", "$value": "{palette.muted}" },
+        "bg-color": { "$type": "color", "$value": "{palette.mint-dark}" },
+        "border-color": { "$type": "color", "$value": "{palette.ink-soft}" },
         "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.large}" },
         "content-margin": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } },
-        "font-color": { "$type": "color", "$value": "{palette.muted}" }
+        "font-color": { "$type": "color", "$value": "{palette.ink-soft}" }
       },
       "disabled": {
         "$description": "As normal: the quiet card is already quiet."
@@ -122,8 +122,8 @@
         "bg-color": { "$type": "color", "$value": "{palette.clear}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width": { "$type": "dimension", "$value": "{focus.width}" },
-        "corner-radius": { "$type": "dimension", "$value": { "value": 13, "unit": "px" } },
-        "expand-margin": { "$type": "dimension", "$value": { "value": -3, "unit": "px" } }
+        "corner-radius": { "$type": "dimension", "$value": { "value": 12, "unit": "px" } },
+        "expand-margin": { "$type": "dimension", "$value": { "value": -4, "unit": "px" } }
       },
       "press": {
         "$type": "dimension",

@@ -258,7 +258,9 @@ function baseSelector(sel) {
 // ---------- the lint ----------
 
 const DRAWING = new Set(["background", "background-color", "color", "box-shadow", "text-shadow", "font-size", "font-weight",
-  "font-family", "letter-spacing", "line-height", "stroke", "fill", "outline-color", "outline", "transform", "opacity"]);
+  "font-family", "letter-spacing", "line-height", "stroke", "fill", "outline-color", "outline", "transform", "opacity",
+  // one text outline (a Label's shadow_outline_size at a zero offset): only on the title selectors (L25)
+  "-webkit-text-stroke", "paint-order"]);
 // The longer logical sides come first, and SIDE_RE is anchored, so border-block-start never reads as border-block.
 const BORDER_SIDE = "(block-start|block-end|inline-start|inline-end|top|right|bottom|left|block|inline)";
 const BORDER_RE = new RegExp(`^border(-${BORDER_SIDE})?(-(width|style|color))?$`);
@@ -491,6 +493,18 @@ function lintText(text, opts) {
       }
       if (prop === "box-shadow") return boxShadow(val, line);
       if (prop === "text-shadow") return textShadow(rule, val, line);
+      if (prop === "-webkit-text-stroke") {
+        if (!rule.selectors.every(s => textShadowRes.some(re => re.test(s.text)))) add(line, "L25", "a text outline on a selector that is not a title selector");
+        const lens = comps.filter(c => classify(c) === "length");
+        const colours = comps.filter(c => classify(c) === "colour");
+        if (lens.length !== 1 || colours.length !== 1 || comps.length !== 2) add(line, "L25", "-webkit-text-stroke takes one width and one colour: " + val);
+        lens.forEach(c => { const p = R.checkLength(c, ctx); if (p) add(line, p.rule, p.msg); });
+        return;
+      }
+      if (prop === "paint-order") {
+        if (!/^(normal|stroke fill)$/i.test(val.trim())) add(line, "L28", "paint-order takes normal or stroke fill, found " + val);
+        return;
+      }
       if (prop === "font-size") return lengths(1, 1);
       if (prop === "font-weight") {
         if (!(comps.length === 1 && /^--toy-/.test(R.varName(comps[0]) || ""))) add(line, "L19", "font-weight must be var(--toy-…), found " + val);
@@ -561,7 +575,11 @@ function lintText(text, opts) {
         if (lens.length > 3) add(line, "L10", "box-shadow with a spread (" + lens.length + " lengths)");
         if (lens.length < 2) add(line, "L28", "box-shadow needs an x and a y offset: " + layer);
         if (lens.length >= 3 && !R.ZERO_RE.test(lens[2])) add(line, "L11", "box-shadow blur " + lens[2]);
-        if (lens.length >= 1 && !R.ZERO_RE.test(lens[0])) add(line, "L12", "box-shadow x offset " + lens[0]);
+        // the x offset is 0 or a shift to the right (the sticker's hard shadow: a base layer with expand margins), never left
+        if (lens.length >= 1 && !R.ZERO_RE.test(lens[0])) {
+          if (/^-|^calc\(\s*\(?\s*-/.test(lens[0])) add(line, "L12", "box-shadow x offset to the left " + lens[0]);
+          else { const p = R.checkLength(lens[0], ctx); if (p) add(line, p.rule, p.msg); }
+        }
         if (colours > 1 || colours + unknowns === 0) add(line, "L28", "box-shadow needs exactly one colour: " + layer);
         if (lens.length >= 2) { const p = R.checkLength(lens[1], ctx); if (p) add(line, p.rule, p.msg); }
       }

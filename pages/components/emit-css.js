@@ -419,7 +419,19 @@ function emitComponentsCss(sys) {
     if (logo) {
       const sc = textRec && textRec['font-shadow-color'];
       if (!logo['shadow-offset-x'] || !logo['shadow-offset-y'] || !sc || !sc.source) fail(variant, 'a font shadow needs both offsets and a colour');
-      base.set('text-shadow', `${len(variant, logo['shadow-offset-x'], 'shadow-offset-x')} ${len(variant, logo['shadow-offset-y'], 'shadow-offset-y')} 0 ${v(sc.source)}`);
+      const dx = len(variant, logo['shadow-offset-x'], 'shadow-offset-x');
+      const dy = len(variant, logo['shadow-offset-y'], 'shadow-offset-y');
+      const offset = px(logo['shadow-offset-x']) !== 0 || px(logo['shadow-offset-y']) !== 0;
+      if (offset) base.set('text-shadow', `${dx} ${dy} 0 ${v(sc.source)}`);
+      // Godot's shadow_outline_size draws the shadow glyph with an outline that size outside its edge; at a zero offset
+      // that is a text outline under the letters (the sticker's ink outline, ui-1.0.0). CSS strokes on the edge, half
+      // inside, so the stroke is twice the size and painted under the fill.
+      const os = logo['shadow-outline-size'];
+      if (os && os.value && os.value.px > 0) {
+        if (offset) fail(variant, 'a text outline (shadow-outline-size) is drawn only at a zero shadow offset');
+        base.set('-webkit-text-stroke', `${sum(variant, [[os, 'shadow-outline-size'], [os, 'shadow-outline-size']], [])} ${v(sc.source)}`);
+        base.set('paint-order', 'stroke fill');
+      }
     }
 
     // Press and base (§13.2, §6).
@@ -442,7 +454,10 @@ function emitComponentsCss(sys) {
       }
       base.set('transform', 'translateY(calc(var(--tv-offset) * var(--px)))');
       if (variant.base) {
-        base.set('box-shadow', '0 calc((var(--tv-depth) - var(--tv-offset)) * var(--px)) 0 var(--tv-base)');
+        // the base may sit to the right too (the sticker's hard shadow): the same dx for all of its bases (P50)
+        const bp = byName.get(variant.base.dark || variant.base.any).states.panel;
+        const dx = mainRec ? sum(variant, [[bp['expand-margin-right'], 'base expand-margin-right']], [[mainRec['expand-margin-right'], 'face expand-margin-right']]) : '0';
+        base.set('box-shadow', `${dx} calc((var(--tv-depth) - var(--tv-offset)) * var(--px)) 0 var(--tv-base)`);
         trans.push(`box-shadow var(${mv}-duration) var(${mv}-timing-function)`);
       }
       base.set('transition', trans.join(', '));
@@ -452,7 +467,8 @@ function emitComponentsCss(sys) {
       if (!b || !b.states.panel) fail(variant, 'its base has no panel record');
       const bex = b.states.panel['expand-margin-bottom'];
       const fex = mainRec['expand-margin-bottom'];
-      base.set('box-shadow', `0 ${sum(variant, [[bex, 'base expand-margin-bottom']], [[fex, 'face expand-margin-bottom']])} 0 ${colour(b.states.panel['bg-color'])}`);
+      const dx = sum(variant, [[b.states.panel['expand-margin-right'], 'base expand-margin-right']], [[mainRec['expand-margin-right'], 'face expand-margin-right']]);
+      base.set('box-shadow', `${dx} ${sum(variant, [[bex, 'base expand-margin-bottom']], [[fex, 'face expand-margin-bottom']])} 0 ${colour(b.states.panel['bg-color'])}`);
     }
     if (isButton) base.set('cursor', 'pointer');
 

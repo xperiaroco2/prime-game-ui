@@ -440,15 +440,16 @@ function checkValues(model, structs, variants, res, P) {
         for (const c of CORNERS) {
           if (pxOf(b[`corner-radius-${c}`]) !== opx(`corner-radius-${c}`)) e(`base ${bv.variation} corner-radius-${c} is ${pxOf(b[`corner-radius-${c}`])}; the owner's is ${opx(`corner-radius-${c}`)}`);
         }
-        for (const x of ['left', 'right']) {
-          if (pxOf(b[`expand-margin-${x}`]) !== opx(`expand-margin-${x}`)) e(`base ${bv.variation} expand-margin-${x} is ${pxOf(b[`expand-margin-${x}`])}; the owner's is ${opx(`expand-margin-${x}`)}`);
-        }
+        // the base may also sit dx >= 0 to the right (the sticker's hard shadow, ui-1.0.0): the same shift on both edges
+        const dLeft = opx('expand-margin-left') - pxOf(b['expand-margin-left']);
+        const dRight = pxOf(b['expand-margin-right']) - opx('expand-margin-right');
+        if (dLeft !== dRight || dLeft < 0) e(`base ${bv.variation} must sit dx >= 0 to the right on both edges: left gives dx = ${dLeft}, right gives dx = ${dRight}`);
         const dTop = opx('expand-margin-top') - pxOf(b['expand-margin-top']);
         const dBottom = pxOf(b['expand-margin-bottom']) - opx('expand-margin-bottom');
         if (dTop !== dBottom || dTop <= 0) e(`base ${bv.variation} must sit d > 0 lower on both edges: top gives d = ${dTop}, bottom gives d = ${dBottom}`);
-        else ds.push([bv.variation, dTop]);
+        else ds.push([bv.variation, dTop, dLeft]);
       }
-      if (ds.length > 1 && ds.some((x) => x[1] !== ds[0][1])) e(`the bases use different depths: ${ds.map((x) => `${x[0]} ${x[1]}`).join(', ')}`);
+      if (ds.length > 1 && ds.some((x) => x[1] !== ds[0][1] || x[2] !== ds[0][2])) e(`the bases use different offsets: ${ds.map((x) => `${x[0]} ${x[2]},${x[1]}`).join('; ')}`);
       if (s.cls === 'Button' && v.press && ds.length) {
         const depth = pxOf(v.press.depth);
         for (const [name, d] of ds) if (depth != null && d !== depth) e(`base ${name} sits ${d} px lower but press.depth is ${depth}`);
@@ -518,15 +519,15 @@ function checkValues(model, structs, variants, res, P) {
         if (term && !term.startsWith('palette.')) P.error('P52', n.file, `${n.pointer}/$value`, p, `the reference chain ends at ${term}, not at a palette.* colour`);
       }
     } else if (ty === 'dimension') {
-      // the primitives stroke.*, radius.*, focus.* and space.* (the screens' gaps); a container's separation is always
-      // one of space.* (the only gaps a screen uses)
+      // the primitives stroke.*, radius.*, focus.*, offset.* (the hard shadow's offset, ui-1.0.0) and space.* (the
+      // screens' gaps); a container's separation is always one of space.* (the only gaps a screen uses)
       // a variant's size members may also reference size.*, the lengths the textSize modifier owns (P63)
       const target = n.alias ? res.tokens.get(n.alias) : null;
       const sep = isItemOf(n, variantNodes, structs) && /separation$/.test(n.name);
       const sizeMember = !!(n.parent && n.parent.name === 'size' && n.parent.parent && variantNodes.has(n.parent.parent));
-      const allowed = sizeMember ? /^(stroke|radius|focus|space|size)\./ : /^(stroke|radius|focus|space)\./;
+      const allowed = sizeMember ? /^(stroke|radius|focus|offset|space|size)\./ : /^(stroke|radius|focus|offset|space)\./;
       if (n.alias && (!allowed.test(n.alias) || (target && target.tier !== 'primitive'))) {
-        P.error('P53', n.file, `${n.pointer}/$value`, p, `component dimensions are int literals or references to the primitives stroke.*, radius.*, focus.* or space.* (a size member also size.*), not {${n.alias}}`);
+        P.error('P53', n.file, `${n.pointer}/$value`, p, `component dimensions are int literals or references to the primitives stroke.*, radius.*, focus.*, offset.* or space.* (a size member also size.*), not {${n.alias}}`);
       } else if (n.alias && /^size\./.test(n.alias) && target && !(target.fe && target.fe.role === 'context')) {
         P.error('P53', n.file, `${n.pointer}/$value`, p, `{${n.alias}} is not owned by a modifier: size.* are the lengths that follow the text size (text-size/*.tokens.json)`);
       } else if (sep && (!n.alias || !n.alias.startsWith('space.'))) {

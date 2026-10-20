@@ -1,7 +1,7 @@
 {
   "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
   "button": {
-    "$description": "Toy buttons. One type variation per group with a godot.variation.",
+    "$description": "Sticker buttons (Ink and mint, strength B): a bright face, a 4 px ink outline and a hard ink shadow 5 px right and 5 px down (the base layer). One type variation per group with a godot.variation.",
     "common": {
       "$description": "The abstract parent of every Toy button: press timing and zero offsets.",
       "$extensions": {
@@ -20,7 +20,7 @@
       }
     },
     "primary": {
-      "$description": "The main action: yellow face, ink outline, a 6 px toy base.",
+      "$description": "The main action: the alien green sticker.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": {
@@ -34,7 +34,7 @@
       },
       "label": { "$type": "typography", "$value": "{type.body-large-bold}" },
       "normal": {
-        "bg-color": { "$type": "color", "$value": "{palette.yellow}" },
+        "bg-color": { "$type": "color", "$value": "{palette.green}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.control}" },
@@ -42,29 +42,40 @@
         "content-margin-inline": { "$type": "dimension", "$value": { "value": 22, "unit": "px" } },
         "font-color": { "$type": "color", "$value": "{color.on-accent.text}" }
       },
+      "hover": {
+        "$description": "Hover: the face lifts to a lighter shade.",
+        "bg-color": { "$type": "color", "$value": "{palette.green-light}" }
+      },
+      "pressed": {
+        "$description": "Held: the face darkens; the sticker does not move (the shadow stays).",
+        "bg-color": { "$type": "color", "$value": "{palette.green-dark}" }
+      },
       "disabled": {
-        "$description": "Unplugged: the base is hidden, the face rests, pale and quiet.",
+        "$description": "Unplugged: no shadow (the base is hidden), a dulled lilac face, its outline and label in the soft ink.",
         "bg-color": { "$type": "color", "$value": "{color.state.disabled-face}" },
         "border-color": { "$type": "color", "$value": "{color.state.disabled-ink}" },
         "font-color": { "$type": "color", "$value": "{color.state.disabled-ink}" }
       },
       "focus": {
-        "$description": "Inner focus: the outline thickens inward by the focus width.",
+        "$description": "Inner focus: a ring inside the outline, the focus width wide.",
         "bg-color": { "$type": "color", "$value": "{palette.clear}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width": { "$type": "dimension", "$value": "{focus.width}" },
-        "corner-radius": { "$type": "dimension", "$value": { "value": 15, "unit": "px" } },
-        "expand-margin": { "$type": "dimension", "$value": { "value": -3, "unit": "px" } }
+        "corner-radius": { "$type": "dimension", "$value": { "value": 10, "unit": "px" } },
+        "expand-margin": { "$type": "dimension", "$value": { "value": -4, "unit": "px" } }
       },
       "press": {
         "$type": "dimension",
-        "depth": { "$value": { "value": 6, "unit": "px" } },
-        "hover": { "$value": { "value": -1, "unit": "px" } },
-        "held": { "$value": { "value": 5, "unit": "px" } },
+        "depth": {
+          "$description": "The base sits offset.base right and down: the hard ink shadow.",
+          "$value": "{offset.base}"
+        },
+        "hover": { "$value": { "value": 0, "unit": "px" } },
+        "held": { "$value": { "value": 0, "unit": "px" } },
         "disabled": { "$value": { "value": 0, "unit": "px" } }
       },
       "items": {
-        "$description": "An icon (the ready toggle's check) in the label colour of each state, as the page draws it; without these Godot tints it white.",
+        "$description": "An icon (the ready toggle's check) in the label colour of each state; without these Godot tints it white.",
         "icon-normal-color": { "$type": "color", "$value": "{color.on-accent.text}" },
         "icon-hover-color": { "$type": "color", "$value": "{color.on-accent.text}" },
         "icon-pressed-color": { "$type": "color", "$value": "{color.on-accent.text}" },
@@ -74,7 +85,7 @@
       }
     },
     "secondary": {
-      "$description": "A second action: white face, ink outline, a 5 px toy base.",
+      "$description": "A second action: the mint sticker.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": {
@@ -88,38 +99,58 @@
       },
       "label": { "$type": "typography", "$value": "{type.body-large-bold}" },
       "normal": {
-        "bg-color": { "$type": "color", "$value": "{palette.white}" },
+        "bg-color": { "$type": "color", "$value": "{palette.mint}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.control}" },
         "content-margin-block": { "$type": "dimension", "$value": { "value": 12, "unit": "px" } },
         "content-margin-inline": { "$type": "dimension", "$value": { "value": 22, "unit": "px" } },
-        "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
+        "font-color": { "$type": "color", "$value": "{color.on-accent.text}" }
+      },
+      "hover": {
+        "$description": "Hover: the face lifts to a lighter shade.",
+        "bg-color": { "$type": "color", "$value": "{palette.mint-light}" }
+      },
+      "pressed": {
+        "$description": "Held: the face darkens; the sticker does not move (the shadow stays).",
+        "bg-color": { "$type": "color", "$value": "{palette.mint-dark}" }
       },
       "disabled": {
-        "$description": "Unplugged: the base is hidden, the face rests, pale and quiet.",
+        "$description": "Unplugged: no shadow (the base is hidden), a dulled lilac face, its outline and label in the soft ink.",
         "bg-color": { "$type": "color", "$value": "{color.state.disabled-face}" },
         "border-color": { "$type": "color", "$value": "{color.state.disabled-ink}" },
         "font-color": { "$type": "color", "$value": "{color.state.disabled-ink}" }
       },
       "focus": {
-        "$description": "Inner focus: the outline thickens inward by the focus width.",
+        "$description": "Inner focus: a ring inside the outline, the focus width wide.",
         "bg-color": { "$type": "color", "$value": "{palette.clear}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width": { "$type": "dimension", "$value": "{focus.width}" },
-        "corner-radius": { "$type": "dimension", "$value": { "value": 15, "unit": "px" } },
-        "expand-margin": { "$type": "dimension", "$value": { "value": -3, "unit": "px" } }
+        "corner-radius": { "$type": "dimension", "$value": { "value": 10, "unit": "px" } },
+        "expand-margin": { "$type": "dimension", "$value": { "value": -4, "unit": "px" } }
       },
       "press": {
         "$type": "dimension",
-        "depth": { "$value": { "value": 5, "unit": "px" } },
-        "hover": { "$value": { "value": -1, "unit": "px" } },
-        "held": { "$value": { "value": 4, "unit": "px" } },
+        "depth": {
+          "$description": "The base sits offset.base right and down: the hard ink shadow.",
+          "$value": "{offset.base}"
+        },
+        "hover": { "$value": { "value": 0, "unit": "px" } },
+        "held": { "$value": { "value": 0, "unit": "px" } },
         "disabled": { "$value": { "value": 0, "unit": "px" } }
+      },
+      "items": {
+        "$description": "An icon (the ready toggle's check) in the label colour of each state; without these Godot tints it white.",
+        "icon-normal-color": { "$type": "color", "$value": "{color.on-accent.text}" },
+        "icon-hover-color": { "$type": "color", "$value": "{color.on-accent.text}" },
+        "icon-pressed-color": { "$type": "color", "$value": "{color.on-accent.text}" },
+        "icon-hover-pressed-color": { "$type": "color", "$value": "{color.on-accent.text}" },
+        "icon-disabled-color": { "$type": "color", "$value": "{color.state.disabled-ink}" },
+        "icon-focus-color": { "$type": "color", "$value": "{color.on-accent.text}" }
       }
     },
     "plain": {
-      "$description": "A bare Button's look (Godot's Button base type, prime-game-ui#52): the white secondary face, flat. No parent and no press: a bare Button has no ToyRaised wrapper, so no base under it and no movement; hover and held look as normal, focus and disabled as the secondary button's.",
+      "$description": "A bare Button's look (Godot's Button base type, prime-game-ui#52): the mint sticker without its shadow. No parent and no press: a bare Button has no ToyRaised wrapper, so no base under it and no movement; hover, held, focus and disabled as the secondary button's.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyButtonPlain", "class": "Button" },
@@ -128,40 +159,48 @@
       },
       "label": { "$type": "typography", "$value": "{type.body-large-bold}" },
       "normal": {
-        "bg-color": { "$type": "color", "$value": "{palette.white}" },
+        "bg-color": { "$type": "color", "$value": "{palette.mint}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.control}" },
         "content-margin-block": { "$type": "dimension", "$value": { "value": 12, "unit": "px" } },
         "content-margin-inline": { "$type": "dimension", "$value": { "value": 22, "unit": "px" } },
-        "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
+        "font-color": { "$type": "color", "$value": "{color.on-accent.text}" }
+      },
+      "hover": {
+        "$description": "Hover: the face lifts to a lighter shade.",
+        "bg-color": { "$type": "color", "$value": "{palette.mint-light}" }
+      },
+      "pressed": {
+        "$description": "Held: the face darkens.",
+        "bg-color": { "$type": "color", "$value": "{palette.mint-dark}" }
       },
       "disabled": {
-        "$description": "Unplugged: pale and quiet.",
+        "$description": "Unplugged: a dulled lilac face, its outline and label in the soft ink.",
         "bg-color": { "$type": "color", "$value": "{color.state.disabled-face}" },
         "border-color": { "$type": "color", "$value": "{color.state.disabled-ink}" },
         "font-color": { "$type": "color", "$value": "{color.state.disabled-ink}" }
       },
       "focus": {
-        "$description": "Inner focus: the outline thickens inward by the focus width.",
+        "$description": "Inner focus: a ring inside the outline, the focus width wide.",
         "bg-color": { "$type": "color", "$value": "{palette.clear}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width": { "$type": "dimension", "$value": "{focus.width}" },
-        "corner-radius": { "$type": "dimension", "$value": { "value": 15, "unit": "px" } },
-        "expand-margin": { "$type": "dimension", "$value": { "value": -3, "unit": "px" } }
+        "corner-radius": { "$type": "dimension", "$value": { "value": 10, "unit": "px" } },
+        "expand-margin": { "$type": "dimension", "$value": { "value": -4, "unit": "px" } }
       },
       "items": {
-        "$description": "An icon in the label colour of each state; without these Godot tints it white.",
-        "icon-normal-color": { "$type": "color", "$value": "{color.on-light.text}" },
-        "icon-hover-color": { "$type": "color", "$value": "{color.on-light.text}" },
-        "icon-pressed-color": { "$type": "color", "$value": "{color.on-light.text}" },
-        "icon-hover-pressed-color": { "$type": "color", "$value": "{color.on-light.text}" },
+        "$description": "An icon (the ready toggle's check) in the label colour of each state; without these Godot tints it white.",
+        "icon-normal-color": { "$type": "color", "$value": "{color.on-accent.text}" },
+        "icon-hover-color": { "$type": "color", "$value": "{color.on-accent.text}" },
+        "icon-pressed-color": { "$type": "color", "$value": "{color.on-accent.text}" },
+        "icon-hover-pressed-color": { "$type": "color", "$value": "{color.on-accent.text}" },
         "icon-disabled-color": { "$type": "color", "$value": "{color.state.disabled-ink}" },
-        "icon-focus-color": { "$type": "color", "$value": "{color.on-light.text}" }
+        "icon-focus-color": { "$type": "color", "$value": "{color.on-accent.text}" }
       }
     },
     "danger": {
-      "$description": "Leave, quit and confirm: coral face, ink outline, a 5 px toy base.",
+      "$description": "Leave, quit and confirm: the coral sticker.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": {
@@ -183,30 +222,50 @@
         "content-margin-inline": { "$type": "dimension", "$value": { "value": 22, "unit": "px" } },
         "font-color": { "$type": "color", "$value": "{color.on-accent.text}" }
       },
+      "hover": {
+        "$description": "Hover: the face lifts to a lighter shade.",
+        "bg-color": { "$type": "color", "$value": "{palette.coral-light}" }
+      },
+      "pressed": {
+        "$description": "Held: the face darkens; the sticker does not move (the shadow stays).",
+        "bg-color": { "$type": "color", "$value": "{palette.coral-dark}" }
+      },
       "disabled": {
-        "$description": "Unplugged: the base is hidden, the face rests, pale and quiet.",
+        "$description": "Unplugged: no shadow (the base is hidden), a dulled lilac face, its outline and label in the soft ink.",
         "bg-color": { "$type": "color", "$value": "{color.state.disabled-face}" },
         "border-color": { "$type": "color", "$value": "{color.state.disabled-ink}" },
         "font-color": { "$type": "color", "$value": "{color.state.disabled-ink}" }
       },
       "focus": {
-        "$description": "Inner focus: the outline thickens inward by the focus width.",
+        "$description": "Inner focus: a ring inside the outline, the focus width wide.",
         "bg-color": { "$type": "color", "$value": "{palette.clear}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width": { "$type": "dimension", "$value": "{focus.width}" },
-        "corner-radius": { "$type": "dimension", "$value": { "value": 15, "unit": "px" } },
-        "expand-margin": { "$type": "dimension", "$value": { "value": -3, "unit": "px" } }
+        "corner-radius": { "$type": "dimension", "$value": { "value": 10, "unit": "px" } },
+        "expand-margin": { "$type": "dimension", "$value": { "value": -4, "unit": "px" } }
       },
       "press": {
         "$type": "dimension",
-        "depth": { "$value": { "value": 5, "unit": "px" } },
-        "hover": { "$value": { "value": -1, "unit": "px" } },
-        "held": { "$value": { "value": 4, "unit": "px" } },
+        "depth": {
+          "$description": "The base sits offset.base right and down: the hard ink shadow.",
+          "$value": "{offset.base}"
+        },
+        "hover": { "$value": { "value": 0, "unit": "px" } },
+        "held": { "$value": { "value": 0, "unit": "px" } },
         "disabled": { "$value": { "value": 0, "unit": "px" } }
+      },
+      "items": {
+        "$description": "An icon (the ready toggle's check) in the label colour of each state; without these Godot tints it white.",
+        "icon-normal-color": { "$type": "color", "$value": "{color.on-accent.text}" },
+        "icon-hover-color": { "$type": "color", "$value": "{color.on-accent.text}" },
+        "icon-pressed-color": { "$type": "color", "$value": "{color.on-accent.text}" },
+        "icon-hover-pressed-color": { "$type": "color", "$value": "{color.on-accent.text}" },
+        "icon-disabled-color": { "$type": "color", "$value": "{color.state.disabled-ink}" },
+        "icon-focus-color": { "$type": "color", "$value": "{color.on-accent.text}" }
       }
     },
     "ghost-on-dark": {
-      "$description": "A quiet action on dark: no fill, cream outline, no base.",
+      "$description": "A quiet action on purple: no face and no outline, a mint label; hover lays a lighter purple under it.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyButtonGhostOnDark", "class": "Button", "parent": "ToyButton" },
@@ -216,8 +275,6 @@
       "label": { "$type": "typography", "$value": "{type.small}" },
       "normal": {
         "bg-color": { "$type": "color", "$value": "{palette.clear}" },
-        "border-color": { "$type": "color", "$value": "{color.on-dark.line}" },
-        "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.control}" },
         "content-margin-block": { "$type": "dimension", "$value": { "value": 12, "unit": "px" } },
         "content-margin-inline": { "$type": "dimension", "$value": { "value": 22, "unit": "px" } },
@@ -232,21 +289,20 @@
         "bg-color": { "$type": "color", "$value": "{color.state.hover-on-dark}" }
       },
       "disabled": {
-        "$description": "Unplugged ghost: a muted outline and label.",
-        "border-color": { "$type": "color", "$value": "{color.state.disabled-ink-on-dark}" },
+        "$description": "Unplugged ghost: a quiet label.",
         "font-color": { "$type": "color", "$value": "{color.state.disabled-ink-on-dark}" }
       },
       "focus": {
-        "$description": "Inner focus: the outline thickens inward by the focus width.",
+        "$description": "Inner focus: a ring inside the outline, the focus width wide.",
         "bg-color": { "$type": "color", "$value": "{palette.clear}" },
         "border-color": { "$type": "color", "$value": "{color.on-dark.line}" },
         "border-width": { "$type": "dimension", "$value": "{focus.width}" },
-        "corner-radius": { "$type": "dimension", "$value": { "value": 15, "unit": "px" } },
-        "expand-margin": { "$type": "dimension", "$value": { "value": -3, "unit": "px" } }
+        "corner-radius": { "$type": "dimension", "$value": "{radius.control}" },
+        "expand-margin": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } }
       }
     },
     "ghost-on-light": {
-      "$description": "A quiet action on light: no fill, ink outline, no base.",
+      "$description": "A quiet action on mint: no face and no outline, an ink label; hover lays a darker mint under it.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyButtonGhostOnLight", "class": "Button", "parent": "ToyButton" },
@@ -256,8 +312,6 @@
       "label": { "$type": "typography", "$value": "{type.small}" },
       "normal": {
         "bg-color": { "$type": "color", "$value": "{palette.clear}" },
-        "border-color": { "$type": "color", "$value": "{color.on-light.line}" },
-        "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.control}" },
         "content-margin-block": { "$type": "dimension", "$value": { "value": 12, "unit": "px" } },
         "content-margin-inline": { "$type": "dimension", "$value": { "value": 22, "unit": "px" } },
@@ -272,21 +326,20 @@
         "bg-color": { "$type": "color", "$value": "{color.state.hover-on-light}" }
       },
       "disabled": {
-        "$description": "Unplugged ghost: a muted outline and label.",
-        "border-color": { "$type": "color", "$value": "{color.state.disabled-ink}" },
-        "font-color": { "$type": "color", "$value": "{color.state.disabled-ink}" }
+        "$description": "Unplugged ghost: a quiet label.",
+        "font-color": { "$type": "color", "$value": "{color.on-light.text-muted}" }
       },
       "focus": {
-        "$description": "Inner focus: the outline thickens inward by the focus width.",
+        "$description": "Inner focus: a ring inside the outline, the focus width wide.",
         "bg-color": { "$type": "color", "$value": "{palette.clear}" },
         "border-color": { "$type": "color", "$value": "{color.on-light.line}" },
         "border-width": { "$type": "dimension", "$value": "{focus.width}" },
-        "corner-radius": { "$type": "dimension", "$value": { "value": 15, "unit": "px" } },
-        "expand-margin": { "$type": "dimension", "$value": { "value": -3, "unit": "px" } }
+        "corner-radius": { "$type": "dimension", "$value": "{radius.control}" },
+        "expand-margin": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } }
       }
     },
     "menu-item": {
-      "$description": "A main-menu entry on dark: a borderless ghost with the heading label and a pointer icon that shows on hover, focus and while open (toggle_mode: pressed is the open entry).",
+      "$description": "A main-menu entry on purple: a borderless entry with the heading label (Nunito Black) and a pointer icon that shows on hover, focus and while open (toggle_mode: pressed is the open entry).",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyMenuItem", "class": "Button", "parent": "ToyButton" },
@@ -310,11 +363,11 @@
         "bg-color": { "$type": "color", "$value": "{color.state.hover-on-dark}" }
       },
       "disabled": {
-        "$description": "Unplugged entry: a muted label.",
+        "$description": "Unplugged entry: a quiet label.",
         "font-color": { "$type": "color", "$value": "{color.state.disabled-ink-on-dark}" }
       },
       "focus": {
-        "$description": "Inner focus at the edge of a borderless entry.",
+        "$description": "Inner focus: a ring inside the outline, the focus width wide.",
         "bg-color": { "$type": "color", "$value": "{palette.clear}" },
         "border-color": { "$type": "color", "$value": "{color.on-dark.line}" },
         "border-width": { "$type": "dimension", "$value": "{focus.width}" },
@@ -322,18 +375,18 @@
         "expand-margin": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } }
       },
       "items": {
-        "$description": "The pointer icon: clear at rest and unplugged, cream on hover, focus and while open; 12 px between the pointer and the label.",
+        "$description": "The pointer icon: clear at rest and unplugged, the alien green on hover, focus and while open; 12 px between the pointer and the label.",
         "icon-normal-color": { "$type": "color", "$value": "{palette.clear}" },
-        "icon-hover-color": { "$type": "color", "$value": "{color.on-dark.text}" },
-        "icon-pressed-color": { "$type": "color", "$value": "{color.on-dark.text}" },
-        "icon-hover-pressed-color": { "$type": "color", "$value": "{color.on-dark.text}" },
+        "icon-hover-color": { "$type": "color", "$value": "{color.on-dark.title}" },
+        "icon-pressed-color": { "$type": "color", "$value": "{color.on-dark.title}" },
+        "icon-hover-pressed-color": { "$type": "color", "$value": "{color.on-dark.title}" },
         "icon-disabled-color": { "$type": "color", "$value": "{palette.clear}" },
-        "icon-focus-color": { "$type": "color", "$value": "{color.on-dark.text}" },
+        "icon-focus-color": { "$type": "color", "$value": "{color.on-dark.title}" },
         "h-separation": { "$type": "dimension", "$value": { "value": 12, "unit": "px" } }
       }
     },
     "base-raised-on-dark": {
-      "$description": "The 5 px toy base under secondary and danger buttons on dark.",
+      "$description": "The hard ink shadow under the secondary and danger buttons on purple: 5 px right and 5 px down.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyBaseRaisedOnDark", "class": "Panel" },
@@ -344,11 +397,13 @@
         "bg-color": { "$type": "color", "$value": "{color.on-dark.base}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.control}" },
         "expand-margin-top": { "$type": "dimension", "$value": { "value": -5, "unit": "px" } },
-        "expand-margin-bottom": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } }
+        "expand-margin-right": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } },
+        "expand-margin-bottom": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } },
+        "expand-margin-left": { "$type": "dimension", "$value": { "value": -5, "unit": "px" } }
       }
     },
     "base-raised-on-light": {
-      "$description": "The 5 px toy base under secondary and danger buttons on light.",
+      "$description": "The hard ink shadow under the secondary and danger buttons on mint: 5 px right and 5 px down.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyBaseRaisedOnLight", "class": "Panel" },
@@ -359,11 +414,13 @@
         "bg-color": { "$type": "color", "$value": "{color.on-light.base}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.control}" },
         "expand-margin-top": { "$type": "dimension", "$value": { "value": -5, "unit": "px" } },
-        "expand-margin-bottom": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } }
+        "expand-margin-right": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } },
+        "expand-margin-bottom": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } },
+        "expand-margin-left": { "$type": "dimension", "$value": { "value": -5, "unit": "px" } }
       }
     },
     "base-primary-on-dark": {
-      "$description": "The 6 px toy base under the primary button on dark.",
+      "$description": "The hard ink shadow under the primary button on purple: 5 px right and 5 px down.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyBasePrimaryOnDark", "class": "Panel" },
@@ -373,12 +430,14 @@
       "panel": {
         "bg-color": { "$type": "color", "$value": "{color.on-dark.base}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.control}" },
-        "expand-margin-top": { "$type": "dimension", "$value": { "value": -6, "unit": "px" } },
-        "expand-margin-bottom": { "$type": "dimension", "$value": { "value": 6, "unit": "px" } }
+        "expand-margin-top": { "$type": "dimension", "$value": { "value": -5, "unit": "px" } },
+        "expand-margin-right": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } },
+        "expand-margin-bottom": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } },
+        "expand-margin-left": { "$type": "dimension", "$value": { "value": -5, "unit": "px" } }
       }
     },
     "base-primary-on-light": {
-      "$description": "The 6 px toy base under the primary button on light.",
+      "$description": "The hard ink shadow under the primary button on mint: 5 px right and 5 px down.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyBasePrimaryOnLight", "class": "Panel" },
@@ -388,8 +447,10 @@
       "panel": {
         "bg-color": { "$type": "color", "$value": "{color.on-light.base}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.control}" },
-        "expand-margin-top": { "$type": "dimension", "$value": { "value": -6, "unit": "px" } },
-        "expand-margin-bottom": { "$type": "dimension", "$value": { "value": 6, "unit": "px" } }
+        "expand-margin-top": { "$type": "dimension", "$value": { "value": -5, "unit": "px" } },
+        "expand-margin-right": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } },
+        "expand-margin-bottom": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } },
+        "expand-margin-left": { "$type": "dimension", "$value": { "value": -5, "unit": "px" } }
       }
     }
   }

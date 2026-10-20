@@ -30,8 +30,8 @@ const GROUP_KEYS = ['$type', '$description', '$extensions', '$deprecated'];
 const RESERVED = ['$value', '$type', '$description', '$extensions', '$deprecated', '$schema', '$ref', '$root',
   '$extends', '$defs'];
 const NAME_RE = /^[a-z0-9]+(-[a-z0-9]+)*$/;
-// Fonts whose licence is recorded in the repo (dtcg-facts §9 item 23; docs/ui-decisions.md, Type: Comfortaa, OFL 1.1).
-const LICENSED_FONTS = ['Comfortaa'];
+// Fonts whose licence is recorded in the repo (dtcg-facts §9 item 23; docs/ui-decisions.md, the new setting: Nunito, Rubik, Kablammo, OFL 1.1).
+const LICENSED_FONTS = ['Nunito', 'Rubik', 'Kablammo'];
 // godot-facts §4: Tween.TransitionType and Tween.EaseType in 4.7.2.
 const GODOT_TRANS = { TRANS_LINEAR: 0, TRANS_SINE: 1, TRANS_QUINT: 2, TRANS_QUART: 3, TRANS_QUAD: 4, TRANS_EXPO: 5,
   TRANS_ELASTIC: 6, TRANS_CUBIC: 7, TRANS_CIRC: 8, TRANS_BOUNCE: 9, TRANS_BACK: 10, TRANS_SPRING: 11 };

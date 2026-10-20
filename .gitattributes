@@ -5,6 +5,6 @@
 *.ttf binary
 *.otf binary
 
-# third-party font files stay byte for byte as upstream ships them (OFL.txt has CRLF line ends)
+# third-party font files stay byte for byte as upstream ships them (an OFL.txt may have CRLF line ends)
 fonts/**/OFL.txt binary
-dist/pack/fonts/OFL.txt binary
+dist/pack/fonts/*.txt binary

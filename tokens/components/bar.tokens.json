@@ -11,11 +11,11 @@
         }
       },
       "panel": {
-        "bg-color": { "$type": "color", "$value": "{palette.track-dark}" },
-        "border-color": { "$type": "color", "$value": "{palette.slotline}" },
+        "bg-color": { "$type": "color", "$value": "{palette.white}" },
+        "border-color": { "$type": "color", "$value": "{palette.muted}" },
         "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
         "corner-radius": { "$type": "dimension", "$value": { "value": 10, "unit": "px" } },
-        "content-margin": { "$type": "dimension", "$value": { "value": 3, "unit": "px" } }
+        "content-margin": { "$type": "dimension", "$value": { "value": 4, "unit": "px" } }
       },
       "size": {
         "$type": "dimension",
@@ -66,7 +66,7 @@
         }
       },
       "background": {
-        "bg-color": { "$type": "color", "$value": "{palette.track-dark}" },
+        "bg-color": { "$type": "color", "$value": "{palette.white}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
         "content-margin-block": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } },
         "content-margin-inline": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } }
@@ -85,7 +85,7 @@
         }
       },
       "background": {
-        "bg-color": { "$type": "color", "$value": "{palette.track-light}" },
+        "bg-color": { "$type": "color", "$value": "{palette.white}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
         "content-margin-block": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } },
         "content-margin-inline": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } }
@@ -128,7 +128,7 @@
       },
       "slider": {
         "$description": "The track, drawn as tall as its content margins (10 px) across the slider, centred on the knob.",
-        "bg-color": { "$type": "color", "$value": "{palette.track-light}" },
+        "bg-color": { "$type": "color", "$value": "{palette.white}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
         "content-margin-block": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } },
         "content-margin-inline": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } }
@@ -162,7 +162,7 @@
       },
       "scroll": {
         "$description": "The track: its inline content margins make the bar 10 px wide.",
-        "bg-color": { "$type": "color", "$value": "{palette.track-light}" },
+        "bg-color": { "$type": "color", "$value": "{palette.white}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
         "content-margin-block": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
         "content-margin-inline": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } }

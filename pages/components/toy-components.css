@@ -486,7 +486,7 @@
   --tv-depth: var(--toy-button-primary-press-depth);
   --tv-base: var(--toy-button-base-primary-on-dark-panel-bg-color);
   transform: translateY(calc(var(--tv-offset) * var(--px)));
-  box-shadow: 0 calc((var(--tv-depth) - var(--tv-offset)) * var(--px)) 0 var(--tv-base);
+  box-shadow: calc(var(--toy-button-base-primary-on-dark-panel-expand-margin-right) * var(--px)) calc((var(--tv-depth) - var(--tv-offset)) * var(--px)) 0 var(--tv-base);
   transition: transform var(--toy-button-common-motion-duration) var(--toy-button-common-motion-timing-function), box-shadow var(--toy-button-common-motion-duration) var(--toy-button-common-motion-timing-function);
   cursor: pointer;
 }
@@ -494,9 +494,11 @@
   --tv-base: var(--toy-button-base-primary-on-light-panel-bg-color);
 }
 .tv-ToyButtonPrimary.is-hover {
+  background: var(--toy-button-primary-hover-bg-color);
   --tv-offset: var(--toy-button-primary-press-hover);
 }
 .tv-ToyButtonPrimary.is-held {
+  background: var(--toy-button-primary-pressed-bg-color);
   --tv-offset: var(--toy-button-primary-press-held);
 }
 .tv-ToyButtonPrimary.is-disabled {
@@ -573,7 +575,7 @@
   --tv-depth: var(--toy-button-secondary-press-depth);
   --tv-base: var(--toy-button-base-raised-on-dark-panel-bg-color);
   transform: translateY(calc(var(--tv-offset) * var(--px)));
-  box-shadow: 0 calc((var(--tv-depth) - var(--tv-offset)) * var(--px)) 0 var(--tv-base);
+  box-shadow: calc(var(--toy-button-base-raised-on-dark-panel-expand-margin-right) * var(--px)) calc((var(--tv-depth) - var(--tv-offset)) * var(--px)) 0 var(--tv-base);
   transition: transform var(--toy-button-common-motion-duration) var(--toy-button-common-motion-timing-function), box-shadow var(--toy-button-common-motion-duration) var(--toy-button-common-motion-timing-function);
   cursor: pointer;
 }
@@ -581,9 +583,11 @@
   --tv-base: var(--toy-button-base-raised-on-light-panel-bg-color);
 }
 .tv-ToyButtonSecondary.is-hover {
+  background: var(--toy-button-secondary-hover-bg-color);
   --tv-offset: var(--toy-button-secondary-press-hover);
 }
 .tv-ToyButtonSecondary.is-held {
+  background: var(--toy-button-secondary-pressed-bg-color);
   --tv-offset: var(--toy-button-secondary-press-held);
 }
 .tv-ToyButtonSecondary.is-disabled {
@@ -616,6 +620,21 @@
 .tv-ToyButtonSecondary.is-focus > .tv-focus, .tv-ToyButtonSecondary:focus-visible > .tv-focus {
   display: block;
 }
+.tv-ToyButtonSecondary .tv-icon {
+  color: var(--toy-button-secondary-items-icon-normal-color);
+}
+.tv-ToyButtonSecondary.is-focus .tv-icon, .tv-ToyButtonSecondary:focus-visible .tv-icon {
+  color: var(--toy-button-secondary-items-icon-focus-color);
+}
+.tv-ToyButtonSecondary.is-hover .tv-icon {
+  color: var(--toy-button-secondary-items-icon-hover-color);
+}
+.tv-ToyButtonSecondary.is-held .tv-icon {
+  color: var(--toy-button-secondary-items-icon-pressed-color);
+}
+.tv-ToyButtonSecondary.is-disabled .tv-icon {
+  color: var(--toy-button-secondary-items-icon-disabled-color);
+}
 /* ToyButtonPlain: Button · button.plain · any */
 .tv-ToyButtonPlain {
   box-sizing: border-box;
@@ -642,6 +661,12 @@
   letter-spacing: calc(var(--toy-button-plain-label-letter-spacing) * var(--px));
   color: var(--toy-button-plain-normal-font-color);
   cursor: pointer;
+}
+.tv-ToyButtonPlain.is-hover {
+  background: var(--toy-button-plain-hover-bg-color);
+}
+.tv-ToyButtonPlain.is-held {
+  background: var(--toy-button-plain-pressed-bg-color);
 }
 .tv-ToyButtonPlain.is-disabled {
   background: var(--toy-button-plain-disabled-bg-color);
@@ -715,7 +740,7 @@
   --tv-depth: var(--toy-button-danger-press-depth);
   --tv-base: var(--toy-button-base-raised-on-dark-panel-bg-color);
   transform: translateY(calc(var(--tv-offset) * var(--px)));
-  box-shadow: 0 calc((var(--tv-depth) - var(--tv-offset)) * var(--px)) 0 var(--tv-base);
+  box-shadow: calc(var(--toy-button-base-raised-on-dark-panel-expand-margin-right) * var(--px)) calc((var(--tv-depth) - var(--tv-offset)) * var(--px)) 0 var(--tv-base);
   transition: transform var(--toy-button-common-motion-duration) var(--toy-button-common-motion-timing-function), box-shadow var(--toy-button-common-motion-duration) var(--toy-button-common-motion-timing-function);
   cursor: pointer;
 }
@@ -723,9 +748,11 @@
   --tv-base: var(--toy-button-base-raised-on-light-panel-bg-color);
 }
 .tv-ToyButtonDanger.is-hover {
+  background: var(--toy-button-danger-hover-bg-color);
   --tv-offset: var(--toy-button-danger-press-hover);
 }
 .tv-ToyButtonDanger.is-held {
+  background: var(--toy-button-danger-pressed-bg-color);
   --tv-offset: var(--toy-button-danger-press-held);
 }
 .tv-ToyButtonDanger.is-disabled {
@@ -758,25 +785,39 @@
 .tv-ToyButtonDanger.is-focus > .tv-focus, .tv-ToyButtonDanger:focus-visible > .tv-focus {
   display: block;
 }
+.tv-ToyButtonDanger .tv-icon {
+  color: var(--toy-button-danger-items-icon-normal-color);
+}
+.tv-ToyButtonDanger.is-focus .tv-icon, .tv-ToyButtonDanger:focus-visible .tv-icon {
+  color: var(--toy-button-danger-items-icon-focus-color);
+}
+.tv-ToyButtonDanger.is-hover .tv-icon {
+  color: var(--toy-button-danger-items-icon-hover-color);
+}
+.tv-ToyButtonDanger.is-held .tv-icon {
+  color: var(--toy-button-danger-items-icon-pressed-color);
+}
+.tv-ToyButtonDanger.is-disabled .tv-icon {
+  color: var(--toy-button-danger-items-icon-disabled-color);
+}
 /* ToyButtonGhostOnDark: Button → ToyButton · button.ghost-on-dark · dark */
 .tv-ToyButtonGhostOnDark {
   box-sizing: border-box;
   position: relative;
   background: var(--toy-palette-clear);
   border-style: solid;
-  border-color: var(--toy-button-ghost-on-dark-normal-border-color);
-  border-top-width: calc(var(--toy-button-ghost-on-dark-normal-border-width) * var(--px));
-  border-right-width: calc(var(--toy-button-ghost-on-dark-normal-border-width) * var(--px));
-  border-bottom-width: calc(var(--toy-button-ghost-on-dark-normal-border-width) * var(--px));
-  border-left-width: calc(var(--toy-button-ghost-on-dark-normal-border-width) * var(--px));
+  border-top-width: 0;
+  border-right-width: 0;
+  border-bottom-width: 0;
+  border-left-width: 0;
   border-top-left-radius: calc(var(--toy-button-ghost-on-dark-normal-corner-radius) * var(--px));
   border-top-right-radius: calc(var(--toy-button-ghost-on-dark-normal-corner-radius) * var(--px));
   border-bottom-right-radius: calc(var(--toy-button-ghost-on-dark-normal-corner-radius) * var(--px));
   border-bottom-left-radius: calc(var(--toy-button-ghost-on-dark-normal-corner-radius) * var(--px));
-  padding-top: calc((var(--toy-button-ghost-on-dark-normal-content-margin-block) - var(--toy-button-ghost-on-dark-normal-border-width)) * var(--px));
-  padding-right: calc((var(--toy-button-ghost-on-dark-normal-content-margin-inline) - var(--toy-button-ghost-on-dark-normal-border-width)) * var(--px));
-  padding-bottom: calc((var(--toy-button-ghost-on-dark-normal-content-margin-block) - var(--toy-button-ghost-on-dark-normal-border-width)) * var(--px));
-  padding-left: calc((var(--toy-button-ghost-on-dark-normal-content-margin-inline) - var(--toy-button-ghost-on-dark-normal-border-width)) * var(--px));
+  padding-top: calc(var(--toy-button-ghost-on-dark-normal-content-margin-block) * var(--px));
+  padding-right: calc(var(--toy-button-ghost-on-dark-normal-content-margin-inline) * var(--px));
+  padding-bottom: calc(var(--toy-button-ghost-on-dark-normal-content-margin-block) * var(--px));
+  padding-left: calc(var(--toy-button-ghost-on-dark-normal-content-margin-inline) * var(--px));
   font-family: var(--toy-button-ghost-on-dark-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-button-ghost-on-dark-label-font-size) * var(--px));
   font-weight: var(--toy-button-ghost-on-dark-label-font-weight);
@@ -792,7 +833,6 @@
   background: var(--toy-button-ghost-on-dark-pressed-bg-color);
 }
 .tv-ToyButtonGhostOnDark.is-disabled {
-  border-color: var(--toy-button-ghost-on-dark-disabled-border-color);
   color: var(--toy-button-ghost-on-dark-disabled-font-color);
 }
 .tv-ToyButtonGhostOnDark > .tv-focus {
@@ -810,10 +850,10 @@
   border-top-right-radius: calc(var(--toy-button-ghost-on-dark-focus-corner-radius) * var(--px));
   border-bottom-right-radius: calc(var(--toy-button-ghost-on-dark-focus-corner-radius) * var(--px));
   border-bottom-left-radius: calc(var(--toy-button-ghost-on-dark-focus-corner-radius) * var(--px));
-  top: calc((0 - var(--toy-button-ghost-on-dark-normal-border-width) - var(--toy-button-ghost-on-dark-focus-expand-margin)) * var(--px));
-  right: calc((0 - var(--toy-button-ghost-on-dark-normal-border-width) - var(--toy-button-ghost-on-dark-focus-expand-margin)) * var(--px));
-  bottom: calc((0 - var(--toy-button-ghost-on-dark-normal-border-width) - var(--toy-button-ghost-on-dark-focus-expand-margin)) * var(--px));
-  left: calc((0 - var(--toy-button-ghost-on-dark-normal-border-width) - var(--toy-button-ghost-on-dark-focus-expand-margin)) * var(--px));
+  top: calc((0 - var(--toy-button-ghost-on-dark-focus-expand-margin)) * var(--px));
+  right: calc((0 - var(--toy-button-ghost-on-dark-focus-expand-margin)) * var(--px));
+  bottom: calc((0 - var(--toy-button-ghost-on-dark-focus-expand-margin)) * var(--px));
+  left: calc((0 - var(--toy-button-ghost-on-dark-focus-expand-margin)) * var(--px));
 }
 .tv-ToyButtonGhostOnDark.is-focus > .tv-focus, .tv-ToyButtonGhostOnDark:focus-visible > .tv-focus {
   display: block;
@@ -824,19 +864,18 @@
   position: relative;
   background: var(--toy-palette-clear);
   border-style: solid;
-  border-color: var(--toy-button-ghost-on-light-normal-border-color);
-  border-top-width: calc(var(--toy-button-ghost-on-light-normal-border-width) * var(--px));
-  border-right-width: calc(var(--toy-button-ghost-on-light-normal-border-width) * var(--px));
-  border-bottom-width: calc(var(--toy-button-ghost-on-light-normal-border-width) * var(--px));
-  border-left-width: calc(var(--toy-button-ghost-on-light-normal-border-width) * var(--px));
+  border-top-width: 0;
+  border-right-width: 0;
+  border-bottom-width: 0;
+  border-left-width: 0;
   border-top-left-radius: calc(var(--toy-button-ghost-on-light-normal-corner-radius) * var(--px));
   border-top-right-radius: calc(var(--toy-button-ghost-on-light-normal-corner-radius) * var(--px));
   border-bottom-right-radius: calc(var(--toy-button-ghost-on-light-normal-corner-radius) * var(--px));
   border-bottom-left-radius: calc(var(--toy-button-ghost-on-light-normal-corner-radius) * var(--px));
-  padding-top: calc((var(--toy-button-ghost-on-light-normal-content-margin-block) - var(--toy-button-ghost-on-light-normal-border-width)) * var(--px));
-  padding-right: calc((var(--toy-button-ghost-on-light-normal-content-margin-inline) - var(--toy-button-ghost-on-light-normal-border-width)) * var(--px));
-  padding-bottom: calc((var(--toy-button-ghost-on-light-normal-content-margin-block) - var(--toy-button-ghost-on-light-normal-border-width)) * var(--px));
-  padding-left: calc((var(--toy-button-ghost-on-light-normal-content-margin-inline) - var(--toy-button-ghost-on-light-normal-border-width)) * var(--px));
+  padding-top: calc(var(--toy-button-ghost-on-light-normal-content-margin-block) * var(--px));
+  padding-right: calc(var(--toy-button-ghost-on-light-normal-content-margin-inline) * var(--px));
+  padding-bottom: calc(var(--toy-button-ghost-on-light-normal-content-margin-block) * var(--px));
+  padding-left: calc(var(--toy-button-ghost-on-light-normal-content-margin-inline) * var(--px));
   font-family: var(--toy-button-ghost-on-light-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-button-ghost-on-light-label-font-size) * var(--px));
   font-weight: var(--toy-button-ghost-on-light-label-font-weight);
@@ -852,7 +891,6 @@
   background: var(--toy-button-ghost-on-light-pressed-bg-color);
 }
 .tv-ToyButtonGhostOnLight.is-disabled {
-  border-color: var(--toy-button-ghost-on-light-disabled-border-color);
   color: var(--toy-button-ghost-on-light-disabled-font-color);
 }
 .tv-ToyButtonGhostOnLight > .tv-focus {
@@ -870,10 +908,10 @@
   border-top-right-radius: calc(var(--toy-button-ghost-on-light-focus-corner-radius) * var(--px));
   border-bottom-right-radius: calc(var(--toy-button-ghost-on-light-focus-corner-radius) * var(--px));
   border-bottom-left-radius: calc(var(--toy-button-ghost-on-light-focus-corner-radius) * var(--px));
-  top: calc((0 - var(--toy-button-ghost-on-light-normal-border-width) - var(--toy-button-ghost-on-light-focus-expand-margin)) * var(--px));
-  right: calc((0 - var(--toy-button-ghost-on-light-normal-border-width) - var(--toy-button-ghost-on-light-focus-expand-margin)) * var(--px));
-  bottom: calc((0 - var(--toy-button-ghost-on-light-normal-border-width) - var(--toy-button-ghost-on-light-focus-expand-margin)) * var(--px));
-  left: calc((0 - var(--toy-button-ghost-on-light-normal-border-width) - var(--toy-button-ghost-on-light-focus-expand-margin)) * var(--px));
+  top: calc((0 - var(--toy-button-ghost-on-light-focus-expand-margin)) * var(--px));
+  right: calc((0 - var(--toy-button-ghost-on-light-focus-expand-margin)) * var(--px));
+  bottom: calc((0 - var(--toy-button-ghost-on-light-focus-expand-margin)) * var(--px));
+  left: calc((0 - var(--toy-button-ghost-on-light-focus-expand-margin)) * var(--px));
 }
 .tv-ToyButtonGhostOnLight.is-focus > .tv-focus, .tv-ToyButtonGhostOnLight:focus-visible > .tv-focus {
   display: block;
@@ -967,11 +1005,13 @@
   border-bottom-right-radius: calc(var(--toy-button-base-raised-on-dark-panel-corner-radius) * var(--px));
   border-bottom-left-radius: calc(var(--toy-button-base-raised-on-dark-panel-corner-radius) * var(--px));
   padding-top: calc(var(--toy-button-base-raised-on-dark-panel-expand-margin-top) * var(--px));
-  padding-right: 0;
+  padding-right: calc(var(--toy-button-base-raised-on-dark-panel-expand-margin-right) * var(--px));
   padding-bottom: calc(var(--toy-button-base-raised-on-dark-panel-expand-margin-bottom) * var(--px));
-  padding-left: 0;
+  padding-left: calc(var(--toy-button-base-raised-on-dark-panel-expand-margin-left) * var(--px));
   margin-top: calc(var(--toy-button-base-raised-on-dark-panel-expand-margin-top) * -1 * var(--px));
+  margin-right: calc(var(--toy-button-base-raised-on-dark-panel-expand-margin-right) * -1 * var(--px));
   margin-bottom: calc(var(--toy-button-base-raised-on-dark-panel-expand-margin-bottom) * -1 * var(--px));
+  margin-left: calc(var(--toy-button-base-raised-on-dark-panel-expand-margin-left) * -1 * var(--px));
 }
 /* ToyBaseRaisedOnLight: Panel · button.base-raised-on-light · light */
 .tv-ToyBaseRaisedOnLight {
@@ -988,11 +1028,13 @@
   border-bottom-right-radius: calc(var(--toy-button-base-raised-on-light-panel-corner-radius) * var(--px));
   border-bottom-left-radius: calc(var(--toy-button-base-raised-on-light-panel-corner-radius) * var(--px));
   padding-top: calc(var(--toy-button-base-raised-on-light-panel-expand-margin-top) * var(--px));
-  padding-right: 0;
+  padding-right: calc(var(--toy-button-base-raised-on-light-panel-expand-margin-right) * var(--px));
   padding-bottom: calc(var(--toy-button-base-raised-on-light-panel-expand-margin-bottom) * var(--px));
-  padding-left: 0;
+  padding-left: calc(var(--toy-button-base-raised-on-light-panel-expand-margin-left) * var(--px));
   margin-top: calc(var(--toy-button-base-raised-on-light-panel-expand-margin-top) * -1 * var(--px));
+  margin-right: calc(var(--toy-button-base-raised-on-light-panel-expand-margin-right) * -1 * var(--px));
   margin-bottom: calc(var(--toy-button-base-raised-on-light-panel-expand-margin-bottom) * -1 * var(--px));
+  margin-left: calc(var(--toy-button-base-raised-on-light-panel-expand-margin-left) * -1 * var(--px));
 }
 /* ToyBasePrimaryOnDark: Panel · button.base-primary-on-dark · dark */
 .tv-ToyBasePrimaryOnDark {
@@ -1009,11 +1051,13 @@
   border-bottom-right-radius: calc(var(--toy-button-base-primary-on-dark-panel-corner-radius) * var(--px));
   border-bottom-left-radius: calc(var(--toy-button-base-primary-on-dark-panel-corner-radius) * var(--px));
   padding-top: calc(var(--toy-button-base-primary-on-dark-panel-expand-margin-top) * var(--px));
-  padding-right: 0;
+  padding-right: calc(var(--toy-button-base-primary-on-dark-panel-expand-margin-right) * var(--px));
   padding-bottom: calc(var(--toy-button-base-primary-on-dark-panel-expand-margin-bottom) * var(--px));
-  padding-left: 0;
+  padding-left: calc(var(--toy-button-base-primary-on-dark-panel-expand-margin-left) * var(--px));
   margin-top: calc(var(--toy-button-base-primary-on-dark-panel-expand-margin-top) * -1 * var(--px));
+  margin-right: calc(var(--toy-button-base-primary-on-dark-panel-expand-margin-right) * -1 * var(--px));
   margin-bottom: calc(var(--toy-button-base-primary-on-dark-panel-expand-margin-bottom) * -1 * var(--px));
+  margin-left: calc(var(--toy-button-base-primary-on-dark-panel-expand-margin-left) * -1 * var(--px));
 }
 /* ToyBasePrimaryOnLight: Panel · button.base-primary-on-light · light */
 .tv-ToyBasePrimaryOnLight {
@@ -1030,11 +1074,13 @@
   border-bottom-right-radius: calc(var(--toy-button-base-primary-on-light-panel-corner-radius) * var(--px));
   border-bottom-left-radius: calc(var(--toy-button-base-primary-on-light-panel-corner-radius) * var(--px));
   padding-top: calc(var(--toy-button-base-primary-on-light-panel-expand-margin-top) * var(--px));
-  padding-right: 0;
+  padding-right: calc(var(--toy-button-base-primary-on-light-panel-expand-margin-right) * var(--px));
   padding-bottom: calc(var(--toy-button-base-primary-on-light-panel-expand-margin-bottom) * var(--px));
-  padding-left: 0;
+  padding-left: calc(var(--toy-button-base-primary-on-light-panel-expand-margin-left) * var(--px));
   margin-top: calc(var(--toy-button-base-primary-on-light-panel-expand-margin-top) * -1 * var(--px));
+  margin-right: calc(var(--toy-button-base-primary-on-light-panel-expand-margin-right) * -1 * var(--px));
   margin-bottom: calc(var(--toy-button-base-primary-on-light-panel-expand-margin-bottom) * -1 * var(--px));
+  margin-left: calc(var(--toy-button-base-primary-on-light-panel-expand-margin-left) * -1 * var(--px));
 }
 /* ToyChipPlate: PanelContainer · chip.plate · dark */
 .tv-ToyChipPlate {
@@ -2251,7 +2297,7 @@
   padding-right: calc((var(--toy-map-board-panel-content-margin) - var(--toy-map-board-panel-border-width)) * var(--px));
   padding-bottom: calc((var(--toy-map-board-panel-content-margin) - var(--toy-map-board-panel-border-width)) * var(--px));
   padding-left: calc((var(--toy-map-board-panel-content-margin) - var(--toy-map-board-panel-border-width)) * var(--px));
-  box-shadow: 0 calc(var(--toy-panel-base-panel-expand-margin-bottom) * var(--px)) 0 var(--toy-panel-base-panel-bg-color);
+  box-shadow: calc(var(--toy-panel-base-panel-expand-margin-right) * var(--px)) calc(var(--toy-panel-base-panel-expand-margin-bottom) * var(--px)) 0 var(--toy-panel-base-panel-bg-color);
 }
 /* ToyMapRoom: PanelContainer · map.room · light */
 .tv-ToyMapRoom {
@@ -2398,7 +2444,7 @@
   padding-right: calc((var(--toy-panel-menu-panel-content-margin) - var(--toy-panel-menu-panel-border-width)) * var(--px));
   padding-bottom: calc((var(--toy-panel-menu-panel-content-margin) - var(--toy-panel-menu-panel-border-width)) * var(--px));
   padding-left: calc((var(--toy-panel-menu-panel-content-margin) - var(--toy-panel-menu-panel-border-width)) * var(--px));
-  box-shadow: 0 calc(var(--toy-panel-base-panel-expand-margin-bottom) * var(--px)) 0 var(--toy-panel-base-panel-bg-color);
+  box-shadow: calc(var(--toy-panel-base-panel-expand-margin-right) * var(--px)) calc(var(--toy-panel-base-panel-expand-margin-bottom) * var(--px)) 0 var(--toy-panel-base-panel-bg-color);
 }
 /* ToyPanelDialog: PanelContainer · panel.dialog · light */
 .tv-ToyPanelDialog {
@@ -2419,7 +2465,7 @@
   padding-right: calc((var(--toy-panel-dialog-panel-content-margin) - var(--toy-panel-dialog-panel-border-width)) * var(--px));
   padding-bottom: calc((var(--toy-panel-dialog-panel-content-margin) - var(--toy-panel-dialog-panel-border-width)) * var(--px));
   padding-left: calc((var(--toy-panel-dialog-panel-content-margin) - var(--toy-panel-dialog-panel-border-width)) * var(--px));
-  box-shadow: 0 calc(var(--toy-panel-base-panel-expand-margin-bottom) * var(--px)) 0 var(--toy-panel-base-panel-bg-color);
+  box-shadow: calc(var(--toy-panel-base-panel-expand-margin-right) * var(--px)) calc(var(--toy-panel-base-panel-expand-margin-bottom) * var(--px)) 0 var(--toy-panel-base-panel-bg-color);
 }
 /* ToyPanelHowto: PanelContainer · panel.howto · light */
 .tv-ToyPanelHowto {
@@ -2440,7 +2486,7 @@
   padding-right: calc((var(--toy-panel-howto-panel-content-margin) - var(--toy-panel-howto-panel-border-width)) * var(--px));
   padding-bottom: calc((var(--toy-panel-howto-panel-content-margin) - var(--toy-panel-howto-panel-border-width)) * var(--px));
   padding-left: calc((var(--toy-panel-howto-panel-content-margin) - var(--toy-panel-howto-panel-border-width)) * var(--px));
-  box-shadow: 0 calc(var(--toy-panel-base-panel-expand-margin-bottom) * var(--px)) 0 var(--toy-panel-base-panel-bg-color);
+  box-shadow: calc(var(--toy-panel-base-panel-expand-margin-right) * var(--px)) calc(var(--toy-panel-base-panel-expand-margin-bottom) * var(--px)) 0 var(--toy-panel-base-panel-bg-color);
 }
 /* ToyBasePanel: Panel · panel.base · any */
 .tv-ToyBasePanel {
@@ -2457,11 +2503,13 @@
   border-bottom-right-radius: calc(var(--toy-panel-base-panel-corner-radius) * var(--px));
   border-bottom-left-radius: calc(var(--toy-panel-base-panel-corner-radius) * var(--px));
   padding-top: calc(var(--toy-panel-base-panel-expand-margin-top) * var(--px));
-  padding-right: 0;
+  padding-right: calc(var(--toy-panel-base-panel-expand-margin-right) * var(--px));
   padding-bottom: calc(var(--toy-panel-base-panel-expand-margin-bottom) * var(--px));
-  padding-left: 0;
+  padding-left: calc(var(--toy-panel-base-panel-expand-margin-left) * var(--px));
   margin-top: calc(var(--toy-panel-base-panel-expand-margin-top) * -1 * var(--px));
+  margin-right: calc(var(--toy-panel-base-panel-expand-margin-right) * -1 * var(--px));
   margin-bottom: calc(var(--toy-panel-base-panel-expand-margin-bottom) * -1 * var(--px));
+  margin-left: calc(var(--toy-panel-base-panel-expand-margin-left) * -1 * var(--px));
 }
 /* ToySwatchRing: Panel · pick.swatch-ring · light */
 .tv-ToySwatchRing {
@@ -2727,18 +2775,21 @@
   position: relative;
   background: var(--toy-plate-default-panel-bg-color);
   border-style: solid;
-  border-top-width: 0;
-  border-right-width: 0;
-  border-bottom-width: 0;
-  border-left-width: 0;
+  border-color: var(--toy-plate-default-panel-border-color);
+  border-top-width: calc(var(--toy-plate-default-panel-border-width-top) * var(--px));
+  border-right-width: calc(var(--toy-plate-default-panel-border-width-right) * var(--px));
+  border-bottom-width: calc(var(--toy-plate-default-panel-border-width-bottom) * var(--px));
+  border-left-width: calc(var(--toy-plate-default-panel-border-width-left) * var(--px));
   border-top-left-radius: calc(var(--toy-plate-default-panel-corner-radius) * var(--px));
   border-top-right-radius: calc(var(--toy-plate-default-panel-corner-radius) * var(--px));
   border-bottom-right-radius: calc(var(--toy-plate-default-panel-corner-radius) * var(--px));
   border-bottom-left-radius: calc(var(--toy-plate-default-panel-corner-radius) * var(--px));
-  padding-top: calc(var(--toy-plate-default-panel-content-margin-block) * var(--px));
-  padding-right: calc(var(--toy-plate-default-panel-content-margin-inline) * var(--px));
-  padding-bottom: calc(var(--toy-plate-default-panel-content-margin-block) * var(--px));
-  padding-left: calc(var(--toy-plate-default-panel-content-margin-inline) * var(--px));
+  padding-top: calc((var(--toy-plate-default-panel-content-margin-block) - var(--toy-plate-default-panel-border-width-top)) * var(--px));
+  padding-right: calc((var(--toy-plate-default-panel-content-margin-inline) + var(--toy-plate-default-panel-expand-margin-right) - var(--toy-plate-default-panel-border-width-right)) * var(--px));
+  padding-bottom: calc((var(--toy-plate-default-panel-content-margin-block) + var(--toy-plate-default-panel-expand-margin-bottom) - var(--toy-plate-default-panel-border-width-bottom)) * var(--px));
+  padding-left: calc((var(--toy-plate-default-panel-content-margin-inline) - var(--toy-plate-default-panel-border-width-left)) * var(--px));
+  margin-right: calc(var(--toy-plate-default-panel-expand-margin-right) * -1 * var(--px));
+  margin-bottom: calc(var(--toy-plate-default-panel-expand-margin-bottom) * -1 * var(--px));
 }
 /* ToyPlateNight: PanelContainer · plate.night · dark */
 .tv-ToyPlateNight {
@@ -2746,18 +2797,21 @@
   position: relative;
   background: var(--toy-plate-night-panel-bg-color);
   border-style: solid;
-  border-top-width: 0;
-  border-right-width: 0;
-  border-bottom-width: 0;
-  border-left-width: 0;
+  border-color: var(--toy-plate-night-panel-border-color);
+  border-top-width: calc(var(--toy-plate-night-panel-border-width-top) * var(--px));
+  border-right-width: calc(var(--toy-plate-night-panel-border-width-right) * var(--px));
+  border-bottom-width: calc(var(--toy-plate-night-panel-border-width-bottom) * var(--px));
+  border-left-width: calc(var(--toy-plate-night-panel-border-width-left) * var(--px));
   border-top-left-radius: calc(var(--toy-plate-night-panel-corner-radius) * var(--px));
   border-top-right-radius: calc(var(--toy-plate-night-panel-corner-radius) * var(--px));
   border-bottom-right-radius: calc(var(--toy-plate-night-panel-corner-radius) * var(--px));
   border-bottom-left-radius: calc(var(--toy-plate-night-panel-corner-radius) * var(--px));
-  padding-top: calc(var(--toy-plate-night-panel-content-margin-block) * var(--px));
-  padding-right: calc(var(--toy-plate-night-panel-content-margin-inline) * var(--px));
-  padding-bottom: calc(var(--toy-plate-night-panel-content-margin-block) * var(--px));
-  padding-left: calc(var(--toy-plate-night-panel-content-margin-inline) * var(--px));
+  padding-top: calc((var(--toy-plate-night-panel-content-margin-block) - var(--toy-plate-night-panel-border-width-top)) * var(--px));
+  padding-right: calc((var(--toy-plate-night-panel-content-margin-inline) + var(--toy-plate-night-panel-expand-margin-right) - var(--toy-plate-night-panel-border-width-right)) * var(--px));
+  padding-bottom: calc((var(--toy-plate-night-panel-content-margin-block) + var(--toy-plate-night-panel-expand-margin-bottom) - var(--toy-plate-night-panel-border-width-bottom)) * var(--px));
+  padding-left: calc((var(--toy-plate-night-panel-content-margin-inline) - var(--toy-plate-night-panel-border-width-left)) * var(--px));
+  margin-right: calc(var(--toy-plate-night-panel-expand-margin-right) * -1 * var(--px));
+  margin-bottom: calc(var(--toy-plate-night-panel-expand-margin-bottom) * -1 * var(--px));
 }
 /* ToyPlateAlert: PanelContainer · plate.alert · dark */
 .tv-ToyPlateAlert {
@@ -2766,18 +2820,20 @@
   background: var(--toy-plate-alert-panel-bg-color);
   border-style: solid;
   border-color: var(--toy-plate-alert-panel-border-color);
-  border-top-width: calc(var(--toy-plate-alert-panel-border-width) * var(--px));
-  border-right-width: calc(var(--toy-plate-alert-panel-border-width) * var(--px));
-  border-bottom-width: calc(var(--toy-plate-alert-panel-border-width) * var(--px));
-  border-left-width: calc(var(--toy-plate-alert-panel-border-width) * var(--px));
+  border-top-width: calc(var(--toy-plate-alert-panel-border-width-top) * var(--px));
+  border-right-width: calc(var(--toy-plate-alert-panel-border-width-right) * var(--px));
+  border-bottom-width: calc(var(--toy-plate-alert-panel-border-width-bottom) * var(--px));
+  border-left-width: calc(var(--toy-plate-alert-panel-border-width-left) * var(--px));
   border-top-left-radius: calc(var(--toy-plate-alert-panel-corner-radius) * var(--px));
   border-top-right-radius: calc(var(--toy-plate-alert-panel-corner-radius) * var(--px));
   border-bottom-right-radius: calc(var(--toy-plate-alert-panel-corner-radius) * var(--px));
   border-bottom-left-radius: calc(var(--toy-plate-alert-panel-corner-radius) * var(--px));
-  padding-top: calc((var(--toy-plate-alert-panel-content-margin-block) - var(--toy-plate-alert-panel-border-width)) * var(--px));
-  padding-right: calc((var(--toy-plate-alert-panel-content-margin-inline) - var(--toy-plate-alert-panel-border-width)) * var(--px));
-  padding-bottom: calc((var(--toy-plate-alert-panel-content-margin-block) - var(--toy-plate-alert-panel-border-width)) * var(--px));
-  padding-left: calc((var(--toy-plate-alert-panel-content-margin-inline) - var(--toy-plate-alert-panel-border-width)) * var(--px));
+  padding-top: calc((var(--toy-plate-alert-panel-content-margin-block) - var(--toy-plate-alert-panel-border-width-top)) * var(--px));
+  padding-right: calc((var(--toy-plate-alert-panel-content-margin-inline) + var(--toy-plate-alert-panel-expand-margin-right) - var(--toy-plate-alert-panel-border-width-right)) * var(--px));
+  padding-bottom: calc((var(--toy-plate-alert-panel-content-margin-block) + var(--toy-plate-alert-panel-expand-margin-bottom) - var(--toy-plate-alert-panel-border-width-bottom)) * var(--px));
+  padding-left: calc((var(--toy-plate-alert-panel-content-margin-inline) - var(--toy-plate-alert-panel-border-width-left)) * var(--px));
+  margin-right: calc(var(--toy-plate-alert-panel-expand-margin-right) * -1 * var(--px));
+  margin-bottom: calc(var(--toy-plate-alert-panel-expand-margin-bottom) * -1 * var(--px));
 }
 /* ToyPlateText: Label · plate.text · dark */
 .tv-ToyPlateText {
@@ -3455,7 +3511,9 @@
   line-height: var(--toy-title-plate-label-line-height);
   letter-spacing: calc(var(--toy-title-plate-label-letter-spacing) * var(--px));
   color: var(--toy-title-plate-normal-font-color);
-  box-shadow: 0 calc((var(--toy-title-base-panel-expand-margin-bottom) - var(--toy-title-plate-normal-expand-margin-block)) * var(--px)) 0 var(--toy-title-base-panel-bg-color);
+  -webkit-text-stroke: calc((var(--toy-title-plate-items-shadow-outline-size) + var(--toy-title-plate-items-shadow-outline-size)) * var(--px)) var(--toy-title-plate-normal-font-shadow-color);
+  paint-order: stroke fill;
+  box-shadow: calc((var(--toy-title-base-panel-expand-margin-right) - var(--toy-title-plate-normal-expand-margin-inline)) * var(--px)) calc((var(--toy-title-base-panel-expand-margin-bottom) - var(--toy-title-plate-normal-expand-margin-block)) * var(--px)) 0 var(--toy-title-base-panel-bg-color);
 }
 /* ToyBaseTitle: Panel · title.base · dark */
 .tv-ToyBaseTitle {
@@ -3472,13 +3530,13 @@
   border-bottom-right-radius: calc(var(--toy-title-base-panel-corner-radius) * var(--px));
   border-bottom-left-radius: calc(var(--toy-title-base-panel-corner-radius) * var(--px));
   padding-top: calc(var(--toy-title-base-panel-expand-margin-top) * var(--px));
-  padding-right: calc(var(--toy-title-base-panel-expand-margin-inline) * var(--px));
+  padding-right: calc(var(--toy-title-base-panel-expand-margin-right) * var(--px));
   padding-bottom: calc(var(--toy-title-base-panel-expand-margin-bottom) * var(--px));
-  padding-left: calc(var(--toy-title-base-panel-expand-margin-inline) * var(--px));
+  padding-left: calc(var(--toy-title-base-panel-expand-margin-left) * var(--px));
   margin-top: calc(var(--toy-title-base-panel-expand-margin-top) * -1 * var(--px));
-  margin-right: calc(var(--toy-title-base-panel-expand-margin-inline) * -1 * var(--px));
+  margin-right: calc(var(--toy-title-base-panel-expand-margin-right) * -1 * var(--px));
   margin-bottom: calc(var(--toy-title-base-panel-expand-margin-bottom) * -1 * var(--px));
-  margin-left: calc(var(--toy-title-base-panel-expand-margin-inline) * -1 * var(--px));
+  margin-left: calc(var(--toy-title-base-panel-expand-margin-left) * -1 * var(--px));
 }
 /* ToyLogo: Label · title.logo · dark */
 .tv-ToyLogo {
@@ -3488,5 +3546,6 @@
   line-height: var(--toy-title-logo-label-line-height);
   letter-spacing: calc(var(--toy-title-logo-label-letter-spacing) * var(--px));
   color: var(--toy-title-logo-normal-font-color);
-  text-shadow: calc(var(--toy-title-logo-items-shadow-offset-x) * var(--px)) calc(var(--toy-title-logo-items-shadow-offset-y) * var(--px)) 0 var(--toy-title-logo-normal-font-shadow-color);
+  -webkit-text-stroke: calc((var(--toy-title-logo-items-shadow-outline-size) + var(--toy-title-logo-items-shadow-outline-size)) * var(--px)) var(--toy-title-logo-normal-font-shadow-color);
+  paint-order: stroke fill;
 }

@@ -18,7 +18,7 @@
   padding-right: calc((var(--toy-panel-howto-panel-content-margin) - var(--toy-panel-howto-panel-border-width)) * var(--px));
   padding-bottom: calc((var(--toy-panel-howto-panel-content-margin) - var(--toy-panel-howto-panel-border-width)) * var(--px));
   padding-left: calc((var(--toy-panel-howto-panel-content-margin) - var(--toy-panel-howto-panel-border-width)) * var(--px));
-  box-shadow: 0 calc(var(--toy-panel-base-panel-expand-margin-bottom) * var(--px)) 0 var(--toy-panel-base-panel-bg-color);
+  box-shadow: calc(var(--toy-panel-base-panel-expand-margin-right) * var(--px)) calc(var(--toy-panel-base-panel-expand-margin-bottom) * var(--px)) 0 var(--toy-panel-base-panel-bg-color);
 }
 /* ToyColumnSixteen: VBoxContainer · layout.column-16 · any */
 .tv-ToyColumnSixteen {

@@ -11,14 +11,14 @@
         }
       },
       "panel": {
-        "bg-color": { "$type": "color", "$value": "{palette.cream}" },
-        "border-color": { "$type": "color", "$value": "{palette.keyshade}" },
+        "bg-color": { "$type": "color", "$value": "{palette.mint}" },
+        "border-color": { "$type": "color", "$value": "{palette.mint-dark}" },
         "border-width-top": { "$type": "dimension", "$value": "{stroke.thin}" },
         "border-width-right": { "$type": "dimension", "$value": "{stroke.thin}" },
         "border-width-bottom": { "$type": "dimension", "$value": "{stroke.bold}" },
         "border-width-left": { "$type": "dimension", "$value": "{stroke.thin}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.small}" },
-        "content-margin-top": { "$type": "dimension", "$value": { "value": 2, "unit": "px" } },
+        "content-margin-top": { "$type": "dimension", "$value": { "value": 3, "unit": "px" } },
         "content-margin-inline": { "$type": "dimension", "$value": { "value": 10, "unit": "px" } },
         "content-margin-bottom": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } }
       },
@@ -47,7 +47,7 @@
         "border-width-bottom": { "$type": "dimension", "$value": "{stroke.bold}" },
         "border-width-left": { "$type": "dimension", "$value": "{stroke.thin}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.small}" },
-        "content-margin-top": { "$type": "dimension", "$value": { "value": 2, "unit": "px" } },
+        "content-margin-top": { "$type": "dimension", "$value": { "value": 3, "unit": "px" } },
         "content-margin-inline": { "$type": "dimension", "$value": { "value": 10, "unit": "px" } },
         "content-margin-bottom": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } }
       },
@@ -69,14 +69,14 @@
         }
       },
       "panel": {
-        "bg-color": { "$type": "color", "$value": "{palette.key-quiet}" },
-        "border-color": { "$type": "color", "$value": "{palette.muted}" },
+        "bg-color": { "$type": "color", "$value": "{palette.purple-light}" },
+        "border-color": { "$type": "color", "$value": "{palette.ink-soft}" },
         "border-width-top": { "$type": "dimension", "$value": "{stroke.thin}" },
         "border-width-right": { "$type": "dimension", "$value": "{stroke.thin}" },
         "border-width-bottom": { "$type": "dimension", "$value": "{stroke.bold}" },
         "border-width-left": { "$type": "dimension", "$value": "{stroke.thin}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.small}" },
-        "content-margin-top": { "$type": "dimension", "$value": { "value": 2, "unit": "px" } },
+        "content-margin-top": { "$type": "dimension", "$value": { "value": 3, "unit": "px" } },
         "content-margin-inline": { "$type": "dimension", "$value": { "value": 10, "unit": "px" } },
         "content-margin-bottom": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } }
       },
@@ -105,7 +105,7 @@
         "border-width-bottom": { "$type": "dimension", "$value": "{stroke.bold}" },
         "border-width-left": { "$type": "dimension", "$value": "{stroke.thin}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
-        "content-margin-top": { "$type": "dimension", "$value": { "value": 2, "unit": "px" } },
+        "content-margin-top": { "$type": "dimension", "$value": { "value": 3, "unit": "px" } },
         "content-margin-inline": { "$type": "dimension", "$value": { "value": 10, "unit": "px" } },
         "content-margin-bottom": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } }
       },
@@ -123,14 +123,14 @@
         }
       },
       "panel": {
-        "bg-color": { "$type": "color", "$value": "{palette.key-quiet}" },
-        "border-color": { "$type": "color", "$value": "{palette.muted}" },
+        "bg-color": { "$type": "color", "$value": "{palette.purple-light}" },
+        "border-color": { "$type": "color", "$value": "{palette.ink-soft}" },
         "border-width-top": { "$type": "dimension", "$value": "{stroke.thin}" },
         "border-width-right": { "$type": "dimension", "$value": "{stroke.thin}" },
         "border-width-bottom": { "$type": "dimension", "$value": "{stroke.bold}" },
         "border-width-left": { "$type": "dimension", "$value": "{stroke.thin}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
-        "content-margin-top": { "$type": "dimension", "$value": { "value": 2, "unit": "px" } },
+        "content-margin-top": { "$type": "dimension", "$value": { "value": 3, "unit": "px" } },
         "content-margin-inline": { "$type": "dimension", "$value": { "value": 10, "unit": "px" } },
         "content-margin-bottom": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } }
       },
@@ -156,7 +156,7 @@
         "border-width-bottom": { "$type": "dimension", "$value": "{stroke.bold}" },
         "border-width-left": { "$type": "dimension", "$value": "{stroke.thin}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
-        "content-margin-top": { "$type": "dimension", "$value": { "value": 2, "unit": "px" } },
+        "content-margin-top": { "$type": "dimension", "$value": { "value": 3, "unit": "px" } },
         "content-margin-inline": { "$type": "dimension", "$value": { "value": 10, "unit": "px" } },
         "content-margin-bottom": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } },
         "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
@@ -205,7 +205,7 @@
         "border-width-bottom": { "$type": "dimension", "$value": "{stroke.bold}" },
         "border-width-left": { "$type": "dimension", "$value": "{stroke.thin}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.small}" },
-        "content-margin-top": { "$type": "dimension", "$value": { "value": 2, "unit": "px" } },
+        "content-margin-top": { "$type": "dimension", "$value": { "value": 3, "unit": "px" } },
         "content-margin-inline": { "$type": "dimension", "$value": { "value": 10, "unit": "px" } },
         "content-margin-bottom": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } },
         "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
@@ -268,7 +268,7 @@
       },
       "label": { "$type": "typography", "$value": "{type.body-bold}" },
       "normal": {
-        "font-color": { "$type": "color", "$value": "{palette.muted}" }
+        "font-color": { "$type": "color", "$value": "{palette.ink-soft}" }
       }
     }
   }

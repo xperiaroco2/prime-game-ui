@@ -27,7 +27,7 @@
         }
       },
       "panel": {
-        "bg-color": { "$type": "color", "$value": "{palette.cream}" },
+        "bg-color": { "$type": "color", "$value": "{palette.mint}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.medium}" },
@@ -71,7 +71,7 @@
         }
       },
       "panel": {
-        "bg-color": { "$type": "color", "$value": "{palette.coral-deep}" },
+        "bg-color": { "$type": "color", "$value": "{palette.coral-dark}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
         "corner-radius-top-left": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },

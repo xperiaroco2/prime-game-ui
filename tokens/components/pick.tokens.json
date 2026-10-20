@@ -75,7 +75,7 @@
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width": { "$type": "dimension", "$value": "{stroke.thin}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.medium}" },
-        "content-margin-block": { "$type": "dimension", "$value": { "value": 9, "unit": "px" } },
+        "content-margin-block": { "$type": "dimension", "$value": { "value": 10, "unit": "px" } },
         "content-margin-right": { "$type": "dimension", "$value": "{space.16}" },
         "content-margin-left": { "$type": "dimension", "$value": "{space.12}" },
         "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
@@ -99,8 +99,8 @@
         "bg-color": { "$type": "color", "$value": "{palette.clear}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width": { "$type": "dimension", "$value": "{focus.width}" },
-        "corner-radius": { "$type": "dimension", "$value": { "value": 10, "unit": "px" } },
-        "expand-margin": { "$type": "dimension", "$value": { "value": -2, "unit": "px" } }
+        "corner-radius": { "$type": "dimension", "$value": { "value": 9, "unit": "px" } },
+        "expand-margin": { "$type": "dimension", "$value": { "value": -3, "unit": "px" } }
       },
       "items": {
         "$description": "The gap between the box and the label, and an icon (Button's own) in the label colour of each state.",
@@ -165,7 +165,7 @@
       },
       "label": { "$type": "typography", "$value": "{type.caption-bold}" },
       "normal": {
-        "bg-color": { "$type": "color", "$value": "{palette.yellow}" },
+        "bg-color": { "$type": "color", "$value": "{palette.green}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width": { "$type": "dimension", "$value": "{stroke.thin}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },

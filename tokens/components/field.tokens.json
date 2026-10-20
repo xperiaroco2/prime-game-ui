@@ -16,7 +16,7 @@
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.medium}" },
-        "content-margin-block": { "$type": "dimension", "$value": { "value": 10, "unit": "px" } },
+        "content-margin-block": { "$type": "dimension", "$value": { "value": 11, "unit": "px" } },
         "content-margin-inline": { "$type": "dimension", "$value": { "value": 16, "unit": "px" } },
         "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
       },
@@ -25,8 +25,8 @@
         "bg-color": { "$type": "color", "$value": "{palette.clear}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width": { "$type": "dimension", "$value": "{focus.width}" },
-        "corner-radius": { "$type": "dimension", "$value": { "value": 9, "unit": "px" } },
-        "expand-margin": { "$type": "dimension", "$value": { "value": -3, "unit": "px" } }
+        "corner-radius": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } },
+        "expand-margin": { "$type": "dimension", "$value": { "value": -4, "unit": "px" } }
       },
       "read-only": {
         "$description": "Read-only, also the guest's view: a quiet box with readable text.",
@@ -36,9 +36,9 @@
       },
       "items": {
         "$description": "Placeholder, caret and selection colours.",
-        "placeholder-color": { "$type": "color", "$value": "{palette.muted}" },
+        "placeholder-color": { "$type": "color", "$value": "{palette.ink-soft}" },
         "caret-color": { "$type": "color", "$value": "{color.outline}" },
-        "selection-color": { "$type": "color", "$value": "{palette.yellow}" },
+        "selection-color": { "$type": "color", "$value": "{palette.green}" },
         "selected-font-color": { "$type": "color", "$value": "{color.on-accent.text}" }
       }
     },
@@ -56,7 +56,7 @@
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.medium}" },
-        "content-margin-block": { "$type": "dimension", "$value": { "value": 10, "unit": "px" } },
+        "content-margin-block": { "$type": "dimension", "$value": { "value": 11, "unit": "px" } },
         "content-margin-inline": { "$type": "dimension", "$value": { "value": 16, "unit": "px" } },
         "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
       },
@@ -79,8 +79,8 @@
         "bg-color": { "$type": "color", "$value": "{palette.clear}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width": { "$type": "dimension", "$value": "{focus.width}" },
-        "corner-radius": { "$type": "dimension", "$value": { "value": 9, "unit": "px" } },
-        "expand-margin": { "$type": "dimension", "$value": { "value": -3, "unit": "px" } }
+        "corner-radius": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } },
+        "expand-margin": { "$type": "dimension", "$value": { "value": -4, "unit": "px" } }
       },
       "items": {
         "$description": "The arrow (chevron-down, a white texture tinted by the label colour): Godot reserves its width itself (OptionButton's internal margin), it sits at the right content edge, 8 px after the text.",
@@ -159,8 +159,8 @@
         "bg-color": { "$type": "color", "$value": "{palette.clear}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width": { "$type": "dimension", "$value": "{focus.width}" },
-        "corner-radius": { "$type": "dimension", "$value": { "value": 9, "unit": "px" } },
-        "expand-margin": { "$type": "dimension", "$value": { "value": -3, "unit": "px" } }
+        "corner-radius": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } },
+        "expand-margin": { "$type": "dimension", "$value": { "value": -4, "unit": "px" } }
       },
       "read-only": {
         "$description": "Read-only, also the guest's view: a quiet box with readable text.",
@@ -170,9 +170,9 @@
       },
       "items": {
         "$description": "Placeholder, caret and selection colours.",
-        "placeholder-color": { "$type": "color", "$value": "{palette.muted}" },
+        "placeholder-color": { "$type": "color", "$value": "{palette.ink-soft}" },
         "caret-color": { "$type": "color", "$value": "{color.outline}" },
-        "selection-color": { "$type": "color", "$value": "{palette.yellow}" },
+        "selection-color": { "$type": "color", "$value": "{palette.green}" },
         "selected-font-color": { "$type": "color", "$value": "{color.on-accent.text}" }
       }
     },
@@ -192,7 +192,7 @@
       },
       "up-background": {
         "$description": "The up button; the down button and every state complete from it.",
-        "bg-color": { "$type": "color", "$value": "{palette.yellow}" },
+        "bg-color": { "$type": "color", "$value": "{palette.green}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width": { "$type": "dimension", "$value": "{stroke.thin}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.small}" },

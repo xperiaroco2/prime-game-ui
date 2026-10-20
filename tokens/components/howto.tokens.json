@@ -27,7 +27,7 @@
         }
       },
       "panel": {
-        "bg-color": { "$type": "color", "$value": "{palette.mint-tint}" },
+        "bg-color": { "$type": "color", "$value": "{palette.mint}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.large}" },

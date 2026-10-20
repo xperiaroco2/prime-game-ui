@@ -39,7 +39,7 @@
         }
       },
       "panel": {
-        "bg-color": { "$type": "color", "$value": "{palette.yellow}" },
+        "bg-color": { "$type": "color", "$value": "{palette.green}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
@@ -237,7 +237,7 @@
       },
       "label": { "$type": "typography", "$value": "{type.small-bold}" },
       "normal": {
-        "bg-color": { "$type": "color", "$value": "{palette.yellow}" },
+        "bg-color": { "$type": "color", "$value": "{palette.green}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
@@ -315,7 +315,7 @@
       },
       "label": { "$type": "typography", "$value": "{type.small-bold}" },
       "normal": {
-        "bg-color": { "$type": "color", "$value": "{palette.yellow}" },
+        "bg-color": { "$type": "color", "$value": "{palette.green}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },

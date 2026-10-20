@@ -22,11 +22,10 @@ const STEPS = [
   ["gates:selftest", ["tools/contrast/gates.js", "--self-test"]],
   ["gates", ["tools/contrast/gates.js", "--check"]],
   ["legacy-skins", ["pages/styles/check_styles.js", "retro", "card"]],
-  ["page:styles", ["pages/styles/build-styles-page.js", "--check"]],
+  // The Toy-era review pages (styles, choices, base-controls, room-signs) are frozen records since the sticker re-skin
+  // (ui-1.0.0): their sources name Toy tokens, so they are no longer rebuilt or linted; their committed HTML is
+  // self-contained and still shows what was chosen then.
   ["page:components", ["pages/components/build.js", "--check"]],
-  ["page:choices", ["pages/choices/build.js", "--check"]],
-  ["page:base-controls", ["pages/base-controls/build.js", "--check"]],
-  ["page:room-signs", ["pages/room-signs/build.js", "--check"]],
   ["page:card-art", ["pages/card-art/build.js", "--check"]],
   // the card PNGs against their SVGs, without Edge (the rendering itself is local: node tools/card-art/render.js)
   ["card-art:png", ["tools/card-art/render.js", "--check"]],

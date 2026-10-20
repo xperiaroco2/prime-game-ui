@@ -12,7 +12,7 @@
       },
       "panel": {
         "bg-color": { "$type": "color", "$value": "{color.surface.plate}" },
-        "border-color": { "$type": "color", "$value": "{palette.slotline}" },
+        "border-color": { "$type": "color", "$value": "{palette.muted}" },
         "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.control}" },
         "content-margin": { "$type": "dimension", "$value": { "value": 7, "unit": "px" } }
@@ -34,7 +34,7 @@
       },
       "panel": {
         "bg-color": { "$type": "color", "$value": "{color.surface.plate}" },
-        "border-color": { "$type": "color", "$value": "{palette.yellow}" },
+        "border-color": { "$type": "color", "$value": "{palette.green}" },
         "border-width": { "$type": "dimension", "$value": "{stroke.bold}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.control}" },
         "content-margin": { "$type": "dimension", "$value": { "value": 9, "unit": "px" } }
