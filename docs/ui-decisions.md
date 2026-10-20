@@ -17,6 +17,11 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
   the Night flyer, fits best; he likes its acid green; its fonts are more or less fine; some moments he likes and
   some not. Next: deeper research and five variants close to it
   ([the variants page](https://claude.ai/artifact/PhwP9sUpF8rUKAMQchnjvA), `pages/vibe-flyer/`).
+- **Not the flyer: alien and toy-like** (the engineer, 2026-10-20, chat, translated, on the variants page): none of the
+  five flyer variants; techno and acid are wrong, because the party is at an estate in the woods, not in a club. The
+  UI must feel alien and toy-like, like the vinyl-toy characters; look at how the alien comedy and space games he
+  takes as the game's north star build their UI (a private tone reference, not named here). Round 3 of the research
+  starts from that.
 
 ## Principles
 - **The UI never tells the player what to do.** No "take it to X" line, no destination marker, no key prompts on the HUD;
