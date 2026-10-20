@@ -1,0 +1,83 @@
+<!-- own work, prime-game-ui, licence: own work -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" width="320" height="240">
+  <defs>
+    <filter id="wa3-w" filterUnits="userSpaceOnUse" x="0" y="0" width="320" height="240">
+      <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="35" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="4" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <style>
+      .k{fill:none;stroke:#1f2433;stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
+      .t{stroke-width:4}
+      .f{stroke-width:3}
+      .w{fill:#fff;stroke:#1f2433;stroke-width:5;stroke-linejoin:round}
+      .a{fill:#e8a33a;stroke:#1f2433;stroke-width:5;stroke-linejoin:round}
+      .i{fill:#1f2433}
+      .o{fill:none;stroke:#e8a33a;stroke-width:5;stroke-linecap:round}
+    </style>
+    <!-- the alien glyphs (the card's own; the game's glyphs are not drawn yet), centred on 0,0, about 26 across. The one this card follows: the snail with horns -->
+    <g id="wa3-gs" class="k t">
+      <path d="M1.8 3L1.6 2.2L2.1 1.2L3.2 0.6L4.7 0.7L6 1.7L6.6 3.6L6.1 5.7L4.4 7.3L1.8 7.8L-0.8 6.8L-2.6 4.3L-2.9 1.1L-1.3 -2L1.9 -3.9L5.8 -3.9L9.3 -1.6L11.2 2.4L10.7 6.9L7.7 10.7L3 12.5H-6Q-13 12.5 -13 5"/>
+      <path d="M-13 5L-16 -6M-13 5L-8 -7"/>
+      <circle class="i" cx="-16.5" cy="-7.5" r="2.8" style="stroke:none"/><circle class="i" cx="-7.5" cy="-8.5" r="2.8" style="stroke:none"/>
+    </g>
+    <g id="wa3-ge" class="k t">
+      <path d="M-12 1Q0 -12 12 1Q0 13 -12 1Z"/>
+      <circle class="i" cx="0" cy="1" r="3.4" style="stroke:none"/>
+      <path d="M-5 -9L-7 -13M5 -9L7 -13"/>
+    </g>
+    <g id="wa3-gw" class="k t">
+      <path d="M-12 2Q-6 -10 0 0T12 -2"/>
+      <circle class="i" cx="-4" cy="10" r="2.6" style="stroke:none"/><circle class="i" cx="4" cy="10" r="2.6" style="stroke:none"/>
+    </g>
+    <g id="wa3-gt" class="k t">
+      <path d="M-10 11L0 -3L10 11Z"/>
+      <circle cx="0" cy="-8" r="4.5"/>
+    </g>
+    <g id="wa3-gh" class="k t">
+      <path d="M-8 -11H8L-8 11H8Z"/>
+    </g>
+    <g id="wa3-gm" class="k t">
+      <path d="M-11 0A11 10 0 0 1 11 0Z"/>
+      <path d="M-6 0Q-9 6 -6 11M0 0V12M6 0Q9 6 6 11"/>
+    </g>
+    <!-- a phone receiver, centred on 0,0, upright, the cups toward +x -->
+    <path id="wa3-rc" class="i" d="M-3 -24H3Q9 -24 9 -18V-13Q9 -10 5 -10H2V10H5Q9 10 9 13V18Q9 24 3 24H-3Q-8 24 -8 18V-18Q-8 -24 -3 -24Z"/>
+    <!-- the house phone on the wall, its cord leaving at 0,18; an empty hook on top (the receiver is in a hand) -->
+    <g id="wa3-ph">
+      <path class="k t" d="M-9 -22V-30M9 -22V-30"/>
+      <rect class="w" x="-16" y="-22" width="32" height="42" rx="7"/>
+      <circle class="w" cx="0" cy="0" r="9" style="stroke-width:3"/>
+      <circle class="i" cx="0" cy="0" r="2.4"/>
+    </g>
+  </defs>
+  <g filter="url(#wa3-w)">
+    <ellipse cx="214" cy="213" rx="26" ry="4" fill="#1f2433" opacity=".12"/>
+    <path class="k t" d="M16 212C96 209 210 214 304 211"/>
+    <!-- the wall: the security room is on its other side; this is another room and another player -->
+    <rect class="w" x="14" y="20" width="10" height="192" rx="3"/>
+    <!-- the decoder book on its lectern: the left page a digit, the right page its three glyphs -->
+    <path class="k" d="M110 160V211M86 211H134"/>
+    <path class="w" d="M110 70Q84 60 46 68V154Q84 146 110 156Z"/>
+    <path class="w" d="M110 70Q136 60 174 68V154Q136 146 110 156Z"/>
+    <path class="k" d="M64 90H92L74 136"/>
+    <use href="#wa3-gh" transform="translate(142 83) scale(0.7)"/>
+    <rect class="a" x="131" y="99" width="22" height="22" rx="3.7" style="stroke-width:4"/>
+    <use href="#wa3-gs" transform="translate(142 110) scale(0.7)"/>
+    <use href="#wa3-gm" transform="translate(142 137) scale(0.7)"/>
+    <!-- the house phone on the wall, its cord to the receiver -->
+    <use href="#wa3-ph" transform="translate(280 104)"/>
+    <path class="k f" d="M280 122L279.5 123L278.7 123.8L278 124.1L277.6 124.1L277.7 124L278.3 124.1L279.3 124.6L280.4 125.7L281.3 127.4L281.7 129.7L281.1 132L279.6 134L277.2 135.3L274.6 135.5L272.5 134.9L271.2 133.7L270.9 132.3L271.6 131.2L273.1 130.9L275 131.4L276.8 133L278.1 135.3L278.4 138.1L277.7 140.9L276 143.1L273.6 144.5L271 144.8L268.7 144L267.2 142.6L266.6 140.8L267.1 139.2L268.5 138.4L270.4 138.5L272.2 139.8L273.5 142.1L273.8 144.8L273 147.5L271.1 149.7L268.6 150.8L266 150.7L263.7 149.5L262.4 147.6L262.1 145.5L262.9 143.7L264.4 142.8L266.2 143.1L267.7 144.5L268.3 146.8L267.8 149.3L266.2 151.6L263.8 153.1L261.1 153.5L258.4 152.7L256.4 150.9L255.4 148.6L255.5 146.2L256.5 144.2L258 143.2L259.6 143.2L260.8 144.2L261.1 145.9L260.4 147.8L258.7 149.5L256.2 150.5L253.4 150.5L250.7 149.4L248.7 147.4L247.5 144.9L247.4 142.1L248.2 139.8L249.6 138.1L251.2 137.3L252.5 137.5L253.2 138.5L252.9 139.9L251.6 141.2L249.4 142.1L246.7 142.2L243.9 141.3L241.5 139.4L239.8 136.8L239 133.8L239.3 130.8L240.3 128.4L241.9 126.7L243.3 125.9L243.9 125.9L243.6 126.3L242.5 126.5L240.6 126.3L238.6 125.4L236.6 123.8L234.9 121.8L233.8 119.5L233.1 117.2L232.8 115.2L232.5 113.4L232 112"/>
+    <!-- figure, facing the book, pointing at the glyph, the receiver at its ear -->
+    <path class="k" d="M214 152L198 211M214 152L230 211"/>
+    <path class="k" d="M214 152L212 104"/>
+    <path class="k" d="M212 114L168 110"/>
+    <path class="k" d="M212 114L232 132L234 104"/>
+    <g transform="translate(236 86) scale(-.8 .8)"><use href="#wa3-rc"/></g>
+    <circle class="w" cx="210" cy="86" r="19"/>
+    <circle class="i" cx="204" cy="83" r="2.8"/><circle class="i" cx="196" cy="83" r="2.8"/>
+    <ellipse class="i" cx="199" cy="95" rx="4" ry="4.5"/>
+    <!-- what is said back: the digit -->
+    <path class="w" d="M152 16H200Q214 16 214 30V44Q214 58 200 58H196L200 70L182 58H152Q138 58 138 44V30Q138 16 152 16Z"/>
+    <path class="k" d="M164 26H188L172 50"/>
+  </g>
+</svg>
