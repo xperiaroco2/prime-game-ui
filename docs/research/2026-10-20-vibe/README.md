@@ -80,5 +80,34 @@ the palette, beside the round-1 sample:
 
 Every font on the page drew ґ ї є і, the apostrophes and № in its own glyphs in Chromium on 2026-10-20.
 
+## Round 3: alien and toy-like
+The engineer, 2026-10-20 (chat, translated): none of the five flyer variants; techno and acid are wrong, because the
+party is at an estate in the woods; the UI must feel alien and toy-like; look at how the alien comedy and space games
+he takes as the north star build their UI (a private tone reference, not named in this repo).
+
+Three more read-only gatherers (Sonnet, about 0.23M subagent tokens in all); their prompts and these copies leave the
+north-star games unnamed:
+
+| File | Lens |
+|---|---|
+| `r3-h-alien-toy-game-uis.md` | The north-star games' UI (a designer's case study, reviews) and eight alien or toy-like games; five recipes |
+| `r3-i-alien-toy-design.md` | Designer vinyl toys, collector packaging, alien kitsch, space-age toys and soft 3D done flat; three palettes; adult-toy rules and childish traps |
+| `r3-j-toy-fonts.md` | Rounded, odd and alien fonts with Cyrillic; drops; five trios |
+
+The five directions on `pages/vibe-toy/` ([artifact](https://claude.ai/artifact/2pqA9gzCUXEvLaEHT8432B)):
+
+1. **Vinyl pebble**: no outlines, plates poured like vinyl (three round corners, one tighter) with a hard dark shadow,
+   dark tints of the characters' hues, mint text, a soft alien green; Geologica, Rubik.
+2. **Collector box**: bone labels with a coloured tab in the player's hue, "series 01, No. 07/12", mustard; Prosto
+   One, Sofia Sans Extra Condensed, Onest.
+3. **Alien suit OS**: the menu as the suit's interface; framed plates with one tab corner, deadpan serial lines that
+   misread Earth, a goo logo; Rubik Puddles (logo only), Commissioner, Martian Mono.
+4. **Ink and mint sticker**: the saved comic card made alien; ink outlines, hard shadows, rotated stickers; Kablammo
+   (large titles only), Nunito, Rubik.
+5. **Space diner**: Googie and Atomic Age alien kitsch; saucer buttons, sign lettering, a starburst for wow;
+   turquoise, tangerine, mustard; Montserrat Alternates, Golos Text, Days One.
+
+Every font on the page drew ґ ї є і, the apostrophes and № in its own glyphs in Chromium on 2026-10-20.
+
 ## Next
-The engineer picks a variant or parts of several; then the full style on the real screens.
+The engineer picks a direction or parts of several; then the full style on the real screens.

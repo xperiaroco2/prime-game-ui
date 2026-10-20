@@ -13,6 +13,6 @@ these folders was downloaded except where a report says so.
 | `2026-10-03-room-signs/` | The first map (no rooms yet), wayfinding and pictogram practice, Godot sign placement and sizes | 1 |
 | `2026-10-05-ukrainian-localization/` | How Ukrainian game localizations handle gender, ти/ви, terms, tone and plurals; rules for the copy deck | 1 |
 | `2026-10-07-card-art/` | The how-to cards' art: readable and funny wordless panels, a plasticine look that Godot's SVG importer draws, the game's characters, who draws and at what cost | 4 |
-| `2026-10-20-vibe/` | The new setting's UI vibe: game UIs, graphic design and palettes, fonts with Ukrainian Cyrillic, aliens redoing Earth formats; five vibes on `pages/vibe/`; round 2, the Night flyer: sub-styles, acid lime rules, flyer fonts, five variants on `pages/vibe-flyer/` | 7 |
+| `2026-10-20-vibe/` | The new setting's UI vibe: game UIs, graphic design and palettes, fonts with Ukrainian Cyrillic, aliens redoing Earth formats; five vibes on `pages/vibe/`; round 2, the Night flyer: sub-styles, acid lime rules, flyer fonts, five variants on `pages/vibe-flyer/`; round 3, alien and toy-like: five directions on `pages/vibe-toy/` | 10 |
 
 Later decisions replace some recommendations (for example the package colours): see `../ui-decisions.md`.
