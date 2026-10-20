@@ -105,6 +105,13 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
 .st .cops { left: 50%; top: 112px; transform: translateX(-50%); white-space: nowrap; padding: 10px 26px; display: grid; justify-items: center; gap: 2px; }
 .st .cops .big { font: 900 28px/1.15 var(--ft); }
 .st .cops .num { font-size: 40px; }
+/* the roster: every player's name and body colour, top right; a human sees the other humans marked */
+.st .roster { right: 26px; top: 26px; width: 190px; padding: 10px 12px; display: grid; gap: 6px; }
+.st .roster .rw { display: flex; align-items: center; gap: 8px; font: 800 15px/1.2 var(--ft); color: var(--mint); }
+.st .roster .rw .hue { width: 16px; height: 16px; margin: 0; flex: none; }
+.st .roster .rw.me { color: var(--gr); }
+.st .roster .rw.dead { color: var(--mu); }
+.st .roster .hm { margin-left: auto; font: 900 12px/1.2 var(--ft); color: var(--ink); background: var(--co); border: 3px solid var(--ink); border-radius: 8px; padding: 0 6px; }
 
 /* item bar A: sticker slots, a big picture and a name tag over the bottom edge */
 .st .ia { right: 26px; bottom: 34px; display: flex; align-items: flex-end; gap: 16px; }
@@ -237,15 +244,35 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
       <span class="abs pop stk gr">+2</span>
       <div class="abs timer bare">07:42</div>
       <div class="abs ab"><svg class="hs"><use href="#i-house"/></svg><div class="track"><b style="width:38%;background:var(--co)"></b></div><svg class="up"><use href="#i-up"/></svg></div>
+      <div class="abs roster panel"><div class="rw me"><i class="hue" style="background:#7C5CC8"></i>Олена (ти)</div><div class="rw"><i class="hue" style="background:#1C7A82"></i>Ґлорп</div><div class="rw"><i class="hue" style="background:#E66B57"></i>Їжак</div><div class="rw"><i class="hue" style="background:#E8B04A"></i>Бульк</div><div class="rw"><i class="hue" style="background:#4AA3DF"></i>Зінґа</div><div class="rw dead"><i class="hue" style="background:#D46FB0"></i>Тарас · мертвий</div></div>
       <div class="abs cross"></div>
       <span class="abs aim chipp">Сміттєвий бак</span>
       <div class="abs bars"><div class="track"><b style="width:80%;background:var(--gr)"></b></div><div class="track"><b style="width:55%;background:var(--ye)"></b></div></div>
       <div class="abs mic plate"><i></i><u></u><s></s></div>
       <div class="abs ia"><div class="sl plate on"><svg><use href="#i-rocket"/></svg></div><div class="sl plate"><svg><use href="#i-bun"/></svg></div></div>
     </div></div>
-    <p class="cap">Нагорі по центру — час без рамки, під ним тонка смужка гніву сусідів з будиночком: коралова заливка росте, поки пакість не виправили; трикутник «▲» — гнів зараз росте; феєрверк дає стрибок. Ліворуч угорі — твої очки й коротке «+2». Руки й пояс — варіант А з розділу нижче, лише як заглушка. (m8 §4, §5; GDD §8)</p>
-    <div class="q"><p><b>Для вас — зміна записаного рішення:</b> у рішеннях UI записано «нагорі лише час». Тепер нагорі ще очки (ліворуч) і смужка гніву (під часом). Лишаємо так чи переносимо?</p></div>
-    <div class="q"><p><b>Відкрито:</b> скільки очок за що (§4 «ще перевірити»). Чи показувати на HUD куплені мутації. Чи бачать люди одне одного (позначка команди над головою).</p></div>
+    <p class="cap">Нагорі по центру — час без рамки, під ним тонка смужка гніву сусідів з будиночком: коралова заливка росте, поки пакість не виправили; трикутник «▲» — гнів зараз росте; феєрверк дає стрибок. Ліворуч угорі — твої очки й коротке «+2». Праворуч угорі — усі гравці з кольорами їхніх тіл (ваше рішення, 20.10; кольори — зразки). Руки й пояс — варіант А з розділу нижче, лише як заглушка. (m8 §4, §5; GDD §8)</p>
+    <div class="q"><p><b>Для вас — зміна записаного рішення:</b> у рішеннях UI записано «нагорі лише час». Тепер нагорі ще очки (ліворуч), смужка гніву (під часом) і список гравців (праворуч). Лишаємо так чи переносимо?</p></div>
+    <div class="q"><p><b>Відкрито:</b> скільки очок за що (§4 «ще перевірити»). Чи показувати на HUD куплені мутації. Чи показувати в списку мертвих (тут — блідо, «мертвий»).</p></div>
+  </section>
+
+  <!-- 1a. The same round through a human's eyes: the other humans marked in the roster -->
+  <section class="screen">
+    <h2>1а · Той самий раунд очима людини</h2>
+    <div class="tags"><span class="tag new">нове: люди бачать своїх</span><span class="tag draft">чернетка текстів</span></div>
+    <div class="frame st"><div class="stage">
+      <span class="abs role stk co">Людина</span>
+      <div class="abs pts plate"><span class="lab">Очки</span><span class="num">4</span></div>
+      <div class="abs timer bare">07:42</div>
+      <div class="abs ab"><svg class="hs"><use href="#i-house"/></svg><div class="track"><b style="width:38%;background:var(--co)"></b></div><svg class="up"><use href="#i-up"/></svg></div>
+      <div class="abs roster panel"><div class="rw me"><i class="hue" style="background:#E8B04A"></i>Бульк (ти)<span class="hm">людина</span></div><div class="rw"><i class="hue" style="background:#7C5CC8"></i>Олена</div><div class="rw"><i class="hue" style="background:#1C7A82"></i>Ґлорп</div><div class="rw"><i class="hue" style="background:#E66B57"></i>Їжак</div><div class="rw"><i class="hue" style="background:#4AA3DF"></i>Зінґа<span class="hm">людина</span></div><div class="rw dead"><i class="hue" style="background:#D46FB0"></i>Тарас · мертвий</div></div>
+      <div class="abs cross"></div>
+      <div class="abs bars"><div class="track"><b style="width:80%;background:var(--gr)"></b></div><div class="track"><b style="width:55%;background:var(--ye)"></b></div></div>
+      <div class="abs mic plate"><i></i><u></u><s></s></div>
+      <div class="abs ia"><div class="sl plate on"><svg><use href="#i-palm"/></svg></div><div class="sl plate"><svg><use href="#i-pocket"/></svg></div></div>
+    </div></div>
+    <p class="cap">Люди знають одне одного (ваше рішення, 20.10): у списку гравця-людини інші люди мають коралову бирку «людина». Прибулець бачить той самий список без бирок (кадр 1).</p>
+    <div class="q"><p><b>Відкрито:</b> чи потрібна ще позначка над головою іншої людини у світі (стара «позначка напарника» дисидента), чи досить бирки в списку.</p></div>
   </section>
 
   <!-- 1a. The timer: framed or bare, over a light and a dark world -->
@@ -352,6 +379,7 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
       <div class="abs pts plate"><span class="lab">Очки</span><span class="num">11</span></div>
       <div class="abs timer bare">04:12</div>
       <div class="abs ab"><svg class="hs full"><use href="#i-house"/></svg><div class="track"><b style="width:100%;background:var(--co);border-right:0"></b></div><span class="gap"></span></div>
+      <div class="abs roster panel"><div class="rw me"><i class="hue" style="background:#7C5CC8"></i>Олена (ти)</div><div class="rw"><i class="hue" style="background:#1C7A82"></i>Ґлорп</div><div class="rw"><i class="hue" style="background:#E66B57"></i>Їжак</div><div class="rw"><i class="hue" style="background:#E8B04A"></i>Бульк</div><div class="rw"><i class="hue" style="background:#4AA3DF"></i>Зінґа</div><div class="rw"><i class="hue" style="background:#D46FB0"></i>Тарас</div></div>
       <div class="abs cops plate co"><span class="big">Сусіди викликали копів!</span><span class="lab">Копи будуть за</span><span class="num">0:58</span></div>
       <div class="abs cross"></div>
       <div class="abs bars"><div class="track"><b style="width:80%;background:var(--gr)"></b></div><div class="track"><b style="width:55%;background:var(--ye)"></b></div></div>
@@ -435,10 +463,9 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
     <h2>9 · Показ ролі: людина</h2>
     <div class="tags"><span class="tag chg">зміна</span><span class="tag draft">чернетка текстів</span></div>
     <div class="frame st"><div class="stage">
-      <div class="endf"><span class="lab">Твоя роль</span><div class="title co">Людина</div><div class="goal plate">Ти людина під маскою прибульця. Зіпсуй вечірку: протягни час або розлюти сусідів, щоб приїхали копи.</div></div>
+      <div class="endf"><span class="lab">Твоя роль</span><div class="title co">Людина</div><div class="goal plate">Ти людина під маскою прибульця. Зіпсуй вечірку: протягни час або розлюти сусідів, щоб приїхали копи.</div><span class="stk co">Твої люди: Зінґа</span></div>
     </div></div>
-    <p class="cap">Людина може робити все те саме, що прибулець; різниться лише мета. Кораловий заголовок відрізняє роль з першого погляду. (m8 §1, §2, §6)</p>
-    <div class="q"><p><b>Відкрито:</b> чи знають люди одне одного. Якщо так — під метою рядок «Твоя команда: …», як у старого дисидента.</p></div>
+    <p class="cap">Людина може робити все те саме, що прибулець; різниться лише мета. Кораловий заголовок відрізняє роль з першого погляду. Люди знають одне одного (ваше рішення, 20.10), тож під метою — хто ще людина. (m8 §1, §2, §6)</p>
   </section>
 
   <!-- 10-12. The three ends -->
