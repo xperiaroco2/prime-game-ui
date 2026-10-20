@@ -89,12 +89,23 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
 .st .timer { left: 50%; top: 22px; transform: translateX(-50%); text-align: center; }
 .st .timer.plate { padding: 2px 18px; min-width: 96px; }
 .st .timer.bare { font: 700 34px/1.1 var(--fn); color: var(--mint); -webkit-text-stroke: 8px var(--ink); paint-order: stroke fill; }
-.st .ab { left: 50%; top: 66px; transform: translateX(-50%); display: flex; align-items: center; gap: 8px; }
-.st .ab .hs { width: 28px; height: 28px; color: var(--mint); }
-.st .ab .hs.full { color: var(--co); }
-.st .ab .track { width: 170px; height: 14px; }
-.st .ab .up { width: 18px; height: 18px; }
-.st .ab .gap { width: 18px; }
+/* the anger meter, centred under the time: A a bar with the siren at its end, B pips, C the siren filling up */
+.st .am { left: 50%; top: 64px; transform: translateX(-50%); display: flex; align-items: center; gap: 6px; }
+.st .sir { width: 38px; height: 38px; --dome: #B7A8D6; --rays: 0; }
+.st .sir.on { --dome: #FF8A6B; --rays: 1; }
+.st .am .track { width: 150px; height: 20px; border-radius: 12px; }
+.st .pips { display: flex; gap: 5px; }
+.st .pip { width: 22px; height: 16px; box-sizing: border-box; border: 3px solid var(--ink); border-radius: 6px; background: var(--wh); }
+.st .pip.on { background: var(--co); }
+.st .sc { position: relative; width: 52px; height: 52px; }
+.st .sc svg { position: absolute; left: 0; bottom: 0; width: 52px; height: 52px; --dome: #B7A8D6; --rays: 0; }
+.st .sc .fl { position: absolute; left: 0; right: 0; bottom: 0; overflow: hidden; }
+.st .sc .fl svg { --dome: #FF8A6B; }
+.st .sc.on svg { --rays: 1; }
+.st .row3 { position: absolute; left: 0; width: 440px; height: 110px; }
+.st .row3 > .stk { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); }
+.st .row3 .tc { position: absolute; left: 290px; top: 50%; transform: translate(-50%, -50%); display: grid; justify-items: center; gap: 2px; }
+.st .tc .timer, .st .tc .am { position: static; transform: none; }
 .st .aim { left: 50%; top: calc(50% + 22px); transform: translateX(-50%); }
 .st .bars { left: 26px; bottom: 26px; width: 200px; display: grid; gap: 8px; }
 .st .mic { left: 244px; bottom: 26px; width: 50px; height: 50px; border-radius: 50%; }
@@ -191,7 +202,7 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
 /* two variants side by side, centred (open questions) */
 .st .pair { left: 50%; top: 50%; transform: translate(-50%, -50%); display: flex; gap: 90px; align-items: flex-start; }
 .st .col { display: grid; gap: 16px; justify-items: center; }
-.st .col .ab { position: static; transform: none; }
+.st .col .am { position: static; transform: none; }
 .st .kn { padding: 8px 18px; font: 900 24px/1.2 var(--ft); white-space: nowrap; }
 
 /* the timer comparison: four world stand-ins (light, dark) x (framed, bare) */
@@ -210,8 +221,7 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
   <symbol id="i-palm" viewBox="0 0 64 64"><path d="M22 58q-8-14-4-28l2-12q2-5 5 0l2 12 2-18q3-5 6 0l1 18 3-13q3-5 5 0v15q4-4 7-1 1 3-3 9-4 10-6 18z" fill="none" stroke="#54457A" stroke-width="3.5" stroke-linejoin="round"/></symbol>
   <symbol id="i-pocket" viewBox="0 0 64 64"><path d="M14 18H50V44Q50 56 32 56Q14 56 14 44zM14 18L32 30 50 18" fill="none" stroke="#54457A" stroke-width="3.5" stroke-linejoin="round"/></symbol>
   <symbol id="i-hand" viewBox="0 0 64 64"><use href="#i-rocket" x="2" y="-6" width="52" height="52"/><g stroke="#1E1230" stroke-width="3" stroke-linejoin="round"><path d="M34 37q15 0 19 12l4 15H35l1-13z" fill="#A6E85A"/><rect x="18" y="36" width="22" height="6" rx="3" fill="#A6E85A"/><rect x="17" y="42" width="23" height="6" rx="3" fill="#A6E85A"/><rect x="19" y="48" width="21" height="6" rx="3" fill="#A6E85A"/></g></symbol>
-  <symbol id="i-house" viewBox="0 0 64 64"><g stroke="#1E1230" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"><path d="M12 30V58H52V30" fill="currentColor"/><path d="M5 32L32 8 59 32z" fill="#2B1846"/><circle cx="23" cy="40" r="5" fill="#FFFFFF" stroke-width="3"/><circle cx="41" cy="40" r="5" fill="#FFFFFF" stroke-width="3"/><path d="M16 31l11 4M48 31l-11 4M27 54q5-5 10 0" fill="none"/></g><circle cx="24" cy="41" r="2" fill="#1E1230"/><circle cx="40" cy="41" r="2" fill="#1E1230"/></symbol>
-  <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 3L22 20H2z" fill="#FF8A6B" stroke="#1E1230" stroke-width="3" stroke-linejoin="round"/></symbol>
+  <symbol id="i-siren" viewBox="0 0 64 64"><g stroke="#1E1230" stroke-width="4" stroke-linecap="round" fill="none" style="opacity:var(--rays,0)"><path d="M11 28L4 23M10 38H2M53 28l7-5M54 38h8"/></g><g stroke="#1E1230" stroke-width="4" stroke-linejoin="round"><circle cx="32" cy="15" r="3.5" fill="#FFD60A" stroke-width="3"/><path d="M18 46V33a14 14 0 0 1 28 0V46z" style="fill:var(--dome,#FF8A6B)"/><rect x="12" y="46" width="40" height="11" rx="3" fill="#1E1230"/></g><rect x="23.5" y="25" width="5" height="13" rx="2.5" fill="#FFFFFF"/></symbol>
 </svg>
 
 <main class="wrap">
@@ -243,7 +253,7 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
       <div class="abs pts plate"><span class="lab">Очки</span><span class="num">7</span></div>
       <span class="abs pop stk gr">+2</span>
       <div class="abs timer bare">07:42</div>
-      <div class="abs ab"><svg class="hs"><use href="#i-house"/></svg><div class="track"><b style="width:38%;background:var(--co)"></b></div><svg class="up"><use href="#i-up"/></svg></div>
+      <div class="abs am"><div class="track"><b style="width:55%;background:var(--co)"></b></div><svg class="sir on"><use href="#i-siren"/></svg></div>
       <div class="abs roster panel"><div class="rw me"><i class="hue" style="background:#7C5CC8"></i>Олена (ти)</div><div class="rw"><i class="hue" style="background:#1C7A82"></i>Ґлорп</div><div class="rw"><i class="hue" style="background:#E66B57"></i>Їжак</div><div class="rw"><i class="hue" style="background:#E8B04A"></i>Бульк</div><div class="rw"><i class="hue" style="background:#4AA3DF"></i>Зінґа</div><div class="rw dead"><i class="hue" style="background:#D46FB0"></i>Тарас · мертвий</div></div>
       <div class="abs cross"></div>
       <span class="abs aim chipp">Сміттєвий бак</span>
@@ -251,7 +261,7 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
       <div class="abs mic plate"><i></i><u></u><s></s></div>
       <div class="abs ia"><div class="sl plate on"><svg><use href="#i-rocket"/></svg></div><div class="sl plate"><svg><use href="#i-bun"/></svg></div></div>
     </div></div>
-    <p class="cap">Нагорі по центру — час без рамки, під ним тонка смужка гніву сусідів з будиночком: коралова заливка росте, поки пакість не виправили; трикутник «▲» — гнів зараз росте; феєрверк дає стрибок. Ліворуч угорі — твої очки й коротке «+2». Праворуч угорі — усі гравці з кольорами їхніх тіл (ваше рішення, 20.10; кольори — зразки). Руки й пояс — варіант А з розділу нижче, лише як заглушка. (m8 §4, §5; GDD §8)</p>
+    <p class="cap">Нагорі по центру — час без рамки, під ним гнів сусідів: смужка із сиреною. Це заглушка — варіант А з розділу «Гнів сусідів: три варіанти»; кадри 1, 1а, 2 і 4 показують його, поки ви не оберете. Коралова заливка росте, поки пакість не виправили; сирена світиться, поки гнів росте; феєрверк дає стрибок. Ліворуч угорі — твої очки й коротке «+2». Праворуч угорі — усі гравці з кольорами їхніх тіл (ваше рішення, 20.10; кольори — зразки). Руки й пояс — варіант А з розділу нижче, лише як заглушка. (m8 §4, §5; GDD §8)</p>
     <div class="q"><p><b>Для вас — зміна записаного рішення:</b> у рішеннях UI записано «нагорі лише час». Тепер нагорі ще очки (ліворуч), смужка гніву (під часом) і список гравців (праворуч). Лишаємо так чи переносимо?</p></div>
     <div class="q"><p><b>Відкрито:</b> скільки очок за що (§4 «ще перевірити»). Чи показувати на HUD куплені мутації. Чи показувати в списку мертвих (тут — блідо, «мертвий»).</p></div>
   </section>
@@ -264,7 +274,7 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
       <span class="abs role stk co">Людина</span>
       <div class="abs pts plate"><span class="lab">Очки</span><span class="num">4</span></div>
       <div class="abs timer bare">07:42</div>
-      <div class="abs ab"><svg class="hs"><use href="#i-house"/></svg><div class="track"><b style="width:38%;background:var(--co)"></b></div><svg class="up"><use href="#i-up"/></svg></div>
+      <div class="abs am"><div class="track"><b style="width:55%;background:var(--co)"></b></div><svg class="sir on"><use href="#i-siren"/></svg></div>
       <div class="abs roster panel"><div class="rw me"><i class="hue" style="background:#E8B04A"></i>Бульк (ти)<span class="hm">людина</span></div><div class="rw"><i class="hue" style="background:#7C5CC8"></i>Олена</div><div class="rw"><i class="hue" style="background:#1C7A82"></i>Ґлорп</div><div class="rw"><i class="hue" style="background:#E66B57"></i>Їжак</div><div class="rw"><i class="hue" style="background:#4AA3DF"></i>Зінґа<span class="hm">людина</span></div><div class="rw dead"><i class="hue" style="background:#D46FB0"></i>Тарас · мертвий</div></div>
       <div class="abs cross"></div>
       <div class="abs bars"><div class="track"><b style="width:80%;background:var(--gr)"></b></div><div class="track"><b style="width:55%;background:var(--ye)"></b></div></div>
@@ -273,6 +283,64 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
     </div></div>
     <p class="cap">Люди знають одне одного (ваше рішення, 20.10): у списку гравця-людини інші люди мають коралову бирку «людина». Прибулець бачить той самий список без бирок (кадр 1).</p>
     <div class="q"><p><b>Відкрито:</b> чи потрібна ще позначка над головою іншої людини у світі (стара «позначка напарника» дисидента), чи досить бирки в списку.</p></div>
+  </section>
+
+  <!-- 1b. The anger meter with a siren: three directions, each in a full frame (rising) and three states close up -->
+  <section class="screen">
+    <h2>Гнів сусідів: три варіанти</h2>
+    <div class="tags"><span class="tag chg">ваш вибір</span></div>
+    <p class="cap">Будиночок замінила сирена (наша власна робота). Усі три — по центру під часом, без плашки й без підписів. Три стани: спокійно (гнів низький, сирена темна), росте (сирена світиться), повна (копи вже їдуть, далі — банер кадру 4). Ліворуч — увесь кадр у вибраному масштабі (стан «росте»), праворуч — три стани крупно; жовті бирки — підписи сторінки, не гри.</p>
+    <h3>А · Товща смужка, сирена в кінці</h3>
+    <div class="duo">
+    <div class="frame st"><div class="stage">
+      <span class="abs role stk mi">Прибулець</span>
+      <div class="abs pts plate"><span class="lab">Очки</span><span class="num">7</span></div>
+      <div class="abs timer bare">07:42</div>
+      <div class="abs am"><div class="track"><b style="width:55%;background:var(--co)"></b></div><svg class="sir on"><use href="#i-siren"/></svg></div>
+      <div class="abs roster panel"><div class="rw me"><i class="hue" style="background:#7C5CC8"></i>Олена (ти)</div><div class="rw"><i class="hue" style="background:#1C7A82"></i>Ґлорп</div><div class="rw"><i class="hue" style="background:#E66B57"></i>Їжак</div><div class="rw"><i class="hue" style="background:#E8B04A"></i>Бульк</div><div class="rw"><i class="hue" style="background:#4AA3DF"></i>Зінґа</div><div class="rw dead"><i class="hue" style="background:#D46FB0"></i>Тарас · мертвий</div></div>
+      <div class="abs cross"></div>
+    </div></div>
+    <div class="frame st" style="aspect-ratio:4/3" data-w="440" data-h="330"><div class="stage">
+      <div class="row3" style="top:0"><span class="stk ye">спокійно</span><div class="tc"><div class="timer bare">07:42</div><div class="am"><div class="track"><b style="width:18%;background:var(--co)"></b></div><svg class="sir"><use href="#i-siren"/></svg></div></div></div>
+      <div class="row3" style="top:110px"><span class="stk ye">росте</span><div class="tc"><div class="timer bare">06:10</div><div class="am"><div class="track"><b style="width:55%;background:var(--co)"></b></div><svg class="sir on"><use href="#i-siren"/></svg></div></div></div>
+      <div class="row3" style="top:220px"><span class="stk ye">повна: копи</span><div class="tc"><div class="timer bare">04:12</div><div class="am"><div class="track"><b style="width:100%;background:var(--co);border-right:0"></b></div><svg class="sir on"><use href="#i-siren"/></svg></div></div></div>
+    </div></div>
+    </div>
+    <p class="cap">Чому: найзвичніше — довжину смужки видно з першого погляду, а сирена сама каже «росте», коли світиться. У Godot — ProgressBar і текстура сирени.</p>
+    <h3>Б · Шість поділок, що загоряються</h3>
+    <div class="duo">
+    <div class="frame st"><div class="stage">
+      <span class="abs role stk mi">Прибулець</span>
+      <div class="abs pts plate"><span class="lab">Очки</span><span class="num">7</span></div>
+      <div class="abs timer bare">07:42</div>
+      <div class="abs am"><div class="pips"><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip"></i><i class="pip"></i><i class="pip"></i></div><svg class="sir on"><use href="#i-siren"/></svg></div>
+      <div class="abs roster panel"><div class="rw me"><i class="hue" style="background:#7C5CC8"></i>Олена (ти)</div><div class="rw"><i class="hue" style="background:#1C7A82"></i>Ґлорп</div><div class="rw"><i class="hue" style="background:#E66B57"></i>Їжак</div><div class="rw"><i class="hue" style="background:#E8B04A"></i>Бульк</div><div class="rw"><i class="hue" style="background:#4AA3DF"></i>Зінґа</div><div class="rw dead"><i class="hue" style="background:#D46FB0"></i>Тарас · мертвий</div></div>
+      <div class="abs cross"></div>
+    </div></div>
+    <div class="frame st" style="aspect-ratio:4/3" data-w="440" data-h="330"><div class="stage">
+      <div class="row3" style="top:0"><span class="stk ye">спокійно</span><div class="tc"><div class="timer bare">07:42</div><div class="am"><div class="pips"><i class="pip on"></i><i class="pip"></i><i class="pip"></i><i class="pip"></i><i class="pip"></i><i class="pip"></i></div><svg class="sir"><use href="#i-siren"/></svg></div></div></div>
+      <div class="row3" style="top:110px"><span class="stk ye">росте</span><div class="tc"><div class="timer bare">06:10</div><div class="am"><div class="pips"><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip"></i><i class="pip"></i><i class="pip"></i></div><svg class="sir on"><use href="#i-siren"/></svg></div></div></div>
+      <div class="row3" style="top:220px"><span class="stk ye">повна: копи</span><div class="tc"><div class="timer bare">04:12</div><div class="am"><div class="pips"><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i></div><svg class="sir on"><use href="#i-siren"/></svg></div></div></div>
+    </div></div>
+    </div>
+    <p class="cap">Чому: поділки рахуються без цифр («ще дві — і копи»), і кожна нова, що загорілась, помітна. У Godot — шість маленьких панелей (StyleBoxFlat) у ряд і текстура сирени.</p>
+    <h3>В · Лише сирена, що наповнюється знизу</h3>
+    <div class="duo">
+    <div class="frame st"><div class="stage">
+      <span class="abs role stk mi">Прибулець</span>
+      <div class="abs pts plate"><span class="lab">Очки</span><span class="num">7</span></div>
+      <div class="abs timer bare">07:42</div>
+      <div class="abs am"><div class="sc on"><svg><use href="#i-siren"/></svg><div class="fl" style="height:52%"><svg><use href="#i-siren"/></svg></div></div></div>
+      <div class="abs roster panel"><div class="rw me"><i class="hue" style="background:#7C5CC8"></i>Олена (ти)</div><div class="rw"><i class="hue" style="background:#1C7A82"></i>Ґлорп</div><div class="rw"><i class="hue" style="background:#E66B57"></i>Їжак</div><div class="rw"><i class="hue" style="background:#E8B04A"></i>Бульк</div><div class="rw"><i class="hue" style="background:#4AA3DF"></i>Зінґа</div><div class="rw dead"><i class="hue" style="background:#D46FB0"></i>Тарас · мертвий</div></div>
+      <div class="abs cross"></div>
+    </div></div>
+    <div class="frame st" style="aspect-ratio:4/3" data-w="440" data-h="330"><div class="stage">
+      <div class="row3" style="top:0"><span class="stk ye">спокійно</span><div class="tc"><div class="timer bare">07:42</div><div class="am"><div class="sc"><svg><use href="#i-siren"/></svg><div class="fl" style="height:36%"><svg><use href="#i-siren"/></svg></div></div></div></div></div>
+      <div class="row3" style="top:110px"><span class="stk ye">росте</span><div class="tc"><div class="timer bare">06:10</div><div class="am"><div class="sc on"><svg><use href="#i-siren"/></svg><div class="fl" style="height:52%"><svg><use href="#i-siren"/></svg></div></div></div></div></div>
+      <div class="row3" style="top:220px"><span class="stk ye">повна: копи</span><div class="tc"><div class="timer bare">04:12</div><div class="am"><div class="sc on"><svg><use href="#i-siren"/></svg><div class="fl" style="height:100%"><svg><use href="#i-siren"/></svg></div></div></div></div></div>
+    </div></div>
+    </div>
+    <p class="cap">Чому: найменше місця — одна іконка, яка сама є шкалою: коралове світло піднімається, як вода в склянці. У Godot — TextureProgressBar, заповнення знизу вгору (дві текстури сирени: темна й коралова), без числа.</p>
   </section>
 
   <!-- 1a. The timer: framed or bare, over a light and a dark world -->
@@ -344,15 +412,15 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
 
   <!-- 2. The anger hint: an open question shown as two variants -->
   <section class="screen">
-    <h2>2 · Гнів: що підказує смужка</h2>
+    <h2>2 · Гнів: що підказує шкала</h2>
     <div class="tags"><span class="tag new">нове</span><span class="tag draft">чернетка текстів</span></div>
     <div class="frame st"><div class="stage">
       <div class="abs pair">
-        <div class="col"><span class="stk mi">А · без підказки</span><div class="ab"><svg class="hs"><use href="#i-house"/></svg><div class="track"><b style="width:38%;background:var(--co)"></b></div><svg class="up"><use href="#i-up"/></svg></div></div>
-        <div class="col"><span class="stk mi">Б · тип без місця</span><div class="ab"><svg class="hs"><use href="#i-house"/></svg><div class="track"><b style="width:38%;background:var(--co)"></b></div><svg class="up"><use href="#i-up"/></svg></div><span class="stk ye">Гучна музика</span></div>
+        <div class="col"><span class="stk mi">А · без підказки</span><div class="am"><div class="track"><b style="width:55%;background:var(--co)"></b></div><svg class="sir on"><use href="#i-siren"/></svg></div></div>
+        <div class="col"><span class="stk mi">Б · тип без місця</span><div class="am"><div class="track"><b style="width:55%;background:var(--co)"></b></div><svg class="sir on"><use href="#i-siren"/></svg></div><span class="stk ye">Гучна музика</span></div>
       </div>
     </div></div>
-    <p class="cap">Прибульці бачать, що гнів росте, і мусять шукати причину. А: лише смужка. Б: під смужкою сказано, що саме (музика, сміття), але не де. (m8 §5, §9)</p>
+    <p class="cap">Прибульці бачать, що гнів росте, і мусять шукати причину. А: лише шкала. Б: під шкалою сказано, що саме (музика, сміття), але не де. (m8 §5, §9)</p>
     <div class="q"><p><b>Відкрито — ваш вибір:</b> А чи Б. Поки не вирішено, мапа не позначає місце пакості.</p></div>
   </section>
 
@@ -372,13 +440,13 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
 
   <!-- 4. The cops' minute -->
   <section class="screen">
-    <h2>4 · Смужка повна: копи за хвилину</h2>
+    <h2>4 · Гнів повний: копи за хвилину</h2>
     <div class="tags"><span class="tag new">нове</span><span class="tag draft">чернетка текстів</span></div>
     <div class="frame st"><div class="stage">
       <span class="abs role stk mi">Прибулець</span>
       <div class="abs pts plate"><span class="lab">Очки</span><span class="num">11</span></div>
       <div class="abs timer bare">04:12</div>
-      <div class="abs ab"><svg class="hs full"><use href="#i-house"/></svg><div class="track"><b style="width:100%;background:var(--co);border-right:0"></b></div><span class="gap"></span></div>
+      <div class="abs am"><div class="track"><b style="width:100%;background:var(--co);border-right:0"></b></div><svg class="sir on"><use href="#i-siren"/></svg></div>
       <div class="abs roster panel"><div class="rw me"><i class="hue" style="background:#7C5CC8"></i>Олена (ти)</div><div class="rw"><i class="hue" style="background:#1C7A82"></i>Ґлорп</div><div class="rw"><i class="hue" style="background:#E66B57"></i>Їжак</div><div class="rw"><i class="hue" style="background:#E8B04A"></i>Бульк</div><div class="rw"><i class="hue" style="background:#4AA3DF"></i>Зінґа</div><div class="rw"><i class="hue" style="background:#D46FB0"></i>Тарас</div></div>
       <div class="abs cops plate co"><span class="big">Сусіди викликали копів!</span><span class="lab">Копи будуть за</span><span class="num">0:58</span></div>
       <div class="abs cross"></div>
@@ -386,7 +454,7 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
       <div class="abs mic plate"><i></i><u></u><s></s></div>
       <div class="abs ia"><div class="sl plate on"><svg><use href="#i-battery"/></svg></div><div class="sl plate"><svg><use href="#i-pocket"/></svg></div></div>
     </div></div>
-    <p class="cap">Смужка повна, будиночок став кораловим. Сусіди самі кличуть копів: у прибульців хвилина, щоб закінчити задачі. Відлік бачать усі. Затримати копів за очки в MVP не можна. (m8 §5)</p>
+    <p class="cap">Гнів повний (варіант А, повний стан): сирена світиться, смужка вся коралова. Сусіди самі кличуть копів: у прибульців хвилина, щоб закінчити задачі. Відлік бачать усі. Затримати копів за очки в MVP не можна. (m8 §5)</p>
     <div class="q"><p><b>Відкрито:</b> показувати обидва відліки (таймер раунду й копів) чи лише той, що закінчиться раніше. Чи буде фінал після хвилини копів (§6). Скільки триває «хвилина».</p></div>
   </section>
 
