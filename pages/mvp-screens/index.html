@@ -86,6 +86,7 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
 .st .slots { right: 26px; bottom: 26px; display: flex; gap: 12px; }
 .st .slot { width: 80px; height: 80px; display: grid; place-items: end center; padding-bottom: 8px; box-sizing: border-box; font: 800 14px/1 var(--ft); }
 .st .slot.on { background: var(--gr); }
+.st .slot.wide { width: 150px; }
 .st .ann { left: 50%; top: 104px; transform: translateX(-50%); white-space: nowrap; padding: 8px 22px; font: 900 26px/1.2 var(--ft); }
 .st .cops { left: 50%; top: 122px; transform: translateX(-50%); white-space: nowrap; padding: 10px 26px; display: grid; justify-items: center; gap: 2px; }
 .st .cops .big { font: 900 28px/1.15 var(--ft); }
@@ -112,7 +113,6 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
 .st .card .fx { font: 800 16px/1.3 var(--ft); }
 .st .card .cost { display: flex; align-items: center; gap: 8px; }
 .st .card .cost .num { font-size: 26px; }
-.st .card.have { background: var(--pul); color: var(--mint); }
 .st .wb .hint { color: var(--mu); }
 
 /* host settings: the Esc menu's Lobby tab */
@@ -120,13 +120,17 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
 .st .tabs { display: grid; align-content: start; gap: 8px; padding: 22px 16px; border-right: var(--ow) solid var(--ink); }
 .st .tab { font: 900 18px/1.2 var(--ft); padding: 8px 14px; border-radius: 12px; color: var(--mint); border: var(--ow) solid transparent; }
 .st .tab.on { background: var(--mint); color: var(--ink); border-color: var(--ink); }
-.st .rows { padding: 22px 24px; display: grid; align-content: start; gap: 12px; }
-.st .rows .title { font-size: 30px; margin-bottom: 4px; }
+.st .rows { padding: 18px 24px; display: grid; align-content: start; gap: 10px; }
+.st .rows .title { font-size: 28px; }
 .st .srow { display: grid; grid-template-columns: 1fr 230px; align-items: center; gap: 14px; padding: 8px 12px; border-radius: 12px; background: var(--pul); font: 800 18px/1.2 var(--ft); color: var(--mint); }
 .st .srow small { display: block; font: 800 14px/1.2 var(--ft); color: var(--mu); }
 .st .stepper { display: flex; align-items: center; justify-content: space-between; padding: 2px 6px; font: 900 22px/1.2 var(--ft); }
 .st .stepper .num { font-size: 22px; }
 .st .chips { display: flex; gap: 10px; }
+.st .presets { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.st .pc { display: grid; align-content: center; justify-items: center; height: 56px; background: var(--mint); color: var(--ink); border: var(--ow) solid var(--ink); border-radius: 14px; font: 900 16px/1.15 var(--ft); text-align: center; }
+.st .pc.on { background: var(--gr); box-shadow: var(--sh) var(--sh) 0 var(--ink); }
+.st .pc small { font: 800 13px/1.2 var(--ft); }
 .st .chip { padding: 4px 16px; border: var(--ow) solid var(--ink); border-radius: 999px; font: 900 17px/1.2 var(--ft); background: var(--mint); color: var(--ink); }
 .st .chip.on { background: var(--gr); box-shadow: var(--sh) var(--sh) 0 var(--ink); }
 
@@ -141,6 +145,7 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
 /* the open question: two hint variants side by side */
 .st .var { top: 120px; width: 380px; display: grid; gap: 14px; justify-items: start; }
 .st .var .anger { position: static; width: 100%; box-sizing: border-box; }
+.st .var .kn { padding: 8px 18px; font: 900 24px/1.2 var(--ft); white-space: nowrap; }
 </style>
 
 <main class="wrap">
@@ -157,7 +162,7 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
   <!-- 1. Round HUD: points, anger, timer -->
   <section class="screen">
     <h2>1 · Раунд: очки, гнів сусідів, таймер</h2>
-    <div class="tags"><span class="tag new">нове: очки, гнів</span><span class="tag chg">зміна: роль</span><span class="tag draft">чернетка текстів</span></div>
+    <div class="tags"><span class="tag new">нове: очки, гнів</span><span class="tag chg">зміна: роль, предмети</span><span class="tag chg">змінює записане рішення</span><span class="tag draft">чернетка текстів</span></div>
     <div class="frame st"><div class="stage">
       <span class="abs role stk mi">Прибулець</span>
       <div class="abs pts plate"><span class="lab">Очки</span><span class="num">7</span></div>
@@ -165,12 +170,13 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
       <div class="abs timer plate num">07:42</div>
       <div class="abs anger plate"><div class="head"><span class="lab">Сусіди злі</span><span class="stk co">росте</span></div><div class="track"><b style="width:38%;background:var(--co)"></b></div></div>
       <div class="abs cross"></div>
-      <span class="abs aim chipp">Батарея</span>
+      <span class="abs aim chipp">Сміттєвий бак</span>
       <div class="abs bars"><div class="track"><b style="width:80%;background:var(--gr)"></b></div><div class="track"><b style="width:55%;background:var(--ye)"></b></div></div>
       <div class="abs mic plate"><i></i><u></u><s></s></div>
-      <div class="abs slots"><div class="slot plate on">Рука</div><div class="slot plate">Пояс</div></div>
+      <div class="abs slots"><div class="slot plate on wide">Феєрверк</div><div class="slot plate">Булка</div></div>
     </div></div>
-    <p class="cap">Ліворуч угорі — твої очки й коротке «+2», коли робота чи пакість принесли очки. Праворуч — гнів сусідів: росте, поки не прибрали сміття чи не стишили музику; феєрверк дає стрибок. Таймер, здоров'я, витривалість, мікрофон і руки — як були. (m8 §4, §5)</p>
+    <p class="cap">Ліворуч угорі — твої очки й коротке «+2», коли робота чи пакість принесли очки. Праворуч — гнів сусідів: росте, поки пакість не виправили; феєрверк дає стрибок. Таймер, здоров'я, витривалість і мікрофон — як були. Руки й пояс лишаються, змінюється те, що в них: батарея, квітка, надрукована деталь, булка, котлета, бургер, лійка, інструменти гаража, вогнегасник, феєрверк, підняте сміття. (m8 §4, §5; GDD §8)</p>
+    <div class="q"><p><b>Для вас — зміна записаного рішення:</b> у рішеннях UI записано «нагорі лише час». Очки (ліворуч) і гнів (праворуч) додають дві плашки нагорі. Лишаємо їх там чи переносимо?</p></div>
     <div class="q"><p><b>Відкрито:</b> скільки очок за що (§4 «ще перевірити»). Чи показувати на HUD куплені мутації. Чи бачать люди одне одного (позначка команди над головою).</p></div>
   </section>
 
@@ -188,23 +194,18 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
     <div class="q"><p><b>Відкрито — ваш вибір:</b> А чи Б. Поки не вирішено, мапа не позначає місце пакості.</p></div>
   </section>
 
-  <!-- 3. Kill notice -->
+  <!-- 3. Kill notice: its form is open, shown as two variants -->
   <section class="screen">
     <h2>3 · Хто кого вбив</h2>
     <div class="tags"><span class="tag new">нове</span><span class="tag draft">чернетка текстів</span></div>
     <div class="frame st"><div class="stage">
-      <span class="abs role stk mi">Прибулець</span>
-      <div class="abs pts plate"><span class="lab">Очки</span><span class="num">7</span></div>
-      <div class="abs timer plate num">05:16</div>
-      <div class="abs anger plate"><div class="head"><span class="lab">Сусіди злі</span></div><div class="track"><b style="width:52%;background:var(--co)"></b></div></div>
-      <div class="abs ann plate"><i class="hue" style="background:#1C7A82"></i>Ґлорп убив <i class="hue" style="background:#E66B57;margin-left:8px"></i>Їжака</div>
-      <div class="abs cross"></div>
-      <div class="abs bars"><div class="track"><b style="width:80%;background:var(--gr)"></b></div><div class="track"><b style="width:55%;background:var(--ye)"></b></div></div>
-      <div class="abs mic plate"><i></i><u></u><s></s></div>
-      <div class="abs slots"><div class="slot plate on">Рука</div><div class="slot plate">Пояс</div></div>
+      <div class="abs var" style="left:40px;top:220px"><span class="stk mi">А · банер на HUD</span>
+        <div class="kn plate"><i class="hue" style="background:#1C7A82"></i>Ґлорп убив <i class="hue" style="background:#E66B57;margin-left:8px"></i>Їжака</div></div>
+      <div class="abs var" style="left:520px;top:220px"><span class="stk mi">Б · мертвий каже сам, у світі</span>
+        <span class="chipp" style="font-size:20px">Їжак: «Мене вбив Ґлорп!»</span></div>
     </div></div>
-    <p class="cap">Убитий прибулець каже всім, хто його вбив, тож убивство видає вбивцю. Роль не називаємо — лише імена з кольором тіла. Старе правило «ніколи не показувати, хто повалив» тут міняється. (m8 §4, #1040)</p>
-    <div class="q"><p><b>Відкрито:</b> чи лишається в MVP нокдаун (поваленого піднімають). m8 про нього мовчить, а двигун корабля в GDD ще «валить усіх на борту».</p></div>
+    <p class="cap">Убитий прибулець каже всім, хто його вбив, тож убивство видає вбивцю (m8 §4, #1040). Роль не називаємо — лише імена з кольором тіла. Нокдаун лишається, і правило «не показувати, хто повалив» для нього теж: це повідомлення — окрема подія в момент смерті.</p>
+    <div class="q"><p><b>Відкрито — ваш вибір:</b> А (банер для всіх на HUD) чи Б (мертвий каже сам). І для кого: лише для вбитих прибульців (тоді мовчання видає вбиту людину) чи для кожного вбивства (це вже більше, ніж у m8).</p></div>
   </section>
 
   <!-- 4. The cops' minute -->
@@ -237,7 +238,7 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
       <span class="abs others chipp">Тут також: Бульк, Зінґа</span>
       <span class="abs next stk mi">Випадкова капсула · 3 с захисту</span>
     </div></div>
-    <p class="cap">Мертві не дивляться на живих: усі разом чекають 30 с в окремій кімнаті, потім з'являються у випадковій капсулі з 3 с невразливості (чип «Захист 3 с» після повернення лишається як був). Решта HUD сховано. (m8 §3, #1032)</p>
+    <p class="cap">Мертві не дивляться на живих: усі разом чекають 30 с в окремій кімнаті, потім з'являються у випадковій капсулі з 3 с невразливості (чип «Захист 3 с» після повернення лишається як був). Решта HUD сховано. Нокдаун лишається як є: хто стік кров'ю чи здався, теж іде сюди. (m8 §3, #1032; GDD §3, #728)</p>
     <div class="q"><p><b>Відкрито:</b> де ця кімната; чи можуть мертві там говорити між собою (GDD §11 писали для спостереження: «ні»); чи бачать вони таймер, гнів і вбивства. Тому таймера й мікрофона в кадрі немає.</p></div>
   </section>
 
@@ -251,13 +252,13 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
         <div class="top"><span class="title">Мутаційний верстат</span><div class="bal plate"><span class="lab">У тебе очок</span><span class="num">7</span></div></div>
         <div class="cards">
           <div class="card plate"><span class="nm">Швидкі ноги</span><span class="fx">Бігаєш швидше</span><div class="cost"><span class="num">4</span><span class="lab">очки</span></div><span class="btn p">Мутувати</span></div>
-          <div class="card plate have"><span class="nm">Пружні ноги</span><span class="fx">Стрибаєш вище</span><div class="cost"><span class="num">3</span><span class="lab">очки</span></div><span class="btn off">Уже є</span></div>
+          <div class="card plate"><span class="nm">Пружні ноги</span><span class="fx">Стрибаєш вище</span><div class="cost"><span class="num">3</span><span class="lab">очки</span></div><span class="btn">Мутувати</span></div>
           <div class="card plate"><span class="nm">Товста шкіра</span><span class="fx">Більше здоров'я</span><div class="cost"><span class="num">9</span><span class="lab">очок</span></div><span class="btn off">Бракує 2</span></div>
         </div>
         <span class="lab hint">Esc — закрити</span>
       </div>
     </div></div>
-    <p class="cap">У лабораторії: три позитивні мутації за очки — швидший біг, вищий стрибок, більше здоров'я. Три стани картки: можна купити, уже є, бракує очок. Ціни — заглушки. (m8 §4, #1040)</p>
+    <p class="cap">У лабораторії: три позитивні мутації за очки — швидший біг, вищий стрибок, більше здоров'я. Два стани картки: можна купити і бракує очок. Стану «уже є» немає, поки не вирішено, чи можна купити двічі. Ціни — заглушки. (m8 §4, #1040)</p>
     <div class="q"><p><b>Відкрито:</b> ціна кожної; чи можна купити ту саму двічі; чи діє мутація до кінця матчу чи до смерті; назви мутацій.</p></div>
   </section>
 
@@ -270,14 +271,16 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
       <div class="abs esc panel">
         <div class="tabs"><span class="tab">Гра</span><span class="tab">Роль</span><span class="tab">Довідка</span><span class="tab on">Лобі</span><span class="tab">Персонаж</span><span class="tab">Налаштування</span></div>
         <div class="rows"><div class="title">Матч</div>
+          <div class="presets"><span class="pc on">Звичайний<small>10 хв</small></span><span class="pc">Швидкий<small>5 хв</small></span><span class="pc">Без ножів<small>10 хв</small></span><span class="pc">Зберегти свій</span></div>
           <div class="srow"><span>Людей серед гостей<small>з 10 гравців</small></span><div class="stepper plate"><span>−</span><span class="num">3</span><span>+</span></div></div>
           <div class="srow"><span>Поріг гніву сусідів</span><div class="chips"><span class="chip">50</span><span class="chip on">100</span></div></div>
           <div class="srow"><span>Тривалість матчу</span><div class="stepper plate"><span>−</span><span class="num">10 хв</span><span>+</span></div></div>
+          <div class="srow"><span>Wi-Fi: паролів</span><div class="stepper plate"><span>−</span><span class="num">3</span><span>+</span></div></div>
         </div>
       </div>
     </div></div>
-    <p class="cap">Хост задає точну кількість людей (наприклад, 3 з 10) і поріг гніву (наприклад, 50 чи 100). «Дисиденти» стають «людьми», рядок «Пакунки» зникає разом із доставкою. (m8 §2, §5)</p>
-    <div class="q"><p><b>Відкрито:</b> значення за замовчуванням (дослідження пропонує 4→1 … 10→3 людей); які варіанти порогу; чи лишаються «Ножі» та пресет «Без ножів» (зброю відкладено, §7); які налаштування задач лишаються.</p></div>
+    <p class="cap">Хост задає точну кількість людей (наприклад, 3 з 10) і поріг гніву (наприклад, 50 чи 100). «Дисиденти» стають «людьми», рядок «Пакунки» зникає разом із доставкою. Кількість паролів Wi-Fi — уже вирішене налаштування лобі. Картки шаблонів лишаються на своєму місці. (m8 §2, §5; GDD §8)</p>
+    <div class="q"><p><b>Відкрито:</b> значення за замовчуванням (дослідження пропонує 4→1 … 10→3 людей); які варіанти порогу; що шаблони «Звичайний» і «Швидкий» задають для людей і порогу; чи лишаються «Ножі» та шаблон «Без ножів» (зброю відкладено, §7); які ще налаштування задач лишаються.</p></div>
   </section>
 
   <!-- 8. Role reveal: alien -->
@@ -326,8 +329,24 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
     <div class="frame st"><div class="stage">
       <div class="endf"><div class="title co">Попались!</div><div class="win plate">Вечірці кінець</div><span class="stk co">Копи приїхали · люди перемогли</span><span class="lab">Повернення на корабель через 3…</span></div>
     </div></div>
-    <p class="cap">Хвилина минула, задачі не виконано: сирена, «попались: вечірці кінець». (m8 §6)</p>
+    <p class="cap">Хвилина минула, задачі не виконано: сирена, «попались: вечірці кінець». Рядок причини є на кінцевому екрані вже зараз (час виконання, «час вийшов»); для копів він новий. (m8 §6)</p>
     <div class="q"><p><b>Відкрито для всіх трьох кінців:</b> чи показувати, хто був людиною; чи показувати очки; повернення в лобі тепер означає «на корабель» — як саме це виглядає (§1).</p></div>
+  </section>
+
+  <section class="intro">
+    <h2>Взаємодії задач MVP</h2>
+    <p class="lede">У кожної з п'яти задач є своя дія. Ось де вона живе; «у світі» — це 3D-рівень, не робота UI. Де «не вирішено», питання до вас: окремий екран поверх гри чи екран у світі.</p>
+    <ul>
+      <li>Wi-Fi: комп'ютер з паролем із 4 гліфів, клавіатура 0–9, блокування «HACKER» на ~5 с — <b>не вирішено</b>.</li>
+      <li>Wi-Fi: книга-дешифратор у бібліотеці — у світі.</li>
+      <li>Телефон: поки обидві слухавки підняті, двоє чують одне одного — <b>не вирішено</b>, чи мікрофон на HUD рахує це як «тебе чують» і чи показувати «на лінії».</li>
+      <li>Фото: фотограф бачить силует пози (#1102) — <b>не вирішено</b>: видошукач поверх гри чи картинка у світі.</li>
+      <li>Харчовий принтер: булка чи котлета і її вид — <b>не вирішено</b>: меню вибору чи кнопки на машині.</li>
+      <li>Принтер деталей: яка деталь машини — <b>не вирішено</b>, так само.</li>
+      <li>Двигун, перегрів: тримаєш клапан, стрілка росте, відпусти в зеленій смузі — <b>не вирішено</b>: шкала на машині чи на HUD.</li>
+      <li>Двигун: панель із чотирма перемикачами, лампи й сирени проблем; дошки замовлень машини й бургерів, змішувач фарби, мікрохвильовка, гриль — у світі.</li>
+    </ul>
+    <p>Нова робота UI: безсловесні малюнки для карток «?» усіх п'яти задач (завантаження, довідка, мапа). Зараз там малюнки доставки.</p>
   </section>
 
   <section class="intro">
@@ -336,11 +355,12 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
       <li>Головне меню: Хост, Приєднатися, За адресою, Навчання, Налаштування, Вийти (лише логотип чекає на назву гри).</li>
       <li>Підключення й усі помилки входу; список гравців під час завантаження.</li>
       <li>Панель лобі: гравці, «Готово», код кімнати, відлік 5 с.</li>
-      <li>Меню Esc: вкладки «Гра», «Персонаж» і всі налаштування (звук, керування, екран, мова, доступність).</li>
-      <li>HUD: таймер, здоров'я, витривалість, мікрофон, руки й пояс, приціл, назва предмета, таблички з іменами.</li>
+      <li>Меню Esc: вкладки «Гра», «Персонаж» і всі налаштування (звук, керування, екран, мова, доступність); картки шаблонів у «Лобі».</li>
+      <li>HUD: таймер, здоров'я, витривалість, мікрофон, слоти руки й пояса (змінюються лише предмети в них), приціл, назва предмета, таблички з іменами.</li>
+      <li>Нокдаун: повалений, «утримуй, щоб здатися», підйом, смужка підйому в того, хто піднімає, урок у навчанні.</li>
       <li>Чип «Захист 3 с» після повернення.</li>
-      <li>Мапа: дошка, список задач, картки «?» — змінюється лише зміст (нові задачі й кімнати).</li>
-      <li>Темні екрани на 3 с перед раундом і після нього.</li>
+      <li>Мапа: дошка, список задач, «?» і підсвітка зон задачі; зникають лише зони доставки, нові задачі й кімнати стають на їхнє місце.</li>
+      <li>Темні екрани на 3 с перед раундом і після нього, рядок причини на кінцевому.</li>
     </ul>
   </section>
 
@@ -350,6 +370,7 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
       <li>Лобі — корабель прибульців: як політ на Землю лягає на лобі, відлік, завантаження й показ ролі (§1).</li>
       <li>Навчання: які уроки в MVP (доставка пішла, смерть тепер інша).</li>
       <li>Мапа: чи показувати капсули й мутаційний верстат.</li>
+      <li>Зброя: чи лишається ніж (і чи носять його на поясі) (§7).</li>
       <li>Назва гри для логотипа (§1).</li>
     </ul>
   </section>
