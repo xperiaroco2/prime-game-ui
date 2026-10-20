@@ -339,7 +339,7 @@
       }
     },
     "menu-item": {
-      "$description": "A main-menu entry on purple: a borderless entry with the heading label (Nunito Black) and a pointer icon that shows on hover, focus and while open (toggle_mode: pressed is the open entry).",
+      "$description": "A main-menu entry on purple: the mint sticker (4 px ink outline, the ink heading label in Nunito Black) with a pointer icon that shows on hover, focus and while open (toggle_mode: pressed is the open entry). The hard shadow is the edge form: the right and bottom outlines are 9 px (4 + 5) and reach 5 px outside the entry, as no base layer sits under a menu entry in the game.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyMenuItem", "class": "Button", "parent": "ToyButton" },
@@ -348,40 +348,51 @@
       },
       "label": { "$type": "typography", "$value": "{type.heading-bold}" },
       "normal": {
-        "bg-color": { "$type": "color", "$value": "{palette.clear}" },
+        "bg-color": { "$type": "color", "$value": "{palette.mint}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-width-top": { "$type": "dimension", "$value": "{stroke.control}" },
+        "border-width-right": { "$type": "dimension", "$value": { "value": 9, "unit": "px" } },
+        "border-width-bottom": { "$type": "dimension", "$value": { "value": 9, "unit": "px" } },
+        "border-width-left": { "$type": "dimension", "$value": "{stroke.control}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.control}" },
         "content-margin-block": { "$type": "dimension", "$value": { "value": 12, "unit": "px" } },
         "content-margin-inline": { "$type": "dimension", "$value": { "value": 22, "unit": "px" } },
-        "font-color": { "$type": "color", "$value": "{color.on-dark.text}" }
+        "expand-margin-right": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } },
+        "expand-margin-bottom": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } },
+        "font-color": { "$type": "color", "$value": "{color.on-accent.text}" }
       },
       "hover": {
-        "$description": "Hover fill.",
-        "bg-color": { "$type": "color", "$value": "{color.state.hover-on-dark}" }
+        "$description": "Hover: the face lifts to the lighter mint.",
+        "bg-color": { "$type": "color", "$value": "{palette.mint-light}" }
       },
       "pressed": {
-        "$description": "Held, and the open entry (toggled on): as hover.",
-        "bg-color": { "$type": "color", "$value": "{color.state.hover-on-dark}" }
+        "$description": "Held, and the open entry (toggled on): the alien green face, as the primary button; the sticker does not move (the edge stays).",
+        "bg-color": { "$type": "color", "$value": "{palette.green}" }
       },
       "disabled": {
-        "$description": "Unplugged entry: a quiet label.",
-        "font-color": { "$type": "color", "$value": "{color.state.disabled-ink-on-dark}" }
+        "$description": "Unplugged entry: no shadow (a 4 px outline on every side, no expand), a dulled lilac face, its outline and label in the soft ink.",
+        "bg-color": { "$type": "color", "$value": "{color.state.disabled-face}" },
+        "border-color": { "$type": "color", "$value": "{color.state.disabled-ink}" },
+        "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
+        "expand-margin": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "font-color": { "$type": "color", "$value": "{color.state.disabled-ink}" }
       },
       "focus": {
         "$description": "Inner focus: a ring inside the outline, the focus width wide.",
         "bg-color": { "$type": "color", "$value": "{palette.clear}" },
-        "border-color": { "$type": "color", "$value": "{color.on-dark.line}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width": { "$type": "dimension", "$value": "{focus.width}" },
-        "corner-radius": { "$type": "dimension", "$value": "{radius.control}" },
-        "expand-margin": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } }
+        "corner-radius": { "$type": "dimension", "$value": { "value": 10, "unit": "px" } },
+        "expand-margin": { "$type": "dimension", "$value": { "value": -4, "unit": "px" } }
       },
       "items": {
-        "$description": "The pointer icon: clear at rest and unplugged, the alien green on hover, focus and while open; 12 px between the pointer and the label.",
+        "$description": "The pointer icon: clear at rest and unplugged, ink (the label colour) on hover, focus and while open; 12 px between the pointer and the label.",
         "icon-normal-color": { "$type": "color", "$value": "{palette.clear}" },
-        "icon-hover-color": { "$type": "color", "$value": "{color.on-dark.title}" },
-        "icon-pressed-color": { "$type": "color", "$value": "{color.on-dark.title}" },
-        "icon-hover-pressed-color": { "$type": "color", "$value": "{color.on-dark.title}" },
+        "icon-hover-color": { "$type": "color", "$value": "{color.on-accent.text}" },
+        "icon-pressed-color": { "$type": "color", "$value": "{color.on-accent.text}" },
+        "icon-hover-pressed-color": { "$type": "color", "$value": "{color.on-accent.text}" },
         "icon-disabled-color": { "$type": "color", "$value": "{palette.clear}" },
-        "icon-focus-color": { "$type": "color", "$value": "{color.on-dark.title}" },
+        "icon-focus-color": { "$type": "color", "$value": "{color.on-accent.text}" },
         "h-separation": { "$type": "dimension", "$value": { "value": 12, "unit": "px" } }
       }
     },

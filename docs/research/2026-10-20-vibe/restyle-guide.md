@@ -81,7 +81,7 @@ are 900: use the `-bold` roles there. Never Kablammo outside `ToyLogo`.
 
 ## The reference set (done)
 `ToyButtonPrimary` green, `Secondary` and `Plain` mint, `Danger` coral, all ink 4 px, 14 radius, hover/held shades;
-`ToyButtonGhostOnDark`/`OnLight` and `ToyMenuItem` borderless, mint label, purple-light hover (the menu pointer green);
+`ToyButtonGhostOnDark`/`OnLight` borderless, mint label, purple-light hover; `ToyMenuItem` a mint sticker in the edge form, open green, the pointer ink;
 `ToyPanelMenu`/`Dialog`/`Howto` purple, ink 4 px, radius 20 on the ink `ToyBasePanel`; `ToyPlate`, `ToyPlateNight`
 purple and `ToyPlateAlert` purple with a coral outline, all in the edge form, text mint; `ToyTitlePlate` a purple
 sticker around a green Nunito Black title with an ink outline, on `ToyBaseTitle`; `ToyLogo` Kablammo green, ink outline.

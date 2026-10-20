@@ -860,20 +860,23 @@
 .tv-ToyMenuItem {
   box-sizing: border-box;
   position: relative;
-  background: var(--toy-palette-clear);
+  background: var(--toy-button-menu-item-normal-bg-color);
   border-style: solid;
-  border-top-width: 0;
-  border-right-width: 0;
-  border-bottom-width: 0;
-  border-left-width: 0;
+  border-color: var(--toy-button-menu-item-normal-border-color);
+  border-top-width: calc(var(--toy-button-menu-item-normal-border-width-top) * var(--px));
+  border-right-width: calc(var(--toy-button-menu-item-normal-border-width-right) * var(--px));
+  border-bottom-width: calc(var(--toy-button-menu-item-normal-border-width-bottom) * var(--px));
+  border-left-width: calc(var(--toy-button-menu-item-normal-border-width-left) * var(--px));
   border-top-left-radius: calc(var(--toy-button-menu-item-normal-corner-radius) * var(--px));
   border-top-right-radius: calc(var(--toy-button-menu-item-normal-corner-radius) * var(--px));
   border-bottom-right-radius: calc(var(--toy-button-menu-item-normal-corner-radius) * var(--px));
   border-bottom-left-radius: calc(var(--toy-button-menu-item-normal-corner-radius) * var(--px));
-  padding-top: calc(var(--toy-button-menu-item-normal-content-margin-block) * var(--px));
-  padding-right: calc(var(--toy-button-menu-item-normal-content-margin-inline) * var(--px));
-  padding-bottom: calc(var(--toy-button-menu-item-normal-content-margin-block) * var(--px));
-  padding-left: calc(var(--toy-button-menu-item-normal-content-margin-inline) * var(--px));
+  padding-top: calc((var(--toy-button-menu-item-normal-content-margin-block) - var(--toy-button-menu-item-normal-border-width-top)) * var(--px));
+  padding-right: calc((var(--toy-button-menu-item-normal-content-margin-inline) + var(--toy-button-menu-item-normal-expand-margin-right) - var(--toy-button-menu-item-normal-border-width-right)) * var(--px));
+  padding-bottom: calc((var(--toy-button-menu-item-normal-content-margin-block) + var(--toy-button-menu-item-normal-expand-margin-bottom) - var(--toy-button-menu-item-normal-border-width-bottom)) * var(--px));
+  padding-left: calc((var(--toy-button-menu-item-normal-content-margin-inline) - var(--toy-button-menu-item-normal-border-width-left)) * var(--px));
+  margin-right: calc(var(--toy-button-menu-item-normal-expand-margin-right) * -1 * var(--px));
+  margin-bottom: calc(var(--toy-button-menu-item-normal-expand-margin-bottom) * -1 * var(--px));
   font-family: var(--toy-button-menu-item-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-button-menu-item-label-font-size) * var(--px));
   font-weight: var(--toy-button-menu-item-label-font-weight);
@@ -890,6 +893,18 @@
   background: var(--toy-button-menu-item-pressed-bg-color);
 }
 .tv-ToyMenuItem.is-disabled {
+  background: var(--toy-button-menu-item-disabled-bg-color);
+  border-color: var(--toy-button-menu-item-disabled-border-color);
+  border-top-width: calc(var(--toy-button-menu-item-disabled-border-width) * var(--px));
+  border-right-width: calc(var(--toy-button-menu-item-disabled-border-width) * var(--px));
+  border-bottom-width: calc(var(--toy-button-menu-item-disabled-border-width) * var(--px));
+  border-left-width: calc(var(--toy-button-menu-item-disabled-border-width) * var(--px));
+  padding-top: calc((var(--toy-button-menu-item-normal-content-margin-block) - var(--toy-button-menu-item-disabled-border-width)) * var(--px));
+  padding-right: calc((var(--toy-button-menu-item-normal-content-margin-inline) - var(--toy-button-menu-item-disabled-border-width)) * var(--px));
+  padding-bottom: calc((var(--toy-button-menu-item-normal-content-margin-block) - var(--toy-button-menu-item-disabled-border-width)) * var(--px));
+  padding-left: calc((var(--toy-button-menu-item-normal-content-margin-inline) - var(--toy-button-menu-item-disabled-border-width)) * var(--px));
+  margin-right: 0;
+  margin-bottom: 0;
   color: var(--toy-button-menu-item-disabled-font-color);
 }
 .tv-ToyMenuItem > .tv-focus {
@@ -907,13 +922,19 @@
   border-top-right-radius: calc(var(--toy-button-menu-item-focus-corner-radius) * var(--px));
   border-bottom-right-radius: calc(var(--toy-button-menu-item-focus-corner-radius) * var(--px));
   border-bottom-left-radius: calc(var(--toy-button-menu-item-focus-corner-radius) * var(--px));
-  top: calc((0 - var(--toy-button-menu-item-focus-expand-margin)) * var(--px));
-  right: calc((0 - var(--toy-button-menu-item-focus-expand-margin)) * var(--px));
-  bottom: calc((0 - var(--toy-button-menu-item-focus-expand-margin)) * var(--px));
-  left: calc((0 - var(--toy-button-menu-item-focus-expand-margin)) * var(--px));
+  top: calc((0 - var(--toy-button-menu-item-normal-border-width-top) - var(--toy-button-menu-item-focus-expand-margin)) * var(--px));
+  right: calc((var(--toy-button-menu-item-normal-expand-margin-right) - var(--toy-button-menu-item-normal-border-width-right) - var(--toy-button-menu-item-focus-expand-margin)) * var(--px));
+  bottom: calc((var(--toy-button-menu-item-normal-expand-margin-bottom) - var(--toy-button-menu-item-normal-border-width-bottom) - var(--toy-button-menu-item-focus-expand-margin)) * var(--px));
+  left: calc((0 - var(--toy-button-menu-item-normal-border-width-left) - var(--toy-button-menu-item-focus-expand-margin)) * var(--px));
 }
 .tv-ToyMenuItem.is-focus > .tv-focus, .tv-ToyMenuItem:focus-visible > .tv-focus {
   display: block;
+}
+.tv-ToyMenuItem.is-disabled > .tv-focus {
+  top: calc((0 - var(--toy-button-menu-item-disabled-border-width) - var(--toy-button-menu-item-focus-expand-margin)) * var(--px));
+  right: calc((0 - var(--toy-button-menu-item-disabled-border-width) - var(--toy-button-menu-item-focus-expand-margin)) * var(--px));
+  bottom: calc((0 - var(--toy-button-menu-item-disabled-border-width) - var(--toy-button-menu-item-focus-expand-margin)) * var(--px));
+  left: calc((0 - var(--toy-button-menu-item-disabled-border-width) - var(--toy-button-menu-item-focus-expand-margin)) * var(--px));
 }
 .tv-ToyMenuItem .tv-icon {
   color: var(--toy-button-menu-item-items-icon-normal-color);

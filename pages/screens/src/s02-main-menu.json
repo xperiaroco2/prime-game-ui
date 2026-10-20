@@ -41,7 +41,7 @@
           "note": "The items, then the open panel (if any) to their right, its top on Host's top.",
           "children": [
             {
-              "name": "Items", "type": "VBoxContainer", "variation": "ToyColumnFour", "custom_minimum_size": [592, 0],
+              "name": "Items", "type": "VBoxContainer", "variation": "ToyColumnTwelve", "custom_minimum_size": [592, 0],
               "size_flags_vertical": "shrink_begin",
               "note": "Up and down move the focus through the items; the focused, hovered or pressed item shows its pointer icon.",
               "children": [
