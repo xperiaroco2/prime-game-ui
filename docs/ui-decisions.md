@@ -27,6 +27,11 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
   colours": deep purple panels, mint plates, ink outlines and hard ink shadows, the alien green for the main action, a
   coral for alarm. Next, shown on five real screens in three strengths (calmer, as picked, louder) for him to pick
   ([the screens page](https://claude.ai/artifact/HtfG17WM8Wok5TqMkrQZkf), `pages/sticker/`) (agent).
+- **Strength B, the alien title face on the logo only** (the engineer, 2026-10-20, chat, translated, on the screens
+  page): the middle strength (4 px ink outlines, 5 px hard ink shadows, stickers tilted a few degrees); the cartoon
+  title face (Kablammo) stays only on the logo for now, because using it everywhere is too much; every other title is
+  Nunito Black, the text Nunito, the numbers Rubik. This is the new style that replaces Toy; its tokens and components
+  come next.
 
 ## Principles
 - **The UI never tells the player what to do.** No "take it to X" line, no destination marker, no key prompts on the HUD;
