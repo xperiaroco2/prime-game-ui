@@ -4,6 +4,7 @@ pages/references/refs-page.html
 # Copies of the art track's concept art for the vibe page (pages/vibe/README.md).
 pages/vibe/img/
 pages/vibe-flyer/img/
+pages/vibe-toy/img/
 # Scratch output
 *.tmp
 node_modules/

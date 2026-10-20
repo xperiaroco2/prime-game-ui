@@ -1,0 +1,389 @@
+<title>Alien Toy Vibes</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@400;800&family=Rubik:wght@600;700&family=Prosto+One&family=Sofia+Sans+Extra+Condensed:wght@800&family=Onest:wght@400;600&family=Commissioner:wght@400;600;700;800&family=Martian+Mono:wght@500;700&family=Rubik+Puddles&family=Kablammo&family=Nunito:wght@400;800;900&family=Montserrat+Alternates:wght@700;800&family=Golos+Text:wght@400;600&family=Days+One&display=swap">
+<style>
+/* Layout: the vinyl alien on top as the thing the UI must belong to, then five "alien toy" directions, each as the
+   same HUD over the night estate, an end screen, a menu, the type and the palette. Quiet graphite chrome.
+   Single dark theme by choice: the samples are night scenes. */
+:root {
+  color-scheme: dark;
+  --ground: #141317;
+  --raise: #1C1B21;
+  --line: #2E2C35;
+  --ink: #ECE9F1;
+  --dim: #A6A2B1;
+  --chrome: "Commissioner", "Segoe UI", system-ui, sans-serif;
+}
+body { background: var(--ground); color: var(--ink); font: 16px/1.5 var(--chrome); }
+.wrap { max-width: 1040px; margin: 0 auto; padding-block: 28px 64px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid; gap: 56px; }
+h1 { font-size: clamp(30px, 6vw, 46px); line-height: 1.05; margin: 0; text-wrap: balance; letter-spacing: -0.01em; }
+h2 { font-size: clamp(24px, 4.4vw, 32px); line-height: 1.1; margin: 0; text-wrap: balance; }
+h3 { font-size: 13px; text-transform: uppercase; letter-spacing: .1em; color: var(--dim); margin: 0; font-weight: 600; }
+p { margin: 0; max-width: 66ch; }
+a { color: var(--ink); }
+code { font-size: 14px; }
+.lede { color: var(--dim); font-size: 17px; }
+.intro { display: grid; gap: 14px; }
+.how { border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; background: var(--raise); display: grid; gap: 6px; }
+.top { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 18px; align-items: center; }
+.top img { width: 100%; border-radius: 12px; display: block; }
+.keep { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+.keep div { border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; display: grid; gap: 4px; }
+.keep b { font-size: 14px; }
+.keep span { color: var(--dim); font-size: 14px; }
+.board { display: grid; gap: 18px; border-top: 1px solid var(--line); padding-top: 28px; }
+.board-head { display: grid; gap: 6px; }
+.num { font: 600 13px/1.3 var(--chrome); color: var(--dim); letter-spacing: .1em; }
+.frames { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 12px; }
+.frame { position: relative; width: 100%; max-width: 100%; aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden; background: #000; }
+.cap { color: var(--dim); font-size: 13px; margin-top: 6px; }
+.stage { position: absolute; left: 0; top: 0; width: 960px; height: 540px; transform-origin: 0 0; transform: scale(var(--s, 1)); overflow: hidden; }
+.stage > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.stage .shade { position: absolute; inset: 0; background: rgba(6, 4, 14, .28); }
+.row2 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 18px; align-items: start; }
+.col { display: grid; gap: 12px; min-width: 0; }
+.swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 8px; }
+.sw { display: grid; gap: 4px; font-size: 12px; color: var(--dim); min-width: 0; }
+.sw i { display: block; height: 36px; border-radius: 8px; border: 1px solid var(--line); }
+.sw b { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
+.spec { background: var(--raise); border: 1px solid var(--line); border-radius: 12px; padding: 16px; display: grid; gap: 10px; min-width: 0; overflow-wrap: anywhere; }
+.spec .d { font-size: 34px; line-height: 1.1; }
+.spec .t { font-size: 17px; }
+.spec .m { font-size: 15px; color: var(--dim); }
+.spec small { color: var(--dim); font: 12px/1.3 var(--chrome); }
+.fit { display: grid; gap: 6px; font-size: 15px; }
+.fit span { color: var(--dim); }
+.refs { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 14px; }
+.refs a { color: var(--dim); }
+.refs a:hover, .refs a:focus-visible { color: var(--ink); }
+.glyphs { display: grid; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+.glyphs div { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 12px; padding: 10px 14px; border-top: 1px solid var(--line); align-items: baseline; }
+.glyphs div:first-child { border-top: 0; }
+.glyphs span { color: var(--dim); font-size: 13px; }
+.glyphs p { font-size: 24px; overflow-wrap: anywhere; }
+.foot { color: var(--dim); font-size: 14px; display: grid; gap: 6px; }
+a:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; border-radius: 3px; }
+@media (max-width: 720px) {
+  .frames, .row2, .top { grid-template-columns: minmax(0, 1fr); }
+  .top img { max-width: 220px; }
+  .glyphs div { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+}
+
+/* ---------- Samples. Godot-safe: solid fills, one-colour borders (per-side widths), per-corner radii, one shadow
+   without spread, one text outline; a rotation is a node transform. ---------- */
+.ui { position: absolute; }
+.timer { left: 50%; top: 26px; transform: translateX(-50%); white-space: nowrap; }
+.anger { right: 26px; top: 26px; width: 240px; display: grid; gap: 8px; }
+.hand { left: 26px; bottom: 26px; }
+.bars { left: 128px; bottom: 30px; width: 190px; display: grid; gap: 8px; }
+.announce { left: 50%; top: 118px; transform: translateX(-50%); white-space: nowrap; }
+.cross { left: 50%; top: 50%; width: 6px; height: 6px; margin: -3px 0 0 -3px; border-radius: 50%; background: #FFFFFF; }
+.track { height: 14px; position: relative; overflow: hidden; }
+.track b { position: absolute; left: 0; top: 0; bottom: 0; display: block; }
+.slot { width: 88px; height: 88px; display: grid; place-items: end center; padding-bottom: 8px; box-sizing: border-box; }
+.cops { justify-self: start; }
+.hue { display: inline-block; width: 18px; height: 18px; border-radius: 50%; vertical-align: -2px; margin-right: 8px; }
+.end { position: absolute; inset: 0; display: grid; align-content: center; justify-items: center; gap: 18px; text-align: center; }
+.menu { display: grid; gap: 12px; padding: 22px; max-width: 100%; box-sizing: border-box; overflow: hidden; }
+.menu .btn { display: block; text-align: center; padding: 12px 18px; }
+.menu .set { display: grid; gap: 8px; margin-top: 4px; }
+.menu .set .track { height: 12px; }
+
+/* 1. Vinyl pebble */
+.t1 { --bg:#14101F; --tl:#173F43; --vl:#2E2552; --mint:#DBEBCF; --tx:#EEF4E8; --gr:#A6E85A; --grd:#5E8A2A; --co:#E66B57; --mu:#9FB5AE; --sh:#0B0814;
+  --fd: "Geologica", "Segoe UI", sans-serif; --fn: "Rubik", "Segoe UI", sans-serif; }
+.t1 .timer { background: var(--tl); border-radius: 28px 28px 28px 8px; padding: 6px 24px; font: 600 30px/1.2 var(--fn); color: var(--mint); box-shadow: 0 6px 0 var(--sh); }
+.t1 .anger { background: var(--vl); border-radius: 24px 24px 8px 24px; padding: 12px 16px; box-shadow: 0 6px 0 var(--sh); }
+.t1 .anger .l { font: 800 15px/1 var(--fd); color: var(--mint); }
+.t1 .track { background: var(--bg); border-radius: 999px; height: 12px; }
+.t1 .track b { background: var(--co); border-radius: 999px; }
+.t1 .cops { background: var(--co); color: var(--bg); border-radius: 999px; padding: 3px 12px; font: 800 13px/1.3 var(--fd); }
+.t1 .slot { background: var(--tl); border-radius: 24px 24px 24px 8px; font: 400 14px/1 var(--fd); color: var(--mint); box-shadow: 0 6px 0 var(--sh); }
+.t1 .bars .track { background: var(--sh); } .t1 .bars .h b { background: var(--gr); } .t1 .bars .s b { background: var(--mint); }
+.t1 .announce { background: var(--mint); color: var(--bg); border-radius: 28px 28px 28px 8px; padding: 10px 24px; font: 800 26px/1.2 var(--fd); box-shadow: 0 6px 0 var(--sh); }
+.t1 .end { background: var(--tl); }
+.t1 .end .big { font: 800 64px/1.05 var(--fd); color: var(--mint); }
+.t1 .end .tag { background: var(--co); color: var(--bg); border-radius: 999px; padding: 6px 20px; font: 800 24px/1.2 var(--fd); box-shadow: 0 5px 0 var(--sh); }
+.t1 .menu { background: var(--vl); border-radius: 32px 32px 32px 10px; color: var(--tx); font: 400 16px/1.4 var(--fd); }
+.t1 .menu .title { font: 800 30px/1.05 var(--fd); color: var(--mint); }
+.t1 .menu .btn { border-radius: 999px; font: 800 18px/1.2 var(--fd); }
+.t1 .menu .p { background: var(--gr); color: var(--bg); box-shadow: 0 5px 0 var(--grd); }
+.t1 .menu .s { background: var(--tl); color: var(--mint); box-shadow: 0 5px 0 var(--sh); }
+.t1 .menu .g { color: var(--mu); }
+.t1 .menu .set .track { background: var(--bg); border-radius: 999px; } .t1 .menu .set .track b { background: var(--gr); border-radius: 999px; }
+.t1 .spec .d { font-family: var(--fd); font-weight: 800; color: var(--mint); }
+.t1 .spec .t { font-family: var(--fd); } .t1 .spec .m { font-family: var(--fn); font-weight: 600; }
+
+/* 2. Collector box */
+.t2 { --bg:#1D1B24; --pd:#2B2833; --bone:#EDE9E0; --ink:#1D1B24; --mu:#B4AEC4; --mud:#5E5868; --mus:#E5B23C; --co:#E66B57; --tl:#1C7A82; --tll:#9FD9D3; --li:#C9B8F2;
+  --fd: "Prosto One", "Segoe UI", sans-serif; --fc: "Sofia Sans Extra Condensed", "Arial Narrow", sans-serif; --ft: "Onest", "Segoe UI", sans-serif; }
+.t2 .lab { font: 800 15px/1 var(--fc); text-transform: uppercase; letter-spacing: .1em; }
+.t2 .timer { background: var(--bone); color: var(--ink); border-left: 10px solid var(--mus); border-radius: 16px; padding: 6px 20px 6px 16px; font: 400 28px/1.2 var(--fd); }
+.t2 .anger { background: var(--bone); border-left: 10px solid var(--co); border-radius: 16px; padding: 10px 14px; color: var(--ink); }
+.t2 .anger .l { color: var(--ink); }
+.t2 .track { background: #D6D0C3; border-radius: 999px; height: 10px; }
+.t2 .track b { background: var(--co); border-radius: 999px; }
+.t2 .cops { background: var(--ink); color: var(--bone); border-radius: 6px; padding: 4px 8px; }
+.t2 .slot { background: var(--pd); border-top: 8px solid var(--tll); border-radius: 16px; font: 400 14px/1 var(--ft); color: var(--bone); }
+.t2 .bars .track { background: var(--pd); } .t2 .bars .h b { background: #5FD38D; } .t2 .bars .s b { background: var(--mus); }
+.t2 .announce { background: var(--bone); color: var(--ink); border-left: 12px solid var(--tl); border-radius: 16px; padding: 8px 22px 10px 16px; display: grid; gap: 4px; }
+.t2 .announce .lab { color: var(--mud); font-size: 13px; }
+.t2 .announce span { font: 400 26px/1.2 var(--fd); }
+.t2 .end { background: var(--bone); color: var(--ink); gap: 14px; }
+.t2 .end .lab { color: var(--mud); }
+.t2 .end .big { font: 400 56px/1.1 var(--fd); }
+.t2 .end .tag { background: var(--mus); color: var(--ink); border-radius: 999px; padding: 6px 18px; font: 800 22px/1.2 var(--fc); letter-spacing: .1em; text-transform: uppercase; }
+.t2 .menu { background: var(--bone); color: var(--ink); border-radius: 18px; font: 400 16px/1.4 var(--ft); }
+.t2 .menu .lab { color: var(--mud); }
+.t2 .menu .title { font: 400 30px/1.1 var(--fd); }
+.t2 .menu .btn { border-radius: 999px; font: 600 17px/1.2 var(--ft); }
+.t2 .menu .p { background: var(--mus); color: var(--ink); }
+.t2 .menu .s { border: 2px solid var(--ink); color: var(--ink); }
+.t2 .menu .g { color: var(--mud); }
+.t2 .menu .set .track { background: #D6D0C3; } .t2 .menu .set .track b { background: var(--mus); }
+.t2 .spec .d { font-family: var(--fd); color: var(--bone); }
+.t2 .spec .t { font-family: var(--ft); } .t2 .spec .m { font-family: var(--fc); font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+
+/* 3. Alien suit OS */
+.t3 { --bg:#0F1418; --pd:#172128; --ln:#2E4A4F; --mint:#DBEBCF; --gr:#A6E85A; --vi:#9475D1; --co:#FF8C7A; --mu:#8FA9A4;
+  --fd: "Commissioner", "Segoe UI", sans-serif; --fg: "Rubik Puddles", "Segoe UI", sans-serif; --fm: "Martian Mono", Consolas, monospace; }
+.t3 .mono { font: 500 11px/1.2 var(--fm); letter-spacing: .06em; text-transform: uppercase; color: var(--mu); }
+.t3 .timer { background: var(--pd); border: 2px solid var(--ln); border-radius: 4px 14px 14px 14px; padding: 6px 16px; display: grid; justify-items: center; gap: 2px; }
+.t3 .timer b { font: 700 28px/1 var(--fm); color: var(--gr); }
+.t3 .anger { background: var(--pd); border: 2px solid var(--ln); border-radius: 14px 4px 14px 14px; padding: 10px 12px; }
+.t3 .track { background: var(--bg); border-radius: 6px; height: 10px; }
+.t3 .track b { background: var(--co); border-radius: 6px; }
+.t3 .cops { color: var(--co); }
+.t3 .slot { background: var(--pd); border: 2px solid var(--ln); border-radius: 14px; font: 600 13px/1 var(--fd); color: var(--mint); }
+.t3 .bars .track { background: var(--pd); } .t3 .bars .h b { background: var(--gr); } .t3 .bars .s b { background: var(--mint); }
+.t3 .announce { background: var(--pd); border: 2px solid var(--vi); border-radius: 14px; padding: 8px 20px 10px; display: grid; gap: 4px; }
+.t3 .announce > span:last-child { font: 700 26px/1.2 var(--fd); color: var(--mint); }
+.t3 .end { background: var(--pd); gap: 12px; }
+.t3 .end .big { font: 400 76px/1.05 var(--fg); color: var(--gr); }
+.t3 .end .tag { border: 2px solid var(--co); color: var(--co); border-radius: 10px; padding: 6px 14px; font: 500 16px/1.2 var(--fm); text-transform: uppercase; letter-spacing: .04em; }
+.t3 .menu { background: var(--pd); border: 2px solid var(--ln); border-radius: 18px; color: var(--mint); font: 400 16px/1.4 var(--fd); }
+.t3 .menu .title { font: 400 44px/1.05 var(--fg); color: var(--gr); }
+.t3 .menu .btn { border-radius: 12px; font: 700 17px/1.2 var(--fd); }
+.t3 .menu .p { background: var(--gr); color: var(--bg); }
+.t3 .menu .s { border: 2px solid var(--mint); color: var(--mint); }
+.t3 .menu .g { color: var(--mu); }
+.t3 .menu .set .track { background: var(--bg); } .t3 .menu .set .track b { background: var(--vi); }
+.t3 .spec .d { font-family: var(--fg); color: var(--gr); font-size: 40px; }
+.t3 .spec .t { font-family: var(--fd); } .t3 .spec .m { font-family: var(--fm); }
+
+/* 4. Ink and mint sticker */
+.t4 { --pu:#2B1846; --mint:#CFF3DF; --ink:#1E1230; --gr:#A6E85A; --co:#FF8A6B; --mu:#B7A8D6; --wh:#FFFFFF;
+  --fd: "Kablammo", "Arial Black", sans-serif; --ft: "Nunito", "Segoe UI", sans-serif; --fn: "Rubik", "Segoe UI", sans-serif; }
+.t4 .timer { background: var(--mint); color: var(--ink); border: 4px solid var(--ink); border-radius: 18px; padding: 2px 18px; font: 700 30px/1.2 var(--fn); box-shadow: 4px 4px 0 var(--ink); }
+.t4 .anger { background: var(--mint); border: 4px solid var(--ink); border-radius: 16px; padding: 10px 12px; box-shadow: 4px 4px 0 var(--ink); }
+.t4 .anger .l { font: 900 17px/1 var(--ft); color: var(--ink); }
+.t4 .track { background: var(--wh); border: 3px solid var(--ink); border-radius: 10px; height: 18px; }
+.t4 .track b { background: var(--co); }
+.t4 .cops { background: var(--gr); color: var(--ink); border: 3px solid var(--ink); border-radius: 10px; padding: 1px 10px; font: 900 15px/1.3 var(--ft); transform: rotate(-4deg); }
+.t4 .slot { background: var(--mint); border: 4px solid var(--ink); border-radius: 16px; font: 800 14px/1 var(--ft); color: var(--ink); box-shadow: 4px 4px 0 var(--ink); }
+.t4 .bars .track { height: 14px; } .t4 .bars .h b { background: var(--gr); } .t4 .bars .s b { background: #FFD60A; }
+.t4 .announce { background: var(--mint); color: var(--ink); border: 4px solid var(--ink); border-radius: 18px; padding: 8px 22px; font: 900 26px/1.2 var(--ft); box-shadow: 6px 6px 0 var(--ink); }
+.t4 .announce em { position: absolute; right: -22px; top: -20px; font: 400 26px/1 var(--fd); font-style: normal; background: var(--co); border: 3px solid var(--ink); border-radius: 12px; padding: 4px 8px; transform: rotate(8deg); }
+.t4 .end { background: var(--pu); }
+.t4 .end .big { font: 400 78px/1.05 var(--fd); color: var(--gr); }
+.t4 .end .tag { background: var(--mint); color: var(--ink); border: 4px solid var(--ink); border-radius: 14px; padding: 6px 18px; font: 900 24px/1.2 var(--ft); box-shadow: 5px 5px 0 var(--ink); transform: rotate(-3deg); }
+.t4 .menu { background: var(--pu); border: 4px solid var(--ink); border-radius: 20px; color: var(--mint); font: 400 16px/1.4 var(--ft); box-shadow: 6px 6px 0 var(--ink); }
+.t4 .menu .title { font: 400 40px/1.05 var(--fd); color: var(--gr); }
+.t4 .menu .btn { border-radius: 14px; font: 900 18px/1.2 var(--ft); border: 4px solid var(--ink); box-shadow: 4px 4px 0 var(--ink); }
+.t4 .menu .p { background: var(--gr); color: var(--ink); }
+.t4 .menu .s { background: var(--mint); color: var(--ink); }
+.t4 .menu .g { color: var(--mu); border-color: transparent; box-shadow: none; }
+.t4 .menu .set .track { height: 16px; } .t4 .menu .set .track b { background: var(--gr); }
+.t4 .spec .d { font-family: var(--fd); color: var(--gr); font-size: 40px; }
+.t4 .spec .t { font-family: var(--ft); } .t4 .spec .m { font-family: var(--fn); font-weight: 700; }
+
+/* 5. Space diner */
+.t5 { --bg:#0D262C; --pd:#15404A; --pl:#EAF4EC; --ink:#0D262C; --tq:#42C9BC; --tg:#FF8F45; --ms:#F4B942; --co:#FF7A68; --li:#C8B6F4; --mu:#9FC3C0;
+  --fd: "Montserrat Alternates", "Segoe UI", sans-serif; --ft: "Golos Text", "Segoe UI", sans-serif; --fn: "Days One", "Segoe UI", sans-serif; }
+.t5 .timer { background: var(--tq); color: var(--ink); border-radius: 16px 16px 32px 32px; padding: 4px 26px 8px; font: 400 28px/1.2 var(--fn); }
+.t5 .anger { background: var(--pd); border-radius: 22px; padding: 12px 14px; }
+.t5 .anger .l { font: 800 15px/1 var(--fd); color: var(--ms); letter-spacing: .04em; }
+.t5 .track { background: var(--bg); border-radius: 999px; height: 12px; }
+.t5 .track b { background: var(--tg); border-radius: 999px; }
+.t5 .cops { background: var(--ms); color: var(--ink); border-radius: 999px; padding: 3px 12px; font: 600 13px/1.3 var(--ft); }
+.t5 .slot { background: var(--pd); border-bottom: 6px solid var(--tq); border-radius: 18px 18px 30px 30px; font: 600 13px/1 var(--ft); color: var(--pl); }
+.t5 .bars .track { background: var(--pd); } .t5 .bars .h b { background: var(--tq); } .t5 .bars .s b { background: var(--ms); }
+.t5 .announce { background: var(--pl); color: var(--ink); border-bottom: 6px solid var(--tg); border-radius: 16px 16px 30px 30px; padding: 8px 26px 10px; font: 800 24px/1.2 var(--fd); }
+.t5 .star { position: relative; width: 150px; height: 150px; display: grid; place-items: center; }
+.t5 .star i { position: absolute; inset: 22px; background: var(--ms); border-radius: 10px; }
+.t5 .star i + i { transform: rotate(45deg); }
+.t5 .star span { position: relative; font: 800 30px/1 var(--fd); color: var(--ink); transform: rotate(-8deg); }
+.t5 .end { background: var(--pd); gap: 6px; }
+.t5 .end .big { font: 800 56px/1.1 var(--fd); color: var(--pl); }
+.t5 .end .tag { background: var(--tg); color: var(--ink); border-radius: 999px; padding: 6px 20px; font: 600 22px/1.2 var(--ft); margin-top: 8px; }
+.t5 .menu { background: var(--pd); border-radius: 24px; color: var(--pl); font: 400 16px/1.4 var(--ft); }
+.t5 .menu .title { font: 800 32px/1.1 var(--fd); color: var(--tq); }
+.t5 .menu .btn { border-radius: 14px 14px 28px 28px; font: 700 18px/1.2 var(--fd); }
+.t5 .menu .p { background: var(--ms); color: var(--ink); }
+.t5 .menu .s { border: 3px solid var(--tq); color: var(--tq); }
+.t5 .menu .g { color: var(--mu); }
+.t5 .menu .set .track { background: var(--bg); } .t5 .menu .set .track b { background: var(--tq); }
+.t5 .spec .d { font-family: var(--fd); font-weight: 800; color: var(--tq); }
+.t5 .spec .t { font-family: var(--ft); } .t5 .spec .m { font-family: var(--fn); }
+</style>
+
+<main class="wrap">
+  <header class="intro">
+    <h3>prime-game · UI · інопланетна іграшка · раунд 3 · 20.10.2026</h3>
+    <h1>Інопланетний іграшковий інтерфейс</h1>
+    <div class="top">
+      <img src="img/alien.jpg" alt="Бірюзовий вініловий прибулець з кораловими губами">
+      <div class="intro">
+        <p class="lede">Ні техно, ні кислоти: вечірка в маєтку серед лісу, а інтерфейс має належати до того ж світу, що й вінілові прибульці. Нижче п'ять напрямів, які я зібрав, вивчивши ігри-орієнтири й дизайн колекційних іграшок для дорослих.</p>
+        <div class="how"><p><b>Як відповісти:</b> назвіть номер напряму або що з якого взяти (форму плашок, шрифт, кольори, фінальний екран). Тексти — лише зразки, а намальовано все тим, що вміє Godot.</p></div>
+      </div>
+    </div>
+    <div class="keep">
+      <div><b>Персонаж — це колір</b><span>Інтерфейс спокійніший за прибульців. Колір гравця з'являється як мітка або кружечок біля імені.</span></div>
+      <div><b>Матово, без блиску</b><span>Пласкі заливки й одна тверда тінь, як у вінілу, що стоїть на столі. Жодного світіння й градієнтів.</span></div>
+      <div><b>Жарт — у словах</b><span>Графіка тримає кам'яне обличчя, а смішними роблять тексти, назви й номери серій.</span></div>
+    </div>
+  </header>
+
+  <div id="boards" class="intro" style="gap:56px"></div>
+
+  <section class="intro">
+    <h2>Чи є в нових шрифтах українські літери</h2>
+    <p class="lede">Якщо ґ, ї, є або апостроф намальовані іншим, простішим шрифтом, у цього шрифту їх немає.</p>
+    <div class="glyphs" id="glyphs"></div>
+  </section>
+
+  <footer class="foot">
+    <p>Референси подано посиланнями: картинки з інтернету я не завантажував. Звіти лежать у <code>docs/research/2026-10-20-vibe/</code> (файли <code>r3-*</code>).</p>
+    <p>Прибулець і маєток — арт нашої гри з арт-треку.</p>
+  </footer>
+</main>
+
+<script>
+const SAMPLE = "Ґанок · ЇЖАК · Єва · іграшка · м'ята · пʼять · № 07:42";
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const track = (cls, w) => `<div class="track ${cls}"><b style="width:${w}%"></b></div>`;
+const common = (hand) => `<div class="ui cross"></div>
+  <div class="ui hand"><div class="slot">${hand}</div></div>
+  <div class="ui bars">${track("h", 80)}${track("s", 45)}</div>`;
+const hue = c => `<i class="hue" style="background:${c}"></i>`;
+
+const boards = [
+  { id: "t1", name: "Вініловий камінчик",
+    sub: "Матовий вініл, плашки як залиті форми",
+    line: "Без контурів. Кожна плашка ніби відлита з вінілу: три кути круглі, один гостріший, знизу тверда темна тінь, наче фігурка стоїть на столі. Плашки мають приглушені кольори самих прибульців (темно-бірюзовий, темно-фіолетовий), а головна кнопка — м'який прибульський зелений.",
+    fonts: ["Geologica", "Rubik (цифри)"], display: "Вечірка на Землі",
+    fit: "Найближче до самих персонажів: інтерфейс зроблений з того ж матеріалу. Спокійний, дорогий, трохи самовдоволений, як вони.",
+    risk: "Без сильного шрифту може вийти «просто гарно» й без характеру, тоді характер має йти від текстів.",
+    hud: () => `<div class="ui timer">07:42</div>
+      <div class="ui anger"><div class="l">Сусіди</div>${track("", 62)}<div class="cops">Копи за 0:58</div></div>
+      <div class="ui announce">${hue("#1C7A82")}Ґлорп вбив Їжака</div>${common("Батарея")}`,
+    end: () => `<div class="end"><div class="big">Вечірку<br>закрито</div><div class="tag">Копи приїхали</div></div>`,
+    menu: () => `<div class="title">Вечірка на Землі</div><span class="btn p">Хост</span><span class="btn s">Приєднатися</span><span class="btn g">Налаштування</span><div class="set"><span>Загальна гучність</span>${track("", 70)}</div>`,
+    pal: [["#14101F","тло"],["#173F43","бірюзова плашка"],["#2E2552","фіолетова плашка"],["#DBEBCF","м'ятний текст"],["#A6E85A","прибульський зелений"],["#E66B57","кораловий"],["#9FB5AE","приглушений"]],
+    refs: [["Soft 3D: Puffy Numbers (TAVO)","https://www.visualflood.com/?p=61177"],["Hirono (Pop Mart)","https://www.koreajoongangdaily.com/business/popular-character-hirono-finds-a-permanent-home-with-a-themed-store-in-gwangjang-market/12510657"],["Astroneer: діегетичний UI","https://www.annievandermeer.com/post/astronattering-diegetic-ui-and-astroneer"]] },
+
+  { id: "t2", name: "Колекційна коробка",
+    sub: "Bearbrick, Kidrobot, Pop Mart: пакування дорослих колекційних фігурок",
+    line: "Інтерфейс як коробка, в якій продають вінілового прибульця: кістяні етикетки, кольоровий язичок збоку, вузькі капітелі «СЕРІЯ 01 · № 07/12». Колір язичка — колір гравця, тож оголошення про Ґлорпа бірюзове, бо Ґлорп бірюзовий.",
+    fonts: ["Prosto One", "Sofia Sans Extra Condensed (етикетки)", "Onest"], display: "Вечірка на Землі",
+    fit: "Одна форма для всього, змінюється лише колір: так працюють колекційні серії. Добре для лобі, списку гравців, результатів і «рідкісних» подій.",
+    risk: "Світлі етикетки на нічній сцені яскраві, тож у самій грі їх має бути мало.",
+    hud: () => `<div class="ui timer">07:42</div>
+      <div class="ui anger"><div class="l lab">Сусіди · серія 01</div>${track("", 62)}<div class="cops lab">Копи за 0:58</div></div>
+      <div class="ui announce"><span class="lab">№ 07 / 12 · прибулець</span><span>Ґлорп вбив Їжака</span></div>${common("Батарея")}`,
+    end: () => `<div class="end"><span class="lab">Серія «Вечірка» · № 12 / 12</span><div class="big">Вечірку закрито</div><div class="tag">Рідкісна подія: копи</div></div>`,
+    menu: () => `<span class="lab">Серія 01 · 4–10 гравців</span><div class="title">Вечірка на Землі</div><span class="btn p">Хост</span><span class="btn s">Приєднатися</span><span class="btn g">Налаштування</span>`,
+    pal: [["#1D1B24","тло"],["#2B2833","панель"],["#EDE9E0","кістяна етикетка"],["#E5B23C","гірчичний"],["#E66B57","кораловий"],["#1C7A82","колір гравця"],["#B4AEC4","приглушений"]],
+    refs: [["Bearbrick","https://en.wikipedia.org/wiki/Bearbrick"],["Kidrobot","https://www.kidrobot.com"],["Pop Mart","https://www.popmart.com/us"],["Superplastic","https://www.sevendaysvt.com/news/burlingtons-superplastic-turns-playthings-into-social-media-influencers-34066782/"],["Дизайнерські іграшки","https://en.wikipedia.org/wiki/Designer_toy"]] },
+
+  { id: "t3", name: "Скафандр прибульця",
+    sub: "Меню як інтерфейс скафандра, «прибульська ОС, що неправильно зрозуміла Землю»",
+    line: "Меню — це інтерфейс твого скафандра. Акуратні рамки з одним «язичком»-кутом, дрібні серійні підписи, які з кам'яним обличчям помиляються в земних речах. Назва гри написана «слизовим» шрифтом, ніби його зробив інший біологічний вид.",
+    fonts: ["Rubik Puddles (лише логотип)", "Commissioner", "Martian Mono"], display: "Вечірка",
+    fit: "Так зроблено меню в іграх-орієнтирах: це пристрій усередині світу гри, а не нейтральна рамка. Найбільше місця для сухих жартів.",
+    risk: "Найближчий до «техно», який ви відкинули. Тримається на зеленому, м'ятному й слизовому логотипі.",
+    hud: () => `<div class="ui timer"><span class="mono">Т-мінус</span><b>07:42</b></div>
+      <div class="ui anger"><div class="mono">Сусіди // гучність землян</div>${track("", 62)}<div class="cops mono">Прибуття копів: 0:58</div></div>
+      <div class="ui announce"><span class="mono">Подія: втрата одиниці</span><span>${hue("#1C7A82")}Ґлорп вбив Їжака</span></div>${common("Батарея")}`,
+    end: () => `<div class="end"><div class="big">Вечірку закрито</div><div class="tag">Причина: земні правоохоронці (4 од.)</div></div>`,
+    menu: () => `<div class="title">Вечірка</div><span class="btn p">Хост</span><span class="btn s">Приєднатися</span><span class="btn g">Налаштування</span><span class="mono">Земний час: неправильний</span>`,
+    pal: [["#0F1418","тло"],["#172128","панель"],["#2E4A4F","рамка"],["#DBEBCF","м'ятний текст"],["#A6E85A","прибульський зелений"],["#9475D1","фіолетовий фокус"],["#FF8C7A","тривога"]],
+    refs: [["Destroy All Humans! 2: постери","https://room8group.com/cases/destroy-all-humans-2-reprobed-2d-art-from-outer-space/"],["Rubik Puddles і родина","https://github.com/NaN-xyz/Rubik-Filtered"],["KSP 2: UX","https://kerbalspaceprogram.com/news/dev-diaries-developer-insights-7-ksp-2-ux-architects"]] },
+
+  { id: "t4", name: "Наліпка: м'ята й чорнило",
+    sub: "Комікс-картка, яку ви зберегли 17.10, у прибульському виконанні",
+    line: "Товсті чорнильні контури, жорсткі тіні, м'ятні плашки на глибокому фіолетовому, косо приліплені наліпки. Заголовки набрано «мультяшним» шрифтом, що ворушиться (у Godot його можна анімувати).",
+    fonts: ["Kablammo (лише великі заголовки)", "Nunito", "Rubik (цифри)"], display: "Вечірка на Землі",
+    fit: "Найбільше характеру й найближче до вашого референсу карток. Природно лягає на картки-інструкції та «бац»-моменти.",
+    risk: "Найбільший ризик виглядати дитячим. Контури сперечаються з гладкими персонажами без контурів.",
+    hud: () => `<div class="ui timer">07:42</div>
+      <div class="ui anger"><div class="l">Сусіди злі</div>${track("", 62)}<div class="cops">Копи за 0:58</div></div>
+      <div class="ui announce" style="position:absolute">Ґлорп вбив Їжака<em>!</em></div>${common("Батарея")}`,
+    end: () => `<div class="end"><div class="big">Вечірку<br>закрито</div><div class="tag">Копи приїхали</div></div>`,
+    menu: () => `<div class="title">Вечірка на Землі</div><span class="btn p">Хост</span><span class="btn s">Приєднатися</span><span class="btn g">Налаштування</span>`,
+    pal: [["#2B1846","фіолетовий"],["#1E1230","чорнило"],["#CFF3DF","м'ятний"],["#A6E85A","прибульський зелений"],["#FF8A6B","кораловий"],["#B7A8D6","приглушений"]],
+    refs: [["Kablammo","https://raw.githubusercontent.com/google/fonts/main/ofl/kablammo/DESCRIPTION.en_us.html"],["Neubrutalism","https://trends.daisyui.com/trend/neubrutalism/"],["Halftone comic","https://trends.daisyui.com/trend/halftone-comic-book/"]] },
+
+  { id: "t5", name: "Космічна закусочна",
+    sub: "Googie, Atomic Age, прибульський кітч придорожніх закладів",
+    line: "Як вивіска закусочної біля Зони 51, яку прибульці зробили всерйоз: кнопки-тарілки, широкі вивіскові літери, зірка-вибух для «вау», бірюза, мандарин і гірчиця на глибокому морському тлі.",
+    fonts: ["Montserrat Alternates", "Golos Text", "Days One (цифри)"], display: "Вечірка на Землі",
+    fit: "Найбільше «прибульського кітчу» й найкраще пасує тарілці на газоні, бургерам і неоновому розкриттю авто. Теплий, вечірковий, не клубний.",
+    risk: "Може стати ностальгічним «дідівським» ретро. Тому, мабуть, краще для реклами й вивісок у світі гри, ніж для всього інтерфейсу.",
+    hud: () => `<div class="ui timer">07:42</div>
+      <div class="ui anger"><div class="l">СУСІДИ</div>${track("", 62)}<div class="cops">Копи за 0:58</div></div>
+      <div class="ui announce">${hue("#1C7A82")}Ґлорп вбив Їжака</div>${common("Батарея")}`,
+    end: () => `<div class="end"><div class="star"><i></i><i></i><span>Все!</span></div><div class="big">Вечірку закрито</div><div class="tag">Копи приїхали о 22:14</div></div>`,
+    menu: () => `<div class="title">Вечірка на Землі</div><span class="btn p">Хост</span><span class="btn s">Приєднатися</span><span class="btn g">Налаштування</span>`,
+    pal: [["#0D262C","тло"],["#15404A","панель"],["#EAF4EC","світла"],["#42C9BC","бірюза"],["#FF8F45","мандарин"],["#F4B942","гірчиця"],["#FF7A68","кораловий"]],
+    refs: [["Googie","https://en.wikipedia.org/wiki/Googie_architecture"],["Atomic Age","https://en.wikipedia.org/wiki/Atomic_Age_(design)"],["Little A'Le'Inn","https://thetakeout.com/1731384/little-aleinn-restaurant-nevada"],["AlienKind","https://abduzeedo.com/alienkind-brutalist-juice-brand-identity-design"]] }
+];
+
+function board(b, i) {
+  const sw = b.pal.map(([hex, role]) => `<div class="sw"><i style="background:${hex}"></i><b>${hex}</b>${esc(role)}</div>`).join("");
+  const refs = b.refs.map(([t, u]) => `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a>`).join("");
+  return `<section class="board" id="${b.id}">
+    <div class="board-head"><span class="num">Напрям ${i + 1} із 5 · ${esc(b.sub)}</span><h2>${esc(b.name)}</h2><p class="lede">${esc(b.line)}</p></div>
+    <div class="frames">
+      <div><div class="frame ${b.id}"><div class="stage"><img src="img/estate.jpg" alt=""><div class="shade"></div>${b.hud()}</div></div><p class="cap">У грі: HUD поверх маєтку</p></div>
+      <div><div class="frame ${b.id}"><div class="stage">${b.end()}</div></div><p class="cap">Гучний момент: кінець раунду</p></div>
+    </div>
+    <div class="row2">
+      <div class="${b.id}" style="min-width:0"><div class="menu">${b.menu()}</div></div>
+      <div class="col ${b.id}">
+        <div class="spec">
+          <div class="d">${esc(b.display)}</div>
+          <div class="t">${esc(SAMPLE)}</div>
+          <div class="m">0123456789 · 07:42 · 62%</div>
+          <small>${b.fonts.map(esc).join(" · ")}</small>
+        </div>
+        <div class="fit"><p><b>Чому так:</b> <span>${esc(b.fit)}</span></p><p><b>Ризик:</b> <span>${esc(b.risk)}</span></p></div>
+      </div>
+    </div>
+    <div class="col"><h3>Палітра</h3><div class="swatches">${sw}</div></div>
+    <div class="col"><h3>Референси</h3><div class="refs">${refs}</div></div>
+  </section>`;
+}
+document.getElementById("boards").innerHTML = boards.map(board).join("");
+
+const FONTS = [
+  ["Geologica", "'Geologica'", 800], ["Rubik", "'Rubik'", 600], ["Prosto One", "'Prosto One'", 400],
+  ["Sofia Sans Extra Condensed", "'Sofia Sans Extra Condensed'", 800], ["Onest", "'Onest'", 400],
+  ["Rubik Puddles", "'Rubik Puddles'", 400], ["Commissioner", "'Commissioner'", 700], ["Martian Mono", "'Martian Mono'", 500],
+  ["Kablammo", "'Kablammo'", 400], ["Nunito", "'Nunito'", 900], ["Montserrat Alternates", "'Montserrat Alternates'", 800],
+  ["Golos Text", "'Golos Text'", 400], ["Days One", "'Days One'", 400]
+];
+document.getElementById("glyphs").innerHTML = FONTS.map(([n, f, w]) =>
+  `<div><span>${n}</span><p style="font-family:${f}, monospace;font-weight:${w}">ҐґЇїЄєІі ʼ ’ № — Ґанок, ЇЖАК, пʼять</p></div>`).join("");
+
+const fit = () => document.querySelectorAll(".frame").forEach(f => {
+  f.querySelector(".stage").style.setProperty("--s", f.clientWidth / 960);
+});
+fit();
+if ("ResizeObserver" in window) new ResizeObserver(fit).observe(document.body); else addEventListener("resize", fit);
+</script>
