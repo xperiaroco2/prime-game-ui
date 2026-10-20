@@ -179,7 +179,8 @@ pictures are pack assets (`assets`) drawn by a TextureRect, never tinted.
   dead's countdown), `ToyPlateHead` (the dead's room head), `ToyPlateGoal` (the role's goal), `ToyPlateResult` (the end
   screens), with `ToyPlateTitle`, `ToyPlateText`, `ToyPlateTimer`, `ToyPlateHeading`, `ToyPlateCountdown`,
   `ToyPlateHeadText`, `ToyPlateGoalText`; word stickers `ToySticker`, `ToyStickerAlert`, `ToyStickerHighlight` with
-  `ToyStickerText` (HUD) or `ToyStickerTextLarge` (full screens); full-screen titles `ToyTitleHero`, `ToyTitleHeroAlert`.
+  `ToyStickerText` (HUD) or `ToyStickerTextLarge` (full screens); full-screen titles `ToyTitleHero`, `ToyTitleHeroAlert`;
+  in a panel, the human's role `ToyDisplayAlertOnLight` (the coral `ToyDisplayOnLight`, the Esc menu's Role tab).
 - **The workbench:** `ToyPanelDialog` with `ToyTitleOnLight`, `ToyPlateBalance` and `ToyMutationCard`s; a card's "not
   enough" state is its button disabled, the card does not change.
 

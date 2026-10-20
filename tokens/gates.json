@@ -133,7 +133,8 @@
     { "id": "a13", "fg": "color.status.alert", "bg": "color.surface.night", "min": "large-text", "what": "the coral hero title (ToyTitleHeroAlert) on night" },
     { "id": "a14", "fg": "color.on-dark.title", "bg": "color.surface.night", "min": "large-text", "what": "the green hero title (ToyTitleHero) on night" },
     { "id": "a15", "fg": "palette.mint", "bg": "color.surface.panel", "min": "ui", "what": "the mutation card and the points balance plate (mint) vs the purple workbench panel: there the face is the sticker's edge" },
-    { "id": "a16", "fg": "palette.white", "bg": "color.surface.plate", "min": null, "what": "the roster colour dot (white, tinted by the game to the body colour) vs the purple roster: the body colours are the game's, not tokens; the dot is read next to its name" }
+    { "id": "a16", "fg": "palette.white", "bg": "color.surface.plate", "min": null, "what": "the roster colour dot (white, tinted by the game to the body colour) vs the purple roster: the body colours are the game's, not tokens; the dot is read next to its name" },
+    { "id": "a17", "fg": "color.status.alert", "bg": "color.surface.panel", "min": "large-text", "what": "the coral role name (ToyDisplayAlertOnLight, a human in the Esc menu) on the purple panel" }
   ],
   "waivers": [
     { "fg": "palette.green", "bg": "palette.white", "reason": "a green fill on the white track is 1.47:1 (ToyBarProgress, ToyBarSlider, the health ramp's full stop); every fill carries a 5 px ink outline or end edge, so where it ends reads at better than 15:1 (n9, n10, n36)", "decision": "the engineer's sticker, strength B (2026-10-20): white bar tracks with ink outlines (docs/ui-decisions.md, the new setting)", "issue": "https://github.com/xperiaroco2/prime-game/issues/150" },

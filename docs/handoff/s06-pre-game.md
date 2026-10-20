@@ -89,16 +89,10 @@ The black intro of about 3 s in the silent pre game (#213): it shows when the ow
       - Note: The crosshair dot, centred on the screen (its size is the variation's).
     - **Vitals** `HBoxContainer` · variation `ToyRowTwentyFour` · anchors `bottom_left`, offsets 39, -39, 39, -39 (left, top, right, bottom), grow end/begin · gaps from the variation: separation 24
       - **Bars** `VBoxContainer` · variation `ToyColumnTwelve` · size flags vertical `SIZE_SHRINK_END` · gaps from the variation: separation 12
-        - **Health** `VBoxContainer` · variation `ToyColumnEight` · custom_minimum_size (300, 0) · gaps from the variation: separation 8
-          - **Cap** `PanelContainer` · variation `ToyBarLabel` · size flags horizontal `SIZE_SHRINK_BEGIN`
-            - **Text** `Label` · variation `ToyHudCaption` · text `hud.health`: en "Health" · uk "Здоровʼя"
-          - **Track** `PanelContainer` · variation `ToyBarTrack` · custom_minimum_size (300, 24) = Vector2(300, get_theme_constant("height", "ToyBarTrack"))
-            - **Fill** `ProgressBar` · variation `ToyBarHealth` · custom_minimum_size (0, 14) · value 1 of max_value 1, show_percentage false · fill self_modulate = theme colour `ramp_stop_20` of `ToyBarHealth` (step = clampi(floori(hp * 20.0 + 0.5), 0, 20))
-        - **Stamina** `VBoxContainer` · variation `ToyColumnEight` · custom_minimum_size (300, 0) · gaps from the variation: separation 8
-          - **Cap** `PanelContainer` · variation `ToyBarLabel` · size flags horizontal `SIZE_SHRINK_BEGIN`
-            - **Text** `Label` · variation `ToyHudCaption` · text `hud.stamina`: en "Stamina" · uk "Витривалість"
-          - **Track** `PanelContainer` · variation `ToyBarTrack` · custom_minimum_size (300, 24) = Vector2(300, get_theme_constant("height", "ToyBarTrack"))
-            - **Fill** `ProgressBar` · variation `ToyBarStamina` · custom_minimum_size (0, 14) · value 1 of max_value 1, show_percentage false
+        - **Health** `PanelContainer` · variation `ToyBarTrack` · custom_minimum_size (300, 24) = Vector2(300, get_theme_constant("height", "ToyBarTrack"))
+          - **Fill** `ProgressBar` · variation `ToyBarHealth` · custom_minimum_size (0, 14) · value 1 of max_value 1, show_percentage false · fill self_modulate = theme colour `ramp_stop_20` of `ToyBarHealth` (step = clampi(floori(hp * 20.0 + 0.5), 0, 20))
+        - **Stamina** `PanelContainer` · variation `ToyBarTrack` · custom_minimum_size (300, 24) = Vector2(300, get_theme_constant("height", "ToyBarTrack"))
+          - **Fill** `ProgressBar` · variation `ToyBarStamina` · custom_minimum_size (0, 14) · value 1 of max_value 1, show_percentage false
       - **Mic** `PanelContainer` · variation `ToyMic` · size flags vertical `SIZE_SHRINK_END` · custom_minimum_size (75, 75) = Vector2(get_theme_constant("width", "ToyMic"), get_theme_constant("height", "ToyMic"))
         - **Icon** `TextureRect` · size flags horizontal `SIZE_SHRINK_CENTER`, vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (42, 42) · texture `mic` (dist/pack/icons/mic.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("icon_on", "ToyMic")
     - **Slots** `HBoxContainer` · variation `ToyRowSixteen` · anchors `bottom_right`, offsets -39, -51, -39, -51 (left, top, right, bottom), grow begin/begin · gaps from the variation: separation 16
@@ -122,7 +116,7 @@ The black intro of about 3 s in the silent pre game (#213): it shows when the ow
 
 ## Keys
 
-- **Drawn** (9): `hud.health`, `hud.roster.self`, `hud.stamina`, `pregame.teammate`, `pregame.your_role`, `role.alien`, `role.goal.alien`, `role.goal.human`, `role.human`.
+- **Drawn** (7): `hud.roster.self`, `pregame.teammate`, `pregame.your_role`, `role.alien`, `role.goal.alien`, `role.goal.human`, `role.human`.
 
 ## Layers and input (every screen)
 

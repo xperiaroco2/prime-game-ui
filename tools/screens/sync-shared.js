@@ -31,7 +31,7 @@ function atState(n, st, keepNote) {
 {
   const s7 = read('pages/screens/src/s07-hud.json');
   const hud = atState(find(s7.nodes, ['Hud']), 'empty', false);
-  const full = (h) => { for (const p of [['Vitals', 'Health', 'Track', 'Fill'], ['Vitals', 'Stamina', 'Track', 'Fill']]) find(h.children, p).value = 1; return h; };
+  const full = (h) => { for (const p of [['Vitals', 'Bars', 'Health', 'Fill'], ['Vitals', 'Bars', 'Stamina', 'Fill']]) find(h.children, p).value = 1; return h; };
   // s6: all but Aim; the round's first second
   const h6 = full(clone(hud)); h6.children = h6.children.filter((n) => n.name !== 'Aim');
   find(h6.children, ['Timer', 'Time']).text = '09:57';

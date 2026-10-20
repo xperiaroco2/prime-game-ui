@@ -147,16 +147,10 @@ The same HUD as s7: Hud and its nodes are s7's (same names and places); this scr
     - Note: The crosshair dot, centred on the screen (its size is the variation's).
   - **Hud/Vitals/Bars** `VBoxContainer` · variation `ToyColumnTwelve` · size flags vertical `SIZE_SHRINK_END` · gaps from the variation: separation 12
     - Note: Hidden while downed; full again on return.
-    - **Health** `VBoxContainer` · variation `ToyColumnEight` · custom_minimum_size (300, 0) · gaps from the variation: separation 8
-      - **Cap** `PanelContainer` · variation `ToyBarLabel` · size flags horizontal `SIZE_SHRINK_BEGIN`
-        - **Text** `Label` · variation `ToyHudCaption` · text `hud.health`: en "Health" · uk "Здоровʼя"
-      - **Track** `PanelContainer` · variation `ToyBarTrack` · custom_minimum_size (300, 24) = Vector2(300, get_theme_constant("height", "ToyBarTrack"))
-        - **Fill** `ProgressBar` · variation `ToyBarHealth` · custom_minimum_size (0, 14) · value 1 of max_value 1, show_percentage false · fill self_modulate = theme colour `ramp_stop_20` of `ToyBarHealth` (step = clampi(floori(hp * 20.0 + 0.5), 0, 20))
-    - **Stamina** `VBoxContainer` · variation `ToyColumnEight` · custom_minimum_size (300, 0) · gaps from the variation: separation 8
-      - **Cap** `PanelContainer` · variation `ToyBarLabel` · size flags horizontal `SIZE_SHRINK_BEGIN`
-        - **Text** `Label` · variation `ToyHudCaption` · text `hud.stamina`: en "Stamina" · uk "Витривалість"
-      - **Track** `PanelContainer` · variation `ToyBarTrack` · custom_minimum_size (300, 24) = Vector2(300, get_theme_constant("height", "ToyBarTrack"))
-        - **Fill** `ProgressBar` · variation `ToyBarStamina` · custom_minimum_size (0, 14) · value 0.35 of max_value 1, show_percentage false
+    - **Health** `PanelContainer` · variation `ToyBarTrack` · custom_minimum_size (300, 24) = Vector2(300, get_theme_constant("height", "ToyBarTrack"))
+      - **Fill** `ProgressBar` · variation `ToyBarHealth` · custom_minimum_size (0, 14) · value 1 of max_value 1, show_percentage false · fill self_modulate = theme colour `ramp_stop_20` of `ToyBarHealth` (step = clampi(floori(hp * 20.0 + 0.5), 0, 20))
+    - **Stamina** `PanelContainer` · variation `ToyBarTrack` · custom_minimum_size (300, 24) = Vector2(300, get_theme_constant("height", "ToyBarTrack"))
+      - **Fill** `ProgressBar` · variation `ToyBarStamina` · custom_minimum_size (0, 14) · value 0.35 of max_value 1, show_percentage false
   - **Hud/Slots** `HBoxContainer` · variation `ToyRowSixteen` · anchors `bottom_right`, offsets -39, -51, -39, -51 (left, top, right, bottom), grow begin/begin · gaps from the variation: separation 16
     - Note: As s7; the player comes back with empty hands.
     - **Hand** `Control` · size flags vertical `SIZE_SHRINK_END` · custom_minimum_size (150, 150)
@@ -182,7 +176,7 @@ The same HUD as s7: Hud and its nodes are s7's (same names and places); this scr
 
 ## Keys
 
-- **Drawn** (15): `dead.also_here`, `dead.back_in`, `dead.capsule_note`, `dead.killed_by`, `dead.room.title`, `downed.give_up_hold`, `downed.raised_by`, `downed.time_left`, `downed.title`, `hud.health`, `hud.roster.dead`, `hud.roster.self`, `hud.stamina`, `respawn.protected`, `role.alien`.
+- **Drawn** (13): `dead.also_here`, `dead.back_in`, `dead.capsule_note`, `dead.killed_by`, `dead.room.title`, `downed.give_up_hold`, `downed.raised_by`, `downed.time_left`, `downed.title`, `hud.roster.dead`, `hud.roster.self`, `respawn.protected`, `role.alien`.
 - **Named only in the notes** (wire them too): `role.human`.
 
 ## Layers and input (every screen)

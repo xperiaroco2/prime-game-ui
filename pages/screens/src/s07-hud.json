@@ -83,7 +83,8 @@
                   "name": "Row3", "type": "HBoxContainer", "variation": "ToyRowTwelve",
                   "children": [
                     { "name": "Dot", "type": "Panel", "variation": "ToyRosterDot", "self_modulate": "#E66B57", "size_flags_vertical": "shrink_center", "per_state": { "human": { "self_modulate": "#1C7A82" } } },
-                    { "name": "Name", "type": "Label", "variation": "ToyRosterName", "text": { "uk": "Їжак", "en": "Yizhak" }, "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center", "per_state": { "human": { "variation": "ToyRosterName", "text": { "uk": "Глорп", "en": "Glorp" } } } }
+                    { "name": "Name", "type": "Label", "variation": "ToyRosterName", "text": { "uk": "Їжак", "en": "Yizhak" }, "states": ["empty", "carry", "human", "hurt", "raising", "cops"], "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center", "per_state": { "human": { "variation": "ToyRosterName", "text": { "uk": "Глорп", "en": "Glorp" } } } },
+                    { "name": "Dead", "type": "Label", "variation": "ToyRosterNameDead", "key": "hud.roster.dead", "args": { "name": { "uk": "Їжак", "en": "Yizhak" } }, "states": ["kill"], "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center", "note": "The sample of the state kill: this row is the kill notice's victim, so it reads dead from the moment of the kill. In the game it is the same Name label switched to hud.roster.dead in ToyRosterNameDead (one label per row)." }
                   ]
                 },
                 {
@@ -156,43 +157,21 @@
           ]
         },
         {
-          "name": "Vitals", "type": "HBoxContainer", "variation": "ToyRowTwentyFour", "anchors_preset": "bottom_left", "offset_left": 39, "offset_top": -39, "offset_right": 39, "offset_bottom": -39, "note": "The bars and the mic beside them, 39 px in at the bottom left (the sketch: bars 200 wide, the mic 244 in, x 1.5). Always shown in a round. No numbers on the bars: the length is the real cue, the colour only adds to it.",
+          "name": "Vitals", "type": "HBoxContainer", "variation": "ToyRowTwentyFour", "anchors_preset": "bottom_left", "offset_left": 39, "offset_top": -39, "offset_right": 39, "offset_bottom": -39, "note": "The bars and the mic beside them, 39 px in at the bottom left (the sketch: bars 200 wide, the mic 244 in, x 1.5). Always shown in a round. No numbers and no captions on the bars (the engineer wants less screen): health is the green bar on top, stamina the yellow one under it, as everywhere in the game; the length is the real cue, the colour only adds to it.",
           "children": [
             {
               "name": "Bars", "type": "VBoxContainer", "variation": "ToyColumnTwelve", "size_flags_vertical": "shrink_end",
               "children": [
                 {
-                  "name": "Health", "type": "VBoxContainer", "variation": "ToyColumnEight", "custom_minimum_size": [300, 0],
+                  "name": "Health", "type": "PanelContainer", "variation": "ToyBarTrack", "custom_minimum_size": [300, 24],
                   "children": [
-                    {
-                      "name": "Cap", "type": "PanelContainer", "variation": "ToyBarLabel", "size_flags_horizontal": "shrink_begin",
-                      "children": [
-                        { "name": "Text", "type": "Label", "variation": "ToyHudCaption", "key": "hud.health" }
-                      ]
-                    },
-                    {
-                      "name": "Track", "type": "PanelContainer", "variation": "ToyBarTrack", "custom_minimum_size": [300, 24],
-                      "children": [
-                        { "name": "Fill", "type": "ProgressBar", "variation": "ToyBarHealth", "show_percentage": false, "max_value": 1, "value": 0.8, "custom_minimum_size": [0, 14], "per_state": { "hurt": { "value": 0.22 } }, "note": "value = hp (0 to 1). The fill colour follows the fraction: step = clampi(floori(hp * 20.0 + 0.5), 0, 20), Fill.self_modulate = get_theme_color(\"ramp_stop_%02d\" % step, \"ToyBarHealth\")." }
-                      ]
-                    }
+                    { "name": "Fill", "type": "ProgressBar", "variation": "ToyBarHealth", "show_percentage": false, "max_value": 1, "value": 0.8, "custom_minimum_size": [0, 14], "per_state": { "hurt": { "value": 0.22 } }, "note": "value = hp (0 to 1). The fill colour follows the fraction: step = clampi(floori(hp * 20.0 + 0.5), 0, 20), Fill.self_modulate = get_theme_color(\"ramp_stop_%02d\" % step, \"ToyBarHealth\")." }
                   ]
                 },
                 {
-                  "name": "Stamina", "type": "VBoxContainer", "variation": "ToyColumnEight", "custom_minimum_size": [300, 0],
+                  "name": "Stamina", "type": "PanelContainer", "variation": "ToyBarTrack", "custom_minimum_size": [300, 24],
                   "children": [
-                    {
-                      "name": "Cap", "type": "PanelContainer", "variation": "ToyBarLabel", "size_flags_horizontal": "shrink_begin",
-                      "children": [
-                        { "name": "Text", "type": "Label", "variation": "ToyHudCaption", "key": "hud.stamina" }
-                      ]
-                    },
-                    {
-                      "name": "Track", "type": "PanelContainer", "variation": "ToyBarTrack", "custom_minimum_size": [300, 24],
-                      "children": [
-                        { "name": "Fill", "type": "ProgressBar", "variation": "ToyBarStamina", "show_percentage": false, "max_value": 1, "value": 0.9, "custom_minimum_size": [0, 14], "per_state": { "hurt": { "value": 0.18 } }, "note": "value = stamina (0 to 1); drains while sprinting and refills at rest." }
-                      ]
-                    }
+                    { "name": "Fill", "type": "ProgressBar", "variation": "ToyBarStamina", "show_percentage": false, "max_value": 1, "value": 0.9, "custom_minimum_size": [0, 14], "per_state": { "hurt": { "value": 0.18 } }, "note": "value = stamina (0 to 1); drains while sprinting and refills at rest." }
                   ]
                 }
               ]

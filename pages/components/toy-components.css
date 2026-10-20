@@ -4149,6 +4149,15 @@
   letter-spacing: calc(var(--toy-text-display-on-light-label-letter-spacing) * var(--px));
   color: var(--toy-text-display-on-light-normal-font-color);
 }
+/* ToyDisplayAlertOnLight: Label · text.display-alert-on-light · light */
+.tv-ToyDisplayAlertOnLight {
+  font-family: var(--toy-text-display-alert-on-light-label-font-family), system-ui, sans-serif;
+  font-size: calc(var(--toy-text-display-alert-on-light-label-font-size) * var(--px));
+  font-weight: var(--toy-text-display-alert-on-light-label-font-weight);
+  line-height: calc(var(--toy-text-display-alert-on-light-label-line-box) * var(--px));
+  letter-spacing: calc(var(--toy-text-display-alert-on-light-label-letter-spacing) * var(--px));
+  color: var(--toy-text-display-alert-on-light-normal-font-color);
+}
 /* ToyTimer: Label · text.timer · dark */
 .tv-ToyTimer {
   font-family: var(--toy-text-timer-label-font-family), system-ui, sans-serif;

@@ -107,6 +107,19 @@
         "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
       }
     },
+    "display-alert-on-light": {
+      "$description": "(agent) A big word inside a panel in the coral (the human's role in the Esc menu, coral as on the role reveal and the HUD's role sticker): as ToyDisplayOnLight in the alarm colour.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyDisplayAlertOnLight", "class": "Label" },
+          "context": "light"
+        }
+      },
+      "label": { "$type": "typography", "$value": "{type.display-large}" },
+      "normal": {
+        "font-color": { "$type": "color", "$value": "{color.status.alert}" }
+      }
+    },
     "timer": {
       "$description": "The round timer: Rubik in mint.",
       "$extensions": {

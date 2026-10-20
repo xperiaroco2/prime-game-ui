@@ -70,20 +70,14 @@ One HUD for the whole round, the MVP's (the engineer's decisions of 2026-10-20 i
     - Note: The name of the object under the crosshair within reach (an item.* key, item.extinguisher here; a mischief station or a machine takes its own key when the game adds one); hidden when nothing within reach is under the crosshair. Centred 64 px under the screen's centre, so its top is the sketch's 22 x 1.5 = 33 px under it.
     - **Text** `Label` · variation `ToyChipPlateText` · text `item.extinguisher`: en "Extinguisher" · uk "Вогнегасник"
   - **Vitals** `HBoxContainer` · variation `ToyRowTwentyFour` · anchors `bottom_left`, offsets 39, -39, 39, -39 (left, top, right, bottom), grow end/begin · gaps from the variation: separation 24
-    - Note: The bars and the mic beside them, 39 px in at the bottom left (the sketch: bars 200 wide, the mic 244 in, x 1.5). Always shown in a round. No numbers on the bars: the length is the real cue, the colour only adds to it.
+    - Note: The bars and the mic beside them, 39 px in at the bottom left (the sketch: bars 200 wide, the mic 244 in, x 1.5). Always shown in a round. No numbers and no captions on the bars (the engineer wants less screen): health is the green bar on top, stamina the yellow one under it, as everywhere in the game; the length is the real cue, the colour only adds to it.
     - **Bars** `VBoxContainer` · variation `ToyColumnTwelve` · size flags vertical `SIZE_SHRINK_END` · gaps from the variation: separation 12
-      - **Health** `VBoxContainer` · variation `ToyColumnEight` · custom_minimum_size (300, 0) · gaps from the variation: separation 8
-        - **Cap** `PanelContainer` · variation `ToyBarLabel` · size flags horizontal `SIZE_SHRINK_BEGIN`
-          - **Text** `Label` · variation `ToyHudCaption` · text `hud.health`: en "Health" · uk "Здоровʼя"
-        - **Track** `PanelContainer` · variation `ToyBarTrack` · custom_minimum_size (300, 24) = Vector2(300, get_theme_constant("height", "ToyBarTrack"))
-          - **Fill** `ProgressBar` · variation `ToyBarHealth` · custom_minimum_size (0, 14) · value 0.8 of max_value 1, show_percentage false · fill self_modulate = theme colour `ramp_stop_16` of `ToyBarHealth` (step = clampi(floori(hp * 20.0 + 0.5), 0, 20))
-            - Note: value = hp (0 to 1). The fill colour follows the fraction: step = clampi(floori(hp * 20.0 + 0.5), 0, 20), Fill.self_modulate = get_theme_color("ramp_stop_%02d" % step, "ToyBarHealth").
-      - **Stamina** `VBoxContainer` · variation `ToyColumnEight` · custom_minimum_size (300, 0) · gaps from the variation: separation 8
-        - **Cap** `PanelContainer` · variation `ToyBarLabel` · size flags horizontal `SIZE_SHRINK_BEGIN`
-          - **Text** `Label` · variation `ToyHudCaption` · text `hud.stamina`: en "Stamina" · uk "Витривалість"
-        - **Track** `PanelContainer` · variation `ToyBarTrack` · custom_minimum_size (300, 24) = Vector2(300, get_theme_constant("height", "ToyBarTrack"))
-          - **Fill** `ProgressBar` · variation `ToyBarStamina` · custom_minimum_size (0, 14) · value 0.9 of max_value 1, show_percentage false
-            - Note: value = stamina (0 to 1); drains while sprinting and refills at rest.
+      - **Health** `PanelContainer` · variation `ToyBarTrack` · custom_minimum_size (300, 24) = Vector2(300, get_theme_constant("height", "ToyBarTrack"))
+        - **Fill** `ProgressBar` · variation `ToyBarHealth` · custom_minimum_size (0, 14) · value 0.8 of max_value 1, show_percentage false · fill self_modulate = theme colour `ramp_stop_16` of `ToyBarHealth` (step = clampi(floori(hp * 20.0 + 0.5), 0, 20))
+          - Note: value = hp (0 to 1). The fill colour follows the fraction: step = clampi(floori(hp * 20.0 + 0.5), 0, 20), Fill.self_modulate = get_theme_color("ramp_stop_%02d" % step, "ToyBarHealth").
+      - **Stamina** `PanelContainer` · variation `ToyBarTrack` · custom_minimum_size (300, 24) = Vector2(300, get_theme_constant("height", "ToyBarTrack"))
+        - **Fill** `ProgressBar` · variation `ToyBarStamina` · custom_minimum_size (0, 14) · value 0.9 of max_value 1, show_percentage false
+          - Note: value = stamina (0 to 1); drains while sprinting and refills at rest.
     - **Mic** `PanelContainer` · variation `ToyMic` · size flags vertical `SIZE_SHRINK_END` · custom_minimum_size (75, 75) = Vector2(get_theme_constant("width", "ToyMic"), get_theme_constant("height", "ToyMic"))
       - Note: Whether anyone hears the player. On: mic.svg tinted icon_on. Off (mic off, push-to-talk released, downed, pre and post game): mic-off.svg tinted icon_off (coral). 42 px in the 75 px badge.
       - **Icon** `TextureRect` · size flags horizontal `SIZE_SHRINK_CENTER`, vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (42, 42) · texture `mic` (dist/pack/icons/mic.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("icon_on", "ToyMic")
@@ -150,8 +144,8 @@ One HUD for the whole round, the MVP's (the engineer's decisions of 2026-10-20 i
 - **Hidden:** `Hud/Aim`.
 - **Changed** `Hud/Anger/Track/Fill`: value 0.55 of max_value 1, show_percentage false (was: value 0.08 of max_value 1, show_percentage false)
 - **Changed** `Hud/Anger/Siren`: texture `siren-on` (dist/pack/icons/siren-on.svg, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` (was: texture `siren-off` (dist/pack/icons/siren-off.svg, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED`)
-- **Changed** `Hud/Vitals/Bars/Health/Track/Fill`: value 0.22 of max_value 1, show_percentage false · fill self_modulate = theme colour `ramp_stop_04` of `ToyBarHealth` (step = clampi(floori(hp * 20.0 + 0.5), 0, 20)) (was: value 0.8 of max_value 1, show_percentage false · fill self_modulate = theme colour `ramp_stop_16` of `ToyBarHealth` (step = clampi(floori(hp * 20.0 + 0.5), 0, 20)))
-- **Changed** `Hud/Vitals/Bars/Stamina/Track/Fill`: value 0.18 of max_value 1, show_percentage false (was: value 0.9 of max_value 1, show_percentage false)
+- **Changed** `Hud/Vitals/Bars/Health/Fill`: value 0.22 of max_value 1, show_percentage false · fill self_modulate = theme colour `ramp_stop_04` of `ToyBarHealth` (step = clampi(floori(hp * 20.0 + 0.5), 0, 20)) (was: value 0.8 of max_value 1, show_percentage false · fill self_modulate = theme colour `ramp_stop_16` of `ToyBarHealth` (step = clampi(floori(hp * 20.0 + 0.5), 0, 20)))
+- **Changed** `Hud/Vitals/Bars/Stamina/Fill`: value 0.18 of max_value 1, show_percentage false (was: value 0.9 of max_value 1, show_percentage false)
 
 ## `raising`: what differs from `empty`
 
@@ -166,16 +160,18 @@ One HUD for the whole round, the MVP's (the engineer's decisions of 2026-10-20 i
 
 ## `kill`: what differs from `empty`
 
-- **Hidden:** `Hud/Aim`.
+- **Hidden:** `Hud/Roster/Rows/Row3/Name`, `Hud/Aim`.
 - **Changed** `Hud/Anger/Track/Fill`: value 0.55 of max_value 1, show_percentage false (was: value 0.08 of max_value 1, show_percentage false)
 - **Changed** `Hud/Anger/Siren`: texture `siren-on` (dist/pack/icons/siren-on.svg, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` (was: texture `siren-off` (dist/pack/icons/siren-off.svg, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED`)
 - **Shown:**
+  - **Hud/Roster/Rows/Row3/Dead** `Label` · variation `ToyRosterNameDead` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text `hud.roster.dead` with sample {name} = "Yizhak" / "Їжак": en "Yizhak · out" · uk "Їжак · поза грою"
+    - Note: The sample of the state kill: this row is the kill notice's victim, so it reads dead from the moment of the kill. In the game it is the same Name label switched to hud.roster.dead in ToyRosterNameDead (one label per row).
   - **Hud/Kill** `PanelContainer` · variation `ToyPlateNotice` · anchors `center_top`, offsets 0, 165, 0, 165 (left, top, right, bottom), grow both/end
     - Note: PLACEHOLDER, open (the engineer's design): the kill notice, variant A of the sketch, a banner every player sees for a few seconds when a player is killed (a killed alien tells everyone who killed him, m8 §4). Never at a knockdown: the downed rule "never show who knocked the player down" holds. 165 px down (the sketch's 110 x 1.5). Open: A or B (the dead alien says it in the world) and for whom (killed aliens only, then a killed human's silence outs him; or every kill).
     - **Row** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
       - **Dot** `Panel` · variation `ToyRosterDot` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (24, 24) = Vector2(get_theme_constant("width", "ToyRosterDot"), get_theme_constant("height", "ToyRosterDot")) · self_modulate from data (a content colour, not a theme colour), sample #1C7A82
         - Note: The killer's body colour (self_modulate from data), as in the roster.
-      - **Text** `Label` · variation `ToyPlateTitle` · size flags vertical `SIZE_SHRINK_CENTER` · text `hud.kill_notice` with sample {killer} = "Glorp" / "Глорп", {victim} = "Yizhak" / "Їжак": en "Glorp killed Yizhak" · uk "Глорп вбиває Їжак"
+      - **Text** `Label` · variation `ToyPlateTitle` · size flags vertical `SIZE_SHRINK_CENTER` · text `hud.kill_notice` with sample {killer} = "Glorp" / "Глорп", {victim} = "Yizhak" / "Їжак": en "Glorp: Yizhak is out" · uk "Глорп: Їжак вибуває"
         - Note: {killer} and {victim} are names from data. No role is named.
 
 ## `cops`: what differs from `empty`
@@ -203,7 +199,7 @@ One HUD for the whole round, the MVP's (the engineer's decisions of 2026-10-20 i
 
 ## Keys
 
-- **Drawn** (13): `hud.cops.in`, `hud.cops.title`, `hud.health`, `hud.kill_notice`, `hud.roster.dead`, `hud.roster.self`, `hud.stamina`, `item.battery`, `item.bun`, `item.extinguisher`, `item.fireworks`, `role.alien`, `role.human`.
+- **Drawn** (11): `hud.cops.in`, `hud.cops.title`, `hud.kill_notice`, `hud.roster.dead`, `hud.roster.self`, `item.battery`, `item.bun`, `item.extinguisher`, `item.fireworks`, `role.alien`, `role.human`.
 - **Named only in the notes** (wire them too): `item.burger`, `item.car_part`, `item.flower`, `item.knife`, `item.patty`, `item.rubbish`, `item.tools`, `item.watering_can`.
 
 ## Layers and input (every screen)

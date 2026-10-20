@@ -92,37 +92,15 @@
               "name": "Bars", "type": "VBoxContainer", "variation": "ToyColumnTwelve", "size_flags_vertical": "shrink_end",
               "children": [
                 {
-                  "name": "Health", "type": "VBoxContainer", "variation": "ToyColumnEight", "custom_minimum_size": [300, 0],
+                  "name": "Health", "type": "PanelContainer", "variation": "ToyBarTrack", "custom_minimum_size": [300, 24],
                   "children": [
-                    {
-                      "name": "Cap", "type": "PanelContainer", "variation": "ToyBarLabel", "size_flags_horizontal": "shrink_begin",
-                      "children": [
-                        { "name": "Text", "type": "Label", "variation": "ToyHudCaption", "key": "hud.health" }
-                      ]
-                    },
-                    {
-                      "name": "Track", "type": "PanelContainer", "variation": "ToyBarTrack", "custom_minimum_size": [300, 24],
-                      "children": [
-                        { "name": "Fill", "type": "ProgressBar", "variation": "ToyBarHealth", "show_percentage": false, "max_value": 1, "value": 1, "custom_minimum_size": [0, 14] }
-                      ]
-                    }
+                    { "name": "Fill", "type": "ProgressBar", "variation": "ToyBarHealth", "show_percentage": false, "max_value": 1, "value": 1, "custom_minimum_size": [0, 14] }
                   ]
                 },
                 {
-                  "name": "Stamina", "type": "VBoxContainer", "variation": "ToyColumnEight", "custom_minimum_size": [300, 0],
+                  "name": "Stamina", "type": "PanelContainer", "variation": "ToyBarTrack", "custom_minimum_size": [300, 24],
                   "children": [
-                    {
-                      "name": "Cap", "type": "PanelContainer", "variation": "ToyBarLabel", "size_flags_horizontal": "shrink_begin",
-                      "children": [
-                        { "name": "Text", "type": "Label", "variation": "ToyHudCaption", "key": "hud.stamina" }
-                      ]
-                    },
-                    {
-                      "name": "Track", "type": "PanelContainer", "variation": "ToyBarTrack", "custom_minimum_size": [300, 24],
-                      "children": [
-                        { "name": "Fill", "type": "ProgressBar", "variation": "ToyBarStamina", "show_percentage": false, "max_value": 1, "value": 1, "custom_minimum_size": [0, 14] }
-                      ]
-                    }
+                    { "name": "Fill", "type": "ProgressBar", "variation": "ToyBarStamina", "show_percentage": false, "max_value": 1, "value": 1, "custom_minimum_size": [0, 14] }
                   ]
                 }
               ]

@@ -2,7 +2,7 @@
 //   node pages/components/build.js            write pages/components/toy-components.css and components.html
 //   node pages/components/build.js --check    exit 1 when either file differs from what the build would write
 // Inputs: tools/tokens/api.js (the token system), showcase.json, strings.json, page.css, page.js, icons/*.svg,
-// dist/css/toy-tokens.css and dist/gates.json. Output is deterministic and LF-only. Node 20, no packages.
+// dist/css/toy-tokens.css, dist/gates.json and copy/strings.csv (the deck samples). Output is deterministic and LF-only. Node 20, no packages.
 'use strict';
 
 const fs = require('fs');
@@ -84,6 +84,35 @@ function renderPage(sys, componentsCss) {
     return `${n} ${forms[d === 1 && h !== 11 ? 0 : d >= 2 && d <= 4 && (h < 12 || h > 14) ? 1 : 2]}`;
   };
   const verdictLabel = (v) => T(`verdict_${v}`);
+  // A sample with "deck" is the copy deck's current draft of that key (copy/strings.csv): its placeholders filled from
+  // "args" (a string, or {"uk", "en"} for names) and a plural key's form chosen by "count", so a sample never drifts
+  // from the deck's wording.
+  const deckLib = require(path.join(ROOT, 'tools', 'copy', 'deck.js'));
+  const deckRead = deckLib.readDeck(readText(deckLib.DECK));
+  if (deckRead.errors.length) fail(`${deckLib.DECK}: ${deckRead.errors[0]}`);
+  const deck = new Map(deckRead.entries.map((e) => [e.key, e]));
+  for (const [key, s] of Object.entries(samples)) {
+    if (s.deck === undefined) continue;
+    const where = `strings.json: samples.${key}`;
+    const e = deck.get(s.deck);
+    if (!e) fail(`${where}: no key ${s.deck} in ${deckLib.DECK}`);
+    if (s.uk !== undefined || s.en !== undefined || s.new !== undefined) fail(`${where}: a deck sample takes its texts from the deck: no "uk", "en" or "new"`);
+    if (e.plural ? !Number.isInteger(s.count) : s.count !== undefined) fail(`${where}: "count" is for a plural key, and a plural key needs it`);
+    const args = s.args || {};
+    const phs = deckLib.placeholders(e.en[0]);
+    for (const k of Object.keys(args)) if (!phs.includes(k)) fail(`${where}: ${s.deck} has no {${k}}`);
+    for (const lang of ['uk', 'en']) {
+      const form = !e.plural ? 0 : lang === 'uk' ? deckLib.ukForm(s.count) : s.count === 1 ? 0 : 1;
+      s[lang] = e[lang][form].replace(/{([a-z_]+)}/g, (m, k) => {
+        if (k === 'count' && e.plural) return String(s.count);
+        if (!(k in args)) fail(`${where}: give a sample for {${k}} of ${s.deck}`);
+        const v = args[k];
+        if (typeof v !== 'string' && (typeof v.uk !== 'string' || typeof v.en !== 'string')) fail(`${where}: {${k}} is a text or {"uk", "en"}`);
+        return typeof v === 'string' ? v : v[lang];
+      });
+    }
+    s.new = true;
+  }
   for (const [key, s] of Object.entries(samples)) {
     if (typeof s.uk !== 'string' || typeof s.en !== 'string') fail(`strings.json: samples.${key} needs "uk" and "en"`);
     if (!s.new && en[s.uk] !== s.en) {
@@ -589,7 +618,7 @@ function renderPage(sys, componentsCss) {
     }
     if (p === 'notices') {
       ['ToyPlateNotice', 'ToyPlateTitle', 'ToyPlateBanner', 'ToyPlateText', 'ToyPlateCountdown', 'ToyColumnFour', 'ToyRowTwelve'].forEach(V);
-      const kill = `<div class="tv-ToyPlateNotice"><div class="tv-ToyRowTwelve sc-mvp-row">${dot('#1C7A82')}${sampleSpan('mvp_kill_a', 'tv-ToyPlateTitle')}${dot('#E66B57')}${sampleSpan('mvp_kill_b', 'tv-ToyPlateTitle')}</div></div>`;
+      const kill = `<div class="tv-ToyPlateNotice"><div class="tv-ToyRowTwelve sc-mvp-row">${dot('#1C7A82')}${sampleSpan('mvp_kill', 'tv-ToyPlateTitle')}</div></div>`;
       const cops = `<div class="tv-ToyPlateBanner"><div class="tv-ToyColumnFour sc-mvp-col sc-mvp-center">${sampleSpan('mvp_cops_big', 'tv-ToyPlateTitle')}${sampleSpan('mvp_cops_small', 'tv-ToyPlateText')}${sampleSpan('mvp_cops_count', 'tv-ToyPlateCountdown')}</div></div>`;
       const bk = proposal([['ToyPlateNotice'], ['ToyPlateTitle', 'normal'], ['ToyRosterDot']]);
       const bc = proposal([['ToyPlateBanner'], ['ToyPlateTitle', 'normal'], ['ToyPlateText', 'normal'], ['ToyPlateCountdown', 'normal']]);
@@ -610,24 +639,23 @@ function renderPage(sys, componentsCss) {
     }
     if (p === 'workbench') {
       ['ToyPanelDialog', 'ToyBasePanel', 'ToyTitleOnLight', 'ToyPlateBalance', 'ToyPlateText', 'ToyPlateTimer', 'ToyMutationCard', 'ToyPlateTitle',
-        'ToyButtonPrimary', 'ToyButtonSecondary', 'ToyTextMutedOnLight', 'ToyColumnTwentyFour', 'ToyRowTwentyFour', 'ToyColumnTwelve', 'ToyRowEight'].forEach(V);
-      const card = (name, fx, cost, unit, btn, state, label) => `<div class="tv-ToyMutationCard sc-mvp-card"><div class="tv-ToyColumnTwelve sc-mvp-col sc-mvp-fill">`
-        + `${sampleSpan(name, 'tv-ToyPlateTitle')}${sampleSpan(fx, 'tv-ToyPlateText')}`
-        + `<div class="tv-ToyRowEight sc-mvp-row sc-mvp-base">${sampleSpan(cost, 'tv-ToyPlateTimer')}${sampleSpan(unit, 'tv-ToyPlateText')}</div>`
+        'ToyButtonPrimary', 'ToyButtonSecondary', 'ToyColumnTwentyFour', 'ToyRowTwentyFour', 'ToyColumnTwelve', 'ToyRowEight'].forEach(V);
+      const card = (name, fx, cost, btn, state, label) => `<div class="tv-ToyMutationCard sc-mvp-card"><div class="tv-ToyColumnTwelve sc-mvp-col sc-mvp-fill">`
+        + `${sampleSpan(name, 'tv-ToyPlateTitle')}${sampleSpan(fx, 'tv-ToyPlateText')}${sampleSpan(cost, 'tv-ToyPlateTitle')}`
         + `${buttonEl(btn, state, sampleSpan(label))}</div></div>`;
       const bench = `<div class="tv-ToyPanelDialog sc-mvp-bench"><div class="tv-ToyColumnTwentyFour sc-mvp-col sc-mvp-fill">`
         + `<div class="sc-mvp-row sc-mvp-between">${sampleSpan('mvp_wb_title', 'tv-ToyTitleOnLight')}<div class="tv-ToyPlateBalance"><div class="tv-ToyRowEight sc-mvp-row sc-mvp-base">${sampleSpan('mvp_wb_have', 'tv-ToyPlateText')}${sampleSpan('mvp_wb_points', 'tv-ToyPlateTimer')}</div></div></div>`
         + `<div class="tv-ToyRowTwentyFour sc-mvp-row sc-mvp-top-align">`
-        + card('mvp_wb_fast', 'mvp_wb_fast_fx', 'mvp_wb_four', 'mvp_wb_points_few', 'ToyButtonPrimary', '', 'mvp_wb_buy')
-        + card('mvp_wb_jump', 'mvp_wb_jump_fx', 'mvp_wb_three', 'mvp_wb_points_few', 'ToyButtonSecondary', '', 'mvp_wb_buy')
-        + card('mvp_wb_skin', 'mvp_wb_skin_fx', 'mvp_wb_nine', 'mvp_wb_points_many', 'ToyButtonPrimary', 'is-disabled', 'mvp_wb_short')
-        + `</div>${sampleSpan('mvp_wb_hint', 'tv-ToyTextMutedOnLight')}</div></div>`;
+        + card('mvp_wb_fast', 'mvp_wb_fast_fx', 'mvp_wb_four', 'ToyButtonPrimary', '', 'mvp_wb_buy')
+        + card('mvp_wb_jump', 'mvp_wb_jump_fx', 'mvp_wb_three', 'ToyButtonPrimary', '', 'mvp_wb_buy')
+        + card('mvp_wb_skin', 'mvp_wb_skin_fx', 'mvp_wb_nine', 'ToyButtonPrimary', 'is-disabled', 'mvp_wb_short')
+        + `</div><div class="sc-mvp-row sc-mvp-end">${buttonEl('ToyButtonSecondary', '', sampleSpan('mvp_wb_close'))}</div></div></div>`;
       const b = proposal([['ToyMutationCard'], ['ToyPlateBalance'], ['ToyPlateTimer', 'normal'], ['ToyPanelDialog'], ['ToyButtonPrimary', 'disabled']]);
       return `<p class="sc-stage-label">${esc(T('mvp_wb_note'))}</p>` + stage('light', [cell(T('mvp_wb'), b, bench)]);
     }
     if (p === 'screens') {
       ['ToyTitleHero', 'ToyTitleHeroAlert', 'ToyPlateGoal', 'ToyPlateGoalText', 'ToyPlateResult', 'ToyPlateTitle', 'ToyStickerAlert', 'ToyStickerHighlight',
-        'ToyStickerTextLarge', 'ToyTextMutedOnDark', 'ToyColumnTwentyFour'].forEach(V);
+        'ToyStickerTextLarge', 'ToyTextMutedOnDark', 'ToyTextOnDark', 'ToyColumnTwentyFour'].forEach(V);
       const col = (inner) => `<div class="tv-ToyColumnTwentyFour sc-mvp-col sc-mvp-center sc-mvp-screen">${inner}</div>`;
       const st = (v, key) => `<div class="tv-${v}">${sampleSpan(key, 'tv-ToyStickerTextLarge')}</div>`;
       const goal = (key) => `<div class="tv-ToyPlateGoal">${sampleSpan(key, 'tv-ToyPlateGoalText sc-wrap')}</div>`;
@@ -638,7 +666,7 @@ function renderPage(sys, componentsCss) {
         ['mvp_reveal_human', col(`${sampleSpan('mvp_your_role', 'tv-ToyTextMutedOnDark')}${sampleSpan('mvp_human', 'tv-ToyTitleHeroAlert')}${goal('mvp_goal_human')}${st('ToyStickerAlert', 'mvp_your_humans')}`)],
         ['mvp_end_aliens', col(`${sampleSpan('mvp_end_party', 'tv-ToyTitleHero')}${res('mvp_end_aliens_won')}${st('ToyStickerHighlight', 'mvp_end_done')}${back}`)],
         ['mvp_end_time', col(`${sampleSpan('mvp_end_time_title', 'tv-ToyTitleHeroAlert')}${res('mvp_end_humans_won')}${st('ToyStickerAlert', 'mvp_end_not_done')}${back}`)],
-        ['mvp_end_cops', col(`${sampleSpan('mvp_end_cops_title', 'tv-ToyTitleHeroAlert')}${res('mvp_end_party_over')}${st('ToyStickerAlert', 'mvp_end_cops_line')}${back}`)],
+        ['mvp_end_cops', col(`${sampleSpan('mvp_end_cops_title', 'tv-ToyTitleHeroAlert')}${sampleSpan('mvp_end_humans_won', 'tv-ToyTextOnDark')}${st('ToyStickerAlert', 'mvp_end_cops_line')}${back}`)],
       ];
       const b = proposal([['ToyTitleHero', 'normal'], ['ToyTitleHeroAlert', 'normal'], ['ToyPlateGoal'], ['ToyPlateGoalText', 'normal'], ['ToyPlateResult'], ['ToyStickerTextLarge', 'normal']]);
       return stage('dark', list.map(([cap, html]) => cell(T(cap), b, html)));
