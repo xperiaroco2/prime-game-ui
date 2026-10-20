@@ -3,7 +3,7 @@
   "hud": {
     "$description": "Small HUD parts.",
     "crosshair": {
-      "$description": "The crosshair dot.",
+      "$description": "The crosshair dot: white with a 3 px ink ring, so it reads on a dark room and on a white wall.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyCrosshair", "class": "Panel" },
@@ -11,7 +11,7 @@
         }
       },
       "panel": {
-        "bg-color": { "$type": "color", "$value": "{palette.mint}" },
+        "bg-color": { "$type": "color", "$value": "{palette.white}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width": { "$type": "dimension", "$value": "{stroke.thin}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" }
@@ -23,7 +23,7 @@
       }
     },
     "spinner": {
-      "$description": "The loading spinner: a yellow arc on a night disc (rotated at runtime).",
+      "$description": "The loading spinner: a green arc on a purple disc (rotated at runtime).",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToySpinner", "class": "Panel" },

@@ -3,7 +3,7 @@
   "map": {
     "$description": "The map board, rooms, zone and the \"you are here\" pin.",
     "board": {
-      "$description": "The map board: lavender, ink outline, on the drop base.",
+      "$description": "The map board: the deep purple, 4 px ink outline, on the ink base layer (5 px right and 5 px down).",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyMapBoard", "class": "PanelContainer", "base": { "any": "ToyBasePanel" } },
@@ -19,7 +19,7 @@
       }
     },
     "room": {
-      "$description": "A room on the map.",
+      "$description": "A room on the map: a mint plate, 4 px ink outline, no shadow.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyMapRoom", "class": "PanelContainer" },
@@ -35,7 +35,7 @@
       }
     },
     "room-text": {
-      "$description": "A room name.",
+      "$description": "A room name: ink on the mint room (also the pictogram's tint).",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyMapRoomText", "class": "Label", "on": ["ToyMapRoom"] },
@@ -44,11 +44,11 @@
       },
       "label": { "$type": "typography", "$value": "{type.caption-bold}" },
       "normal": {
-        "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
+        "font-color": { "$type": "color", "$value": "{color.on-accent.text}" }
       }
     },
     "zone": {
-      "$description": "The highlighted zone on the map.",
+      "$description": "The highlighted zone on the map: the yellow at 0.55, 4 px ink outline.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyMapZone", "class": "Panel" },
@@ -63,7 +63,7 @@
       }
     },
     "pin": {
-      "$description": "The \"you are here\" pin: a teardrop; its angle is set at runtime.",
+      "$description": "The \"you are here\" pin: a coral-dark teardrop with a 4 px ink outline; its angle is set at runtime.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyMapPin", "class": "Panel" },
