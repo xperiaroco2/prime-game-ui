@@ -345,7 +345,7 @@ if (fs.existsSync(path.join(ROOT, 'tokens', 'prime.resolver.json'))) {
       'tokens/: fonts/LICENCES.json records each family\'s licence text under its shipped name', Object.keys(lic).join(', '));
     const knob = assets.get('icons/slider-knob.svg');
     const lab = assets.get('icons/room/lab.svg');
-    check(knob && knob.tint === 'none' && lab && lab.tint === 'multiply' && lab.tint_color === '#2a1f33' && lab.drawn_px >= 48 && lab.svg_scale === Math.ceil((lab.drawn_px / 48) * 100) / 100,
+    check(knob && knob.tint === 'none' && lab && lab.tint === 'multiply' && lab.tint_color === '#1e1230' && lab.drawn_px >= 48 && lab.svg_scale === Math.ceil((lab.drawn_px / 48) * 100) / 100,
       'tokens/: the knobs keep their colours; a room pictogram is white, drawn in ink, imported at its largest size', JSON.stringify(lab));
   }
 } else {

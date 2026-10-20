@@ -49,11 +49,11 @@
           "name": "Text", "type": "Label", "variation": "ToyPlateText", "key": "lobby.waiting", "args": { "count": "3", "total": "4" },
           "horizontal_alignment": "center",
           "per_state": {
-            "count": { "variation": "ToyTitleOnDark", "key": "lobby.countdown", "args": { "count": "5" } },
+            "count": { "variation": "ToyPlateTitle", "key": "lobby.countdown", "args": { "count": "5" } },
             "short": { "key": "lobby.need_more", "count": 1, "args": {} },
             "code-waiting": { "key": "lobby.need_more", "count": 3, "args": {} }
           },
-          "note": "lobby.waiting {count} ready of {total} players; lobby.need_more (tr_n) while the lobby has fewer players than the mode needs (other unmet demands of #208 take their own keys later); during the countdown lobby.countdown in ToyTitleOnDark, once a second from 5 to 1."
+          "note": "lobby.waiting {count} ready of {total} players; lobby.need_more (tr_n) while the lobby has fewer players than the mode needs (other unmet demands of #208 take their own keys later); during the countdown lobby.countdown in ToyPlateTitle, once a second from 5 to 1."
         }
       ]
     },
@@ -69,7 +69,7 @@
               "name": "Info", "type": "VBoxContainer", "variation": "ToyColumnEight",
               "children": [
                 {
-                  "name": "LobbyName", "type": "Label", "variation": "ToyTextMutedOnDark", "key": "lobby.default_name",
+                  "name": "LobbyName", "type": "Label", "variation": "ToyPlateTextMuted", "key": "lobby.default_name",
                   "args": { "name": { "uk": "Олена", "en": "Olena" } }, "clip_text": true, "text_overrun_behavior": "trim_ellipsis",
                   "note": "The lobby name the host set (#214), user text with auto_translate_mode DISABLED; lobby.default_name with the host's name while it is the default."
                 },
@@ -79,7 +79,7 @@
                   "note": "The host and every player who joined with the code (M6 §3); hidden for a Direct joiner. Copy lives in the Esc Lobby tab (the mouse is captured here).",
                   "children": [
                     {
-                      "name": "Label", "type": "Label", "variation": "ToyTextMutedOnDark", "key": "common.code",
+                      "name": "Label", "type": "Label", "variation": "ToyPlateTextMuted", "key": "common.code",
                       "size_flags_vertical": "shrink_center"
                     },
                     {
@@ -100,7 +100,7 @@
               "name": "List", "type": "VBoxContainer", "variation": "ToyColumnEight",
               "children": [
                 {
-                  "name": "Head", "type": "Label", "variation": "ToyTextOnDark", "key": "lobby.player_count",
+                  "name": "Head", "type": "Label", "variation": "ToyPlateText", "key": "lobby.player_count",
                   "args": { "count": "4", "total": "10" },
                   "per_state": { "short": { "args": { "count": "3", "total": "10" } }, "code-waiting": { "args": { "count": "1", "total": "10" } } },
                   "note": "Players in the lobby / the lobby's limit."
@@ -113,7 +113,7 @@
                       "name": "HostRow", "type": "HBoxContainer", "variation": "ToyRowTwelve",
                       "children": [
                         {
-                          "name": "Name", "type": "Label", "variation": "ToyTextOnDark", "key": "lobby.host_mark",
+                          "name": "Name", "type": "Label", "variation": "ToyPlateText", "key": "lobby.host_mark",
                           "args": { "name": { "uk": "Олена", "en": "Olena" } }, "size_flags_horizontal": "expand_fill",
                           "clip_text": true, "text_overrun_behavior": "trim_ellipsis",
                           "per_state": { "code-waiting": { "key": "player.you", "args": {} } },
@@ -129,7 +129,7 @@
                       "name": "Row2", "type": "HBoxContainer", "variation": "ToyRowTwelve", "states": ["wait", "count", "short", "direct"],
                       "children": [
                         {
-                          "name": "Name", "type": "Label", "variation": "ToyTextOnDark", "text": { "uk": "Тарас", "en": "Taras" },
+                          "name": "Name", "type": "Label", "variation": "ToyPlateText", "text": { "uk": "Тарас", "en": "Taras" },
                           "size_flags_horizontal": "expand_fill", "clip_text": true, "text_overrun_behavior": "trim_ellipsis",
                           "note": "Another player's row: the name only (auto_translate_mode DISABLED)."
                         },
@@ -143,7 +143,7 @@
                       "name": "OwnRow", "type": "HBoxContainer", "variation": "ToyRowTwelve", "states": ["wait", "count", "short", "direct"],
                       "children": [
                         {
-                          "name": "Name", "type": "Label", "variation": "ToyTextOnDark", "key": "player.you",
+                          "name": "Name", "type": "Label", "variation": "ToyPlateText", "key": "player.you",
                           "size_flags_horizontal": "expand_fill", "clip_text": true, "text_overrun_behavior": "trim_ellipsis", "note": "The own row reads player.you."
                         },
                         {
@@ -157,7 +157,7 @@
                       "states": ["wait", "count", "direct"],
                       "children": [
                         {
-                          "name": "Name", "type": "Label", "variation": "ToyTextOnDark", "text": { "uk": "Марко", "en": "Marko" },
+                          "name": "Name", "type": "Label", "variation": "ToyPlateText", "text": { "uk": "Марко", "en": "Marko" },
                           "size_flags_horizontal": "expand_fill", "clip_text": true, "text_overrun_behavior": "trim_ellipsis"
                         },
                         {

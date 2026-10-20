@@ -22,22 +22,32 @@
 //   `(${measure})(${JSON.stringify(opts)}, ${fontState})`, `(${frameList})(${fontState})`.
 "use strict";
 
-// Comfortaa must be the font the texts were laid out with. document.fonts.check() alone is true when the page has no
-// Comfortaa face at all (nothing to load), so the faces are counted too.
+// The sticker's web fonts (Nunito for text, Rubik for numbers, Kablammo for the logo) must be the faces the texts
+// were laid out with. document.fonts.check() alone is true when the page has no face of a family at all (nothing to
+// load), so the faces are counted too: the text family Nunito must have a loaded face, and every shown text whose own
+// first family is one of the three must have that family's faces and pass check() with its weight and its text.
 function fontState() {
-  var shown = "";
-  document.querySelectorAll("[data-key], [data-text]").forEach(function (el) {
-    if (el.getClientRects().length) shown += el.textContent;
-  });
-  var faces = [];
+  var FAMILIES = ["nunito", "rubik", "kablammo"];
+  var fam = {};
+  FAMILIES.forEach(function (n) { fam[n] = { faces: 0, loaded: 0 }; });
   document.fonts.forEach(function (f) {
-    if (f.family.replace(/["']/g, "").trim().toLowerCase() === "comfortaa") faces.push(f.status);
+    var n = f.family.replace(/["']/g, "").trim().toLowerCase();
+    if (fam[n]) { fam[n].faces++; if (f.status === "loaded") fam[n].loaded++; }
   });
-  var loaded = faces.filter(function (s) { return s === "loaded"; }).length;
-  var check = document.fonts.check("700 32px Comfortaa");
-  var checkShown = document.fonts.check("700 32px Comfortaa", shown || " ");
-  return { ok: check && checkShown && loaded > 0, check: check, checkShown: checkShown, faces: faces.length,
-    loaded: loaded, status: document.fonts.status };
+  var missing = [];
+  var shown = 0;
+  document.querySelectorAll("[data-key], [data-text]").forEach(function (el) {
+    if (!el.getClientRects().length || !el.textContent.trim()) return;
+    var cs = getComputedStyle(el);
+    var first = cs.fontFamily.split(",")[0].replace(/["']/g, "").trim();
+    var n = first.toLowerCase();
+    if (!fam[n]) return;
+    shown++;
+    var font = cs.fontWeight + " 32px " + first;
+    if (!fam[n].faces || !document.fonts.check(font, el.textContent)) missing.push(font + ": " + el.textContent.trim().slice(0, 24));
+  });
+  return { ok: fam.nunito.loaded > 0 && missing.length === 0, families: fam, shown: shown, missing: missing.slice(0, 6),
+    missingCount: missing.length, status: document.fonts.status };
 }
 
 // the frames of the page as loaded: what shots.js needs to name and verify its pictures

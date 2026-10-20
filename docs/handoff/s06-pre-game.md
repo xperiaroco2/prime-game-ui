@@ -49,7 +49,7 @@ The black intro of about 3 s in the silent pre game (#213): it shows when the ow
   - **Hud** `Control` · anchors `full_rect`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both
     - Note: Not part of this scene: the round HUD of s7 (s7/Hud as in its state empty, without Aim: nothing is within reach at the round's first second), drawn here only to show what the fading Night uncovers. Build it once, in s7.
     - **Timer** `PanelContainer` · variation `ToyPlate` · anchors `center_top`, offsets 0, 40, 0, 40 (left, top, right, bottom), grow both/end
-      - **Time** `Label` · variation `ToyTimer` · custom_minimum_size (140, 0) · text from data (auto_translate_mode = DISABLED), sample: "09:57" · horizontal_alignment `CENTER`
+      - **Time** `Label` · variation `ToyPlateTimer` · custom_minimum_size (140, 0) · text from data (auto_translate_mode = DISABLED), sample: "09:57" · horizontal_alignment `CENTER`
     - **Role** `PanelContainer` · variation `ToyChipPlate` · anchors `top_left`, offsets 40, 40, 40, 40 (left, top, right, bottom), grow end/end
       - **Text** `Label` · variation `ToyChipPlateText` · text `role.engineer`: en "Engineer" · uk "Інженер"
     - **Cross** `Panel` · variation `ToyCrosshair` · anchors `center`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both · custom_minimum_size (8, 8) = Vector2(get_theme_constant("width", "ToyCrosshair"), get_theme_constant("height", "ToyCrosshair"))

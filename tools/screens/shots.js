@@ -19,7 +19,7 @@
 // How: one headless Edge (tools/screens/edge.js) with a 1920x1080 viewport loads screens.html?only=all once to list the
 // frames (in source order), then, per language, size and frame, screens.html?only=<screen>:<state>&lang=..&size=..
 // (the frame alone at the viewport's top-left, 1 reference px = 1 CSS px), waits for <html data-ready="1">, checks
-// that Comfortaa is loaded (if not, the run stops: the pictures would show a fallback font) and captures the viewport.
+// that the sticker fonts are loaded (if not, the run stops: the pictures would show a fallback font) and captures the viewport.
 // Names: s02-main-uk-default.png (the screen number in two digits, the state, the language, the size).
 // It prints the folder and the files, and a warning when the single-frame view breaks the contract (another frame
 // shown, the frame not at 0,0 or not 1920x1080, wrong lang attributes). Exit 0 when every picture was taken, 1 when

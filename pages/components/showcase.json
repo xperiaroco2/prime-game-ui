@@ -522,6 +522,24 @@
               "text": "ToyPlateText",
               "label": "died",
               "context": "dark"
+            },
+            {
+              "v": "ToyPlate",
+              "text": "ToyPlateTitle",
+              "label": "round_end",
+              "context": "dark"
+            },
+            {
+              "v": "ToyPlateNight",
+              "text": "ToyPlateTextMuted",
+              "label": "lying",
+              "context": "dark"
+            },
+            {
+              "v": "ToyPlate",
+              "text": "ToyPlateTimer",
+              "label": "timer",
+              "context": "dark"
             }
           ]
         },

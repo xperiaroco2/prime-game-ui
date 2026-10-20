@@ -259,7 +259,7 @@
       }
     },
     "quiet-text": {
-      "$description": "The key name on a dim keycap.",
+      "$description": "The key name on a dim keycap: ink on the lilac face (soft ink there is 3.8:1).",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyKeyQuietText", "class": "Label", "on": ["ToyKeyQuiet", "ToyKeyRoundQuiet"] },
@@ -268,7 +268,7 @@
       },
       "label": { "$type": "typography", "$value": "{type.body-bold}" },
       "normal": {
-        "font-color": { "$type": "color", "$value": "{palette.ink-soft}" }
+        "font-color": { "$type": "color", "$value": "{color.on-accent.text}" }
       }
     }
   }

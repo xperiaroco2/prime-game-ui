@@ -27,7 +27,8 @@ const OUT = 'dist/pack/icons';
 const SCREENS_SRC = 'pages/screens/src';
 // The licences this repo accepts (CLAUDE.md, Licences).
 const LICENCES_OK = /^(own work|OFL(-1\.1)?|CC0(-1\.0)?|MIT|ISC|Apache-2\.0)$/i;
-const ROOM_INK = '#2a1f33';
+// the sticker ink (palette.ink); the source pictograms are drawn in it
+const ROOM_INK = '#1e1230';
 const SOURCES = [
   { prefix: '', dir: 'pages/components/icons', licences: 'pages/components/icons/LICENCES.json', entry: (f) => f },
   { prefix: 'room/', dir: 'pages/room-signs/systems/b/icons', licences: 'pages/room-signs/systems/b/LICENCES.json', entry: (f) => `icons/${f}`, ink: ROOM_INK },

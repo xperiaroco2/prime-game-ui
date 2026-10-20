@@ -17,7 +17,7 @@
         {
           "name": "Timer", "type": "PanelContainer", "variation": "ToyPlate", "anchors_preset": "center_top", "offset_top": 40, "offset_bottom": 40, "grow_horizontal": "both",
           "children": [
-            { "name": "Time", "type": "Label", "variation": "ToyTimer", "text": "09:57", "horizontal_alignment": "center", "custom_minimum_size": [140, 0] }
+            { "name": "Time", "type": "Label", "variation": "ToyPlateTimer", "text": "09:57", "horizontal_alignment": "center", "custom_minimum_size": [140, 0] }
           ]
         },
         {

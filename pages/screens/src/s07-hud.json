@@ -49,8 +49,8 @@
           "anchors_preset": "center_top", "offset_top": 40, "offset_bottom": 40, "grow_horizontal": "both",
           "children": [
             {
-              "name": "Time", "type": "Label", "variation": "ToyTimer", "text": "07:22", "horizontal_alignment": "center", "custom_minimum_size": [140, 0],
-              "note": "The round's time left as mm:ss from code (auto_translate_mode DISABLED), updated every second. Comfortaa's digits are proportional (4 is the widest), so the minimum width holds the widest time, \"44:44\" (134.8 px): the centred plate never changes width as the seconds tick. ToyTimer is 48 px, which large text leaves unchanged. s6 after and s9 back use the same node."
+              "name": "Time", "type": "Label", "variation": "ToyPlateTimer", "text": "07:22", "horizontal_alignment": "center", "custom_minimum_size": [140, 0],
+              "note": "The round's time left as mm:ss from code (auto_translate_mode DISABLED), updated every second. Rubik's digits are proportional, so the minimum width holds the widest time: the centred plate never changes width as the seconds tick. ToyPlateTimer is 48 px, which large text leaves unchanged. s6 after and s9 back use the same node."
             }
           ]
         },

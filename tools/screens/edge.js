@@ -5,7 +5,7 @@
 // Edge is started the way tools/visual/probe.js starts it (the only way that works on this machine): PowerShell
 // Start-Process -Wait with a fresh --user-data-dir in a new OS temp folder. The PowerShell process runs in the
 // background while Node talks to Edge on the port Edge writes to <profile>/DevToolsActivePort; Browser.close ends
-// Edge, which ends PowerShell. Every host name except Google Fonts is unresolvable, so the page's Comfortaa loads and
+// Edge, which ends PowerShell. Every host name except Google Fonts is unresolvable, so the page's web fonts load and
 // nothing else is fetched; the URLs of failed requests are collected so a run can say what was blocked.
 //
 //   const { launch } = require("./edge.js");

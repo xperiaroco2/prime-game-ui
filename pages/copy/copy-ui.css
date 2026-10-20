@@ -292,18 +292,20 @@
   background: var(--toy-field-input-normal-bg-color);
   border-style: solid;
   border-color: var(--toy-field-input-normal-border-color);
-  border-top-width: calc(var(--toy-field-input-normal-border-width) * var(--px));
-  border-right-width: calc(var(--toy-field-input-normal-border-width) * var(--px));
-  border-bottom-width: calc(var(--toy-field-input-normal-border-width) * var(--px));
-  border-left-width: calc(var(--toy-field-input-normal-border-width) * var(--px));
+  border-top-width: calc(var(--toy-field-input-normal-border-width-top) * var(--px));
+  border-right-width: calc(var(--toy-field-input-normal-border-width-right) * var(--px));
+  border-bottom-width: calc(var(--toy-field-input-normal-border-width-bottom) * var(--px));
+  border-left-width: calc(var(--toy-field-input-normal-border-width-left) * var(--px));
   border-top-left-radius: calc(var(--toy-field-input-normal-corner-radius) * var(--px));
   border-top-right-radius: calc(var(--toy-field-input-normal-corner-radius) * var(--px));
   border-bottom-right-radius: calc(var(--toy-field-input-normal-corner-radius) * var(--px));
   border-bottom-left-radius: calc(var(--toy-field-input-normal-corner-radius) * var(--px));
-  padding-top: calc((var(--toy-field-input-normal-content-margin-block) - var(--toy-field-input-normal-border-width)) * var(--px));
-  padding-right: calc((var(--toy-field-input-normal-content-margin-inline) - var(--toy-field-input-normal-border-width)) * var(--px));
-  padding-bottom: calc((var(--toy-field-input-normal-content-margin-block) - var(--toy-field-input-normal-border-width)) * var(--px));
-  padding-left: calc((var(--toy-field-input-normal-content-margin-inline) - var(--toy-field-input-normal-border-width)) * var(--px));
+  padding-top: calc((var(--toy-field-input-normal-content-margin-block) - var(--toy-field-input-normal-border-width-top)) * var(--px));
+  padding-right: calc((var(--toy-field-input-normal-content-margin-inline) + var(--toy-field-input-normal-expand-margin-right) - var(--toy-field-input-normal-border-width-right)) * var(--px));
+  padding-bottom: calc((var(--toy-field-input-normal-content-margin-block) + var(--toy-field-input-normal-expand-margin-bottom) - var(--toy-field-input-normal-border-width-bottom)) * var(--px));
+  padding-left: calc((var(--toy-field-input-normal-content-margin-inline) - var(--toy-field-input-normal-border-width-left)) * var(--px));
+  margin-right: calc(var(--toy-field-input-normal-expand-margin-right) * -1 * var(--px));
+  margin-bottom: calc(var(--toy-field-input-normal-expand-margin-bottom) * -1 * var(--px));
   font-family: var(--toy-field-input-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-field-input-label-font-size) * var(--px));
   font-weight: var(--toy-field-input-label-font-weight);
@@ -314,6 +316,16 @@
 .tv-ToyField.is-readonly {
   background: var(--toy-field-input-read-only-bg-color);
   border-color: var(--toy-field-input-read-only-border-color);
+  border-top-width: calc(var(--toy-field-input-read-only-border-width) * var(--px));
+  border-right-width: calc(var(--toy-field-input-read-only-border-width) * var(--px));
+  border-bottom-width: calc(var(--toy-field-input-read-only-border-width) * var(--px));
+  border-left-width: calc(var(--toy-field-input-read-only-border-width) * var(--px));
+  padding-top: calc((var(--toy-field-input-normal-content-margin-block) - var(--toy-field-input-read-only-border-width)) * var(--px));
+  padding-right: calc((var(--toy-field-input-normal-content-margin-inline) - var(--toy-field-input-read-only-border-width)) * var(--px));
+  padding-bottom: calc((var(--toy-field-input-normal-content-margin-block) - var(--toy-field-input-read-only-border-width)) * var(--px));
+  padding-left: calc((var(--toy-field-input-normal-content-margin-inline) - var(--toy-field-input-read-only-border-width)) * var(--px));
+  margin-right: 0;
+  margin-bottom: 0;
   color: var(--toy-field-input-read-only-font-color);
 }
 .tv-ToyField > .tv-focus {
@@ -331,13 +343,19 @@
   border-top-right-radius: calc(var(--toy-field-input-focus-corner-radius) * var(--px));
   border-bottom-right-radius: calc(var(--toy-field-input-focus-corner-radius) * var(--px));
   border-bottom-left-radius: calc(var(--toy-field-input-focus-corner-radius) * var(--px));
-  top: calc((0 - var(--toy-field-input-normal-border-width) - var(--toy-field-input-focus-expand-margin)) * var(--px));
-  right: calc((0 - var(--toy-field-input-normal-border-width) - var(--toy-field-input-focus-expand-margin)) * var(--px));
-  bottom: calc((0 - var(--toy-field-input-normal-border-width) - var(--toy-field-input-focus-expand-margin)) * var(--px));
-  left: calc((0 - var(--toy-field-input-normal-border-width) - var(--toy-field-input-focus-expand-margin)) * var(--px));
+  top: calc((0 - var(--toy-field-input-normal-border-width-top) - var(--toy-field-input-focus-expand-margin)) * var(--px));
+  right: calc((var(--toy-field-input-normal-expand-margin-right) - var(--toy-field-input-normal-border-width-right) - var(--toy-field-input-focus-expand-margin)) * var(--px));
+  bottom: calc((var(--toy-field-input-normal-expand-margin-bottom) - var(--toy-field-input-normal-border-width-bottom) - var(--toy-field-input-focus-expand-margin)) * var(--px));
+  left: calc((0 - var(--toy-field-input-normal-border-width-left) - var(--toy-field-input-focus-expand-margin)) * var(--px));
 }
 .tv-ToyField.is-focus > .tv-focus, .tv-ToyField:focus-visible > .tv-focus {
   display: block;
+}
+.tv-ToyField.is-readonly > .tv-focus {
+  top: calc((0 - var(--toy-field-input-read-only-border-width) - var(--toy-field-input-focus-expand-margin)) * var(--px));
+  right: calc((0 - var(--toy-field-input-read-only-border-width) - var(--toy-field-input-focus-expand-margin)) * var(--px));
+  bottom: calc((0 - var(--toy-field-input-read-only-border-width) - var(--toy-field-input-focus-expand-margin)) * var(--px));
+  left: calc((0 - var(--toy-field-input-read-only-border-width) - var(--toy-field-input-focus-expand-margin)) * var(--px));
 }
 .tv-ToyField .tv-placeholder {
   color: var(--toy-field-input-items-placeholder-color);
@@ -375,4 +393,6 @@
   line-height: var(--toy-text-title-on-light-label-line-height);
   letter-spacing: calc(var(--toy-text-title-on-light-label-letter-spacing) * var(--px));
   color: var(--toy-text-title-on-light-normal-font-color);
+  -webkit-text-stroke: calc((var(--toy-text-title-on-light-items-shadow-outline-size) + var(--toy-text-title-on-light-items-shadow-outline-size)) * var(--px)) var(--toy-text-title-on-light-normal-font-shadow-color);
+  paint-order: stroke fill;
 }

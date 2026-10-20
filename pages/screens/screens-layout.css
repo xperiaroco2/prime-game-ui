@@ -270,7 +270,7 @@
 [data-anchor="s4/Plates"] { left: 0; top: 0; right: 0; bottom: 0; justify-content: center; align-items: center; }
 [data-node="s4/Plates"] { flex: none; min-width: 100%; min-height: 100%; }
 [data-anchor="s4/Plates/Plate"] { left: calc(1296 * var(--px)); top: calc(500 * var(--px)); right: calc(100% - 1296 * var(--px)); bottom: calc(100% - 500 * var(--px)); justify-content: center; align-items: center; }
-[data-node="s4/Plates/Plate"] { flex: none; min-width: 100%; min-height: 100%; }
+[data-node="s4/Plates/Plate"] { flex: none; min-width: calc(100% + 5 * var(--px)); min-height: calc(100% + 5 * var(--px)); }
 [data-node="s4/Plates/Plate/Row"] { grid-area: 1 / 1; grid-template-columns: minmax(min-content, auto); }
 [data-anchor="s4/Cross"] { left: 50%; top: 50%; right: 50%; bottom: 50%; justify-content: center; align-items: center; }
 [data-node="s4/Cross"] { flex: none; min-width: max(100%, calc(8 * var(--px))); min-height: max(100%, calc(8 * var(--px))); }
@@ -770,7 +770,7 @@
 [data-anchor="s7/Plates"] { left: 0; top: 0; right: 0; bottom: 0; justify-content: center; align-items: center; }
 [data-node="s7/Plates"] { flex: none; min-width: 100%; min-height: 100%; }
 [data-anchor="s7/Plates/Plate"] { left: calc(538 * var(--px)); top: calc(302 * var(--px)); right: calc(100% - 538 * var(--px)); bottom: calc(100% - 302 * var(--px)); justify-content: center; align-items: center; }
-[data-node="s7/Plates/Plate"] { flex: none; min-width: 100%; min-height: 100%; }
+[data-node="s7/Plates/Plate"] { flex: none; min-width: calc(100% + 5 * var(--px)); min-height: calc(100% + 5 * var(--px)); }
 [data-node="s7/Plates/Plate/Row"] { grid-area: 1 / 1; grid-template-columns: minmax(min-content, auto) minmax(min-content, auto); }
 [data-node="s7/Plates/Plate/Row/Mark"] { min-width: calc(20 * var(--px)); min-height: calc(20 * var(--px)); align-self: center; }
 [data-anchor="s7/Hud"] { left: 0; top: 0; right: 0; bottom: 0; justify-content: center; align-items: center; }
