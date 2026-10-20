@@ -26,30 +26,31 @@ The live lobby stays behind a dim backdrop with an idle camera. There is no serv
 
 - **Backdrop** `Panel` · variation `ToyBackdrop` · anchors `full_rect`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both
   - Note: mouse_filter IGNORE; it dims the live lobby behind the menu.
-- **Column** `VBoxContainer` · variation `ToyColumnTwentyFour` · anchors `top_left`, offsets 136, 256, 136, 256 (left, top, right, bottom), grow end/end · gaps from the variation: separation 24
+- **Column** `VBoxContainer` · variation `ToyColumnThirtyTwo` · anchors `top_left`, offsets 84, 66, 84, 66 (left, top, right, bottom), grow end/end · gaps from the variation: separation 32
+  - Note: The menu column at the sticker sketch's place (pages/sticker: left 56, top 44, 400 wide, x 1.5).
   - **Logo** `Label` · variation `ToyLogo` · text from data (auto_translate_mode = DISABLED), sample: "prime-game"
-    - Note: The game's name, the working title "prime-game" (auto_translate_mode DISABLED; not a deck key).
-  - **NameRow** `HBoxContainer` · variation `ToyRowTwelve` · size flags horizontal `SIZE_SHRINK_BEGIN` · custom_minimum_size (592, 0) · gaps from the variation: separation 12
+    - Note: The game's name, the working title "prime-game" (auto_translate_mode DISABLED; not a deck key). The title is open (m8 §1: "My Alien Prime Friends" is a working title; a decision comes before any public store page).
+  - **NameRow** `HBoxContainer` · variation `ToyRowSixteen` · size flags horizontal `SIZE_SHRINK_BEGIN` · custom_minimum_size (600, 0) · gaps from the variation: separation 16
     - **NameLabel** `Label` · variation `ToyTextMutedOnDark` · size flags vertical `SIZE_SHRINK_CENTER` · text `player.name`: en "Name" · uk "Імʼя"
     - **Name** `LineEdit` · variation `ToyField` · size flags horizontal `SIZE_EXPAND_FILL` · text (sample data) "Olena" / "Олена" · context_menu_enabled false (Godot's right-click menu would show untranslated English labels; see the notes)
       - Note: The player's name, kept between sessions (user://); never empty: the last name used, else the system user name. max_length 16 (characters, the same limit in both languages: wave 1's proposal until the game sets its name rule; the host checks String.length() too); a longer text scrolls inside the field. auto_translate_mode DISABLED.
   - **Body** `HBoxContainer` · variation `ToyRowThirtyTwo` · gaps from the variation: separation 32
     - Note: The items, then the open panel (if any) to their right, its top on Host's top.
-    - **Items** `VBoxContainer` · variation `ToyColumnTwelve` · size flags vertical `SIZE_SHRINK_BEGIN` · custom_minimum_size (592, 0) · gaps from the variation: separation 12
+    - **Items** `VBoxContainer` · variation `ToyColumnSixteen` · size flags vertical `SIZE_SHRINK_BEGIN` · custom_minimum_size (600, 0) · gaps from the variation: separation 16
       - Note: Up and down move the focus through the items; the focused, hovered or pressed item shows its pointer icon.
-      - **Host** `Button` · variation `ToyMenuItem` · text `menu.host`: en "Host a game" · uk "Створити гру" · icon `pointer` (dist/pack/icons/pointer.svg, own work) at 24 px, tinted by `ToyMenuItem`'s icon_*_color · alignment `LEFT` · shown with keyboard focus (grab_focus)
+      - **Host** `Button` · variation `ToyMenuItem` · text `menu.host`: en "Host a game" · uk "Створити гру" · icon `pointer` (dist/pack/icons/pointer.svg, own work) at 36 px, tinted by `ToyMenuItem`'s icon_*_color · alignment `LEFT` · shown with keyboard focus (grab_focus)
         - Note: Focus on open. Hosts a game with a code (WebRTC) and goes straight to the lobby (s4); a failure shows s3 host-failed.
-      - **Join** `Button` · variation `ToyMenuItem` · text `menu.join`: en "Join" · uk "Приєднатися" · icon `pointer` (dist/pack/icons/pointer.svg, own work) at 24 px, tinted by `ToyMenuItem`'s icon_*_color · alignment `LEFT` · toggle_mode true, button_pressed false
+      - **Join** `Button` · variation `ToyMenuItem` · text `menu.join`: en "Join" · uk "Приєднатися" · icon `pointer` (dist/pack/icons/pointer.svg, own work) at 36 px, tinted by `ToyMenuItem`'s icon_*_color · alignment `LEFT` · toggle_mode true, button_pressed false
         - Note: In the menu ButtonGroup; button_pressed while CodePanel is open (ToyMenuItem's own pressed StyleBox and pointer). Toggles CodePanel.
-      - **Direct** `Button` · variation `ToyMenuItem` · text `menu.direct`: en "Join by address" · uk "Приєднатися за адресою" · icon `pointer` (dist/pack/icons/pointer.svg, own work) at 24 px, tinted by `ToyMenuItem`'s icon_*_color · alignment `LEFT` · toggle_mode true, button_pressed false
+      - **Direct** `Button` · variation `ToyMenuItem` · text `menu.direct`: en "Join by address" · uk "Приєднатися за адресою" · icon `pointer` (dist/pack/icons/pointer.svg, own work) at 36 px, tinted by `ToyMenuItem`'s icon_*_color · alignment `LEFT` · toggle_mode true, button_pressed false
         - Note: In the menu ButtonGroup; button_pressed while DirectPanel is open (its own pressed StyleBox). Toggles DirectPanel.
-      - **Tutorial** `Button` · variation `ToyMenuItem` · text `menu.tutorial`: en "Tutorial" · uk "Навчання" · icon `pointer` (dist/pack/icons/pointer.svg, own work) at 24 px, tinted by `ToyMenuItem`'s icon_*_color · alignment `LEFT`
+      - **Tutorial** `Button` · variation `ToyMenuItem` · text `menu.tutorial`: en "Tutorial" · uk "Навчання" · icon `pointer` (dist/pack/icons/pointer.svg, own work) at 36 px, tinted by `ToyMenuItem`'s icon_*_color · alignment `LEFT`
         - Note: Loads the tutorial's first lesson (s1).
-      - **Settings** `Button` · variation `ToyMenuItem` · text `menu.settings`: en "Settings" · uk "Налаштування" · icon `pointer` (dist/pack/icons/pointer.svg, own work) at 24 px, tinted by `ToyMenuItem`'s icon_*_color · alignment `LEFT` · toggle_mode true, button_pressed false
+      - **Settings** `Button` · variation `ToyMenuItem` · text `menu.settings`: en "Settings" · uk "Налаштування" · icon `pointer` (dist/pack/icons/pointer.svg, own work) at 36 px, tinted by `ToyMenuItem`'s icon_*_color · alignment `LEFT` · toggle_mode true, button_pressed false
         - Note: In the menu ButtonGroup; button_pressed while SettingsPanel is open (its own pressed StyleBox). Toggles SettingsPanel.
-      - **Quit** `Button` · variation `ToyMenuItem` · text `menu.quit`: en "Quit" · uk "Вийти" · icon `pointer` (dist/pack/icons/pointer.svg, own work) at 24 px, tinted by `ToyMenuItem`'s icon_*_color · alignment `LEFT`
+      - **Quit** `Button` · variation `ToyMenuItem` · text `menu.quit`: en "Quit" · uk "Вийти" · icon `pointer` (dist/pack/icons/pointer.svg, own work) at 36 px, tinted by `ToyMenuItem`'s icon_*_color · alignment `LEFT`
         - Note: Quits the game at once.
-- **Version** `Label` · variation `ToyTextMutedOnDark` · anchors `bottom_right`, offsets -40, -40, -40, -40 (left, top, right, bottom), grow begin/begin · text `menu.version` with sample {version} = "0.4": en "Version 0.4" · uk "Версія 0.4"
+- **Version** `Label` · variation `ToyTextMutedOnDark` · anchors `bottom_right`, offsets -39, -39, -39, -39 (left, top, right, bottom), grow begin/begin · text `menu.version` with sample {version} = "0.4": en "Version 0.4" · uk "Версія 0.4"
   - Note: The build's version (ProjectSettings application/config/version).
 
 ## `code`: what differs from `main`
@@ -60,13 +61,13 @@ The live lobby stays behind a dim backdrop with an idle camera. There is no serv
   - **Column/Body/Gap** `Control` · custom_minimum_size (64, 0)
     - Note: An empty spacer: 32 + 64 + 32 px between the items and the open panel. Shown with any panel.
   - **Column/Body/CodePanel** `PanelContainer` · variation `ToyPanelMenu` (raised: ToyRaised with base `ToyBasePanel`) · size flags vertical `SIZE_SHRINK_BEGIN` · custom_minimum_size (784, 0) · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper
-    - Note: Join with a code. Shown while Join is pressed. As wide as DirectPanel, so the two panels never differ.
-    - **V** `VBoxContainer` · variation `ToyColumnSixteen` · gaps from the variation: separation 16
-      - **Field** `VBoxContainer` · variation `ToyColumnEight` · gaps from the variation: separation 8
+    - Note: Join with a code. Shown while Join is pressed. As wide as DirectPanel, so the two panels never differ; 784 px holds the field and the buttons at large text.
+    - **V** `VBoxContainer` · variation `ToyColumnTwentyFour` · gaps from the variation: separation 24
+      - **Field** `VBoxContainer` · variation `ToyColumnTwelve` · gaps from the variation: separation 12
         - **CodeLabel** `Label` · variation `ToyTextMutedOnLight` · text `common.code`: en "Code" · uk "Код"
         - **Code** `LineEdit` · variation `ToyField` · empty (no text, no placeholder) · context_menu_enabled false (Godot's right-click menu would show untranslated English labels; see the notes) · shown focused with the caret
           - Note: Focused and empty when the panel opens. max_length 6; upper-cases as typed, drops spaces and dashes on paste, accepts only the 31-letter code alphabet (no 0, O, 1, I, L). Keeps what was typed after a failure (back from s3). Enter = Join when it is enabled. auto_translate_mode DISABLED.
-      - **Buttons** `HBoxContainer` · variation `ToyRowSixteen` · gaps from the variation: separation 16
+      - **Buttons** `HBoxContainer` · variation `ToyRowTwentyFour` · gaps from the variation: separation 24
         - **Join** `Button` · variation `ToyButtonPrimary` (raised: ToyRaised with base `ToyBasePrimaryOnLight`, ToyPress; UiParts.button()) · size flags horizontal `SIZE_EXPAND_FILL` · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper · text `join.connect`: en "Join" · uk "Приєднатися" · disabled true
           - Note: Disabled (unplugged) until the field holds 6 valid characters. Joins by the code: s3 finding.
         - **Back** `Button` · variation `ToyButtonGhostOnLight` · text `common.back`: en "Back" · uk "Назад"
@@ -80,13 +81,13 @@ The live lobby stays behind a dim backdrop with an idle camera. There is no serv
   - **Column/Body/Gap** `Control` · custom_minimum_size (64, 0)
     - Note: An empty spacer: 32 + 64 + 32 px between the items and the open panel. Shown with any panel.
   - **Column/Body/CodePanel** `PanelContainer` · variation `ToyPanelMenu` (raised: ToyRaised with base `ToyBasePanel`) · size flags vertical `SIZE_SHRINK_BEGIN` · custom_minimum_size (784, 0) · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper
-    - Note: Join with a code. Shown while Join is pressed. As wide as DirectPanel, so the two panels never differ.
-    - **V** `VBoxContainer` · variation `ToyColumnSixteen` · gaps from the variation: separation 16
-      - **Field** `VBoxContainer` · variation `ToyColumnEight` · gaps from the variation: separation 8
+    - Note: Join with a code. Shown while Join is pressed. As wide as DirectPanel, so the two panels never differ; 784 px holds the field and the buttons at large text.
+    - **V** `VBoxContainer` · variation `ToyColumnTwentyFour` · gaps from the variation: separation 24
+      - **Field** `VBoxContainer` · variation `ToyColumnTwelve` · gaps from the variation: separation 12
         - **CodeLabel** `Label` · variation `ToyTextMutedOnLight` · text `common.code`: en "Code" · uk "Код"
         - **Code** `LineEdit` · variation `ToyField` · text (sample data) "K7Q2XR" · context_menu_enabled false (Godot's right-click menu would show untranslated English labels; see the notes) · shown focused with the caret
           - Note: Focused and empty when the panel opens. max_length 6; upper-cases as typed, drops spaces and dashes on paste, accepts only the 31-letter code alphabet (no 0, O, 1, I, L). Keeps what was typed after a failure (back from s3). Enter = Join when it is enabled. auto_translate_mode DISABLED.
-      - **Buttons** `HBoxContainer` · variation `ToyRowSixteen` · gaps from the variation: separation 16
+      - **Buttons** `HBoxContainer` · variation `ToyRowTwentyFour` · gaps from the variation: separation 24
         - **Join** `Button` · variation `ToyButtonPrimary` (raised: ToyRaised with base `ToyBasePrimaryOnLight`, ToyPress; UiParts.button()) · size flags horizontal `SIZE_EXPAND_FILL` · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper · text `join.connect`: en "Join" · uk "Приєднатися"
           - Note: Disabled (unplugged) until the field holds 6 valid characters. Joins by the code: s3 finding.
         - **Back** `Button` · variation `ToyButtonGhostOnLight` · text `common.back`: en "Back" · uk "Назад"
@@ -101,14 +102,14 @@ The live lobby stays behind a dim backdrop with an idle camera. There is no serv
     - Note: An empty spacer: 32 + 64 + 32 px between the items and the open panel. Shown with any panel.
   - **Column/Body/DirectPanel** `PanelContainer` · variation `ToyPanelMenu` (raised: ToyRaised with base `ToyBasePanel`) · size flags vertical `SIZE_SHRINK_BEGIN` · custom_minimum_size (784, 0) · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper
     - Note: Join or host directly over ENet (LAN, VPN, playit.gg). Shown while Direct is pressed. No address is shown anywhere else (streams).
-    - **V** `VBoxContainer` · variation `ToyColumnSixteen` · gaps from the variation: separation 16
-      - **Field** `VBoxContainer` · variation `ToyColumnEight` · gaps from the variation: separation 8
+    - **V** `VBoxContainer` · variation `ToyColumnTwentyFour` · gaps from the variation: separation 24
+      - **Field** `VBoxContainer` · variation `ToyColumnTwelve` · gaps from the variation: separation 12
         - **AddressLabel** `Label` · variation `ToyTextMutedOnLight` · text `join.address`: en "Host address" · uk "Адреса хоста"
         - **Address** `LineEdit` · variation `ToyField` · text (sample data) "192.168.0.12" · context_menu_enabled false (Godot's right-click menu would show untranslated English labels; see the notes) · shown focused with the caret
           - Note: Focused when the panel opens. Takes host or host:port, host names included (JoinTarget). Keeps what was typed after a failure. Enter = Join. auto_translate_mode DISABLED.
         - **Port** `Label` · variation `ToyTextMutedOnLight` · text `join.port` with sample {port} = "7777": en "Port 7777" · uk "Порт 7777"
           - Note: The default port, used when the address has none.
-      - **Buttons** `HBoxContainer` · variation `ToyRowSixteen` · gaps from the variation: separation 16
+      - **Buttons** `HBoxContainer` · variation `ToyRowTwentyFour` · gaps from the variation: separation 24
         - **Join** `Button` · variation `ToyButtonPrimary` (raised: ToyRaised with base `ToyBasePrimaryOnLight`, ToyPress; UiParts.button()) · size flags horizontal `SIZE_EXPAND_FILL` · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper · text `join.connect`: en "Join" · uk "Приєднатися"
           - Note: Disabled (unplugged) while Address is empty. Joins over ENet: s3 (the connecting steps, no code row).
         - **Host** `Button` · variation `ToyButtonSecondary` (raised: ToyRaised with base `ToyBaseRaisedOnLight`, ToyPress; UiParts.button()) · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper · text `menu.host`: en "Host a game" · uk "Створити гру"
@@ -121,63 +122,63 @@ The live lobby stays behind a dim backdrop with an idle camera. There is no serv
 - **Changed** `Column/Body/Items/Host`: no longer shown with keyboard focus (grab_focus)
 - **Changed** `Column/Body/Items/Settings`: toggle_mode true, button_pressed true (its own `pressed` StyleBox; the variation has no toggle partner) (was: toggle_mode true, button_pressed false)
 - **Shown:**
-  - **SettingsPanel** `PanelContainer` · variation `ToyPanelMenu` (raised: ToyRaised with base `ToyBasePanel`) · anchors `top_left`, offsets 856, 96, 1816, 984 (left, top, right, bottom), grow end/end · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper
-    - Note: Shown while Settings is pressed. A root of its own (too tall for Body): its left edge on the code and Direct panels' left edge (856), 960x888 (the five page chips fit at large text), centred vertically; raised on its ToyRaised wrapper. It holds the Esc menu's Settings scene (s5/Menu/H/Page/Settings), one scene that both menus instance (#301): the mic, the mode, the threshold with its live meter, noise suppression and the volumes work without a session; nothing is sent. Focus goes to Settings/Sub/Sound when it opens; Settings again or Esc (ui_cancel) closes it and gives the focus back to Items/Settings.
-    - **Settings** `VBoxContainer` · variation `ToyColumnSixteen` · gaps from the variation: separation 16
+  - **SettingsPanel** `PanelContainer` · variation `ToyPanelMenu` (raised: ToyRaised with base `ToyBasePanel`) · anchors `top_left`, offsets 812, 90, 1881, 990 (left, top, right, bottom), grow end/end · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper
+    - Note: Shown while Settings is pressed. A root of its own (too tall for Body): its left edge on the code and Direct panels' left edge (812), its right edge 39 px in (the HUD edge), 900 tall and centred vertically; raised on its ToyRaised wrapper. It holds the Esc menu's Settings scene (s5/Menu/H/Page/Settings), one scene that both menus instance (#301): the mic, the mode, the threshold with its live meter, noise suppression and the volumes work without a session; nothing is sent. Focus goes to Settings/Sub/Sound when it opens; Settings again or Esc (ui_cancel) closes it and gives the focus back to Items/Settings.
+    - **Settings** `VBoxContainer` · variation `ToyColumnTwentyFour` · gaps from the variation: separation 24
       - Note: The s5 Settings scene (s5/Menu/H/Page/Settings), instanced here on its Sound and voice page; its nodes, notes and other pages are s5's. Build it once, in s5.
-      - **Sub** `HBoxContainer` · variation `ToyRowEight` · gaps from the variation: separation 8
+      - **Sub** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
         - **Sound** `Button` · variation `ToyChipToggleOnLight` · text `settings.tab.sound`: en "Sound and voice" · uk "Звук і голос" · toggle_mode true, button_pressed true (ToyToggle draws `ToyChipToggleOnLightSelected`) · shown with keyboard focus (grab_focus)
         - **Controls** `Button` · variation `ToyChipToggleOnLight` · text `settings.tab.controls`: en "Controls" · uk "Керування" · toggle_mode true, button_pressed false
         - **Display** `Button` · variation `ToyChipToggleOnLight` · text `settings.tab.display`: en "Display" · uk "Екран" · toggle_mode true, button_pressed false
         - **Access** `Button` · variation `ToyChipToggleOnLight` · text `settings.tab.accessibility`: en "Accessibility" · uk "Доступність" · toggle_mode true, button_pressed false
         - **Language** `Button` · variation `ToyChipToggleOnLight` · text `settings.tab.language`: en "Language" · uk "Мова" · toggle_mode true, button_pressed false
       - **Scroll** `ScrollContainer` · variation `ToyScroll` · size flags vertical `SIZE_EXPAND_FILL` · the gap between the child and the bar from the variation: scrollbar_h_separation 8 · horizontal_scroll_mode `SCROLL_MODE_DISABLED` (vertical scrolling only); `get_v_scroll_bar().theme_type_variation = &"ToyScrollBar"`; the bar shows when the child is taller
-        - **Rows** `VBoxContainer` · variation `ToyColumnEight` · size flags horizontal `SIZE_EXPAND_FILL` · gaps from the variation: separation 8
-          - **Mic** `PanelContainer` · variation `ToySettingRow` · custom_minimum_size (0, 64)
-            - **H** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
+        - **Rows** `VBoxContainer` · variation `ToyColumnTwelve` · size flags horizontal `SIZE_EXPAND_FILL` · gaps from the variation: separation 12
+          - **Mic** `PanelContainer` · variation `ToySettingRow` · custom_minimum_size (0, 96)
+            - **H** `HBoxContainer` · variation `ToyRowSixteen` · gaps from the variation: separation 16
               - **Name** `Label` · variation `ToySettingRowText` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text `settings.mic`: en "Microphone" · uk "Мікрофон"
-              - **Device** `OptionButton` · variation `ToyDropdown` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (500, 0) · clip_text true · text_overrun_behavior `OVERRUN_TRIM_ELLIPSIS` · text `settings.mic.default`: en "Default" · uk "Стандартний" · arrow: theme icon `arrow` (dist/pack/icons/chevron-down.svg), tinted by the font colour (modulate_arrow) · `get_popup().theme_type_variation = &"ToyDropdownList"` (its open list, see the notes) · items `settings.mic.default`
-          - **TalkMode** `PanelContainer` · variation `ToySettingRow` · custom_minimum_size (0, 64)
-            - **H** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
+              - **Device** `OptionButton` · variation `ToyDropdown` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (450, 0) · clip_text true · text_overrun_behavior `OVERRUN_TRIM_ELLIPSIS` · text `settings.mic.default`: en "Default" · uk "Стандартний" · arrow: theme icon `arrow` (dist/pack/icons/chevron-down.svg), tinted by the font colour (modulate_arrow) · `get_popup().theme_type_variation = &"ToyDropdownList"` (its open list, see the notes) · items `settings.mic.default`
+          - **TalkMode** `PanelContainer` · variation `ToySettingRow` · custom_minimum_size (0, 96)
+            - **H** `HBoxContainer` · variation `ToyRowSixteen` · gaps from the variation: separation 16
               - **Name** `Label` · variation `ToySettingRowText` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text `settings.talk_mode`: en "How to talk" · uk "Як говорити"
-              - **Mode** `OptionButton` · variation `ToyDropdown` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (500, 0) · text `settings.talk_mode.open`: en "Voice activation" · uk "Голосова активація" · arrow: theme icon `arrow` (dist/pack/icons/chevron-down.svg), tinted by the font colour (modulate_arrow) · `get_popup().theme_type_variation = &"ToyDropdownList"` (its open list, see the notes) · items `settings.talk_mode.open`, `settings.talk_mode.push`, `common.off`
-          - **Threshold** `PanelContainer` · variation `ToySettingRow` · custom_minimum_size (0, 64)
-            - **H** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
+              - **Mode** `OptionButton` · variation `ToyDropdown` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (450, 0) · text `settings.talk_mode.open`: en "Voice activation" · uk "Голосова активація" · arrow: theme icon `arrow` (dist/pack/icons/chevron-down.svg), tinted by the font colour (modulate_arrow) · `get_popup().theme_type_variation = &"ToyDropdownList"` (its open list, see the notes) · items `settings.talk_mode.open`, `settings.talk_mode.push`, `common.off`
+          - **Threshold** `PanelContainer` · variation `ToySettingRow` · custom_minimum_size (0, 96)
+            - **H** `HBoxContainer` · variation `ToyRowSixteen` · gaps from the variation: separation 16
               - **Name** `Label` · variation `ToySettingRowText` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text `settings.voice_threshold`: en "Voice threshold" · uk "Поріг голосу"
-              - **Slider** `HSlider` · variation `ToySlider` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (500, 0) · value 40 (min_value 0, max_value 100, step 1)
-          - **MicTest** `PanelContainer` · variation `ToySettingRow` · custom_minimum_size (0, 64)
-            - **H** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
+              - **Slider** `HSlider` · variation `ToySlider` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (450, 0) · value 40 (min_value 0, max_value 100, step 1)
+          - **MicTest** `PanelContainer` · variation `ToySettingRow` · custom_minimum_size (0, 96)
+            - **H** `HBoxContainer` · variation `ToyRowSixteen` · gaps from the variation: separation 16
               - **Name** `Label` · variation `ToySettingRowText` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text `settings.mic_test`: en "Mic test" · uk "Перевірка мікрофона"
-              - **Meter** `ProgressBar` · variation `ToyBarSlider` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (500, 10) · value 40 of max_value 100, show_percentage false
-          - **Noise** `PanelContainer` · variation `ToySettingRow` · custom_minimum_size (0, 64)
-            - **H** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
+              - **Meter** `ProgressBar` · variation `ToyBarSlider` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (450, 15) · value 40 of max_value 100, show_percentage false
+          - **Noise** `PanelContainer` · variation `ToySettingRow` · custom_minimum_size (0, 96)
+            - **H** `HBoxContainer` · variation `ToyRowSixteen` · gaps from the variation: separation 16
               - **Name** `Label` · variation `ToySettingRowText` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text `settings.noise_suppression`: en "Noise suppression" · uk "Шумозаглушення"
-              - **Toggle** `HBoxContainer` · variation `ToyRowEight` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (500, 0) · gaps from the variation: separation 8
+              - **Toggle** `HBoxContainer` · variation `ToyRowTwelve` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (450, 0) · gaps from the variation: separation 12
                 - **Off** `Button` · variation `ToyChipToggleOnLight` · text `common.off`: en "Off" · uk "Вимкнено" · toggle_mode true, button_pressed false
                 - **On** `Button` · variation `ToyChipToggleOnLight` · text `common.on`: en "On" · uk "Увімкнено" · toggle_mode true, button_pressed true (ToyToggle draws `ToyChipToggleOnLightSelected`)
-          - **Overall** `PanelContainer` · variation `ToySettingRow` · custom_minimum_size (0, 64)
-            - **H** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
+          - **Overall** `PanelContainer` · variation `ToySettingRow` · custom_minimum_size (0, 96)
+            - **H** `HBoxContainer` · variation `ToyRowSixteen` · gaps from the variation: separation 16
               - **Name** `Label` · variation `ToySettingRowText` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text `settings.game_volume`: en "Overall volume" · uk "Загальна гучність"
-              - **Slider** `HSlider` · variation `ToySlider` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (500, 0) · value 55 (min_value 0, max_value 100, step 1)
-          - **Voices** `PanelContainer` · variation `ToySettingRow` · custom_minimum_size (0, 64)
-            - **H** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
+              - **Slider** `HSlider` · variation `ToySlider` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (450, 0) · value 55 (min_value 0, max_value 100, step 1)
+          - **Voices** `PanelContainer` · variation `ToySettingRow` · custom_minimum_size (0, 96)
+            - **H** `HBoxContainer` · variation `ToyRowSixteen` · gaps from the variation: separation 16
               - **Name** `Label` · variation `ToySettingRowText` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text `settings.voice_volume`: en "Voice volume" · uk "Гучність голосів"
-              - **Slider** `HSlider` · variation `ToySlider` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (500, 0) · value 70 (min_value 0, max_value 100, step 1)
-          - **Effects** `PanelContainer` · variation `ToySettingRow` · custom_minimum_size (0, 64)
-            - **H** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
+              - **Slider** `HSlider` · variation `ToySlider` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (450, 0) · value 70 (min_value 0, max_value 100, step 1)
+          - **Effects** `PanelContainer` · variation `ToySettingRow` · custom_minimum_size (0, 96)
+            - **H** `HBoxContainer` · variation `ToyRowSixteen` · gaps from the variation: separation 16
               - **Name** `Label` · variation `ToySettingRowText` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text `settings.effects_volume`: en "Effects volume" · uk "Гучність ефектів"
-              - **Slider** `HSlider` · variation `ToySlider` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (500, 0) · value 80 (min_value 0, max_value 100, step 1)
-          - **Music** `PanelContainer` · variation `ToySettingRow` · custom_minimum_size (0, 64)
-            - **H** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
+              - **Slider** `HSlider` · variation `ToySlider` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (450, 0) · value 80 (min_value 0, max_value 100, step 1)
+          - **Music** `PanelContainer` · variation `ToySettingRow` · custom_minimum_size (0, 96)
+            - **H** `HBoxContainer` · variation `ToyRowSixteen` · gaps from the variation: separation 16
               - **Name** `Label` · variation `ToySettingRowText` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text `settings.music_volume`: en "Music volume" · uk "Гучність музики"
-              - **Slider** `HSlider` · variation `ToySlider` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (500, 0) · value 50 (min_value 0, max_value 100, step 1)
+              - **Slider** `HSlider` · variation `ToySlider` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (450, 0) · value 50 (min_value 0, max_value 100, step 1)
 
 ## Notes
 
 - The review page emulates Godot's containers with CSS grid (expanding children share the free space by stretch ratio, never below their minimum size), so a pixel or two may differ from Godot.
 - A raised variation is built as the tokens spec (§6) says: a `ToyRaised` MarginContainer holding first the base `Panel` (the base named above, chosen by the context it sits in), then the face. The wrapper is the node in its parent: anchors, offsets, grow, size flags, stretch ratio, custom_minimum_size and visibility belong to the wrapper; the variation, the text, toggle_mode, disabled, focus and the signals belong to the face. Hide or show the wrapper, not the face.
 - Icons: the tinted ones are white SVGs in `dist/pack/icons/` (the pack's copy of `pages/components/icons`, currentColor written as white): a TextureRect tints one with the `self_modulate` its line gives (the colour the page draws it in), a Button with its variation's `icon_*_color`, an OptionButton its arrow with `modulate_arrow`. The room pictograms are white copies too (`dist/pack/icons/room/`), drawn in ink: their lines give the `self_modulate`. The pack's `assets` list every icon with its tint and `svg_scale`.
-- SVG import: Godot rasterises an SVG at import, so import each at `svg/scale` = the largest size it is drawn ÷ its viewBox (the largest over every screen that draws it, as the pack's `assets` give it): `chevron-down` 1 (24 px), `pointer` 1 (24 px), `radio-checked` 1 (24 px), `radio-checked-disabled` 1 (24 px), `radio-unchecked` 1 (24 px), `slider-knob` 1 (28 px), `slider-knob-disabled` 1 (28 px).
+- SVG import: Godot rasterises an SVG at import, so import each at `svg/scale` = the largest size it is drawn ÷ its viewBox (the largest over every screen that draws it, as the pack's `assets` give it): `chevron-down` 1 (24 px), `pointer` 1.5 (36 px), `radio-checked` 1 (24 px), `radio-checked-disabled` 1 (24 px), `radio-unchecked` 1 (24 px), `slider-knob` 1 (42 px), `slider-knob-disabled` 1 (42 px).
 - An OptionButton's open list is its `get_popup()`, a PopupMenu in a window of its own: set its `theme_type_variation` to `ToyDropdownList` in code when the scene is ready (a cream list with the dropdown's ink outline, a lavender hovered or keyboard-focused row). The selected item shows the theme icon `radio_checked` (`dist/pack/icons/radio-checked.svg`, `radio_checked_disabled` `dist/pack/icons/radio-checked-disabled.svg`); the others `radio_unchecked` and `radio_unchecked_disabled` (`dist/pack/icons/radio-unchecked.svg`, empty, so every label starts at the same x). PopupMenu does not tint these icons, so they are drawn in their own colours (not white; the pack names them in the variation's `textures`). Its rounded corners need the default embedded subwindows (`display/window/subwindows/embed_subwindows` true).
 - A LineEdit's right-click menu is a PopupMenu too, but its labels (Cut, Copy, Paste, Select All, Clear, Undo, Redo, Text Writing Direction, …) are Godot's English source strings, translated at run time only through translations of those exact strings, which the copy deck (keyed, copy/strings.csv) does not have: in Ukrainian they would show in English. So LineEdits keep `context_menu_enabled = false`; the keyboard shortcuts (copy, paste, select all, undo) still work.
 - Boxes and grids take their gaps only from their spacing variation (ToyColumn…, ToyRow…, ToyGrid…), and a ScrollContainer the gap to its bar from ToyScroll; a box without one has a single child. No `theme_override_constants`: the theme test forbids them.

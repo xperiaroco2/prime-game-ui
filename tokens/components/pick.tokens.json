@@ -55,7 +55,7 @@
       }
     },
     "check-box": {
-      "$description": "A bare CheckBox's look (Godot's CheckBox base type, prime-game-ui#52): borderless on the purple, the box texture at its left (28 px: empty mint, checked green with an ink check) and the mint label 12 px after it. Hover lays the lighter purple under it, checked or not (the box shows the check). It sets every item a Button sets, so the Button base type never reaches it.",
+      "$description": "A bare CheckBox's look (Godot's CheckBox base type, prime-game-ui#52): borderless on the purple, the box texture at its left (42 px: empty mint, checked green with an ink check) and the mint label 12 px after it. Hover lays the lighter purple under it, checked or not (the box shows the check). It sets every item a Button sets, so the Button base type never reaches it.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": {

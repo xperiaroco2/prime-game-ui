@@ -144,6 +144,39 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
   - the new HUD plates, the roster and the slots cast the edge-form shadow, as the existing plates (agent);
   - a mutation card's "not enough" state is only its disabled button, as on the sketch; the workbench panel is
     ToyPanelDialog (42 px inside where the sketch has 39 and 45) (agent).
+- **The screens s01 to s05 at the 0.75 scale, for the MVP** (the audit `docs/research/2026-10-20-mvp-screens/audit.md`,
+  the sketches `pages/mvp-screens/` and `pages/sticker/` × 1.5; it replaces the Styled screens lengths below for these
+  five screens). The look choices the agent took alone:
+  - gaps: each old gap × 1.5 taken to the nearest step of the space scale (4→8, 8→12, 12→16, 16→24, 24→32; 32 stays),
+    so no spacing variation is added (agent);
+  - edges 39 px (the sketch's 26 × 1.5): the language chips, the lobby HUD, the tutorial's HUD and plates, the version
+    (agent);
+  - the Esc menu is 1536×864, 0.8 of the screen: the sketch's 1230×672 holds the host settings alone, the Lobby tab
+    also needs its players column, the code row and Ready; the tabs keep 288 px (agent);
+  - the Lobby tab: the four preset cards share the page width (at least 196 px), as on the sketch; the controls in a
+    345 px column at the right (the sketch's 230 × 1.5), steppers and chips right-aligned, the stepper value 156 px;
+    the players column 420 px (agent);
+  - the anger threshold is a pair of toggle chips, as on the sketch; a player who is not the host sees its value (agent);
+  - setting rows are at least 96 px (the field row's height, 64 × 1.5) in every list (agent);
+  - the Settings controls sit in a 450 px column (the sticker sketch's 300 × 1.5), in the Esc menu and in the main
+    menu's Settings panel (812 to 1881 px across, 90 to 990 down) (agent);
+  - the Guide's card stands its four frames two by two (272×204 art) beside a 360 px topic list, so the art stays large;
+    s3 and s8 keep one row (agent);
+  - Character: the preview 456×608, the swatches 60 px (agent); the Game tab's buttons keep 760 px (agent);
+  - the main menu column at the sticker sketch's place, 84 and 66 px in, 600 px wide; the code and Direct panels keep
+    784 px (agent);
+  - connecting 1152 px and the failure column 1272 px (× 1.5); the loading column 960 px and the tip plate 1072 px, as
+    at × 1.5 the names and their states read apart (agent);
+  - the lobby HUD's players plate is 570 px (the sticker sketch's 380 × 1.5) (agent);
+  - the tutorial draws the MVP round HUD of s7 without the timer, the anger meter, the roster (the lesson list takes the
+    top right) and the role: the bars with their captions (the sketch omits them) and the mic beside them at the bottom
+    left, item bar A 51 px up at the bottom right; the lesson plate 1140 px, the list 520 px from 270 px down (agent);
+  - Controls lose the two spectating keys (spectating left the MVP) and gain Crouch, Sneak and Throw, the game's keys
+    since rounds 4 and 5 (agent);
+  - icons at the new scale: the slider knob and the check boxes 42 px with a 6 px outline, the spin arrows 27 px; the
+    mic drawn at 42, the check at 36, the lock and the teammate mark at 30 (agent);
+  - a human's Role tab lists the other humans under the existing «Твоя команда · {count}» (agent);
+  - every MVP task's how-to card shows Delivery's frames as a placeholder until its own wordless art is drawn (agent).
 
 ## Principles
 - **The UI never tells the player what to do.** No "take it to X" line, no destination marker, no key prompts on the HUD;

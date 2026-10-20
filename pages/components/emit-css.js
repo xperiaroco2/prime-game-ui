@@ -385,8 +385,14 @@ function emitComponentsCss(sys) {
     // taller than its control's height, and a percentage height inside (a bar in its track) needs a definite one.
     const grows = variant.class !== 'Panel';
     const wide = new Map();
+    // The box draws its expand margins inside it (padding plus a negative margin), so the rect Godot lays out is the
+    // box less them: a size constant is the rect's minimum, so the box is the size plus the idle record's expand
+    // margins on that axis (the edge-form slots of item bar A: 150 + 8, so their 111 px picture fits the content).
+    const exSides = (name) => (/height$/.test(name) ? ['top', 'bottom'] : ['left', 'right']);
+    const exTerms = (name) => (mainRec ? exSides(name).map((s) => [mainRec[`expand-margin-${s}`], `expand-margin-${s}`]).filter(([ex]) => px(ex) !== 0) : []);
     for (const [name, f] of Object.entries(variant.size || {})) {
-      const css = len(variant, f, `size.${name}`);
+      const ex = exTerms(name);
+      const css = ex.length ? sum(variant, [[f, `size.${name}`], ...ex], []) : len(variant, f, `size.${name}`);
       if (name === 'min-width' || name === 'height') base.set(name, css);
       else if (name === 'width') base.set(grows ? 'min-width' : 'width', css);
       else if (name === 'wide-width') wide.set(grows ? 'min-width' : 'width', css);

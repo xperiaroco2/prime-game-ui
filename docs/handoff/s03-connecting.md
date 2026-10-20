@@ -10,7 +10,7 @@ The styled connecting, failures and loading screen from the UI track (xperiaroco
 - **How to read it:** the roots are children of the screen's full-rect root `Control`; every property not listed keeps Godot's default; sizes and offsets are reference px. In a state's **Shown** list, the first node of each subtree gives its path from the screen root.
 - **Texts** are keys of `copy/strings.csv`, and the language switches live (the Esc menu's Settings). A plain key is set as `text` and translates itself. A key with placeholders, a plural key (`tr_n`) and a key drawn in pieces are set from code with `auto_translate_mode = DISABLED`: `tr()`, then `String.format()` with the data (the samples below), rebuilt on `NOTIFICATION_TRANSLATION_CHANGED`. A "text from data" (names, the room code, times, numbers) is set in code and never translated (`auto_translate_mode = DISABLED`).
 
-One screen on the opaque night backdrop for the join (its steps and each failure in plain words), a session that ended (lost, map failed, error), a host that could not start, and the map loading with the players and a tip or a how-to card. Leaving (left, closed) shows nothing here: straight to s2. Every text is rebuilt on NOTIFICATION_TRANSLATION_CHANGED.
+One screen on the opaque night backdrop for the join (its steps and each failure in plain words), a session that ended (lost, map failed, error), a host that could not start, and the map loading with the players and a tip or a how-to card. Leaving (left, closed) shows nothing here: straight to s2. Every text is rebuilt on NOTIFICATION_TRANSLATION_CHANGED. Open (the engineer's design): whether loading shows the aliens' flight to Earth (m8 §1). New work: wordless card art for each MVP task; the load-card frame shows Delivery's art as a placeholder.
 
 ## States
 
@@ -37,16 +37,16 @@ One screen on the opaque night backdrop for the join (its steps and each failure
 
 - **Night** `Panel` · variation `ToyBackdropNight` · anchors `full_rect`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both
   - Note: Opaque; the style's darkest, used as the decided black. mouse_filter STOP, so nothing behind it takes input.
-- **Connecting** `VBoxContainer` · variation `ToyColumnTwentyFour` · anchors `center`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both · custom_minimum_size (768, 0) · gaps from the variation: separation 24 · alignment `ALIGNMENT_CENTER`
+- **Connecting** `VBoxContainer` · variation `ToyColumnThirtyTwo` · anchors `center`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both · custom_minimum_size (1152, 0) · gaps from the variation: separation 32 · alignment `ALIGNMENT_CENTER`
   - Note: Shown from Join until the lobby (s4) or a failure. Under the texts, a code join shows the code (CodeRow) and then the time since Join in m:ss (Elapsed). A Direct join shows no address and no CodeRow.
   - **Spinner** `Panel` · variation `ToySpinner` · size flags horizontal `SIZE_SHRINK_CENTER` · custom_minimum_size (135, 135) = Vector2(get_theme_constant("width", "ToySpinner"), get_theme_constant("height", "ToySpinner"))
     - Note: Turns once a second about its centre (pivot_offset_ratio 0.5, 0.5); half speed under reduced motion.
-  - **Texts** `VBoxContainer` · variation `ToyColumnEight` · gaps from the variation: separation 8
-    - **Title** `Label` · variation `ToyTitleOnDark` · custom_minimum_size (768, 0) · text `connect.connecting_unnamed`: en "Connecting…" · uk "Підключення…" · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
+  - **Texts** `VBoxContainer` · variation `ToyColumnTwelve` · gaps from the variation: separation 12
+    - **Title** `Label` · variation `ToyTitleOnDark` · custom_minimum_size (1152, 0) · text `connect.connecting_unnamed`: en "Connecting…" · uk "Підключення…" · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
       - Note: connect.connecting_unnamed until the host's lobby name arrives (#214), then connect.connecting with {lobby}: a name the host typed is player data and never translated; while the host's lobby name is the default, {lobby} = tr("lobby.default_name") with the host's name, as on s4.
     - **Step** `Label` · variation `ToyTextOnDark` · text `connect.step.finding`: en "Finding the game" · uk "Пошук гри" · horizontal_alignment `CENTER`
       - Note: JoinProgress.step(): FINDING -&gt; connect.step.finding, CONNECTING -&gt; connect.step.connecting, JOINED -&gt; connect.step.joined. A Direct join starts at CONNECTING.
-  - **CodeRow** `HBoxContainer` · variation `ToyRowEight` · size flags horizontal `SIZE_SHRINK_CENTER` · gaps from the variation: separation 8
+  - **CodeRow** `HBoxContainer` · variation `ToyRowTwelve` · size flags horizontal `SIZE_SHRINK_CENTER` · gaps from the variation: separation 12
     - Note: A code join only (hidden for a Direct join).
     - **Label** `Label` · variation `ToyTextMutedOnDark` · size flags vertical `SIZE_SHRINK_CENTER` · text `common.code`: en "Code" · uk "Код"
     - **Code** `PanelContainer` · variation `ToyKeyOnDark` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (36, 0) = Vector2(get_theme_constant("min_width", "ToyKeyOnDark"), 0)
@@ -73,13 +73,13 @@ One screen on the opaque night backdrop for the join (its steps and each failure
 
 - **Hidden:** `Connecting`.
 - **Shown:**
-  - **Failure** `VBoxContainer` · variation `ToyColumnThirtyTwo` · anchors `center`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both · custom_minimum_size (848, 0) · gaps from the variation: separation 32 · alignment `ALIGNMENT_CENTER`
+  - **Failure** `VBoxContainer` · variation `ToyColumnThirtyTwo` · anchors `center`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both · custom_minimum_size (1272, 0) · gaps from the variation: separation 32 · alignment `ALIGNMENT_CENTER`
     - Note: One layout for every failure: what happened, then one action and Back. The texts come from the EndReasons id (the table in the spec, s3).
-    - **Texts** `VBoxContainer` · variation `ToyColumnSixteen` · gaps from the variation: separation 16
-      - **Title** `Label` · variation `ToyTitleOnDark` · custom_minimum_size (848, 0) · text `connect.fail.title`: en "Couldn't connect" · uk "Не вдалося підключитися" · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
+    - **Texts** `VBoxContainer` · variation `ToyColumnTwentyFour` · gaps from the variation: separation 24
+      - **Title** `Label` · variation `ToyTitleOnDark` · custom_minimum_size (1272, 0) · text `connect.fail.title`: en "Couldn't connect" · uk "Не вдалося підключитися" · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
         - Note: Join failures share connect.fail.title; a session that ended or a host that could not start has its own title.
-      - **Body** `Label` · variation `ToyTextMutedOnDark` · custom_minimum_size (848, 0) · text `connect.fail.no_room`: en "No game has this code. Check it with the host." · uk "Гри з таким кодом немає. Перевір код у хоста." · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
-    - **Buttons** `HBoxContainer` · variation `ToyRowSixteen` · gaps from the variation: separation 16 · alignment `ALIGNMENT_CENTER`
+      - **Body** `Label` · variation `ToyTextMutedOnDark` · custom_minimum_size (1272, 0) · text `connect.fail.no_room`: en "No game has this code. Check it with the host." · uk "Гри з таким кодом немає. Перевір код у хоста." · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
+    - **Buttons** `HBoxContainer` · variation `ToyRowTwentyFour` · gaps from the variation: separation 24 · alignment `ALIGNMENT_CENTER`
       - **BackSolo** `Button` · variation `ToyButtonSecondary` (raised: ToyRaised with base `ToyBaseRaisedOnDark`, ToyPress; UiParts.button()) · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper · text `common.back`: en "Back" · uk "Назад" · shown with keyboard focus (grab_focus)
         - Note: Back when it is the only button (no_room, the version failures, lost, map failed, error): raised on its ToyRaised wrapper, focused on open. Same action as BackGhost; the two are separate nodes because only this one has a base.
 
@@ -87,13 +87,13 @@ One screen on the opaque night backdrop for the join (its steps and each failure
 
 - **Hidden:** `Connecting`.
 - **Shown:**
-  - **Failure** `VBoxContainer` · variation `ToyColumnThirtyTwo` · anchors `center`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both · custom_minimum_size (848, 0) · gaps from the variation: separation 32 · alignment `ALIGNMENT_CENTER`
+  - **Failure** `VBoxContainer` · variation `ToyColumnThirtyTwo` · anchors `center`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both · custom_minimum_size (1272, 0) · gaps from the variation: separation 32 · alignment `ALIGNMENT_CENTER`
     - Note: One layout for every failure: what happened, then one action and Back. The texts come from the EndReasons id (the table in the spec, s3).
-    - **Texts** `VBoxContainer` · variation `ToyColumnSixteen` · gaps from the variation: separation 16
-      - **Title** `Label` · variation `ToyTitleOnDark` · custom_minimum_size (848, 0) · text `connect.fail.title`: en "Couldn't connect" · uk "Не вдалося підключитися" · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
+    - **Texts** `VBoxContainer` · variation `ToyColumnTwentyFour` · gaps from the variation: separation 24
+      - **Title** `Label` · variation `ToyTitleOnDark` · custom_minimum_size (1272, 0) · text `connect.fail.title`: en "Couldn't connect" · uk "Не вдалося підключитися" · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
         - Note: Join failures share connect.fail.title; a session that ended or a host that could not start has its own title.
-      - **Body** `Label` · variation `ToyTextMutedOnDark` · custom_minimum_size (848, 0) · text `connect.fail.started`: en "The round has already started. Join when everyone is back in the lobby." · uk "Раунд уже почався. Приєднуйся, коли всі повернуться в лобі." · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
-    - **Buttons** `HBoxContainer` · variation `ToyRowSixteen` · gaps from the variation: separation 16 · alignment `ALIGNMENT_CENTER`
+      - **Body** `Label` · variation `ToyTextMutedOnDark` · custom_minimum_size (1272, 0) · text `connect.fail.started`: en "The round has already started. Join when everyone is back in the lobby." · uk "Раунд уже почався. Приєднуйся, коли всі повернуться в лобі." · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
+    - **Buttons** `HBoxContainer` · variation `ToyRowTwentyFour` · gaps from the variation: separation 24 · alignment `ALIGNMENT_CENTER`
       - **Primary** `Button` · variation `ToyButtonPrimary` (raised: ToyRaised with base `ToyBasePrimaryOnDark`, ToyPress; UiParts.button()) · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper · text `connect.fail.retry`: en "Try again" · uk "Спробувати ще" · shown with keyboard focus (grab_focus)
         - Note: Focus on open. connect.fail.retry tries the same target again (host-failed: hosts again the same way); connect.fail.direct opens s2 direct with the code kept in its field. Absent where the failure has no action.
       - **BackGhost** `Button` · variation `ToyButtonGhostOnDark` · text `common.back`: en "Back" · uk "Назад"
@@ -103,17 +103,17 @@ One screen on the opaque night backdrop for the join (its steps and each failure
 
 - **Hidden:** `Connecting`.
 - **Shown:**
-  - **Failure** `VBoxContainer` · variation `ToyColumnThirtyTwo` · anchors `center`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both · custom_minimum_size (848, 0) · gaps from the variation: separation 32 · alignment `ALIGNMENT_CENTER`
+  - **Failure** `VBoxContainer` · variation `ToyColumnThirtyTwo` · anchors `center`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both · custom_minimum_size (1272, 0) · gaps from the variation: separation 32 · alignment `ALIGNMENT_CENTER`
     - Note: One layout for every failure: what happened, then one action and Back. The texts come from the EndReasons id (the table in the spec, s3).
-    - **Texts** `VBoxContainer` · variation `ToyColumnSixteen` · gaps from the variation: separation 16
-      - **Title** `Label` · variation `ToyTitleOnDark` · custom_minimum_size (848, 0) · text `connect.fail.title`: en "Couldn't connect" · uk "Не вдалося підключитися" · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
+    - **Texts** `VBoxContainer` · variation `ToyColumnTwentyFour` · gaps from the variation: separation 24
+      - **Title** `Label` · variation `ToyTitleOnDark` · custom_minimum_size (1272, 0) · text `connect.fail.title`: en "Couldn't connect" · uk "Не вдалося підключитися" · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
         - Note: Join failures share connect.fail.title; a session that ended or a host that could not start has its own title.
-      - **Body** `Label` · variation `ToyTextMutedOnDark` · custom_minimum_size (848, 0) · text `connect.fail.version`: en "The host has another version of the game. You need the same one." · uk "У хоста інша версія гри. Потрібна така сама." · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
-      - **Versions** `VBoxContainer` · variation `ToyColumnFour` · gaps from the variation: separation 4
+      - **Body** `Label` · variation `ToyTextMutedOnDark` · custom_minimum_size (1272, 0) · text `connect.fail.version`: en "The host has another version of the game. You need the same one." · uk "У хоста інша версія гри. Потрібна така сама." · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
+      - **Versions** `VBoxContainer` · variation `ToyColumnEight` · gaps from the variation: separation 8
         - Note: fail-version only, and only when the game can name the versions (protocol and content from JoinProgress.found_detail); hidden when unknown.
         - **Host** `Label` · variation `ToyTextOnDark` · text `connect.fail.version_host` with sample {version} = "0.5 (a1b2c3)": en "Host: 0.5 (a1b2c3)" · uk "Хост: 0.5 (a1b2c3)" · horizontal_alignment `CENTER`
         - **Own** `Label` · variation `ToyTextOnDark` · text `connect.fail.version_own` with sample {version} = "0.4 (9f8e7d)": en "You: 0.4 (9f8e7d)" · uk "Ти: 0.4 (9f8e7d)" · horizontal_alignment `CENTER`
-    - **Buttons** `HBoxContainer` · variation `ToyRowSixteen` · gaps from the variation: separation 16 · alignment `ALIGNMENT_CENTER`
+    - **Buttons** `HBoxContainer` · variation `ToyRowTwentyFour` · gaps from the variation: separation 24 · alignment `ALIGNMENT_CENTER`
       - **BackSolo** `Button` · variation `ToyButtonSecondary` (raised: ToyRaised with base `ToyBaseRaisedOnDark`, ToyPress; UiParts.button()) · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper · text `common.back`: en "Back" · uk "Назад" · shown with keyboard focus (grab_focus)
         - Note: Back when it is the only button (no_room, the version failures, lost, map failed, error): raised on its ToyRaised wrapper, focused on open. Same action as BackGhost; the two are separate nodes because only this one has a base.
 
@@ -121,13 +121,13 @@ One screen on the opaque night backdrop for the join (its steps and each failure
 
 - **Hidden:** `Connecting`.
 - **Shown:**
-  - **Failure** `VBoxContainer` · variation `ToyColumnThirtyTwo` · anchors `center`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both · custom_minimum_size (848, 0) · gaps from the variation: separation 32 · alignment `ALIGNMENT_CENTER`
+  - **Failure** `VBoxContainer` · variation `ToyColumnThirtyTwo` · anchors `center`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both · custom_minimum_size (1272, 0) · gaps from the variation: separation 32 · alignment `ALIGNMENT_CENTER`
     - Note: One layout for every failure: what happened, then one action and Back. The texts come from the EndReasons id (the table in the spec, s3).
-    - **Texts** `VBoxContainer` · variation `ToyColumnSixteen` · gaps from the variation: separation 16
-      - **Title** `Label` · variation `ToyTitleOnDark` · custom_minimum_size (848, 0) · text `connect.fail.title`: en "Couldn't connect" · uk "Не вдалося підключитися" · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
+    - **Texts** `VBoxContainer` · variation `ToyColumnTwentyFour` · gaps from the variation: separation 24
+      - **Title** `Label` · variation `ToyTitleOnDark` · custom_minimum_size (1272, 0) · text `connect.fail.title`: en "Couldn't connect" · uk "Не вдалося підключитися" · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
         - Note: Join failures share connect.fail.title; a session that ended or a host that could not start has its own title.
-      - **Body** `Label` · variation `ToyTextMutedOnDark` · custom_minimum_size (848, 0) · text `connect.fail.full`: en "The lobby is full." · uk "Лобі заповнене." · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
-    - **Buttons** `HBoxContainer` · variation `ToyRowSixteen` · gaps from the variation: separation 16 · alignment `ALIGNMENT_CENTER`
+      - **Body** `Label` · variation `ToyTextMutedOnDark` · custom_minimum_size (1272, 0) · text `connect.fail.full`: en "The lobby is full." · uk "Лобі заповнене." · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
+    - **Buttons** `HBoxContainer` · variation `ToyRowTwentyFour` · gaps from the variation: separation 24 · alignment `ALIGNMENT_CENTER`
       - **Primary** `Button` · variation `ToyButtonPrimary` (raised: ToyRaised with base `ToyBasePrimaryOnDark`, ToyPress; UiParts.button()) · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper · text `connect.fail.retry`: en "Try again" · uk "Спробувати ще" · shown with keyboard focus (grab_focus)
         - Note: Focus on open. connect.fail.retry tries the same target again (host-failed: hosts again the same way); connect.fail.direct opens s2 direct with the code kept in its field. Absent where the failure has no action.
       - **BackGhost** `Button` · variation `ToyButtonGhostOnDark` · text `common.back`: en "Back" · uk "Назад"
@@ -137,13 +137,13 @@ One screen on the opaque night backdrop for the join (its steps and each failure
 
 - **Hidden:** `Connecting`.
 - **Shown:**
-  - **Failure** `VBoxContainer` · variation `ToyColumnThirtyTwo` · anchors `center`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both · custom_minimum_size (848, 0) · gaps from the variation: separation 32 · alignment `ALIGNMENT_CENTER`
+  - **Failure** `VBoxContainer` · variation `ToyColumnThirtyTwo` · anchors `center`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both · custom_minimum_size (1272, 0) · gaps from the variation: separation 32 · alignment `ALIGNMENT_CENTER`
     - Note: One layout for every failure: what happened, then one action and Back. The texts come from the EndReasons id (the table in the spec, s3).
-    - **Texts** `VBoxContainer` · variation `ToyColumnSixteen` · gaps from the variation: separation 16
-      - **Title** `Label` · variation `ToyTitleOnDark` · custom_minimum_size (848, 0) · text `connect.fail.title`: en "Couldn't connect" · uk "Не вдалося підключитися" · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
+    - **Texts** `VBoxContainer` · variation `ToyColumnTwentyFour` · gaps from the variation: separation 24
+      - **Title** `Label` · variation `ToyTitleOnDark` · custom_minimum_size (1272, 0) · text `connect.fail.title`: en "Couldn't connect" · uk "Не вдалося підключитися" · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
         - Note: Join failures share connect.fail.title; a session that ended or a host that could not start has its own title.
-      - **Body** `Label` · variation `ToyTextMutedOnDark` · custom_minimum_size (848, 0) · text `connect.fail.service`: en "The code service isn't answering. Join directly with the host's address." · uk "Сервіс кодів не відповідає. Приєднайся напряму за адресою хоста." · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
-    - **Buttons** `HBoxContainer` · variation `ToyRowSixteen` · gaps from the variation: separation 16 · alignment `ALIGNMENT_CENTER`
+      - **Body** `Label` · variation `ToyTextMutedOnDark` · custom_minimum_size (1272, 0) · text `connect.fail.service`: en "The code service isn't answering. Join directly with the host's address." · uk "Сервіс кодів не відповідає. Приєднайся напряму за адресою хоста." · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
+    - **Buttons** `HBoxContainer` · variation `ToyRowTwentyFour` · gaps from the variation: separation 24 · alignment `ALIGNMENT_CENTER`
       - **Primary** `Button` · variation `ToyButtonPrimary` (raised: ToyRaised with base `ToyBasePrimaryOnDark`, ToyPress; UiParts.button()) · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper · text `connect.fail.direct`: en "Join directly" · uk "Приєднатися напряму" · shown with keyboard focus (grab_focus)
         - Note: Focus on open. connect.fail.retry tries the same target again (host-failed: hosts again the same way); connect.fail.direct opens s2 direct with the code kept in its field. Absent where the failure has no action.
       - **BackGhost** `Button` · variation `ToyButtonGhostOnDark` · text `common.back`: en "Back" · uk "Назад"
@@ -153,13 +153,13 @@ One screen on the opaque night backdrop for the join (its steps and each failure
 
 - **Hidden:** `Connecting`.
 - **Shown:**
-  - **Failure** `VBoxContainer` · variation `ToyColumnThirtyTwo` · anchors `center`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both · custom_minimum_size (848, 0) · gaps from the variation: separation 32 · alignment `ALIGNMENT_CENTER`
+  - **Failure** `VBoxContainer` · variation `ToyColumnThirtyTwo` · anchors `center`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both · custom_minimum_size (1272, 0) · gaps from the variation: separation 32 · alignment `ALIGNMENT_CENTER`
     - Note: One layout for every failure: what happened, then one action and Back. The texts come from the EndReasons id (the table in the spec, s3).
-    - **Texts** `VBoxContainer` · variation `ToyColumnSixteen` · gaps from the variation: separation 16
-      - **Title** `Label` · variation `ToyTitleOnDark` · custom_minimum_size (848, 0) · text `connect.fail.title`: en "Couldn't connect" · uk "Не вдалося підключитися" · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
+    - **Texts** `VBoxContainer` · variation `ToyColumnTwentyFour` · gaps from the variation: separation 24
+      - **Title** `Label` · variation `ToyTitleOnDark` · custom_minimum_size (1272, 0) · text `connect.fail.title`: en "Couldn't connect" · uk "Не вдалося підключитися" · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
         - Note: Join failures share connect.fail.title; a session that ended or a host that could not start has its own title.
-      - **Body** `Label` · variation `ToyTextMutedOnDark` · custom_minimum_size (848, 0) · text `connect.fail.unreachable`: en "No link to the host. If the lobby has room, ask the host for an address and join directly." · uk "Немає звʼязку з хостом. Якщо в лобі є місце, попроси в хоста адресу й приєднайся напряму." · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
-    - **Buttons** `HBoxContainer` · variation `ToyRowSixteen` · gaps from the variation: separation 16 · alignment `ALIGNMENT_CENTER`
+      - **Body** `Label` · variation `ToyTextMutedOnDark` · custom_minimum_size (1272, 0) · text `connect.fail.unreachable`: en "No link to the host. If the lobby has room, ask the host for an address and join directly." · uk "Немає звʼязку з хостом. Якщо в лобі є місце, попроси в хоста адресу й приєднайся напряму." · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
+    - **Buttons** `HBoxContainer` · variation `ToyRowTwentyFour` · gaps from the variation: separation 24 · alignment `ALIGNMENT_CENTER`
       - **Primary** `Button` · variation `ToyButtonPrimary` (raised: ToyRaised with base `ToyBasePrimaryOnDark`, ToyPress; UiParts.button()) · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper · text `connect.fail.direct`: en "Join directly" · uk "Приєднатися напряму" · shown with keyboard focus (grab_focus)
         - Note: Focus on open. connect.fail.retry tries the same target again (host-failed: hosts again the same way); connect.fail.direct opens s2 direct with the code kept in its field. Absent where the failure has no action.
       - **BackGhost** `Button` · variation `ToyButtonGhostOnDark` · text `common.back`: en "Back" · uk "Назад"
@@ -169,13 +169,13 @@ One screen on the opaque night backdrop for the join (its steps and each failure
 
 - **Hidden:** `Connecting`.
 - **Shown:**
-  - **Failure** `VBoxContainer` · variation `ToyColumnThirtyTwo` · anchors `center`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both · custom_minimum_size (848, 0) · gaps from the variation: separation 32 · alignment `ALIGNMENT_CENTER`
+  - **Failure** `VBoxContainer` · variation `ToyColumnThirtyTwo` · anchors `center`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both · custom_minimum_size (1272, 0) · gaps from the variation: separation 32 · alignment `ALIGNMENT_CENTER`
     - Note: One layout for every failure: what happened, then one action and Back. The texts come from the EndReasons id (the table in the spec, s3).
-    - **Texts** `VBoxContainer` · variation `ToyColumnSixteen` · gaps from the variation: separation 16
-      - **Title** `Label` · variation `ToyTitleOnDark` · custom_minimum_size (848, 0) · text `connect.fail.title`: en "Couldn't connect" · uk "Не вдалося підключитися" · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
+    - **Texts** `VBoxContainer` · variation `ToyColumnTwentyFour` · gaps from the variation: separation 24
+      - **Title** `Label` · variation `ToyTitleOnDark` · custom_minimum_size (1272, 0) · text `connect.fail.title`: en "Couldn't connect" · uk "Не вдалося підключитися" · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
         - Note: Join failures share connect.fail.title; a session that ended or a host that could not start has its own title.
-      - **Body** `Label` · variation `ToyTextMutedOnDark` · custom_minimum_size (848, 0) · text `connect.fail.body`: en "The host isn't answering. Check the address and the network." · uk "Хост не відповідає. Перевір адресу й мережу." · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
-    - **Buttons** `HBoxContainer` · variation `ToyRowSixteen` · gaps from the variation: separation 16 · alignment `ALIGNMENT_CENTER`
+      - **Body** `Label` · variation `ToyTextMutedOnDark` · custom_minimum_size (1272, 0) · text `connect.fail.body`: en "The host isn't answering. Check the address and the network." · uk "Хост не відповідає. Перевір адресу й мережу." · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
+    - **Buttons** `HBoxContainer` · variation `ToyRowTwentyFour` · gaps from the variation: separation 24 · alignment `ALIGNMENT_CENTER`
       - **Primary** `Button` · variation `ToyButtonPrimary` (raised: ToyRaised with base `ToyBasePrimaryOnDark`, ToyPress; UiParts.button()) · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper · text `connect.fail.retry`: en "Try again" · uk "Спробувати ще" · shown with keyboard focus (grab_focus)
         - Note: Focus on open. connect.fail.retry tries the same target again (host-failed: hosts again the same way); connect.fail.direct opens s2 direct with the code kept in its field. Absent where the failure has no action.
       - **BackGhost** `Button` · variation `ToyButtonGhostOnDark` · text `common.back`: en "Back" · uk "Назад"
@@ -185,13 +185,13 @@ One screen on the opaque night backdrop for the join (its steps and each failure
 
 - **Hidden:** `Connecting`.
 - **Shown:**
-  - **Failure** `VBoxContainer` · variation `ToyColumnThirtyTwo` · anchors `center`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both · custom_minimum_size (848, 0) · gaps from the variation: separation 32 · alignment `ALIGNMENT_CENTER`
+  - **Failure** `VBoxContainer` · variation `ToyColumnThirtyTwo` · anchors `center`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both · custom_minimum_size (1272, 0) · gaps from the variation: separation 32 · alignment `ALIGNMENT_CENTER`
     - Note: One layout for every failure: what happened, then one action and Back. The texts come from the EndReasons id (the table in the spec, s3).
-    - **Texts** `VBoxContainer` · variation `ToyColumnSixteen` · gaps from the variation: separation 16
-      - **Title** `Label` · variation `ToyTitleOnDark` · custom_minimum_size (848, 0) · text `connect.lost.title`: en "Connection lost" · uk "Звʼязок втрачено" · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
+    - **Texts** `VBoxContainer` · variation `ToyColumnTwentyFour` · gaps from the variation: separation 24
+      - **Title** `Label` · variation `ToyTitleOnDark` · custom_minimum_size (1272, 0) · text `connect.lost.title`: en "Connection lost" · uk "Звʼязок втрачено" · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
         - Note: Join failures share connect.fail.title; a session that ended or a host that could not start has its own title.
-      - **Body** `Label` · variation `ToyTextMutedOnDark` · custom_minimum_size (848, 0) · text `connect.lost.body`: en "The session was closed, or the network dropped." · uk "Сесію закрито або обірвалася мережа." · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
-    - **Buttons** `HBoxContainer` · variation `ToyRowSixteen` · gaps from the variation: separation 16 · alignment `ALIGNMENT_CENTER`
+      - **Body** `Label` · variation `ToyTextMutedOnDark` · custom_minimum_size (1272, 0) · text `connect.lost.body`: en "The session was closed, or the network dropped." · uk "Сесію закрито або обірвалася мережа." · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
+    - **Buttons** `HBoxContainer` · variation `ToyRowTwentyFour` · gaps from the variation: separation 24 · alignment `ALIGNMENT_CENTER`
       - **BackSolo** `Button` · variation `ToyButtonSecondary` (raised: ToyRaised with base `ToyBaseRaisedOnDark`, ToyPress; UiParts.button()) · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper · text `common.back`: en "Back" · uk "Назад" · shown with keyboard focus (grab_focus)
         - Note: Back when it is the only button (no_room, the version failures, lost, map failed, error): raised on its ToyRaised wrapper, focused on open. Same action as BackGhost; the two are separate nodes because only this one has a base.
 
@@ -199,13 +199,13 @@ One screen on the opaque night backdrop for the join (its steps and each failure
 
 - **Hidden:** `Connecting`.
 - **Shown:**
-  - **Failure** `VBoxContainer` · variation `ToyColumnThirtyTwo` · anchors `center`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both · custom_minimum_size (848, 0) · gaps from the variation: separation 32 · alignment `ALIGNMENT_CENTER`
+  - **Failure** `VBoxContainer` · variation `ToyColumnThirtyTwo` · anchors `center`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both · custom_minimum_size (1272, 0) · gaps from the variation: separation 32 · alignment `ALIGNMENT_CENTER`
     - Note: One layout for every failure: what happened, then one action and Back. The texts come from the EndReasons id (the table in the spec, s3).
-    - **Texts** `VBoxContainer` · variation `ToyColumnSixteen` · gaps from the variation: separation 16
-      - **Title** `Label` · variation `ToyTitleOnDark` · custom_minimum_size (848, 0) · text `connect.map_fail.title`: en "The map didn't load" · uk "Мапа не завантажилася" · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
+    - **Texts** `VBoxContainer` · variation `ToyColumnTwentyFour` · gaps from the variation: separation 24
+      - **Title** `Label` · variation `ToyTitleOnDark` · custom_minimum_size (1272, 0) · text `connect.map_fail.title`: en "The map didn't load" · uk "Мапа не завантажилася" · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
         - Note: Join failures share connect.fail.title; a session that ended or a host that could not start has its own title.
-      - **Body** `Label` · variation `ToyTextMutedOnDark` · custom_minimum_size (848, 0) · text `connect.map_fail.body`: en "The round goes on without you." · uk "Раунд іде без тебе." · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
-    - **Buttons** `HBoxContainer` · variation `ToyRowSixteen` · gaps from the variation: separation 16 · alignment `ALIGNMENT_CENTER`
+      - **Body** `Label` · variation `ToyTextMutedOnDark` · custom_minimum_size (1272, 0) · text `connect.map_fail.body`: en "The round goes on without you." · uk "Раунд іде без тебе." · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
+    - **Buttons** `HBoxContainer` · variation `ToyRowTwentyFour` · gaps from the variation: separation 24 · alignment `ALIGNMENT_CENTER`
       - **BackSolo** `Button` · variation `ToyButtonSecondary` (raised: ToyRaised with base `ToyBaseRaisedOnDark`, ToyPress; UiParts.button()) · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper · text `common.back`: en "Back" · uk "Назад" · shown with keyboard focus (grab_focus)
         - Note: Back when it is the only button (no_room, the version failures, lost, map failed, error): raised on its ToyRaised wrapper, focused on open. Same action as BackGhost; the two are separate nodes because only this one has a base.
 
@@ -213,13 +213,13 @@ One screen on the opaque night backdrop for the join (its steps and each failure
 
 - **Hidden:** `Connecting`.
 - **Shown:**
-  - **Failure** `VBoxContainer` · variation `ToyColumnThirtyTwo` · anchors `center`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both · custom_minimum_size (848, 0) · gaps from the variation: separation 32 · alignment `ALIGNMENT_CENTER`
+  - **Failure** `VBoxContainer` · variation `ToyColumnThirtyTwo` · anchors `center`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both · custom_minimum_size (1272, 0) · gaps from the variation: separation 32 · alignment `ALIGNMENT_CENTER`
     - Note: One layout for every failure: what happened, then one action and Back. The texts come from the EndReasons id (the table in the spec, s3).
-    - **Texts** `VBoxContainer` · variation `ToyColumnSixteen` · gaps from the variation: separation 16
-      - **Title** `Label` · variation `ToyTitleOnDark` · custom_minimum_size (848, 0) · text `connect.error.title`: en "The session stopped" · uk "Сесію зупинено" · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
+    - **Texts** `VBoxContainer` · variation `ToyColumnTwentyFour` · gaps from the variation: separation 24
+      - **Title** `Label` · variation `ToyTitleOnDark` · custom_minimum_size (1272, 0) · text `connect.error.title`: en "The session stopped" · uk "Сесію зупинено" · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
         - Note: Join failures share connect.fail.title; a session that ended or a host that could not start has its own title.
-      - **Body** `Label` · variation `ToyTextMutedOnDark` · custom_minimum_size (848, 0) · text `connect.error.body`: en "The game ran into an error. The details are in the log." · uk "У грі сталася помилка. Подробиці — в журналі." · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
-    - **Buttons** `HBoxContainer` · variation `ToyRowSixteen` · gaps from the variation: separation 16 · alignment `ALIGNMENT_CENTER`
+      - **Body** `Label` · variation `ToyTextMutedOnDark` · custom_minimum_size (1272, 0) · text `connect.error.body`: en "The game ran into an error. The details are in the log." · uk "У грі сталася помилка. Подробиці — в журналі." · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
+    - **Buttons** `HBoxContainer` · variation `ToyRowTwentyFour` · gaps from the variation: separation 24 · alignment `ALIGNMENT_CENTER`
       - **BackSolo** `Button` · variation `ToyButtonSecondary` (raised: ToyRaised with base `ToyBaseRaisedOnDark`, ToyPress; UiParts.button()) · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper · text `common.back`: en "Back" · uk "Назад" · shown with keyboard focus (grab_focus)
         - Note: Back when it is the only button (no_room, the version failures, lost, map failed, error): raised on its ToyRaised wrapper, focused on open. Same action as BackGhost; the two are separate nodes because only this one has a base.
 
@@ -227,13 +227,13 @@ One screen on the opaque night backdrop for the join (its steps and each failure
 
 - **Hidden:** `Connecting`.
 - **Shown:**
-  - **Failure** `VBoxContainer` · variation `ToyColumnThirtyTwo` · anchors `center`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both · custom_minimum_size (848, 0) · gaps from the variation: separation 32 · alignment `ALIGNMENT_CENTER`
+  - **Failure** `VBoxContainer` · variation `ToyColumnThirtyTwo` · anchors `center`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both · custom_minimum_size (1272, 0) · gaps from the variation: separation 32 · alignment `ALIGNMENT_CENTER`
     - Note: One layout for every failure: what happened, then one action and Back. The texts come from the EndReasons id (the table in the spec, s3).
-    - **Texts** `VBoxContainer` · variation `ToyColumnSixteen` · gaps from the variation: separation 16
-      - **Title** `Label` · variation `ToyTitleOnDark` · custom_minimum_size (848, 0) · text `connect.host_fail.title`: en "Couldn't start the game" · uk "Не вдалося створити гру" · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
+    - **Texts** `VBoxContainer` · variation `ToyColumnTwentyFour` · gaps from the variation: separation 24
+      - **Title** `Label` · variation `ToyTitleOnDark` · custom_minimum_size (1272, 0) · text `connect.host_fail.title`: en "Couldn't start the game" · uk "Не вдалося створити гру" · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
         - Note: Join failures share connect.fail.title; a session that ended or a host that could not start has its own title.
-      - **Body** `Label` · variation `ToyTextMutedOnDark` · custom_minimum_size (848, 0) · text `connect.error.body`: en "The game ran into an error. The details are in the log." · uk "У грі сталася помилка. Подробиці — в журналі." · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
-    - **Buttons** `HBoxContainer` · variation `ToyRowSixteen` · gaps from the variation: separation 16 · alignment `ALIGNMENT_CENTER`
+      - **Body** `Label` · variation `ToyTextMutedOnDark` · custom_minimum_size (1272, 0) · text `connect.error.body`: en "The game ran into an error. The details are in the log." · uk "У грі сталася помилка. Подробиці — в журналі." · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
+    - **Buttons** `HBoxContainer` · variation `ToyRowTwentyFour` · gaps from the variation: separation 24 · alignment `ALIGNMENT_CENTER`
       - **Primary** `Button` · variation `ToyButtonPrimary` (raised: ToyRaised with base `ToyBasePrimaryOnDark`, ToyPress; UiParts.button()) · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper · text `connect.fail.retry`: en "Try again" · uk "Спробувати ще" · shown with keyboard focus (grab_focus)
         - Note: Focus on open. connect.fail.retry tries the same target again (host-failed: hosts again the same way); connect.fail.direct opens s2 direct with the code kept in its field. Absent where the failure has no action.
       - **BackGhost** `Button` · variation `ToyButtonGhostOnDark` · text `common.back`: en "Back" · uk "Назад"
@@ -243,43 +243,44 @@ One screen on the opaque night backdrop for the join (its steps and each failure
 
 - **Hidden:** `Connecting`.
 - **Shown:**
-  - **Loading** `VBoxContainer` · variation `ToyColumnSixteen` · anchors `center_top`, offsets 0, 368, 0, 368 (left, top, right, bottom), grow both/end · custom_minimum_size (768, 0) · gaps from the variation: separation 16
+  - **Loading** `VBoxContainer` · variation `ToyColumnTwentyFour` · anchors `center_top`, offsets 0, 392, 0, 392 (left, top, right, bottom), grow both/end · custom_minimum_size (960, 0) · gaps from the variation: separation 24
+    - Note: Whether loading shows the aliens' flight to Earth (the lobby is their spaceship) is open: m8 §1.
     - **Title** `Label` · variation `ToyTitleOnDark` · text `loading.title`: en "Loading the map" · uk "Завантаження мапи" · horizontal_alignment `CENTER`
-    - **Bar** `ProgressBar` · variation `ToyBarProgress` · custom_minimum_size (768, 16) · value 62 of max_value 100, show_percentage false
+    - **Bar** `ProgressBar` · variation `ToyBarProgress` · custom_minimum_size (960, 24) · value 62 of max_value 100, show_percentage false
       - Note: This machine's load fraction.
-    - **Players** `VBoxContainer` · variation `ToyColumnEight` · gaps from the variation: separation 8
+    - **Players** `VBoxContainer` · variation `ToyColumnTwelve` · gaps from the variation: separation 12
       - Note: One row per player, the host first, then in join order; the own row (Row) reads player.you, the other rows the player's name (auto_translate_mode DISABLED).
-      - **HostRow** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
+      - **HostRow** `HBoxContainer` · variation `ToyRowSixteen` · gaps from the variation: separation 16
         - **Name** `Label` · variation `ToyTextOnDark` · size flags horizontal `SIZE_EXPAND_FILL` · text from data (auto_translate_mode = DISABLED), sample: "Olena" / "Олена" · clip_text true · text_overrun_behavior `OVERRUN_TRIM_ELLIPSIS`
         - **State** `Label` · variation `ToyTextOnDark` · text `loading.player_ready`: en "Ready" · uk "Готово"
-      - **Row** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
+      - **Row** `HBoxContainer` · variation `ToyRowSixteen` · gaps from the variation: separation 16
         - **Name** `Label` · variation `ToyTextOnDark` · size flags horizontal `SIZE_EXPAND_FILL` · text `player.you`: en "You" · uk "Ти" · clip_text true · text_overrun_behavior `OVERRUN_TRIM_ELLIPSIS`
         - **State** `Label` · variation `ToyTextMutedOnDark` · text `loading.player_loading`: en "Loading…" · uk "Завантаження…"
           - Note: loading.player_loading in ToyTextMutedOnDark while the player loads; loading.player_ready in ToyTextOnDark once loaded.
-      - **OtherRow** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
+      - **OtherRow** `HBoxContainer` · variation `ToyRowSixteen` · gaps from the variation: separation 16
         - **Name** `Label` · variation `ToyTextOnDark` · size flags horizontal `SIZE_EXPAND_FILL` · text from data (auto_translate_mode = DISABLED), sample: "Taras" / "Тарас" · clip_text true · text_overrun_behavior `OVERRUN_TRIM_ELLIPSIS`
         - **State** `Label` · variation `ToyTextMutedOnDark` · text `loading.player_loading`: en "Loading…" · uk "Завантаження…"
-  - **Tip** `PanelContainer` · variation `ToyPlate` · anchors `center_bottom`, offsets 0, -88, 0, -88 (left, top, right, bottom), grow both/both · custom_minimum_size (1072, 0)
-    - **Text** `Label` · variation `ToyPlateText` · custom_minimum_size (1036, 0) · text `tip.two_hands`: en "Don't forget: you have two hands." · uk "Не забувай: у тебе дві руки." · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
-      - Note: One random tip.* key per loading.
+  - **Tip** `PanelContainer` · variation `ToyPlate` · anchors `center_bottom`, offsets 0, -132, 0, -132 (left, top, right, bottom), grow both/both · custom_minimum_size (1072, 0)
+    - **Text** `Label` · variation `ToyPlateText` · custom_minimum_size (1024, 0) · text `tip.neighbours`: en "The neighbours are light sleepers." · uk "Сусіди сплять чутко." · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
+      - Note: One random tip.* key per loading (tip.neighbours, tip.two_hands).
 
 ## `load-card`: what differs from `finding`
 
 - **Hidden:** `Connecting`.
 - **Shown:**
-  - **Head** `VBoxContainer` · variation `ToyColumnTwelve` · anchors `center_top`, offsets 0, 64, 0, 64 (left, top, right, bottom), grow both/end · custom_minimum_size (768, 0) · gaps from the variation: separation 12
+  - **Head** `VBoxContainer` · variation `ToyColumnSixteen` · anchors `center_top`, offsets 0, 96, 0, 96 (left, top, right, bottom), grow both/end · custom_minimum_size (1152, 0) · gaps from the variation: separation 16
     - **Title** `Label` · variation `ToyTitleOnDark` · text `loading.title`: en "Loading the map" · uk "Завантаження мапи" · horizontal_alignment `CENTER`
-    - **Bar** `ProgressBar` · variation `ToyBarProgress` · custom_minimum_size (768, 16) · value 62 of max_value 100, show_percentage false
-  - **Card** `PanelContainer` · variation `ToyPanelHowto` (raised: ToyRaised with base `ToyBasePanel`) · anchors `center`, offsets 0, 40, 0, 40 (left, top, right, bottom), grow both/both · custom_minimum_size (1616, 0) · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper
-    - Note: The how-to card (P8) of a task type in this round that the player has not completed: at most twice per type and never after its first completion (user:// counters, #254). Content data per task type; here the House's Delivery. No line says the task is new.
-    - **V** `VBoxContainer` · variation `ToyColumnSixteen` · gaps from the variation: separation 16
-      - **Head** `HBoxContainer` · variation `ToyRowSixteen` · gaps from the variation: separation 16
-        - **Title** `Label` · variation `ToyTitleOnLight` · size flags horizontal `SIZE_EXPAND_FILL` · text `task.delivery`: en "Delivery" · uk "Доставка"
+    - **Bar** `ProgressBar` · variation `ToyBarProgress` · custom_minimum_size (1152, 24) · value 62 of max_value 100, show_percentage false
+  - **Card** `PanelContainer` · variation `ToyPanelHowto` (raised: ToyRaised with base `ToyBasePanel`) · anchors `center`, offsets 0, 39, 0, 39 (left, top, right, bottom), grow both/both · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper
+    - Note: The how-to card (P8) of a task type in this round that the player has not completed: at most twice per type and never after its first completion (user:// counters, #254). Content data per task type; here Cooking, one of the MVP's five, with PLACEHOLDER art (Delivery's frames) until the MVP task cards are drawn (new work: wordless card art per MVP task). No line says the task is new. Its width is its four frames' (352 px art each).
+    - **V** `VBoxContainer` · variation `ToyColumnTwentyFour` · gaps from the variation: separation 24
+      - **Head** `HBoxContainer` · variation `ToyRowTwentyFour` · gaps from the variation: separation 24
+        - **Title** `Label` · variation `ToyTitleOnLight` · size flags horizontal `SIZE_EXPAND_FILL` · text `task.cooking`: en "Cooking" · uk "Готування"
         - **Note** `Label` · variation `ToyHowtoNote` · size flags vertical `SIZE_SHRINK_CENTER` · text `howto.label`: en "How to" · uk "Як робити"
-      - **Frames** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
+      - **Frames** `HBoxContainer` · variation `ToyRowSixteen` · gaps from the variation: separation 16
         - **Take** `PanelContainer` · variation `ToyHowtoFrame` · size flags horizontal `SIZE_EXPAND_FILL`
           - **Art** `TextureRect` · custom_minimum_size (352, 264) · texture `card/delivery-meaning-1` (dist/pack/cards/delivery-meaning-1.png, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · not tinted (drawn in its own colours)
-            - Note: The card's art: one picture per frame from the card data (#254), here the pack's Delivery-by-meaning PNGs (the House's Delivery) dist/pack/cards/delivery-meaning-1.png … delivery-meaning-4.png (640x480, transparent). expand_mode IGNORE_SIZE, stretch_mode KEEP_ASPECT_CENTERED; 352x264 here, 320x240 in s8. The cards are wordless: a frame holds only its art, no caption.
+            - Note: PLACEHOLDER art: the pack's Delivery-by-meaning PNGs dist/pack/cards/delivery-meaning-1.png … delivery-meaning-4.png (640x480, transparent), until each MVP task has its own wordless card. expand_mode IGNORE_SIZE, stretch_mode KEEP_ASPECT_CENTERED; 352x264 here, 320x240 in s8 and 272x204 in s5's Guide; the same card as s5/Guide/Card and s8/Guide/Card. The cards are wordless: a frame holds only its art, no caption.
         - **Sign** `PanelContainer` · variation `ToyHowtoFrame` · size flags horizontal `SIZE_EXPAND_FILL`
           - **Art** `TextureRect` · custom_minimum_size (352, 264) · texture `card/delivery-meaning-2` (dist/pack/cards/delivery-meaning-2.png, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · not tinted (drawn in its own colours)
         - **Find** `PanelContainer` · variation `ToyHowtoFrame` · size flags horizontal `SIZE_EXPAND_FILL`
@@ -299,8 +300,8 @@ One screen on the opaque night backdrop for the join (its steps and each failure
 
 ## Keys
 
-- **Drawn** (34): `common.back`, `common.cancel`, `common.code`, `connect.connecting`, `connect.connecting_unnamed`, `connect.error.body`, `connect.error.title`, `connect.fail.body`, `connect.fail.direct`, `connect.fail.full`, `connect.fail.no_room`, `connect.fail.retry`, `connect.fail.service`, `connect.fail.started`, `connect.fail.title`, `connect.fail.unreachable`, `connect.fail.version`, `connect.fail.version_host`, `connect.fail.version_own`, `connect.host_fail.title`, `connect.lost.body`, `connect.lost.title`, `connect.map_fail.body`, `connect.map_fail.title`, `connect.step.connecting`, `connect.step.finding`, `connect.step.joined`, `howto.label`, `loading.player_loading`, `loading.player_ready`, `loading.title`, `player.you`, `task.delivery`, `tip.two_hands`.
-- **Named only in the notes** (wire them too): `lobby.default_name`.
+- **Drawn** (34): `common.back`, `common.cancel`, `common.code`, `connect.connecting`, `connect.connecting_unnamed`, `connect.error.body`, `connect.error.title`, `connect.fail.body`, `connect.fail.direct`, `connect.fail.full`, `connect.fail.no_room`, `connect.fail.retry`, `connect.fail.service`, `connect.fail.started`, `connect.fail.title`, `connect.fail.unreachable`, `connect.fail.version`, `connect.fail.version_host`, `connect.fail.version_own`, `connect.host_fail.title`, `connect.lost.body`, `connect.lost.title`, `connect.map_fail.body`, `connect.map_fail.title`, `connect.step.connecting`, `connect.step.finding`, `connect.step.joined`, `howto.label`, `loading.player_loading`, `loading.player_ready`, `loading.title`, `player.you`, `task.cooking`, `tip.neighbours`.
+- **Named only in the notes** (wire them too): `lobby.default_name`, `tip.two_hands`.
 
 ## Layers and input (every screen)
 

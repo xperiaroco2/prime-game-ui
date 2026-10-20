@@ -131,7 +131,7 @@
       }
     },
     "slider-control": {
-      "$description": "The panel slider (volumes, voice threshold): a white track and a green fill, both with a 5 px ink outline, a 28 px mint knob texture (slider-knob.svg; slider-knob-disabled.svg when not editable), an outer focus ring.",
+      "$description": "The panel slider (volumes, voice threshold): a white track and a green fill, both with a 5 px ink outline, a 42 px mint knob texture (slider-knob.svg; slider-knob-disabled.svg when not editable), an outer focus ring.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": {
