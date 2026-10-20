@@ -49,6 +49,11 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
   humans know each other) is passed to the design track, prime-game#1095.
 - **The round timer has no plate** (the engineer, 2026-10-20, chat, on the MVP screens page): mint Rubik digits with
   the ink text outline, centred at the top, the anger bar under it.
+- **The top of the round HUD** (the engineer, 2026-10-20, chat, on the MVP screens page): the time with no plate, the
+  neighbours' anger right under it, the bar itself exactly centred (its siren hangs off the bar's right end), and the
+  roster at the top right. This replaces "only the time at the top" (Styled screens below). The anger meter's look
+  (A a bar, B pips, C the siren filling up) is still his to pick.
+- **No points on the HUD** (the engineer, 2026-10-20, chat): the points show only on the mutation workbench screen.
 - **The sticker tokens, ui-1.0.0** (the re-skin of every Toy variation; the guide is
   `docs/research/2026-10-20-vibe/restyle-guide.md`). The look choices the agent took alone:
   - state shades inside the palette: mint, green and coral each one step lighter for hover and darker for held, a

@@ -83,14 +83,13 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
 
 /* round HUD: edges 26 px in; the time and the anger bar centred at the top */
 .st .role { left: 26px; top: 26px; }
-.st .pts { left: 26px; top: 66px; display: flex; align-items: center; gap: 10px; padding: 0 14px; }
-.st .pts .num { font-size: 26px; }
-.st .pop { left: 150px; top: 76px; }
 .st .timer { left: 50%; top: 22px; transform: translateX(-50%); text-align: center; }
 .st .timer.plate { padding: 2px 18px; min-width: 96px; }
 .st .timer.bare { font: 700 34px/1.1 var(--fn); color: var(--mint); -webkit-text-stroke: 8px var(--ink); paint-order: stroke fill; }
 /* the anger meter, centred under the time: A a bar with the siren at its end, B pips, C the siren filling up */
 .st .am { left: 50%; top: 64px; transform: translateX(-50%); display: flex; align-items: center; gap: 6px; }
+/* the bar or the pips sit exactly under the time; the siren hangs off their right end and does not shift the centre */
+.st .am > .sir { position: absolute; left: 100%; top: 50%; margin-left: 6px; transform: translateY(-50%); }
 .st .sir { width: 38px; height: 38px; --dome: #B7A8D6; --rays: 0; }
 .st .sir.on { --dome: #FF8A6B; --rays: 1; }
 .st .am .track { width: 150px; height: 20px; border-radius: 12px; }
@@ -105,7 +104,8 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
 .st .row3 { position: absolute; left: 0; width: 440px; height: 110px; }
 .st .row3 > .stk { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); }
 .st .row3 .tc { position: absolute; left: 290px; top: 50%; transform: translate(-50%, -50%); display: grid; justify-items: center; gap: 2px; }
-.st .tc .timer, .st .tc .am { position: static; transform: none; }
+.st .tc .timer { position: static; transform: none; }
+.st .tc .am { position: relative; left: auto; top: auto; transform: none; }
 .st .aim { left: 50%; top: calc(50% + 22px); transform: translateX(-50%); }
 .st .bars { left: 26px; bottom: 26px; width: 200px; display: grid; gap: 8px; }
 .st .mic { left: 244px; bottom: 26px; width: 50px; height: 50px; border-radius: 50%; }
@@ -202,7 +202,7 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
 /* two variants side by side, centred (open questions) */
 .st .pair { left: 50%; top: 50%; transform: translate(-50%, -50%); display: flex; gap: 90px; align-items: flex-start; }
 .st .col { display: grid; gap: 16px; justify-items: center; }
-.st .col .am { position: static; transform: none; }
+.st .col .am { position: relative; left: auto; top: auto; transform: none; }
 .st .kn { padding: 8px 18px; font: 900 24px/1.2 var(--ft); white-space: nowrap; }
 
 /* the timer comparison: four world stand-ins (light, dark) x (framed, bare) */
@@ -246,12 +246,10 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
 
   <!-- 1. Round HUD: points, anger, timer -->
   <section class="screen">
-    <h2>1 · Раунд: очки, гнів сусідів, таймер</h2>
-    <div class="tags"><span class="tag new">нове: очки, гнів</span><span class="tag chg">зміна: роль, предмети, таймер</span><span class="tag chg">змінює записане рішення</span><span class="tag draft">чернетка текстів</span></div>
+    <h2>1 · Раунд: таймер, гнів сусідів, гравці</h2>
+    <div class="tags"><span class="tag new">нове: гнів, список гравців</span><span class="tag chg">зміна: роль, предмети, таймер</span><span class="tag draft">чернетка текстів</span></div>
     <div class="frame st"><div class="stage">
       <span class="abs role stk mi">Прибулець</span>
-      <div class="abs pts plate"><span class="lab">Очки</span><span class="num">7</span></div>
-      <span class="abs pop stk gr">+2</span>
       <div class="abs timer bare">07:42</div>
       <div class="abs am"><div class="track"><b style="width:55%;background:var(--co)"></b></div><svg class="sir on"><use href="#i-siren"/></svg></div>
       <div class="abs roster panel"><div class="rw me"><i class="hue" style="background:#7C5CC8"></i>Олена (ти)</div><div class="rw"><i class="hue" style="background:#1C7A82"></i>Ґлорп</div><div class="rw"><i class="hue" style="background:#E66B57"></i>Їжак</div><div class="rw"><i class="hue" style="background:#E8B04A"></i>Бульк</div><div class="rw"><i class="hue" style="background:#4AA3DF"></i>Зінґа</div><div class="rw dead"><i class="hue" style="background:#D46FB0"></i>Тарас · мертвий</div></div>
@@ -261,8 +259,8 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
       <div class="abs mic plate"><i></i><u></u><s></s></div>
       <div class="abs ia"><div class="sl plate on"><svg><use href="#i-rocket"/></svg></div><div class="sl plate"><svg><use href="#i-bun"/></svg></div></div>
     </div></div>
-    <p class="cap">Нагорі по центру — час без рамки, під ним гнів сусідів: смужка із сиреною. Це заглушка — варіант А з розділу «Гнів сусідів: три варіанти»; кадри 1, 1а, 2 і 4 показують його, поки ви не оберете. Коралова заливка росте, поки пакість не виправили; сирена світиться, поки гнів росте; феєрверк дає стрибок. Ліворуч угорі — твої очки й коротке «+2». Праворуч угорі — усі гравці з кольорами їхніх тіл (ваше рішення, 20.10; кольори — зразки). Руки й пояс — варіант А з розділу нижче, лише як заглушка. (m8 §4, §5; GDD §8)</p>
-    <div class="q"><p><b>Для вас — зміна записаного рішення:</b> у рішеннях UI записано «нагорі лише час». Тепер нагорі ще очки (ліворуч), смужка гніву (під часом) і список гравців (праворуч). Лишаємо так чи переносимо?</p></div>
+    <p class="cap">Нагорі по центру — час без рамки, під ним гнів сусідів: смужка із сиреною. Це заглушка — варіант А з розділу «Гнів сусідів: три варіанти»; кадри 1, 1а, 2 і 4 показують його, поки ви не оберете. Коралова заливка росте, поки пакість не виправили; сирена світиться, поки гнів росте; феєрверк дає стрибок. Смужка стоїть точно по центру під часом, сирена — праворуч від неї. Очок на HUD немає: їх видно лише на верстаті мутацій (ваше рішення, 20.10). Праворуч угорі — усі гравці з кольорами їхніх тіл (ваше рішення, 20.10; кольори — зразки). Руки й пояс — варіант А з розділу нижче, лише як заглушка. (m8 §4, §5; GDD §8)</p>
+    <div class="q"><p><b>Вирішено вами (20.10):</b> нагорі — час без рамки, під ним гнів сусідів по центру, праворуч — список гравців. Це замінює записане раніше «нагорі лише час».</p></div>
     <div class="q"><p><b>Відкрито:</b> скільки очок за що (§4 «ще перевірити»). Чи показувати на HUD куплені мутації. Чи показувати в списку мертвих (тут — блідо, «мертвий»).</p></div>
   </section>
 
@@ -272,7 +270,6 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
     <div class="tags"><span class="tag new">нове: люди бачать своїх</span><span class="tag draft">чернетка текстів</span></div>
     <div class="frame st"><div class="stage">
       <span class="abs role stk co">Людина</span>
-      <div class="abs pts plate"><span class="lab">Очки</span><span class="num">4</span></div>
       <div class="abs timer bare">07:42</div>
       <div class="abs am"><div class="track"><b style="width:55%;background:var(--co)"></b></div><svg class="sir on"><use href="#i-siren"/></svg></div>
       <div class="abs roster panel"><div class="rw me"><i class="hue" style="background:#E8B04A"></i>Бульк (ти)<span class="hm">людина</span></div><div class="rw"><i class="hue" style="background:#7C5CC8"></i>Олена</div><div class="rw"><i class="hue" style="background:#1C7A82"></i>Ґлорп</div><div class="rw"><i class="hue" style="background:#E66B57"></i>Їжак</div><div class="rw"><i class="hue" style="background:#4AA3DF"></i>Зінґа<span class="hm">людина</span></div><div class="rw dead"><i class="hue" style="background:#D46FB0"></i>Тарас · мертвий</div></div>
@@ -294,7 +291,6 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
     <div class="duo">
     <div class="frame st"><div class="stage">
       <span class="abs role stk mi">Прибулець</span>
-      <div class="abs pts plate"><span class="lab">Очки</span><span class="num">7</span></div>
       <div class="abs timer bare">07:42</div>
       <div class="abs am"><div class="track"><b style="width:55%;background:var(--co)"></b></div><svg class="sir on"><use href="#i-siren"/></svg></div>
       <div class="abs roster panel"><div class="rw me"><i class="hue" style="background:#7C5CC8"></i>Олена (ти)</div><div class="rw"><i class="hue" style="background:#1C7A82"></i>Ґлорп</div><div class="rw"><i class="hue" style="background:#E66B57"></i>Їжак</div><div class="rw"><i class="hue" style="background:#E8B04A"></i>Бульк</div><div class="rw"><i class="hue" style="background:#4AA3DF"></i>Зінґа</div><div class="rw dead"><i class="hue" style="background:#D46FB0"></i>Тарас · мертвий</div></div>
@@ -311,7 +307,6 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
     <div class="duo">
     <div class="frame st"><div class="stage">
       <span class="abs role stk mi">Прибулець</span>
-      <div class="abs pts plate"><span class="lab">Очки</span><span class="num">7</span></div>
       <div class="abs timer bare">07:42</div>
       <div class="abs am"><div class="pips"><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip"></i><i class="pip"></i><i class="pip"></i></div><svg class="sir on"><use href="#i-siren"/></svg></div>
       <div class="abs roster panel"><div class="rw me"><i class="hue" style="background:#7C5CC8"></i>Олена (ти)</div><div class="rw"><i class="hue" style="background:#1C7A82"></i>Ґлорп</div><div class="rw"><i class="hue" style="background:#E66B57"></i>Їжак</div><div class="rw"><i class="hue" style="background:#E8B04A"></i>Бульк</div><div class="rw"><i class="hue" style="background:#4AA3DF"></i>Зінґа</div><div class="rw dead"><i class="hue" style="background:#D46FB0"></i>Тарас · мертвий</div></div>
@@ -328,7 +323,6 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
     <div class="duo">
     <div class="frame st"><div class="stage">
       <span class="abs role stk mi">Прибулець</span>
-      <div class="abs pts plate"><span class="lab">Очки</span><span class="num">7</span></div>
       <div class="abs timer bare">07:42</div>
       <div class="abs am"><div class="sc on"><svg><use href="#i-siren"/></svg><div class="fl" style="height:52%"><svg><use href="#i-siren"/></svg></div></div></div>
       <div class="abs roster panel"><div class="rw me"><i class="hue" style="background:#7C5CC8"></i>Олена (ти)</div><div class="rw"><i class="hue" style="background:#1C7A82"></i>Ґлорп</div><div class="rw"><i class="hue" style="background:#E66B57"></i>Їжак</div><div class="rw"><i class="hue" style="background:#E8B04A"></i>Бульк</div><div class="rw"><i class="hue" style="background:#4AA3DF"></i>Зінґа</div><div class="rw dead"><i class="hue" style="background:#D46FB0"></i>Тарас · мертвий</div></div>
@@ -444,7 +438,6 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
     <div class="tags"><span class="tag new">нове</span><span class="tag draft">чернетка текстів</span></div>
     <div class="frame st"><div class="stage">
       <span class="abs role stk mi">Прибулець</span>
-      <div class="abs pts plate"><span class="lab">Очки</span><span class="num">11</span></div>
       <div class="abs timer bare">04:12</div>
       <div class="abs am"><div class="track"><b style="width:100%;background:var(--co);border-right:0"></b></div><svg class="sir on"><use href="#i-siren"/></svg></div>
       <div class="abs roster panel"><div class="rw me"><i class="hue" style="background:#7C5CC8"></i>Олена (ти)</div><div class="rw"><i class="hue" style="background:#1C7A82"></i>Ґлорп</div><div class="rw"><i class="hue" style="background:#E66B57"></i>Їжак</div><div class="rw"><i class="hue" style="background:#E8B04A"></i>Бульк</div><div class="rw"><i class="hue" style="background:#4AA3DF"></i>Зінґа</div><div class="rw"><i class="hue" style="background:#D46FB0"></i>Тарас</div></div>
@@ -491,7 +484,7 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
         <span class="lab hint">Esc — закрити</span>
       </div>
     </div></div>
-    <p class="cap">У лабораторії: три позитивні мутації за очки — швидший біг, вищий стрибок, більше здоров'я. Два стани картки: можна купити і бракує очок. Стану «уже є» немає, поки не вирішено, чи можна купити двічі. Ціни — заглушки. (m8 §4, #1040)</p>
+    <p class="cap">У лабораторії: три позитивні мутації за очки — швидший біг, вищий стрибок, більше здоров'я. Два стани картки: можна купити і бракує очок. Стану «уже є» немає, поки не вирішено, чи можна купити двічі. Очки видно лише тут, на HUD їх немає (ваше рішення, 20.10). Ціни — заглушки. (m8 §4, #1040)</p>
     <div class="q"><p><b>Відкрито:</b> ціна кожної; чи можна купити ту саму двічі; чи діє мутація до кінця матчу чи до смерті; назви мутацій.</p></div>
   </section>
 
