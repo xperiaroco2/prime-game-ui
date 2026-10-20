@@ -1,0 +1,393 @@
+<title>Alien Party Vibes</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@800&family=Onest:wght@400;600;700&family=Martian+Mono:wght@500;700&family=Alumni+Sans:wght@600;800&family=Oi&family=Golos+Text:wght@400;600&family=Tektur:wght@500;700&family=Geologica:wght@400;600&family=Dela+Gothic+One&family=Wix+Madefor+Text:wght@400;600&family=Shantell+Sans:wght@500;800&family=Nunito+Sans:wght@400;700&family=Commissioner:wght@400;600;700&display=swap">
+<style>
+/* Layout: one column of five vibe "boards"; each board = a night-estate stage with the same HUD pieces, a menu card,
+   the palette and the type, so the directions compare like for like. The page chrome stays quiet graphite.
+   Single dark theme by choice: the samples are night scenes. */
+:root {
+  color-scheme: dark;
+  --ground: #141317;
+  --raise: #1C1B21;
+  --line: #2E2C35;
+  --ink: #ECE9F1;
+  --dim: #A6A2B1;
+  --chrome: "Commissioner", "Segoe UI", system-ui, sans-serif;
+}
+body { background: var(--ground); color: var(--ink); font: 16px/1.5 var(--chrome); }
+.wrap { max-width: 1040px; margin: 0 auto; padding-block: 28px 64px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid; gap: 56px; }
+h1 { font-size: clamp(30px, 6vw, 46px); line-height: 1.05; margin: 0; text-wrap: balance; letter-spacing: -0.01em; }
+h2 { font-size: clamp(24px, 4.4vw, 32px); line-height: 1.1; margin: 0; text-wrap: balance; }
+h3 { font-size: 13px; text-transform: uppercase; letter-spacing: .1em; color: var(--dim); margin: 0; font-weight: 600; }
+p { margin: 0; max-width: 66ch; }
+a { color: var(--ink); }
+.lede { color: var(--dim); font-size: 17px; }
+.intro { display: grid; gap: 14px; }
+.how { border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; background: var(--raise); display: grid; gap: 6px; }
+.how b { font-weight: 700; }
+
+.context { display: grid; grid-template-columns: 1fr 2.2fr; gap: 14px; align-items: stretch; }
+.context figure { margin: 0; display: grid; gap: 8px; min-width: 0; }
+.context img { width: 100%; height: 100%; object-fit: cover; border-radius: 12px; display: block; aspect-ratio: auto; }
+.context .pic { border-radius: 12px; overflow: hidden; height: 260px; }
+figcaption { color: var(--dim); font-size: 13px; }
+.hues { display: flex; flex-wrap: wrap; gap: 8px; }
+.hue { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--dim); }
+.hue i { width: 22px; height: 22px; border-radius: 50%; display: block; }
+
+.board { display: grid; gap: 18px; border-top: 1px solid var(--line); padding-top: 28px; }
+.board-head { display: grid; gap: 6px; }
+.board-head .num { font: 600 13px/1 var(--chrome); color: var(--dim); letter-spacing: .1em; }
+.frame { position: relative; width: 100%; max-width: 100%; aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden; background: #000; }
+.stage { position: absolute; left: 0; top: 0; width: 960px; height: 540px; transform-origin: 0 0; transform: scale(var(--s, 1)); }
+.stage > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.stage .shade { position: absolute; inset: 0; background: rgba(6, 4, 14, .28); }
+.row2 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 18px; align-items: start; }
+.panel-note { display: grid; gap: 10px; min-width: 0; }
+.swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 8px; }
+.sw { display: grid; gap: 4px; font-size: 12px; color: var(--dim); min-width: 0; }
+.sw i { display: block; height: 40px; border-radius: 8px; border: 1px solid var(--line); }
+.sw b { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
+.spec { background: var(--raise); border: 1px solid var(--line); border-radius: 12px; padding: 16px; display: grid; gap: 10px; min-width: 0; overflow-wrap: anywhere; }
+.spec .d { font-size: 34px; line-height: 1.05; }
+.spec .t { font-size: 17px; }
+.spec .m { font-size: 15px; color: var(--dim); }
+.spec small { color: var(--dim); font: 12px/1.3 var(--chrome); }
+.fit { display: grid; gap: 6px; font-size: 15px; }
+.fit span { color: var(--dim); }
+.refs { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 14px; }
+.refs a { color: var(--dim); }
+.refs a:hover, .refs a:focus-visible { color: var(--ink); }
+.menu-wrap { min-width: 0; }
+
+.glyphs { display: grid; gap: 0; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+.glyphs div { display: grid; grid-template-columns: 190px minmax(0, 1fr); gap: 12px; padding: 10px 14px; border-top: 1px solid var(--line); align-items: baseline; }
+.glyphs div:first-child { border-top: 0; }
+.glyphs span { color: var(--dim); font-size: 13px; }
+.glyphs p { font-size: 24px; overflow-wrap: anywhere; }
+.foot { color: var(--dim); font-size: 14px; display: grid; gap: 6px; }
+
+@media (max-width: 720px) {
+  .context, .row2 { grid-template-columns: minmax(0, 1fr); }
+  .context .pic { height: 200px; }
+  .glyphs div { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+}
+
+/* ---------- The samples. Godot-safe: solid fills, one-colour borders, radii, one shadow without spread. ---------- */
+.ui { position: absolute; }
+.timer { left: 50%; top: 26px; transform: translateX(-50%); }
+.anger { right: 26px; top: 26px; width: 236px; }
+.hand { left: 26px; bottom: 26px; }
+.bars { left: 128px; bottom: 30px; width: 190px; display: grid; gap: 8px; }
+.announce { left: 50%; top: 116px; transform: translateX(-50%); white-space: nowrap; }
+.cross { left: 50%; top: 50%; width: 6px; height: 6px; margin: -3px 0 0 -3px; border-radius: 50%; background: #FFFFFF; }
+.track { height: 14px; position: relative; overflow: hidden; }
+.track b { position: absolute; left: 0; top: 0; bottom: 0; display: block; }
+.slot { width: 88px; height: 88px; display: grid; place-items: end center; padding-bottom: 8px; box-sizing: border-box; }
+.menu { display: grid; gap: 12px; padding: 22px; max-width: 100%; box-sizing: border-box; }
+.menu .btn { display: block; text-align: center; padding: 12px 18px; }
+.menu .set { display: grid; gap: 8px; margin-top: 4px; }
+.menu .set .track { height: 12px; }
+
+/* 1. Night flyer */
+.v1 { --bg:#120B1F; --pd:#1E1433; --pl:#F2F0E6; --tx:#F4F1FF; --a1:#C8F000; --a2:#FF6A1A; --dg:#FF5A6A; --ok:#3DDC97; --mu:#9A8FB8;
+  --fd: "Unbounded", "Arial Black", sans-serif; --ft: "Onest", "Segoe UI", sans-serif; --fm: "Martian Mono", Consolas, monospace; }
+.v1 .timer { background: var(--pd); border: 3px solid var(--a1); border-radius: 999px; padding: 4px 22px; font: 700 28px/1.2 var(--fm); color: var(--a1); }
+.v1 .anger { background: var(--pd); border: 3px solid var(--mu); border-radius: 14px; padding: 12px 14px; display: grid; gap: 8px; }
+.v1 .anger .l { font: 800 13px/1 var(--fd); color: var(--a1); letter-spacing: .06em; }
+.v1 .track { background: var(--bg); border: 2px solid var(--mu); border-radius: 999px; }
+.v1 .track b { background: var(--a2); border-radius: 999px; }
+.v1 .cops { justify-self: start; background: var(--a2); color: var(--bg); border-radius: 999px; padding: 3px 12px; font: 700 14px/1.3 var(--ft); }
+.v1 .slot { background: var(--pd); border: 3px solid var(--a1); border-radius: 14px; font: 600 14px/1 var(--ft); color: var(--tx); }
+.v1 .bars .track.h b { background: var(--ok); } .v1 .bars .track.s b { background: var(--a1); }
+.v1 .announce { background: var(--pl); color: var(--bg); border: 3px solid var(--bg); border-radius: 14px; padding: 10px 22px; font: 800 28px/1.15 var(--fd); box-shadow: 6px 6px 0 var(--a2); }
+.v1 .menu { background: var(--pd); border: 3px solid var(--mu); border-radius: 18px; color: var(--tx); font: 400 16px/1.4 var(--ft); }
+.v1 .menu .title { font: 800 30px/1.05 var(--fd); color: var(--a1); }
+.v1 .menu .btn { border-radius: 999px; font: 700 18px/1.2 var(--ft); }
+.v1 .menu .p { background: var(--a1); color: var(--bg); border: 3px solid var(--bg); box-shadow: 0 5px 0 var(--a2); }
+.v1 .menu .s { background: transparent; color: var(--tx); border: 3px solid var(--tx); }
+.v1 .menu .g { color: var(--mu); }
+.v1 .spec .d { font-family: var(--fd); font-weight: 800; color: var(--a1); }
+.v1 .spec .t { font-family: var(--ft); } .v1 .spec .m { font-family: var(--fm); }
+
+/* 2. Live broadcast */
+.v2 { --bg:#0C0D12; --pd:#171923; --pl:#F5F5F2; --a1:#FFE500; --a2:#FF3D81; --dg:#FF4B3E; --ok:#2EE59D; --mu:#8B90A0; --tx:#F5F5F2;
+  --fd: "Alumni Sans", "Arial Narrow", sans-serif; --fr: "Oi", Georgia, serif; --ft: "Golos Text", "Segoe UI", sans-serif; }
+.v2 .timer { background: var(--pd); border-bottom: 5px solid var(--a1); border-radius: 2px; padding: 0 16px 2px; font: 800 42px/1.1 var(--fd); color: var(--tx); display: flex; gap: 12px; align-items: center; font-variant-numeric: tabular-nums; }
+.v2 .timer em { font: 800 15px/1 var(--fd); font-style: normal; background: var(--a2); color: var(--bg); padding: 4px 7px; border-radius: 2px; letter-spacing: .08em; }
+.v2 .anger { background: var(--pl); border-radius: 2px; padding: 10px 12px; display: grid; gap: 6px; border-left: 8px solid var(--a2); }
+.v2 .anger .l { font: 800 22px/1 var(--fd); color: var(--bg); letter-spacing: .04em; }
+.v2 .track { background: #D9D9D2; border-radius: 0; }
+.v2 .track b { background: var(--bg); }
+.v2 .cops { justify-self: start; background: var(--bg); color: var(--a1); padding: 2px 8px; font: 800 18px/1.2 var(--fd); letter-spacing: .06em; border-radius: 2px; }
+.v2 .slot { background: var(--pd); border-bottom: 5px solid var(--a1); border-radius: 2px; font: 600 14px/1 var(--ft); color: var(--tx); }
+.v2 .bars .track { background: var(--pd); height: 10px; } .v2 .bars .track.h b { background: var(--ok); } .v2 .bars .track.s b { background: var(--a1); }
+.v2 .announce { display: grid; justify-items: start; gap: 0; }
+.v2 .announce em { font: 800 16px/1 var(--fd); font-style: normal; background: var(--a1); color: var(--bg); padding: 5px 10px 4px; letter-spacing: .1em; }
+.v2 .announce span { background: var(--pd); color: var(--tx); border-left: 8px solid var(--a1); padding: 6px 20px 8px 14px; font: 800 38px/1 var(--fd); letter-spacing: .02em; }
+.v2 .menu { background: var(--pd); border-radius: 2px; border-top: 6px solid var(--a1); color: var(--tx); font: 400 16px/1.4 var(--ft); }
+.v2 .menu .title { font: 400 40px/1 var(--fr); color: var(--a1); }
+.v2 .menu .btn { border-radius: 2px; font: 800 24px/1 var(--fd); letter-spacing: .05em; text-transform: uppercase; }
+.v2 .menu .p { background: var(--a1); color: var(--bg); }
+.v2 .menu .s { background: var(--pl); color: var(--bg); }
+.v2 .menu .g { color: var(--mu); }
+.v2 .menu .set .track { background: var(--bg); } .v2 .menu .set .track b { background: var(--a1); }
+.v2 .spec .d { font-family: var(--fd); font-weight: 800; color: var(--a1); text-transform: uppercase; font-size: 40px; }
+.v2 .spec .r { font: 400 34px/1.05 var(--fr); color: var(--a2); }
+.v2 .spec .t { font-family: var(--ft); } .v2 .spec .m { font-family: var(--fd); font-size: 22px; font-weight: 600; }
+
+/* 3. Appliance with a mania */
+.v3 { --bg:#07100E; --pd:#0E1715; --bz:#2B3634; --ph:#3DF5C8; --gh:#163A32; --a2:#FF7A3D; --tx:#D8F5EC; --dg:#FF5050; --mu:#6E8F86;
+  --fd: "Tektur", "Arial", sans-serif; --ft: "Geologica", "Segoe UI", sans-serif; --fm: "Martian Mono", Consolas, monospace; }
+.v3 .timer { background: var(--pd); border: 6px solid var(--bz); border-radius: 18px; padding: 4px 18px; font: 700 32px/1.2 var(--fm); color: var(--ph); position: absolute; }
+.v3 .timer .ghost { position: absolute; left: 18px; top: 4px; color: var(--gh); }
+.v3 .timer .lit { position: relative; }
+.v3 .anger { background: var(--pd); border: 6px solid var(--bz); border-radius: 18px; padding: 10px 12px; display: grid; gap: 8px; }
+.v3 .anger .l { display: flex; gap: 10px; font: 700 12px/1 var(--fd); letter-spacing: .08em; color: var(--gh); }
+.v3 .anger .l .on { color: var(--a2); }
+.v3 .cells { display: grid; grid-template-columns: repeat(10, 1fr); gap: 4px; }
+.v3 .cells i { height: 14px; background: var(--gh); border-radius: 3px; }
+.v3 .cells i.on { background: var(--a2); }
+.v3 .cops { justify-self: start; font: 700 13px/1 var(--fm); color: var(--dg); border: 2px solid var(--dg); border-radius: 6px; padding: 4px 8px; }
+.v3 .slot { background: var(--pd); border: 6px solid var(--bz); border-radius: 18px; font: 600 14px/1 var(--ft); color: var(--ph); }
+.v3 .bars .track { background: var(--gh); border-radius: 3px; height: 10px; } .v3 .bars .track.h b { background: var(--ph); } .v3 .bars .track.s b { background: var(--a2); }
+.v3 .announce { background: var(--pd); border: 6px solid var(--bz); border-radius: 18px; padding: 8px 20px; display: grid; gap: 2px; }
+.v3 .announce em { font: 500 12px/1 var(--fm); font-style: normal; color: var(--mu); letter-spacing: .08em; }
+.v3 .announce span { font: 700 28px/1.15 var(--fd); color: var(--ph); letter-spacing: .03em; }
+.v3 .menu { background: var(--pd); border: 6px solid var(--bz); border-radius: 22px; color: var(--tx); font: 400 16px/1.4 var(--ft); }
+.v3 .menu .title { font: 700 28px/1.05 var(--fd); color: var(--ph); letter-spacing: .04em; }
+.v3 .menu .btn { border-radius: 10px; font: 600 17px/1.2 var(--ft); }
+.v3 .menu .p { background: var(--ph); color: var(--bg); border: 3px solid var(--ph); }
+.v3 .menu .s { background: transparent; color: var(--ph); border: 3px solid var(--ph); }
+.v3 .menu .g { color: var(--mu); }
+.v3 .menu .set .track { background: var(--gh); border-radius: 3px; } .v3 .menu .set .track b { background: var(--ph); }
+.v3 .spec .d { font-family: var(--fd); font-weight: 700; color: var(--ph); }
+.v3 .spec .t { font-family: var(--ft); } .v3 .spec .m { font-family: var(--fm); color: var(--a2); }
+
+/* 4. Vinyl shelf */
+.v4 { --bg:#16161A; --pd:#222228; --pl:#ECE8DF; --a1:#FF5A1F; --st:#B8C4D0; --ok:#5FD38D; --dg:#FF566A; --mu:#8C8C96; --ink:#16161A; --tx:#F3F0EA;
+  --fd: "Dela Gothic One", "Arial Black", sans-serif; --ft: "Wix Madefor Text", "Segoe UI", sans-serif; }
+.v4 .timer { background: var(--pl); color: var(--ink); border-radius: 16px; padding: 4px 20px 6px; font: 400 30px/1.2 var(--fd); font-variant-numeric: tabular-nums; }
+.v4 .anger { background: var(--pd); border: 2px solid var(--st); border-radius: 16px; padding: 12px 14px; display: grid; gap: 8px; }
+.v4 .anger .l { font: 600 11px/1 var(--ft); letter-spacing: .16em; text-transform: uppercase; color: var(--st); }
+.v4 .track { background: var(--bg); border-radius: 999px; height: 8px; }
+.v4 .track b { background: var(--a1); border-radius: 999px; }
+.v4 .cops { justify-self: start; font: 600 11px/1 var(--ft); letter-spacing: .14em; text-transform: uppercase; color: var(--a1); }
+.v4 .slot { background: var(--pd); border: 2px solid var(--st); border-radius: 16px; font: 600 13px/1 var(--ft); color: var(--tx); }
+.v4 .bars .track.h b { background: var(--ok); } .v4 .bars .track.s b { background: var(--st); }
+.v4 .announce { background: var(--pl); color: var(--ink); border-top: 6px solid var(--a1); border-radius: 18px; padding: 10px 24px 12px; display: grid; gap: 4px; }
+.v4 .announce em { font: 600 11px/1 var(--ft); font-style: normal; letter-spacing: .16em; text-transform: uppercase; color: #5A5650; }
+.v4 .announce span { font: 400 28px/1.15 var(--fd); }
+.v4 .menu { background: var(--pl); color: var(--ink); border-radius: 22px; font: 400 16px/1.4 var(--ft); }
+.v4 .menu .title { font: 400 30px/1.05 var(--fd); }
+.v4 .menu .kicker { font: 600 11px/1 var(--ft); letter-spacing: .16em; text-transform: uppercase; color: #5A5650; }
+.v4 .menu .btn { border-radius: 999px; font: 600 17px/1.2 var(--ft); }
+.v4 .menu .p { background: var(--ink); color: var(--pl); border: 2px solid var(--ink); }
+.v4 .menu .s { background: transparent; color: var(--ink); border: 2px solid var(--ink); }
+.v4 .menu .g { color: #5A5650; }
+.v4 .menu .set .track { background: #D3CEC3; height: 8px; } .v4 .menu .set .track b { background: var(--a1); }
+.v4 .spec .d { font-family: var(--fd); color: var(--pl); }
+.v4 .spec .t { font-family: var(--ft); } .v4 .spec .m { font-family: var(--ft); font-weight: 600; letter-spacing: .16em; text-transform: uppercase; font-size: 12px; }
+
+/* 5. Comic sticker */
+.v5 { --bg:#1A1023; --pd:#2B1846; --pp:#CFF3DF; --ink:#1A1023; --a1:#B8F03C; --a2:#FF8A3D; --dg:#FF5A47; --mu:#A99BC0; --tx:#FFF9EC;
+  --fd: "Shantell Sans", "Comic Sans MS", sans-serif; --ft: "Nunito Sans", "Segoe UI", sans-serif; }
+.v5 .timer { background: var(--pp); color: var(--ink); border: 3px solid var(--ink); border-radius: 10px; padding: 2px 16px; font: 800 30px/1.2 var(--fd); box-shadow: 4px 4px 0 var(--ink); font-variant-numeric: tabular-nums; }
+.v5 .anger { background: var(--pp); border: 3px solid var(--ink); border-radius: 12px; padding: 10px 12px; display: grid; gap: 8px; box-shadow: 4px 4px 0 var(--ink); }
+.v5 .anger .l { font: 800 16px/1 var(--fd); color: var(--ink); }
+.v5 .track { background: #FFFFFF; border: 3px solid var(--ink); border-radius: 8px; height: 18px; }
+.v5 .track b { background: var(--a2); }
+.v5 .cops { justify-self: start; background: var(--dg); color: var(--ink); border: 3px solid var(--ink); border-radius: 8px; padding: 1px 10px; font: 800 15px/1.3 var(--fd); }
+.v5 .slot { background: var(--pp); border: 3px solid var(--ink); border-radius: 12px; font: 700 14px/1 var(--ft); color: var(--ink); box-shadow: 4px 4px 0 var(--ink); }
+.v5 .bars .track { height: 14px; } .v5 .bars .track.h b { background: var(--a1); } .v5 .bars .track.s b { background: #FFD60A; }
+.v5 .announce { background: var(--pp); color: var(--ink); border: 3px solid var(--ink); border-radius: 14px; padding: 8px 22px; font: 800 30px/1.15 var(--fd); box-shadow: 6px 6px 0 var(--ink); display: flex; gap: 14px; align-items: center; }
+.v5 .announce em { font: 800 16px/1 var(--fd); font-style: normal; background: var(--a1); border: 3px solid var(--ink); border-radius: 8px; padding: 4px 8px; }
+.v5 .menu { background: var(--pd); border: 3px solid var(--ink); border-radius: 16px; color: var(--tx); font: 400 16px/1.4 var(--ft); box-shadow: 6px 6px 0 var(--ink); }
+.v5 .menu .title { font: 800 32px/1.05 var(--fd); color: var(--a1); }
+.v5 .menu .btn { border-radius: 10px; font: 800 18px/1.2 var(--fd); border: 3px solid var(--ink); box-shadow: 4px 4px 0 var(--ink); }
+.v5 .menu .p { background: var(--a1); color: var(--ink); }
+.v5 .menu .s { background: var(--pp); color: var(--ink); }
+.v5 .menu .g { color: var(--mu); border-color: transparent; box-shadow: none; }
+.v5 .menu .set .track { height: 16px; } .v5 .menu .set .track b { background: var(--a1); }
+.v5 .spec .d { font-family: var(--fd); font-weight: 800; color: var(--a1); }
+.v5 .spec .t { font-family: var(--ft); } .v5 .spec .m { font-family: var(--fd); font-weight: 500; }
+
+@media (prefers-reduced-motion: no-preference) { .refs a { transition: color .15s; } }
+a:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; border-radius: 3px; }
+</style>
+
+<main class="wrap">
+  <header class="intro">
+    <h3>prime-game · UI · дослідження вайбу · 20.10.2026</h3>
+    <h1>Новий вайб інтерфейсу для вечірки прибульців</h1>
+    <p class="lede">Гра тепер про те, як прибульці в розквіті сил влаштовують найкращу вечірку на Землі. Стиль Toy (вершкові панелі, жовті кнопки, Comfortaa) до неї не пасує. Нижче п'ять напрямів вайбу. На кожному однакові шматки: HUD поверх нічного маєтку, меню, палітра й шрифти, щоб їх було легко порівняти.</p>
+    <div class="how">
+      <p><b>Як відповісти:</b> напишіть у чат номери 1–2 вайбів, які ближчі, і що взяти з інших (шрифт, колір, форму). На основі цього я зроблю три повні стилі.</p>
+      <p>Усі тексти на сторінці — лише зразки. Кожен зразок намальований тим, що вміє Godot: суцільні заливки, рамки одного кольору, заокруглення, одна тінь.</p>
+    </div>
+  </header>
+
+  <section class="intro">
+    <h2>На чому житиме інтерфейс</h2>
+    <div class="context">
+      <figure><div class="pic"><img src="img/alien.jpg" alt="Бірюзовий прибулець з кораловими губами й повіками, ціль релізного вигляду"></div><figcaption>Персонаж: вінілова іграшка, байдужий погляд</figcaption></figure>
+      <figure><div class="pic"><img src="img/estate.jpg" alt="Маєток уночі: неон, басейн, тарілка на газоні, вулиця з сусідами"></div><figcaption>Концепт мапи, раунд 2 (ще без вашого вердикту)</figcaption></figure>
+    </div>
+    <div class="hues">
+      <span class="hue"><i style="background:#1C7A82"></i>бірюзовий</span>
+      <span class="hue"><i style="background:#E66B57"></i>кораловий</span>
+      <span class="hue"><i style="background:#9475D1"></i>фіалковий</span>
+      <span class="hue"><i style="background:#DBEBCF"></i>м'ятний живіт</span>
+      <span class="hue"><i style="background:#D1705E"></i>губи й повіки</span>
+    </div>
+    <p class="lede">Персонажі мають бути найнасиченішим на екрані, а світ лишається спокійним. Отже, інтерфейс не повинен змагатися з ними кольором і не повинен зливатися з неоном сцени.</p>
+  </section>
+
+  <div id="boards" class="intro" style="gap:56px"></div>
+
+  <section class="intro">
+    <h2>Чи є в шрифтах українські літери</h2>
+    <p class="lede">У кожного кандидата за ліцензією OFL і за даними Google є кирилиця. Чи є окремі літери, видно лише тут: якщо ґ, ї або апостроф намальовані іншим шрифтом, цей шрифт відпадає.</p>
+    <div class="glyphs" id="glyphs"></div>
+  </section>
+
+  <footer class="foot">
+    <p>Референси подано посиланнями: картинки з інтернету я не завантажував, бо для цього потрібен ваш дозвіл. Звіти з джерелами лежать у <code>docs/research/2026-10-20-vibe/</code> репозиторію prime-game-ui.</p>
+    <p>Прибулець і маєток — арт нашої гри з арт-треку.</p>
+  </footer>
+</main>
+
+<script>
+const SAMPLE = "Ґанок · ЇЖАК · Єва · іграшка · м'ята · пʼять · № 07:42";
+const boards = [
+  { id: "v1", name: "Нічний флаєр",
+    line: "Клубний флаєр 90-х у сьогоднішньому кислотному варіанті: флуоресцентний колір на майже чорному, гучні заголовки, спокійний блок для дії.",
+    fonts: ["Unbounded", "Onest", "Martian Mono"], display: "Вечірка на Землі",
+    pal: [["#120B1F","тло"],["#1E1433","панель"],["#F2F0E6","світла"],["#C8F000","кислота"],["#FF6A1A","помаранч"],["#FF5A6A","небезпека"],["#3DDC97","успіх"],["#9A8FB8","приглушений"]],
+    fit: "Мова вечірки й гостьового списку. Кислотний колір не з тієї ж родини, що бірюзова чи коралова шкіра.",
+    risk: "Може вийти «типовий кіберпанк», а помаранч зливається з кораловими головами, тож він тільки як дрібний акцент.",
+    refs: [["Maiden Voyage 2024","https://fontsinuse.com/uses/63300/maiden-voyage-festival-2024"],["Acid graphics","https://trends.daisyui.com/trend/acid-graphics/"],["Eye on Design","https://eyeondesign.aiga.org/acid-graphics-are-the-new-psychedelia-with-a-heady-dose-of-cynicism/"],["Persona 5 Royal","https://store.steampowered.com/app/1687950/"],["Hotline Miami 2","https://store.steampowered.com/app/274170/"],["Neon White","https://store.steampowered.com/app/1533420/"]],
+    hud: { timer: "07:42", anger: "СУСІДИ", cops: "Копи за 0:58", hand: "Батарея", ann: "Ґлорп вбив Їжака" },
+    menu: { title: "My Alien Prime Friends", p: "Хост", s: "Приєднатися", g: "Налаштування" } },
+  { id: "v2", name: "Прямий ефір",
+    line: "Прибульці переробили земне телешоу: титри внизу, плашка «наживо», табло, великий рахунок, а рожевий спалах тільки для «вау».",
+    fonts: ["Alumni Sans", "Oi", "Golos Text"], display: "Вечірка на Землі", reveal: "Вау!",
+    pal: [["#0C0D12","тло"],["#171923","панель"],["#F5F5F2","світла"],["#FFE500","сигнал"],["#FF3D81","розкриття"],["#FF4B3E","небезпека"],["#2EE59D","успіх"],["#8B90A0","приглушений"]],
+    fit: "Найближче до ідеї «земні формати по-прибульцівськи»: шоу-переробка авто, «busted», хто кого вбив. Одна плашка повторюється для всіх оголошень.",
+    risk: "Жовте з рожевим на чорному може виглядати як казино, тому жовтий тільки лініями й позначками.",
+    refs: [["Пакет нічного ток-шоу (Trollbäck)","https://trollback.com/projects/late-late-show-james-corden/"],["Ігрове шоу (ae.live)","https://www.ae.live/work/game-of-2-halves"],["Спортивний пакет ESPN","https://www.newscaststudio.com/graphics/espn-nfl/"],["Fall Guys","https://interfaceingame.com/games/fall-guys-ultimate-knockout/"],["Content Warning","https://www.landfall.se/content-warning-press-kit"],["Ідентика ток-шоу (Pentagram)","https://pentagram.com/work/the-tonight-show-starring-jimmy-fallon/story"]],
+    hud: { timer: "07:42", anger: "СУСІДИ ЗЛЯТЬСЯ", cops: "КОПИ ЗА 0:58", hand: "Батарея", ann: "ҐЛОРП ВБИВ ЇЖАКА", tag: "ВБИВСТВО", live: "НАЖИВО" },
+    menu: { title: "Вечірка", p: "Хост", s: "Приєднатися", g: "Налаштування" } },
+  { id: "v3", name: "Техніка з характером",
+    line: "Побутовий дисплей, який прибульці зрозуміли по-своєму: темне скло, один колір люмінофора, погаслі сегменти видно, а прилад говорить лише тоді, коли щось сталося.",
+    fonts: ["Tektur", "Geologica", "Martian Mono"], display: "Вечірка на Землі",
+    pal: [["#07100E","скло"],["#0E1715","панель"],["#2B3634","рамка"],["#3DF5C8","люмінофор"],["#163A32","погаслий"],["#FF7A3D","манія"],["#FF5050","небезпека"],["#6E8F86","приглушений"]],
+    fit: "Природна мова для екранів у світі гри: принтер, двигун, Wi-Fi з гліфами, верстат мутацій. У кожного приладу один колір і одна манія.",
+    risk: "Може стати стерильно-технічним або «дідівським», а це заборонений тон. Для всього інтерфейсу, мабуть, надто сухо: краще як голос приладів.",
+    refs: [["VFD-дисплеї","https://en.wikipedia.org/wiki/Vacuum_fluorescent_display"],["Lethal Company: інтерфейс","https://indieklem.substack.com/p/11-whats-behind-the-interface-of"],["Atomic Heart: арт","https://ah.mundfish.com/art"],["Pacific Drive: діегетичний UI","https://www.gamedeveloper.com/business/how-pacific-drive-uses-a-diegetic-ui-to-help-players-fall-in-love-with-a-car-"],["Chants of Sennaar: гліфи","https://thelanguagecloset.com/2024/12/07/playing-chants-of-sennaar/"]],
+    hud: { timer: "07:42", anger: "СУСІДИ", cops: "КОПИ 0:58", hand: "Батарея", ann: "ҐЛОРП ⟶ ЇЖАК", tag: "ПОДІЯ 0x2A" },
+    menu: { title: "ВЕЧІРКА.EXE", p: "Хост", s: "Приєднатися", g: "Налаштування" } },
+  { id: "v4", name: "Вітрина вінілу",
+    line: "Полиця крамниці дизайнерських іграшок: нейтральне графітове й кістяне пакування, щоб на екрані вигравав персонаж. Дрібні розріджені підписи, «серія №07/12».",
+    fonts: ["Dela Gothic One", "Wix Madefor Text"], display: "Вечірка на Землі",
+    pal: [["#16161A","тло"],["#222228","панель"],["#ECE8DF","кістяна"],["#FF5A1F","помаранч"],["#B8C4D0","сталь"],["#5FD38D","успіх"],["#FF566A","небезпека"],["#8C8C96","приглушений"]],
+    fit: "Найменше сперечається з персонажами. Інтерфейс і прибульці виглядають як один продукт: фігурка і її коробка.",
+    risk: "Тихо, може бракувати вечірки. Якщо додати цукеркових кольорів, стане дитячим, як Toy.",
+    refs: [["Superflat pop","https://trends.daisyui.com/trend/superflat-pop/"],["Y2K","https://trends.daisyui.com/trend/y2k/"],["Blind box Kidrobot","https://plasticandplush.com/2012/01/review-kidrobots-bots.html"],["High on Life: «іграшкові» пропорції","https://www.unrealengine.com/developer-interviews/high-on-life-pushes-the-frontiers-of-comedy-in-video-games"],["Hades II: UI","https://www.supergiantgames.com/blog/job-opportunity-ui-illustrator-for-hades-ii"]],
+    hud: { timer: "07:42", anger: "Сусіди · №07", cops: "Копи за 0:58", hand: "Батарея", ann: "Ґлорп вбив Їжака", tag: "Серія «Вечірка» · №07/12" },
+    menu: { title: "Вечірка на Землі", kicker: "Серія 01 · 4–10 гравців", p: "Хост", s: "Приєднатися", g: "Налаштування" } },
+  { id: "v5", name: "Комікс-стікер",
+    line: "Наліпка з товстим чорнильним контуром і жорсткою тінню: м'ятні панелі, глибокий фіолетовий і кислотний зелений, як на референсі карток, який ви зберегли 17.10.",
+    fonts: ["Shantell Sans", "Nunito Sans"], display: "Вечірка на Землі",
+    pal: [["#1A1023","чорнило"],["#2B1846","фіолетовий"],["#CFF3DF","м'ятний"],["#B8F03C","кислота"],["#FF8A3D","теплий"],["#FF5A47","небезпека"],["#FFD60A","жовтий"],["#A99BC0","приглушений"]],
+    fit: "Одразу дає мову карткам-інструкціям і плакату «busted». Рукописні великі літери легко тримають жарт.",
+    risk: "Найбільший ризик виглядати дитячим. Контури сперечаються з гладкими персонажами без контурів.",
+    refs: [["Neubrutalism","https://trends.daisyui.com/trend/neubrutalism/"],["Halftone comic","https://trends.daisyui.com/trend/halftone-comic-book/"],["Punk zine","https://trends.daisyui.com/trend/punk-zine/"],["Bomb Rush Cyberfunk","https://toucharcade.com/?p=315609"],["Hi-Fi Rush","https://interfaceingame.com/games/hi-fi-rush/"]],
+    hud: { timer: "07:42", anger: "Сусіди злі", cops: "Копи за 0:58", hand: "Батарея", ann: "Ґлорп вбив Їжака", tag: "БАЦ!" },
+    menu: { title: "Вечірка на Землі", p: "Хост", s: "Приєднатися", g: "Налаштування" } }
+];
+
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+function stage(b) {
+  const h = b.hud;
+  let timer = `<div class="ui timer">${esc(h.timer)}</div>`;
+  if (b.id === "v2") timer = `<div class="ui timer"><em>${esc(h.live)}</em>${esc(h.timer)}</div>`;
+  if (b.id === "v3") timer = `<div class="ui timer"><span class="ghost">88:88</span><span class="lit">${esc(h.timer)}</span></div>`;
+  let meter = `<div class="track"><b style="width:62%"></b></div>`;
+  let label = `<div class="l">${esc(h.anger)}</div>`;
+  if (b.id === "v3") {
+    meter = `<div class="cells">${Array.from({ length: 10 }, (_, i) => `<i class="${i < 6 ? "on" : ""}"></i>`).join("")}</div>`;
+    label = `<div class="l"><span>ТИХО</span><span class="on">ГУЧНО</span><span>КОПИ</span></div>`;
+  }
+  let ann = `<div class="ui announce">${esc(h.ann)}</div>`;
+  if (b.id === "v2" || b.id === "v3" || b.id === "v4") ann = `<div class="ui announce"><em>${esc(h.tag)}</em><span>${esc(h.ann)}</span></div>`;
+  if (b.id === "v5") ann = `<div class="ui announce"><em>${esc(h.tag)}</em>${esc(h.ann)}</div>`;
+  return `<div class="frame ${b.id}"><div class="stage">
+    <img src="img/estate.jpg" alt=""><div class="shade"></div>
+    ${timer}
+    <div class="ui anger">${label}${meter}<div class="cops">${esc(h.cops)}</div></div>
+    ${ann}
+    <div class="ui cross"></div>
+    <div class="ui hand"><div class="slot">${esc(h.hand)}</div></div>
+    <div class="ui bars"><div class="track h"><b style="width:80%"></b></div><div class="track s"><b style="width:45%"></b></div></div>
+  </div></div>`;
+}
+
+function menu(b) {
+  const m = b.menu;
+  return `<div class="menu-wrap ${b.id}"><div class="menu">
+    ${m.kicker ? `<div class="kicker">${esc(m.kicker)}</div>` : ""}
+    <div class="title">${esc(m.title)}</div>
+    <span class="btn p">${esc(m.p)}</span>
+    <span class="btn s">${esc(m.s)}</span>
+    <span class="btn g">${esc(m.g)}</span>
+    <div class="set"><span>Загальна гучність</span><div class="track"><b style="width:70%"></b></div></div>
+  </div></div>`;
+}
+
+function board(b, i) {
+  const sw = b.pal.map(([hex, role]) => `<div class="sw"><i style="background:${hex}"></i><b>${hex}</b>${esc(role)}</div>`).join("");
+  const refs = b.refs.map(([t, u]) => `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a>`).join("");
+  return `<section class="board" id="${b.id}">
+    <div class="board-head"><span class="num">Вайб ${i + 1} із 5</span><h2>${esc(b.name)}</h2><p class="lede">${esc(b.line)}</p></div>
+    ${stage(b)}
+    <div class="row2">
+      ${menu(b)}
+      <div class="panel-note ${b.id}">
+        <div class="spec">
+          <div class="d">${esc(b.display)}</div>
+          ${b.reveal ? `<div class="r">${esc(b.reveal)}</div>` : ""}
+          <div class="t">${esc(SAMPLE)}</div>
+          <div class="m">0123456789 · 07:42 · 62%</div>
+          <small>${b.fonts.map(esc).join(" · ")}</small>
+        </div>
+        <div class="fit"><p><b>Чому так:</b> <span>${esc(b.fit)}</span></p><p><b>Ризик:</b> <span>${esc(b.risk)}</span></p></div>
+      </div>
+    </div>
+    <div class="panel-note"><h3>Палітра</h3><div class="swatches">${sw}</div></div>
+    <div class="panel-note"><h3>Референси</h3><div class="refs">${refs}</div></div>
+  </section>`;
+}
+
+document.getElementById("boards").innerHTML = boards.map(board).join("");
+
+const FONTS = [
+  ["Unbounded", "'Unbounded'", 800], ["Onest", "'Onest'", 400], ["Martian Mono", "'Martian Mono'", 500],
+  ["Alumni Sans", "'Alumni Sans'", 800], ["Oi", "'Oi'", 400], ["Golos Text", "'Golos Text'", 400],
+  ["Tektur", "'Tektur'", 700], ["Geologica", "'Geologica'", 400], ["Dela Gothic One", "'Dela Gothic One'", 400],
+  ["Wix Madefor Text", "'Wix Madefor Text'", 400], ["Shantell Sans", "'Shantell Sans'", 800], ["Nunito Sans", "'Nunito Sans'", 400]
+];
+document.getElementById("glyphs").innerHTML = FONTS.map(([n, f, w]) =>
+  `<div><span>${n}</span><p style="font-family:${f}, monospace;font-weight:${w}">ҐґЇїЄєІі ʼ ’ № — Ґанок, ЇЖАК, пʼять</p></div>`).join("");
+
+const fit = () => document.querySelectorAll(".frame").forEach(f => {
+  const s = f.querySelector(".stage"); s.style.setProperty("--s", f.clientWidth / 960);
+});
+fit();
+if ("ResizeObserver" in window) new ResizeObserver(fit).observe(document.body); else addEventListener("resize", fit);
+</script>

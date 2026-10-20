@@ -6,6 +6,14 @@ designer too. The wireframes that show them: the `pages/wireframes/` page. A new
 a change here in the same PR as the page change. A decision marked "(agent)" was taken by the agent alone under the
 trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it at any time.
 
+## The new setting (2026-10-20)
+- **A new design for the new setting** (the engineer, 2026-10-20, chat, translated): the game is now an alien party
+  (prime-game `docs/design/COMPASS.md`, `docs/design/m8-match.md`; the MVP's design frozen on 2026-10-20), and the UI
+  track's job now is to find an entirely new design for it, with new colours and new fonts; the Toy style below no
+  longer fits. The work starts with research into the new vibe (`docs/research/2026-10-20-vibe/`, the
+  [vibe page](https://claude.ai/artifact/92UtrYbscouh7xj6BrLoM2)). Until a new style is chosen, the sections below stay
+  as the record of what the game ships today; a choice that replaces one of them says so here.
+
 ## Principles
 - **The UI never tells the player what to do.** No "take it to X" line, no destination marker, no key prompts on the HUD;
   the player reads the world (labels and room signs) and the map. Learning is separate from playing.
