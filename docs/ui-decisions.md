@@ -41,6 +41,12 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
   much of the screen at the first sketches' size; 0.5 was too small; 0.75 is right. At 1920x1080 that keeps the text
   about as the pack ui-1.1.0 draws it and makes outlines, shadows and plates about 1.5 times the pack's; the pack
   follows when the screens are reworked for the MVP.
+- **The roster in the round, and humans see each other** (the engineer, 2026-10-20, chat, translated, on the MVP screens
+  page): the top right corner of the round HUD lists the players with their body colours, and a human sees who else is
+  human. On the page: a slim purple list with a colour dot per name, the player's own name in green, the dead dimmed,
+  and a coral "людина" tag on the other humans in a human's list (agent); the human's role reveal names the other
+  humans. Whether a mark over another human's head is still needed in the world stays open. The game-design side (the
+  humans know each other) is passed to the design track, prime-game#1095.
 - **The sticker tokens, ui-1.0.0** (the re-skin of every Toy variation; the guide is
   `docs/research/2026-10-20-vibe/restyle-guide.md`). The look choices the agent took alone:
   - state shades inside the palette: mint, green and coral each one step lighter for hover and darker for held, a
