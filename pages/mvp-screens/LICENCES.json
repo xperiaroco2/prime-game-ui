@@ -6,6 +6,5 @@
   "index.html#i-palm": { "licence": "own work", "author": "prime-game-ui", "what": "the empty hand slot: a faint three-finger palm outline, inline SVG symbol" },
   "index.html#i-pocket": { "licence": "own work", "author": "prime-game-ui", "what": "the empty belt slot: a faint pocket outline, inline SVG symbol" },
   "index.html#i-hand": { "licence": "own work", "author": "prime-game-ui", "what": "item bar C: the alien's green hand gripping the rocket, inline SVG symbol" },
-  "index.html#i-house": { "licence": "own work", "author": "prime-game-ui", "what": "the anger bar's icon: an angry house, inline SVG symbol (walls take currentColor: mint, coral when full)" },
-  "index.html#i-up": { "licence": "own work", "author": "prime-game-ui", "what": "the anger bar's rising marker: a coral triangle, inline SVG symbol" }
+  "index.html#i-siren": { "licence": "own work", "author": "prime-game-ui", "what": "the anger meter's siren: a coral dome (lilac when dark, var(--dome)) with a white glint, a yellow knob, an ink base, and sound rays when lit (var(--rays)); inline SVG symbol" }
 }
