@@ -20,7 +20,10 @@ const GATES = 'dist/gates.json';
 const EN_JSON = 'pages/wireframes/en.json';
 const ICONS = ['check', 'item', 'mic', 'mic-off', 'pointer', 'chevron-left', 'chevron-right', 'chevron-down', 'lock', 'teammate-mark',
   'knife', 'slider-knob', 'slider-knob-disabled', 'swatch-disc', 'radio-checked', 'radio-checked-disabled', 'radio-unchecked',
-  'checkbox-checked', 'checkbox-checked-disabled', 'checkbox-unchecked', 'checkbox-unchecked-disabled', 'spin-up', 'spin-down'];
+  'checkbox-checked', 'checkbox-checked-disabled', 'checkbox-unchecked', 'checkbox-unchecked-disabled', 'spin-up', 'spin-down',
+  // the round HUD's siren, items and empty slots: in the icons row; on the screens only in pages/mvp-screens/ today
+  'siren-off', 'siren-on', 'slot-empty-hand', 'slot-empty-belt', 'item-rocket', 'item-bun', 'item-battery', 'item-extinguisher',
+  'item-flower', 'item-car-part', 'item-patty', 'item-burger', 'item-watering-can', 'item-wrench', 'item-bin-bag', 'item-knife'];
 const ICON_HEAD = '<!-- own work, prime-game-ui, licence: own work -->';
 const FONT_LINK = 'https://fonts.googleapis.com/css2?family=Kablammo&family=Nunito:wght@800;900&family=Rubik:wght@700&display=swap';
 const TILES = [['white', '#ffffff'], ['grey', '#c9c9c9'], ['dim', '#979797']];

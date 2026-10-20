@@ -51,9 +51,24 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
   the ink text outline, centred at the top, the anger bar under it.
 - **The top of the round HUD** (the engineer, 2026-10-20, chat, on the MVP screens page): the time with no plate, the
   neighbours' anger right under it, the bar itself exactly centred (its siren hangs off the bar's right end), and the
-  roster at the top right. This replaces "only the time at the top" (Styled screens below). The anger meter's look
-  (A a bar, B pips, C the siren filling up) is still his to pick.
+  roster at the top right. This replaces "only the time at the top" (Styled screens below).
 - **No points on the HUD** (the engineer, 2026-10-20, chat): the points show only on the mutation workbench screen.
+- **The anger meter is A** (the engineer, 2026-10-20, chat, translated, on the MVP screens page): a thicker bar with the
+  siren at its right end; B (six pips) and C (the siren filling up) stay on the page, not chosen. One "A" answered
+  both open choices, this one and the item bar's; read as both.
+- **The item bar is A** (the engineer, 2026-10-20, chat, translated, on the MVP screens page): sticker slots with a
+  big item picture and a name tag over the bottom edge; B (a belt strap with a pocket) and C (the alien's hand
+  holding the item) stay on the page, not chosen. The name tags' words are his texts.
+- **No inventory for now** (the engineer, 2026-10-20, chat, translated): "forget the inventory for now, we don't make
+  it, everything as it was": no inventory screen is made; the round keeps the hand and belt slots.
+- **The round HUD's pictures are icon files** (`pages/components/icons/`, own work, page-only today; the pack lists
+  them but no token names them yet): the siren as two files, `siren-off` (the lilac dome, anger calm) and `siren-on`
+  (the coral dome with rays, rising and full); the empty slots `slot-empty-hand` and `slot-empty-belt`; and one
+  `item-*` per MVP carried item. The new drawings take palette fills only (agent): the flower coral (its five colours
+  not drawn yet), the printed car part a white rim before painting, the patty coral with grill marks, the burger with
+  a coral party pick, the watering can lilac zinc, the garage's tools one wrench with a coral grip and its cable, the
+  rubbish a purple bin bag with a yellow tie, the knife (in case it stays in the MVP) white with a coral handle; each
+  kept from two candidates at 60 and 120 px (agent).
 - **The sticker tokens, ui-1.0.0** (the re-skin of every Toy variation; the guide is
   `docs/research/2026-10-20-vibe/restyle-guide.md`). The look choices the agent took alone:
   - state shades inside the palette: mint, green and coral each one step lighter for hover and darker for held, a

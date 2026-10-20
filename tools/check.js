@@ -34,6 +34,8 @@ const STEPS = [
   ["screens:selftest", ["pages/screens/build.js", "--self-test"]],
   ["screens", ["pages/screens/build.js", "--validate"]],
   ["page:screens", ["pages/screens/build.js", "--check"]],
+  // the MVP screens page's inline copies of the HUD icon files
+  ["page:mvp-screens", ["pages/mvp-screens/build.js", "--check"]],
   // the self-test only: CI has no manager transcripts
   ["manager:selftest", ["tools/manager/context.js", "--self-test"]],
 ];

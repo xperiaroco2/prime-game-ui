@@ -1,10 +1,5 @@
 {
-  "index.html#i-rocket": { "licence": "own work", "author": "prime-game-ui", "what": "item picture: a fireworks rocket with a face, inline SVG symbol, ink outline and palette fills" },
-  "index.html#i-bun": { "licence": "own work", "author": "prime-game-ui", "what": "item picture: a sesame bun with a face, inline SVG symbol" },
-  "index.html#i-battery": { "licence": "own work", "author": "prime-game-ui", "what": "item picture: a battery with a bolt, inline SVG symbol" },
-  "index.html#i-ext": { "licence": "own work", "author": "prime-game-ui", "what": "item picture: a fire extinguisher, inline SVG symbol" },
-  "index.html#i-palm": { "licence": "own work", "author": "prime-game-ui", "what": "the empty hand slot: a faint three-finger palm outline, inline SVG symbol" },
-  "index.html#i-pocket": { "licence": "own work", "author": "prime-game-ui", "what": "the empty belt slot: a faint pocket outline, inline SVG symbol" },
-  "index.html#i-hand": { "licence": "own work", "author": "prime-game-ui", "what": "item bar C: the alien's green hand gripping the rocket, inline SVG symbol" },
-  "index.html#i-siren": { "licence": "own work", "author": "prime-game-ui", "what": "the anger meter's siren: a coral dome (lilac when dark, var(--dome)) with a white glint, a yellow knob, an ink base, and sound rays when lit (var(--rays)); inline SVG symbol" }
+  "index.html#i-hand": { "licence": "own work", "author": "prime-game-ui", "what": "item bar C (not chosen): the alien's green hand gripping the rocket (#i-item-rocket), inline SVG symbol" },
+  "index.html#i-siren": { "licence": "own work", "author": "prime-game-ui", "what": "anger meter C (not chosen): the siren filling up, a coral dome (lilac when dark, var(--dome)) with a white glint, a yellow knob, an ink base, and sound rays when lit (var(--rays)); inline SVG symbol" },
+  "index.html#i-siren-off, #i-siren-on, #i-slot-empty-*, #i-item-*": { "licence": "own work", "author": "prime-game-ui", "what": "copies of pages/components/icons/<name>.svg written by pages/mvp-screens/build.js; their records are in pages/components/icons/LICENCES.json" }
 }
