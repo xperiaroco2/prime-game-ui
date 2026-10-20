@@ -40,6 +40,15 @@
       <path d="M-11 0A11 10 0 0 1 11 0Z"/>
       <path d="M-6 0Q-9 6 -6 11M0 0V12M6 0Q9 6 6 11"/>
     </g>
+    <!-- a phone receiver, centred on 0,0, upright, the cups toward +x -->
+    <path id="wa1-rc" class="i" d="M-3 -24H3Q9 -24 9 -18V-13Q9 -10 5 -10H2V10H5Q9 10 9 13V18Q9 24 3 24H-3Q-8 24 -8 18V-18Q-8 -24 -3 -24Z"/>
+    <!-- the house phone on the wall, its cord leaving at 0,18; an empty hook on top (the receiver is in a hand) -->
+    <g id="wa1-ph">
+      <path class="k t" d="M-9 -22V-30M9 -22V-30"/>
+      <rect class="w" x="-16" y="-22" width="32" height="42" rx="7"/>
+      <circle class="w" cx="0" cy="0" r="9" style="stroke-width:3"/>
+      <circle class="i" cx="0" cy="0" r="2.4"/>
+    </g>
   </defs>
   <g filter="url(#wa1-w)">
     <ellipse cx="92" cy="213" rx="26" ry="4" fill="#1f2433" opacity=".12"/>
@@ -73,6 +82,10 @@
     <path class="k f" d="M229 115h10"/>
     <path class="k f" d="M246 115h10"/>
     <path class="k f" d="M263 115h10"/>
+    <!-- the house phone on the wall, where panel 2 picks it up; the receiver hanging at its side -->
+    <use href="#wa1-ph" transform="translate(46 104)"/>
+    <path class="k f" d="M24 123C20 166 46 168 46 123"/>
+    <use href="#wa1-rc" transform="translate(23 102) scale(0.8)"/>
     <!-- figure, stepping up to read it, pointing at the first glyph -->
     <path class="k" d="M92 152L76 211M92 152L108 211"/>
     <path class="k" d="M92 152L96 104"/>

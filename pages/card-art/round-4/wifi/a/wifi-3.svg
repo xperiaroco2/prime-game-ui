@@ -53,6 +53,8 @@
   <g filter="url(#wa3-w)">
     <ellipse cx="214" cy="213" rx="26" ry="4" fill="#1f2433" opacity=".12"/>
     <path class="k t" d="M16 212C96 209 210 214 304 211"/>
+    <!-- the wall: the security room is on its other side; this is another room and another player -->
+    <rect class="w" x="14" y="20" width="10" height="192" rx="3"/>
     <!-- the decoder book on its lectern: the left page a digit, the right page its three glyphs -->
     <path class="k" d="M110 160V211M86 211H134"/>
     <path class="w" d="M110 70Q84 60 46 68V154Q84 146 110 156Z"/>

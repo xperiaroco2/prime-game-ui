@@ -43,6 +43,7 @@
   </defs>
   <g filter="url(#wa4-w)">
     <ellipse cx="104" cy="213" rx="26" ry="4" fill="#1f2433" opacity=".12"/>
+    <ellipse cx="30" cy="213" rx="20" ry="4" fill="#1f2433" opacity=".12"/>
     <path class="k t" d="M16 212C96 209 210 214 304 211"/>
     <!-- the security room's computer on its desk -->
     <path class="k" d="M126 152H302M138 152V211M290 152V211"/>
@@ -73,10 +74,25 @@
     <circle class="i" cx="234" cy="110" r="4"/>
     <circle class="i" cx="251" cy="110" r="4"/>
     <circle class="i" cx="268" cy="110" r="4"/>
+    <!-- a party guest (the party hat) beside, at once nose-deep in a phone that just lit up -->
+    <g transform="translate(-12 0)">
+      <path class="k" d="M40 152L28 211M40 152L54 211"/>
+      <path class="k" d="M40 152L48 108"/>
+      <path class="k" d="M47 116L58 142L74 134M47 116L66 140L78 128"/>
+      <rect class="w" x="70" y="114" width="15" height="24" rx="4" transform="rotate(25 77 126)"/>
+      <rect class="a" x="73" y="118" width="9" height="14" rx="1.5" transform="rotate(25 77 126)" style="stroke-width:0"/>
+      <circle class="w" cx="60" cy="90" r="19"/>
+      <path class="w" d="M45 78L50 46L70 72Z"/>
+      <path class="k f" d="M48 64L60 60M49 55L55 53"/>
+      <circle class="i" cx="50" cy="44" r="4.5"/>
+      <circle class="i" cx="67" cy="96" r="2.8"/><circle class="i" cx="74" cy="94" r="2.8"/>
+      <path class="k t" d="M62 104q5 3 9 -1"/>
+      <path class="o" d="M86 108l5 -6M92 120l7 -2" style="stroke-width:4"/>
+    </g>
     <!-- figure, typing the digit the partner called; the other arm up -->
     <path class="k" d="M104 152L88 211M104 152L120 211"/>
     <path class="k" d="M104 152L108 104"/>
-    <path class="k" d="M108 114L84 98L80 66"/>
+    <path class="k" d="M108 114L88 96L84 64"/>
     <path class="k" d="M108 114L132 106L152 95"/>
     <circle class="w" cx="112" cy="84" r="19"/>
     <circle class="i" cx="118" cy="81" r="2.8"/><circle class="i" cx="126" cy="81" r="2.8"/>
