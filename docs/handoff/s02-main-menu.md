@@ -35,7 +35,7 @@ The live lobby stays behind a dim backdrop with an idle camera. There is no serv
       - Note: The player's name, kept between sessions (user://); never empty: the last name used, else the system user name. max_length 16 (characters, the same limit in both languages: wave 1's proposal until the game sets its name rule; the host checks String.length() too); a longer text scrolls inside the field. auto_translate_mode DISABLED.
   - **Body** `HBoxContainer` · variation `ToyRowThirtyTwo` · gaps from the variation: separation 32
     - Note: The items, then the open panel (if any) to their right, its top on Host's top.
-    - **Items** `VBoxContainer` · variation `ToyColumnFour` · size flags vertical `SIZE_SHRINK_BEGIN` · custom_minimum_size (592, 0) · gaps from the variation: separation 4
+    - **Items** `VBoxContainer` · variation `ToyColumnTwelve` · size flags vertical `SIZE_SHRINK_BEGIN` · custom_minimum_size (592, 0) · gaps from the variation: separation 12
       - Note: Up and down move the focus through the items; the focused, hovered or pressed item shows its pointer icon.
       - **Host** `Button` · variation `ToyMenuItem` · text `menu.host`: en "Host a game" · uk "Створити гру" · icon `pointer` (dist/pack/icons/pointer.svg, own work) at 24 px, tinted by `ToyMenuItem`'s icon_*_color · alignment `LEFT` · shown with keyboard focus (grab_focus)
         - Note: Focus on open. Hosts a game with a code (WebRTC) and goes straight to the lobby (s4); a failure shows s3 host-failed.

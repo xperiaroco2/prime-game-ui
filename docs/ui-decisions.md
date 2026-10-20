@@ -50,7 +50,9 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
   - a plate with no base layer in the game draws its hard shadow as thicker right and bottom ink edges (agent);
   - type: text Nunito 800, bold roles and titles Nunito Black 900, numbers Rubik 700 (the display roles), a logo role in
     Kablammo; the sizes stay (agent);
-  - ghost buttons and main-menu entries are borderless with mint labels; the menu pointer is green (agent);
+  - ghost buttons are borderless with mint labels (agent);
+  - main-menu entries are mint sticker buttons with the edge-form shadow; the open entry is green, as on the screens page
+    the engineer picked; they stand 12 px apart so the shadow clears the next entry (agent);
   - the title plate is a purple sticker around a green title; titles carry a 4 px ink outline (agent);
   - the backdrop over the world is the deep purple at 82 % (Toy's was 74 %), so dim text passes 4.5:1 over a white
     world (agent);
@@ -291,7 +293,7 @@ the agents took where the decisions were silent, after five reviews (agent):
   spectating plate share the top line at y 40; the spawn-protection chip sits 24 px under the timer.
 - **Layers:** name plates, then the HUD (with the lobby HUD and the tutorial's lesson plates), the map, the Esc menu,
   its confirm dialog, and the black screens on top; the main menu is its own scene.
-- **Main menu:** borderless menu items 4 px apart in a 592 px column; the open item shows its pressed look and names the
+- **Main menu:** menu items 12 px apart in a 592 px column (4 px before the sticker re-skin); the open item shows its pressed look and names the
   panel, so the code and Direct panels (784 px) have no title; the code field opens empty and Join stays unplugged until
   the code is complete; Settings opens the Esc menu's Settings scene in a 960×888 panel, on Sound and voice; the version
   is muted text.
