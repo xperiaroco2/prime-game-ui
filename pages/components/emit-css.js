@@ -95,7 +95,7 @@ function emitComponentsCss(sys) {
       d.set('font-family', `var(${b}-font-family), system-ui, sans-serif`);
       d.set('font-size', `calc(var(${b}-font-size) * var(--px))`);
       d.set('font-weight', `var(${b}-font-weight)`);
-      d.set('line-height', `var(${b}-line-height)`);
+      d.set('line-height', `calc(var(${b}-line-box) * var(--px))`);
       d.set('letter-spacing', `calc(var(${b}-letter-spacing) * var(--px))`);
     }
     if (fontColour && fontColour.source) d.set('color', v(fontColour.source));

@@ -87,6 +87,9 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
   - contrast: an ink outline or shadow on the purple vanishes (1.0 to 1.1:1), so there the sticker's face carries its
     edge and the gates pair the face with the purple; bar fills on the white track (1.4 to 2.3:1) are waived, since each
     fill's ink end edge or outline marks where it ends (agent).
+- **Line height from the fonts, ui-1.1.0** ([#75](https://github.com/xperiaroco2/prime-game-ui/issues/75)): each
+  family's own line box, the line Godot draws (Nunito 1.364, Rubik 1.185, Kablammo 1.292 em, was 1.25); the HUD bar
+  track's content margin 4 to 3 px, so the 10 px fill sits flush inside the outline (agent).
 
 ## Principles
 - **The UI never tells the player what to do.** No "take it to X" line, no destination marker, no key prompts on the HUD;

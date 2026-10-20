@@ -33,7 +33,7 @@
   font-family: var(--toy-text-title-on-light-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-text-title-on-light-label-font-size) * var(--px));
   font-weight: var(--toy-text-title-on-light-label-font-weight);
-  line-height: var(--toy-text-title-on-light-label-line-height);
+  line-height: calc(var(--toy-text-title-on-light-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-text-title-on-light-label-letter-spacing) * var(--px));
   color: var(--toy-text-title-on-light-normal-font-color);
   -webkit-text-stroke: calc((var(--toy-text-title-on-light-items-shadow-outline-size) + var(--toy-text-title-on-light-items-shadow-outline-size)) * var(--px)) var(--toy-text-title-on-light-normal-font-shadow-color);
@@ -44,7 +44,7 @@
   font-family: var(--toy-howto-note-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-howto-note-label-font-size) * var(--px));
   font-weight: var(--toy-howto-note-label-font-weight);
-  line-height: var(--toy-howto-note-label-line-height);
+  line-height: calc(var(--toy-howto-note-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-howto-note-label-letter-spacing) * var(--px));
   color: var(--toy-howto-note-normal-font-color);
 }

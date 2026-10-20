@@ -1,0 +1,2 @@
+/* profile: generated; expect: L19 */
+.tv-ToyLogo { line-height: calc(var(--toy-type-body-font-size) * var(--px)); }

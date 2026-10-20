@@ -84,7 +84,7 @@ function analyzeAll(root, opts) {
   if (P.errors.length) return { problems: P, sys: null };
   const pack = buildPack(a.model, a.results, modes, version, assets);
   const packText = serializePack(pack);
-  const css = renderCss(a.model, a.results);
+  const css = renderCss(a.model, a.results, fonts.metrics);
   const r0 = a.results[0];
   const sources = new Map();
   for (const [p, n] of r0.res.tokens) {

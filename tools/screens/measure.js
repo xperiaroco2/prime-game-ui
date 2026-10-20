@@ -5,10 +5,15 @@
 // Per frame (.sc-frame[data-screen][data-state], in source order) it records every [data-node] element and every
 // text element: [data-key] (a deck text) and [data-text] (a data text, recorded with the key "(data)"). Lengths are CSS
 // px relative to the frame's top-left corner, rounded to 0.01; in measuring mode 1 CSS px = 1 reference px.
-//   node: { node, type, variation, key, clip, visible, display, opacity, box, content, scroll: {w, h, cw, ch},
+//   node: { node, type, variation, key, clip, visible, display, opacity, box, content, expand, scroll: {w, h, cw, ch},
 //           overflow: [x, y], parent, clipX, clipY }
 //     clip     data-clip: "ellipsis" or "clip" when the node cuts its text on purpose (clip_text, text_overrun_behavior)
 //     box      the border box; content: the box minus borders and padding
+//     expand   {top, right, bottom, left}: the StyleBox's expand margins (the sticker's hard-shadow edge, 5 px right and
+//              below). The page draws them inside the border box and takes them back with negative margins
+//              (pages/components/emit-css.js boxDecls: the padding holds the content margin plus the expand margin less
+//              the border), so each is the node's negative margin on a side whose border and padding are at least as
+//              deep (a bare negative margin only moves a node); the node's Godot rect is its box less them. The base layers under a face are box-shadows, outside every box.
 //     parent   the nearest [data-node] ancestor inside the frame (its data-node), or null
 //     clipX/Y  the nearest element between the node and the frame (both excluded) whose overflow in that axis is not
 //              visible, as [name, overflow], or null
@@ -115,6 +120,16 @@ function measure(opts, fontState) {
       overflow: [fcs.overflowX, fcs.overflowY], nodes: [], texts: [],
     };
 
+    // a negative margin the side's border and padding take back (the box's inside is at least that deep) is an
+    // expand margin; a bare negative margin moves the node and stays in its rect
+    var expandOf = function (cs) {
+      var e = function (side) {
+        var m = parseFloat(cs["margin" + side]) || 0;
+        var inside = (parseFloat(cs["border" + side + "Width"]) || 0) + (parseFloat(cs["padding" + side]) || 0);
+        return m < 0 && inside >= -m - 0.01 ? R(-m) : 0;
+      };
+      return { top: e("Top"), right: e("Right"), bottom: e("Bottom"), left: e("Left") };
+    };
     fr.querySelectorAll("[data-node]").forEach(function (el) {
       var cs = getComputedStyle(el);
       var p = el.parentElement ? el.parentElement.closest("[data-node]") : null;
@@ -129,7 +144,7 @@ function measure(opts, fontState) {
         node: el.getAttribute("data-node"), type: el.getAttribute("data-type"),
         variation: el.getAttribute("data-variation"), key: el.getAttribute("data-key"), clip: el.getAttribute("data-clip"),
         visible: visible(el, cs), display: cs.display, opacity: Number(cs.opacity),
-        box: rel(el.getBoundingClientRect()), content: inner(el, cs, true),
+        box: rel(el.getBoundingClientRect()), content: inner(el, cs, true), expand: expandOf(cs),
         scroll: { w: el.scrollWidth, h: el.scrollHeight, cw: el.clientWidth, ch: el.clientHeight },
         overflow: [cs.overflowX, cs.overflowY], parent: p ? p.getAttribute("data-node") : null, clipX: clipX, clipY: clipY,
       });

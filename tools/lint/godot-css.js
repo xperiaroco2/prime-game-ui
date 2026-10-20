@@ -520,8 +520,10 @@ function lintText(text, opts) {
         if (!one()) return;
         const c = comps[0];
         if (R.NUM_RE.test(c) || c.toLowerCase() === "normal" || /^--toy-/.test(R.varName(c) || "")) return;
+        // the line Godot draws, in reference px (a typography token's derived -line-box, tools/tokens/emit-css.js)
+        if (/^calc\(\s*var\(\s*--toy-[\w-]*-line-box\s*\)\s*\*\s*var\(\s*--px\s*\)\s*\)$/i.test(c)) return;
         const p = R.checkLength(c, ctx) || { rule: "L19", msg: "line-height " + c };
-        if (/^calc\(/i.test(c) || R.REL_UNIT_RE.test(c)) add(line, p.rule, p.msg); else add(line, "L19", "line-height must be a number or var(--toy-…), found " + c);
+        if (/^calc\(/i.test(c) || R.REL_UNIT_RE.test(c)) add(line, p.rule, p.msg); else add(line, "L19", "line-height must be a number, var(--toy-…) or calc(var(--toy-…-line-box) * var(--px)), found " + c);
         return;
       }
       if (prop === "opacity") {

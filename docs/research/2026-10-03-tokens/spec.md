@@ -114,7 +114,8 @@ No `package.json` and no `node_modules`: every script uses only node's own modul
 - The **CSS name** of a path is `--toy-` + the path with every `.` replaced by `-`. The validator fails if two paths give
   the same CSS name.
 - Composite sub-values get suffixes:
-  - typography: `-font-family`, `-font-size`, `-font-weight`, `-letter-spacing`, `-line-height`;
+  - typography: `-font-family`, `-font-size`, `-font-weight`, `-letter-spacing`, `-line-height`, and (CSS only, since
+    ui-1.1.0, #75) the derived `-line-box`, the whole px line Godot draws (tools/tokens/README.md, the pack's fonts);
   - transition: `-duration`, `-delay`, `-timing-function`.
 
 **`$extensions` namespace:** `io.github.xperiaroco2.prime-game`. Allowed members:
@@ -1252,7 +1253,7 @@ every alias.
 | cubicBezier | `cubic-bezier(…)` | `--toy-ease-press: cubic-bezier(0.33, 0.52, 0.64, 1);` |
 | number, fontWeight | number | `--toy-font-line-height-base: 1.25;` |
 | fontFamily | quoted | `--toy-font-family-base: "Comfortaa";` |
-| typography | five variables (`-font-size` and `-letter-spacing` unitless) | `--toy-type-body-font-size: var(--toy-font-size-body);` |
+| typography | five variables (`-font-size` and `-letter-spacing` unitless) and the derived `-line-box` (an int; in each text-size block where it changes) | `--toy-type-body-font-size: var(--toy-font-size-body);` `--toy-type-body-line-box: 31;` |
 | transition | three variables | `--toy-motion-press-duration: var(--toy-duration-press);` |
 | derived ramp | `#rrggbb` | `--toy-bar-health-ramp-stop-04: #ea7a46;` |
 

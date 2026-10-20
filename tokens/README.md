@@ -242,6 +242,22 @@ instance). Comfortaa left with the Toy style.
   without an allowed licence or its licence text, a family no `font.family.*` token names, a family no type role uses,
   and a weight a type role (`type.*`) gives a family outside that family's own `wght` axis; a font with no `wght`
   axis (Kablammo: `MORF` only) draws only its default instance, so its roles' weight must be its OS/2 weight class (400).
+  It also refuses a type role whose `lineHeight` is not its family's own line box (below) and a font whose `MVAR`
+  moves its ascender or descender per instance.
+- **The line height (ui-1.1.0, #75).** Godot 4.7.2 draws a line of a Label as the font's ascent plus its descent
+  ([label.cpp L392-L400](https://github.com/godotengine/godot/blob/4.7.2-stable/scene/gui/label.cpp#L392-L400)), from
+  FreeType's size metrics ([text_server_adv.cpp L1638-L1659](https://github.com/godotengine/godot/blob/4.7.2-stable/modules/text_server_adv/text_server_adv.cpp#L1638-L1659)),
+  which take OS/2 typo when `USE_TYPO_METRICS` is set, else hhea
+  ([sfobjs.c L1380-L1411](https://github.com/godotengine/godot/blob/4.7.2-stable/thirdparty/freetype/src/sfnt/sfobjs.c#L1380-L1411)),
+  and round the ascent up and the descent down to a whole pixel
+  ([ftobjs.c L3176-L3182](https://github.com/godotengine/godot/blob/4.7.2-stable/thirdparty/freetype/src/base/ftobjs.c#L3176-L3182)); no line gap.
+  So each family's `font.line-height.*` is its own (ascender + descender) / units per em: `base` (the text, the
+  ui-1.0.0 name kept) Nunito (1011 + 353) / 1000 = 1.364, `number` Rubik (935 + 250) / 1000 = 1.185, `logo` Kablammo (2078 + 506) / 2000 =
+  1.292 (all three set USE_TYPO_METRICS, typo = hhea). The CSS line box is the pixel height Godot draws, which the
+  ratio alone cannot give: every typography token gets a derived `--toy-<token>-line-box` (an int, per text size:
+  `type.body` 31 at 22 px, 39 at 28 px; `tools/tokens/fonts.js` `lineBoxPx`, FreeType's fixed point), and the pages
+  set `line-height: calc(var(--toy-…-line-box) * var(--px))`. In the game a Label variation's `line_spacing` is 0:
+  the font's own line is the line (the generator's `fontSizePx × lineHeight` rounds below Godot's line by up to 2 px).
 - **`assets`** has one entry per font, sorted by path with the others:
   `{ "path": "fonts/Nunito-VariableFont_wght.ttf", "kind": "font", "sha256": "…", "licence": "OFL-1.1",
   "licence_file": "fonts/LICENCES.json", "licence_text": "fonts/OFL-Nunito.txt", "source": "fonts/nunito/…", "family":
