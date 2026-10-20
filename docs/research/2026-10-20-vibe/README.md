@@ -51,6 +51,34 @@ Every font on the page drew ґ, ї, є, і, the apostrophes and № in its own g
 last section), so per-glyph coverage is confirmed for those twelve; U+02BC against U+2019 needs a closer look in the
 display faces before a pick. Designer origin was not checked (lens C notes it).
 
+## Round 2: the Night flyer, deeper
+The engineer, 2026-10-20 (chat, translated): the first vibe fits best; go deeper into it; he likes the green, the
+fonts are more or less fine, some moments he likes and some not; research more and make five variants close to it.
+
+Three more read-only gatherers (Sonnet, about 0.22M subagent tokens in all):
+
+| File | Lens |
+|---|---|
+| `r2-e-flyer-substyles.md` | Nine club-flyer and acid sub-styles as visual systems, and a ranking of five |
+| `r2-f-acid-green-uis.md` | Acid lime in game and club UI; rules for where the lime goes, its partners, and the clichés to avoid |
+| `r2-g-flyer-fonts.md` | About 170 families checked for OFL and Cyrillic; survivors, drops and six trios |
+
+The five variants on `pages/vibe-flyer/` ([artifact](https://claude.ai/artifact/PhwP9sUpF8rUKAMQchnjvA)), each with
+the acid lime #C8F000 and a violet-black ground, shown as the HUD over the estate, an end screen, a menu, the type and
+the palette, beside the round-1 sample:
+
+1. **Techno corporation** (The Designers Republic, Wipeout): Science Gothic at 165 % width, Golos Text, Geist Mono;
+   square plates, product-code microtype, slogan strips, an alarm orange.
+2. **Berlin grid** (Tresor, Swiss grid): Sofia Sans Extra and Semi Condensed, Martian Mono narrow; rules over blocks,
+   lime only on the active thing, struck-through phases.
+3. **Acid sticker** (neubrutalism): Dela Gothic One, Rubik, Rubik Mono One; ink outlines, hard orange shadows, lime
+   fills as a highlighter.
+4. **Riso, two inks** (risograph flyers): Oi, Inter Tight, Roboto Mono; lime and fluorescent pink, the pink shadow as
+   misregistration.
+5. **Stretch and fields** (acid graphics 2018-25, Wrapped): TikTok Sans at 150 % width, Handjet; violet and lime
+   fields, cropped words, asterisks.
+
+Every font on the page drew ґ ї є і, the apostrophes and № in its own glyphs in Chromium on 2026-10-20.
+
 ## Next
-The engineer picks one or two vibes and what to borrow from the others; then three full style directions on the
-real screens.
+The engineer picks a variant or parts of several; then the full style on the real screens.
