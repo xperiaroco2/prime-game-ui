@@ -5,9 +5,10 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&family=Rubik:wght@600;700&family=Commissioner:wght@400;600;700&display=swap">
 <style>
 /* Layout: sketches of the screen pieces the MVP match (prime-game docs/design/m8-match.md, frozen 2026-10-20) adds
-   or changes, in the picked "Ink and mint sticker" (strength B, no tilts). Each 960x540 frame sits over a plain world
-   colour and scales like pages/sticker. Quiet graphite chrome, the same as the sticker page. The audit behind it:
-   docs/research/2026-10-20-mvp-screens/audit.md. */
+   or changes, in the picked "Ink and mint sticker" (strength B, no tilts). Each 16:9 frame sits over a plain world
+   colour. A sticky switch sets the UI scale: at 1x the stage is 960x540 (the first sketches' size), at 0.5x it is
+   1920x1080 with the same px values, so every UI piece is half as big and keeps its anchor (edge, corner or centre).
+   Quiet graphite chrome, the same as the sticker page. The audit behind it: docs/research/2026-10-20-mvp-screens/. */
 :root {
   color-scheme: dark;
   --ground: #141317;
@@ -29,6 +30,13 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
 .lede { color: var(--dim); font-size: 17px; }
 .intro { display: grid; gap: 14px; }
 .how { border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; background: var(--raise); display: grid; gap: 6px; }
+.switch { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--ground); padding-block: 10px; display: grid; gap: 6px; border-bottom: 1px solid var(--line); }
+.seg { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.seg span { font-weight: 600; margin-right: 4px; }
+.seg button { font: 600 15px/1.2 var(--chrome); color: var(--ink-c); background: var(--raise); border: 1px solid var(--line); border-radius: 999px; padding: 8px 16px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--ink-c); color: var(--ground); border-color: var(--ink-c); }
+.seg button:focus-visible { outline: 2px solid var(--ink-c); outline-offset: 2px; }
+.vnote { color: var(--dim); font-size: 14px; }
 .screen { display: grid; gap: 10px; }
 .screen .cap { color: var(--dim); font-size: 14px; }
 .tags { display: flex; flex-wrap: wrap; gap: 6px; }
@@ -39,12 +47,14 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
 .q { border-left: 3px solid #FF8A6B; padding: 4px 0 4px 12px; color: var(--ink-c); font-size: 15px; display: grid; gap: 4px; }
 .q b { color: #FF8A6B; }
 .frame { position: relative; width: 100%; max-width: 100%; aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden; background: #55606A; }
-.stage { position: absolute; left: 0; top: 0; width: 960px; height: 540px; transform-origin: 0 0; transform: scale(var(--s, 1)); overflow: hidden; }
+.frame.zoom { aspect-ratio: 2 / 1; }
+.stage { position: absolute; left: 0; top: 0; width: 960px; height: 540px; transform-origin: 0 0; overflow: hidden; }
+.duo { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
 .foot { color: var(--dim); font-size: 14px; display: grid; gap: 6px; }
 
 /* ---------- Inside the frames: the sticker's .st / .st.vb look, Godot-safe (solid fills, one-colour borders, radii,
-   one hard shadow without spread, one text outline). No new colours or fonts: the palette is pages/sticker's, plus
-   the agent's lighter purple and soft ink state shades of ui-1.0.0. ---------- */
+   one hard shadow without spread, one text outline; the item pictures are textures). No new colours or fonts: the
+   palette is pages/sticker's, plus the agent's lighter purple and soft ink state shades of ui-1.0.0. ---------- */
 .st { overflow-wrap: normal; --pu:#2B1846; --pud:#1F1033; --pul:#3C2660; --ink:#1E1230; --soft:#54457A; --mint:#CFF3DF; --gr:#A6E85A; --co:#FF8A6B; --ye:#FFD60A; --mu:#B7A8D6; --wh:#FFFFFF;
   --ft: "Nunito", "Segoe UI", sans-serif; --fn: "Rubik", "Segoe UI", sans-serif;
   --ow: 4px; --sh: 5px; --fd: "Nunito", "Segoe UI", sans-serif; }
@@ -62,47 +72,75 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
 .st .chipp { display: inline-block; background: var(--pu); color: var(--mint); border: var(--ow) solid var(--ink); border-radius: 999px; padding: 3px 12px; font: 900 15px/1.25 var(--ft); }
 .st .lab { font: 800 15px/1.2 var(--ft); }
 .st .muted { color: var(--mu); }
-.st .track { position: relative; height: 16px; background: var(--wh); border: 3px solid var(--ink); border-radius: 10px; overflow: hidden; }
+.st .track { position: relative; height: 16px; background: var(--wh); border: 3px solid var(--ink); border-radius: 10px; overflow: hidden; box-sizing: border-box; }
 .st .track b { position: absolute; left: 0; top: 0; bottom: 0; display: block; border-right: 3px solid var(--ink); }
 .st .hue { display: inline-block; width: 18px; height: 18px; border-radius: 50%; border: 3px solid var(--ink); vertical-align: -4px; margin-right: 8px; }
 .st .num { font: 700 30px/1.2 var(--fn); }
-.st .cross { left: 476px; top: 266px; width: 8px; height: 8px; border-radius: 50%; background: var(--wh); border: 2px solid var(--ink); box-sizing: border-box; }
-.st .shade { position: absolute; left: 0; top: 0; width: 960px; height: 540px; background: rgba(31, 16, 51, .82); }
+.st .cross { left: 50%; top: 50%; margin: -4px 0 0 -4px; width: 8px; height: 8px; border-radius: 50%; background: var(--wh); border: 2px solid var(--ink); box-sizing: border-box; }
+.st .shade { position: absolute; left: 0; top: 0; right: 0; bottom: 0; background: rgba(31, 16, 51, .82); }
+.st svg { display: block; }
 
-/* round HUD: edges 26 px in */
+/* round HUD: edges 26 px in; the time and the anger bar centred at the top */
 .st .role { left: 26px; top: 26px; }
 .st .pts { left: 26px; top: 66px; display: flex; align-items: center; gap: 10px; padding: 0 14px; }
 .st .pts .num { font-size: 26px; }
 .st .pop { left: 150px; top: 76px; }
-.st .timer { left: 50%; top: 26px; transform: translateX(-50%); padding: 2px 18px; min-width: 96px; text-align: center; }
-.st .anger { right: 26px; top: 26px; width: 240px; padding: 10px 12px; display: grid; gap: 8px; }
-.st .anger .head { display: flex; justify-content: space-between; align-items: center; }
-.st .aim { left: 50%; top: 290px; transform: translateX(-50%); }
+.st .timer { left: 50%; top: 22px; transform: translateX(-50%); text-align: center; }
+.st .timer.plate { padding: 2px 18px; min-width: 96px; }
+.st .timer.bare { font: 700 34px/1.1 var(--fn); color: var(--mint); -webkit-text-stroke: 8px var(--ink); paint-order: stroke fill; }
+.st .ab { left: 50%; top: 66px; transform: translateX(-50%); display: flex; align-items: center; gap: 8px; }
+.st .ab .hs { width: 28px; height: 28px; color: var(--mint); }
+.st .ab .hs.full { color: var(--co); }
+.st .ab .track { width: 170px; height: 14px; }
+.st .ab .up { width: 18px; height: 18px; }
+.st .ab .gap { width: 18px; }
+.st .aim { left: 50%; top: calc(50% + 22px); transform: translateX(-50%); }
 .st .bars { left: 26px; bottom: 26px; width: 200px; display: grid; gap: 8px; }
 .st .mic { left: 244px; bottom: 26px; width: 50px; height: 50px; border-radius: 50%; }
 .st .mic i { position: absolute; left: 50%; top: 7px; width: 12px; height: 18px; margin-left: -6px; border-radius: 6px; background: var(--ink); }
 .st .mic u { position: absolute; left: 50%; top: 14px; width: 22px; height: 13px; margin-left: -11px; border: 3px solid var(--ink); border-top-width: 0; border-radius: 0 0 12px 12px; box-sizing: border-box; }
 .st .mic s { position: absolute; left: 50%; top: 27px; width: 3px; height: 7px; margin-left: -1.5px; background: var(--ink); }
-.st .slots { right: 26px; bottom: 26px; display: flex; gap: 12px; }
-.st .slot { width: 80px; height: 80px; display: grid; place-items: end center; padding-bottom: 8px; box-sizing: border-box; font: 800 14px/1 var(--ft); }
-.st .slot.on { background: var(--gr); }
-.st .slot.wide { width: 150px; }
-.st .ann { left: 50%; top: 104px; transform: translateX(-50%); white-space: nowrap; padding: 8px 22px; font: 900 26px/1.2 var(--ft); }
-.st .cops { left: 50%; top: 122px; transform: translateX(-50%); white-space: nowrap; padding: 10px 26px; display: grid; justify-items: center; gap: 2px; }
+.st .ann { left: 50%; top: 110px; transform: translateX(-50%); white-space: nowrap; padding: 8px 22px; font: 900 26px/1.2 var(--ft); }
+.st .cops { left: 50%; top: 112px; transform: translateX(-50%); white-space: nowrap; padding: 10px 26px; display: grid; justify-items: center; gap: 2px; }
 .st .cops .big { font: 900 28px/1.15 var(--ft); }
 .st .cops .num { font-size: 40px; }
 
+/* item bar A: sticker slots, a big picture and a name tag over the bottom edge */
+.st .ia { right: 26px; bottom: 34px; display: flex; align-items: flex-end; gap: 16px; }
+.st .ia .sl { position: relative; width: 84px; height: 84px; display: grid; place-items: center; box-sizing: border-box; }
+.st .ia .sl svg { width: 60px; height: 60px; }
+.st .ia .sl.on { width: 100px; height: 100px; background: var(--gr); }
+.st .ia .sl.on svg { width: 74px; height: 74px; }
+.st .ia .nt { position: absolute; left: 50%; bottom: -16px; transform: translateX(-50%); white-space: nowrap; font: 900 13px/1.2 var(--ft); padding: 1px 8px; border-width: 3px; border-radius: 8px; }
+/* item bar B: the belt as a purple strap with a pocket, the hand slot bigger */
+.st .ib { right: 26px; bottom: 26px; width: 340px; height: 132px; }
+.st .ib .strap { position: absolute; left: 0; top: 56px; width: 236px; height: 32px; box-sizing: border-box; background: var(--pu); border: var(--ow) solid var(--ink); border-radius: 12px; box-shadow: var(--sh) var(--sh) 0 var(--ink); }
+.st .ib .buckle { position: absolute; left: 18px; top: 48px; width: 32px; height: 48px; box-sizing: border-box; background: var(--ye); border: var(--ow) solid var(--ink); border-radius: 8px; }
+.st .ib .buckle i { position: absolute; left: 8px; top: 8px; width: 8px; height: 24px; background: var(--ink); border-radius: 3px; }
+.st .ib .pocket { position: absolute; left: 92px; top: 34px; width: 92px; height: 92px; box-sizing: border-box; background: var(--mint); border: var(--ow) solid var(--ink); border-radius: 10px 10px 26px 26px; box-shadow: var(--sh) var(--sh) 0 var(--ink); display: grid; place-items: center; padding-top: 14px; }
+.st .ib .pocket .flap { position: absolute; left: 0; right: 0; top: 0; height: 16px; border-bottom: 3px solid var(--ink); background: var(--mint); border-radius: 6px 6px 0 0; }
+.st .ib .pocket svg { width: 56px; height: 56px; }
+.st .ib .hand { position: absolute; right: 0; top: 0; width: 124px; height: 124px; box-sizing: border-box; background: var(--gr); border-radius: 26px; display: grid; place-items: center; }
+.st .ib .hand svg { width: 92px; height: 92px; }
+/* item bar C: the alien's own hand holds the item */
+.st .ic3 { right: 26px; bottom: 26px; display: flex; align-items: flex-end; gap: 16px; }
+.st .ic3 .belt { width: 78px; height: 78px; display: grid; place-items: center; box-sizing: border-box; }
+.st .ic3 .belt svg { width: 56px; height: 56px; }
+.st .ic3 .hand { width: 128px; height: 128px; display: grid; place-items: center; box-sizing: border-box; background: var(--pu); border-radius: 26px; }
+.st .ic3 .hand svg { width: 116px; height: 116px; }
+
 /* the dead's room */
 .st .dhead { left: 50%; top: 26px; transform: translateX(-50%); padding: 8px 22px; font: 900 22px/1.2 var(--ft); white-space: nowrap; }
-.st .dcount { left: 50%; top: 150px; transform: translateX(-50%); width: 360px; padding: 16px 22px; display: grid; justify-items: center; gap: 8px; }
+.st .dcol { left: 50%; top: 50%; transform: translate(-50%, -50%); display: grid; justify-items: center; gap: 40px; }
+.st .dcount { width: 360px; box-sizing: border-box; padding: 16px 22px; display: grid; justify-items: center; gap: 8px; }
 .st .dcount .num { font-size: 64px; line-height: 1; }
 .st .dcount .track { width: 100%; }
-.st .killer { left: 50%; top: 360px; transform: translateX(-50%); white-space: nowrap; padding: 6px 18px; font: 900 20px/1.2 var(--ft); }
+.st .killer { white-space: nowrap; padding: 6px 18px; font: 900 20px/1.2 var(--ft); }
 .st .others { left: 26px; bottom: 26px; }
 .st .next { right: 26px; bottom: 26px; }
 
-/* the mutation workbench */
-.st .wb { left: 60px; top: 40px; width: 840px; height: 460px; box-sizing: border-box; padding: 22px 26px; display: grid; grid-template-rows: auto 1fr auto; gap: 18px; }
+/* the mutation workbench, centred */
+.st .wb { left: 50%; top: 50%; transform: translate(-50%, -50%); width: 840px; height: 460px; box-sizing: border-box; padding: 22px 26px; display: grid; grid-template-rows: auto 1fr auto; gap: 18px; }
 .st .wb .top { display: flex; justify-content: space-between; align-items: center; }
 .st .wb .title { font-size: 34px; }
 .st .wb .bal { display: flex; align-items: center; gap: 10px; padding: 0 14px; }
@@ -115,8 +153,8 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
 .st .card .cost .num { font-size: 26px; }
 .st .wb .hint { color: var(--mu); }
 
-/* host settings: the Esc menu's Lobby tab */
-.st .esc { left: 70px; top: 46px; width: 820px; height: 448px; display: grid; grid-template-columns: 210px 1fr; overflow: hidden; }
+/* host settings: the Esc menu's Lobby tab, centred */
+.st .esc { left: 50%; top: 50%; transform: translate(-50%, -50%); width: 820px; height: 448px; display: grid; grid-template-columns: 210px 1fr; overflow: hidden; }
 .st .tabs { display: grid; align-content: start; gap: 8px; padding: 22px 16px; border-right: var(--ow) solid var(--ink); }
 .st .tab { font: 900 18px/1.2 var(--ft); padding: 8px 14px; border-radius: 12px; color: var(--mint); border: var(--ow) solid transparent; }
 .st .tab.on { background: var(--mint); color: var(--ink); border-color: var(--ink); }
@@ -135,18 +173,38 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
 .st .chip.on { background: var(--gr); box-shadow: var(--sh) var(--sh) 0 var(--ink); }
 
 /* full screens: the role reveal and the three ends, on the deep purple */
-.st .endf { position: absolute; left: 0; top: 0; width: 960px; height: 540px; background: var(--pud); display: grid; align-content: center; justify-items: center; gap: 20px; text-align: center; }
+.st .endf { position: absolute; left: 0; top: 0; right: 0; bottom: 0; background: var(--pud); display: grid; align-content: center; justify-items: center; gap: 20px; text-align: center; }
 .st .endf .title { font-size: 84px; }
 .st .endf .win { font: 900 28px/1.2 var(--ft); padding: 8px 24px; }
 .st .endf .goal { font: 800 20px/1.35 var(--ft); padding: 10px 22px; max-width: 600px; }
 .st .endf .stk { font-size: 19px; }
 .st .endf .lab { color: var(--mu); }
 
-/* the open question: two hint variants side by side */
-.st .var { top: 120px; width: 380px; display: grid; gap: 14px; justify-items: start; }
-.st .var .anger { position: static; width: 100%; box-sizing: border-box; }
-.st .var .kn { padding: 8px 18px; font: 900 24px/1.2 var(--ft); white-space: nowrap; }
+/* two variants side by side, centred (open questions) */
+.st .pair { left: 50%; top: 50%; transform: translate(-50%, -50%); display: flex; gap: 90px; align-items: flex-start; }
+.st .col { display: grid; gap: 16px; justify-items: center; }
+.st .col .ab { position: static; transform: none; }
+.st .kn { padding: 8px 18px; font: 900 24px/1.2 var(--ft); white-space: nowrap; }
+
+/* the timer comparison: four world stand-ins (light, dark) x (framed, bare) */
+.st .quad { position: absolute; width: 50%; height: 50%; }
+.st .quad .stk { position: absolute; left: 16px; top: 14px; font-size: 13px; padding: 1px 8px; border-width: 3px; }
+.st .quad .timer { top: 50%; transform: translate(-50%, -50%); }
+.st .stk.ye { white-space: nowrap; }
 </style>
+
+<!-- The item pictures: own work for this page (LICENCES.json), ink outlines and palette fills only. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-rocket" viewBox="0 0 64 64"><g stroke="#1E1230" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"><path d="M32 50V62" fill="none"/><path d="M42 44q7 1 8-6" fill="none"/><path d="M50 30l2 4 4 1-4 2-2 4-2-4-4-2 4-1z" fill="#FFD60A" stroke-width="2.5"/><path d="M23 37l-9 13 10-2z" fill="#A6E85A"/><path d="M41 37l9 13-10-2z" fill="#A6E85A"/><rect x="22" y="18" width="20" height="32" rx="6" fill="#FF8A6B"/><path d="M22 20Q32 0 42 20z" fill="#FFD60A"/><path d="M22 42H42" fill="none"/><circle cx="27.6" cy="28" r="3.8" fill="#FFFFFF" stroke-width="2.5"/><circle cx="36.4" cy="28" r="3.8" fill="#FFFFFF" stroke-width="2.5"/><path d="M28.5 35q3.5 2.6 7 0" fill="none" stroke-width="2.5"/></g><circle cx="28.4" cy="28.6" r="1.6" fill="#1E1230"/><circle cx="37.2" cy="28.6" r="1.6" fill="#1E1230"/></symbol>
+  <symbol id="i-bun" viewBox="0 0 64 64"><g stroke="#1E1230" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"><path d="M8 36Q8 12 32 12Q56 12 56 36z" fill="#FFD60A"/><rect x="9" y="40" width="46" height="13" rx="6.5" fill="#FFD60A"/><g fill="#FFFFFF" stroke-width="1.8"><ellipse cx="22" cy="20" rx="2.6" ry="1.6"/><ellipse cx="32" cy="17" rx="2.6" ry="1.6"/><ellipse cx="42" cy="20" rx="2.6" ry="1.6"/></g><path d="M21 28q3-3.5 6 0M37 28q3-3.5 6 0M29 31q3 2.6 6 0" fill="none" stroke-width="2.6"/></g></symbol>
+  <symbol id="i-battery" viewBox="0 0 64 64"><g stroke="#1E1230" stroke-width="3.5" stroke-linejoin="round"><rect x="26" y="5" width="12" height="8" rx="2" fill="#1E1230"/><rect x="16" y="12" width="32" height="46" rx="7" fill="#A6E85A"/><path d="M35 18L24 37h8l-4 15 13-21h-8z" fill="#FFD60A"/></g></symbol>
+  <symbol id="i-ext" viewBox="0 0 64 64"><g stroke="#1E1230" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"><path d="M35 15q15 0 13 16l2 8" fill="none"/><rect x="46" y="38" width="8" height="9" rx="2" fill="#1E1230"/><rect x="20" y="20" width="22" height="39" rx="9" fill="#FF8A6B"/><rect x="25" y="33" width="12" height="11" rx="2" fill="#FFFFFF" stroke-width="2.5"/><rect x="27" y="11" width="8" height="10" rx="2" fill="#1E1230"/><path d="M22 10H38" fill="none" stroke-width="4"/></g></symbol>
+  <symbol id="i-palm" viewBox="0 0 64 64"><path d="M22 58q-8-14-4-28l2-12q2-5 5 0l2 12 2-18q3-5 6 0l1 18 3-13q3-5 5 0v15q4-4 7-1 1 3-3 9-4 10-6 18z" fill="none" stroke="#54457A" stroke-width="3.5" stroke-linejoin="round"/></symbol>
+  <symbol id="i-pocket" viewBox="0 0 64 64"><path d="M14 18H50V44Q50 56 32 56Q14 56 14 44zM14 18L32 30 50 18" fill="none" stroke="#54457A" stroke-width="3.5" stroke-linejoin="round"/></symbol>
+  <symbol id="i-hand" viewBox="0 0 64 64"><use href="#i-rocket" x="2" y="-6" width="52" height="52"/><g stroke="#1E1230" stroke-width="3" stroke-linejoin="round"><path d="M34 37q15 0 19 12l4 15H35l1-13z" fill="#A6E85A"/><rect x="18" y="36" width="22" height="6" rx="3" fill="#A6E85A"/><rect x="17" y="42" width="23" height="6" rx="3" fill="#A6E85A"/><rect x="19" y="48" width="21" height="6" rx="3" fill="#A6E85A"/></g></symbol>
+  <symbol id="i-house" viewBox="0 0 64 64"><g stroke="#1E1230" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"><path d="M12 30V58H52V30" fill="currentColor"/><path d="M5 32L32 8 59 32z" fill="#2B1846"/><circle cx="23" cy="40" r="5" fill="#FFFFFF" stroke-width="3"/><circle cx="41" cy="40" r="5" fill="#FFFFFF" stroke-width="3"/><path d="M16 31l11 4M48 31l-11 4M27 54q5-5 10 0" fill="none"/></g><circle cx="24" cy="41" r="2" fill="#1E1230"/><circle cx="40" cy="41" r="2" fill="#1E1230"/></symbol>
+  <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 3L22 20H2z" fill="#FF8A6B" stroke="#1E1230" stroke-width="3" stroke-linejoin="round"/></symbol>
+</svg>
 
 <main class="wrap">
   <header class="intro">
@@ -159,38 +217,113 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
     </div>
   </header>
 
+  <div class="switch">
+    <div class="seg" role="group" aria-label="Масштаб UI"><span>Масштаб UI:</span>
+      <button type="button" data-m="05">0.5×</button>
+      <button type="button" data-m="1">1×</button>
+    </div>
+    <p class="vnote">0.5× — приблизно як гра малює зараз (пак ui-1.1.0 на 1920×1080): ті самі обведення 4 px, тіні 5 px, радіуси й слоти ~88 px; текст у кадрах трохи дрібніший (підписи 15 px проти 22, таймер 34 проти 48). 1× — удвічі більше.</p>
+  </div>
+
   <!-- 1. Round HUD: points, anger, timer -->
   <section class="screen">
     <h2>1 · Раунд: очки, гнів сусідів, таймер</h2>
-    <div class="tags"><span class="tag new">нове: очки, гнів</span><span class="tag chg">зміна: роль, предмети</span><span class="tag chg">змінює записане рішення</span><span class="tag draft">чернетка текстів</span></div>
+    <div class="tags"><span class="tag new">нове: очки, гнів</span><span class="tag chg">зміна: роль, предмети, таймер</span><span class="tag chg">змінює записане рішення</span><span class="tag draft">чернетка текстів</span></div>
     <div class="frame st"><div class="stage">
       <span class="abs role stk mi">Прибулець</span>
       <div class="abs pts plate"><span class="lab">Очки</span><span class="num">7</span></div>
       <span class="abs pop stk gr">+2</span>
-      <div class="abs timer plate num">07:42</div>
-      <div class="abs anger plate"><div class="head"><span class="lab">Сусіди злі</span><span class="stk co">росте</span></div><div class="track"><b style="width:38%;background:var(--co)"></b></div></div>
+      <div class="abs timer bare">07:42</div>
+      <div class="abs ab"><svg class="hs"><use href="#i-house"/></svg><div class="track"><b style="width:38%;background:var(--co)"></b></div><svg class="up"><use href="#i-up"/></svg></div>
       <div class="abs cross"></div>
       <span class="abs aim chipp">Сміттєвий бак</span>
       <div class="abs bars"><div class="track"><b style="width:80%;background:var(--gr)"></b></div><div class="track"><b style="width:55%;background:var(--ye)"></b></div></div>
       <div class="abs mic plate"><i></i><u></u><s></s></div>
-      <div class="abs slots"><div class="slot plate on wide">Феєрверк</div><div class="slot plate">Булка</div></div>
+      <div class="abs ia"><div class="sl plate on"><svg><use href="#i-rocket"/></svg></div><div class="sl plate"><svg><use href="#i-bun"/></svg></div></div>
     </div></div>
-    <p class="cap">Ліворуч угорі — твої очки й коротке «+2», коли робота чи пакість принесли очки. Праворуч — гнів сусідів: росте, поки пакість не виправили; феєрверк дає стрибок. Таймер, здоров'я, витривалість і мікрофон — як були. Руки й пояс лишаються, змінюється те, що в них: батарея, квітка, надрукована деталь, булка, котлета, бургер, лійка, інструменти гаража, вогнегасник, феєрверк, підняте сміття. (m8 §4, §5; GDD §8)</p>
-    <div class="q"><p><b>Для вас — зміна записаного рішення:</b> у рішеннях UI записано «нагорі лише час». Очки (ліворуч) і гнів (праворуч) додають дві плашки нагорі. Лишаємо їх там чи переносимо?</p></div>
+    <p class="cap">Нагорі по центру — час без рамки, під ним тонка смужка гніву сусідів з будиночком: коралова заливка росте, поки пакість не виправили; трикутник «▲» — гнів зараз росте; феєрверк дає стрибок. Ліворуч угорі — твої очки й коротке «+2». Руки й пояс — варіант А з розділу нижче, лише як заглушка. (m8 §4, §5; GDD §8)</p>
+    <div class="q"><p><b>Для вас — зміна записаного рішення:</b> у рішеннях UI записано «нагорі лише час». Тепер нагорі ще очки (ліворуч) і смужка гніву (під часом). Лишаємо так чи переносимо?</p></div>
     <div class="q"><p><b>Відкрито:</b> скільки очок за що (§4 «ще перевірити»). Чи показувати на HUD куплені мутації. Чи бачать люди одне одного (позначка команди над головою).</p></div>
+  </section>
+
+  <!-- 1a. The timer: framed or bare, over a light and a dark world -->
+  <section class="screen">
+    <h2>Таймер: у рамці чи без</h2>
+    <div class="tags"><span class="tag chg">ваш вибір</span></div>
+    <div class="frame st" style="aspect-ratio:8/3" data-w="640" data-h="240"><div class="stage">
+      <div class="quad" style="left:0;top:0;background:#C9C9C9"><span class="stk mi">у рамці</span><div class="abs timer plate num">07:42</div></div>
+      <div class="quad" style="left:50%;top:0;background:#C9C9C9"><span class="stk mi">без рамки</span><div class="abs timer bare">07:42</div></div>
+      <div class="quad" style="left:0;top:50%;background:#2A2F35"><span class="stk mi">у рамці</span><div class="abs timer plate num">07:42</div></div>
+      <div class="quad" style="left:50%;top:50%;background:#2A2F35"><span class="stk mi">без рамки</span><div class="abs timer bare">07:42</div></div>
+    </div></div>
+    <p class="cap">Угорі — світлий світ, унизу — темний. Без рамки цифри м'ятні з товстим чорнильним контуром, тож читаються і на світлому, і на темному. У кадрах цієї сторінки поки «без рамки».</p>
+  </section>
+
+  <!-- 1b. The item bar: three directions -->
+  <section class="screen">
+    <h2>Панель предметів: три варіанти</h2>
+    <div class="tags"><span class="tag chg">ваш вибір</span><span class="tag draft">чернетка текстів</span></div>
+    <p class="cap">Ті самі предмети в усіх трьох: у руці феєрверк, на поясі булка. Замість слів — малюнки предметів (наша власна робота, лише кольори палітри й чорнильний контур). Підказок клавіш на HUD немає, як і раніше. Ліворуч — увесь кадр у вибраному масштабі, праворуч — кут крупно.</p>
+    <h3>А · Наліпки з великим малюнком і бирками</h3>
+    <div class="duo">
+      <div class="frame st"><div class="stage">
+        <div class="abs timer bare">07:42</div>
+        <div class="abs bars"><div class="track"><b style="width:80%;background:var(--gr)"></b></div><div class="track"><b style="width:55%;background:var(--ye)"></b></div></div>
+        <div class="abs mic plate"><i></i><u></u><s></s></div>
+        <div class="abs ia"><div class="sl plate on"><svg><use href="#i-rocket"/></svg><span class="nt stk mi">Феєрверк</span></div><div class="sl plate"><svg><use href="#i-bun"/></svg><span class="nt stk mi">Булка</span></div></div>
+      </div></div>
+      <div class="frame st zoom"><div class="stage">
+        <div class="abs ia"><div class="sl plate on"><svg><use href="#i-rocket"/></svg><span class="nt stk mi">Феєрверк</span></div><div class="sl plate"><svg><use href="#i-bun"/></svg><span class="nt stk mi">Булка</span></div></div>
+      </div></div>
+    </div>
+    <div class="frame st" style="aspect-ratio:3/1" data-w="780" data-h="260"><div class="stage">
+      <div class="abs" style="left:50%;top:44px;transform:translateX(-50%);display:flex;gap:40px;align-items:flex-end">
+        <div class="ia" style="position:static;display:grid;justify-items:center;gap:26px"><div class="sl plate on"><svg><use href="#i-battery"/></svg></div><span class="stk ye">рука вибрана</span></div>
+        <div class="ia" style="position:static;display:grid;justify-items:center;gap:26px"><div class="sl plate"><svg><use href="#i-ext"/></svg></div><span class="stk ye">пояс</span></div>
+        <div class="ia" style="position:static;display:grid;justify-items:center;gap:26px"><div class="sl plate on"><svg style="opacity:1"><use href="#i-palm"/></svg></div><span class="stk ye">порожня рука</span></div>
+        <div class="ia" style="position:static;display:grid;justify-items:center;gap:26px"><div class="sl plate"><svg><use href="#i-pocket"/></svg></div><span class="stk ye">порожній пояс</span></div>
+      </div>
+    </div></div>
+    <p class="cap">Стани А (жовті бирки — підписи сторінки, не гри): рука завжди вибрана — зелена й більша; порожній слот показує блідий контур долоні чи кишені. Характер: предмет — герой наліпки, а бирка як цінник на вечірці.</p>
+    <h3>Б · Пояс — справжній ремінь із кишенею, рука більша</h3>
+    <div class="duo">
+      <div class="frame st"><div class="stage">
+        <div class="abs timer bare">07:42</div>
+        <div class="abs bars"><div class="track"><b style="width:80%;background:var(--gr)"></b></div><div class="track"><b style="width:55%;background:var(--ye)"></b></div></div>
+        <div class="abs mic plate"><i></i><u></u><s></s></div>
+        <div class="abs ib"><div class="strap"></div><div class="buckle"><i></i></div><div class="pocket"><span class="flap"></span><svg><use href="#i-bun"/></svg></div><div class="hand plate"><svg><use href="#i-rocket"/></svg></div></div>
+      </div></div>
+      <div class="frame st zoom"><div class="stage">
+        <div class="abs ib"><div class="strap"></div><div class="buckle"><i></i></div><div class="pocket"><span class="flap"></span><svg><use href="#i-bun"/></svg></div><div class="hand plate"><svg><use href="#i-rocket"/></svg></div></div>
+      </div></div>
+    </div>
+    <p class="cap">Характер: пояс читається як річ із вечірки — фіолетовий ремінь, жовта пряжка, кишеня з клапаном; без жодного слова.</p>
+    <h3>В · Рука прибульця тримає предмет</h3>
+    <div class="duo">
+      <div class="frame st"><div class="stage">
+        <div class="abs timer bare">07:42</div>
+        <div class="abs bars"><div class="track"><b style="width:80%;background:var(--gr)"></b></div><div class="track"><b style="width:55%;background:var(--ye)"></b></div></div>
+        <div class="abs mic plate"><i></i><u></u><s></s></div>
+        <div class="abs ic3"><div class="belt plate"><svg><use href="#i-bun"/></svg></div><div class="hand plate"><svg><use href="#i-hand"/></svg></div></div>
+      </div></div>
+      <div class="frame st zoom"><div class="stage">
+        <div class="abs ic3"><div class="belt plate"><svg><use href="#i-bun"/></svg></div><div class="hand plate"><svg><use href="#i-hand"/></svg></div></div>
+      </div></div>
+    </div>
+    <p class="cap">Характер: у слоті рука — зелена, трипала, твоя; вона стискає феєрверк, тож видно, що саме ти зараз тримаєш.</p>
   </section>
 
   <!-- 2. The anger hint: an open question shown as two variants -->
   <section class="screen">
-    <h2>2 · Гнів: що підказує шкала</h2>
+    <h2>2 · Гнів: що підказує смужка</h2>
     <div class="tags"><span class="tag new">нове</span><span class="tag draft">чернетка текстів</span></div>
     <div class="frame st"><div class="stage">
-      <div class="abs var" style="left:60px"><span class="stk mi">А · без підказки</span>
-        <div class="anger plate"><div class="head"><span class="lab">Сусіди злі</span><span class="stk co">росте</span></div><div class="track"><b style="width:38%;background:var(--co)"></b></div></div></div>
-      <div class="abs var" style="left:520px"><span class="stk mi">Б · тип без місця</span>
-        <div class="anger plate"><div class="head"><span class="lab">Сусіди злі</span><span class="stk co">росте</span></div><div class="track"><b style="width:38%;background:var(--co)"></b></div><span class="stk ye" style="justify-self:start">Гучна музика</span></div></div>
+      <div class="abs pair">
+        <div class="col"><span class="stk mi">А · без підказки</span><div class="ab"><svg class="hs"><use href="#i-house"/></svg><div class="track"><b style="width:38%;background:var(--co)"></b></div><svg class="up"><use href="#i-up"/></svg></div></div>
+        <div class="col"><span class="stk mi">Б · тип без місця</span><div class="ab"><svg class="hs"><use href="#i-house"/></svg><div class="track"><b style="width:38%;background:var(--co)"></b></div><svg class="up"><use href="#i-up"/></svg></div><span class="stk ye">Гучна музика</span></div>
+      </div>
     </div></div>
-    <p class="cap">Прибульці бачать, що гнів росте, і мусять шукати причину. А: лише шкала. Б: шкала каже, що саме (музика, сміття), але не де. (m8 §5, §9)</p>
+    <p class="cap">Прибульці бачать, що гнів росте, і мусять шукати причину. А: лише смужка. Б: під смужкою сказано, що саме (музика, сміття), але не де. (m8 §5, §9)</p>
     <div class="q"><p><b>Відкрито — ваш вибір:</b> А чи Б. Поки не вирішено, мапа не позначає місце пакості.</p></div>
   </section>
 
@@ -199,10 +332,10 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
     <h2>3 · Хто кого вбив</h2>
     <div class="tags"><span class="tag new">нове</span><span class="tag draft">чернетка текстів</span></div>
     <div class="frame st"><div class="stage">
-      <div class="abs var" style="left:40px;top:220px"><span class="stk mi">А · банер на HUD</span>
-        <div class="kn plate"><i class="hue" style="background:#1C7A82"></i>Ґлорп убив <i class="hue" style="background:#E66B57;margin-left:8px"></i>Їжака</div></div>
-      <div class="abs var" style="left:520px;top:220px"><span class="stk mi">Б · мертвий каже сам, у світі</span>
-        <span class="chipp" style="font-size:20px">Їжак: «Мене вбив Ґлорп!»</span></div>
+      <div class="abs pair">
+        <div class="col"><span class="stk mi">А · банер на HUD</span><div class="kn plate"><i class="hue" style="background:#1C7A82"></i>Ґлорп убив <i class="hue" style="background:#E66B57;margin-left:8px"></i>Їжака</div></div>
+        <div class="col"><span class="stk mi">Б · мертвий каже сам, у світі</span><span class="chipp" style="font-size:20px">Їжак: «Мене вбив Ґлорп!»</span></div>
+      </div>
     </div></div>
     <p class="cap">Убитий прибулець каже всім, хто його вбив, тож убивство видає вбивцю (m8 §4, #1040). Роль не називаємо — лише імена з кольором тіла. Нокдаун лишається, і правило «не показувати, хто повалив» для нього теж: це повідомлення — окрема подія в момент смерті.</p>
     <div class="q"><p><b>Відкрито — ваш вибір:</b> А (банер для всіх на HUD) чи Б (мертвий каже сам). І для кого: лише для вбитих прибульців (тоді мовчання видає вбиту людину) чи для кожного вбивства (це вже більше, ніж у m8).</p></div>
@@ -210,20 +343,20 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
 
   <!-- 4. The cops' minute -->
   <section class="screen">
-    <h2>4 · Шкала повна: копи за хвилину</h2>
+    <h2>4 · Смужка повна: копи за хвилину</h2>
     <div class="tags"><span class="tag new">нове</span><span class="tag draft">чернетка текстів</span></div>
     <div class="frame st"><div class="stage">
       <span class="abs role stk mi">Прибулець</span>
       <div class="abs pts plate"><span class="lab">Очки</span><span class="num">11</span></div>
-      <div class="abs timer plate num">04:12</div>
-      <div class="abs anger plate"><div class="head"><span class="lab">Сусіди злі</span><span class="stk co">повна</span></div><div class="track"><b style="width:100%;background:var(--co);border-right:0"></b></div></div>
+      <div class="abs timer bare">04:12</div>
+      <div class="abs ab"><svg class="hs full"><use href="#i-house"/></svg><div class="track"><b style="width:100%;background:var(--co);border-right:0"></b></div><span class="gap"></span></div>
       <div class="abs cops plate co"><span class="big">Сусіди викликали копів!</span><span class="lab">Копи будуть за</span><span class="num">0:58</span></div>
       <div class="abs cross"></div>
       <div class="abs bars"><div class="track"><b style="width:80%;background:var(--gr)"></b></div><div class="track"><b style="width:55%;background:var(--ye)"></b></div></div>
       <div class="abs mic plate"><i></i><u></u><s></s></div>
-      <div class="abs slots"><div class="slot plate on">Рука</div><div class="slot plate">Пояс</div></div>
+      <div class="abs ia"><div class="sl plate on"><svg><use href="#i-battery"/></svg></div><div class="sl plate"><svg><use href="#i-pocket"/></svg></div></div>
     </div></div>
-    <p class="cap">Коли гнів досягає порогу, сусіди самі кличуть копів: у прибульців хвилина, щоб закінчити задачі. Відлік бачать усі. Затримати копів за очки в MVP не можна. (m8 §5)</p>
+    <p class="cap">Смужка повна, будиночок став кораловим. Сусіди самі кличуть копів: у прибульців хвилина, щоб закінчити задачі. Відлік бачать усі. Затримати копів за очки в MVP не можна. (m8 §5)</p>
     <div class="q"><p><b>Відкрито:</b> показувати обидва відліки (таймер раунду й копів) чи лише той, що закінчиться раніше. Чи буде фінал після хвилини копів (§6). Скільки триває «хвилина».</p></div>
   </section>
 
@@ -233,8 +366,10 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
     <div class="tags"><span class="tag new">нове, замість спостереження</span><span class="tag draft">чернетка текстів</span></div>
     <div class="frame st"><div class="stage">
       <div class="abs dhead panel">Кімната мертвих</div>
-      <div class="abs dcount plate"><span class="lab">Повернення через</span><span class="num">0:24</span><div class="track"><b style="width:20%;background:var(--gr)"></b></div></div>
-      <div class="abs killer plate"><i class="hue" style="background:#1C7A82"></i>Тебе вбив Ґлорп</div>
+      <div class="abs dcol">
+        <div class="dcount plate"><span class="lab">Повернення через</span><span class="num">0:24</span><div class="track"><b style="width:20%;background:var(--gr)"></b></div></div>
+        <div class="killer plate"><i class="hue" style="background:#1C7A82"></i>Тебе вбив Ґлорп</div>
+      </div>
       <span class="abs others chipp">Тут також: Бульк, Зінґа</span>
       <span class="abs next stk mi">Випадкова капсула · 3 с захисту</span>
     </div></div>
@@ -356,7 +491,7 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
       <li>Підключення й усі помилки входу; список гравців під час завантаження.</li>
       <li>Панель лобі: гравці, «Готово», код кімнати, відлік 5 с.</li>
       <li>Меню Esc: вкладки «Гра», «Персонаж» і всі налаштування (звук, керування, екран, мова, доступність); картки шаблонів у «Лобі».</li>
-      <li>HUD: таймер, здоров'я, витривалість, мікрофон, слоти руки й пояса (змінюються лише предмети в них), приціл, назва предмета, таблички з іменами.</li>
+      <li>HUD: здоров'я, витривалість, мікрофон, приціл, назва предмета, таблички з іменами; слоти руки й пояса лишаються (як вони виглядають — три варіанти вище).</li>
       <li>Нокдаун: повалений, «утримуй, щоб здатися», підйом, смужка підйому в того, хто піднімає, урок у навчанні.</li>
       <li>Чип «Захист 3 с» після повернення.</li>
       <li>Мапа: дошка, список задач, «?» і підсвітка зон задачі; зникають лише зони доставки, нові задачі й кімнати стають на їхнє місце.</li>
@@ -376,15 +511,39 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
   </section>
 
   <footer class="foot">
-    <p>Стиль — сила Б без нахилів, ті самі кольори й шрифти (Nunito, Rubik), що на сторінці наліпок; у кадрах лише те, що вміє намалювати Godot. Джерело: <code>pages/mvp-screens/</code> у prime-game-ui. Дизайн матчу: prime-game <code>docs/design/m8-match.md</code>.</p>
+    <p>Стиль — сила Б без нахилів, ті самі кольори й шрифти (Nunito, Rubik), що на сторінці наліпок; у кадрах лише те, що вміє намалювати Godot. Малюнки предметів і будиночка — наша власна робота (<code>pages/mvp-screens/LICENCES.json</code>). Джерело: <code>pages/mvp-screens/</code> у prime-game-ui. Дизайн матчу: prime-game <code>docs/design/m8-match.md</code>.</p>
   </footer>
 </main>
 
 <script>
-// Scale each 960x540 stage to its frame's width, as pages/sticker does.
-const fit = () => document.querySelectorAll(".frame").forEach(f => {
-  f.querySelector(".stage").style.setProperty("--s", f.clientWidth / 960);
-});
-fit();
+// The UI scale: "05" draws the stage at 1920x1080 (every UI px half as big on screen), "1" at 960x540. A zoom frame
+// shows the stage's bottom-right 480x240 corner; a frame with data-w/data-h has a fixed stage of that size.
+let mode = "05";
+try { mode = localStorage.getItem("mvp-ui-scale") || "05"; } catch (e) {}
+if (mode !== "05" && mode !== "1") mode = "05";
+function fit() {
+  const uw = mode === "05" ? 1920 : 960, uh = uw * 9 / 16;
+  document.querySelectorAll(".frame").forEach(f => {
+    const st = f.querySelector(".stage"), w = f.clientWidth;
+    if (f.dataset.w) {
+      st.style.width = f.dataset.w + "px"; st.style.height = f.dataset.h + "px";
+      st.style.transform = "scale(" + w / f.dataset.w + ")";
+    } else if (f.classList.contains("zoom")) {
+      st.style.width = uw + "px"; st.style.height = uh + "px";
+      st.style.transform = "scale(" + w / 480 + ") translate(" + (480 - uw) + "px," + (240 - uh) + "px)";
+    } else {
+      st.style.width = uw + "px"; st.style.height = uh + "px";
+      st.style.transform = "scale(" + w / uw + ")";
+    }
+  });
+}
+function setMode(m) {
+  mode = m;
+  document.querySelectorAll(".seg button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.m === m)));
+  try { localStorage.setItem("mvp-ui-scale", m); } catch (e) {}
+  fit();
+}
+document.querySelectorAll(".seg button").forEach(b => b.addEventListener("click", () => setMode(b.dataset.m)));
+setMode(mode);
 if ("ResizeObserver" in window) new ResizeObserver(fit).observe(document.body); else addEventListener("resize", fit);
 </script>
