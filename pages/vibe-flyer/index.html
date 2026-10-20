@@ -1,0 +1,418 @@
+<title>Night Flyer Variants</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@800&family=Onest:wght@400;600;700&family=Martian+Mono:wdth,wght@75..112.5,500..700&family=Science+Gothic:wdth,wght@50..200,100..900&family=Golos+Text:wght@400;500;600&family=Geist+Mono:wght@500;600&family=Sofia+Sans+Extra+Condensed:wght@700;900&family=Sofia+Sans+Semi+Condensed:wght@400;500;700&family=Dela+Gothic+One&family=Rubik:wght@400;500;700&family=Rubik+Mono+One&family=Oi&family=Inter+Tight:wght@400;600;700&family=Roboto+Mono:wght@500;700&family=TikTok+Sans:opsz,wdth,wght@12..36,75..150,300..900&family=Handjet:wght@400..900&family=Commissioner:wght@400;600;700&display=swap">
+<style>
+/* Layout: the picked vibe ("Night flyer", board 0) on top, then five variants built on it, each as the same HUD over
+   the night estate, an end screen (the loud moment), a menu card, the type and the palette. Quiet graphite chrome.
+   Single dark theme by choice: the samples are night scenes. */
+:root {
+  color-scheme: dark;
+  --ground: #141317;
+  --raise: #1C1B21;
+  --line: #2E2C35;
+  --ink: #ECE9F1;
+  --dim: #A6A2B1;
+  --chrome: "Commissioner", "Segoe UI", system-ui, sans-serif;
+}
+body { background: var(--ground); color: var(--ink); font: 16px/1.5 var(--chrome); }
+.wrap { max-width: 1040px; margin: 0 auto; padding-block: 28px 64px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid; gap: 56px; }
+h1 { font-size: clamp(30px, 6vw, 46px); line-height: 1.05; margin: 0; text-wrap: balance; letter-spacing: -0.01em; }
+h2 { font-size: clamp(24px, 4.4vw, 32px); line-height: 1.1; margin: 0; text-wrap: balance; }
+h3 { font-size: 13px; text-transform: uppercase; letter-spacing: .1em; color: var(--dim); margin: 0; font-weight: 600; }
+p { margin: 0; max-width: 66ch; }
+a { color: var(--ink); }
+code { font-size: 14px; }
+.lede { color: var(--dim); font-size: 17px; }
+.intro { display: grid; gap: 14px; }
+.how { border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; background: var(--raise); display: grid; gap: 6px; }
+.keep { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+.keep div { border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; display: grid; gap: 4px; }
+.keep b { font-size: 14px; }
+.keep span { color: var(--dim); font-size: 14px; }
+.board { display: grid; gap: 18px; border-top: 1px solid var(--line); padding-top: 28px; }
+.board-head { display: grid; gap: 6px; }
+.num { font: 600 13px/1 var(--chrome); color: var(--dim); letter-spacing: .1em; }
+.frames { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 12px; }
+.frame { position: relative; width: 100%; max-width: 100%; aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden; background: #000; }
+.cap { color: var(--dim); font-size: 13px; margin-top: 6px; }
+.stage { position: absolute; left: 0; top: 0; width: 960px; height: 540px; transform-origin: 0 0; transform: scale(var(--s, 1)); overflow: hidden; }
+.stage > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.stage .shade { position: absolute; inset: 0; background: rgba(6, 4, 14, .28); }
+.row2 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 18px; align-items: start; }
+.col { display: grid; gap: 12px; min-width: 0; }
+.swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 8px; }
+.sw { display: grid; gap: 4px; font-size: 12px; color: var(--dim); min-width: 0; }
+.sw i { display: block; height: 36px; border-radius: 8px; border: 1px solid var(--line); }
+.sw b { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
+.spec { background: var(--raise); border: 1px solid var(--line); border-radius: 12px; padding: 16px; display: grid; gap: 10px; min-width: 0; overflow-wrap: anywhere; }
+.spec .d { font-size: 34px; line-height: 1.05; }
+.spec .t { font-size: 17px; }
+.spec .m { font-size: 15px; color: var(--dim); }
+.spec small { color: var(--dim); font: 12px/1.3 var(--chrome); }
+.fit { display: grid; gap: 6px; font-size: 15px; }
+.fit span { color: var(--dim); }
+.refs { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 14px; }
+.refs a { color: var(--dim); }
+.refs a:hover, .refs a:focus-visible { color: var(--ink); }
+.glyphs { display: grid; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+.glyphs div { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 12px; padding: 10px 14px; border-top: 1px solid var(--line); align-items: baseline; }
+.glyphs div:first-child { border-top: 0; }
+.glyphs span { color: var(--dim); font-size: 13px; }
+.glyphs p { font-size: 24px; overflow-wrap: anywhere; }
+.foot { color: var(--dim); font-size: 14px; display: grid; gap: 6px; }
+a:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; border-radius: 3px; }
+@media (max-width: 720px) {
+  .frames, .row2 { grid-template-columns: minmax(0, 1fr); }
+  .glyphs div { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+}
+
+/* ---------- Samples. Godot-safe: solid fills, one-colour borders (per-side widths), radii, one shadow without
+   spread, one text outline or shadow. ---------- */
+.ui { position: absolute; }
+.timer { left: 50%; top: 26px; transform: translateX(-50%); white-space: nowrap; }
+.anger { right: 26px; top: 26px; width: 240px; display: grid; gap: 8px; }
+.hand { left: 26px; bottom: 26px; }
+.bars { left: 128px; bottom: 30px; width: 190px; display: grid; gap: 8px; }
+.announce { left: 50%; top: 118px; transform: translateX(-50%); white-space: nowrap; }
+.cross { left: 50%; top: 50%; width: 6px; height: 6px; margin: -3px 0 0 -3px; border-radius: 50%; background: #FFFFFF; }
+.track { height: 14px; position: relative; overflow: hidden; }
+.track b { position: absolute; left: 0; top: 0; bottom: 0; display: block; }
+.slot { width: 88px; height: 88px; display: grid; place-items: end center; padding-bottom: 8px; box-sizing: border-box; }
+.cops { justify-self: start; }
+.end { position: absolute; inset: 0; display: grid; align-content: center; justify-items: center; gap: 18px; text-align: center; }
+.menu { display: grid; gap: 12px; padding: 22px; max-width: 100%; box-sizing: border-box; overflow: hidden; }
+.menu .btn { display: block; text-align: center; padding: 12px 18px; }
+.menu .set { display: grid; gap: 8px; margin-top: 4px; }
+.menu .set .track { height: 12px; }
+
+/* 0. The picked vibe as it was */
+.f0 { --bg:#120B1F; --pd:#1E1433; --pl:#F2F0E6; --tx:#F4F1FF; --a1:#C8F000; --a2:#FF6A1A; --ok:#3DDC97; --mu:#9A8FB8;
+  --fd: "Unbounded", "Arial Black", sans-serif; --ft: "Onest", "Segoe UI", sans-serif; --fm: "Martian Mono", Consolas, monospace; }
+.f0 .timer { background: var(--pd); border: 3px solid var(--a1); border-radius: 999px; padding: 4px 22px; font: 700 28px/1.2 var(--fm); color: var(--a1); }
+.f0 .anger { background: var(--pd); border: 3px solid var(--mu); border-radius: 14px; padding: 12px 14px; }
+.f0 .anger .l { font: 800 13px/1 var(--fd); color: var(--a1); letter-spacing: .06em; }
+.f0 .track { background: var(--bg); border: 2px solid var(--mu); border-radius: 999px; }
+.f0 .track b { background: var(--a2); border-radius: 999px; }
+.f0 .cops { background: var(--a2); color: var(--bg); border-radius: 999px; padding: 3px 12px; font: 700 14px/1.3 var(--ft); }
+.f0 .slot { background: var(--pd); border: 3px solid var(--a1); border-radius: 14px; font: 600 14px/1 var(--ft); color: var(--tx); }
+.f0 .bars .h b { background: var(--ok); } .f0 .bars .s b { background: var(--a1); }
+.f0 .announce { background: var(--pl); color: var(--bg); border: 3px solid var(--bg); border-radius: 14px; padding: 10px 22px; font: 800 28px/1.15 var(--fd); box-shadow: 6px 6px 0 var(--a2); }
+.f0 .end { background: var(--pd); }
+.f0 .end .big { font: 800 64px/1.05 var(--fd); color: var(--a1); }
+.f0 .end .tag { background: var(--a2); color: var(--bg); border-radius: 999px; padding: 6px 20px; font: 700 26px/1.2 var(--ft); }
+.f0 .menu { background: var(--pd); border: 3px solid var(--mu); border-radius: 18px; color: var(--tx); font: 400 16px/1.4 var(--ft); }
+.f0 .menu .title { font: 800 30px/1.05 var(--fd); color: var(--a1); }
+.f0 .menu .btn { border-radius: 999px; font: 700 18px/1.2 var(--ft); }
+.f0 .menu .p { background: var(--a1); color: var(--bg); border: 3px solid var(--bg); box-shadow: 0 5px 0 var(--a2); }
+.f0 .menu .s { color: var(--tx); border: 3px solid var(--tx); }
+.f0 .menu .g { color: var(--mu); }
+.f0 .menu .set .track b { background: var(--a1); }
+.f0 .spec .d { font-family: var(--fd); font-weight: 800; color: var(--a1); }
+.f0 .spec .t { font-family: var(--ft); } .f0 .spec .m { font-family: var(--fm); }
+
+/* 1. Techno corporation */
+.f1 { --bg:#0E0A16; --pd:#18122A; --ln:#3B3352; --tx:#EDEAF5; --a1:#C8F000; --a2:#FF6A1A; --ok:#3DDC97; --mu:#8E86A8;
+  --fd: "Science Gothic", "Arial Black", sans-serif; --ft: "Golos Text", "Segoe UI", sans-serif; --fm: "Geist Mono", Consolas, monospace; }
+.f1 .w { font-family: var(--fd); font-stretch: 165%; font-weight: 800; text-transform: uppercase; }
+.f1 .micro { font: 500 11px/1 var(--fm); letter-spacing: .08em; color: var(--mu); text-transform: uppercase; }
+.f1 .timer { background: var(--pd); border: 2px solid var(--a1); padding: 6px 16px; display: flex; gap: 12px; align-items: center; }
+.f1 .timer b { font: 600 28px/1 var(--fm); color: var(--a1); }
+.f1 .anger { background: var(--pd); border: 2px solid var(--ln); padding: 10px 12px; }
+.f1 .anger .l { display: flex; justify-content: space-between; align-items: baseline; color: var(--tx); font-size: 14px; }
+.f1 .track { background: var(--bg); height: 10px; }
+.f1 .track b { background: var(--a2); }
+.f1 .cops { background: var(--a2); color: var(--bg); padding: 4px 8px; font: 600 12px/1 var(--fm); letter-spacing: .06em; }
+.f1 .slot { background: var(--pd); border: 2px solid var(--a1); font: 500 13px/1 var(--ft); color: var(--tx); }
+.f1 .bars .track { height: 8px; background: var(--pd); } .f1 .bars .h b { background: var(--ok); } .f1 .bars .s b { background: var(--a1); }
+.f1 .announce { background: var(--pd); border-left: 10px solid var(--a1); padding: 8px 20px 10px 14px; display: grid; gap: 6px; }
+.f1 .announce .w { font-size: 24px; color: var(--tx); }
+.f1 .end { background: var(--bg); justify-items: start; text-align: left; padding: 0 64px; gap: 14px; }
+.f1 .end .big { font-size: 58px; line-height: 1; color: var(--a1); }
+.f1 .end .tag { background: var(--a2); color: var(--bg); padding: 6px 12px; font: 600 18px/1 var(--fm); letter-spacing: .06em; }
+.f1 .menu { background: var(--pd); border: 2px solid var(--ln); color: var(--tx); font: 400 16px/1.4 var(--ft); }
+.f1 .menu .title { font-size: 34px; line-height: 1; color: var(--a1); }
+.f1 .menu .btn { font-family: var(--fd); font-stretch: 140%; font-weight: 800; font-size: 15px; text-transform: uppercase; letter-spacing: .04em; }
+.f1 .menu .p { background: var(--a1); color: var(--bg); }
+.f1 .menu .s { border: 2px solid var(--tx); color: var(--tx); }
+.f1 .menu .g { color: var(--mu); }
+.f1 .menu .set .track { background: var(--bg); } .f1 .menu .set .track b { background: var(--a1); }
+.f1 .menu .slogan { background: var(--a1); color: var(--bg); padding: 4px 8px; font: 600 11px/1.2 var(--fm); letter-spacing: .08em; justify-self: start; }
+.f1 .spec .d { font-family: var(--fd); font-stretch: 165%; font-weight: 800; color: var(--a1); text-transform: uppercase; font-size: 28px; }
+.f1 .spec .t { font-family: var(--ft); } .f1 .spec .m { font-family: var(--fm); }
+
+/* 2. Berlin grid */
+.f2 { --bg:#0F0D14; --pd:#19161F; --ln:#3A3544; --tx:#F2F0F5; --a1:#C8F000; --dg:#FF5A6A; --ok:#3DDC97; --mu:#9C96A8;
+  --fd: "Sofia Sans Extra Condensed", "Arial Narrow", sans-serif; --ft: "Sofia Sans Semi Condensed", "Segoe UI", sans-serif; --fm: "Martian Mono", Consolas, monospace; }
+.f2 .c { font-family: var(--fd); font-weight: 900; text-transform: uppercase; letter-spacing: .01em; }
+.f2 .timer { background: var(--pd); border-top: 3px solid var(--tx); padding: 6px 14px 8px; display: grid; gap: 6px; justify-items: center; }
+.f2 .timer b { font: 600 32px/1 var(--fm); font-stretch: 75%; color: var(--tx); }
+.f2 .phases { display: flex; gap: 6px; font: 700 13px/1 var(--ft); text-transform: uppercase; letter-spacing: .06em; }
+.f2 .phases span { color: var(--mu); text-decoration: line-through; padding: 3px 4px; }
+.f2 .phases .on { color: var(--bg); background: var(--a1); text-decoration: none; }
+.f2 .phases .next { text-decoration: none; }
+.f2 .anger { background: var(--pd); border-top: 3px solid var(--tx); padding: 10px 12px; }
+.f2 .anger .l { font-size: 22px; line-height: 1; color: var(--tx); }
+.f2 .track { background: var(--ln); height: 8px; }
+.f2 .track b { background: var(--tx); }
+.f2 .cops { color: var(--dg); font: 700 15px/1 var(--ft); text-transform: uppercase; letter-spacing: .06em; }
+.f2 .slot { background: var(--pd); border-top: 3px solid var(--tx); font: 500 14px/1 var(--ft); color: var(--tx); }
+.f2 .bars .track { height: 6px; } .f2 .bars .h b { background: var(--ok); } .f2 .bars .s b { background: var(--tx); }
+.f2 .announce { background: var(--pd); border-top: 3px solid var(--tx); padding: 8px 18px 10px; font-size: 36px; line-height: 1; color: var(--tx); }
+.f2 .announce mark { background: var(--a1); color: var(--bg); padding: 0 6px; }
+.f2 .end { background: var(--bg); justify-items: stretch; text-align: left; padding: 0 64px; gap: 0; align-content: center; }
+.f2 .end .rowx { border-top: 3px solid var(--tx); padding: 10px 0; display: flex; justify-content: space-between; align-items: baseline; color: var(--mu); font: 600 18px/1 var(--fm); }
+.f2 .end .rowx .c { font-size: 64px; color: var(--tx); }
+.f2 .end .rowx s { color: var(--mu); }
+.f2 .end .rowx mark { background: var(--a1); color: var(--bg); padding: 0 10px; }
+.f2 .menu { background: var(--pd); color: var(--tx); font: 400 16px/1.4 var(--ft); gap: 0; padding: 22px; }
+.f2 .menu .title { font-size: 48px; line-height: .95; padding-bottom: 14px; }
+.f2 .menu .btn { text-align: left; border-top: 2px solid var(--ln); padding: 12px 4px; font: 700 20px/1.1 var(--ft); text-transform: uppercase; letter-spacing: .03em; display: flex; justify-content: space-between; }
+.f2 .menu .p { background: var(--a1); color: var(--bg); border-top-color: var(--a1); padding-left: 10px; padding-right: 10px; }
+.f2 .menu .s { color: var(--tx); }
+.f2 .menu .g { color: var(--mu); border-bottom: 2px solid var(--ln); }
+.f2 .menu .set { padding-top: 14px; } .f2 .menu .set .track { background: var(--ln); height: 6px; } .f2 .menu .set .track b { background: var(--tx); }
+.f2 .spec .d { font-family: var(--fd); font-weight: 900; text-transform: uppercase; font-size: 44px; color: var(--tx); }
+.f2 .spec .t { font-family: var(--ft); } .f2 .spec .m { font-family: var(--fm); font-stretch: 75%; }
+
+/* 3. Acid sticker */
+.f3 { --bg:#120B1F; --pd:#2A1458; --pl:#F2F0E6; --ink:#120B1F; --a1:#C8F000; --a2:#FF6A1A; --dg:#FF5A6A; --ok:#3DDC97; --mu:#9A8FB8; --tx:#F4F1FF;
+  --fd: "Dela Gothic One", "Arial Black", sans-serif; --ft: "Rubik", "Segoe UI", sans-serif; --fm: "Rubik Mono One", Consolas, monospace; }
+.f3 .timer { background: var(--a1); color: var(--ink); border: 3px solid var(--ink); border-radius: 14px; padding: 4px 18px; font: 400 26px/1.25 var(--fm); box-shadow: 5px 5px 0 var(--a2); }
+.f3 .anger { background: var(--pl); border: 3px solid var(--ink); border-radius: 14px; padding: 10px 12px; box-shadow: 5px 5px 0 var(--a2); }
+.f3 .anger .l { font: 400 16px/1 var(--fd); color: var(--ink); }
+.f3 .track { background: #FFFFFF; border: 3px solid var(--ink); border-radius: 8px; height: 18px; }
+.f3 .track b { background: var(--a2); }
+.f3 .cops { background: var(--ink); color: var(--a1); border-radius: 8px; padding: 3px 10px; font: 700 14px/1.3 var(--ft); }
+.f3 .slot { background: var(--pd); border: 3px solid var(--a1); border-radius: 14px; font: 500 14px/1 var(--ft); color: var(--tx); }
+.f3 .bars .track { height: 14px; background: var(--pd); border-color: var(--ink); } .f3 .bars .h b { background: var(--ok); } .f3 .bars .s b { background: var(--a1); }
+.f3 .announce { background: var(--pl); color: var(--ink); border: 3px solid var(--ink); border-radius: 14px; padding: 8px 22px 10px; font: 400 28px/1.15 var(--fd); box-shadow: 6px 6px 0 var(--a2); }
+.f3 .announce mark { background: var(--a1); color: var(--ink); padding: 0 6px; border-radius: 6px; }
+.f3 .end { background: var(--a1); }
+.f3 .end .big { font: 400 72px/1 var(--fd); color: var(--ink); }
+.f3 .end .tag { background: var(--a2); color: var(--ink); border: 3px solid var(--ink); border-radius: 12px; padding: 6px 18px; font: 700 26px/1.2 var(--ft); box-shadow: 5px 5px 0 var(--ink); }
+.f3 .menu { background: var(--pd); border: 3px solid var(--ink); border-radius: 18px; color: var(--tx); font: 400 16px/1.4 var(--ft); }
+.f3 .menu .title { font: 400 30px/1.05 var(--fd); color: var(--a1); }
+.f3 .menu .btn { border-radius: 12px; font: 700 18px/1.2 var(--ft); border: 3px solid var(--ink); }
+.f3 .menu .p { background: var(--a1); color: var(--ink); box-shadow: 0 5px 0 var(--a2); }
+.f3 .menu .s { background: var(--pl); color: var(--ink); box-shadow: 0 5px 0 var(--ink); }
+.f3 .menu .g { color: var(--mu); border-color: transparent; }
+.f3 .menu .set .track { background: var(--bg); border: 0; height: 12px; } .f3 .menu .set .track b { background: var(--a1); }
+.f3 .spec .d { font-family: var(--fd); color: var(--a1); }
+.f3 .spec .t { font-family: var(--ft); } .f3 .spec .m { font-family: var(--fm); font-size: 14px; }
+
+/* 4. Riso, two inks */
+.f4 { --bg:#140C22; --pd:#241640; --pp:#F4EFE6; --ink:#140C22; --a1:#C8F000; --a2:#FF3EA5; --ok:#3DDC97; --mu:#A497C2; --tx:#F6F2FF;
+  --fd: "Oi", Georgia, serif; --ft: "Inter Tight", "Segoe UI", sans-serif; --fm: "Roboto Mono", Consolas, monospace; }
+.f4 .timer { background: var(--pd); border-radius: 6px; padding: 2px 18px; font: 700 32px/1.25 var(--fm); color: var(--a1); text-shadow: 3px 3px 0 var(--a2); }
+.f4 .anger { background: var(--pp); border-radius: 6px; padding: 10px 12px; box-shadow: 5px 5px 0 var(--a2); }
+.f4 .anger .l { font: 400 18px/1 var(--fd); color: var(--ink); }
+.f4 .track { background: var(--ink); border-radius: 3px; height: 12px; }
+.f4 .track b { background: var(--a2); }
+.f4 .cops { background: var(--a2); color: var(--ink); border-radius: 4px; padding: 3px 10px; font: 700 14px/1.3 var(--ft); }
+.f4 .slot { background: var(--pd); border-radius: 6px; font: 600 14px/1 var(--ft); color: var(--a1); box-shadow: 4px 4px 0 var(--a2); }
+.f4 .bars .track { background: var(--pd); } .f4 .bars .h b { background: var(--ok); } .f4 .bars .s b { background: var(--a1); }
+.f4 .announce { background: var(--pd); border-radius: 6px; padding: 6px 22px 10px; font: 400 30px/1.2 var(--fd); color: var(--a1); text-shadow: 3px 3px 0 var(--a2); }
+.f4 .end { background: var(--a1); }
+.f4 .end .big { font: 400 66px/1.05 var(--fd); color: var(--ink); text-shadow: 5px 5px 0 var(--a2); }
+.f4 .end .tag { background: var(--a2); color: var(--ink); border-radius: 6px; padding: 6px 18px; font: 700 24px/1.2 var(--ft); }
+.f4 .menu { background: var(--pd); border-radius: 8px; color: var(--tx); font: 400 16px/1.4 var(--ft); }
+.f4 .menu .title { font: 400 34px/1.1 var(--fd); color: var(--a1); text-shadow: 3px 3px 0 var(--a2); }
+.f4 .menu .btn { border-radius: 6px; font: 700 18px/1.2 var(--ft); }
+.f4 .menu .p { background: var(--a1); color: var(--ink); box-shadow: 4px 4px 0 var(--a2); }
+.f4 .menu .s { background: var(--pp); color: var(--ink); }
+.f4 .menu .g { color: var(--mu); }
+.f4 .menu .set .track { background: var(--ink); } .f4 .menu .set .track b { background: var(--a1); }
+.f4 .spec .d { font-family: var(--fd); color: var(--a1); text-shadow: 3px 3px 0 var(--a2); font-size: 30px; }
+.f4 .spec .t { font-family: var(--ft); } .f4 .spec .m { font-family: var(--fm); }
+
+/* 5. Stretch and fields */
+.f5 { --bg:#0D0918; --vf:#5A2DE0; --pd:#1A1330; --tx:#F6F4FF; --a1:#C8F000; --dg:#FF5A6A; --ok:#3DDC97; --mu:#A79CC9;
+  --fd: "TikTok Sans", "Arial Black", sans-serif; --fm: "Handjet", Consolas, monospace; }
+.f5 .x { font-family: var(--fd); font-stretch: 150%; font-weight: 900; text-transform: uppercase; }
+.f5 .timer { background: var(--vf); border-radius: 4px; padding: 0 18px; font: 700 40px/1.2 var(--fm); color: var(--tx); }
+.f5 .anger { background: var(--pd); border-radius: 4px; padding: 10px 12px; }
+.f5 .anger .l { font-size: 14px; color: var(--a1); letter-spacing: .02em; }
+.f5 .track { background: var(--vf); height: 12px; }
+.f5 .track b { background: var(--a1); }
+.f5 .cops { color: var(--tx); font: 600 14px/1 var(--fd); font-stretch: 100%; }
+.f5 .slot { background: var(--pd); border: 2px solid var(--vf); border-radius: 4px; font: 600 13px/1 var(--fd); color: var(--tx); }
+.f5 .bars .track { background: var(--pd); height: 8px; } .f5 .bars .h b { background: var(--ok); } .f5 .bars .s b { background: var(--a1); }
+.f5 .announce { background: var(--vf); border-radius: 4px; padding: 6px 20px 8px; font-size: 26px; color: var(--tx); display: flex; gap: 12px; align-items: center; }
+.f5 .announce i { color: var(--a1); font-style: normal; }
+.f5 .end { background: var(--a1); align-content: center; justify-items: start; gap: 0; overflow: hidden; }
+.f5 .end .big { font-size: 118px; line-height: .9; color: var(--bg); white-space: nowrap; margin-left: -18px; }
+.f5 .end .big.o { color: var(--vf); margin-left: -140px; }
+.f5 .end .tag { margin: 18px 0 0 40px; background: var(--vf); color: var(--tx); border-radius: 4px; padding: 6px 14px; font: 700 22px/1.2 var(--fd); }
+.f5 .menu { background: var(--vf); border-radius: 6px; color: var(--tx); font: 400 16px/1.4 var(--fd); }
+.f5 .menu .title { font-size: 62px; line-height: .9; color: var(--a1); white-space: nowrap; margin-left: -6px; margin-right: -60px; }
+.f5 .menu .btn { border-radius: 4px; font-family: var(--fd); font-stretch: 130%; font-weight: 900; font-size: 17px; text-transform: uppercase; }
+.f5 .menu .p { background: var(--a1); color: var(--bg); }
+.f5 .menu .s { border: 3px solid var(--tx); color: var(--tx); }
+.f5 .menu .g { color: #DCD4FF; }
+.f5 .menu .set .track { background: var(--bg); } .f5 .menu .set .track b { background: var(--a1); }
+.f5 .spec .d { font-family: var(--fd); font-stretch: 150%; font-weight: 900; text-transform: uppercase; color: var(--a1); font-size: 30px; }
+.f5 .spec .t { font-family: var(--fd); font-weight: 500; } .f5 .spec .m { font-family: var(--fm); font-size: 22px; font-weight: 600; }
+</style>
+
+<main class="wrap">
+  <header class="intro">
+    <h3>prime-game · UI · нічний флаєр · раунд 2 · 20.10.2026</h3>
+    <h1>П'ять варіантів «Нічного флаєра»</h1>
+    <p class="lede">Ви обрали вайб 1. Кислотно-зелений лишається в кожному варіанті. Решта (шрифти, форма плашок, другий колір, темп) змінюється. Кожен варіант спирається на справжній підстиль клубного дизайну, назва якого підписана під ним.</p>
+    <div class="how">
+      <p><b>Як відповісти:</b> назвіть номер варіанта або кілька, і що з них взяти: шрифт, кнопки, плашку оголошення, фінальний екран, другий колір. Якщо в усіх подобається, наприклад, лише таймер, теж напишіть.</p>
+      <p>Усі тексти на сторінці — лише зразки. Кожен зразок намальований тим, що вміє Godot.</p>
+    </div>
+    <div class="keep">
+      <div><b>Однакове для всіх</b><span>Кислотний лайм #C8F000, фіолетово-чорне тло, жодного світіння й градієнтів.</span></div>
+      <div><b>Правило лайму</b><span>У грі лайм займає мало місця (цифри, головна кнопка, активне), а на гучних екранах (кінець, лобі) може залити все.</span></div>
+      <div><b>Чого уникаємо</b><span>Геймерського RGB, кольорів Xbox, «хакерського терміналу» і вигляду обкладинки Brat.</span></div>
+    </div>
+  </header>
+
+  <div id="boards" class="intro" style="gap:56px"></div>
+
+  <section class="intro">
+    <h2>Чи є в нових шрифтах українські літери</h2>
+    <p class="lede">Якщо ґ, ї, є або апостроф намальовані іншим, простішим шрифтом, у цього шрифту їх немає.</p>
+    <div class="glyphs" id="glyphs"></div>
+  </section>
+
+  <footer class="foot">
+    <p>Референси подано посиланнями: картинки з інтернету я не завантажував. Звіти лежать у <code>docs/research/2026-10-20-vibe/</code> репозиторію prime-game-ui (файли <code>r2-*</code>).</p>
+    <p>Маєток — концепт мапи з арт-треку.</p>
+  </footer>
+</main>
+
+<script>
+const SAMPLE = "Ґанок · ЇЖАК · Єва · іграшка · м'ята · пʼять · № 07:42";
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const track = (cls, w) => `<div class="track ${cls}"><b style="width:${w}%"></b></div>`;
+const commonHud = (hand) => `<div class="ui cross"></div>
+  <div class="ui hand"><div class="slot">${hand}</div></div>
+  <div class="ui bars">${track("h", 80)}${track("s", 45)}</div>`;
+
+const boards = [
+  { id: "f0", tag: "Вихідний", name: "Нічний флаєр, як було в раунді 1",
+    line: "Для порівняння: те, що ви обрали. Широкий Unbounded, таблетки, світла плашка з помаранчевою тінню.",
+    sub: "Флаєр 90-х у кислотному варіанті", fonts: ["Unbounded", "Onest", "Martian Mono"], display: "Вечірка на Землі",
+    hud: () => `<div class="ui timer">07:42</div>
+      <div class="ui anger"><div class="l">СУСІДИ</div>${track("", 62)}<div class="cops">Копи за 0:58</div></div>
+      <div class="ui announce">Ґлорп вбив Їжака</div>${commonHud("Батарея")}`,
+    end: () => `<div class="end"><div class="big">Вечірку закрито</div><div class="tag">Копи приїхали</div></div>`,
+    menu: () => `<div class="title">My Alien Prime Friends</div><span class="btn p">Хост</span><span class="btn s">Приєднатися</span><span class="btn g">Налаштування</span>`,
+    pal: [["#120B1F","тло"],["#1E1433","панель"],["#F2F0E6","світла"],["#C8F000","лайм"],["#FF6A1A","помаранч"],["#9A8FB8","приглушений"]] },
+
+  { id: "f1", tag: "Варіант 1", name: "Техно-корпорація",
+    line: "Прибульці як фальшива корпорація вечірок: розтягнуті широкі капітелі, дрібний «артикульний» шрифт, суворі прямокутники, слогани замість підписів. Прилади й локації отримують бренди-пародії.",
+    sub: "The Designers Republic, Wipeout, техно-пародія 90-х", fonts: ["Science Gothic (ширина 165%)", "Golos Text", "Geist Mono"], display: "Вечірка на Землі",
+    fit: "Найкраще лягає на «прилад з манією» й дорослу сухість: жарт сидить у самій системі (ВЕЧІРКА: ЗАДОВІЛЬНО). Читається чисто.",
+    risk: "Холодніше за інші, тож без лайму й помаранчу легко стає «серйозною наукою».",
+    hud: () => `<div class="ui timer"><span class="micro">Час</span><b>07:42</b></div>
+      <div class="ui anger"><div class="l"><span class="w">Сусіди</span><span class="micro">НС-62%</span></div>${track("", 62)}<div class="cops">КОПИ ЧЕРЕЗ 0:58</div></div>
+      <div class="ui announce"><span class="micro">Повідомлення № 0042</span><span class="w">Ґлорп вбив Їжака</span></div>${commonHud("Батарея")}`,
+    end: () => `<div class="end"><span class="micro">Протокол 0007 · 22:14</span><div class="big w">Вечірку<br>закрито</div><div class="tag">ПРИЧИНА: КОПИ</div></div>`,
+    menu: () => `<span class="micro">Прибульці Груп™ · сезон 01</span><div class="title w">Вечірка</div><span class="btn p">Хост</span><span class="btn s">Приєднатися</span><span class="btn g">Налаштування</span><span class="slogan">ВЕЧІРКА: ЗАДОВІЛЬНО</span>`,
+    pal: [["#0E0A16","тло"],["#18122A","панель"],["#3B3352","лінія"],["#C8F000","лайм"],["#FF6A1A","тривога"],["#EDEAF5","текст"],["#8E86A8","дрібний"]],
+    refs: [["Wipeout: усна історія","https://www.creativereview.co.uk/an-oral-history-of-wipeout/"],["Шрифт tDR (Fonts In Use)","https://fontsinuse.com/typefaces/246221/amalgamation"],["Warp і tDR","https://warp.net/editorial/reasonable-person-an-interview-with-ian-anderson"],["Science Gothic","https://github.com/googlefonts/science-gothic"]] },
+
+  { id: "f2", tag: "Варіант 2", name: "Берлінська сітка",
+    line: "Суворий техно-плакат: високі вузькі капітелі, тонкі лінії над кожним блоком, великі моноширинні цифри. Лайм тільки на тому, що активне зараз: фаза, вибрана кнопка, ім'я.",
+    sub: "Tresor і Berghain, швейцарська сітка, Haçienda", fonts: ["Sofia Sans Extra Condensed", "Sofia Sans Semi Condensed", "Martian Mono (вузький)"], display: "Вечірка на Землі",
+    fit: "Найспокійніший і найчитабельніший варіант для гри з голосом. Лайм стає рідкісним і тому сильним. Закреслені фази — прийом берлінських афіш (інші дні тижня закреслено).",
+    risk: "Може здатися надто стриманим для вечірки. Весь гумор тут має йти від текстів.",
+    hud: () => `<div class="ui timer"><b>07:42</b><div class="phases"><span>Лобі</span><span class="on">Раунд</span><span class="next">Кінець</span></div></div>
+      <div class="ui anger"><div class="l c">Сусіди</div>${track("", 62)}<div class="cops">Копи — 0:58</div></div>
+      <div class="ui announce c"><mark>Ґлорп</mark> вбив Їжака</div>${commonHud("Батарея")}`,
+    end: () => `<div class="end"><div class="rowx"><span class="c">Кінець</span><span>22:14</span></div><div class="rowx"><s>Прибульці</s><span><mark>Люди перемогли</mark></span></div><div class="rowx"><span>Причина</span><span>Копи приїхали</span></div></div>`,
+    menu: () => `<div class="title c">Вечірка<br>на Землі</div><span class="btn p">Хост<span>→</span></span><span class="btn s">Приєднатися<span>→</span></span><span class="btn g">Налаштування<span>→</span></span><div class="set"><span>Загальна гучність</span>${track("", 70)}</div>`,
+    pal: [["#0F0D14","тло"],["#19161F","панель"],["#3A3544","лінія"],["#F2F0F5","текст"],["#C8F000","лайм: активне"],["#FF5A6A","небезпека"],["#9C96A8","приглушений"]],
+    refs: [["Афіші Tresor (It's Nice That)","https://www.itsnicethat.com/articles/vanja-golubovic-techno-club-posters"],["Системи нічного життя (Eye)","https://eyemagazine.com/blog/post/systems-of-nightlife"],["Acid house і швейцарський модернізм","https://eyeondesign.aiga.org/acid-house-swiss-modernism-the-legacy-of-clubbing-on-graphics/"],["Pfadfinderei","https://www.format.com/magazine/pfadfinderei-design-berlin-electronic-music-moderat"]] },
+
+  { id: "f3", tag: "Варіант 3", name: "Кислотна наліпка",
+    line: "Найближчий до раунду 1, але грубіший: важкий «цегляний» шрифт, товсті контури, жорсткі помаранчеві тіні. Головні елементи залиті лаймом з темним текстом, як маркер-виділювач.",
+    sub: "Необруталізм, флаєр-наліпка", fonts: ["Dela Gothic One", "Rubik", "Rubik Mono One"], display: "Вечірка на Землі",
+    fit: "Найгучніший і найвеселіший. Плашки виглядають як наліпки на флаєрі, і їх легко прочитати поверх яскравої сцени.",
+    risk: "Важкий шрифт і тіні можуть стати «дитячими», якщо дати великі заокруглення. Тому кути тут середні.",
+    hud: () => `<div class="ui timer">07:42</div>
+      <div class="ui anger"><div class="l">Сусіди злі</div>${track("", 62)}<div class="cops">Копи за 0:58</div></div>
+      <div class="ui announce"><mark>Ґлорп</mark> вбив Їжака</div>${commonHud("Батарея")}`,
+    end: () => `<div class="end"><div class="big">Вечірку<br>закрито</div><div class="tag">Копи приїхали</div></div>`,
+    menu: () => `<div class="title">Вечірка на Землі</div><span class="btn p">Хост</span><span class="btn s">Приєднатися</span><span class="btn g">Налаштування</span>`,
+    pal: [["#120B1F","чорнило"],["#2A1458","фіолетовий"],["#F2F0E6","світла"],["#C8F000","лайм"],["#FF6A1A","тінь"],["#9A8FB8","приглушений"]],
+    refs: [["Neubrutalism","https://trends.daisyui.com/trend/neubrutalism/"],["Acid graphics","https://trends.daisyui.com/trend/acid-graphics/"],["Maiden Voyage 2024","https://fontsinuse.com/uses/63300/maiden-voyage-festival-2024"],["Флаєри рейвів 1988–93","https://www.theransomnote.com/art-culture/a-brief-history-of-rave-flyers/"]] },
+
+  { id: "f4", tag: "Варіант 4", name: "Різо у дві фарби",
+    line: "Друкований флаєр двома флуоресцентними фарбами: лайм і рожевий. Рожева тінь трохи зсунута, як фарба, що не влучила на друкарні. Головний шрифт товстий і кумедний.",
+    sub: "Різографія, клубний флаєр, друк двома фарбами", fonts: ["Oi", "Inter Tight", "Roboto Mono"], display: "Вечірка на Землі",
+    fit: "Найбільше схожий на справжній надрукований флаєр і найбільше «жартує» шрифтом. Добре тримає абсурд.",
+    risk: "Рожевий близький до рожевого неону сцени, тож може з ним злитися. Товстий шрифт годиться лише для великих заголовків.",
+    hud: () => `<div class="ui timer">07:42</div>
+      <div class="ui anger"><div class="l">Сусіди</div>${track("", 62)}<div class="cops">Копи за 0:58</div></div>
+      <div class="ui announce">Ґлорп вбив Їжака</div>${commonHud("Батарея")}`,
+    end: () => `<div class="end"><div class="big">Вечірку закрито</div><div class="tag">Копи · 22:14</div></div>`,
+    menu: () => `<div class="title">Вечірка на Землі</div><span class="btn p">Хост</span><span class="btn s">Приєднатися</span><span class="btn g">Налаштування</span>`,
+    pal: [["#140C22","тло"],["#241640","панель"],["#F4EFE6","папір"],["#C8F000","лайм"],["#FF3EA5","рожева фарба"],["#A497C2","приглушений"]],
+    refs: [["Флаєр Sweet Harmony (різо)","https://www.rendezvousprojects.org.uk/?p=228"],["Дизайн для різо","https://oxfordgreenprint.com/home/design-for-riso/"],["Oi","https://github.com/kosbarts/Oi"],["Homodrop (Benedikt Rugar)","https://dalstonsuperstore.com/benedikt-rugar/"]] },
+
+  { id: "f5", tag: "Варіант 5", name: "Розтяжка й поля",
+    line: "Сучасна acid-графіка: дуже розтягнуті жирні капітелі, слова, обрізані краєм плашки, зірочки, цілі поля фіолетового й лайму. Таймер точково-матричний, як табло.",
+    sub: "Acid graphics 2018–25, Liquid Sky, звітні екрани Spotify Wrapped", fonts: ["TikTok Sans (ширина 150%)", "TikTok Sans", "Handjet"], display: "Вечірка на Землі",
+    fit: "Найсучасніший і найенергійніший. Великі поля кольору створені для «вау»-моментів: розкриття авто, кінець, лобі.",
+    risk: "Обрізані слова й великі поля в самій грі можуть заважати. Тож поза гучними моментами все має бути тихим.",
+    hud: () => `<div class="ui timer">07:42</div>
+      <div class="ui anger"><div class="l x">Сусіди ✱</div>${track("", 62)}<div class="cops">Копи за 0:58</div></div>
+      <div class="ui announce x"><i>✱</i>Ґлорп вбив Їжака</div>${commonHud("Батарея")}`,
+    end: () => `<div class="end"><div class="big x">Закрито закрито</div><div class="big x o">Закрито закрито</div><div class="tag">Копи приїхали о 22:14</div></div>`,
+    menu: () => `<div class="title x">Вечірка вечірка</div><span class="btn p">Хост</span><span class="btn s">Приєднатися</span><span class="btn g">Налаштування</span>`,
+    pal: [["#0D0918","тло"],["#1A1330","панель"],["#5A2DE0","фіолетове поле"],["#C8F000","лайм"],["#F6F4FF","текст"],["#A79CC9","приглушений"]],
+    refs: [["Liquid Sky 2019","https://fontsinuse.com/uses/51895/liquid-sky-2019-posters"],["Acid graphics (Eye on Design)","https://eyeondesign.aiga.org/acid-graphics-are-the-new-psychedelia-with-a-heady-dose-of-cynicism/"],["Spotify Wrapped 2024","https://www.itsnicethat.com/features/spotify-wrapped-2024-graphic-design-041224"],["Nuits Sonores 2025","https://www.itsnicethat.com/articles/dia-studio-nuits-sonores-graphic-design-project-181125"]] }
+];
+
+function board(b) {
+  const sw = b.pal.map(([hex, role]) => `<div class="sw"><i style="background:${hex}"></i><b>${hex}</b>${esc(role)}</div>`).join("");
+  const refs = (b.refs || []).map(([t, u]) => `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a>`).join("");
+  return `<section class="board" id="${b.id}">
+    <div class="board-head"><span class="num">${esc(b.tag)} · ${esc(b.sub)}</span><h2>${esc(b.name)}</h2><p class="lede">${esc(b.line)}</p></div>
+    <div class="frames">
+      <div><div class="frame ${b.id}"><div class="stage"><img src="img/estate.jpg" alt=""><div class="shade"></div>${b.hud()}</div></div><p class="cap">У грі: HUD поверх маєтку</p></div>
+      <div><div class="frame ${b.id}"><div class="stage">${b.end()}</div></div><p class="cap">Гучний момент: кінець раунду</p></div>
+    </div>
+    <div class="row2">
+      <div class="${b.id}" style="min-width:0"><div class="menu">${b.menu()}</div></div>
+      <div class="col ${b.id}">
+        <div class="spec">
+          <div class="d">${esc(b.display)}</div>
+          <div class="t">${esc(SAMPLE)}</div>
+          <div class="m">0123456789 · 07:42 · 62%</div>
+          <small>${b.fonts.map(esc).join(" · ")}</small>
+        </div>
+        ${b.fit ? `<div class="fit"><p><b>Чому так:</b> <span>${esc(b.fit)}</span></p><p><b>Ризик:</b> <span>${esc(b.risk)}</span></p></div>` : ""}
+      </div>
+    </div>
+    <div class="col"><h3>Палітра</h3><div class="swatches">${sw}</div></div>
+    ${refs ? `<div class="col"><h3>Референси</h3><div class="refs">${refs}</div></div>` : ""}
+  </section>`;
+}
+document.getElementById("boards").innerHTML = boards.map(board).join("");
+
+const FONTS = [
+  ["Science Gothic, ширина 165%", "'Science Gothic'", 800, "165%"], ["Golos Text", "'Golos Text'", 500], ["Geist Mono", "'Geist Mono'", 500],
+  ["Sofia Sans Extra Condensed", "'Sofia Sans Extra Condensed'", 900], ["Sofia Sans Semi Condensed", "'Sofia Sans Semi Condensed'", 500],
+  ["Dela Gothic One", "'Dela Gothic One'", 400], ["Rubik", "'Rubik'", 500], ["Rubik Mono One", "'Rubik Mono One'", 400],
+  ["Oi", "'Oi'", 400], ["Inter Tight", "'Inter Tight'", 600], ["Roboto Mono", "'Roboto Mono'", 500],
+  ["TikTok Sans, ширина 150%", "'TikTok Sans'", 900, "150%"], ["TikTok Sans", "'TikTok Sans'", 500], ["Handjet", "'Handjet'", 700]
+];
+document.getElementById("glyphs").innerHTML = FONTS.map(([n, f, w, st]) =>
+  `<div><span>${n}</span><p style="font-family:${f}, monospace;font-weight:${w};font-stretch:${st || "100%"}">ҐґЇїЄєІі ʼ ’ № — Ґанок, ЇЖАК, пʼять</p></div>`).join("");
+
+const fit = () => document.querySelectorAll(".frame").forEach(f => {
+  f.querySelector(".stage").style.setProperty("--s", f.clientWidth / 960);
+});
+fit();
+if ("ResizeObserver" in window) new ResizeObserver(fit).observe(document.body); else addEventListener("resize", fit);
+</script>

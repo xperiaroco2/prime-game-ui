@@ -13,6 +13,10 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
   longer fits. The work starts with research into the new vibe (`docs/research/2026-10-20-vibe/`, the
   [vibe page](https://claude.ai/artifact/92UtrYbscouh7xj6BrLoM2)). Until a new style is chosen, the sections below stay
   as the record of what the game ships today; a choice that replaces one of them says so here.
+- **The Night flyer vibe** (the engineer, 2026-10-20, chat, translated, on the vibe page): of the five vibes the first,
+  the Night flyer, fits best; he likes its acid green; its fonts are more or less fine; some moments he likes and
+  some not. Next: deeper research and five variants close to it
+  ([the variants page](https://claude.ai/artifact/PhwP9sUpF8rUKAMQchnjvA), `pages/vibe-flyer/`).
 
 ## Principles
 - **The UI never tells the player what to do.** No "take it to X" line, no destination marker, no key prompts on the HUD;
