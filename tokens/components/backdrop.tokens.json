@@ -1,9 +1,9 @@
 {
   "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
   "backdrop": {
-    "$description": "Full-screen backdrops behind menus and dialogs.",
+    "$description": "Full-screen backdrops behind menus and dialogs: the deep purple ground, see-through over the world or solid.",
     "dim": {
-      "$description": "The dim backdrop.",
+      "$description": "The dim backdrop: the deep purple at 82 % over the world.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyBackdrop", "class": "Panel" },
@@ -15,7 +15,7 @@
       }
     },
     "deep": {
-      "$description": "The deeper backdrop.",
+      "$description": "The deeper backdrop: the deep purple at 86 % over the world.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyBackdropDeep", "class": "Panel" },
@@ -27,7 +27,7 @@
       }
     },
     "night": {
-      "$description": "The opaque night backdrop.",
+      "$description": "The opaque night backdrop: the solid deep purple ground.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyBackdropNight", "class": "Panel" },

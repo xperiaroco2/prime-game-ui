@@ -1,9 +1,9 @@
 {
   "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
   "text": {
-    "$description": "Text roles: Label variations.",
+    "$description": "Text roles: Label variations. Dark (the world, the backdrops, the HUD plates) and light (inside a purple panel) read the same: mint text, muted dim text, alien green titles with an ink outline, numbers in Rubik.",
     "on-dark": {
-      "$description": "Body text on dark.",
+      "$description": "Body text on dark: mint.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyTextOnDark", "class": "Label" },
@@ -16,7 +16,7 @@
       }
     },
     "muted-on-dark": {
-      "$description": "Muted text on dark.",
+      "$description": "Muted text on dark: the muted lilac.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyTextMutedOnDark", "class": "Label" },
@@ -29,7 +29,7 @@
       }
     },
     "title-on-dark": {
-      "$description": "A title on dark.",
+      "$description": "A title on dark: Nunito Black in the alien green with a 4 px ink outline.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyTitleOnDark", "class": "Label" },
@@ -38,11 +38,18 @@
       },
       "label": { "$type": "typography", "$value": "{type.title}" },
       "normal": {
-        "font-color": { "$type": "color", "$value": "{color.on-dark.title}" }
+        "font-color": { "$type": "color", "$value": "{color.on-dark.title}" },
+        "font-shadow-color": { "$type": "color", "$value": "{color.outline}" }
+      },
+      "items": {
+        "$description": "The ink outline around the letters: a font shadow at no offset whose outline is the outline width (Godot draws shadow_outline_size outside the glyph edge).",
+        "shadow-offset-x": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "shadow-offset-y": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "shadow-outline-size": { "$type": "dimension", "$value": "{stroke.surface}" }
       }
     },
     "on-light": {
-      "$description": "Body text on light.",
+      "$description": "Body text inside a panel (the light context, now purple): mint.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyTextOnLight", "class": "Label" },
@@ -55,7 +62,7 @@
       }
     },
     "muted-on-light": {
-      "$description": "Muted text on light.",
+      "$description": "Muted text inside a panel: the muted lilac.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyTextMutedOnLight", "class": "Label" },
@@ -68,7 +75,7 @@
       }
     },
     "title-on-light": {
-      "$description": "A title on light.",
+      "$description": "A title inside a panel: Nunito Black in the alien green with a 4 px ink outline.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyTitleOnLight", "class": "Label" },
@@ -77,11 +84,18 @@
       },
       "label": { "$type": "typography", "$value": "{type.title}" },
       "normal": {
-        "font-color": { "$type": "color", "$value": "{color.on-light.title}" }
+        "font-color": { "$type": "color", "$value": "{color.on-light.title}" },
+        "font-shadow-color": { "$type": "color", "$value": "{color.outline}" }
+      },
+      "items": {
+        "$description": "The ink outline around the letters: a font shadow at no offset whose outline is the outline width (Godot draws shadow_outline_size outside the glyph edge).",
+        "shadow-offset-x": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "shadow-offset-y": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "shadow-outline-size": { "$type": "dimension", "$value": "{stroke.surface}" }
       }
     },
     "display-on-light": {
-      "$description": "A big number or word on light (the volume and threshold readouts, a lobby code).",
+      "$description": "A big number or word inside a panel (the volume and threshold readouts, a lobby code): Rubik in mint.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyDisplayOnLight", "class": "Label" },
@@ -90,11 +104,11 @@
       },
       "label": { "$type": "typography", "$value": "{type.display-large}" },
       "normal": {
-        "font-color": { "$type": "color", "$value": "{color.on-light.title}" }
+        "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
       }
     },
     "timer": {
-      "$description": "The round timer.",
+      "$description": "The round timer: Rubik in mint.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyTimer", "class": "Label" },
@@ -103,11 +117,11 @@
       },
       "label": { "$type": "typography", "$value": "{type.display}" },
       "normal": {
-        "font-color": { "$type": "color", "$value": "{color.on-dark.title}" }
+        "font-color": { "$type": "color", "$value": "{color.on-dark.text}" }
       }
     },
     "hud-caption": {
-      "$description": "A HUD caption on a bar label or a plate chip.",
+      "$description": "A HUD caption on a bar label or a plate chip: mint.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyHudCaption", "class": "Label", "on": ["ToyBarLabel", "ToyChipPlate"] },
