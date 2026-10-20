@@ -1,9 +1,9 @@
 {
   "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
   "plate": {
-    "$description": "HUD plates: stickers on the world, in the dark context (the game puts the dark labels on them).",
+    "$description": "HUD plates: mint stickers on the world with ink text (the sticker page's plates). The game's labels on a plate are the ToyPlate* Label variations below, not the dark-context text roles.",
     "default": {
-      "$description": "A HUD plate: the purple sticker with a 4 px ink outline. The hard shadow is the edge form: the right and bottom outlines are 9 px (4 + 5) and reach 5 px outside the plate, as no base layer sits under a plate in the game.",
+      "$description": "A HUD plate: the mint sticker with a 4 px ink outline, so it reads on a white world too. The hard shadow is the edge form: the right and bottom outlines are 9 px (4 + 5) and reach 5 px outside the plate, as no base layer sits under a plate in the game.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyPlate", "class": "PanelContainer" },
@@ -11,7 +11,7 @@
         }
       },
       "panel": {
-        "bg-color": { "$type": "color", "$value": "{color.surface.plate}" },
+        "bg-color": { "$type": "color", "$value": "{palette.mint}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width-top": { "$type": "dimension", "$value": "{stroke.surface}" },
         "border-width-right": { "$type": "dimension", "$value": { "value": 9, "unit": "px" } },
@@ -25,7 +25,7 @@
       }
     },
     "night": {
-      "$description": "A solid plate on the deep purple ground (the loading tip): the purple sticker. The hard shadow is the edge form: the right and bottom outlines are 9 px (4 + 5) and reach 5 px outside the plate, as no base layer sits under a plate in the game.",
+      "$description": "A solid plate on the deep purple ground (the loading tip): the mint sticker, as ToyPlate. The hard shadow is the edge form: the right and bottom outlines are 9 px (4 + 5) and reach 5 px outside the plate, as no base layer sits under a plate in the game.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyPlateNight", "class": "PanelContainer" },
@@ -33,7 +33,7 @@
         }
       },
       "panel": {
-        "bg-color": { "$type": "color", "$value": "{color.surface.night-plate}" },
+        "bg-color": { "$type": "color", "$value": "{palette.mint}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width-top": { "$type": "dimension", "$value": "{stroke.surface}" },
         "border-width-right": { "$type": "dimension", "$value": { "value": 9, "unit": "px" } },
@@ -47,7 +47,7 @@
       }
     },
     "alert": {
-      "$description": "An alert plate: the purple sticker outlined in coral, its edge too (one text variation serves every plate, so the face stays purple). The hard shadow is the edge form: the right and bottom outlines are 9 px (4 + 5) and reach 5 px outside the plate, as no base layer sits under a plate in the game.",
+      "$description": "An alert plate: the coral sticker with the 4 px ink outline (the page's coral stickers); the ink plate text reads on it. The hard shadow is the edge form: the right and bottom outlines are 9 px (4 + 5) and reach 5 px outside the plate, as no base layer sits under a plate in the game.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyPlateAlert", "class": "PanelContainer" },
@@ -55,8 +55,8 @@
         }
       },
       "panel": {
-        "bg-color": { "$type": "color", "$value": "{color.surface.plate}" },
-        "border-color": { "$type": "color", "$value": "{color.status.alert}" },
+        "bg-color": { "$type": "color", "$value": "{color.status.alert}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width-top": { "$type": "dimension", "$value": "{stroke.surface}" },
         "border-width-right": { "$type": "dimension", "$value": { "value": 9, "unit": "px" } },
         "border-width-bottom": { "$type": "dimension", "$value": { "value": 9, "unit": "px" } },
@@ -69,7 +69,7 @@
       }
     },
     "text": {
-      "$description": "The text on a plate: mint.",
+      "$description": "The text on a plate: ink (in place of ToyTextOnDark on a plate).",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": {
@@ -81,7 +81,52 @@
         }
       },
       "label": { "$type": "typography", "$value": "{type.body}" },
-      "normal": { "font-color": { "$type": "color", "$value": "{color.on-dark.text}" } }
+      "normal": { "font-color": { "$type": "color", "$value": "{color.on-accent.text}" } }
+    },
+    "text-muted": {
+      "$description": "The dim text on a mint plate: the soft ink (in place of ToyTextMutedOnDark on a plate). Not on the coral alert plate.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": {
+            "variation": "ToyPlateTextMuted",
+            "class": "Label",
+            "on": ["ToyPlate", "ToyPlateNight"]
+          },
+          "context": "dark"
+        }
+      },
+      "label": { "$type": "typography", "$value": "{type.body}" },
+      "normal": { "font-color": { "$type": "color", "$value": "{color.on-accent.text-muted}" } }
+    },
+    "title": {
+      "$description": "A title on a plate: Nunito Black in ink, no outline (a title on a bright face; in place of ToyTitleOnDark on a plate).",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": {
+            "variation": "ToyPlateTitle",
+            "class": "Label",
+            "on": ["ToyPlate", "ToyPlateNight", "ToyPlateAlert"]
+          },
+          "context": "dark"
+        }
+      },
+      "label": { "$type": "typography", "$value": "{type.title}" },
+      "normal": { "font-color": { "$type": "color", "$value": "{color.on-accent.text}" } }
+    },
+    "timer": {
+      "$description": "Numbers on a plate (the round timer): Rubik, the display role, in ink (in place of ToyTimer on a plate).",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": {
+            "variation": "ToyPlateTimer",
+            "class": "Label",
+            "on": ["ToyPlate", "ToyPlateNight", "ToyPlateAlert"]
+          },
+          "context": "dark"
+        }
+      },
+      "label": { "$type": "typography", "$value": "{type.display}" },
+      "normal": { "font-color": { "$type": "color", "$value": "{color.on-accent.text}" } }
     }
   }
 }

@@ -1,9 +1,9 @@
 {
   "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
   "keycap": {
-    "$description": "Keycaps: a face with a thick bottom edge.",
+    "$description": "Keycaps: mint stickers, a 3 px ink outline with a 5 px ink bottom edge, ink key names.",
     "on-dark": {
-      "$description": "A keycap on dark: cream face, keyshade edge.",
+      "$description": "A keycap on dark: the mint face, ink outline and bottom edge.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyKeyOnDark", "class": "PanelContainer" },
@@ -12,7 +12,7 @@
       },
       "panel": {
         "bg-color": { "$type": "color", "$value": "{palette.mint}" },
-        "border-color": { "$type": "color", "$value": "{palette.mint-dark}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width-top": { "$type": "dimension", "$value": "{stroke.thin}" },
         "border-width-right": { "$type": "dimension", "$value": "{stroke.thin}" },
         "border-width-bottom": { "$type": "dimension", "$value": "{stroke.bold}" },
@@ -32,7 +32,7 @@
       }
     },
     "on-light": {
-      "$description": "A keycap on light: white face, ink edge.",
+      "$description": "A keycap in a panel: the mint face, ink outline and bottom edge.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyKeyOnLight", "class": "PanelContainer" },
@@ -40,7 +40,7 @@
         }
       },
       "panel": {
-        "bg-color": { "$type": "color", "$value": "{palette.white}" },
+        "bg-color": { "$type": "color", "$value": "{palette.mint}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width-top": { "$type": "dimension", "$value": "{stroke.thin}" },
         "border-width-right": { "$type": "dimension", "$value": "{stroke.thin}" },
@@ -61,7 +61,7 @@
       }
     },
     "quiet": {
-      "$description": "A dim keycap: pale face, muted edge.",
+      "$description": "A dim keycap: the lilac face, soft-ink outline and edge.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyKeyQuiet", "class": "PanelContainer" },
@@ -69,7 +69,7 @@
         }
       },
       "panel": {
-        "bg-color": { "$type": "color", "$value": "{palette.purple-light}" },
+        "bg-color": { "$type": "color", "$value": "{palette.muted}" },
         "border-color": { "$type": "color", "$value": "{palette.ink-soft}" },
         "border-width-top": { "$type": "dimension", "$value": "{stroke.thin}" },
         "border-width-right": { "$type": "dimension", "$value": "{stroke.thin}" },
@@ -98,7 +98,7 @@
         }
       },
       "panel": {
-        "bg-color": { "$type": "color", "$value": "{palette.white}" },
+        "bg-color": { "$type": "color", "$value": "{palette.mint}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width-top": { "$type": "dimension", "$value": "{stroke.thin}" },
         "border-width-right": { "$type": "dimension", "$value": "{stroke.thin}" },
@@ -123,7 +123,7 @@
         }
       },
       "panel": {
-        "bg-color": { "$type": "color", "$value": "{palette.purple-light}" },
+        "bg-color": { "$type": "color", "$value": "{palette.muted}" },
         "border-color": { "$type": "color", "$value": "{palette.ink-soft}" },
         "border-width-top": { "$type": "dimension", "$value": "{stroke.thin}" },
         "border-width-right": { "$type": "dimension", "$value": "{stroke.thin}" },
@@ -140,7 +140,7 @@
       }
     },
     "round-button": {
-      "$description": "The round keycap as a button (the \"?\" next to a task): the ToyKeyRound face, a lavender hover, unplugged when disabled, an outer focus ring.",
+      "$description": "The round keycap as a button (the \"?\" next to a task): the ToyKeyRound face, a lighter mint hover, a darker mint held, unplugged when disabled, an outer mint focus ring (it sits on purple).",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyKeyRoundButton", "class": "Button", "parent": "ToyButton" },
@@ -149,7 +149,7 @@
       },
       "label": { "$type": "typography", "$value": "{type.body-bold}" },
       "normal": {
-        "bg-color": { "$type": "color", "$value": "{palette.white}" },
+        "bg-color": { "$type": "color", "$value": "{palette.mint}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width-top": { "$type": "dimension", "$value": "{stroke.thin}" },
         "border-width-right": { "$type": "dimension", "$value": "{stroke.thin}" },
@@ -159,26 +159,26 @@
         "content-margin-top": { "$type": "dimension", "$value": { "value": 3, "unit": "px" } },
         "content-margin-inline": { "$type": "dimension", "$value": { "value": 10, "unit": "px" } },
         "content-margin-bottom": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } },
-        "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
+        "font-color": { "$type": "color", "$value": "{color.on-accent.text}" }
       },
       "hover": {
-        "$description": "Hover fill.",
-        "bg-color": { "$type": "color", "$value": "{color.state.hover-on-light}" }
+        "$description": "Hover: the mint one step lighter.",
+        "bg-color": { "$type": "color", "$value": "{palette.mint-light}" }
       },
       "pressed": {
-        "$description": "Held: as hover.",
-        "bg-color": { "$type": "color", "$value": "{color.state.hover-on-light}" }
+        "$description": "Held: the mint one step darker (the key does not move).",
+        "bg-color": { "$type": "color", "$value": "{palette.mint-dark}" }
       },
       "disabled": {
-        "$description": "Unplugged: pale and quiet.",
+        "$description": "Unplugged: the lilac face, soft-ink outline and label.",
         "bg-color": { "$type": "color", "$value": "{color.state.disabled-face}" },
         "border-color": { "$type": "color", "$value": "{color.state.disabled-ink}" },
         "font-color": { "$type": "color", "$value": "{color.state.disabled-ink}" }
       },
       "focus": {
-        "$description": "Outer focus: a ring of the focus width, the focus gap outside the outline.",
+        "$description": "Outer focus: a mint ring of the focus width, the focus gap outside the outline.",
         "bg-color": { "$type": "color", "$value": "{palette.clear}" },
-        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-color": { "$type": "color", "$value": "{palette.mint}" },
         "border-width": { "$type": "dimension", "$value": "{focus.width}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
         "expand-margin": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } }
@@ -189,7 +189,7 @@
       }
     },
     "button": {
-      "$description": "A keycap as a button (rebinding in Settings > Controls): the ToyKeyOnLight face, a lavender hover, unplugged when disabled, an outer focus ring that follows the keycap's corners.",
+      "$description": "A keycap as a button (rebinding in Settings > Controls): the ToyKeyOnLight face, a lighter mint hover, a darker mint held, unplugged when disabled, an outer mint focus ring (it sits on purple) that follows the keycap's corners.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyKeyButton", "class": "Button", "parent": "ToyButton" },
@@ -198,7 +198,7 @@
       },
       "label": { "$type": "typography", "$value": "{type.body-bold}" },
       "normal": {
-        "bg-color": { "$type": "color", "$value": "{palette.white}" },
+        "bg-color": { "$type": "color", "$value": "{palette.mint}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width-top": { "$type": "dimension", "$value": "{stroke.thin}" },
         "border-width-right": { "$type": "dimension", "$value": "{stroke.thin}" },
@@ -208,26 +208,26 @@
         "content-margin-top": { "$type": "dimension", "$value": { "value": 3, "unit": "px" } },
         "content-margin-inline": { "$type": "dimension", "$value": { "value": 10, "unit": "px" } },
         "content-margin-bottom": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } },
-        "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
+        "font-color": { "$type": "color", "$value": "{color.on-accent.text}" }
       },
       "hover": {
-        "$description": "Hover fill.",
-        "bg-color": { "$type": "color", "$value": "{color.state.hover-on-light}" }
+        "$description": "Hover: the mint one step lighter.",
+        "bg-color": { "$type": "color", "$value": "{palette.mint-light}" }
       },
       "pressed": {
-        "$description": "Held (and waiting for a key): as hover.",
-        "bg-color": { "$type": "color", "$value": "{color.state.hover-on-light}" }
+        "$description": "Held (and waiting for a key): the mint one step darker.",
+        "bg-color": { "$type": "color", "$value": "{palette.mint-dark}" }
       },
       "disabled": {
-        "$description": "Unplugged: pale and quiet.",
+        "$description": "Unplugged: the lilac face, soft-ink outline and label.",
         "bg-color": { "$type": "color", "$value": "{color.state.disabled-face}" },
         "border-color": { "$type": "color", "$value": "{color.state.disabled-ink}" },
         "font-color": { "$type": "color", "$value": "{color.state.disabled-ink}" }
       },
       "focus": {
-        "$description": "Outer focus: a ring of the focus width, the focus gap outside the outline, following the keycap's corners (radius.small + the expand margin).",
+        "$description": "Outer focus: a mint ring of the focus width, the focus gap outside the outline, following the keycap's corners (radius.small + the expand margin).",
         "bg-color": { "$type": "color", "$value": "{palette.clear}" },
-        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-color": { "$type": "color", "$value": "{palette.mint}" },
         "border-width": { "$type": "dimension", "$value": "{focus.width}" },
         "corner-radius": { "$type": "dimension", "$value": { "value": 13, "unit": "px" } },
         "expand-margin": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } }
@@ -255,7 +255,7 @@
       },
       "label": { "$type": "typography", "$value": "{type.body-bold}" },
       "normal": {
-        "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
+        "font-color": { "$type": "color", "$value": "{color.on-accent.text}" }
       }
     },
     "quiet-text": {
