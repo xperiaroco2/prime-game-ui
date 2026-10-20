@@ -331,13 +331,24 @@ function emitComponentsCss(sys) {
       }
       rule(cls, base);
       if (boxes.has('fill')) {
-        const fill = new Map([['position', 'absolute'], ['top', '0'], ['left', '0'], ['display', 'block']]);
+        // Godot draws the fill over the bar's whole rect, the background's border included; an absolute child sits in
+        // the padding box, so it is pulled out by the background's border widths.
+        const bg = boxes.has('background') ? variant.states.background : null;
+        const bw = (s) => (bg ? term(variant, bg[`border-width-${s}`], `border-width-${s}`) : null);
+        const out = (s) => (bw(s) ? `calc(${bw(s)} * -1 * var(--px))` : '0');
+        const grow = (a, b) => {
+          const t = [bw(a), bw(b)].filter(Boolean);
+          return t.length ? `(100% + calc((${t.join(' + ')}) * var(--px)))` : '100%';
+        };
+        const fill = new Map([['position', 'absolute'], ['top', out('top')], ['left', out('left')], ['display', 'block']]);
         for (const [p, x] of boxDecls(variant, variant.states.fill)) {
           if (p === 'position' || (p.startsWith('margin-') && x === '0')) continue;
           fill.set(p, x);
         }
-        fill.set('height', '100%');
-        fill.set('width', 'calc(var(--value) * 100%)');
+        // The height spans top to bottom (no percentage); the width is the value's share of the border box.
+        if (bw('top') || bw('bottom')) fill.set('bottom', out('bottom'));
+        else fill.set('height', '100%');
+        fill.set('width', `calc(var(--value) * ${grow('left', 'right')})`);
         rule(`${cls} > .tv-fill`, fill);
       }
       if (variant.stops && variant.stops.length) {

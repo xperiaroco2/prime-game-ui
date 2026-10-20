@@ -221,8 +221,8 @@
 }
 .tv-ToyBarProgress > .tv-fill {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: calc(var(--toy-bar-progress-background-border-width) * -1 * var(--px));
+  left: calc(var(--toy-bar-progress-background-border-width) * -1 * var(--px));
   display: block;
   box-sizing: border-box;
   background: var(--toy-bar-progress-fill-bg-color);
@@ -240,8 +240,8 @@
   padding-right: calc((var(--toy-bar-progress-fill-border-width) - var(--toy-bar-progress-fill-border-width)) * var(--px));
   padding-bottom: calc((var(--toy-bar-progress-fill-border-width) - var(--toy-bar-progress-fill-border-width)) * var(--px));
   padding-left: calc((var(--toy-bar-progress-fill-border-width) - var(--toy-bar-progress-fill-border-width)) * var(--px));
-  height: 100%;
-  width: calc(var(--value) * 100%);
+  bottom: calc(var(--toy-bar-progress-background-border-width) * -1 * var(--px));
+  width: calc(var(--value) * (100% + calc((var(--toy-bar-progress-background-border-width) + var(--toy-bar-progress-background-border-width)) * var(--px))));
 }
 /* ToyBarSlider: ProgressBar · bar.slider · light */
 .tv-ToyBarSlider {
@@ -265,8 +265,8 @@
 }
 .tv-ToyBarSlider > .tv-fill {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: calc(var(--toy-bar-slider-background-border-width) * -1 * var(--px));
+  left: calc(var(--toy-bar-slider-background-border-width) * -1 * var(--px));
   display: block;
   box-sizing: border-box;
   background: var(--toy-bar-slider-fill-bg-color);
@@ -284,8 +284,8 @@
   padding-right: calc((var(--toy-bar-slider-fill-border-width) - var(--toy-bar-slider-fill-border-width)) * var(--px));
   padding-bottom: calc((var(--toy-bar-slider-fill-border-width) - var(--toy-bar-slider-fill-border-width)) * var(--px));
   padding-left: calc((var(--toy-bar-slider-fill-border-width) - var(--toy-bar-slider-fill-border-width)) * var(--px));
-  height: 100%;
-  width: calc(var(--value) * 100%);
+  bottom: calc(var(--toy-bar-slider-background-border-width) * -1 * var(--px));
+  width: calc(var(--value) * (100% + calc((var(--toy-bar-slider-background-border-width) + var(--toy-bar-slider-background-border-width)) * var(--px))));
 }
 /* ToyBarLabel: PanelContainer · bar.label · dark */
 .tv-ToyBarLabel {
@@ -1363,6 +1363,9 @@
   color: var(--toy-chip-toggle-on-dark-selected-normal-font-color);
   cursor: pointer;
 }
+.tv-ToyChipToggleOnDarkSelected.is-hover {
+  background: var(--toy-chip-toggle-on-dark-selected-hover-bg-color);
+}
 .tv-ToyChipToggleOnDarkSelected.is-disabled {
   background: var(--toy-chip-toggle-on-dark-selected-disabled-bg-color);
   border-color: var(--toy-chip-toggle-on-dark-selected-disabled-border-color);
@@ -1496,6 +1499,9 @@
   letter-spacing: calc(var(--toy-chip-toggle-on-light-selected-label-letter-spacing) * var(--px));
   color: var(--toy-chip-toggle-on-light-selected-normal-font-color);
   cursor: pointer;
+}
+.tv-ToyChipToggleOnLightSelected.is-hover {
+  background: var(--toy-chip-toggle-on-light-selected-hover-bg-color);
 }
 .tv-ToyChipToggleOnLightSelected.is-disabled {
   background: var(--toy-chip-toggle-on-light-selected-disabled-bg-color);
@@ -2852,6 +2858,9 @@
   height: calc(var(--toy-pick-radio-selected-size-height) * var(--px));
   cursor: pointer;
 }
+.tv-ToyRadioSelected.is-hover {
+  background: var(--toy-pick-radio-selected-hover-bg-color);
+}
 .tv-ToyRadioSelected.is-disabled {
   background: var(--toy-pick-radio-selected-disabled-bg-color);
   border-color: var(--toy-pick-radio-selected-disabled-border-color);
@@ -3087,6 +3096,7 @@
   cursor: pointer;
 }
 .tv-ToyPresetCardSelected.is-hover {
+  background: var(--toy-preset-card-selected-hover-bg-color);
   --tv-offset: var(--toy-preset-card-selected-press-hover);
 }
 .tv-ToyPresetCardSelected.is-held {
@@ -3498,6 +3508,9 @@
   letter-spacing: calc(var(--toy-tab-selected-label-letter-spacing) * var(--px));
   color: var(--toy-tab-selected-normal-font-color);
   cursor: pointer;
+}
+.tv-ToyTabSelected.is-hover {
+  background: var(--toy-tab-selected-hover-bg-color);
 }
 .tv-ToyTabSelected.is-disabled {
   background: var(--toy-tab-selected-disabled-bg-color);

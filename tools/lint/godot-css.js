@@ -276,6 +276,7 @@ const GENERATED_LAYOUT = new Set(["position", "inset", "top", "right", "bottom",
   "flex", "flex-grow"]);
 const FLEX_GROW_RE = /^(?:\d+|var\(--(?:value|page)\)|calc\(1(?: - var\(--(?:value|page)\))+\))$/;
 // Half a PopupMenu variation's v_separation: the only division the generated CSS has (a .tv-row's padding-top/bottom).
+const FILL_WIDTH_RE = /^calc\(var\(--value\) \* \(100% \+ calc\(\(var\(--toy-[a-z0-9-]+\)( \+ var\(--toy-[a-z0-9-]+\))*\) \* var\(--px\)\)\)\)$/;
 const HALF_SEPARATION_RE = /^calc\(var\(--toy-[a-z0-9-]+-items-v-separation\) \/ 2 \* var\(--px\)\)$/;
 const FORBIDDEN_RE = /^(filter|backdrop-filter|clip-path|mix-blend-mode|background-blend-mode|background-image|mask(-.*)?|animation(-.*)?)$/;
 const SIDES = { top: ["t"], right: ["r"], bottom: ["b"], left: ["l"], block: ["t", "b"], inline: ["l", "r"],
@@ -552,6 +553,10 @@ function lintText(text, opts) {
         if (profile === "generated" && prop === "width" && rule.selectors.every(s => /\.tv-fill$/.test(s.text))) exempt.push("calc(var(--value) * 100%)");
         const c = comps.length === 1 ? comps[0].replace(/\(\s+/g, "(").replace(/\s+\)/g, ")").replace(/\s*\*\s*/g, " * ") : null;
         if (c && exempt.includes(c)) return;
+        // A ProgressBar fill spans the background's border box as Godot draws it: the value's share of 100% plus the
+        // background's border widths.
+        if (c && profile === "generated" && prop === "width" && rule.selectors.every(s => /\.tv-fill$/.test(s.text))
+          && FILL_WIDTH_RE.test(c)) return;
         return lengths(1, 1);
       }
       add(line, "L28", "no value check for " + prop);
@@ -935,6 +940,8 @@ const ADVERSARIAL = [
   ["generated", '.tv-a > div { color: var(--toy-palette-ink); }', ["L24"]],
   ["generated", '.tv-a { width: 100%; height: calc(var(--value) * 100%); }', ["L16"]],
   ["generated", '.tv-a .tv-fill { width: calc(var(--value) * 100%); }', []],
+  ["generated", '.tv-a > .tv-fill { width: calc(var(--value) * (100% + calc((var(--toy-field-list-items-v-separation) + var(--toy-field-list-items-v-separation)) * var(--px)))); }', []],
+  ["generated", '.tv-a > .tv-row { width: calc(var(--value) * (100% + calc((var(--toy-field-list-items-v-separation) + var(--toy-field-list-items-v-separation)) * var(--px)))); }', ["L16"]],
   // A PopupMenu row: half its list's v_separation above and below, on a .tv-row only, and nothing else halved.
   ["generated", '.tv-a > .tv-row { padding-top: calc(var(--toy-field-list-items-v-separation) / 2 * var(--px)); padding-bottom: calc( var(--toy-field-list-items-v-separation) / 2 * var(--px) ); }', []],
   ["generated", '.tv-a > .tv-check { padding-top: calc(var(--toy-field-list-items-v-separation) / 2 * var(--px)); }', ["L17"]],

@@ -272,7 +272,7 @@
           "context": "dark"
         }
       },
-      "label": { "$type": "typography", "$value": "{type.small}" },
+      "label": { "$type": "typography", "$value": "{type.small-bold}" },
       "normal": {
         "bg-color": { "$type": "color", "$value": "{palette.clear}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.control}" },
@@ -302,14 +302,14 @@
       }
     },
     "ghost-on-light": {
-      "$description": "A quiet action on mint: no face and no outline, an ink label; hover lays a darker mint under it.",
+      "$description": "A quiet action inside a purple panel: no face and no outline, a mint label; hover lays the lighter purple under it.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyButtonGhostOnLight", "class": "Button", "parent": "ToyButton" },
           "context": "light"
         }
       },
-      "label": { "$type": "typography", "$value": "{type.small}" },
+      "label": { "$type": "typography", "$value": "{type.small-bold}" },
       "normal": {
         "bg-color": { "$type": "color", "$value": "{palette.clear}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.control}" },

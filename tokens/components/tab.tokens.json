@@ -62,6 +62,14 @@
         "content-margin-inline": { "$type": "dimension", "$value": { "value": 16, "unit": "px" } },
         "font-color": { "$type": "color", "$value": "{color.on-accent.text}" }
       },
+      "hover": {
+        "$description": "Hover: the selected face lifts to the lighter mint.",
+        "bg-color": { "$type": "color", "$value": "{palette.mint-light}" }
+      },
+      "hover-pressed": {
+        "$description": "Selected and hovered (a toggle rests pressed): as hover.",
+        "bg-color": { "$type": "color", "$value": "{palette.mint-light}" }
+      },
       "disabled": {
         "$description": "Unplugged selected tab: a dulled lilac face, its outline and label in the soft ink.",
         "bg-color": { "$type": "color", "$value": "{color.state.disabled-face}" },

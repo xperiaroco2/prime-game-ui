@@ -82,7 +82,7 @@
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width": { "$type": "dimension", "$value": "{stroke.thin}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
-        "content-margin-block": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } },
+        "content-margin-block": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } },
         "content-margin-inline": { "$type": "dimension", "$value": { "value": 3, "unit": "px" } }
       },
       "fill": {
@@ -105,7 +105,7 @@
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width": { "$type": "dimension", "$value": "{stroke.thin}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
-        "content-margin-block": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } },
+        "content-margin-block": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } },
         "content-margin-inline": { "$type": "dimension", "$value": { "value": 3, "unit": "px" } }
       },
       "fill": {

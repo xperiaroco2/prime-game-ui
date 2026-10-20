@@ -71,6 +71,9 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
     is 3.8:1 there) (agent);
   - bars: white tracks with a 3 px ink outline; the HUD fills end in a 3 px ink edge; progress and slider fills are
     green with an ink outline; the slider knob is mint with an ink outline (agent);
+  - progress and slider bars are 16 px tall (as the track), so a 10 px green face shows inside the 3 px ink (agent);
+  - a selected tab, toggle chip, preset card or radio lifts to its lighter shade on hover, as its idle twin (agent);
+  - ghost buttons take Nunito Black like every other button (agent);
   - map rooms are mint with ink names, no shadow; the room pictograms take the sticker ink; the crosshair is a white dot
     with an ink ring (agent);
   - titles on dark and in panels are green Nunito Black with the 4 px ink outline; the big readout and the timer are

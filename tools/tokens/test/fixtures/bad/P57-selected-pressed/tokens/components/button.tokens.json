@@ -204,7 +204,7 @@
           "$value": "{color.outline}"
         }
       },
-      "hover": {
+      "pressed": {
         "bg-color": {
           "$type": "color",
           "$value": "{palette.cream}"

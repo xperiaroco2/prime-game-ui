@@ -243,7 +243,7 @@ function checkStructure(model, structs, P, icons) {
         else {
           if (sv.cls !== v.cls || sv.parent !== v.parent) P.error('P57', v.file, tptr, tp, `${sv.variation} must have the same class and parent as ${v.variation}`);
           if (sv.toggle || 'toggle' in sv.godot) P.error('P57', sv.file, sv.pointer, sv.prefix, `the selected variation ${sv.variation} has no toggle of its own`);
-          const ok = ['normal', 'disabled', 'focus', 'label', 'press', 'size'];
+          const ok = ['normal', 'hover', 'hover-pressed', 'disabled', 'focus', 'label', 'press', 'size'];
           for (const c of sv.node.children) if (!ok.includes(c.name)) P.error('P57', c.file, c.pointer, c.path, `a selected toggle variation authors only ${ok.join(', ')}; ${c.name} completes from normal`);
         }
       }

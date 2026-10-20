@@ -176,6 +176,14 @@
         "content-margin": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
         "font-color": { "$type": "color", "$value": "{color.on-accent.text}" }
       },
+      "hover": {
+        "$description": "Hover: the selected face lifts to the lighter green.",
+        "bg-color": { "$type": "color", "$value": "{palette.green-light}" }
+      },
+      "hover-pressed": {
+        "$description": "Selected and hovered (a toggle rests pressed): as hover.",
+        "bg-color": { "$type": "color", "$value": "{palette.green-light}" }
+      },
       "disabled": {
         "$description": "Unplugged picker: a dulled lilac face, its outline in the soft ink.",
         "bg-color": { "$type": "color", "$value": "{color.state.disabled-face}" },
