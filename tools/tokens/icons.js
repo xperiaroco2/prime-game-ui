@@ -13,7 +13,8 @@
 // Each icon's import settings are derived, not kept by hand: its size is the SVG's width and height (else its viewBox),
 // `drawn_px` the largest size any screen of pages/screens/src draws it at (as the screens handoffs measure it: a
 // TextureRect by its custom_minimum_size, a Button icon by icon_size or its own size, an OptionButton's arrow and list
-// icons and an HSlider's knobs at their own size; an icon no screen draws keeps its own size), and `svg_scale` = drawn_px / the larger
+// icons and an HSlider's knobs at their own size; an item picture, which the game swaps in a slot, the largest size any
+// item picture is drawn at (SWAPPED); an icon no screen draws keeps its own size), and `svg_scale` = drawn_px / the larger
 // side, rounded up to 0.01, the svg/scale Godot imports it at (it rasterises an SVG at import).
 // A root without these folders (a test fixture, an overlay's temporary copy) has no icons.
 // Node 20, no packages.
@@ -36,6 +37,10 @@ const SOURCES = [
 // The textures a screen draws without naming them (pages/screens/build.js ARROW_ICON, LIST_ICONS, KNOB_ICON,
 // KNOB_DISABLED_ICON): an OptionButton's arrow and its open list's radio icons (ToyDropdownList), an HSlider's knobs.
 const IMPLIED = { OptionButton: ['chevron-down', 'radio-checked', 'radio-checked-disabled', 'radio-unchecked'], HSlider: ['slider-knob', 'slider-knob-disabled'] };
+
+// Pictures the game swaps from data in one TextureRect (the carried item in a slot of item bar A): each takes the largest
+// size any of its family is drawn at, so a picture no screen samples still imports sharp at the slot's size.
+const SWAPPED = ['item-'];
 
 const readNorm = (abs) => fs.readFileSync(abs, 'utf8').replace(/\r\n/g, '\n').replace(/\s+$/, '') + '\n';
 const sha256 = (text) => crypto.createHash('sha256').update(Buffer.from(text, 'utf8')).digest('hex');
@@ -128,6 +133,11 @@ function drawnSizes(root, icons) {
       throw new Error(`${rel}: ${e.message} (the pack's icon sizes are read from the screens; run node pages/screens/build.js --validate)`);
     }
     if (doc && Array.isArray(doc.nodes)) doc.nodes.forEach(visit);
+  }
+  for (const prefix of SWAPPED) {
+    const family = [...byName.keys()].filter((name) => name.startsWith(prefix));
+    const px = Math.max(0, ...family.map((name) => best.get(name) || 0));
+    if (px > 0) for (const name of family) best.set(name, px);
   }
   return best;
 }

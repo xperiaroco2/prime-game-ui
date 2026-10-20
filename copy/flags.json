@@ -466,6 +466,438 @@
      ]
     }
    ]
+  },
+  {
+   "id": "topic.mvp_items",
+   "kind": "word",
+   "round": "new",
+   "keys": [
+    "item.battery",
+    "item.flower",
+    "item.car_part",
+    "item.bun",
+    "item.patty",
+    "item.burger",
+    "item.watering_can",
+    "item.tools",
+    "item.rubbish",
+    "item.extinguisher",
+    "item.fireworks"
+   ],
+   "why": "Чернетка (екрани MVP s6–s11). Назви предметів MVP на бирках слотів (панель предметів А, s7) і під прицілом: батарейка, квітка, деталь авто, булка, котлета, бургер, лійка, інструменти гаража, сміття, вогнегасник, феєрверк (GDD §8). Слова на бирках — твої тексти.",
+   "options": [
+    {
+     "id": "a",
+     "label": "Як у колоді (рекомендую)",
+     "note": "Батарейка, Квітка, Деталь авто, Булка, Котлета, Бургер, Лійка, Інструменти, Сміття, Вогнегасник, Феєрверк.",
+     "rows": []
+    },
+    {
+     "id": "b",
+     "label": "Точніше, довше",
+     "note": "Що саме за деталь і що за сміття; бирка стає ширшою за слот.",
+     "rows": [
+      {
+       "key": "item.car_part",
+       "en": "Printed part",
+       "uk": "Друкована деталь"
+      },
+      {
+       "key": "item.rubbish",
+       "en": "Bin bag",
+       "uk": "Мішок сміття"
+      },
+      {
+       "key": "item.tools",
+       "en": "Garage tools",
+       "uk": "Інструменти гаража"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "hud.roster.self",
+   "keys": [
+    "hud.roster.self"
+   ],
+   "kind": "clarity",
+   "round": "new",
+   "why": "Чернетка (екрани MVP s6–s11). Своє імʼя в списку гравців (s7, праворуч угорі); воно ще й зелене.",
+   "options": [
+    {
+     "id": "a",
+     "label": "Як у колоді (рекомендую)",
+     "note": "«{name} (ти)» / «{name} (you)».",
+     "rows": []
+    },
+    {
+     "id": "b",
+     "label": "Лише колір",
+     "note": "Без дужок: своє імʼя видно за зеленим кольором.",
+     "rows": [
+      {
+       "key": "hud.roster.self",
+       "en": "{name}",
+       "uk": "{name}"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "hud.roster.dead",
+   "keys": [
+    "hud.roster.dead"
+   ],
+   "kind": "gender",
+   "round": "new",
+   "why": "Чернетка (екрани MVP s6–s11). Мертвий гравець у списку (s7): блідо, з позначкою. «Мертвий» має рід, тому «поза грою». Чи показувати мертвих у списку — відкрито.",
+   "options": [
+    {
+     "id": "a",
+     "label": "Як у колоді (рекомендую)",
+     "note": "«{name} · поза грою» / «{name} · out».",
+     "rows": []
+    },
+    {
+     "id": "b",
+     "label": "Лише блідо",
+     "note": "Без слова, лише блідий колір імені.",
+     "rows": [
+      {
+       "key": "hud.roster.dead",
+       "en": "{name}",
+       "uk": "{name}"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "hud.kill_notice",
+   "keys": [
+    "hud.kill_notice"
+   ],
+   "kind": "gender",
+   "round": "new",
+   "why": "Чернетка (екрани MVP s6–s11). Хто кого вбив (s7, варіант А — банер; А чи Б і для кого — відкрито). Теперішній час, бо в минулому «вбив/вбила» має рід; імʼя жертви гра не відмінює.",
+   "options": [
+    {
+     "id": "a",
+     "label": "Як у колоді (рекомендую)",
+     "note": "«{killer} вбиває {victim}» / «{killer} killed {victim}».",
+     "rows": []
+    },
+    {
+     "id": "b",
+     "label": "Жертва спершу",
+     "note": "Імена не треба відмінювати.",
+     "rows": [
+      {
+       "key": "hud.kill_notice",
+       "en": "{victim}: killed by {killer}",
+       "uk": "{victim}: убивця — {killer}"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "hud.cops.title",
+   "keys": [
+    "hud.cops.title"
+   ],
+   "kind": "tone",
+   "round": "new",
+   "why": "Чернетка (екрани MVP s6–s11). Банер, коли гнів сусідів повний (s7, кадр 4 ескізу).",
+   "options": [
+    {
+     "id": "a",
+     "label": "Як у колоді (рекомендую)",
+     "note": "«Сусіди викликали копів!» / «The neighbours called the cops!».",
+     "rows": []
+    },
+    {
+     "id": "b",
+     "label": "Коротко",
+     "note": "",
+     "rows": [
+      {
+       "key": "hud.cops.title",
+       "en": "Cops are coming!",
+       "uk": "Їдуть копи!"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "hud.cops.in",
+   "keys": [
+    "hud.cops.in"
+   ],
+   "kind": "clarity",
+   "round": "new",
+   "why": "Чернетка (екрани MVP s6–s11). Підпис над відліком копів (s7): під ним великі цифри 0:58.",
+   "options": [
+    {
+     "id": "a",
+     "label": "Як у колоді (рекомендую)",
+     "note": "«Копи будуть за» / «The cops arrive in».",
+     "rows": []
+    },
+    {
+     "id": "b",
+     "label": "Без «копів»",
+     "note": "Заголовок банера вже каже про копів.",
+     "rows": [
+      {
+       "key": "hud.cops.in",
+       "en": "Arriving in",
+       "uk": "Будуть за"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "map.zone_hint.task",
+   "keys": [
+    "map.zone_hint.task"
+   ],
+   "kind": "less-text",
+   "round": "new",
+   "why": "Чернетка (екрани MVP s6–s11). Бирка під підсвіченою зоною задачі на мапі (s8), замість «Тут можуть бути пакунки».",
+   "options": [
+    {
+     "id": "a",
+     "label": "Як у колоді (рекомендую)",
+     "note": "«Тут ця задача» / «This task is here».",
+     "rows": []
+    },
+    {
+     "id": "b",
+     "label": "Без бирки",
+     "note": "Зону видно й так, коли наводиш на задачу. Рядок прибрати з колоди.",
+     "rows": [
+      {
+       "key": "map.zone_hint.task",
+       "en": "",
+       "uk": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "dead.room.title",
+   "keys": [
+    "dead.room.title"
+   ],
+   "kind": "word",
+   "round": "new",
+   "why": "Чернетка (екрани MVP s6–s11). Заголовок кімнати мертвих (s9) — замість спостереження за живими.",
+   "options": [
+    {
+     "id": "a",
+     "label": "Як у колоді (рекомендую)",
+     "note": "«Кімната мертвих» / «The dead's room».",
+     "rows": []
+    }
+   ]
+  },
+  {
+   "id": "dead.back_in",
+   "keys": [
+    "dead.back_in"
+   ],
+   "kind": "clarity",
+   "round": "new",
+   "why": "Чернетка (екрани MVP s6–s11). Підпис над великим відліком у кімнаті мертвих (s9), як прийняте «Повернення через {time}».",
+   "options": [
+    {
+     "id": "a",
+     "label": "Як у колоді (рекомендую)",
+     "note": "«Повернення через» / «Back in».",
+     "rows": []
+    }
+   ]
+  },
+  {
+   "id": "dead.killed_by",
+   "keys": [
+    "dead.killed_by"
+   ],
+   "kind": "gender",
+   "round": "new",
+   "why": "Чернетка (екрани MVP s6–s11). Хто тебе вбив (s9). На ескізі «Тебе вбив Ґлорп» — має рід, тому «убивця».",
+   "options": [
+    {
+     "id": "a",
+     "label": "Як у колоді (рекомендую)",
+     "note": "«Твій убивця — {name}» / «Killed by {name}».",
+     "rows": []
+    },
+    {
+     "id": "b",
+     "label": "Коротко",
+     "note": "",
+     "rows": [
+      {
+       "key": "dead.killed_by",
+       "en": "Killer: {name}",
+       "uk": "Убивця: {name}"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "dead.also_here",
+   "keys": [
+    "dead.also_here"
+   ],
+   "kind": "clarity",
+   "round": "new",
+   "why": "Чернетка (екрани MVP s6–s11). Хто ще чекає в кімнаті мертвих (s9).",
+   "options": [
+    {
+     "id": "a",
+     "label": "Як у колоді (рекомендую)",
+     "note": "«Тут також: {names}» / «Also here: {names}».",
+     "rows": []
+    }
+   ]
+  },
+  {
+   "id": "dead.capsule_note",
+   "keys": [
+    "dead.capsule_note"
+   ],
+   "kind": "less-text",
+   "round": "new",
+   "why": "Чернетка (екрани MVP s6–s11). Куди повернешся (s9): випадкова капсула й захист після появи.",
+   "options": [
+    {
+     "id": "a",
+     "label": "Як у колоді (рекомендую)",
+     "note": "«Випадкова капсула · {count} с захисту» / «Random capsule · {count} s protection».",
+     "rows": []
+    },
+    {
+     "id": "b",
+     "label": "Без наліпки",
+     "note": "Гравці дізнаються в навчанні; рядок прибрати з колоди.",
+     "rows": [
+      {
+       "key": "dead.capsule_note",
+       "en": "",
+       "uk": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "topic.mvp_ends",
+   "kind": "tone",
+   "round": "new",
+   "keys": [
+    "end.title.party",
+    "end.title.time_up",
+    "end.title.busted",
+    "end.won_aliens",
+    "end.won_humans",
+    "end.reason.cops"
+   ],
+   "why": "Чернетка (екрани MVP s6–s11). Три кінці раунду (s10): заголовок, хто переміг, нова причина для копів. Причини «всі задачі» й «час вийшов» лишаються як є. Заголовок «Час вийшов» повторює початок причини «Час вийшов, а задачі ще не виконано».",
+   "options": [
+    {
+     "id": "a",
+     "label": "Як у колоді (рекомендую)",
+     "note": "«Вечірка вдалася!», «Час вийшов», «Попались!»; «Прибульці перемогли», «Люди перемогли»; «Приїхали копи: вечірці кінець.»",
+     "rows": []
+    },
+    {
+     "id": "b",
+     "label": "Без повтору",
+     "note": "Заголовок для часу не повторює причину.",
+     "rows": [
+      {
+       "key": "end.title.time_up",
+       "en": "The party flopped",
+       "uk": "Вечірка не вдалася"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "end.back_to_ship",
+   "keys": [
+    "end.back_to_ship"
+   ],
+   "kind": "word",
+   "round": "new",
+   "why": "Чернетка (екрани MVP s6–s11). Повернення після кінця раунду (s10): лобі тепер корабель прибульців. Старий рядок «Повернення в лобі» лишається, доки не затвердиш цей.",
+   "options": [
+    {
+     "id": "a",
+     "label": "Як у колоді (рекомендую)",
+     "note": "«Повернення на корабель через {count}…» / «Back to the ship in {count}…».",
+     "rows": []
+    }
+   ]
+  },
+  {
+   "id": "topic.workbench",
+   "kind": "word",
+   "round": "new",
+   "keys": [
+    "workbench.title",
+    "workbench.points",
+    "workbench.mutate",
+    "workbench.short",
+    "unit.points",
+    "mutation.fast.name",
+    "mutation.fast.effect",
+    "mutation.jump.name",
+    "mutation.jump.effect",
+    "mutation.health.name",
+    "mutation.health.effect"
+   ],
+   "why": "Чернетка (екрани MVP s6–s11). Мутаційний верстат (новий екран s11, кадр 6 ескізу): назва, баланс очок, ціна, кнопка, «бракує», три мутації. Назви мутацій ще відкриті.",
+   "options": [
+    {
+     "id": "a",
+     "label": "Як у колоді (рекомендую)",
+     "note": "«Мутаційний верстат», «Твої очки», «4 очки», «Мутувати», «Бракує 2»; «Швидкі ноги — Бігаєш швидше», «Пружні ноги — Стрибаєш вище», «Товста шкіра — Більше здоровʼя».",
+     "rows": []
+    },
+    {
+     "id": "b",
+     "label": "Назви — це дія",
+     "note": "Без вигаданих назв: картка каже лише, що дає.",
+     "rows": [
+      {
+       "key": "mutation.fast.name",
+       "en": "Faster",
+       "uk": "Швидше"
+      },
+      {
+       "key": "mutation.jump.name",
+       "en": "Higher",
+       "uk": "Вище"
+      },
+      {
+       "key": "mutation.health.name",
+       "en": "Tougher",
+       "uk": "Міцніше"
+      }
+     ]
+    }
+   ]
   }
  ],
  "removed": [
@@ -492,7 +924,17 @@
   "tutorial.list.deliver",
   "tutorial.step.deliver.title",
   "tutorial.step.deliver.how",
-  "lobby.setting.packages"
+  "lobby.setting.packages",
+  "dead.watching",
+  "dead.respawn_in",
+  "control.spectate_next",
+  "control.spectate_previous",
+  "item.package",
+  "item.wine",
+  "item.oil",
+  "item.gnome",
+  "item.parasol",
+  "map.zone_hint"
  ],
  "decided": [
   {

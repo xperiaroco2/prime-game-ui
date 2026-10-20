@@ -132,7 +132,8 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
     18/27, chips 10/24, toggle chips 13/30, the stepper 13/15, fields 15/27, setting rows 13/18, the alert plate 16/39);
     elsewhere they grow by the thicker outline, so a label keeps its room (agent);
   - the crosshair ring stays 3 px (the sketch's 2 × 1.5), thinner than the thin stroke (agent);
-  - the map pin stays 28 px until the map screen is reworked: at 42 it covers the you-are-here chip (agent);
+  - the map pin stays 28 px until the map screen is reworked: at 42 it covers the you-are-here chip (agent; replaced by
+    the screens s06 to s11 below: 42 px, the chip moved clear);
   - a keycap is at least 44 px wide (52 at large text), so a one-letter key stays square (agent);
   - the old slots grow to 132 px; item bar A's hand and belt slots are new variations at the sketch's 150 and 126 (agent);
   - the anger track is a pill: the sketch's 12 px corners × 1.5 pass half its 30 px height (agent);
@@ -177,6 +178,37 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
     mic drawn at 42, the check at 36, the lock and the teammate mark at 30 (agent);
   - a human's Role tab lists the other humans under the existing «Твоя команда · {count}» (agent);
   - every MVP task's how-to card shows Delivery's frames as a placeholder until its own wordless art is drawn (agent).
+- **The screens s06 to s11 at the 0.75 scale, for the MVP** (the same audit and sketches × 1.5; s11, the mutation
+  workbench, is new; it replaces the Styled screens lengths below for these screens). The look choices the agent took
+  alone:
+  - the round HUD of s7 as decided, at the sketch × 1.5: the time 33 px down, the anger meter 96 px down with the siren
+    122 px right of the centre (the track's half, 112.5, plus 9), the role sticker and the roster 39 px in (agent);
+  - the object name and the raising bar centred 64 px under the screen's centre, so the chip's top is the sketch's 33
+    px under it (agent);
+  - the roster lists the own row first, does not cut names and grows to its longest row; a dead player is dimmed with a
+    draft «· поза грою» (agent);
+  - a slot of item bar A is a Control holding its face and its name tag, so the tag can sit over the bottom edge (agent);
+  - in a human's view another human's name plate keeps the old teammate mark (30 px) as a visible placeholder, since
+    whether it is still needed is open (agent);
+  - the kill notice placeholder (variant A) draws one dot, the killer's, before its sentence: the sketch's second dot
+    would split a sentence the game builds from one string (agent);
+  - the kill notice and the protection chip 165 px down, the cops' banner 168 (the sketch's 110 and 112 × 1.5) (agent);
+  - the role reveal and the ends: a centred column with 32 px gaps (the sketch's 30); the goal plate 900 with its text
+    802; a human's team line on a coral sticker with the existing «Твоя команда: {names}» (agent);
+  - the ends keep the recorded rule (the winner on a plate for a win, plain text for a loss); the reason line sits on a
+    word sticker, green when the aliens won, coral when the humans did (agent);
+  - the map keeps its panels inside the frame (the task list 60 to 684 across, the board 732 to 1860 and 60 to 1020
+    down); rows 96, the «?» 63, pictograms 72; the House's sample rooms borrow the system B pictograms that fit (the
+    garage the workshop's, the pantry the storage's, the study the office's, the living room the lounge's) (agent);
+  - the map pin 42 px with 21 px corners; the you-are-here chip 21 px right of the pin's rect (the 9 px a turned pin
+    reaches past it, then 12) and centred on it (agent);
+  - the downed plate 900 wide (the old 688 × 1.5 capped at the goal plate's width) 228 px down, its bars 810 × 24; the
+    give-up plate 192 px up with a 540 px hold bar (agent);
+  - the dead's room as on the sketch: the head 39 px down, the countdown plate 540 and the killer line 60 px apart in
+    the centre, who else is there at the bottom left, the capsule note at the bottom right (agent);
+  - the workbench: the price as one plural string («4 очки») at the card title's size, since the sketch's big number
+    and small word would split a plural the game cannot split; a Close button in place of the «Esc — закрити» line, as
+    the how-to card; every buyable card's button primary, the first focused (agent).
 
 ## Principles
 - **The UI never tells the player what to do.** No "take it to X" line, no destination marker, no key prompts on the HUD;

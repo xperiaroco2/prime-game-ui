@@ -3,38 +3,28 @@
   "wireframe": "s7",
   "title": "Round HUD",
   "background": "room-light",
-  "note": "One HUD for the whole round; s9 hides and returns the same nodes (Hud/Timer, Hud/Vitals/Health, Hud/Vitals/Stamina, Hud/Vitals/Mic, Hud/Slots). Every node has mouse_filter IGNORE. The HUD never shows keys, walking or running, a player list, who knocked the player down, a destination or task progress. HUD edges sit 40 px in.",
+  "note": "One HUD for the whole round, the MVP's (the engineer's decisions of 2026-10-20 in docs/ui-decisions.md, the sketch pages/mvp-screens frames 1, 1a, 3 and 4 at 0.75: every sketch length x 1.5). s9 hides and returns the same nodes; s1 and s6 draw them as context. Every node has mouse_filter IGNORE. The top: the bare time, the anger meter exactly centred under it, the own side at the top left, every player at the top right. No points on the HUD (they show only on the mutation workbench, s11). The HUD never shows keys, walking or running, who knocked the player down, a destination or task progress. HUD edges sit 39 px in (the sketch's 26 x 1.5).",
   "states": [
-    { "id": "empty", "label": "Порожні руки", "note": "Nothing carried; the crosshair is on a package within reach." },
-    { "id": "pack", "label": "Несеш пакунок", "note": "Carrying a package with both hands: the hand slot widens; the package's room sign is on the 3D package only, the slot never repeats it." },
-    { "id": "tired", "label": "Мало сил", "note": "Stamina at 0.18." },
-    { "id": "hurt", "label": "Мало здоровʼя", "note": "Health at 0.22 (ramp stop 04)." },
-    { "id": "mate", "label": "Дисидент бачить команду", "note": "A dissident with a knife on the belt sees a teammate's name plate with the teammate mark." },
-    { "id": "raising", "label": "Підняття", "note": "Decided by the engineer (2026-10-06, the wave-19 question page, q9): what the raiser sees while holding Interact next to a downed teammate. A thin progress bar under the crosshair in place of the object name, filling at the same rate as the downed player's raise bar (s9 raise); no text." }
+    { "id": "empty", "label": "Порожні руки", "note": "An alien with nothing carried; the crosshair is on an extinguisher within reach; the anger is calm (the siren off)." },
+    { "id": "carry", "label": "Предмети", "note": "Fireworks in the hand and a bun on the belt, each with its name tag; the anger rises (the siren on)." },
+    { "id": "human", "label": "Очима людини", "note": "A human's view: the coral role sticker, the other humans tagged in the roster, a battery in the hand. A teammate's name plate keeps the old dissident mark as a visible placeholder: whether a mark over another human's head is still needed beside the roster's tag is open." },
+    { "id": "hurt", "label": "Мало здоровʼя й сил", "note": "Health at 0.22 (ramp stop 04) and stamina at 0.18." },
+    { "id": "raising", "label": "Підняття", "note": "Decided by the engineer (2026-10-06, the wave-19 question page, q9): what the raiser sees while holding Interact next to a downed player. A thin progress bar under the crosshair in place of the object name, filling at the same rate as the downed player's raise bar (s9 raise); no text." },
+    { "id": "kill", "label": "Хто кого вбив", "note": "PLACEHOLDER, open: the kill notice as variant A of the sketch (a HUD banner for everyone). A or B (the dead alien says it in the world) and for whom (killed aliens only, or every kill) are the engineer's choice." },
+    { "id": "cops", "label": "Копи за хвилину", "note": "The anger is full: the neighbours called the cops, and the whole party sees the countdown. Open: whether the round timer still shows beside the cops' minute, or only the one that ends first; how long the minute is." }
   ],
   "nodes": [
     {
-      "name": "Plates", "type": "Control", "anchors_preset": "full_rect",
-      "note": "The name plate layer (#257), under the rest of the HUD: one Plate per other player in line of sight within about 10 m. Code: position = camera.unproject_position(head + 0.35 m), the plate centred on it; hidden behind walls (raycast), beyond 10 m or behind the camera. No role, no health.",
+      "name": "Plates", "type": "Control", "anchors_preset": "full_rect", "note": "The name plate layer (#257), under the rest of the HUD: one Plate per other player in line of sight within about 10 m. Code: position = camera.unproject_position(head + 0.35 m), the plate centred on it; hidden behind walls (raycast), beyond 10 m or behind the camera. No role, no health.",
       "children": [
         {
-          "name": "Plate", "type": "PanelContainer", "variation": "ToyNamePlate", "states": ["mate"],
-          "offset_left": 538, "offset_top": 302, "offset_right": 538, "offset_bottom": 302,
-          "grow_horizontal": "both", "grow_vertical": "both",
-          "note": "One instance per visible player, moved every frame to the projected point (the sample sits over a teammate at about 538, 302).",
+          "name": "Plate", "type": "PanelContainer", "variation": "ToyNamePlate", "states": ["human"], "offset_left": 538, "offset_top": 302, "offset_right": 538, "offset_bottom": 302, "grow_horizontal": "both", "grow_vertical": "both", "note": "One instance per visible player, moved every frame to the projected point (the sample sits over another human at about 538, 302).",
           "children": [
             {
-              "name": "Row", "type": "HBoxContainer", "variation": "ToyRowEight",
+              "name": "Row", "type": "HBoxContainer", "variation": "ToyRowTwelve",
               "children": [
-                {
-                  "name": "Name", "type": "Label", "variation": "ToyNamePlateText", "text": { "uk": "Тарас", "en": "Taras" },
-                  "note": "The player's name from code (auto_translate_mode DISABLED); no translated text."
-                },
-                {
-                  "name": "Mark", "type": "TextureRect", "icon": "teammate-mark", "custom_minimum_size": [20, 20],
-                  "size_flags_vertical": "shrink_center",
-                  "note": "Only on a dissident's client and only for a teammate."
-                }
+                { "name": "Name", "type": "Label", "variation": "ToyNamePlateText", "text": { "uk": "Зінга", "en": "Zinga" }, "note": "The player's name from code (auto_translate_mode DISABLED); no translated text." },
+                { "name": "Mark", "type": "TextureRect", "icon": "teammate-mark", "custom_minimum_size": [30, 30], "size_flags_vertical": "shrink_center", "note": "PLACEHOLDER, open: the old dissident mark, on a human's client over another human only. Whether a mark over another human's head is still needed beside the roster's tag is the engineer's choice; drop this node if not." }
               ]
             }
           ]
@@ -45,138 +35,162 @@
       "name": "Hud", "type": "Control", "anchors_preset": "full_rect",
       "children": [
         {
-          "name": "Timer", "type": "PanelContainer", "variation": "ToyPlate",
-          "anchors_preset": "center_top", "offset_top": 40, "offset_bottom": 40, "grow_horizontal": "both",
+          "name": "Role", "type": "PanelContainer", "variation": "ToySticker", "offset_left": 39, "offset_top": 39, "offset_right": 39, "offset_bottom": 39, "per_state": { "human": { "variation": "ToyStickerAlert" } }, "note": "The player's own side for the round, a flat word sticker 39 px in (the sketch's 26 x 1.5): ToySticker with role.alien, ToyStickerAlert (coral) with role.human.",
           "children": [
-            {
-              "name": "Time", "type": "Label", "variation": "ToyPlateTimer", "text": "07:22", "horizontal_alignment": "center", "custom_minimum_size": [140, 0],
-              "note": "The round's time left as mm:ss from code (auto_translate_mode DISABLED), updated every second. Rubik's digits are proportional, so the minimum width holds the widest time: the centred plate never changes width as the seconds tick. ToyPlateTimer is 48 px, which large text leaves unchanged. s6 after and s9 back use the same node."
-            }
+            { "name": "Text", "type": "Label", "variation": "ToyStickerText", "key": "role.alien", "per_state": { "human": { "key": "role.human" } } }
           ]
         },
+        { "name": "Timer", "type": "Label", "variation": "ToyTimerBare", "text": "07:42", "anchors_preset": "center_top", "offset_top": 33, "offset_bottom": 33, "grow_horizontal": "both", "horizontal_alignment": "center", "custom_minimum_size": [140, 0], "per_state": { "cops": { "text": "04:12" } }, "note": "The round's time left, mm:ss from code (auto_translate_mode DISABLED), every second; no plate (decided 2026-10-20): mint Rubik digits with the 6 px ink text outline, its top 33 px down (the sketch's 22 x 1.5). Rubik's digits are proportional, so the minimum width holds the widest time and the centred label never changes width." },
         {
-          "name": "Role", "type": "PanelContainer", "variation": "ToyChipPlate", "offset_left": 40, "offset_top": 40,
-          "offset_right": 40, "offset_bottom": 40,
+          "name": "Anger", "type": "Control", "anchors_preset": "center_top", "offset_top": 96, "offset_bottom": 96, "grow_horizontal": "both", "note": "The neighbours' anger, meter A (decided 2026-10-20): a zero-size point at the top centre, 96 px down (the sketch's 64 x 1.5). The track centres on it, so the bar is exactly centred under the time; the siren hangs off its right end without moving that centre. No caption, no plate. It never says what raises the anger or where (open: whether it hints the type of problem, the audit's point 3).",
           "children": [
             {
-              "name": "Text", "type": "Label", "variation": "ToyChipPlateText", "key": "role.engineer",
-              "per_state": { "mate": { "key": "role.dissident" } },
-              "note": "The player's own role for the round: role.engineer or role.dissident."
-            }
-          ]
-        },
-        {
-          "name": "Cross", "type": "Panel", "variation": "ToyCrosshair", "anchors_preset": "center",
-          "note": "The crosshair dot, centred on the screen (its size is the variation's)."
-        },
-        {
-          "name": "Raising", "type": "PanelContainer", "variation": "ToyPlate", "states": ["raising"],
-          "anchors_preset": "center", "offset_top": 38, "offset_bottom": 38,
-          "note": "See the state raising. Shown while the player holds Interact on a downed teammate, in place of Aim; hidden when the key is released or the teammate is up.",
-          "children": [
-            {
-              "name": "Bar", "type": "ProgressBar", "variation": "ToyBarProgress", "show_percentage": false,
-              "max_value": 1, "value": 0.6, "custom_minimum_size": [240, 10],
-              "note": "The raise progress (0 to 1), the same value the downed player's s9 Downed/V/Raise shows."
-            }
-          ]
-        },
-        {
-          "name": "Aim", "type": "PanelContainer", "variation": "ToyChipPlate", "states": ["empty", "tired", "hurt"],
-          "anchors_preset": "center", "offset_top": 38, "offset_bottom": 38,
-          "note": "The name of the object under the crosshair within reach (item.package, item.knife, item.switch); hidden when nothing within reach is under the crosshair.",
-          "children": [
-            { "name": "Text", "type": "Label", "variation": "ToyChipPlateText", "key": "item.package" }
-          ]
-        },
-        {
-          "name": "Vitals", "type": "VBoxContainer", "variation": "ToyColumnTwelve", "anchors_preset": "bottom_left",
-          "offset_left": 40, "offset_top": -40, "offset_right": 40, "offset_bottom": -40,
-          "children": [
-            {
-              "name": "Health", "type": "VBoxContainer", "variation": "ToyColumnFour", "custom_minimum_size": [320, 0],
-              "note": "Always shown in a round. No numbers: the bar's length is the real cue, the colour only adds to it.",
+              "name": "Track", "type": "PanelContainer", "variation": "ToyBarAngerTrack", "anchors_preset": "center_top", "grow_horizontal": "both", "note": "The white pill track, 225 x 30 (its size constants).",
               "children": [
-                {
-                  "name": "Cap", "type": "PanelContainer", "variation": "ToyBarLabel", "size_flags_horizontal": "shrink_begin",
-                  "children": [{ "name": "Text", "type": "Label", "variation": "ToyHudCaption", "key": "hud.health" }]
-                },
-                {
-                  "name": "Track", "type": "PanelContainer", "variation": "ToyBarTrack", "custom_minimum_size": [320, 16],
-                  "children": [
-                    {
-                      "name": "Fill", "type": "ProgressBar", "variation": "ToyBarHealth", "show_percentage": false,
-                      "max_value": 1, "value": 0.8, "custom_minimum_size": [0, 10],
-                      "per_state": { "hurt": { "value": 0.22 } },
-                      "note": "value = hp (0 to 1). The fill colour follows the fraction: step = clampi(floori(hp * 20.0 + 0.5), 0, 20), Fill.self_modulate = get_theme_color(\"ramp_stop_%02d\" % step, \"ToyBarHealth\")."
-                    }
-                  ]
-                }
+                { "name": "Fill", "type": "ProgressBar", "variation": "ToyBarAnger", "show_percentage": false, "max_value": 1, "value": 0.08, "custom_minimum_size": [0, 20], "per_state": { "carry": { "value": 0.55 }, "human": { "value": 0.55 }, "hurt": { "value": 0.55 }, "raising": { "value": 0.55 }, "kill": { "value": 0.55 }, "cops": { "value": 1 } }, "note": "value = anger / the host's threshold (0 to 1). Ongoing mischief raises it a little at a time, a one-off (the fireworks) jumps it; fixing stops the rise and the gained anger stays (m8 §5). At 1 the neighbours call the cops (Hud/Cops)." }
               ]
             },
-            {
-              "name": "Stamina", "type": "VBoxContainer", "variation": "ToyColumnFour", "custom_minimum_size": [320, 0],
-              "note": "Always shown in a round; drains while sprinting and refills at rest.",
-              "children": [
-                {
-                  "name": "Cap", "type": "PanelContainer", "variation": "ToyBarLabel", "size_flags_horizontal": "shrink_begin",
-                  "children": [{ "name": "Text", "type": "Label", "variation": "ToyHudCaption", "key": "hud.stamina" }]
-                },
-                {
-                  "name": "Track", "type": "PanelContainer", "variation": "ToyBarTrack", "custom_minimum_size": [320, 16],
-                  "children": [
-                    {
-                      "name": "Fill", "type": "ProgressBar", "variation": "ToyBarStamina", "show_percentage": false,
-                      "max_value": 1, "value": 0.9, "custom_minimum_size": [0, 10],
-                      "per_state": { "tired": { "value": 0.18 } },
-                      "note": "value = stamina (0 to 1)."
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "name": "Mic", "type": "PanelContainer", "variation": "ToyMic", "size_flags_horizontal": "shrink_begin",
-              "note": "Whether anyone hears the player. On: mic.svg tinted icon_on. Off (mic off, push-to-talk released, downed, pre and post game): mic-off.svg tinted icon_off (coral).",
-              "children": [
-                {
-                  "name": "Icon", "type": "TextureRect", "icon": "mic", "theme_color": "icon-on", "custom_minimum_size": [28, 28],
-                  "size_flags_horizontal": "shrink_center", "size_flags_vertical": "shrink_center"
-                }
-              ]
-            }
+            { "name": "Siren", "type": "TextureRect", "icon": "siren-off", "custom_minimum_size": [57, 57], "offset_left": 122, "offset_top": -14, "offset_right": 179, "offset_bottom": 43, "per_state": { "carry": { "icon": "siren-on" }, "human": { "icon": "siren-on" }, "hurt": { "icon": "siren-on" }, "raising": { "icon": "siren-on" }, "kill": { "icon": "siren-on" }, "cops": { "icon": "siren-on" } }, "note": "The siren, 57 px (the sketch's 38 x 1.5), 9 px right of the track's end (112.5 + 9, rounded up) and centred on its height: icons/siren-off.svg while the anger is calm (not rising), icons/siren-on.svg while it rises and when full. Never tinted." }
           ]
         },
         {
-          "name": "Slots", "type": "HBoxContainer", "variation": "ToyRowTwelve", "anchors_preset": "bottom_right",
-          "offset_left": -40, "offset_top": -40, "offset_right": -40, "offset_bottom": -40,
-          "note": "One slot pattern for both: empty shows the slot's name; a one-handed item shows only its icon (48 px); a two-handed item widens the hand slot and shows its icon and name.",
+          "name": "Roster", "type": "PanelContainer", "variation": "ToyRoster", "anchors_preset": "top_right", "offset_left": -39, "offset_top": 39, "offset_right": -39, "offset_bottom": 39, "grow_horizontal": "begin", "note": "Every player of the round with the body colour (decided 2026-10-20), 39 px in at the top right; at least 285 wide (the sketch's 190 x 1.5), growing to its longest row. The rows are built from the player list in the session's order with the own row first; a row updates when a player dies, comes back or leaves. Names are data and are not cut. Open: whether the dead show here (the page shows them dimmed with a mark).",
           "children": [
             {
-              "name": "Hand", "type": "PanelContainer", "variation": "ToySlotActive", "per_state": { "pack": { "wide": true } },
-              "note": "Always the active slot. Two-handed carry (a package) uses the slot's wide width.",
+              "name": "Rows", "type": "VBoxContainer", "variation": "ToyColumnEight",
               "children": [
                 {
-                  "name": "Center", "type": "CenterContainer",
+                  "name": "Row1", "type": "HBoxContainer", "variation": "ToyRowTwelve", "note": "One row: Dot is ToyRosterDot, a white disc the game tints to the player's body colour (self_modulate from data); Name is the player's name (auto_translate_mode DISABLED), the own one through hud.roster.self in ToyRosterNameSelf (green), a dead player's through hud.roster.dead in ToyRosterNameDead (lilac), else the bare name in ToyRosterName. In a human's roster the other humans and the own row carry Tag (role.human, coral); an alien's roster has no tags (humans know each other, decided 2026-10-20).",
                   "children": [
+                    { "name": "Dot", "type": "Panel", "variation": "ToyRosterDot", "self_modulate": "#7C5CC8", "size_flags_vertical": "shrink_center", "per_state": { "human": { "self_modulate": "#E8B04A" } } },
+                    { "name": "Name", "type": "Label", "variation": "ToyRosterNameSelf", "key": "hud.roster.self", "args": { "name": { "uk": "Олена", "en": "Olena" } }, "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center", "per_state": { "human": { "variation": "ToyRosterNameSelf", "key": "hud.roster.self", "args": { "name": { "uk": "Бульк", "en": "Bulk" } } } } },
                     {
-                      "name": "Row", "type": "HBoxContainer", "variation": "ToyRowEight",
+                      "name": "Tag", "type": "PanelContainer", "variation": "ToyRosterTag", "states": ["human"], "size_flags_vertical": "shrink_center",
                       "children": [
-                        {
-                          "name": "Icon", "type": "TextureRect", "icon": "item", "custom_minimum_size": [48, 48], "states": ["pack"],
-                          "note": "The hand slot's item icon (the package here)."
-                        },
-                        {
-                          "name": "Name", "type": "Label", "variation": "ToySlotTextEmpty", "key": "hud.slot.hand",
-                          "size_flags_vertical": "shrink_center", "states": ["empty", "tired", "hurt", "mate", "raising"],
-                          "note": "Shown only while the hand is empty: hud.slot.hand."
-                        },
-                        {
-                          "name": "ItemName", "type": "Label", "variation": "ToySlotText", "key": "item.package",
-                          "size_flags_vertical": "shrink_center", "states": ["pack"], "custom_minimum_size": [106, 0],
-                          "clip_text": true, "text_overrun_behavior": "trim_ellipsis",
-                          "note": "Shown only while carrying a two-handed item: its name (item.package here). Its own node, so the empty slot keeps its 88 px: 106 = 180 (wide width) - 2 x 9 (content margins) - 48 (Icon) - 8 (gap). A longer name is cut with an ellipsis. One-handed item: both labels hidden."
-                        }
+                        { "name": "Text", "type": "Label", "variation": "ToyRosterTagText", "key": "role.human" }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Row2", "type": "HBoxContainer", "variation": "ToyRowTwelve",
+                  "children": [
+                    { "name": "Dot", "type": "Panel", "variation": "ToyRosterDot", "self_modulate": "#1C7A82", "size_flags_vertical": "shrink_center", "per_state": { "human": { "self_modulate": "#7C5CC8" } } },
+                    { "name": "Name", "type": "Label", "variation": "ToyRosterName", "text": { "uk": "Глорп", "en": "Glorp" }, "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center", "per_state": { "human": { "variation": "ToyRosterName", "text": { "uk": "Олена", "en": "Olena" } } } }
+                  ]
+                },
+                {
+                  "name": "Row3", "type": "HBoxContainer", "variation": "ToyRowTwelve",
+                  "children": [
+                    { "name": "Dot", "type": "Panel", "variation": "ToyRosterDot", "self_modulate": "#E66B57", "size_flags_vertical": "shrink_center", "per_state": { "human": { "self_modulate": "#1C7A82" } } },
+                    { "name": "Name", "type": "Label", "variation": "ToyRosterName", "text": { "uk": "Їжак", "en": "Yizhak" }, "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center", "per_state": { "human": { "variation": "ToyRosterName", "text": { "uk": "Глорп", "en": "Glorp" } } } }
+                  ]
+                },
+                {
+                  "name": "Row4", "type": "HBoxContainer", "variation": "ToyRowTwelve",
+                  "children": [
+                    { "name": "Dot", "type": "Panel", "variation": "ToyRosterDot", "self_modulate": "#E8B04A", "size_flags_vertical": "shrink_center", "per_state": { "human": { "self_modulate": "#E66B57" } } },
+                    { "name": "Name", "type": "Label", "variation": "ToyRosterName", "text": { "uk": "Бульк", "en": "Bulk" }, "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center", "per_state": { "human": { "variation": "ToyRosterName", "text": { "uk": "Їжак", "en": "Yizhak" } } } }
+                  ]
+                },
+                {
+                  "name": "Row5", "type": "HBoxContainer", "variation": "ToyRowTwelve",
+                  "children": [
+                    { "name": "Dot", "type": "Panel", "variation": "ToyRosterDot", "self_modulate": "#4AA3DF", "size_flags_vertical": "shrink_center" },
+                    { "name": "Name", "type": "Label", "variation": "ToyRosterName", "text": { "uk": "Зінга", "en": "Zinga" }, "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
+                    {
+                      "name": "Tag", "type": "PanelContainer", "variation": "ToyRosterTag", "states": ["human"], "size_flags_vertical": "shrink_center",
+                      "children": [
+                        { "name": "Text", "type": "Label", "variation": "ToyRosterTagText", "key": "role.human" }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Row6", "type": "HBoxContainer", "variation": "ToyRowTwelve",
+                  "children": [
+                    { "name": "Dot", "type": "Panel", "variation": "ToyRosterDot", "self_modulate": "#D46FB0", "size_flags_vertical": "shrink_center" },
+                    { "name": "Name", "type": "Label", "variation": "ToyRosterNameDead", "key": "hud.roster.dead", "args": { "name": { "uk": "Тарас", "en": "Taras" } }, "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        { "name": "Cross", "type": "Panel", "variation": "ToyCrosshair", "anchors_preset": "center", "note": "The crosshair dot, centred on the screen (its size is the variation's)." },
+        {
+          "name": "Raising", "type": "PanelContainer", "variation": "ToyPlate", "states": ["raising"], "anchors_preset": "center", "offset_top": 64, "offset_bottom": 64, "note": "See the state raising. Shown while the player holds Interact on a downed player, in place of Aim; hidden when the key is released or the player is up. Its top sits as Aim's.",
+          "children": [
+            { "name": "Bar", "type": "ProgressBar", "variation": "ToyBarProgress", "show_percentage": false, "max_value": 1, "value": 0.6, "custom_minimum_size": [360, 24], "note": "The raise progress (0 to 1), the same value the downed player's s9 Downed/V/Raise shows." }
+          ]
+        },
+        {
+          "name": "Aim", "type": "PanelContainer", "variation": "ToyChipPlate", "states": ["empty"], "anchors_preset": "center", "offset_top": 64, "offset_bottom": 64, "note": "The name of the object under the crosshair within reach (an item.* key, item.extinguisher here; a mischief station or a machine takes its own key when the game adds one); hidden when nothing within reach is under the crosshair. Centred 64 px under the screen's centre, so its top is the sketch's 22 x 1.5 = 33 px under it.",
+          "children": [
+            { "name": "Text", "type": "Label", "variation": "ToyChipPlateText", "key": "item.extinguisher" }
+          ]
+        },
+        {
+          "name": "Kill", "type": "PanelContainer", "variation": "ToyPlateNotice", "states": ["kill"], "anchors_preset": "center_top", "offset_top": 165, "offset_bottom": 165, "grow_horizontal": "both", "note": "PLACEHOLDER, open (the engineer's design): the kill notice, variant A of the sketch, a banner every player sees for a few seconds when a player is killed (a killed alien tells everyone who killed him, m8 §4). Never at a knockdown: the downed rule \"never show who knocked the player down\" holds. 165 px down (the sketch's 110 x 1.5). Open: A or B (the dead alien says it in the world) and for whom (killed aliens only, then a killed human's silence outs him; or every kill).",
+          "children": [
+            {
+              "name": "Row", "type": "HBoxContainer", "variation": "ToyRowTwelve",
+              "children": [
+                { "name": "Dot", "type": "Panel", "variation": "ToyRosterDot", "self_modulate": "#1C7A82", "size_flags_vertical": "shrink_center", "note": "The killer's body colour (self_modulate from data), as in the roster." },
+                { "name": "Text", "type": "Label", "variation": "ToyPlateTitle", "key": "hud.kill_notice", "args": { "killer": { "uk": "Глорп", "en": "Glorp" }, "victim": { "uk": "Їжак", "en": "Yizhak" } }, "size_flags_vertical": "shrink_center", "note": "{killer} and {victim} are names from data. No role is named." }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Cops", "type": "PanelContainer", "variation": "ToyPlateBanner", "states": ["cops"], "anchors_preset": "center_top", "offset_top": 168, "offset_bottom": 168, "grow_horizontal": "both", "note": "The cops' minute (m8 §5.3): when the anger fills, the neighbours call the cops and every player sees this coral banner, 168 px down (the sketch's 112 x 1.5), until the cops arrive (the round ends, s10 cops) or the aliens finish first. Stalling the cops is not in the MVP.",
+          "children": [
+            {
+              "name": "V", "type": "VBoxContainer", "variation": "ToyColumnFour",
+              "children": [
+                { "name": "Title", "type": "Label", "variation": "ToyPlateTitle", "key": "hud.cops.title", "horizontal_alignment": "center" },
+                { "name": "In", "type": "Label", "variation": "ToyPlateText", "key": "hud.cops.in", "horizontal_alignment": "center" },
+                { "name": "Count", "type": "Label", "variation": "ToyPlateCountdown", "text": "0:58", "horizontal_alignment": "center", "note": "The time until the cops arrive, m:ss from code (auto_translate_mode DISABLED), every second." }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Vitals", "type": "HBoxContainer", "variation": "ToyRowTwentyFour", "anchors_preset": "bottom_left", "offset_left": 39, "offset_top": -39, "offset_right": 39, "offset_bottom": -39, "note": "The bars and the mic beside them, 39 px in at the bottom left (the sketch: bars 200 wide, the mic 244 in, x 1.5). Always shown in a round. No numbers on the bars: the length is the real cue, the colour only adds to it.",
+          "children": [
+            {
+              "name": "Bars", "type": "VBoxContainer", "variation": "ToyColumnTwelve", "size_flags_vertical": "shrink_end",
+              "children": [
+                {
+                  "name": "Health", "type": "VBoxContainer", "variation": "ToyColumnEight", "custom_minimum_size": [300, 0],
+                  "children": [
+                    {
+                      "name": "Cap", "type": "PanelContainer", "variation": "ToyBarLabel", "size_flags_horizontal": "shrink_begin",
+                      "children": [
+                        { "name": "Text", "type": "Label", "variation": "ToyHudCaption", "key": "hud.health" }
+                      ]
+                    },
+                    {
+                      "name": "Track", "type": "PanelContainer", "variation": "ToyBarTrack", "custom_minimum_size": [300, 24],
+                      "children": [
+                        { "name": "Fill", "type": "ProgressBar", "variation": "ToyBarHealth", "show_percentage": false, "max_value": 1, "value": 0.8, "custom_minimum_size": [0, 14], "per_state": { "hurt": { "value": 0.22 } }, "note": "value = hp (0 to 1). The fill colour follows the fraction: step = clampi(floori(hp * 20.0 + 0.5), 0, 20), Fill.self_modulate = get_theme_color(\"ramp_stop_%02d\" % step, \"ToyBarHealth\")." }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Stamina", "type": "VBoxContainer", "variation": "ToyColumnEight", "custom_minimum_size": [300, 0],
+                  "children": [
+                    {
+                      "name": "Cap", "type": "PanelContainer", "variation": "ToyBarLabel", "size_flags_horizontal": "shrink_begin",
+                      "children": [
+                        { "name": "Text", "type": "Label", "variation": "ToyHudCaption", "key": "hud.stamina" }
+                      ]
+                    },
+                    {
+                      "name": "Track", "type": "PanelContainer", "variation": "ToyBarTrack", "custom_minimum_size": [300, 24],
+                      "children": [
+                        { "name": "Fill", "type": "ProgressBar", "variation": "ToyBarStamina", "show_percentage": false, "max_value": 1, "value": 0.9, "custom_minimum_size": [0, 14], "per_state": { "hurt": { "value": 0.18 } }, "note": "value = stamina (0 to 1); drains while sprinting and refills at rest." }
                       ]
                     }
                   ]
@@ -184,25 +198,46 @@
               ]
             },
             {
-              "name": "Belt", "type": "PanelContainer", "variation": "ToySlot",
+              "name": "Mic", "type": "PanelContainer", "variation": "ToyMic", "size_flags_vertical": "shrink_end", "note": "Whether anyone hears the player. On: mic.svg tinted icon_on. Off (mic off, push-to-talk released, downed, pre and post game): mic-off.svg tinted icon_off (coral). 42 px in the 75 px badge.",
+              "children": [
+                { "name": "Icon", "type": "TextureRect", "icon": "mic", "theme_color": "icon-on", "custom_minimum_size": [42, 42], "size_flags_horizontal": "shrink_center", "size_flags_vertical": "shrink_center" }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Slots", "type": "HBoxContainer", "variation": "ToyRowSixteen", "anchors_preset": "bottom_right", "offset_left": -39, "offset_top": -51, "offset_right": -39, "offset_bottom": -51, "note": "Item bar A (decided 2026-10-20): the hand slot (green, 150) and the belt slot (mint, 126) 16 px apart, bottoms aligned, 39 px from the right and 51 from the bottom (the sketch's 26 and 34 x 1.5), so a name tag clears the edge. A slot is a Control holding its face and its tag; an empty slot shows its faint palm or pocket and no tag. Two-handed carrying is the game's data (which items take two hands); the slot does not widen. The pictures (pack icons, never tinted) and the item.* key of each MVP item: item-battery item.battery, item-flower item.flower, item-car-part item.car_part, item-bun item.bun, item-patty item.patty, item-burger item.burger, item-watering-can item.watering_can, item-wrench item.tools (the garage's cabled tools), item-bin-bag item.rubbish, item-extinguisher item.extinguisher, item-rocket item.fireworks; item-knife item.knife only if a knife stays in the MVP (weapons are deferred, open).",
+          "children": [
+            {
+              "name": "Hand", "type": "Control", "custom_minimum_size": [150, 150], "size_flags_vertical": "shrink_end",
               "children": [
                 {
-                  "name": "Center", "type": "CenterContainer",
+                  "name": "Face", "type": "PanelContainer", "variation": "ToySlotHand", "anchors_preset": "full_rect",
                   "children": [
-                    {
-                      "name": "Row", "type": "HBoxContainer", "variation": "ToyRowEight",
-                      "children": [
-                        {
-                          "name": "Icon", "type": "TextureRect", "icon": "knife", "custom_minimum_size": [48, 48], "states": ["mate"],
-                          "note": "The belt slot's item icon: a one-handed item shows only its icon (the knife here)."
-                        },
-                        {
-                          "name": "Name", "type": "Label", "variation": "ToySlotTextEmpty", "key": "hud.slot.belt",
-                          "size_flags_vertical": "shrink_center", "states": ["empty", "pack", "tired", "hurt", "raising"],
-                          "note": "Empty: hud.slot.belt. Hidden while the belt holds a one-handed item."
-                        }
-                      ]
-                    }
+                    { "name": "Picture", "type": "TextureRect", "icon": "slot-empty-hand", "custom_minimum_size": [111, 111], "per_state": { "carry": { "icon": "item-rocket" }, "human": { "icon": "item-battery" } }, "note": "The carried item's pack icon (icons/item-*.svg) at 111 px, else icons/slot-empty-hand.svg; never tinted." }
+                  ]
+                },
+                {
+                  "name": "Tag", "type": "PanelContainer", "variation": "ToySlotTag", "states": ["carry", "human"], "anchors_preset": "center_bottom", "offset_top": 18, "offset_bottom": 18, "grow_horizontal": "both", "grow_vertical": "begin", "note": "The carried item's name tag over the slot's bottom edge, centred, its bottom 18 px below the face: the item's item.* key (item.fireworks here). Hidden while the slot is empty.",
+                  "children": [
+                    { "name": "Text", "type": "Label", "variation": "ToySlotTagText", "key": "item.fireworks", "per_state": { "human": { "key": "item.battery" } } }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Belt", "type": "Control", "custom_minimum_size": [126, 126], "size_flags_vertical": "shrink_end",
+              "children": [
+                {
+                  "name": "Face", "type": "PanelContainer", "variation": "ToySlotBelt", "anchors_preset": "full_rect",
+                  "children": [
+                    { "name": "Picture", "type": "TextureRect", "icon": "slot-empty-belt", "custom_minimum_size": [90, 90], "per_state": { "carry": { "icon": "item-bun" } }, "note": "icons/item-*.svg at 90 px, else icons/slot-empty-belt.svg; never tinted." }
+                  ]
+                },
+                {
+                  "name": "Tag", "type": "PanelContainer", "variation": "ToySlotTag", "states": ["carry"], "anchors_preset": "center_bottom", "offset_top": 18, "offset_bottom": 18, "grow_horizontal": "both", "grow_vertical": "begin", "note": "As the hand's Tag (item.bun here).",
+                  "children": [
+                    { "name": "Text", "type": "Label", "variation": "ToySlotTagText", "key": "item.bun" }
                   ]
                 }
               ]

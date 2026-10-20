@@ -1,0 +1,94 @@
+{
+  "id": "s11",
+  "heading": "Мутаційний верстат",
+  "title": "Mutation workbench",
+  "background": "room-light",
+  "note": "New with the MVP (m8 §4; the sketch pages/mvp-screens frame 6 at 0.75, every length x 1.5): the mutation workbench in the laboratory, opened by Interact at the workbench, over the running round. The mouse is freed while it is open; the player stands at the workbench. Points buy three positive mutations; the points show only here. Esc or Close closes it.",
+  "states": [
+    { "id": "buy", "label": "Можна купити й бракує", "note": "7 points: Quick feet (4) and Spring legs (3) can be bought, Thick skin (9) cannot. The first card's button has keyboard focus, as when the workbench opens by keyboard or gamepad." }
+  ],
+  "nodes": [
+    { "name": "Dim", "type": "Panel", "variation": "ToyBackdropDeep", "anchors_preset": "full_rect", "note": "mouse_filter STOP. Dims the running round behind the workbench." },
+    {
+      "name": "Bench", "type": "PanelContainer", "variation": "ToyPanelDialog", "anchors_preset": "center", "grow_horizontal": "both", "grow_vertical": "both", "custom_minimum_size": [1260, 690], "note": "The workbench panel, 1260 x 690 (the sketch's 840 x 460 x 1.5), centred; raised on ToyBasePanel.",
+      "children": [
+        {
+          "name": "V", "type": "VBoxContainer", "variation": "ToyColumnTwentyFour",
+          "children": [
+            {
+              "name": "Top", "type": "HBoxContainer", "variation": "ToyRowSixteen",
+              "children": [
+                { "name": "Title", "type": "Label", "variation": "ToyTitleOnLight", "key": "workbench.title", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
+                {
+                  "name": "Balance", "type": "PanelContainer", "variation": "ToyPlateBalance", "size_flags_vertical": "shrink_center", "note": "The player's points: the only place they show (decided 2026-10-20: no points on the HUD). Updates live.",
+                  "children": [
+                    {
+                      "name": "Row", "type": "HBoxContainer", "variation": "ToyRowSixteen",
+                      "children": [
+                        { "name": "Label", "type": "Label", "variation": "ToyPlateText", "key": "workbench.points", "size_flags_vertical": "shrink_center" },
+                        { "name": "Points", "type": "Label", "variation": "ToyPlateTimer", "text": "7", "size_flags_vertical": "shrink_center", "note": "The points, a number from code (auto_translate_mode DISABLED)." }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Cards", "type": "HBoxContainer", "variation": "ToyRowThirtyTwo", "size_flags_vertical": "expand_fill", "note": "The three MVP mutations (m8 §4: run faster, jump higher, more HP), equal widths, 32 px apart (the sketch's 22 x 1.5 = 33, the nearest step). Open: their names, prices, whether one can be bought twice, whether a mutation lasts the match or ends at death, whether the HUD shows the ones you have.",
+              "children": [
+                {
+                  "name": "Fast", "type": "PanelContainer", "variation": "ToyMutationCard", "size_flags_horizontal": "expand_fill", "note": "One mutation (content data): its name, what it does, its price in points and the buy button. The card looks the same whether it can be bought or not; only its button changes (Buy: enabled, mutation.* \"can buy\"; disabled with workbench.short, \"not enough\"). There is no \"already have\" state: whether a mutation can be bought twice is open.",
+                  "children": [
+                    {
+                      "name": "V", "type": "VBoxContainer", "variation": "ToyColumnSixteen",
+                      "children": [
+                        { "name": "Name", "type": "Label", "variation": "ToyPlateTitle", "key": "mutation.fast.name" },
+                        { "name": "Effect", "type": "Label", "variation": "ToyPlateText", "key": "mutation.fast.effect", "autowrap_mode": "word_smart", "custom_minimum_size": [280, 0], "size_flags_vertical": "expand_fill", "note": "Takes the card's free height, so the price and the button sit at the bottom." },
+                        { "name": "Cost", "type": "Label", "variation": "ToyPlateTitle", "key": "unit.points", "count": 4, "note": "The price, tr_n(\"unit.points\", \"unit.points\", price) with {count} = the price (content data; the prices are placeholders, open)." },
+                        { "name": "Buy", "type": "Button", "variation": "ToyButtonPrimary", "key": "workbench.mutate", "state": "focus", "note": "Spends the price and gives the mutation; disabled when the balance is short." }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Jump", "type": "PanelContainer", "variation": "ToyMutationCard", "size_flags_horizontal": "expand_fill",
+                  "children": [
+                    {
+                      "name": "V", "type": "VBoxContainer", "variation": "ToyColumnSixteen",
+                      "children": [
+                        { "name": "Name", "type": "Label", "variation": "ToyPlateTitle", "key": "mutation.jump.name" },
+                        { "name": "Effect", "type": "Label", "variation": "ToyPlateText", "key": "mutation.jump.effect", "autowrap_mode": "word_smart", "custom_minimum_size": [280, 0], "size_flags_vertical": "expand_fill" },
+                        { "name": "Cost", "type": "Label", "variation": "ToyPlateTitle", "key": "unit.points", "count": 3 },
+                        { "name": "Buy", "type": "Button", "variation": "ToyButtonPrimary", "key": "workbench.mutate" }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Health", "type": "PanelContainer", "variation": "ToyMutationCard", "size_flags_horizontal": "expand_fill",
+                  "children": [
+                    {
+                      "name": "V", "type": "VBoxContainer", "variation": "ToyColumnSixteen",
+                      "children": [
+                        { "name": "Name", "type": "Label", "variation": "ToyPlateTitle", "key": "mutation.health.name" },
+                        { "name": "Effect", "type": "Label", "variation": "ToyPlateText", "key": "mutation.health.effect", "autowrap_mode": "word_smart", "custom_minimum_size": [280, 0], "size_flags_vertical": "expand_fill" },
+                        { "name": "Cost", "type": "Label", "variation": "ToyPlateTitle", "key": "unit.points", "count": 9 },
+                        { "name": "Buy", "type": "Button", "variation": "ToyButtonPrimary", "key": "workbench.short", "args": { "count": "2" }, "state": "disabled", "note": "Not enough points: disabled, with workbench.short, {count} = price - balance." }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Bar", "type": "HBoxContainer", "alignment": "end",
+              "children": [
+                { "name": "Close", "type": "Button", "variation": "ToyButtonSecondary", "key": "common.close", "note": "Closes the workbench; Esc (ui_cancel) does the same." }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

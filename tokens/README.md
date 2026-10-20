@@ -200,7 +200,8 @@ deprecated itself. The pack marks both (below).
   "svg_scale": 5, "tint": "multiply" }`.
   - `size` is the SVG's own size (width and height, else its viewBox); `drawn_px` the largest size a screen of
     `pages/screens/src` draws it at (a TextureRect by its custom_minimum_size, a Button icon by `icon_size` or its own
-    size, an OptionButton's arrow and an HSlider's knobs at their own size; an icon no screen draws keeps its own size);
+    size, an OptionButton's arrow and an HSlider's knobs at their own size; an item picture `icons/item-*.svg`, which the
+    game swaps in a slot, the largest size any item picture is drawn at; an icon no screen draws keeps its own size);
     `svg_scale` = `drawn_px` ÷ the larger side of `size`, rounded up to 0.01: the `svg/scale` to import it at, as the
     screens' handoffs list it. The pack is rebuilt when a screen changes an icon's size.
   - `tint`: `"multiply"` for a white copy (currentColor or the room ink written as `#ffffff`): the game colours it by

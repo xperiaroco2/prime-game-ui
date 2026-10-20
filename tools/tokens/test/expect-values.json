@@ -29,7 +29,7 @@
     { "path": "setting.row.panel.border-width-bottom", "expect": { "px": 0 } },
     { "path": "setting.row.panel.content-margin-bottom", "expect": { "px": 14 } },
     { "path": "map.pin.panel.corner-radius-top-left", "expect": { "px": 0 } },
-    { "path": "map.pin.panel.corner-radius-top-right", "expect": { "px": 14 } },
+    { "path": "map.pin.panel.corner-radius-top-right", "expect": { "px": 21 } },
     { "path": "hud.spinner.panel.border-width-top", "expect": { "px": 15 } },
     { "path": "hud.spinner.panel.border-width-bottom", "expect": { "px": 0 } },
     { "path": "field.input.read-only.font-color", "expect": { "hex": "#1e1230" } },

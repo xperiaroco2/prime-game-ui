@@ -1,0 +1,20 @@
+{
+  "id": "x5",
+  "wireframe": "s7",
+  "title": "Self-test: a white panel tinted from data",
+  "background": "black",
+  "note": "The roster's body-colour dot: a Panel whose variation is a white disc takes self_modulate, a sample colour of content data; the page paints the face in it and the handoff says it comes from data. A Panel without it keeps its variation's face.",
+  "states": [
+    { "id": "one", "label": "Один колір" },
+    { "id": "two", "label": "Інший колір" }
+  ],
+  "nodes": [
+    {
+      "name": "Row", "type": "HBoxContainer", "variation": "ToyRowTwelve", "anchors_preset": "center",
+      "children": [
+        { "name": "Dot", "type": "Panel", "variation": "ToyRosterDot", "self_modulate": "#7C5CC8", "per_state": { "two": { "self_modulate": "#E8B04A" } } },
+        { "name": "Plain", "type": "Panel", "variation": "ToyRosterDot" }
+      ]
+    }
+  ]
+}

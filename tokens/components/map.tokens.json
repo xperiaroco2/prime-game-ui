@@ -63,7 +63,7 @@
       }
     },
     "pin": {
-      "$description": "The \"you are here\" pin: a coral-dark teardrop with a 6 px ink outline; its angle is set at runtime. Its size and corners stay 28 px and 14 px at the 0.75 scale (ui-1.2.0) until the map screen is reworked: at 42 px it overlaps the you-are-here chip on the map screen.",
+      "$description": "The \"you are here\" pin: a coral-dark teardrop with a 6 px ink outline; its angle is set at runtime. 42 px with 21 px corners at the 0.75 scale (the old 28 and 14 x 1.5, since the map screen's rework moved the you-are-here chip clear of it).",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyMapPin", "class": "Panel" },
@@ -75,14 +75,14 @@
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
         "corner-radius-top-left": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
-        "corner-radius-top-right": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } },
-        "corner-radius-bottom-right": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } },
-        "corner-radius-bottom-left": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } }
+        "corner-radius-top-right": { "$type": "dimension", "$value": { "value": 21, "unit": "px" } },
+        "corner-radius-bottom-right": { "$type": "dimension", "$value": { "value": 21, "unit": "px" } },
+        "corner-radius-bottom-left": { "$type": "dimension", "$value": { "value": 21, "unit": "px" } }
       },
       "size": {
         "$type": "dimension",
-        "width": { "$value": { "value": 28, "unit": "px" } },
-        "height": { "$value": { "value": 28, "unit": "px" } }
+        "width": { "$value": { "value": 42, "unit": "px" } },
+        "height": { "$value": { "value": 42, "unit": "px" } }
       }
     }
   }
