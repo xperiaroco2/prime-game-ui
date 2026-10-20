@@ -15,9 +15,10 @@
 //                                                    handoff text; writes nothing)
 //
 // THE FORMAT (pages/screens/README.md has the long form). One file per screen, src/s01-tutorial.json …
-// src/s10-post-game.json; a missing file is a screen not drawn yet. Godot's defaults are the format's defaults, so a
+// src/s11-workbench.json; a missing file is a screen not drawn yet. Godot's defaults are the format's defaults, so a
 // node states only what differs, with Godot's property names.
-//   screen: { id "s2" (from the file name), wireframe "s2" (a wireframe section), title (English), background (the
+//   screen: { id "s2" (from the file name), wireframe "s2" (a wireframe section) or, for a screen new with the MVP,
+//     heading (its Ukrainian page heading), title (English), background (the
 //     world behind the UI, page art: menu | room-light | room-dark | black), note?, states [{id, label (Ukrainian), note?}],
 //     nodes [root nodes] }
 //   node:   { name, type, variation?, states? [ids it is visible in; default all], per_state? {state: {field: value}},
@@ -124,7 +125,7 @@ const H = 1080;
 const SCREENS = [
   ['s1', 's01-tutorial.json'], ['s2', 's02-main-menu.json'], ['s3', 's03-connecting.json'], ['s4', 's04-lobby.json'],
   ['s5', 's05-esc-menu.json'], ['s6', 's06-pre-game.json'], ['s7', 's07-hud.json'], ['s8', 's08-map.json'],
-  ['s9', 's09-downed.json'], ['s10', 's10-post-game.json'],
+  ['s9', 's09-downed.json'], ['s10', 's10-post-game.json'], ['s11', 's11-workbench.json'],
 ];
 const BACKGROUNDS = {
   menu: 'the lobby room seen behind the main menu',
@@ -151,7 +152,8 @@ const ICON_SOURCES = [
 // own fields, and whether it draws only through a Toy variation.
 const GODOT = {
   Control: { chain: ['Control'], holds: 'anchored', fields: [] },
-  Panel: { chain: ['Panel', 'Control'], holds: 'anchored', themed: true, fields: [] },
+  // self_modulate: a sample colour of content data (a body colour) on a white Panel the game tints, as the roster's dot.
+  Panel: { chain: ['Panel', 'Control'], holds: 'anchored', themed: true, fields: ['self_modulate'] },
   PanelContainer: { chain: ['PanelContainer', 'Container', 'Control'], holds: 'stack', themed: true, fields: ['wide'] },
   // Its margins are theme constants (margin_left …), so setting them is an override the theme test forbids.
   MarginContainer: { chain: ['MarginContainer', 'Container', 'Control'], holds: 'stack', fields: [] },
@@ -190,7 +192,7 @@ const ARROW_ICON = 'chevron-down'; // OptionButton's theme icon `arrow` (pages/c
 // textures in the pack: radio_checked, radio_checked_disabled, radio_unchecked and radio_unchecked_disabled).
 const LIST_VARIATION = 'ToyDropdownList';
 const LIST_ICONS = ['radio-checked', 'radio-checked-disabled', 'radio-unchecked'];
-const SCREEN_FIELDS = ['id', 'wireframe', 'title', 'background', 'note', 'states', 'nodes'];
+const SCREEN_FIELDS = ['id', 'wireframe', 'heading', 'title', 'background', 'note', 'states', 'nodes'];
 // LayoutPreset -> [anchor left, top, right, bottom, grow horizontal, grow vertical] (the grow directions the editor
 // sets with the preset, Control.set_grow_direction_preset).
 const PRESETS = {
@@ -485,7 +487,14 @@ function validateScreen(src, C) {
   const S = { id: src.id, file: src.file, rel: src.rel, roots: [], all: [], states: [], stateIds: [] };
   if (!isObj(s)) { R.err('', 'a screen is a JSON object'); return { errors: R.list, screen: null }; }
   for (const k of Object.keys(s)) if (!SCREEN_FIELDS.includes(k)) R.err(ptr('', k), `unknown field ${k} (a screen has ${SCREEN_FIELDS.join(', ')})`);
-  for (const k of ['id', 'wireframe', 'title', 'background', 'states', 'nodes']) if (!(k in s)) R.err('', `a screen needs ${k}`);
+  for (const k of ['id', 'title', 'background', 'states', 'nodes']) if (!(k in s)) R.err('', `a screen needs ${k}`);
+  // A screen new with the MVP has no wireframe section: its page heading is its own (Ukrainian, as the wireframes' titles).
+  if (!('wireframe' in s) && !('heading' in s)) R.err('', 'a screen needs wireframe (a wireframe section, whose title heads it on the page) or, when it has none, heading');
+  if ('wireframe' in s && 'heading' in s) R.err('/heading', 'a screen with a wireframe section takes its heading from it: give wireframe or heading, not both');
+  if ('heading' in s) {
+    if (typeof s.heading !== 'string' || !s.heading.trim() || !/[\u0400-\u04FF]/.test(s.heading)) R.err('/heading', 'heading is the screen\'s Ukrainian name on the page');
+    else S.heading = s.heading;
+  }
   if ('id' in s && s.id !== src.id) R.err('/id', `the file ${src.file} holds screen ${q(src.id)}, not ${q(s.id)}`);
   if ('wireframe' in s) {
     if (typeof s.wireframe !== 'string' || !C.titles[s.wireframe]) R.err('/wireframe', `${q(s.wireframe)} is not a wireframe section; pages/wireframes has ${Object.keys(C.titles).join(', ')}`);
@@ -1118,6 +1127,12 @@ function renderNode(n, st, S, C, ctx) {
       inner = `<div class="gd-scroll-view">${kids()}</div><div class="gd-VScrollBar tv-${SCROLL_BAR}" data-bar-of="${esc(n.path)}" aria-hidden="true" style="--value: 0; --page: 1">${SCROLL_BAR_INNER}</div>`;
       break;
     }
+    case 'Panel':
+      // A Panel tinted from data (self_modulate, a body colour): the page paints its white face in the sample colour
+      // (Godot multiplies the whole StyleBox, so its ink outline stays about as dark).
+      if (p.self_modulate) attrs.push(`style="background-color: ${p.self_modulate}"`);
+      inner = kids();
+      break;
     default:
       inner = kids();
   }
@@ -1374,13 +1389,18 @@ function uiCss(sys, used, emitComponentsCss) {
   return parts.join('\n') + '\n';
 }
 
+// The screen's heading on the page: its wireframe section's title, else its own heading (a screen new with the MVP).
+function headingOf(S, C) {
+  return S.wireframe ? C.titles[S.wireframe] : S.heading;
+}
+
 function renderPage(screens, C, sys, ui, layout) {
   const tokensCss = readText(TOKENS_CSS);
   if (tokensCss !== sys.outputs[TOKENS_CSS]) fail(`${TOKENS_CSS} is stale: run node tools/tokens/build.js`);
   const style = (id, text) => `<style id="${id}">\n${text.replace(/\s+$/, '')}\n</style>`;
   const num = (id) => id.replace(/^s/, '');
   const missing = SCREENS.filter(([id]) => !screens.some((S) => S.id === id)).map(([id]) => num(id));
-  const chips = screens.map((S) => `<a class="pg-chip" href="#${S.id}"><b>${num(S.id)}</b> ${esc(C.titles[S.wireframe])}</a>`).join('');
+  const chips = screens.map((S) => `<a class="pg-chip" href="#${S.id}"><b>${num(S.id)}</b> ${esc(headingOf(S, C))}</a>`).join('');
   const seg = (ctl, label, opts) => `<div class="pg-ctl" role="group" aria-label="${esc(label)}"><span class="pg-ctl-label">${esc(label)}</span><div class="pg-seg">`
     + opts.map(([val, text], i) => `<button type="button" data-ctl="${ctl}" data-val="${val}" aria-pressed="${i === 0}">${esc(text)}</button>`).join('') + '</div></div>';
   const sections = screens.map((S) => {
@@ -1392,7 +1412,7 @@ function renderPage(screens, C, sys, ui, layout) {
       return `<div class="sc-frame" data-screen="${S.id}" data-state="${st.id}" data-context="dark"${i ? ' hidden' : ''}><div class="pg-world pg-world-${S.background}" aria-hidden="true"><i></i><i></i><i></i></div>${body}</div>`;
     }).join('\n');
     return `<section class="pg-screen" id="${S.id}" data-screen-id="${S.id}" aria-labelledby="${S.id}-h">`
-      + `<h2 id="${S.id}-h"><span class="pg-num">${num(S.id)}</span> ${esc(C.titles[S.wireframe])} <small lang="en">${esc(S.title)}</small></h2>`
+      + `<h2 id="${S.id}-h"><span class="pg-num">${num(S.id)}</span> ${esc(headingOf(S, C))} <small lang="en">${esc(S.title)}</small></h2>`
       // The screen's note (what it leaves out, what shows with it), then the shown state's note.
       + (S.note ? `<p class="pg-screen-note" lang="en">${esc(S.note)}</p>` : '')
       + `<div class="pg-tabs" role="tablist" aria-label="Стани екрана">${tabs}</div>${notes}`
@@ -1680,6 +1700,7 @@ function handoff(S, C) {
         bits.push(`fill self_modulate = theme colour \`ramp_stop_${String(step).padStart(2, '0')}\` of \`${name}\` (step = clampi(floori(hp * ${steps.value}.0 + 0.5), 0, ${steps.value}))`);
       }
     }
+    if (T === 'Panel' && p.self_modulate) bits.push(`self_modulate from data (a content colour, not a theme colour), sample ${p.self_modulate}`);
     if (T === 'TextureRect') {
       const ic = C.icons.get(p.icon);
       bits.push(`texture \`${p.icon}\` (${ic.game}${ic.white ? ', white' : ''}, ${ic.licence}), expand_mode \`EXPAND_IGNORE_SIZE\`, stretch_mode \`STRETCH_KEEP_ASPECT_CENTERED\``);
@@ -1713,7 +1734,7 @@ function handoff(S, C) {
   out.push('');
   out.push(`The styled ${S.title.toLowerCase()} screen from the UI track (xperiaroco2/prime-game-ui), as a Godot 4.7.2 node tree for the 1920×1080 reference.`);
   out.push('');
-  out.push(`- **Source:** \`${S.rel}\`; the review page is \`pages/screens/screens.html#${S.id}\`; the wireframe is section \`${S.wireframe}\` («${C.titles[S.wireframe]}»).`);
+  out.push(`- **Source:** \`${S.rel}\`; the review page is \`pages/screens/screens.html#${S.id}\`; ${S.wireframe ? `the wireframe is section \`${S.wireframe}\` («${C.titles[S.wireframe]}»)` : `no wireframe section (a screen new with the MVP; its page heading is «${S.heading}»)`}.`);
   out.push(`- **Theme:** the Toy pack ui-${C.pack.version} (\`dist/pack/toy.pack.json\`); the variations below are \`theme_type_variation\` names.`);
   out.push(`- **World behind the UI** (not UI): ${BACKGROUNDS[S.background]}.`);
   out.push('- **How to read it:** the roots are children of the screen\'s full-rect root `Control`; every property not listed keeps Godot\'s default; sizes and offsets are reference px. In a state\'s **Shown** list, the first node of each subtree gives its path from the screen root.');
@@ -1903,6 +1924,19 @@ function selfTest() {
     check(md.includes('**Changed** `Col/Tie/Lock`: self_modulate = get_theme_color("font_color", "ToyTitleOnDark")'), 'x4 alone: the handoff retints the lock with the Label before it');
   }
 
+  // 5. A Panel tinted from data (self_modulate, the roster's body-colour dot): the page paints its face in the sample
+  //    colour per state, an untinted Panel keeps its variation's face, and the handoff says the colour comes from data.
+  const x5 = screen('x5');
+  if (x5) {
+    for (const [st, want] of [['one', 'background-color: #7C5CC8'], ['two', 'background-color: #E8B04A']]) {
+      check(attrOf(tagOf(page(x5, st), 'x5/Row/Dot'), 'style') === want, `x5 ${st}: the dot's face is ${want}`);
+      check(attrOf(tagOf(page(x5, st), 'x5/Row/Plain'), 'style') === null, `x5 ${st}: an untinted Panel has no style`);
+    }
+    const md = handoff(x5, C);
+    check(md.includes('self_modulate from data (a content colour, not a theme colour), sample #7C5CC8'), 'x5: the handoff gives the dot its data tint');
+    check(md.includes('**Changed** `Row/Dot`: self_modulate from data (a content colour, not a theme colour), sample #E8B04A'), 'x5: the handoff gives the other state its tint');
+  }
+
   for (const f of files) check(loaded.has(f), `${SELFTEST}/${f} is a case of the self-test`);
   for (const line of failed) console.log(line);
   console.log(failed.length ? `FAILED: ${failed.length} of ${passed + failed.length} checks` : `ALL CLEAN: ${passed} checks on ${files.length} fixture screens`);
@@ -1944,7 +1978,7 @@ function main(argv) {
     const why = privateOutProblem(out);
     if (why) { console.error(`error: ${why}`); return 2; }
   }
-  if (ids.some((id) => !SCREENS.some(([x]) => x === id))) { console.error(`unknown screen ${ids.find((id) => !SCREENS.some(([x]) => x === id))}; the screens are s1 … s10\n${usage}`); return 2; }
+  if (ids.some((id) => !SCREENS.some(([x]) => x === id))) { console.error(`unknown screen ${ids.find((id) => !SCREENS.some(([x]) => x === id))}; the screens are s1 … s11\n${usage}`); return 2; }
   try {
     if (mode === 'selftest') return selfTest();
     const { sources, errors: readErrors } = readSources(ids.length ? ids : null);

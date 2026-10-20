@@ -92,7 +92,8 @@ const DRAWN = new Set(["Panel", "PanelContainer", "Label", "Button", "OptionButt
 // Parents whose children place themselves by anchors and so may land on each other.
 const ANCHORING = new Set(["Control", "Panel", "Button"]);
 // Anchored siblings meant to overlap partly (a layer over another): [screen-relative path pattern, other pattern].
-const OVERLAY_OK = [];
+// Item bar A's name tag sits over its slot's bottom edge (the engineer's item bar A, 2026-10-20).
+const OVERLAY_OK = [[/^Hud\/Slots\/(Hand|Belt)\/Face$/, /^Hud\/Slots\/(Hand|Belt)\/Tag$/]];
 // a node's Godot rect: its border box less the expand margins drawn inside it
 function rectOf(n) {
   const e = n.expand;

@@ -3,110 +3,126 @@
   "wireframe": "s9",
   "title": "Downed, dead and respawn",
   "background": "room-dark",
-  "note": "The same HUD as s7: Hud and its nodes are s7's (same names and places); this screen only hides and returns them and adds the downed, spectating and protection plates. Aim and the name plates behave as in s7 and are left out here. Every node has mouse_filter IGNORE. Never show who knocked the player down.",
+  "note": "The same HUD as s7: Hud and its nodes are s7's (same names and places); this screen only hides and returns them and adds the downed plates, the dead's room and the protection chip. Aim and the name plates behave as in s7 and are left out here. Every node has mouse_filter IGNORE. Never show who knocked the player down. The knockdown is kept as decided (GDD §3); spectating left with the MVP: the dead wait in the dead's room (m8 §3; the sketch pages/mvp-screens frame 5 at 0.75, every length x 1.5).",
   "states": [
-    { "id": "down", "label": "Нокдаун", "note": "Downed and bleeding out: only the two plates and the mic (off) show; the rest of the HUD hides." },
+    { "id": "down", "label": "Нокдаун", "note": "Downed and bleeding out: only the two plates and the mic (off) show; the rest of the HUD hides. As decided, kept." },
     { "id": "down-holding", "label": "Утримуєш F", "note": "The give-up key is held: the hold bar fills over 1 s." },
-    { "id": "raise", "label": "Тебе піднімають", "note": "A teammate is raising the player: the raise progress replaces the bleed-out bar; giving up hides." },
-    { "id": "dead", "label": "Смерть: спостереження", "note": "Spectating another player: only the time to respawn and the watched player's name." },
-    { "id": "back", "label": "Повернення", "note": "Back in the round: the s7 HUD returns with a 3 s protection chip. Stamina returns full in the game; the sample shows it part-empty only so the bar is reviewed over a dark room." }
+    { "id": "raise", "label": "Тебе піднімають", "note": "Someone is raising the player: the raise progress replaces the bleed-out bar; giving up hides." },
+    { "id": "dead-room", "label": "Кімната мертвих", "note": "Dead (killed, bled out or gave up): the player waits 30 s with the other dead in the dead's room, not watching the living (m8 §3, the sketch's frame 5). The rest of the HUD hides. Open: where the room is; whether the dead can talk to each other there; whether they see the timer, the anger and the kills (so no timer and no mic here)." },
+    { "id": "back", "label": "Повернення", "note": "Back in the round at a random capsule: the s7 HUD returns with the 3 s protection chip. Stamina returns full in the game; the sample shows it part-empty only so the bar is reviewed over a dark room." }
   ],
   "nodes": [
     {
-      "name": "Hud", "type": "Control", "anchors_preset": "full_rect",
-      "note": "s7's Hud. While downed only Vitals/Mic shows; while dead nothing shows; on return everything as in s7.",
+      "name": "Hud", "type": "Control", "anchors_preset": "full_rect", "note": "s7's Hud. While downed only Vitals/Mic shows; in the dead's room nothing shows; on return everything as in s7.",
       "children": [
         {
-          "name": "Timer", "type": "PanelContainer", "variation": "ToyPlate", "states": ["back"],
-          "anchors_preset": "center_top", "offset_top": 40, "offset_bottom": 40, "grow_horizontal": "both",
+          "name": "Role", "type": "PanelContainer", "variation": "ToySticker", "states": ["back"], "offset_left": 39, "offset_top": 39, "offset_right": 39, "offset_bottom": 39, "note": "The player's own side for the round, a flat word sticker 39 px in (the sketch's 26 x 1.5): ToySticker with role.alien, ToyStickerAlert (coral) with role.human.",
+          "children": [
+            { "name": "Text", "type": "Label", "variation": "ToyStickerText", "key": "role.alien" }
+          ]
+        },
+        { "name": "Timer", "type": "Label", "variation": "ToyTimerBare", "states": ["back"], "text": "05:10", "anchors_preset": "center_top", "offset_top": 33, "offset_bottom": 33, "grow_horizontal": "both", "horizontal_alignment": "center", "custom_minimum_size": [140, 0], "note": "As s7." },
+        {
+          "name": "Anger", "type": "Control", "states": ["back"], "anchors_preset": "center_top", "offset_top": 96, "offset_bottom": 96, "grow_horizontal": "both", "note": "The neighbours' anger, meter A (decided 2026-10-20): a zero-size point at the top centre, 96 px down (the sketch's 64 x 1.5). The track centres on it, so the bar is exactly centred under the time; the siren hangs off its right end without moving that centre. No caption, no plate. It never says what raises the anger or where (open: whether it hints the type of problem, the audit's point 3).",
           "children": [
             {
-              "name": "Time", "type": "Label", "variation": "ToyPlateTimer", "text": "05:10", "horizontal_alignment": "center", "custom_minimum_size": [140, 0],
-              "note": "As s7: the round's time left as mm:ss from code; the minimum width holds \"44:44\"."
-            }
+              "name": "Track", "type": "PanelContainer", "variation": "ToyBarAngerTrack", "anchors_preset": "center_top", "grow_horizontal": "both", "note": "The white pill track, 225 x 30 (its size constants).",
+              "children": [
+                { "name": "Fill", "type": "ProgressBar", "variation": "ToyBarAnger", "show_percentage": false, "max_value": 1, "value": 0.55, "custom_minimum_size": [0, 20], "note": "value = anger / the host's threshold (0 to 1). Ongoing mischief raises it a little at a time, a one-off (the fireworks) jumps it; fixing stops the rise and the gained anger stays (m8 §5). At 1 the neighbours call the cops (Hud/Cops)." }
+              ]
+            },
+            { "name": "Siren", "type": "TextureRect", "icon": "siren-on", "custom_minimum_size": [57, 57], "offset_left": 122, "offset_top": -14, "offset_right": 179, "offset_bottom": 43, "note": "The siren, 57 px (the sketch's 38 x 1.5), 9 px right of the track's end (112.5 + 9, rounded up) and centred on its height: icons/siren-off.svg while the anger is calm (not rising), icons/siren-on.svg while it rises and when full. Never tinted." }
           ]
         },
         {
-          "name": "Role", "type": "PanelContainer", "variation": "ToyChipPlate", "states": ["back"], "offset_left": 40,
-          "offset_top": 40, "offset_right": 40, "offset_bottom": 40,
-          "children": [{ "name": "Text", "type": "Label", "variation": "ToyChipPlateText", "key": "role.engineer" }]
-        },
-        { "name": "Cross", "type": "Panel", "variation": "ToyCrosshair", "anchors_preset": "center", "states": ["back"] },
-        {
-          "name": "Vitals", "type": "VBoxContainer", "variation": "ToyColumnTwelve", "anchors_preset": "bottom_left",
-          "offset_left": 40, "offset_top": -40, "offset_right": 40, "offset_bottom": -40,
-          "states": ["down", "down-holding", "raise", "back"],
+          "name": "Roster", "type": "PanelContainer", "variation": "ToyRoster", "states": ["back"], "anchors_preset": "top_right", "offset_left": -39, "offset_top": 39, "offset_right": -39, "offset_bottom": 39, "grow_horizontal": "begin", "note": "Every player of the round with the body colour (decided 2026-10-20), 39 px in at the top right; at least 285 wide (the sketch's 190 x 1.5), growing to its longest row. The rows are built from the player list in the session's order with the own row first; a row updates when a player dies, comes back or leaves. Names are data and are not cut. Open: whether the dead show here (the page shows them dimmed with a mark).",
           "children": [
             {
-              "name": "Health", "type": "VBoxContainer", "variation": "ToyColumnFour", "custom_minimum_size": [320, 0],
-              "states": ["back"], "note": "Hidden while downed; full again on return.",
+              "name": "Rows", "type": "VBoxContainer", "variation": "ToyColumnEight",
               "children": [
                 {
-                  "name": "Cap", "type": "PanelContainer", "variation": "ToyBarLabel", "size_flags_horizontal": "shrink_begin",
-                  "children": [{ "name": "Text", "type": "Label", "variation": "ToyHudCaption", "key": "hud.health" }]
+                  "name": "Row1", "type": "HBoxContainer", "variation": "ToyRowTwelve", "note": "As s7.",
+                  "children": [
+                    { "name": "Dot", "type": "Panel", "variation": "ToyRosterDot", "self_modulate": "#7C5CC8", "size_flags_vertical": "shrink_center" },
+                    { "name": "Name", "type": "Label", "variation": "ToyRosterNameSelf", "key": "hud.roster.self", "args": { "name": { "uk": "Олена", "en": "Olena" } }, "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" }
+                  ]
                 },
                 {
-                  "name": "Track", "type": "PanelContainer", "variation": "ToyBarTrack", "custom_minimum_size": [320, 16],
+                  "name": "Row2", "type": "HBoxContainer", "variation": "ToyRowTwelve",
                   "children": [
-                    {
-                      "name": "Fill", "type": "ProgressBar", "variation": "ToyBarHealth", "show_percentage": false,
-                      "max_value": 1, "value": 1, "custom_minimum_size": [0, 10]
-                    }
+                    { "name": "Dot", "type": "Panel", "variation": "ToyRosterDot", "self_modulate": "#1C7A82", "size_flags_vertical": "shrink_center" },
+                    { "name": "Name", "type": "Label", "variation": "ToyRosterName", "text": { "uk": "Глорп", "en": "Glorp" }, "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" }
                   ]
-                }
-              ]
-            },
-            {
-              "name": "Stamina", "type": "VBoxContainer", "variation": "ToyColumnFour", "custom_minimum_size": [320, 0],
-              "states": ["back"], "note": "Hidden while downed; full again on return.",
-              "children": [
-                {
-                  "name": "Cap", "type": "PanelContainer", "variation": "ToyBarLabel", "size_flags_horizontal": "shrink_begin",
-                  "children": [{ "name": "Text", "type": "Label", "variation": "ToyHudCaption", "key": "hud.stamina" }]
                 },
                 {
-                  "name": "Track", "type": "PanelContainer", "variation": "ToyBarTrack", "custom_minimum_size": [320, 16],
+                  "name": "Row3", "type": "HBoxContainer", "variation": "ToyRowTwelve",
                   "children": [
-                    {
-                      "name": "Fill", "type": "ProgressBar", "variation": "ToyBarStamina", "show_percentage": false,
-                      "max_value": 1, "value": 1, "custom_minimum_size": [0, 10],
-                      "per_state": { "back": { "value": 0.35 } }
-                    }
+                    { "name": "Dot", "type": "Panel", "variation": "ToyRosterDot", "self_modulate": "#E66B57", "size_flags_vertical": "shrink_center" },
+                    { "name": "Name", "type": "Label", "variation": "ToyRosterName", "text": { "uk": "Їжак", "en": "Yizhak" }, "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" }
                   ]
-                }
-              ]
-            },
-            {
-              "name": "Mic", "type": "PanelContainer", "variation": "ToyMic", "size_flags_horizontal": "shrink_begin",
-              "note": "Off while downed (nobody hears a downed player); hidden while dead; on again on return (when the player is heard).",
-              "children": [
+                },
                 {
-                  "name": "Icon", "type": "TextureRect", "icon": "mic-off", "theme_color": "icon-off", "custom_minimum_size": [28, 28],
-                  "size_flags_horizontal": "shrink_center", "size_flags_vertical": "shrink_center",
-                  "per_state": { "back": { "icon": "mic", "theme_color": "icon-on" } }
+                  "name": "Row4", "type": "HBoxContainer", "variation": "ToyRowTwelve",
+                  "children": [
+                    { "name": "Dot", "type": "Panel", "variation": "ToyRosterDot", "self_modulate": "#E8B04A", "size_flags_vertical": "shrink_center" },
+                    { "name": "Name", "type": "Label", "variation": "ToyRosterName", "text": { "uk": "Бульк", "en": "Bulk" }, "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" }
+                  ]
+                },
+                {
+                  "name": "Row5", "type": "HBoxContainer", "variation": "ToyRowTwelve",
+                  "children": [
+                    { "name": "Dot", "type": "Panel", "variation": "ToyRosterDot", "self_modulate": "#4AA3DF", "size_flags_vertical": "shrink_center" },
+                    { "name": "Name", "type": "Label", "variation": "ToyRosterName", "text": { "uk": "Зінга", "en": "Zinga" }, "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" }
+                  ]
+                },
+                {
+                  "name": "Row6", "type": "HBoxContainer", "variation": "ToyRowTwelve",
+                  "children": [
+                    { "name": "Dot", "type": "Panel", "variation": "ToyRosterDot", "self_modulate": "#D46FB0", "size_flags_vertical": "shrink_center" },
+                    { "name": "Name", "type": "Label", "variation": "ToyRosterNameDead", "key": "hud.roster.dead", "args": { "name": { "uk": "Тарас", "en": "Taras" } }, "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" }
+                  ]
                 }
               ]
             }
           ]
         },
+        { "name": "Cross", "type": "Panel", "variation": "ToyCrosshair", "anchors_preset": "center", "states": ["back"], "note": "The crosshair dot, centred on the screen (its size is the variation's)." },
         {
-          "name": "Slots", "type": "HBoxContainer", "variation": "ToyRowTwelve", "anchors_preset": "bottom_right",
-          "offset_left": -40, "offset_top": -40, "offset_right": -40, "offset_bottom": -40, "states": ["back"],
-          "note": "As s7; the player comes back with empty hands.",
+          "name": "Vitals", "type": "HBoxContainer", "variation": "ToyRowTwentyFour", "states": ["down", "down-holding", "raise", "back"], "anchors_preset": "bottom_left", "offset_left": 39, "offset_top": -39, "offset_right": 39, "offset_bottom": -39,
           "children": [
             {
-              "name": "Hand", "type": "PanelContainer", "variation": "ToySlotActive",
+              "name": "Bars", "type": "VBoxContainer", "variation": "ToyColumnTwelve", "size_flags_vertical": "shrink_end", "states": ["back"], "note": "Hidden while downed; full again on return.",
               "children": [
                 {
-                  "name": "Center", "type": "CenterContainer",
+                  "name": "Health", "type": "VBoxContainer", "variation": "ToyColumnEight", "custom_minimum_size": [300, 0],
                   "children": [
                     {
-                      "name": "Row", "type": "HBoxContainer", "variation": "ToyRowEight",
+                      "name": "Cap", "type": "PanelContainer", "variation": "ToyBarLabel", "size_flags_horizontal": "shrink_begin",
                       "children": [
-                        {
-                          "name": "Name", "type": "Label", "variation": "ToySlotTextEmpty", "key": "hud.slot.hand",
-                          "size_flags_vertical": "shrink_center"
-                        }
+                        { "name": "Text", "type": "Label", "variation": "ToyHudCaption", "key": "hud.health" }
+                      ]
+                    },
+                    {
+                      "name": "Track", "type": "PanelContainer", "variation": "ToyBarTrack", "custom_minimum_size": [300, 24],
+                      "children": [
+                        { "name": "Fill", "type": "ProgressBar", "variation": "ToyBarHealth", "show_percentage": false, "max_value": 1, "value": 1, "custom_minimum_size": [0, 14] }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Stamina", "type": "VBoxContainer", "variation": "ToyColumnEight", "custom_minimum_size": [300, 0],
+                  "children": [
+                    {
+                      "name": "Cap", "type": "PanelContainer", "variation": "ToyBarLabel", "size_flags_horizontal": "shrink_begin",
+                      "children": [
+                        { "name": "Text", "type": "Label", "variation": "ToyHudCaption", "key": "hud.stamina" }
+                      ]
+                    },
+                    {
+                      "name": "Track", "type": "PanelContainer", "variation": "ToyBarTrack", "custom_minimum_size": [300, 24],
+                      "children": [
+                        { "name": "Fill", "type": "ProgressBar", "variation": "ToyBarStamina", "show_percentage": false, "max_value": 1, "value": 1, "custom_minimum_size": [0, 14], "per_state": { "back": { "value": 0.35 } } }
                       ]
                     }
                   ]
@@ -114,20 +130,34 @@
               ]
             },
             {
-              "name": "Belt", "type": "PanelContainer", "variation": "ToySlot",
+              "name": "Mic", "type": "PanelContainer", "variation": "ToyMic", "size_flags_vertical": "shrink_end", "note": "Off while downed (nobody hears a downed player); hidden in the dead's room; on again on return (when the player is heard).",
+              "children": [
+                { "name": "Icon", "type": "TextureRect", "icon": "mic-off", "theme_color": "icon-off", "custom_minimum_size": [42, 42], "size_flags_horizontal": "shrink_center", "size_flags_vertical": "shrink_center", "per_state": { "back": { "icon": "mic", "theme_color": "icon-on" } } }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Slots", "type": "HBoxContainer", "variation": "ToyRowSixteen", "states": ["back"], "anchors_preset": "bottom_right", "offset_left": -39, "offset_top": -51, "offset_right": -39, "offset_bottom": -51, "note": "As s7; the player comes back with empty hands.",
+          "children": [
+            {
+              "name": "Hand", "type": "Control", "custom_minimum_size": [150, 150], "size_flags_vertical": "shrink_end",
               "children": [
                 {
-                  "name": "Center", "type": "CenterContainer",
+                  "name": "Face", "type": "PanelContainer", "variation": "ToySlotHand", "anchors_preset": "full_rect",
                   "children": [
-                    {
-                      "name": "Row", "type": "HBoxContainer", "variation": "ToyRowEight",
-                      "children": [
-                        {
-                          "name": "Name", "type": "Label", "variation": "ToySlotTextEmpty", "key": "hud.slot.belt",
-                          "size_flags_vertical": "shrink_center"
-                        }
-                      ]
-                    }
+                    { "name": "Picture", "type": "TextureRect", "icon": "slot-empty-hand", "custom_minimum_size": [111, 111], "note": "The carried item's pack icon (icons/item-*.svg) at 111 px, else icons/slot-empty-hand.svg; never tinted." }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Belt", "type": "Control", "custom_minimum_size": [126, 126], "size_flags_vertical": "shrink_end",
+              "children": [
+                {
+                  "name": "Face", "type": "PanelContainer", "variation": "ToySlotBelt", "anchors_preset": "full_rect",
+                  "children": [
+                    { "name": "Picture", "type": "TextureRect", "icon": "slot-empty-belt", "custom_minimum_size": [90, 90], "note": "icons/item-*.svg at 90 px, else icons/slot-empty-belt.svg; never tinted." }
                   ]
                 }
               ]
@@ -137,121 +167,101 @@
       ]
     },
     {
-      "name": "Downed", "type": "PanelContainer", "variation": "ToyPlate", "states": ["down", "down-holding", "raise"],
-      "anchors_preset": "center_top", "offset_top": 152, "offset_bottom": 152, "grow_horizontal": "both",
-      "custom_minimum_size": [688, 0],
-      "note": "Shown from the moment the player is downed until they are raised, give up or bleed out.",
+      "name": "Downed", "type": "PanelContainer", "variation": "ToyPlate", "states": ["down", "down-holding", "raise"], "anchors_preset": "center_top", "offset_top": 228, "offset_bottom": 228, "grow_horizontal": "both", "custom_minimum_size": [900, 0], "note": "Shown from the moment the player is downed until they are raised, give up or bleed out. Never shows who knocked the player down. 228 px down (the old 152 x 1.5); 900 wide, the old 688 x 1.5 capped at the goal plate's width.",
       "children": [
         {
-          "name": "V", "type": "VBoxContainer", "variation": "ToyColumnEight",
+          "name": "V", "type": "VBoxContainer", "variation": "ToyColumnTwelve",
           "children": [
+            { "name": "Title", "type": "Label", "variation": "ToyPlateTitle", "key": "downed.title", "horizontal_alignment": "center", "autowrap_mode": "word_smart", "custom_minimum_size": [810, 0], "per_state": { "raise": { "key": "downed.raised_by", "args": { "name": { "uk": "Олена", "en": "Olena" } } } }, "note": "downed.title while bleeding out; downed.raised_by with the raiser's name (auto_translate_mode DISABLED on the name) while someone raises the player." },
             {
-              "name": "Title", "type": "Label", "variation": "ToyPlateTitle", "key": "downed.title",
-              "horizontal_alignment": "center", "autowrap_mode": "word_smart", "custom_minimum_size": [600, 0],
-              "per_state": { "raise": { "key": "downed.raised_by", "args": { "name": { "uk": "Олена", "en": "Olena" } } } },
-              "note": "downed.title while bleeding out; downed.raised_by with the raiser's name (auto_translate_mode DISABLED on the name) while someone raises the player."
-            },
-            {
-              "name": "Bleed", "type": "PanelContainer", "variation": "ToyBarTrack", "custom_minimum_size": [600, 16],
-              "states": ["down", "down-holding"],
+              "name": "Bleed", "type": "PanelContainer", "variation": "ToyBarTrack", "custom_minimum_size": [810, 24], "states": ["down", "down-holding"],
               "children": [
-                {
-                  "name": "Fill", "type": "ProgressBar", "variation": "ToyBarHealth", "show_percentage": false,
-                  "max_value": 1, "value": 0.7, "custom_minimum_size": [0, 10],
-                  "note": "value = bleed-out time left / bleed-out duration, falling to 0; coloured with the health ramp as s7's health (the time left reads as life)."
-                }
+                { "name": "Fill", "type": "ProgressBar", "variation": "ToyBarHealth", "show_percentage": false, "max_value": 1, "value": 0.7, "custom_minimum_size": [0, 14], "note": "value = bleed-out time left / bleed-out duration, falling to 0; coloured with the health ramp as s7's health (the time left reads as life)." }
               ]
             },
-            {
-              "name": "Left", "type": "Label", "variation": "ToyPlateTextMuted", "key": "downed.time_left",
-              "args": { "time": "0:10" }, "horizontal_alignment": "center", "states": ["down", "down-holding"],
-              "note": "{time} is the bleed-out time left as m:ss, updated every second."
-            },
-            {
-              "name": "Raise", "type": "ProgressBar", "variation": "ToyBarProgress", "show_percentage": false,
-              "max_value": 1, "value": 0.6, "custom_minimum_size": [600, 16], "states": ["raise"],
-              "note": "The raise progress (0 to 1) while a teammate holds raise; if they stop, the bleed-out bar and the time return."
-            },
-            {
-              "name": "Pad", "type": "Control", "custom_minimum_size": [0, 4], "states": ["raise"],
-              "note": "An empty spacer: a bar that ends a plate gets 4 px more room under it than the plate's padding."
-            }
+            { "name": "Left", "type": "Label", "variation": "ToyPlateTextMuted", "key": "downed.time_left", "args": { "time": "0:10" }, "horizontal_alignment": "center", "states": ["down", "down-holding"], "note": "{time} is the bleed-out time left as m:ss, updated every second." },
+            { "name": "Raise", "type": "ProgressBar", "variation": "ToyBarProgress", "show_percentage": false, "max_value": 1, "value": 0.6, "custom_minimum_size": [810, 24], "states": ["raise"], "note": "The raise progress (0 to 1) while someone holds raise; if they stop, the bleed-out bar and the time return." },
+            { "name": "Pad", "type": "Control", "custom_minimum_size": [0, 6], "states": ["raise"], "note": "An empty spacer: a bar that ends a plate gets 6 px more room under it than the plate's padding." }
           ]
         }
       ]
     },
     {
-      "name": "GiveUp", "type": "PanelContainer", "variation": "ToyPlate", "states": ["down", "down-holding"],
-      "anchors_preset": "center_bottom", "offset_top": -128, "offset_bottom": -128, "grow_horizontal": "both",
-      "note": "Hidden while someone raises the player.",
+      "name": "GiveUp", "type": "PanelContainer", "variation": "ToyPlate", "states": ["down", "down-holding"], "anchors_preset": "center_bottom", "offset_top": -192, "offset_bottom": -192, "grow_horizontal": "both", "note": "Hidden while someone raises the player. Its bottom 192 px up (the old 128 x 1.5).",
       "children": [
         {
-          "name": "V", "type": "VBoxContainer", "variation": "ToyColumnEight",
+          "name": "V", "type": "VBoxContainer", "variation": "ToyColumnTwelve",
           "children": [
             {
-              "name": "Line", "type": "HBoxContainer", "variation": "ToyRowFour", "alignment": "center",
-              "note": "tr(\"downed.give_up_hold\") split at {key}: the words around a keycap, each piece through strip_edges() (the 4 px gap and the keycap's own padding stand in for the spaces, so the uk comma sits by the key). A piece that is empty after strip_edges() is hidden.",
+              "name": "Line", "type": "HBoxContainer", "variation": "ToyRowEight", "alignment": "center", "note": "tr(\"downed.give_up_hold\") split at {key}: the words around a keycap, each piece through strip_edges() (the 8 px gap and the keycap's own padding stand in for the spaces, so the uk comma sits by the key). A piece that is empty after strip_edges() is hidden.",
               "children": [
-                {
-                  "name": "Before", "type": "Label", "variation": "ToyPlateText", "key": "downed.give_up_hold", "piece": 0,
-                  "size_flags_vertical": "shrink_center"
-                },
+                { "name": "Before", "type": "Label", "variation": "ToyPlateText", "key": "downed.give_up_hold", "piece": 0, "size_flags_vertical": "shrink_center" },
                 {
                   "name": "Key", "type": "PanelContainer", "variation": "ToyKeyOnDark",
                   "children": [
-                    {
-                      "name": "Text", "type": "Label", "variation": "ToyKeyText", "key": "downed.give_up_hold", "value_of": "key",
-                      "args": { "key": "F" }, "horizontal_alignment": "center",
-                      "note": "The give_up action's key: DisplayServer.keyboard_get_label_from_physical() of its binding (rebindable, #211); F by default."
-                    }
+                    { "name": "Text", "type": "Label", "variation": "ToyKeyText", "key": "downed.give_up_hold", "value_of": "key", "args": { "key": "F" }, "horizontal_alignment": "center", "note": "The give_up action's key: DisplayServer.keyboard_get_label_from_physical() of its binding (rebindable, #211); F by default." }
                   ]
                 },
-                {
-                  "name": "After", "type": "Label", "variation": "ToyPlateText", "key": "downed.give_up_hold", "piece": 1,
-                  "size_flags_vertical": "shrink_center"
-                }
+                { "name": "After", "type": "Label", "variation": "ToyPlateText", "key": "downed.give_up_hold", "piece": 1, "size_flags_vertical": "shrink_center" }
               ]
             },
-            {
-              "name": "Hold", "type": "ProgressBar", "variation": "ToyBarProgress", "show_percentage": false,
-              "max_value": 1, "value": 0, "custom_minimum_size": [360, 10], "size_flags_horizontal": "shrink_center",
-              "per_state": { "down-holding": { "value": 0.45 } },
-              "note": "Fills over the 1 s hold while the give-up key is down and empties when it is released; at 1 the player gives up (dead). Empty at rest, so the plate never changes size."
-            },
-            {
-              "name": "Pad", "type": "Control", "custom_minimum_size": [0, 4],
-              "note": "An empty spacer: a bar that ends a plate gets 4 px more room under it than the plate's padding."
-            }
+            { "name": "Hold", "type": "ProgressBar", "variation": "ToyBarProgress", "show_percentage": false, "max_value": 1, "value": 0, "custom_minimum_size": [540, 24], "size_flags_horizontal": "shrink_center", "per_state": { "down-holding": { "value": 0.45 } }, "note": "Fills over the 1 s hold while the give-up key is down and empties when it is released; at 1 the player gives up (dead). Empty at rest, so the plate never changes size." },
+            { "name": "Pad", "type": "Control", "custom_minimum_size": [0, 6], "note": "An empty spacer: a bar that ends a plate gets 6 px more room under it than the plate's padding." }
           ]
         }
       ]
     },
     {
-      "name": "Spectate", "type": "PanelContainer", "variation": "ToyPlate", "states": ["dead"],
-      "anchors_preset": "center_top", "offset_top": 40, "offset_bottom": 40, "grow_horizontal": "both",
-      "note": "The only UI while dead (no timer, bars, slots, mic or arrows). The camera follows the watched player; spectate_next and spectate_previous switch (taught in the tutorial). The watched player's HUD, health and role never show; the name updates when they die.",
+      "name": "DeadHead", "type": "PanelContainer", "variation": "ToyPlateHead", "states": ["dead-room"], "anchors_preset": "center_top", "offset_top": 39, "offset_bottom": 39, "grow_horizontal": "both", "note": "The dead's room overlay replaces spectating (m8 §3, decided 2026-10-20). Its head, 39 px down (the sketch's 26 x 1.5). The room itself is a place in the world (open: where).",
+      "children": [
+        { "name": "Text", "type": "Label", "variation": "ToyPlateHeadText", "key": "dead.room.title" }
+      ]
+    },
+    {
+      "name": "DeadCol", "type": "VBoxContainer", "variation": "ToyColumnTwentyFour", "states": ["dead-room"], "anchors_preset": "center", "grow_horizontal": "both", "grow_vertical": "both", "note": "Centred on the screen: the countdown, then who killed the player, 60 px apart (the sketch's 40 x 1.5: two 24 px gaps and a 12 px spacer).",
       "children": [
         {
-          "name": "V", "type": "VBoxContainer", "variation": "ToyColumnFour",
+          "name": "Count", "type": "PanelContainer", "variation": "ToyPlateCount", "size_flags_horizontal": "shrink_center", "note": "The return countdown on the mint count plate, at least 540 wide (the sketch's 360 x 1.5).",
           "children": [
             {
-              "name": "Respawn", "type": "Label", "variation": "ToyPlateTextMuted", "key": "dead.respawn_in",
-              "args": { "time": "0:24" }, "horizontal_alignment": "center",
-              "note": "{time} is the time to respawn as m:ss."
-            },
+              "name": "V", "type": "VBoxContainer", "variation": "ToyColumnTwelve",
+              "children": [
+                { "name": "Label", "type": "Label", "variation": "ToyPlateText", "key": "dead.back_in", "horizontal_alignment": "center" },
+                { "name": "Time", "type": "Label", "variation": "ToyPlateCountdown", "text": "0:24", "horizontal_alignment": "center", "note": "The time to respawn, m:ss from code (auto_translate_mode DISABLED), every second; the wait is 30 s (m8 §3)." },
+                { "name": "Bar", "type": "ProgressBar", "variation": "ToyBarProgress", "show_percentage": false, "max_value": 1, "value": 0.2, "custom_minimum_size": [0, 24], "note": "The wait passed (0 to 1), filling to the return." }
+              ]
+            }
+          ]
+        },
+        { "name": "Gap", "type": "Control", "custom_minimum_size": [0, 12], "note": "With the column's two 24 px gaps, 60 px between the countdown and the killer line." },
+        {
+          "name": "Killer", "type": "PanelContainer", "variation": "ToyPlateNotice", "size_flags_horizontal": "shrink_center", "note": "Who killed the player, with the killer's body colour. Hidden when the player bled out or gave up (no killer). Shown only to the dead player, so the knockdown rule (never who knocked the player down) holds in the round.",
+          "children": [
             {
-              "name": "Watching", "type": "Label", "variation": "ToyPlateTitle", "key": "dead.watching",
-              "args": { "name": { "uk": "Олена", "en": "Olena" } }, "horizontal_alignment": "center",
-              "note": "{name}: the watched player's name (auto_translate_mode DISABLED on the name)."
+              "name": "Row", "type": "HBoxContainer", "variation": "ToyRowTwelve",
+              "children": [
+                { "name": "Dot", "type": "Panel", "variation": "ToyRosterDot", "self_modulate": "#1C7A82", "size_flags_vertical": "shrink_center", "note": "The killer's body colour (self_modulate from data)." },
+                { "name": "Text", "type": "Label", "variation": "ToyPlateHeading", "key": "dead.killed_by", "args": { "name": { "uk": "Глорп", "en": "Glorp" } }, "size_flags_vertical": "shrink_center", "note": "{name}: the killer's name from data." }
+              ]
             }
           ]
         }
       ]
     },
     {
-      "name": "Protect", "type": "PanelContainer", "variation": "ToyChipLight", "states": ["back"],
-      "anchors_preset": "center_top", "offset_top": 144, "offset_bottom": 144, "grow_horizontal": "both",
-      "note": "Spawn protection: count 3, 2, 1 (one per second), then hidden. It sits 24 px under the timer plate (40 + 80 + 24).",
+      "name": "Others", "type": "PanelContainer", "variation": "ToyChipPlate", "states": ["dead-room"], "anchors_preset": "bottom_left", "offset_left": 39, "offset_top": -39, "offset_right": 39, "offset_bottom": -39, "note": "Who else waits in the room, 39 px in at the bottom left; hidden when the player is alone there.",
+      "children": [
+        { "name": "Text", "type": "Label", "variation": "ToyChipPlateText", "key": "dead.also_here", "args": { "names": { "uk": "Бульк, Зінга", "en": "Bulk, Zinga" } }, "note": "{names}: the other dead players' names joined with \", \" (data)." }
+      ]
+    },
+    {
+      "name": "Capsule", "type": "PanelContainer", "variation": "ToySticker", "states": ["dead-room"], "anchors_preset": "bottom_right", "offset_left": -39, "offset_top": -39, "offset_right": -39, "offset_bottom": -39, "grow_horizontal": "begin", "grow_vertical": "begin", "note": "Where the player comes back: a random capsule, with the 3 s protection of state back. Choosing the capsule is a later perk (m8 §3).",
+      "children": [
+        { "name": "Text", "type": "Label", "variation": "ToyStickerText", "key": "dead.capsule_note", "args": { "count": "3" } }
+      ]
+    },
+    {
+      "name": "Protect", "type": "PanelContainer", "variation": "ToyChipLight", "states": ["back"], "anchors_preset": "center_top", "offset_top": 165, "offset_bottom": 165, "grow_horizontal": "both", "note": "Spawn protection: count 3, 2, 1 (one per second), then hidden. It takes the notices' line, 165 px down (the sketch's 110 x 1.5), 39 px under the anger meter.",
       "children": [
         { "name": "Text", "type": "Label", "variation": "ToyChipLightText", "key": "respawn.protected", "args": { "count": "3" } }
       ]

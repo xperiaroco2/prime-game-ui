@@ -250,6 +250,18 @@ console.log('-- pack members');
   'a size member that references size.keycap follows the text size in the large mode', JSON.stringify(large['button.primary.size.min-width']));
   check(/--toy-button-primary-size-min-width: var\(--toy-size-keycap\);/.test(m.css) && /:root\[data-text-size="large"\] \{[^}]*--toy-size-keycap: 42;/.test(m.css),
     'the CSS keeps the size member a var() of size.keycap, which the large block overrides');
+  // An item picture the game swaps in a slot takes the largest size any item picture is drawn at; other icons keep theirs.
+  const { drawnSizes } = require('../icons.js');
+  const sroot = path.join(tmp, 'swapped');
+  fs.mkdirSync(path.join(sroot, 'pages', 'screens', 'src'), { recursive: true });
+  fs.writeFileSync(path.join(sroot, 'pages', 'screens', 'src', 's07-hud.json'), JSON.stringify({ nodes: [
+    { name: 'Hand', type: 'TextureRect', icon: 'item-a', custom_minimum_size: [111, 111], per_state: { b: { icon: 'item-b' } } },
+    { name: 'Belt', type: 'TextureRect', icon: 'item-c', custom_minimum_size: [90, 90] },
+    { name: 'Mark', type: 'TextureRect', icon: 'mark', custom_minimum_size: [30, 30] }] }));
+  const ics = ['item-a', 'item-b', 'item-c', 'item-d', 'mark', 'other'].map((name) => ({ name, size: [64, 64] }));
+  const ds = drawnSizes(sroot, ics);
+  check(['item-a', 'item-b', 'item-c', 'item-d'].every((n) => ds.get(n) === 111) && ds.get('mark') === 30 && !ds.has('other'),
+    'every item-* picture takes the largest item size (111), drawn or not; other icons keep their own', JSON.stringify([...ds]));
 }
 
 // 3. CLI ----------------------------------------------------------------------------------------------------------

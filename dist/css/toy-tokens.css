@@ -1084,11 +1084,11 @@
   --toy-map-pin-panel-border-color: var(--toy-color-outline);
   --toy-map-pin-panel-border-width: var(--toy-stroke-control);
   --toy-map-pin-panel-corner-radius-top-left: 0;
-  --toy-map-pin-panel-corner-radius-top-right: 14;
-  --toy-map-pin-panel-corner-radius-bottom-right: 14;
-  --toy-map-pin-panel-corner-radius-bottom-left: 14;
-  --toy-map-pin-size-width: 28;
-  --toy-map-pin-size-height: 28;
+  --toy-map-pin-panel-corner-radius-top-right: 21;
+  --toy-map-pin-panel-corner-radius-bottom-right: 21;
+  --toy-map-pin-panel-corner-radius-bottom-left: 21;
+  --toy-map-pin-size-width: 42;
+  --toy-map-pin-size-height: 42;
   --toy-mic-plate-panel-bg-color: var(--toy-color-surface-plate);
   --toy-mic-plate-panel-border-color: var(--toy-color-outline);
   --toy-mic-plate-panel-border-width-top: var(--toy-stroke-control);

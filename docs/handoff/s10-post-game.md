@@ -10,50 +10,62 @@ The styled post game screen from the UI track (xperiaroco2/prime-game-ui), as a 
 - **How to read it:** the roots are children of the screen's full-rect root `Control`; every property not listed keeps Godot's default; sizes and offsets are reference px. In a state's **Shown** list, the first node of each subtree gives its path from the screen root.
 - **Texts** are keys of `copy/strings.csv`, and the language switches live (the Esc menu's Settings). A plain key is set as `text` and translates itself. A key with placeholders, a plural key (`tr_n`) and a key drawn in pieces are set from code with `auto_translate_mode = DISABLED`: `tr()`, then `String.format()` with the data (the samples below), rebuilt on `NOTIFICATION_TRANSLATION_CHANGED`. A "text from data" (names, the room code, times, numbers) is set in code and never translated (`auto_translate_mode = DISABLED`).
 
-The black outro of about 3 s: the End phase fades to black (0.4 s; a cut under reduced motion), plays one sound for both outcomes, routes no voice (#213) and returns everyone to the lobby after 3 s (#212). Nobody hears anybody and no text says so. Roles are not revealed. No input.
+The black outro of about 3 s: the End phase fades to black (0.4 s; a cut under reduced motion), plays one sound for the win and one for the loss (the cops' end with a siren, m8 §6), routes no voice (#213) and returns everyone to the lobby after 3 s (#212). Nobody hears anybody and no text says so. No input. Three ends (m8 §6; the sketch pages/mvp-screens frames 10 to 12 at 0.75). Open: whether the end reveals who was human, and whether it shows the points (today it names only the winner).
 
 ## States
 
 | State | Page label | What it shows |
 |---|---|---|
-| `win` | Перемога | An Engineer's view: every task done in time. |
-| `lose` | Поразка | An Engineer's view: the time ran out. |
+| `aliens` | Прибульці перемогли | An alien's view: every task done before the timer and the cops (the sketch's frame 10). The own side won: the winner on the result plate. |
+| `time` | Час вийшов | A human's view: the timer ran out with the tasks unfinished (frame 11). The own side won: the plate. |
+| `cops` | Копи приїхали | An alien's view: the cops' minute ran out (frame 12). The own side lost: the winner in plain text, no plate (the decided rule: the plate is for a win). |
 
-## Node tree in `win`
+## Node tree in `aliens`
 
 - **Night** `Panel` · variation `ToyBackdropNight` · anchors `full_rect`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both
-  - Note: P2, opaque: the style's darkest stands for the decided black. It fades in over 0.4 s when the End phase starts (a cut under reduced motion).
-- **V** `VBoxContainer` · variation `ToyColumnThirtyTwo` · anchors `center`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both · custom_minimum_size (1440, 0) · gaps from the variation: separation 32 · alignment `ALIGNMENT_CENTER`
-  - Note: The 32 px gaps clear the title plate's expand margins (4 px above it, the base 14 px below).
-  - **Title** `Label` · variation `ToyTextMutedOnDark` · text `end.title`: en "End of the round" · uk "Кінець раунду" · horizontal_alignment `CENTER`
-  - **Winner** `Label` · variation `ToyTitlePlate` (raised: ToyRaised with base `ToyBaseTitle`) · size flags horizontal `SIZE_SHRINK_CENTER` · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper · text `end.won_engineers`: en "The Engineers won" · uk "Перемогли Інженери"
-    - Note: When the own team won: the winning team on the title plate (raised on ToyBaseTitle), end.won_engineers or end.won_dissidents.
-  - **Result** `VBoxContainer` · variation `ToyColumnEight` · gaps from the variation: separation 8
-    - Note: Why the round ended. Whether the own team won shows in the winner line itself: on the plate or plain.
-    - **Reason** `Label` · variation `ToyTextMutedOnDark` · custom_minimum_size (1152, 0) · text `end.reason.all_tasks` with sample {time} = "7:41": en "All tasks done in 7:41." · uk "Усі задачі виконано за 7:41." · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
-      - Note: Why the round ended, from the host's reason id (#208): end.reason.all_tasks with the round's time (m:ss) or end.reason.time_up. An unknown reason hides the line.
-  - **Gap** `Control` · custom_minimum_size (0, 8)
-    - Note: With the column's two 32 px gaps, 72 px between the reason and the countdown.
-  - **Back** `Label` · variation `ToyTextOnDark` · text `end.back_to_lobby` with sample {count} = "3": en "Back to the lobby in 3…" · uk "Повернення в лобі через 3…" · horizontal_alignment `CENTER`
-    - Note: Counts 3, 2, 1 once a second; at 0 everyone is back in the lobby (#212).
+  - Note: P2, opaque: the style's darkest stands for the decided black (the sketch's deep purple). It fades in over 0.4 s when the End phase starts (a cut under reduced motion).
+- **V** `VBoxContainer` · variation `ToyColumnThirtyTwo` · anchors `center`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both · gaps from the variation: separation 32 · alignment `ALIGNMENT_CENTER`
+  - Note: A centred column on the night, 32 px between its lines (the sketch's 20 x 1.5 = 30, the nearest step).
+  - **Title** `Label` · variation `ToyTitleHero` · text `end.title.party`: en "Great party!" · uk "Вечірка вдалася!" · horizontal_alignment `CENTER`
+    - Note: How the party ended, at the hero size, the same for every player: end.title.party (green, the aliens won), end.title.time_up or end.title.busted (coral, the humans won by the timer or by the cops).
+  - **Winner** `PanelContainer` · variation `ToyPlateResult` · size flags horizontal `SIZE_SHRINK_CENTER`
+    - Note: When the own side won: the winning side on the result plate.
+    - **Text** `Label` · variation `ToyPlateTitle` · text `end.won_aliens`: en "The aliens won" · uk "Прибульці перемогли"
+      - Note: end.won_aliens or end.won_humans.
+  - **Reason** `PanelContainer` · variation `ToyStickerHighlight` · size flags horizontal `SIZE_SHRINK_CENTER`
+    - Note: Why the round ended, from the host's reason id (#208), on a word sticker: green when the aliens won, coral when the humans did. An unknown reason hides it.
+    - **Text** `Label` · variation `ToyStickerTextLarge` · text `end.reason.all_tasks` with sample {time} = "8:12": en "All tasks done in 8:12." · uk "Усі задачі виконано за 8:12."
+      - Note: end.reason.all_tasks with the round's time (m:ss), end.reason.time_up, or end.reason.cops.
+  - **Gap** `Control` · custom_minimum_size (0, 12)
+    - Note: With the column's two 32 px gaps, 76 px between the reason and the countdown.
+  - **Back** `Label` · variation `ToyTextMutedOnDark` · text `end.back_to_ship` with sample {count} = "3": en "Back to the ship in 3…" · uk "Повернення на корабель через 3…" · horizontal_alignment `CENTER`
+    - Note: Counts 3, 2, 1 once a second; at 0 everyone is back in the lobby, the aliens' ship (#212). Open: how the return to the ship looks.
 
-## `lose`: what differs from `win`
+## `time`: what differs from `aliens`
+
+- **Changed** `V/Title`: variation `ToyTitleHeroAlert` · text `end.title.time_up`: en "Time's up" · uk "Час вийшов" (was: variation `ToyTitleHero` · text `end.title.party`: en "Great party!" · uk "Вечірка вдалася!")
+- **Changed** `V/Winner/Text`: text `end.won_humans`: en "The humans won" · uk "Люди перемогли" (was: text `end.won_aliens`: en "The aliens won" · uk "Прибульці перемогли")
+- **Changed** `V/Reason`: variation `ToyStickerAlert` (was: variation `ToyStickerHighlight`)
+- **Changed** `V/Reason/Text`: text `end.reason.time_up`: en "Time's up and the tasks aren't done." · uk "Час вийшов, а задачі ще не виконано." (was: text `end.reason.all_tasks` with sample {time} = "8:12": en "All tasks done in 8:12." · uk "Усі задачі виконано за 8:12.")
+
+## `cops`: what differs from `aliens`
 
 - **Hidden:** `V/Winner`.
-- **Changed** `V/Result/Reason`: text `end.reason.time_up`: en "Time's up and the tasks aren't done." · uk "Час вийшов, а задачі ще не виконано." (was: text `end.reason.all_tasks` with sample {time} = "7:41": en "All tasks done in 7:41." · uk "Усі задачі виконано за 7:41.")
+- **Changed** `V/Title`: variation `ToyTitleHeroAlert` · text `end.title.busted`: en "Busted!" · uk "Попались!" (was: variation `ToyTitleHero` · text `end.title.party`: en "Great party!" · uk "Вечірка вдалася!")
+- **Changed** `V/Reason`: variation `ToyStickerAlert` (was: variation `ToyStickerHighlight`)
+- **Changed** `V/Reason/Text`: text `end.reason.cops`: en "The cops came: the party's over." · uk "Приїхали копи: вечірці кінець." (was: text `end.reason.all_tasks` with sample {time} = "8:12": en "All tasks done in 8:12." · uk "Усі задачі виконано за 8:12.")
 - **Shown:**
-  - **V/WinnerLoss** `Label` · variation `ToyTextOnDark` · text `end.won_dissidents`: en "The Dissidents won" · uk "Перемогли Дисиденти" · horizontal_alignment `CENTER`
-    - Note: When the own team lost: the winning team in plain text, no plate (the plate is only for a win and for the roles). end.won_engineers or end.won_dissidents.
+  - **V/WinnerLoss** `Label` · variation `ToyTextOnDark` · text `end.won_humans`: en "The humans won" · uk "Люди перемогли" · horizontal_alignment `CENTER`
+    - Note: When the own side lost: the winning side in plain text, no plate. end.won_aliens or end.won_humans.
 
 ## Notes
 
 - The review page emulates Godot's containers with CSS grid (expanding children share the free space by stretch ratio, never below their minimum size), so a pixel or two may differ from Godot.
-- A raised variation is built as the tokens spec (§6) says: a `ToyRaised` MarginContainer holding first the base `Panel` (the base named above, chosen by the context it sits in), then the face. The wrapper is the node in its parent: anchors, offsets, grow, size flags, stretch ratio, custom_minimum_size and visibility belong to the wrapper; the variation, the text, toggle_mode, disabled, focus and the signals belong to the face. Hide or show the wrapper, not the face.
 - Boxes and grids take their gaps only from their spacing variation (ToyColumn…, ToyRow…, ToyGrid…), and a ScrollContainer the gap to its bar from ToyScroll; a box without one has a single child. No `theme_override_constants`: the theme test forbids them.
 
 ## Keys
 
-- **Drawn** (6): `end.back_to_lobby`, `end.reason.all_tasks`, `end.reason.time_up`, `end.title`, `end.won_dissidents`, `end.won_engineers`.
+- **Drawn** (9): `end.back_to_ship`, `end.reason.all_tasks`, `end.reason.cops`, `end.reason.time_up`, `end.title.busted`, `end.title.party`, `end.title.time_up`, `end.won_aliens`, `end.won_humans`.
 
 ## Layers and input (every screen)
 

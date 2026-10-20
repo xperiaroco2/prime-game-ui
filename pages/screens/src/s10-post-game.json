@@ -1,51 +1,36 @@
 {
-  "id": "s10", "wireframe": "s10", "title": "Post game", "background": "black",
-  "note": "The black outro of about 3 s: the End phase fades to black (0.4 s; a cut under reduced motion), plays one sound for both outcomes, routes no voice (#213) and returns everyone to the lobby after 3 s (#212). Nobody hears anybody and no text says so. Roles are not revealed. No input.",
+  "id": "s10",
+  "wireframe": "s10",
+  "title": "Post game",
+  "background": "black",
+  "note": "The black outro of about 3 s: the End phase fades to black (0.4 s; a cut under reduced motion), plays one sound for the win and one for the loss (the cops' end with a siren, m8 §6), routes no voice (#213) and returns everyone to the lobby after 3 s (#212). Nobody hears anybody and no text says so. No input. Three ends (m8 §6; the sketch pages/mvp-screens frames 10 to 12 at 0.75). Open: whether the end reveals who was human, and whether it shows the points (today it names only the winner).",
   "states": [
-    { "id": "win", "label": "Перемога", "note": "An Engineer's view: every task done in time." },
-    { "id": "lose", "label": "Поразка", "note": "An Engineer's view: the time ran out." }
+    { "id": "aliens", "label": "Прибульці перемогли", "note": "An alien's view: every task done before the timer and the cops (the sketch's frame 10). The own side won: the winner on the result plate." },
+    { "id": "time", "label": "Час вийшов", "note": "A human's view: the timer ran out with the tasks unfinished (frame 11). The own side won: the plate." },
+    { "id": "cops", "label": "Копи приїхали", "note": "An alien's view: the cops' minute ran out (frame 12). The own side lost: the winner in plain text, no plate (the decided rule: the plate is for a win)." }
   ],
   "nodes": [
+    { "name": "Night", "type": "Panel", "variation": "ToyBackdropNight", "anchors_preset": "full_rect", "note": "P2, opaque: the style's darkest stands for the decided black (the sketch's deep purple). It fades in over 0.4 s when the End phase starts (a cut under reduced motion)." },
     {
-      "name": "Night", "type": "Panel", "variation": "ToyBackdropNight", "anchors_preset": "full_rect",
-      "note": "P2, opaque: the style's darkest stands for the decided black. It fades in over 0.4 s when the End phase starts (a cut under reduced motion)."
-    },
-    {
-      "name": "V", "type": "VBoxContainer", "variation": "ToyColumnThirtyTwo", "anchors_preset": "center", "custom_minimum_size": [1440, 0],
-      "grow_horizontal": "both", "alignment": "center",
+      "name": "V", "type": "VBoxContainer", "variation": "ToyColumnThirtyTwo", "anchors_preset": "center", "grow_horizontal": "both", "grow_vertical": "both", "alignment": "center", "note": "A centred column on the night, 32 px between its lines (the sketch's 20 x 1.5 = 30, the nearest step).",
       "children": [
-        { "name": "Title", "type": "Label", "variation": "ToyTextMutedOnDark", "key": "end.title", "horizontal_alignment": "center" },
+        { "name": "Title", "type": "Label", "variation": "ToyTitleHero", "key": "end.title.party", "horizontal_alignment": "center", "per_state": { "time": { "key": "end.title.time_up", "variation": "ToyTitleHeroAlert" }, "cops": { "key": "end.title.busted", "variation": "ToyTitleHeroAlert" } }, "note": "How the party ended, at the hero size, the same for every player: end.title.party (green, the aliens won), end.title.time_up or end.title.busted (coral, the humans won by the timer or by the cops)." },
         {
-          "name": "Winner", "type": "Label", "variation": "ToyTitlePlate", "key": "end.won_engineers",
-          "size_flags_horizontal": "shrink_center", "states": ["win"],
-          "note": "When the own team won: the winning team on the title plate (raised on ToyBaseTitle), end.won_engineers or end.won_dissidents."
-        },
-        {
-          "name": "WinnerLoss", "type": "Label", "variation": "ToyTextOnDark", "key": "end.won_dissidents",
-          "horizontal_alignment": "center", "states": ["lose"],
-          "note": "When the own team lost: the winning team in plain text, no plate (the plate is only for a win and for the roles). end.won_engineers or end.won_dissidents."
-        },
-        {
-          "name": "Result", "type": "VBoxContainer", "variation": "ToyColumnEight", "note": "Why the round ended. Whether the own team won shows in the winner line itself: on the plate or plain.",
+          "name": "Winner", "type": "PanelContainer", "variation": "ToyPlateResult", "states": ["aliens", "time"], "size_flags_horizontal": "shrink_center", "note": "When the own side won: the winning side on the result plate.",
           "children": [
-            {
-              "name": "Reason", "type": "Label", "variation": "ToyTextMutedOnDark", "key": "end.reason.all_tasks",
-              "args": { "time": "7:41" }, "horizontal_alignment": "center", "autowrap_mode": "word_smart", "custom_minimum_size": [1152, 0],
-              "per_state": { "lose": { "key": "end.reason.time_up", "args": {} } },
-              "note": "Why the round ended, from the host's reason id (#208): end.reason.all_tasks with the round's time (m:ss) or end.reason.time_up. An unknown reason hides the line."
-            }
+            { "name": "Text", "type": "Label", "variation": "ToyPlateTitle", "key": "end.won_aliens", "per_state": { "time": { "key": "end.won_humans" } }, "note": "end.won_aliens or end.won_humans." }
           ]
         },
+        { "name": "WinnerLoss", "type": "Label", "variation": "ToyTextOnDark", "key": "end.won_humans", "horizontal_alignment": "center", "states": ["cops"], "note": "When the own side lost: the winning side in plain text, no plate. end.won_aliens or end.won_humans." },
         {
-          "name": "Gap", "type": "Control", "custom_minimum_size": [0, 8],
-          "note": "With the column's two 32 px gaps, 72 px between the reason and the countdown."
+          "name": "Reason", "type": "PanelContainer", "variation": "ToyStickerHighlight", "size_flags_horizontal": "shrink_center", "per_state": { "time": { "variation": "ToyStickerAlert" }, "cops": { "variation": "ToyStickerAlert" } }, "note": "Why the round ended, from the host's reason id (#208), on a word sticker: green when the aliens won, coral when the humans did. An unknown reason hides it.",
+          "children": [
+            { "name": "Text", "type": "Label", "variation": "ToyStickerTextLarge", "key": "end.reason.all_tasks", "args": { "time": "8:12" }, "per_state": { "time": { "key": "end.reason.time_up", "args": {} }, "cops": { "key": "end.reason.cops", "args": {} } }, "note": "end.reason.all_tasks with the round's time (m:ss), end.reason.time_up, or end.reason.cops." }
+          ]
         },
-        {
-          "name": "Back", "type": "Label", "variation": "ToyTextOnDark", "key": "end.back_to_lobby", "args": { "count": "3" },
-          "horizontal_alignment": "center", "note": "Counts 3, 2, 1 once a second; at 0 everyone is back in the lobby (#212)."
-        }
-      ],
-      "grow_vertical": "both", "note": "The 32 px gaps clear the title plate's expand margins (4 px above it, the base 14 px below)."
+        { "name": "Gap", "type": "Control", "custom_minimum_size": [0, 12], "note": "With the column's two 32 px gaps, 76 px between the reason and the countdown." },
+        { "name": "Back", "type": "Label", "variation": "ToyTextMutedOnDark", "key": "end.back_to_ship", "args": { "count": "3" }, "horizontal_alignment": "center", "note": "Counts 3, 2, 1 once a second; at 0 everyone is back in the lobby, the aliens' ship (#212). Open: how the return to the ship looks." }
+      ]
     }
   ]
 }

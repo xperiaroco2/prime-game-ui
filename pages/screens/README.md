@@ -1,6 +1,6 @@
 # Styled screens
 
-The ten session screens in the Toy style, each described as a Godot 4.7.2 scene tree, rendered from the Toy components
+The session screens (the ten of wave #19 and the MVP's mutation workbench) in the Toy style, each described as a Godot 4.7.2 scene tree, rendered from the Toy components
 and the copy deck into one review page, validated, and handed off to the game one issue per screen
 ([prime-game-ui#19](https://github.com/xperiaroco2/prime-game-ui/issues/19)).
 
@@ -32,7 +32,7 @@ A new renderer behaviour gets a fixture screen and its checks there.
 
 | File | What it is |
 |---|---|
-| `src/sNN-name.json` | one screen: `s01-tutorial`, `s02-main-menu`, `s03-connecting`, `s04-lobby`, `s05-esc-menu`, `s06-pre-game`, `s07-hud`, `s08-map`, `s09-downed`, `s10-post-game`. A missing file is a screen not drawn yet. |
+| `src/sNN-name.json` | one screen: `s01-tutorial`, `s02-main-menu`, `s03-connecting`, `s04-lobby`, `s05-esc-menu`, `s06-pre-game`, `s07-hud`, `s08-map`, `s09-downed`, `s10-post-game`, `s11-workbench` (the mutation workbench, new with the MVP). A missing file is a screen not drawn yet. |
 | `build.js` | the format (its header comment), the validation, the build and the handoff |
 | `screens.html` | the review page (generated) |
 | `screens-ui.css` | the components CSS of the variations the screens draw (generated, lint profile `generated`) |
@@ -54,8 +54,9 @@ states only what differs, with Godot's property names.
 }
 ```
 
-- **Screen:** `id` comes from the file name (`s02-…` is `s2`); `wireframe` names a section of `pages/wireframes`;
-  `title` is English; `background` is the world behind the UI, page art outside the game UI and the lint: `menu` (the
+- **Screen:** `id` comes from the file name (`s02-…` is `s2`); `wireframe` names a section of `pages/wireframes`, whose
+  title heads the screen on the page; a screen new with the MVP has no wireframe section and gives its Ukrainian
+  `heading` instead (one of the two); `title` is English; `background` is the world behind the UI, page art outside the game UI and the lint: `menu` (the
   lobby behind the main menu), `room-light`, `room-dark`, `black`. `states` are the frames: an `id` (lower case), a
   short Ukrainian `label` for the page's tabs and an optional English `note`.
 - **Node:** `name` (unique among its siblings; the names make the path `s2/Menu/Buttons/Host`), `type`, `variation` (a
@@ -78,7 +79,7 @@ states only what differs, with Godot's property names.
 | Type | Its own fields (default) | Rendered as |
 |---|---|---|
 | `Control` | children placed by anchors | a plain box |
-| `Panel` | `variation` (required) | the StyleBox; children placed by anchors |
+| `Panel` | `variation` (required), `self_modulate` (a sample colour `#rrggbb` of content data on a white Panel the game tints, as the roster's body-colour dot) | the StyleBox (with `self_modulate`, its face in the sample colour); children placed by anchors |
 | `PanelContainer` | `variation` (required), `wide` | the StyleBox; children fill its content rect |
 | `MarginContainer` | – (its margins are theme constants, so setting them is an override the theme test forbids: refused) | children fill its rect |
 | `CenterContainer` | – | children centred at their minimum size |
