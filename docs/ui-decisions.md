@@ -36,6 +36,11 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
   drop every tilted sticker and plate for a start, and add tilts back only where needed. An idea he likes, for later:
   a button shakes while the pointer is over it (the Ready button, for example), and pressing it gives a small effect,
   "a micro-game" that feels good to the player; he calls such things showing off, so not in the first version.
+- **Less screen for the UI: 0.75 of the first MVP sketches** (the engineer, 2026-10-20, chat, translated, on the
+  [MVP screens page](https://claude.ai/artifact/NHnqKdtYaNP9mDHdWE2FUy), `pages/mvp-screens/`): the interface took too
+  much of the screen at the first sketches' size; 0.5 was too small; 0.75 is right. At 1920x1080 that keeps the text
+  about as the pack ui-1.1.0 draws it and makes outlines, shadows and plates about 1.5 times the pack's; the pack
+  follows when the screens are reworked for the MVP.
 - **The sticker tokens, ui-1.0.0** (the re-skin of every Toy variation; the guide is
   `docs/research/2026-10-20-vibe/restyle-guide.md`). The look choices the agent took alone:
   - state shades inside the palette: mint, green and coral each one step lighter for hover and darker for held, a

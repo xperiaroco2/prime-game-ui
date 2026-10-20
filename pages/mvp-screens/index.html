@@ -7,7 +7,8 @@
 /* Layout: sketches of the screen pieces the MVP match (prime-game docs/design/m8-match.md, frozen 2026-10-20) adds
    or changes, in the picked "Ink and mint sticker" (strength B, no tilts). Each 16:9 frame sits over a plain world
    colour. A sticky switch sets the UI scale: at 1x the stage is 960x540 (the first sketches' size), at 0.5x it is
-   1920x1080 with the same px values, so every UI piece is half as big and keeps its anchor (edge, corner or centre).
+   1920x1080 (0.75x: 1280x720) with the same px values, so every UI piece shrinks and keeps its anchor (edge, corner
+   or centre); 0.75x is the engineer's pick.
    Quiet graphite chrome, the same as the sticker page. The audit behind it: docs/research/2026-10-20-mvp-screens/. */
 :root {
   color-scheme: dark;
@@ -220,9 +221,10 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
   <div class="switch">
     <div class="seg" role="group" aria-label="Масштаб UI"><span>Масштаб UI:</span>
       <button type="button" data-m="05">0.5×</button>
+      <button type="button" data-m="075">0.75×</button>
       <button type="button" data-m="1">1×</button>
     </div>
-    <p class="vnote">0.5× — приблизно як гра малює зараз (пак ui-1.1.0 на 1920×1080): ті самі обведення 4 px, тіні 5 px, радіуси й слоти ~88 px; текст у кадрах трохи дрібніший (підписи 15 px проти 22, таймер 34 проти 48). 1× — удвічі більше.</p>
+    <p class="vnote">0.75× — ваш вибір (20.10): текст приблизно як у грі зараз (пак ui-1.1.0: підписи 22 px, таймер 48), обведення, тіні й плашки в 1.5 раза більші, ніж у паку. 0.5× — обведення й плашки як у паку, текст дрібніший. 1× — перші ескізи.</p>
   </div>
 
   <!-- 1. Round HUD: points, anger, timer -->
@@ -516,13 +518,13 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
 </main>
 
 <script>
-// The UI scale: "05" draws the stage at 1920x1080 (every UI px half as big on screen), "1" at 960x540. A zoom frame
+// The UI scale: "05" draws the stage at 1920x1080 (every UI px half as big on screen), "075" at 1280x720, "1" at 960x540. A zoom frame
 // shows the stage's bottom-right 480x240 corner; a frame with data-w/data-h has a fixed stage of that size.
-let mode = "05";
-try { mode = localStorage.getItem("mvp-ui-scale") || "05"; } catch (e) {}
-if (mode !== "05" && mode !== "1") mode = "05";
+let mode = "075";
+try { mode = localStorage.getItem("mvp-ui-scale-2") || "075"; } catch (e) {}
+if (mode !== "05" && mode !== "075" && mode !== "1") mode = "075";
 function fit() {
-  const uw = mode === "05" ? 1920 : 960, uh = uw * 9 / 16;
+  const uw = mode === "05" ? 1920 : mode === "075" ? 1280 : 960, uh = uw * 9 / 16;
   document.querySelectorAll(".frame").forEach(f => {
     const st = f.querySelector(".stage"), w = f.clientWidth;
     if (f.dataset.w) {
@@ -540,7 +542,7 @@ function fit() {
 function setMode(m) {
   mode = m;
   document.querySelectorAll(".seg button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.m === m)));
-  try { localStorage.setItem("mvp-ui-scale", m); } catch (e) {}
+  try { localStorage.setItem("mvp-ui-scale-2", m); } catch (e) {}
   fit();
 }
 document.querySelectorAll(".seg button").forEach(b => b.addEventListener("click", () => setMode(b.dataset.m)));
