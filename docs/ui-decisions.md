@@ -344,6 +344,25 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
   straight into the ship (no main menu) is recorded on prime-game#150. Four module shapes and four palettes to pick
   from, and the workbench as a screen on the machine, are on the suit C page (`pages/suit-c/`); the agent recommends
   the label strip and the ink-and-mint palette (agent: the variants and the recommendation, for the engineer to pick).
+- **The plain tile and the ink-mint palette** (the engineer, 2026-10-22, chat, translated, on the suit C page): the
+  shape is «Плитка» (one fill, a 1 px edge of one colour, 8 px corners; the label is a line of text inside), the
+  palette «Чорнильна мʼята» (module #2A2540, base #1A1629, text #ECE8F7, accent #6FF2B4, danger #FF5C6C), fonts
+  Unbounded and Onest. The big-corner shape is not used for now (maybe somewhere later). The mutation workbench is a
+  physical screen on the machine: you walk up, press a button to start, choose a mutation, step into the machine, and
+  it mutates you. Earlier choices stand: minimalism; health and stamina as segmented pips; the boot straight into the
+  ship with no main menu, Esc opens the suit menu (find a lobby, join by code, settings); calm everywhere, loud only in
+  the big moments (the cops, the role reveal, the ends); no points on the HUD; no kill notice; the roster with body
+  colours, humans see other humans marked. The whole screen set in this look is the suit final page
+  (`pages/suit-final/`). Taken there by the agent, for the engineer to veto (agent):
+  - the host's match settings (humans, anger threshold, duration, the lobby code) are a shared screen on the ship's
+    console, as the workbench is, not a tab of the Esc menu; the lobby HUD is the ready count at the top, a ready
+    square and a host tag in the roster, and the player's own ready state at the bottom left;
+  - the anger bar is muted grey while calm and turns danger-coloured past the alarm threshold, so the round stays
+    quiet; the siren hangs off the bar's right end (meter A) and becomes a solid danger chip when the meter is full;
+  - loud moments are full-width bands with 84 to 140 px Unbounded titles (mint for the aliens, the danger colour for
+    the humans and the cops); the cops' minute adds an 8 px danger edge around the screen; the cops' end fills the
+    whole screen with the danger colour;
+  - the workbench's third step is seen from inside the capsule, the machine's screen ahead showing the progress pips.
 
 ## Principles
 - **The UI never tells the player what to do.** No "take it to X" line, no destination marker, no key prompts on the HUD;

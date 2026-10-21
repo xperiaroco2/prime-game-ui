@@ -46,6 +46,8 @@ const STEPS = [
   ["page:card-look", ["pages/card-look/build.js", "--check"]],
   // direction C of the suit UI developed: four module shapes, four palettes, the workbench as a screen on the machine
   ["page:suit-c", ["pages/suit-c/build.js", "--check"]],
+  // the whole screen set in the chosen look: the plain tile, the ink-mint palette
+  ["page:suit-final", ["pages/suit-final/build.js", "--check"]],
   // the self-test only: CI has no manager transcripts
   ["manager:selftest", ["tools/manager/context.js", "--self-test"]],
 ];
