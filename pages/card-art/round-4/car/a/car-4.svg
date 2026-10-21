@@ -45,16 +45,14 @@
     </g>
     <circle class="a" cx="284" cy="170" r="5" style="stroke-width:3"/>
     <path class="o" d="M96 118l-10-5M136 108v-11M176 112l9-7M296 164l8-3M296 176l8 3" style="stroke-width:4"/>
-    <!-- the garage's screwdriver, on its cable from the ceiling, screwing the spoiler's foot down -->
-    <path class="k f" d="M104 14C110 50 72 84 84 120"/>
-    <path class="k" d="M100 136L120 154" style="stroke-width:4"/>
-    <path class="k" d="M86 122L100 136" style="stroke-width:15"/>
-    <path class="k" d="M86 122L100 136" style="stroke:#fff;stroke-width:7"/>
-    <path class="k f" d="M100 152q6 8 16 6"/>
     <!-- figure, the screwdriver in hand, the other arm up -->
     <path class="k" d="M50 152L38 211M50 152L64 211"/>
     <path class="k" d="M50 152L52 104"/>
-    <path class="k" d="M52 114L70 132L88 126"/>
+    <path class="k" d="M52 114L72 136L92 142"/>
+    <!-- the screwdriver, short, gripped in the hand, its tip on the spoiler's foot -->
+    <path class="k" d="M100 146L119 154" style="stroke-width:4"/>
+    <path class="k" d="M86 140L102 147" style="stroke-width:15"/>
+    <path class="k" d="M86 140L102 147" style="stroke:#fff;stroke-width:7"/>
     <path class="k" d="M52 112L32 92L30 64"/>
     <circle class="w" cx="56" cy="84" r="19"/>
     <circle class="i" cx="62" cy="80" r="2.8"/><circle class="i" cx="70" cy="80" r="2.8"/>
