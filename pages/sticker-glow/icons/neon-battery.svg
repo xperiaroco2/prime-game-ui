@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="192" height="192" viewBox="0 0 64 64">
+<!-- Neon item icon, own work (prime-game-ui). Line: acid green #B8FF4D; accent: mint #CFF3DF. The glow is baked in: two blurred copies of the line, then an ink keyline, then the line and its light core. -->
+<defs>
+<g id="L"><path d="M21 19A11 4 0 0 1 43 19A11 4 0 0 1 21 19Z"/><path d="M21 19V50A11 4 0 0 0 43 50V19"/><path d="M28.5 11.5H35.5"/><path d="M32 37v8M28 41h8"/></g>
+<g id="A"><path d="M21 28A11 4 0 0 0 43 28"/></g>
+<filter id="wide" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3.2"/></filter>
+<filter id="near" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="1.1"/></filter>
+</defs>
+<g fill="none" stroke-linecap="round" stroke-linejoin="round">
+<g filter="url(#wide)" opacity=".85" stroke-width="5"><use href="#L" stroke="#B8FF4D"/><use href="#A" stroke="#CFF3DF"/></g>
+<g filter="url(#near)" stroke-width="5.5"><use href="#L" stroke="#B8FF4D"/><use href="#A" stroke="#CFF3DF"/></g>
+<g stroke-width="6.6" stroke="#1E1230"><use href="#L"/><use href="#A"/></g><g stroke-width="3.9"><use href="#L" stroke="#B8FF4D"/><use href="#A" stroke="#CFF3DF"/></g>
+<g stroke-width="1.3" opacity=".9"><use href="#L" stroke="#F0FFD8"/></g>
+</g>
+</svg>

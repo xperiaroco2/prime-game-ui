@@ -38,6 +38,8 @@ const STEPS = [
   ["page:mvp-screens", ["pages/mvp-screens/build.js", "--check"]],
   // the grown-up options page: the three directions, the icon styles and their PNGs in one file
   ["page:grownup", ["pages/grownup/build.js", "--check"]],
+  // the sticker-with-the-glow page: the screens at three glow strengths, three icon treatments and their PNGs
+  ["page:sticker-glow", ["pages/sticker-glow/build.js", "--check"]],
   // the self-test only: CI has no manager transcripts
   ["manager:selftest", ["tools/manager/context.js", "--self-test"]],
 ];
