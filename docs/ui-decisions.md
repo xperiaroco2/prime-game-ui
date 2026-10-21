@@ -91,7 +91,7 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
   glow (agent). Kablammo: Google Fonts serves it with the `cyrillic` and `cyrillic-ext` subsets, so Ґ, Є, І and Ї
   are there (OFL); it draws lower case as capitals (seen in the page's render); it smears into blots at 34 px, so it is
   for the 84 px full-screen titles only and the workbench title stays Nunito; Ч, Ц, Щ and Ь carry curled drips and
-  "!" reads as a dagger, so the end title is shown without "!" (the text itself is his call).
+  "!" reads as a dagger (the end title keeps it: the text is his).
 - **The round HUD's pictures are icon files** (`pages/components/icons/`, own work, page-only today; the pack lists
   them but no token names them yet): the siren as two files, `siren-off` (the lilac dome, anger calm) and `siren-on`
   (the coral dome with rays, rising and full); the empty slots `slot-empty-hand` and `slot-empty-belt`; and one
