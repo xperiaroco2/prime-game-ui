@@ -1,0 +1,50 @@
+<!-- own work, prime-game-ui, licence: own work -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" width="320" height="240">
+  <defs>
+    <filter id="pa1-w" filterUnits="userSpaceOnUse" x="0" y="0" width="320" height="240">
+      <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="61" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="4" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <style>
+      .k{fill:none;stroke:#1f2433;stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
+      .t{stroke-width:4}
+      .f{stroke-width:3}
+      .w{fill:#fff;stroke:#1f2433;stroke-width:5;stroke-linejoin:round}
+      .a{fill:#FFD60A;stroke:#1f2433;stroke-width:5;stroke-linejoin:round}
+      .i{fill:#1f2433}
+      .o{fill:none;stroke:#FFD60A;stroke-width:5;stroke-linecap:round}
+    </style>
+    <!-- the wanted pose: a faceless figure in the yellow glow (the card's own pose; the game's emotes are not drawn yet), the hip at 0,0: one arm up, a hand on the hip, one leg kicked out -->
+    <g id="pa1-ps">
+      <path class="k" d="M0 0L2 -48M2 -38L38 -86M2 -38L-20 -22L-6 -4M0 0L-12 59M0 0L34 48" style="stroke:#FFD60A;stroke-width:36"/>
+      <circle cx="4" cy="-66" r="35" fill="#FFD60A"/>
+      <path class="k" d="M0 0L2 -48M2 -38L38 -86M2 -38L-20 -22L-6 -4M0 0L-12 59M0 0L34 48" style="stroke-width:9"/>
+      <circle class="w" cx="4" cy="-66" r="19" style="stroke-width:8"/>
+    </g>
+  </defs>
+  <g filter="url(#pa1-w)">
+    <ellipse cx="66" cy="213" rx="24" ry="4" fill="#1f2433" opacity=".12"/>
+    <path class="k t" d="M16 212C96 209 210 214 304 211"/>
+    <!-- the camera on its tripod, facing right -->
+    <path class="k t" d="M128 122L106 211M128 122V211M128 122L150 211"/>
+    <rect class="w" x="108" y="79" width="16" height="12" rx="3"/>
+    <rect class="w" x="136" y="82" width="10" height="8" rx="2" style="stroke-width:4"/>
+    <rect class="w" x="104" y="88" width="48" height="34" rx="6"/>
+    <circle class="w" cx="136" cy="105" r="11"/>
+    <circle class="i" cx="136" cy="105" r="4"/>
+    <!-- what the camera shows the photographer: the wanted pose, in the viewfinder's corners -->
+    <path class="w" d="M192 20H288Q304 20 304 36V138Q304 154 288 154H192Q176 154 176 138V122L158 106L176 100V36Q176 20 192 20Z"/>
+    <path class="k f" d="M188 44V32H200M280 32H292V44M292 130V142H280M200 142H188V130"/>
+    <g transform="translate(236 96) scale(.6)">
+      <use href="#pa1-ps"/>
+    </g>
+    <!-- figure, the photographer, bent to the viewfinder, a hand on the camera -->
+    <path class="k" d="M64 152L50 211M64 152L80 211"/>
+    <path class="k" d="M64 152L72 108"/>
+    <path class="k" d="M72 116L92 140L108 120"/>
+    <path class="k" d="M71 118L54 146"/>
+    <circle class="w" cx="82" cy="92" r="19"/>
+    <circle class="i" cx="90" cy="88" r="2.8"/><circle class="i" cx="97" cy="88" r="2.8"/>
+    <path class="k t" d="M88 100h7"/>
+  </g>
+</svg>

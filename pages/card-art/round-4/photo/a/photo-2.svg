@@ -1,0 +1,62 @@
+<!-- own work, prime-game-ui, licence: own work -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" width="320" height="240">
+  <defs>
+    <filter id="pa2-w" filterUnits="userSpaceOnUse" x="0" y="0" width="320" height="240">
+      <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="63" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="4" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <style>
+      .k{fill:none;stroke:#1f2433;stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
+      .t{stroke-width:4}
+      .f{stroke-width:3}
+      .w{fill:#fff;stroke:#1f2433;stroke-width:5;stroke-linejoin:round}
+      .a{fill:#FFD60A;stroke:#1f2433;stroke-width:5;stroke-linejoin:round}
+      .i{fill:#1f2433}
+      .o{fill:none;stroke:#FFD60A;stroke-width:5;stroke-linecap:round}
+    </style>
+    <!-- the wanted pose: a faceless figure in the yellow glow (the card's own pose; the game's emotes are not drawn yet), the hip at 0,0: one arm up, a hand on the hip, one leg kicked out -->
+    <g id="pa2-ps">
+      <path class="k" d="M0 0L2 -48M2 -38L38 -86M2 -38L-20 -22L-6 -4M0 0L-12 59M0 0L34 48" style="stroke:#FFD60A;stroke-width:36"/>
+      <circle cx="4" cy="-66" r="35" fill="#FFD60A"/>
+      <path class="k" d="M0 0L2 -48M2 -38L38 -86M2 -38L-20 -22L-6 -4M0 0L-12 59M0 0L34 48" style="stroke-width:9"/>
+      <circle class="w" cx="4" cy="-66" r="19" style="stroke-width:8"/>
+    </g>
+  </defs>
+  <g filter="url(#pa2-w)">
+    <ellipse cx="70" cy="213" rx="24" ry="4" fill="#1f2433" opacity=".12"/>
+    <ellipse cx="224" cy="213" rx="24" ry="4" fill="#1f2433" opacity=".12"/>
+    <ellipse cx="282" cy="213" rx="24" ry="4" fill="#1f2433" opacity=".12"/>
+    <path class="k t" d="M16 212C96 209 210 214 304 211"/>
+    <!-- what is said: the pose -->
+    <path class="w" d="M130 14H184Q200 14 200 30V100Q200 116 184 116H140L106 116L122 102Q114 98 114 86V30Q114 14 130 14Z"/>
+    <g transform="translate(152 70) scale(.52)">
+      <use href="#pa2-ps"/>
+    </g>
+    <!-- figure, the photographer, telling the others, a hand held out to them -->
+    <path class="k" d="M70 152L54 211M70 152L86 211"/>
+    <path class="k" d="M70 152L72 104"/>
+    <path class="k" d="M72 116L96 136L120 128"/>
+    <path class="k" d="M72 116L58 148"/>
+    <circle class="w" cx="74" cy="86" r="19"/>
+    <circle class="i" cx="81" cy="81" r="2.8"/><circle class="i" cx="88" cy="81" r="2.8"/>
+    <ellipse class="i" cx="85" cy="95" rx="4" ry="4.5"/>
+    <!-- the others listening: one already tries the arm, one thinks it over -->
+    <g transform="translate(8 0)">
+      <path class="k" d="M216 152L200 211M216 152L232 211"/>
+      <path class="k" d="M216 152L218 104"/>
+      <path class="k" d="M218 114L248 70"/>
+      <path class="k" d="M218 116L198 130L212 148"/>
+      <circle class="w" cx="220" cy="86" r="19"/>
+      <circle class="i" cx="213" cy="82" r="2.8"/><circle class="i" cx="206" cy="82" r="2.8"/>
+      <path class="k t" d="M206 94q4 3 8 0"/>
+    </g>
+    <g transform="translate(6 0)">
+      <path class="k" d="M276 152L260 211M276 152L292 211"/>
+      <path class="k" d="M276 152L278 104"/>
+      <path class="k" d="M278 116L258 134L264 104"/>
+      <path class="k" d="M278 118L294 146"/>
+      <circle class="w" cx="282" cy="86" r="19"/>
+      <circle class="i" cx="275" cy="80" r="2.8"/><circle class="i" cx="268" cy="80" r="2.8"/>
+    </g>
+  </g>
+</svg>
