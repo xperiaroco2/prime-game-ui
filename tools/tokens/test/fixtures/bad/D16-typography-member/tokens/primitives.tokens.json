@@ -74,7 +74,7 @@
     "family": {
       "$type": "fontFamily",
       "base": {
-        "$value": "Nunito"
+        "$value": "Onest"
       }
     },
     "weight": {

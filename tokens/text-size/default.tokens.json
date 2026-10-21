@@ -3,16 +3,17 @@
   "font": {
     "size": {
       "$type": "dimension",
-      "$description": "Text sizes at the default text-size setting, px at the 1920x1080 reference.",
+      "$description": "Text sizes at the default text-size setting, px at the 1920x1080 reference. Since ui-2.0.0 the numbers and the loud titles follow the target page (pages/suit-final) x 1.5: display 36 (the timer, 24 px there), display-large 78 (the dead's countdown, 52 px), hero 126 (the ends' titles, 84 px), kicker 14 (the tiles' Unbounded capitals, at least 14 to stay readable).",
       "caption": { "$value": { "value": 18, "unit": "px" } },
       "small": { "$value": { "value": 20, "unit": "px" } },
       "body": { "$value": { "value": 22, "unit": "px" } },
       "body-large": { "$value": { "value": 24, "unit": "px" } },
       "heading": { "$value": { "value": 28, "unit": "px" } },
       "title": { "$value": { "value": 44, "unit": "px" } },
-      "display": { "$value": { "value": 48, "unit": "px" } },
-      "display-large": { "$value": { "value": 64, "unit": "px" } },
-      "hero": { "$value": { "value": 96, "unit": "px" } },
+      "display": { "$value": { "value": 36, "unit": "px" } },
+      "display-large": { "$value": { "value": 78, "unit": "px" } },
+      "hero": { "$value": { "value": 126, "unit": "px" } },
+      "kicker": { "$value": { "value": 14, "unit": "px" } },
       "theme-default": {
         "$description": "Godot's Theme.default_font_size: the size of text whose type sets none of its own (a bare Label, a ProgressBar's percentage). 27, the greybox's 16 x 5/3, kept so bare text does not change (prime-game-ui#52).",
         "$value": { "value": 27, "unit": "px" }
@@ -22,8 +23,8 @@
   "size": {
     "$type": "dimension",
     "keycap": {
-      "$description": "A keycap's minimum width: at least its height (the 5 px top margin + the 31 px line of 22 px Nunito + the 8 px bottom margin = 44), so a single-letter keycap is never narrower than it is tall.",
-      "$value": { "value": 36, "unit": "px" }
+      "$description": "A keycap's minimum width: its height (the 5 px top margin + the 29 px line of 22 px Onest + the 8 px bottom margin), so a single-letter keycap is square.",
+      "$value": { "value": 42, "unit": "px" }
     }
   }
 }

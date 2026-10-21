@@ -5,7 +5,7 @@
 The styled mutation workbench screen from the UI track (xperiaroco2/prime-game-ui), as a Godot 4.7.2 node tree for the 1920×1080 reference.
 
 - **Source:** `pages/screens/src/s11-workbench.json`; the review page is `pages/screens/screens.html#s11`; no wireframe section (a screen new with the MVP; its page heading is «Мутаційний верстат»).
-- **Theme:** the Toy pack ui-1.4.0 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
+- **Theme:** the Toy pack ui-2.0.0 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
 - **World behind the UI** (not UI): a lit room of the level.
 - **How to read it:** the roots are children of the screen's full-rect root `Control`; every property not listed keeps Godot's default; sizes and offsets are reference px. In a state's **Shown** list, the first node of each subtree gives its path from the screen root.
 - **Texts** are keys of `copy/strings.csv`, and the language switches live (the Esc menu's Settings). A plain key is set as `text` and translates itself. A key with placeholders, a plural key (`tr_n`) and a key drawn in pieces are set from code with `auto_translate_mode = DISABLED`: `tr()`, then `String.format()` with the data (the samples below), rebuilt on `NOTIFICATION_TRANSLATION_CHANGED`. A "text from data" (names, the room code, times, numbers) is set in code and never translated (`auto_translate_mode = DISABLED`).
@@ -22,7 +22,7 @@ New with the MVP (m8 §4; the sketch pages/mvp-screens frame 6 at 0.75, every le
 
 - **Dim** `Panel` · variation `ToyBackdropDeep` · anchors `full_rect`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both
   - Note: mouse_filter STOP. Dims the running round behind the workbench.
-- **Bench** `PanelContainer` · variation `ToyPanelDialog` (raised: ToyRaised with base `ToyBasePanel`) · anchors `center`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both · custom_minimum_size (1260, 690) · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper
+- **Bench** `PanelContainer` · variation `ToyPanelDialog` · anchors `center`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both · custom_minimum_size (1260, 690)
   - Note: The workbench panel, 1260 x 690 (the sketch's 840 x 460 x 1.5), centred; raised on ToyBasePanel.
   - **V** `VBoxContainer` · variation `ToyColumnTwentyFour` · gaps from the variation: separation 24
     - **Top** `HBoxContainer` · variation `ToyRowSixteen` · gaps from the variation: separation 16
@@ -59,13 +59,12 @@ New with the MVP (m8 §4; the sketch pages/mvp-screens frame 6 at 0.75, every le
           - **Buy** `Button` · variation `ToyButtonPrimaryOnMint` · text `workbench.short` with sample {count} = "2": en "2 short" · uk "Бракує 2" · disabled true
             - Note: Not enough points: disabled, with workbench.short, {count} = price - balance.
     - **Bar** `HBoxContainer` · alignment `ALIGNMENT_END`
-      - **Close** `Button` · variation `ToyButtonSecondary` (raised: ToyRaised with base `ToyBaseRaisedOnLight`, ToyPress; UiParts.button()) · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper · text `common.close`: en "Close" · uk "Закрити"
+      - **Close** `Button` · variation `ToyButtonSecondary` · text `common.close`: en "Close" · uk "Закрити"
         - Note: Closes the workbench; Esc (ui_cancel) does the same.
 
 ## Notes
 
 - The review page emulates Godot's containers with CSS grid (expanding children share the free space by stretch ratio, never below their minimum size), so a pixel or two may differ from Godot.
-- A raised variation is built as the tokens spec (§6) says: a `ToyRaised` MarginContainer holding first the base `Panel` (the base named above, chosen by the context it sits in), then the face. The wrapper is the node in its parent: anchors, offsets, grow, size flags, stretch ratio, custom_minimum_size and visibility belong to the wrapper; the variation, the text, toggle_mode, disabled, focus and the signals belong to the face. Hide or show the wrapper, not the face.
 - Boxes and grids take their gaps only from their spacing variation (ToyColumn…, ToyRow…, ToyGrid…), and a ScrollContainer the gap to its bar from ToyScroll; a box without one has a single child. No `theme_override_constants`: the theme test forbids them.
 
 ## Keys

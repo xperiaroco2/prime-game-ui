@@ -2,126 +2,126 @@
   "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
   "palette": {
     "$type": "color",
-    "$description": "The Ink and mint sticker palette, strength B (the engineer, 2026-10-20, docs/ui-decisions.md, pages/sticker/). An entry marked (agent) is a shade the agent derived inside the palette for a state.",
-    "ink": {
-      "$description": "The ink: every outline, the hard shadow under stickers, text on mint and on the bright faces.",
-      "$value": { "colorSpace": "srgb", "components": [0.1176, 0.0706, 0.1882], "hex": "#1e1230" }
+    "$description": "The ink-mint palette («Чорнильна мʼята», the engineer, 2026-10-22, docs/ui-decisions.md, pages/suit-final/): calm neutrals, one accent and the danger colour. An entry marked (agent) is a shade the agent derived inside the palette for a state.",
+    "base": {
+      "$description": "The base: the ground of the full screens, a bar's or a pip's empty track, a field's cell, the map board.",
+      "$value": { "colorSpace": "srgb", "components": [0.102, 0.0863, 0.1608], "hex": "#1a1629" }
     },
-    "purple": {
-      "$description": "Panels.",
-      "$value": { "colorSpace": "srgb", "components": [0.1686, 0.0941, 0.2745], "hex": "#2b1846" }
+    "module": {
+      "$description": "The module: the fill of every tile (the plain tile, «Плитка»): HUD tiles, panels, cards, slots.",
+      "$value": { "colorSpace": "srgb", "components": [0.1647, 0.1451, 0.251], "hex": "#2a2540" }
     },
-    "purple-deep": {
-      "$description": "The full-screen ground (the end screen, menus over nothing).",
-      "$value": { "colorSpace": "srgb", "components": [0.1216, 0.0627, 0.2], "hex": "#1f1033" }
+    "row": {
+      "$description": "A row face on a tile: a list row, a secondary button, a key, a segment, a dropdown; the hover fill of a quiet control.",
+      "$value": { "colorSpace": "srgb", "components": [0.2078, 0.1843, 0.3098], "hex": "#352f4f" }
     },
-    "purple-light": {
-      "$description": "(agent) A lighter purple: the hover fill on purple and a setting row's face.",
-      "$value": { "colorSpace": "srgb", "components": [0.2353, 0.149, 0.3765], "hex": "#3c2660" }
+    "row-light": {
+      "$description": "(agent) A row face lifted: the hover face of a row-faced control.",
+      "$value": { "colorSpace": "srgb", "components": [0.251, 0.2235, 0.3843], "hex": "#403962" }
     },
-    "mint": {
-      "$description": "Plates: HUD plates, fields, cards and the selected tab; text on purple.",
-      "$value": { "colorSpace": "srgb", "components": [0.8118, 0.9529, 0.8745], "hex": "#cff3df" }
+    "edge": {
+      "$description": "The edge: a tile's 2 px outline, a setting row's divider, a key's edges.",
+      "$value": { "colorSpace": "srgb", "components": [0.2902, 0.2549, 0.4392], "hex": "#4a4170" }
     },
-    "mint-light": {
-      "$description": "(agent) Mint lifted: the hover face of a mint sticker.",
-      "$value": { "colorSpace": "srgb", "components": [0.902, 0.9804, 0.9373], "hex": "#e6faef" }
+    "text": {
+      "$description": "Text, and the second pip colour (stamina).",
+      "$value": { "colorSpace": "srgb", "components": [0.9255, 0.9098, 0.9686], "hex": "#ece8f7" }
     },
-    "mint-dark": {
-      "$description": "(agent) Mint pressed: the held face of a mint sticker, a hover fill on mint.",
-      "$value": { "colorSpace": "srgb", "components": [0.698, 0.8902, 0.7804], "hex": "#b2e3c7" }
+    "dim": {
+      "$description": "Dim text: labels, values, the calm anger fill.",
+      "$value": { "colorSpace": "srgb", "components": [0.6392, 0.6157, 0.7412], "hex": "#a39dbd" }
     },
-    "green": {
-      "$description": "The alien green: the main action, the selected chip, titles on purple, health and progress.",
-      "$value": { "colorSpace": "srgb", "components": [0.651, 0.9098, 0.3529], "hex": "#a6e85a" }
+    "accent": {
+      "$description": "The mint accent: the main action, the chosen segment, the own name, health, focus rings, the aliens' band.",
+      "$value": { "colorSpace": "srgb", "components": [0.4353, 0.949, 0.7059], "hex": "#6ff2b4" }
     },
-    "green-light": {
-      "$description": "(agent) The green lifted: the hover face of the main action.",
-      "$value": { "colorSpace": "srgb", "components": [0.7412, 0.949, 0.4941], "hex": "#bdf27e" }
+    "accent-light": {
+      "$description": "(agent) The accent lifted: the main action's hover face.",
+      "$value": { "colorSpace": "srgb", "components": [0.6039, 0.9686, 0.8], "hex": "#9af7cc" }
     },
-    "green-dark": {
-      "$description": "(agent) The green pressed: the held face of the main action.",
-      "$value": { "colorSpace": "srgb", "components": [0.549, 0.8196, 0.2471], "hex": "#8cd13f" }
+    "accent-dark": {
+      "$description": "(agent) The accent pressed: the main action's held face.",
+      "$value": { "colorSpace": "srgb", "components": [0.3098, 0.8588, 0.6], "hex": "#4fdb99" }
     },
-    "acid": {
-      "$description": "The acid green of the main action, which glows (the engineer, 2026-10-21, ui-1.3.0): the primary button's face and its light.",
-      "$value": { "colorSpace": "srgb", "components": [0.7137, 1, 0.2353], "hex": "#b6ff3c" }
+    "accent-deep": {
+      "$description": "The deeper accent: the main action's 5 px bottom edge.",
+      "$value": { "colorSpace": "srgb", "components": [0.2, 0.6588, 0.4667], "hex": "#33a877" }
     },
-    "acid-light": {
-      "$description": "(agent) The acid lifted: the main action's hover face (the green's hover step in OKLCH, applied to the acid).",
-      "$value": { "colorSpace": "srgb", "components": [0.8078, 1, 0.451], "hex": "#ceff73" }
+    "accent-ink": {
+      "$description": "The accent ink: text on an accent face.",
+      "$value": { "colorSpace": "srgb", "components": [0.0314, 0.1412, 0.0941], "hex": "#082418" }
     },
-    "acid-dark": {
-      "$description": "(agent) The acid pressed: the main action's held face (the green's held step in OKLCH, applied to the acid).",
-      "$value": { "colorSpace": "srgb", "components": [0.6078, 0.9098, 0], "hex": "#9be800" }
+    "danger": {
+      "$description": "The danger colour: the loud moments (the cops, a human's reveal, the humans' and the cops' ends), alarms, the human tag.",
+      "$value": { "colorSpace": "srgb", "components": [1, 0.3608, 0.4235], "hex": "#ff5c6c" }
     },
-    "coral": {
-      "$description": "Alarm: danger buttons, alert stickers, the anger bar.",
-      "$value": { "colorSpace": "srgb", "components": [1, 0.5412, 0.4196], "hex": "#ff8a6b" }
+    "danger-light": {
+      "$description": "(agent) The danger colour lifted: a danger button's hover face.",
+      "$value": { "colorSpace": "srgb", "components": [1, 0.5216, 0.5647], "hex": "#ff8590" }
     },
-    "coral-light": {
-      "$description": "(agent) The coral lifted: the hover face of a danger button.",
-      "$value": { "colorSpace": "srgb", "components": [1, 0.6471, 0.549], "hex": "#ffa58c" }
+    "danger-dark": {
+      "$description": "(agent) The danger colour pressed: a danger button's held face.",
+      "$value": { "colorSpace": "srgb", "components": [0.9098, 0.2706, 0.3373], "hex": "#e84556" }
     },
-    "coral-dark": {
-      "$description": "(agent) The coral pressed: the held face of a danger button and the you-are-here pin.",
-      "$value": { "colorSpace": "srgb", "components": [0.9255, 0.4353, 0.3137], "hex": "#ec6f50" }
+    "danger-deep": {
+      "$description": "The deeper danger: the 5 to 8 px bottom edge of a danger face, the map pin's outline.",
+      "$value": { "colorSpace": "srgb", "components": [0.6588, 0.1412, 0.2275], "hex": "#a8243a" }
     },
-    "yellow": {
-      "$description": "Stamina.",
-      "$value": { "colorSpace": "srgb", "components": [1, 0.8392, 0.0392], "hex": "#ffd60a" }
-    },
-    "muted": {
-      "$description": "Dim text on purple; the unplugged (disabled) face.",
-      "$value": { "colorSpace": "srgb", "components": [0.7176, 0.6588, 0.8392], "hex": "#b7a8d6" }
-    },
-    "ink-soft": {
-      "$description": "(agent) Dim text on mint and on the bright faces; the unplugged outline and label.",
-      "$value": { "colorSpace": "srgb", "components": [0.3294, 0.2706, 0.4784], "hex": "#54457a" }
+    "danger-ink": {
+      "$description": "The danger ink: text on a danger face.",
+      "$value": { "colorSpace": "srgb", "components": [0.149, 0.0235, 0.0471], "hex": "#26060c" }
     },
     "white": {
-      "$description": "Bar tracks.",
+      "$description": "White: icons and dots the game tints by multiplying (self_modulate), the crosshair.",
       "$value": { "colorSpace": "srgb", "components": [1, 1, 1], "hex": "#ffffff" }
     },
+    "shade": {
+      "$description": "The halo of text on the world (a name over a head, the bare timer) and the crosshair's ring: near-black at 75 % (the target's world plates).",
+      "$value": { "colorSpace": "srgb", "components": [0.0392, 0.0471, 0.0549], "alpha": 0.75, "hex": "#0a0c0e" }
+    },
     "backdrop": {
-      "$description": "The deep purple over the world behind menus.",
-      "$value": { "colorSpace": "srgb", "components": [0.1216, 0.0627, 0.2], "alpha": 0.82, "hex": "#1f1033" }
+      "$description": "(agent) The base at 87 % over the world behind the suit menu: the target's .dim is 50 % over a dark ship, but light and dim text must keep 4.5:1 over a white world (the contrast gates).",
+      "$value": { "colorSpace": "srgb", "components": [0.102, 0.0863, 0.1608], "alpha": 0.87, "hex": "#1a1629" }
     },
     "backdrop-deep": {
-      "$description": "The deep purple over the world behind dialogs.",
-      "$value": { "colorSpace": "srgb", "components": [0.1216, 0.0627, 0.2], "alpha": 0.86, "hex": "#1f1033" }
+      "$description": "(agent) The base at 90 % over the world behind a dialog.",
+      "$value": { "colorSpace": "srgb", "components": [0.102, 0.0863, 0.1608], "alpha": 0.9, "hex": "#1a1629" }
     },
     "zone": {
-      "$description": "A zone tint on the map.",
-      "$value": { "colorSpace": "srgb", "components": [1, 0.8392, 0.0392], "alpha": 0.55, "hex": "#ffd60a" }
+      "$description": "(agent) A lit zone on the map: the accent at 30 %.",
+      "$value": { "colorSpace": "srgb", "components": [0.4353, 0.949, 0.7059], "alpha": 0.3, "hex": "#6ff2b4" }
     },
     "clear": { "$value": { "colorSpace": "srgb", "components": [0, 0, 0], "alpha": 0, "hex": "#000000" } }
   },
   "font": {
     "family": {
       "$type": "fontFamily",
-      "text": { "$description": "Titles (Black, 900) and text.", "$value": "Nunito" },
-      "number": { "$description": "Numbers: the timer, readouts, codes.", "$value": "Rubik" },
-      "logo": { "$description": "The cartoon face, at its default instance: the logo and, since ui-1.3.0, the full-screen titles (type.hero-display).", "$value": "Kablammo" }
+      "text": { "$description": "Text and every smaller title: Onest (the engineer, 2026-10-22).", "$value": "Onest" },
+      "number": { "$description": "Numbers (the time, counts, prices, codes): Unbounded, as the target page sets them.", "$value": "Unbounded" },
+      "logo": {
+        "$description": "The display face (the name kept from ui-1.0.0): Unbounded, for the loud titles, the titles, the logo and the tiles' kickers.",
+        "$value": "Unbounded"
+      }
     },
     "weight": {
       "$type": "fontWeight",
-      "regular": { "$description": "Kablammo's only weight (its default instance).", "$value": 400 },
-      "bold": { "$description": "Numbers (Rubik).", "$value": 700 },
-      "extrabold": { "$description": "Text (Nunito), as the sticker page sets its labels and rows.", "$value": 800 },
-      "black": { "$description": "Titles, buttons, tabs, chips and bold text (Nunito Black).", "$value": 900 }
+      "regular": { "$description": "Plain text (the goal line).", "$value": 400 },
+      "medium": { "$description": "Text and names (Onest Medium, as the target page sets its rows' names).", "$value": 500 },
+      "semibold": { "$description": "Rows and buttons on the target page that are not bold.", "$value": 600 },
+      "bold": { "$description": "Bold text, numbers, titles (Onest Bold) and the display face (Unbounded Bold).", "$value": 700 }
     },
     "letter-spacing": {
       "$type": "dimension",
       "none": { "$value": { "value": 0, "unit": "px" } },
-      "tight": { "$value": { "value": -1, "unit": "px" } }
+      "tight": { "$value": { "value": -1, "unit": "px" } },
+      "wide": { "$description": "The kickers' capitals (the target's 1 px at 8 px x 1.5, rounded up).", "$value": { "value": 2, "unit": "px" } }
     },
     "line-height": {
       "$type": "number",
-      "$description": "Each family's own line box, (ascender + descender) / units per em from its file (OS/2 typo, USE_TYPO_METRICS set): Godot 4.7.2 draws a line as the ascent plus the descent, each rounded up to a pixel, with no line gap. The build checks each against fonts/ (B04).",
-      "base": { "$description": "The text, Nunito: (1011 + 353) / 1000 (the ui-1.0.0 name kept, so no token is removed).", "$value": 1.364 },
-      "number": { "$description": "Rubik: (935 + 250) / 1000.", "$value": 1.185 },
-      "logo": { "$description": "Kablammo: (2078 + 506) / 2000.", "$value": 1.292 }
+      "$description": "Each family's own line box, (ascender + descender) / units per em from its file: Godot 4.7.2 draws a line as the ascent plus the descent, each rounded up to a pixel, with no line gap. The build checks each against fonts/ (B04) once the files are there; until then the values come from the font records' expected metrics (fonts/<family>/LICENCES.json, unconfirmed).",
+      "base": { "$description": "The text, Onest: (970 + 305) / 1000 (the ui-1.0.0 name kept).", "$value": 1.275 },
+      "number": { "$description": "Numbers, Unbounded: (995 + 245) / 1000.", "$value": 1.24 },
+      "logo": { "$description": "Unbounded: (995 + 245) / 1000.", "$value": 1.24 }
     }
   },
   "ease": {
@@ -130,43 +130,52 @@
       "$description": "The CSS image of Godot's TRANS_SINE + EASE_OUT (Tween has no cubic-bezier).",
       "$value": [0.33, 0.52, 0.64, 1],
       "$extensions": {
-        "io.github.xperiaroco2.prime-game": { "godot": { "trans": "TRANS_SINE", "ease": "EASE_OUT" } }
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "trans": "TRANS_SINE", "ease": "EASE_OUT" }
+        }
       }
     }
   },
-  "duration": { "$type": "duration", "none": { "$value": { "value": 0, "unit": "ms" } } },
+  "duration": {
+    "$type": "duration",
+    "none": { "$value": { "value": 0, "unit": "ms" } }
+  },
   "focus": {
     "$type": "dimension",
-    "$description": "Keyboard and gamepad focus ring.",
-    "width": { "$value": { "value": 5, "unit": "px" } },
+    "$description": "Keyboard and gamepad focus ring: an accent ring of 3 px (the target's 2 px x 1.5), 3 px of the ground between it and the face when it sits outside.",
+    "width": { "$value": { "value": 3, "unit": "px" } },
     "gap": { "$value": { "value": 3, "unit": "px" } }
   },
   "stroke": {
     "$type": "dimension",
-    "$description": "Strength B at the 0.75 sketch scale (ui-1.2.0): every sticker outline is 6 px of ink (the sketch page's 4 px x 1.5).",
-    "thin": { "$description": "Bar tracks and small marks.", "$value": { "value": 5, "unit": "px" } },
-    "control": { "$description": "The outline of a control.", "$value": { "value": 6, "unit": "px" } },
-    "surface": { "$description": "The outline of a surface.", "$value": { "value": 6, "unit": "px" } },
-    "bold": { "$description": "A key's thick bottom edge.", "$value": { "value": 8, "unit": "px" } }
-  },
-  "offset": {
-    "$type": "dimension",
-    "$description": "The hard ink shadow of strength B: a base layer 8 px right and 8 px down (no StyleBoxFlat shadow; spec decision 4): the sketch page's 5 px x 1.5 = 7.5, rounded up as every other length, so the shadow stays wider than the 6 px outline and equals a key's 8 px bottom edge (ui-1.2.0).",
-    "base": { "$value": { "value": 8, "unit": "px" } }
-  },
-  "glow": {
-    "$type": "dimension",
-    "$description": "The glow (ui-1.3.0): a StyleBoxFlat's one shadow at offset 0, shadow_size this many px, in the glowing piece's own colour at alpha 1 (the CSS image: box-shadow 0 0 <size> <colour>). The sketch pages' sizes x 1.5, as every length since ui-1.2.0.",
-    "action": { "$description": "The main action's light (pages/glow-bars: 30 px).", "$value": { "value": 45, "unit": "px" } },
-    "alarm": { "$description": "A bar's light past its alarm line, on the track (pages/glow-bars, way 3: 28 px).", "$value": { "value": 42, "unit": "px" } }
+    "$description": "The plain tile's lines at the 1920x1080 frame: the target page's 1280x720 lengths x 1.5, rounded up (its 1 px edge is 2 px here).",
+    "thin": { "$description": "Bar tracks, dividers and small marks.", "$value": { "value": 2, "unit": "px" } },
+    "control": { "$description": "The edge or outline of a control.", "$value": { "value": 2, "unit": "px" } },
+    "surface": { "$description": "The edge of a tile.", "$value": { "value": 2, "unit": "px" } },
+    "selected": {
+      "$description": "The outline of the chosen or active thing (the hand in use, the chosen card, the tab underline): the target's 2 px x 1.5.",
+      "$value": { "value": 3, "unit": "px" }
+    },
+    "bold": { "$description": "A key's bottom edge: the target's 3 px x 1.5, rounded up.", "$value": { "value": 5, "unit": "px" } },
+    "edge": { "$description": "A bright button's deeper bottom edge: the target's 3 px x 1.5, rounded up.", "$value": { "value": 5, "unit": "px" } },
+    "halo": {
+      "$description": "The shade halo around text on the world (Godot's shadow outline): the target's 4 px x 1.5.",
+      "$value": { "value": 6, "unit": "px" }
+    },
+    "alarm": { "$description": "A loud tile's deeper bottom edge (the cops): the target's 5 px x 1.5, rounded up.", "$value": { "value": 8, "unit": "px" } },
+    "screen": {
+      "$description": "The danger edge around the whole screen in the cops' minute: the target's 8 px x 1.5.",
+      "$value": { "value": 12, "unit": "px" }
+    }
   },
   "radius": {
     "$type": "dimension",
-    "small": { "$value": { "value": 12, "unit": "px" } },
-    "medium": { "$value": { "value": 18, "unit": "px" } },
-    "large": { "$value": { "value": 24, "unit": "px" } },
-    "control": { "$description": "Buttons.", "$value": { "value": 21, "unit": "px" } },
-    "surface": { "$description": "Panels.", "$value": { "value": 30, "unit": "px" } },
+    "$description": "Small corners (the plain tile): the target page's radii x 1.5.",
+    "small": { "$description": "Keys, chips, tags (the target's 4 px).", "$value": { "value": 6, "unit": "px" } },
+    "medium": { "$description": "Rows, fields, dropdowns (the target's 6 px).", "$value": { "value": 9, "unit": "px" } },
+    "large": { "$description": "Cards and slots (the target's 8 px).", "$value": { "value": 12, "unit": "px" } },
+    "control": { "$description": "Buttons (the target's 6 px).", "$value": { "value": 9, "unit": "px" } },
+    "surface": { "$description": "Tiles and panels (the target's 8 px).", "$value": { "value": 12, "unit": "px" } },
     "pill": { "$value": { "value": 999, "unit": "px" } }
   },
   "space": {

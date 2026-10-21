@@ -1,9 +1,9 @@
 {
   "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
   "sticker": {
-    "$description": "Flat word stickers (the sketches' small stickers): the role on the HUD, the capsule note in the dead's room, the human's team line on the role reveal, the reason line on the end screens. No shadow.",
+    "$description": "Word tiles (the reason line of the ends, the human's team line): module tiles; the loud ones have a 3 px accent or danger outline.",
     "mint": {
-      "$description": "A mint word sticker: the 6 px ink outline, 15 px corners (10 x 1.5), no shadow.",
+      "$description": "A word tile: the module fill with the 2 px edge, 9 px corners.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToySticker", "class": "PanelContainer" },
@@ -11,16 +11,16 @@
         }
       },
       "panel": {
-        "bg-color": { "$type": "color", "$value": "{palette.mint}" },
+        "bg-color": { "$type": "color", "$value": "{color.surface.plate}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
-        "corner-radius": { "$type": "dimension", "$value": { "value": 15, "unit": "px" } },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.control}" },
         "content-margin-block": { "$type": "dimension", "$value": { "value": 9, "unit": "px" } },
         "content-margin-inline": { "$type": "dimension", "$value": { "value": 21, "unit": "px" } }
       }
     },
     "alert": {
-      "$description": "A coral word sticker (the human's role, the human's team line, a lost end): as ToySticker.",
+      "$description": "A danger word tile: the module fill with a 3 px danger outline.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyStickerAlert", "class": "PanelContainer" },
@@ -28,16 +28,16 @@
         }
       },
       "panel": {
-        "bg-color": { "$type": "color", "$value": "{color.status.alert}" },
-        "border-color": { "$type": "color", "$value": "{color.outline}" },
-        "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
-        "corner-radius": { "$type": "dimension", "$value": { "value": 15, "unit": "px" } },
+        "bg-color": { "$type": "color", "$value": "{color.surface.plate}" },
+        "border-color": { "$type": "color", "$value": "{color.status.alert}" },
+        "border-width": { "$type": "dimension", "$value": "{stroke.selected}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.control}" },
         "content-margin-block": { "$type": "dimension", "$value": { "value": 9, "unit": "px" } },
         "content-margin-inline": { "$type": "dimension", "$value": { "value": 21, "unit": "px" } }
       }
     },
     "highlight": {
-      "$description": "A green word sticker (the aliens' won end): as ToySticker.",
+      "$description": "A highlighted word tile: the module fill with a 3 px accent outline.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyStickerHighlight", "class": "PanelContainer" },
@@ -45,38 +45,46 @@
         }
       },
       "panel": {
-        "bg-color": { "$type": "color", "$value": "{palette.green}" },
-        "border-color": { "$type": "color", "$value": "{color.outline}" },
-        "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
-        "corner-radius": { "$type": "dimension", "$value": { "value": 15, "unit": "px" } },
+        "bg-color": { "$type": "color", "$value": "{color.surface.plate}" },
+        "border-color": { "$type": "color", "$value": "{palette.accent}" },
+        "border-width": { "$type": "dimension", "$value": "{stroke.selected}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.control}" },
         "content-margin-block": { "$type": "dimension", "$value": { "value": 9, "unit": "px" } },
         "content-margin-inline": { "$type": "dimension", "$value": { "value": 21, "unit": "px" } }
       }
     },
     "text": {
-      "$description": "The word on a sticker on the HUD: ink, Nunito Black.",
+      "$description": "A word tile's text: light.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
-          "godot": { "variation": "ToyStickerText", "class": "Label", "on": ["ToySticker", "ToyStickerAlert", "ToyStickerHighlight"] },
+          "godot": {
+            "variation": "ToyStickerText",
+            "class": "Label",
+            "on": ["ToySticker", "ToyStickerAlert", "ToyStickerHighlight"]
+          },
           "context": "dark"
         }
       },
       "label": { "$type": "typography", "$value": "{type.body-bold}" },
       "normal": {
-        "font-color": { "$type": "color", "$value": "{color.on-accent.text}" }
+        "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
       }
     },
     "text-large": {
-      "$description": "The words on a sticker on a full screen (the role reveal, the end screens): ink, Nunito Black at the heading size.",
+      "$description": "A word tile's text on the full screens: light, heading-bold.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
-          "godot": { "variation": "ToyStickerTextLarge", "class": "Label", "on": ["ToySticker", "ToyStickerAlert", "ToyStickerHighlight"] },
+          "godot": {
+            "variation": "ToyStickerTextLarge",
+            "class": "Label",
+            "on": ["ToySticker", "ToyStickerAlert", "ToyStickerHighlight"]
+          },
           "context": "dark"
         }
       },
       "label": { "$type": "typography", "$value": "{type.heading-bold}" },
       "normal": {
-        "font-color": { "$type": "color", "$value": "{color.on-accent.text}" }
+        "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
       }
     }
   }

@@ -108,6 +108,8 @@ function analyzeAll(root, opts) {
     outputs: Object.assign({ [OUTPUTS.css]: css, [OUTPUTS.pack]: packText }, icons.outputs, cards.outputs, fonts.outputs),
     modifiers: a.model.modifiers.map((m) => ({ name: m.name, contexts: m.contexts.slice(), default: m.default })),
     warnings: P.warnings,
+    // font files a record names that are not in fonts/ yet (tools/tokens/fonts.js): tools/tokens/build.js fails on them
+    missingFonts: fonts.missing,
     counts: { tiers, authored: sources.size, packTokens: r0.packTokens.size, variations: Object.keys(pack.variations).length,
       proposals: pack.proposals.length, derived: pack.derived.length, permutations: a.results.length },
   };

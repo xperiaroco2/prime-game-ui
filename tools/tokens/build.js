@@ -41,6 +41,16 @@ function main(argv) {
     console.error(`${tally}; nothing ${args.check ? 'checked' : 'written'}`);
     return 1;
   }
+  // font files the records name but fonts/ does not hold yet: everything else is built from the records' expected
+  // metrics, and the build fails naming each file, so dropping the files in and rebuilding is the only step left
+  const missing = sys.missingFonts || [];
+  const reportMissing = () => {
+    if (!missing.length) return 0;
+    const total = missing.reduce((s, m) => s + (m.bytes || 0), 0);
+    console.error(`MISSING FONT FILES (${missing.length}, ${total} bytes): download each unmodified (git blob as named) to its path, then run node tools/tokens/build.js and commit fonts/ and dist/`);
+    for (const m of missing) console.error(`  ${m.path}  ${m.bytes} bytes  git blob ${m.blob}  from ${m.download}`);
+    return 1;
+  };
   if (args.check) {
     let bad = 0;
     for (const [rel, text] of Object.entries(sys.outputs)) {
@@ -51,10 +61,11 @@ function main(argv) {
     }
     if (bad) {
       console.error(`${bad} output(s) out of date: run node tools/tokens/build.js and commit dist/`);
+      reportMissing();
       return 1;
     }
     console.log(`up to date: ${Object.keys(sys.outputs).join(', ')} (${tally})`);
-    return 0;
+    return reportMissing();
   }
   for (const [rel, text] of Object.entries(sys.outputs)) {
     const abs = path.join(outRoot, ...rel.split('/'));
@@ -66,7 +77,7 @@ function main(argv) {
   console.log(`tokens: ${c.authored} authored (primitive ${c.tiers.primitive}, semantic ${c.tiers.semantic}, component ${c.tiers.component}), `
     + `${c.packTokens} in the pack, ${c.derived} derived`);
   console.log(`variations: ${c.variations}; proposals: ${c.proposals}; permutations: ${c.permutations}; ${tally}`);
-  return 0;
+  return reportMissing();
 }
 
 process.exitCode = main(process.argv.slice(2));

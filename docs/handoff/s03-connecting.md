@@ -5,7 +5,7 @@
 The styled connecting, failures and loading screen from the UI track (xperiaroco2/prime-game-ui), as a Godot 4.7.2 node tree for the 1920×1080 reference.
 
 - **Source:** `pages/screens/src/s03-connecting.json`; the review page is `pages/screens/screens.html#s3`; the wireframe is section `s3` («Підключення й завантаження»).
-- **Theme:** the Toy pack ui-1.4.0 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
+- **Theme:** the Toy pack ui-2.0.0 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
 - **World behind the UI** (not UI): black, no world (intro, outro, loading).
 - **How to read it:** the roots are children of the screen's full-rect root `Control`; every property not listed keeps Godot's default; sizes and offsets are reference px. In a state's **Shown** list, the first node of each subtree gives its path from the screen root.
 - **Texts** are keys of `copy/strings.csv`, and the language switches live (the Esc menu's Settings). A plain key is set as `text` and translates itself. A key with placeholders, a plural key (`tr_n`) and a key drawn in pieces are set from code with `auto_translate_mode = DISABLED`: `tr()`, then `String.format()` with the data (the samples below), rebuilt on `NOTIFICATION_TRANSLATION_CHANGED`. A "text from data" (names, the room code, times, numbers) is set in code and never translated (`auto_translate_mode = DISABLED`).
@@ -49,12 +49,12 @@ One screen on the opaque night backdrop for the join (its steps and each failure
   - **CodeRow** `HBoxContainer` · variation `ToyRowTwelve` · size flags horizontal `SIZE_SHRINK_CENTER` · gaps from the variation: separation 12
     - Note: A code join only (hidden for a Direct join).
     - **Label** `Label` · variation `ToyTextMutedOnDark` · size flags vertical `SIZE_SHRINK_CENTER` · text `common.code`: en "Code" · uk "Код"
-    - **Code** `PanelContainer` · variation `ToyKeyOnDark` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (36, 0) = Vector2(get_theme_constant("min_width", "ToyKeyOnDark"), 0)
+    - **Code** `PanelContainer` · variation `ToyKeyOnDark` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (42, 0) = Vector2(get_theme_constant("min_width", "ToyKeyOnDark"), 0)
       - **Text** `Label` · variation `ToyKeyText` · text from data (auto_translate_mode = DISABLED), sample: "K7Q2XR" · horizontal_alignment `CENTER`
         - Note: The code typed in s2 (auto_translate_mode DISABLED).
   - **Elapsed** `Label` · variation `ToyTextMutedOnDark` · text from data (auto_translate_mode = DISABLED), sample: "0:04" · horizontal_alignment `CENTER`
     - Note: The time since Join as m:ss, updated every second (auto_translate_mode DISABLED).
-  - **Cancel** `Button` · variation `ToyButtonSecondary` (raised: ToyRaised with base `ToyBaseRaisedOnDark`, ToyPress; UiParts.button()) · size flags horizontal `SIZE_SHRINK_CENTER` · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper · text `common.cancel`: en "Cancel" · uk "Скасувати" · shown with keyboard focus (grab_focus)
+  - **Cancel** `Button` · variation `ToyButtonSecondary` · size flags horizontal `SIZE_SHRINK_CENTER` · text `common.cancel`: en "Cancel" · uk "Скасувати" · shown with keyboard focus (grab_focus)
     - Note: The only button, so raised (ToyButtonSecondary), as the failure layout's lone Back. Focus on open; Esc (ui_cancel) does the same. Aborts the join and returns to s2 with the code or address kept in its field. The traversal timeout is the game's (M6 §2.3).
 
 ## `connecting-direct`: what differs from `finding`
@@ -80,7 +80,7 @@ One screen on the opaque night backdrop for the join (its steps and each failure
         - Note: Join failures share connect.fail.title; a session that ended or a host that could not start has its own title.
       - **Body** `Label` · variation `ToyTextMutedOnDark` · custom_minimum_size (1272, 0) · text `connect.fail.no_room`: en "No game has this code. Check it with the host." · uk "Гри з таким кодом немає. Перевір код у хоста." · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
     - **Buttons** `HBoxContainer` · variation `ToyRowTwentyFour` · gaps from the variation: separation 24 · alignment `ALIGNMENT_CENTER`
-      - **BackSolo** `Button` · variation `ToyButtonSecondary` (raised: ToyRaised with base `ToyBaseRaisedOnDark`, ToyPress; UiParts.button()) · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper · text `common.back`: en "Back" · uk "Назад" · shown with keyboard focus (grab_focus)
+      - **BackSolo** `Button` · variation `ToyButtonSecondary` · text `common.back`: en "Back" · uk "Назад" · shown with keyboard focus (grab_focus)
         - Note: Back when it is the only button (no_room, the version failures, lost, map failed, error): raised on its ToyRaised wrapper, focused on open. Same action as BackGhost; the two are separate nodes because only this one has a base.
 
 ## `fail-started`: what differs from `finding`
@@ -114,7 +114,7 @@ One screen on the opaque night backdrop for the join (its steps and each failure
         - **Host** `Label` · variation `ToyTextOnDark` · text `connect.fail.version_host` with sample {version} = "0.5 (a1b2c3)": en "Host: 0.5 (a1b2c3)" · uk "Хост: 0.5 (a1b2c3)" · horizontal_alignment `CENTER`
         - **Own** `Label` · variation `ToyTextOnDark` · text `connect.fail.version_own` with sample {version} = "0.4 (9f8e7d)": en "You: 0.4 (9f8e7d)" · uk "Ти: 0.4 (9f8e7d)" · horizontal_alignment `CENTER`
     - **Buttons** `HBoxContainer` · variation `ToyRowTwentyFour` · gaps from the variation: separation 24 · alignment `ALIGNMENT_CENTER`
-      - **BackSolo** `Button` · variation `ToyButtonSecondary` (raised: ToyRaised with base `ToyBaseRaisedOnDark`, ToyPress; UiParts.button()) · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper · text `common.back`: en "Back" · uk "Назад" · shown with keyboard focus (grab_focus)
+      - **BackSolo** `Button` · variation `ToyButtonSecondary` · text `common.back`: en "Back" · uk "Назад" · shown with keyboard focus (grab_focus)
         - Note: Back when it is the only button (no_room, the version failures, lost, map failed, error): raised on its ToyRaised wrapper, focused on open. Same action as BackGhost; the two are separate nodes because only this one has a base.
 
 ## `fail-full`: what differs from `finding`
@@ -192,7 +192,7 @@ One screen on the opaque night backdrop for the join (its steps and each failure
         - Note: Join failures share connect.fail.title; a session that ended or a host that could not start has its own title.
       - **Body** `Label` · variation `ToyTextMutedOnDark` · custom_minimum_size (1272, 0) · text `connect.lost.body`: en "The session was closed, or the network dropped." · uk "Сесію закрито або обірвалася мережа." · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
     - **Buttons** `HBoxContainer` · variation `ToyRowTwentyFour` · gaps from the variation: separation 24 · alignment `ALIGNMENT_CENTER`
-      - **BackSolo** `Button` · variation `ToyButtonSecondary` (raised: ToyRaised with base `ToyBaseRaisedOnDark`, ToyPress; UiParts.button()) · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper · text `common.back`: en "Back" · uk "Назад" · shown with keyboard focus (grab_focus)
+      - **BackSolo** `Button` · variation `ToyButtonSecondary` · text `common.back`: en "Back" · uk "Назад" · shown with keyboard focus (grab_focus)
         - Note: Back when it is the only button (no_room, the version failures, lost, map failed, error): raised on its ToyRaised wrapper, focused on open. Same action as BackGhost; the two are separate nodes because only this one has a base.
 
 ## `map-failed`: what differs from `finding`
@@ -206,7 +206,7 @@ One screen on the opaque night backdrop for the join (its steps and each failure
         - Note: Join failures share connect.fail.title; a session that ended or a host that could not start has its own title.
       - **Body** `Label` · variation `ToyTextMutedOnDark` · custom_minimum_size (1272, 0) · text `connect.map_fail.body`: en "The round goes on without you." · uk "Раунд іде без тебе." · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
     - **Buttons** `HBoxContainer` · variation `ToyRowTwentyFour` · gaps from the variation: separation 24 · alignment `ALIGNMENT_CENTER`
-      - **BackSolo** `Button` · variation `ToyButtonSecondary` (raised: ToyRaised with base `ToyBaseRaisedOnDark`, ToyPress; UiParts.button()) · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper · text `common.back`: en "Back" · uk "Назад" · shown with keyboard focus (grab_focus)
+      - **BackSolo** `Button` · variation `ToyButtonSecondary` · text `common.back`: en "Back" · uk "Назад" · shown with keyboard focus (grab_focus)
         - Note: Back when it is the only button (no_room, the version failures, lost, map failed, error): raised on its ToyRaised wrapper, focused on open. Same action as BackGhost; the two are separate nodes because only this one has a base.
 
 ## `error`: what differs from `finding`
@@ -220,7 +220,7 @@ One screen on the opaque night backdrop for the join (its steps and each failure
         - Note: Join failures share connect.fail.title; a session that ended or a host that could not start has its own title.
       - **Body** `Label` · variation `ToyTextMutedOnDark` · custom_minimum_size (1272, 0) · text `connect.error.body`: en "The game ran into an error. The details are in the log." · uk "У грі сталася помилка. Подробиці — в журналі." · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
     - **Buttons** `HBoxContainer` · variation `ToyRowTwentyFour` · gaps from the variation: separation 24 · alignment `ALIGNMENT_CENTER`
-      - **BackSolo** `Button` · variation `ToyButtonSecondary` (raised: ToyRaised with base `ToyBaseRaisedOnDark`, ToyPress; UiParts.button()) · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper · text `common.back`: en "Back" · uk "Назад" · shown with keyboard focus (grab_focus)
+      - **BackSolo** `Button` · variation `ToyButtonSecondary` · text `common.back`: en "Back" · uk "Назад" · shown with keyboard focus (grab_focus)
         - Note: Back when it is the only button (no_room, the version failures, lost, map failed, error): raised on its ToyRaised wrapper, focused on open. Same action as BackGhost; the two are separate nodes because only this one has a base.
 
 ## `host-failed`: what differs from `finding`
@@ -271,7 +271,7 @@ One screen on the opaque night backdrop for the join (its steps and each failure
   - **Head** `VBoxContainer` · variation `ToyColumnSixteen` · anchors `center_top`, offsets 0, 96, 0, 96 (left, top, right, bottom), grow both/end · custom_minimum_size (1152, 0) · gaps from the variation: separation 16
     - **Title** `Label` · variation `ToyTitleOnDark` · text `loading.title`: en "Loading the map" · uk "Завантаження мапи" · horizontal_alignment `CENTER`
     - **Bar** `ProgressBar` · variation `ToyBarProgress` · custom_minimum_size (1152, 24) · value 62 of max_value 100, show_percentage false
-  - **Card** `PanelContainer` · variation `ToyPanelHowto` (raised: ToyRaised with base `ToyBasePanel`) · anchors `center`, offsets 0, 39, 0, 39 (left, top, right, bottom), grow both/both · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper
+  - **Card** `PanelContainer` · variation `ToyPanelHowto` · anchors `center`, offsets 0, 39, 0, 39 (left, top, right, bottom), grow both/both
     - Note: The how-to card (P8) of a task type in this round that the player has not completed: at most twice per type and never after its first completion (user:// counters, #254). Content data per task type; here Cooking, one of the MVP's five, with PLACEHOLDER art (Delivery's frames) until the MVP task cards are drawn (new work: wordless card art per MVP task). No line says the task is new. Its width is its four frames' (352 px art each).
     - **V** `VBoxContainer` · variation `ToyColumnTwentyFour` · gaps from the variation: separation 24
       - **Head** `HBoxContainer` · variation `ToyRowTwentyFour` · gaps from the variation: separation 24
@@ -292,9 +292,8 @@ One screen on the opaque night backdrop for the join (its steps and each failure
 ## Notes
 
 - The review page emulates Godot's containers with CSS grid (expanding children share the free space by stretch ratio, never below their minimum size), so a pixel or two may differ from Godot.
-- A raised variation is built as the tokens spec (§6) says: a `ToyRaised` MarginContainer holding first the base `Panel` (the base named above, chosen by the context it sits in), then the face. The wrapper is the node in its parent: anchors, offsets, grow, size flags, stretch ratio, custom_minimum_size and visibility belong to the wrapper; the variation, the text, toggle_mode, disabled, focus and the signals belong to the face. Hide or show the wrapper, not the face.
 - Size constants: a variation's `width`, `height`, `min_width`, `wide_width` and `wide_min_width` theme constants are read by code into `custom_minimum_size`, as the node lines give them. A Panel or PanelContainer takes no size from them on its own: an anchored Panel at offsets 0 is 0×0, a slot shrinks to its text.
-- Size constants that follow the text size: `min_width` 36 (52 in the pack's `modes.textSize.large`) of ToyKeyOnDark. The large-text theme is swapped in while a screen is open, so code that sets custom_minimum_size from such a constant sets it again on `NOTIFICATION_THEME_CHANGED`.
+- Size constants that follow the text size: `min_width` 42 (50 in the pack's `modes.textSize.large`) of ToyKeyOnDark. The large-text theme is swapped in while a screen is open, so code that sets custom_minimum_size from such a constant sets it again on `NOTIFICATION_THEME_CHANGED`.
 - Card art: the how-to frames draw the pack's PNGs, `dist/pack/cards/delivery-meaning-1.png`, `dist/pack/cards/delivery-meaning-2.png`, `dist/pack/cards/delivery-meaning-3.png`, `dist/pack/cards/delivery-meaning-4.png` (640x480, transparent, own work; rendered from `pages/card-art/round-3/a/` by `tools/card-art/render.js`), in their own colours, never tinted. They are drawn smaller than their size (up to 352x264 px here), so import them as Texture2D with `compress/mode` Lossless and `mipmaps/generate` on.
 - Boxes and grids take their gaps only from their spacing variation (ToyColumn…, ToyRow…, ToyGrid…), and a ScrollContainer the gap to its bar from ToyScroll; a box without one has a single child. No `theme_override_constants`: the theme test forbids them.
 

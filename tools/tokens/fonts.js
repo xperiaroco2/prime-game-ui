@@ -13,7 +13,11 @@
 // OS/2 weight class. It also refuses a type role whose lineHeight is not its family's own line box ((ascender +
 // descender) / units per em, as FreeType reads them) and gives the CSS emitter each family's metrics (`metrics`), from
 // which lineBoxPx() makes the whole px line Godot 4.7.2 draws. A root without fonts/ (a test fixture, an overlay's
-// temporary copy) has no fonts. Node 20, no packages.
+// temporary copy) has no fonts. A record written before its download (ui-2.0.0) holds the upstream git blob id and size
+// instead of a sha256, and the build checks the file by them. A record whose file (or licence text) is not in
+// fonts/<family>/ yet is listed in `missing` with its download URL, size and git blob: its record's expected `metrics`
+// stand in for the line box, nothing of it ships, and tools/tokens/build.js fails naming each missing file. Node 20, no
+// packages.
 'use strict';
 
 const fs = require('fs');
@@ -27,6 +31,8 @@ const PRIMITIVES = 'tokens/primitives.tokens.json';
 const SEMANTIC = 'tokens/semantic.tokens.json';
 
 const sha256 = (buf) => crypto.createHash('sha256').update(buf).digest('hex');
+// git's blob id of a file's bytes (sha1 of "blob <size>\0" + the bytes): what the GitHub API names for an upstream file
+const gitBlob = (buf) => crypto.createHash('sha1').update(Buffer.concat([Buffer.from(`blob ${buf.length}\0`), buf])).digest('hex');
 const members = (group) => Object.entries(group || {}).filter(([k, v]) => !k.startsWith('$') && v && typeof v === 'object');
 const values = (group) => members(group).filter(([, v]) => '$value' in v).map(([, v]) => v.$value);
 
@@ -137,10 +143,10 @@ function familyLineHeights(primitives, semantic) {
 }
 
 // { outputs: { 'dist/pack/fonts/<file>': Buffer, 'dist/pack/fonts/LICENCES.json': text }, assets, problems: [text],
-//   metrics: { <family>: { ascender, descender, unitsPerEm } } }
+//   metrics: { <family>: { ascender, descender, unitsPerEm } }, missing: [{ path, download, bytes, blob }] }
 function fontSet(root) {
   const abs = (rel) => path.join(root, ...rel.split('/'));
-  const out = { outputs: {}, assets: [], problems: [], metrics: {} };
+  const out = { outputs: {}, assets: [], problems: [], metrics: {}, missing: [] };
   if (!fs.existsSync(abs(SRC))) return out;
   let primitives;
   let semantic;
@@ -164,18 +170,44 @@ function fontSet(root) {
     try { recs = JSON.parse(fs.readFileSync(abs(`${dir}/LICENCES.json`), 'utf8')); } catch (e) { out.problems.push(`${dir}/LICENCES.json: ${e.message}`); continue; }
     const files = fs.readdirSync(abs(dir)).filter((f) => f !== 'LICENCES.json').sort();
     for (const f of files) if (!recs[f]) out.problems.push(`${dir}/${f} has no record in ${dir}/LICENCES.json`);
-    for (const f of files.filter((x) => /\.(ttf|otf)$/i.test(x))) {
+    // every font a record names, whether its file is here yet or not (ui-2.0.0: a record may wait for its download)
+    const fontNames = [...new Set(files.concat(Object.keys(recs)))].filter((x) => /\.(ttf|otf)$/i.test(x)).sort();
+    for (const f of fontNames) {
       const rec = recs[f];
       if (!rec) continue;
       const where = `${dir}/${f}`;
       if (typeof rec.licence !== 'string' || !LICENCES_OK.test(rec.licence)) { out.problems.push(`${where} has no allowed licence in ${dir}/LICENCES.json`); continue; }
-      const buf = fs.readFileSync(abs(where));
-      if (sha256(buf) !== rec.sha256) { out.problems.push(`${where} is not the file its record holds (sha256): a third-party font ships unmodified`); continue; }
       const text = rec.licence_text;
-      if (!text || !recs[text] || !fs.existsSync(abs(`${dir}/${text}`))) { out.problems.push(`${where}: its licence text ${text || '(none named)'} is missing`); continue; }
-      const textBuf = fs.readFileSync(abs(`${dir}/${text}`));
-      if (sha256(textBuf) !== recs[text].sha256) { out.problems.push(`${dir}/${text} is not the file its record holds (sha256)`); continue; }
+      if (!text || !recs[text]) { out.problems.push(`${where}: its licence text ${text || '(none named)'} has no record`); continue; }
       if (typeof rec.family !== 'string' || !/^[A-Za-z0-9 ]+$/.test(rec.family)) { out.problems.push(`${where}: its record has no family name`); continue; }
+      // a file not downloaded yet: named in `missing` (the build fails on it with the list), its record's expected
+      // metrics stand in for the line box until it is here, and nothing of it ships
+      const absent = [[f, rec], [text, recs[text]]].filter(([name]) => !fs.existsSync(abs(`${dir}/${name}`)));
+      if (absent.length) {
+        for (const [name, r] of absent) out.missing.push({ path: `${dir}/${name}`, download: r.download || r.upstream || null, bytes: r.bytes == null ? null : r.bytes, blob: r.upstream_git_blob || null });
+        const em = rec.metrics;
+        if (!em || !(em.unitsPerEm > 0) || !Number.isFinite(em.ascender) || !Number.isFinite(em.descender)) { out.problems.push(`${where} is not here and its record has no expected metrics (metrics: ascender, descender, unitsPerEm)`); continue; }
+        if (!out.metrics[rec.family]) {
+          out.metrics[rec.family] = { ascender: em.ascender, descender: em.descender, unitsPerEm: em.unitsPerEm, source: `${dir}/LICENCES.json (expected)` };
+          const own = ownLineHeight(em);
+          for (const r of byLine.get(rec.family) || []) {
+            if (r.lineHeight !== own) out.problems.push(`${where}: ${r.role} gives ${rec.family} the line height ${r.lineHeight}, not the record's expected ${own}`);
+          }
+        }
+        const ws = [...(byFamily.get(rec.family) || [])].sort((a, b) => a - b);
+        if (!families.includes(rec.family)) out.problems.push(`${where}: family ${rec.family} is not a font.family token (${families.join(', ')})`);
+        if (!ws.length) out.problems.push(`${where}: no type role (type.*) uses the family ${rec.family}`);
+        const ax = rec.axes && rec.axes.wght;
+        if (ax) for (const w of ws) if (w < ax[0] || w > ax[1]) out.problems.push(`${where}: a type role gives ${rec.family} the weight ${w}, outside its wght axis ${ax.join('..')}`);
+        continue;
+      }
+      const buf = fs.readFileSync(abs(where));
+      const textBuf = fs.readFileSync(abs(`${dir}/${text}`));
+      // the file is upstream's: by its sha256 when the record holds one, else by its git blob and size (what the
+      // GitHub API names before anything is downloaded)
+      const same = (b, r) => (r.sha256 ? sha256(b) === r.sha256 : r.upstream_git_blob === gitBlob(b) && (r.bytes == null || r.bytes === b.length));
+      if (!same(buf, rec)) { out.problems.push(`${where} is not the file its record holds (${rec.sha256 ? 'sha256' : 'git blob and size'}): a third-party font ships unmodified`); continue; }
+      if (!same(textBuf, recs[text])) { out.problems.push(`${dir}/${text} is not the file its record holds (${recs[text].sha256 ? 'sha256' : 'git blob and size'})`); continue; }
       if (!families.includes(rec.family)) out.problems.push(`${where}: family ${rec.family} is not a font.family token (${families.join(', ')})`);
       const weights = [...(byFamily.get(rec.family) || [])].sort((a, b) => a - b);
       if (!weights.length) out.problems.push(`${where}: no type role (type.*) uses the family ${rec.family}`);
@@ -190,7 +222,9 @@ function fontSet(root) {
       const m = faceMetrics(buf);
       if (!m || !(m.unitsPerEm > 0)) out.problems.push(`${where}: no vertical metrics (head, hhea, OS/2) to read`);
       else if (m.varies) out.problems.push(`${where}: its MVAR moves the ascender or descender per instance, so one line height cannot hold`);
-      else if (out.metrics[rec.family]) {
+      else if (rec.metrics && (rec.metrics.ascender !== m.ascender || rec.metrics.descender !== m.descender || rec.metrics.unitsPerEm !== m.unitsPerEm)) {
+        out.problems.push(`${where}: its own metrics (ascender ${m.ascender}, descender ${m.descender}, units per em ${m.unitsPerEm}) differ from its record's expected ones; set them in ${dir}/LICENCES.json and the family's font.line-height to ${ownLineHeight(m)}`);
+      } else if (out.metrics[rec.family]) {
         const o = out.metrics[rec.family];
         if (o.ascender !== m.ascender || o.descender !== m.descender || o.unitsPerEm !== m.unitsPerEm) out.problems.push(`${where}: its vertical metrics differ from ${o.source}'s, the same family`);
       } else {
@@ -203,12 +237,12 @@ function fontSet(root) {
       const dot = text.lastIndexOf('.');
       const textName = `${dot > 0 ? text.slice(0, dot) : text}-${rec.family.replace(/ /g, '')}${dot > 0 ? text.slice(dot) : ''}`;
       if (!ship(f, buf, where) || !ship(textName, textBuf, `${dir}/${text}`)) continue;
-      const fontRec = Object.assign({}, rec, { licence_text: textName, source: where });
-      const textRec = Object.assign({}, recs[text], { source: `${dir}/${text}` });
+      const fontRec = Object.assign({}, rec, { licence_text: textName, source: where, sha256: sha256(buf) });
+      const textRec = Object.assign({}, recs[text], { source: `${dir}/${text}`, sha256: sha256(textBuf) });
       for (const [name, r] of [[f, fontRec], [textName, textRec]]) {
         records.push(`  ${JSON.stringify(name)}: ${JSON.stringify(r, null, 0).replace(/":/g, '": ').replace(/,"/g, ', "')}`);
       }
-      out.assets.push({ path: `fonts/${f}`, kind: 'font', sha256: rec.sha256, licence: rec.licence, licence_file: 'fonts/LICENCES.json',
+      out.assets.push({ path: `fonts/${f}`, kind: 'font', sha256: sha256(buf), licence: rec.licence, licence_file: 'fonts/LICENCES.json',
         licence_text: `fonts/${textName}`, source: where, family: rec.family, axes: rec.axes, weights });
     }
   }
@@ -216,4 +250,4 @@ function fontSet(root) {
   return out;
 }
 
-module.exports = { fontSet, familyWeights, familyLineHeights, weightClass, faceMetrics, lineBoxPx, ownLineHeight, OUT };
+module.exports = { gitBlob, fontSet, familyWeights, familyLineHeights, weightClass, faceMetrics, lineBoxPx, ownLineHeight, OUT };

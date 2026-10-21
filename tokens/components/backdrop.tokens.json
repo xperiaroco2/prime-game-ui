@@ -1,9 +1,9 @@
 {
   "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
   "backdrop": {
-    "$description": "Full-screen backdrops behind menus and dialogs: the deep purple ground, see-through over the world or solid.",
+    "$description": "Full-screen grounds: the base see-through over the world behind menus and dialogs, solid on the full screens, the danger colour and the bands of the loud moments.",
     "dim": {
-      "$description": "The dim backdrop: the deep purple at 82 % over the world.",
+      "$description": "(agent) The base at 87 % over the world behind the suit menu: the target's .dim is 50 % over a dark ship; light and dim text keep 4.5:1 over a white world (the contrast gates).",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyBackdrop", "class": "Panel" },
@@ -15,7 +15,7 @@
       }
     },
     "deep": {
-      "$description": "The deeper backdrop: the deep purple at 86 % over the world.",
+      "$description": "(agent) The base at 90 % over the world behind a dialog.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyBackdropDeep", "class": "Panel" },
@@ -27,7 +27,7 @@
       }
     },
     "night": {
-      "$description": "The opaque night backdrop: the solid deep purple ground.",
+      "$description": "The solid base #1A1629: the ground of the full screens (loading, connecting).",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyBackdropNight", "class": "Panel" },
@@ -39,7 +39,7 @@
       }
     },
     "full-screen": {
-      "$description": "(agent, ui-1.3.0) The opaque ground of the full screens with a Kablammo title (the role reveal, the ends): the soft ink, where the titles' 6 px ink outline and the stickers' hard shadow show; on the deep purple of ToyBackdropNight they vanish (1.00:1).",
+      "$description": "The solid base: the ground of the loud full screens (the role reveal, the ends) under their band.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyBackdropFullScreen", "class": "Panel" },
@@ -48,6 +48,60 @@
       },
       "panel": {
         "bg-color": { "$type": "color", "$value": "{color.surface.full-screen}" }
+      }
+    },
+    "alert": {
+      "$description": "The cops' end: the whole screen in the danger colour (the target's cops ending); its text is ToyTextOnDanger and ToyTitleHeroAlert.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyBackdropAlert", "class": "Panel" },
+          "context": "dark"
+        }
+      },
+      "panel": {
+        "bg-color": { "$type": "color", "$value": "{color.status.alert}" }
+      }
+    },
+    "screen-edge-alert": {
+      "$description": "The cops' minute: a 12 px danger edge around the whole screen (the target's 8 px x 1.5), drawn over the HUD, its middle clear.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyScreenEdgeAlert", "class": "Panel" },
+          "context": "dark"
+        }
+      },
+      "panel": {
+        "bg-color": { "$type": "color", "$value": "{palette.clear}" },
+        "border-color": { "$type": "color", "$value": "{color.status.alert}" },
+        "border-width": { "$type": "dimension", "$value": "{stroke.screen}" }
+      }
+    },
+    "band": {
+      "$description": "A loud moment's band (the role reveal for an alien, the aliens' win): the accent across the whole width, 285 px tall in the screens (the target's 190 x 1.5), its title ToyTitleHero in the accent ink.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyBand", "class": "PanelContainer" },
+          "context": "dark"
+        }
+      },
+      "panel": {
+        "bg-color": { "$type": "color", "$value": "{palette.accent}" },
+        "content-margin-block": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 48, "unit": "px" } }
+      }
+    },
+    "band-alert": {
+      "$description": "The danger band (the role reveal for a human, the humans' and the cops' ends): as ToyBand in the danger colour, its title ToyTitleHeroAlert in the danger ink.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyBandAlert", "class": "PanelContainer" },
+          "context": "dark"
+        }
+      },
+      "panel": {
+        "bg-color": { "$type": "color", "$value": "{color.status.alert}" },
+        "content-margin-block": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 48, "unit": "px" } }
       }
     }
   }

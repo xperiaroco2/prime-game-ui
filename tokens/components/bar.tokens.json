@@ -3,7 +3,7 @@
   "bar": {
     "$description": "Bars: the HUD bars (since ui-1.3.0 one ProgressBar each, calm and alarm; the older track with a fill-only bar inside is deprecated), task progress, the slider track, the slider and the scroll bar.",
     "track": {
-      "$description": "The HUD bar track: white, a 5 px ink outline (the bar's length reads over a dark room and a white wall); its 5 px content margin, the outline's width, lays the 14 px fill flush inside the outline.",
+      "$description": "The HUD bar track until ui-1.2.0: the base with fully round ends since ui-2.0.0 (deprecated since ui-1.3.0).",
       "$deprecated": "The HUD bars are one ProgressBar each since ui-1.3.0 (ToyBarHealthCalm, ToyBarStaminaCalm): its own background is the track. Removed at the next major release.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
@@ -12,10 +12,8 @@
         }
       },
       "panel": {
-        "bg-color": { "$type": "color", "$value": "{palette.white}" },
-        "border-color": { "$type": "color", "$value": "{color.outline}" },
-        "border-width": { "$type": "dimension", "$value": "{stroke.thin}" },
-        "corner-radius": { "$type": "dimension", "$value": { "value": 15, "unit": "px" } },
+        "bg-color": { "$type": "color", "$value": "{color.status.track}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
         "content-margin": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } }
       },
       "size": {
@@ -24,44 +22,34 @@
       }
     },
     "stamina": {
-      "$description": "The stamina fill: the yellow, with a 5 px ink edge on its right side so its end reads on the white track.",
-      "$deprecated": "Use ToyBarStaminaCalm (and ToyBarStaminaAlarm under the alarm line) since ui-1.3.0. Removed at the next major release.",
+      "$description": "The stamina fill until ui-1.2.0: the light text colour with round ends since ui-2.0.0 (deprecated since ui-1.3.0).",
+      "$deprecated": "ui-1.3.0 (replaced by the …Calm bar, itself deprecated since ui-2.0.0: health and stamina are pips, ToyPip…). Removed at the next major release.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
-          "godot": { "variation": "ToyBarStamina", "class": "ProgressBar", "on": ["ToyBarTrack"], "replacement": "ToyBarStaminaCalm" },
+          "godot": { "variation": "ToyBarStamina", "class": "ProgressBar", "on": ["ToyBarTrack"] },
           "context": "dark"
         }
       },
       "fill": {
         "bg-color": { "$type": "color", "$value": "{color.status.stamina}" },
-        "border-color": { "$type": "color", "$value": "{color.outline}" },
-        "border-width-top": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
-        "border-width-right": { "$type": "dimension", "$value": "{stroke.thin}" },
-        "border-width-bottom": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
-        "border-width-left": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
-        "corner-radius": { "$type": "dimension", "$value": { "value": 9, "unit": "px" } },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
         "content-margin-block": { "$type": "dimension", "$value": { "value": 7, "unit": "px" } },
         "content-margin-left": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
         "content-margin-right": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } }
       }
     },
     "health": {
-      "$description": "The health fill: white, tinted by the nearest of 21 ramp stops (coral to green) at draw time, with a 5 px ink edge on its right side: the ramp does not reach 3:1 on the white track, the ink edge marks where the fill ends.",
-      "$deprecated": "Use ToyBarHealthCalm (and ToyBarHealthAlarm under the alarm line) since ui-1.3.0: the health fill is the plain alien green, no ramp. Removed at the next major release.",
+      "$description": "The health fill until ui-1.2.0: white, tinted by the nearest of 21 ramp stops (the danger colour to the accent) at draw time (deprecated since ui-1.3.0).",
+      "$deprecated": "ui-1.3.0 (replaced by the …Calm bar, itself deprecated since ui-2.0.0: health and stamina are pips, ToyPip…). Removed at the next major release.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
-          "godot": { "variation": "ToyBarHealth", "class": "ProgressBar", "on": ["ToyBarTrack"], "replacement": "ToyBarHealthCalm" },
+          "godot": { "variation": "ToyBarHealth", "class": "ProgressBar", "on": ["ToyBarTrack"] },
           "context": "dark"
         }
       },
       "fill": {
         "bg-color": { "$type": "color", "$value": "{palette.white}" },
-        "border-color": { "$type": "color", "$value": "{color.outline}" },
-        "border-width-top": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
-        "border-width-right": { "$type": "dimension", "$value": "{stroke.thin}" },
-        "border-width-bottom": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
-        "border-width-left": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
-        "corner-radius": { "$type": "dimension", "$value": { "value": 9, "unit": "px" } },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
         "content-margin-block": { "$type": "dimension", "$value": { "value": 7, "unit": "px" } },
         "content-margin-left": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
         "content-margin-right": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } }
@@ -73,7 +61,7 @@
       }
     },
     "progress": {
-      "$description": "Task progress on the HUD and on plates: a white track and a green fill, both with a 5 px ink outline (the fill draws over the track's full height, so its outline meets the track's; its right side is the fill's ink edge).",
+      "$description": "A thin progress bar (the raising bar under the crosshair, loading): the base track, the accent fill, fully round ends, no outline.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyBarProgress", "class": "ProgressBar" },
@@ -81,22 +69,18 @@
         }
       },
       "background": {
-        "bg-color": { "$type": "color", "$value": "{palette.white}" },
-        "border-color": { "$type": "color", "$value": "{color.outline}" },
-        "border-width": { "$type": "dimension", "$value": "{stroke.thin}" },
+        "bg-color": { "$type": "color", "$value": "{color.status.track}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
-        "content-margin-block": { "$type": "dimension", "$value": { "value": 12, "unit": "px" } },
-        "content-margin-inline": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } }
+        "content-margin-block": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } },
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } }
       },
       "fill": {
         "bg-color": { "$type": "color", "$value": "{color.status.progress}" },
-        "border-color": { "$type": "color", "$value": "{color.outline}" },
-        "border-width": { "$type": "dimension", "$value": "{stroke.thin}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" }
       }
     },
     "slider": {
-      "$description": "Progress in panels: a white track and a green fill, both with a 5 px ink outline, as ToyBarProgress.",
+      "$description": "A setting's bar beside its slider: the base track and the accent fill, fully round ends.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyBarSlider", "class": "ProgressBar" },
@@ -104,22 +88,18 @@
         }
       },
       "background": {
-        "bg-color": { "$type": "color", "$value": "{palette.white}" },
-        "border-color": { "$type": "color", "$value": "{color.outline}" },
-        "border-width": { "$type": "dimension", "$value": "{stroke.thin}" },
+        "bg-color": { "$type": "color", "$value": "{color.status.track}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
-        "content-margin-block": { "$type": "dimension", "$value": { "value": 12, "unit": "px" } },
-        "content-margin-inline": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } }
+        "content-margin-block": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } },
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } }
       },
       "fill": {
         "bg-color": { "$type": "color", "$value": "{color.status.progress}" },
-        "border-color": { "$type": "color", "$value": "{color.outline}" },
-        "border-width": { "$type": "dimension", "$value": "{stroke.thin}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" }
       }
     },
     "label": {
-      "$description": "The small plate behind a HUD bar caption (its text is ToyHudCaption).",
+      "$description": "A bar's caption plate: a small module tile with no edge.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyBarLabel", "class": "PanelContainer" },
@@ -134,7 +114,7 @@
       }
     },
     "slider-control": {
-      "$description": "The panel slider (volumes, voice threshold): a white track and a green fill, both with a 5 px ink outline, a 42 px mint knob texture (slider-knob.svg; slider-knob-disabled.svg when not editable), an outer focus ring.",
+      "$description": "A setting slider (the target's .sld): a 12 px base track with 6 px corners, the accent fill to the knob, the knob a 21 x 33 light tile (icons/slider-knob.svg, its own colours); focus an accent ring 3 px outside (the game draws it: Godot's Slider has no focus StyleBox).",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": {
@@ -150,46 +130,29 @@
         }
       },
       "slider": {
-        "$description": "The track, drawn as tall as its content margins (16 px) across the slider, centred on the knob; its ink outline sits 5 px outside the slider's ends, so the fill's left end meets it.",
-        "bg-color": { "$type": "color", "$value": "{palette.white}" },
-        "border-color": { "$type": "color", "$value": "{color.outline}" },
-        "border-width": { "$type": "dimension", "$value": "{stroke.thin}" },
-        "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
-        "content-margin-block": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } },
-        "content-margin-inline": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
-        "expand-margin-inline": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } }
+        "bg-color": { "$type": "color", "$value": "{color.status.track}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.small}" },
+        "content-margin-block": { "$type": "dimension", "$value": { "value": 6, "unit": "px" } },
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } }
       },
       "grabber-area": {
-        "$description": "The green fill from the start to the knob's centre, as tall as the track, its ink outline over the track's.",
         "bg-color": { "$type": "color", "$value": "{color.status.progress}" },
-        "border-color": { "$type": "color", "$value": "{color.outline}" },
-        "border-width-top": { "$type": "dimension", "$value": "{stroke.thin}" },
-        "border-width-right": { "$type": "dimension", "$value": "{stroke.thin}" },
-        "border-width-bottom": { "$type": "dimension", "$value": "{stroke.thin}" },
-        "border-width-left": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
-        "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" }
+        "corner-radius": { "$type": "dimension", "$value": "{radius.small}" }
       },
       "grabber-area-highlight": {
-        "$description": "Hovered or focused: as the fill (the knob and the focus ring show it).",
         "bg-color": { "$type": "color", "$value": "{color.status.progress}" },
-        "border-color": { "$type": "color", "$value": "{color.outline}" },
-        "border-width-top": { "$type": "dimension", "$value": "{stroke.thin}" },
-        "border-width-right": { "$type": "dimension", "$value": "{stroke.thin}" },
-        "border-width-bottom": { "$type": "dimension", "$value": "{stroke.thin}" },
-        "border-width-left": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
-        "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" }
+        "corner-radius": { "$type": "dimension", "$value": "{radius.small}" }
       },
       "focus": {
-        "$description": "Outer focus as the chips': a mint pill ring (it sits on purple) of the focus width, the focus gap outside the slider. Godot's Slider draws no focus StyleBox: the game draws this one while the slider has visible focus.",
         "bg-color": { "$type": "color", "$value": "{palette.clear}" },
-        "border-color": { "$type": "color", "$value": "{palette.mint}" },
+        "border-color": { "$type": "color", "$value": "{color.focus}" },
         "border-width": { "$type": "dimension", "$value": "{focus.width}" },
-        "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
-        "expand-margin": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } }
+        "corner-radius": { "$type": "dimension", "$value": { "value": 12, "unit": "px" } },
+        "expand-margin": { "$type": "dimension", "$value": { "value": 6, "unit": "px" } }
       }
     },
     "scroll": {
-      "$description": "A vertical scroll bar in panels (a ScrollContainer's bar): a 16 px white track pill and an ink grabber pill.",
+      "$description": "A list's scroll bar: the base track and a dim grabber, light while hovered or held.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyScrollBar", "class": "VScrollBar" },
@@ -197,30 +160,26 @@
         }
       },
       "scroll": {
-        "$description": "The track: its inline content margins make the bar 16 px wide.",
-        "bg-color": { "$type": "color", "$value": "{palette.white}" },
+        "bg-color": { "$type": "color", "$value": "{color.status.track}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
         "content-margin-block": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
         "content-margin-inline": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } }
       },
       "grabber": {
-        "$description": "The grabber, the bar's full width; its length is the visible part of the content.",
-        "bg-color": { "$type": "color", "$value": "{color.outline}" },
+        "bg-color": { "$type": "color", "$value": "{color.on-light.text-muted}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" }
       },
       "grabber-highlight": {
-        "$description": "Hovered: as the grabber.",
-        "bg-color": { "$type": "color", "$value": "{color.outline}" },
+        "bg-color": { "$type": "color", "$value": "{color.on-light.text}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" }
       },
       "grabber-pressed": {
-        "$description": "Dragged: as the grabber.",
-        "bg-color": { "$type": "color", "$value": "{color.outline}" },
+        "bg-color": { "$type": "color", "$value": "{color.on-light.text}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" }
       }
     },
     "anger-track": {
-      "$description": "The neighbours' anger meter's track (meter A, the engineer, 2026-10-20): white, a 5 px ink outline, pill ends, 225 x 30 px (the sketch's 150 x 20 x 1.5), centred under the round timer; its 5 px content margin lays the fill flush inside the outline. The siren hangs off its right end, 9 px after it: a TextureRect of the pack icons siren-off (calm) and siren-on (rising and full), 57 px.",
+      "$description": "The anger meter's track until ui-1.2.0: the base with round ends since ui-2.0.0 (deprecated since ui-1.3.0).",
       "$deprecated": "The anger meter is one ProgressBar since ui-1.3.0 (ToyBarAngerCalm): its own background is the track. Removed at the next major release.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
@@ -229,9 +188,7 @@
         }
       },
       "panel": {
-        "bg-color": { "$type": "color", "$value": "{palette.white}" },
-        "border-color": { "$type": "color", "$value": "{color.outline}" },
-        "border-width": { "$type": "dimension", "$value": "{stroke.thin}" },
+        "bg-color": { "$type": "color", "$value": "{color.status.track}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
         "content-margin": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } }
       },
@@ -242,29 +199,29 @@
       }
     },
     "anger": {
-      "$description": "The anger fill: the coral, with a 5 px ink edge on its right side so its end reads on the white track (at 100 % the edge meets the track's outline).",
+      "$description": "The anger fill until ui-1.2.0: the danger colour with round ends since ui-2.0.0 (deprecated since ui-1.3.0).",
       "$deprecated": "Use ToyBarAngerCalm (and ToyBarAngerAlarm over the alarm line) since ui-1.3.0. Removed at the next major release.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
-          "godot": { "variation": "ToyBarAnger", "class": "ProgressBar", "on": ["ToyBarAngerTrack"], "replacement": "ToyBarAngerCalm" },
+          "godot": {
+            "variation": "ToyBarAnger",
+            "class": "ProgressBar",
+            "on": ["ToyBarAngerTrack"],
+            "replacement": "ToyBarAngerCalm"
+          },
           "context": "dark"
         }
       },
       "fill": {
         "bg-color": { "$type": "color", "$value": "{color.status.alert}" },
-        "border-color": { "$type": "color", "$value": "{color.outline}" },
-        "border-width-top": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
-        "border-width-right": { "$type": "dimension", "$value": "{stroke.thin}" },
-        "border-width-bottom": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
-        "border-width-left": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
-        "corner-radius": { "$type": "dimension", "$value": { "value": 10, "unit": "px" } },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
         "content-margin-block": { "$type": "dimension", "$value": { "value": 10, "unit": "px" } },
         "content-margin-left": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
         "content-margin-right": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } }
       }
     },
     "anger-calm": {
-      "$description": "The neighbours' anger meter (meter A, centred under the round timer; the siren hangs 9 px off its right end as before), calm (ui-1.3.0, the engineer's way 3 of 2026-10-21): a plain sticker bar, one ProgressBar: the white track (background) with a 5 px ink outline and pill ends; the coral fill with the same outline and ends, drawn over the track's full height so the ink lines meet. No glow until the alarm line (ToyBarAngerAlarm). 225 x 30 px, as ToyBarAngerTrack.",
+      "$description": "The neighbours' anger while calm (the target's meter A): a 240 x 16 base track with fully round ends and a muted grey fill, so the round stays quiet.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyBarAngerCalm", "class": "ProgressBar" },
@@ -272,27 +229,22 @@
         }
       },
       "background": {
-        "bg-color": { "$type": "color", "$value": "{palette.white}" },
-        "border-color": { "$type": "color", "$value": "{color.outline}" },
-        "border-width": { "$type": "dimension", "$value": "{stroke.thin}" },
+        "bg-color": { "$type": "color", "$value": "{color.status.track}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
-        "content-margin-block": { "$type": "dimension", "$value": { "value": 15, "unit": "px" } },
-        "content-margin-inline": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } }
+        "content-margin-block": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } },
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } }
       },
       "fill": {
-        "bg-color": { "$type": "color", "$value": "{color.status.alert}" },
-        "border-color": { "$type": "color", "$value": "{color.outline}" },
-        "border-width": { "$type": "dimension", "$value": "{stroke.thin}" },
+        "bg-color": { "$type": "color", "$value": "{color.status.calm}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" }
       },
       "size": {
-        "$type": "dimension",
-        "width": { "$value": { "value": 225, "unit": "px" } },
-        "height": { "$value": { "value": 30, "unit": "px" } }
+        "width": { "$type": "dimension", "$value": { "value": 240, "unit": "px" } },
+        "height": { "$type": "dimension", "$value": { "value": 16, "unit": "px" } }
       }
     },
     "anger-alarm": {
-      "$description": "The neighbours' anger meter (meter A, centred under the round timer; the siren hangs 9 px off its right end as before) past its alarm line (over 70 %; the line is the game's): as ToyBarAngerCalm, and the track's StyleBoxFlat shadow glows in the bar's own coral (glow.alarm, offset 0, alpha 1), so the light is as wide as the bar however short the fill (the engineer's way 3, 2026-10-21). The game swaps to this variation at the line and back below it, and pulses the light: a tween of the background StyleBox's shadow_color alpha from 1 to 0.25 and back, 0.9 s each way (TRANS_SINE, EASE_IN_OUT), none under reduced motion (the light then stays at alpha 1).",
+      "$description": "The neighbours' anger past its alarm line (over 70 %): the same bar, its fill in the danger colour; calm everywhere but the loud moments, so no light and no pulse. The game swaps ToyBarAngerCalm and this at the line and turns the siren danger too.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyBarAngerAlarm", "class": "ProgressBar" },
@@ -300,29 +252,23 @@
         }
       },
       "background": {
-        "bg-color": { "$type": "color", "$value": "{palette.white}" },
-        "border-color": { "$type": "color", "$value": "{color.outline}" },
-        "border-width": { "$type": "dimension", "$value": "{stroke.thin}" },
+        "bg-color": { "$type": "color", "$value": "{color.status.track}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
-        "content-margin-block": { "$type": "dimension", "$value": { "value": 15, "unit": "px" } },
-        "content-margin-inline": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } },
-        "shadow-color": { "$type": "color", "$value": "{color.status.alert}" },
-        "shadow-size": { "$type": "dimension", "$value": "{glow.alarm}" }
+        "content-margin-block": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } },
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } }
       },
       "fill": {
         "bg-color": { "$type": "color", "$value": "{color.status.alert}" },
-        "border-color": { "$type": "color", "$value": "{color.outline}" },
-        "border-width": { "$type": "dimension", "$value": "{stroke.thin}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" }
       },
       "size": {
-        "$type": "dimension",
-        "width": { "$value": { "value": 225, "unit": "px" } },
-        "height": { "$value": { "value": 30, "unit": "px" } }
+        "width": { "$type": "dimension", "$value": { "value": 240, "unit": "px" } },
+        "height": { "$type": "dimension", "$value": { "value": 16, "unit": "px" } }
       }
     },
     "health-calm": {
-      "$description": "The health bar (the HUD vitals, the downed plate), calm (ui-1.3.0, the engineer's way 3 of 2026-10-21): a plain sticker bar, one ProgressBar: the white track (background) with a 5 px ink outline and pill ends; the alien green fill with the same outline and ends, drawn over the track's full height so the ink lines meet. No glow until the alarm line (ToyBarHealthAlarm). 24 px tall, as ToyBarTrack; the screen gives the width.",
+      "$description": "Health as one bar (ui-1.3.0 to 1.4.0): the base track and the accent fill. Health and stamina are segmented pips since ui-2.0.0 (ToyPip, ToyPipHealth, ToyPipStamina, ToyPipAlarm), which a ProgressBar cannot draw.",
+      "$deprecated": "ui-2.0.0: health and stamina are ten segmented pips (ToyPip, ToyPipHealth, ToyPipStamina, ToyPipAlarm in a ToyRowFour); removed at the next major release.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyBarHealthCalm", "class": "ProgressBar" },
@@ -330,26 +276,22 @@
         }
       },
       "background": {
-        "bg-color": { "$type": "color", "$value": "{palette.white}" },
-        "border-color": { "$type": "color", "$value": "{color.outline}" },
-        "border-width": { "$type": "dimension", "$value": "{stroke.thin}" },
+        "bg-color": { "$type": "color", "$value": "{color.status.track}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
-        "content-margin-block": { "$type": "dimension", "$value": { "value": 12, "unit": "px" } },
-        "content-margin-inline": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } }
+        "content-margin-block": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } },
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } }
       },
       "fill": {
         "bg-color": { "$type": "color", "$value": "{color.status.health-full}" },
-        "border-color": { "$type": "color", "$value": "{color.outline}" },
-        "border-width": { "$type": "dimension", "$value": "{stroke.thin}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" }
       },
       "size": {
-        "$type": "dimension",
-        "height": { "$value": { "value": 24, "unit": "px" } }
+        "height": { "$type": "dimension", "$value": { "value": 16, "unit": "px" } }
       }
     },
     "health-alarm": {
-      "$description": "The health bar (the HUD vitals, the downed plate) past its alarm line (under 30 %; the line is the game's): as ToyBarHealthCalm, and the track's StyleBoxFlat shadow glows in the bar's own alien green (glow.alarm, offset 0, alpha 1), so the light is as wide as the bar however short the fill (the engineer's way 3, 2026-10-21). The game swaps to this variation at the line and back below it, and pulses the light: a tween of the background StyleBox's shadow_color alpha from 1 to 0.25 and back, 0.9 s each way (TRANS_SINE, EASE_IN_OUT), none under reduced motion (the light then stays at alpha 1).",
+      "$description": "Health as one bar (ui-1.3.0 to 1.4.0): the base track and the danger fill. Health and stamina are segmented pips since ui-2.0.0 (ToyPip, ToyPipHealth, ToyPipStamina, ToyPipAlarm), which a ProgressBar cannot draw.",
+      "$deprecated": "ui-2.0.0: health and stamina are ten segmented pips (ToyPip, ToyPipHealth, ToyPipStamina, ToyPipAlarm in a ToyRowFour); removed at the next major release.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyBarHealthAlarm", "class": "ProgressBar" },
@@ -357,28 +299,22 @@
         }
       },
       "background": {
-        "bg-color": { "$type": "color", "$value": "{palette.white}" },
-        "border-color": { "$type": "color", "$value": "{color.outline}" },
-        "border-width": { "$type": "dimension", "$value": "{stroke.thin}" },
+        "bg-color": { "$type": "color", "$value": "{color.status.track}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
-        "content-margin-block": { "$type": "dimension", "$value": { "value": 12, "unit": "px" } },
-        "content-margin-inline": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } },
-        "shadow-color": { "$type": "color", "$value": "{color.status.health-full}" },
-        "shadow-size": { "$type": "dimension", "$value": "{glow.alarm}" }
+        "content-margin-block": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } },
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } }
       },
       "fill": {
-        "bg-color": { "$type": "color", "$value": "{color.status.health-full}" },
-        "border-color": { "$type": "color", "$value": "{color.outline}" },
-        "border-width": { "$type": "dimension", "$value": "{stroke.thin}" },
+        "bg-color": { "$type": "color", "$value": "{color.status.alert}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" }
       },
       "size": {
-        "$type": "dimension",
-        "height": { "$value": { "value": 24, "unit": "px" } }
+        "height": { "$type": "dimension", "$value": { "value": 16, "unit": "px" } }
       }
     },
     "stamina-calm": {
-      "$description": "The stamina bar (the HUD vitals), calm (ui-1.3.0, the engineer's way 3 of 2026-10-21): a plain sticker bar, one ProgressBar: the white track (background) with a 5 px ink outline and pill ends; the yellow fill with the same outline and ends, drawn over the track's full height so the ink lines meet. No glow until the alarm line (ToyBarStaminaAlarm). 24 px tall, as ToyBarTrack; the screen gives the width.",
+      "$description": "Stamina as one bar (ui-1.3.0 to 1.4.0): the base track and the light text colour fill. Health and stamina are segmented pips since ui-2.0.0 (ToyPip, ToyPipHealth, ToyPipStamina, ToyPipAlarm), which a ProgressBar cannot draw.",
+      "$deprecated": "ui-2.0.0: health and stamina are ten segmented pips (ToyPip, ToyPipHealth, ToyPipStamina, ToyPipAlarm in a ToyRowFour); removed at the next major release.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyBarStaminaCalm", "class": "ProgressBar" },
@@ -386,26 +322,22 @@
         }
       },
       "background": {
-        "bg-color": { "$type": "color", "$value": "{palette.white}" },
-        "border-color": { "$type": "color", "$value": "{color.outline}" },
-        "border-width": { "$type": "dimension", "$value": "{stroke.thin}" },
+        "bg-color": { "$type": "color", "$value": "{color.status.track}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
-        "content-margin-block": { "$type": "dimension", "$value": { "value": 12, "unit": "px" } },
-        "content-margin-inline": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } }
+        "content-margin-block": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } },
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } }
       },
       "fill": {
         "bg-color": { "$type": "color", "$value": "{color.status.stamina}" },
-        "border-color": { "$type": "color", "$value": "{color.outline}" },
-        "border-width": { "$type": "dimension", "$value": "{stroke.thin}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" }
       },
       "size": {
-        "$type": "dimension",
-        "height": { "$value": { "value": 24, "unit": "px" } }
+        "height": { "$type": "dimension", "$value": { "value": 16, "unit": "px" } }
       }
     },
     "stamina-alarm": {
-      "$description": "The stamina bar (the HUD vitals) past its alarm line (under 30 %; the line is the game's): as ToyBarStaminaCalm, and the track's StyleBoxFlat shadow glows in the bar's own yellow (glow.alarm, offset 0, alpha 1), so the light is as wide as the bar however short the fill (the engineer's way 3, 2026-10-21). The game swaps to this variation at the line and back below it, and pulses the light: a tween of the background StyleBox's shadow_color alpha from 1 to 0.25 and back, 0.9 s each way (TRANS_SINE, EASE_IN_OUT), none under reduced motion (the light then stays at alpha 1).",
+      "$description": "Stamina as one bar (ui-1.3.0 to 1.4.0): the base track and the danger fill. Health and stamina are segmented pips since ui-2.0.0 (ToyPip, ToyPipHealth, ToyPipStamina, ToyPipAlarm), which a ProgressBar cannot draw.",
+      "$deprecated": "ui-2.0.0: health and stamina are ten segmented pips (ToyPip, ToyPipHealth, ToyPipStamina, ToyPipAlarm in a ToyRowFour); removed at the next major release.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyBarStaminaAlarm", "class": "ProgressBar" },
@@ -413,28 +345,21 @@
         }
       },
       "background": {
-        "bg-color": { "$type": "color", "$value": "{palette.white}" },
-        "border-color": { "$type": "color", "$value": "{color.outline}" },
-        "border-width": { "$type": "dimension", "$value": "{stroke.thin}" },
+        "bg-color": { "$type": "color", "$value": "{color.status.track}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
-        "content-margin-block": { "$type": "dimension", "$value": { "value": 12, "unit": "px" } },
-        "content-margin-inline": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } },
-        "shadow-color": { "$type": "color", "$value": "{color.status.stamina}" },
-        "shadow-size": { "$type": "dimension", "$value": "{glow.alarm}" }
+        "content-margin-block": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } },
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } }
       },
       "fill": {
-        "bg-color": { "$type": "color", "$value": "{color.status.stamina}" },
-        "border-color": { "$type": "color", "$value": "{color.outline}" },
-        "border-width": { "$type": "dimension", "$value": "{stroke.thin}" },
+        "bg-color": { "$type": "color", "$value": "{color.status.alert}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" }
       },
       "size": {
-        "$type": "dimension",
-        "height": { "$value": { "value": 24, "unit": "px" } }
+        "height": { "$type": "dimension", "$value": { "value": 16, "unit": "px" } }
       }
     },
     "return-calm": {
-      "$description": "The dead's room return bar (on the countdown plate), calm (ui-1.3.0, the engineer's way 3 of 2026-10-21): a plain sticker bar, one ProgressBar: the white track (background) with a 5 px ink outline and pill ends; the alien green fill with the same outline and ends, drawn over the track's full height so the ink lines meet. No glow until the alarm line (ToyBarReturnAlarm). 24 px tall, as ToyBarTrack; the screen gives the width.",
+      "$description": "The dead's room return: the base track and the accent fill, 16 px tall, the screen giving the width.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyBarReturnCalm", "class": "ProgressBar" },
@@ -442,26 +367,21 @@
         }
       },
       "background": {
-        "bg-color": { "$type": "color", "$value": "{palette.white}" },
-        "border-color": { "$type": "color", "$value": "{color.outline}" },
-        "border-width": { "$type": "dimension", "$value": "{stroke.thin}" },
+        "bg-color": { "$type": "color", "$value": "{color.status.track}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
-        "content-margin-block": { "$type": "dimension", "$value": { "value": 12, "unit": "px" } },
-        "content-margin-inline": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } }
+        "content-margin-block": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } },
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } }
       },
       "fill": {
         "bg-color": { "$type": "color", "$value": "{color.status.progress}" },
-        "border-color": { "$type": "color", "$value": "{color.outline}" },
-        "border-width": { "$type": "dimension", "$value": "{stroke.thin}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" }
       },
       "size": {
-        "$type": "dimension",
-        "height": { "$value": { "value": 24, "unit": "px" } }
+        "height": { "$type": "dimension", "$value": { "value": 16, "unit": "px" } }
       }
     },
     "return-alarm": {
-      "$description": "The dead's room return bar (on the countdown plate) past its alarm line (its last 5 s; the line is the game's): as ToyBarReturnCalm, and the track's StyleBoxFlat shadow glows in the bar's own alien green (glow.alarm, offset 0, alpha 1), so the light is as wide as the bar however short the fill (the engineer's way 3, 2026-10-21). The game swaps to this variation at the line and back below it, and pulses the light: a tween of the background StyleBox's shadow_color alpha from 1 to 0.25 and back, 0.9 s each way (TRANS_SINE, EASE_IN_OUT), none under reduced motion (the light then stays at alpha 1).",
+      "$description": "The dead's room return in its last 5 s: the fill in the danger colour.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyBarReturnAlarm", "class": "ProgressBar" },
@@ -469,24 +389,85 @@
         }
       },
       "background": {
-        "bg-color": { "$type": "color", "$value": "{palette.white}" },
-        "border-color": { "$type": "color", "$value": "{color.outline}" },
-        "border-width": { "$type": "dimension", "$value": "{stroke.thin}" },
+        "bg-color": { "$type": "color", "$value": "{color.status.track}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
-        "content-margin-block": { "$type": "dimension", "$value": { "value": 12, "unit": "px" } },
-        "content-margin-inline": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } },
-        "shadow-color": { "$type": "color", "$value": "{color.status.progress}" },
-        "shadow-size": { "$type": "dimension", "$value": "{glow.alarm}" }
+        "content-margin-block": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } },
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } }
       },
       "fill": {
-        "bg-color": { "$type": "color", "$value": "{color.status.progress}" },
-        "border-color": { "$type": "color", "$value": "{color.outline}" },
-        "border-width": { "$type": "dimension", "$value": "{stroke.thin}" },
+        "bg-color": { "$type": "color", "$value": "{color.status.alert}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" }
       },
       "size": {
-        "$type": "dimension",
-        "height": { "$value": { "value": 24, "unit": "px" } }
+        "height": { "$type": "dimension", "$value": { "value": 16, "unit": "px" } }
+      }
+    },
+    "pip": {
+      "$description": "An empty pip of the suit's health or stamina (the engineer's segmented pips, 2026-10-21): a 23 x 15 base tile with 5 px corners (the target's 15 x 10 and 3 px x 1.5). Ten pips in a ToyRowFour make a meter; the game sets each pip's variation from the value (round(value x 10) full pips).",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyPip", "class": "Panel" },
+          "context": "dark"
+        }
+      },
+      "panel": {
+        "bg-color": { "$type": "color", "$value": "{color.status.track}" },
+        "corner-radius": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } }
+      },
+      "size": {
+        "width": { "$type": "dimension", "$value": { "value": 23, "unit": "px" } },
+        "height": { "$type": "dimension", "$value": { "value": 15, "unit": "px" } }
+      }
+    },
+    "pip-health": {
+      "$description": "A full health pip: the accent.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyPipHealth", "class": "Panel" },
+          "context": "dark"
+        }
+      },
+      "panel": {
+        "bg-color": { "$type": "color", "$value": "{color.status.health-full}" },
+        "corner-radius": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } }
+      },
+      "size": {
+        "width": { "$type": "dimension", "$value": { "value": 23, "unit": "px" } },
+        "height": { "$type": "dimension", "$value": { "value": 15, "unit": "px" } }
+      }
+    },
+    "pip-stamina": {
+      "$description": "A full stamina pip: the light text colour, so the two meters differ by colour and by their label.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyPipStamina", "class": "Panel" },
+          "context": "dark"
+        }
+      },
+      "panel": {
+        "bg-color": { "$type": "color", "$value": "{color.status.stamina}" },
+        "corner-radius": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } }
+      },
+      "size": {
+        "width": { "$type": "dimension", "$value": { "value": 23, "unit": "px" } },
+        "height": { "$type": "dimension", "$value": { "value": 15, "unit": "px" } }
+      }
+    },
+    "pip-alarm": {
+      "$description": "A full pip under the alarm line (health under 30 %): the danger colour; the meter's label turns danger too (ToyTextAlertOnLight).",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyPipAlarm", "class": "Panel" },
+          "context": "dark"
+        }
+      },
+      "panel": {
+        "bg-color": { "$type": "color", "$value": "{color.status.alert}" },
+        "corner-radius": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } }
+      },
+      "size": {
+        "width": { "$type": "dimension", "$value": { "value": 23, "unit": "px" } },
+        "height": { "$type": "dimension", "$value": { "value": 15, "unit": "px" } }
       }
     }
   }

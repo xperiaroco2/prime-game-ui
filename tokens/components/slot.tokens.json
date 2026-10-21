@@ -1,9 +1,9 @@
 {
   "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
   "slot": {
-    "$description": "Hand and belt slots (HUD, not focusable): mint stickers as the HUD plates, ink labels.",
+    "$description": "The hand and belt (the target's slots): module tiles with the item's line picture and its name inside; the hand in use has a 3 px accent outline.",
     "idle": {
-      "$description": "An idle slot: the mint sticker, 6 px ink outline. The hard shadow is the edge form: the right and bottom outlines are 14 px (6 + 8) and reach 8 px outside the slot, as no base layer sits under a slot in the game.",
+      "$description": "An item slot: the plain tile.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToySlot", "class": "PanelContainer" },
@@ -11,16 +11,11 @@
         }
       },
       "panel": {
-        "bg-color": { "$type": "color", "$value": "{palette.mint}" },
+        "bg-color": { "$type": "color", "$value": "{color.surface.plate}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
-        "border-width-top": { "$type": "dimension", "$value": "{stroke.control}" },
-        "border-width-right": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } },
-        "border-width-bottom": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } },
-        "border-width-left": { "$type": "dimension", "$value": "{stroke.control}" },
-        "corner-radius": { "$type": "dimension", "$value": "{radius.large}" },
-        "content-margin": { "$type": "dimension", "$value": { "value": 9, "unit": "px" } },
-        "expand-margin-right": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } },
-        "expand-margin-bottom": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } }
+        "border-width": { "$type": "dimension", "$value": "{stroke.surface}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.surface}" },
+        "content-margin": { "$type": "dimension", "$value": { "value": 9, "unit": "px" } }
       },
       "size": {
         "$type": "dimension",
@@ -30,7 +25,7 @@
       }
     },
     "active": {
-      "$description": "The active slot: the green (selected) sticker, the same ink outline and edge-form shadow as the idle slot.",
+      "$description": "The active slot: the tile with a 3 px accent outline.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToySlotActive", "class": "PanelContainer" },
@@ -38,16 +33,11 @@
         }
       },
       "panel": {
-        "bg-color": { "$type": "color", "$value": "{palette.green}" },
-        "border-color": { "$type": "color", "$value": "{color.outline}" },
-        "border-width-top": { "$type": "dimension", "$value": "{stroke.control}" },
-        "border-width-right": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } },
-        "border-width-bottom": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } },
-        "border-width-left": { "$type": "dimension", "$value": "{stroke.control}" },
-        "corner-radius": { "$type": "dimension", "$value": "{radius.large}" },
-        "content-margin": { "$type": "dimension", "$value": { "value": 11, "unit": "px" } },
-        "expand-margin-right": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } },
-        "expand-margin-bottom": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } }
+        "bg-color": { "$type": "color", "$value": "{color.surface.plate}" },
+        "border-color": { "$type": "color", "$value": "{palette.accent}" },
+        "border-width": { "$type": "dimension", "$value": "{stroke.selected}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.surface}" },
+        "content-margin": { "$type": "dimension", "$value": { "value": 11, "unit": "px" } }
       },
       "size": {
         "$type": "dimension",
@@ -57,7 +47,7 @@
       }
     },
     "text": {
-      "$description": "The name in a filled slot: ink (also the item icon's tint).",
+      "$description": "An item's name in a slot: light.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToySlotText", "class": "Label", "on": ["ToySlot", "ToySlotActive"] },
@@ -66,11 +56,11 @@
       },
       "label": { "$type": "typography", "$value": "{type.caption}" },
       "normal": {
-        "font-color": { "$type": "color", "$value": "{color.on-accent.text}" }
+        "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
       }
     },
     "text-empty": {
-      "$description": "The dim word in an empty slot: the soft ink.",
+      "$description": "An empty slot's word: dim.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToySlotTextEmpty", "class": "Label", "on": ["ToySlot", "ToySlotActive"] },
@@ -79,11 +69,11 @@
       },
       "label": { "$type": "typography", "$value": "{type.caption}" },
       "normal": {
-        "font-color": { "$type": "color", "$value": "{color.on-accent.text-muted}" }
+        "font-color": { "$type": "color", "$value": "{color.on-light.text-muted}" }
       }
     },
     "hand": {
-      "$description": "The hand slot of item bar A (the engineer, 2026-10-20): the green (selected) sticker, bigger than the belt, 150 px (100 x 1.5); the item's picture is a TextureRect of its pack icon (item-*, or slot-empty-hand when empty), 111 px; its name tag is ToySlotTag over the bottom edge. The hard shadow is the edge form: the right and bottom outlines are 14 px (6 + 8) and reach 8 px outside, as no base layer sits under it in the game.",
+      "$description": "The hand (the target's .sl.on): a 117 x 132 module tile (78 x 88 x 1.5) with a 3 px accent outline; the item's line picture tinted the accent, its name inside at the bottom.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToySlotHand", "class": "PanelContainer" },
@@ -91,25 +81,19 @@
         }
       },
       "panel": {
-        "bg-color": { "$type": "color", "$value": "{palette.green}" },
-        "border-color": { "$type": "color", "$value": "{color.outline}" },
-        "border-width-top": { "$type": "dimension", "$value": "{stroke.surface}" },
-        "border-width-right": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } },
-        "border-width-bottom": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } },
-        "border-width-left": { "$type": "dimension", "$value": "{stroke.surface}" },
-        "corner-radius": { "$type": "dimension", "$value": "{radius.large}" },
-        "content-margin": { "$type": "dimension", "$value": { "value": 19, "unit": "px" } },
-        "expand-margin-right": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } },
-        "expand-margin-bottom": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } }
+        "bg-color": { "$type": "color", "$value": "{color.surface.plate}" },
+        "border-color": { "$type": "color", "$value": "{palette.accent}" },
+        "border-width": { "$type": "dimension", "$value": "{stroke.selected}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.surface}" },
+        "content-margin": { "$type": "dimension", "$value": { "value": 19, "unit": "px" } }
       },
       "size": {
-        "$type": "dimension",
-        "width": { "$value": { "value": 150, "unit": "px" } },
-        "height": { "$value": { "value": 150, "unit": "px" } }
+        "width": { "$type": "dimension", "$value": { "value": 117, "unit": "px" } },
+        "height": { "$type": "dimension", "$value": { "value": 132, "unit": "px" } }
       }
     },
     "belt": {
-      "$description": "The belt slot of item bar A: the mint sticker, 126 px (84 x 1.5), 16 px left of the hand slot (the sketch's gap; a ToyRowSixteen) with their bottoms aligned; the picture a 90 px TextureRect (item-*, or slot-empty-belt). The hard shadow is the edge form: the right and bottom outlines are 14 px (6 + 8) and reach 8 px outside, as no base layer sits under it in the game.",
+      "$description": "The belt: a 117 x 132 module tile with the 2 px edge; the picture and the name light.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToySlotBelt", "class": "PanelContainer" },
@@ -117,25 +101,19 @@
         }
       },
       "panel": {
-        "bg-color": { "$type": "color", "$value": "{palette.mint}" },
+        "bg-color": { "$type": "color", "$value": "{color.surface.plate}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
-        "border-width-top": { "$type": "dimension", "$value": "{stroke.surface}" },
-        "border-width-right": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } },
-        "border-width-bottom": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } },
-        "border-width-left": { "$type": "dimension", "$value": "{stroke.surface}" },
-        "corner-radius": { "$type": "dimension", "$value": "{radius.large}" },
-        "content-margin": { "$type": "dimension", "$value": { "value": 18, "unit": "px" } },
-        "expand-margin-right": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } },
-        "expand-margin-bottom": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } }
+        "border-width": { "$type": "dimension", "$value": "{stroke.surface}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.surface}" },
+        "content-margin": { "$type": "dimension", "$value": { "value": 18, "unit": "px" } }
       },
       "size": {
-        "$type": "dimension",
-        "width": { "$value": { "value": 126, "unit": "px" } },
-        "height": { "$value": { "value": 126, "unit": "px" } }
+        "width": { "$type": "dimension", "$value": { "value": 117, "unit": "px" } },
+        "height": { "$type": "dimension", "$value": { "value": 132, "unit": "px" } }
       }
     },
     "tag": {
-      "$description": "An item's name tag over the slot's bottom edge (centred on the slot and on its bottom edge: the tag's bottom 18 px below the slot's face, the sketch's 12 px x 1.5): a small mint sticker, a 5 px ink outline, 12 px corners, no shadow.",
+      "$description": "A slot's name: no plate since ui-2.0.0 (the name sits inside the tile, at its bottom).",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToySlotTag", "class": "PanelContainer" },
@@ -143,25 +121,26 @@
         }
       },
       "panel": {
-        "bg-color": { "$type": "color", "$value": "{palette.mint}" },
-        "border-color": { "$type": "color", "$value": "{color.outline}" },
-        "border-width": { "$type": "dimension", "$value": "{stroke.thin}" },
-        "corner-radius": { "$type": "dimension", "$value": "{radius.small}" },
+        "bg-color": { "$type": "color", "$value": "{palette.clear}" },
         "content-margin-block": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } },
         "content-margin-inline": { "$type": "dimension", "$value": { "value": 17, "unit": "px" } }
       }
     },
     "tag-text": {
-      "$description": "The item's name on its tag: ink, Nunito Black.",
+      "$description": "A slot's name, inside the tile at its bottom since ui-2.0.0: light.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
-          "godot": { "variation": "ToySlotTagText", "class": "Label", "on": ["ToySlotTag"] },
+          "godot": {
+            "variation": "ToySlotTagText",
+            "class": "Label",
+            "on": ["ToySlotTag", "ToySlotHand", "ToySlotBelt", "ToySlot"]
+          },
           "context": "dark"
         }
       },
       "label": { "$type": "typography", "$value": "{type.caption-bold}" },
       "normal": {
-        "font-color": { "$type": "color", "$value": "{color.on-accent.text}" }
+        "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
       }
     }
   }

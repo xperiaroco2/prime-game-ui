@@ -3,7 +3,7 @@
   "hud": {
     "$description": "Small HUD parts.",
     "crosshair": {
-      "$description": "The crosshair dot: white with a 3 px ink ring (the MVP sketch's 2 px x 1.5, thinner than stroke.thin: a small mark), so it reads on a dark room and on a white wall.",
+      "$description": "The crosshair: a 12 px white dot with a 2 px shade ring, so it reads on a light or a dark world.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyCrosshair", "class": "Panel" },
@@ -12,8 +12,8 @@
       },
       "panel": {
         "bg-color": { "$type": "color", "$value": "{palette.white}" },
-        "border-color": { "$type": "color", "$value": "{color.outline}" },
-        "border-width": { "$type": "dimension", "$value": { "value": 3, "unit": "px" } },
+        "border-color": { "$type": "color", "$value": "{palette.shade}" },
+        "border-width": { "$type": "dimension", "$value": "{stroke.thin}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" }
       },
       "size": {
@@ -23,7 +23,7 @@
       }
     },
     "spinner": {
-      "$description": "The loading spinner: a green arc on a purple disc (rotated at runtime).",
+      "$description": "The loading spinner: a quarter arc of 9 px accent that the game turns.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToySpinner", "class": "Panel" },
@@ -31,10 +31,10 @@
         }
       },
       "panel": {
-        "bg-color": { "$type": "color", "$value": "{color.surface.night-plate}" },
-        "border-color": { "$type": "color", "$value": "{palette.green}" },
-        "border-width-top": { "$type": "dimension", "$value": { "value": 15, "unit": "px" } },
-        "border-width-right": { "$type": "dimension", "$value": { "value": 15, "unit": "px" } },
+        "bg-color": { "$type": "color", "$value": "{palette.clear}" },
+        "border-color": { "$type": "color", "$value": "{palette.accent}" },
+        "border-width-top": { "$type": "dimension", "$value": { "value": 9, "unit": "px" } },
+        "border-width-right": { "$type": "dimension", "$value": { "value": 9, "unit": "px" } },
         "border-width-bottom": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
         "border-width-left": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" }

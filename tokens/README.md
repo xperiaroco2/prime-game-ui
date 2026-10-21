@@ -1,6 +1,6 @@
-# Design tokens (the Ink and mint sticker; Toy names)
+# Design tokens (the plain tile and the ink-mint palette; Toy names)
 
-The single source of truth for the game's look, the Ink and mint sticker since ui-1.0.0 (a re-skin: the variation names, `Toy*`, and the `--toy-` prefix stay from the Toy style on purpose, so the game's scenes keep their variation names and need no code change), in [DTCG 2025.10](https://www.designtokens.org/tr/2025.10/). The showcase CSS
+The single source of truth for the game's look: the plain tile («Плитка») and the ink-mint palette («Чорнильна мʼята») since ui-2.0.0, the Ink and mint sticker from ui-1.0.0 to ui-1.4.0 (each a re-skin: the variation names, `Toy*`, and the `--toy-` prefix stay from the Toy style on purpose, so the game's scenes keep their variation names), in [DTCG 2025.10](https://www.designtokens.org/tr/2025.10/). The showcase CSS
 and the game's Godot theme are both generated from these files, never copied by hand. The full contract is the build
 spec, [`docs/research/2026-10-03-tokens/spec.md`](../docs/research/2026-10-03-tokens/spec.md) (§2 to §6).
 
@@ -9,9 +9,9 @@ spec, [`docs/research/2026-10-03-tokens/spec.md`](../docs/research/2026-10-03-to
 | File | What it holds |
 |---|---|
 | `prime.resolver.json` | The resolver: one base set (the files below, in order) and two modifiers, `textSize` and `motion` |
-| `primitives.tokens.json` | Literals: the palette, font families, weights, letter spacing, line height, `ease.press`, `duration.none`, `focus.*`, `stroke.*`, `offset.base` (the hard shadow), `glow.*` (the glow's size, ui-1.3.0), `radius.*`, `space.*` (the screens' gaps: 4, 8, 12, 16, 24, 32) |
-| `semantic.tokens.json` | Aliases of primitives: colour roles by context (`color.*`), the 15 type roles (`type.*`, `logo` new in ui-1.0.0), `motion.press` |
-| `components/<name>.tokens.json` | 24 files, 173 Godot type variations (the abstract ToyButton and the nine deprecated ones included): one variant group per variation, with its StyleBox states, `label`, `press`, `size`, `items`, `ramp` |
+| `primitives.tokens.json` | Literals: the palette, font families, weights, letter spacing, line height, `ease.press`, `duration.none`, `focus.*`, `stroke.*` (edges, the bright faces' bottom edge, the halo, the cops' edges), `radius.*`, `space.*` (the screens' gaps: 4, 8, 12, 16, 24, 32); `offset.*` and `glow.*` left in ui-2.0.0 |
+| `semantic.tokens.json` | Aliases of primitives: colour roles by context (`color.*`), the 16 type roles (`type.*`; `kicker` new in ui-2.0.0), `motion.press` |
+| `components/<name>.tokens.json` | 24 files, 187 Godot type variations (the abstract ToyButton and the twenty deprecated ones included): one variant group per variation, with its StyleBox states, `label`, `press`, `size`, `items`, `ramp` |
 | `text-size/default.tokens.json`, `text-size/large.tokens.json` | `font.size.*` (with `font.size.theme-default`, the theme's `default_font_size`) and `size.keycap` (a keycap's minimum width) for the player's text size setting |
 | `motion/default.tokens.json`, `motion/reduced.tokens.json` | `duration.press` for the reduced-motion setting |
 | `release.json` | The semver the next `ui-<semver>` tag carries |
@@ -30,9 +30,10 @@ spec, [`docs/research/2026-10-03-tokens/spec.md`](../docs/research/2026-10-03-to
    The build completes each state to the 19 `StyleBoxFlat` fields (spec §3.5), plus the glow's `shadow-color` and
    `shadow-size` where a state has a glow (ui-1.3.0, below), so the pack needs no inheritance logic.
 
-Lengths are int px at the 1920×1080 reference frame. Since ui-1.2.0 the geometry is the MVP sketches at the 0.75 scale
-the engineer picked (pages/mvp-screens): a sketch length L is round(L × 1.5) here (outlines 6, thin strokes 5, the hard
-shadow 8, radii × 1.5), while the font sizes stay as they were (the sketch's 15 px label is the 22 px body).
+Lengths are int px at the 1920×1080 reference frame. Since ui-2.0.0 the geometry is the target page `pages/suit-final/`
+(1280×720 frames) × 1.5, rounded up: its 1 px edge is 2 px here, its 8 px corners 12, its 3 px bottom edges 5 (ui-1.2.0 to
+ui-1.4.0: the MVP sketches at the 0.75 scale). The text sizes stay as they were up to the heading; the numbers and the loud
+titles follow the target (display 36, display-large 78, hero 126, kicker 14).
 
 ## Editing a value
 
@@ -160,7 +161,57 @@ ToySlider's three knobs, ToyDropdown's `arrow` (`icons/chevron-down.svg`) and To
 the muted ink), `radio-unchecked` and `radio-unchecked-disabled` (both `icons/radio-unchecked.svg`, an empty 24 px
 icon that keeps the check's gutter), ToyCheckBox's four boxes and ToySpinBox's two chevrons (below).
 
-## The MVP round HUD since ui-1.2.0
+## The plain tile since ui-2.0.0
+
+The engineer's choice of 2026-10-22 (`docs/ui-decisions.md`, "The plain tile and the ink-mint palette"; the whole screen
+set in this look is the target page `pages/suit-final/`): the suit's interface is calm tiles; only the big moments are loud.
+A MAJOR release: the palette's names, the glow, the hard shadow and the old fonts are gone (the release notes list them).
+
+- **The palette** (`palette.*`): the base #1A1629 (grounds, tracks, field cells), the module #2A2540 (every tile), the row
+  #352F4F (row faces, secondary buttons, keys, segments), the edge #4A4170 (a tile's outline), the text #ECE8F7 and the dim
+  #A39DBD, the accent #6FF2B4 with its ink #082418 and its deeper #33A877, the danger #FF5C6C with its ink #26060C and its
+  deeper #A8243A; (agent) shades for hover and held (`row-light`, `accent-light`, `accent-dark`, `danger-light`,
+  `danger-dark`), the shade (a halo on the world) and the backdrops (the base at 87 % and 90 %, so text keeps 4.5:1 over a
+  white world; the target's dim is 50 % over a dark ship). Every surface is dark now, so `color.on-light.*` reads as
+  `color.on-dark.*`; `color.on-accent.*` is text on the accent and the new `color.on-danger.text` text on the danger colour.
+- **The tile** («Плитка»): one fill, a 2 px edge of one colour (`stroke.surface`), 12 px corners (`radius.surface`); controls
+  9 px (`radius.control`, `radius.medium`), keys and chips 6 (`radius.small`). No hard shadow anywhere: the base layers
+  (`ToyBaseRaisedOnDark`, `ToyBaseRaisedOnLight`, `ToyBasePanel`, `ToyBaseCard`, `ToyBaseTitle`) are clear and deprecated,
+  no variation names a `base` and every `press` is 0, so the game can drop its ToyRaised wrappers and ToyPress. No glow:
+  no StyleBox has a shadow (the alarm pulse has nothing to pulse; the game can drop it).
+- **Buttons:** the main action (`ToyButtonPrimary`) and danger (`ToyButtonDanger`) are bright faces with the ink text and a
+  5 px deeper bottom edge (`stroke.edge`; per-side border widths, one colour); secondary is a row face with a 2 px accent
+  outline and accent text; plain is a row face with the edge; ghosts, the menu item (the target's `.nav`) and tabs are text
+  with a row fill on hover, the chosen tab a row fill. Focus is an accent ring (`color.focus`, `focus.width` 3): outside
+  the face (expand `focus.gap` + `focus.width` = 6, the face's radius + 6) on the faced buttons, inside the edge on
+  fields, ghosts, tabs and cards. `ToyButtonPrimaryOnMint` and `ToyButtonDangerOnMint` are deprecated (no surface is mint).
+- **The suit's pips** (new, `bar.pip*`): health and stamina are ten pips each (the engineer's segmented pips), a ProgressBar
+  cannot draw them: `ToyPip` (empty, the base), `ToyPipHealth` (the accent), `ToyPipStamina` (the text colour),
+  `ToyPipAlarm` (the danger colour, health under 30 %), each a Panel of 23 × 15 with 5 px corners in a `ToyRowFour`; the game
+  sets round(value × 10) pips full. The labels are `ToyHudCaption` (`hud.health`, `hud.stamina`), the health label
+  `ToyTextAlertOnLight` under its line. `ToyBarHealthCalm` / `Alarm` and `ToyBarStaminaCalm` / `Alarm` are deprecated.
+- **The anger meter:** `ToyBarAngerCalm` is a 240 × 16 base track with a dim fill, `ToyBarAngerAlarm` the danger fill past the
+  line; it sits in the time tile (`ToyPlate`) beside the time (`ToyTimer`, Unbounded), the siren `icons/siren-off.svg` (dim)
+  or `siren-on.svg` (the danger colour), both line drawings now.
+- **The loud moments** (new): `ToyBand` and `ToyBandAlert` (PanelContainers, the accent or the danger colour across the whole
+  width) carry `ToyTitleHero` (the accent ink) and `ToyTitleHeroAlert` (the danger ink) at the hero size in Unbounded (the
+  role reveal, the ends); the cops' tile `ToyPlateBanner` is the danger face with an 8 px deeper bottom edge
+  (`stroke.alarm`) and its own labels `ToyPlateAlertTitle`, `ToyPlateAlertText`, `ToyPlateAlertCountdown`; the cops' minute
+  adds `ToyScreenEdgeAlert` (a Panel over the whole screen, a 12 px danger edge, `stroke.screen`); the cops' end is
+  `ToyBackdropAlert` (the danger colour) with `ToyTextOnDanger`.
+- **Minimal plates:** the goal (`ToyPlateGoal`), the result (`ToyPlateResult`), the points (`ToyPlateBalance`), a name over a
+  head (`ToyNamePlate`) and a slot's name (`ToySlotTag`) have no plate; a name over a head and the bare timer keep a 6 px
+  shade halo (`stroke.halo`, Godot's shadow outline). The slots are 117 × 132 tiles with the item's line picture and its name
+  inside; the hand in use has a 3 px accent outline (`stroke.selected`).
+- **Icons:** the item pictures and the empty slots are line drawings in `currentColor` now (`tint: "multiply"`: the game
+  tints the white copy, the text colour; the accent in the hand is open); the check boxes, the dropdown's check, the slider's
+  knob (a 21 × 33 light tile) and the sirens are redrawn in the palette (own colours); the room pictograms' `tint_color` is
+  the text colour #ece8f7.
+- **Type:** Onest for text (Medium 500, Bold 700) and Unbounded Bold for titles, numbers, the loud titles, the logo and the new
+  `type.kicker` (Unbounded capitals at `font.size.kicker` 14, 2 px apart; `ToyKicker`, `ToyRosterTagText`; the game writes
+  the words in capitals). `font.family.text` is Onest, `font.family.number` and `font.family.logo` (the names kept) Unbounded.
+
+## The MVP round HUD since ui-1.2.0 (re-skinned in ui-2.0.0)
 
 The variations of the MVP sketch page's round HUD and new screens (the engineer's decisions of 2026-10-20 in
 `docs/ui-decisions.md`). None of their classes has a theme icon, so none names a texture: the siren and the item
@@ -185,7 +236,9 @@ pictures are pack assets (`assets`) drawn by a TextureRect, never tinted.
 - **The workbench:** `ToyPanelDialog` with `ToyTitleOnLight`, `ToyPlateBalance` and `ToyMutationCard`s; a card's "not
   enough" state is its button disabled, the card does not change.
 
-## The glow since ui-1.3.0
+## The glow since ui-1.3.0 (gone in ui-2.0.0)
+
+The record of ui-1.3.0 to ui-1.4.0; since ui-2.0.0 no StyleBox has a shadow (above, "The plain tile since ui-2.0.0").
 
 The engineer's choices of 2026-10-21 (prime-game#150; `pages/glow-bars/`, way 3 "поріг"). The sketch pages' lengths
 × 1.5, as every length since ui-1.2.0.
@@ -221,7 +274,9 @@ The engineer's choices of 2026-10-21 (prime-game#150; `pages/glow-bars/`, way 3 
   of `ToyBackdropNight`, which stays for the other screens. The plain lines on that ground ("Your role", the return
   count) are mint `ToyTextOnDark` (gate g9, 6.99:1), not the muted lilac (3.82:1 there).
 
-## The buttons since ui-1.4.0
+## The buttons since ui-1.4.0 (replaced in ui-2.0.0)
+
+The record of ui-1.4.0; since ui-2.0.0 the buttons are the plain tile's (above).
 
 The engineer's choice of 2026-10-21 (`docs/ui-decisions.md`; `pages/buttons-fix/`, look B): the buttons are the MVP
 sketches' sticker (`pages/mvp-screens/`, `.st .btn`), at the 0.75 scale as every length since ui-1.2.0 (the sketch's 4 px
@@ -259,9 +314,12 @@ outline, 5 px shadow and 14 px corners are `stroke.control` 6, `offset.base` 8 a
 ## Deprecated variations
 
 `ToyChipNew` and `ToyChipNewText` carry `$deprecated` since ui-0.2.0 (the NEW tag is gone; `ToyChipAlert` replaces them);
-since ui-1.3.0 also `ToyBasePrimaryOnDark`, `ToyBasePrimaryOnLight`, `ToyBarAngerTrack`, `ToyBarTrack` (no
-replacement) and `ToyBarAnger`, `ToyBarHealth`, `ToyBarStamina` (replaced by their `…Calm` variations). A
-removal is a major bump, so they leave with the next major release. A deprecated variant names its replacement in
+since ui-1.3.0 also `ToyBasePrimaryOnDark`, `ToyBasePrimaryOnLight`, `ToyBarAngerTrack`, `ToyBarTrack`, `ToyBarAnger`,
+`ToyBarHealth`, `ToyBarStamina` (no replacement since ui-2.0.0); since ui-2.0.0 also `ToyBaseRaisedOnDark`,
+`ToyBaseRaisedOnLight`, `ToyBasePanel`, `ToyBaseCard`, `ToyBaseTitle` (no shadow layers), `ToyBarHealthCalm`,
+`ToyBarHealthAlarm`, `ToyBarStaminaCalm`, `ToyBarStaminaAlarm` (the pips) and `ToyButtonPrimaryOnMint`,
+`ToyButtonDangerOnMint` (replaced by `ToyButtonPrimary`, `ToyButtonDanger`). ui-2.0.0 is a major release but removes no
+variation, so the game's scenes and theme test keep working; they leave with the next major release after it. A deprecated variant names its replacement in
 `godot.replacement` (`ToyChipAlert`, `ToyChipAlertText`); P62 checks it is a variant of the same class that is not
 deprecated itself. The pack marks both (below).
 
@@ -332,26 +390,32 @@ filter Godot's SVG importer does not draw:
   game imports them as Texture2D (Lossless, mipmaps on), never tinted, in a TextureRect with `EXPAND_IGNORE_SIZE` and
   `STRETCH_KEEP_ASPECT_CENTERED`.
 
-## The pack's fonts since ui-0.5.0 (three families since ui-1.0.0)
+## The pack's fonts since ui-0.5.0 (Onest and Unbounded since ui-2.0.0)
 
 `schema` stays 1. The fonts ship beside the pack, so the game takes them from one pinned source (prime-game-ui#44).
-Since ui-1.0.0 (the Ink and mint sticker) there are three families, all SIL OFL 1.1 with Latin and Cyrillic: **Nunito**
-(titles at Black 900, text at 800 and 900), **Rubik** (numbers, 700) and **Kablammo** (the logo only, at its default
-instance). Comfortaa left with the Toy style.
+Since ui-2.0.0 (the plain tile) there are two families, both SIL OFL 1.1 with Latin and Cyrillic: **Onest** (text, Medium
+500 and Bold 700) and **Unbounded** (titles, numbers, the loud titles and the kickers, Bold 700). Nunito, Rubik and
+Kablammo left with the sticker.
 
-- `fonts/<family>/` holds the upstream files byte for byte: google/fonts' `ofl/<family>/<Family>[<axes>].ttf` at
-  47d54ca, renamed to Google Fonts' download names (`Nunito-VariableFont_wght.ttf`, `Rubik-VariableFont_wght.ttf`,
-  `Kablammo-VariableFont_MORF.ttf`: no brackets, which PowerShell and globs read as wildcards), and its `OFL.txt`
-  (kept byte for byte by `.gitattributes`). `LICENCES.json` records each file's upstream URL, git blob, sha256, family
-  and axes. The whole Kablammo file ships (no subsetting).
+- `fonts/<family>/` holds the upstream files byte for byte: google/fonts' `ofl/<family>/<Family>[wght].ttf` at
+  45e3d52 (`Onest[wght].ttf` 193 056 bytes, `Unbounded[wght].ttf` 778 272 bytes), renamed to Google Fonts' download names
+  (`Onest-VariableFont_wght.ttf`, `Unbounded-VariableFont_wght.ttf`: no brackets, which PowerShell and globs read as
+  wildcards), and its `OFL.txt` (kept byte for byte by `.gitattributes`). `LICENCES.json` records each file's upstream URL,
+  its raw `download` URL, git blob, size (`bytes`), family, axes and expected `metrics`.
+- **Waiting for the download (ui-2.0.0).** The records were written from the GitHub API before anything was downloaded
+  (the engineer's yes is pending), so they hold the git blob and size instead of a sha256, and expected metrics taken from
+  @capsizecss/metrics 4.4.0 (unconfirmed). Until the four files are in `fonts/onest/` and `fonts/unbounded/`, the token
+  build lists each as MISSING (path, size, git blob, URL) and fails, ships no font, and takes the line boxes from the
+  expected metrics; everything else builds. With the files in, `node tools/tokens/build.js` checks each by its git blob and
+  size, reads its own metrics (B04 refuses a difference from the record's, naming the line height to set), computes the
+  sha256 the pack's `assets` and `fonts/LICENCES.json` carry, and ships them.
 - The token build (`tools/tokens/fonts.js`) copies them into `dist/pack/fonts/` with `fonts/LICENCES.json`. Each
-  family's licence text ships under the family's name, `OFL-<Family>.txt` (`OFL-Nunito.txt`), bytes unchanged, so two
-  families never collide. It refuses (B04) a file whose sha256 is not its record's (the font ships unmodified), a font
+  family's licence text ships under the family's name, `OFL-<Family>.txt` (`OFL-Onest.txt`), bytes unchanged, so two
+  families never collide. It refuses (B04) a file that is not its record's (sha256, or git blob and size), a font
   without an allowed licence or its licence text, a family no `font.family.*` token names, a family no type role uses,
-  and a weight a type role (`type.*`) gives a family outside that family's own `wght` axis; a font with no `wght`
-  axis (Kablammo: `MORF` only) draws only its default instance, so its roles' weight must be its OS/2 weight class (400).
-  It also refuses a type role whose `lineHeight` is not its family's own line box (below) and a font whose `MVAR`
-  moves its ascender or descender per instance.
+  and a weight a type role (`type.*`) gives a family outside that family's own `wght` axis (Onest 100 to 900, Unbounded
+  200 to 900). It also refuses a type role whose `lineHeight` is not its family's own line box (below) and a font whose
+  `MVAR` moves its ascender or descender per instance.
 - **The line height (ui-1.1.0, #75).** Godot 4.7.2 draws a line of a Label as the font's ascent plus its descent
   ([label.cpp L392-L400](https://github.com/godotengine/godot/blob/4.7.2-stable/scene/gui/label.cpp#L392-L400)), from
   FreeType's size metrics ([text_server_adv.cpp L1638-L1659](https://github.com/godotengine/godot/blob/4.7.2-stable/modules/text_server_adv/text_server_adv.cpp#L1638-L1659)),
@@ -360,19 +424,19 @@ instance). Comfortaa left with the Toy style.
   and round the ascent up and the descent down to a whole pixel
   ([ftobjs.c L3176-L3182](https://github.com/godotengine/godot/blob/4.7.2-stable/thirdparty/freetype/src/base/ftobjs.c#L3176-L3182)); no line gap.
   So each family's `font.line-height.*` is its own (ascender + descender) / units per em: `base` (the text, the
-  ui-1.0.0 name kept) Nunito (1011 + 353) / 1000 = 1.364, `number` Rubik (935 + 250) / 1000 = 1.185, `logo` Kablammo (2078 + 506) / 2000 =
-  1.292 (all three set USE_TYPO_METRICS, typo = hhea). The CSS line box is the pixel height Godot draws, which the
+  ui-1.0.0 name kept) Onest (970 + 305) / 1000 = 1.275, `number` and `logo` Unbounded (995 + 245) / 1000 = 1.24 (the
+  expected metrics, unconfirmed until the files are here; the build then checks them). The CSS line box is the pixel height Godot draws, which the
   ratio alone cannot give: every typography token gets a derived `--toy-<token>-line-box` (an int, per text size:
-  `type.body` 31 at 22 px, 39 at 28 px; `tools/tokens/fonts.js` `lineBoxPx`, FreeType's fixed point), and the pages
+  `type.body` 29 at 22 px, 37 at 28 px with Onest's expected metrics; `tools/tokens/fonts.js` `lineBoxPx`, FreeType's fixed point), and the pages
   set `line-height: calc(var(--toy-…-line-box) * var(--px))`. In the game a Label variation's `line_spacing` is 0:
   the font's own line is the line (the generator's `fontSizePx × lineHeight` rounds below Godot's line by up to 2 px).
 - **`assets`** has one entry per font, sorted by path with the others:
-  `{ "path": "fonts/Nunito-VariableFont_wght.ttf", "kind": "font", "sha256": "…", "licence": "OFL-1.1",
-  "licence_file": "fonts/LICENCES.json", "licence_text": "fonts/OFL-Nunito.txt", "source": "fonts/nunito/…", "family":
-  "Nunito", "axes": { "wght": [200, 1000] }, "weights": [800, 900] }`; `weights` are the weights the type roles give
-  that family (Rubik `[700]`, Kablammo `[400]` with `axes` `{ "MORF": [0, 60] }`).
+  `{ "path": "fonts/Onest-VariableFont_wght.ttf", "kind": "font", "sha256": "…", "licence": "OFL-1.1",
+  "licence_file": "fonts/LICENCES.json", "licence_text": "fonts/OFL-Onest.txt", "source": "fonts/onest/…", "family":
+  "Onest", "axes": { "wght": [100, 900] }, "weights": [500, 700] }`; `weights` are the weights the type roles give
+  that family (Unbounded `[700]`). None ships until the files are downloaded (above).
 - **In Godot:** one `FontFile` per file, and per family one `FontVariation` per weight, its `base_font` that file and
-  `variation_opentype` `{ "wght": 900 }`; Kablammo is used as its `FontFile` (no variation). The theme generator gives
+  `variation_opentype` `{ "wght": 700 }`. The theme generator gives
   each typography token the font of its `fontFamily` at its `fontWeight`. The game ships each `OFL-<Family>.txt` with
   its font. (The game's generator read one font until ui-0.8.0; the families need it to pick by `fontFamily`.)
 

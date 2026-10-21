@@ -1,9 +1,9 @@
 {
   "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
   "pick": {
-    "$description": "Pickers on the purple panel: colour swatches, round radios and the check box.",
+    "$description": "Pickers on the tile: colour swatches, round options and the check box.",
     "swatch-ring": {
-      "$description": "The ring around a colour swatch (the fill is a white Panel tinted by self_modulate): the 6 px ink sticker outline.",
+      "$description": "The ring around a colour swatch: the 2 px edge.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToySwatchRing", "class": "Panel" },
@@ -23,7 +23,7 @@
       }
     },
     "swatch-selected": {
-      "$description": "The selected swatch ring: green, 6 px, 5 px outside the swatch.",
+      "$description": "The chosen swatch: a 3 px accent ring 3 px outside the disc.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToySwatchSelected", "class": "Panel" },
@@ -32,14 +32,14 @@
       },
       "panel": {
         "bg-color": { "$type": "color", "$value": "{palette.clear}" },
-        "border-color": { "$type": "color", "$value": "{palette.green}" },
-        "border-width": { "$type": "dimension", "$value": "{stroke.surface}" },
+        "border-color": { "$type": "color", "$value": "{palette.accent}" },
+        "border-width": { "$type": "dimension", "$value": "{stroke.selected}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
-        "expand-margin": { "$type": "dimension", "$value": { "value": 11, "unit": "px" } }
+        "expand-margin": { "$type": "dimension", "$value": { "value": 6, "unit": "px" } }
       }
     },
     "swatch-focus": {
-      "$description": "The focused swatch: a 5 px mint ring flush outside the disc (it reads on the purple), unlike the chosen swatch's gapped green ring.",
+      "$description": "A focused swatch: a 3 px accent ring flush outside the disc's edge.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToySwatchFocus", "class": "Panel" },
@@ -48,21 +48,24 @@
       },
       "panel": {
         "bg-color": { "$type": "color", "$value": "{palette.clear}" },
-        "border-color": { "$type": "color", "$value": "{color.on-light.line}" },
+        "border-color": { "$type": "color", "$value": "{color.focus}" },
         "border-width": { "$type": "dimension", "$value": "{focus.width}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
-        "expand-margin": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } }
+        "expand-margin": { "$type": "dimension", "$value": { "value": 3, "unit": "px" } }
       }
     },
     "check-box": {
-      "$description": "A bare CheckBox's look (Godot's CheckBox base type, prime-game-ui#52): borderless on the purple, the box texture at its left (42 px: empty mint, checked green with an ink check) and the mint label 12 px after it. Hover lays the lighter purple under it, checked or not (the box shows the check). It sets every item a Button sets, so the Button base type never reaches it.",
+      "$description": "A CheckBox (a base-type source): no face, a row fill on hover, the box texture at its left (the base cell with the 2 px edge, accent with the accent ink check when checked) and light text 12 px after it; focus an accent ring inside.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": {
-            "variation": "ToyCheckBox", "class": "CheckBox",
+            "variation": "ToyCheckBox",
+            "class": "CheckBox",
             "textures": {
-              "checked": "icons/checkbox-checked.svg", "checked-disabled": "icons/checkbox-checked-disabled.svg",
-              "unchecked": "icons/checkbox-unchecked.svg", "unchecked-disabled": "icons/checkbox-unchecked-disabled.svg"
+              "checked": "icons/checkbox-checked.svg",
+              "checked-disabled": "icons/checkbox-checked-disabled.svg",
+              "unchecked": "icons/checkbox-unchecked.svg",
+              "unchecked-disabled": "icons/checkbox-unchecked-disabled.svg"
             }
           },
           "context": "any"
@@ -70,7 +73,6 @@
       },
       "label": { "$type": "typography", "$value": "{type.body}" },
       "normal": {
-        "$description": "No plate: Godot draws the box at the left content margin, centred in the height.",
         "bg-color": { "$type": "color", "$value": "{palette.clear}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.medium}" },
         "content-margin-block": { "$type": "dimension", "$value": { "value": 10, "unit": "px" } },
@@ -79,21 +81,17 @@
         "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
       },
       "hover": {
-        "$description": "Hover: the lighter purple laid under the box and label.",
         "bg-color": { "$type": "color", "$value": "{color.state.hover-on-light}" }
       },
       "hover-pressed": {
-        "$description": "Checked and hovered: the same hover fill.",
         "bg-color": { "$type": "color", "$value": "{color.state.hover-on-light}" }
       },
       "disabled": {
-        "$description": "Unplugged, checked or not (Godot has one disabled StyleBox; the box texture shows the check): only the label goes muted.",
         "font-color": { "$type": "color", "$value": "{color.state.disabled-ink-on-dark}" }
       },
       "focus": {
-        "$description": "Inner focus at the edge of the borderless check box: a mint ring (it reads on the purple).",
         "bg-color": { "$type": "color", "$value": "{palette.clear}" },
-        "border-color": { "$type": "color", "$value": "{color.on-light.line}" },
+        "border-color": { "$type": "color", "$value": "{color.focus}" },
         "border-width": { "$type": "dimension", "$value": "{focus.width}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.medium}" },
         "expand-margin": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } }
@@ -110,7 +108,7 @@
       }
     },
     "radio": {
-      "$description": "A round picker (a radio): a mint sticker disc, 6 px ink outline.",
+      "$description": "A round option: a row face with the 2 px edge.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": {
@@ -124,34 +122,30 @@
       },
       "label": { "$type": "typography", "$value": "{type.caption-bold}" },
       "normal": {
-        "bg-color": { "$type": "color", "$value": "{palette.mint}" },
+        "bg-color": { "$type": "color", "$value": "{palette.row}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
         "content-margin": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
-        "font-color": { "$type": "color", "$value": "{color.on-accent.text}" }
+        "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
       },
       "hover": {
-        "$description": "Hover: the face lifts to a lighter shade.",
-        "bg-color": { "$type": "color", "$value": "{palette.mint-light}" }
+        "bg-color": { "$type": "color", "$value": "{palette.row-light}" }
       },
       "pressed": {
-        "$description": "Held: the face darkens.",
-        "bg-color": { "$type": "color", "$value": "{palette.mint-dark}" }
+        "bg-color": { "$type": "color", "$value": "{palette.base}" }
       },
       "disabled": {
-        "$description": "Unplugged picker: a dulled lilac face, its outline in the soft ink.",
         "bg-color": { "$type": "color", "$value": "{color.state.disabled-face}" },
-        "border-color": { "$type": "color", "$value": "{color.state.disabled-ink}" },
+        "border-color": { "$type": "color", "$value": "{color.state.disabled-edge}" },
         "font-color": { "$type": "color", "$value": "{color.state.disabled-ink}" }
       },
       "focus": {
-        "$description": "Outer focus: a mint ring of the focus width, the focus gap outside the outline (it reads on the purple).",
         "bg-color": { "$type": "color", "$value": "{palette.clear}" },
-        "border-color": { "$type": "color", "$value": "{color.on-light.line}" },
+        "border-color": { "$type": "color", "$value": "{color.focus}" },
         "border-width": { "$type": "dimension", "$value": "{focus.width}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
-        "expand-margin": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } }
+        "expand-margin": { "$type": "dimension", "$value": { "value": 6, "unit": "px" } }
       },
       "size": {
         "$type": "dimension",
@@ -160,7 +154,7 @@
       }
     },
     "radio-selected": {
-      "$description": "The selected round picker: the green sticker disc.",
+      "$description": "A chosen round option: the accent face with the accent ink.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyRadioSelected", "class": "Button", "parent": "ToyButton" },
@@ -169,34 +163,30 @@
       },
       "label": { "$type": "typography", "$value": "{type.caption-bold}" },
       "normal": {
-        "bg-color": { "$type": "color", "$value": "{palette.green}" },
-        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "bg-color": { "$type": "color", "$value": "{palette.accent}" },
+        "border-color": { "$type": "color", "$value": "{palette.accent}" },
         "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
         "content-margin": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
         "font-color": { "$type": "color", "$value": "{color.on-accent.text}" }
       },
       "hover": {
-        "$description": "Hover: the selected face lifts to the lighter green.",
-        "bg-color": { "$type": "color", "$value": "{palette.green-light}" }
+        "bg-color": { "$type": "color", "$value": "{palette.accent-light}" }
       },
       "hover-pressed": {
-        "$description": "Selected and hovered (a toggle rests pressed): as hover.",
-        "bg-color": { "$type": "color", "$value": "{palette.green-light}" }
+        "bg-color": { "$type": "color", "$value": "{palette.accent-light}" }
       },
       "disabled": {
-        "$description": "Unplugged picker: a dulled lilac face, its outline in the soft ink.",
         "bg-color": { "$type": "color", "$value": "{color.state.disabled-face}" },
-        "border-color": { "$type": "color", "$value": "{color.state.disabled-ink}" },
+        "border-color": { "$type": "color", "$value": "{color.state.disabled-edge}" },
         "font-color": { "$type": "color", "$value": "{color.state.disabled-ink}" }
       },
       "focus": {
-        "$description": "Outer focus: a mint ring of the focus width, the focus gap outside the outline (it reads on the purple).",
         "bg-color": { "$type": "color", "$value": "{palette.clear}" },
-        "border-color": { "$type": "color", "$value": "{color.on-light.line}" },
+        "border-color": { "$type": "color", "$value": "{color.focus}" },
         "border-width": { "$type": "dimension", "$value": "{focus.width}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
-        "expand-margin": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } }
+        "expand-margin": { "$type": "dimension", "$value": { "value": 6, "unit": "px" } }
       },
       "size": {
         "$type": "dimension",

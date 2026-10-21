@@ -1,12 +1,12 @@
 {
   "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
   "map": {
-    "$description": "The map board, rooms, zone and the \"you are here\" pin.",
+    "$description": "The map: the base board, row-tile rooms, the accent zone tint, the danger pin.",
     "board": {
-      "$description": "The map board: the deep purple, 6 px ink outline, on the ink base layer (8 px right and 8 px down).",
+      "$description": "The map board: the base with the 2 px edge and 12 px corners.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
-          "godot": { "variation": "ToyMapBoard", "class": "PanelContainer", "base": { "any": "ToyBasePanel" } },
+          "godot": { "variation": "ToyMapBoard", "class": "PanelContainer" },
           "context": "light"
         }
       },
@@ -19,7 +19,7 @@
       }
     },
     "room": {
-      "$description": "A room on the map: a mint plate, 6 px ink outline, no shadow.",
+      "$description": "A room: a row tile with the 2 px edge and 9 px corners.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyMapRoom", "class": "PanelContainer" },
@@ -27,7 +27,7 @@
         }
       },
       "panel": {
-        "bg-color": { "$type": "color", "$value": "{palette.mint}" },
+        "bg-color": { "$type": "color", "$value": "{palette.row}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.medium}" },
@@ -35,7 +35,7 @@
       }
     },
     "room-text": {
-      "$description": "A room name: ink on the mint room (also the pictogram's tint).",
+      "$description": "A room's name: light.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyMapRoomText", "class": "Label", "on": ["ToyMapRoom"] },
@@ -44,11 +44,11 @@
       },
       "label": { "$type": "typography", "$value": "{type.caption-bold}" },
       "normal": {
-        "font-color": { "$type": "color", "$value": "{color.on-accent.text}" }
+        "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
       }
     },
     "zone": {
-      "$description": "The highlighted zone on the map: the yellow at 0.55, 6 px ink outline.",
+      "$description": "A lit zone: the accent at 30 % with a 2 px accent outline.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyMapZone", "class": "Panel" },
@@ -57,13 +57,13 @@
       },
       "panel": {
         "bg-color": { "$type": "color", "$value": "{palette.zone}" },
-        "border-color": { "$type": "color", "$value": "{color.outline}" },
-        "border-width": { "$type": "dimension", "$value": "{stroke.surface}" },
+        "border-color": { "$type": "color", "$value": "{palette.accent}" },
+        "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.medium}" }
       }
     },
     "pin": {
-      "$description": "The \"you are here\" pin: a coral-dark teardrop with a 6 px ink outline; its angle is set at runtime. 42 px with 21 px corners at the 0.75 scale (the old 28 and 14 x 1.5, since the map screen's rework moved the you-are-here chip clear of it).",
+      "$description": "You are here: a 42 px danger pin, its top-left corner square, with a 2 px deeper danger outline.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyMapPin", "class": "Panel" },
@@ -71,8 +71,8 @@
         }
       },
       "panel": {
-        "bg-color": { "$type": "color", "$value": "{palette.coral-dark}" },
-        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "bg-color": { "$type": "color", "$value": "{color.status.alert}" },
+        "border-color": { "$type": "color", "$value": "{palette.danger-deep}" },
         "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
         "corner-radius-top-left": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
         "corner-radius-top-right": { "$type": "dimension", "$value": { "value": 21, "unit": "px" } },

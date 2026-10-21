@@ -363,6 +363,31 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
     the humans and the cops); the cops' minute adds an 8 px danger edge around the screen; the cops' end fills the
     whole screen with the danger colour;
   - the workbench's third step is seen from inside the capsule, the machine's screen ahead showing the progress pips.
+- **The look in the tokens and the pack, ui-2.0.0** (the engineer, 2026-10-22, chat: put the approved look into the
+  tokens and the game's pack): the palette, the tile, the pips, the minimal plates, the loud moments and the fonts of
+  `pages/suit-final/` are the tokens now (`tokens/README.md`, "The plain tile since ui-2.0.0"); the target's lengths x 1.5,
+  rounded up (its 1 px edge is 2 px at 1920x1080). A major release: the old palette names, the glow and the hard shadow
+  left the pack; no variation was removed (the replaced ones are deprecated). Taken by the agent, for the engineer to
+  veto (agent):
+  - the backdrop behind the suit menu is the base at 87 % (a dialog's 90 %), not the target's 50 %, so light and dim text
+    keep 4.5:1 over a white world;
+  - shades for states: hover #403962 (row) and #9AF7CC (accent), held #4FDB99 and #E84556, an unplugged button a row face
+    with dim text and a base bottom edge; focus is a 3 px accent ring, outside the bright and row buttons, inside fields,
+    tabs and cards;
+  - numbers and titles are Unbounded (as the target page sets the time, counts, prices and the machine screens' titles),
+    text Onest Medium and Bold; the kicker is Unbounded at 14 px (the target's 8 px x 1.5 = 12 would be too small);
+    display 36, display-large 78, hero 126; smaller text sizes unchanged;
+  - the menu's tab list: the chosen tab is a row fill (the target's `.nav`), not an underline; the alert tag (a key clash)
+    is the danger face with the danger ink, since danger text on a row face is 4.2:1;
+  - the item pictures are the line alone in currentColor (the target's line icons), tinted by the game; the slider knob,
+    the check boxes and the sirens are redrawn in the palette;
+  - the screens: s07 puts the time and the anger meter in one tile, health and stamina as ten pips with their labels
+    (`hud.health`, `hud.stamina`) in a suit tile, the slots' names inside the tiles and a danger edge around the screen in
+    the cops' minute; s06 and s10 put the loud titles on a full-width band. The target's words that have no copy key yet
+    (the «Гнів сусідів» caption, the kickers «Час» and «Костюм» over the tiles, «Готові 4 з 6») are not drawn: they are the
+    engineer's texts (`ToyKicker` is ready for them).
+  - The fonts (Onest, Unbounded, OFL-1.1, google/fonts at 45e3d52) are wired but not downloaded: the build names the four
+    files to add (`tokens/README.md`, "The pack's fonts").
 
 ## Principles
 - **The UI never tells the player what to do.** No "take it to X" line, no destination marker, no key prompts on the HUD;

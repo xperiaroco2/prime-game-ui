@@ -25,7 +25,7 @@ const ICONS = ['check', 'item', 'mic', 'mic-off', 'pointer', 'chevron-left', 'ch
   'siren-off', 'siren-on', 'slot-empty-hand', 'slot-empty-belt', 'item-rocket', 'item-bun', 'item-battery', 'item-extinguisher',
   'item-flower', 'item-car-part', 'item-patty', 'item-burger', 'item-watering-can', 'item-wrench', 'item-bin-bag', 'item-knife'];
 const ICON_HEAD = '<!-- own work, prime-game-ui, licence: own work -->';
-const FONT_LINK = 'https://fonts.googleapis.com/css2?family=Kablammo&family=Nunito:wght@800;900&family=Rubik:wght@700&display=swap';
+const FONT_LINK = 'https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=Unbounded:wght@700&display=swap';
 const TILES = [['white', '#ffffff'], ['grey', '#c9c9c9'], ['dim', '#979797']];
 // Showcase state -> [index into the row's variations, Godot state, CSS state class].
 const STATE = {

@@ -1,0 +1,25 @@
+{
+  "Unbounded-VariableFont_wght.ttf": {
+    "licence": "OFL-1.1",
+    "author": "The Unbounded Project Authors (https://github.com/googlefonts/unbounded)",
+    "what": "Unbounded, the plain tile's display face (Bold 700): the loud titles, the logo and the tiles' kickers; a variable font, wght 200 to 900, Latin and Cyrillic (METADATA.pb subsets cyrillic, cyrillic-ext, latin, latin-ext); unmodified, renamed from Unbounded[wght].ttf",
+    "licence_text": "OFL.txt",
+    "upstream": "https://github.com/google/fonts/blob/45e3d5269e4a17d823f6d84470bc084dc5ae46f6/ofl/unbounded/Unbounded%5Bwght%5D.ttf",
+    "download": "https://raw.githubusercontent.com/google/fonts/45e3d5269e4a17d823f6d84470bc084dc5ae46f6/ofl/unbounded/Unbounded%5Bwght%5D.ttf",
+    "upstream_git_blob": "e3c064ddfa3acdd3af2e0f06cd2f2288cc4fcae3",
+    "bytes": 778272,
+    "family": "Unbounded",
+    "axes": { "wght": [200, 900] },
+    "metrics": { "ascender": 995, "descender": 245, "unitsPerEm": 1000, "source": "(unconfirmed) @capsizecss/metrics 4.4.0, entireMetricsCollection/unbounded (hhea, line gap 0); the build reads the file's own metrics once it is here and refuses (B04) any difference" },
+    "approved": "pending: the engineer's yes to the download (ui-2.0.0)"
+  },
+  "OFL.txt": {
+    "licence": "OFL-1.1",
+    "author": "The Unbounded Project Authors (https://github.com/googlefonts/unbounded)",
+    "what": "the SIL Open Font License 1.1 text that ships with Unbounded, byte for byte",
+    "upstream": "https://github.com/google/fonts/blob/45e3d5269e4a17d823f6d84470bc084dc5ae46f6/ofl/unbounded/OFL.txt",
+    "download": "https://raw.githubusercontent.com/google/fonts/45e3d5269e4a17d823f6d84470bc084dc5ae46f6/ofl/unbounded/OFL.txt",
+    "upstream_git_blob": "1c7db28325aa3a1e8bd8978ef1d760daf3bb357b",
+    "bytes": 4392
+  }
+}

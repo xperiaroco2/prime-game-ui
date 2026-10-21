@@ -69,8 +69,8 @@ function fontVerdict(fonts, where, failed) {
   const f = fonts || {};
   const blocked = (failed || []).filter((u) => /fonts\.(googleapis|gstatic)\.com/.test(u));
   const fam = f.families || {};
-  const faces = ["nunito", "rubik", "kablammo"].map((n) => `${n} ${(fam[n] || {}).loaded || 0}/${(fam[n] || {}).faces || 0}`).join(", ");
-  return new FontError(`The sticker fonts are not loaded (${where}): loaded faces ${faces}; ` +
+  const faces = ["onest", "unbounded"].map((n) => `${n} ${(fam[n] || {}).loaded || 0}/${(fam[n] || {}).faces || 0}`).join(", ");
+  return new FontError(`The fonts are not loaded (${where}): loaded faces ${faces}; ` +
     `${f.missingCount || 0} shown texts without their face${(f.missing || []).length ? " (" + f.missing.join("; ") + ")" : ""}. ` +
     "The page must load them from Google Fonts (fonts.googleapis.com and fonts.gstatic.com must be reachable); with a " +
     "fallback font every measurement and picture would be wrong, so nothing is reported." +

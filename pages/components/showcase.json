@@ -720,6 +720,83 @@
       ]
     },
     {
+      "id": "loud",
+      "title_key": "sec_loud",
+      "rows": [
+        {
+          "id": "loud-moments",
+          "kind": "static",
+          "title_key": "row_loud",
+          "items": [
+            {
+              "v": "ToyBand",
+              "text": "ToyTitleHero",
+              "label": "mvp_alien",
+              "context": "dark"
+            },
+            {
+              "v": "ToyBandAlert",
+              "text": "ToyTitleHeroAlert",
+              "label": "mvp_human",
+              "context": "dark"
+            },
+            {
+              "v": "ToyPlateBanner",
+              "text": "ToyPlateAlertTitle",
+              "label": "mvp_cops_big",
+              "context": "dark"
+            },
+            {
+              "v": "ToyPlateBanner",
+              "text": "ToyPlateAlertText",
+              "label": "mvp_cops_small",
+              "context": "dark"
+            },
+            {
+              "v": "ToyPlateBanner",
+              "text": "ToyPlateAlertCountdown",
+              "label": "mvp_cops_count",
+              "context": "dark"
+            },
+            {
+              "v": "ToyBackdropAlert",
+              "text": "ToyTextOnDanger",
+              "label": "mvp_end_party",
+              "context": "dark"
+            },
+            {
+              "v": "ToyScreenEdgeAlert",
+              "context": "dark"
+            }
+          ]
+        },
+        {
+          "id": "pips",
+          "kind": "static",
+          "title_key": "row_pips",
+          "hud": true,
+          "items": [
+            {
+              "v": "ToyPip",
+              "context": "dark"
+            },
+            {
+              "v": "ToyPipHealth",
+              "context": "dark"
+            },
+            {
+              "v": "ToyPipStamina",
+              "context": "dark"
+            },
+            {
+              "v": "ToyPipAlarm",
+              "context": "dark"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "surfaces",
       "title_key": "sec_surfaces",
       "rows": [
@@ -1002,18 +1079,37 @@
               "label": "talk_open",
               "arrow": "chevron-down",
               "rows": [
-                { "label": "talk_open", "checked": true },
-                { "label": "talk_push", "hover": true },
-                { "label": "off" }
+                {
+                  "label": "talk_open",
+                  "checked": true
+                },
+                {
+                  "label": "talk_push",
+                  "hover": true
+                },
+                {
+                  "label": "off"
+                }
               ]
             },
             {
               "caption": "list_states",
               "rows": [
-                { "label": "talk_open" },
-                { "label": "talk_push", "checked": true, "disabled": true },
-                { "separator": true },
-                { "label": "off", "disabled": true }
+                {
+                  "label": "talk_open"
+                },
+                {
+                  "label": "talk_push",
+                  "checked": true,
+                  "disabled": true
+                },
+                {
+                  "separator": true
+                },
+                {
+                  "label": "off",
+                  "disabled": true
+                }
               ]
             }
           ]
@@ -1330,6 +1426,16 @@
             {
               "v": "ToyDisplayAlertOnLight",
               "label": "mvp_human",
+              "context": "light"
+            },
+            {
+              "v": "ToyKicker",
+              "label": "health",
+              "context": "light"
+            },
+            {
+              "v": "ToyTextAlertOnLight",
+              "label": "health",
               "context": "light"
             }
           ]
