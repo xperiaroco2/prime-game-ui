@@ -1,0 +1,53 @@
+<!-- own work, prime-game-ui, licence: own work -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" width="320" height="240">
+  <defs>
+    <filter id="pa3-w" filterUnits="userSpaceOnUse" x="0" y="0" width="320" height="240">
+      <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="65" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="4" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <style>
+      .k{fill:none;stroke:#1f2433;stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
+      .t{stroke-width:4}
+      .f{stroke-width:3}
+      .w{fill:#fff;stroke:#1f2433;stroke-width:5;stroke-linejoin:round}
+      .a{fill:#FFD60A;stroke:#1f2433;stroke-width:5;stroke-linejoin:round}
+      .i{fill:#1f2433}
+      .o{fill:none;stroke:#FFD60A;stroke-width:5;stroke-linecap:round}
+    </style>
+  </defs>
+  <g filter="url(#pa3-w)">
+    <ellipse cx="30" cy="213" rx="22" ry="4" fill="#1f2433" opacity=".12"/>
+    <path class="k t" d="M16 212C96 209 210 214 304 211"/>
+    <!-- the photo spot on the floor -->
+    <ellipse class="w" cx="240" cy="213" rx="42" ry="7" style="stroke-width:4"/>
+    <!-- the camera on its tripod, the flash going off -->
+    <path class="k t" d="M92 122L70 211M92 122V211M92 122L114 211"/>
+    <rect class="a" x="72" y="79" width="16" height="12" rx="3"/>
+    <rect class="w" x="100" y="82" width="10" height="8" rx="2" style="stroke-width:4"/>
+    <rect class="w" x="68" y="88" width="48" height="34" rx="6"/>
+    <circle class="w" cx="100" cy="105" r="11"/>
+    <circle class="i" cx="100" cy="105" r="4"/>
+    <path class="o" d="M70 70l-6-7M80 66v-10M90 70l6-7M126 96l14-6M128 106h16M126 116l14 6"/>
+    <!-- the subject in the pose, matching the silhouette (the yellow glow) -->
+    <path class="k" d="M236 152L238 104M238 114L274 66M238 114L216 130L230 148M236 152L224 211M236 152L270 200" style="stroke:#FFD60A;stroke-width:24"/>
+    <circle cx="240" cy="86" r="28" fill="#FFD60A"/>
+    <path class="k" d="M236 152L224 211M236 152L270 200"/>
+    <path class="k" d="M236 152L238 104"/>
+    <path class="k" d="M238 114L274 66"/>
+    <path class="k" d="M238 114L216 130L230 148"/>
+    <circle class="w" cx="240" cy="86" r="19"/>
+    <circle class="i" cx="233" cy="82" r="2.8"/><circle class="i" cx="226" cy="82" r="2.8"/>
+    <path class="k t" d="M226 94q4 4 9 0"/>
+    <!-- wobbling on one leg, the other kicked out -->
+    <path class="k f" d="M210 206q-4-4 0-8M238 206q4-4 0-8"/>
+    <!-- figure, the photographer at the camera, pressing the button -->
+    <path class="k" d="M30 152L16 211M30 152L46 211"/>
+    <path class="k" d="M30 152L36 108"/>
+    <path class="k" d="M36 116L56 138L72 120"/>
+    <path class="k" d="M35 116L18 146"/>
+    <circle class="w" cx="46" cy="92" r="19"/>
+    <circle class="i" cx="54" cy="88" r="2.8"/>
+    <path class="k f" d="M58 88h6"/>
+    <path class="k t" d="M52 100h7"/>
+  </g>
+</svg>

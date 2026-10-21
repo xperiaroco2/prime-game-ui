@@ -1,0 +1,49 @@
+<!-- own work, prime-game-ui, licence: own work -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" width="320" height="240">
+  <defs>
+    <filter id="pa4-w" filterUnits="userSpaceOnUse" x="0" y="0" width="320" height="240">
+      <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="67" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="4" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <style>
+      .k{fill:none;stroke:#1f2433;stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
+      .t{stroke-width:4}
+      .f{stroke-width:3}
+      .w{fill:#fff;stroke:#1f2433;stroke-width:5;stroke-linejoin:round}
+      .a{fill:#FFD60A;stroke:#1f2433;stroke-width:5;stroke-linejoin:round}
+      .i{fill:#1f2433}
+      .o{fill:none;stroke:#FFD60A;stroke-width:5;stroke-linecap:round}
+    </style>
+  </defs>
+  <g filter="url(#pa4-w)">
+    <ellipse cx="84" cy="213" rx="24" ry="4" fill="#1f2433" opacity=".12"/>
+    <ellipse cx="256" cy="213" rx="24" ry="4" fill="#1f2433" opacity=".12"/>
+    <path class="k t" d="M16 212C96 209 210 214 304 211"/>
+    <!-- the photo, held up: the pose caught, lit -->
+    <path class="o" d="M122 26l-8-8M198 26l8-8M212 70h12"/>
+    <g transform="rotate(-4 160 82)">
+      <rect class="w" x="118" y="32" width="84" height="102" rx="4"/>
+      <rect class="a" x="128" y="42" width="64" height="66" rx="2" style="stroke-width:4"/>
+      <g transform="translate(157 87) scale(.4)">
+        <path class="k" d="M0 0L2 -48M2 -38L38 -86M2 -38L-20 -22L-6 -4M0 0L-12 59M0 0L34 48" style="stroke-width:12"/>
+        <circle class="w" cx="4" cy="-66" r="19" style="stroke-width:10"/>
+      </g>
+    </g>
+    <path class="k" d="M30 40l10 10l22-24" style="stroke-width:8"/>
+    <!-- figure, the photographer, holding the photo up, cheering -->
+    <path class="k" d="M84 152L68 211M84 152L100 211"/>
+    <path class="k" d="M84 152L86 104"/>
+    <path class="k" d="M87 114L110 120L124 130"/>
+    <path class="k" d="M86 112L66 92L60 64"/>
+    <circle class="w" cx="90" cy="84" r="19"/>
+    <circle class="i" cx="96" cy="79" r="2.8"/><circle class="i" cx="103" cy="79" r="2.8"/>
+    <path class="k t" d="M94 90q5 6 11 0"/>
+    <!-- the subject, cheering too -->
+    <path class="k" d="M256 152L240 211M256 152L272 211"/>
+    <path class="k" d="M256 152L258 104"/>
+    <path class="k" d="M258 114L238 92L232 64M258 114L278 92L286 64"/>
+    <circle class="w" cx="260" cy="84" r="19"/>
+    <circle class="i" cx="253" cy="79" r="2.8"/><circle class="i" cx="246" cy="79" r="2.8"/>
+    <path class="k t" d="M244 90q5 6 11 0"/>
+  </g>
+</svg>
