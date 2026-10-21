@@ -333,7 +333,7 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
   The look is set by `pages/card-art/round-2/clean-sketch/`:
   - a stick figure with a round head and a few-stroke face;
   - a dark ink line with a hand-drawn wobble;
-  - one amber accent for what matters;
+  - one accent for what matters: amber until 2026-10-21, then the sticker yellow #FFD60A (see below);
   - a small gag per card.
 
   The bold-silhouette style is not adopted. Card rules (agent):
@@ -592,3 +592,11 @@ brackets in a path are wildcards to PowerShell and globs (agent).
 `item_selected`) signal, never on hover or on focus moving, so keyboard and gamepad navigation stay silent. A disabled
 control makes no sound. A slider clicks once when the drag ends (`drag_ended`), not per step; a stepper's arrows click
 per press, and a held stepper only on its first step. A dropdown clicks when it opens and when an item is chosen.
+
+**MVP round of the copy and the card pilot** (the engineer, 2026-10-21, chat, translated: "all by the recommendations,
+we fix later"):
+- the 31 open copy questions of the MVP round (56 draft keys) take option a, the deck as it is; the deck did not change,
+  so the game needs no new strings (`copy/flags.json`, round 6);
+- the how-to cards keep the clean sketch; the pilot's picks are Wi-Fi A and cooking B, their accent the sticker yellow
+  #FFD60A (option Б of [the card-look page](https://claude.ai/artifact/3uhpU2HXbp1bLsnxafAKck), the agent's
+  recommendation), since the amber was not in the ui-1.3.0 palette.

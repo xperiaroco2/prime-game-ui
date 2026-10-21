@@ -2,938 +2,7 @@
  "about": "The copy review (prime-game-ui#4; round 4, prime-game-ui#51, and round 5, prime-game-ui#57: the deck rows the game's M7 asked for on prime-game#150). Round 2 was answered on 2026-10-05 and applied. Round 3 (2026-10-06, wave prime-game-ui#19), about the texts the styled screens added or reworded, was answered the same day and applied. open: questions still waiting for the engineer, each with options a-c; an option lists the rows it would write (empty uk and en remove the key), an option without rows keeps the deck and says so in its label. The deck keeps its current wording until an open question is answered on pages/copy/; where option a has rows, the deck could not take the change yet (an old wireframe frame still shows the current text). decided: what was applied, round 2 first. removed: keys taken out of the deck. asked: when the current round was put to the engineer; the page ignores answers saved before it. Rules: copy/README.md and docs/research/2026-10-05-ukrainian-localization/report.md.",
  "asked": "2026-10-20T22:23:30Z",
  "principle": "Гравці досвідчені, гра не для дітей: не пояснюємо звичне й очевидне (що меню не ставить на паузу, що щось нове, знайоме керування), без «водіння за руку». Без написаних жартів: текст простий, короткий і впевнений; смішне робить гра, а не підписи (дизайн-трек, 21.10).",
- "open": [
-  {
-   "id": "tutorial.step.dead_room.title",
-   "keys": [
-    "tutorial.step.dead_room.title"
-   ],
-   "kind": "clarity",
-   "round": "new",
-   "why": "Чернетка (екрани MVP s1–s5). Урок «Смерть» у навчанні (s1, крок 7 з 9): у MVP мертві більше не дивляться на живих, а чекають разом у кімнаті мертвих (m8 §3). Старі рядки уроку (tutorial.step.death.*) про спостереження лишаються в колоді, доки ти не затвердиш ці.",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "note": "«Перечекай у кімнаті мертвих» / «Wait in the dead's room».",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "label": "Про повернення",
-     "note": "Без назви кімнати: лише що робити.",
-     "rows": [
-      {
-       "key": "tutorial.step.dead_room.title",
-       "en": "Wait for your return",
-       "uk": "Дочекайся повернення"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "tutorial.step.dead_room.how",
-   "keys": [
-    "tutorial.step.dead_room.how"
-   ],
-   "kind": "clarity",
-   "round": "new",
-   "why": "Чернетка (екрани MVP s1–s5). Другий рядок уроку «Смерть»: куди гравець повертається (випадкова капсула, m8 §3). Без числа секунд: 30 с ще можуть змінити плейтести.",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "note": "«Повернешся в одній із капсул» / «You're back at a capsule».",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "label": "Із часом",
-     "note": "Каже, скільки чекати, але число ще можуть змінити.",
-     "rows": [
-      {
-       "key": "tutorial.step.dead_room.how",
-       "en": "Back in 30 seconds",
-       "uk": "Повернешся через 30 секунд"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "topic.tutorial_pick_up",
-   "kind": "consistency",
-   "round": "new",
-   "keys": [
-    "tutorial.step.pick_up.title",
-    "tutorial.step.pick_up.how",
-    "tutorial.step.put_down.title"
-   ],
-   "why": "Чернетка (екрани MVP s1–s5). Урок 2 у навчанні (s1, «Взяти й покласти») називав пакунок, а Доставки в MVP немає. Тепер — батарейка, простий предмет MVP; який предмет лежить у кімнаті навчання, вирішує гра.",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "note": "«Візьми батарейку», «Наведи приціл на батарейку і натисни {key}», «Поклади батарейку».",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "label": "Без назви предмета",
-     "note": "Підходить до будь-якого предмета в кімнаті.",
-     "rows": [
-      {
-       "key": "tutorial.step.pick_up.title",
-       "en": "Pick up an item",
-       "uk": "Візьми предмет"
-      },
-      {
-       "key": "tutorial.step.pick_up.how",
-       "en": "Aim at the item and press {key}",
-       "uk": "Наведи приціл на предмет і натисни {key}"
-      },
-      {
-       "key": "tutorial.step.put_down.title",
-       "en": "Put the item down",
-       "uk": "Поклади предмет"
-      }
-     ]
-    },
-    {
-     "id": "c",
-     "label": "Стара чернетка",
-     "note": "Пакунок, як у M7.",
-     "rows": [
-      {
-       "key": "tutorial.step.pick_up.title",
-       "en": "Pick up a package",
-       "uk": "Візьми пакунок"
-      },
-      {
-       "key": "tutorial.step.pick_up.how",
-       "en": "Aim at the package and press {key}",
-       "uk": "Наведи приціл на пакунок і натисни {key}"
-      },
-      {
-       "key": "tutorial.step.put_down.title",
-       "en": "Put the package down",
-       "uk": "Поклади пакунок"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "tip.neighbours",
-   "keys": [
-    "tip.neighbours"
-   ],
-   "kind": "tone",
-   "round": "new",
-   "why": "Чернетка (екрани MVP s1–s5). Порада на екрані завантаження (s3). Аудит: «Не забувай: у тебе дві руки» писалася про пакунки доставки, якої в MVP немає. Нова порада натякає на гнів сусідів. Стара лишається в колоді (порада випадкова з набору), поки ти не скажеш прибрати. Перевірено 21.10 за правилом «без написаних жартів»: варіант «Гуляй тихо. Або ні.» був жартом і його замінено прямою підказкою.",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "note": "«Сусіди сплять чутко.» / «The neighbours are light sleepers.».",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "label": "Прямо",
-     "note": "Каже, що робить шум, без натяку.",
-     "rows": [
-      {
-       "key": "tip.neighbours",
-       "en": "Noise angers the neighbours.",
-       "uk": "Шум злить сусідів."
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "task.car_tuning",
-   "keys": [
-    "task.car_tuning"
-   ],
-   "kind": "word",
-   "round": "new",
-   "why": "Чернетка (екрани MVP s1–s5). Назва задачі MVP (GDD §8, #1144): у Посібнику (s5) і на картці завантаження (s3), далі на мапі (s8).",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "note": "«Тюнінг авто» / «Car tuning».",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "label": "Коротко",
-     "note": "Одне слово, але менш ясно, що треба зробити.",
-     "rows": [
-      {
-       "key": "task.car_tuning",
-       "en": "Car",
-       "uk": "Авто"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "task.engine",
-   "keys": [
-    "task.engine"
-   ],
-   "kind": "word",
-   "round": "new",
-   "why": "Чернетка (екрани MVP s1–s5). Назва задачі MVP «двигун корабля» (GDD §8).",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "note": "«Двигун корабля» / «Ship's engine».",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "label": "Коротко",
-     "note": "Без «корабля»: на мапі це й так одна машина.",
-     "rows": [
-      {
-       "key": "task.engine",
-       "en": "Engine",
-       "uk": "Двигун"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "task.cooking",
-   "keys": [
-    "task.cooking"
-   ],
-   "kind": "word",
-   "round": "new",
-   "why": "Чернетка (екрани MVP s1–s5). Назва задачі MVP «готування» (бургери, GDD §8).",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "note": "«Готування» / «Cooking».",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "label": "Що готують",
-     "note": "Конкретніше, якщо в MVP лише бургери.",
-     "rows": [
-      {
-       "key": "task.cooking",
-       "en": "Burgers",
-       "uk": "Бургери"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "task.photo",
-   "keys": [
-    "task.photo"
-   ],
-   "kind": "word",
-   "round": "new",
-   "why": "Чернетка (екрани MVP s1–s5). Назва задачі MVP «фото» (поза-силует, GDD §8, #1102).",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "note": "«Фото» / «Photo».",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "label": "Довше",
-     "note": "Звучить як подія вечірки.",
-     "rows": [
-      {
-       "key": "task.photo",
-       "en": "Photo shoot",
-       "uk": "Фотосесія"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "task.wifi",
-   "keys": [
-    "task.wifi"
-   ],
-   "kind": "word",
-   "round": "new",
-   "why": "Чернетка (екрани MVP s1–s5). Назва задачі MVP «Wi-Fi» (паролі з бібліотеки, GDD §8). Однакова в обох мовах, як і назва самої технології.",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "note": "«Wi-Fi» / «Wi-Fi».",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "label": "Про пароль",
-     "note": "Каже, що саме треба зробити.",
-     "rows": [
-      {
-       "key": "task.wifi",
-       "en": "Wi-Fi password",
-       "uk": "Пароль Wi-Fi"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "lobby.setting.humans",
-   "keys": [
-    "lobby.setting.humans"
-   ],
-   "kind": "word",
-   "round": "new",
-   "why": "Чернетка (екрани MVP s1–s5). Рядок налаштувань хоста (s5, вкладка «Лобі», кадр 7 сторінки MVP): хост задає точну кількість людей (m8 §2). На ескізі було «Людей серед гостей»; тут коротше, бо рядок поруч зі степером. Старий рядок «Дисиденти» лишається в колоді, поки ти не затвердиш цей.",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "note": "«Люди» / «Humans».",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "label": "Як на ескізі",
-     "note": "Довше, як на сторінці MVP.",
-     "rows": [
-      {
-       "key": "lobby.setting.humans",
-       "en": "Humans among guests",
-       "uk": "Людей серед гостей"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "lobby.setting.humans_of",
-   "keys": [
-    "lobby.setting.humans_of"
-   ],
-   "kind": "clarity",
-   "round": "new",
-   "why": "Чернетка (екрани MVP s1–s5). Значення степера людей: «1 з 4», де {total} — гравці, що зараз у лобі (це й найбільше значення степера; число змінюється, коли хтось заходить або виходить). На ескізі — підпис «з 10 гравців» під назвою.",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "note": "«{count} з {total}» / «{count} of {total}».",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "label": "Із «гравців»",
-     "note": "Довше: значення ледь влазить у степер.",
-     "rows": [
-      {
-       "key": "lobby.setting.humans_of",
-       "en": "{count} of {total} players",
-       "uk": "{count} з {total} гравців"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "lobby.setting.anger",
-   "keys": [
-    "lobby.setting.anger"
-   ],
-   "kind": "word",
-   "round": "new",
-   "why": "Чернетка (екрани MVP s1–s5). Рядок налаштувань хоста: поріг гніву сусідів, після якого їдуть копи (m8 §5); варіанти (тут 50 і 100) ще відкриті. На ескізі «Поріг гніву сусідів».",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "note": "«Поріг гніву» / «Anger threshold».",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "label": "Як на ескізі",
-     "note": "Довше, але прямо каже, чий гнів.",
-     "rows": [
-      {
-       "key": "lobby.setting.anger",
-       "en": "Neighbours' anger threshold",
-       "uk": "Поріг гніву сусідів"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "lobby.setting.wifi_passwords",
-   "keys": [
-    "lobby.setting.wifi_passwords"
-   ],
-   "kind": "word",
-   "round": "new",
-   "why": "Чернетка (екрани MVP s1–s5). Рядок налаштувань хоста: скільки паролів Wi-Fi до кінця задачі (N, вирішене налаштування лобі, GDD §8). На ескізі «Wi-Fi: паролів».",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "note": "«Паролі Wi-Fi» / «Wi-Fi passwords».",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "label": "Як на ескізі",
-     "note": "Те саме, але з двокрапкою.",
-     "rows": [
-      {
-       "key": "lobby.setting.wifi_passwords",
-       "en": "Wi-Fi: passwords",
-       "uk": "Wi-Fi: паролів"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "role.alien",
-   "keys": [
-    "role.alien"
-   ],
-   "kind": "word",
-   "round": "new",
-   "why": "Чернетка (екрани MVP s1–s5). Назва ролі (m8 §1): вкладка «Роль» меню Esc (s5), далі показ ролі (s6) і HUD (s7). Як на ескізі.",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "note": "«Прибулець» / «Alien».",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "label": "Гість",
-     "note": "Від імені вечірки, а не раси.",
-     "rows": [
-      {
-       "key": "role.alien",
-       "en": "Guest",
-       "uk": "Гість"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "role.human",
-   "keys": [
-    "role.human"
-   ],
-   "kind": "word",
-   "round": "new",
-   "why": "Чернетка (екрани MVP s1–s5). Назва другої ролі (m8 §1, колишні дисиденти). Як на ескізі.",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "note": "«Людина» / «Human».",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "label": "Під маскою",
-     "note": "Одразу каже, що роль ховається; довше на HUD.",
-     "rows": [
-      {
-       "key": "role.human",
-       "en": "Human in disguise",
-       "uk": "Людина під маскою"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "role.goal.alien",
-   "keys": [
-    "role.goal.alien"
-   ],
-   "kind": "tone",
-   "round": "new",
-   "why": "Чернетка (екрани MVP s1–s5). Мета прибульця у вкладці «Роль» (s5) і в показі ролі (s6), текст ескізу (кадр 8). Великий момент, тож трохи гумору.",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "note": "«Влаштуй найкращу вечірку: виконай усі задачі, поки не скінчився час і не приїхали копи.» / «Throw the best party: finish every task before time runs out and the cops arrive.».",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "label": "Сухо, як було",
-     "note": "У тоні старої мети Інженерів.",
-     "rows": [
-      {
-       "key": "role.goal.alien",
-       "en": "Your goal: finish every task before time runs out or the cops arrive.",
-       "uk": "Твоя мета: виконати всі задачі, поки не вийшов час і не приїхали копи."
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "role.goal.human",
-   "keys": [
-    "role.goal.human"
-   ],
-   "kind": "tone",
-   "round": "new",
-   "why": "Чернетка (екрани MVP s1–s5). Мета людини у вкладці «Роль» (s5) і в показі ролі (s6), текст ескізу (кадр 9).",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "note": "«Ти людина під маскою прибульця. Зіпсуй вечірку: протягни час або розлюти сусідів, щоб приїхали копи.» / «You're a human in an alien mask. Ruin the party: run out the clock or anger the neighbours until the cops come.».",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "label": "Сухо, як було",
-     "note": "Без маски, у тоні старої мети.",
-     "rows": [
-      {
-       "key": "role.goal.human",
-       "en": "Your goal: run out the clock or anger the neighbours until the cops come.",
-       "uk": "Твоя мета: протягнути час або розлютити сусідів, щоб приїхали копи."
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "topic.mvp_items",
-   "kind": "word",
-   "round": "new",
-   "keys": [
-    "item.battery",
-    "item.flower",
-    "item.car_part",
-    "item.bun",
-    "item.patty",
-    "item.burger",
-    "item.watering_can",
-    "item.tools",
-    "item.rubbish",
-    "item.extinguisher",
-    "item.fireworks"
-   ],
-   "why": "Чернетка (екрани MVP s6–s11). Назви предметів MVP на бирках слотів (панель предметів А, s7) і під прицілом: батарейка, квітка, деталь авто, булка, котлета, бургер, лійка, інструменти гаража, сміття, вогнегасник, феєрверк (GDD §8). Слова на бирках — твої тексти.",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "note": "Батарейка, Квітка, Деталь авто, Булка, Котлета, Бургер, Лійка, Інструменти, Сміття, Вогнегасник, Феєрверк.",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "label": "Точніше, довше",
-     "note": "Що саме за деталь і що за сміття; бирка стає ширшою за слот.",
-     "rows": [
-      {
-       "key": "item.car_part",
-       "en": "Printed part",
-       "uk": "Друкована деталь"
-      },
-      {
-       "key": "item.rubbish",
-       "en": "Bin bag",
-       "uk": "Мішок сміття"
-      },
-      {
-       "key": "item.tools",
-       "en": "Garage tools",
-       "uk": "Інструменти гаража"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "hud.roster.self",
-   "keys": [
-    "hud.roster.self"
-   ],
-   "kind": "clarity",
-   "round": "new",
-   "why": "Чернетка (екрани MVP s6–s11). Своє імʼя в списку гравців (s7, праворуч угорі); воно ще й зелене.",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "note": "«{name} (ти)» / «{name} (you)».",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "label": "Лише колір",
-     "note": "Без дужок: своє імʼя видно за зеленим кольором.",
-     "rows": [
-      {
-       "key": "hud.roster.self",
-       "en": "{name}",
-       "uk": "{name}"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "hud.roster.dead",
-   "keys": [
-    "hud.roster.dead"
-   ],
-   "kind": "gender",
-   "round": "new",
-   "why": "Чернетка (екрани MVP s6–s11). Мертвий гравець у списку (s7): блідо, з позначкою. «Мертвий» має рід, тому «поза грою». Чи показувати мертвих у списку — відкрито.",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "note": "«{name} · поза грою» / «{name} · out».",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "label": "Лише блідо",
-     "note": "Без слова, лише блідий колір імені.",
-     "rows": [
-      {
-       "key": "hud.roster.dead",
-       "en": "{name}",
-       "uk": "{name}"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "hud.cops.title",
-   "keys": [
-    "hud.cops.title"
-   ],
-   "kind": "tone",
-   "round": "new",
-   "why": "Чернетка (екрани MVP s6–s11). Банер, коли гнів сусідів повний (s7, кадр 4 ескізу).",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "note": "«Сусіди викликали копів!» / «The neighbours called the cops!».",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "label": "Коротко",
-     "note": "",
-     "rows": [
-      {
-       "key": "hud.cops.title",
-       "en": "Cops are coming!",
-       "uk": "Їдуть копи!"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "hud.cops.in",
-   "keys": [
-    "hud.cops.in"
-   ],
-   "kind": "clarity",
-   "round": "new",
-   "why": "Чернетка (екрани MVP s6–s11). Підпис над відліком копів (s7): під ним великі цифри 0:58.",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "note": "«Копи будуть за» / «The cops arrive in».",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "label": "Без «копів»",
-     "note": "Заголовок банера вже каже про копів.",
-     "rows": [
-      {
-       "key": "hud.cops.in",
-       "en": "Arriving in",
-       "uk": "Будуть за"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "map.zone_hint.task",
-   "keys": [
-    "map.zone_hint.task"
-   ],
-   "kind": "less-text",
-   "round": "new",
-   "why": "Чернетка (екрани MVP s6–s11). Бирка під підсвіченою зоною задачі на мапі (s8), замість «Тут можуть бути пакунки».",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "note": "«Тут ця задача» / «This task is here».",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "label": "Без бирки",
-     "note": "Зону видно й так, коли наводиш на задачу. Рядок прибрати з колоди.",
-     "rows": [
-      {
-       "key": "map.zone_hint.task",
-       "en": "",
-       "uk": ""
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "dead.room.title",
-   "keys": [
-    "dead.room.title"
-   ],
-   "kind": "word",
-   "round": "new",
-   "why": "Чернетка (екрани MVP s6–s11). Заголовок кімнати мертвих (s9) — замість спостереження за живими.",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "note": "«Кімната мертвих» / «The dead's room».",
-     "rows": []
-    }
-   ]
-  },
-  {
-   "id": "dead.back_in",
-   "keys": [
-    "dead.back_in"
-   ],
-   "kind": "clarity",
-   "round": "new",
-   "why": "Чернетка (екрани MVP s6–s11). Підпис над великим відліком у кімнаті мертвих (s9), як прийняте «Повернення через {time}».",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "note": "«Повернення через» / «Back in».",
-     "rows": []
-    }
-   ]
-  },
-  {
-   "id": "dead.also_here",
-   "keys": [
-    "dead.also_here"
-   ],
-   "kind": "clarity",
-   "round": "new",
-   "why": "Чернетка (екрани MVP s6–s11). Хто ще чекає в кімнаті мертвих (s9).",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "note": "«Тут також: {names}» / «Also here: {names}».",
-     "rows": []
-    }
-   ]
-  },
-  {
-   "id": "dead.capsule_note",
-   "keys": [
-    "dead.capsule_note"
-   ],
-   "kind": "less-text",
-   "round": "new",
-   "why": "Чернетка (екрани MVP s6–s11). Куди повернешся (s9): випадкова капсула й захист після появи.",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "note": "«Випадкова капсула · {count} с захисту» / «Random capsule · {count} s protection».",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "label": "Без наліпки",
-     "note": "Гравці дізнаються в навчанні; рядок прибрати з колоди.",
-     "rows": [
-      {
-       "key": "dead.capsule_note",
-       "en": "",
-       "uk": ""
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "topic.mvp_ends",
-   "kind": "tone",
-   "round": "new",
-   "keys": [
-    "end.title.party",
-    "end.title.time_up",
-    "end.title.busted",
-    "end.won_aliens",
-    "end.won_humans",
-    "end.reason.cops"
-   ],
-   "why": "Чернетка (екрани MVP s6–s11). Три кінці раунду (s10): заголовок, хто переміг, нова причина для копів. Причина «всі задачі» лишається як є; причину «час вийшов» спитано окремо (end.reason.time_up), щоб вона не повторювала заголовок «Час вийшов».",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "note": "«Вечірка вдалася!», «Час вийшов», «Попались!»; «Прибульці перемогли», «Люди перемогли»; «Приїхали копи: вечірці кінець.»",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "label": "Без повтору",
-     "note": "Інший заголовок для часу, якщо «Час вийшов» не подобається.",
-     "rows": [
-      {
-       "key": "end.title.time_up",
-       "en": "The party flopped",
-       "uk": "Вечірка не вдалася"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "end.reason.time_up",
-   "keys": [
-    "end.reason.time_up"
-   ],
-   "kind": "less-text",
-   "round": "new",
-   "why": "Чернетка (екрани MVP s6–s11). Причина під заголовком «Час вийшов» (s10, кінець «час вийшов»): стара причина починалася тими самими словами, тож рядок повторював заголовок.",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "note": "«Задачі не виконано.» / «The tasks aren't done.»",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "label": "Стара причина",
-     "note": "Повторює заголовок «Час вийшов».",
-     "rows": [
-      {
-       "key": "end.reason.time_up",
-       "en": "Time's up and the tasks aren't done.",
-       "uk": "Час вийшов, а задачі ще не виконано."
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "end.back_to_ship",
-   "keys": [
-    "end.back_to_ship"
-   ],
-   "kind": "word",
-   "round": "new",
-   "why": "Чернетка (екрани MVP s6–s11). Повернення після кінця раунду (s10): лобі тепер корабель прибульців. Старий рядок «Повернення в лобі» лишається, доки не затвердиш цей.",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "note": "«Повернення на корабель через {count}…» / «Back to the ship in {count}…».",
-     "rows": []
-    }
-   ]
-  },
-  {
-   "id": "topic.workbench",
-   "kind": "word",
-   "round": "new",
-   "keys": [
-    "workbench.title",
-    "workbench.points",
-    "workbench.mutate",
-    "workbench.short",
-    "unit.points",
-    "mutation.fast.name",
-    "mutation.fast.effect",
-    "mutation.jump.name",
-    "mutation.jump.effect",
-    "mutation.health.name",
-    "mutation.health.effect"
-   ],
-   "why": "Чернетка (екрани MVP s6–s11). Мутаційний верстат (новий екран s11, кадр 6 ескізу): назва, баланс очок, ціна, кнопка, «бракує», три мутації. Назви мутацій ще відкриті.",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "note": "«Мутаційний верстат», «Твої очки», «4 очки», «Мутувати», «Бракує 2»; «Швидкі ноги — Бігаєш швидше», «Пружні ноги — Стрибаєш вище», «Товста шкіра — Більше здоровʼя».",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "label": "Назви — це дія",
-     "note": "Без вигаданих назв: картка каже лише, що дає.",
-     "rows": [
-      {
-       "key": "mutation.fast.name",
-       "en": "Faster",
-       "uk": "Швидше"
-      },
-      {
-       "key": "mutation.jump.name",
-       "en": "Higher",
-       "uk": "Вище"
-      },
-      {
-       "key": "mutation.health.name",
-       "en": "Tougher",
-       "uk": "Міцніше"
-      }
-     ]
-    }
-   ]
-  }
- ],
+ "open": [],
  "removed": [
   "downed.can_raise",
   "esc.running",
@@ -1588,6 +657,250 @@
     "tutorial.list.throw"
    ],
    "how": "Коло 5 (2026-10-14, prime-game-ui#57): прийнято a, Лишити як є (рекомендую)."
+  },
+  {
+   "id": "tutorial.step.dead_room.title",
+   "keys": [
+    "tutorial.step.dead_room.title"
+   ],
+   "how": "Коло 6, MVP (2026-10-21, чат): інженер прийняв усі рекомендації — a, Як у колоді (рекомендую)."
+  },
+  {
+   "id": "tutorial.step.dead_room.how",
+   "keys": [
+    "tutorial.step.dead_room.how"
+   ],
+   "how": "Коло 6, MVP (2026-10-21, чат): інженер прийняв усі рекомендації — a, Як у колоді (рекомендую)."
+  },
+  {
+   "id": "topic.tutorial_pick_up",
+   "keys": [
+    "tutorial.step.pick_up.title",
+    "tutorial.step.pick_up.how",
+    "tutorial.step.put_down.title"
+   ],
+   "how": "Коло 6, MVP (2026-10-21, чат): інженер прийняв усі рекомендації — a, Як у колоді (рекомендую)."
+  },
+  {
+   "id": "tip.neighbours",
+   "keys": [
+    "tip.neighbours"
+   ],
+   "how": "Коло 6, MVP (2026-10-21, чат): інженер прийняв усі рекомендації — a, Як у колоді (рекомендую)."
+  },
+  {
+   "id": "task.car_tuning",
+   "keys": [
+    "task.car_tuning"
+   ],
+   "how": "Коло 6, MVP (2026-10-21, чат): інженер прийняв усі рекомендації — a, Як у колоді (рекомендую)."
+  },
+  {
+   "id": "task.engine",
+   "keys": [
+    "task.engine"
+   ],
+   "how": "Коло 6, MVP (2026-10-21, чат): інженер прийняв усі рекомендації — a, Як у колоді (рекомендую)."
+  },
+  {
+   "id": "task.cooking",
+   "keys": [
+    "task.cooking"
+   ],
+   "how": "Коло 6, MVP (2026-10-21, чат): інженер прийняв усі рекомендації — a, Як у колоді (рекомендую)."
+  },
+  {
+   "id": "task.photo",
+   "keys": [
+    "task.photo"
+   ],
+   "how": "Коло 6, MVP (2026-10-21, чат): інженер прийняв усі рекомендації — a, Як у колоді (рекомендую)."
+  },
+  {
+   "id": "task.wifi",
+   "keys": [
+    "task.wifi"
+   ],
+   "how": "Коло 6, MVP (2026-10-21, чат): інженер прийняв усі рекомендації — a, Як у колоді (рекомендую)."
+  },
+  {
+   "id": "lobby.setting.humans",
+   "keys": [
+    "lobby.setting.humans"
+   ],
+   "how": "Коло 6, MVP (2026-10-21, чат): інженер прийняв усі рекомендації — a, Як у колоді (рекомендую)."
+  },
+  {
+   "id": "lobby.setting.humans_of",
+   "keys": [
+    "lobby.setting.humans_of"
+   ],
+   "how": "Коло 6, MVP (2026-10-21, чат): інженер прийняв усі рекомендації — a, Як у колоді (рекомендую)."
+  },
+  {
+   "id": "lobby.setting.anger",
+   "keys": [
+    "lobby.setting.anger"
+   ],
+   "how": "Коло 6, MVP (2026-10-21, чат): інженер прийняв усі рекомендації — a, Як у колоді (рекомендую)."
+  },
+  {
+   "id": "lobby.setting.wifi_passwords",
+   "keys": [
+    "lobby.setting.wifi_passwords"
+   ],
+   "how": "Коло 6, MVP (2026-10-21, чат): інженер прийняв усі рекомендації — a, Як у колоді (рекомендую)."
+  },
+  {
+   "id": "role.alien",
+   "keys": [
+    "role.alien"
+   ],
+   "how": "Коло 6, MVP (2026-10-21, чат): інженер прийняв усі рекомендації — a, Як у колоді (рекомендую)."
+  },
+  {
+   "id": "role.human",
+   "keys": [
+    "role.human"
+   ],
+   "how": "Коло 6, MVP (2026-10-21, чат): інженер прийняв усі рекомендації — a, Як у колоді (рекомендую)."
+  },
+  {
+   "id": "role.goal.alien",
+   "keys": [
+    "role.goal.alien"
+   ],
+   "how": "Коло 6, MVP (2026-10-21, чат): інженер прийняв усі рекомендації — a, Як у колоді (рекомендую)."
+  },
+  {
+   "id": "role.goal.human",
+   "keys": [
+    "role.goal.human"
+   ],
+   "how": "Коло 6, MVP (2026-10-21, чат): інженер прийняв усі рекомендації — a, Як у колоді (рекомендую)."
+  },
+  {
+   "id": "topic.mvp_items",
+   "keys": [
+    "item.battery",
+    "item.flower",
+    "item.car_part",
+    "item.bun",
+    "item.patty",
+    "item.burger",
+    "item.watering_can",
+    "item.tools",
+    "item.rubbish",
+    "item.extinguisher",
+    "item.fireworks"
+   ],
+   "how": "Коло 6, MVP (2026-10-21, чат): інженер прийняв усі рекомендації — a, Як у колоді (рекомендую)."
+  },
+  {
+   "id": "hud.roster.self",
+   "keys": [
+    "hud.roster.self"
+   ],
+   "how": "Коло 6, MVP (2026-10-21, чат): інженер прийняв усі рекомендації — a, Як у колоді (рекомендую)."
+  },
+  {
+   "id": "hud.roster.dead",
+   "keys": [
+    "hud.roster.dead"
+   ],
+   "how": "Коло 6, MVP (2026-10-21, чат): інженер прийняв усі рекомендації — a, Як у колоді (рекомендую)."
+  },
+  {
+   "id": "hud.cops.title",
+   "keys": [
+    "hud.cops.title"
+   ],
+   "how": "Коло 6, MVP (2026-10-21, чат): інженер прийняв усі рекомендації — a, Як у колоді (рекомендую)."
+  },
+  {
+   "id": "hud.cops.in",
+   "keys": [
+    "hud.cops.in"
+   ],
+   "how": "Коло 6, MVP (2026-10-21, чат): інженер прийняв усі рекомендації — a, Як у колоді (рекомендую)."
+  },
+  {
+   "id": "map.zone_hint.task",
+   "keys": [
+    "map.zone_hint.task"
+   ],
+   "how": "Коло 6, MVP (2026-10-21, чат): інженер прийняв усі рекомендації — a, Як у колоді (рекомендую)."
+  },
+  {
+   "id": "dead.room.title",
+   "keys": [
+    "dead.room.title"
+   ],
+   "how": "Коло 6, MVP (2026-10-21, чат): інженер прийняв усі рекомендації — a, Як у колоді (рекомендую)."
+  },
+  {
+   "id": "dead.back_in",
+   "keys": [
+    "dead.back_in"
+   ],
+   "how": "Коло 6, MVP (2026-10-21, чат): інженер прийняв усі рекомендації — a, Як у колоді (рекомендую)."
+  },
+  {
+   "id": "dead.also_here",
+   "keys": [
+    "dead.also_here"
+   ],
+   "how": "Коло 6, MVP (2026-10-21, чат): інженер прийняв усі рекомендації — a, Як у колоді (рекомендую)."
+  },
+  {
+   "id": "dead.capsule_note",
+   "keys": [
+    "dead.capsule_note"
+   ],
+   "how": "Коло 6, MVP (2026-10-21, чат): інженер прийняв усі рекомендації — a, Як у колоді (рекомендую)."
+  },
+  {
+   "id": "topic.mvp_ends",
+   "keys": [
+    "end.title.party",
+    "end.title.time_up",
+    "end.title.busted",
+    "end.won_aliens",
+    "end.won_humans",
+    "end.reason.cops"
+   ],
+   "how": "Коло 6, MVP (2026-10-21, чат): інженер прийняв усі рекомендації — a, Як у колоді (рекомендую)."
+  },
+  {
+   "id": "end.reason.time_up",
+   "keys": [
+    "end.reason.time_up"
+   ],
+   "how": "Коло 6, MVP (2026-10-21, чат): інженер прийняв усі рекомендації — a, Як у колоді (рекомендую)."
+  },
+  {
+   "id": "end.back_to_ship",
+   "keys": [
+    "end.back_to_ship"
+   ],
+   "how": "Коло 6, MVP (2026-10-21, чат): інженер прийняв усі рекомендації — a, Як у колоді (рекомендую)."
+  },
+  {
+   "id": "topic.workbench",
+   "keys": [
+    "workbench.title",
+    "workbench.points",
+    "workbench.mutate",
+    "workbench.short",
+    "unit.points",
+    "mutation.fast.name",
+    "mutation.fast.effect",
+    "mutation.jump.name",
+    "mutation.jump.effect",
+    "mutation.health.name",
+    "mutation.health.effect"
+   ],
+   "how": "Коло 6, MVP (2026-10-21, чат): інженер прийняв усі рекомендації — a, Як у колоді (рекомендую)."
   }
  ]
 }

@@ -10,9 +10,9 @@
       .t{stroke-width:4}
       .f{stroke-width:3}
       .w{fill:#fff;stroke:#1f2433;stroke-width:5;stroke-linejoin:round}
-      .a{fill:#e8a33a;stroke:#1f2433;stroke-width:5;stroke-linejoin:round}
+      .a{fill:#FFD60A;stroke:#1f2433;stroke-width:5;stroke-linejoin:round}
       .i{fill:#1f2433}
-      .o{fill:none;stroke:#e8a33a;stroke-width:5;stroke-linecap:round}
+      .o{fill:none;stroke:#FFD60A;stroke-width:5;stroke-linecap:round}
     </style>
     <!-- the alien glyphs (the card's own; the game's glyphs are not drawn yet), centred on 0,0, about 26 across. The one this card follows: the snail with horns -->
     <g id="wa4-gs" class="k t">
@@ -100,7 +100,7 @@
     <!-- done: the Wi-Fi is on -->
     <g transform="translate(215 38) scale(0.5)">
       <path class="k" d="M-14 -14A20 20 0 0 1 14 -14M-26 -26A37 37 0 0 1 26 -26M-38 -38A54 54 0 0 1 38 -38" style="stroke-width:16"/>
-      <path class="k" d="M-14 -14A20 20 0 0 1 14 -14M-26 -26A37 37 0 0 1 26 -26M-38 -38A54 54 0 0 1 38 -38" style="stroke:#e8a33a;stroke-width:8"/>
+      <path class="k" d="M-14 -14A20 20 0 0 1 14 -14M-26 -26A37 37 0 0 1 26 -26M-38 -38A54 54 0 0 1 38 -38" style="stroke:#FFD60A;stroke-width:8"/>
       <circle class="a" cx="0" cy="0" r="7" style="stroke-width:4"/>
     </g>
     <path class="o" d="M182 30l-10 -4M190 18l-6 -6M248 30l10 -4M240 18l6 -6"/>

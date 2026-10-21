@@ -10,9 +10,9 @@
       .t{stroke-width:4}
       .f{stroke-width:3}
       .w{fill:#fff;stroke:#1f2433;stroke-width:5;stroke-linejoin:round}
-      .a{fill:#e8a33a;stroke:#1f2433;stroke-width:5;stroke-linejoin:round}
+      .a{fill:#FFD60A;stroke:#1f2433;stroke-width:5;stroke-linejoin:round}
       .i{fill:#1f2433}
-      .o{fill:none;stroke:#e8a33a;stroke-width:5;stroke-linecap:round}
+      .o{fill:none;stroke:#FFD60A;stroke-width:5;stroke-linecap:round}
     </style>
     <!-- the alien glyphs (the card's own; the game's glyphs are not drawn yet), centred on 0,0, about 26 across. The one this card follows: the snail with horns -->
     <g id="wa3-gs" class="k t">
