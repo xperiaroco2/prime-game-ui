@@ -1,0 +1,5 @@
+{
+  "index.html#i-rocket, #i-bun, #i-battery": { "licence": "own work", "author": "prime-game-ui", "what": "line icons of the fireworks rocket, the bun and the battery, the same as pages/suit-ui, inline SVG symbols in currentColor" },
+  "font: Unbounded": { "licence": "OFL-1.1", "source": "https://github.com/google/fonts/tree/main/ofl/unbounded", "verified": "2026-10-21, METADATA.pb: license OFL, subsets include cyrillic", "use": "titles and numbers, loaded from Google Fonts, not in the repo" },
+  "font: Onest": { "licence": "OFL-1.1", "source": "https://github.com/google/fonts/tree/main/ofl/onest", "verified": "2026-10-21, METADATA.pb: license OFL, subsets include cyrillic", "use": "text and the page chrome, loaded from Google Fonts, not in the repo" }
+}

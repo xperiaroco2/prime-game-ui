@@ -335,6 +335,15 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
   (`pages/suit-ui/`): A the helmet visor, B the wrist device, C the ship's plastic modules; calm everywhere except the
   cops' minute (the role reveal and the ends are loud too), one accent per direction plus the danger colour (agent:
   the three directions, their accents and fonts, for the engineer to pick from).
+- **C, the ship's modules, is the base; physical screens for world interactions** (the engineer, 2026-10-21, chat,
+  translated, on the suit UI page): take C and develop it. He likes its minimalism ("nothing extra") and health and
+  stamina as segmented pips, not a solid bar; C's box shapes look odd, so the shape is to be reworked, and the colours
+  developed. From B he likes that the interface is physical where the player uses a thing in the world: such an
+  interface (the mutation workbench, for one) is a screen on the machine itself, shared by whoever stands there (in
+  Godot a SubViewport drawn on the machine's mesh), while the personal HUD stays a thin C-style overlay. The boot
+  straight into the ship (no main menu) is recorded on prime-game#150. Four module shapes and four palettes to pick
+  from, and the workbench as a screen on the machine, are on the suit C page (`pages/suit-c/`); the agent recommends
+  the label strip and the ink-and-mint palette (agent: the variants and the recommendation, for the engineer to pick).
 
 ## Principles
 - **The UI never tells the player what to do.** No "take it to X" line, no destination marker, no key prompts on the HUD;
