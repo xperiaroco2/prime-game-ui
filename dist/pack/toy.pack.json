@@ -5,7 +5,7 @@
   "style": "toy",
   "dtcg": "2025.10",
   "reference": {"width":1920,"height":1080},
-  "source": {"repo":"xperiaroco2/prime-game-ui","resolver":"tokens/prime.resolver.json","tokens_sha256":"16dcdfbe06c4f3d353aafc3460bb80fedb1574b76edd96ac59c57ad28f945241"},
+  "source": {"repo":"xperiaroco2/prime-game-ui","resolver":"tokens/prime.resolver.json","tokens_sha256":"054b21304f251e42df4f99e8f17edd58bbedae2f96261b9f72531bcdbc286142"},
   "modifiers": {"textSize":{"contexts":["default","large"],"default":"default"},"motion":{"contexts":["default","reduced"],"default":"default"}},
   "tokens": {
     "backdrop.alert.panel.bg-color": {"type":"color","hex":"#ff5c6c","rgba":[1,0.3608,0.4235,1],"from":"backdrop.alert.panel.bg-color"},
@@ -6302,6 +6302,8 @@
     {"path":"cards/delivery-meaning-2.png","kind":"card-art","sha256":"a5c5001e1c0cc45f452e473254dd26c698a0a8b6c1f258ce93419cca486701d7","licence":"own work","licence_file":"cards/LICENCES.json","source":"pages/card-art/round-3/a/delivery-meaning-2.svg","size":[640,480],"task":"delivery","frame":2},
     {"path":"cards/delivery-meaning-3.png","kind":"card-art","sha256":"33dc172b4b7f40009828d347c9cb5c901900fae97c8e20725d191056304050fc","licence":"own work","licence_file":"cards/LICENCES.json","source":"pages/card-art/round-3/a/delivery-meaning-3.svg","size":[640,480],"task":"delivery","frame":3},
     {"path":"cards/delivery-meaning-4.png","kind":"card-art","sha256":"c382a1616fa735f5e7192ea53dcae3daede872494ea20102ef1dbb0ecc971b05","licence":"own work","licence_file":"cards/LICENCES.json","source":"pages/card-art/round-3/a/delivery-meaning-4.svg","size":[640,480],"task":"delivery","frame":4,"done":true},
+    {"path":"fonts/Onest-VariableFont_wght.ttf","kind":"font","sha256":"966c5c29b4755da84b6854d5c21dd4eaa2420225d0e9874de602de176d4a9f31","licence":"OFL-1.1","licence_file":"fonts/LICENCES.json","licence_text":"fonts/OFL-Onest.txt","source":"fonts/onest/Onest-VariableFont_wght.ttf","family":"Onest","axes":{"wght":[100,900]},"weights":[500,700]},
+    {"path":"fonts/Unbounded-VariableFont_wght.ttf","kind":"font","sha256":"323b511be380c8d474ef030686b71aedde501f8d9cd46da558b7c40454372c3f","licence":"OFL-1.1","licence_file":"fonts/LICENCES.json","licence_text":"fonts/OFL-Unbounded.txt","source":"fonts/unbounded/Unbounded-VariableFont_wght.ttf","family":"Unbounded","axes":{"wght":[200,900]},"weights":[700]},
     {"path":"icons/check.svg","kind":"icon","sha256":"075bc05d17706a82166f60f442a4cb5f46a4570c5ae01caf963a1666224e22a9","licence":"own work","licence_file":"icons/LICENCES.json","source":"pages/components/icons/check.svg","size":[24,24],"drawn_px":36,"svg_scale":1.5,"tint":"multiply"},
     {"path":"icons/checkbox-checked-disabled.svg","kind":"icon","sha256":"3b2540576dec9c1928efd6cdb1f1c65f8fd71b2f8c8ddb8769d25f0a0a668b41","licence":"own work","licence_file":"icons/LICENCES.json","source":"pages/components/icons/checkbox-checked-disabled.svg","size":[42,42],"drawn_px":42,"svg_scale":1,"tint":"none"},
     {"path":"icons/checkbox-checked.svg","kind":"icon","sha256":"466d9678dbcea4e84f54836af4955ce3325c9391ca26c970fb3a6db9b75be932","licence":"own work","licence_file":"icons/LICENCES.json","source":"pages/components/icons/checkbox-checked.svg","size":[42,42],"drawn_px":42,"svg_scale":1,"tint":"none"},
