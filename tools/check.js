@@ -40,6 +40,8 @@ const STEPS = [
   ["page:grownup", ["pages/grownup/build.js", "--check"]],
   // the sticker-with-the-glow page: the screens at three glow strengths, three icon treatments and their PNGs
   ["page:sticker-glow", ["pages/sticker-glow/build.js", "--check"]],
+  // the glowing-bars page: three ways to light the bars, the line icons without the glow, the research
+  ["page:glow-bars", ["pages/glow-bars/build.js", "--check"]],
   // the self-test only: CI has no manager transcripts
   ["manager:selftest", ["tools/manager/context.js", "--self-test"]],
 ];

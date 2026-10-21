@@ -1,0 +1,135 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap">
+<!-- "Лінійні іконки без світіння": the neon item icon shapes of round 2 (pages/sticker-glow/icons/neon-*.svg) with the
+     glow removed, for all twelve carried MVP items (six kept, three redrawn: tulip, watering can, engine part; six new).
+     Own work: the SVGs are in icons/line-*.svg (line currentColor, one accent variable, an optional fill variable) and
+     inlined here as <symbol>s so the fragment stands alone. Three colourings in the current sticker item slots
+     (pages/mvp-screens, "Панель предметів", A) at the 0.75 UI scale: the hand slot 75 px, the belt slot 63 px.
+     After the critic: the accent of colouring 1 is ink (mint failed 3:1 on mint and green); the engine part is a spark
+     plug with a metal grey fill (#8A8F99), the raw patty a taller ragged puck in a redder pink (#D95C64), the watering
+     can's spout longer and its rose bigger, the bin bag lumpy with folds and no sheen. Godot's SVG importer will
+     probably not resolve var() and currentColor (unconfirmed): bake one SVG per colouring with literal colours before handoff.
+     The UI CSS is Godot-safe (solid fills, one-colour borders, radii, one hard shadow without spread); the room behind
+     the slots is a stand-in for the 3D world, not UI. -->
+<section class="gi3" id="line-icons">
+<style>
+.gi3 { --gi3-pu: #2B1846; --gi3-pud: #1F1033; --gi3-pul: #3C2660; --gi3-ink: #1E1230; --gi3-mint: #CFF3DF;
+  --gi3-gr: #A6E85A; --gi3-acid: #B6FF3C; --gi3-mu: #B7A8D6; --gi3-ft: "Nunito", "Segoe UI", sans-serif;
+  display: grid; gap: 14px; padding: 16px; border-radius: 12px; background: var(--gi3-pud); color: var(--gi3-mint); font-family: var(--gi3-ft); }
+.gi3 h2 { margin: 0; font: 900 22px/1.2 var(--gi3-ft); }
+.gi3 h3 { margin: 6px 0 0; font: 800 15px/1.2 var(--gi3-ft); }
+.gi3 p { margin: 0; font: 700 14px/1.45 var(--gi3-ft); color: var(--gi3-mu); max-width: 70ch; }
+.gi3 .gi3-i { display: block; }
+.gi3-big { display: flex; flex-wrap: wrap; gap: 10px; }
+.gi3-cell { width: 108px; display: grid; justify-items: center; gap: 6px; font: 700 12px/1.25 var(--gi3-ft); color: var(--gi3-mu); text-align: center; }
+.gi3-cell span { display: grid; place-items: center; width: 108px; height: 108px; border-radius: 12px; background: var(--gi3-pu); color: var(--gi3-mint); }
+.gi3-cell .gi3-i { width: 96px; height: 96px; }
+.gi3-room { position: relative; overflow: hidden; border-radius: 12px; background: #9C8670; padding: 20px 14px 18px; }
+.gi3-room i { position: absolute; left: 0; right: 0; bottom: 0; height: 40%; background: #85593A; display: block; }
+.gi3-row { position: relative; display: flex; flex-wrap: wrap; gap: 18px 20px; }
+.gi3-pair { display: grid; justify-items: center; gap: 8px; font: 800 12px/1.2 var(--gi3-ft); color: var(--gi3-mint); }
+.gi3-pair span { background: var(--gi3-ink); border-radius: 6px; padding: 1px 6px; }
+.gi3-duo { display: flex; align-items: flex-end; gap: 12px; }
+.gi3-sl { width: 63px; height: 63px; box-sizing: border-box; display: grid; place-items: center; background: var(--gi3-mint);
+  border: 3px solid var(--gi3-ink); border-radius: 12px; box-shadow: 4px 4px 0 var(--gi3-ink); color: var(--gi3-ink); }
+.gi3-sl .gi3-i { width: 45px; height: 45px; }
+.gi3-sl.gi3-on { width: 75px; height: 75px; background: var(--gi3-gr); }
+.gi3-sl.gi3-on .gi3-i { width: 56px; height: 56px; }
+/* colouring 1: the accent in ink too (a mint accent was about 1.0:1 on the mint belt and 1.2:1 on the green hand) */
+.gi3-c1 .gi3-sl { --gi3-acc: var(--gi3-ink); }
+/* colouring 2: mint line and an acid green accent on a dark purple plate; the hand slot one step lighter */
+.gi3-c2 .gi3-sl { background: var(--gi3-pu); color: var(--gi3-mint); --gi3-acc: var(--gi3-acid); --gi3-sw: 3.7; }
+.gi3-c2 .gi3-sl.gi3-on { background: var(--gi3-pul); }
+/* colouring 3: ink line, the accent in ink too, one flat fill per item (set on each icon) */
+.gi3-c3 .gi3-sl { --gi3-acc: var(--gi3-ink); }
+</style>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="gi3-rocket" viewBox="0 0 64 64"><g fill="none" stroke-linecap="round" stroke-linejoin="round" style="stroke-width:var(--gi3-sw, 4)" transform="rotate(30 32 32) translate(32 32) scale(1.18) translate(-32 -33)"><g stroke="none" style="fill:var(--gi3-fill, none)"><path d="M25 22L32 9L39 22V44H25Z"/></g><g stroke="currentColor"><path d="M25 22L32 9L39 22V44H25Z"/><path d="M25 22H39"/><path d="M32 44V60"/><path d="M28 44q-1 4-5 5.5"/></g><g style="stroke:var(--gi3-acc, #CFF3DF)"><path d="M25 33l3.5-3 3.5 3 3.5-3 3.5 3"/></g></g></symbol>
+  <symbol id="gi3-bun" viewBox="0 0 64 64"><g fill="none" stroke-linecap="round" stroke-linejoin="round" style="stroke-width:var(--gi3-sw, 4)"><g stroke="none" style="fill:var(--gi3-fill, none)"><path d="M8 41C8 25 18 15 32 15C46 15 56 25 56 41Q56 48 49 48H15Q8 48 8 41Z"/></g><g stroke="currentColor"><path d="M8 41C8 25 18 15 32 15C46 15 56 25 56 41Q56 48 49 48H15Q8 48 8 41Z"/><path d="M22 28l2.6-1.2"/><path d="M31 23h2.8"/><path d="M40 27l2.4 1.4"/><path d="M29 33h2.8"/></g><g style="stroke:var(--gi3-acc, #CFF3DF)"><path d="M9 39H55"/></g></g></symbol>
+  <symbol id="gi3-battery" viewBox="0 0 64 64"><g fill="none" stroke-linecap="round" stroke-linejoin="round" style="stroke-width:var(--gi3-sw, 4)"><g stroke="none" style="fill:var(--gi3-fill, none)"><path d="M21 19V50A11 4 0 0 0 43 50V19A11 4 0 0 0 21 19Z"/></g><g stroke="currentColor"><path d="M21 19A11 4 0 0 1 43 19A11 4 0 0 1 21 19Z"/><path d="M21 19V50A11 4 0 0 0 43 50V19"/><path d="M28.5 11.5H35.5"/><path d="M32 37v8M28 41h8"/></g><g style="stroke:var(--gi3-acc, #CFF3DF)"><path d="M21 28A11 4 0 0 0 43 28"/></g></g></symbol>
+  <symbol id="gi3-extinguisher" viewBox="0 0 64 64"><g fill="none" stroke-linecap="round" stroke-linejoin="round" style="stroke-width:var(--gi3-sw, 4)"><g stroke="none" style="fill:var(--gi3-fill, none)"><path d="M21 30Q21 22 29 22H33Q41 22 41 30V54Q41 58 37 58H25Q21 58 21 54Z"/></g><g stroke="currentColor"><path d="M21 30Q21 22 29 22H33Q41 22 41 30V54Q41 58 37 58H25Q21 58 21 54Z"/><path d="M28 22V16H34V22"/><path d="M25 13L40 9"/><path d="M34 18Q48 18 48 32V43"/><path d="M45.5 47L48 43L50.5 47Z"/></g><g style="stroke:var(--gi3-acc, #CFF3DF)"><path d="M26 35H36V45H26Z"/></g></g></symbol>
+  <symbol id="gi3-flower" viewBox="0 0 64 64"><g fill="none" stroke-linecap="round" stroke-linejoin="round" style="stroke-width:var(--gi3-sw, 4)"><g stroke="none" style="fill:var(--gi3-fill, none)"><path d="M20 12C19 26 24 34 32 34C40 34 45 26 44 12C39 14 35.5 18 32 24C28.5 18 25 14 20 12Z"/></g><g stroke="currentColor"><path d="M20 12C19 26 24 34 32 34C40 34 45 26 44 12C39 14 35.5 18 32 24C28.5 18 25 14 20 12Z"/><path d="M26 18C28 13 30 9.5 32 6.5C34 9.5 36 13 38 18"/><path d="M32 34V45"/><path d="M19 45H45"/><path d="M22 45L25 57H39L42 45"/></g><g style="stroke:var(--gi3-acc, #CFF3DF)"><path d="M32 43C37 43 41 39 42 33C37 33 33 37 32 43Z"/></g></g></symbol>
+  <symbol id="gi3-car-part" viewBox="0 0 64 64"><g fill="none" stroke-linecap="round" stroke-linejoin="round" style="stroke-width:var(--gi3-sw, 4)"><g stroke="none" style="fill:var(--gi3-fill, none)"><path d="M28 11V7Q28 4 31 4H33Q36 4 36 7V11Z"/><path d="M25 32V15Q25 11 29 11H35Q39 11 39 15V32Z"/><path d="M20 32H44Q46 32 46 34V40Q46 42 44 42H20Q18 42 18 40V34Q18 32 20 32Z"/><path d="M23 42V52H41V42Z"/></g><g stroke="currentColor"><path d="M28 11V7Q28 4 31 4H33Q36 4 36 7V11"/><path d="M25 32V15Q25 11 29 11H35Q39 11 39 15V32"/><path d="M20 32H44Q46 32 46 34V40Q46 42 44 42H20Q18 42 18 40V34Q18 32 20 32Z"/><path d="M27 32V42M37 32V42"/><path d="M23 42V52H41V42"/><path d="M23 47H41"/><path d="M38 52V61H30"/><path d="M32 52V55"/></g><g style="stroke:var(--gi3-acc, #CFF3DF)"><path d="M25 18H39"/><path d="M25 25H39"/></g></g></symbol>
+  <symbol id="gi3-patty" viewBox="0 0 64 64"><g fill="none" stroke-linecap="round" stroke-linejoin="round" style="stroke-width:var(--gi3-sw, 4)"><g stroke="none" style="fill:var(--gi3-fill, none)"><path d="M8 28C8 23 19 20 32 20C45 20 56 23 56 28V38C56 44 45 48 32 48C19 48 8 44 8 38Z"/></g><g stroke="currentColor"><path d="M8 28C8 23 19 20 32 20C45 20 56 23 56 28Q52 32 47 31.5Q43 34.5 38 33.5Q33 36 28 34Q23 35.5 19 32.5Q13 33 8 28Z"/><path d="M8 28V38C8 44 19 48 32 48C45 48 56 44 56 38V28"/><path d="M21 26q2-2.5 4 0"/></g><g style="stroke:var(--gi3-acc, #CFF3DF)"><path d="M37 25.5q2-2.5 4 0"/></g></g></symbol>
+  <symbol id="gi3-burger" viewBox="0 0 64 64"><g fill="none" stroke-linecap="round" stroke-linejoin="round" style="stroke-width:var(--gi3-sw, 4)"><g stroke="none" style="fill:var(--gi3-fill, none)"><path d="M12 28C12 19 19 13 30 13C32.5 13 34.8 13.3 36.8 13.8A5 5 0 0 0 43 21A5 5 0 0 0 50.3 23.2Q51.6 25.4 52 28Z"/><path d="M12 47H52V49Q52 54 47 54H17Q12 54 12 49Z"/></g><g stroke="currentColor"><path d="M12 28C12 19 19 13 30 13C32.5 13 34.8 13.3 36.8 13.8A5 5 0 0 0 43 21A5 5 0 0 0 50.3 23.2Q51.6 25.4 52 28Z"/><path d="M12 41.5H52"/><path d="M12 47H52V49Q52 54 47 54H17Q12 54 12 49Z"/><path d="M21 21.5l2.5-1.2M30 18.5h2.8"/></g><g style="stroke:var(--gi3-acc, #CFF3DF)"><path d="M11 34.5q2.5-3 5 0t5 0t5 0t5 0t5 0t5 0t5 0t5 0"/></g></g></symbol>
+  <symbol id="gi3-watering-can" viewBox="0 0 64 64"><g fill="none" stroke-linecap="round" stroke-linejoin="round" style="stroke-width:var(--gi3-sw, 4)" transform="translate(-2 1)"><g stroke="none" style="fill:var(--gi3-fill, none)"><path d="M12 30Q12 27 15 27H35Q38 27 38 30V51Q38 55 34 55H16Q12 55 12 51Z"/></g><g stroke="currentColor"><path d="M12 30Q12 27 15 27H35Q38 27 38 30V51Q38 55 34 55H16Q12 55 12 51Z"/><path d="M12 32C3 32 3 48 12 48"/><path d="M18 27V22H26V27"/><path d="M38 48L53 22"/><path d="M51.3 21L54.7 23L62.6 19.4L50.4 12.4Z"/></g><g style="stroke:var(--gi3-acc, #CFF3DF)"><path d="M58 27v3"/><path d="M62 30.5v3"/><path d="M57.5 34v3"/></g></g></symbol>
+  <symbol id="gi3-wrench" viewBox="0 0 64 64"><g fill="none" stroke-linecap="round" stroke-linejoin="round" style="stroke-width:var(--gi3-sw, 4)" transform="rotate(-45 32 32)"><g stroke="none" style="fill:var(--gi3-fill, none)"><path d="M21.62 28L42.38 28A9.5 9.5 0 0 1 59.83 28.5L49 28.5A3.5 3.5 0 0 0 49 35.5L59.83 35.5A9.5 9.5 0 0 1 42.38 36L21.62 36A9.5 9.5 0 1 1 21.62 28Z"/></g><g stroke="currentColor"><path d="M21.62 28L42.38 28A9.5 9.5 0 0 1 59.83 28.5L49 28.5A3.5 3.5 0 0 0 49 35.5L59.83 35.5A9.5 9.5 0 0 1 42.38 36L21.62 36A9.5 9.5 0 1 1 21.62 28Z"/></g><g style="stroke:var(--gi3-acc, #CFF3DF)"><path d="M10.66 29.26L11.62 28.67L14.38 28.67L15.34 29.26L14.2 28.61L15.19 29.14L16.57 31.53L16.54 32.66L16.54 31.34L16.57 32.47L15.19 34.86L14.2 35.39L15.34 34.74L14.38 35.33L11.62 35.33L10.66 34.74L11.8 35.39L10.81 34.86L9.43 32.47L9.46 31.34L9.46 32.66L9.43 31.53L10.81 29.14L11.8 28.61Z"/></g></g></symbol>
+  <symbol id="gi3-bin-bag" viewBox="0 0 64 64"><g fill="none" stroke-linecap="round" stroke-linejoin="round" style="stroke-width:var(--gi3-sw, 4)"><g stroke="none" style="fill:var(--gi3-fill, none)"><path d="M25 23C12 28 8 38 9 46C10 53 17 56 23 54C27 57.5 37 57.5 41 54C47 56 54 53 55 46C56 38 52 28 39 23Z"/><path d="M26 22L19 10C25 10 30 13 32 17C34 13 39 10 45 10L38 22Z"/></g><g stroke="currentColor"><path d="M25 23C12 28 8 38 9 46C10 53 17 56 23 54C27 57.5 37 57.5 41 54C47 56 54 53 55 46C56 38 52 28 39 23"/><path d="M26 22L19 10C25 10 30 13 32 17C34 13 39 10 45 10L38 22"/><path d="M28 27L26 33"/><path d="M36 27L38 33"/></g><g style="stroke:var(--gi3-acc, #CFF3DF)"><path d="M24 23H40"/></g></g></symbol>
+  <symbol id="gi3-knife" viewBox="0 0 64 64"><g fill="none" stroke-linecap="round" stroke-linejoin="round" style="stroke-width:var(--gi3-sw, 4)" transform="rotate(45 32 32) translate(32 32) scale(1.08) translate(-32 -31.5)"><g stroke="none" style="fill:var(--gi3-fill, none)"><path d="M27 37V14C27 7 31 3 37 2C37 10 37 20 37 37Z"/></g><g stroke="currentColor"><path d="M27 37V14C27 7 31 3 37 2C37 10 37 20 37 37Z"/><path d="M24 37H40"/><path d="M28 37V58Q28 61 31 61H33Q36 61 36 58V37"/></g><g style="stroke:var(--gi3-acc, #CFF3DF)"><path d="M32 45h0"/><path d="M32 53h0"/></g></g></symbol>
+</svg>
+<h2>Іконки предметів: лінія без світіння</h2>
+<p>Форма неонових іконок, як ви просили, але без світіння. Шість із другого раунду лишились, тюльпан, лійку й деталь двигуна перемальовано, шість нових. Після критика ще раз перемальовано деталь двигуна (тепер це свічка запалювання, а не радіатор), сиру котлету (вищий бік, рваний край, менше цяток), лійку (довший носик, більша сітка) і мішок (дві грудки, складки під зав’язкою, без відблиску). Одна товщина лінії, круглі кінці, одна-дві деталі всередині, один колір акценту.</p>
+<h3>Усі дванадцять, 96 px, одним кольором</h3>
+<div class="gi3-big">
+  <div class="gi3-cell"><span><svg class="gi3-i" aria-label="Феєрверк"><use href="#gi3-rocket"/></svg></span>Феєрверк</div>
+  <div class="gi3-cell"><span><svg class="gi3-i" aria-label="Булка"><use href="#gi3-bun"/></svg></span>Булка</div>
+  <div class="gi3-cell"><span><svg class="gi3-i" aria-label="Батарейка"><use href="#gi3-battery"/></svg></span>Батарейка</div>
+  <div class="gi3-cell"><span><svg class="gi3-i" aria-label="Вогнегасник"><use href="#gi3-extinguisher"/></svg></span>Вогнегасник</div>
+  <div class="gi3-cell"><span><svg class="gi3-i" aria-label="Тюльпан у горщику"><use href="#gi3-flower"/></svg></span>Тюльпан у горщику</div>
+  <div class="gi3-cell"><span><svg class="gi3-i" aria-label="Деталь двигуна"><use href="#gi3-car-part"/></svg></span>Деталь двигуна</div>
+  <div class="gi3-cell"><span><svg class="gi3-i" aria-label="Сира котлета"><use href="#gi3-patty"/></svg></span>Сира котлета</div>
+  <div class="gi3-cell"><span><svg class="gi3-i" aria-label="Бургер"><use href="#gi3-burger"/></svg></span>Бургер</div>
+  <div class="gi3-cell"><span><svg class="gi3-i" aria-label="Лійка"><use href="#gi3-watering-can"/></svg></span>Лійка</div>
+  <div class="gi3-cell"><span><svg class="gi3-i" aria-label="Гайковий ключ"><use href="#gi3-wrench"/></svg></span>Гайковий ключ</div>
+  <div class="gi3-cell"><span><svg class="gi3-i" aria-label="Мішок сміття"><use href="#gi3-bin-bag"/></svg></span>Мішок сміття</div>
+  <div class="gi3-cell"><span><svg class="gi3-i" aria-label="Ніж"><use href="#gi3-knife"/></svg></span>Ніж</div>
+</div>
+<h3>1 · Чорнильна лінія без заливки, м’ятна наліпка (як зараз)</h3>
+<p>Рука (зелена, більша) і пояс (м’ятний), масштаб 0.75. Акцент тепер теж чорнильний: м’ятний на м’ятному поясі й зеленій руці зникав (контраст близько 1:1).</p>
+<div class="gi3-room gi3-c1">
+  <i aria-hidden="true"></i>
+  <div class="gi3-row">
+    <div class="gi3-pair"><div class="gi3-duo"><div class="gi3-sl gi3-on"><svg class="gi3-i"><use href="#gi3-rocket"/></svg></div><div class="gi3-sl"><svg class="gi3-i"><use href="#gi3-rocket"/></svg></div></div><span>Феєрверк</span></div>
+    <div class="gi3-pair"><div class="gi3-duo"><div class="gi3-sl gi3-on"><svg class="gi3-i"><use href="#gi3-bun"/></svg></div><div class="gi3-sl"><svg class="gi3-i"><use href="#gi3-bun"/></svg></div></div><span>Булка</span></div>
+    <div class="gi3-pair"><div class="gi3-duo"><div class="gi3-sl gi3-on"><svg class="gi3-i"><use href="#gi3-battery"/></svg></div><div class="gi3-sl"><svg class="gi3-i"><use href="#gi3-battery"/></svg></div></div><span>Батарейка</span></div>
+    <div class="gi3-pair"><div class="gi3-duo"><div class="gi3-sl gi3-on"><svg class="gi3-i"><use href="#gi3-extinguisher"/></svg></div><div class="gi3-sl"><svg class="gi3-i"><use href="#gi3-extinguisher"/></svg></div></div><span>Вогнегасник</span></div>
+    <div class="gi3-pair"><div class="gi3-duo"><div class="gi3-sl gi3-on"><svg class="gi3-i"><use href="#gi3-flower"/></svg></div><div class="gi3-sl"><svg class="gi3-i"><use href="#gi3-flower"/></svg></div></div><span>Тюльпан у горщику</span></div>
+    <div class="gi3-pair"><div class="gi3-duo"><div class="gi3-sl gi3-on"><svg class="gi3-i"><use href="#gi3-car-part"/></svg></div><div class="gi3-sl"><svg class="gi3-i"><use href="#gi3-car-part"/></svg></div></div><span>Деталь двигуна</span></div>
+    <div class="gi3-pair"><div class="gi3-duo"><div class="gi3-sl gi3-on"><svg class="gi3-i"><use href="#gi3-patty"/></svg></div><div class="gi3-sl"><svg class="gi3-i"><use href="#gi3-patty"/></svg></div></div><span>Сира котлета</span></div>
+    <div class="gi3-pair"><div class="gi3-duo"><div class="gi3-sl gi3-on"><svg class="gi3-i"><use href="#gi3-burger"/></svg></div><div class="gi3-sl"><svg class="gi3-i"><use href="#gi3-burger"/></svg></div></div><span>Бургер</span></div>
+    <div class="gi3-pair"><div class="gi3-duo"><div class="gi3-sl gi3-on"><svg class="gi3-i"><use href="#gi3-watering-can"/></svg></div><div class="gi3-sl"><svg class="gi3-i"><use href="#gi3-watering-can"/></svg></div></div><span>Лійка</span></div>
+    <div class="gi3-pair"><div class="gi3-duo"><div class="gi3-sl gi3-on"><svg class="gi3-i"><use href="#gi3-wrench"/></svg></div><div class="gi3-sl"><svg class="gi3-i"><use href="#gi3-wrench"/></svg></div></div><span>Гайковий ключ</span></div>
+    <div class="gi3-pair"><div class="gi3-duo"><div class="gi3-sl gi3-on"><svg class="gi3-i"><use href="#gi3-bin-bag"/></svg></div><div class="gi3-sl"><svg class="gi3-i"><use href="#gi3-bin-bag"/></svg></div></div><span>Мішок сміття</span></div>
+    <div class="gi3-pair"><div class="gi3-duo"><div class="gi3-sl gi3-on"><svg class="gi3-i"><use href="#gi3-knife"/></svg></div><div class="gi3-sl"><svg class="gi3-i"><use href="#gi3-knife"/></svg></div></div><span>Ніж</span></div>
+  </div>
+</div>
+<h3>2 · М’ятна лінія, кислотно-зелений акцент, темна фіолетова наліпка</h3>
+<p>Темна плашка, рука на крок світліша й більша. На темному лінія трохи тонша (3.7 замість 4), щоб не розпливалась.</p>
+<div class="gi3-room gi3-c2">
+  <i aria-hidden="true"></i>
+  <div class="gi3-row">
+    <div class="gi3-pair"><div class="gi3-duo"><div class="gi3-sl gi3-on"><svg class="gi3-i"><use href="#gi3-rocket"/></svg></div><div class="gi3-sl"><svg class="gi3-i"><use href="#gi3-rocket"/></svg></div></div><span>Феєрверк</span></div>
+    <div class="gi3-pair"><div class="gi3-duo"><div class="gi3-sl gi3-on"><svg class="gi3-i"><use href="#gi3-bun"/></svg></div><div class="gi3-sl"><svg class="gi3-i"><use href="#gi3-bun"/></svg></div></div><span>Булка</span></div>
+    <div class="gi3-pair"><div class="gi3-duo"><div class="gi3-sl gi3-on"><svg class="gi3-i"><use href="#gi3-battery"/></svg></div><div class="gi3-sl"><svg class="gi3-i"><use href="#gi3-battery"/></svg></div></div><span>Батарейка</span></div>
+    <div class="gi3-pair"><div class="gi3-duo"><div class="gi3-sl gi3-on"><svg class="gi3-i"><use href="#gi3-extinguisher"/></svg></div><div class="gi3-sl"><svg class="gi3-i"><use href="#gi3-extinguisher"/></svg></div></div><span>Вогнегасник</span></div>
+    <div class="gi3-pair"><div class="gi3-duo"><div class="gi3-sl gi3-on"><svg class="gi3-i"><use href="#gi3-flower"/></svg></div><div class="gi3-sl"><svg class="gi3-i"><use href="#gi3-flower"/></svg></div></div><span>Тюльпан у горщику</span></div>
+    <div class="gi3-pair"><div class="gi3-duo"><div class="gi3-sl gi3-on"><svg class="gi3-i"><use href="#gi3-car-part"/></svg></div><div class="gi3-sl"><svg class="gi3-i"><use href="#gi3-car-part"/></svg></div></div><span>Деталь двигуна</span></div>
+    <div class="gi3-pair"><div class="gi3-duo"><div class="gi3-sl gi3-on"><svg class="gi3-i"><use href="#gi3-patty"/></svg></div><div class="gi3-sl"><svg class="gi3-i"><use href="#gi3-patty"/></svg></div></div><span>Сира котлета</span></div>
+    <div class="gi3-pair"><div class="gi3-duo"><div class="gi3-sl gi3-on"><svg class="gi3-i"><use href="#gi3-burger"/></svg></div><div class="gi3-sl"><svg class="gi3-i"><use href="#gi3-burger"/></svg></div></div><span>Бургер</span></div>
+    <div class="gi3-pair"><div class="gi3-duo"><div class="gi3-sl gi3-on"><svg class="gi3-i"><use href="#gi3-watering-can"/></svg></div><div class="gi3-sl"><svg class="gi3-i"><use href="#gi3-watering-can"/></svg></div></div><span>Лійка</span></div>
+    <div class="gi3-pair"><div class="gi3-duo"><div class="gi3-sl gi3-on"><svg class="gi3-i"><use href="#gi3-wrench"/></svg></div><div class="gi3-sl"><svg class="gi3-i"><use href="#gi3-wrench"/></svg></div></div><span>Гайковий ключ</span></div>
+    <div class="gi3-pair"><div class="gi3-duo"><div class="gi3-sl gi3-on"><svg class="gi3-i"><use href="#gi3-bin-bag"/></svg></div><div class="gi3-sl"><svg class="gi3-i"><use href="#gi3-bin-bag"/></svg></div></div><span>Мішок сміття</span></div>
+    <div class="gi3-pair"><div class="gi3-duo"><div class="gi3-sl gi3-on"><svg class="gi3-i"><use href="#gi3-knife"/></svg></div><div class="gi3-sl"><svg class="gi3-i"><use href="#gi3-knife"/></svg></div></div><span>Ніж</span></div>
+  </div>
+</div>
+<h3>3 · Чорнильна лінія і одна пласка заливка справжнього кольору (приглушеного)</h3>
+<p>Кожен предмет має свій колір: червоний вогнегасник, рожева сира котлета, сірий ключ. Акцент тут теж чорнильний.</p>
+<div class="gi3-room gi3-c3">
+  <i aria-hidden="true"></i>
+  <div class="gi3-row">
+    <div class="gi3-pair"><div class="gi3-duo"><div class="gi3-sl gi3-on"><svg class="gi3-i" style="--gi3-fill:#C8644E"><use href="#gi3-rocket"/></svg></div><div class="gi3-sl"><svg class="gi3-i" style="--gi3-fill:#C8644E"><use href="#gi3-rocket"/></svg></div></div><span>Феєрверк</span></div>
+    <div class="gi3-pair"><div class="gi3-duo"><div class="gi3-sl gi3-on"><svg class="gi3-i" style="--gi3-fill:#D7A35C"><use href="#gi3-bun"/></svg></div><div class="gi3-sl"><svg class="gi3-i" style="--gi3-fill:#D7A35C"><use href="#gi3-bun"/></svg></div></div><span>Булка</span></div>
+    <div class="gi3-pair"><div class="gi3-duo"><div class="gi3-sl gi3-on"><svg class="gi3-i" style="--gi3-fill:#D3A24C"><use href="#gi3-battery"/></svg></div><div class="gi3-sl"><svg class="gi3-i" style="--gi3-fill:#D3A24C"><use href="#gi3-battery"/></svg></div></div><span>Батарейка</span></div>
+    <div class="gi3-pair"><div class="gi3-duo"><div class="gi3-sl gi3-on"><svg class="gi3-i" style="--gi3-fill:#C65A4C"><use href="#gi3-extinguisher"/></svg></div><div class="gi3-sl"><svg class="gi3-i" style="--gi3-fill:#C65A4C"><use href="#gi3-extinguisher"/></svg></div></div><span>Вогнегасник</span></div>
+    <div class="gi3-pair"><div class="gi3-duo"><div class="gi3-sl gi3-on"><svg class="gi3-i" style="--gi3-fill:#D46A78"><use href="#gi3-flower"/></svg></div><div class="gi3-sl"><svg class="gi3-i" style="--gi3-fill:#D46A78"><use href="#gi3-flower"/></svg></div></div><span>Тюльпан у горщику</span></div>
+    <div class="gi3-pair"><div class="gi3-duo"><div class="gi3-sl gi3-on"><svg class="gi3-i" style="--gi3-fill:#8A8F99"><use href="#gi3-car-part"/></svg></div><div class="gi3-sl"><svg class="gi3-i" style="--gi3-fill:#8A8F99"><use href="#gi3-car-part"/></svg></div></div><span>Деталь двигуна</span></div>
+    <div class="gi3-pair"><div class="gi3-duo"><div class="gi3-sl gi3-on"><svg class="gi3-i" style="--gi3-fill:#D95C64"><use href="#gi3-patty"/></svg></div><div class="gi3-sl"><svg class="gi3-i" style="--gi3-fill:#D95C64"><use href="#gi3-patty"/></svg></div></div><span>Сира котлета</span></div>
+    <div class="gi3-pair"><div class="gi3-duo"><div class="gi3-sl gi3-on"><svg class="gi3-i" style="--gi3-fill:#D7A35C"><use href="#gi3-burger"/></svg></div><div class="gi3-sl"><svg class="gi3-i" style="--gi3-fill:#D7A35C"><use href="#gi3-burger"/></svg></div></div><span>Бургер</span></div>
+    <div class="gi3-pair"><div class="gi3-duo"><div class="gi3-sl gi3-on"><svg class="gi3-i" style="--gi3-fill:#93A8B2"><use href="#gi3-watering-can"/></svg></div><div class="gi3-sl"><svg class="gi3-i" style="--gi3-fill:#93A8B2"><use href="#gi3-watering-can"/></svg></div></div><span>Лійка</span></div>
+    <div class="gi3-pair"><div class="gi3-duo"><div class="gi3-sl gi3-on"><svg class="gi3-i" style="--gi3-fill:#A8AEB8"><use href="#gi3-wrench"/></svg></div><div class="gi3-sl"><svg class="gi3-i" style="--gi3-fill:#A8AEB8"><use href="#gi3-wrench"/></svg></div></div><span>Гайковий ключ</span></div>
+    <div class="gi3-pair"><div class="gi3-duo"><div class="gi3-sl gi3-on"><svg class="gi3-i" style="--gi3-fill:#4E4860"><use href="#gi3-bin-bag"/></svg></div><div class="gi3-sl"><svg class="gi3-i" style="--gi3-fill:#4E4860"><use href="#gi3-bin-bag"/></svg></div></div><span>Мішок сміття</span></div>
+    <div class="gi3-pair"><div class="gi3-duo"><div class="gi3-sl gi3-on"><svg class="gi3-i" style="--gi3-fill:#C3C8D0"><use href="#gi3-knife"/></svg></div><div class="gi3-sl"><svg class="gi3-i" style="--gi3-fill:#C3C8D0"><use href="#gi3-knife"/></svg></div></div><span>Ніж</span></div>
+  </div>
+</div>
+</section>

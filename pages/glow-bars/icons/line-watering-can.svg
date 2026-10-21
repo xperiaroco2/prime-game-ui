@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 64 64">
+<!-- Line item icon "watering-can", own work (prime-game-ui), no glow. Line: currentColor; accent: the CSS variable icon-accent
+     (default mint #CFF3DF); an optional flat fill under the line: the CSS variable icon-fill (default none). One 4-unit line, round caps and joins. -->
+<g fill="none" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" transform="translate(-2 1)">
+<g stroke="none" style="fill:var(--icon-fill, none)"><path d="M12 30Q12 27 15 27H35Q38 27 38 30V51Q38 55 34 55H16Q12 55 12 51Z"/></g>
+<g stroke="currentColor"><path d="M12 30Q12 27 15 27H35Q38 27 38 30V51Q38 55 34 55H16Q12 55 12 51Z"/><path d="M12 32C3 32 3 48 12 48"/><path d="M18 27V22H26V27"/><path d="M38 48L53 22"/><path d="M51.3 21L54.7 23L62.6 19.4L50.4 12.4Z"/></g>
+<g style="stroke:var(--icon-accent, #CFF3DF)"><path d="M58 27v3"/><path d="M62 30.5v3"/><path d="M57.5 34v3"/></g>
+</g>
+</svg>

@@ -92,6 +92,19 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
   are there (OFL); it draws lower case as capitals (seen in the page's render); it smears into blots at 34 px, so it is
   for the 84 px full-screen titles only and the workbench title stays Nunito; Ч, Ц, Щ and Ь carry curled drips and
   "!" reads as a dagger (the end title keeps it: the text is his).
+- **The glow is for the bars; the line icons unlit (2026-10-21)** (the engineer, 2026-10-21, chat, translated, on the
+  sticker-glow page): "by the glow I meant the progress bar, not the icon"; the neon item icons: "the shape is fine, but
+  without the glow"; "let's keep researching". So the hand slot no longer glows: it is the plain green sticker slot of
+  `pages/mvp-screens` again, and the siren and the timer do not glow either; the acid main action keeps its glow behind
+  a switch. The answer is the page `pages/glow-bars/` (built by `pages/glow-bars/build.js`, research in
+  `docs/research/2026-10-21-glow-bars/`): three ways to light the anger, health, stamina and return bars (1: the fill
+  always glows, faintly while calm; 2: a lighter tip plate glows; 3: a plain bar until its alarm line, then the track
+  glows and pulses), two options from the critic (a dark purple track; a brighter light, acid for the green bars and a hotter
+  coral `#FF5C38` for anger), and the twelve item icons as unlit line drawings in three colourings. Nothing is chosen
+  yet among the three ways, the options and the colourings. On the page, open to his veto (agent): the alarm lines
+  (anger over 70 %, health and stamina under 30 %, the return bar's last 5 s), health at 24 % in frame 4 to show an
+  alarm, the fully rounded fill end, a 0.9 s pulse each way, and the glowing button keeping the plain button's footprint
+  (its box 5 px bigger to the right and down, where the hard shadow was).
 - **The round HUD's pictures are icon files** (`pages/components/icons/`, own work, page-only today; the pack lists
   them but no token names them yet): the siren as two files, `siren-off` (the lilac dome, anger calm) and `siren-on`
   (the coral dome with rays, rising and full); the empty slots `slot-empty-hand` and `slot-empty-belt`; and one

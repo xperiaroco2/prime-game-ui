@@ -1,0 +1,98 @@
+{
+  "line-rocket.svg": {
+    "object": "rocket",
+    "licence": "own work",
+    "ai_generated": false,
+    "author": "prime-game-ui (agent), hand-written SVG paths",
+    "source": "drawn for this round in the drawing language of pages/sticker-glow/icons/neon-*.svg (own work)",
+    "colours": "line currentColor; accent var(--icon-accent, #CFF3DF); fill var(--icon-fill, none)"
+  },
+  "line-bun.svg": {
+    "object": "bun",
+    "licence": "own work",
+    "ai_generated": false,
+    "author": "prime-game-ui (agent), hand-written SVG paths",
+    "source": "drawn for this round in the drawing language of pages/sticker-glow/icons/neon-*.svg (own work)",
+    "colours": "line currentColor; accent var(--icon-accent, #CFF3DF); fill var(--icon-fill, none)"
+  },
+  "line-battery.svg": {
+    "object": "battery",
+    "licence": "own work",
+    "ai_generated": false,
+    "author": "prime-game-ui (agent), hand-written SVG paths",
+    "source": "the shape of pages/sticker-glow/icons/neon-battery.svg (own work), glow layers removed",
+    "colours": "line currentColor; accent var(--icon-accent, #CFF3DF); fill var(--icon-fill, none)"
+  },
+  "line-extinguisher.svg": {
+    "object": "extinguisher",
+    "licence": "own work",
+    "ai_generated": false,
+    "author": "prime-game-ui (agent), hand-written SVG paths",
+    "source": "drawn for this round in the drawing language of pages/sticker-glow/icons/neon-*.svg (own work)",
+    "colours": "line currentColor; accent var(--icon-accent, #CFF3DF); fill var(--icon-fill, none)"
+  },
+  "line-flower.svg": {
+    "object": "flower",
+    "licence": "own work",
+    "ai_generated": false,
+    "author": "prime-game-ui (agent), hand-written SVG paths",
+    "source": "redrawn for this round; replaces the shape of pages/sticker-glow/icons/neon-flower.svg (own work)",
+    "colours": "line currentColor; accent var(--icon-accent, #CFF3DF); fill var(--icon-fill, none)"
+  },
+  "line-car-part.svg": {
+    "object": "car-part",
+    "licence": "own work",
+    "ai_generated": false,
+    "author": "prime-game-ui (agent), hand-written SVG paths",
+    "source": "redrawn after the critic of this round (a spark plug: terminal, ribbed insulator, hex nut, threaded body, electrodes); own work",
+    "colours": "line currentColor; accent var(--icon-accent, #CFF3DF); fill var(--icon-fill, none)"
+  },
+  "line-patty.svg": {
+    "object": "patty",
+    "licence": "own work",
+    "ai_generated": false,
+    "author": "prime-game-ui (agent), hand-written SVG paths",
+    "source": "redrawn after the critic of this round (a tall raw puck with a ragged top edge and two marks); own work",
+    "colours": "line currentColor; accent var(--icon-accent, #CFF3DF); fill var(--icon-fill, none)"
+  },
+  "line-burger.svg": {
+    "object": "burger",
+    "licence": "own work",
+    "ai_generated": false,
+    "author": "prime-game-ui (agent), hand-written SVG paths",
+    "source": "the shape of pages/sticker-glow/icons/neon-burger.svg (own work), glow layers removed",
+    "colours": "line currentColor; accent var(--icon-accent, #CFF3DF); fill var(--icon-fill, none)"
+  },
+  "line-watering-can.svg": {
+    "object": "watering-can",
+    "licence": "own work",
+    "ai_generated": false,
+    "author": "prime-game-ui (agent), hand-written SVG paths",
+    "source": "redrawn after the critic of this round (a long spout with a big rose); own work",
+    "colours": "line currentColor; accent var(--icon-accent, #CFF3DF); fill var(--icon-fill, none)"
+  },
+  "line-wrench.svg": {
+    "object": "wrench",
+    "licence": "own work",
+    "ai_generated": false,
+    "author": "prime-game-ui (agent), hand-written SVG paths",
+    "source": "the shape of pages/sticker-glow/icons/neon-wrench.svg (own work), glow layers removed",
+    "colours": "line currentColor; accent var(--icon-accent, #CFF3DF); fill var(--icon-fill, none)"
+  },
+  "line-bin-bag.svg": {
+    "object": "bin-bag",
+    "licence": "own work",
+    "ai_generated": false,
+    "author": "prime-game-ui (agent), hand-written SVG paths",
+    "source": "redrawn after the critic of this round (a lumpy two-lobed bag with gathered folds under the tie, no sheen line); own work",
+    "colours": "line currentColor; accent var(--icon-accent, #CFF3DF); fill var(--icon-fill, none)"
+  },
+  "line-knife.svg": {
+    "object": "knife",
+    "licence": "own work",
+    "ai_generated": false,
+    "author": "prime-game-ui (agent), hand-written SVG paths",
+    "source": "drawn for this round in the drawing language of pages/sticker-glow/icons/neon-*.svg (own work)",
+    "colours": "line currentColor; accent var(--icon-accent, #CFF3DF); fill var(--icon-fill, none)"
+  }
+}

@@ -1,0 +1,434 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kablammo&family=Nunito:wght@700;800;900&family=Rubik:wght@600;700&display=swap">
+<!-- "Світяться смужки": round 3 of the sticker with the glow (pages/sticker-glow/screens.html, its markup and CSS with the
+     prefix renamed). The engineer, 2026-10-21: the glow he meant is on the progress bars, not on the item in hand. So
+     the hand slot is the plain sticker slot of pages/mvp-screens again (green, hard ink shadow), the siren does not glow,
+     the timer has no halo, and the glow goes to the neighbours' anger bar, the health and stamina bars and the return bar
+     of the dead's room. Three ways switch a class on the root (gb3-w1 fill, gb3-w2 edge, gb3-w3 threshold; default 3,
+     the critic's pick); a second switch keeps or drops round 2's glowing acid main action (gb3-bon, gb3-boff; default
+     on). Two options from the critic, both colour or component choices for the engineer: the track white or dark (gb3-twh,
+     gb3-tdk: the panel purple, a dark ground for the light, as direction C's dark track) and the light in the fill's own
+     colour or brighter (gb3-lown, gb3-lhot: acid #B6FF3C for the green bars, a hotter coral #FF5C38 for anger).
+     Godot: each bar is a ProgressBar. Its `background` StyleBoxFlat is the track (3 px ink border, rounded); its
+     `fill` StyleBoxFlat has the same border and radii and is drawn over the track's full height, so the ink lines meet
+     (no clipping needed). Way 1's glow is the fill's shadow (shadow_size, offset 0): faint while calm, strong in alarm.
+     Way 2's edge is a small child Panel kept at the fill's end by script, a lighter tint with its own shadow whose size
+     follows the value. Way 3 sets the shadow of the track (the `background` StyleBoxFlat) only while the value is past its
+     alarm line, so the halo is as wide as the bar however short the fill. The pulse (alarm only) is a tween of the
+     shadow colour's alpha, 0.9 s each way: well under 3 flashes a second, on a small area. The states strip shows the
+     pulse's peak and trough as two still columns; a 2x crop of frame 4's HUD follows it for the phone.
+     Godot-safe: solid fills (alpha allowed), one-colour borders with per-side widths, per-corner radii, one box-shadow
+     without inset or spread, one text outline. Where an element glows and had the hard ink shadow (the main action), that
+     shadow moves into the border: 4 px top and left, 9 px right and bottom, and the box grows by the 5 px the hard
+     shadow took (margin -5 px right and bottom), so it covers the plain button's pixels. The bars never had the hard shadow. The room
+     behind the HUD and the row backdrops of the states strip are stand-ins for the 3D world, not UI.
+     Fonts: Kablammo (84 px titles only), Nunito, Rubik (Google Fonts, OFL). Pictures: the game's own icons
+     (pages/components/icons, own work), as in pages/mvp-screens. -->
+<section class="gb3 gb3-w3 gb3-bon gb3-twh gb3-lown" id="glow-bars">
+<style>
+.gb3 { --gb3-pu: #2B1846; --gb3-pud: #1F1033; --gb3-pul: #3C2660; --gb3-ink: #1E1230; --gb3-soft: #54457A; --gb3-mint: #CFF3DF;
+  --gb3-gr: #A6E85A; --gb3-co: #FF8A6B; --gb3-ye: #FFD60A; --gb3-mu: #B7A8D6; --gb3-wh: #FFFFFF;
+  --gb3-acid: #B6FF3C;
+  --gb3-glow: 0 0 30px rgba(182, 255, 60, 1);
+  --gb3-ft: "Nunito", "Segoe UI", sans-serif; --gb3-fn: "Rubik", "Segoe UI", sans-serif; --gb3-fk: "Kablammo", "Arial Black", sans-serif;
+  --gb3-ow: 4px; --gb3-sh: 5px; --gb3-edgew: 4px 9px 9px 4px;
+  display: grid; gap: 22px; overflow-wrap: anywhere; }
+.gb3, .gb3 * { box-sizing: border-box; }
+
+/* ---------- the page around the frames (chrome, inherits the host page's font) ---------- */
+.gb3-intro { display: grid; gap: 10px; }
+.gb3-intro h2 { margin: 0; font-size: clamp(24px, 4.4vw, 32px); line-height: 1.1; text-wrap: balance; }
+.gb3-intro p { margin: 0; max-width: 66ch; opacity: .88; }
+.gb3 a { color: #C4E8D5; }
+.gb3-sw { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: #141317; padding-block: 10px; border-bottom: 1px solid #2E2C35; display: grid; gap: 10px; }
+.gb3-seg { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.gb3-seg span { font-weight: 600; margin-right: 4px; }
+.gb3-seg button { font: 600 15px/1.2 inherit; font-family: inherit; color: #ECE9F1; background: #1C1B21; border: 1px solid #2E2C35; border-radius: 999px; padding: 8px 16px; cursor: pointer; }
+.gb3-seg button[aria-pressed="true"] { background: #ECE9F1; color: #141317; border-color: #ECE9F1; }
+.gb3-seg button:focus-visible { outline: 2px solid #ECE9F1; outline-offset: 2px; }
+@media (max-width: 600px) { .gb3-sw { gap: 6px; padding-block: 8px; } .gb3-seg { gap: 5px; } .gb3-seg span { margin-right: 0; font-size: 14px; } .gb3-seg button { font-size: 14px; padding: 5px 10px; } }
+.gb3-nts { display: grid; }
+.gb3-nt { display: none; gap: 4px; max-width: 66ch; }
+.gb3-nt h3 { margin: 0; font-size: 17px; line-height: 1.25; }
+.gb3-nt p { margin: 0; font-size: 15px; opacity: .88; }
+.gb3-w1 .gb3-nt1, .gb3-w2 .gb3-nt2, .gb3-w3 .gb3-nt3 { display: grid; }
+.gb3-scr { display: grid; gap: 8px; }
+.gb3-scr h3 { margin: 0; font-size: 13px; text-transform: uppercase; letter-spacing: .1em; font-weight: 600; opacity: .72; }
+.gb3-cap { margin: 0; font-size: 14px; opacity: .78; max-width: 66ch; }
+.gb3-frame { position: relative; width: 100%; max-width: 100%; aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden; background: #55606A; }
+.gb3-frame.gb3-strip { aspect-ratio: 640 / 400; max-width: 860px; }
+.gb3-frame.gb3-zoom { aspect-ratio: 560 / 180; max-width: 860px; }
+.gb3-stage { position: absolute; left: 0; top: 0; width: 1280px; height: 720px; transform-origin: 0 0; overflow: hidden; overflow-wrap: normal; }
+
+/* ---------- the room stand-in (not UI: gradients allowed here) ---------- */
+.gb3-room { position: absolute; left: 0; top: 0; right: 0; bottom: 0; background: #9C8670; }
+.gb3-room i { position: absolute; display: block; }
+.gb3-r-ceil { left: 0; top: 0; width: 1280px; height: 38px; background: #3A2A20; }
+.gb3-r-pool { left: 420px; top: 60px; width: 560px; height: 420px; border-radius: 50%; background: radial-gradient(closest-side, rgba(255, 226, 180, .45), rgba(255, 226, 180, 0)); }
+.gb3-r-win { left: 80px; top: 104px; width: 300px; height: 290px; background: #E6DFD3; border-radius: 3px; }
+.gb3-r-glass { left: 12px; top: 12px; width: 276px; height: 266px; background: #17232A; overflow: hidden; }
+.gb3-r-tree { bottom: 0; background: #0D1517; border-radius: 50% 50% 4px 4px; }
+.gb3-r-mv { left: 144px; top: 12px; width: 10px; height: 266px; background: #E6DFD3; }
+.gb3-r-mh { left: 12px; top: 140px; width: 276px; height: 10px; background: #E6DFD3; }
+.gb3-r-wains { left: 0; top: 420px; width: 1280px; height: 120px; background: #7D5638; background-image: repeating-linear-gradient(90deg, transparent 0 96px, #694630 96px 100px); }
+.gb3-r-skirt { left: 0; top: 536px; width: 1280px; height: 10px; background: #E8E0D2; }
+.gb3-r-floor { left: 0; top: 546px; width: 1280px; height: 174px; background: #5A3E2C; }
+.gb3-r-rug { left: 360px; top: 590px; width: 640px; height: 110px; border-radius: 50%; background: #6E3B4A; }
+.gb3-r-sofa { left: 820px; top: 400px; width: 400px; height: 170px; background: #3E5A63; border-radius: 26px 26px 10px 10px; }
+.gb3-r-seat { left: 800px; top: 480px; width: 440px; height: 76px; background: #4A6A73; border-radius: 20px; }
+.gb3-r-bin { left: 604px; top: 330px; width: 72px; height: 118px; background: #4A4F55; border-radius: 6px 6px 12px 12px; }
+.gb3-r-lid { left: 596px; top: 318px; width: 88px; height: 18px; background: #3A3E43; border-radius: 9px; }
+.gb3-r-shade { left: 470px; top: 150px; width: 90px; height: 64px; background: #F1D9A6; border-radius: 10px 10px 4px 4px; }
+.gb3-r-pole { left: 512px; top: 214px; width: 6px; height: 330px; background: #2C2A28; }
+
+/* ---------- the sticker UI (pages/mvp-screens' .st, scoped; same values) ---------- */
+.gb3-abs { position: absolute; }
+.gb3-plate { background: var(--gb3-mint); color: var(--gb3-ink); border: var(--gb3-ow) solid var(--gb3-ink); border-radius: 16px; box-shadow: var(--gb3-sh) var(--gb3-sh) 0 var(--gb3-ink); }
+.gb3-plate.gb3-co { background: var(--gb3-co); }
+.gb3-panel { background: var(--gb3-pu); color: var(--gb3-mint); border: var(--gb3-ow) solid var(--gb3-ink); border-radius: 20px; box-shadow: var(--gb3-sh) var(--gb3-sh) 0 var(--gb3-ink); }
+.gb3-title { font-family: var(--gb3-ft); font-weight: 900; color: var(--gb3-gr); -webkit-text-stroke: calc(var(--gb3-ow) * 2) var(--gb3-ink); paint-order: stroke fill; line-height: 1.02; }
+/* the full-screen titles in the cartoon face (84 px only) */
+.gb3-title.gb3-k { font-family: var(--gb3-fk); font-weight: 400; line-height: 1.1; letter-spacing: .01em; }
+.gb3-btn { display: block; text-align: center; padding: 7px 16px; border: var(--gb3-ow) solid var(--gb3-ink); border-radius: 14px; box-shadow: var(--gb3-sh) var(--gb3-sh) 0 var(--gb3-ink); font: 900 18px/1.2 var(--gb3-ft); color: var(--gb3-ink); background: var(--gb3-mint); }
+.gb3-btn.gb3-p { background: var(--gb3-gr); }
+.gb3-btn.gb3-off { background: var(--gb3-mu); border-color: var(--gb3-soft); color: var(--gb3-ink); box-shadow: none; }
+.gb3-stk { display: inline-block; border: var(--gb3-ow) solid var(--gb3-ink); border-radius: 10px; padding: 3px 10px; font: 900 15px/1.25 var(--gb3-ft); color: var(--gb3-ink); white-space: nowrap; }
+.gb3-stk.gb3-gr { background: var(--gb3-gr); } .gb3-stk.gb3-mi { background: var(--gb3-mint); } .gb3-stk.gb3-ye { background: var(--gb3-ye); }
+.gb3-chipp { display: inline-block; background: var(--gb3-pu); color: var(--gb3-mint); border: var(--gb3-ow) solid var(--gb3-ink); border-radius: 999px; padding: 3px 12px; font: 900 15px/1.25 var(--gb3-ft); white-space: nowrap; }
+.gb3-lab { font: 800 15px/1.2 var(--gb3-ft); }
+.gb3-hue { display: inline-block; width: 16px; height: 16px; border-radius: 50%; border: 3px solid var(--gb3-ink); flex: none; }
+.gb3-num { font: 700 30px/1.2 var(--gb3-fn); }
+.gb3-cross { left: 50%; top: 50%; margin: -4px 0 0 -4px; width: 8px; height: 8px; border-radius: 50%; background: var(--gb3-wh); border: 2px solid var(--gb3-ink); }
+.gb3-shade { position: absolute; left: 0; top: 0; right: 0; bottom: 0; background: rgba(31, 16, 51, .82); }
+.gb3 svg { display: block; }
+
+/* the main action: with the glow on, acid green and glowing; its hard shadow moves into the border */
+.gb3-bon .gb3-btn.gb3-p { background: var(--gb3-acid); border-width: var(--gb3-edgew); box-shadow: var(--gb3-glow); margin: 0 -5px -5px 0; }
+
+/* ---------- the bars: a ProgressBar each ----------
+   --v is the value (0..1). The track is the `background` StyleBoxFlat; the fill is the `fill` StyleBoxFlat with the same
+   ink border and radii, drawn over the track's whole height; the edge is a child Panel at the fill's end (way 2). */
+.gb3-bar { --gb3-r: 10px; position: relative; height: 16px; background: var(--gb3-wh); border: 3px solid var(--gb3-ink); border-radius: var(--gb3-r); }
+.gb3-fill, .gb3-edge { position: absolute; top: -3px; bottom: -3px; border: 3px solid var(--gb3-ink); border-radius: var(--gb3-r); display: block; }
+.gb3-fill { left: -3px; width: calc(var(--v) * (100% + 6px)); background: var(--gb3-c); }
+/* the edge: the fill's last 22 px in a lighter tint, no left border and square left corners, so it reads as a lit tip, not a knob */
+.gb3-edge { display: none; width: 22px; left: calc(var(--v) * (100% + 6px) - 25px); background: var(--gb3-tint); border-left-width: 0; border-radius: 0 var(--gb3-r) var(--gb3-r) 0; }
+/* each bar's own colour, its glow colour (rgb, for the alpha pulse; the fill's own colour unless "brighter") and the
+   edge's lighter tint */
+.gb3-ang { --gb3-c: var(--gb3-co); --gb3-rgb: 255, 138, 107; --gb3-grgb: var(--gb3-rgb); --gb3-tint: #FFC9B8; }
+.gb3-hp, .gb3-ret { --gb3-c: var(--gb3-gr); --gb3-rgb: 166, 232, 90; --gb3-grgb: var(--gb3-rgb); --gb3-tint: #DDF8B8; }
+.gb3-sta { --gb3-c: var(--gb3-ye); --gb3-rgb: 255, 214, 10; --gb3-grgb: var(--gb3-rgb); --gb3-tint: #FFF1A3; }
+/* option, the light brighter than the fill: acid for the green bars (the button's glow), a hotter coral for anger;
+   stamina keeps its yellow */
+.gb3-lhot .gb3-hp, .gb3-lhot .gb3-ret { --gb3-grgb: 182, 255, 60; }
+.gb3-lhot .gb3-ang { --gb3-grgb: 255, 92, 56; }
+/* option, the dark track: the panel purple under the same ink border, a dark ground for the light */
+.gb3-tdk .gb3-bar { background: var(--gb3-pu); }
+/* the alarm pulse: the shadow's alpha, 0.9 s each way; --gb3-pa is the still alpha (the strip's trough column) */
+@keyframes gb3-pulse { from { box-shadow: 0 0 var(--gb3-gs) rgba(var(--gb3-grgb), 1); } to { box-shadow: 0 0 var(--gb3-gs) rgba(var(--gb3-grgb), .25); } }
+/* way 1, fill: the fill always glows in its own colour, faintly while calm; past the alarm line strongly, and it pulses */
+.gb3-w1 .gb3-fill { --gb3-gs: 12px; box-shadow: 0 0 var(--gb3-gs) rgba(var(--gb3-grgb), .35); }
+.gb3-w1 .gb3-al .gb3-fill { --gb3-gs: 32px; box-shadow: 0 0 var(--gb3-gs) rgba(var(--gb3-grgb), var(--gb3-pa, 1)); animation: gb3-pulse .9s ease-in-out infinite alternate; }
+/* way 2, edge: a lighter plate at the fill's end carries the glow, which grows with the value; past the line it pulses */
+.gb3-w2 .gb3-edge { display: block; --gb3-gs: calc(14px + var(--v) * 30px); box-shadow: 0 0 var(--gb3-gs) rgba(var(--gb3-grgb), var(--gb3-pa, 1)); }
+.gb3-w2 .gb3-al .gb3-edge { animation: gb3-pulse .9s ease-in-out infinite alternate; }
+/* way 3, threshold: a plain sticker bar until the alarm line, then the track (the `background` StyleBoxFlat) glows and
+   pulses, so the halo spans the whole bar however short the fill */
+.gb3-w3 .gb3-bar.gb3-al { --gb3-gs: 28px; box-shadow: 0 0 var(--gb3-gs) rgba(var(--gb3-grgb), var(--gb3-pa, 1)); animation: gb3-pulse .9s ease-in-out infinite alternate; }
+/* the strip's still columns: the pulse's peak and its trough */
+.gb3 .gb3-sc.gb3-pk .gb3-bar, .gb3 .gb3-sc.gb3-pk i, .gb3 .gb3-sc.gb3-tr .gb3-bar, .gb3 .gb3-sc.gb3-tr i { animation: none; }
+.gb3-sc.gb3-tr { --gb3-pa: .25; }
+@media (prefers-reduced-motion: reduce) { .gb3 .gb3-bar.gb3-al, .gb3 .gb3-al .gb3-fill, .gb3 .gb3-al .gb3-edge { animation: none; } }
+
+/* round HUD */
+.gb3-role { left: 26px; top: 26px; }
+.gb3-timer { left: 50%; top: 22px; transform: translateX(-50%); text-align: center; font: 700 34px/1.1 var(--gb3-fn); color: var(--gb3-mint); -webkit-text-stroke: 8px var(--gb3-ink); paint-order: stroke fill; }
+.gb3-am { left: 50%; top: 64px; transform: translateX(-50%); display: flex; align-items: center; }
+.gb3-am .gb3-bar { --gb3-r: 12px; width: 150px; height: 20px; }
+/* the siren: siren-off while anger is calm, siren-on while it rises and when full; it does not glow */
+.gb3-sir { position: absolute; left: 100%; top: 50%; margin-left: 8px; width: 38px; height: 38px; transform: translateY(-50%); }
+.gb3-roster { right: 26px; top: 26px; width: 190px; padding: 10px 12px; display: grid; gap: 6px; }
+.gb3-rw { display: flex; align-items: center; gap: 8px; font: 800 15px/1.2 var(--gb3-ft); color: var(--gb3-mint); }
+.gb3-rw.gb3-me { color: var(--gb3-gr); }
+.gb3-rw.gb3-dead { color: var(--gb3-mu); }
+.gb3-aim { left: 50%; top: calc(50% + 22px); transform: translateX(-50%); }
+.gb3-bars { left: 26px; bottom: 26px; width: 200px; display: grid; gap: 8px; }
+.gb3-mic { left: 244px; bottom: 26px; width: 50px; height: 50px; border-radius: 50%; }
+.gb3-mic i { position: absolute; left: 50%; top: 7px; width: 12px; height: 18px; margin-left: -6px; border-radius: 6px; background: var(--gb3-ink); display: block; }
+.gb3-mic u { position: absolute; left: 50%; top: 14px; width: 22px; height: 13px; margin-left: -11px; border: 3px solid var(--gb3-ink); border-top-width: 0; border-radius: 0 0 12px 12px; display: block; }
+.gb3-mic s { position: absolute; left: 50%; top: 27px; width: 3px; height: 7px; margin-left: -1.5px; background: var(--gb3-ink); display: block; }
+/* the item bar: plain sticker slots, the hand slot green and bigger (pages/mvp-screens, item bar A) */
+.gb3-ia { right: 26px; bottom: 34px; display: flex; align-items: flex-end; gap: 16px; }
+.gb3-sl { position: relative; width: 84px; height: 84px; display: grid; place-items: center; }
+.gb3-sl svg { width: 60px; height: 60px; }
+.gb3-sl.gb3-on { width: 100px; height: 100px; background: var(--gb3-gr); }
+.gb3-sl.gb3-on svg { width: 74px; height: 74px; }
+/* the cops' minute */
+.gb3-cops { left: 50%; top: 112px; transform: translateX(-50%); white-space: nowrap; padding: 10px 26px; display: grid; justify-items: center; gap: 2px; }
+.gb3-cops .gb3-big { font: 900 28px/1.15 var(--gb3-ft); }
+.gb3-cops .gb3-num { font-size: 40px; }
+
+/* the dead's room */
+.gb3-dhead { left: 50%; top: 26px; transform: translateX(-50%); padding: 8px 22px; font: 900 22px/1.2 var(--gb3-ft); white-space: nowrap; }
+.gb3-dcol { left: 50%; top: 50%; transform: translate(-50%, -50%); display: grid; justify-items: center; gap: 40px; }
+.gb3-dcount { width: 360px; padding: 16px 22px; display: grid; justify-items: center; gap: 8px; }
+.gb3-dcount .gb3-num { font-size: 64px; line-height: 1; }
+.gb3-dcount .gb3-bar { width: 100%; }
+.gb3-others { left: 26px; bottom: 26px; }
+.gb3-next { right: 26px; bottom: 26px; }
+
+/* the mutation workbench */
+.gb3-wb { left: 50%; top: 50%; transform: translate(-50%, -50%); width: 840px; height: 460px; padding: 22px 26px; display: grid; grid-template-rows: auto 1fr auto; gap: 18px; }
+.gb3-wb .gb3-top { display: flex; justify-content: space-between; align-items: center; }
+.gb3-wb .gb3-title { font-size: 34px; }
+.gb3-bal { display: flex; align-items: center; gap: 10px; padding: 0 14px; }
+.gb3-bal .gb3-num { font-size: 26px; }
+.gb3-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.gb3-card { padding: 16px; display: grid; grid-template-rows: auto 1fr auto auto; gap: 10px; }
+.gb3-card .gb3-nm { font: 900 22px/1.15 var(--gb3-ft); }
+.gb3-card .gb3-fx { font: 800 16px/1.3 var(--gb3-ft); }
+.gb3-cost { display: flex; align-items: center; gap: 8px; }
+.gb3-cost .gb3-num { font-size: 26px; }
+.gb3-hint { color: var(--gb3-mu); }
+
+/* full screens: the role reveal and the end */
+.gb3-endf { position: absolute; left: 0; top: 0; right: 0; bottom: 0; background: var(--gb3-soft); display: grid; align-content: center; justify-items: center; gap: 20px; text-align: center; }
+.gb3-endf .gb3-title { font-size: 84px; }
+.gb3-endf .gb3-win { font: 900 28px/1.2 var(--gb3-ft); padding: 8px 24px; }
+.gb3-endf .gb3-goal { font: 800 20px/1.35 var(--gb3-ft); padding: 10px 22px; max-width: 600px; }
+.gb3-endf .gb3-stk { font-size: 19px; }
+.gb3-endf .gb3-lab { color: var(--gb3-mint); }
+
+/* ---------- the states strip: every bar calm and in alarm, on the world it sits over ---------- */
+.gb3-sg { position: absolute; left: 0; top: 0; width: 640px; height: 400px; display: grid; grid-template-rows: 44px repeat(4, 1fr); }
+.gb3-shd { display: grid; grid-template-columns: repeat(3, 1fr); align-items: center; justify-items: center; background: #1F1B26; }
+.gb3-shd .gb3-stk { font-size: 14px; padding: 1px 10px; border-width: 3px; }
+.gb3-srow { display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: auto 1fr; align-items: center; justify-items: center; padding: 8px 0 10px; }
+.gb3-srow > .gb3-stk { grid-column: 1 / -1; justify-self: start; margin-left: 12px; font-size: 13px; padding: 1px 8px; border-width: 3px; border-radius: 8px; }
+.gb3-sc { position: relative; }
+.gb3-sc .gb3-bar { width: 170px; }
+.gb3-sc.gb3-am { position: relative; left: auto; top: auto; transform: none; margin-right: 44px; }
+.gb3-sc.gb3-am .gb3-bar { width: 150px; }
+.gb3-sc.gb3-mini { padding: 10px 14px; }
+.gb3-sc.gb3-mini .gb3-bar { width: 150px; }
+/* the 2x crop of frame 4's HUD: the top over the wall, the bottom left over the floor */
+.gb3-zh { position: absolute; top: 0; bottom: 0; width: 280px; overflow: hidden; }
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <!-- copied from pages/mvp-screens (the game's icon files, pages/components/icons, own work) -->
+  <symbol id="gb3-siren-off" viewBox="0 0 64 64"><g stroke="#1E1230" stroke-width="4" stroke-linejoin="round"><circle cx="32" cy="15" r="3.5" fill="#FFD60A" stroke-width="3"/><path d="M18 46V33a14 14 0 0 1 28 0V46z" fill="#B7A8D6"/><rect x="12" y="46" width="40" height="11" rx="3" fill="#1E1230"/></g><rect x="23.5" y="25" width="5" height="13" rx="2.5" fill="#FFFFFF"/></symbol>
+  <symbol id="gb3-siren-on" viewBox="0 0 64 64"><g stroke="#1E1230" stroke-width="4" stroke-linecap="round" fill="none"><path d="M11 28L4 23M10 38H2M53 28l7-5M54 38h8"/></g><g stroke="#1E1230" stroke-width="4" stroke-linejoin="round"><circle cx="32" cy="15" r="3.5" fill="#FFD60A" stroke-width="3"/><path d="M18 46V33a14 14 0 0 1 28 0V46z" fill="#FF8A6B"/><rect x="12" y="46" width="40" height="11" rx="3" fill="#1E1230"/></g><rect x="23.5" y="25" width="5" height="13" rx="2.5" fill="#FFFFFF"/></symbol>
+  <symbol id="gb3-item-rocket" viewBox="0 0 64 64"><g stroke="#1E1230" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"><path d="M32 50V62" fill="none"/><path d="M42 44q7 1 8-6" fill="none"/><path d="M50 30l2 4 4 1-4 2-2 4-2-4-4-2 4-1z" fill="#FFD60A" stroke-width="2.5"/><path d="M23 37l-9 13 10-2z" fill="#A6E85A"/><path d="M41 37l9 13-10-2z" fill="#A6E85A"/><rect x="22" y="18" width="20" height="32" rx="6" fill="#FF8A6B"/><path d="M22 20Q32 0 42 20z" fill="#FFD60A"/><path d="M22 42H42" fill="none"/><circle cx="27.6" cy="28" r="3.8" fill="#FFFFFF" stroke-width="2.5"/><circle cx="36.4" cy="28" r="3.8" fill="#FFFFFF" stroke-width="2.5"/><path d="M28.5 35q3.5 2.6 7 0" fill="none" stroke-width="2.5"/></g><circle cx="28.4" cy="28.6" r="1.6" fill="#1E1230"/><circle cx="37.2" cy="28.6" r="1.6" fill="#1E1230"/></symbol>
+  <symbol id="gb3-item-bun" viewBox="0 0 64 64"><g stroke="#1E1230" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"><path d="M8 36Q8 12 32 12Q56 12 56 36z" fill="#FFD60A"/><rect x="9" y="40" width="46" height="13" rx="6.5" fill="#FFD60A"/><g fill="#FFFFFF" stroke-width="1.8"><ellipse cx="22" cy="20" rx="2.6" ry="1.6"/><ellipse cx="32" cy="17" rx="2.6" ry="1.6"/><ellipse cx="42" cy="20" rx="2.6" ry="1.6"/></g><path d="M21 28q3-3.5 6 0M37 28q3-3.5 6 0M29 31q3 2.6 6 0" fill="none" stroke-width="2.6"/></g></symbol>
+</svg>
+
+<div class="gb3-intro">
+  <h2>Світяться смужки: три способи</h2>
+  <p>Світло перейшло з предмета в руці на смужки: гнів сусідів під таймером, здоров'я й витривалість унизу ліворуч і повернення в кімнаті мертвих. Слот предмета знову звичайна зелена наліпка, сирена не світиться; кислотну кнопку дії можна лишити чи вимкнути другим перемикачем.</p>
+  <p>Тривога (гнів понад 70 %, здоров'я й витривалість нижче 30 %) повільно пульсує: менше одного спалаху на секунду на малій площі, у межах правил про спалахи (<a href="https://www.w3.org/WAI/WCAG22/Understanding/three-flashes-or-below-threshold.html">WCAG 2.3.1</a>, <a href="https://devdocs.xbox.com/gaming/accessibility/xbox-accessibility-guidelines/118">Xbox XAG 118</a>). Колір не єдиний сигнал: тривогу видно ще й за довжиною смужки, пульсом і сиреною (<a href="https://devdocs.xbox.com/gaming/accessibility/xbox-accessibility-guidelines/103">XAG 103</a>). У Godot світіння — це тінь (<a href="https://docs.godotengine.org/en/stable/classes/class_styleboxflat.html">shadow_size</a>) однієї з двох плашок ProgressBar: заливки у способі 1, доріжки у способі 3; світлий край способу 2 — окрема маленька плашка.</p>
+  <p>Ще два перемикачі — поради критика, і обидва про колір чи компонент, тож вирішуєте ви: темна доріжка (темне тло, на якому світло видно, як у «Інопланетній техніці») і яскравіше світло (кислотне для зелених смужок, гарячіший корал для гніву).</p>
+</div>
+
+<div class="gb3-sw">
+  <div class="gb3-seg" data-g="w" role="group" aria-label="Як світиться смужка"><span>Смужка:</span>
+    <button type="button" data-v="w1" aria-pressed="false">1 · заливка</button>
+    <button type="button" data-v="w2" aria-pressed="false">2 · край</button>
+    <button type="button" data-v="w3" aria-pressed="true">3 · поріг</button>
+  </div>
+  <div class="gb3-seg" data-g="t" role="group" aria-label="Доріжка смужки"><span>Доріжка:</span>
+    <button type="button" data-v="twh" aria-pressed="true">біла</button>
+    <button type="button" data-v="tdk" aria-pressed="false">темна</button>
+  </div>
+  <div class="gb3-seg" data-g="l" role="group" aria-label="Колір світла"><span>Світло:</span>
+    <button type="button" data-v="lown" aria-pressed="true">колір смужки</button>
+    <button type="button" data-v="lhot" aria-pressed="false">яскравіше</button>
+  </div>
+  <div class="gb3-seg" data-g="b" role="group" aria-label="Кнопки світяться"><span>Кнопки світяться:</span>
+    <button type="button" data-v="bon" aria-pressed="true">так</button>
+    <button type="button" data-v="boff" aria-pressed="false">ні</button>
+  </div>
+</div>
+<div class="gb3-nts">
+  <div class="gb3-nt gb3-nt1"><h3>1 · Заливка</h3><p>Заливка кожної смужки завжди ледь світиться своїм кольором: гнів кораловим, здоров'я зеленим, витривалість жовтим. У тривозі світло сильне й пульсує.</p></div>
+  <div class="gb3-nt gb3-nt2"><h3>2 · Край</h3><p>Світиться лише світліша плашка на кінці заливки, і що повніша смужка, то ширше світло. У тривозі воно пульсує.</p></div>
+  <div class="gb3-nt gb3-nt3"><h3>3 · Поріг</h3><p>Поки все спокійно, смужка — звичайна наліпка без світла. У тривозі світиться вся доріжка, хоч би якою короткою була заливка, і пульсує, тож світло на екрані завжди означає «біда».</p></div>
+</div>
+
+<div class="gb3-scr">
+  <h3>1 · Раунд</h3>
+  <div class="gb3-frame"><div class="gb3-stage">
+    <div class="gb3-room" aria-hidden="true">
+      <i class="gb3-r-ceil"></i><i class="gb3-r-pool"></i>
+      <i class="gb3-r-win"><i class="gb3-r-glass"><i class="gb3-r-tree" style="left:20px;height:170px;width:80px"></i><i class="gb3-r-tree" style="left:100px;height:220px;width:100px"></i><i class="gb3-r-tree" style="left:194px;height:150px;width:74px"></i></i><i class="gb3-r-mv"></i><i class="gb3-r-mh"></i></i>
+      <i class="gb3-r-wains"></i><i class="gb3-r-skirt"></i><i class="gb3-r-floor"></i><i class="gb3-r-rug"></i>
+      <i class="gb3-r-pole"></i><i class="gb3-r-shade"></i>
+      <i class="gb3-r-sofa"></i><i class="gb3-r-seat"></i>
+      <i class="gb3-r-bin"></i><i class="gb3-r-lid"></i>
+    </div>
+    <span class="gb3-abs gb3-role gb3-stk gb3-mi">Прибулець</span>
+    <div class="gb3-abs gb3-timer">07:42</div>
+    <div class="gb3-abs gb3-am"><div class="gb3-bar gb3-ang" style="--v:.55"><i class="gb3-fill"></i><i class="gb3-edge"></i></div><svg class="gb3-sir"><use href="#gb3-siren-on"/></svg></div>
+    <div class="gb3-abs gb3-roster gb3-panel"><div class="gb3-rw gb3-me"><i class="gb3-hue" style="background:#7C5CC8"></i>Олена (ти)</div><div class="gb3-rw"><i class="gb3-hue" style="background:#1C7A82"></i>Ґлорп</div><div class="gb3-rw"><i class="gb3-hue" style="background:#E66B57"></i>Їжак</div><div class="gb3-rw"><i class="gb3-hue" style="background:#E8B04A"></i>Бульк</div><div class="gb3-rw"><i class="gb3-hue" style="background:#4AA3DF"></i>Зінґа</div><div class="gb3-rw gb3-dead"><i class="gb3-hue" style="background:#D46FB0"></i>Тарас · мертвий</div></div>
+    <div class="gb3-abs gb3-cross"></div>
+    <span class="gb3-abs gb3-aim gb3-chipp">Сміттєвий бак</span>
+    <div class="gb3-abs gb3-bars"><div class="gb3-bar gb3-hp" style="--v:.8"><i class="gb3-fill"></i><i class="gb3-edge"></i></div><div class="gb3-bar gb3-sta" style="--v:.55"><i class="gb3-fill"></i><i class="gb3-edge"></i></div></div>
+    <div class="gb3-abs gb3-mic gb3-plate"><i></i><u></u><s></s></div>
+    <div class="gb3-abs gb3-ia"><div class="gb3-sl gb3-plate gb3-on"><svg><use href="#gb3-item-rocket"/></svg></div><div class="gb3-sl gb3-plate"><svg><use href="#gb3-item-bun"/></svg></div></div>
+  </div></div>
+  <p class="gb3-cap">Звичайний раунд: гнів росте (55 %), здоров'я 80 %, витривалість 55 %. Тривоги ще немає, тож у способі 3 тут нічого не світиться. Предмет у руці — знову звичайна зелена плашка.</p>
+</div>
+
+<div class="gb3-scr">
+  <h3>Стани смужок: спокійно й тривога</h3>
+  <div class="gb3-frame gb3-strip" data-w="640" data-h="400"><div class="gb3-stage">
+    <div class="gb3-sg">
+      <div class="gb3-shd"><span class="gb3-stk gb3-ye">спокійно</span><span class="gb3-stk gb3-ye">тривога · пік</span><span class="gb3-stk gb3-ye">тривога · спад</span></div>
+      <div class="gb3-srow" style="background:#9C8670"><span class="gb3-stk gb3-mi">Гнів · тривога понад 70 %</span>
+        <div class="gb3-sc gb3-am"><div class="gb3-bar gb3-ang" style="--v:.35"><i class="gb3-fill"></i><i class="gb3-edge"></i></div><svg class="gb3-sir"><use href="#gb3-siren-off"/></svg></div>
+        <div class="gb3-sc gb3-am gb3-pk"><div class="gb3-bar gb3-ang gb3-al" style="--v:.85"><i class="gb3-fill"></i><i class="gb3-edge"></i></div><svg class="gb3-sir"><use href="#gb3-siren-on"/></svg></div>
+        <div class="gb3-sc gb3-am gb3-tr"><div class="gb3-bar gb3-ang gb3-al" style="--v:.85"><i class="gb3-fill"></i><i class="gb3-edge"></i></div><svg class="gb3-sir"><use href="#gb3-siren-on"/></svg></div>
+      </div>
+      <div class="gb3-srow" style="background:#5A3E2C"><span class="gb3-stk gb3-mi">Здоров'я · тривога нижче 30 %</span>
+        <div class="gb3-sc"><div class="gb3-bar gb3-hp" style="--v:.8"><i class="gb3-fill"></i><i class="gb3-edge"></i></div></div>
+        <div class="gb3-sc gb3-pk"><div class="gb3-bar gb3-hp gb3-al" style="--v:.22"><i class="gb3-fill"></i><i class="gb3-edge"></i></div></div>
+        <div class="gb3-sc gb3-tr"><div class="gb3-bar gb3-hp gb3-al" style="--v:.22"><i class="gb3-fill"></i><i class="gb3-edge"></i></div></div>
+      </div>
+      <div class="gb3-srow" style="background:#5A3E2C"><span class="gb3-stk gb3-mi">Витривалість · тривога нижче 30 %</span>
+        <div class="gb3-sc"><div class="gb3-bar gb3-sta" style="--v:.7"><i class="gb3-fill"></i><i class="gb3-edge"></i></div></div>
+        <div class="gb3-sc gb3-pk"><div class="gb3-bar gb3-sta gb3-al" style="--v:.18"><i class="gb3-fill"></i><i class="gb3-edge"></i></div></div>
+        <div class="gb3-sc gb3-tr"><div class="gb3-bar gb3-sta gb3-al" style="--v:.18"><i class="gb3-fill"></i><i class="gb3-edge"></i></div></div>
+      </div>
+      <div class="gb3-srow" style="background:#55606A"><span class="gb3-stk gb3-mi">Повернення · останні 5 с</span>
+        <div class="gb3-sc gb3-mini gb3-plate"><div class="gb3-bar gb3-ret" style="--v:.2"><i class="gb3-fill"></i><i class="gb3-edge"></i></div></div>
+        <div class="gb3-sc gb3-mini gb3-plate gb3-pk"><div class="gb3-bar gb3-ret gb3-al" style="--v:.9"><i class="gb3-fill"></i><i class="gb3-edge"></i></div></div>
+        <div class="gb3-sc gb3-mini gb3-plate gb3-tr"><div class="gb3-bar gb3-ret gb3-al" style="--v:.9"><i class="gb3-fill"></i><i class="gb3-edge"></i></div></div>
+      </div>
+    </div>
+  </div></div>
+  <p class="gb3-cap">Кожна смужка на тлі, над яким вона живе в грі: гнів над стіною, здоров'я й витривалість над підлогою, повернення на м'ятній плашці. Тривогу показано двома нерухомими кадрами пульсу: пік і спад. Живий пульс — у кадрі 4; якщо в системі вимкнено анімацію, світло там просто горить.</p>
+</div>
+
+<div class="gb3-scr">
+  <h3>Зблизька, для телефона: HUD кадру 4 удвічі більше</h3>
+  <div class="gb3-frame gb3-zoom" data-w="560" data-h="180"><div class="gb3-stage">
+    <div class="gb3-zh" style="left:0;background:#9C8670">
+      <div class="gb3-abs gb3-timer" style="top:30px">04:12</div>
+      <div class="gb3-abs gb3-am" style="top:78px"><div class="gb3-bar gb3-ang gb3-al" style="--v:1"><i class="gb3-fill"></i><i class="gb3-edge"></i></div><svg class="gb3-sir"><use href="#gb3-siren-on"/></svg></div>
+    </div>
+    <div class="gb3-zh" style="left:280px;background:#5A3E2C">
+      <div class="gb3-abs gb3-bars" style="left:12px;bottom:66px"><div class="gb3-bar gb3-hp gb3-al" style="--v:.24"><i class="gb3-fill"></i><i class="gb3-edge"></i></div><div class="gb3-bar gb3-sta" style="--v:.55"><i class="gb3-fill"></i><i class="gb3-edge"></i></div></div>
+      <div class="gb3-abs gb3-mic gb3-plate" style="left:222px;bottom:61px"><i></i><u></u><s></s></div>
+    </div>
+  </div></div>
+  <p class="gb3-cap">Гнів повний над стіною, здоров'я 24 % і витривалість 55 % над підлогою, у справжньому розмірі гри вдвічі збільшені: у кадрах на телефоні смужки завтовшки кілька пікселів.</p>
+</div>
+
+<div class="gb3-scr">
+  <h3>4 · Гнів повний: копи за хвилину</h3>
+  <div class="gb3-frame"><div class="gb3-stage">
+    <div class="gb3-room" aria-hidden="true">
+      <i class="gb3-r-ceil"></i><i class="gb3-r-pool"></i>
+      <i class="gb3-r-win"><i class="gb3-r-glass"><i class="gb3-r-tree" style="left:20px;height:170px;width:80px"></i><i class="gb3-r-tree" style="left:100px;height:220px;width:100px"></i><i class="gb3-r-tree" style="left:194px;height:150px;width:74px"></i></i><i class="gb3-r-mv"></i><i class="gb3-r-mh"></i></i>
+      <i class="gb3-r-wains"></i><i class="gb3-r-skirt"></i><i class="gb3-r-floor"></i><i class="gb3-r-rug"></i>
+      <i class="gb3-r-pole"></i><i class="gb3-r-shade"></i>
+      <i class="gb3-r-sofa"></i><i class="gb3-r-seat"></i>
+      <i class="gb3-r-bin"></i><i class="gb3-r-lid"></i>
+    </div>
+    <span class="gb3-abs gb3-role gb3-stk gb3-mi">Прибулець</span>
+    <div class="gb3-abs gb3-timer">04:12</div>
+    <div class="gb3-abs gb3-am"><div class="gb3-bar gb3-ang gb3-al" style="--v:1"><i class="gb3-fill"></i><i class="gb3-edge"></i></div><svg class="gb3-sir"><use href="#gb3-siren-on"/></svg></div>
+    <div class="gb3-abs gb3-roster gb3-panel"><div class="gb3-rw gb3-me"><i class="gb3-hue" style="background:#7C5CC8"></i>Олена (ти)</div><div class="gb3-rw"><i class="gb3-hue" style="background:#1C7A82"></i>Ґлорп</div><div class="gb3-rw"><i class="gb3-hue" style="background:#E66B57"></i>Їжак</div><div class="gb3-rw"><i class="gb3-hue" style="background:#E8B04A"></i>Бульк</div><div class="gb3-rw"><i class="gb3-hue" style="background:#4AA3DF"></i>Зінґа</div><div class="gb3-rw"><i class="gb3-hue" style="background:#D46FB0"></i>Тарас</div></div>
+    <div class="gb3-abs gb3-cops gb3-plate gb3-co"><span class="gb3-big">Сусіди викликали копів!</span><span class="gb3-lab">Копи будуть за</span><span class="gb3-num">0:58</span></div>
+    <div class="gb3-abs gb3-cross"></div>
+    <div class="gb3-abs gb3-bars"><div class="gb3-bar gb3-hp gb3-al" style="--v:.24"><i class="gb3-fill"></i><i class="gb3-edge"></i></div><div class="gb3-bar gb3-sta" style="--v:.55"><i class="gb3-fill"></i><i class="gb3-edge"></i></div></div>
+    <div class="gb3-abs gb3-mic gb3-plate"><i></i><u></u><s></s></div>
+    <div class="gb3-abs gb3-ia"><div class="gb3-sl gb3-plate gb3-on"><svg><use href="#gb3-item-rocket"/></svg></div><div class="gb3-sl gb3-plate"><svg><use href="#gb3-item-bun"/></svg></div></div>
+  </div></div>
+  <p class="gb3-cap">Тривога в грі: гнів повний, здоров'я 24 % (тут знижено для показу, у кадрі MVP було 80 %). Обидві смужки пульсують у всіх трьох способах; витривалість (55 %) спокійна.</p>
+</div>
+
+<div class="gb3-scr">
+  <h3>5 · Кімната мертвих</h3>
+  <div class="gb3-frame"><div class="gb3-stage">
+    <div class="gb3-abs gb3-dhead gb3-panel">Кімната мертвих</div>
+    <div class="gb3-abs gb3-dcol">
+      <div class="gb3-dcount gb3-plate"><span class="gb3-lab">Повернення через</span><span class="gb3-num">0:24</span><div class="gb3-bar gb3-ret" style="--v:.2"><i class="gb3-fill"></i><i class="gb3-edge"></i></div></div>
+    </div>
+    <span class="gb3-abs gb3-others gb3-chipp">Тут також: Бульк, Зінґа</span>
+    <span class="gb3-abs gb3-next gb3-stk gb3-mi">Випадкова капсула · 3 с захисту</span>
+  </div></div>
+  <p class="gb3-cap">Ще одна смужка з кадрів MVP: відлік до повернення. У способі 3 вона засвітиться лише на останніх 5 с (дивіться смугу станів).</p>
+</div>
+
+<div class="gb3-scr">
+  <h3>6 · Мутаційний верстат</h3>
+  <div class="gb3-frame"><div class="gb3-stage">
+    <div class="gb3-room" aria-hidden="true">
+      <i class="gb3-r-ceil"></i><i class="gb3-r-pool"></i>
+      <i class="gb3-r-win"><i class="gb3-r-glass"><i class="gb3-r-tree" style="left:20px;height:170px;width:80px"></i><i class="gb3-r-tree" style="left:100px;height:220px;width:100px"></i><i class="gb3-r-tree" style="left:194px;height:150px;width:74px"></i></i><i class="gb3-r-mv"></i><i class="gb3-r-mh"></i></i>
+      <i class="gb3-r-wains"></i><i class="gb3-r-skirt"></i><i class="gb3-r-floor"></i><i class="gb3-r-rug"></i>
+      <i class="gb3-r-pole"></i><i class="gb3-r-shade"></i>
+      <i class="gb3-r-sofa"></i><i class="gb3-r-seat"></i>
+    </div>
+    <div class="gb3-shade"></div>
+    <div class="gb3-abs gb3-wb gb3-panel">
+      <div class="gb3-top"><span class="gb3-title">Мутаційний верстат</span><div class="gb3-bal gb3-plate"><span class="gb3-lab">У тебе очок</span><span class="gb3-num">7</span></div></div>
+      <div class="gb3-cards">
+        <div class="gb3-card gb3-plate"><span class="gb3-nm">Швидкі ноги</span><span class="gb3-fx">Бігаєш швидше</span><div class="gb3-cost"><span class="gb3-num">4</span><span class="gb3-lab">очки</span></div><span class="gb3-btn gb3-p">Мутувати</span></div>
+        <div class="gb3-card gb3-plate"><span class="gb3-nm">Пружні ноги</span><span class="gb3-fx">Стрибаєш вище</span><div class="gb3-cost"><span class="gb3-num">3</span><span class="gb3-lab">очки</span></div><span class="gb3-btn">Мутувати</span></div>
+        <div class="gb3-card gb3-plate"><span class="gb3-nm">Товста шкіра</span><span class="gb3-fx">Більше здоров'я</span><div class="gb3-cost"><span class="gb3-num">9</span><span class="gb3-lab">очок</span></div><span class="gb3-btn gb3-off">Бракує 2</span></div>
+      </div>
+      <span class="gb3-lab gb3-hint">Esc — закрити</span>
+    </div>
+  </div></div>
+  <p class="gb3-cap">Перемикач «Кнопки світяться»: «так» — кислотна кнопка дії зі світлом із минулого кола; «ні» — звичайна зелена кнопка-наліпка з твердою тінню, як у кадрах MVP.</p>
+</div>
+
+<div class="gb3-scr">
+  <h3>8 · Показ ролі: прибулець</h3>
+  <div class="gb3-frame"><div class="gb3-stage">
+    <div class="gb3-endf"><span class="gb3-lab">Твоя роль</span><div class="gb3-title gb3-k">Прибулець</div><div class="gb3-goal gb3-plate">Влаштуй найкращу вечірку: виконай усі задачі, поки не скінчився час і не приїхали копи.</div></div>
+  </div></div>
+  <p class="gb3-cap">Без змін від минулого кола: заголовок у Kablammo, нічого не світиться.</p>
+</div>
+
+<div class="gb3-scr">
+  <h3>10 · Кінець: прибульці перемогли</h3>
+  <div class="gb3-frame"><div class="gb3-stage">
+    <div class="gb3-endf"><div class="gb3-title gb3-k">Вечірка вдалася!</div><div class="gb3-win gb3-plate">Прибульці перемогли</div><span class="gb3-stk gb3-gr">Усі задачі виконано за 08:12</span><span class="gb3-lab">Повернення на корабель через 3…</span></div>
+  </div></div>
+  <p class="gb3-cap">Без змін від минулого кола: заголовок у Kablammo, плашка перемоги не світиться.</p>
+</div>
+
+<script>
+(function () {
+  var root = document.getElementById("glow-bars");
+  function fit() {
+    root.querySelectorAll(".gb3-frame").forEach(function (f) {
+      var st = f.querySelector(".gb3-stage"), w = Number(f.getAttribute("data-w")) || 1280;
+      if (f.hasAttribute("data-w")) { st.style.width = w + "px"; st.style.height = f.getAttribute("data-h") + "px"; }
+      st.style.transform = "scale(" + f.clientWidth / w + ")";
+    });
+  }
+  var groups = { w: ["w1", "w2", "w3"], b: ["bon", "boff"], t: ["twh", "tdk"], l: ["lown", "lhot"] };
+  function set(g, v) {
+    groups[g].forEach(function (c) { root.classList.remove("gb3-" + c); });
+    root.classList.add("gb3-" + v);
+    root.querySelectorAll('.gb3-seg[data-g="' + g + '"] button').forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-v") === v)); });
+  }
+  set("w", groups.w.indexOf(root.getAttribute("data-start")) >= 0 ? root.getAttribute("data-start") : "w3");
+  set("b", "bon");
+  set("t", "twh");
+  set("l", "lown");
+  root.querySelectorAll(".gb3-seg").forEach(function (s) {
+    var g = s.getAttribute("data-g");
+    s.querySelectorAll("button").forEach(function (b) { b.addEventListener("click", function () { set(g, b.getAttribute("data-v")); }); });
+  });
+  fit();
+  if ("ResizeObserver" in window) { var ro = new ResizeObserver(fit); root.querySelectorAll(".gb3-frame").forEach(function (f) { ro.observe(f); }); }
+  else addEventListener("resize", fit);
+})();
+</script>
+</section>
