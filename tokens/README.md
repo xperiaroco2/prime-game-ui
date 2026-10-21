@@ -11,7 +11,7 @@ spec, [`docs/research/2026-10-03-tokens/spec.md`](../docs/research/2026-10-03-to
 | `prime.resolver.json` | The resolver: one base set (the files below, in order) and two modifiers, `textSize` and `motion` |
 | `primitives.tokens.json` | Literals: the palette, font families, weights, letter spacing, line height, `ease.press`, `duration.none`, `focus.*`, `stroke.*`, `offset.base` (the hard shadow), `glow.*` (the glow's size, ui-1.3.0), `radius.*`, `space.*` (the screens' gaps: 4, 8, 12, 16, 24, 32) |
 | `semantic.tokens.json` | Aliases of primitives: colour roles by context (`color.*`), the 15 type roles (`type.*`, `logo` new in ui-1.0.0), `motion.press` |
-| `components/<name>.tokens.json` | 24 files, 171 Godot type variations (the abstract ToyButton and the nine deprecated ones included): one variant group per variation, with its StyleBox states, `label`, `press`, `size`, `items`, `ramp` |
+| `components/<name>.tokens.json` | 24 files, 173 Godot type variations (the abstract ToyButton and the nine deprecated ones included): one variant group per variation, with its StyleBox states, `label`, `press`, `size`, `items`, `ramp` |
 | `text-size/default.tokens.json`, `text-size/large.tokens.json` | `font.size.*` (with `font.size.theme-default`, the theme's `default_font_size`) and `size.keycap` (a keycap's minimum width) for the player's text size setting |
 | `motion/default.tokens.json`, `motion/reduced.tokens.json` | `duration.press` for the reduced-motion setting |
 | `release.json` | The semver the next `ui-<semver>` tag carries |
@@ -245,8 +245,11 @@ outline, 5 px shadow and 14 px corners are `stroke.control` 6, `offset.base` 8 a
     entry reads green with its own label. The page draws it as the face's own fill while `.is-focus` / `:focus-visible`.
   - *outer ring* (`ToyButtonPrimary`, `ToyButtonDanger`): no fill, a mint ring (`color.on-dark.line`) of `focus.width`
     5 px with `focus.gap` 3 px of the ground between it and the outline (expand 8, corners 21 + 8 = 29), as the chips'
-    rings; the acid or coral face and its outline stay as they are. An ink ring would vanish on the purple (1.1:1); on a
-    mint surface (the workbench's cards) the mint ring does not show either (1.0:1).
+    rings; the acid or coral face and its outline stay as they are. The ring follows the surface: an ink ring would
+    vanish on the purple (1.1:1) and a mint one on mint (1.0:1), so a button standing on a mint face takes
+    `ToyButtonPrimaryOnMint` / `ToyButtonDangerOnMint` (new, the same sticker with an ink ring, `godot.on`
+    `ToyMutationCard`): today the workbench's buy buttons. P58 lets a Button name its surface in `on`, and the contrast
+    gate checks an outer ring against its `on` surfaces where a button names them, else against its context.
   - P48 also still knows a *thick outline* (a clear box whose outline is the face's plus `focus.width`); no variation
     uses it since the coordinator's review (it read as the slab again).
 - **The main action** keeps its acid face and its glow (`glow.action`) with the equal 6 px outline, no base and no hard

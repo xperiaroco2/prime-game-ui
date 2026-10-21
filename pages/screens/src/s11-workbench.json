@@ -45,7 +45,7 @@
                         { "name": "Name", "type": "Label", "variation": "ToyPlateTitle", "key": "mutation.fast.name" },
                         { "name": "Effect", "type": "Label", "variation": "ToyPlateText", "key": "mutation.fast.effect", "autowrap_mode": "word_smart", "custom_minimum_size": [280, 0], "size_flags_vertical": "expand_fill", "note": "Takes the card's free height, so the price and the button sit at the bottom." },
                         { "name": "Cost", "type": "Label", "variation": "ToyPlateTitle", "key": "unit.points", "count": 4, "note": "The price, tr_n(\"unit.points\", \"unit.points\", price) with {count} = the price (content data; the prices are placeholders, open)." },
-                        { "name": "Buy", "type": "Button", "variation": "ToyButtonPrimary", "key": "workbench.mutate", "state": "focus", "note": "Spends the price and gives the mutation; disabled when the balance is short." }
+                        { "name": "Buy", "type": "Button", "variation": "ToyButtonPrimaryOnMint", "key": "workbench.mutate", "state": "focus", "note": "Spends the price and gives the mutation; disabled when the balance is short." }
                       ]
                     }
                   ]
@@ -59,7 +59,7 @@
                         { "name": "Name", "type": "Label", "variation": "ToyPlateTitle", "key": "mutation.jump.name" },
                         { "name": "Effect", "type": "Label", "variation": "ToyPlateText", "key": "mutation.jump.effect", "autowrap_mode": "word_smart", "custom_minimum_size": [280, 0], "size_flags_vertical": "expand_fill" },
                         { "name": "Cost", "type": "Label", "variation": "ToyPlateTitle", "key": "unit.points", "count": 3 },
-                        { "name": "Buy", "type": "Button", "variation": "ToyButtonPrimary", "key": "workbench.mutate" }
+                        { "name": "Buy", "type": "Button", "variation": "ToyButtonPrimaryOnMint", "key": "workbench.mutate" }
                       ]
                     }
                   ]
@@ -73,7 +73,7 @@
                         { "name": "Name", "type": "Label", "variation": "ToyPlateTitle", "key": "mutation.health.name" },
                         { "name": "Effect", "type": "Label", "variation": "ToyPlateText", "key": "mutation.health.effect", "autowrap_mode": "word_smart", "custom_minimum_size": [280, 0], "size_flags_vertical": "expand_fill" },
                         { "name": "Cost", "type": "Label", "variation": "ToyPlateTitle", "key": "unit.points", "count": 9 },
-                        { "name": "Buy", "type": "Button", "variation": "ToyButtonPrimary", "key": "workbench.short", "args": { "count": "2" }, "state": "disabled", "note": "Not enough points: disabled, with workbench.short, {count} = price - balance." }
+                        { "name": "Buy", "type": "Button", "variation": "ToyButtonPrimaryOnMint", "key": "workbench.short", "args": { "count": "2" }, "state": "disabled", "note": "Not enough points: disabled, with workbench.short, {count} = price - balance." }
                       ]
                     }
                   ]

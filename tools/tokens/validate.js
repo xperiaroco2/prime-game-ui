@@ -278,7 +278,8 @@ function checkStructure(model, structs, P, icons) {
     // P58
     if ('on' in v.godot) {
       const onp = extPtr(v, 'godot', 'on');
-      if (v.cls !== 'Label' && v.cls !== 'ProgressBar') P.error('P58', v.file, onp, tp, 'on is only for Label and ProgressBar variants');
+      // a Button too since ui-1.4.0: the surface its outer focus ring stands on (the ring's colour follows it)
+      if (v.cls !== 'Label' && v.cls !== 'ProgressBar' && v.cls !== 'Button') P.error('P58', v.file, onp, tp, 'on is only for Label, ProgressBar and Button variants');
       else if (!Array.isArray(v.godot.on) || !v.godot.on.length || !v.godot.on.every((s) => typeof s === 'string')) P.error('P58', v.file, onp, tp, 'on is a non-empty array of variation names');
       else {
         v.godot.on.forEach((name, i) => {

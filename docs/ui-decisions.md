@@ -166,7 +166,10 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
   - the focused main action and danger button keep their acid and coral and get a thin ring outside instead (the
     review of 2026-10-21: an 11 px inward outline read as the slab again): the pack's outer ring, 5 px (`focus.width`)
     at a 3 px gap (`focus.gap`), corners 29, in mint rather than ink, since an ink ring vanishes on the purple (1.1:1)
-    and fails the contrast gate; on the workbench's mint cards the mint ring does not show (1.0:1), open (agent);
+    and fails the contrast gate (agent);
+  - the ring follows the surface, as the on-dark and on-light variations do: mint on the purple, ink on a mint face;
+    the buttons on mint take the new `ToyButtonPrimaryOnMint` / `ToyButtonDangerOnMint` (the names say mint, since
+    this pack's "light" context is the inside of a purple panel), today the workbench's buy buttons (agent);
   - chips, tabs, keys, fields, the dropdown, preset cards, plates, `ToyButtonPlain` and the ghost buttons stay as in
     ui-1.3.0 (agent);
   - the fourteen stray `item2-*` SVGs left in `dist/pack/icons/` at ui-1.3.0 (listed nowhere in the pack) are deleted

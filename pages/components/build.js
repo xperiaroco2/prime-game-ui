@@ -641,19 +641,22 @@ function renderPage(sys, componentsCss) {
     }
     if (p === 'workbench') {
       ['ToyPanelDialog', 'ToyBasePanel', 'ToyTitleOnLight', 'ToyPlateBalance', 'ToyPlateText', 'ToyPlateTimer', 'ToyMutationCard', 'ToyPlateTitle',
-        'ToyButtonPrimary', 'ToyButtonSecondary', 'ToyColumnTwentyFour', 'ToyRowTwentyFour', 'ToyColumnTwelve', 'ToyRowEight'].forEach(V);
+        'ToyButtonPrimaryOnMint', 'ToyButtonDangerOnMint', 'ToyButtonSecondary', 'ToyColumnTwentyFour', 'ToyRowTwentyFour', 'ToyColumnTwelve', 'ToyRowEight'].forEach(V);
       const card = (name, fx, cost, btn, state, label) => `<div class="tv-ToyMutationCard sc-mvp-card"><div class="tv-ToyColumnTwelve sc-mvp-col sc-mvp-fill">`
         + `${sampleSpan(name, 'tv-ToyPlateTitle')}${sampleSpan(fx, 'tv-ToyPlateText')}${sampleSpan(cost, 'tv-ToyPlateTitle')}`
         + `${buttonEl(btn, state, sampleSpan(label))}</div></div>`;
       const bench = `<div class="tv-ToyPanelDialog sc-mvp-bench"><div class="tv-ToyColumnTwentyFour sc-mvp-col sc-mvp-fill">`
         + `<div class="sc-mvp-row sc-mvp-between">${sampleSpan('mvp_wb_title', 'tv-ToyTitleOnLight')}<div class="tv-ToyPlateBalance"><div class="tv-ToyRowEight sc-mvp-row sc-mvp-base">${sampleSpan('mvp_wb_have', 'tv-ToyPlateText')}${sampleSpan('mvp_wb_points', 'tv-ToyPlateTimer')}</div></div></div>`
         + `<div class="tv-ToyRowTwentyFour sc-mvp-row sc-mvp-top-align">`
-        + card('mvp_wb_fast', 'mvp_wb_fast_fx', 'mvp_wb_four', 'ToyButtonPrimary', '', 'mvp_wb_buy')
-        + card('mvp_wb_jump', 'mvp_wb_jump_fx', 'mvp_wb_three', 'ToyButtonPrimary', '', 'mvp_wb_buy')
-        + card('mvp_wb_skin', 'mvp_wb_skin_fx', 'mvp_wb_nine', 'ToyButtonPrimary', 'is-disabled', 'mvp_wb_short')
+        + card('mvp_wb_fast', 'mvp_wb_fast_fx', 'mvp_wb_four', 'ToyButtonPrimaryOnMint', 'is-focus', 'mvp_wb_buy')
+        + card('mvp_wb_jump', 'mvp_wb_jump_fx', 'mvp_wb_three', 'ToyButtonPrimaryOnMint', '', 'mvp_wb_buy')
+        + card('mvp_wb_skin', 'mvp_wb_skin_fx', 'mvp_wb_nine', 'ToyButtonPrimaryOnMint', 'is-disabled', 'mvp_wb_short')
         + `</div><div class="sc-mvp-row sc-mvp-end">${buttonEl('ToyButtonSecondary', '', sampleSpan('mvp_wb_close'))}</div></div></div>`;
-      const b = proposal([['ToyMutationCard'], ['ToyPlateBalance'], ['ToyPlateTimer', 'normal'], ['ToyPanelDialog'], ['ToyButtonPrimary', 'disabled']]);
-      return `<p class="sc-stage-label">${esc(T('mvp_wb_note'))}</p>` + stage('light', [cell(T('mvp_wb'), b, bench)]);
+      const b = proposal([['ToyMutationCard'], ['ToyPlateBalance'], ['ToyPlateTimer', 'normal'], ['ToyPanelDialog'], ['ToyButtonPrimaryOnMint', 'disabled'], ['ToyButtonPrimaryOnMint', 'focus']]);
+      // a danger button on a mint card (ToyButtonDangerOnMint, ui-1.4.0): its outer focus ring is ink, as the buy buttons'
+      const onMint = `<div class="tv-ToyMutationCard sc-mvp-card"><div class="tv-ToyColumnTwelve sc-mvp-col">${buttonEl('ToyButtonDangerOnMint', 'is-focus', sampleSpan('leave'))}${buttonEl('ToyButtonDangerOnMint', '', sampleSpan('leave'))}</div></div>`;
+      const bd = proposal([['ToyButtonDangerOnMint', 'focus'], ['ToyButtonDangerOnMint', 'normal']]);
+      return `<p class="sc-stage-label">${esc(T('mvp_wb_note'))}</p>` + stage('light', [cell(T('mvp_wb'), b, bench), cell(T('mvp_wb_danger'), bd, onMint)]);
     }
     if (p === 'screens') {
       ['ToyTitleHero', 'ToyTitleHeroAlert', 'ToyPlateGoal', 'ToyPlateGoalText', 'ToyPlateResult', 'ToyPlateTitle', 'ToyStickerAlert', 'ToyStickerHighlight',

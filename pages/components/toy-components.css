@@ -978,6 +978,84 @@
 .tv-ToyButtonPrimary.is-disabled .tv-icon {
   color: var(--toy-button-primary-items-icon-disabled-color);
 }
+/* ToyButtonPrimaryOnMint: Button → ToyButton · button.primary-on-mint · any */
+.tv-ToyButtonPrimaryOnMint {
+  box-sizing: border-box;
+  position: relative;
+  background: var(--toy-button-primary-on-mint-normal-bg-color);
+  border-style: solid;
+  border-color: var(--toy-button-primary-on-mint-normal-border-color);
+  border-top-width: calc(var(--toy-button-primary-on-mint-normal-border-width) * var(--px));
+  border-right-width: calc(var(--toy-button-primary-on-mint-normal-border-width) * var(--px));
+  border-bottom-width: calc(var(--toy-button-primary-on-mint-normal-border-width) * var(--px));
+  border-left-width: calc(var(--toy-button-primary-on-mint-normal-border-width) * var(--px));
+  border-top-left-radius: calc(var(--toy-button-primary-on-mint-normal-corner-radius) * var(--px));
+  border-top-right-radius: calc(var(--toy-button-primary-on-mint-normal-corner-radius) * var(--px));
+  border-bottom-right-radius: calc(var(--toy-button-primary-on-mint-normal-corner-radius) * var(--px));
+  border-bottom-left-radius: calc(var(--toy-button-primary-on-mint-normal-corner-radius) * var(--px));
+  padding-top: calc((var(--toy-button-primary-on-mint-normal-content-margin-block) - var(--toy-button-primary-on-mint-normal-border-width)) * var(--px));
+  padding-right: calc((var(--toy-button-primary-on-mint-normal-content-margin-inline) - var(--toy-button-primary-on-mint-normal-border-width)) * var(--px));
+  padding-bottom: calc((var(--toy-button-primary-on-mint-normal-content-margin-block) - var(--toy-button-primary-on-mint-normal-border-width)) * var(--px));
+  padding-left: calc((var(--toy-button-primary-on-mint-normal-content-margin-inline) - var(--toy-button-primary-on-mint-normal-border-width)) * var(--px));
+  box-shadow: 0 0 calc(var(--toy-button-primary-on-mint-normal-shadow-size) * var(--px)) var(--toy-button-primary-on-mint-normal-shadow-color);
+  font-family: var(--toy-button-primary-on-mint-label-font-family), system-ui, sans-serif;
+  font-size: calc(var(--toy-button-primary-on-mint-label-font-size) * var(--px));
+  font-weight: var(--toy-button-primary-on-mint-label-font-weight);
+  line-height: calc(var(--toy-button-primary-on-mint-label-line-box) * var(--px));
+  letter-spacing: calc(var(--toy-button-primary-on-mint-label-letter-spacing) * var(--px));
+  color: var(--toy-button-primary-on-mint-normal-font-color);
+  cursor: pointer;
+}
+.tv-ToyButtonPrimaryOnMint.is-hover {
+  background: var(--toy-button-primary-on-mint-hover-bg-color);
+}
+.tv-ToyButtonPrimaryOnMint.is-held {
+  background: var(--toy-button-primary-on-mint-pressed-bg-color);
+}
+.tv-ToyButtonPrimaryOnMint.is-disabled {
+  background: var(--toy-button-primary-on-mint-disabled-bg-color);
+  border-color: var(--toy-button-primary-on-mint-disabled-border-color);
+  box-shadow: none;
+  color: var(--toy-button-primary-on-mint-disabled-font-color);
+}
+.tv-ToyButtonPrimaryOnMint > .tv-focus {
+  display: none;
+  position: absolute;
+  pointer-events: none;
+  box-sizing: border-box;
+  border-style: solid;
+  border-color: var(--toy-button-primary-on-mint-focus-border-color);
+  border-top-width: calc(var(--toy-button-primary-on-mint-focus-border-width) * var(--px));
+  border-right-width: calc(var(--toy-button-primary-on-mint-focus-border-width) * var(--px));
+  border-bottom-width: calc(var(--toy-button-primary-on-mint-focus-border-width) * var(--px));
+  border-left-width: calc(var(--toy-button-primary-on-mint-focus-border-width) * var(--px));
+  border-top-left-radius: calc(var(--toy-button-primary-on-mint-focus-corner-radius) * var(--px));
+  border-top-right-radius: calc(var(--toy-button-primary-on-mint-focus-corner-radius) * var(--px));
+  border-bottom-right-radius: calc(var(--toy-button-primary-on-mint-focus-corner-radius) * var(--px));
+  border-bottom-left-radius: calc(var(--toy-button-primary-on-mint-focus-corner-radius) * var(--px));
+  top: calc((0 - var(--toy-button-primary-on-mint-normal-border-width) - var(--toy-button-primary-on-mint-focus-expand-margin)) * var(--px));
+  right: calc((0 - var(--toy-button-primary-on-mint-normal-border-width) - var(--toy-button-primary-on-mint-focus-expand-margin)) * var(--px));
+  bottom: calc((0 - var(--toy-button-primary-on-mint-normal-border-width) - var(--toy-button-primary-on-mint-focus-expand-margin)) * var(--px));
+  left: calc((0 - var(--toy-button-primary-on-mint-normal-border-width) - var(--toy-button-primary-on-mint-focus-expand-margin)) * var(--px));
+}
+.tv-ToyButtonPrimaryOnMint.is-focus > .tv-focus, .tv-ToyButtonPrimaryOnMint:focus-visible > .tv-focus {
+  display: block;
+}
+.tv-ToyButtonPrimaryOnMint .tv-icon {
+  color: var(--toy-button-primary-on-mint-items-icon-normal-color);
+}
+.tv-ToyButtonPrimaryOnMint.is-focus .tv-icon, .tv-ToyButtonPrimaryOnMint:focus-visible .tv-icon {
+  color: var(--toy-button-primary-on-mint-items-icon-focus-color);
+}
+.tv-ToyButtonPrimaryOnMint.is-hover .tv-icon {
+  color: var(--toy-button-primary-on-mint-items-icon-hover-color);
+}
+.tv-ToyButtonPrimaryOnMint.is-held .tv-icon {
+  color: var(--toy-button-primary-on-mint-items-icon-pressed-color);
+}
+.tv-ToyButtonPrimaryOnMint.is-disabled .tv-icon {
+  color: var(--toy-button-primary-on-mint-items-icon-disabled-color);
+}
 /* ToyButtonSecondary: Button → ToyButton · button.secondary · any */
 .tv-ToyButtonSecondary {
   box-sizing: border-box;
@@ -1212,6 +1290,95 @@
 }
 .tv-ToyButtonDanger.is-disabled .tv-icon {
   color: var(--toy-button-danger-items-icon-disabled-color);
+}
+/* ToyButtonDangerOnMint: Button → ToyButton · button.danger-on-mint · any */
+.tv-ToyButtonDangerOnMint {
+  box-sizing: border-box;
+  position: relative;
+  background: var(--toy-button-danger-on-mint-normal-bg-color);
+  border-style: solid;
+  border-color: var(--toy-button-danger-on-mint-normal-border-color);
+  border-top-width: calc(var(--toy-button-danger-on-mint-normal-border-width) * var(--px));
+  border-right-width: calc(var(--toy-button-danger-on-mint-normal-border-width) * var(--px));
+  border-bottom-width: calc(var(--toy-button-danger-on-mint-normal-border-width) * var(--px));
+  border-left-width: calc(var(--toy-button-danger-on-mint-normal-border-width) * var(--px));
+  border-top-left-radius: calc(var(--toy-button-danger-on-mint-normal-corner-radius) * var(--px));
+  border-top-right-radius: calc(var(--toy-button-danger-on-mint-normal-corner-radius) * var(--px));
+  border-bottom-right-radius: calc(var(--toy-button-danger-on-mint-normal-corner-radius) * var(--px));
+  border-bottom-left-radius: calc(var(--toy-button-danger-on-mint-normal-corner-radius) * var(--px));
+  padding-top: calc((var(--toy-button-danger-on-mint-normal-content-margin-block) - var(--toy-button-danger-on-mint-normal-border-width)) * var(--px));
+  padding-right: calc((var(--toy-button-danger-on-mint-normal-content-margin-inline) - var(--toy-button-danger-on-mint-normal-border-width)) * var(--px));
+  padding-bottom: calc((var(--toy-button-danger-on-mint-normal-content-margin-block) - var(--toy-button-danger-on-mint-normal-border-width)) * var(--px));
+  padding-left: calc((var(--toy-button-danger-on-mint-normal-content-margin-inline) - var(--toy-button-danger-on-mint-normal-border-width)) * var(--px));
+  font-family: var(--toy-button-danger-on-mint-label-font-family), system-ui, sans-serif;
+  font-size: calc(var(--toy-button-danger-on-mint-label-font-size) * var(--px));
+  font-weight: var(--toy-button-danger-on-mint-label-font-weight);
+  line-height: calc(var(--toy-button-danger-on-mint-label-line-box) * var(--px));
+  letter-spacing: calc(var(--toy-button-danger-on-mint-label-letter-spacing) * var(--px));
+  color: var(--toy-button-danger-on-mint-normal-font-color);
+  --tv-offset: 0;
+  --tv-depth: var(--toy-button-danger-on-mint-press-depth);
+  --tv-base: var(--toy-button-base-raised-on-dark-panel-bg-color);
+  transform: translateY(calc(var(--tv-offset) * var(--px)));
+  box-shadow: calc(var(--toy-button-base-raised-on-dark-panel-expand-margin-right) * var(--px)) calc((var(--tv-depth) - var(--tv-offset)) * var(--px)) 0 var(--tv-base);
+  transition: transform var(--toy-button-common-motion-duration) var(--toy-button-common-motion-timing-function), box-shadow var(--toy-button-common-motion-duration) var(--toy-button-common-motion-timing-function);
+  cursor: pointer;
+}
+[data-context="light"] .tv-ToyButtonDangerOnMint {
+  --tv-base: var(--toy-button-base-raised-on-light-panel-bg-color);
+}
+.tv-ToyButtonDangerOnMint.is-hover {
+  background: var(--toy-button-danger-on-mint-hover-bg-color);
+  --tv-offset: var(--toy-button-danger-on-mint-press-hover);
+}
+.tv-ToyButtonDangerOnMint.is-held {
+  background: var(--toy-button-danger-on-mint-pressed-bg-color);
+  --tv-offset: var(--toy-button-danger-on-mint-press-held);
+}
+.tv-ToyButtonDangerOnMint.is-disabled {
+  background: var(--toy-button-danger-on-mint-disabled-bg-color);
+  border-color: var(--toy-button-danger-on-mint-disabled-border-color);
+  color: var(--toy-button-danger-on-mint-disabled-font-color);
+  --tv-offset: var(--toy-button-danger-on-mint-press-disabled);
+  box-shadow: none;
+}
+.tv-ToyButtonDangerOnMint > .tv-focus {
+  display: none;
+  position: absolute;
+  pointer-events: none;
+  box-sizing: border-box;
+  border-style: solid;
+  border-color: var(--toy-button-danger-on-mint-focus-border-color);
+  border-top-width: calc(var(--toy-button-danger-on-mint-focus-border-width) * var(--px));
+  border-right-width: calc(var(--toy-button-danger-on-mint-focus-border-width) * var(--px));
+  border-bottom-width: calc(var(--toy-button-danger-on-mint-focus-border-width) * var(--px));
+  border-left-width: calc(var(--toy-button-danger-on-mint-focus-border-width) * var(--px));
+  border-top-left-radius: calc(var(--toy-button-danger-on-mint-focus-corner-radius) * var(--px));
+  border-top-right-radius: calc(var(--toy-button-danger-on-mint-focus-corner-radius) * var(--px));
+  border-bottom-right-radius: calc(var(--toy-button-danger-on-mint-focus-corner-radius) * var(--px));
+  border-bottom-left-radius: calc(var(--toy-button-danger-on-mint-focus-corner-radius) * var(--px));
+  top: calc((0 - var(--toy-button-danger-on-mint-normal-border-width) - var(--toy-button-danger-on-mint-focus-expand-margin)) * var(--px));
+  right: calc((0 - var(--toy-button-danger-on-mint-normal-border-width) - var(--toy-button-danger-on-mint-focus-expand-margin)) * var(--px));
+  bottom: calc((0 - var(--toy-button-danger-on-mint-normal-border-width) - var(--toy-button-danger-on-mint-focus-expand-margin)) * var(--px));
+  left: calc((0 - var(--toy-button-danger-on-mint-normal-border-width) - var(--toy-button-danger-on-mint-focus-expand-margin)) * var(--px));
+}
+.tv-ToyButtonDangerOnMint.is-focus > .tv-focus, .tv-ToyButtonDangerOnMint:focus-visible > .tv-focus {
+  display: block;
+}
+.tv-ToyButtonDangerOnMint .tv-icon {
+  color: var(--toy-button-danger-on-mint-items-icon-normal-color);
+}
+.tv-ToyButtonDangerOnMint.is-focus .tv-icon, .tv-ToyButtonDangerOnMint:focus-visible .tv-icon {
+  color: var(--toy-button-danger-on-mint-items-icon-focus-color);
+}
+.tv-ToyButtonDangerOnMint.is-hover .tv-icon {
+  color: var(--toy-button-danger-on-mint-items-icon-hover-color);
+}
+.tv-ToyButtonDangerOnMint.is-held .tv-icon {
+  color: var(--toy-button-danger-on-mint-items-icon-pressed-color);
+}
+.tv-ToyButtonDangerOnMint.is-disabled .tv-icon {
+  color: var(--toy-button-danger-on-mint-items-icon-disabled-color);
 }
 /* ToyButtonGhostOnDark: Button → ToyButton · button.ghost-on-dark · dark */
 .tv-ToyButtonGhostOnDark {

@@ -76,6 +76,64 @@
         "icon-focus-color": { "$type": "color", "$value": "{color.on-accent.text}" }
       }
     },
+    "primary-on-mint": {
+      "$description": "The main action on a mint surface (ui-1.4.0, the agent): the same sticker as ToyButtonPrimary; only its outer focus ring is ink, since the mint ring does not show on mint (1.0:1). The game sets it on the buttons that stand on a mint face: the workbench's buy buttons on the mutation cards.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": {
+            "variation": "ToyButtonPrimaryOnMint",
+            "class": "Button",
+            "parent": "ToyButton",
+            "on": ["ToyMutationCard"]
+          },
+          "context": "any"
+        }
+      },
+      "label": { "$type": "typography", "$value": "{type.body-large-bold}" },
+      "normal": {
+        "bg-color": { "$type": "color", "$value": "{palette.acid}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.control}" },
+        "content-margin-block": { "$type": "dimension", "$value": { "value": 16, "unit": "px" } },
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 30, "unit": "px" } },
+        "shadow-color": { "$type": "color", "$value": "{palette.acid}" },
+        "shadow-size": { "$type": "dimension", "$value": "{glow.action}" },
+        "font-color": { "$type": "color", "$value": "{color.on-accent.text}" }
+      },
+      "hover": {
+        "$description": "Hover: the face lifts to the lighter acid; the glow stays.",
+        "bg-color": { "$type": "color", "$value": "{palette.acid-light}" }
+      },
+      "pressed": {
+        "$description": "Held: the face darkens; it has no hard shadow to sink onto, so it does not move (the glow stays).",
+        "bg-color": { "$type": "color", "$value": "{palette.acid-dark}" }
+      },
+      "disabled": {
+        "$description": "Unplugged: no glow, a dulled lilac face, its outline and label in the soft ink.",
+        "bg-color": { "$type": "color", "$value": "{color.state.disabled-face}" },
+        "border-color": { "$type": "color", "$value": "{color.state.disabled-ink}" },
+        "shadow-size": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "font-color": { "$type": "color", "$value": "{color.state.disabled-ink}" }
+      },
+      "focus": {
+        "$description": "Outer focus on mint: a thin ink ring of the focus width, the focus gap outside the outline (expand 8, corners 29), no fill.",
+        "bg-color": { "$type": "color", "$value": "{palette.clear}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-width": { "$type": "dimension", "$value": "{focus.width}" },
+        "corner-radius": { "$type": "dimension", "$value": { "value": 29, "unit": "px" } },
+        "expand-margin": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } }
+      },
+      "items": {
+        "$description": "An icon (the ready toggle's check) in the label colour of each state; without these Godot tints it white.",
+        "icon-normal-color": { "$type": "color", "$value": "{color.on-accent.text}" },
+        "icon-hover-color": { "$type": "color", "$value": "{color.on-accent.text}" },
+        "icon-pressed-color": { "$type": "color", "$value": "{color.on-accent.text}" },
+        "icon-hover-pressed-color": { "$type": "color", "$value": "{color.on-accent.text}" },
+        "icon-disabled-color": { "$type": "color", "$value": "{color.state.disabled-ink}" },
+        "icon-focus-color": { "$type": "color", "$value": "{color.on-accent.text}" }
+      }
+    },
     "secondary": {
       "$description": "A second action: the mint sticker of the sketches (ui-1.4.0): a 6 px ink outline on every side and the hard ink shadow as its base layer, the face's shape moved offset.base right and down.",
       "$extensions": {
@@ -234,6 +292,75 @@
         "$description": "Outer focus (ui-1.4.0): a thin mint ring of the focus width, the focus gap outside the outline (expand focus.gap + focus.width = 8, corners radius.control + 8 = 29), no fill; the coral face and its outline stay as they are. Mint, as every outer ring on the purple, where an ink ring vanishes (1.1:1).",
         "bg-color": { "$type": "color", "$value": "{palette.clear}" },
         "border-color": { "$type": "color", "$value": "{color.on-dark.line}" },
+        "border-width": { "$type": "dimension", "$value": "{focus.width}" },
+        "corner-radius": { "$type": "dimension", "$value": { "value": 29, "unit": "px" } },
+        "expand-margin": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } }
+      },
+      "press": {
+        "$type": "dimension",
+        "depth": {
+          "$description": "The base sits offset.base right and down: the hard ink shadow.",
+          "$value": "{offset.base}"
+        },
+        "hover": { "$value": { "value": 0, "unit": "px" } },
+        "held": {
+          "$description": "Held (ui-1.4.0): the face sinks 4 px toward its shadow (half the offset; the game's press moves it down only).",
+          "$value": { "value": 4, "unit": "px" }
+        },
+        "disabled": { "$value": { "value": 0, "unit": "px" } }
+      },
+      "items": {
+        "$description": "An icon (the ready toggle's check) in the label colour of each state; without these Godot tints it white.",
+        "icon-normal-color": { "$type": "color", "$value": "{color.on-accent.text}" },
+        "icon-hover-color": { "$type": "color", "$value": "{color.on-accent.text}" },
+        "icon-pressed-color": { "$type": "color", "$value": "{color.on-accent.text}" },
+        "icon-hover-pressed-color": { "$type": "color", "$value": "{color.on-accent.text}" },
+        "icon-disabled-color": { "$type": "color", "$value": "{color.state.disabled-ink}" },
+        "icon-focus-color": { "$type": "color", "$value": "{color.on-accent.text}" }
+      }
+    },
+    "danger-on-mint": {
+      "$description": "Leave, quit and confirm on a mint surface (ui-1.4.0, the agent): the same sticker as ToyButtonDanger; only its outer focus ring is ink, since the mint ring does not show on mint (1.0:1). The game sets it on the buttons that stand on a mint face: the workbench's buy buttons on the mutation cards.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": {
+            "variation": "ToyButtonDangerOnMint",
+            "class": "Button",
+            "parent": "ToyButton",
+            "on": ["ToyMutationCard"],
+            "base": { "dark": "ToyBaseRaisedOnDark", "light": "ToyBaseRaisedOnLight" }
+          },
+          "context": "any"
+        }
+      },
+      "label": { "$type": "typography", "$value": "{type.body-large-bold}" },
+      "normal": {
+        "bg-color": { "$type": "color", "$value": "{color.status.alert}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.control}" },
+        "content-margin-block": { "$type": "dimension", "$value": { "value": 16, "unit": "px" } },
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 30, "unit": "px" } },
+        "font-color": { "$type": "color", "$value": "{color.on-accent.text}" }
+      },
+      "hover": {
+        "$description": "Hover: the face lifts to a lighter shade.",
+        "bg-color": { "$type": "color", "$value": "{palette.coral-light}" }
+      },
+      "pressed": {
+        "$description": "Held: the face darkens and sinks toward its shadow (press.held).",
+        "bg-color": { "$type": "color", "$value": "{palette.coral-dark}" }
+      },
+      "disabled": {
+        "$description": "Unplugged: no shadow (the base is hidden), a dulled lilac face, its outline and label in the soft ink.",
+        "bg-color": { "$type": "color", "$value": "{color.state.disabled-face}" },
+        "border-color": { "$type": "color", "$value": "{color.state.disabled-ink}" },
+        "font-color": { "$type": "color", "$value": "{color.state.disabled-ink}" }
+      },
+      "focus": {
+        "$description": "Outer focus on mint: a thin ink ring of the focus width, the focus gap outside the outline (expand 8, corners 29), no fill.",
+        "bg-color": { "$type": "color", "$value": "{palette.clear}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width": { "$type": "dimension", "$value": "{focus.width}" },
         "corner-radius": { "$type": "dimension", "$value": { "value": 29, "unit": "px" } },
         "expand-margin": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } }
