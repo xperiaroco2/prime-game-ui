@@ -42,6 +42,8 @@ const STEPS = [
   ["page:sticker-glow", ["pages/sticker-glow/build.js", "--check"]],
   // the glowing-bars page: three ways to light the bars, the line icons without the glow, the research
   ["page:glow-bars", ["pages/glow-bars/build.js", "--check"]],
+  // the card pilot in the ui-1.3.0 frame, its accent in three colours
+  ["page:card-look", ["pages/card-look/build.js", "--check"]],
   // the self-test only: CI has no manager transcripts
   ["manager:selftest", ["tools/manager/context.js", "--self-test"]],
 ];
