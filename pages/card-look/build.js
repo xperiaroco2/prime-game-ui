@@ -11,9 +11,10 @@ const sets = [
   { name: 'Wi-Fi · кандидат A', dir: 'wifi/a', files: ['wifi-1', 'wifi-2', 'wifi-3', 'wifi-4'] },
   { name: 'Готування · кандидат B', dir: 'cooking/b', files: ['cooking-1', 'cooking-2', 'cooking-3', 'cooking-4'] },
 ];
+const source = '#FFD60A'; // the pilot's accent since 2026-10-21 (Б); each variant swaps it
 const accents = [
-  { id: 'am', hex: '#e8a33a', title: 'А · як є: бурштиновий', note: 'Акцент пілота (07.10). Його немає в палітрі ui-1.3.0.' },
-  { id: 'ye', hex: '#FFD60A', title: 'Б · жовтий палітри', note: 'Жовтий наліпки (витривалість, бирки). Ближче до UI, лишається спокійним.' },
+  { id: 'am', hex: '#e8a33a', title: 'А · бурштиновий (до 21.10)', note: 'Перший акцент пілота (07.10). Його немає в палітрі ui-1.3.0.' },
+  { id: 'ye', hex: '#FFD60A', title: 'Б · жовтий палітри — вибрано 21.10', note: 'Жовтий наліпки (витривалість, бирки). Ближче до UI, лишається спокійним.' },
   { id: 'ac', hex: '#B6FF3C', title: 'В · кислотно-зелений', note: 'Колір головної дії ui-1.3.0. Найяскравіший; на білій картці світіння немає.' },
 ];
 
@@ -21,7 +22,7 @@ function inline(file, accent) {
   let svg = fs.readFileSync(path.join(root, file), 'utf8').replace(/<!--[\s\S]*?-->/g, '').trim();
   const ids = [...svg.matchAll(/id="([^"]+)"/g)].map(m => m[1]);
   for (const id of ids) svg = svg.split(`"${id}"`).join(`"${id}-${accent.id}"`).split(`#${id})`).join(`#${id}-${accent.id})`);
-  return svg.split('#e8a33a').join(accent.hex).replace(/ width="320" height="240"/, '');
+  return svg.split(source).join(accent.hex).replace(/ width="320" height="240"/, '');
 }
 
 let body = '';
