@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 64 64">
+<!-- Line item icon "battery", own work (prime-game-ui), no glow. Line: currentColor; accent: the CSS variable icon-accent
+     (default mint #CFF3DF); an optional flat fill under the line: the CSS variable icon-fill (default none). One 4-unit line, round caps and joins. -->
+<g fill="none" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+<g stroke="none" style="fill:var(--icon-fill, none)"><path d="M21 19V50A11 4 0 0 0 43 50V19A11 4 0 0 0 21 19Z"/></g>
+<g stroke="currentColor"><path d="M21 19A11 4 0 0 1 43 19A11 4 0 0 1 21 19Z"/><path d="M21 19V50A11 4 0 0 0 43 50V19"/><path d="M28.5 11.5H35.5"/><path d="M32 37v8M28 41h8"/></g>
+<g style="stroke:var(--icon-accent, #CFF3DF)"><path d="M21 28A11 4 0 0 0 43 28"/></g>
+</g>
+</svg>

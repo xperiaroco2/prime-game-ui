@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 64 64">
+<!-- Line item icon "burger", own work (prime-game-ui), no glow. Line: currentColor; accent: the CSS variable icon-accent
+     (default mint #CFF3DF); an optional flat fill under the line: the CSS variable icon-fill (default none). One 4-unit line, round caps and joins. -->
+<g fill="none" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+<g stroke="none" style="fill:var(--icon-fill, none)"><path d="M12 28C12 19 19 13 30 13C32.5 13 34.8 13.3 36.8 13.8A5 5 0 0 0 43 21A5 5 0 0 0 50.3 23.2Q51.6 25.4 52 28Z"/><path d="M12 47H52V49Q52 54 47 54H17Q12 54 12 49Z"/></g>
+<g stroke="currentColor"><path d="M12 28C12 19 19 13 30 13C32.5 13 34.8 13.3 36.8 13.8A5 5 0 0 0 43 21A5 5 0 0 0 50.3 23.2Q51.6 25.4 52 28Z"/><path d="M12 41.5H52"/><path d="M12 47H52V49Q52 54 47 54H17Q12 54 12 49Z"/><path d="M21 21.5l2.5-1.2M30 18.5h2.8"/></g>
+<g style="stroke:var(--icon-accent, #CFF3DF)"><path d="M11 34.5q2.5-3 5 0t5 0t5 0t5 0t5 0t5 0t5 0t5 0"/></g>
+</g>
+</svg>

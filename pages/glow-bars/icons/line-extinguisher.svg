@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 64 64">
+<!-- Line item icon "extinguisher", own work (prime-game-ui), no glow. Line: currentColor; accent: the CSS variable icon-accent
+     (default mint #CFF3DF); an optional flat fill under the line: the CSS variable icon-fill (default none). One 4-unit line, round caps and joins. -->
+<g fill="none" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+<g stroke="none" style="fill:var(--icon-fill, none)"><path d="M21 30Q21 22 29 22H33Q41 22 41 30V54Q41 58 37 58H25Q21 58 21 54Z"/></g>
+<g stroke="currentColor"><path d="M21 30Q21 22 29 22H33Q41 22 41 30V54Q41 58 37 58H25Q21 58 21 54Z"/><path d="M28 22V16H34V22"/><path d="M25 13L40 9"/><path d="M34 18Q48 18 48 32V43"/><path d="M45.5 47L48 43L50.5 47Z"/></g>
+<g style="stroke:var(--icon-accent, #CFF3DF)"><path d="M26 35H36V45H26Z"/></g>
+</g>
+</svg>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 64 64">
+<!-- Line item icon "bun", own work (prime-game-ui), no glow. Line: currentColor; accent: the CSS variable icon-accent
+     (default mint #CFF3DF); an optional flat fill under the line: the CSS variable icon-fill (default none). One 4-unit line, round caps and joins. -->
+<g fill="none" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+<g stroke="none" style="fill:var(--icon-fill, none)"><path d="M8 41C8 25 18 15 32 15C46 15 56 25 56 41Q56 48 49 48H15Q8 48 8 41Z"/></g>
+<g stroke="currentColor"><path d="M8 41C8 25 18 15 32 15C46 15 56 25 56 41Q56 48 49 48H15Q8 48 8 41Z"/><path d="M22 28l2.6-1.2"/><path d="M31 23h2.8"/><path d="M40 27l2.4 1.4"/><path d="M29 33h2.8"/></g>
+<g style="stroke:var(--icon-accent, #CFF3DF)"><path d="M9 39H55"/></g>
+</g>
+</svg>

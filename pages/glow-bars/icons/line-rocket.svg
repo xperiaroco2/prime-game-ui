@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 64 64">
+<!-- Line item icon "rocket", own work (prime-game-ui), no glow. Line: currentColor; accent: the CSS variable icon-accent
+     (default mint #CFF3DF); an optional flat fill under the line: the CSS variable icon-fill (default none). One 4-unit line, round caps and joins. -->
+<g fill="none" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" transform="rotate(30 32 32) translate(32 32) scale(1.18) translate(-32 -33)">
+<g stroke="none" style="fill:var(--icon-fill, none)"><path d="M25 22L32 9L39 22V44H25Z"/></g>
+<g stroke="currentColor"><path d="M25 22L32 9L39 22V44H25Z"/><path d="M25 22H39"/><path d="M32 44V60"/><path d="M28 44q-1 4-5 5.5"/></g>
+<g style="stroke:var(--icon-accent, #CFF3DF)"><path d="M25 33l3.5-3 3.5 3 3.5-3 3.5 3"/></g>
+</g>
+</svg>

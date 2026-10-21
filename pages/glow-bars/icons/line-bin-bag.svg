@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 64 64">
+<!-- Line item icon "bin-bag", own work (prime-game-ui), no glow. Line: currentColor; accent: the CSS variable icon-accent
+     (default mint #CFF3DF); an optional flat fill under the line: the CSS variable icon-fill (default none). One 4-unit line, round caps and joins. -->
+<g fill="none" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+<g stroke="none" style="fill:var(--icon-fill, none)"><path d="M25 23C12 28 8 38 9 46C10 53 17 56 23 54C27 57.5 37 57.5 41 54C47 56 54 53 55 46C56 38 52 28 39 23Z"/><path d="M26 22L19 10C25 10 30 13 32 17C34 13 39 10 45 10L38 22Z"/></g>
+<g stroke="currentColor"><path d="M25 23C12 28 8 38 9 46C10 53 17 56 23 54C27 57.5 37 57.5 41 54C47 56 54 53 55 46C56 38 52 28 39 23"/><path d="M26 22L19 10C25 10 30 13 32 17C34 13 39 10 45 10L38 22"/><path d="M28 27L26 33"/><path d="M36 27L38 33"/></g>
+<g style="stroke:var(--icon-accent, #CFF3DF)"><path d="M24 23H40"/></g>
+</g>
+</svg>
