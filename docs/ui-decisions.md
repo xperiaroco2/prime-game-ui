@@ -136,7 +136,10 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
   - on `pages/mvp-screens/` frame 4 (anger full) health is at 24 %, so both an anger and a health alarm show, as on
     the glow-bars page (agent);
   - the knife's two dots are drawn as filled circles, since Godot's SVG import may skip zero-length round-capped
-    paths (unconfirmed) (agent).
+    paths (unconfirmed) (agent);
+  - on the screens, s09's bleed-out bar takes the health bar's look and alarm line (under 30 %), since the time
+    left reads as life, and the dead's room return bar on the count plate moves from `ToyBarProgress` to
+    `ToyBarReturnCalm` / `Alarm` (agent).
 - **The round HUD's pictures are icon files** (`pages/components/icons/`, own work, page-only today; the pack lists
   them but no token names them yet): the siren as two files, `siren-off` (the lilac dome, anger calm) and `siren-on`
   (the coral dome with rays, rising and full); the empty slots `slot-empty-hand` and `slot-empty-belt`; and one

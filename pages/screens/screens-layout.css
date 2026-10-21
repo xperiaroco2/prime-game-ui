@@ -49,9 +49,7 @@
 [data-node="s1/Hud/Vitals"] { flex: none; min-width: 100%; min-height: 100%; grid-template-columns: minmax(min-content, auto) minmax(min-content, auto); }
 [data-node="s1/Hud/Vitals/Bars"] { align-self: end; grid-template-rows: minmax(min-content, auto) minmax(min-content, auto); }
 [data-node="s1/Hud/Vitals/Bars/Health"] { min-width: calc(300 * var(--px)); min-height: calc(24 * var(--px)); }
-[data-node="s1/Hud/Vitals/Bars/Health/Fill"] { min-height: calc(14 * var(--px)); grid-area: 1 / 1; }
 [data-node="s1/Hud/Vitals/Bars/Stamina"] { min-width: calc(300 * var(--px)); min-height: calc(24 * var(--px)); }
-[data-node="s1/Hud/Vitals/Bars/Stamina/Fill"] { min-height: calc(14 * var(--px)); grid-area: 1 / 1; }
 [data-node="s1/Hud/Vitals/Mic"] { align-self: end; }
 [data-node="s1/Hud/Vitals/Mic/Icon"] { min-width: calc(42 * var(--px)); min-height: calc(42 * var(--px)); grid-area: 1 / 1; justify-self: center; align-self: center; }
 [data-anchor="s1/Hud/Slots"] { left: calc(100% - 39 * var(--px)); top: calc(100% - 51 * var(--px)); right: calc(39 * var(--px)); bottom: calc(51 * var(--px)); justify-content: flex-end; align-items: flex-end; }
@@ -732,9 +730,8 @@
 [data-node="s6/Hud/Timer"] { flex: none; min-width: max(100%, calc(140 * var(--px))); min-height: 100%; text-align: center; }
 [data-anchor="s6/Hud/Anger"] { left: 50%; top: calc(96 * var(--px)); right: 50%; bottom: calc(100% - 96 * var(--px)); justify-content: center; align-items: flex-start; }
 [data-node="s6/Hud/Anger"] { flex: none; min-width: 100%; min-height: 100%; }
-[data-anchor="s6/Hud/Anger/Track"] { left: 50%; top: 0; right: 50%; bottom: 100%; justify-content: center; align-items: flex-start; }
-[data-node="s6/Hud/Anger/Track"] { flex: none; min-width: max(100%, calc(225 * var(--px))); min-height: max(100%, calc(30 * var(--px))); }
-[data-node="s6/Hud/Anger/Track/Fill"] { min-height: calc(20 * var(--px)); grid-area: 1 / 1; }
+[data-anchor="s6/Hud/Anger/Bar"] { left: 50%; top: 0; right: 50%; bottom: 100%; justify-content: center; align-items: flex-start; }
+[data-node="s6/Hud/Anger/Bar"] { flex: none; min-width: max(100%, calc(225 * var(--px))); min-height: max(100%, calc(30 * var(--px))); }
 [data-anchor="s6/Hud/Anger/Siren"] { left: calc(122 * var(--px)); top: calc(-14 * var(--px)); right: calc(100% - 179 * var(--px)); bottom: calc(100% - 43 * var(--px)); justify-content: flex-start; align-items: flex-start; }
 [data-node="s6/Hud/Anger/Siren"] { flex: none; min-width: max(100%, calc(57 * var(--px))); min-height: max(100%, calc(57 * var(--px))); }
 [data-anchor="s6/Hud/Roster"] { left: calc(100% - 39 * var(--px)); top: calc(39 * var(--px)); right: calc(39 * var(--px)); bottom: calc(100% - 39 * var(--px)); justify-content: flex-end; align-items: flex-start; }
@@ -764,9 +761,7 @@
 [data-node="s6/Hud/Vitals"] { flex: none; min-width: 100%; min-height: 100%; grid-template-columns: minmax(min-content, auto) minmax(min-content, auto); }
 [data-node="s6/Hud/Vitals/Bars"] { align-self: end; grid-template-rows: minmax(min-content, auto) minmax(min-content, auto); }
 [data-node="s6/Hud/Vitals/Bars/Health"] { min-width: calc(300 * var(--px)); min-height: calc(24 * var(--px)); }
-[data-node="s6/Hud/Vitals/Bars/Health/Fill"] { min-height: calc(14 * var(--px)); grid-area: 1 / 1; }
 [data-node="s6/Hud/Vitals/Bars/Stamina"] { min-width: calc(300 * var(--px)); min-height: calc(24 * var(--px)); }
-[data-node="s6/Hud/Vitals/Bars/Stamina/Fill"] { min-height: calc(14 * var(--px)); grid-area: 1 / 1; }
 [data-node="s6/Hud/Vitals/Mic"] { align-self: end; }
 [data-node="s6/Hud/Vitals/Mic/Icon"] { min-width: calc(42 * var(--px)); min-height: calc(42 * var(--px)); grid-area: 1 / 1; justify-self: center; align-self: center; }
 [data-anchor="s6/Hud/Slots"] { left: calc(100% - 39 * var(--px)); top: calc(100% - 51 * var(--px)); right: calc(39 * var(--px)); bottom: calc(51 * var(--px)); justify-content: flex-end; align-items: flex-end; }
@@ -806,9 +801,8 @@
 [data-node="s7/Hud/Timer"] { flex: none; min-width: max(100%, calc(140 * var(--px))); min-height: 100%; text-align: center; }
 [data-anchor="s7/Hud/Anger"] { left: 50%; top: calc(96 * var(--px)); right: 50%; bottom: calc(100% - 96 * var(--px)); justify-content: center; align-items: flex-start; }
 [data-node="s7/Hud/Anger"] { flex: none; min-width: 100%; min-height: 100%; }
-[data-anchor="s7/Hud/Anger/Track"] { left: 50%; top: 0; right: 50%; bottom: 100%; justify-content: center; align-items: flex-start; }
-[data-node="s7/Hud/Anger/Track"] { flex: none; min-width: max(100%, calc(225 * var(--px))); min-height: max(100%, calc(30 * var(--px))); }
-[data-node="s7/Hud/Anger/Track/Fill"] { min-height: calc(20 * var(--px)); grid-area: 1 / 1; }
+[data-anchor="s7/Hud/Anger/Bar"] { left: 50%; top: 0; right: 50%; bottom: 100%; justify-content: center; align-items: flex-start; }
+[data-node="s7/Hud/Anger/Bar"] { flex: none; min-width: max(100%, calc(225 * var(--px))); min-height: max(100%, calc(30 * var(--px))); }
 [data-anchor="s7/Hud/Anger/Siren"] { left: calc(122 * var(--px)); top: calc(-14 * var(--px)); right: calc(100% - 179 * var(--px)); bottom: calc(100% - 43 * var(--px)); justify-content: flex-start; align-items: flex-start; }
 [data-node="s7/Hud/Anger/Siren"] { flex: none; min-width: max(100%, calc(57 * var(--px))); min-height: max(100%, calc(57 * var(--px))); }
 [data-anchor="s7/Hud/Roster"] { left: calc(100% - 39 * var(--px)); top: calc(39 * var(--px)); right: calc(39 * var(--px)); bottom: calc(100% - 39 * var(--px)); justify-content: flex-end; align-items: flex-start; }
@@ -856,9 +850,7 @@
 [data-node="s7/Hud/Vitals"] { flex: none; min-width: 100%; min-height: 100%; grid-template-columns: minmax(min-content, auto) minmax(min-content, auto); }
 [data-node="s7/Hud/Vitals/Bars"] { align-self: end; grid-template-rows: minmax(min-content, auto) minmax(min-content, auto); }
 [data-node="s7/Hud/Vitals/Bars/Health"] { min-width: calc(300 * var(--px)); min-height: calc(24 * var(--px)); }
-[data-node="s7/Hud/Vitals/Bars/Health/Fill"] { min-height: calc(14 * var(--px)); grid-area: 1 / 1; }
 [data-node="s7/Hud/Vitals/Bars/Stamina"] { min-width: calc(300 * var(--px)); min-height: calc(24 * var(--px)); }
-[data-node="s7/Hud/Vitals/Bars/Stamina/Fill"] { min-height: calc(14 * var(--px)); grid-area: 1 / 1; }
 [data-node="s7/Hud/Vitals/Mic"] { align-self: end; }
 [data-node="s7/Hud/Vitals/Mic/Icon"] { min-width: calc(42 * var(--px)); min-height: calc(42 * var(--px)); grid-area: 1 / 1; justify-self: center; align-self: center; }
 [data-anchor="s7/Hud/Slots"] { left: calc(100% - 39 * var(--px)); top: calc(100% - 51 * var(--px)); right: calc(39 * var(--px)); bottom: calc(51 * var(--px)); justify-content: flex-end; align-items: flex-end; }
@@ -976,9 +968,8 @@
 [data-node="s9/Hud/Timer"] { flex: none; min-width: max(100%, calc(140 * var(--px))); min-height: 100%; text-align: center; }
 [data-anchor="s9/Hud/Anger"] { left: 50%; top: calc(96 * var(--px)); right: 50%; bottom: calc(100% - 96 * var(--px)); justify-content: center; align-items: flex-start; }
 [data-node="s9/Hud/Anger"] { flex: none; min-width: 100%; min-height: 100%; }
-[data-anchor="s9/Hud/Anger/Track"] { left: 50%; top: 0; right: 50%; bottom: 100%; justify-content: center; align-items: flex-start; }
-[data-node="s9/Hud/Anger/Track"] { flex: none; min-width: max(100%, calc(225 * var(--px))); min-height: max(100%, calc(30 * var(--px))); }
-[data-node="s9/Hud/Anger/Track/Fill"] { min-height: calc(20 * var(--px)); grid-area: 1 / 1; }
+[data-anchor="s9/Hud/Anger/Bar"] { left: 50%; top: 0; right: 50%; bottom: 100%; justify-content: center; align-items: flex-start; }
+[data-node="s9/Hud/Anger/Bar"] { flex: none; min-width: max(100%, calc(225 * var(--px))); min-height: max(100%, calc(30 * var(--px))); }
 [data-anchor="s9/Hud/Anger/Siren"] { left: calc(122 * var(--px)); top: calc(-14 * var(--px)); right: calc(100% - 179 * var(--px)); bottom: calc(100% - 43 * var(--px)); justify-content: flex-start; align-items: flex-start; }
 [data-node="s9/Hud/Anger/Siren"] { flex: none; min-width: max(100%, calc(57 * var(--px))); min-height: max(100%, calc(57 * var(--px))); }
 [data-anchor="s9/Hud/Roster"] { left: calc(100% - 39 * var(--px)); top: calc(39 * var(--px)); right: calc(39 * var(--px)); bottom: calc(100% - 39 * var(--px)); justify-content: flex-end; align-items: flex-start; }
@@ -1009,9 +1000,7 @@
 .sc-frame[data-state="back"] [data-node="s9/Hud/Vitals"] { grid-template-columns: minmax(min-content, auto) minmax(min-content, auto); }
 [data-node="s9/Hud/Vitals/Bars"] { align-self: end; grid-template-rows: minmax(min-content, auto) minmax(min-content, auto); }
 [data-node="s9/Hud/Vitals/Bars/Health"] { min-width: calc(300 * var(--px)); min-height: calc(24 * var(--px)); }
-[data-node="s9/Hud/Vitals/Bars/Health/Fill"] { min-height: calc(14 * var(--px)); grid-area: 1 / 1; }
 [data-node="s9/Hud/Vitals/Bars/Stamina"] { min-width: calc(300 * var(--px)); min-height: calc(24 * var(--px)); }
-[data-node="s9/Hud/Vitals/Bars/Stamina/Fill"] { min-height: calc(14 * var(--px)); grid-area: 1 / 1; }
 [data-node="s9/Hud/Vitals/Mic"] { align-self: end; }
 [data-node="s9/Hud/Vitals/Mic/Icon"] { min-width: calc(42 * var(--px)); min-height: calc(42 * var(--px)); grid-area: 1 / 1; justify-self: center; align-self: center; }
 [data-anchor="s9/Hud/Slots"] { left: calc(100% - 39 * var(--px)); top: calc(100% - 51 * var(--px)); right: calc(39 * var(--px)); bottom: calc(51 * var(--px)); justify-content: flex-end; align-items: flex-end; }
@@ -1029,7 +1018,6 @@
 [data-node="s9/Downed/V"] { grid-area: 1 / 1; grid-template-rows: minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto); }
 [data-node="s9/Downed/V/Title"] { min-width: calc(810 * var(--px)); text-align: center; white-space: normal; contain: inline-size; overflow-wrap: anywhere; }
 [data-node="s9/Downed/V/Bleed"] { min-width: calc(810 * var(--px)); min-height: calc(24 * var(--px)); }
-[data-node="s9/Downed/V/Bleed/Fill"] { min-height: calc(14 * var(--px)); grid-area: 1 / 1; }
 [data-node="s9/Downed/V/Left"] { text-align: center; }
 [data-node="s9/Downed/V/Raise"] { min-width: calc(810 * var(--px)); min-height: calc(24 * var(--px)); }
 [data-node="s9/Downed/V/Pad"] { min-height: calc(6 * var(--px)); }

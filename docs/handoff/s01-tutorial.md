@@ -52,10 +52,10 @@ The tutorial room. On the first launch the invite with the language choice; in t
     - **Cross** `Panel` · variation `ToyCrosshair` · anchors `center`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both · custom_minimum_size (12, 12) = Vector2(get_theme_constant("width", "ToyCrosshair"), get_theme_constant("height", "ToyCrosshair"))
     - **Vitals** `HBoxContainer` · variation `ToyRowTwentyFour` · anchors `bottom_left`, offsets 39, -39, 39, -39 (left, top, right, bottom), grow end/begin · gaps from the variation: separation 24
       - **Bars** `VBoxContainer` · variation `ToyColumnTwelve` · size flags vertical `SIZE_SHRINK_END` · gaps from the variation: separation 12
-        - **Health** `PanelContainer` · variation `ToyBarTrack` · custom_minimum_size (300, 24) = Vector2(300, get_theme_constant("height", "ToyBarTrack"))
-          - **Fill** `ProgressBar` · variation `ToyBarHealth` · custom_minimum_size (0, 14) · value 1 of max_value 1, show_percentage false · fill self_modulate = theme colour `ramp_stop_20` of `ToyBarHealth` (step = clampi(floori(hp * 20.0 + 0.5), 0, 20))
-        - **Stamina** `PanelContainer` · variation `ToyBarTrack` · custom_minimum_size (300, 24) = Vector2(300, get_theme_constant("height", "ToyBarTrack"))
-          - **Fill** `ProgressBar` · variation `ToyBarStamina` · custom_minimum_size (0, 14) · value 1 of max_value 1, show_percentage false
+        - **Health** `ProgressBar` · variation `ToyBarHealthCalm` · custom_minimum_size (300, 24) = Vector2(300, get_theme_constant("height", "ToyBarHealthCalm")) · value 1 of max_value 1, show_percentage false
+          - Note: As s7.
+        - **Stamina** `ProgressBar` · variation `ToyBarStaminaCalm` · custom_minimum_size (300, 24) = Vector2(300, get_theme_constant("height", "ToyBarStaminaCalm")) · value 1 of max_value 1, show_percentage false
+          - Note: As s7.
       - **Mic** `PanelContainer` · variation `ToyMic` · size flags vertical `SIZE_SHRINK_END` · custom_minimum_size (75, 75) = Vector2(get_theme_constant("width", "ToyMic"), get_theme_constant("height", "ToyMic"))
         - **Icon** `TextureRect` · size flags horizontal `SIZE_SHRINK_CENTER`, vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (42, 42) · texture `mic` (dist/pack/icons/mic.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("icon_on", "ToyMic")
     - **Slots** `HBoxContainer` · variation `ToyRowSixteen` · anchors `bottom_right`, offsets -39, -51, -39, -51 (left, top, right, bottom), grow begin/begin · gaps from the variation: separation 16
@@ -104,10 +104,10 @@ The tutorial room. On the first launch the invite with the language choice; in t
     - **Cross** `Panel` · variation `ToyCrosshair` · anchors `center`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both · custom_minimum_size (12, 12) = Vector2(get_theme_constant("width", "ToyCrosshair"), get_theme_constant("height", "ToyCrosshair"))
     - **Vitals** `HBoxContainer` · variation `ToyRowTwentyFour` · anchors `bottom_left`, offsets 39, -39, 39, -39 (left, top, right, bottom), grow end/begin · gaps from the variation: separation 24
       - **Bars** `VBoxContainer` · variation `ToyColumnTwelve` · size flags vertical `SIZE_SHRINK_END` · gaps from the variation: separation 12
-        - **Health** `PanelContainer` · variation `ToyBarTrack` · custom_minimum_size (300, 24) = Vector2(300, get_theme_constant("height", "ToyBarTrack"))
-          - **Fill** `ProgressBar` · variation `ToyBarHealth` · custom_minimum_size (0, 14) · value 1 of max_value 1, show_percentage false · fill self_modulate = theme colour `ramp_stop_20` of `ToyBarHealth` (step = clampi(floori(hp * 20.0 + 0.5), 0, 20))
-        - **Stamina** `PanelContainer` · variation `ToyBarTrack` · custom_minimum_size (300, 24) = Vector2(300, get_theme_constant("height", "ToyBarTrack"))
-          - **Fill** `ProgressBar` · variation `ToyBarStamina` · custom_minimum_size (0, 14) · value 1 of max_value 1, show_percentage false
+        - **Health** `ProgressBar` · variation `ToyBarHealthCalm` · custom_minimum_size (300, 24) = Vector2(300, get_theme_constant("height", "ToyBarHealthCalm")) · value 1 of max_value 1, show_percentage false
+          - Note: As s7.
+        - **Stamina** `ProgressBar` · variation `ToyBarStaminaCalm` · custom_minimum_size (300, 24) = Vector2(300, get_theme_constant("height", "ToyBarStaminaCalm")) · value 1 of max_value 1, show_percentage false
+          - Note: As s7.
       - **Mic** `PanelContainer` · variation `ToyMic` · size flags vertical `SIZE_SHRINK_END` · custom_minimum_size (75, 75) = Vector2(get_theme_constant("width", "ToyMic"), get_theme_constant("height", "ToyMic"))
         - **Icon** `TextureRect` · size flags horizontal `SIZE_SHRINK_CENTER`, vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (42, 42) · texture `mic` (dist/pack/icons/mic.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("icon_on", "ToyMic")
     - **Slots** `HBoxContainer` · variation `ToyRowSixteen` · anchors `bottom_right`, offsets -39, -51, -39, -51 (left, top, right, bottom), grow begin/begin · gaps from the variation: separation 16

@@ -35,9 +35,8 @@ The same HUD as s7: Hud and its nodes are s7's (same names and places); this scr
   - **V** `VBoxContainer` · variation `ToyColumnTwelve` · gaps from the variation: separation 12
     - **Title** `Label` · variation `ToyPlateTitle` · custom_minimum_size (810, 0) · text `downed.title`: en "You're down" · uk "Тебе повалено" · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
       - Note: downed.title while bleeding out; downed.raised_by with the raiser's name (auto_translate_mode DISABLED on the name) while someone raises the player.
-    - **Bleed** `PanelContainer` · variation `ToyBarTrack` · custom_minimum_size (810, 24) = Vector2(810, get_theme_constant("height", "ToyBarTrack"))
-      - **Fill** `ProgressBar` · variation `ToyBarHealth` · custom_minimum_size (0, 14) · value 0.7 of max_value 1, show_percentage false · fill self_modulate = theme colour `ramp_stop_14` of `ToyBarHealth` (step = clampi(floori(hp * 20.0 + 0.5), 0, 20))
-        - Note: value = bleed-out time left / bleed-out duration, falling to 0; coloured with the health ramp as s7's health (the time left reads as life).
+    - **Bleed** `ProgressBar` · variation `ToyBarHealthCalm` · custom_minimum_size (810, 24) = Vector2(810, get_theme_constant("height", "ToyBarHealthCalm")) · value 0.7 of max_value 1, show_percentage false
+      - Note: One ProgressBar in the health bar's look (the time left reads as life; one green, no ramp since ui-1.3.0). value = bleed-out time left / bleed-out duration, falling to 0. The alarm line is health's (s7 Hud/Vitals/Bars/Health): under 0.3 the game sets ToyBarHealthAlarm and pulses the light as s7's bars; otherwise ToyBarHealthCalm (agent, open to the engineer's veto).
     - **Left** `Label` · variation `ToyPlateTextMuted` · text `downed.time_left` with sample {time} = "0:10": en "0:10 left" · uk "Лишилось 0:10" · horizontal_alignment `CENTER`
       - Note: {time} is the bleed-out time left as m:ss, updated every second.
 - **GiveUp** `PanelContainer` · variation `ToyPlate` · anchors `center_bottom`, offsets 0, -192, 0, -192 (left, top, right, bottom), grow both/begin
@@ -84,8 +83,8 @@ The same HUD as s7: Hud and its nodes are s7's (same names and places); this scr
         - **Label** `Label` · variation `ToyPlateText` · text `dead.back_in`: en "Back in" · uk "Повернення через" · horizontal_alignment `CENTER`
         - **Time** `Label` · variation `ToyPlateCountdown` · text from data (auto_translate_mode = DISABLED), sample: "0:24" · horizontal_alignment `CENTER`
           - Note: The time to respawn, m:ss from code (auto_translate_mode DISABLED), every second; the wait is 30 s (m8 §3).
-        - **Bar** `ProgressBar` · variation `ToyBarProgress` · custom_minimum_size (0, 24) · value 0.2 of max_value 1, show_percentage false
-          - Note: The wait passed (0 to 1), filling to the return.
+        - **Bar** `ProgressBar` · variation `ToyBarReturnCalm` · custom_minimum_size (0, 24) = Vector2(0, get_theme_constant("height", "ToyBarReturnCalm")) · value 0.2 of max_value 1, show_percentage false
+          - Note: The dead's room return bar, one ProgressBar: its background is the white track, its fill the alien green. value = the wait passed (0 to 1), filling to the return. The alarm line: in the wait's last 5 s (value over 25 / 30) the game sets theme_type_variation ToyBarReturnAlarm (the track glows green) and pulses the light as s7's bars (the background StyleBox's shadow_color.a 1 to 0.25 and back, 0.9 s each way, no pulse under reduced motion); before that ToyBarReturnCalm.
   - **Others** `PanelContainer` · variation `ToyChipPlate` · anchors `bottom_left`, offsets 39, -39, 39, -39 (left, top, right, bottom), grow end/begin
     - Note: Who else waits in the room, 39 px in at the bottom left; hidden when the player is alone there.
     - **Text** `Label` · variation `ToyChipPlateText` · text `dead.also_here` with sample {names} = "Bulk, Zinga" / "Бульк, Зінга": en "Also here: Bulk, Zinga" · uk "Тут також: Бульк, Зінга"
@@ -106,10 +105,8 @@ The same HUD as s7: Hud and its nodes are s7's (same names and places); this scr
     - Note: As s7.
   - **Hud/Anger** `Control` · anchors `center_top`, offsets 0, 96, 0, 96 (left, top, right, bottom), grow both/end
     - Note: The neighbours' anger, meter A (decided 2026-10-20): a zero-size point at the top centre, 96 px down (the sketch's 64 x 1.5). The track centres on it, so the bar is exactly centred under the time; the siren hangs off its right end without moving that centre. No caption, no plate. It never says what raises the anger or where (open: whether it hints the type of problem, the audit's point 3).
-    - **Track** `PanelContainer` · variation `ToyBarAngerTrack` · anchors `center_top`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/end · custom_minimum_size (225, 30) = Vector2(get_theme_constant("width", "ToyBarAngerTrack"), get_theme_constant("height", "ToyBarAngerTrack"))
-      - Note: The white pill track, 225 x 30 (its size constants).
-      - **Fill** `ProgressBar` · variation `ToyBarAnger` · custom_minimum_size (0, 20) · value 0.55 of max_value 1, show_percentage false
-        - Note: value = anger / the host's threshold (0 to 1). Ongoing mischief raises it a little at a time, a one-off (the fireworks) jumps it; fixing stops the rise and the gained anger stays (m8 §5). At 1 the neighbours call the cops (Hud/Cops).
+    - **Bar** `ProgressBar` · variation `ToyBarAngerCalm` · anchors `center_top`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/end · custom_minimum_size (225, 30) = Vector2(get_theme_constant("width", "ToyBarAngerCalm"), get_theme_constant("height", "ToyBarAngerCalm")) · value 0.55 of max_value 1, show_percentage false
+      - Note: As s7: one ProgressBar, ToyBarAngerCalm, ToyBarAngerAlarm over 0.7.
     - **Siren** `TextureRect` · anchors `top_left`, offsets 122, -14, 179, 43 (left, top, right, bottom), grow end/end · custom_minimum_size (57, 57) · texture `siren-on` (dist/pack/icons/siren-on.svg, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · not tinted (drawn in its own colours)
       - Note: The siren, 57 px (the sketch's 38 x 1.5), 9 px right of the track's end (112.5 + 9, rounded up) and centred on its height: icons/siren-off.svg while the anger is calm (not rising), icons/siren-on.svg while it rises and when full. Never tinted.
   - **Hud/Roster** `PanelContainer` · variation `ToyRoster` · anchors `top_right`, offsets -39, 39, -39, 39 (left, top, right, bottom), grow begin/end · custom_minimum_size (285, 0) = Vector2(get_theme_constant("min_width", "ToyRoster"), 0)
@@ -138,10 +135,10 @@ The same HUD as s7: Hud and its nodes are s7's (same names and places); this scr
     - Note: The crosshair dot, centred on the screen (its size is the variation's).
   - **Hud/Vitals/Bars** `VBoxContainer` · variation `ToyColumnTwelve` · size flags vertical `SIZE_SHRINK_END` · gaps from the variation: separation 12
     - Note: Hidden while downed; full again on return.
-    - **Health** `PanelContainer` · variation `ToyBarTrack` · custom_minimum_size (300, 24) = Vector2(300, get_theme_constant("height", "ToyBarTrack"))
-      - **Fill** `ProgressBar` · variation `ToyBarHealth` · custom_minimum_size (0, 14) · value 1 of max_value 1, show_percentage false · fill self_modulate = theme colour `ramp_stop_20` of `ToyBarHealth` (step = clampi(floori(hp * 20.0 + 0.5), 0, 20))
-    - **Stamina** `PanelContainer` · variation `ToyBarTrack` · custom_minimum_size (300, 24) = Vector2(300, get_theme_constant("height", "ToyBarTrack"))
-      - **Fill** `ProgressBar` · variation `ToyBarStamina` · custom_minimum_size (0, 14) · value 0.35 of max_value 1, show_percentage false
+    - **Health** `ProgressBar` · variation `ToyBarHealthCalm` · custom_minimum_size (300, 24) = Vector2(300, get_theme_constant("height", "ToyBarHealthCalm")) · value 1 of max_value 1, show_percentage false
+      - Note: As s7.
+    - **Stamina** `ProgressBar` · variation `ToyBarStaminaCalm` · custom_minimum_size (300, 24) = Vector2(300, get_theme_constant("height", "ToyBarStaminaCalm")) · value 0.35 of max_value 1, show_percentage false
+      - Note: As s7.
   - **Hud/Slots** `HBoxContainer` · variation `ToyRowSixteen` · anchors `bottom_right`, offsets -39, -51, -39, -51 (left, top, right, bottom), grow begin/begin · gaps from the variation: separation 16
     - Note: As s7; the player comes back with empty hands.
     - **Hand** `Control` · size flags vertical `SIZE_SHRINK_END` · custom_minimum_size (150, 150)

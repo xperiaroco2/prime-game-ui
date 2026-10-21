@@ -200,8 +200,9 @@ The engineer's choices of 2026-10-21 (prime-game#150; `pages/glow-bars/`, way 3 
 - **The main action glows:** `ToyButtonPrimary` is the acid `palette.acid` (#B6FF3C; hover `acid-light`, held
   `acid-dark`) with the glow (`glow.action`, acid), and its hard shadow is the edge form (outlines 6 / 14 / 14 / 6,
   expand 8 right and bottom, as `ToyMenuItem`), so it has no `base` and `press.depth` is 0: the game drops its ToyRaised
-  wrapper. Unplugged: a 6 px outline, no expand, `shadow-size` 0. `ToyBasePrimaryOnDark` and `ToyBasePrimaryOnLight`
-  are deprecated.
+  wrapper in the same change that takes the pack (a kept wrapper still draws the deprecated 8 px base under the
+  14 px edge form: a doubled hard shadow). Unplugged: a 6 px outline, no expand, `shadow-size` 0.
+  `ToyBasePrimaryOnDark` and `ToyBasePrimaryOnLight` are deprecated.
 - **The bars glow only at their alarm line.** One `ProgressBar` per bar, two variations each: `ToyBar…Calm` (the white
   track as `background`, a 5 px ink outline, pill ends; the fill in the bar's colour with the same outline and ends,
   drawn over the track's full height) and `ToyBar…Alarm` (the same, plus the track's glow, `glow.alarm` in the bar's

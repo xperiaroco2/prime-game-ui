@@ -35,10 +35,8 @@ One HUD for the whole round, the MVP's (the engineer's decisions of 2026-10-20 i
     - Note: The round's time left, mm:ss from code (auto_translate_mode DISABLED), every second; no plate (decided 2026-10-20): mint Rubik digits with the 6 px ink text outline, its top 33 px down (the sketch's 22 x 1.5). Rubik's digits are proportional, so the minimum width holds the widest time and the centred label never changes width.
   - **Anger** `Control` · anchors `center_top`, offsets 0, 96, 0, 96 (left, top, right, bottom), grow both/end
     - Note: The neighbours' anger, meter A (decided 2026-10-20): a zero-size point at the top centre, 96 px down (the sketch's 64 x 1.5). The track centres on it, so the bar is exactly centred under the time; the siren hangs off its right end without moving that centre. No caption, no plate. It never says what raises the anger or where (open: whether it hints the type of problem, the audit's point 3).
-    - **Track** `PanelContainer` · variation `ToyBarAngerTrack` · anchors `center_top`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/end · custom_minimum_size (225, 30) = Vector2(get_theme_constant("width", "ToyBarAngerTrack"), get_theme_constant("height", "ToyBarAngerTrack"))
-      - Note: The white pill track, 225 x 30 (its size constants).
-      - **Fill** `ProgressBar` · variation `ToyBarAnger` · custom_minimum_size (0, 20) · value 0.08 of max_value 1, show_percentage false
-        - Note: value = anger / the host's threshold (0 to 1). Ongoing mischief raises it a little at a time, a one-off (the fireworks) jumps it; fixing stops the rise and the gained anger stays (m8 §5). At 1 the neighbours call the cops (Hud/Cops).
+    - **Bar** `ProgressBar` · variation `ToyBarAngerCalm` · anchors `center_top`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/end · custom_minimum_size (225, 30) = Vector2(get_theme_constant("width", "ToyBarAngerCalm"), get_theme_constant("height", "ToyBarAngerCalm")) · value 0.08 of max_value 1, show_percentage false
+      - Note: One ProgressBar, 225 x 30 (its size constants): its background is the white track, its fill the coral. value = anger / the host's threshold (0 to 1). Ongoing mischief raises it a little at a time, a one-off (the fireworks) jumps it; fixing stops the rise and the gained anger stays (m8 §5). At 1 the neighbours call the cops (Hud/Cops). The alarm line: over 0.7 the game sets theme_type_variation ToyBarAngerAlarm (the track glows coral) and pulses the light (the background StyleBox's shadow_color.a 1 to 0.25 and back, 0.9 s each way, TRANS_SINE, EASE_IN_OUT, looping, on a per-bar duplicate of the StyleBox; no pulse under reduced motion); at 0.7 or less it sets ToyBarAngerCalm (tokens/README.md, The glow since ui-1.3.0).
     - **Siren** `TextureRect` · anchors `top_left`, offsets 122, -14, 179, 43 (left, top, right, bottom), grow end/end · custom_minimum_size (57, 57) · texture `siren-off` (dist/pack/icons/siren-off.svg, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · not tinted (drawn in its own colours)
       - Note: The siren, 57 px (the sketch's 38 x 1.5), 9 px right of the track's end (112.5 + 9, rounded up) and centred on its height: icons/siren-off.svg while the anger is calm (not rising), icons/siren-on.svg while it rises and when full. Never tinted.
   - **Roster** `PanelContainer` · variation `ToyRoster` · anchors `top_right`, offsets -39, 39, -39, 39 (left, top, right, bottom), grow begin/end · custom_minimum_size (285, 0) = Vector2(get_theme_constant("min_width", "ToyRoster"), 0)
@@ -71,12 +69,10 @@ One HUD for the whole round, the MVP's (the engineer's decisions of 2026-10-20 i
   - **Vitals** `HBoxContainer` · variation `ToyRowTwentyFour` · anchors `bottom_left`, offsets 39, -39, 39, -39 (left, top, right, bottom), grow end/begin · gaps from the variation: separation 24
     - Note: The bars and the mic beside them, 39 px in at the bottom left (the sketch: bars 200 wide, the mic 244 in, x 1.5). Always shown in a round. No numbers and no captions on the bars (the engineer wants less screen): health is the green bar on top, stamina the yellow one under it, as everywhere in the game; the length is the real cue, the colour only adds to it.
     - **Bars** `VBoxContainer` · variation `ToyColumnTwelve` · size flags vertical `SIZE_SHRINK_END` · gaps from the variation: separation 12
-      - **Health** `PanelContainer` · variation `ToyBarTrack` · custom_minimum_size (300, 24) = Vector2(300, get_theme_constant("height", "ToyBarTrack"))
-        - **Fill** `ProgressBar` · variation `ToyBarHealth` · custom_minimum_size (0, 14) · value 0.8 of max_value 1, show_percentage false · fill self_modulate = theme colour `ramp_stop_16` of `ToyBarHealth` (step = clampi(floori(hp * 20.0 + 0.5), 0, 20))
-          - Note: value = hp (0 to 1). The fill colour follows the fraction: step = clampi(floori(hp * 20.0 + 0.5), 0, 20), Fill.self_modulate = get_theme_color("ramp_stop_%02d" % step, "ToyBarHealth").
-      - **Stamina** `PanelContainer` · variation `ToyBarTrack` · custom_minimum_size (300, 24) = Vector2(300, get_theme_constant("height", "ToyBarTrack"))
-        - **Fill** `ProgressBar` · variation `ToyBarStamina` · custom_minimum_size (0, 14) · value 0.9 of max_value 1, show_percentage false
-          - Note: value = stamina (0 to 1); drains while sprinting and refills at rest.
+      - **Health** `ProgressBar` · variation `ToyBarHealthCalm` · custom_minimum_size (300, 24) = Vector2(300, get_theme_constant("height", "ToyBarHealthCalm")) · value 0.8 of max_value 1, show_percentage false
+        - Note: One ProgressBar: its background is the white track, its fill the alien green (one colour, no ramp since ui-1.3.0). value = hp (0 to 1). The alarm line: under 0.3 the game sets theme_type_variation ToyBarHealthAlarm (the track glows green) and pulses the light as Hud/Anger/Bar; at 0.3 or more it sets ToyBarHealthCalm.
+      - **Stamina** `ProgressBar` · variation `ToyBarStaminaCalm` · custom_minimum_size (300, 24) = Vector2(300, get_theme_constant("height", "ToyBarStaminaCalm")) · value 0.9 of max_value 1, show_percentage false
+        - Note: One ProgressBar: its background is the white track, its fill the yellow. value = stamina (0 to 1); drains while sprinting and refills at rest. The alarm line: under 0.3 the game sets theme_type_variation ToyBarStaminaAlarm (the track glows yellow) and pulses the light as Hud/Anger/Bar; at 0.3 or more it sets ToyBarStaminaCalm.
     - **Mic** `PanelContainer` · variation `ToyMic` · size flags vertical `SIZE_SHRINK_END` · custom_minimum_size (75, 75) = Vector2(get_theme_constant("width", "ToyMic"), get_theme_constant("height", "ToyMic"))
       - Note: Whether anyone hears the player. On: mic.svg tinted icon_on. Off (mic off, push-to-talk released, downed, pre and post game): mic-off.svg tinted icon_off (coral). 42 px in the 75 px badge.
       - **Icon** `TextureRect` · size flags horizontal `SIZE_SHRINK_CENTER`, vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (42, 42) · texture `mic` (dist/pack/icons/mic.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("icon_on", "ToyMic")
@@ -94,7 +90,7 @@ One HUD for the whole round, the MVP's (the engineer's decisions of 2026-10-20 i
 ## `carry`: what differs from `empty`
 
 - **Hidden:** `Hud/Aim`.
-- **Changed** `Hud/Anger/Track/Fill`: value 0.55 of max_value 1, show_percentage false (was: value 0.08 of max_value 1, show_percentage false)
+- **Changed** `Hud/Anger/Bar`: value 0.55 of max_value 1, show_percentage false (was: value 0.08 of max_value 1, show_percentage false)
 - **Changed** `Hud/Anger/Siren`: texture `siren-on` (dist/pack/icons/siren-on.svg, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` (was: texture `siren-off` (dist/pack/icons/siren-off.svg, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED`)
 - **Changed** `Hud/Slots/Hand/Face/Picture`: texture `item-rocket` (dist/pack/icons/item-rocket.svg, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` (was: texture `slot-empty-hand` (dist/pack/icons/slot-empty-hand.svg, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED`)
 - **Changed** `Hud/Slots/Belt/Face/Picture`: texture `item-bun` (dist/pack/icons/item-bun.svg, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` (was: texture `slot-empty-belt` (dist/pack/icons/slot-empty-belt.svg, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED`)
@@ -111,7 +107,7 @@ One HUD for the whole round, the MVP's (the engineer's decisions of 2026-10-20 i
 - **Hidden:** `Hud/Aim`.
 - **Changed** `Hud/Role`: variation `ToyStickerAlert` (was: variation `ToySticker`)
 - **Changed** `Hud/Role/Text`: text `role.human`: en "Human" · uk "Людина" (was: text `role.alien`: en "Alien" · uk "Прибулець")
-- **Changed** `Hud/Anger/Track/Fill`: value 0.55 of max_value 1, show_percentage false (was: value 0.08 of max_value 1, show_percentage false)
+- **Changed** `Hud/Anger/Bar`: value 0.55 of max_value 1, show_percentage false (was: value 0.08 of max_value 1, show_percentage false)
 - **Changed** `Hud/Anger/Siren`: texture `siren-on` (dist/pack/icons/siren-on.svg, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` (was: texture `siren-off` (dist/pack/icons/siren-off.svg, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED`)
 - **Changed** `Hud/Roster/Rows/Row1/Dot`: self_modulate from data (a content colour, not a theme colour), sample #E8B04A (was: self_modulate from data (a content colour, not a theme colour), sample #7C5CC8)
 - **Changed** `Hud/Roster/Rows/Row1/Name`: text `hud.roster.self` with sample {name} = "Bulk" / "Бульк": en "Bulk (you)" · uk "Бульк (ти)" (was: text `hud.roster.self` with sample {name} = "Olena" / "Олена": en "Olena (you)" · uk "Олена (ти)")
@@ -141,15 +137,15 @@ One HUD for the whole round, the MVP's (the engineer's decisions of 2026-10-20 i
 ## `hurt`: what differs from `empty`
 
 - **Hidden:** `Hud/Aim`.
-- **Changed** `Hud/Anger/Track/Fill`: value 0.55 of max_value 1, show_percentage false (was: value 0.08 of max_value 1, show_percentage false)
+- **Changed** `Hud/Anger/Bar`: value 0.55 of max_value 1, show_percentage false (was: value 0.08 of max_value 1, show_percentage false)
 - **Changed** `Hud/Anger/Siren`: texture `siren-on` (dist/pack/icons/siren-on.svg, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` (was: texture `siren-off` (dist/pack/icons/siren-off.svg, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED`)
-- **Changed** `Hud/Vitals/Bars/Health/Fill`: value 0.22 of max_value 1, show_percentage false · fill self_modulate = theme colour `ramp_stop_04` of `ToyBarHealth` (step = clampi(floori(hp * 20.0 + 0.5), 0, 20)) (was: value 0.8 of max_value 1, show_percentage false · fill self_modulate = theme colour `ramp_stop_16` of `ToyBarHealth` (step = clampi(floori(hp * 20.0 + 0.5), 0, 20)))
-- **Changed** `Hud/Vitals/Bars/Stamina/Fill`: value 0.18 of max_value 1, show_percentage false (was: value 0.9 of max_value 1, show_percentage false)
+- **Changed** `Hud/Vitals/Bars/Health`: variation `ToyBarHealthAlarm` · custom_minimum_size (300, 24) = Vector2(300, get_theme_constant("height", "ToyBarHealthAlarm")) · value 0.22 of max_value 1, show_percentage false (was: variation `ToyBarHealthCalm` · custom_minimum_size (300, 24) = Vector2(300, get_theme_constant("height", "ToyBarHealthCalm")) · value 0.8 of max_value 1, show_percentage false)
+- **Changed** `Hud/Vitals/Bars/Stamina`: variation `ToyBarStaminaAlarm` · custom_minimum_size (300, 24) = Vector2(300, get_theme_constant("height", "ToyBarStaminaAlarm")) · value 0.18 of max_value 1, show_percentage false (was: variation `ToyBarStaminaCalm` · custom_minimum_size (300, 24) = Vector2(300, get_theme_constant("height", "ToyBarStaminaCalm")) · value 0.9 of max_value 1, show_percentage false)
 
 ## `raising`: what differs from `empty`
 
 - **Hidden:** `Hud/Aim`.
-- **Changed** `Hud/Anger/Track/Fill`: value 0.55 of max_value 1, show_percentage false (was: value 0.08 of max_value 1, show_percentage false)
+- **Changed** `Hud/Anger/Bar`: value 0.55 of max_value 1, show_percentage false (was: value 0.08 of max_value 1, show_percentage false)
 - **Changed** `Hud/Anger/Siren`: texture `siren-on` (dist/pack/icons/siren-on.svg, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` (was: texture `siren-off` (dist/pack/icons/siren-off.svg, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED`)
 - **Shown:**
   - **Hud/Raising** `PanelContainer` · variation `ToyPlate` · anchors `center`, offsets 0, 64, 0, 64 (left, top, right, bottom), grow both/both
@@ -161,7 +157,7 @@ One HUD for the whole round, the MVP's (the engineer's decisions of 2026-10-20 i
 
 - **Hidden:** `Hud/Aim`.
 - **Changed** `Hud/Timer`: text from data (auto_translate_mode = DISABLED), sample: "04:12" (was: text from data (auto_translate_mode = DISABLED), sample: "07:42")
-- **Changed** `Hud/Anger/Track/Fill`: value 1 of max_value 1, show_percentage false (was: value 0.08 of max_value 1, show_percentage false)
+- **Changed** `Hud/Anger/Bar`: variation `ToyBarAngerAlarm` · custom_minimum_size (225, 30) = Vector2(get_theme_constant("width", "ToyBarAngerAlarm"), get_theme_constant("height", "ToyBarAngerAlarm")) · value 1 of max_value 1, show_percentage false (was: variation `ToyBarAngerCalm` · custom_minimum_size (225, 30) = Vector2(get_theme_constant("width", "ToyBarAngerCalm"), get_theme_constant("height", "ToyBarAngerCalm")) · value 0.08 of max_value 1, show_percentage false)
 - **Changed** `Hud/Anger/Siren`: texture `siren-on` (dist/pack/icons/siren-on.svg, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` (was: texture `siren-off` (dist/pack/icons/siren-off.svg, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED`)
 - **Shown:**
   - **Hud/Cops** `PanelContainer` · variation `ToyPlateBanner` · anchors `center_top`, offsets 0, 168, 0, 168 (left, top, right, bottom), grow both/end

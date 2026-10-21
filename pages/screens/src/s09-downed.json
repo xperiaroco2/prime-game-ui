@@ -25,12 +25,7 @@
         {
           "name": "Anger", "type": "Control", "states": ["back"], "anchors_preset": "center_top", "offset_top": 96, "offset_bottom": 96, "grow_horizontal": "both", "note": "The neighbours' anger, meter A (decided 2026-10-20): a zero-size point at the top centre, 96 px down (the sketch's 64 x 1.5). The track centres on it, so the bar is exactly centred under the time; the siren hangs off its right end without moving that centre. No caption, no plate. It never says what raises the anger or where (open: whether it hints the type of problem, the audit's point 3).",
           "children": [
-            {
-              "name": "Track", "type": "PanelContainer", "variation": "ToyBarAngerTrack", "anchors_preset": "center_top", "grow_horizontal": "both", "note": "The white pill track, 225 x 30 (its size constants).",
-              "children": [
-                { "name": "Fill", "type": "ProgressBar", "variation": "ToyBarAnger", "show_percentage": false, "max_value": 1, "value": 0.55, "custom_minimum_size": [0, 20], "note": "value = anger / the host's threshold (0 to 1). Ongoing mischief raises it a little at a time, a one-off (the fireworks) jumps it; fixing stops the rise and the gained anger stays (m8 §5). At 1 the neighbours call the cops (Hud/Cops)." }
-              ]
-            },
+            { "name": "Bar", "type": "ProgressBar", "variation": "ToyBarAngerCalm", "anchors_preset": "center_top", "grow_horizontal": "both", "show_percentage": false, "max_value": 1, "value": 0.55, "note": "As s7: one ProgressBar, ToyBarAngerCalm, ToyBarAngerAlarm over 0.7." },
             { "name": "Siren", "type": "TextureRect", "icon": "siren-on", "custom_minimum_size": [57, 57], "offset_left": 122, "offset_top": -14, "offset_right": 179, "offset_bottom": 43, "note": "The siren, 57 px (the sketch's 38 x 1.5), 9 px right of the track's end (112.5 + 9, rounded up) and centred on its height: icons/siren-off.svg while the anger is calm (not rising), icons/siren-on.svg while it rises and when full. Never tinted." }
           ]
         },
@@ -93,18 +88,8 @@
             {
               "name": "Bars", "type": "VBoxContainer", "variation": "ToyColumnTwelve", "size_flags_vertical": "shrink_end", "states": ["back"], "note": "Hidden while downed; full again on return.",
               "children": [
-                {
-                  "name": "Health", "type": "PanelContainer", "variation": "ToyBarTrack", "custom_minimum_size": [300, 24],
-                  "children": [
-                    { "name": "Fill", "type": "ProgressBar", "variation": "ToyBarHealth", "show_percentage": false, "max_value": 1, "value": 1, "custom_minimum_size": [0, 14] }
-                  ]
-                },
-                {
-                  "name": "Stamina", "type": "PanelContainer", "variation": "ToyBarTrack", "custom_minimum_size": [300, 24],
-                  "children": [
-                    { "name": "Fill", "type": "ProgressBar", "variation": "ToyBarStamina", "show_percentage": false, "max_value": 1, "value": 1, "custom_minimum_size": [0, 14], "per_state": { "back": { "value": 0.35 } } }
-                  ]
-                }
+                { "name": "Health", "type": "ProgressBar", "variation": "ToyBarHealthCalm", "show_percentage": false, "max_value": 1, "value": 1, "custom_minimum_size": [300, 24], "note": "As s7." },
+                { "name": "Stamina", "type": "ProgressBar", "variation": "ToyBarStaminaCalm", "show_percentage": false, "max_value": 1, "value": 1, "custom_minimum_size": [300, 24], "per_state": { "back": { "value": 0.35 } }, "note": "As s7." }
               ]
             },
             {
@@ -151,12 +136,7 @@
           "name": "V", "type": "VBoxContainer", "variation": "ToyColumnTwelve",
           "children": [
             { "name": "Title", "type": "Label", "variation": "ToyPlateTitle", "key": "downed.title", "horizontal_alignment": "center", "autowrap_mode": "word_smart", "custom_minimum_size": [810, 0], "per_state": { "raise": { "key": "downed.raised_by", "args": { "name": { "uk": "Олена", "en": "Olena" } } } }, "note": "downed.title while bleeding out; downed.raised_by with the raiser's name (auto_translate_mode DISABLED on the name) while someone raises the player." },
-            {
-              "name": "Bleed", "type": "PanelContainer", "variation": "ToyBarTrack", "custom_minimum_size": [810, 24], "states": ["down", "down-holding"],
-              "children": [
-                { "name": "Fill", "type": "ProgressBar", "variation": "ToyBarHealth", "show_percentage": false, "max_value": 1, "value": 0.7, "custom_minimum_size": [0, 14], "note": "value = bleed-out time left / bleed-out duration, falling to 0; coloured with the health ramp as s7's health (the time left reads as life)." }
-              ]
-            },
+            { "name": "Bleed", "type": "ProgressBar", "variation": "ToyBarHealthCalm", "show_percentage": false, "max_value": 1, "value": 0.7, "custom_minimum_size": [810, 24], "states": ["down", "down-holding"], "note": "One ProgressBar in the health bar's look (the time left reads as life; one green, no ramp since ui-1.3.0). value = bleed-out time left / bleed-out duration, falling to 0. The alarm line is health's (s7 Hud/Vitals/Bars/Health): under 0.3 the game sets ToyBarHealthAlarm and pulses the light as s7's bars; otherwise ToyBarHealthCalm (agent, open to the engineer's veto)." },
             { "name": "Left", "type": "Label", "variation": "ToyPlateTextMuted", "key": "downed.time_left", "args": { "time": "0:10" }, "horizontal_alignment": "center", "states": ["down", "down-holding"], "note": "{time} is the bleed-out time left as m:ss, updated every second." },
             { "name": "Raise", "type": "ProgressBar", "variation": "ToyBarProgress", "show_percentage": false, "max_value": 1, "value": 0.6, "custom_minimum_size": [810, 24], "states": ["raise"], "note": "The raise progress (0 to 1) while someone holds raise; if they stop, the bleed-out bar and the time return." },
             { "name": "Pad", "type": "Control", "custom_minimum_size": [0, 6], "states": ["raise"], "note": "An empty spacer: a bar that ends a plate gets 6 px more room under it than the plate's padding." }
@@ -206,7 +186,7 @@
               "children": [
                 { "name": "Label", "type": "Label", "variation": "ToyPlateText", "key": "dead.back_in", "horizontal_alignment": "center" },
                 { "name": "Time", "type": "Label", "variation": "ToyPlateCountdown", "text": "0:24", "horizontal_alignment": "center", "note": "The time to respawn, m:ss from code (auto_translate_mode DISABLED), every second; the wait is 30 s (m8 §3)." },
-                { "name": "Bar", "type": "ProgressBar", "variation": "ToyBarProgress", "show_percentage": false, "max_value": 1, "value": 0.2, "custom_minimum_size": [0, 24], "note": "The wait passed (0 to 1), filling to the return." }
+                { "name": "Bar", "type": "ProgressBar", "variation": "ToyBarReturnCalm", "show_percentage": false, "max_value": 1, "value": 0.2, "custom_minimum_size": [0, 24], "note": "The dead's room return bar, one ProgressBar: its background is the white track, its fill the alien green. value = the wait passed (0 to 1), filling to the return. The alarm line: in the wait's last 5 s (value over 25 / 30) the game sets theme_type_variation ToyBarReturnAlarm (the track glows green) and pulses the light as s7's bars (the background StyleBox's shadow_color.a 1 to 0.25 and back, 0.9 s each way, no pulse under reduced motion); before that ToyBarReturnCalm." }
               ]
             }
           ]
