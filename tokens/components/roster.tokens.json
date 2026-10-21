@@ -68,7 +68,7 @@
       }
     },
     "dot": {
-      "$description": "A player's colour dot (in the roster and the kill notices): a white disc with a 5 px ink ring, 24 px (16 x 1.5); the game tints it to the body colour with self_modulate (the ink ring stays dark).",
+      "$description": "A player's colour dot (in the roster): a white disc with a 5 px ink ring, 24 px (16 x 1.5); the game tints it to the body colour with self_modulate (the ink ring stays dark).",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyRosterDot", "class": "Panel" },

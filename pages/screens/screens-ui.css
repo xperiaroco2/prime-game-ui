@@ -2257,28 +2257,6 @@
   letter-spacing: calc(var(--toy-plate-timer-label-letter-spacing) * var(--px));
   color: var(--toy-plate-timer-normal-font-color);
 }
-/* ToyPlateNotice: PanelContainer · plate.notice · dark */
-.tv-ToyPlateNotice {
-  box-sizing: border-box;
-  position: relative;
-  background: var(--toy-plate-notice-panel-bg-color);
-  border-style: solid;
-  border-color: var(--toy-plate-notice-panel-border-color);
-  border-top-width: calc(var(--toy-plate-notice-panel-border-width-top) * var(--px));
-  border-right-width: calc(var(--toy-plate-notice-panel-border-width-right) * var(--px));
-  border-bottom-width: calc(var(--toy-plate-notice-panel-border-width-bottom) * var(--px));
-  border-left-width: calc(var(--toy-plate-notice-panel-border-width-left) * var(--px));
-  border-top-left-radius: calc(var(--toy-plate-notice-panel-corner-radius) * var(--px));
-  border-top-right-radius: calc(var(--toy-plate-notice-panel-corner-radius) * var(--px));
-  border-bottom-right-radius: calc(var(--toy-plate-notice-panel-corner-radius) * var(--px));
-  border-bottom-left-radius: calc(var(--toy-plate-notice-panel-corner-radius) * var(--px));
-  padding-top: calc((var(--toy-plate-notice-panel-content-margin-block) - var(--toy-plate-notice-panel-border-width-top)) * var(--px));
-  padding-right: calc((var(--toy-plate-notice-panel-content-margin-inline) + var(--toy-plate-notice-panel-expand-margin-right) - var(--toy-plate-notice-panel-border-width-right)) * var(--px));
-  padding-bottom: calc((var(--toy-plate-notice-panel-content-margin-block) + var(--toy-plate-notice-panel-expand-margin-bottom) - var(--toy-plate-notice-panel-border-width-bottom)) * var(--px));
-  padding-left: calc((var(--toy-plate-notice-panel-content-margin-inline) - var(--toy-plate-notice-panel-border-width-left)) * var(--px));
-  margin-right: calc(var(--toy-plate-notice-panel-expand-margin-right) * -1 * var(--px));
-  margin-bottom: calc(var(--toy-plate-notice-panel-expand-margin-bottom) * -1 * var(--px));
-}
 /* ToyPlateBanner: PanelContainer · plate.banner · dark */
 .tv-ToyPlateBanner {
   box-sizing: border-box;
@@ -2390,15 +2368,6 @@
   padding-left: calc((var(--toy-plate-result-panel-content-margin-inline) - var(--toy-plate-result-panel-border-width-left)) * var(--px));
   margin-right: calc(var(--toy-plate-result-panel-expand-margin-right) * -1 * var(--px));
   margin-bottom: calc(var(--toy-plate-result-panel-expand-margin-bottom) * -1 * var(--px));
-}
-/* ToyPlateHeading: Label · plate.heading · dark */
-.tv-ToyPlateHeading {
-  font-family: var(--toy-plate-heading-label-font-family), system-ui, sans-serif;
-  font-size: calc(var(--toy-plate-heading-label-font-size) * var(--px));
-  font-weight: var(--toy-plate-heading-label-font-weight);
-  line-height: calc(var(--toy-plate-heading-label-line-box) * var(--px));
-  letter-spacing: calc(var(--toy-plate-heading-label-letter-spacing) * var(--px));
-  color: var(--toy-plate-heading-normal-font-color);
 }
 /* ToyPlateCountdown: Label · plate.countdown · dark */
 .tv-ToyPlateCountdown {

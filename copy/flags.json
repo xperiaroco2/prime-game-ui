@@ -638,47 +638,6 @@
    ]
   },
   {
-   "id": "hud.kill_notice",
-   "keys": [
-    "hud.kill_notice"
-   ],
-   "kind": "case",
-   "round": "new",
-   "why": "Чернетка (екрани MVP s6–s11). Хто кого вбив (s7, варіант А — банер; А чи Б і для кого — відкрито). Імена — дані, гра їх не відмінює, тож «вбиває Зінга» не скажеш; тепер обидва імені в називному, і в обох мовах теперішній час. Крапка перед рядком — колір убивці, тому вбивця перший.",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "note": "«{killer}: {victim} вибуває» / «{killer}: {victim} is out». Без відмінків, той самий час в обох мовах.",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "label": "Стара чернетка",
-     "note": "Імʼя жертви тут мало б стояти в знахідному («вбиває Їжака»), а гра імен не відмінює; англійською минулий час.",
-     "rows": [
-      {
-       "key": "hud.kill_notice",
-       "en": "{killer} killed {victim}",
-       "uk": "{killer} вбиває {victim}"
-      }
-     ]
-    },
-    {
-     "id": "c",
-     "label": "Жертва спершу",
-     "note": "Без відмінків, але вбивця в кінці, далеко від своєї крапки.",
-     "rows": [
-      {
-       "key": "hud.kill_notice",
-       "en": "{victim}: killed by {killer}",
-       "uk": "{victim}: убивця — {killer}"
-      }
-     ]
-    }
-   ]
-  },
-  {
    "id": "hud.cops.title",
    "keys": [
     "hud.cops.title"
@@ -796,35 +755,6 @@
      "label": "Як у колоді (рекомендую)",
      "note": "«Повернення через» / «Back in».",
      "rows": []
-    }
-   ]
-  },
-  {
-   "id": "dead.killed_by",
-   "keys": [
-    "dead.killed_by"
-   ],
-   "kind": "gender",
-   "round": "new",
-   "why": "Чернетка (екрани MVP s6–s11). Хто тебе вбив (s9). На ескізі «Тебе вбив Ґлорп» — має рід, тому «убивця».",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "note": "«Твій убивця — {name}» / «Killed by {name}».",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "label": "Коротко",
-     "note": "",
-     "rows": [
-      {
-       "key": "dead.killed_by",
-       "en": "Killer: {name}",
-       "uk": "Убивця: {name}"
-      }
-     ]
     }
    ]
   },
@@ -1038,7 +968,9 @@
   "item.oil",
   "item.gnome",
   "item.parasol",
-  "map.zone_hint"
+  "map.zone_hint",
+  "hud.kill_notice",
+  "dead.killed_by"
  ],
  "decided": [
   {

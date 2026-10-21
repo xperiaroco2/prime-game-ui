@@ -3,14 +3,13 @@
   "wireframe": "s7",
   "title": "Round HUD",
   "background": "room-light",
-  "note": "One HUD for the whole round, the MVP's (the engineer's decisions of 2026-10-20 in docs/ui-decisions.md, the sketch pages/mvp-screens frames 1, 1a, 3 and 4 at 0.75: every sketch length x 1.5). s9 hides and returns the same nodes; s1 and s6 draw them as context. Every node has mouse_filter IGNORE. The top: the bare time, the anger meter exactly centred under it, the own side at the top left, every player at the top right. No points on the HUD (they show only on the mutation workbench, s11). The HUD never shows keys, walking or running, who knocked the player down, a destination or task progress. HUD edges sit 39 px in (the sketch's 26 x 1.5).",
+  "note": "One HUD for the whole round, the MVP's (the engineer's decisions of 2026-10-20 in docs/ui-decisions.md, the sketch pages/mvp-screens frames 1, 1a, 3 and 4 at 0.75: every sketch length x 1.5). s9 hides and returns the same nodes; s1 and s6 draw them as context. Every node has mouse_filter IGNORE. The top: the bare time, the anger meter exactly centred under it, the own side at the top left, every player at the top right. No points on the HUD (they show only on the mutation workbench, s11). The HUD never shows keys, walking or running, who knocked the player down, who killed whom (the engineer, 2026-10-21), a destination or task progress. HUD edges sit 39 px in (the sketch's 26 x 1.5).",
   "states": [
     { "id": "empty", "label": "Порожні руки", "note": "An alien with nothing carried; the crosshair is on an extinguisher within reach; the anger is calm (the siren off)." },
     { "id": "carry", "label": "Предмети", "note": "Fireworks in the hand and a bun on the belt, each with its name tag; the anger rises (the siren on)." },
     { "id": "human", "label": "Очима людини", "note": "A human's view: the coral role sticker, the other humans tagged in the roster, a battery in the hand. A teammate's name plate keeps the old dissident mark as a visible placeholder: whether a mark over another human's head is still needed beside the roster's tag is open." },
     { "id": "hurt", "label": "Мало здоровʼя й сил", "note": "Health at 0.22 (ramp stop 04) and stamina at 0.18." },
     { "id": "raising", "label": "Підняття", "note": "Decided by the engineer (2026-10-06, the wave-19 question page, q9): what the raiser sees while holding Interact next to a downed player. A thin progress bar under the crosshair in place of the object name, filling at the same rate as the downed player's raise bar (s9 raise); no text." },
-    { "id": "kill", "label": "Хто кого вбив", "note": "PLACEHOLDER, open: the kill notice as variant A of the sketch (a HUD banner for everyone). A or B (the dead alien says it in the world) and for whom (killed aliens only, or every kill) are the engineer's choice." },
     { "id": "cops", "label": "Копи за хвилину", "note": "The anger is full: the neighbours called the cops, and the whole party sees the countdown. Open: whether the round timer still shows beside the cops' minute, or only the one that ends first; how long the minute is." }
   ],
   "nodes": [
@@ -47,10 +46,10 @@
             {
               "name": "Track", "type": "PanelContainer", "variation": "ToyBarAngerTrack", "anchors_preset": "center_top", "grow_horizontal": "both", "note": "The white pill track, 225 x 30 (its size constants).",
               "children": [
-                { "name": "Fill", "type": "ProgressBar", "variation": "ToyBarAnger", "show_percentage": false, "max_value": 1, "value": 0.08, "custom_minimum_size": [0, 20], "per_state": { "carry": { "value": 0.55 }, "human": { "value": 0.55 }, "hurt": { "value": 0.55 }, "raising": { "value": 0.55 }, "kill": { "value": 0.55 }, "cops": { "value": 1 } }, "note": "value = anger / the host's threshold (0 to 1). Ongoing mischief raises it a little at a time, a one-off (the fireworks) jumps it; fixing stops the rise and the gained anger stays (m8 §5). At 1 the neighbours call the cops (Hud/Cops)." }
+                { "name": "Fill", "type": "ProgressBar", "variation": "ToyBarAnger", "show_percentage": false, "max_value": 1, "value": 0.08, "custom_minimum_size": [0, 20], "per_state": { "carry": { "value": 0.55 }, "human": { "value": 0.55 }, "hurt": { "value": 0.55 }, "raising": { "value": 0.55 }, "cops": { "value": 1 } }, "note": "value = anger / the host's threshold (0 to 1). Ongoing mischief raises it a little at a time, a one-off (the fireworks) jumps it; fixing stops the rise and the gained anger stays (m8 §5). At 1 the neighbours call the cops (Hud/Cops)." }
               ]
             },
-            { "name": "Siren", "type": "TextureRect", "icon": "siren-off", "custom_minimum_size": [57, 57], "offset_left": 122, "offset_top": -14, "offset_right": 179, "offset_bottom": 43, "per_state": { "carry": { "icon": "siren-on" }, "human": { "icon": "siren-on" }, "hurt": { "icon": "siren-on" }, "raising": { "icon": "siren-on" }, "kill": { "icon": "siren-on" }, "cops": { "icon": "siren-on" } }, "note": "The siren, 57 px (the sketch's 38 x 1.5), 9 px right of the track's end (112.5 + 9, rounded up) and centred on its height: icons/siren-off.svg while the anger is calm (not rising), icons/siren-on.svg while it rises and when full. Never tinted." }
+            { "name": "Siren", "type": "TextureRect", "icon": "siren-off", "custom_minimum_size": [57, 57], "offset_left": 122, "offset_top": -14, "offset_right": 179, "offset_bottom": 43, "per_state": { "carry": { "icon": "siren-on" }, "human": { "icon": "siren-on" }, "hurt": { "icon": "siren-on" }, "raising": { "icon": "siren-on" }, "cops": { "icon": "siren-on" } }, "note": "The siren, 57 px (the sketch's 38 x 1.5), 9 px right of the track's end (112.5 + 9, rounded up) and centred on its height: icons/siren-off.svg while the anger is calm (not rising), icons/siren-on.svg while it rises and when full. Never tinted." }
           ]
         },
         {
@@ -83,8 +82,7 @@
                   "name": "Row3", "type": "HBoxContainer", "variation": "ToyRowTwelve",
                   "children": [
                     { "name": "Dot", "type": "Panel", "variation": "ToyRosterDot", "self_modulate": "#E66B57", "size_flags_vertical": "shrink_center", "per_state": { "human": { "self_modulate": "#1C7A82" } } },
-                    { "name": "Name", "type": "Label", "variation": "ToyRosterName", "text": { "uk": "Їжак", "en": "Yizhak" }, "states": ["empty", "carry", "human", "hurt", "raising", "cops"], "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center", "per_state": { "human": { "variation": "ToyRosterName", "text": { "uk": "Глорп", "en": "Glorp" } } } },
-                    { "name": "Dead", "type": "Label", "variation": "ToyRosterNameDead", "key": "hud.roster.dead", "args": { "name": { "uk": "Їжак", "en": "Yizhak" } }, "states": ["kill"], "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center", "note": "The sample of the state kill: this row is the kill notice's victim, so it reads dead from the moment of the kill. In the game it is the same Name label switched to hud.roster.dead in ToyRosterNameDead (one label per row)." }
+                    { "name": "Name", "type": "Label", "variation": "ToyRosterName", "text": { "uk": "Їжак", "en": "Yizhak" }, "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center", "per_state": { "human": { "variation": "ToyRosterName", "text": { "uk": "Глорп", "en": "Glorp" } } } }
                   ]
                 },
                 {
@@ -129,18 +127,6 @@
           "name": "Aim", "type": "PanelContainer", "variation": "ToyChipPlate", "states": ["empty"], "anchors_preset": "center", "offset_top": 64, "offset_bottom": 64, "note": "The name of the object under the crosshair within reach (an item.* key, item.extinguisher here; a mischief station or a machine takes its own key when the game adds one); hidden when nothing within reach is under the crosshair. Centred 64 px under the screen's centre, so its top is the sketch's 22 x 1.5 = 33 px under it.",
           "children": [
             { "name": "Text", "type": "Label", "variation": "ToyChipPlateText", "key": "item.extinguisher" }
-          ]
-        },
-        {
-          "name": "Kill", "type": "PanelContainer", "variation": "ToyPlateNotice", "states": ["kill"], "anchors_preset": "center_top", "offset_top": 165, "offset_bottom": 165, "grow_horizontal": "both", "note": "PLACEHOLDER, open (the engineer's design): the kill notice, variant A of the sketch, a banner every player sees for a few seconds when a player is killed (a killed alien tells everyone who killed him, m8 §4). Never at a knockdown: the downed rule \"never show who knocked the player down\" holds. 165 px down (the sketch's 110 x 1.5). Open: A or B (the dead alien says it in the world) and for whom (killed aliens only, then a killed human's silence outs him; or every kill).",
-          "children": [
-            {
-              "name": "Row", "type": "HBoxContainer", "variation": "ToyRowTwelve",
-              "children": [
-                { "name": "Dot", "type": "Panel", "variation": "ToyRosterDot", "self_modulate": "#1C7A82", "size_flags_vertical": "shrink_center", "note": "The killer's body colour (self_modulate from data), as in the roster." },
-                { "name": "Text", "type": "Label", "variation": "ToyPlateTitle", "key": "hud.kill_notice", "args": { "killer": { "uk": "Глорп", "en": "Glorp" }, "victim": { "uk": "Їжак", "en": "Yizhak" } }, "size_flags_vertical": "shrink_center", "note": "{killer} and {victim} are names from data. No role is named." }
-              ]
-            }
           ]
         },
         {

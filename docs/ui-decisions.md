@@ -61,6 +61,12 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
   holding the item) stay on the page, not chosen. The name tags' words are his texts.
 - **No inventory for now** (the engineer, 2026-10-20, chat, translated): "forget the inventory for now, we don't make
   it, everything as it was": no inventory screen is made; the round keeps the hand and belt slots.
+- **No kill notice and no killer shown** (the engineer, 2026-10-21, chat, translated): "There will be no banner of who
+  killed whom. None at all. The game does not show who killed you." The round HUD (s7) has no kill notice and the
+  dead's room (s9) no killer line; `hud.kill_notice` and `dead.killed_by` left the deck, and `ToyPlateNotice` and
+  `ToyPlateHeading` stay in the pack unused until a major release. This replaces the kill-notice and killer-line
+  lines of ui-1.2.0 and of the screens s06 to s11 below. Open: how the return from the dead's room is shown, to be
+  redone later (the engineer, same message).
 - **The round HUD's pictures are icon files** (`pages/components/icons/`, own work, page-only today; the pack lists
   them but no token names them yet): the siren as two files, `siren-off` (the lilac dome, anger calm) and `siren-on`
   (the coral dome with rays, rising and full); the empty slots `slot-empty-hand` and `slot-empty-belt`; and one
@@ -137,11 +143,9 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
   - a keycap is at least 44 px wide (52 at large text), so a one-letter key stays square (agent);
   - the old slots grow to 132 px; item bar A's hand and belt slots are new variations at the sketch's 150 and 126 (agent);
   - the anger track is a pill: the sketch's 12 px corners × 1.5 pass half its 30 px height (agent);
-  - the roster's colour dot is a white disc the game tints to the body colour; the kill notice reuses it at 24 px where
-    the sketch draws 27 (agent);
-  - text roles nearest the sketch's sizes: the kill notice and the cops' line at the title size 36, the killer line,
-    the goal and the full-screen stickers at the heading size 28, the tags at the caption size 18, the dead's head at 36,
-    the countdowns Rubik 64 (agent);
+  - the roster's colour dot is a white disc the game tints to the body colour (agent);
+  - text roles nearest the sketch's sizes: the cops' line at the title size 36, the goal and the full-screen stickers
+    at the heading size 28, the tags at the caption size 18, the dead's head at 36, the countdowns Rubik 64 (agent);
   - the new HUD plates, the roster and the slots cast the edge-form shadow, as the existing plates (agent);
   - a mutation card's "not enough" state is only its disabled button, as on the sketch; the workbench panel is
     ToyPanelDialog (42 px inside where the sketch has 39 and 45) (agent).
@@ -192,9 +196,7 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
   - a slot of item bar A is a Control holding its face and its name tag, so the tag can sit over the bottom edge (agent);
   - in a human's view another human's name plate keeps the old teammate mark (30 px) as a visible placeholder, since
     whether it is still needed is open (agent);
-  - the kill notice placeholder (variant A) draws one dot, the killer's, before its sentence: the sketch's second dot
-    would split a sentence the game builds from one string (agent);
-  - the kill notice and the protection chip 165 px down, the cops' banner 168 (the sketch's 110 and 112 × 1.5) (agent);
+  - the protection chip 165 px down, the cops' banner 168 (the sketch's 110 and 112 × 1.5) (agent);
   - the role reveal and the ends: a centred column with 32 px gaps (the sketch's 30); the goal plate 900 with its text
     802; a human's team line on a coral sticker with the existing «Твоя команда: {names}» (agent);
   - the ends keep the recorded rule (the winner on a plate for a win, plain text for a loss); the reason line sits on a
@@ -206,8 +208,8 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
     reaches past it, then 12) and centred on it (agent);
   - the downed plate 900 wide (the old 688 × 1.5 capped at the goal plate's width) 228 px down, its bars 810 × 24; the
     give-up plate 192 px up with a 540 px hold bar (agent);
-  - the dead's room as on the sketch: the head 39 px down, the countdown plate 540 and the killer line 60 px apart in
-    the centre, who else is there at the bottom left, the capsule note at the bottom right (agent);
+  - the dead's room as on the sketch: the head 39 px down, the countdown plate 540 in the centre, who else is there
+    at the bottom left, the capsule note at the bottom right (agent);
   - the workbench: the price as one plural string («4 очки») at the card title's size, since the sketch's big number
     and small word would split a plural the game cannot split; a Close button in place of the «Esc — закрити» line, as
     the how-to card; every buyable card's button primary, the first focused (agent);
