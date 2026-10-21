@@ -460,9 +460,10 @@
   --toy-button-primary-disabled-shadow-size: 0;
   --toy-button-primary-disabled-font-color: var(--toy-color-state-disabled-ink);
   --toy-button-primary-focus-bg-color: var(--toy-palette-clear);
-  --toy-button-primary-focus-border-color: var(--toy-color-outline);
-  --toy-button-primary-focus-border-width: 11;
-  --toy-button-primary-focus-corner-radius: var(--toy-radius-control);
+  --toy-button-primary-focus-border-color: var(--toy-color-on-dark-line);
+  --toy-button-primary-focus-border-width: var(--toy-focus-width);
+  --toy-button-primary-focus-corner-radius: 29;
+  --toy-button-primary-focus-expand-margin: 8;
   --toy-button-primary-items-icon-normal-color: var(--toy-color-on-accent-text);
   --toy-button-primary-items-icon-hover-color: var(--toy-color-on-accent-text);
   --toy-button-primary-items-icon-pressed-color: var(--toy-color-on-accent-text);
@@ -549,9 +550,10 @@
   --toy-button-danger-disabled-border-color: var(--toy-color-state-disabled-ink);
   --toy-button-danger-disabled-font-color: var(--toy-color-state-disabled-ink);
   --toy-button-danger-focus-bg-color: var(--toy-palette-clear);
-  --toy-button-danger-focus-border-color: var(--toy-color-outline);
-  --toy-button-danger-focus-border-width: 11;
-  --toy-button-danger-focus-corner-radius: var(--toy-radius-control);
+  --toy-button-danger-focus-border-color: var(--toy-color-on-dark-line);
+  --toy-button-danger-focus-border-width: var(--toy-focus-width);
+  --toy-button-danger-focus-corner-radius: 29;
+  --toy-button-danger-focus-expand-margin: 8;
   --toy-button-danger-press-depth: var(--toy-offset-base);
   --toy-button-danger-press-hover: 0;
   --toy-button-danger-press-held: 4;
@@ -2768,10 +2770,10 @@
   border-top-right-radius: calc(var(--toy-button-primary-focus-corner-radius) * var(--px));
   border-bottom-right-radius: calc(var(--toy-button-primary-focus-corner-radius) * var(--px));
   border-bottom-left-radius: calc(var(--toy-button-primary-focus-corner-radius) * var(--px));
-  top: calc((0 - var(--toy-button-primary-normal-border-width)) * var(--px));
-  right: calc((0 - var(--toy-button-primary-normal-border-width)) * var(--px));
-  bottom: calc((0 - var(--toy-button-primary-normal-border-width)) * var(--px));
-  left: calc((0 - var(--toy-button-primary-normal-border-width)) * var(--px));
+  top: calc((0 - var(--toy-button-primary-normal-border-width) - var(--toy-button-primary-focus-expand-margin)) * var(--px));
+  right: calc((0 - var(--toy-button-primary-normal-border-width) - var(--toy-button-primary-focus-expand-margin)) * var(--px));
+  bottom: calc((0 - var(--toy-button-primary-normal-border-width) - var(--toy-button-primary-focus-expand-margin)) * var(--px));
+  left: calc((0 - var(--toy-button-primary-normal-border-width) - var(--toy-button-primary-focus-expand-margin)) * var(--px));
 }
 .tv-ToyButtonPrimary.is-focus > .tv-focus, .tv-ToyButtonPrimary:focus-visible > .tv-focus {
   display: block;
@@ -2927,10 +2929,10 @@
   border-top-right-radius: calc(var(--toy-button-danger-focus-corner-radius) * var(--px));
   border-bottom-right-radius: calc(var(--toy-button-danger-focus-corner-radius) * var(--px));
   border-bottom-left-radius: calc(var(--toy-button-danger-focus-corner-radius) * var(--px));
-  top: calc((0 - var(--toy-button-danger-normal-border-width)) * var(--px));
-  right: calc((0 - var(--toy-button-danger-normal-border-width)) * var(--px));
-  bottom: calc((0 - var(--toy-button-danger-normal-border-width)) * var(--px));
-  left: calc((0 - var(--toy-button-danger-normal-border-width)) * var(--px));
+  top: calc((0 - var(--toy-button-danger-normal-border-width) - var(--toy-button-danger-focus-expand-margin)) * var(--px));
+  right: calc((0 - var(--toy-button-danger-normal-border-width) - var(--toy-button-danger-focus-expand-margin)) * var(--px));
+  bottom: calc((0 - var(--toy-button-danger-normal-border-width) - var(--toy-button-danger-focus-expand-margin)) * var(--px));
+  left: calc((0 - var(--toy-button-danger-normal-border-width) - var(--toy-button-danger-focus-expand-margin)) * var(--px));
 }
 .tv-ToyButtonDanger.is-focus > .tv-focus, .tv-ToyButtonDanger:focus-visible > .tv-focus {
   display: block;

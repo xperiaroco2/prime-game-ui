@@ -162,9 +162,11 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
   - the sketch's 4 px outline, 5 px shadow and 14 px corners are 6, 8 and 21 px in the pack, the 0.75 scale's × 1.5
     as every length since ui-1.2.0 (the existing `stroke.control`, `offset.base`, `radius.control`) (agent);
   - held, the face sinks 4 px (half the shadow) and only down, as the game's press moves it (agent);
-  - a focused secondary button turns green too, as a focused entry (both are mint stickers); the focused main action
-    and danger button keep their acid and coral, and their outline thickens inward to 11 px as one stroke instead
-    (agent);
+  - a focused secondary button turns green too, as a focused entry (both are mint stickers) (agent);
+  - the focused main action and danger button keep their acid and coral and get a thin ring outside instead (the
+    review of 2026-10-21: an 11 px inward outline read as the slab again): the pack's outer ring, 5 px (`focus.width`)
+    at a 3 px gap (`focus.gap`), corners 29, in mint rather than ink, since an ink ring vanishes on the purple (1.1:1)
+    and fails the contrast gate; on the workbench's mint cards the mint ring does not show (1.0:1), open (agent);
   - chips, tabs, keys, fields, the dropdown, preset cards, plates, `ToyButtonPlain` and the ghost buttons stay as in
     ui-1.3.0 (agent);
   - the fourteen stray `item2-*` SVGs left in `dist/pack/icons/` at ui-1.3.0 (listed nowhere in the pack) are deleted

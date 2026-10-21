@@ -59,11 +59,12 @@
         "font-color": { "$type": "color", "$value": "{color.state.disabled-ink}" }
       },
       "focus": {
-        "$description": "Focus (ui-1.4.0): the face's outline thickens inward to 11 px (its 6 px plus the focus width), one clear box over the whole face in the face's ink and corners, so no second frame shows; the acid face keeps its colour.",
+        "$description": "Outer focus (ui-1.4.0): a thin mint ring of the focus width, the focus gap outside the outline (expand focus.gap + focus.width = 8, corners radius.control + 8 = 29), no fill; the acid face and its outline stay as they are. Mint, as every outer ring on the purple, where an ink ring vanishes (1.1:1).",
         "bg-color": { "$type": "color", "$value": "{palette.clear}" },
-        "border-color": { "$type": "color", "$value": "{color.outline}" },
-        "border-width": { "$type": "dimension", "$value": { "value": 11, "unit": "px" } },
-        "corner-radius": { "$type": "dimension", "$value": "{radius.control}" }
+        "border-color": { "$type": "color", "$value": "{color.on-dark.line}" },
+        "border-width": { "$type": "dimension", "$value": "{focus.width}" },
+        "corner-radius": { "$type": "dimension", "$value": { "value": 29, "unit": "px" } },
+        "expand-margin": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } }
       },
       "items": {
         "$description": "An icon (the ready toggle's check) in the label colour of each state; without these Godot tints it white.",
@@ -230,11 +231,12 @@
         "font-color": { "$type": "color", "$value": "{color.state.disabled-ink}" }
       },
       "focus": {
-        "$description": "Focus (ui-1.4.0): the face's outline thickens inward to 11 px (its 6 px plus the focus width), one clear box over the whole face in the face's ink and corners, so no second frame shows; the coral face keeps its colour.",
+        "$description": "Outer focus (ui-1.4.0): a thin mint ring of the focus width, the focus gap outside the outline (expand focus.gap + focus.width = 8, corners radius.control + 8 = 29), no fill; the coral face and its outline stay as they are. Mint, as every outer ring on the purple, where an ink ring vanishes (1.1:1).",
         "bg-color": { "$type": "color", "$value": "{palette.clear}" },
-        "border-color": { "$type": "color", "$value": "{color.outline}" },
-        "border-width": { "$type": "dimension", "$value": { "value": 11, "unit": "px" } },
-        "corner-radius": { "$type": "dimension", "$value": "{radius.control}" }
+        "border-color": { "$type": "color", "$value": "{color.on-dark.line}" },
+        "border-width": { "$type": "dimension", "$value": "{focus.width}" },
+        "corner-radius": { "$type": "dimension", "$value": { "value": 29, "unit": "px" } },
+        "expand-margin": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } }
       },
       "press": {
         "$type": "dimension",

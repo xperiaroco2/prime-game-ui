@@ -243,9 +243,12 @@ outline, 5 px shadow and 14 px corners are `stroke.control` 6, `offset.base` 8 a
     over the state's StyleBox and under the label ([button.cpp L228-L230](https://github.com/godotengine/godot/blob/4.7.2-stable/scene/gui/button.cpp#L228-L230),
     the label at [L461](https://github.com/godotengine/godot/blob/4.7.2-stable/scene/gui/button.cpp#L461)), so the focused
     entry reads green with its own label. The page draws it as the face's own fill while `.is-focus` / `:focus-visible`.
-  - *thick outline* (`ToyButtonPrimary`, `ToyButtonDanger`): a clear box over the whole face whose outline is the face's
-    plus `focus.width` (6 + 5 = 11 px), its ink and corners, so the outline thickens inward as one stroke and the acid or
-    coral face keeps its colour (an inner ring beside the outline showed a hairline gap on a scaled page).
+  - *outer ring* (`ToyButtonPrimary`, `ToyButtonDanger`): no fill, a mint ring (`color.on-dark.line`) of `focus.width`
+    5 px with `focus.gap` 3 px of the ground between it and the outline (expand 8, corners 21 + 8 = 29), as the chips'
+    rings; the acid or coral face and its outline stay as they are. An ink ring would vanish on the purple (1.1:1); on a
+    mint surface (the workbench's cards) the mint ring does not show either (1.0:1).
+  - P48 also still knows a *thick outline* (a clear box whose outline is the face's plus `focus.width`); no variation
+    uses it since the coordinator's review (it read as the slab again).
 - **The main action** keeps its acid face and its glow (`glow.action`) with the equal 6 px outline, no base and no hard
   shadow.
 - **Unchanged:** `ToyButtonPlain`, the ghost buttons, chips, tabs, keys, fields, the dropdown, preset cards and plates.

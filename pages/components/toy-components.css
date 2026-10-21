@@ -955,10 +955,10 @@
   border-top-right-radius: calc(var(--toy-button-primary-focus-corner-radius) * var(--px));
   border-bottom-right-radius: calc(var(--toy-button-primary-focus-corner-radius) * var(--px));
   border-bottom-left-radius: calc(var(--toy-button-primary-focus-corner-radius) * var(--px));
-  top: calc((0 - var(--toy-button-primary-normal-border-width)) * var(--px));
-  right: calc((0 - var(--toy-button-primary-normal-border-width)) * var(--px));
-  bottom: calc((0 - var(--toy-button-primary-normal-border-width)) * var(--px));
-  left: calc((0 - var(--toy-button-primary-normal-border-width)) * var(--px));
+  top: calc((0 - var(--toy-button-primary-normal-border-width) - var(--toy-button-primary-focus-expand-margin)) * var(--px));
+  right: calc((0 - var(--toy-button-primary-normal-border-width) - var(--toy-button-primary-focus-expand-margin)) * var(--px));
+  bottom: calc((0 - var(--toy-button-primary-normal-border-width) - var(--toy-button-primary-focus-expand-margin)) * var(--px));
+  left: calc((0 - var(--toy-button-primary-normal-border-width) - var(--toy-button-primary-focus-expand-margin)) * var(--px));
 }
 .tv-ToyButtonPrimary.is-focus > .tv-focus, .tv-ToyButtonPrimary:focus-visible > .tv-focus {
   display: block;
@@ -1190,10 +1190,10 @@
   border-top-right-radius: calc(var(--toy-button-danger-focus-corner-radius) * var(--px));
   border-bottom-right-radius: calc(var(--toy-button-danger-focus-corner-radius) * var(--px));
   border-bottom-left-radius: calc(var(--toy-button-danger-focus-corner-radius) * var(--px));
-  top: calc((0 - var(--toy-button-danger-normal-border-width)) * var(--px));
-  right: calc((0 - var(--toy-button-danger-normal-border-width)) * var(--px));
-  bottom: calc((0 - var(--toy-button-danger-normal-border-width)) * var(--px));
-  left: calc((0 - var(--toy-button-danger-normal-border-width)) * var(--px));
+  top: calc((0 - var(--toy-button-danger-normal-border-width) - var(--toy-button-danger-focus-expand-margin)) * var(--px));
+  right: calc((0 - var(--toy-button-danger-normal-border-width) - var(--toy-button-danger-focus-expand-margin)) * var(--px));
+  bottom: calc((0 - var(--toy-button-danger-normal-border-width) - var(--toy-button-danger-focus-expand-margin)) * var(--px));
+  left: calc((0 - var(--toy-button-danger-normal-border-width) - var(--toy-button-danger-focus-expand-margin)) * var(--px));
 }
 .tv-ToyButtonDanger.is-focus > .tv-focus, .tv-ToyButtonDanger:focus-visible > .tv-focus {
   display: block;
