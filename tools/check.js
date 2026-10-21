@@ -44,6 +44,8 @@ const STEPS = [
   ["page:glow-bars", ["pages/glow-bars/build.js", "--check"]],
   // the card pilot in the ui-1.3.0 frame, its accent in three colours
   ["page:card-look", ["pages/card-look/build.js", "--check"]],
+  // direction C of the suit UI developed: four module shapes, four palettes, the workbench as a screen on the machine
+  ["page:suit-c", ["pages/suit-c/build.js", "--check"]],
   // the self-test only: CI has no manager transcripts
   ["manager:selftest", ["tools/manager/context.js", "--self-test"]],
 ];
