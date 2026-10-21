@@ -129,7 +129,7 @@
       "normal": { "font-color": { "$type": "color", "$value": "{color.on-accent.text}" } }
     },
     "notice": {
-      "$description": "A notice plate: the kill notice on the HUD (who killed whom, each name after a ToyRosterDot; text ToyPlateTitle) and the killer line in the dead's room (ToyPlateHeading): the mint sticker, 15 and 33 px inside. The hard shadow is the edge form: the right and bottom outlines are 14 px (6 + 8) and reach 8 px outside, as no base layer sits under it in the game.",
+      "$description": "A notice plate (a name after a ToyRosterDot; text ToyPlateTitle or ToyPlateHeading). No screen uses it since 2026-10-21 (the engineer dropped the kill notice and the killer line); it stays in the pack until a major release. The mint sticker, 15 and 33 px inside. The hard shadow is the edge form: the right and bottom outlines are 14 px (6 + 8) and reach 8 px outside, as no base layer sits under it in the game.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyPlateNotice", "class": "PanelContainer" },
@@ -269,7 +269,7 @@
       }
     },
     "heading": {
-      "$description": "A line at the heading size on a plate (the killer line): ink, Nunito Black.",
+      "$description": "A line at the heading size on a plate (no screen uses it since 2026-10-21, when the killer line was dropped): ink, Nunito Black.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyPlateHeading", "class": "Label", "on": ["ToyPlateNotice"] },

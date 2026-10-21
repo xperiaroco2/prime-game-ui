@@ -10,7 +10,7 @@ The styled downed, dead and respawn screen from the UI track (xperiaroco2/prime-
 - **How to read it:** the roots are children of the screen's full-rect root `Control`; every property not listed keeps Godot's default; sizes and offsets are reference px. In a state's **Shown** list, the first node of each subtree gives its path from the screen root.
 - **Texts** are keys of `copy/strings.csv`, and the language switches live (the Esc menu's Settings). A plain key is set as `text` and translates itself. A key with placeholders, a plural key (`tr_n`) and a key drawn in pieces are set from code with `auto_translate_mode = DISABLED`: `tr()`, then `String.format()` with the data (the samples below), rebuilt on `NOTIFICATION_TRANSLATION_CHANGED`. A "text from data" (names, the room code, times, numbers) is set in code and never translated (`auto_translate_mode = DISABLED`).
 
-The same HUD as s7: Hud and its nodes are s7's (same names and places); this screen only hides and returns them and adds the downed plates, the dead's room and the protection chip. Aim and the name plates behave as in s7 and are left out here. Every node has mouse_filter IGNORE. Never show who knocked the player down. The knockdown is kept as decided (GDD §3); spectating left with the MVP: the dead wait in the dead's room (m8 §3; the sketch pages/mvp-screens frame 5 at 0.75, every length x 1.5).
+The same HUD as s7: Hud and its nodes are s7's (same names and places); this screen only hides and returns them and adds the downed plates, the dead's room and the protection chip. Aim and the name plates behave as in s7 and are left out here. Every node has mouse_filter IGNORE. Never show who knocked the player down or who killed the player (the engineer, 2026-10-21). The knockdown is kept as decided (GDD §3); spectating left with the MVP: the dead wait in the dead's room (m8 §3; the sketch pages/mvp-screens frame 5 at 0.75, every length x 1.5).
 
 ## States
 
@@ -19,7 +19,7 @@ The same HUD as s7: Hud and its nodes are s7's (same names and places); this scr
 | `down` | Нокдаун | Downed and bleeding out: only the two plates and the mic (off) show; the rest of the HUD hides. As decided, kept. |
 | `down-holding` | Утримуєш F | The give-up key is held: the hold bar fills over 1 s. |
 | `raise` | Тебе піднімають | Someone is raising the player: the raise progress replaces the bleed-out bar; giving up hides. |
-| `dead-room` | Кімната мертвих | Dead (killed, bled out or gave up): the player waits 30 s with the other dead in the dead's room, not watching the living (m8 §3, the sketch's frame 5). The rest of the HUD hides. Open: where the room is; whether the dead can talk to each other there; whether they see the timer, the anger and the kills (so no timer and no mic here). |
+| `dead-room` | Кімната мертвих | Dead (killed, bled out or gave up): the player waits 30 s with the other dead in the dead's room, not watching the living (m8 §3, the sketch's frame 5). The rest of the HUD hides. Open: where the room is; whether the dead can talk to each other there; whether they see the timer and the anger (so no timer and no mic here). No killer is shown (the engineer, 2026-10-21). Open: how the return from the dead's room is shown: to be redone later (the engineer, 2026-10-21). |
 | `back` | Повернення | Back in the round at a random capsule: the s7 HUD returns with the 3 s protection chip. Stamina returns full in the game; the sample shows it part-empty only so the bar is reviewed over a dark room. |
 
 ## Node tree in `down`
@@ -77,30 +77,21 @@ The same HUD as s7: Hud and its nodes are s7's (same names and places); this scr
     - Note: The dead's room overlay replaces spectating (m8 §3, decided 2026-10-20). Its head, 39 px down (the sketch's 26 x 1.5). The room itself is a place in the world (open: where).
     - **Text** `Label` · variation `ToyPlateHeadText` · text `dead.room.title`: en "The dead's room" · uk "Кімната мертвих"
   - **DeadCol** `VBoxContainer` · variation `ToyColumnTwentyFour` · anchors `center`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both · gaps from the variation: separation 24
-    - Note: Centred on the screen: the countdown, then who killed the player, 60 px apart (the sketch's 40 x 1.5: two 24 px gaps and a 12 px spacer).
+    - Note: Centred on the screen: the return countdown. No killer line (the engineer, 2026-10-21: the game does not show who killed the player).
     - **Count** `PanelContainer` · variation `ToyPlateCount` · size flags horizontal `SIZE_SHRINK_CENTER` · custom_minimum_size (540, 0) = Vector2(get_theme_constant("min_width", "ToyPlateCount"), 0)
-      - Note: The return countdown on the mint count plate, at least 540 wide (the sketch's 360 x 1.5).
+      - Note: The return countdown on the mint count plate, at least 540 wide (the sketch's 360 x 1.5). Open: how the return from the dead's room is shown: to be redone later (the engineer, 2026-10-21).
       - **V** `VBoxContainer` · variation `ToyColumnTwelve` · gaps from the variation: separation 12
         - **Label** `Label` · variation `ToyPlateText` · text `dead.back_in`: en "Back in" · uk "Повернення через" · horizontal_alignment `CENTER`
         - **Time** `Label` · variation `ToyPlateCountdown` · text from data (auto_translate_mode = DISABLED), sample: "0:24" · horizontal_alignment `CENTER`
           - Note: The time to respawn, m:ss from code (auto_translate_mode DISABLED), every second; the wait is 30 s (m8 §3).
         - **Bar** `ProgressBar` · variation `ToyBarProgress` · custom_minimum_size (0, 24) · value 0.2 of max_value 1, show_percentage false
           - Note: The wait passed (0 to 1), filling to the return.
-    - **Gap** `Control` · custom_minimum_size (0, 12)
-      - Note: With the column's two 24 px gaps, 60 px between the countdown and the killer line.
-    - **Killer** `PanelContainer` · variation `ToyPlateNotice` · size flags horizontal `SIZE_SHRINK_CENTER`
-      - Note: Who killed the player, with the killer's body colour. Hidden when the player bled out or gave up (no killer). Shown only to the dead player, so the knockdown rule (never who knocked the player down) holds in the round.
-      - **Row** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
-        - **Dot** `Panel` · variation `ToyRosterDot` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (24, 24) = Vector2(get_theme_constant("width", "ToyRosterDot"), get_theme_constant("height", "ToyRosterDot")) · self_modulate from data (a content colour, not a theme colour), sample #1C7A82
-          - Note: The killer's body colour (self_modulate from data).
-        - **Text** `Label` · variation `ToyPlateHeading` · size flags vertical `SIZE_SHRINK_CENTER` · text `dead.killed_by` with sample {name} = "Glorp" / "Глорп": en "Killed by Glorp" · uk "Твій убивця — Глорп"
-          - Note: {name}: the killer's name from data.
   - **Others** `PanelContainer` · variation `ToyChipPlate` · anchors `bottom_left`, offsets 39, -39, 39, -39 (left, top, right, bottom), grow end/begin
     - Note: Who else waits in the room, 39 px in at the bottom left; hidden when the player is alone there.
     - **Text** `Label` · variation `ToyChipPlateText` · text `dead.also_here` with sample {names} = "Bulk, Zinga" / "Бульк, Зінга": en "Also here: Bulk, Zinga" · uk "Тут також: Бульк, Зінга"
       - Note: {names}: the other dead players' names joined with ", " (data).
   - **Capsule** `PanelContainer` · variation `ToySticker` · anchors `bottom_right`, offsets -39, -39, -39, -39 (left, top, right, bottom), grow begin/begin
-    - Note: Where the player comes back: a random capsule, with the 3 s protection of state back. Choosing the capsule is a later perk (m8 §3).
+    - Note: Where the player comes back: a random capsule, with the 3 s protection of state back. Choosing the capsule is a later perk (m8 §3). Open: how the return from the dead's room is shown: to be redone later (the engineer, 2026-10-21).
     - **Text** `Label` · variation `ToyStickerText` · text `dead.capsule_note` with sample {count} = "3": en "Random capsule · 3 s protection" · uk "Випадкова капсула · 3 с захисту"
 
 ## `back`: what differs from `down`
@@ -162,7 +153,7 @@ The same HUD as s7: Hud and its nodes are s7's (same names and places); this scr
         - **Picture** `TextureRect` · custom_minimum_size (90, 90) · texture `slot-empty-belt` (dist/pack/icons/slot-empty-belt.svg, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · not tinted (drawn in its own colours)
           - Note: icons/item-*.svg at 90 px, else icons/slot-empty-belt.svg; never tinted.
   - **Protect** `PanelContainer` · variation `ToyChipLight` · anchors `center_top`, offsets 0, 165, 0, 165 (left, top, right, bottom), grow both/end
-    - Note: Spawn protection: count 3, 2, 1 (one per second), then hidden. It takes the notices' line, 165 px down (the sketch's 110 x 1.5), 39 px under the anger meter.
+    - Note: Spawn protection: count 3, 2, 1 (one per second), then hidden. 165 px down (the sketch's 110 x 1.5), 39 px under the anger meter.
     - **Text** `Label` · variation `ToyChipLightText` · text `respawn.protected` with sample {count} = "3": en "Protected 3 s" · uk "Захист 3 с"
 
 ## Notes
@@ -176,7 +167,7 @@ The same HUD as s7: Hud and its nodes are s7's (same names and places); this scr
 
 ## Keys
 
-- **Drawn** (13): `dead.also_here`, `dead.back_in`, `dead.capsule_note`, `dead.killed_by`, `dead.room.title`, `downed.give_up_hold`, `downed.raised_by`, `downed.time_left`, `downed.title`, `hud.roster.dead`, `hud.roster.self`, `respawn.protected`, `role.alien`.
+- **Drawn** (12): `dead.also_here`, `dead.back_in`, `dead.capsule_note`, `dead.room.title`, `downed.give_up_hold`, `downed.raised_by`, `downed.time_left`, `downed.title`, `hud.roster.dead`, `hud.roster.self`, `respawn.protected`, `role.alien`.
 - **Named only in the notes** (wire them too): `role.human`.
 
 ## Layers and input (every screen)

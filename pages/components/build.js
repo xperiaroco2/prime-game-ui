@@ -617,24 +617,26 @@ function renderPage(sys, componentsCss) {
         ...hudTiles(full, bdg)]);
     }
     if (p === 'notices') {
-      ['ToyPlateNotice', 'ToyPlateTitle', 'ToyPlateBanner', 'ToyPlateText', 'ToyPlateCountdown', 'ToyColumnFour', 'ToyRowTwelve'].forEach(V);
-      const kill = `<div class="tv-ToyPlateNotice"><div class="tv-ToyRowTwelve sc-mvp-row">${dot('#1C7A82')}${sampleSpan('mvp_kill', 'tv-ToyPlateTitle')}</div></div>`;
+      ['ToyPlateNotice', 'ToyPlateTitle', 'ToyPlateHeading', 'ToyPlateBanner', 'ToyPlateText', 'ToyPlateCountdown', 'ToyColumnFour', 'ToyColumnEight', 'ToyRowTwelve'].forEach(V);
+      // ToyPlateNotice and ToyPlateHeading: no screen uses them since 2026-10-21 (no kill notice, no killer line); they stay
+      // in the pack until a major release, so the page still draws them, with a bare name and no sentence.
+      const plate = (cls) => `<div class="tv-ToyPlateNotice"><div class="tv-ToyRowTwelve sc-mvp-row">${dot('#1C7A82')}${sampleSpan('mvp_r_glorp', cls)}</div></div>`;
+      const notice = `<div class="tv-ToyColumnEight sc-mvp-col sc-mvp-center">${plate('tv-ToyPlateTitle')}${plate('tv-ToyPlateHeading')}</div>`;
       const cops = `<div class="tv-ToyPlateBanner"><div class="tv-ToyColumnFour sc-mvp-col sc-mvp-center">${sampleSpan('mvp_cops_big', 'tv-ToyPlateTitle')}${sampleSpan('mvp_cops_small', 'tv-ToyPlateText')}${sampleSpan('mvp_cops_count', 'tv-ToyPlateCountdown')}</div></div>`;
-      const bk = proposal([['ToyPlateNotice'], ['ToyPlateTitle', 'normal'], ['ToyRosterDot']]);
+      const bk = proposal([['ToyPlateNotice'], ['ToyPlateTitle', 'normal'], ['ToyPlateHeading', 'normal'], ['ToyRosterDot']]);
       const bc = proposal([['ToyPlateBanner'], ['ToyPlateTitle', 'normal'], ['ToyPlateText', 'normal'], ['ToyPlateCountdown', 'normal']]);
-      return stage('dark', [cell(T('mvp_kill'), bk, kill), cell(T('mvp_cops'), bc, cops), ...hudTiles(`<div class="sc-col">${kill}${cops}</div>`, bk || bc)]);
+      return stage('dark', [cell(T('mvp_notice_unused'), bk, notice), cell(T('mvp_cops'), bc, cops), ...hudTiles(`<div class="sc-col">${notice}${cops}</div>`, bk || bc)]);
     }
     if (p === 'dead') {
-      ['ToyPlateHead', 'ToyPlateHeadText', 'ToyPlateCount', 'ToyPlateText', 'ToyPlateCountdown', 'ToyBarProgress', 'ToyPlateNotice', 'ToyPlateHeading',
+      ['ToyPlateHead', 'ToyPlateHeadText', 'ToyPlateCount', 'ToyPlateText', 'ToyPlateCountdown', 'ToyBarProgress',
         'ToyChipPlate', 'ToyChipPlateText', 'ToySticker', 'ToyStickerText', 'ToyColumnEight', 'ToyRowTwelve'].forEach(V);
       const head = `<div class="tv-ToyPlateHead">${sampleSpan('mvp_dead_head', 'tv-ToyPlateHeadText')}</div>`;
       const count = `<div class="tv-ToyPlateCount"><div class="tv-ToyColumnEight sc-mvp-col sc-mvp-center sc-mvp-fill">${sampleSpan('mvp_dead_back', 'tv-ToyPlateText')}${sampleSpan('mvp_dead_count', 'tv-ToyPlateCountdown')}`
         + `<div class="sc-mvp-stretch">${barEl('ToyBarProgress', 0.2).html}</div></div></div>`;
-      const killer = `<div class="tv-ToyPlateNotice"><div class="tv-ToyRowTwelve sc-mvp-row">${dot('#1C7A82')}${sampleSpan('mvp_dead_killer', 'tv-ToyPlateHeading')}</div></div>`;
       const also = `<div class="tv-ToyChipPlate">${sampleSpan('mvp_dead_also', 'tv-ToyChipPlateText')}</div>`;
       const note = `<div class="tv-ToySticker">${sampleSpan('mvp_dead_capsule', 'tv-ToyStickerText')}</div>`;
-      const b = proposal([['ToyPlateHead'], ['ToyPlateHeadText', 'normal'], ['ToyPlateCount'], ['ToyPlateCountdown', 'normal'], ['ToyPlateHeading', 'normal'], ['ToySticker'], ['ToyStickerText', 'normal']]);
-      const room = `<div class="sc-mvp-col sc-mvp-center sc-mvp-gap">${head}${count}${killer}<div class="sc-mvp-row sc-mvp-gap">${also}${note}</div></div>`;
+      const b = proposal([['ToyPlateHead'], ['ToyPlateHeadText', 'normal'], ['ToyPlateCount'], ['ToyPlateCountdown', 'normal'], ['ToySticker'], ['ToyStickerText', 'normal']]);
+      const room = `<div class="sc-mvp-col sc-mvp-center sc-mvp-gap">${head}${count}<div class="sc-mvp-row sc-mvp-gap">${also}${note}</div></div>`;
       return stage('dark', [cell(T('mvp_dead'), b, room), ...hudTiles(room, b)]);
     }
     if (p === 'workbench') {

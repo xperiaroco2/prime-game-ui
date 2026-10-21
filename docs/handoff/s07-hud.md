@@ -10,7 +10,7 @@ The styled round hud screen from the UI track (xperiaroco2/prime-game-ui), as a 
 - **How to read it:** the roots are children of the screen's full-rect root `Control`; every property not listed keeps Godot's default; sizes and offsets are reference px. In a state's **Shown** list, the first node of each subtree gives its path from the screen root.
 - **Texts** are keys of `copy/strings.csv`, and the language switches live (the Esc menu's Settings). A plain key is set as `text` and translates itself. A key with placeholders, a plural key (`tr_n`) and a key drawn in pieces are set from code with `auto_translate_mode = DISABLED`: `tr()`, then `String.format()` with the data (the samples below), rebuilt on `NOTIFICATION_TRANSLATION_CHANGED`. A "text from data" (names, the room code, times, numbers) is set in code and never translated (`auto_translate_mode = DISABLED`).
 
-One HUD for the whole round, the MVP's (the engineer's decisions of 2026-10-20 in docs/ui-decisions.md, the sketch pages/mvp-screens frames 1, 1a, 3 and 4 at 0.75: every sketch length x 1.5). s9 hides and returns the same nodes; s1 and s6 draw them as context. Every node has mouse_filter IGNORE. The top: the bare time, the anger meter exactly centred under it, the own side at the top left, every player at the top right. No points on the HUD (they show only on the mutation workbench, s11). The HUD never shows keys, walking or running, who knocked the player down, a destination or task progress. HUD edges sit 39 px in (the sketch's 26 x 1.5).
+One HUD for the whole round, the MVP's (the engineer's decisions of 2026-10-20 in docs/ui-decisions.md, the sketch pages/mvp-screens frames 1, 1a, 3 and 4 at 0.75: every sketch length x 1.5). s9 hides and returns the same nodes; s1 and s6 draw them as context. Every node has mouse_filter IGNORE. The top: the bare time, the anger meter exactly centred under it, the own side at the top left, every player at the top right. No points on the HUD (they show only on the mutation workbench, s11). The HUD never shows keys, walking or running, who knocked the player down, who killed whom (the engineer, 2026-10-21), a destination or task progress. HUD edges sit 39 px in (the sketch's 26 x 1.5).
 
 ## States
 
@@ -21,7 +21,6 @@ One HUD for the whole round, the MVP's (the engineer's decisions of 2026-10-20 i
 | `human` | Очима людини | A human's view: the coral role sticker, the other humans tagged in the roster, a battery in the hand. A teammate's name plate keeps the old dissident mark as a visible placeholder: whether a mark over another human's head is still needed beside the roster's tag is open. |
 | `hurt` | Мало здоровʼя й сил | Health at 0.22 (ramp stop 04) and stamina at 0.18. |
 | `raising` | Підняття | Decided by the engineer (2026-10-06, the wave-19 question page, q9): what the raiser sees while holding Interact next to a downed player. A thin progress bar under the crosshair in place of the object name, filling at the same rate as the downed player's raise bar (s9 raise); no text. |
-| `kill` | Хто кого вбив | PLACEHOLDER, open: the kill notice as variant A of the sketch (a HUD banner for everyone). A or B (the dead alien says it in the world) and for whom (killed aliens only, or every kill) are the engineer's choice. |
 | `cops` | Копи за хвилину | The anger is full: the neighbours called the cops, and the whole party sees the countdown. Open: whether the round timer still shows beside the cops' minute, or only the one that ends first; how long the minute is. |
 
 ## Node tree in `empty`
@@ -158,22 +157,6 @@ One HUD for the whole round, the MVP's (the engineer's decisions of 2026-10-20 i
     - **Bar** `ProgressBar` · variation `ToyBarProgress` · custom_minimum_size (360, 24) · value 0.6 of max_value 1, show_percentage false
       - Note: The raise progress (0 to 1), the same value the downed player's s9 Downed/V/Raise shows.
 
-## `kill`: what differs from `empty`
-
-- **Hidden:** `Hud/Roster/Rows/Row3/Name`, `Hud/Aim`.
-- **Changed** `Hud/Anger/Track/Fill`: value 0.55 of max_value 1, show_percentage false (was: value 0.08 of max_value 1, show_percentage false)
-- **Changed** `Hud/Anger/Siren`: texture `siren-on` (dist/pack/icons/siren-on.svg, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` (was: texture `siren-off` (dist/pack/icons/siren-off.svg, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED`)
-- **Shown:**
-  - **Hud/Roster/Rows/Row3/Dead** `Label` · variation `ToyRosterNameDead` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text `hud.roster.dead` with sample {name} = "Yizhak" / "Їжак": en "Yizhak · out" · uk "Їжак · поза грою"
-    - Note: The sample of the state kill: this row is the kill notice's victim, so it reads dead from the moment of the kill. In the game it is the same Name label switched to hud.roster.dead in ToyRosterNameDead (one label per row).
-  - **Hud/Kill** `PanelContainer` · variation `ToyPlateNotice` · anchors `center_top`, offsets 0, 165, 0, 165 (left, top, right, bottom), grow both/end
-    - Note: PLACEHOLDER, open (the engineer's design): the kill notice, variant A of the sketch, a banner every player sees for a few seconds when a player is killed (a killed alien tells everyone who killed him, m8 §4). Never at a knockdown: the downed rule "never show who knocked the player down" holds. 165 px down (the sketch's 110 x 1.5). Open: A or B (the dead alien says it in the world) and for whom (killed aliens only, then a killed human's silence outs him; or every kill).
-    - **Row** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
-      - **Dot** `Panel` · variation `ToyRosterDot` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (24, 24) = Vector2(get_theme_constant("width", "ToyRosterDot"), get_theme_constant("height", "ToyRosterDot")) · self_modulate from data (a content colour, not a theme colour), sample #1C7A82
-        - Note: The killer's body colour (self_modulate from data), as in the roster.
-      - **Text** `Label` · variation `ToyPlateTitle` · size flags vertical `SIZE_SHRINK_CENTER` · text `hud.kill_notice` with sample {killer} = "Glorp" / "Глорп", {victim} = "Yizhak" / "Їжак": en "Glorp: Yizhak is out" · uk "Глорп: Їжак вибуває"
-        - Note: {killer} and {victim} are names from data. No role is named.
-
 ## `cops`: what differs from `empty`
 
 - **Hidden:** `Hud/Aim`.
@@ -199,7 +182,7 @@ One HUD for the whole round, the MVP's (the engineer's decisions of 2026-10-20 i
 
 ## Keys
 
-- **Drawn** (11): `hud.cops.in`, `hud.cops.title`, `hud.kill_notice`, `hud.roster.dead`, `hud.roster.self`, `item.battery`, `item.bun`, `item.extinguisher`, `item.fireworks`, `role.alien`, `role.human`.
+- **Drawn** (10): `hud.cops.in`, `hud.cops.title`, `hud.roster.dead`, `hud.roster.self`, `item.battery`, `item.bun`, `item.extinguisher`, `item.fireworks`, `role.alien`, `role.human`.
 - **Named only in the notes** (wire them too): `item.burger`, `item.car_part`, `item.flower`, `item.knife`, `item.patty`, `item.rubbish`, `item.tools`, `item.watering_can`.
 
 ## Layers and input (every screen)

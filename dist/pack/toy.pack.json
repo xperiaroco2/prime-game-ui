@@ -5,7 +5,7 @@
   "style": "toy",
   "dtcg": "2025.10",
   "reference": {"width":1920,"height":1080},
-  "source": {"repo":"xperiaroco2/prime-game-ui","resolver":"tokens/prime.resolver.json","tokens_sha256":"22ea49a63b063d595e9eb8f3d21342d5d77ab54217af281cc0f7162a955ae191"},
+  "source": {"repo":"xperiaroco2/prime-game-ui","resolver":"tokens/prime.resolver.json","tokens_sha256":"061ce7fd0130e2b2c757fb28a735605bf1fbe737891461b650776b62fe28959d"},
   "modifiers": {"textSize":{"contexts":["default","large"],"default":"default"},"motion":{"contexts":["default","reduced"],"default":"default"}},
   "tokens": {
     "backdrop.deep.panel.bg-color": {"type":"color","hex":"#1f1033","rgba":[0.1216,0.0627,0.2,0.86],"from":"backdrop.deep.panel.bg-color"},

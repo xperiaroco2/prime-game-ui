@@ -175,7 +175,7 @@ pictures are pack assets (`assets`) drawn by a TextureRect, never tinted.
 - **Item bar A:** `ToySlotHand` (150, green) and `ToySlotBelt` (126, mint) in a `ToyRowSixteen`, bottoms aligned; the
   picture is the item's `icons/item-*.svg` (111 and 90 px) or `icons/slot-empty-hand.svg` / `slot-empty-belt.svg`;
   the name tag `ToySlotTag` (`ToySlotTagText`) is centred on the slot's bottom edge, its bottom 18 px below the face.
-- **Notices:** `ToyPlateNotice` (the kill notice, the killer line), `ToyPlateBanner` (the cops), `ToyPlateCount` (the
+- **Notices:** `ToyPlateNotice` (no screen since 2026-10-21: the kill notice and the killer line were dropped), `ToyPlateBanner` (the cops), `ToyPlateCount` (the
   dead's countdown), `ToyPlateHead` (the dead's room head), `ToyPlateGoal` (the role's goal), `ToyPlateResult` (the end
   screens), with `ToyPlateTitle`, `ToyPlateText`, `ToyPlateTimer`, `ToyPlateHeading`, `ToyPlateCountdown`,
   `ToyPlateHeadText`, `ToyPlateGoalText`; word stickers `ToySticker`, `ToyStickerAlert`, `ToyStickerHighlight` with

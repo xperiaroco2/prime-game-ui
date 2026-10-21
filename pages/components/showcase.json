@@ -392,6 +392,7 @@
           "hud": true,
           "variations": [
             "ToyPlateNotice",
+            "ToyPlateHeading",
             "ToyPlateBanner",
             "ToyPlateCountdown"
           ]
@@ -405,8 +406,7 @@
           "variations": [
             "ToyPlateHead",
             "ToyPlateHeadText",
-            "ToyPlateCount",
-            "ToyPlateHeading"
+            "ToyPlateCount"
           ]
         },
         {
