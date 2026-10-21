@@ -36,6 +36,8 @@ const STEPS = [
   ["page:screens", ["pages/screens/build.js", "--check"]],
   // the MVP screens page's inline copies of the HUD icon files
   ["page:mvp-screens", ["pages/mvp-screens/build.js", "--check"]],
+  // the grown-up options page: the three directions, the icon styles and their PNGs in one file
+  ["page:grownup", ["pages/grownup/build.js", "--check"]],
   // the self-test only: CI has no manager transcripts
   ["manager:selftest", ["tools/manager/context.js", "--self-test"]],
 ];

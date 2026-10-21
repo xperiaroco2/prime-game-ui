@@ -67,6 +67,14 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
   `ToyPlateHeading` stay in the pack unused until a major release. This replaces the kill-notice and killer-line
   lines of ui-1.2.0 and of the screens s06 to s11 below. Open: how the return from the dead's room is shown, to be
   redone later (the engineer, same message).
+- **Childish, the grown-up options (2026-10-21)** (the engineer, 2026-10-21, chat, translated): "the initial idea was
+  cool, but now it looks very childish, as if we made a game for kids". He keeps what he liked: the deep purple, the
+  mint, the alien green for the main action, the coral for alarm; the fonts were fine. The answer is the grown-up
+  options page (`pages/grownup/`, built by `pages/grownup/build.js`): three directions on the same MVP screens (A, the
+  sticker grown up; B, broadcast graphics; C, alien tech), three item icon styles from a GPT-image batch
+  (`batches/2026-10-21-ui-item-icons.toml`, cap $3: vinyl toy, ink line, studio product shot) and a mix strip; the
+  research behind it is `docs/research/2026-10-21-grown-up/report.md`. Nothing is decided yet: the sticker sections
+  below stay what the game ships until he picks a direction and an icon style.
 - **The round HUD's pictures are icon files** (`pages/components/icons/`, own work, page-only today; the pack lists
   them but no token names them yet): the siren as two files, `siren-off` (the lilac dome, anger calm) and `siren-on`
   (the coral dome with rays, rising and full); the empty slots `slot-empty-hand` and `slot-empty-belt`; and one
