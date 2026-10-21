@@ -75,6 +75,23 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
   (`batches/2026-10-21-ui-item-icons.toml`, cap $3: vinyl toy, ink line, studio product shot) and a mix strip; the
   research behind it is `docs/research/2026-10-21-grown-up/report.md`. Nothing is decided yet: the sticker sections
   below stay what the game ships until he picks a direction and an icon style.
+- **Keep the sticker, add the glow (2026-10-21)** (the engineer, 2026-10-21, chat, translated): he liked our original
+  interface and would edit it a little rather than redo it; the title face he likes is Kablammo, the logo's face (read
+  back in chat); from C (alien tech) he likes the bright acid-green buttons that glow ("acidic"), but C alone looks too
+  simple; the icons so far look like AI slop, more options are needed. The answer is the page `pages/sticker-glow/`
+  (built by `pages/sticker-glow/build.js`): the sticker screens of `pages/mvp-screens` with Kablammo on the
+  full-screen titles and the acid glow at three strengths (1: the focused action and the item in hand; 2: plus the
+  siren while anger rises; 3: brighter and wider, plus the timer's last seconds), three new item icon treatments
+  (sticker and vinyl+ from `batches/2026-10-21-ui-item-icons-2.toml`, neon as own work) and a mix strip of each in
+  the glowing hand slot. Nothing is chosen yet among the strengths and the icon treatments. On the page, open to his
+  veto: a glowing plate's hard ink shadow becomes a thicker bottom and right border (4/9/9/4 px), because Godot's one
+  shadow carries the glow (agent); the full-screen field is the soft ink `#54457A` instead of `#1F1033`, where the
+  ink outline was invisible (1.00:1) (agent); the rocket's fins are mint in the acid slot, where green vanished (agent);
+  the "missing points" button text is ink (3.82:1 before) (agent); one glow per screen, so the cards you can buy do not
+  glow (agent). Kablammo: Google Fonts serves it with the `cyrillic` and `cyrillic-ext` subsets, so Ґ, Є, І and Ї
+  are there (OFL); it draws lower case as capitals (seen in the page's render); it smears into blots at 34 px, so it is
+  for the 84 px full-screen titles only and the workbench title stays Nunito; Ч, Ц, Щ and Ь carry curled drips and
+  "!" reads as a dagger (the end title keeps it: the text is his).
 - **The round HUD's pictures are icon files** (`pages/components/icons/`, own work, page-only today; the pack lists
   them but no token names them yet): the siren as two files, `siren-off` (the lilac dome, anger calm) and `siren-on`
   (the coral dome with rays, rising and full); the empty slots `slot-empty-hand` and `slot-empty-belt`; and one

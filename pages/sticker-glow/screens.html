@@ -1,0 +1,267 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kablammo&family=Nunito:wght@700;800;900&family=Rubik:wght@600;700&display=swap">
+<!-- "Наліпка, що світиться": the original sticker screens (pages/mvp-screens, sections 1, 6, 8 and 10, at the engineer's
+     0.75x UI scale: a 1280x720 stage) edited, not redone. Changed: the main action is an acid green that glows (direction
+     C's glow, pushed brighter), and the full-screen titles use Kablammo (OFL, has Cyrillic; at 84 px only: at 34 px it
+     smears, so the workbench title stays Nunito). Three strengths switch a class on the
+     root (sg-s1, sg-s2, sg-s3; default 2).
+     Godot-safe: every UI element has solid fills (alpha allowed), one-colour borders with per-side widths, per-corner radii,
+     one box-shadow without inset or spread, one text outline. Where an element glows, the shadow slot carries the glow
+     (Godot's shadow_size), so its 5 px hard ink shadow moves into the border: 4 px top and left, 9 px right and bottom.
+     A glow with no plate of its own (the siren while anger rises, the timer's last seconds) is a soft halo: a
+     StyleBoxFlat behind it whose translucent fill and shadow share one colour. The room behind the HUD is a stand-in for the 3D world, not UI.
+     Fonts: Kablammo, Nunito, Rubik (Google Fonts, OFL). Pictures: the game's own icons (pages/components/icons, own work). -->
+<section class="sg sg-s2" id="sticker-glow">
+<style>
+.sg { --sg-pu: #2B1846; --sg-pud: #1F1033; --sg-pul: #3C2660; --sg-ink: #1E1230; --sg-soft: #54457A; --sg-mint: #CFF3DF;
+  --sg-gr: #A6E85A; --sg-co: #FF8A6B; --sg-ye: #FFD60A; --sg-mu: #B7A8D6; --sg-wh: #FFFFFF;
+  --sg-acid: #B6FF3C;
+  --sg-glow: 0 0 30px rgba(182, 255, 60, 1);
+  --sg-glow-co: 0 0 24px rgba(255, 138, 107, 1);
+  --sg-ft: "Nunito", "Segoe UI", sans-serif; --sg-fn: "Rubik", "Segoe UI", sans-serif; --sg-fk: "Kablammo", "Arial Black", sans-serif;
+  --sg-ow: 4px; --sg-sh: 5px; --sg-edge: 4px 9px 9px 4px;
+  display: grid; gap: 22px; overflow-wrap: anywhere; }
+/* strength 3: the glowing things turn neon and their glow grows; every other green stays */
+.sg.sg-s3 { --sg-acid: #C2FF1F;
+  --sg-glow: 0 0 34px rgba(194, 255, 31, 1); --sg-glow-co: 0 0 26px rgba(255, 138, 107, 1); }
+.sg, .sg * { box-sizing: border-box; }
+
+/* ---------- the page around the frames (chrome, inherits the host page's font) ---------- */
+.sg-intro { display: grid; gap: 10px; }
+.sg-intro h2 { margin: 0; font-size: clamp(24px, 4.4vw, 32px); line-height: 1.1; text-wrap: balance; }
+.sg-intro p { margin: 0; max-width: 66ch; opacity: .88; }
+.sg-intro a { color: #C4E8D5; }
+.sg-intro .sg-spec { max-width: none; opacity: 1; font: 400 clamp(30px, 7vw, 54px)/1.15 var(--sg-fk); color: var(--sg-gr); -webkit-text-stroke: 6px var(--sg-ink); paint-order: stroke fill; }
+.sg-sw { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: #141317; padding-block: 10px; border-bottom: 1px solid #2E2C35; display: grid; gap: 10px; }
+.sg-seg { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.sg-seg span { font-weight: 600; margin-right: 4px; }
+.sg-seg button { font: 600 15px/1.2 inherit; font-family: inherit; color: #ECE9F1; background: #1C1B21; border: 1px solid #2E2C35; border-radius: 999px; padding: 8px 16px; cursor: pointer; }
+.sg-seg button[aria-pressed="true"] { background: #ECE9F1; color: #141317; border-color: #ECE9F1; }
+.sg-seg button:focus-visible { outline: 2px solid #ECE9F1; outline-offset: 2px; }
+.sg-nt { display: none; gap: 4px; max-width: 66ch; }
+.sg-nt h3 { margin: 0; font-size: 17px; line-height: 1.25; }
+.sg-nt p { margin: 0; font-size: 15px; opacity: .88; }
+.sg-s1 .sg-nt1, .sg-s2 .sg-nt2, .sg-s3 .sg-nt3 { display: grid; }
+.sg-scr { display: grid; gap: 8px; }
+.sg-scr h3 { margin: 0; font-size: 13px; text-transform: uppercase; letter-spacing: .1em; font-weight: 600; opacity: .72; }
+.sg-cap { margin: 0; font-size: 14px; opacity: .78; max-width: 66ch; }
+.sg-frame { position: relative; width: 100%; max-width: 100%; aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden; background: #55606A; }
+.sg-stage { position: absolute; left: 0; top: 0; width: 1280px; height: 720px; transform-origin: 0 0; overflow: hidden; overflow-wrap: normal; }
+
+/* ---------- the room stand-in (not UI: gradients allowed here) ---------- */
+.sg-room { position: absolute; left: 0; top: 0; right: 0; bottom: 0; background: #9C8670; }
+.sg-room i { position: absolute; display: block; }
+.sg-r-ceil { left: 0; top: 0; width: 1280px; height: 38px; background: #3A2A20; }
+.sg-r-pool { left: 420px; top: 60px; width: 560px; height: 420px; border-radius: 50%; background: radial-gradient(closest-side, rgba(255, 226, 180, .45), rgba(255, 226, 180, 0)); }
+.sg-r-win { left: 80px; top: 104px; width: 300px; height: 290px; background: #E6DFD3; border-radius: 3px; }
+.sg-r-glass { left: 12px; top: 12px; width: 276px; height: 266px; background: #17232A; overflow: hidden; }
+.sg-r-tree { bottom: 0; background: #0D1517; border-radius: 50% 50% 4px 4px; }
+.sg-r-mv { left: 144px; top: 12px; width: 10px; height: 266px; background: #E6DFD3; }
+.sg-r-mh { left: 12px; top: 140px; width: 276px; height: 10px; background: #E6DFD3; }
+.sg-r-wains { left: 0; top: 420px; width: 1280px; height: 120px; background: #7D5638; background-image: repeating-linear-gradient(90deg, transparent 0 96px, #694630 96px 100px); }
+.sg-r-skirt { left: 0; top: 536px; width: 1280px; height: 10px; background: #E8E0D2; }
+.sg-r-floor { left: 0; top: 546px; width: 1280px; height: 174px; background: #5A3E2C; }
+.sg-r-rug { left: 360px; top: 590px; width: 640px; height: 110px; border-radius: 50%; background: #6E3B4A; }
+.sg-r-sofa { left: 820px; top: 400px; width: 400px; height: 170px; background: #3E5A63; border-radius: 26px 26px 10px 10px; }
+.sg-r-seat { left: 800px; top: 480px; width: 440px; height: 76px; background: #4A6A73; border-radius: 20px; }
+.sg-r-bin { left: 604px; top: 330px; width: 72px; height: 118px; background: #4A4F55; border-radius: 6px 6px 12px 12px; }
+.sg-r-lid { left: 596px; top: 318px; width: 88px; height: 18px; background: #3A3E43; border-radius: 9px; }
+.sg-r-shade { left: 470px; top: 150px; width: 90px; height: 64px; background: #F1D9A6; border-radius: 10px 10px 4px 4px; }
+.sg-r-pole { left: 512px; top: 214px; width: 6px; height: 330px; background: #2C2A28; }
+
+/* ---------- the sticker UI (pages/mvp-screens' .st, scoped; same values) ---------- */
+.sg-abs { position: absolute; }
+.sg-plate { background: var(--sg-mint); color: var(--sg-ink); border: var(--sg-ow) solid var(--sg-ink); border-radius: 16px; box-shadow: var(--sg-sh) var(--sg-sh) 0 var(--sg-ink); }
+.sg-panel { background: var(--sg-pu); color: var(--sg-mint); border: var(--sg-ow) solid var(--sg-ink); border-radius: 20px; box-shadow: var(--sg-sh) var(--sg-sh) 0 var(--sg-ink); }
+.sg-title { font-family: var(--sg-ft); font-weight: 900; color: var(--sg-gr); -webkit-text-stroke: calc(var(--sg-ow) * 2) var(--sg-ink); paint-order: stroke fill; line-height: 1.02; }
+/* the full-screen titles in the cartoon face (84 px only) */
+.sg-title.sg-k { font-family: var(--sg-fk); font-weight: 400; line-height: 1.1; letter-spacing: .01em; }
+.sg-btn { display: block; text-align: center; padding: 7px 16px; border: var(--sg-ow) solid var(--sg-ink); border-radius: 14px; box-shadow: var(--sg-sh) var(--sg-sh) 0 var(--sg-ink); font: 900 18px/1.2 var(--sg-ft); color: var(--sg-ink); background: var(--sg-mint); }
+.sg-btn.sg-off { background: var(--sg-mu); border-color: var(--sg-soft); color: var(--sg-ink); box-shadow: none; }
+.sg-stk { display: inline-block; border: var(--sg-ow) solid var(--sg-ink); border-radius: 10px; padding: 3px 10px; font: 900 15px/1.25 var(--sg-ft); color: var(--sg-ink); }
+.sg-stk.sg-gr { background: var(--sg-gr); } .sg-stk.sg-mi { background: var(--sg-mint); }
+.sg-chipp { display: inline-block; background: var(--sg-pu); color: var(--sg-mint); border: var(--sg-ow) solid var(--sg-ink); border-radius: 999px; padding: 3px 12px; font: 900 15px/1.25 var(--sg-ft); }
+.sg-lab { font: 800 15px/1.2 var(--sg-ft); }
+.sg-track { position: relative; height: 16px; background: var(--sg-wh); border: 3px solid var(--sg-ink); border-radius: 10px; overflow: hidden; }
+.sg-track b { position: absolute; left: 0; top: 0; bottom: 0; display: block; border-right: 3px solid var(--sg-ink); }
+.sg-hue { display: inline-block; width: 16px; height: 16px; border-radius: 50%; border: 3px solid var(--sg-ink); flex: none; }
+.sg-num { font: 700 30px/1.2 var(--sg-fn); }
+.sg-cross { left: 50%; top: 50%; margin: -4px 0 0 -4px; width: 8px; height: 8px; border-radius: 50%; background: var(--sg-wh); border: 2px solid var(--sg-ink); }
+.sg-shade { position: absolute; left: 0; top: 0; right: 0; bottom: 0; background: rgba(31, 16, 51, .82); }
+.sg svg { display: block; }
+
+/* the main action: acid green, glowing; the hard shadow moves into the border (all strengths) */
+.sg-btn.sg-p { background: var(--sg-acid); border-width: var(--sg-edge); box-shadow: var(--sg-glow); padding: 7px 16px 5px 18px; }
+
+/* round HUD */
+.sg-role { left: 26px; top: 26px; }
+.sg-timer { left: 50%; top: 22px; transform: translateX(-50%); text-align: center; padding: 0 16px; border-radius: 22px; }
+.sg-tb { display: block; font: 700 34px/1.1 var(--sg-fn); color: var(--sg-mint); -webkit-text-stroke: 8px var(--sg-ink); paint-order: stroke fill; }
+.sg-tl { display: none; }
+.sg-am { left: 50%; top: 64px; transform: translateX(-50%); display: flex; align-items: center; }
+.sg-am .sg-track { width: 150px; height: 20px; border-radius: 12px; }
+.sg-sirw { position: absolute; left: 100%; top: 50%; margin-left: 2px; width: 46px; height: 46px; transform: translateY(-50%); border-radius: 23px; display: grid; place-items: center; }
+.sg-sir { width: 38px; height: 38px; }
+.sg-roster { right: 26px; top: 26px; width: 190px; padding: 10px 12px; display: grid; gap: 6px; }
+.sg-rw { display: flex; align-items: center; gap: 8px; font: 800 15px/1.2 var(--sg-ft); color: var(--sg-mint); }
+.sg-rw.sg-me { color: var(--sg-gr); }
+.sg-rw.sg-dead { color: var(--sg-mu); }
+.sg-aim { left: 50%; top: calc(50% + 22px); transform: translateX(-50%); }
+.sg-bars { left: 26px; bottom: 26px; width: 200px; display: grid; gap: 8px; }
+.sg-mic { left: 244px; bottom: 26px; width: 50px; height: 50px; border-radius: 50%; }
+.sg-mic i { position: absolute; left: 50%; top: 7px; width: 12px; height: 18px; margin-left: -6px; border-radius: 6px; background: var(--sg-ink); display: block; }
+.sg-mic u { position: absolute; left: 50%; top: 14px; width: 22px; height: 13px; margin-left: -11px; border: 3px solid var(--sg-ink); border-top-width: 0; border-radius: 0 0 12px 12px; display: block; }
+.sg-mic s { position: absolute; left: 50%; top: 27px; width: 3px; height: 7px; margin-left: -1.5px; background: var(--sg-ink); display: block; }
+.sg-ia { right: 26px; bottom: 34px; display: flex; align-items: flex-end; gap: 16px; }
+.sg-sl { position: relative; width: 84px; height: 84px; display: grid; place-items: center; }
+.sg-sl svg { width: 60px; height: 60px; }
+/* the item in hand: an acid plate that glows (all strengths); its hard shadow moves into the border */
+.sg-sl.sg-on { width: 105px; height: 105px; background: var(--sg-acid); border-width: var(--sg-edge); box-shadow: var(--sg-glow); }
+.sg-sl.sg-on svg { width: 74px; height: 74px; }
+
+/* the mutation workbench */
+.sg-wb { left: 50%; top: 50%; transform: translate(-50%, -50%); width: 840px; height: 460px; padding: 22px 26px; display: grid; grid-template-rows: auto 1fr auto; gap: 18px; }
+.sg-wb .sg-top { display: flex; justify-content: space-between; align-items: center; }
+.sg-wb .sg-title { font-size: 34px; }
+.sg-bal { display: flex; align-items: center; gap: 10px; padding: 0 14px; }
+.sg-bal .sg-num { font-size: 26px; }
+.sg-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.sg-card { padding: 16px; display: grid; grid-template-rows: auto 1fr auto auto; gap: 10px; }
+.sg-card .sg-nm { font: 900 22px/1.15 var(--sg-ft); }
+.sg-card .sg-fx { font: 800 16px/1.3 var(--sg-ft); }
+.sg-cost { display: flex; align-items: center; gap: 8px; }
+.sg-cost .sg-num { font-size: 26px; }
+.sg-hint { color: var(--sg-mu); }
+
+/* full screens: the role reveal and the end */
+.sg-endf { position: absolute; left: 0; top: 0; right: 0; bottom: 0; background: var(--sg-soft); display: grid; align-content: center; justify-items: center; gap: 20px; text-align: center; }
+.sg-endf .sg-title { font-size: 84px; }
+.sg-endf .sg-win { font: 900 28px/1.2 var(--sg-ft); padding: 8px 24px; }
+.sg-endf .sg-goal { font: 800 20px/1.35 var(--sg-ft); padding: 10px 22px; max-width: 600px; }
+.sg-endf .sg-stk { font-size: 19px; }
+.sg-endf .sg-lab { color: var(--sg-mint); }
+
+/* ---------- strength 2 and up: the siren glows while anger rises (the bar stays a plain sticker) ---------- */
+.sg-s2 .sg-rise .sg-sirw, .sg-s3 .sg-rise .sg-sirw { background: rgba(255, 138, 107, .55); box-shadow: var(--sg-glow-co); }
+
+/* ---------- strength 3: the timer's last seconds (mint digits on a coral halo) ---------- */
+.sg-s3 .sg-tn { display: none; }
+.sg-s3 .sg-tl { display: block; }
+.sg-s3 .sg-timer { background: rgba(255, 138, 107, .42); box-shadow: var(--sg-glow-co); }
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <!-- copied from pages/mvp-screens (the game's icon files, pages/components/icons, own work); the rocket's fins are
+       mint here, not green, because its green vanished in the acid hand slot (1.21:1) -->
+  <symbol id="sg-siren-on" viewBox="0 0 64 64"><g stroke="#1E1230" stroke-width="4" stroke-linecap="round" fill="none"><path d="M11 28L4 23M10 38H2M53 28l7-5M54 38h8"/></g><g stroke="#1E1230" stroke-width="4" stroke-linejoin="round"><circle cx="32" cy="15" r="3.5" fill="#FFD60A" stroke-width="3"/><path d="M18 46V33a14 14 0 0 1 28 0V46z" fill="#FF8A6B"/><rect x="12" y="46" width="40" height="11" rx="3" fill="#1E1230"/></g><rect x="23.5" y="25" width="5" height="13" rx="2.5" fill="#FFFFFF"/></symbol>
+  <symbol id="sg-item-rocket" viewBox="0 0 64 64"><g stroke="#1E1230" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"><path d="M32 50V62" fill="none"/><path d="M42 44q7 1 8-6" fill="none"/><path d="M50 30l2 4 4 1-4 2-2 4-2-4-4-2 4-1z" fill="#FFD60A" stroke-width="2.5"/><path d="M23 37l-9 13 10-2z" fill="#CFF3DF"/><path d="M41 37l9 13-10-2z" fill="#CFF3DF"/><rect x="22" y="18" width="20" height="32" rx="6" fill="#FF8A6B"/><path d="M22 20Q32 0 42 20z" fill="#FFD60A"/><path d="M22 42H42" fill="none"/><circle cx="27.6" cy="28" r="3.8" fill="#FFFFFF" stroke-width="2.5"/><circle cx="36.4" cy="28" r="3.8" fill="#FFFFFF" stroke-width="2.5"/><path d="M28.5 35q3.5 2.6 7 0" fill="none" stroke-width="2.5"/></g><circle cx="28.4" cy="28.6" r="1.6" fill="#1E1230"/><circle cx="37.2" cy="28.6" r="1.6" fill="#1E1230"/></symbol>
+  <symbol id="sg-item-bun" viewBox="0 0 64 64"><g stroke="#1E1230" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"><path d="M8 36Q8 12 32 12Q56 12 56 36z" fill="#FFD60A"/><rect x="9" y="40" width="46" height="13" rx="6.5" fill="#FFD60A"/><g fill="#FFFFFF" stroke-width="1.8"><ellipse cx="22" cy="20" rx="2.6" ry="1.6"/><ellipse cx="32" cy="17" rx="2.6" ry="1.6"/><ellipse cx="42" cy="20" rx="2.6" ry="1.6"/></g><path d="M21 28q3-3.5 6 0M37 28q3-3.5 6 0M29 31q3 2.6 6 0" fill="none" stroke-width="2.6"/></g></symbol>
+</svg>
+
+<div class="sg-intro">
+  <h2>Екрани: три сили світіння</h2>
+  <p>Наш перший інтерфейс-наліпка без переробки: ті самі плашки, кольори, обведення й шрифти. Змінено дві речі: головна дія стала кислотно-зеленою і світиться (ідея з «Інопланетної техніки»), а великі заголовки на весь екран — мультяшним Kablammo, як логотип.</p>
+  <p>Kablammo має кирилицю, з Ґ, Є, І та Ї: Google Fonts віддає для нього набори <i>cyrillic</i> і <i>cyrillic-ext</i> (<a href="https://fonts.googleapis.com/css2?family=Kablammo">CSS шрифту</a>, <a href="https://github.com/google/fonts/blob/main/ofl/kablammo/METADATA.pb">METADATA.pb</a>; ліцензія OFL). Тож українські заголовки можуть бути ним, але лише великі: на 34 px (заголовок верстата) він розпливається в плями, тож там лишився Nunito. Ч, Ц і Ь у ньому закручені, а «!» схожий на кинджал: подивіться на нього в кадрі кінця. Літери, щоб оцінити:</p>
+  <p class="sg-spec">ҐЄІЇ ЧЦЬЩ Ґанок, їжак, вечірка!</p>
+  <p>Де щось світиться, його тверда чорнильна тінь стає товщим обведенням знизу й праворуч: у Godot у плашки лише одна тінь, і її займає світіння.</p>
+</div>
+
+<div class="sg-sw">
+  <div class="sg-seg" role="group" aria-label="Сила світіння"><span>Сила:</span>
+    <button type="button" data-s="1" aria-pressed="false">1 · ледь</button>
+    <button type="button" data-s="2" aria-pressed="true">2 · як просив</button>
+    <button type="button" data-s="3" aria-pressed="false">3 · кислота</button>
+  </div>
+  <div class="sg-nt sg-nt1"><h3>1 · Ледь</h3><p>Світяться лише головна кнопка («Мутувати» на верстаті, а в лобі так само «Готово») і предмет у руці. Великі заголовки — Kablammo, решта як була.</p></div>
+  <div class="sg-nt sg-nt2"><h3>2 · Як просив</h3><p>До кнопки й предмета в руці додано сирену: вона світиться кораловим, поки гнів росте; смужка лишається звичайною наліпкою. На екрані світиться одна дія, тож картки верстата не світяться. Кислотний зелений лише в того, що світиться; решта зеленого — як була.</p></div>
+  <div class="sg-nt sg-nt3"><h3>3 · Кислота</h3><p>Те, що світиться, стає неоновим, а світіння ширшає; решта зеленого не змінюється. Плюс кораловий ореол на останніх секундах таймера (кадр раунду показує 00:09).</p></div>
+</div>
+
+<div class="sg-scr">
+  <h3>1 · Раунд</h3>
+  <div class="sg-frame"><div class="sg-stage">
+    <div class="sg-room" aria-hidden="true">
+      <i class="sg-r-ceil"></i><i class="sg-r-pool"></i>
+      <i class="sg-r-win"><i class="sg-r-glass"><i class="sg-r-tree" style="left:20px;height:170px;width:80px"></i><i class="sg-r-tree" style="left:100px;height:220px;width:100px"></i><i class="sg-r-tree" style="left:194px;height:150px;width:74px"></i></i><i class="sg-r-mv"></i><i class="sg-r-mh"></i></i>
+      <i class="sg-r-wains"></i><i class="sg-r-skirt"></i><i class="sg-r-floor"></i><i class="sg-r-rug"></i>
+      <i class="sg-r-pole"></i><i class="sg-r-shade"></i>
+      <i class="sg-r-sofa"></i><i class="sg-r-seat"></i>
+      <i class="sg-r-bin"></i><i class="sg-r-lid"></i>
+    </div>
+    <span class="sg-abs sg-role sg-stk sg-mi">Прибулець</span>
+    <div class="sg-abs sg-timer"><span class="sg-tb sg-tn">07:42</span><span class="sg-tb sg-tl">00:09</span></div>
+    <div class="sg-abs sg-am sg-rise"><div class="sg-track"><b style="width:55%;background:var(--sg-co)"></b></div><span class="sg-sirw"><svg class="sg-sir"><use href="#sg-siren-on"/></svg></span></div>
+    <div class="sg-abs sg-roster sg-panel"><div class="sg-rw sg-me"><i class="sg-hue" style="background:#7C5CC8"></i>Олена (ти)</div><div class="sg-rw"><i class="sg-hue" style="background:#1C7A82"></i>Ґлорп</div><div class="sg-rw"><i class="sg-hue" style="background:#E66B57"></i>Їжак</div><div class="sg-rw"><i class="sg-hue" style="background:#E8B04A"></i>Бульк</div><div class="sg-rw"><i class="sg-hue" style="background:#4AA3DF"></i>Зінґа</div><div class="sg-rw sg-dead"><i class="sg-hue" style="background:#D46FB0"></i>Тарас · мертвий</div></div>
+    <div class="sg-abs sg-cross"></div>
+    <span class="sg-abs sg-aim sg-chipp">Сміттєвий бак</span>
+    <div class="sg-abs sg-bars"><div class="sg-track"><b style="width:80%;background:var(--sg-gr)"></b></div><div class="sg-track"><b style="width:55%;background:var(--sg-ye)"></b></div></div>
+    <div class="sg-abs sg-mic sg-plate"><i></i><u></u><s></s></div>
+    <div class="sg-abs sg-ia"><div class="sg-sl sg-plate sg-on"><svg><use href="#sg-item-rocket"/></svg></div><div class="sg-sl sg-plate"><svg><use href="#sg-item-bun"/></svg></div></div>
+  </div></div>
+  <p class="sg-cap">Предмет у руці — кислотна плашка, що світиться (усі сили). Гнів росте: сирена світиться кораловим (сила 2 і 3).</p>
+</div>
+
+<div class="sg-scr">
+  <h3>6 · Мутаційний верстат</h3>
+  <div class="sg-frame"><div class="sg-stage">
+    <div class="sg-room" aria-hidden="true">
+      <i class="sg-r-ceil"></i><i class="sg-r-pool"></i>
+      <i class="sg-r-win"><i class="sg-r-glass"><i class="sg-r-tree" style="left:20px;height:170px;width:80px"></i><i class="sg-r-tree" style="left:100px;height:220px;width:100px"></i><i class="sg-r-tree" style="left:194px;height:150px;width:74px"></i></i><i class="sg-r-mv"></i><i class="sg-r-mh"></i></i>
+      <i class="sg-r-wains"></i><i class="sg-r-skirt"></i><i class="sg-r-floor"></i><i class="sg-r-rug"></i>
+      <i class="sg-r-pole"></i><i class="sg-r-shade"></i>
+      <i class="sg-r-sofa"></i><i class="sg-r-seat"></i>
+    </div>
+    <div class="sg-shade"></div>
+    <div class="sg-abs sg-wb sg-panel">
+      <div class="sg-top"><span class="sg-title">Мутаційний верстат</span><div class="sg-bal sg-plate"><span class="sg-lab">У тебе очок</span><span class="sg-num">7</span></div></div>
+      <div class="sg-cards">
+        <div class="sg-card sg-plate"><span class="sg-nm">Швидкі ноги</span><span class="sg-fx">Бігаєш швидше</span><div class="sg-cost"><span class="sg-num">4</span><span class="sg-lab">очки</span></div><span class="sg-btn sg-p">Мутувати</span></div>
+        <div class="sg-card sg-plate"><span class="sg-nm">Пружні ноги</span><span class="sg-fx">Стрибаєш вище</span><div class="sg-cost"><span class="sg-num">3</span><span class="sg-lab">очки</span></div><span class="sg-btn">Мутувати</span></div>
+        <div class="sg-card sg-plate"><span class="sg-nm">Товста шкіра</span><span class="sg-fx">Більше здоров'я</span><div class="sg-cost"><span class="sg-num">9</span><span class="sg-lab">очок</span></div><span class="sg-btn sg-off">Бракує 2</span></div>
+      </div>
+      <span class="sg-lab sg-hint">Esc — закрити</span>
+    </div>
+  </div></div>
+  <p class="sg-cap">Світиться лише кнопка у фокусі, в усіх силах. Заголовок верстата — Nunito: Kablammo на цьому розмірі не читається.</p>
+</div>
+
+<div class="sg-scr">
+  <h3>8 · Показ ролі: прибулець</h3>
+  <div class="sg-frame"><div class="sg-stage">
+    <div class="sg-endf"><span class="sg-lab">Твоя роль</span><div class="sg-title sg-k">Прибулець</div><div class="sg-goal sg-plate">Влаштуй найкращу вечірку: виконай усі задачі, поки не скінчився час і не приїхали копи.</div></div>
+  </div></div>
+  <p class="sg-cap">Тут нічого не світиться: лише заголовок у Kablammo. Тло світліше, ніж було, щоб чорнильний контур і тінь наліпки було видно.</p>
+</div>
+
+<div class="sg-scr">
+  <h3>10 · Кінець: прибульці перемогли</h3>
+  <div class="sg-frame"><div class="sg-stage">
+    <div class="sg-endf"><div class="sg-title sg-k">Вечірка вдалася!</div><div class="sg-win sg-plate">Прибульці перемогли</div><span class="sg-stk sg-gr">Усі задачі виконано за 08:12</span><span class="sg-lab">Повернення на корабель через 3…</span></div>
+  </div></div>
+  <p class="sg-cap">Заголовок у Kablammo. Плашка перемоги не світиться: світло лише для дії.</p>
+</div>
+
+<script>
+(function () {
+  var root = document.getElementById("sticker-glow");
+  function fit() {
+    root.querySelectorAll(".sg-frame").forEach(function (f) {
+      f.querySelector(".sg-stage").style.transform = "scale(" + f.clientWidth / 1280 + ")";
+    });
+  }
+  function set(s) {
+    root.classList.remove("sg-s1", "sg-s2", "sg-s3");
+    root.classList.add("sg-s" + s);
+    root.querySelectorAll(".sg-seg button").forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-s") === s)); });
+  }
+  var start = "2";
+  ["1", "3"].forEach(function (s) { if (root.getAttribute("data-start") === s) start = s; });
+  set(start);
+  root.querySelectorAll(".sg-seg button").forEach(function (b) { b.addEventListener("click", function () { set(b.getAttribute("data-s")); }); });
+  fit();
+  if ("ResizeObserver" in window) { var ro = new ResizeObserver(fit); root.querySelectorAll(".sg-frame").forEach(function (f) { ro.observe(f); }); }
+  else addEventListener("resize", fit);
+})();
+</script>
+</section>
