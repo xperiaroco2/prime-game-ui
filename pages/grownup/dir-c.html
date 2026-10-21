@@ -1,0 +1,314 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght,CRSV,SHRP@400..800,0..1,0..100&display=swap">
+<!-- Direction C, "Інопланетна техніка": the UI as an alien-made design object. Smoked translucent glass plates (no blur)
+     with a mint hairline and round "dome" top corners, a soft bioluminescent glow (one coloured shadow) on the main action
+     and the alarm, Geologica from sharp titles to soft text, its tabular figures for the numbers. Every UI element is Godot-safe: solid
+     or translucent fills, one-colour borders, per-corner radii, one shadow with no inset or spread, one text outline.
+     The room behind the HUD is a flat stand-in for the game world, not UI. Font: Geologica (OFL, Cyrillic). Item pictures: the MVP page's item2-* pictograms (own work), recoloured to currentColor. -->
+<section class="gc" id="dir-c">
+<style>
+.gc { --gc-panel: rgba(27, 18, 41, .92); --gc-plate: #2A1D40; --gc-hover: #35264F; --gc-tx: #CDEFDF; --gc-mu: #9A8CBD;
+  --gc-gr: #9EE35C; --gc-ink: #0F0A18; --gc-co: #FF8466; --gc-mint: #CFF3DF; --gc-hl: rgba(207, 243, 223, .35);
+  --gc-trkc: rgba(207, 243, 223, .2); --gc-ye: #FFD60A; --gc-rp: 40px 40px 6px 6px; --gc-rc: 18px 18px 4px 4px;
+  --gc-shadow: 0 10px 24px rgba(7, 4, 13, .55); --gc-glow: 0 0 20px rgba(158, 227, 92, .6); --gc-glow-co: 0 0 20px rgba(255, 132, 102, .65);
+  --gc-geo: "Geologica", "Segoe UI", sans-serif;
+  display: grid; gap: 22px; overflow-wrap: normal; }
+.gc, .gc * { box-sizing: border-box; }
+.gc-intro { display: grid; gap: 10px; }
+.gc-intro h2 { margin: 0; font: 800 clamp(24px, 4.4vw, 32px)/1.1 var(--gc-geo); font-variation-settings: "SHRP" 100, "CRSV" 0; letter-spacing: .02em; }
+.gc-intro p { margin: 0; max-width: 66ch; font: 400 16px/1.5 var(--gc-geo); font-variation-settings: "SHRP" 0; opacity: .86; }
+.gc-sw { display: flex; flex-wrap: wrap; gap: 8px; }
+.gc-sw div { display: grid; gap: 4px; width: 92px; font: 400 12px/1.25 var(--gc-geo); }
+.gc-sw i { display: block; height: 40px; border-radius: 12px 12px 3px 3px; border: 1px solid rgba(255, 255, 255, .14); }
+.gc-sw b { font: 500 11px/1.2 var(--gc-geo); font-variant-numeric: tabular-nums; opacity: .75; }
+.gc-cap { margin: 0; font: 600 13px/1.3 var(--gc-geo); text-transform: uppercase; letter-spacing: .1em; opacity: .7; }
+.gc-shot { display: grid; gap: 8px; }
+.gc-frame { position: relative; width: 100%; max-width: 100%; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 12px; background: #1B1229; }
+.gc-stage { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 0 0; transform: scale(.18); overflow: hidden; }
+.gc-stage i, .gc-stage b { display: block; }
+.gc-abs { position: absolute; }
+
+/* type: one family from sharp to soft, tabular figures so the numbers never jump */
+.gc-tt { font-family: var(--gc-geo); font-weight: 800; font-variation-settings: "SHRP" 100, "CRSV" 0; text-transform: uppercase; letter-spacing: .06em; }
+.gc-num { font-family: var(--gc-geo); font-weight: 600; font-variation-settings: "SHRP" 40, "CRSV" 0; font-variant-numeric: tabular-nums; }
+.gc-cl { font: 600 18px/1.2 var(--gc-geo); text-transform: uppercase; letter-spacing: .1em; color: var(--gc-mu); }
+
+/* surfaces: smoked glass with the mint hairline and the dome corner */
+.gc-glass { background: var(--gc-panel); border: 2px solid var(--gc-hl); border-radius: var(--gc-rp); }
+.gc-float { box-shadow: var(--gc-shadow); }
+.gc-plate { background: var(--gc-plate); border: 2px solid var(--gc-hl); border-radius: var(--gc-rc); transition: background-color 100ms linear; }
+
+/* buttons: 56 px, caps tracked, the primary glows */
+.gc-btn { display: block; height: 56px; padding: 0 24px; border: 2px solid var(--gc-hl); border-radius: var(--gc-rc);
+  font: 600 22px/52px var(--gc-geo); text-transform: uppercase; letter-spacing: .08em; text-align: center; white-space: nowrap;
+  color: var(--gc-tx); background: var(--gc-plate); transition: background-color 100ms linear, box-shadow 250ms cubic-bezier(.16, 1, .3, 1); }
+.gc-btn:hover { background: var(--gc-hover); }
+.gc-p { background: var(--gc-gr); border-color: var(--gc-gr); color: var(--gc-ink); box-shadow: var(--gc-glow); }
+.gc-p:hover { background: #B1EC78; border-color: #B1EC78; }
+.gc-s { background: var(--gc-hover); border-color: var(--gc-mint); color: var(--gc-tx); }
+.gc-ghost { background: transparent; border-color: transparent; }
+.gc-off { background: transparent; border-color: rgba(207, 243, 223, .16); color: var(--gc-mu); }
+
+/* the world */
+.gc-room { position: absolute; inset: 0; background: #BCA283; }
+.gc-room i { position: absolute; }
+.gc-r-ceil { left: 0; top: 0; width: 1920px; height: 64px; background: #3D2A1D; }
+.gc-r-beam { top: 64px; width: 56px; height: 20px; background: #3D2A1D; }
+.gc-r-pool { left: 560px; top: 250px; width: 520px; height: 380px; border-radius: 50%; background: #C9AF8D; }
+.gc-r-win { left: 130px; top: 150px; width: 470px; height: 430px; background: #ECE6DB; border-radius: 4px; }
+.gc-r-glass { left: 18px; top: 18px; width: 434px; height: 394px; background: #1A2629; overflow: hidden; }
+.gc-r-tree { bottom: 0; background: #0F181A; border-radius: 50% 50% 6px 6px; }
+.gc-r-mull-v { left: 228px; top: 18px; width: 14px; height: 394px; background: #ECE6DB; }
+.gc-r-mull-h { left: 18px; top: 196px; width: 434px; height: 14px; background: #ECE6DB; }
+.gc-r-wains { left: 0; top: 600px; width: 1920px; height: 200px; background: #85593A;
+  background-image: repeating-linear-gradient(90deg, transparent 0 116px, #6F4A30 116px 120px); }
+.gc-r-skirt { left: 0; top: 792px; width: 1920px; height: 14px; background: #E8E0D2; }
+.gc-r-floor { left: 0; top: 806px; width: 1920px; height: 274px; background: #6C4730;
+  background-image: repeating-linear-gradient(180deg, transparent 0 42px, #5A3A27 42px 45px); }
+.gc-r-rug { left: 260px; top: 900px; width: 900px; height: 150px; border-radius: 6px; background: #4E5A50; }
+.gc-r-tiles { left: 1120px; top: 360px; width: 800px; height: 250px; background: #E3DDD2;
+  background-image: repeating-linear-gradient(90deg, transparent 0 58px, #CBC2B3 58px 60px), repeating-linear-gradient(180deg, transparent 0 28px, #CBC2B3 28px 30px); }
+.gc-r-upper { left: 1120px; top: 110px; width: 520px; height: 240px; background: #8A5D3C;
+  background-image: repeating-linear-gradient(90deg, transparent 0 126px, #6F4A30 126px 130px); }
+.gc-r-fridge { left: 1660px; top: 120px; width: 260px; height: 680px; background: #B6BBBF; border-radius: 8px 0 0 0; }
+.gc-r-fseam { left: 0; top: 250px; width: 260px; height: 4px; background: #8E9498; }
+.gc-r-fh1 { left: 22px; top: 150px; width: 10px; height: 80px; border-radius: 5px; background: #E4E7E9; }
+.gc-r-fh2 { left: 22px; top: 280px; width: 10px; height: 140px; border-radius: 5px; background: #E4E7E9; }
+.gc-r-top { left: 1100px; top: 596px; width: 560px; height: 34px; background: #33302D; }
+.gc-r-base { left: 1112px; top: 630px; width: 548px; height: 170px; background: #7A5032;
+  background-image: repeating-linear-gradient(90deg, transparent 0 133px, #5F3E27 133px 137px); }
+.gc-r-hnd { top: 22px; width: 60px; height: 8px; border-radius: 4px; background: #C9CDD0; }
+.gc-r-box { left: 1180px; top: 566px; width: 240px; height: 30px; background: #D4B484; border-radius: 3px; }
+.gc-r-can { top: 546px; width: 26px; height: 50px; border-radius: 4px; }
+.gc-r-can-l { background: #9AD04F; }
+.gc-r-cord { left: 818px; top: 64px; width: 4px; height: 170px; background: #1E1A17; }
+.gc-r-shade { left: 750px; top: 230px; width: 140px; height: 66px; border-radius: 70px 70px 4px 4px; background: #24201D; }
+.gc-r-bulb { left: 796px; top: 290px; width: 48px; height: 20px; border-radius: 0 0 24px 24px; background: #F6DFA8; }
+.gc-r-sofa { left: -40px; top: 760px; width: 560px; height: 250px; border-radius: 28px 28px 8px 8px; background: #5E3427; }
+.gc-r-arm { left: 440px; top: 820px; width: 110px; height: 200px; border-radius: 26px 26px 8px 8px; background: #6E3D2E; }
+.gc-r-binsh { left: 860px; top: 786px; width: 200px; height: 30px; border-radius: 50%; background: #4F3221; }
+.gc-r-bin { left: 892px; top: 556px; width: 136px; height: 246px; border-radius: 10px 10px 6px 6px; background: #B4B9BD; }
+.gc-r-lid { left: 884px; top: 520px; width: 152px; height: 44px; border-radius: 22px 22px 6px 6px; background: #8E9498; }
+.gc-r-ped { left: 930px; top: 790px; width: 60px; height: 12px; border-radius: 4px; background: #33302D; }
+.gc-dim { position: absolute; inset: 0; background: rgba(15, 10, 24, .74); }
+
+/* the round HUD (designed at 1920x1080, 0.75 of the first sketches) */
+.gc-role { left: 40px; top: 40px; display: flex; align-items: center; gap: 12px; padding: 10px 18px 10px 14px; border-radius: var(--gc-rc);
+  font: 600 18px/1.2 var(--gc-geo); text-transform: uppercase; letter-spacing: .1em; color: var(--gc-gr); }
+.gc-role i { width: 12px; height: 12px; border-radius: 50%; background: var(--gc-gr); }
+.gc-top { left: 50%; top: 26px; transform: translateX(-50%); display: grid; justify-items: center; }
+.gc-timer { font-size: 52px; line-height: 1.1; color: var(--gc-tx); -webkit-text-stroke: 4px var(--gc-ink); paint-order: stroke fill; letter-spacing: .02em; }
+.gc-hair { width: 120px; height: 2px; margin-top: 4px; background: var(--gc-hl); }
+.gc-anger { position: relative; margin-top: 18px; }
+.gc-trk { position: relative; width: 360px; height: 8px; border-radius: 4px; background: var(--gc-trkc); }
+.gc-top .gc-trk { background: rgba(15, 10, 24, .6); }
+.gc-trk b { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 4px; background: var(--gc-co); transition: box-shadow 250ms cubic-bezier(.16, 1, .3, 1); }
+.gc-rise .gc-trk b { box-shadow: var(--gc-glow-co); }
+.gc-siren { position: absolute; left: 100%; top: 50%; margin-left: 16px; transform: translateY(-64%); width: 56px; height: 48px; }
+.gc-dome { position: absolute; left: 8px; top: 0; width: 40px; height: 36px; background: var(--gc-mu); border: 2px solid var(--gc-mu); border-radius: 20px 20px 2px 2px; transition: box-shadow 250ms cubic-bezier(.16, 1, .3, 1); }
+.gc-base { position: absolute; left: 0; top: 38px; width: 56px; height: 10px; border-radius: 4px; background: var(--gc-panel); border: 2px solid var(--gc-hl); }
+.gc-rise .gc-dome { background: var(--gc-co); border-color: var(--gc-co); box-shadow: var(--gc-glow-co); }
+.gc-roster { position: absolute; right: 40px; top: 40px; width: 290px; padding: 14px 18px; background: var(--gc-panel); border: 2px solid var(--gc-hl);
+  border-radius: var(--gc-rp); box-shadow: var(--gc-shadow); }
+.gc-rw { display: flex; align-items: center; gap: 12px; height: 36px; font: 500 20px/1 var(--gc-geo); color: var(--gc-tx); white-space: nowrap; }
+.gc-disc { width: 16px; height: 16px; flex: none; border-radius: 50%; border: 2px solid var(--gc-ink); }
+.gc-dead .gc-disc { opacity: .4; }
+.gc-me { color: var(--gc-gr); }
+.gc-dead { color: var(--gc-mu); }
+.gc-hum { margin-left: auto; padding: 3px 8px; border: 2px solid var(--gc-co); border-radius: 4px; font: 600 14px/1 var(--gc-geo); letter-spacing: .08em; text-transform: uppercase; color: var(--gc-co); }
+.gc-cross { left: 953px; top: 533px; width: 14px; height: 14px; border-radius: 50%; background: #FFFFFF; border: 2px solid var(--gc-ink); }
+.gc-aim { left: 50%; top: 574px; transform: translateX(-50%); padding: 7px 14px; border-radius: var(--gc-rc); white-space: nowrap;
+  font: 600 18px/1.2 var(--gc-geo); text-transform: uppercase; letter-spacing: .08em; color: var(--gc-tx); }
+.gc-vit { left: 40px; bottom: 40px; display: flex; align-items: center; gap: 16px; padding: 18px 20px; border-radius: var(--gc-rc); }
+.gc-bars { display: grid; gap: 12px; width: 280px; }
+.gc-bars .gc-trk { width: 100%; }
+.gc-mic { position: relative; width: 44px; height: 44px; border-radius: 22px; border: 2px solid var(--gc-hl); }
+.gc-mic i { position: absolute; }
+.gc-mic .m1 { left: 15px; top: 7px; width: 10px; height: 17px; border-radius: 5px; background: var(--gc-tx); }
+.gc-mic .m2 { left: 10px; top: 14px; width: 20px; height: 14px; border: 2px solid var(--gc-tx); border-top-width: 0; border-radius: 0 0 10px 10px; }
+.gc-mic .m3 { left: 19px; top: 28px; width: 2px; height: 6px; background: var(--gc-tx); }
+.gc-items { right: 40px; bottom: 34px; display: flex; align-items: flex-start; gap: 18px; }
+.gc-slot { display: grid; justify-items: center; gap: 10px; }
+.gc-sl { display: grid; place-items: center; width: 100px; height: 100px; background: var(--gc-panel); border: 2px solid var(--gc-hl);
+  border-radius: var(--gc-rc); box-shadow: var(--gc-shadow); color: var(--gc-tx); transition: box-shadow 250ms cubic-bezier(.16, 1, .3, 1); }
+.gc-sl svg { width: 60px; height: 60px; display: block; }
+.gc-sl.gc-on { width: 120px; height: 120px; border: 3px solid var(--gc-gr); box-shadow: var(--gc-glow); }
+.gc-sl.gc-on svg { width: 72px; height: 72px; }
+.gc-nt { font: 600 15px/1.2 var(--gc-geo); text-transform: uppercase; letter-spacing: .08em; color: var(--gc-tx); white-space: nowrap;
+  -webkit-text-stroke: 3px var(--gc-ink); paint-order: stroke fill; }
+.gc-slot.gc-hand { margin-top: 0; }
+.gc-items .gc-slot:not(.gc-hand) { margin-top: 20px; }
+
+/* the mutation workbench */
+.gc-wb { left: 50%; top: 50%; transform: translate(-50%, -50%); width: 1260px; padding: 44px 48px 36px; box-shadow: var(--gc-shadow);
+  display: grid; gap: 32px; }
+.gc-wb-top { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; padding-bottom: 26px; border-bottom: 2px solid var(--gc-hl); }
+.gc-wb-title { font-size: 46px; line-height: 1; color: var(--gc-tx); }
+.gc-bal { display: flex; align-items: baseline; gap: 18px; }
+.gc-bal .gc-num { font-size: 56px; line-height: .9; color: var(--gc-mint); }
+.gc-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+.gc-card { display: grid; grid-template-rows: auto auto 1fr auto; gap: 12px; padding: 28px; }
+.gc-card .gc-btn { margin-top: 30px; }
+.gc-card:hover { background: var(--gc-hover); }
+.gc-cost { display: flex; align-items: baseline; gap: 12px; margin-bottom: 6px; }
+.gc-cost .gc-num { font-size: 60px; line-height: 1; color: var(--gc-tx); }
+.gc-nm { font-size: 28px; line-height: 1.1; color: var(--gc-tx); }
+.gc-fx { font: 400 22px/1.35 var(--gc-geo); color: var(--gc-tx); opacity: 1; }
+
+.gc-card.gc-no .gc-cost .gc-num, .gc-card.gc-no .gc-nm { color: var(--gc-mu); }
+.gc-card.gc-no { background: rgba(42, 29, 64, .5); }
+.gc-card.gc-no .gc-fx { color: var(--gc-mu); }
+.gc-hint { display: flex; align-items: center; gap: 12px; font: 400 18px/1 var(--gc-geo); color: var(--gc-mu); }
+.gc-key { padding: 6px 10px; border: 2px solid var(--gc-hl); border-radius: 4px; font: 600 15px/1 var(--gc-geo); color: var(--gc-tx); }
+
+/* the role reveal and the end: full screens */
+.gc-full { position: absolute; inset: 0; background: #1B1229; }
+.gc-arch { left: 50%; top: 120px; transform: translateX(-50%); width: 1080px; height: 860px; border: 2px solid rgba(207, 243, 223, .16); border-radius: 200px 200px 6px 6px; }
+.gc-col { left: 50%; top: 57%; transform: translate(-50%, -50%); display: grid; justify-items: center; text-align: center; width: 1300px; }
+.gc-hero { font-size: 136px; line-height: 1; letter-spacing: .05em; color: var(--gc-gr); margin-top: 22px; }
+.gc-col .gc-hair { margin-top: 34px; }
+.gc-goal { margin-top: 40px; max-width: 860px; padding: 26px 38px; font: 400 28px/1.45 var(--gc-geo); color: var(--gc-tx); text-wrap: balance; }
+.gc-win { margin-top: 38px; padding: 0 34px; height: 72px; border-radius: var(--gc-rp); background: var(--gc-ink); border: 2px solid var(--gc-hl);
+  font: 600 30px/68px var(--gc-geo); text-transform: uppercase; letter-spacing: .08em; color: var(--gc-mint); }
+.gc-done { margin-top: 36px; font: 400 26px/1.3 var(--gc-geo); color: var(--gc-tx); }
+.gc-done .gc-num { color: var(--gc-mint); font-size: 28px; }
+.gc-back { margin-top: 22px; }
+.gc-back .gc-num { color: var(--gc-tx); letter-spacing: 0; }
+.gc-end .gc-hero { font-size: 86px; white-space: nowrap; }
+
+/* states strip */
+.gc-states { left: 0; top: 0; width: 1920px; height: 420px; background: #1B1229; display: grid; grid-template-columns: repeat(4, 1fr); align-items: center; }
+.gc-st { display: grid; justify-items: center; gap: 30px; }
+.gc-st .gc-anger { margin-top: 0; margin-right: 72px; }
+.gc-st .gc-trk { width: 300px; }
+.gc-lbl { font: 400 22px/1.2 var(--gc-geo); color: rgba(205, 239, 223, .6); }
+</style>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="gc-item2-rocket" viewBox="0 0 48 48"><path d="M11.5,15 L20,2.5 L28.5,15 Z" fill="currentColor"/><path d="M15,14 L25,14 A2,2 0 0 1 27,16 L27,32 A2,2 0 0 1 25,34 L15,34 A2,2 0 0 1 13,32 L13,16 A2,2 0 0 1 15,14 Z M13,20 L27,20 A0,0 0 0 1 27,20 L27,22.4 A0,0 0 0 1 27,22.4 L13,22.4 A0,0 0 0 1 13,22.4 L13,20 A0,0 0 0 1 13,20 Z" fill="currentColor" fill-rule="evenodd"/><path d="M30.3,18 L30.3,18 A1.8,1.8 0 0 1 32.1,19.8 L32.1,44.2 A1.8,1.8 0 0 1 30.3,46 L30.3,46 A1.8,1.8 0 0 1 28.5,44.2 L28.5,19.8 A1.8,1.8 0 0 1 30.3,18 Z" fill="currentColor"/><path d="M20,34 C20,38 17,38 17,42" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="gc-item2-bun" viewBox="0 0 48 48"><path d="M6,25 C6,13 15,7 24,7 C33,7 42,13 42,25 A2,2 0 0 1 40,27 L8,27 A2,2 0 0 1 6,25 Z M13.56,14.89 A2.6,1.5 -20 1 0 18.44,13.11 A2.6,1.5 -20 1 0 13.56,14.89 Z M21.9,11 A2.6,1.5 0 1 0 27.1,11 A2.6,1.5 0 1 0 21.9,11 Z M29.56,13.61 A2.6,1.5 20 1 0 34.44,15.39 A2.6,1.5 20 1 0 29.56,13.61 Z M17.43,19.86 A2.6,1.5 -8 1 0 22.57,19.14 A2.6,1.5 -8 1 0 17.43,19.86 Z M25.94,19.05 A2.6,1.5 10 1 0 31.06,19.95 A2.6,1.5 10 1 0 25.94,19.05 Z" fill="currentColor" fill-rule="evenodd"/><path d="M7,31 L41,31 L41,36.5 A4.5,4.5 0 0 1 36.5,41 L11.5,41 A4.5,4.5 0 0 1 7,36.5 Z" fill="currentColor"/></symbol>
+</svg>
+  <header class="gc-intro">
+    <h2>В · Інопланетна техніка</h2>
+    <p>Наліпки стали гладкими речами, ніби їх зробили самі прибульці: замість чорнильних контурів і твердих тіней — димчасте скло з тонкою м'ятною лінією й круглими верхніми кутами, як купол голови. Кольори ті самі, що вам сподобалися, але головна дія й тривога тепер м'яко світяться, а круглий шрифт змінив гострий і трохи дивний гротеск.</p>
+    <div class="gc-sw"><div><i style="background:#1B1229"></i>панель, 92 %<b>#1B1229</b></div><div><i style="background:#2A1D40"></i>плитка<b>#2A1D40</b></div><div><i style="background:#35264F"></i>наведення<b>#35264F</b></div><div><i style="background:#CDEFDF"></i>текст<b>#CDEFDF</b></div><div><i style="background:#9A8CBD"></i>приглушений<b>#9A8CBD</b></div><div><i style="background:#9EE35C"></i>головна дія<b>#9EE35C</b></div><div><i style="background:#FF8466"></i>тривога<b>#FF8466</b></div><div><i style="background:#CFF3DF;opacity:.35"></i>лінія, 35 %<b>#CFF3DF</b></div><div><i style="background:#FFD60A"></i>витривалість<b>#FFD60A</b></div><div><i style="background:#0F0A18"></i>чорнило<b>#0F0A18</b></div></div>
+  </header>
+  <div class="gc-shot"><p class="gc-cap">1 · Раунд</p>
+    <div class="gc-frame"><div class="gc-stage">
+      <div class="gc-room" aria-hidden="true">
+        <i class="gc-r-ceil"></i><i class="gc-r-beam" style="left:300px"></i><i class="gc-r-beam" style="left:980px"></i>
+        <i class="gc-r-pool"></i>
+        <i class="gc-r-win"><i class="gc-r-glass"><i class="gc-r-tree" style="left:30px;height:260px;width:120px"></i><i class="gc-r-tree" style="left:150px;height:330px;width:150px"></i><i class="gc-r-tree" style="left:290px;height:220px;width:110px"></i></i><i class="gc-r-mull-v"></i><i class="gc-r-mull-h"></i></i>
+        <i class="gc-r-wains"></i><i class="gc-r-skirt"></i><i class="gc-r-floor"></i><i class="gc-r-rug"></i>
+        <i class="gc-r-tiles"></i><i class="gc-r-upper"></i><i class="gc-r-fridge"><i class="gc-r-fseam"></i><i class="gc-r-fh1"></i><i class="gc-r-fh2"></i></i>
+        <i class="gc-r-top"></i><i class="gc-r-base"><i class="gc-r-hnd" style="left:110px"></i><i class="gc-r-hnd" style="left:250px"></i><i class="gc-r-hnd" style="left:390px"></i></i>
+        <i class="gc-r-box"></i><i class="gc-r-can" style="left:1468px;background:#2C6E96"></i><i class="gc-r-can" style="left:1502px;background:#B9322A"></i><i class="gc-r-can gc-r-can-l" style="left:1536px"></i>
+        <i class="gc-r-cord"></i><i class="gc-r-shade"></i><i class="gc-r-bulb"></i>
+        <i class="gc-r-sofa"></i><i class="gc-r-arm"></i>
+        <i class="gc-r-binsh"></i><i class="gc-r-bin"></i><i class="gc-r-lid"></i><i class="gc-r-ped"></i>
+      </div>
+      <div class="gc-abs gc-glass gc-role"><i></i>Прибулець</div>
+      <div class="gc-abs gc-top"><div class="gc-num gc-timer">07:42</div><i class="gc-hair"></i><div class="gc-anger gc-rise"><div class="gc-trk"><b style="width:55%"></b></div><i class="gc-siren"><i class="gc-dome"></i><i class="gc-base"></i></i></div></div>
+      <div class="gc-roster">
+        <div class="gc-rw gc-me"><i class="gc-disc" style="background:#7C5CC8"></i>Олена (ти)</div>
+        <div class="gc-rw"><i class="gc-disc" style="background:#1C7A82"></i>Ґлорп</div>
+        <div class="gc-rw"><i class="gc-disc" style="background:#E66B57"></i>Їжак</div>
+        <div class="gc-rw"><i class="gc-disc" style="background:#E8B04A"></i>Бульк</div>
+        <div class="gc-rw"><i class="gc-disc" style="background:#4AA3DF"></i>Зінґа</div>
+        <div class="gc-rw gc-dead"><i class="gc-disc" style="background:#D46FB0"></i>Тарас · поза грою</div>
+      </div>
+      <i class="gc-abs gc-cross"></i>
+      <span class="gc-abs gc-glass gc-aim">Сміттєвий бак</span>
+      <div class="gc-abs gc-glass gc-float gc-vit"><div class="gc-bars"><div class="gc-trk"><b style="width:80%;background:var(--gc-gr)"></b></div><div class="gc-trk"><b style="width:55%;background:var(--gc-ye)"></b></div></div><div class="gc-mic"><i class="m1"></i><i class="m2"></i><i class="m3"></i></div></div>
+      <div class="gc-abs gc-items">
+        <div class="gc-slot gc-hand"><div class="gc-sl gc-on"><svg aria-hidden="true"><use href="#gc-item2-rocket"/></svg></div><span class="gc-nt">Феєрверк</span></div>
+        <div class="gc-slot"><div class="gc-sl"><svg aria-hidden="true"><use href="#gc-item2-bun"/></svg></div><span class="gc-nt">Булка</span></div>
+      </div>
+    </div></div>
+  </div>
+  <div class="gc-shot"><p class="gc-cap">Стани</p>
+    <div class="gc-frame" data-w="1920" data-h="420" style="aspect-ratio:1920/420"><div class="gc-stage" style="height:420px">
+      <div class="gc-abs gc-states">
+        <div class="gc-st"><div class="gc-anger"><div class="gc-trk"><b style="width:12%"></b></div><i class="gc-siren"><i class="gc-dome"></i><i class="gc-base"></i></i></div><span class="gc-lbl">гнів спокійний</span></div>
+        <div class="gc-st"><div class="gc-anger gc-rise"><div class="gc-trk"><b style="width:70%"></b></div><i class="gc-siren"><i class="gc-dome"></i><i class="gc-base"></i></i></div><span class="gc-lbl">гнів росте</span></div>
+        <div class="gc-st"><div style="display:grid;gap:14px;width:300px"><span class="gc-btn gc-p">Мутувати</span><span class="gc-btn gc-s">Мутувати</span><span class="gc-btn gc-off">Бракує 2</span></div><span class="gc-lbl">головна · друга · бракує</span></div>
+        <div class="gc-st"><div class="gc-glass" style="width:300px;padding:14px 18px"><div class="gc-rw"><i class="gc-disc" style="background:#E8B04A"></i>Бульк (ти)<span class="gc-hum">людина</span></div><div class="gc-rw"><i class="gc-disc" style="background:#4AA3DF"></i>Зінґа<span class="gc-hum">людина</span></div><div class="gc-rw gc-dead"><i class="gc-disc" style="background:#D46FB0"></i>Тарас · поза грою</div></div><span class="gc-lbl">список очима людини</span></div>
+      </div>
+    </div></div>
+  </div>
+  <div class="gc-shot"><p class="gc-cap">6 · Мутаційний верстат</p>
+    <div class="gc-frame"><div class="gc-stage">
+      <div class="gc-room" aria-hidden="true">
+        <i class="gc-r-ceil"></i><i class="gc-r-beam" style="left:300px"></i><i class="gc-r-beam" style="left:980px"></i>
+        <i class="gc-r-pool"></i>
+        <i class="gc-r-win"><i class="gc-r-glass"><i class="gc-r-tree" style="left:30px;height:260px;width:120px"></i><i class="gc-r-tree" style="left:150px;height:330px;width:150px"></i><i class="gc-r-tree" style="left:290px;height:220px;width:110px"></i></i><i class="gc-r-mull-v"></i><i class="gc-r-mull-h"></i></i>
+        <i class="gc-r-wains"></i><i class="gc-r-skirt"></i><i class="gc-r-floor"></i><i class="gc-r-rug"></i>
+        <i class="gc-r-tiles"></i><i class="gc-r-upper"></i><i class="gc-r-fridge"><i class="gc-r-fseam"></i><i class="gc-r-fh1"></i><i class="gc-r-fh2"></i></i>
+        <i class="gc-r-top"></i><i class="gc-r-base"><i class="gc-r-hnd" style="left:110px"></i><i class="gc-r-hnd" style="left:250px"></i><i class="gc-r-hnd" style="left:390px"></i></i>
+        <i class="gc-r-box"></i><i class="gc-r-can" style="left:1468px;background:#2C6E96"></i><i class="gc-r-can" style="left:1502px;background:#B9322A"></i><i class="gc-r-can gc-r-can-l" style="left:1536px"></i>
+        <i class="gc-r-cord"></i><i class="gc-r-shade"></i><i class="gc-r-bulb"></i>
+        <i class="gc-r-sofa"></i><i class="gc-r-arm"></i>
+        <i class="gc-r-binsh"></i><i class="gc-r-bin"></i><i class="gc-r-lid"></i><i class="gc-r-ped"></i>
+      </div>
+      <div class="gc-dim"></div>
+      <div class="gc-abs gc-glass gc-wb">
+        <div class="gc-wb-top"><span class="gc-tt gc-wb-title">Мутаційний верстат</span><div class="gc-bal"><span class="gc-cl">У тебе очок</span><span class="gc-num">7</span></div></div>
+        <div class="gc-cards">
+          <div class="gc-plate gc-card"><div class="gc-cost"><span class="gc-num">4</span><span class="gc-cl">очки</span></div><span class="gc-tt gc-nm">Швидкі ноги</span><span class="gc-fx">Бігаєш швидше</span><span class="gc-btn gc-p">Мутувати</span></div>
+          <div class="gc-plate gc-card"><div class="gc-cost"><span class="gc-num">3</span><span class="gc-cl">очки</span></div><span class="gc-tt gc-nm">Пружні ноги</span><span class="gc-fx">Стрибаєш вище</span><span class="gc-btn gc-s">Мутувати</span></div>
+          <div class="gc-plate gc-card gc-no"><div class="gc-cost"><span class="gc-num">9</span><span class="gc-cl">очок</span></div><span class="gc-tt gc-nm">Товста шкіра</span><span class="gc-fx">Більше здоров'я</span><span class="gc-btn gc-off">Бракує 2</span></div>
+        </div>
+        <div class="gc-hint"><span class="gc-key">Esc</span>— закрити</div>
+      </div>
+    </div></div>
+  </div>
+  <div class="gc-shot"><p class="gc-cap">8 · Показ ролі: прибулець</p>
+    <div class="gc-frame"><div class="gc-stage">
+      <div class="gc-full"></div>
+      <i class="gc-abs gc-arch"></i>
+      <div class="gc-abs gc-col">
+        <span class="gc-cl">Твоя роль</span>
+        <div class="gc-tt gc-hero">Прибулець</div>
+        <i class="gc-hair"></i>
+        <div class="gc-glass gc-goal">Влаштуй найкращу вечірку: виконай усі задачі, поки не скінчився час і не приїхали копи.</div>
+      </div>
+    </div></div>
+  </div>
+  <div class="gc-shot"><p class="gc-cap">10 · Кінець: прибульці перемогли</p>
+    <div class="gc-frame"><div class="gc-stage">
+      <div class="gc-room" aria-hidden="true">
+        <i class="gc-r-ceil"></i><i class="gc-r-beam" style="left:300px"></i><i class="gc-r-beam" style="left:980px"></i>
+        <i class="gc-r-pool"></i>
+        <i class="gc-r-win"><i class="gc-r-glass"><i class="gc-r-tree" style="left:30px;height:260px;width:120px"></i><i class="gc-r-tree" style="left:150px;height:330px;width:150px"></i><i class="gc-r-tree" style="left:290px;height:220px;width:110px"></i></i><i class="gc-r-mull-v"></i><i class="gc-r-mull-h"></i></i>
+        <i class="gc-r-wains"></i><i class="gc-r-skirt"></i><i class="gc-r-floor"></i><i class="gc-r-rug"></i>
+        <i class="gc-r-tiles"></i><i class="gc-r-upper"></i><i class="gc-r-fridge"><i class="gc-r-fseam"></i><i class="gc-r-fh1"></i><i class="gc-r-fh2"></i></i>
+        <i class="gc-r-top"></i><i class="gc-r-base"><i class="gc-r-hnd" style="left:110px"></i><i class="gc-r-hnd" style="left:250px"></i><i class="gc-r-hnd" style="left:390px"></i></i>
+        <i class="gc-r-box"></i><i class="gc-r-can" style="left:1468px;background:#2C6E96"></i><i class="gc-r-can" style="left:1502px;background:#B9322A"></i><i class="gc-r-can gc-r-can-l" style="left:1536px"></i>
+        <i class="gc-r-cord"></i><i class="gc-r-shade"></i><i class="gc-r-bulb"></i>
+        <i class="gc-r-sofa"></i><i class="gc-r-arm"></i>
+        <i class="gc-r-binsh"></i><i class="gc-r-bin"></i><i class="gc-r-lid"></i><i class="gc-r-ped"></i>
+      </div>
+      <div class="gc-dim" style="background:rgba(27,18,41,.9)"></div>
+      <i class="gc-abs gc-arch"></i>
+      <div class="gc-abs gc-col gc-end">
+        <div class="gc-tt gc-hero">Вечірка вдалася!</div>
+        <div class="gc-win">Прибульці перемогли</div>
+        <div class="gc-done">Усі задачі виконано за <span class="gc-num">08:12</span></div>
+        <span class="gc-cl gc-back">Повернення на корабель через <span class="gc-num">3</span>…</span>
+      </div>
+    </div></div>
+  </div>
+<script>
+(function () {
+  function fit() {
+    document.querySelectorAll(".gc-frame").forEach(function (f) {
+      var st = f.querySelector(".gc-stage"), w = +(f.getAttribute("data-w") || 1920);
+      st.style.transform = "scale(" + f.clientWidth / w + ")";
+    });
+  }
+  fit();
+  if ("ResizeObserver" in window) { var ro = new ResizeObserver(fit); document.querySelectorAll(".gc-frame").forEach(function (f) { ro.observe(f); }); }
+  else addEventListener("resize", fit);
+})();
+</script>
+</section>

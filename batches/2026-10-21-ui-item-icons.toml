@@ -1,0 +1,57 @@
+# prime-game#150, the UI track's grown-up redesign wave: three candidate styles for the carried-item icons (vinyl toy,
+# ink line, studio product shot), one 3x2 sheet of the six MVP carried items per style at medium, so the engineer can
+# judge which style reads grown-up at HUD size. Approved by the engineer in chat with a $3 limit for this batch. No game
+# names in prompts. Schema: D:/prime-game-art/docs/openai-images.md.
+
+id = "2026-10-21-ui-item-icons"
+service = "openai-images"
+purpose = "prime-game#150: three item icon styles for the grown-up UI redesign, one 3x2 sheet of the six MVP carried items per style, to choose the icon style."
+plan = "OpenAI API, prepaid balance (topped up by the engineer, 2026-10-20)"
+terms_url = "https://openai.com/policies/services-agreement/"
+licence = "owned by the customer: OpenAI assigns to the customer all its rights in the Output (OpenAI Services Agreement, section 4.1, read 2026-10-20); no attribution required"
+cost_cap_usd = 3.0
+approved_by = "xperiaroco2 (the engineer)"
+approved_at = "2026-10-21"
+approval_ref = "https://github.com/xperiaroco2/prime-game/issues/150#issuecomment-6315845671"
+model = "gpt-image-2.5-sunburst"
+quality = "medium"
+
+[defaults]
+size = "1536x1024"
+n = 2
+background = "transparent"
+
+[variants.toy]
+prompt = "A 3 by 2 grid of 6 equal cells on a 1536x1024 canvas, one object per cell, each object an inventory icon. A collectible designer vinyl toy version of the object, the same finish as the game's alien characters: smooth soft-matte satin vinyl, slightly simplified but true-to-object adult proportions, no face, no eyes, no cute features. CAMERA: three-quarter view from slightly above (about 30 degrees), long-lens orthographic look, the same angle and scale in every cell, the object filling about 80 percent of its cell and centred. LIGHT: one large soft key light from the upper left, a warm amber rim light from the back right, a cool teal rim light from the back left, gentle ambient occlusion in the creases; no cast shadow, no ground plane. MATERIAL: matte vinyl and satin paint, one small glossy accent at most (a can tab, a cap); colours are the object's real colours pulled toward a muted palette of mint, teal, coral, deep purple and cream, saturation held down. OUTLINE: none; the edge is read from the rim light and a slightly darker edge tone. BACKGROUND: fully transparent, isolated object (fallback: flat solid #FF00FF, no gradient). EXCLUDE: text, letters, logos, labels, characters, hands, faces, sparkles, glitter, bubbles, toy-like candy gloss, pastel baby colours, checkerboard, borders, grid lines, scenery. Cell 1 (top left): a burger, a thick beef patty with melted cheese, lettuce and tomato in a sesame bun. Cell 2 (top middle): a wrench, a long combination spanner with an open end and a ring end. Cell 3 (top right): a watering can, a metal garden watering can with a long spout and a top handle. Cell 4 (bottom left): a battery, a large cylindrical battery cell with a raised metal terminal on top, plain unmarked casing. Cell 5 (bottom middle): a flower in a pot, one tall bloom with two leaves in a plain terracotta pot. Cell 6 (bottom right): a 3D-printed car engine part of an advanced alien design, unpainted matte white printed plastic with fine layer lines, a compact turbine housing with a flange and bolt holes."
+
+[variants.ink]
+prompt = "A 3 by 2 grid of 6 equal cells on a 1536x1024 canvas, one object per cell, each object an inventory icon. A flat editorial ink illustration of the object, for a grown-up comedy game: confident bold brush line in near-black purple #1E1230, even weight about 4 percent of the icon width, with a slight taper at the corners; slightly exaggerated, characterful silhouette, angular rather than bubbly. CAMERA: three-quarter view from slightly above, flat graphic perspective, the same angle and scale in every cell, the object filling about 80 percent of its cell and centred. LIGHT: implied from the upper left only; two-tone cel shading, one flat base colour plus one flat shadow tone, one small hard white highlight; no gradients, no soft shading, no glow. MATERIAL: read only through the flat colour and the shape of the highlight (metal gets a sharp streak, cardboard none, glass a single glint). COLOUR: a limited palette per object, at most three flat colours, muted and slightly desaturated, from deep purple, mint, teal, coral, cream and a real-object colour where needed. OUTLINE: the bold dark line around the outside, thinner inner lines only for the main folds. BACKGROUND: fully transparent, isolated object (fallback: flat solid #FF00FF). EXCLUDE: text, letters, logos, labels, characters, faces, eyes, cute rounding, sticker borders, white outlines, drop shadows, halftone dots, sparkles, checkerboard, grid lines, scenery. Cell 1 (top left): a burger, a thick beef patty with melted cheese, lettuce and tomato in a sesame bun. Cell 2 (top middle): a wrench, a long combination spanner with an open end and a ring end. Cell 3 (top right): a watering can, a metal garden watering can with a long spout and a top handle. Cell 4 (bottom left): a battery, a large cylindrical battery cell with a raised metal terminal on top, plain unmarked casing. Cell 5 (bottom middle): a flower in a pot, one tall bloom with two leaves in a plain terracotta pot. Cell 6 (bottom right): a 3D-printed car engine part of an advanced alien design, unpainted white printed plastic with fine layer lines, a compact turbine housing with a flange and bolt holes."
+
+[variants.real]
+prompt = "A 3 by 2 grid of 6 equal cells on a 1536x1024 canvas, one object per cell, each object an inventory icon. A premium photorealistic studio product shot of the real object as a miniature, the same quality as the game's realistic present-day house props: clean, new, well made, never worn or dirty. CAMERA: three-quarter view from slightly above (about 30 degrees), long macro lens look with everything in focus, the same angle and scale in every cell, the object filling about 80 percent of its cell and centred. LIGHT: one large softbox key light from the upper left, a thin strip rim light from the back right for a crisp edge, a subtle cool fill from the left; crisp specular highlights; no cast shadow, no floor, no reflection surface. MATERIAL: true real-world materials named per object (brushed aluminium, chrome, glazed ceramic, enamel, glass, glossy plastic, corrugated cardboard, oak, stone), real colours with saturation held slightly down. OUTLINE: none; a thin darker contact edge from the rim light keeps light objects separate from a dark plate. BACKGROUND: fully transparent, isolated object (fallback: flat solid #FF00FF). EXCLUDE: text, letters, brand logos, printed labels (labels stay blank or plain colour), characters, hands, props around the object, table, backdrop, checkerboard, borders, grid lines, depth-of-field blur. Cell 1 (top left): a burger, a thick grilled beef patty with melted cheese, lettuce and tomato in a toasted sesame bun. Cell 2 (top middle): a wrench, a long chrome combination spanner with an open end and a ring end. Cell 3 (top right): a watering can, a green enamel metal garden watering can with a long spout and a top handle. Cell 4 (bottom left): a battery, a large cylindrical battery cell with a brushed aluminium terminal on top, plain unmarked casing. Cell 5 (bottom middle): a flower in a pot, one tall bloom with two leaves in a plain glazed ceramic pot. Cell 6 (bottom right): a 3D-printed car engine part of an advanced alien design, unpainted matte white printed plastic with fine layer lines, a compact turbine housing with a flange and bolt holes."
+
+# Round 2: ink1 came back as a conventional mobile-game cartoon with a thin line and rendered texture, so the ink
+# style is generated once more with the same guide and a firmer frame (flat poster graphic, no texture, a grown-up
+# bloom instead of a cartoon daisy).
+[variants.ink2]
+prompt = "A 3 by 2 grid of 6 equal cells on a 1536x1024 canvas, one object per cell, each object an inventory icon. Style frame: bold flat screen-print poster graphics for a stylish adult animated comedy, clean vector-like shapes, no rendered texture, no grain, no hatching, no painterly detail; graphic design, not a children's cartoon. A flat editorial ink illustration of the object, for a grown-up comedy game: confident bold brush line in near-black purple #1E1230, even weight about 4 percent of the icon width, with a slight taper at the corners; slightly exaggerated, characterful silhouette, angular rather than bubbly. CAMERA: three-quarter view from slightly above, flat graphic perspective, the same angle and scale in every cell, the object filling about 80 percent of its cell and centred. LIGHT: implied from the upper left only; two-tone cel shading, one flat base colour plus one flat shadow tone, one small hard white highlight; no gradients, no soft shading, no glow. MATERIAL: read only through the flat colour and the shape of the highlight (metal gets a sharp streak, cardboard none, glass a single glint). COLOUR: a limited palette per object, at most three flat colours, muted and slightly desaturated, from deep purple, mint, teal, coral, cream and a real-object colour where needed. OUTLINE: the bold dark line around the outside, thinner inner lines only for the main folds. BACKGROUND: fully transparent, isolated object (fallback: flat solid #FF00FF). EXCLUDE: text, letters, logos, labels, characters, faces, eyes, cute rounding, sticker borders, white outlines, drop shadows, halftone dots, sparkles, checkerboard, grid lines, scenery. Cell 1 (top left): a burger, a thick beef patty with melted cheese, lettuce and tomato in a sesame bun, drawn as a few big flat shapes. Cell 2 (top middle): a wrench, a long combination spanner with an open end and a ring end. Cell 3 (top right): a watering can, a metal garden watering can with a long spout and a top handle. Cell 4 (bottom left): a battery, a large cylindrical battery cell with a raised metal terminal on top, plain unmarked coral casing. Cell 5 (bottom middle): a flower in a pot, one tall elegant red tulip with two long blade leaves in a plain cream ceramic pot, a grown-up houseplant, not a cartoon daisy. Cell 6 (bottom right): a 3D-printed car engine part of an advanced alien design, unpainted white printed plastic, a compact turbine housing with a flange and bolt holes."
+
+[[items]]
+id = "toy1"
+variant = "toy"
+kind = "generate"
+
+[[items]]
+id = "ink1"
+variant = "ink"
+kind = "generate"
+
+[[items]]
+id = "real1"
+variant = "real"
+kind = "generate"
+
+[[items]]
+id = "ink2"
+variant = "ink2"
+kind = "generate"

@@ -1,0 +1,308 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sofia+Sans+Condensed:wght@800&family=Nunito:wght@600;700&family=Rubik:wght@600&display=swap">
+<section class="ga-root" id="ga-dir-a">
+<style>
+/* Direction a, "the sticker grown up": the sticker system with every childish cue turned down. Every UI piece is
+   Godot-safe (solid fills, per-side border widths in one colour, per-corner radii, the edge-form shadow drawn as a
+   thicker bottom border, one text outline); the room behind the HUD is a fake world backdrop, not UI. Each screen is
+   designed at 1920x1080 and scaled to the column by the script at the end. */
+.ga-root { --ga-pu:#24133B; --ga-tile:#33204F; --ga-mint:#C4E8D5; --ga-tx:#D3F0E0; --ga-mu:#A496C4; --ga-ink:#170D26;
+  --ga-gr:#98D94B; --ga-co:#F07A5C; --ga-ye:#FFD60A;
+  --ga-fd:"Sofia Sans Condensed", "Arial Narrow", sans-serif; --ga-ft:"Nunito", "Segoe UI", sans-serif; --ga-fn:"Rubik", "Segoe UI", sans-serif;
+  display: grid; gap: 22px; min-width: 0; }
+.ga-root * { box-sizing: border-box; }
+.ga-head { display: grid; gap: 10px; }
+.ga-h { margin: 0; font-size: clamp(22px, 4vw, 28px); line-height: 1.15; }
+.ga-p { margin: 0; max-width: 66ch; opacity: .85; }
+.ga-sw { display: flex; flex-wrap: wrap; gap: 8px; }
+.ga-s { display: grid; gap: 4px; font: 600 12px/1.2 var(--ga-ft); opacity: .9; }
+.ga-s i { display: block; width: 52px; height: 32px; border-radius: 6px; border: 1px solid rgba(255,255,255,.18); }
+.ga-type { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 18px; }
+.ga-type span { color: inherit; }
+.ga-t1 { font: 800 22px/1.1 var(--ga-fd); text-transform: uppercase; letter-spacing: .06em; }
+.ga-t2 { font: 600 17px/1.3 var(--ga-ft); }
+.ga-t3 { font: 600 20px/1.1 var(--ga-fn); font-variant-numeric: tabular-nums; }
+.ga-sh { display: grid; gap: 8px; }
+.ga-cap { margin: 0; font-size: 14px; opacity: .75; max-width: 66ch; }
+.ga-sh h3 { margin: 0; font-size: 16px; }
+
+/* the frame: a 16:9 window onto a 1920x1080 stage */
+.ga-frame { position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 10px; background: var(--ga-pu); }
+.ga-stage { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 0 0; overflow: hidden;
+  overflow-wrap: normal; color: var(--ga-tx); font: 600 22px/1.364 var(--ga-ft); }
+.ga-stage svg { display: block; }
+.ga-world { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+.ga-abs { position: absolute; }
+
+/* --- the parts: plates, tags, buttons --- */
+.ga-plate { background: var(--ga-mint); color: var(--ga-ink); border: 2px solid var(--ga-ink); border-bottom-width: 3px; border-radius: 4px; }
+.ga-flat { border-bottom-width: 2px; }
+.ga-panel { background: var(--ga-pu); color: var(--ga-tx); border: 3px solid var(--ga-ink); border-radius: 12px; }
+.ga-caps { font-family: var(--ga-fd); font-weight: 800; text-transform: uppercase; letter-spacing: .06em; line-height: 1.1; }
+.ga-tag { display: inline-block; font: 800 18px/1.15 var(--ga-fd); text-transform: uppercase; letter-spacing: .10em; padding: 5px 10px 4px; border-radius: 6px; white-space: nowrap; }
+.ga-tag.ga-ink { background: var(--ga-ink); color: var(--ga-tx); }
+.ga-tag.ga-gr { background: var(--ga-gr); color: var(--ga-ink); border: 2px solid var(--ga-ink); }
+.ga-tag.ga-co { background: var(--ga-co); color: var(--ga-ink); border: 2px solid var(--ga-ink); }
+.ga-btn { display: flex; align-items: center; justify-content: center; height: 60px; padding: 0 28px; border: 2px solid var(--ga-ink); border-bottom-width: 4px; border-radius: 4px;
+  background: var(--ga-mint); color: var(--ga-ink); font: 800 26px/1 var(--ga-fd); text-transform: uppercase; letter-spacing: .06em; white-space: nowrap; transition: background-color 70ms; }
+.ga-btn.ga-p { background: var(--ga-gr); }
+.ga-btn.ga-off { background: var(--ga-mu); border-bottom-width: 2px; height: 58px; margin-top: 2px; }
+/* the focus ring: in Godot a separate focus StyleBoxFlat (draw_center off, expand_margin 5), not a second border */
+.ga-btn.ga-focus { outline: 3px solid var(--ga-mint); outline-offset: 2px; }
+.ga-title { font: 800 44px/1.05 var(--ga-fd); text-transform: uppercase; letter-spacing: .06em; color: var(--ga-tx); -webkit-text-stroke: 6px var(--ga-ink); paint-order: stroke fill; }
+.ga-num { font-family: var(--ga-fn); font-weight: 600; font-variant-numeric: tabular-nums; }
+.ga-mu { color: var(--ga-mu); }
+
+/* --- the round HUD --- */
+.ga-role { left: 40px; top: 40px; padding: 7px 14px 5px; font-size: 20px; letter-spacing: .10em; border-radius: 6px; }
+.ga-timer { left: 50%; top: 22px; transform: translateX(-50%); font: 600 56px/1.185 var(--ga-fn); font-variant-numeric: tabular-nums; color: var(--ga-tx);
+  -webkit-text-stroke: 6px var(--ga-ink); paint-order: stroke fill; letter-spacing: .02em; }
+.ga-anger { left: 50%; top: 100px; width: 300px; height: 18px; transform: translateX(-50%); }
+.ga-bar { position: relative; height: 18px; background: var(--ga-tile); border: 3px solid var(--ga-ink); border-radius: 4px; overflow: hidden; }
+.ga-bar b { position: absolute; left: 0; top: 0; bottom: 0; display: block; border-right: 3px solid var(--ga-ink); }
+.ga-siren { position: absolute; left: calc(100% + 10px); top: 50%; width: 48px; height: 48px; transform: translateY(-58%); }
+.ga-cross { left: 953px; top: 533px; width: 14px; height: 14px; border-radius: 7px; background: var(--ga-tx); border: 2px solid var(--ga-ink); }
+.ga-aim { left: 50%; top: 572px; transform: translateX(-50%); height: 40px; display: flex; align-items: center; padding: 0 14px; background: var(--ga-pu); color: var(--ga-tx);
+  border: 3px solid var(--ga-ink); border-radius: 6px; font: 800 20px/1 var(--ga-fd); text-transform: uppercase; letter-spacing: .10em; white-space: nowrap; }
+.ga-vit { left: 40px; bottom: 44px; width: 300px; display: grid; gap: 12px; }
+.ga-mic { left: 360px; bottom: 40px; width: 64px; height: 64px; display: grid; place-items: center; }
+.ga-mic svg { width: 32px; height: 32px; }
+/* the roster */
+.ga-roster { right: 40px; top: 40px; padding: 14px 20px 12px; background: var(--ga-pu); border: 2px solid var(--ga-ink); border-bottom-width: 3px; border-radius: 6px; min-width: 260px; }
+.ga-rw { height: 40px; display: flex; align-items: center; gap: 12px; font: 700 22px/1 var(--ga-ft); color: var(--ga-tx); white-space: nowrap; }
+.ga-rw.ga-me { color: var(--ga-gr); }
+.ga-rw.ga-dead { color: var(--ga-mu); }
+.ga-dot { flex: none; width: 16px; height: 16px; border-radius: 8px; border: 2px solid var(--ga-ink); }
+.ga-rw .ga-tag { margin-left: auto; font-size: 16px; padding: 3px 7px 2px; }
+/* item bar A */
+.ga-items { right: 40px; bottom: 60px; display: flex; align-items: flex-end; gap: 22px; }
+.ga-slot { position: relative; width: 108px; height: 108px; display: grid; place-items: center; padding-bottom: 2px; color: var(--ga-ink); }
+.ga-slot svg { width: 72px; height: 72px; }
+.ga-slot.ga-hand { width: 128px; height: 128px; }
+.ga-slot.ga-hand svg { width: 88px; height: 88px; }
+.ga-slot.ga-on { background: var(--ga-gr); }
+.ga-slot.ga-empty svg { opacity: .4; }
+.ga-slot .ga-tag { position: absolute; left: 50%; bottom: -19px; transform: translateX(-50%); font-size: 20px; padding: 5px 10px 4px; }
+
+/* --- the mutation workbench --- */
+.ga-shade { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; background: rgba(36, 19, 59, .84); }
+.ga-wb { left: 50%; top: 50%; transform: translate(-50%, -50%); width: 1260px; padding: 36px 44px 32px; display: grid; gap: 30px; border-bottom-width: 7px; }
+.ga-wb-top { display: flex; justify-content: space-between; align-items: center; }
+.ga-bal { display: flex; align-items: center; gap: 18px; height: 64px; padding: 0 22px; background: var(--ga-tile); border-radius: 8px; }
+.ga-bal .ga-tag { padding: 0; font-size: 18px; color: var(--ga-mu); }
+.ga-bal .ga-num { font-size: 44px; line-height: 1; color: var(--ga-tx); }
+.ga-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+.ga-card { display: grid; grid-template-rows: auto auto 1fr auto; gap: 12px; padding: 26px 26px 28px; border-radius: 4px; }
+.ga-card .ga-nm { font: 800 28px/1.1 var(--ga-fd); text-transform: uppercase; letter-spacing: .06em; }
+.ga-card .ga-fx { font: 600 22px/1.364 var(--ga-ft); }
+.ga-cost { display: flex; align-items: baseline; gap: 12px; align-self: end; margin: 6px 0 4px; }
+.ga-cost .ga-num { font-size: 88px; line-height: 1; }
+.ga-cost .ga-caps { font-size: 22px; letter-spacing: .10em; }
+.ga-card.ga-dim { background: var(--ga-tile); color: var(--ga-tx); }
+.ga-card.ga-dim .ga-fx { color: var(--ga-mu); }
+.ga-card.ga-dim .ga-cost { color: var(--ga-mu); }
+.ga-card.ga-dim .ga-btn.ga-off { background: var(--ga-tile); color: var(--ga-mu); border-color: var(--ga-ink); }
+.ga-wb-foot { display: flex; align-items: center; gap: 12px; color: var(--ga-mu); font: 600 22px/1 var(--ga-ft); }
+.ga-key { display: inline-flex; align-items: center; height: 40px; padding: 0 12px; font: 800 18px/1 var(--ga-fd); text-transform: uppercase; letter-spacing: .10em; border-radius: 6px; }
+
+/* --- full screens: the role reveal and the end --- */
+.ga-full { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; background: var(--ga-pu); display: grid; align-content: center; justify-items: center; gap: 32px; text-align: center; }
+.ga-band { width: 1920px; padding: 52px 0 48px; display: grid; justify-items: center; gap: 18px; background: var(--ga-mint); border-bottom: 4px solid var(--ga-ink); }
+.ga-band .ga-title { font-size: 112px; line-height: 1; letter-spacing: .04em; color: var(--ga-ink); -webkit-text-stroke: 0; }
+.ga-full .ga-band .ga-label { color: var(--ga-ink); }
+.ga-full .ga-label { font: 800 20px/1 var(--ga-fd); text-transform: uppercase; letter-spacing: .22em; color: var(--ga-mu); }
+.ga-full.ga-over { background: rgba(36, 19, 59, .9); }
+.ga-goal { width: 900px; padding: 26px 48px 28px; font: 600 28px/1.364 var(--ga-ft); color: var(--ga-tx); background: var(--ga-tile); border-radius: 4px; text-wrap: balance; }
+.ga-win { padding: 16px 34px 14px; font: 800 28px/1.1 var(--ga-fd); text-transform: uppercase; letter-spacing: .08em; }
+.ga-full .ga-tag { font-size: 20px; padding: 7px 14px 6px; }
+.ga-full .ga-tag .ga-num { font-size: 21px; letter-spacing: .02em; color: var(--ga-mint); }
+.ga-back { font: 600 22px/1 var(--ga-ft); color: var(--ga-mu); }
+.ga-corner { position: absolute; left: 40px; bottom: 36px; font: 800 18px/1 var(--ga-fd); letter-spacing: .22em; color: var(--ga-mu); text-transform: uppercase; }
+
+/* close-up stage */
+.ga-zoom .ga-stage { width: 1200px; height: 500px; }
+.ga-zoom .ga-zset { position: absolute; }
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <!-- item pictograms: pages/components/icons item2-* (own work), fill switched to currentColor so the slot sets the ink -->
+  <symbol id="ga-item2-rocket" viewBox="0 0 48 48"><path d="M11.5,15 L20,2.5 L28.5,15 Z" fill="currentColor"/><path d="M15,14 L25,14 A2,2 0 0 1 27,16 L27,32 A2,2 0 0 1 25,34 L15,34 A2,2 0 0 1 13,32 L13,16 A2,2 0 0 1 15,14 Z M13,20 L27,20 A0,0 0 0 1 27,20 L27,22.4 A0,0 0 0 1 27,22.4 L13,22.4 A0,0 0 0 1 13,22.4 L13,20 A0,0 0 0 1 13,20 Z" fill="currentColor" fill-rule="evenodd"/><path d="M30.3,18 L30.3,18 A1.8,1.8 0 0 1 32.1,19.8 L32.1,44.2 A1.8,1.8 0 0 1 30.3,46 L30.3,46 A1.8,1.8 0 0 1 28.5,44.2 L28.5,19.8 A1.8,1.8 0 0 1 30.3,18 Z" fill="currentColor"/><path d="M20,34 C20,38 17,38 17,42" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="ga-item2-bun" viewBox="0 0 48 48"><path d="M6,25 C6,13 15,7 24,7 C33,7 42,13 42,25 A2,2 0 0 1 40,27 L8,27 A2,2 0 0 1 6,25 Z M13.56,14.89 A2.6,1.5 -20 1 0 18.44,13.11 A2.6,1.5 -20 1 0 13.56,14.89 Z M21.9,11 A2.6,1.5 0 1 0 27.1,11 A2.6,1.5 0 1 0 21.9,11 Z M29.56,13.61 A2.6,1.5 20 1 0 34.44,15.39 A2.6,1.5 20 1 0 29.56,13.61 Z M17.43,19.86 A2.6,1.5 -8 1 0 22.57,19.14 A2.6,1.5 -8 1 0 17.43,19.86 Z M25.94,19.05 A2.6,1.5 10 1 0 31.06,19.95 A2.6,1.5 10 1 0 25.94,19.05 Z" fill="currentColor" fill-rule="evenodd"/><path d="M7,31 L41,31 L41,36.5 A4.5,4.5 0 0 1 36.5,41 L11.5,41 A4.5,4.5 0 0 1 7,36.5 Z" fill="currentColor"/></symbol>
+  <!-- the empty slots: pages/components/icons slot-empty-* (own work), stroke switched to currentColor -->
+  <symbol id="ga-slot-empty-hand" viewBox="0 0 64 64"><path d="M22 58q-8-14-4-28l2-12q2-5 5 0l2 12 2-18q3-5 6 0l1 18 3-13q3-5 5 0v15q4-4 7-1 1 3-3 9-4 10-6 18z" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linejoin="round"/></symbol>
+  <symbol id="ga-slot-empty-belt" viewBox="0 0 64 64"><path d="M14 18H50V44Q50 56 32 56Q14 56 14 44zM14 18L32 30 50 18" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linejoin="round"/></symbol>
+  <!-- the siren, redrawn for this direction (own work): calm a lilac dome, rising a coral dome with three short rays -->
+  <symbol id="ga-siren-off" viewBox="0 0 48 48"><path d="M13 37V26a11 11 0 0 1 22 0V37z" fill="#A496C4" stroke="#170D26" stroke-width="3" stroke-linejoin="round"/><rect x="8" y="36" width="32" height="8" rx="2" fill="#170D26"/><rect x="18.5" y="23" width="3.5" height="9" rx="1.75" fill="#D3F0E0"/></symbol>
+  <symbol id="ga-siren-on" viewBox="0 0 48 48"><g stroke="#170D26" stroke-width="3" stroke-linecap="round"><path d="M24 3V8M8.5 9.5L12 13M39.5 9.5L36 13"/></g><path d="M13 37V26a11 11 0 0 1 22 0V37z" fill="#F07A5C" stroke="#170D26" stroke-width="3" stroke-linejoin="round"/><rect x="8" y="36" width="32" height="8" rx="2" fill="#170D26"/><rect x="18.5" y="23" width="3.5" height="9" rx="1.75" fill="#D3F0E0"/></symbol>
+  <!-- the mic, the HUD's voice badge (own work) -->
+  <symbol id="ga-mic" viewBox="0 0 32 32"><rect x="11" y="2" width="10" height="17" rx="5" fill="#170D26"/><path d="M6 14a10 10 0 0 0 20 0" fill="none" stroke="#170D26" stroke-width="3" stroke-linecap="round"/><rect x="14.5" y="23" width="3" height="6" fill="#170D26"/><rect x="10" y="28" width="12" height="3" rx="1.5" fill="#170D26"/></symbol>
+  <!-- the fake world: a lived-in living room at night, flat shapes in the house's real materials (not UI) -->
+  <symbol id="ga-room" viewBox="0 0 1920 1080">
+    <rect width="1920" height="780" fill="#CDB89D"/>
+    <rect width="1920" height="44" fill="#E4D8C6"/><rect y="44" width="1920" height="8" fill="#BBA588"/>
+    <rect x="0" y="560" width="1920" height="200" fill="#B9A287"/><rect y="556" width="1920" height="8" fill="#9C8468"/>
+    <!-- window onto the woods -->
+    <rect x="110" y="140" width="560" height="440" fill="#4B3122"/>
+    <rect x="132" y="162" width="516" height="396" fill="#1D2B2C"/>
+    <circle cx="560" cy="236" r="26" fill="#E6DEC4"/>
+    <path d="M132 558V430L180 330L228 430L262 380L310 470L350 360L404 470L446 400L496 490L540 410L600 500L648 450V558Z" fill="#111B1A"/>
+    <rect x="384" y="162" width="12" height="396" fill="#4B3122"/><rect x="132" y="354" width="516" height="12" fill="#4B3122"/>
+    <rect x="92" y="578" width="596" height="22" fill="#5D3F2C"/>
+    <!-- stone fireplace with an oak mantel -->
+    <rect x="1040" y="300" width="520" height="460" fill="#8D867A"/>
+    <g fill="#9E978A"><rect x="1056" y="318" width="120" height="52" rx="4"/><rect x="1188" y="318" width="150" height="52" rx="4"/><rect x="1350" y="318" width="194" height="52" rx="4"/><rect x="1056" y="382" width="88" height="52" rx="4"/><rect x="1156" y="382" width="170" height="52" rx="4"/><rect x="1338" y="382" width="110" height="52" rx="4"/><rect x="1460" y="382" width="84" height="52" rx="4"/><rect x="1056" y="446" width="90" height="300" rx="4"/><rect x="1454" y="446" width="90" height="300" rx="4"/></g>
+    <rect x="1160" y="470" width="280" height="290" fill="#231B17"/>
+    <path d="M1222 760C1214 700 1262 690 1258 640C1300 676 1290 610 1324 586C1330 640 1384 652 1370 700C1392 690 1394 726 1384 760Z" fill="#E07B36"/>
+    <path d="M1262 760C1258 724 1290 716 1296 684C1318 708 1344 720 1336 760Z" fill="#F2BE57"/>
+    <rect x="1012" y="276" width="576" height="30" fill="#6A452E"/>
+    <rect x="1080" y="222" width="18" height="54" rx="4" fill="#2E5A3B"/><rect x="1110" y="236" width="18" height="40" rx="4" fill="#7C3A2B"/><rect x="1490" y="200" width="56" height="76" rx="3" fill="#E8E1D2"/><rect x="1497" y="208" width="42" height="56" fill="#3E4C55"/>
+    <!-- doorway into the tiled kitchen -->
+    <rect x="1650" y="220" width="270" height="540" fill="#EDE7DB"/>
+    <g fill="#D4CBBA"><rect x="1650" y="268" width="270" height="3"/><rect x="1650" y="318" width="270" height="3"/><rect x="1650" y="368" width="270" height="3"/><rect x="1650" y="418" width="270" height="3"/><rect x="1700" y="220" width="3" height="300"/><rect x="1760" y="220" width="3" height="300"/><rect x="1820" y="220" width="3" height="300"/><rect x="1880" y="220" width="3" height="300"/></g>
+    <rect x="1650" y="520" width="270" height="26" fill="#3A3532"/><rect x="1650" y="546" width="270" height="214" fill="#6E4A33"/>
+    <rect x="1760" y="470" width="8" height="50" fill="#B7BCC0"/><rect x="1760" y="470" width="34" height="8" fill="#B7BCC0"/>
+    <rect x="1636" y="206" width="14" height="554" fill="#5D3F2C"/><rect x="1636" y="206" width="284" height="14" fill="#5D3F2C"/>
+    <!-- pendant lamp -->
+    <rect x="778" y="52" width="4" height="120" fill="#2A2522"/><path d="M740 210L760 168H800L820 210Z" fill="#2A2522"/><rect x="762" y="210" width="36" height="10" rx="5" fill="#F4D58A"/>
+    <!-- oak floor -->
+    <rect y="760" width="1920" height="320" fill="#946440"/>
+    <rect y="752" width="1920" height="12" fill="#EFE7D9"/>
+    <g stroke="#7F5435" stroke-width="4"><path d="M960 764L960 1080M800 764L560 1080M640 764L160 1080M480 764L-240 1080M320 764L-640 1080M1120 764L1360 1080M1280 764L1760 1080M1440 764L2160 1080M1600 764L2560 1080"/><path d="M0 850H1920M0 960H1920" stroke-width="3"/></g>
+    <!-- rug, sofa, the party's leftovers -->
+    <path d="M470 840H1450L1560 1010H360Z" fill="#3F4C57"/>
+    <rect x="300" y="600" width="600" height="96" rx="18" fill="#59654F"/>
+    <rect x="280" y="670" width="640" height="130" rx="20" fill="#65735A"/>
+    <rect x="260" y="640" width="64" height="168" rx="18" fill="#59654F"/><rect x="876" y="640" width="64" height="168" rx="18" fill="#59654F"/>
+    <rect x="290" y="800" width="16" height="22" fill="#2A2522"/><rect x="894" y="800" width="16" height="22" fill="#2A2522"/>
+    <path d="M1040 900L1220 870L1290 930L1110 962Z" fill="#D5B086"/><path d="M1060 900L1210 876L1268 926L1118 952Z" fill="#C79E70"/>
+    <g fill="#B9BEC2"><rect x="1330" y="900" width="22" height="40" rx="4"/><rect x="1362" y="912" width="22" height="40" rx="4"/></g>
+    <rect x="1170" y="808" width="40" height="22" rx="4" fill="#B9BEC2" transform="rotate(-70 1190 819)"/>
+    <rect x="1330" y="910" width="22" height="10" fill="#2E5A3B"/><rect x="1362" y="922" width="22" height="10" fill="#7C3A2B"/>
+  </symbol>
+</svg>
+
+<header class="ga-head">
+  <h2 class="ga-h">а · Стікер, що подорослішав</h2>
+  <p class="ga-p">Та сама наліпка: фіолетові панелі, м'ятні плашки, чорнильний край і зелений для головної дії, але все дитяче приглушено: обведення 2 px замість 4, від тіні лишився нижній край 3 px, кути 4 px, «пігулок» немає. Зелений тепер тільки для «натисни» й «іди»: здоров'я м'ятне, заголовки світлі. Заголовки й кнопки тепер вузький гротеск великими літерами з розрядкою, текст напівжирний замість найжирнішого, м'ята трохи сіріша, а зелений і корал на крок глибші.</p>
+  <div class="ga-sw">
+    <span class="ga-s"><i style="background:#24133B"></i>#24133B</span>
+    <span class="ga-s"><i style="background:#33204F"></i>#33204F</span>
+    <span class="ga-s"><i style="background:#C4E8D5"></i>#C4E8D5</span>
+    <span class="ga-s"><i style="background:#D3F0E0"></i>#D3F0E0</span>
+    <span class="ga-s"><i style="background:#A496C4"></i>#A496C4</span>
+    <span class="ga-s"><i style="background:#170D26"></i>#170D26</span>
+    <span class="ga-s"><i style="background:#98D94B"></i>#98D94B</span>
+    <span class="ga-s"><i style="background:#F07A5C"></i>#F07A5C</span>
+    <span class="ga-s"><i style="background:#FFD60A"></i>#FFD60A</span>
+  </div>
+  <div class="ga-type"><span class="ga-t1">Sofia Sans Condensed 800</span><span class="ga-t2">Nunito 600 і 700</span><span class="ga-t3">Rubik 600 · 07:42</span></div>
+</header>
+
+<!-- 1. The round HUD -->
+<div class="ga-sh">
+  <h3>1 · Раунд</h3>
+  <div class="ga-frame"><div class="ga-stage">
+    <svg class="ga-world" viewBox="0 0 1920 1080"><use href="#ga-room"/></svg>
+    <span class="ga-abs ga-role ga-plate ga-caps">Прибулець</span>
+    <div class="ga-abs ga-timer">07:42</div>
+    <div class="ga-abs ga-anger"><div class="ga-bar"><b style="width:55%;background:var(--ga-co)"></b></div><svg class="ga-siren"><use href="#ga-siren-on"/></svg></div>
+    <div class="ga-abs ga-roster">
+      <div class="ga-rw ga-me"><i class="ga-dot" style="background:#7C5CC8"></i>Олена (ти)</div>
+      <div class="ga-rw"><i class="ga-dot" style="background:#1C7A82"></i>Ґлорп</div>
+      <div class="ga-rw"><i class="ga-dot" style="background:#E66B57"></i>Їжак</div>
+      <div class="ga-rw"><i class="ga-dot" style="background:#E8B04A"></i>Бульк</div>
+      <div class="ga-rw"><i class="ga-dot" style="background:#4AA3DF"></i>Зінґа</div>
+      <div class="ga-rw ga-dead"><i class="ga-dot" style="background:#D46FB0"></i>Тарас · поза грою</div>
+    </div>
+    <div class="ga-abs ga-cross"></div>
+    <span class="ga-abs ga-aim">Сміттєвий бак</span>
+    <div class="ga-abs ga-vit"><div class="ga-bar"><b style="width:80%;background:var(--ga-mint)"></b></div><div class="ga-bar"><b style="width:55%;background:var(--ga-ye)"></b></div></div>
+    <div class="ga-abs ga-mic ga-plate"><svg><use href="#ga-mic"/></svg></div>
+    <div class="ga-abs ga-items">
+      <div class="ga-slot ga-hand ga-plate ga-on"><svg><use href="#ga-item2-rocket"/></svg><span class="ga-tag ga-ink">Феєрверк</span></div>
+      <div class="ga-slot ga-plate"><svg><use href="#ga-item2-bun"/></svg><span class="ga-tag ga-ink">Булка</span></div>
+    </div>
+  </div></div>
+  <p class="ga-cap">Час без плашки, під ним гнів сусідів, сирена праворуч; список гравців угорі праворуч; у руці феєрверк, на поясі булка. Нижче ті самі частини крупно, очима людини: бирки «людина», гнів спокійний, руки порожні.</p>
+  <div class="ga-frame ga-zoom" data-w="1200" style="aspect-ratio:1200/500"><div class="ga-stage">
+    <svg class="ga-world" viewBox="0 0 1920 1080" style="width:1920px;height:1080px;left:-720px;top:-40px"><use href="#ga-room"/></svg>
+    <span class="ga-abs ga-role ga-plate ga-caps" style="background:var(--ga-co)">Людина</span>
+    <div class="ga-abs ga-timer" style="left:330px">07:42</div>
+    <div class="ga-abs ga-anger" style="left:330px"><div class="ga-bar"><b style="width:12%;background:var(--ga-co)"></b></div><svg class="ga-siren"><use href="#ga-siren-off"/></svg></div>
+    <div class="ga-abs ga-roster">
+      <div class="ga-rw ga-me"><i class="ga-dot" style="background:#E8B04A"></i>Бульк (ти)<span class="ga-tag ga-co">Людина</span></div>
+      <div class="ga-rw"><i class="ga-dot" style="background:#7C5CC8"></i>Олена</div>
+      <div class="ga-rw"><i class="ga-dot" style="background:#1C7A82"></i>Ґлорп</div>
+      <div class="ga-rw"><i class="ga-dot" style="background:#E66B57"></i>Їжак</div>
+      <div class="ga-rw"><i class="ga-dot" style="background:#4AA3DF"></i>Зінґа<span class="ga-tag ga-co">Людина</span></div>
+      <div class="ga-rw ga-dead"><i class="ga-dot" style="background:#D46FB0"></i>Тарас · поза грою</div>
+    </div>
+    <div class="ga-abs ga-vit"><div class="ga-bar"><b style="width:80%;background:var(--ga-mint)"></b></div><div class="ga-bar"><b style="width:55%;background:var(--ga-ye)"></b></div></div>
+    <div class="ga-abs ga-mic ga-plate"><svg><use href="#ga-mic"/></svg></div>
+    <div class="ga-abs ga-items" style="right:auto;left:500px">
+      <div class="ga-slot ga-hand ga-plate ga-on ga-empty"><svg><use href="#ga-slot-empty-hand"/></svg></div>
+      <div class="ga-slot ga-plate ga-empty"><svg><use href="#ga-slot-empty-belt"/></svg></div>
+    </div>
+  </div></div>
+</div>
+
+<!-- 6. The mutation workbench -->
+<div class="ga-sh">
+  <h3>6 · Мутаційний верстат</h3>
+  <div class="ga-frame"><div class="ga-stage">
+    <svg class="ga-world" viewBox="0 0 1920 1080"><use href="#ga-room"/></svg>
+    <div class="ga-shade"></div>
+    <div class="ga-abs ga-wb ga-panel">
+      <div class="ga-wb-top"><span class="ga-title">Мутаційний верстат</span><div class="ga-bal"><span class="ga-tag">У тебе очок</span><span class="ga-num">7</span></div></div>
+      <div class="ga-cards">
+        <div class="ga-card ga-plate"><span class="ga-nm">Швидкі ноги</span><span class="ga-fx">Бігаєш швидше</span><div class="ga-cost"><span class="ga-num">4</span><span class="ga-caps">очки</span></div><span class="ga-btn ga-p ga-focus">Мутувати</span></div>
+        <div class="ga-card ga-plate"><span class="ga-nm">Пружні ноги</span><span class="ga-fx">Стрибаєш вище</span><div class="ga-cost"><span class="ga-num">3</span><span class="ga-caps">очки</span></div><span class="ga-btn ga-p">Мутувати</span></div>
+        <div class="ga-card ga-plate ga-dim"><span class="ga-nm">Товста шкіра</span><span class="ga-fx">Більше здоров'я</span><div class="ga-cost"><span class="ga-num">9</span><span class="ga-caps">очок</span></div><span class="ga-btn ga-off">Бракує 2</span></div>
+      </div>
+      <div class="ga-wb-foot"><span class="ga-key ga-plate">Esc</span><span>— закрити</span></div>
+    </div>
+  </div></div>
+  <p class="ga-cap">Дві картки можна купити, третя притьмарена: бракує очок. Ціна великим числом. Перша кнопка у фокусі: м'ятне кільце 3 px з проміжком 2 px.</p>
+</div>
+
+<!-- 8. Role reveal: alien -->
+<div class="ga-sh">
+  <h3>8 · Показ ролі: прибулець</h3>
+  <div class="ga-frame"><div class="ga-stage">
+    <div class="ga-full">
+      <div class="ga-band"><span class="ga-label">Твоя роль</span><div class="ga-title">Прибулець</div></div>
+      <div class="ga-goal">Влаштуй найкращу вечірку: виконай усі задачі, поки не скінчився час і не приїхали копи.</div>
+    </div>
+  </div></div>
+</div>
+
+<!-- 10. The end: aliens won -->
+<div class="ga-sh">
+  <h3>10 · Кінець: прибульці перемогли</h3>
+  <div class="ga-frame"><div class="ga-stage">
+    <svg class="ga-world" viewBox="0 0 1920 1080"><use href="#ga-room"/></svg>
+    <div class="ga-full ga-over">
+      <div class="ga-band"><div class="ga-title">Вечірка вдалася!</div></div>
+      <div class="ga-win ga-plate">Прибульці перемогли</div>
+      <span class="ga-tag ga-ink">Усі задачі виконано за <span class="ga-num">08:12</span></span>
+      <span class="ga-back">Повернення на корабель через 3…</span>
+    </div>
+  </div></div>
+</div>
+
+<script>
+(function () {
+  var frames = document.querySelectorAll("#ga-dir-a .ga-frame");
+  function fit() {
+    for (var i = 0; i < frames.length; i++) {
+      var f = frames[i], st = f.querySelector(".ga-stage");
+      st.style.transform = "scale(" + f.clientWidth / (+f.getAttribute("data-w") || 1920) + ")";
+    }
+  }
+  fit();
+  if ("ResizeObserver" in window) new ResizeObserver(fit).observe(document.getElementById("ga-dir-a")); else addEventListener("resize", fit);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+})();
+</script>
+</section>

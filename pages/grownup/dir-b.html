@@ -1,0 +1,300 @@
+<section class="gb" id="gb-direction">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- Fonts, all OFL, all with a Cyrillic subset (checked in the Google Fonts CSS, 2026-10-21: U+0400-045F, U+0490-0491).
+     Dela Gothic One ships CJK too (about 2.4 MB); the Google CSS splits it by unicode-range, so the page only pulls the
+     Latin and Cyrillic slices; the game's copy must be subset the same way. -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Golos+Text:wght@500;600;700&family=Oswald:wght@600;700&display=swap">
+<style>
+/* Direction B, "Broadcast graphics". Page chrome first, then the frames. Inside the frames every UI piece is Godot-safe:
+   solid fills, per-side borders in one colour, radius 0, at most one hard shadow (full-screen cards only), no outlines
+   except 2 px ink on small mint pieces over the world. The world backdrop (.gb-world) is not UI and may use anything. */
+.gb { --gb-ground:#1A0E2B; --gb-band:#2B1846; --gb-hover:#3C2660; --gb-mint:#CFF3DF; --gb-text:#EEF9F2; --gb-mu:#A89BCA;
+  --gb-ink:#120A1E; --gb-gr:#A6E85A; --gb-co:#FF7A59; --gb-ye:#FFD60A;
+  --gb-title:"Dela Gothic One", "Arial Black", sans-serif; --gb-cap:"Oswald", "Arial Narrow", sans-serif;
+  --gb-body:"Golos Text", "Segoe UI", sans-serif;
+  display: grid; gap: 28px; }
+.gb-head { display: grid; gap: 12px; }
+.gb-head h2 { margin: 0; font: 400 clamp(26px, 5vw, 38px)/1.05 var(--gb-title); letter-spacing: .01em; }
+.gb-head p { margin: 0; max-width: 66ch; font: 500 16px/1.5 var(--gb-body); opacity: .86; }
+.gb-sw { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 2px; }
+.gb-sw div { display: grid; align-content: end; min-height: 64px; padding: 8px 10px; box-sizing: border-box;
+  font: 600 11px/1.25 var(--gb-cap); letter-spacing: .08em; text-transform: uppercase; }
+.gb-sw b { display: block; font-weight: 700; font-size: 13px; }
+.gb-fonts { display: flex; flex-wrap: wrap; gap: 2px; }
+.gb-fonts span { background: var(--gb-band); color: var(--gb-text); padding: 8px 12px; font-size: 15px; line-height: 1.2; }
+.gb-fonts .t { font-family: var(--gb-title); }
+.gb-fonts .c { font: 600 15px/1.2 var(--gb-cap); letter-spacing: .08em; text-transform: uppercase; }
+.gb-fonts .b { font: 500 15px/1.2 var(--gb-body); }
+.gb-shot { margin: 0; display: grid; gap: 8px; }
+.gb-shot figcaption { font: 600 14px/1.3 var(--gb-cap); letter-spacing: .08em; text-transform: uppercase; opacity: .8; }
+.gb-note { margin: 0; max-width: 66ch; font: 500 14px/1.45 var(--gb-body); opacity: .75; }
+
+/* The 16:9 frame: the stage is drawn at 1920x1080 and scaled to the column by the script at the end. */
+.gb-frame { position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; background: var(--gb-ground); }
+.gb-stage { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 0 0; overflow: hidden;
+  transform: scale(.25); font-family: var(--gb-body); color: var(--gb-text); }
+.gb-stage * { box-sizing: border-box; }
+.gb-a { position: absolute; }
+
+/* ---------- The world: a present-day room, flat shapes in the house's warm tones (not UI) ---------- */
+.gb-world { position: absolute; inset: 0; background: #D7C6A8; }
+.gb-world i { position: absolute; display: block; }
+.gb-world .wall2 { left: 1240px; top: 0; width: 680px; height: 700px; background: #CDB894; }
+.gb-world .floor { left: 0; top: 700px; width: 1920px; height: 380px; background: #9C6B45;
+  background-image: repeating-linear-gradient(90deg, rgba(0,0,0,0) 0 236px, rgba(60,32,14,.28) 236px 240px); }
+.gb-world .skirt { left: 0; top: 688px; width: 1920px; height: 22px; background: #EFE8DB; }
+.gb-world .win { left: 110px; top: 110px; width: 520px; height: 470px; background: #EFE8DB; }
+.gb-world .glass { left: 128px; top: 128px; width: 484px; height: 434px; background: #1D2F2B; }
+.gb-world .tree1 { left: 150px; top: 250px; width: 120px; height: 312px; background: #142320; }
+.gb-world .tree2 { left: 330px; top: 190px; width: 150px; height: 372px; background: #172824; }
+.gb-world .tree3 { left: 520px; top: 300px; width: 92px; height: 262px; background: #142320; }
+.gb-world .mull1 { left: 362px; top: 128px; width: 16px; height: 434px; background: #EFE8DB; }
+.gb-world .mull2 { left: 128px; top: 336px; width: 484px; height: 16px; background: #EFE8DB; }
+.gb-world .curtain { left: 60px; top: 90px; width: 70px; height: 600px; background: #7E2F2A; }
+.gb-world .stone { left: 760px; top: 250px; width: 420px; height: 440px; background: #8C8378;
+  background-image: repeating-linear-gradient(0deg, rgba(0,0,0,0) 0 52px, rgba(40,34,28,.35) 52px 56px),
+                    repeating-linear-gradient(90deg, rgba(0,0,0,0) 0 96px, rgba(40,34,28,.25) 96px 100px); }
+.gb-world .mantel { left: 730px; top: 236px; width: 480px; height: 30px; background: #6A4228; }
+.gb-world .hearth { left: 860px; top: 470px; width: 220px; height: 220px; background: #2A201B; }
+.gb-world .fire { left: 900px; top: 590px; width: 140px; height: 100px; background: #E2793A; }
+.gb-world .fire2 { left: 935px; top: 560px; width: 70px; height: 130px; background: #F2B04A; }
+.gb-world .frame1 { left: 840px; top: 90px; width: 260px; height: 130px; background: #2E2A27; }
+.gb-world .frame1b { left: 852px; top: 102px; width: 236px; height: 106px; background: #B65E3C; }
+.gb-world .upper { left: 1300px; top: 90px; width: 400px; height: 210px; background: #EEE7DA; }
+.gb-world .upper2 { left: 1498px; top: 90px; width: 4px; height: 210px; background: #CFC6B5; }
+.gb-world .tile { left: 1300px; top: 300px; width: 400px; height: 220px; background: #E9E3D6;
+  background-image: repeating-linear-gradient(0deg, rgba(0,0,0,0) 0 36px, #CBC3B2 36px 38px),
+                    repeating-linear-gradient(90deg, rgba(0,0,0,0) 0 72px, #CBC3B2 72px 74px); }
+.gb-world .counter { left: 1280px; top: 516px; width: 440px; height: 26px; background: #3C3836; }
+.gb-world .cab { left: 1290px; top: 542px; width: 420px; height: 158px; background: #2F4A46; }
+.gb-world .cab2 { left: 1498px; top: 552px; width: 4px; height: 138px; background: #253B38; }
+.gb-world .fridge { left: 1730px; top: 60px; width: 190px; height: 640px; background: #B8BDC1; }
+.gb-world .fridge2 { left: 1730px; top: 300px; width: 190px; height: 6px; background: #8E9499; }
+.gb-world .handle { left: 1748px; top: 140px; width: 10px; height: 120px; background: #E3E7EA; }
+.gb-world .lamp { left: 1484px; top: 0; width: 4px; height: 70px; background: #333; }
+.gb-world .rug { left: 520px; top: 800px; width: 860px; height: 220px; background: #6E3A30; }
+.gb-world .rug2 { left: 548px; top: 822px; width: 804px; height: 176px; background: #7F4636; }
+.gb-world .sofa { left: 120px; top: 640px; width: 620px; height: 230px; background: #4F6358; }
+.gb-world .sofa2 { left: 150px; top: 580px; width: 560px; height: 120px; background: #5B7065; }
+.gb-world .sofa3 { left: 100px; top: 620px; width: 60px; height: 250px; background: #46584E; }
+.gb-world .sofa4 { left: 700px; top: 620px; width: 60px; height: 250px; background: #46584E; }
+.gb-world .box { left: 1020px; top: 840px; width: 230px; height: 40px; background: #E6D3AE; }
+.gb-world .can1 { left: 1300px; top: 820px; width: 34px; height: 60px; background: #C7CDD1; }
+.gb-world .can2 { left: 1346px; top: 832px; width: 34px; height: 48px; background: #2F6E9E; }
+.gb-shade { position: absolute; inset: 0; background: rgba(18, 10, 30, .72); }
+
+/* ---------- HUD ---------- */
+.gb-cap { font-family: var(--gb-cap); font-weight: 600; text-transform: uppercase; letter-spacing: .08em; }
+.gb-role { left: 48px; top: 48px; height: 44px; padding: 0 18px; display: flex; align-items: center; background: var(--gb-mint);
+  color: var(--gb-ink); border: 2px solid var(--gb-ink); font-size: 22px; }
+/* the scorebug: an ink block with a green top edge, centred at the top, the anger strip flush under it */
+.gb-bug { left: 876px; top: 32px; width: 168px; height: 72px; background: var(--gb-ink); border-top: 6px solid var(--gb-gr);
+  display: grid; place-items: center; font: 700 60px/1 var(--gb-cap); font-variant-numeric: tabular-nums; letter-spacing: .02em; color: var(--gb-text); }
+.gb-anger { left: 792px; top: 104px; width: 336px; height: 20px; background: var(--gb-band); }
+.gb-anger b { position: absolute; left: 0; top: 0; bottom: 0; background: var(--gb-co); }
+.gb-sir { position: absolute; left: 336px; top: 0; width: 48px; height: 48px; display: grid; place-items: center; }
+.gb-sir svg { width: 36px; height: 36px; }
+.gb-sir.calm { background: var(--gb-band); color: var(--gb-mint); }
+.gb-sir.hot { background: var(--gb-co); color: var(--gb-ink); }
+/* the roster: flat bands, a body-colour stripe at the left */
+.gb-roster { right: 48px; top: 48px; width: 296px; display: grid; gap: 2px; }
+.gb-roster div { height: 44px; display: flex; align-items: center; gap: 14px; padding-right: 14px; background: var(--gb-ground);
+  font: 600 22px/1 var(--gb-body); color: var(--gb-text); white-space: nowrap; }
+.gb-roster i { width: 8px; height: 44px; flex: none; }
+.gb-roster .me { background: var(--gb-mint); color: var(--gb-ink); }
+.gb-roster .dead { color: var(--gb-mu); }
+.gb-roster .dead i { opacity: .4; }
+.gb-roster .hm { margin-left: auto; height: 26px; padding: 0 8px; display: flex; align-items: center; background: var(--gb-co);
+  color: var(--gb-ink); font: 600 16px/1 var(--gb-cap); letter-spacing: .08em; text-transform: uppercase; }
+/* the crosshair and the thing aimed at */
+.gb-cross { left: 954px; top: 534px; width: 12px; height: 12px; background: var(--gb-text); border: 2px solid var(--gb-ink); }
+.gb-aim { left: 50%; top: 570px; transform: translateX(-50%); height: 36px; padding: 0 14px; display: flex; align-items: center;
+  background: var(--gb-mint); color: var(--gb-ink); border: 2px solid var(--gb-ink); font-size: 20px; white-space: nowrap; }
+/* health (mint, since green means only "press or go") and stamina (yellow), the mic */
+.gb-bars { left: 48px; bottom: 48px; width: 300px; display: grid; gap: 4px; }
+.gb-bars div { position: relative; height: 22px; background: var(--gb-ground); }
+.gb-bars b { position: absolute; left: 0; top: 0; bottom: 0; }
+.gb-mic { left: 360px; bottom: 48px; width: 48px; height: 48px; display: grid; place-items: center; background: var(--gb-ground); color: var(--gb-mint); }
+.gb-mic svg { width: 32px; height: 32px; }
+/* the item bar: hand and belt tiles, the name strip at the bottom */
+.gb-items { right: 48px; bottom: 48px; display: flex; align-items: flex-end; gap: 8px; }
+.gb-sl { position: relative; display: grid; grid-template-rows: 1fr auto; justify-items: center; align-items: center;
+  background: var(--gb-band); color: var(--gb-text); }
+.gb-sl.hand { width: 128px; height: 128px; }
+.gb-sl.belt { width: 108px; height: 108px; }
+.gb-sl.on { background: var(--gb-hover); border-bottom: 8px solid var(--gb-gr); }
+.gb-sl svg { width: 72px; height: 72px; stroke: currentColor; stroke-width: 2; stroke-linejoin: round; }
+.gb-sl.belt svg { width: 58px; height: 58px; }
+.gb-sl span { width: 100%; height: 24px; display: grid; place-items: center; background: var(--gb-mint); color: var(--gb-ink);
+  font: 600 16px/1 var(--gb-cap); letter-spacing: .08em; text-transform: uppercase; }
+
+/* ---------- Buttons: full-width bands ---------- */
+.gb-btn { height: 64px; padding: 14px 28px; display: flex; align-items: center; justify-content: center; font: 600 28px/1 var(--gb-cap);
+  letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; }
+.gb-btn.p { background: var(--gb-gr); color: var(--gb-ink); }
+.gb-btn.s { background: var(--gb-mint); color: var(--gb-ink); }
+.gb-btn.g { background: var(--gb-band); color: var(--gb-text); }
+.gb-btn.off { background: var(--gb-band); border-top: 2px solid var(--gb-ground); color: var(--gb-mu); }
+
+/* ---------- The mutation workbench ---------- */
+.gb-wb { left: 330px; top: 210px; width: 1260px; background: var(--gb-ground); display: grid; grid-template-rows: auto 1fr auto; }
+.gb-wb-top { display: flex; align-items: stretch; justify-content: space-between; height: 112px; padding: 0 0 0 48px; background: var(--gb-band); }
+.gb-wb-top h3 { margin: 0; align-self: center; font: 400 46px/1 var(--gb-title); color: var(--gb-text); letter-spacing: .01em; text-transform: uppercase; }
+.gb-bal { display: flex; align-items: stretch; }
+.gb-bal span { display: flex; align-items: center; padding: 0 24px; background: var(--gb-mint); color: var(--gb-ink); font-size: 22px; }
+.gb-bal b { display: flex; align-items: center; justify-content: center; width: 112px; background: var(--gb-ink); color: var(--gb-text);
+  font: 700 64px/1 var(--gb-cap); font-variant-numeric: tabular-nums; }
+.gb-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; height: 420px; padding: 40px 48px 0; }
+.gb-card { display: grid; grid-template-rows: auto auto 1fr auto; gap: 14px; padding: 34px 32px 32px; background: var(--gb-band); }
+.gb-card.on { background: var(--gb-hover); border-top: 6px solid var(--gb-gr); padding-top: 28px; }
+.gb-card .nm { font: 600 34px/1.05 var(--gb-cap); letter-spacing: .06em; text-transform: uppercase; color: var(--gb-text); }
+.gb-card .fx { font: 500 24px/1.3 var(--gb-body); color: var(--gb-text); }
+.gb-cost { display: flex; align-items: baseline; gap: 12px; align-self: end; }
+.gb-cost b { font: 700 88px/1 var(--gb-cap); font-variant-numeric: tabular-nums; color: var(--gb-text); }
+.gb-cost span { font-size: 22px; color: var(--gb-mu); }
+.gb-card.short .gb-cost b { color: var(--gb-co); }
+.gb-card .gb-btn { margin: 4px -32px -32px; }
+.gb-wb-foot { display: flex; align-items: center; height: 88px; padding: 0 48px; color: var(--gb-mu); font-size: 20px; }
+
+/* ---------- Full-screen cards: role reveal and the ends ---------- */
+.gb-full { position: absolute; inset: 0; background: var(--gb-ground); }
+.gb-card-x { left: 0; width: 1700px; background: var(--gb-band); }
+.gb-kick { display: inline-flex; align-items: center; height: 56px; padding: 0 24px; background: var(--gb-mint); color: var(--gb-ink); font-size: 28px; }
+.gb-big { margin: 0; font: 400 172px/1 var(--gb-title); color: var(--gb-text); letter-spacing: .005em; text-transform: uppercase; }
+.gb-goal { margin: 0; max-width: 1080px; font: 500 36px/1.38 var(--gb-body); color: var(--gb-text); }
+.gb-rule { height: 6px; background: var(--gb-gr); }
+.gb-meta { color: var(--gb-mu); font-size: 24px; }
+.gb-tick { display: flex; gap: 2px; }
+.gb-tick i { display: block; width: 72px; height: 10px; background: var(--gb-band); }
+.gb-tick i.on { background: var(--gb-mint); }
+.gb-res { display: flex; align-items: stretch; }
+.gb-res span { display: flex; align-items: center; padding: 0 28px; background: var(--gb-ground); color: var(--gb-text); font-size: 28px; }
+.gb-res b { display: flex; align-items: center; padding: 0 28px; background: var(--gb-ink); border-top: 6px solid var(--gb-gr);
+  font: 700 72px/1 var(--gb-cap); font-variant-numeric: tabular-nums; color: var(--gb-text); }
+</style>
+
+<!-- Pictograms: i-item2-rocket and i-item2-bun copied from pages/mvp-screens (own work, see its LICENCES.json), fill made
+     currentColor so the tile sets the colour. The siren and the mic: own work drawn for this page, single colour. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="gb-item2-rocket" viewBox="0 0 48 48"><path d="M11.5,15 L20,2.5 L28.5,15 Z" fill="currentColor"/><path d="M15,14 L25,14 A2,2 0 0 1 27,16 L27,32 A2,2 0 0 1 25,34 L15,34 A2,2 0 0 1 13,32 L13,16 A2,2 0 0 1 15,14 Z M13,20 L27,20 A0,0 0 0 1 27,20 L27,22.4 A0,0 0 0 1 27,22.4 L13,22.4 A0,0 0 0 1 13,22.4 L13,20 A0,0 0 0 1 13,20 Z" fill="currentColor" fill-rule="evenodd"/><path d="M30.3,18 L30.3,18 A1.8,1.8 0 0 1 32.1,19.8 L32.1,44.2 A1.8,1.8 0 0 1 30.3,46 L30.3,46 A1.8,1.8 0 0 1 28.5,44.2 L28.5,19.8 A1.8,1.8 0 0 1 30.3,18 Z" fill="currentColor"/><path d="M20,34 C20,38 17,38 17,42" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="gb-item2-bun" viewBox="0 0 48 48"><path d="M6,25 C6,13 15,7 24,7 C33,7 42,13 42,25 A2,2 0 0 1 40,27 L8,27 A2,2 0 0 1 6,25 Z M13.56,14.89 A2.6,1.5 -20 1 0 18.44,13.11 A2.6,1.5 -20 1 0 13.56,14.89 Z M21.9,11 A2.6,1.5 0 1 0 27.1,11 A2.6,1.5 0 1 0 21.9,11 Z M29.56,13.61 A2.6,1.5 20 1 0 34.44,15.39 A2.6,1.5 20 1 0 29.56,13.61 Z M17.43,19.86 A2.6,1.5 -8 1 0 22.57,19.14 A2.6,1.5 -8 1 0 17.43,19.86 Z M25.94,19.05 A2.6,1.5 10 1 0 31.06,19.95 A2.6,1.5 10 1 0 25.94,19.05 Z" fill="currentColor" fill-rule="evenodd"/><path d="M7,31 L41,31 L41,36.5 A4.5,4.5 0 0 1 36.5,41 L11.5,41 A4.5,4.5 0 0 1 7,36.5 Z" fill="currentColor"/></symbol>
+  <symbol id="gb-siren-calm" viewBox="0 0 48 48"><path d="M14 36V25a10 10 0 0 1 20 0v11z" fill="currentColor"/><rect x="9" y="38" width="30" height="6" fill="currentColor"/></symbol>
+  <symbol id="gb-siren-hot" viewBox="0 0 48 48"><path d="M14 36V25a10 10 0 0 1 20 0v11z" fill="currentColor"/><rect x="9" y="38" width="30" height="6" fill="currentColor"/><path d="M8 20L2 16M7 29H1M40 20l6-4M41 29h6M24 9V2" stroke="currentColor" stroke-width="3.6" fill="none"/></symbol>
+  <symbol id="gb-mic" viewBox="0 0 48 48"><rect x="18" y="5" width="12" height="22" rx="6" fill="currentColor"/><path d="M11 21v2a13 13 0 0 0 26 0v-2" fill="none" stroke="currentColor" stroke-width="4"/><path d="M24 36v8M16 44h16" stroke="currentColor" stroke-width="4" fill="none"/></symbol>
+</svg>
+
+<header class="gb-head">
+  <h2>Б · Ефірна графіка</h2>
+  <p class="gb-note">Наліпки з обведенням і тінню поступилися плоским квадратним смугам, як графіка впевненого телешоу: без обведень, без заокруглень і без тіней, лише три кольори й одна гостра зелена. Фіолетовий, м'ята, зелена дія й корал лишилися, а дорослішими їх роблять прямі кути, важкий заголовний шрифт і стриманість.</p>
+  <div class="gb-sw">
+    <div style="background:#1A0E2B;color:#EEF9F2"><b>#1A0E2B</b>тло, панель</div>
+    <div style="background:#2B1846;color:#EEF9F2"><b>#2B1846</b>смуга</div>
+    <div style="background:#3C2660;color:#EEF9F2"><b>#3C2660</b>наведення</div>
+    <div style="background:#CFF3DF;color:#120A1E"><b>#CFF3DF</b>м'ята</div>
+    <div style="background:#EEF9F2;color:#120A1E"><b>#EEF9F2</b>текст</div>
+    <div style="background:#A89BCA;color:#120A1E"><b>#A89BCA</b>тьмяний</div>
+    <div style="background:#A6E85A;color:#120A1E"><b>#A6E85A</b>дія</div>
+    <div style="background:#FF7A59;color:#120A1E"><b>#FF7A59</b>тривога</div>
+    <div style="background:#FFD60A;color:#120A1E"><b>#FFD60A</b>витривалість</div>
+  </div>
+  <div class="gb-fonts"><span class="t">Dela Gothic One</span><span class="c">Oswald 600–700</span><span class="b">Golos Text 500 · 700</span></div>
+</header>
+
+<!-- 1 · The round HUD -->
+<figure class="gb-shot">
+  <figcaption>1 · Раунд</figcaption>
+  <div class="gb-frame"><div class="gb-stage">
+    <div class="gb-world"><i class="wall2"></i><i class="floor"></i><i class="skirt"></i><i class="curtain"></i><i class="win"></i><i class="glass"></i><i class="tree1"></i><i class="tree2"></i><i class="tree3"></i><i class="mull1"></i><i class="mull2"></i><i class="frame1"></i><i class="frame1b"></i><i class="mantel"></i><i class="stone"></i><i class="hearth"></i><i class="fire"></i><i class="fire2"></i><i class="upper"></i><i class="upper2"></i><i class="tile"></i><i class="counter"></i><i class="cab"></i><i class="cab2"></i><i class="fridge"></i><i class="fridge2"></i><i class="handle"></i><i class="lamp"></i><i class="rug"></i><i class="rug2"></i><i class="sofa2"></i><i class="sofa"></i><i class="sofa3"></i><i class="sofa4"></i><i class="box"></i><i class="can1"></i><i class="can2"></i></div>
+    <span class="gb-a gb-role gb-cap">Прибулець</span>
+    <div class="gb-a gb-bug">07:42</div>
+    <div class="gb-a gb-anger"><b style="width:55%"></b><span class="gb-sir hot"><svg><use href="#gb-siren-hot"/></svg></span></div>
+    <div class="gb-a gb-roster">
+      <div class="me"><i style="background:#7C5CC8"></i>Олена (ти)</div>
+      <div><i style="background:#1C7A82"></i>Ґлорп</div>
+      <div><i style="background:#E66B57"></i>Їжак</div>
+      <div><i style="background:#E8B04A"></i>Бульк</div>
+      <div><i style="background:#4AA3DF"></i>Зінґа</div>
+      <div class="dead"><i style="background:#D46FB0"></i>Тарас · поза грою</div>
+    </div>
+    <div class="gb-a gb-cross"></div>
+    <span class="gb-a gb-aim gb-cap">Сміттєвий бак</span>
+    <div class="gb-a gb-bars"><div><b style="width:80%;background:#CFF3DF"></b></div><div><b style="width:55%;background:#FFD60A"></b></div></div>
+    <div class="gb-a gb-mic"><svg><use href="#gb-mic"/></svg></div>
+    <div class="gb-a gb-items">
+      <div class="gb-sl hand on"><svg><use href="#gb-item2-rocket"/></svg><span>Феєрверк</span></div>
+      <div class="gb-sl belt"><svg><use href="#gb-item2-bun"/></svg><span>Булка</span></div>
+    </div>
+  </div></div>
+  <p class="gb-note">Час — табло-скорбаг із зеленим верхнім краєм, гнів сусідів — коралова смуга впритул під ним, сирена — квадратна вкладка на її правому кінці. Список гравців — смуги з кольоровою стрічкою тіла. Активний слот світліший і має зелений нижній край.</p>
+</figure>
+
+<!-- 6 · The mutation workbench -->
+<figure class="gb-shot">
+  <figcaption>6 · Мутаційний верстат</figcaption>
+  <div class="gb-frame"><div class="gb-stage">
+    <div class="gb-world"><i class="wall2"></i><i class="floor"></i><i class="skirt"></i><i class="curtain"></i><i class="win"></i><i class="glass"></i><i class="tree1"></i><i class="tree2"></i><i class="tree3"></i><i class="mull1"></i><i class="mull2"></i><i class="frame1"></i><i class="frame1b"></i><i class="mantel"></i><i class="stone"></i><i class="hearth"></i><i class="fire"></i><i class="fire2"></i><i class="upper"></i><i class="upper2"></i><i class="tile"></i><i class="counter"></i><i class="cab"></i><i class="cab2"></i><i class="fridge"></i><i class="fridge2"></i><i class="handle"></i><i class="lamp"></i><i class="rug"></i><i class="rug2"></i><i class="sofa2"></i><i class="sofa"></i><i class="sofa3"></i><i class="sofa4"></i><i class="box"></i><i class="can1"></i><i class="can2"></i></div>
+    <div class="gb-shade"></div>
+    <div class="gb-a gb-wb">
+      <div class="gb-wb-top"><h3>Мутаційний верстат</h3><div class="gb-bal"><span class="gb-cap">У тебе очок</span><b>7</b></div></div>
+      <div class="gb-cards">
+        <div class="gb-card on"><span class="nm">Швидкі ноги</span><span class="fx">Бігаєш швидше</span><div class="gb-cost"><b>4</b><span class="gb-cap">очки</span></div><span class="gb-btn p">Мутувати</span></div>
+        <div class="gb-card"><span class="nm">Пружні ноги</span><span class="fx">Стрибаєш вище</span><div class="gb-cost"><b>3</b><span class="gb-cap">очки</span></div><span class="gb-btn s">Мутувати</span></div>
+        <div class="gb-card short"><span class="nm">Товста шкіра</span><span class="fx">Більше здоров'я</span><div class="gb-cost"><b>9</b><span class="gb-cap">очок</span></div><span class="gb-btn off">Бракує 2</span></div>
+      </div>
+      <div class="gb-wb-foot gb-cap">Esc — закрити</div>
+    </div>
+  </div></div>
+  <p class="gb-note">Панель — темне тло з фіолетовою смугою заголовка; баланс очок — м'ятний підпис і чорнильний блок із числом. Вибрана картка світліша, із зеленим верхнім краєм і зеленою кнопкою; коли очок бракує, ціна коралова, а кнопка гасне.</p>
+</figure>
+
+<!-- 8 · Role reveal: alien -->
+<figure class="gb-shot">
+  <figcaption>8 · Показ ролі: прибулець</figcaption>
+  <div class="gb-frame"><div class="gb-stage">
+    <div class="gb-full"></div>
+    <div class="gb-a" style="left:160px;top:297px"><span class="gb-kick gb-cap">Твоя роль</span></div>
+    <div class="gb-a gb-card-x" style="top:353px;height:430px;padding:56px 0 0 160px">
+      <h4 class="gb-big">Прибулець</h4>
+      <p class="gb-goal" style="margin-top:36px">Влаштуй найкращу вечірку: виконай усі задачі, поки не скінчився час і не приїхали копи.</p>
+    </div>
+    <div class="gb-a gb-rule" style="left:0;top:353px;width:160px"></div>
+    <div class="gb-a gb-rule" style="left:0;top:0;width:16px;height:1080px"></div>
+  </div></div>
+  <p class="gb-note">Три секунди темного екрана: м'ятний підпис, широка смуга-картка від лівого краю посередині екрана з важким заголовком і метою; зелена лінія на всю висоту ліворуч.</p>
+</figure>
+
+<!-- 10 · End: aliens won -->
+<figure class="gb-shot">
+  <figcaption>10 · Кінець: прибульці перемогли</figcaption>
+  <div class="gb-frame"><div class="gb-stage">
+    <div class="gb-world"><i class="wall2"></i><i class="floor"></i><i class="skirt"></i><i class="curtain"></i><i class="win"></i><i class="glass"></i><i class="tree1"></i><i class="tree2"></i><i class="tree3"></i><i class="mull1"></i><i class="mull2"></i><i class="frame1"></i><i class="frame1b"></i><i class="mantel"></i><i class="stone"></i><i class="hearth"></i><i class="fire"></i><i class="fire2"></i><i class="upper"></i><i class="upper2"></i><i class="tile"></i><i class="counter"></i><i class="cab"></i><i class="cab2"></i><i class="fridge"></i><i class="fridge2"></i><i class="handle"></i><i class="lamp"></i><i class="rug"></i><i class="rug2"></i><i class="sofa2"></i><i class="sofa"></i><i class="sofa3"></i><i class="sofa4"></i><i class="box"></i><i class="can1"></i><i class="can2"></i></div>
+    <div class="gb-shade"></div>
+    <div class="gb-a" style="left:160px;top:176px"><span class="gb-kick gb-cap">Прибульці перемогли</span></div>
+    <div class="gb-a gb-card-x" style="top:232px;height:416px;padding:60px 0 0 160px">
+      <h4 class="gb-big" style="font-size:148px;line-height:.98">Вечірка<br>вдалася!</h4>
+    </div>
+    <div class="gb-a gb-rule" style="left:0;top:232px;width:160px"></div>
+    <div class="gb-a gb-res" style="left:160px;top:696px;height:96px"><span class="gb-cap">Усі задачі виконано за</span><b>08:12</b></div>
+    <div class="gb-a" style="left:160px;top:852px;display:grid;gap:14px"><span class="gb-meta gb-cap">Повернення на корабель через 3…</span><div class="gb-tick"><i class="on"></i><i class="on"></i><i class="on"></i></div></div>
+  </div></div>
+  <p class="gb-note">Результат як фінальна плашка трансляції: заголовок на широкій смузі, м'ятний підпис над нею, час — тим самим скорбагом, що й у раунді. Відлік унизу — три смужки.</p>
+</figure>
+
+<script>
+(function () {
+  var roots = document.querySelectorAll(".gb");
+  function fit() {
+    roots.forEach(function (r) {
+      r.querySelectorAll(".gb-frame").forEach(function (f) {
+        f.firstElementChild.style.transform = "scale(" + f.clientWidth / 1920 + ")";
+      });
+    });
+  }
+  fit();
+  if ("ResizeObserver" in window) roots.forEach(function (r) { new ResizeObserver(fit).observe(r); });
+  else addEventListener("resize", fit);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+})();
+</script>
+</section>
