@@ -26,6 +26,10 @@
     "outline": { "$description": "Every sticker outline and the hard shadow under it.", "$value": "{palette.ink}" },
     "surface": {
       "night": { "$description": "The full-screen deep purple ground.", "$value": "{palette.purple-deep}" },
+      "full-screen": {
+        "$description": "(agent, ui-1.3.0) The ground of the full screens with a cartoon title (the role reveal, the ends): the soft ink, where the titles' ink outline and the stickers' hard shadow show (on the deep purple the outline was 1.00:1).",
+        "$value": "{palette.ink-soft}"
+      },
       "night-plate": {
         "$description": "A solid purple plate on the ground (the loading tip).",
         "$value": "{palette.purple}"
@@ -66,7 +70,7 @@
   },
   "type": {
     "$type": "typography",
-    "$description": "Titles Nunito Black, text Nunito, numbers Rubik (display, display-large), the logo Kablammo (logo, at the display-large size).",
+    "$description": "Titles Nunito Black, text Nunito, numbers Rubik (display, display-large), the logo Kablammo (logo, at the display-large size) and, since ui-1.3.0, the full-screen titles in Kablammo too (hero-display, at the hero size).",
     "caption": {
       "$value": {
         "fontFamily": "{font.family.text}",
@@ -191,6 +195,16 @@
         "fontWeight": "{font.weight.black}",
         "letterSpacing": "{font.letter-spacing.tight}",
         "lineHeight": "{font.line-height.base}"
+      }
+    },
+    "hero-display": {
+      "$description": "The full-screen titles (the role reveal, the ends; the engineer, 2026-10-21): Kablammo, the logo's face, at the hero size, the sketch pages' 84 px title (the hero role is that title since ui-1.2.0). Only there: Kablammo smears into blots at small sizes, so every smaller title stays Nunito Black.",
+      "$value": {
+        "fontFamily": "{font.family.logo}",
+        "fontSize": "{font.size.hero}",
+        "fontWeight": "{font.weight.regular}",
+        "letterSpacing": "{font.letter-spacing.none}",
+        "lineHeight": "{font.line-height.logo}"
       }
     },
     "logo": {

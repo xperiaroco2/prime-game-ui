@@ -14,7 +14,7 @@ const RULES = {
   L08: "box-shadow: one layer",
   L09: "box-shadow: no inset",
   L10: "box-shadow: no spread (at most three lengths)",
-  L11: "box-shadow: blur 0",
+  L11: "box-shadow: blur 0, or a blur at offset 0 0 (the glow, ui-1.3.0)",
   L12: "box-shadow: x offset 0 or to the right (never left)",
   L13: "box-shadow only on a rule whose base selector declares an opaque background",
   L14: "no transparent or alpha-0 border colour",

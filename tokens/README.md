@@ -9,9 +9,9 @@ spec, [`docs/research/2026-10-03-tokens/spec.md`](../docs/research/2026-10-03-to
 | File | What it holds |
 |---|---|
 | `prime.resolver.json` | The resolver: one base set (the files below, in order) and two modifiers, `textSize` and `motion` |
-| `primitives.tokens.json` | Literals: the palette, font families, weights, letter spacing, line height, `ease.press`, `duration.none`, `focus.*`, `stroke.*`, `offset.base` (the hard shadow), `radius.*`, `space.*` (the screens' gaps: 4, 8, 12, 16, 24, 32) |
+| `primitives.tokens.json` | Literals: the palette, font families, weights, letter spacing, line height, `ease.press`, `duration.none`, `focus.*`, `stroke.*`, `offset.base` (the hard shadow), `glow.*` (the glow's size, ui-1.3.0), `radius.*`, `space.*` (the screens' gaps: 4, 8, 12, 16, 24, 32) |
 | `semantic.tokens.json` | Aliases of primitives: colour roles by context (`color.*`), the 15 type roles (`type.*`, `logo` new in ui-1.0.0), `motion.press` |
-| `components/<name>.tokens.json` | 24 files, 161 Godot type variations (the abstract ToyButton and the two deprecated chips included): one variant group per variation, with its StyleBox states, `label`, `press`, `size`, `items`, `ramp` |
+| `components/<name>.tokens.json` | 24 files, 171 Godot type variations (the abstract ToyButton and the nine deprecated ones included): one variant group per variation, with its StyleBox states, `label`, `press`, `size`, `items`, `ramp` |
 | `text-size/default.tokens.json`, `text-size/large.tokens.json` | `font.size.*` (with `font.size.theme-default`, the theme's `default_font_size`) and `size.keycap` (a keycap's minimum width) for the player's text size setting |
 | `motion/default.tokens.json`, `motion/reduced.tokens.json` | `duration.press` for the reduced-motion setting |
 | `release.json` | The semver the next `ui-<semver>` tag carries |
@@ -24,10 +24,11 @@ spec, [`docs/research/2026-10-03-tokens/spec.md`](../docs/research/2026-10-03-to
 2. **Semantic**: aliases of primitives only (`{palette.ink}`), composite sub-values included.
 3. **Component**: one group per variation, marked by `$extensions` `io.github.xperiaroco2.prime-game` `godot.variation`.
    Colours alias down to `palette.*`; dimensions are int px literals or aliases to the primitives `stroke.*`, `radius.*`, `offset.*`,
-   `focus.*` and `space.*`; a container's separation is always a `space.*` alias. A `size` member may also alias
+   `focus.*`, `space.*` and `glow.*`; a container's separation is always a `space.*` alias. A `size` member may also alias
    `size.*`, the lengths the text size owns (the keycaps' `min-width` is `{size.keycap}`: 36, 42 at large text), so a
    size follows the text size with no code in the game.
-   The build completes each state to the 19 `StyleBoxFlat` fields (spec §3.5), so the pack needs no inheritance logic.
+   The build completes each state to the 19 `StyleBoxFlat` fields (spec §3.5), plus the glow's `shadow-color` and
+   `shadow-size` where a state has a glow (ui-1.3.0, below), so the pack needs no inheritance logic.
 
 Lengths are int px at the 1920×1080 reference frame. Since ui-1.2.0 the geometry is the MVP sketches at the 0.75 scale
 the engineer picked (pages/mvp-screens): a sketch length L is round(L × 1.5) here (outlines 6, thin strokes 5, the hard
@@ -184,9 +185,48 @@ pictures are pack assets (`assets`) drawn by a TextureRect, never tinted.
 - **The workbench:** `ToyPanelDialog` with `ToyTitleOnLight`, `ToyPlateBalance` and `ToyMutationCard`s; a card's "not
   enough" state is its button disabled, the card does not change.
 
+## The glow since ui-1.3.0
+
+The engineer's choices of 2026-10-21 (prime-game#150; `pages/glow-bars/`, way 3 "поріг"). The sketch pages' lengths
+× 1.5, as every length since ui-1.2.0.
+
+- **The glow is a StyleBox field pair.** A state may author `shadow-color` and `shadow-size` (Godot's `shadow_color` and
+  `shadow_size`; `shadow_offset` is never authored and stays (0, 0)). An inheriting state takes them from the state it
+  completes from; a record has both only where its state or that state authors one, so every other record keeps its 19
+  fields and the game leaves Godot's default (no shadow) there. The sizes are the primitives `glow.action` (45) and
+  `glow.alarm` (42); the colour is the glowing piece's own at alpha 1. The CSS image is `box-shadow: 0 0 <size>
+  <colour>` (lint L11 allows a blur only at offset 0 0). The hard ink shadow is never a StyleBox shadow: it stays a
+  base layer or the edge form.
+- **The main action glows:** `ToyButtonPrimary` is the acid `palette.acid` (#B6FF3C; hover `acid-light`, held
+  `acid-dark`) with the glow (`glow.action`, acid), and its hard shadow is the edge form (outlines 6 / 14 / 14 / 6,
+  expand 8 right and bottom, as `ToyMenuItem`), so it has no `base` and `press.depth` is 0: the game drops its ToyRaised
+  wrapper in the same change that takes the pack (a kept wrapper still draws the deprecated 8 px base under the
+  14 px edge form: a doubled hard shadow). Unplugged: a 6 px outline, no expand, `shadow-size` 0.
+  `ToyBasePrimaryOnDark` and `ToyBasePrimaryOnLight` are deprecated.
+- **The bars glow only at their alarm line.** One `ProgressBar` per bar, two variations each: `ToyBar…Calm` (the white
+  track as `background`, a 5 px ink outline, pill ends; the fill in the bar's colour with the same outline and ends,
+  drawn over the track's full height) and `ToyBar…Alarm` (the same, plus the track's glow, `glow.alarm` in the bar's
+  colour, so the light is as wide as the bar however short the fill). `ToyBarAngerCalm` / `Alarm` (coral, 225 × 30),
+  `ToyBarHealthCalm` / `Alarm` (the alien green, no ramp), `ToyBarStaminaCalm` / `Alarm` (yellow) and
+  `ToyBarReturnCalm` / `Alarm` (the dead's room return, the alien green), 24 px tall, the screen giving the width.
+  **The game owns the line and the pulse:** it sets the Alarm variation while anger is over 70 %, health or stamina
+  under 30 %, or the return in its last 5 s (the agent's lines on the page, open to the engineer's veto), and the Calm
+  one otherwise; in alarm it tweens the background StyleBox's `shadow_color.a` from 1 to 0.25 and back, 0.9 s each way
+  (TRANS_SINE, EASE_IN_OUT, looping), on a per-bar duplicate of the StyleBox so the theme's stays untouched; under
+  reduced motion it does not pulse (alpha 1). The fill-only `ToyBarAnger`, `ToyBarHealth`, `ToyBarStamina` and their
+  tracks `ToyBarAngerTrack`, `ToyBarTrack` are deprecated.
+- **The full-screen titles are Kablammo:** `ToyTitleHero` and `ToyTitleHeroAlert` take `type.hero-display` (Kablammo,
+  `font.family.logo`, at the hero size 96, the sketch pages' 84 px title; weight 400, its line box `font.line-height.logo`);
+  every smaller title stays Nunito Black. They stand on `ToyBackdropFullScreen` (Panel), the soft ink
+  `color.surface.full-screen` (#54457A), where their ink outline shows; the role reveal and the ends use it in place
+  of `ToyBackdropNight`, which stays for the other screens. The plain lines on that ground ("Your role", the return
+  count) are mint `ToyTextOnDark` (gate g9, 6.99:1), not the muted lilac (3.82:1 there).
+
 ## Deprecated variations
 
-`ToyChipNew` and `ToyChipNewText` carry `$deprecated` since ui-0.2.0 (the NEW tag is gone; `ToyChipAlert` replaces them). A
+`ToyChipNew` and `ToyChipNewText` carry `$deprecated` since ui-0.2.0 (the NEW tag is gone; `ToyChipAlert` replaces them);
+since ui-1.3.0 also `ToyBasePrimaryOnDark`, `ToyBasePrimaryOnLight`, `ToyBarAngerTrack`, `ToyBarTrack` (no
+replacement) and `ToyBarAnger`, `ToyBarHealth`, `ToyBarStamina` (replaced by their `…Calm` variations). A
 removal is a major bump, so they leave with the next major release. A deprecated variant names its replacement in
 `godot.replacement` (`ToyChipAlert`, `ToyChipAlertText`); P62 checks it is a variant of the same class that is not
 deprecated itself. The pack marks both (below).
@@ -210,6 +250,11 @@ deprecated itself. The pack marks both (below).
     its own colours (the slider knobs), never tinted.
   - `tint_color` (only where the pages always draw the icon in one colour): the `self_modulate` that draws it as the
     pages do, `#2a1f33` (ink) for the room pictograms.
+  - `deprecated` (since ui-1.3.0, only on a deprecated icon): `{ "replacement": "<assets path>" | null, "note": "<reason>" }`,
+    the form of a deprecated variation, from the icon's licence record (`"deprecated": "<reason>"`, `"replacement":
+    "<file of the same folder>" | null`, `tools/tokens/icons.js`). The file stays in the pack until the next major
+    release. None today: the grown-up set 2 (`item2-*`, not chosen on 2026-10-21) left the folder before any tag
+    shipped it, so it never reached a pack; it lives on as `pages/mvp-screens/item2/` for the sketch page only.
   - **Importing them:** ui-sync puts a `.gdignore` in the pack's folder, so Godot imports nothing under it. The game
     copies the icons into a folder Godot imports, keeps them under the same sha256 lock (`sha256` here is the file's), and
     imports each at its `svg_scale`.
@@ -331,10 +376,11 @@ These extend spec §7.2 (P40–P60):
 | Id | Rule |
 |---|---|
 | P42 | (extended) a listed `*-color` or `*-modulate` item (PopupMenu's font colours, SpinBox's icon modulates) is a colour; the other listed items are dimensions, `center-grabber` a number |
+| P43 | (extended, ui-1.3.0) a state may author the glow, `shadow-color` and `shadow-size` (any other `shadow*` field is refused: the offset stays 0); P44 refuses a `shadow-size` below 0 |
 | P44 | (extended) a listed `*-padding` item (PopupMenu's `item-start-padding`, `item-end-padding`) is ≥ 0, as separations are |
 | P47 | (extended) a PopupMenu variant needs the states `panel`, `hover`, `separator` and the items `font-color`, `font-hover-color`, `font-disabled-color`, `v-separation` (CLASSES `requiredItems`); a CheckBox variant `normal`, `disabled`, `focus`; a SpinBox variant `up-background` and all its listed items |
 | P50 | (extended, ui-1.0.0) a base may also sit dx ≥ 0 to the right (the sticker's hard shadow): its left expand is the owner's − dx and its right the owner's + dx, one offset for all of a face's bases; the showcase draws it as `box-shadow: dx dy 0` (lint L12 now refuses only a shift to the left) |
-| P53 | (extended) a component dimension may also alias `offset.*` (ui-1.0.0); a variant's `size` member may also alias `size.*`, and only a `size.*` a modifier owns |
+| P53 | (extended) a component dimension may also alias `offset.*` (ui-1.0.0) and `glow.*` (ui-1.3.0); a variant's `size` member may also alias `size.*`, and only a `size.*` a modifier owns |
 | P61 | `godot.textures` is a non-empty object; each key is one of the class's theme icons (`expand.js` CLASSES `textures`), each value the pack path of an icon that exists and has an allowed licence record |
 | P62 | `godot.replacement` only on a variant with `$deprecated`; it names a variant of the same class that is not deprecated |
 | P63 | A modifier's files define only the paths it owns (`validate.js` MODIFIER_OWNS: textSize `font.size.*`, `size.keycap`; motion `duration.press`), and the base set none of them |

@@ -43,6 +43,18 @@
       "$description": "(agent) The green pressed: the held face of the main action.",
       "$value": { "colorSpace": "srgb", "components": [0.549, 0.8196, 0.2471], "hex": "#8cd13f" }
     },
+    "acid": {
+      "$description": "The acid green of the main action, which glows (the engineer, 2026-10-21, ui-1.3.0): the primary button's face and its light.",
+      "$value": { "colorSpace": "srgb", "components": [0.7137, 1, 0.2353], "hex": "#b6ff3c" }
+    },
+    "acid-light": {
+      "$description": "(agent) The acid lifted: the main action's hover face (the green's hover step in OKLCH, applied to the acid).",
+      "$value": { "colorSpace": "srgb", "components": [0.8078, 1, 0.451], "hex": "#ceff73" }
+    },
+    "acid-dark": {
+      "$description": "(agent) The acid pressed: the main action's held face (the green's held step in OKLCH, applied to the acid).",
+      "$value": { "colorSpace": "srgb", "components": [0.6078, 0.9098, 0], "hex": "#9be800" }
+    },
     "coral": {
       "$description": "Alarm: danger buttons, alert stickers, the anger bar.",
       "$value": { "colorSpace": "srgb", "components": [1, 0.5412, 0.4196], "hex": "#ff8a6b" }
@@ -90,7 +102,7 @@
       "$type": "fontFamily",
       "text": { "$description": "Titles (Black, 900) and text.", "$value": "Nunito" },
       "number": { "$description": "Numbers: the timer, readouts, codes.", "$value": "Rubik" },
-      "logo": { "$description": "The cartoon face, on the logo only, at its default instance.", "$value": "Kablammo" }
+      "logo": { "$description": "The cartoon face, at its default instance: the logo and, since ui-1.3.0, the full-screen titles (type.hero-display).", "$value": "Kablammo" }
     },
     "weight": {
       "$type": "fontWeight",
@@ -141,6 +153,12 @@
     "$type": "dimension",
     "$description": "The hard ink shadow of strength B: a base layer 8 px right and 8 px down (no StyleBoxFlat shadow; spec decision 4): the sketch page's 5 px x 1.5 = 7.5, rounded up as every other length, so the shadow stays wider than the 6 px outline and equals a key's 8 px bottom edge (ui-1.2.0).",
     "base": { "$value": { "value": 8, "unit": "px" } }
+  },
+  "glow": {
+    "$type": "dimension",
+    "$description": "The glow (ui-1.3.0): a StyleBoxFlat's one shadow at offset 0, shadow_size this many px, in the glowing piece's own colour at alpha 1 (the CSS image: box-shadow 0 0 <size> <colour>). The sketch pages' sizes x 1.5, as every length since ui-1.2.0.",
+    "action": { "$description": "The main action's light (pages/glow-bars: 30 px).", "$value": { "value": 45, "unit": "px" } },
+    "alarm": { "$description": "A bar's light past its alarm line, on the track (pages/glow-bars, way 3: 28 px).", "$value": { "value": 42, "unit": "px" } }
   },
   "radius": {
     "$type": "dimension",

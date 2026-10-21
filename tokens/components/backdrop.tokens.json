@@ -37,6 +37,18 @@
       "panel": {
         "bg-color": { "$type": "color", "$value": "{color.surface.night}" }
       }
+    },
+    "full-screen": {
+      "$description": "(agent, ui-1.3.0) The opaque ground of the full screens with a Kablammo title (the role reveal, the ends): the soft ink, where the titles' 6 px ink outline and the stickers' hard shadow show; on the deep purple of ToyBackdropNight they vanish (1.00:1).",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyBackdropFullScreen", "class": "Panel" },
+          "context": "dark"
+        }
+      },
+      "panel": {
+        "bg-color": { "$type": "color", "$value": "{color.surface.full-screen}" }
+      }
     }
   }
 }

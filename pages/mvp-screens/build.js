@@ -1,6 +1,6 @@
 // The MVP screens page (pages/mvp-screens/index.html) is hand-written, but the round HUD's pictures on it are the game's
-// icon files: pages/components/icons/<name>.svg (the siren, the carried items in both sets, item-* and the grown-up
-// item2-*, the empty slots; their licence records are in pages/components/icons/LICENCES.json), and, beside the item2
+// icon files: pages/components/icons/<name>.svg (the siren, the carried items in both sets, item-* (the line icons,
+// chosen 2026-10-21) and the empty slots; their licence records are in pages/components/icons/LICENCES.json) and the retired grown-up set 2 (pages/mvp-screens/item2/, records in its LICENCES.json; not chosen, never in the pack), and, beside the item2
 // set for comparison, room pictograms named room/<name>: pages/room-signs/systems/b/icons/<name>.svg (records in
 // pages/room-signs/systems/b/LICENCES.json), drawn as <symbol id="i-room-<name>">. The page is reviewed as one self-contained file, so it carries them
 // as inline <symbol id="i-<name>"> copies between the markers below; this script writes that block from the files.
@@ -18,11 +18,12 @@ const PAGE = 'pages/mvp-screens/index.html';
 const ICON_DIR = 'pages/components/icons';
 const ICONS = ['siren-off', 'siren-on', 'slot-empty-hand', 'slot-empty-belt', 'item-rocket', 'item-bun', 'item-battery',
   'item-extinguisher', 'item-flower', 'item-car-part', 'item-patty', 'item-burger', 'item-watering-can', 'item-wrench',
-  'item-bin-bag', 'item-knife', 'item2-rocket', 'item2-bun', 'item2-patty', 'item2-burger', 'item2-flower',
-  'item2-watering-can', 'item2-battery', 'item2-car-part', 'item2-wrench', 'item2-extinguisher', 'item2-bin-bag',
-  'item2-knife', 'item2-film', 'item2-photo', 'room/kitchen', 'room/lab', 'room/workshop', 'room/office'];
+  'item-bin-bag', 'item-knife', 'item2/rocket', 'item2/bun', 'item2/patty', 'item2/burger', 'item2/flower',
+  'item2/watering-can', 'item2/battery', 'item2/car-part', 'item2/wrench', 'item2/extinguisher', 'item2/bin-bag',
+  'item2/knife', 'item2/film', 'item2/photo', 'room/kitchen', 'room/lab', 'room/workshop', 'room/office'];
 const ROOM_DIR = 'pages/room-signs/systems/b/icons';
 const ROOM_LICENCES = 'pages/room-signs/systems/b/LICENCES.json';
+const ITEM2_DIR = 'pages/mvp-screens/item2';
 const symbolId = (name) => `i-${name.replace('/', '-')}`;
 const BEGIN = '<!-- icons:begin: generated from pages/components/icons by pages/mvp-screens/build.js -->';
 const END = '<!-- icons:end -->';
@@ -32,14 +33,16 @@ const read = (rel) => fs.readFileSync(path.join(ROOT, ...rel.split('/')), 'utf8'
 function block() {
   const licences = JSON.parse(read(`${ICON_DIR}/LICENCES.json`));
   const roomLicences = JSON.parse(read(ROOM_LICENCES));
+  const item2Licences = JSON.parse(read(`${ITEM2_DIR}/LICENCES.json`));
   const lines = ICONS.map((name) => {
     const room = name.startsWith('room/');
-    const base = room ? name.slice(5) : name;
-    const file = room ? `${ROOM_DIR}/${base}.svg` : `${ICON_DIR}/${name}.svg`;
+    const item2 = name.startsWith('item2/');
+    const base = room ? name.slice(5) : item2 ? name.slice(6) : name;
+    const file = room ? `${ROOM_DIR}/${base}.svg` : item2 ? `${ITEM2_DIR}/${base}.svg` : `${ICON_DIR}/${name}.svg`;
     const m = /<svg\b[^>]*\sviewBox="([^"]+)"[^>]*>([\s\S]*)<\/svg>/.exec(read(file));
     if (!m) throw new Error(`${file}: no <svg viewBox="…"> … </svg>`);
-    const rec = room ? roomLicences[`icons/${base}.svg`] : licences[`${name}.svg`];
-    if (!rec || rec.licence !== 'own work') throw new Error(`${room ? ROOM_LICENCES : `${ICON_DIR}/LICENCES.json`}: ${base}.svg is not recorded as own work`);
+    const rec = room ? roomLicences[`icons/${base}.svg`] : item2 ? item2Licences[`${base}.svg`] : licences[`${name}.svg`];
+    if (!rec || rec.licence !== 'own work') throw new Error(`${room ? ROOM_LICENCES : item2 ? `${ITEM2_DIR}/LICENCES.json` : `${ICON_DIR}/LICENCES.json`}: ${base}.svg is not recorded as own work`);
     return `  <symbol id="${symbolId(name)}" viewBox="${m[1]}">${m[2].trim()}</symbol>`;
   });
   return `${BEGIN}\n${lines.join('\n')}\n  ${END}`;

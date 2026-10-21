@@ -85,6 +85,13 @@ function emitComponentsCss(sys) {
       const ex = rec[`expand-margin-${s}`];
       d.set(`margin-${s}`, px(ex) !== 0 ? `calc(${term(variant, ex, `expand-margin-${s}`)} * -1 * var(--px))` : '0');
     }
+    // The glow (ui-1.3.0): StyleBoxFlat's shadow at offset 0, shadow_size wide, drawn around the box with its expand
+    // margins; its CSS image is a blur of that size at no offset and no spread. A record with the fields but size 0
+    // (an unplugged main action) draws none.
+    if (rec['shadow-size']) {
+      if (px(rec['shadow-size']) === 0) d.set('box-shadow', 'none');
+      else d.set('box-shadow', `0 0 ${len(variant, rec['shadow-size'], 'shadow-size')} ${colour(rec['shadow-color'])}`);
+    }
     return d;
   }
 

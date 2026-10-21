@@ -455,6 +455,138 @@
       "title_key": "sec_bars",
       "rows": [
         {
+          "id": "bar-anger-calm",
+          "kind": "bar",
+          "variations": [
+            "ToyBarAngerCalm"
+          ],
+          "contexts": [
+            "dark"
+          ],
+          "values": [
+            0.2,
+            0.5,
+            0.65
+          ],
+          "live": true,
+          "hud": true
+        },
+        {
+          "id": "bar-anger-alarm",
+          "kind": "bar",
+          "variations": [
+            "ToyBarAngerAlarm"
+          ],
+          "contexts": [
+            "dark"
+          ],
+          "values": [
+            0.75,
+            0.9,
+            1
+          ],
+          "hud": true
+        },
+        {
+          "id": "bar-health-calm",
+          "kind": "bar",
+          "variations": [
+            "ToyBarHealthCalm"
+          ],
+          "contexts": [
+            "dark"
+          ],
+          "values": [
+            1,
+            0.6,
+            0.35
+          ],
+          "live": true,
+          "hud": true
+        },
+        {
+          "id": "bar-health-alarm",
+          "kind": "bar",
+          "variations": [
+            "ToyBarHealthAlarm"
+          ],
+          "contexts": [
+            "dark"
+          ],
+          "values": [
+            0.25,
+            0.1,
+            0.03
+          ],
+          "hud": true
+        },
+        {
+          "id": "bar-stamina-calm",
+          "kind": "bar",
+          "variations": [
+            "ToyBarStaminaCalm"
+          ],
+          "contexts": [
+            "dark"
+          ],
+          "values": [
+            1,
+            0.6,
+            0.35
+          ],
+          "live": true,
+          "hud": true
+        },
+        {
+          "id": "bar-stamina-alarm",
+          "kind": "bar",
+          "variations": [
+            "ToyBarStaminaAlarm"
+          ],
+          "contexts": [
+            "dark"
+          ],
+          "values": [
+            0.25,
+            0.1,
+            0.03
+          ],
+          "hud": true
+        },
+        {
+          "id": "bar-return-calm",
+          "kind": "bar",
+          "variations": [
+            "ToyBarReturnCalm"
+          ],
+          "contexts": [
+            "dark"
+          ],
+          "values": [
+            0.2,
+            0.5,
+            0.8
+          ],
+          "live": true,
+          "hud": true
+        },
+        {
+          "id": "bar-return-alarm",
+          "kind": "bar",
+          "variations": [
+            "ToyBarReturnAlarm"
+          ],
+          "contexts": [
+            "dark"
+          ],
+          "values": [
+            0.9,
+            0.95,
+            1
+          ],
+          "hud": true
+        },
+        {
           "id": "bar-stamina",
           "kind": "bar",
           "variations": [
@@ -661,7 +793,8 @@
           "variations": [
             "ToyBackdrop",
             "ToyBackdropDeep",
-            "ToyBackdropNight"
+            "ToyBackdropNight",
+            "ToyBackdropFullScreen"
           ]
         },
         {

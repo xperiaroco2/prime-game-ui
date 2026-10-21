@@ -45,3 +45,8 @@
   letter-spacing: calc(var(--toy-type-body-letter-spacing) * var(--px));
   text-shadow: calc(var(--toy-title-logo-items-shadow-offset-x) * var(--px)) calc(var(--toy-title-logo-items-shadow-offset-y) * var(--px)) 0 var(--toy-palette-coral);
 }
+/* the glow (ui-1.3.0): StyleBoxFlat's shadow_size at offset 0, a blur with no offset and no spread */
+.tv-ToyBarAngerAlarm {
+  background: var(--toy-palette-cream);
+  box-shadow: 0 0 calc(var(--toy-glow-action) * var(--px)) var(--toy-palette-acid);
+}

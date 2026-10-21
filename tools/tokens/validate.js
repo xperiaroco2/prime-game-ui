@@ -177,7 +177,7 @@ function checkStructure(model, structs, P, icons) {
           continue;
         }
         if (m.name === 'draw-center') P.error('P43', m.file, m.pointer, m.path, 'draw-center is derived (false when bg-color alpha is 0); do not author it');
-        else if (m.name.startsWith('shadow')) P.error('P43', m.file, m.pointer, m.path, 'StyleBoxFlat shadows are never used (decision 4): the toy base is a layer or a merge');
+        else if (m.name.startsWith('shadow') && !X.SHADOW_FIELDS.includes(m.name)) P.error('P43', m.file, m.pointer, m.path, 'a StyleBoxFlat shadow is only the glow (ui-1.3.0): shadow-color and shadow-size, its offset always 0; the hard ink shadow stays a base layer or the edge form');
         else if (AUTHOR_BOX.includes(m.name)) continue;
         else if (m.name === 'font-color' && info.font.includes(s)) continue;
         else if (m.name === 'font-shadow-color' && info.shadow.includes(s)) continue;
@@ -350,9 +350,9 @@ function checkValues(model, structs, variants, res, P) {
         once.add(where[1]);
         P.error('P44', ...where, msg);
       };
-      for (const k of [...SIDES.map((x) => `border-width-${x}`), ...CORNERS.map((x) => `corner-radius-${x}`), ...SIDES.map((x) => `content-margin-${x}`)]) {
+      for (const k of [...SIDES.map((x) => `border-width-${x}`), ...CORNERS.map((x) => `corner-radius-${x}`), ...SIDES.map((x) => `content-margin-${x}`), 'shadow-size']) {
         const x = pxOf(rec[k]);
-        if (x != null && x < 0) p44(k, `${st}.${k} is ${x}; border widths, radii and content margins are ≥ 0`);
+        if (x != null && x < 0) p44(k, `${st}.${k} is ${x}; border widths, radii, content margins and the glow size are ≥ 0`);
       }
       if (half != null) {
         for (const c of CORNERS) {
@@ -525,9 +525,10 @@ function checkValues(model, structs, variants, res, P) {
       const target = n.alias ? res.tokens.get(n.alias) : null;
       const sep = isItemOf(n, variantNodes, structs) && /separation$/.test(n.name);
       const sizeMember = !!(n.parent && n.parent.name === 'size' && n.parent.parent && variantNodes.has(n.parent.parent));
-      const allowed = sizeMember ? /^(stroke|radius|focus|offset|space|size)\./ : /^(stroke|radius|focus|offset|space)\./;
+      // and glow.* (the glow's shadow size, ui-1.3.0)
+      const allowed = sizeMember ? /^(stroke|radius|focus|offset|space|glow|size)\./ : /^(stroke|radius|focus|offset|space|glow)\./;
       if (n.alias && (!allowed.test(n.alias) || (target && target.tier !== 'primitive'))) {
-        P.error('P53', n.file, `${n.pointer}/$value`, p, `component dimensions are int literals or references to the primitives stroke.*, radius.*, focus.*, offset.* or space.* (a size member also size.*), not {${n.alias}}`);
+        P.error('P53', n.file, `${n.pointer}/$value`, p, `component dimensions are int literals or references to the primitives stroke.*, radius.*, focus.*, offset.*, space.* or glow.* (a size member also size.*), not {${n.alias}}`);
       } else if (n.alias && /^size\./.test(n.alias) && target && !(target.fe && target.fe.role === 'context')) {
         P.error('P53', n.file, `${n.pointer}/$value`, p, `{${n.alias}} is not owned by a modifier: size.* are the lengths that follow the text size (text-size/*.tokens.json)`);
       } else if (sep && (!n.alias || !n.alias.startsWith('space.'))) {

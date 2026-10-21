@@ -105,6 +105,42 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
   (anger over 70 %, health and stamina under 30 %, the return bar's last 5 s), health at 24 % in frame 4 to show an
   alarm, the fully rounded fill end, a 0.9 s pulse each way, and the glowing button keeping the plain button's footprint
   (its box 5 px bigger to the right and down, where the hard shadow was).
+- **The chosen look, ui-1.3.0 (2026-10-21)** (the engineer, 2026-10-21, chat, translated, on the glow-bars page,
+  recorded on prime-game#150): "we take way 3, the threshold, for the bars and colouring 3 (the line and one fill) for
+  the icons". The page's other switches stayed at their defaults and are read as chosen too (agent): the acid main
+  action glows, the bar track is white (not the dark purple), the light is the bar's own colour (not the brighter
+  acid and hot coral). The sticker style stays; the pack ui-1.3.0 carries it (`tokens/README.md`, "The glow since
+  ui-1.3.0"), and `pages/mvp-screens/`, the components showcase and the screens s01 to s11 show it:
+  - the main action (`ToyButtonPrimary`, a value change) is the acid `#B6FF3C` with Godot's one shadow as its glow;
+    its hard ink shadow is the edge form, so its `base` is gone and the game drops its ToyRaised wrapper;
+  - the anger, health, stamina and return bars are one ProgressBar each with a Calm and an Alarm variation (new); only
+    Alarm glows (the track's shadow in the bar's own colour); the alarm lines and the 0.9 s alpha pulse are game code
+    (the handoff in `tokens/README.md`); the old fill and track variations of the bars are deprecated;
+  - the full-screen titles (`ToyTitleHero`, `ToyTitleHeroAlert`) are Kablammo (`type.hero-display`, a value change)
+    on the new `ToyBackdropFullScreen`, the soft ink `#54457A`; smaller titles stay Nunito Black;
+  - the twelve `item-*` icons are the line icons in colouring 3 (ink line and accent, one muted fill of the item's
+    own colour), a value change under the same names; the fourteen `item2-*` icons (not chosen) left the pack's
+    folder before any tag shipped them, so they never reach the game; they live on in `pages/mvp-screens/item2/` for
+    the sketch page (agent).
+  The look choices the agent took alone:
+  - the acid hover and held shades `#CEFF73` and `#9BE800` (agent);
+  - the glow sizes at the 0.75 scale: the main action's 45 px and the alarm's 42 px (the page's 30 and 28 × 1.5)
+    (agent);
+  - the unplugged main action is flat: no glow, no edge form, a 6 px outline, its label ink (agent);
+  - pill ends on every bar, and the fill drawn over the track's full height in the same 5 px outline (agent);
+  - the health bar is plain green; the old coral-to-green ramp is dropped (agent);
+  - the full screens' ground is a new variation, `ToyBackdropFullScreen`, rather than a recoloured night ground,
+    which stays for the other screens (agent);
+  - Kablammo at the hero size 96, the pack's size for the sketches' 84 px titles (agent);
+  - on the full screens the "Your role" and return lines are mint (`ToyTextOnDark`), since the muted lilac is
+    3.82:1 on the soft ink (agent);
+  - on `pages/mvp-screens/` frame 4 (anger full) health is at 24 %, so both an anger and a health alarm show, as on
+    the glow-bars page (agent);
+  - the knife's two dots are drawn as filled circles, since Godot's SVG import may skip zero-length round-capped
+    paths (unconfirmed) (agent);
+  - on the screens, s09's bleed-out bar takes the health bar's look and alarm line (under 30 %), since the time
+    left reads as life, and the dead's room return bar on the count plate moves from `ToyBarProgress` to
+    `ToyBarReturnCalm` / `Alarm` (agent).
 - **The round HUD's pictures are icon files** (`pages/components/icons/`, own work, page-only today; the pack lists
   them but no token names them yet): the siren as two files, `siren-off` (the lilac dome, anger calm) and `siren-on`
   (the coral dome with rays, rising and full); the empty slots `slot-empty-hand` and `slot-empty-belt`; and one

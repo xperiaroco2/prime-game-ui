@@ -13,11 +13,16 @@ const BOX_FIELDS = ['bg-color', 'draw-center', 'border-color',
   ...SIDES.map((s) => `border-width-${s}`), ...CORNERS.map((c) => `corner-radius-${c}`),
   ...SIDES.map((s) => `content-margin-${s}`), ...SIDES.map((s) => `expand-margin-${s}`)];
 const FONT_FIELDS = ['font-color', 'font-shadow-color'];
+// The glow (ui-1.3.0): a StyleBoxFlat's one shadow, shadow_color and shadow_size, its shadow_offset always (0, 0). A
+// state record has both only where its state, or the state it completes from, authors one of them; elsewhere the
+// pack's records keep the 19 fields above and the game leaves Godot's default (no shadow).
+const SHADOW_FIELDS = ['shadow-color', 'shadow-size'];
 // The authoring names of a state group (§3.5 "StyleBox fields (authoring forms)").
 const AUTHOR_BOX = ['bg-color', 'border-color', 'border-width', ...SIDES.map((s) => `border-width-${s}`),
   'corner-radius', ...CORNERS.map((c) => `corner-radius-${c}`),
   'content-margin', 'content-margin-block', 'content-margin-inline', ...SIDES.map((s) => `content-margin-${s}`),
-  'expand-margin', 'expand-margin-block', 'expand-margin-inline', ...SIDES.map((s) => `expand-margin-${s}`)];
+  'expand-margin', 'expand-margin-block', 'expand-margin-inline', ...SIDES.map((s) => `expand-margin-${s}`),
+  ...SHADOW_FIELDS];
 
 // §3.5 "State groups per class" and P42. `textures`: the class's theme icons a variant may name in godot.textures (P61),
 // kebab-case like items (godot-facts §9 table: option_button.cpp binds `arrow`; slider.cpp `grabber`,
@@ -154,6 +159,7 @@ function authored(stateNode, val) {
     const inline = field(`${kind}-inline`);
     for (const s of SIDES) set(`${kind}-${s}`, field(`${kind}-${s}`) || (s === 'top' || s === 'bottom' ? block : inline) || all);
   }
+  for (const f of SHADOW_FIELDS) set(f, field(f));
   for (const f of FONT_FIELDS) set(f, field(f));
   return rec;
 }
@@ -164,8 +170,17 @@ const drawCenter = (bg) => ({ value: { type: 'boolean', value: alphaOf(bg) > 0 }
 const ordered = (r) => {
   const out = {};
   for (const k of BOX_FIELDS) out[k] = r[k];
+  if (SHADOW_FIELDS.some((k) => r[k])) for (const k of SHADOW_FIELDS) out[k] = r[k];
   return out;
 };
+// The glow fields of a record: both where the state or the record it completes from has either (a missing colour is
+// clear, a missing size 0), else none.
+function withShadow(r, partial, from, clear) {
+  const pick = (k) => partial[k] || (from ? from[k] : null);
+  if (!SHADOW_FIELDS.some((k) => pick(k))) return;
+  r['shadow-color'] = pick('shadow-color') || { value: clear, source: null };
+  r['shadow-size'] = pick('shadow-size') || zero();
+}
 
 // A state that takes nothing from another: missing fields are StyleBoxFlat's defaults, content margins the border width.
 function completeBase(partial, clear) {
@@ -181,6 +196,7 @@ function completeBase(partial, clear) {
       || { value: { type: 'dimension', px: bw.value ? bw.value.px : 0 }, source: bw.source };
   }
   for (const s of SIDES) r[`expand-margin-${s}`] = partial[`expand-margin-${s}`] || zero();
+  withShadow(r, partial, null, clear);
   return ordered(r);
 }
 
@@ -188,6 +204,7 @@ function inheritFrom(baseRec, partial) {
   const r = {};
   for (const k of BOX_FIELDS) r[k] = partial[k] || baseRec[k];
   r['draw-center'] = drawCenter(r['bg-color']);
+  withShadow(r, partial, baseRec, CLEAR);
   return ordered(r);
 }
 
@@ -355,4 +372,4 @@ function expandAll(structs, res) {
 }
 
 module.exports = { collectVariants, expandAll, authored, completeBase, CLASSES, INHERITS, BASE_STATES, BOX_FIELDS, FONT_FIELDS,
-  AUTHOR_BOX, SIDES, CORNERS, PRESS_MEMBERS, SIZE_NAMES, stopName, rampStops };
+  SHADOW_FIELDS, AUTHOR_BOX, SIDES, CORNERS, PRESS_MEMBERS, SIZE_NAMES, stopName, rampStops };

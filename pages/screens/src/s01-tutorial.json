@@ -54,18 +54,8 @@
             {
               "name": "Bars", "type": "VBoxContainer", "variation": "ToyColumnTwelve", "size_flags_vertical": "shrink_end",
               "children": [
-                {
-                  "name": "Health", "type": "PanelContainer", "variation": "ToyBarTrack", "custom_minimum_size": [300, 24],
-                  "children": [
-                    { "name": "Fill", "type": "ProgressBar", "variation": "ToyBarHealth", "show_percentage": false, "max_value": 1, "value": 1, "custom_minimum_size": [0, 14] }
-                  ]
-                },
-                {
-                  "name": "Stamina", "type": "PanelContainer", "variation": "ToyBarTrack", "custom_minimum_size": [300, 24],
-                  "children": [
-                    { "name": "Fill", "type": "ProgressBar", "variation": "ToyBarStamina", "show_percentage": false, "max_value": 1, "value": 1, "custom_minimum_size": [0, 14] }
-                  ]
-                }
+                { "name": "Health", "type": "ProgressBar", "variation": "ToyBarHealthCalm", "show_percentage": false, "max_value": 1, "value": 1, "custom_minimum_size": [300, 24], "note": "As s7." },
+                { "name": "Stamina", "type": "ProgressBar", "variation": "ToyBarStaminaCalm", "show_percentage": false, "max_value": 1, "value": 1, "custom_minimum_size": [300, 24], "note": "As s7." }
               ]
             },
             {

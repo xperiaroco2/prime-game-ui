@@ -2,13 +2,15 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&family=Rubik:wght@600;700&family=Commissioner:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kablammo&family=Nunito:wght@400;700;800;900&family=Rubik:wght@600;700&family=Commissioner:wght@400;600;700&display=swap">
 <style>
 /* Layout: sketches of the screen pieces the MVP match (prime-game docs/design/m8-match.md, frozen 2026-10-20) adds
    or changes, in the picked "Ink and mint sticker" (strength B, no tilts). Each 16:9 frame sits over a plain world
    colour. A sticky switch sets the UI scale: at 1x the stage is 960x540 (the first sketches' size), at 0.5x it is
    1920x1080 (0.75x: 1280x720) with the same px values, so every UI piece shrinks and keeps its anchor (edge, corner
-   or centre); 0.75x is the engineer's pick.
+   or centre); 0.75x is the engineer's pick. Since 2026-10-21 the frames wear the chosen look of ui-1.3.0 (the sticker
+   with the glow, pages/glow-bars/): the acid main action that glows, the bars that glow only past their alarm line,
+   Kablammo on the full-screen titles over the soft ink, the line item icons (colouring 3).
    Quiet graphite chrome, the same as the sticker page. The audit behind it: docs/research/2026-10-20-mvp-screens/. */
 :root {
   color-scheme: dark;
@@ -56,8 +58,8 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
 /* ---------- Inside the frames: the sticker's .st / .st.vb look, Godot-safe (solid fills, one-colour borders, radii,
    one hard shadow without spread, one text outline; the item pictures are textures). No new colours or fonts: the
    palette is pages/sticker's, plus the agent's lighter purple and soft ink state shades of ui-1.0.0. ---------- */
-.st { overflow-wrap: normal; --pu:#2B1846; --pud:#1F1033; --pul:#3C2660; --ink:#1E1230; --soft:#54457A; --mint:#CFF3DF; --gr:#A6E85A; --co:#FF8A6B; --ye:#FFD60A; --mu:#B7A8D6; --wh:#FFFFFF;
-  --ft: "Nunito", "Segoe UI", sans-serif; --fn: "Rubik", "Segoe UI", sans-serif;
+.st { overflow-wrap: normal; --pu:#2B1846; --pud:#1F1033; --pul:#3C2660; --ink:#1E1230; --soft:#54457A; --mint:#CFF3DF; --gr:#A6E85A; --co:#FF8A6B; --ye:#FFD60A; --mu:#B7A8D6; --wh:#FFFFFF; --acid:#B6FF3C;
+  --ft: "Nunito", "Segoe UI", sans-serif; --fn: "Rubik", "Segoe UI", sans-serif; --fk: "Kablammo", "Arial Black", sans-serif;
   --ow: 4px; --sh: 5px; --fd: "Nunito", "Segoe UI", sans-serif; }
 .st .abs { position: absolute; }
 .st .plate { background: var(--mint); color: var(--ink); border: var(--ow) solid var(--ink); border-radius: 16px; box-shadow: var(--sh) var(--sh) 0 var(--ink); }
@@ -66,15 +68,24 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
 .st .title { font-family: var(--fd); font-weight: 900; color: var(--gr); -webkit-text-stroke: calc(var(--ow) * 2) var(--ink); paint-order: stroke fill; line-height: 1.02; }
 .st .title.co { color: var(--co); }
 .st .btn { display: block; text-align: center; padding: 7px 16px; border: var(--ow) solid var(--ink); border-radius: 14px; box-shadow: var(--sh) var(--sh) 0 var(--ink); font: 900 18px/1.2 var(--ft); color: var(--ink); background: var(--mint); }
-.st .btn.p { background: var(--gr); }
-.st .btn.off { background: var(--mu); border-color: var(--soft); color: var(--soft); box-shadow: none; }
+/* the main action (ui-1.3.0): acid green that glows; Godot's one shadow is the glow, so the hard ink shadow moves into
+   the border (4/9/9/4), and the box keeps the plain button's footprint */
+.st .btn.p { background: var(--acid); border-width: 4px 9px 9px 4px; box-shadow: 0 0 30px rgba(182, 255, 60, 1); margin: 0 -5px -5px 0; }
+.st .btn.off { background: var(--mu); border-color: var(--soft); color: var(--ink); box-shadow: none; }
 .st .stk { display: inline-block; border: var(--ow) solid var(--ink); border-radius: 10px; padding: 3px 10px; font: 900 15px/1.25 var(--ft); color: var(--ink); }
 .st .stk.gr { background: var(--gr); } .st .stk.co { background: var(--co); } .st .stk.mi { background: var(--mint); } .st .stk.ye { background: var(--ye); }
 .st .chipp { display: inline-block; background: var(--pu); color: var(--mint); border: var(--ow) solid var(--ink); border-radius: 999px; padding: 3px 12px; font: 900 15px/1.25 var(--ft); }
 .st .lab { font: 800 15px/1.2 var(--ft); }
 .st .muted { color: var(--mu); }
-.st .track { position: relative; height: 16px; background: var(--wh); border: 3px solid var(--ink); border-radius: 10px; overflow: hidden; box-sizing: border-box; }
-.st .track b { position: absolute; left: 0; top: 0; bottom: 0; display: block; border-right: 3px solid var(--ink); }
+/* a bar is one ProgressBar (ui-1.3.0): the track is its `background` StyleBoxFlat; the fill (--v, 0..1) its `fill`
+   StyleBoxFlat with the same ink border and radii, drawn over the track's whole height. Past its alarm line (.al) the
+   track glows in the bar's own colour and the game pulses the glow's alpha, 0.9 s each way. */
+.st .track { position: relative; height: 16px; background: var(--wh); border: 3px solid var(--ink); border-radius: 10px; box-sizing: border-box; }
+.st .track b { position: absolute; left: -3px; top: -3px; bottom: -3px; width: calc(var(--v) * (100% + 6px)); box-sizing: border-box; display: block; border: 3px solid var(--ink); border-radius: inherit; }
+.st .track.ang { --g: 255, 138, 107; } .st .track.hp, .st .track.ret { --g: 166, 232, 90; } .st .track.sta { --g: 255, 214, 10; }
+@keyframes st-pulse { from { box-shadow: 0 0 28px rgba(var(--g), 1); } to { box-shadow: 0 0 28px rgba(var(--g), .25); } }
+.st .track.al { box-shadow: 0 0 28px rgba(var(--g), 1); animation: st-pulse .9s ease-in-out infinite alternate; }
+@media (prefers-reduced-motion: reduce) { .st .track.al { animation: none; } }
 .st .hue { display: inline-block; width: 18px; height: 18px; border-radius: 50%; border: 3px solid var(--ink); vertical-align: -4px; margin-right: 8px; }
 .st .num { font: 700 30px/1.2 var(--fn); }
 .st .cross { left: 50%; top: 50%; margin: -4px 0 0 -4px; width: 8px; height: 8px; border-radius: 50%; background: var(--wh); border: 2px solid var(--ink); box-sizing: border-box; }
@@ -208,13 +219,13 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
 .st .chip { padding: 4px 16px; border: var(--ow) solid var(--ink); border-radius: 999px; font: 900 17px/1.2 var(--ft); background: var(--mint); color: var(--ink); }
 .st .chip.on { background: var(--gr); box-shadow: var(--sh) var(--sh) 0 var(--ink); }
 
-/* full screens: the role reveal and the three ends, on the deep purple */
-.st .endf { position: absolute; left: 0; top: 0; right: 0; bottom: 0; background: var(--pud); display: grid; align-content: center; justify-items: center; gap: 20px; text-align: center; }
-.st .endf .title { font-size: 84px; }
+/* full screens: the role reveal and the three ends, on the soft ink (ui-1.3.0), where the titles' ink outline shows */
+.st .endf { position: absolute; left: 0; top: 0; right: 0; bottom: 0; background: var(--soft); display: grid; align-content: center; justify-items: center; gap: 20px; text-align: center; }
+.st .endf .title { font-size: 84px; font-family: var(--fk); font-weight: 400; line-height: 1.1; letter-spacing: .01em; }
 .st .endf .win { font: 900 28px/1.2 var(--ft); padding: 8px 24px; }
 .st .endf .goal { font: 800 20px/1.35 var(--ft); padding: 10px 22px; max-width: 600px; }
 .st .endf .stk { font-size: 19px; }
-.st .endf .lab { color: var(--mu); }
+.st .endf .lab { color: var(--mint); }
 
 /* two variants side by side, centred (open questions) */
 .st .pair { left: 50%; top: 50%; transform: translate(-50%, -50%); display: flex; gap: 90px; align-items: flex-start; }
@@ -236,18 +247,39 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
   <symbol id="i-siren-on" viewBox="0 0 64 64"><g stroke="#1E1230" stroke-width="4" stroke-linecap="round" fill="none"><path d="M11 28L4 23M10 38H2M53 28l7-5M54 38h8"/></g><g stroke="#1E1230" stroke-width="4" stroke-linejoin="round"><circle cx="32" cy="15" r="3.5" fill="#FFD60A" stroke-width="3"/><path d="M18 46V33a14 14 0 0 1 28 0V46z" fill="#FF8A6B"/><rect x="12" y="46" width="40" height="11" rx="3" fill="#1E1230"/></g><rect x="23.5" y="25" width="5" height="13" rx="2.5" fill="#FFFFFF"/></symbol>
   <symbol id="i-slot-empty-hand" viewBox="0 0 64 64"><path d="M22 58q-8-14-4-28l2-12q2-5 5 0l2 12 2-18q3-5 6 0l1 18 3-13q3-5 5 0v15q4-4 7-1 1 3-3 9-4 10-6 18z" fill="none" stroke="#54457A" stroke-width="3.5" stroke-linejoin="round"/></symbol>
   <symbol id="i-slot-empty-belt" viewBox="0 0 64 64"><path d="M14 18H50V44Q50 56 32 56Q14 56 14 44zM14 18L32 30 50 18" fill="none" stroke="#54457A" stroke-width="3.5" stroke-linejoin="round"/></symbol>
-  <symbol id="i-item-rocket" viewBox="0 0 64 64"><g stroke="#1E1230" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"><path d="M32 50V62" fill="none"/><path d="M42 44q7 1 8-6" fill="none"/><path d="M50 30l2 4 4 1-4 2-2 4-2-4-4-2 4-1z" fill="#FFD60A" stroke-width="2.5"/><path d="M23 37l-9 13 10-2z" fill="#A6E85A"/><path d="M41 37l9 13-10-2z" fill="#A6E85A"/><rect x="22" y="18" width="20" height="32" rx="6" fill="#FF8A6B"/><path d="M22 20Q32 0 42 20z" fill="#FFD60A"/><path d="M22 42H42" fill="none"/><circle cx="27.6" cy="28" r="3.8" fill="#FFFFFF" stroke-width="2.5"/><circle cx="36.4" cy="28" r="3.8" fill="#FFFFFF" stroke-width="2.5"/><path d="M28.5 35q3.5 2.6 7 0" fill="none" stroke-width="2.5"/></g><circle cx="28.4" cy="28.6" r="1.6" fill="#1E1230"/><circle cx="37.2" cy="28.6" r="1.6" fill="#1E1230"/></symbol>
-  <symbol id="i-item-bun" viewBox="0 0 64 64"><g stroke="#1E1230" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"><path d="M8 36Q8 12 32 12Q56 12 56 36z" fill="#FFD60A"/><rect x="9" y="40" width="46" height="13" rx="6.5" fill="#FFD60A"/><g fill="#FFFFFF" stroke-width="1.8"><ellipse cx="22" cy="20" rx="2.6" ry="1.6"/><ellipse cx="32" cy="17" rx="2.6" ry="1.6"/><ellipse cx="42" cy="20" rx="2.6" ry="1.6"/></g><path d="M21 28q3-3.5 6 0M37 28q3-3.5 6 0M29 31q3 2.6 6 0" fill="none" stroke-width="2.6"/></g></symbol>
-  <symbol id="i-item-battery" viewBox="0 0 64 64"><g stroke="#1E1230" stroke-width="3.5" stroke-linejoin="round"><rect x="26" y="5" width="12" height="8" rx="2" fill="#1E1230"/><rect x="16" y="12" width="32" height="46" rx="7" fill="#A6E85A"/><path d="M35 18L24 37h8l-4 15 13-21h-8z" fill="#FFD60A"/></g></symbol>
-  <symbol id="i-item-extinguisher" viewBox="0 0 64 64"><g stroke="#1E1230" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"><path d="M35 15q15 0 13 16l2 8" fill="none"/><rect x="46" y="38" width="8" height="9" rx="2" fill="#1E1230"/><rect x="20" y="20" width="22" height="39" rx="9" fill="#FF8A6B"/><rect x="25" y="33" width="12" height="11" rx="2" fill="#FFFFFF" stroke-width="2.5"/><rect x="27" y="11" width="8" height="10" rx="2" fill="#1E1230"/><path d="M22 10H38" fill="none" stroke-width="4"/></g></symbol>
-  <symbol id="i-item-flower" viewBox="0 0 64 64"><g stroke="#1E1230" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"><path d="M32 40V60" fill="none"/><path d="M32 54Q22 56 17 46Q27 43 32 52z" fill="#A6E85A"/><path d="M32 50Q42 52 47 43Q37 40 32 48z" fill="#A6E85A"/><circle cx="32.0" cy="11.0" r="9" fill="#FF8A6B"/><circle cx="43.4" cy="19.3" r="9" fill="#FF8A6B"/><circle cx="39.1" cy="32.7" r="9" fill="#FF8A6B"/><circle cx="24.9" cy="32.7" r="9" fill="#FF8A6B"/><circle cx="20.6" cy="19.3" r="9" fill="#FF8A6B"/><circle cx="32" cy="23" r="8.5" fill="#FFD60A"/><path d="M28.5 24.5q3.5 3 7 0" fill="none" stroke-width="2.4"/></g><circle cx="29" cy="20.5" r="1.6" fill="#1E1230"/><circle cx="35" cy="20.5" r="1.6" fill="#1E1230"/></symbol>
-  <symbol id="i-item-car-part" viewBox="0 0 64 64"><g stroke="#1E1230" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"><circle cx="32" cy="32" r="25" fill="#FFFFFF"/><circle cx="32" cy="32" r="16" fill="#B7A8D6" stroke-width="3"/><path d="M32 32L32.0 15.0" stroke-width="7"/><path d="M32 32L32.0 15.0" stroke="#FFFFFF" stroke-width="2"/><path d="M32 32L48.2 26.7" stroke-width="7"/><path d="M32 32L48.2 26.7" stroke="#FFFFFF" stroke-width="2"/><path d="M32 32L42.0 45.8" stroke-width="7"/><path d="M32 32L42.0 45.8" stroke="#FFFFFF" stroke-width="2"/><path d="M32 32L22.0 45.8" stroke-width="7"/><path d="M32 32L22.0 45.8" stroke="#FFFFFF" stroke-width="2"/><path d="M32 32L15.8 26.7" stroke-width="7"/><path d="M32 32L15.8 26.7" stroke="#FFFFFF" stroke-width="2"/><circle cx="32" cy="32" r="6" fill="#FFD60A" stroke-width="3"/></g><path d="M15 20A21 21 0 0 1 26 11.5" fill="none" stroke="#B7A8D6" stroke-width="3" stroke-linecap="round"/></symbol>
-  <symbol id="i-item-patty" viewBox="0 0 64 64"><g stroke="#1E1230" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"><path d="M7 32V38Q7 50 32 50Q57 50 57 38V32z" fill="#EC6F50"/><ellipse cx="32" cy="32" rx="25" ry="12" fill="#FF8A6B"/><path d="M18 30l6-5M27 36l12-11M42 37l5-5" fill="none" stroke-width="3"/></g><g stroke="#1E1230" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"><path d="M22 16q-3-4 0-8M32 16q-3-4 0-8M42 16q-3-4 0-8" fill="none" stroke="#B7A8D6"/></g></symbol>
-  <symbol id="i-item-burger" viewBox="0 0 64 64"><g stroke="#1E1230" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"><rect x="8" y="46" width="48" height="10" rx="5" fill="#FFD60A"/><rect x="6" y="37" width="52" height="11" rx="5.5" fill="#EC6F50"/><path d="M6 35Q11 40 16 35T26 35T36 35T46 35T58 35V38H6z" fill="#A6E85A"/><path d="M34 16V4" fill="none" stroke-width="3"/><path d="M34 4L46 7.5L34 11z" fill="#FF8A6B" stroke-width="3"/><path d="M8 34Q8 14 32 14Q56 14 56 34z" fill="#FFD60A"/><g fill="#FFFFFF" stroke-width="1.8"><ellipse cx="20" cy="23" rx="2.4" ry="1.5"/><ellipse cx="44" cy="23" rx="2.4" ry="1.5"/><ellipse cx="26" cy="28" rx="2.4" ry="1.5"/><ellipse cx="38" cy="28" rx="2.4" ry="1.5"/></g></g></symbol>
-  <symbol id="i-item-watering-can" viewBox="0 0 64 64"><g stroke="#1E1230" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"><path d="M14 30Q16 14 30 16" fill="none" stroke-width="8"/><path d="M14 30Q16 14 30 16" fill="none" stroke="#B7A8D6" stroke-width="1.5"/><path d="M38 47L53 22" fill="none" stroke-width="8"/><path d="M38 47L53 22" fill="none" stroke="#B7A8D6" stroke-width="1.5"/><ellipse cx="55" cy="18" rx="7.5" ry="4" transform="rotate(31 55 18)" fill="#FFD60A"/><path d="M9 28H41L42.5 51Q43 56 38 56H14Q9 56 9.5 51z" fill="#B7A8D6"/><path d="M9.3 33H41.3" fill="none" stroke-width="3"/></g><g stroke="#1E1230" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"><path d="M59 29q2.2 3.2 0 5.4q-2.2-2.2 0-5.4zM54 33q2.2 3.2 0 5.4q-2.2-2.2 0-5.4z" fill="#FFFFFF"/></g></symbol>
-  <symbol id="i-item-wrench" viewBox="0 0 64 64"><path d="M14 52Q4 56 6 62" fill="none" stroke="#1E1230" stroke-width="4" stroke-linecap="round"/><g transform="rotate(45 32 32)"><g stroke="#1E1230" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"><rect x="27" y="20" width="10" height="42" rx="5" fill="#FFFFFF"/><rect x="27" y="40" width="10" height="22" rx="5" fill="#FF8A6B"/><path d="M28 3.7L28 13L36 13L36 3.7A12.5 12.5 0 1 1 28 3.7Z" fill="#FFFFFF"/></g></g></symbol>
-  <symbol id="i-item-bin-bag" viewBox="0 0 64 64"><g stroke="#1E1230" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"><path d="M26 18Q8 26 9 44Q10 58 32 58Q54 58 55 44Q56 26 38 18z" fill="#3C2660"/><path d="M26 18L18 6Q26 8 32 14Q38 8 46 6L38 18z" fill="#3C2660"/><rect x="24" y="15" width="16" height="6" rx="3" fill="#FFD60A" stroke-width="3"/></g><path d="M16 38Q16 30 22 26" fill="none" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round"/></symbol>
-  <symbol id="i-item-knife" viewBox="0 0 64 64"><g transform="rotate(45 32 32)"><g stroke="#1E1230" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"><path d="M27 38V12Q27 4 34 2Q37 10 37 20V38z" fill="#FFFFFF"/><path d="M31 33V14" fill="none" stroke="#B7A8D6" stroke-width="2.5"/><rect x="25" y="37" width="14" height="5" rx="2" fill="#1E1230" stroke-width="3"/><rect x="27" y="41" width="10" height="20" rx="4" fill="#FF8A6B"/></g></g></symbol>
+  <symbol id="i-item-rocket" viewBox="0 0 64 64"><g transform="matrix(1.0219 0.59 -0.59 1.0219 18.7689 -20.603)">
+<g fill="#C8644E" stroke="none"><path d="M25 22L32 9L39 22V44H25Z"/></g>
+<g fill="none" stroke="#1E1230" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M25 22L32 9L39 22V44H25Z"/><path d="M25 22H39"/><path d="M32 44V60"/><path d="M28 44q-1 4-5 5.5"/><path d="M25 33l3.5-3 3.5 3 3.5-3 3.5 3"/></g>
+</g></symbol>
+  <symbol id="i-item-bun" viewBox="0 0 64 64"><g fill="#D7A35C" stroke="none"><path d="M8 41C8 25 18 15 32 15C46 15 56 25 56 41Q56 48 49 48H15Q8 48 8 41Z"/></g>
+<g fill="none" stroke="#1E1230" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 41C8 25 18 15 32 15C46 15 56 25 56 41Q56 48 49 48H15Q8 48 8 41Z"/><path d="M22 28l2.6-1.2"/><path d="M31 23h2.8"/><path d="M40 27l2.4 1.4"/><path d="M29 33h2.8"/><path d="M9 39H55"/></g></symbol>
+  <symbol id="i-item-battery" viewBox="0 0 64 64"><g fill="#D3A24C" stroke="none"><path d="M21 19V50A11 4 0 0 0 43 50V19A11 4 0 0 0 21 19Z"/></g>
+<g fill="none" stroke="#1E1230" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 19A11 4 0 0 1 43 19A11 4 0 0 1 21 19Z"/><path d="M21 19V50A11 4 0 0 0 43 50V19"/><path d="M28.5 11.5H35.5"/><path d="M32 37v8M28 41h8"/><path d="M21 28A11 4 0 0 0 43 28"/></g></symbol>
+  <symbol id="i-item-extinguisher" viewBox="0 0 64 64"><g fill="#C65A4C" stroke="none"><path d="M21 30Q21 22 29 22H33Q41 22 41 30V54Q41 58 37 58H25Q21 58 21 54Z"/></g>
+<g fill="none" stroke="#1E1230" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 30Q21 22 29 22H33Q41 22 41 30V54Q41 58 37 58H25Q21 58 21 54Z"/><path d="M28 22V16H34V22"/><path d="M25 13L40 9"/><path d="M34 18Q48 18 48 32V43"/><path d="M45.5 47L48 43L50.5 47Z"/><path d="M26 35H36V45H26Z"/></g></symbol>
+  <symbol id="i-item-flower" viewBox="0 0 64 64"><g fill="#D46A78" stroke="none"><path d="M20 12C19 26 24 34 32 34C40 34 45 26 44 12C39 14 35.5 18 32 24C28.5 18 25 14 20 12Z"/></g>
+<g fill="none" stroke="#1E1230" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12C19 26 24 34 32 34C40 34 45 26 44 12C39 14 35.5 18 32 24C28.5 18 25 14 20 12Z"/><path d="M26 18C28 13 30 9.5 32 6.5C34 9.5 36 13 38 18"/><path d="M32 34V45"/><path d="M19 45H45"/><path d="M22 45L25 57H39L42 45"/><path d="M32 43C37 43 41 39 42 33C37 33 33 37 32 43Z"/></g></symbol>
+  <symbol id="i-item-car-part" viewBox="0 0 64 64"><g fill="#8A8F99" stroke="none"><path d="M28 11V7Q28 4 31 4H33Q36 4 36 7V11Z"/><path d="M25 32V15Q25 11 29 11H35Q39 11 39 15V32Z"/><path d="M20 32H44Q46 32 46 34V40Q46 42 44 42H20Q18 42 18 40V34Q18 32 20 32Z"/><path d="M23 42V52H41V42Z"/></g>
+<g fill="none" stroke="#1E1230" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M28 11V7Q28 4 31 4H33Q36 4 36 7V11"/><path d="M25 32V15Q25 11 29 11H35Q39 11 39 15V32"/><path d="M20 32H44Q46 32 46 34V40Q46 42 44 42H20Q18 42 18 40V34Q18 32 20 32Z"/><path d="M27 32V42M37 32V42"/><path d="M23 42V52H41V42"/><path d="M23 47H41"/><path d="M38 52V61H30"/><path d="M32 52V55"/><path d="M25 18H39"/><path d="M25 25H39"/></g></symbol>
+  <symbol id="i-item-patty" viewBox="0 0 64 64"><g fill="#D95C64" stroke="none"><path d="M8 28C8 23 19 20 32 20C45 20 56 23 56 28V38C56 44 45 48 32 48C19 48 8 44 8 38Z"/></g>
+<g fill="none" stroke="#1E1230" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 28C8 23 19 20 32 20C45 20 56 23 56 28Q52 32 47 31.5Q43 34.5 38 33.5Q33 36 28 34Q23 35.5 19 32.5Q13 33 8 28Z"/><path d="M8 28V38C8 44 19 48 32 48C45 48 56 44 56 38V28"/><path d="M21 26q2-2.5 4 0"/><path d="M37 25.5q2-2.5 4 0"/></g></symbol>
+  <symbol id="i-item-burger" viewBox="0 0 64 64"><g fill="#D7A35C" stroke="none"><path d="M12 28C12 19 19 13 30 13C32.5 13 34.8 13.3 36.8 13.8A5 5 0 0 0 43 21A5 5 0 0 0 50.3 23.2Q51.6 25.4 52 28Z"/><path d="M12 47H52V49Q52 54 47 54H17Q12 54 12 49Z"/></g>
+<g fill="none" stroke="#1E1230" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 28C12 19 19 13 30 13C32.5 13 34.8 13.3 36.8 13.8A5 5 0 0 0 43 21A5 5 0 0 0 50.3 23.2Q51.6 25.4 52 28Z"/><path d="M12 41.5H52"/><path d="M12 47H52V49Q52 54 47 54H17Q12 54 12 49Z"/><path d="M21 21.5l2.5-1.2M30 18.5h2.8"/><path d="M11 34.5q2.5-3 5 0t5 0t5 0t5 0t5 0t5 0t5 0t5 0"/></g></symbol>
+  <symbol id="i-item-watering-can" viewBox="0 0 64 64"><g transform="matrix(1 0 0 1 -2 1)">
+<g fill="#93A8B2" stroke="none"><path d="M12 30Q12 27 15 27H35Q38 27 38 30V51Q38 55 34 55H16Q12 55 12 51Z"/></g>
+<g fill="none" stroke="#1E1230" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 30Q12 27 15 27H35Q38 27 38 30V51Q38 55 34 55H16Q12 55 12 51Z"/><path d="M12 32C3 32 3 48 12 48"/><path d="M18 27V22H26V27"/><path d="M38 48L53 22"/><path d="M51.3 21L54.7 23L62.6 19.4L50.4 12.4Z"/><path d="M58 27v3"/><path d="M62 30.5v3"/><path d="M57.5 34v3"/></g>
+</g></symbol>
+  <symbol id="i-item-wrench" viewBox="0 0 64 64"><g transform="matrix(0.7071 -0.7071 0.7071 0.7071 -13.2548 32)">
+<g fill="#A8AEB8" stroke="none"><path d="M21.62 28L42.38 28A9.5 9.5 0 0 1 59.83 28.5L49 28.5A3.5 3.5 0 0 0 49 35.5L59.83 35.5A9.5 9.5 0 0 1 42.38 36L21.62 36A9.5 9.5 0 1 1 21.62 28Z"/></g>
+<g fill="none" stroke="#1E1230" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M21.62 28L42.38 28A9.5 9.5 0 0 1 59.83 28.5L49 28.5A3.5 3.5 0 0 0 49 35.5L59.83 35.5A9.5 9.5 0 0 1 42.38 36L21.62 36A9.5 9.5 0 1 1 21.62 28Z"/><path d="M10.66 29.26L11.62 28.67L14.38 28.67L15.34 29.26L14.2 28.61L15.19 29.14L16.57 31.53L16.54 32.66L16.54 31.34L16.57 32.47L15.19 34.86L14.2 35.39L15.34 34.74L14.38 35.33L11.62 35.33L10.66 34.74L11.8 35.39L10.81 34.86L9.43 32.47L9.46 31.34L9.46 32.66L9.43 31.53L10.81 29.14L11.8 28.61Z"/></g>
+</g></symbol>
+  <symbol id="i-item-bin-bag" viewBox="0 0 64 64"><g fill="#4E4860" stroke="none"><path d="M25 23C12 28 8 38 9 46C10 53 17 56 23 54C27 57.5 37 57.5 41 54C47 56 54 53 55 46C56 38 52 28 39 23Z"/><path d="M26 22L19 10C25 10 30 13 32 17C34 13 39 10 45 10L38 22Z"/></g>
+<g fill="none" stroke="#1E1230" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M25 23C12 28 8 38 9 46C10 53 17 56 23 54C27 57.5 37 57.5 41 54C47 56 54 53 55 46C56 38 52 28 39 23"/><path d="M26 22L19 10C25 10 30 13 32 17C34 13 39 10 45 10L38 22"/><path d="M28 27L26 33"/><path d="M36 27L38 33"/><path d="M24 23H40"/></g></symbol>
+  <symbol id="i-item-knife" viewBox="0 0 64 64"><g transform="matrix(0.7637 0.7637 -0.7637 0.7637 31.6182 -16.4934)">
+<g fill="#C3C8D0" stroke="none"><path d="M27 37V14C27 7 31 3 37 2C37 10 37 20 37 37Z"/></g>
+<g fill="none" stroke="#1E1230" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M27 37V14C27 7 31 3 37 2C37 10 37 20 37 37Z"/><path d="M24 37H40"/><path d="M28 37V58Q28 61 31 61H33Q36 61 36 58V37"/></g>
+<g fill="#1E1230" stroke="none"><circle cx="32" cy="45" r="2"/><circle cx="32" cy="53" r="2"/></g>
+</g></symbol>
   <symbol id="i-item2-rocket" viewBox="0 0 48 48"><path d="M11.5,15 L20,2.5 L28.5,15 Z" fill="#1e1230"/><path d="M15,14 L25,14 A2,2 0 0 1 27,16 L27,32 A2,2 0 0 1 25,34 L15,34 A2,2 0 0 1 13,32 L13,16 A2,2 0 0 1 15,14 Z M13,20 L27,20 A0,0 0 0 1 27,20 L27,22.4 A0,0 0 0 1 27,22.4 L13,22.4 A0,0 0 0 1 13,22.4 L13,20 A0,0 0 0 1 13,20 Z" fill="#1e1230" fill-rule="evenodd"/><path d="M30.3,18 L30.3,18 A1.8,1.8 0 0 1 32.1,19.8 L32.1,44.2 A1.8,1.8 0 0 1 30.3,46 L30.3,46 A1.8,1.8 0 0 1 28.5,44.2 L28.5,19.8 A1.8,1.8 0 0 1 30.3,18 Z" fill="#1e1230"/><path d="M20,34 C20,38 17,38 17,42" fill="none" stroke="#1e1230" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="i-item2-bun" viewBox="0 0 48 48"><path d="M6,25 C6,13 15,7 24,7 C33,7 42,13 42,25 A2,2 0 0 1 40,27 L8,27 A2,2 0 0 1 6,25 Z M13.56,14.89 A2.6,1.5 -20 1 0 18.44,13.11 A2.6,1.5 -20 1 0 13.56,14.89 Z M21.9,11 A2.6,1.5 0 1 0 27.1,11 A2.6,1.5 0 1 0 21.9,11 Z M29.56,13.61 A2.6,1.5 20 1 0 34.44,15.39 A2.6,1.5 20 1 0 29.56,13.61 Z M17.43,19.86 A2.6,1.5 -8 1 0 22.57,19.14 A2.6,1.5 -8 1 0 17.43,19.86 Z M25.94,19.05 A2.6,1.5 10 1 0 31.06,19.95 A2.6,1.5 10 1 0 25.94,19.05 Z" fill="#1e1230" fill-rule="evenodd"/><path d="M7,31 L41,31 L41,36.5 A4.5,4.5 0 0 1 36.5,41 L11.5,41 A4.5,4.5 0 0 1 7,36.5 Z" fill="#1e1230"/></symbol>
   <symbol id="i-item2-patty" viewBox="0 0 48 48"><path d="M5,21 A19,8 0 0 1 43,21 L43,28 A19,8 0 0 1 5,28 Z M5,21 A19,8 0 0 0 43,21 A19,9.8 0 0 1 5,21 Z M14,25 L16.4,25 L20.4,17 L18,17 Z M21.5,25 L23.9,25 L27.9,17 L25.5,17 Z M29,25 L31.4,25 L35.4,17 L33,17 Z" fill="#1e1230" fill-rule="evenodd"/></symbol>
@@ -280,6 +312,7 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
     <p class="lede">Гра стала вечіркою прибульців, а екрани ще показують стару: інженерів, дисидентів, спостереження за живими. Тут — ескізи нових і змінених частин у стилі «Наліпка: м'ята й чорнило». Тло кожного кадру — просто колір замість світу гри.</p>
     <div class="how">
       <p><b>Як читати.</b> <span class="tag new">нове</span> — такого ще не було; <span class="tag chg">зміна</span> — те саме місце, інший зміст. Усі тексти в кадрах — чернетки: їх затверджуєте ви. Числа — заглушки. Там, де MVP ще не вирішив, кадр показує питання, а не відповідь.</p>
+      <p><b>Вибраний вигляд (21.10, пак ui-1.3.0).</b> Наліпка зі світлом: головна дія кислотно-зелена й світиться; смужки світяться й пульсують лише за порогом тривоги (спосіб 3); великі заголовки повних екранів — Kablammo на м'якому чорнилі; предмети — лінійні іконки з однією заливкою (розфарбовка 3). Тексти в кадрах не змінено.</p>
       <p>Розбір усіх десяти екранів: <code>docs/research/2026-10-20-mvp-screens/audit.md</code>.</p>
     </div>
   </header>
@@ -300,11 +333,11 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
     <div class="frame st"><div class="stage">
       <span class="abs role stk mi">Прибулець</span>
       <div class="abs timer bare">07:42</div>
-      <div class="abs am"><div class="track"><b style="width:55%;background:var(--co)"></b></div><svg class="sir"><use href="#i-siren-on"/></svg></div>
+      <div class="abs am"><div class="track"><b style="--v:.55;background:var(--co)"></b></div><svg class="sir"><use href="#i-siren-on"/></svg></div>
       <div class="abs roster panel"><div class="rw me"><i class="hue" style="background:#7C5CC8"></i>Олена (ти)</div><div class="rw"><i class="hue" style="background:#1C7A82"></i>Ґлорп</div><div class="rw"><i class="hue" style="background:#E66B57"></i>Їжак</div><div class="rw"><i class="hue" style="background:#E8B04A"></i>Бульк</div><div class="rw"><i class="hue" style="background:#4AA3DF"></i>Зінґа</div><div class="rw dead"><i class="hue" style="background:#D46FB0"></i>Тарас · мертвий</div></div>
       <div class="abs cross"></div>
       <span class="abs aim chipp">Сміттєвий бак</span>
-      <div class="abs bars"><div class="track"><b style="width:80%;background:var(--gr)"></b></div><div class="track"><b style="width:55%;background:var(--ye)"></b></div></div>
+      <div class="abs bars"><div class="track"><b style="--v:.8;background:var(--gr)"></b></div><div class="track"><b style="--v:.55;background:var(--ye)"></b></div></div>
       <div class="abs mic plate"><i></i><u></u><s></s></div>
       <div class="abs ia"><div class="sl plate on"><svg><use href="#i-item-rocket"/></svg></div><div class="sl plate"><svg><use href="#i-item-bun"/></svg></div></div>
     </div></div>
@@ -320,10 +353,10 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
     <div class="frame st"><div class="stage">
       <span class="abs role stk co">Людина</span>
       <div class="abs timer bare">07:42</div>
-      <div class="abs am"><div class="track"><b style="width:55%;background:var(--co)"></b></div><svg class="sir"><use href="#i-siren-on"/></svg></div>
+      <div class="abs am"><div class="track"><b style="--v:.55;background:var(--co)"></b></div><svg class="sir"><use href="#i-siren-on"/></svg></div>
       <div class="abs roster panel"><div class="rw me"><i class="hue" style="background:#E8B04A"></i>Бульк (ти)<span class="hm">людина</span></div><div class="rw"><i class="hue" style="background:#7C5CC8"></i>Олена</div><div class="rw"><i class="hue" style="background:#1C7A82"></i>Ґлорп</div><div class="rw"><i class="hue" style="background:#E66B57"></i>Їжак</div><div class="rw"><i class="hue" style="background:#4AA3DF"></i>Зінґа<span class="hm">людина</span></div><div class="rw dead"><i class="hue" style="background:#D46FB0"></i>Тарас · мертвий</div></div>
       <div class="abs cross"></div>
-      <div class="abs bars"><div class="track"><b style="width:80%;background:var(--gr)"></b></div><div class="track"><b style="width:55%;background:var(--ye)"></b></div></div>
+      <div class="abs bars"><div class="track"><b style="--v:.8;background:var(--gr)"></b></div><div class="track"><b style="--v:.55;background:var(--ye)"></b></div></div>
       <div class="abs mic plate"><i></i><u></u><s></s></div>
       <div class="abs ia"><div class="sl plate on"><svg><use href="#i-slot-empty-hand"/></svg></div><div class="sl plate"><svg><use href="#i-slot-empty-belt"/></svg></div></div>
     </div></div>
@@ -342,14 +375,14 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
     <div class="frame st"><div class="stage">
       <span class="abs role stk mi">Прибулець</span>
       <div class="abs timer bare">07:42</div>
-      <div class="abs am"><div class="track"><b style="width:55%;background:var(--co)"></b></div><svg class="sir"><use href="#i-siren-on"/></svg></div>
+      <div class="abs am"><div class="track"><b style="--v:.55;background:var(--co)"></b></div><svg class="sir"><use href="#i-siren-on"/></svg></div>
       <div class="abs roster panel"><div class="rw me"><i class="hue" style="background:#7C5CC8"></i>Олена (ти)</div><div class="rw"><i class="hue" style="background:#1C7A82"></i>Ґлорп</div><div class="rw"><i class="hue" style="background:#E66B57"></i>Їжак</div><div class="rw"><i class="hue" style="background:#E8B04A"></i>Бульк</div><div class="rw"><i class="hue" style="background:#4AA3DF"></i>Зінґа</div><div class="rw dead"><i class="hue" style="background:#D46FB0"></i>Тарас · мертвий</div></div>
       <div class="abs cross"></div>
     </div></div>
     <div class="frame st" style="aspect-ratio:4/3" data-w="440" data-h="330"><div class="stage">
-      <div class="row3" style="top:0"><span class="stk ye">спокійно</span><div class="tc"><div class="timer bare">07:42</div><div class="am"><div class="track"><b style="width:18%;background:var(--co)"></b></div><svg class="sir"><use href="#i-siren-off"/></svg></div></div></div>
-      <div class="row3" style="top:110px"><span class="stk ye">росте</span><div class="tc"><div class="timer bare">06:10</div><div class="am"><div class="track"><b style="width:55%;background:var(--co)"></b></div><svg class="sir"><use href="#i-siren-on"/></svg></div></div></div>
-      <div class="row3" style="top:220px"><span class="stk ye">повна: копи</span><div class="tc"><div class="timer bare">04:12</div><div class="am"><div class="track"><b style="width:100%;background:var(--co);border-right:0"></b></div><svg class="sir"><use href="#i-siren-on"/></svg></div></div></div>
+      <div class="row3" style="top:0"><span class="stk ye">спокійно</span><div class="tc"><div class="timer bare">07:42</div><div class="am"><div class="track"><b style="--v:.18;background:var(--co)"></b></div><svg class="sir"><use href="#i-siren-off"/></svg></div></div></div>
+      <div class="row3" style="top:110px"><span class="stk ye">росте</span><div class="tc"><div class="timer bare">06:10</div><div class="am"><div class="track"><b style="--v:.55;background:var(--co)"></b></div><svg class="sir"><use href="#i-siren-on"/></svg></div></div></div>
+      <div class="row3" style="top:220px"><span class="stk ye">повна: копи</span><div class="tc"><div class="timer bare">04:12</div><div class="am"><div class="track al ang"><b style="--v:1;background:var(--co)"></b></div><svg class="sir"><use href="#i-siren-on"/></svg></div></div></div>
     </div></div>
     </div>
     <p class="cap">Чому: найзвичніше — довжину смужки видно з першого погляду, а сирена сама каже «росте», коли світиться. У Godot — ProgressBar і текстура сирени.</p>
@@ -404,18 +437,18 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
   <section class="screen">
     <h2>Предмети в слотах: як показувати</h2>
     <div class="tags"><span class="tag chg">ваш вибір</span><span class="tag draft">чернетка текстів</span></div>
-    <p class="cap">Нинішні малюнки вам здалися дитячими. Ось два дорослі способи з тими самими предметами: у руці феєрверк, на поясі булка. Ліворуч — увесь кадр у вибраному масштабі, праворуч — кут крупно. Нижче на сторінці поки старі малюнки.</p>
+    <p class="cap">Нинішні малюнки вам здалися дитячими. Ось два дорослі способи з тими самими предметами: у руці феєрверк, на поясі булка. Ліворуч — увесь кадр у вибраному масштабі, праворуч — кут крупно. Нижче на сторінці вже вибрані лінійні іконки (21.10).</p>
     <div class="how">
       <p><b>Як в інших іграх (дослідження 21.10).</b> Слотів у жанрі мало, 3–5. PEAK — намальовані іконки. Lethal Company — іконки лише в інструментів, а всі знахідки показують одну спільну шестерню. R.E.P.O. — гра сама генерує іконки з моделей. Phasmophobia — на екрані нічого, предмет видно лише в руці. LOCKDOWN Protocol — за вашими словами, лише назва. Чому саме так, розробники ніде не пояснювали.</p>
       <p><b>Робота на кожен новий предмет:</b> лише назва — нуль; знімок 3D-моделі — нуль після одного налаштування (у Godot це штатно), але потрібні моделі від арт-треку; намальовані піктограми — малюнок на кожен предмет, назавжди. Настанови доступності радять не покладатися лише на картинку: назва поруч не завадить.</p>
       <p><b>Що мені здається найкращим:</b> зараз лише назва, а коли будуть моделі — знімок моделі поруч з назвою. Вирішуєте ви. Звіт: <code>docs/research/2026-10-21-held-items/report.md</code>.</p>
     </div>
-    <div class="q"><p><b>Відкрито — ваш вибір:</b> 1, 2 чи 3. Поки ви не вирішили, файли гри й токени не міняємо.</p></div>
+    <div class="q"><p><b>Вирішено (21.10):</b> лінійні іконки, розфарбовка 3 (лінія й одна заливка); тепер це файли гри <code>item-*</code> (пак ui-1.3.0). Піктограми способу 2 (<code>item2-*</code>) застарілі й підуть з паку в наступному великому релізі.</p></div>
     <h3>1 · Без картинок: лише назва</h3>
     <div class="duo">
       <div class="frame st"><div class="stage">
         <div class="abs timer bare">07:42</div>
-        <div class="abs bars"><div class="track"><b style="width:80%;background:var(--gr)"></b></div><div class="track"><b style="width:55%;background:var(--ye)"></b></div></div>
+        <div class="abs bars"><div class="track"><b style="--v:.8;background:var(--gr)"></b></div><div class="track"><b style="--v:.55;background:var(--ye)"></b></div></div>
         <div class="abs mic plate"><i></i><u></u><s></s></div>
         <div class="abs ia"><div class="sl plate on tx"><span class="nc stk mi">Феєрверк</span></div><div class="sl plate tx"><span class="nc stk mi">Булка</span></div></div>
       </div></div>
@@ -428,7 +461,7 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
     <div class="duo">
       <div class="frame st"><div class="stage">
         <div class="abs timer bare">07:42</div>
-        <div class="abs bars"><div class="track"><b style="width:80%;background:var(--gr)"></b></div><div class="track"><b style="width:55%;background:var(--ye)"></b></div></div>
+        <div class="abs bars"><div class="track"><b style="--v:.8;background:var(--gr)"></b></div><div class="track"><b style="--v:.55;background:var(--ye)"></b></div></div>
         <div class="abs mic plate"><i></i><u></u><s></s></div>
         <div class="abs ia"><div class="sl plate on"><svg><use href="#i-item2-rocket"/></svg><span class="nt stk mi">Феєрверк</span></div><div class="sl plate"><svg><use href="#i-item2-bun"/></svg><span class="nt stk mi">Булка</span></div></div>
       </div></div>
@@ -468,13 +501,13 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
   <section class="screen">
     <h2>Панель предметів: три варіанти</h2>
     <div class="tags"><span class="tag new">вирішено 20.10: А</span><span class="tag draft">чернетка текстів</span></div>
-    <p class="cap">Ті самі предмети в усіх трьох: у руці феєрверк, на поясі булка. Замість слів — малюнки предметів (наша власна робота, лише кольори палітри й чорнильний контур). Підказок клавіш на HUD немає, як і раніше. Ліворуч — увесь кадр у вибраному масштабі, праворуч — кут крупно.</p>
+    <p class="cap">Ті самі предмети в усіх трьох: у руці феєрверк, на поясі булка. Замість слів — малюнки предметів (наша власна робота, чорнильна лінія й одна приглушена заливка кольору самого предмета: розфарбовка 3, ваш вибір 21.10). Підказок клавіш на HUD немає, як і раніше. Ліворуч — увесь кадр у вибраному масштабі, праворуч — кут крупно.</p>
     <div class="q"><p><b>Вирішено вами (20.10):</b> А — наліпки з великим малюнком і биркою з назвою. Інвентарю поки не робимо: усе як було, рука й пояс. Б і В лишаються нижче для запису: не обрано.</p></div>
     <h3>А · Наліпки з великим малюнком і бирками — вирішено 20.10</h3>
     <div class="duo">
       <div class="frame st"><div class="stage">
         <div class="abs timer bare">07:42</div>
-        <div class="abs bars"><div class="track"><b style="width:80%;background:var(--gr)"></b></div><div class="track"><b style="width:55%;background:var(--ye)"></b></div></div>
+        <div class="abs bars"><div class="track"><b style="--v:.8;background:var(--gr)"></b></div><div class="track"><b style="--v:.55;background:var(--ye)"></b></div></div>
         <div class="abs mic plate"><i></i><u></u><s></s></div>
         <div class="abs ia"><div class="sl plate on"><svg><use href="#i-item-rocket"/></svg><span class="nt stk mi">Феєрверк</span></div><div class="sl plate"><svg><use href="#i-item-bun"/></svg><span class="nt stk mi">Булка</span></div></div>
       </div></div>
@@ -495,7 +528,7 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
     <div class="duo">
       <div class="frame st"><div class="stage">
         <div class="abs timer bare">07:42</div>
-        <div class="abs bars"><div class="track"><b style="width:80%;background:var(--gr)"></b></div><div class="track"><b style="width:55%;background:var(--ye)"></b></div></div>
+        <div class="abs bars"><div class="track"><b style="--v:.8;background:var(--gr)"></b></div><div class="track"><b style="--v:.55;background:var(--ye)"></b></div></div>
         <div class="abs mic plate"><i></i><u></u><s></s></div>
         <div class="abs ib"><div class="strap"></div><div class="buckle"><i></i></div><div class="pocket"><span class="flap"></span><svg><use href="#i-item-bun"/></svg></div><div class="hand plate"><svg><use href="#i-item-rocket"/></svg></div></div>
       </div></div>
@@ -508,7 +541,7 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
     <div class="duo">
       <div class="frame st"><div class="stage">
         <div class="abs timer bare">07:42</div>
-        <div class="abs bars"><div class="track"><b style="width:80%;background:var(--gr)"></b></div><div class="track"><b style="width:55%;background:var(--ye)"></b></div></div>
+        <div class="abs bars"><div class="track"><b style="--v:.8;background:var(--gr)"></b></div><div class="track"><b style="--v:.55;background:var(--ye)"></b></div></div>
         <div class="abs mic plate"><i></i><u></u><s></s></div>
         <div class="abs ic3"><div class="belt plate"><svg><use href="#i-item-bun"/></svg></div><div class="hand plate"><svg><use href="#i-hand"/></svg></div></div>
       </div></div>
@@ -523,7 +556,7 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
   <section class="screen">
     <h2>Предмети MVP: малюнки для слотів</h2>
     <div class="tags"><span class="tag new">нове: файли іконок гри</span></div>
-    <p class="cap">Усе, що в MVP носять у руці чи на поясі (GDD §8, m8 §5), у слотах варіанта А: зверху на поясі (м'ятний), знизу в руці (зелений, більший). Кожен малюнок — окремий файл гри в <code>pages/components/icons/</code> (наша власна робота, лише кольори палітри й чорнильний контур). Жовті бирки — підписи сторінки, не гри; назви на бирках у грі — ваші тексти.</p>
+    <p class="cap">Усе, що в MVP носять у руці чи на поясі (GDD §8, m8 §5), у слотах варіанта А: зверху на поясі (м'ятний), знизу в руці (зелений, більший). Кожен малюнок — окремий файл гри в <code>pages/components/icons/</code> (наша власна робота, чорнильна лінія й одна приглушена заливка кольору самого предмета: розфарбовка 3, ваш вибір 21.10). Жовті бирки — підписи сторінки, не гри; назви на бирках у грі — ваші тексти.</p>
     <div class="frame st" data-w="960" data-h="540"><div class="stage">
       <div class="abs gal">
         <div class="gi"><div class="sl plate"><svg><use href="#i-item-rocket"/></svg></div><div class="sl plate on"><svg><use href="#i-item-rocket"/></svg></div><span class="stk ye">феєрверк</span></div>
@@ -540,7 +573,7 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
         <div class="gi"><div class="sl plate"><svg><use href="#i-item-knife"/></svg></div><div class="sl plate on"><svg><use href="#i-item-knife"/></svg></div><span class="stk ye">ніж (якщо лишиться)</span></div>
       </div>
     </div></div>
-    <p class="cap">Квітка тут коралова; у грі п'ять квітів п'яти кольорів — кольори квітів ще не намальовані. Деталь авто — свіжонадрукований білий диск, до фарбування. Інструменти гаража — один ключ для всіх. Ніж: GDD ще розкидає ножі в базовому режимі, а m8 §7 відкладає зброю — малюнок готовий на випадок, якщо ніж лишиться.</p>
+    <p class="cap">Лінійні іконки, розфарбовка 3 (ваш вибір 21.10). Квітка тут одна; у грі п'ять квітів п'яти кольорів — кольори квітів ще не намальовані. Деталь авто — свічка запалювання. Інструменти гаража — один ключ для всіх. Ніж: GDD ще розкидає ножі в базовому режимі, а m8 §7 відкладає зброю — малюнок готовий на випадок, якщо ніж лишиться.</p>
   </section>
 
   <!-- 2. The anger hint: an open question shown as two variants -->
@@ -549,8 +582,8 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
     <div class="tags"><span class="tag new">нове</span><span class="tag draft">чернетка текстів</span></div>
     <div class="frame st"><div class="stage">
       <div class="abs pair">
-        <div class="col"><span class="stk mi">А · без підказки</span><div class="am"><div class="track"><b style="width:55%;background:var(--co)"></b></div><svg class="sir"><use href="#i-siren-on"/></svg></div></div>
-        <div class="col"><span class="stk mi">Б · тип без місця</span><div class="am"><div class="track"><b style="width:55%;background:var(--co)"></b></div><svg class="sir"><use href="#i-siren-on"/></svg></div><span class="stk ye">Гучна музика</span></div>
+        <div class="col"><span class="stk mi">А · без підказки</span><div class="am"><div class="track"><b style="--v:.55;background:var(--co)"></b></div><svg class="sir"><use href="#i-siren-on"/></svg></div></div>
+        <div class="col"><span class="stk mi">Б · тип без місця</span><div class="am"><div class="track"><b style="--v:.55;background:var(--co)"></b></div><svg class="sir"><use href="#i-siren-on"/></svg></div><span class="stk ye">Гучна музика</span></div>
       </div>
     </div></div>
     <p class="cap">Прибульці бачать, що гнів росте, і мусять шукати причину. А: лише шкала. Б: під шкалою сказано, що саме (музика, сміття), але не де. (m8 §5, §9)</p>
@@ -564,15 +597,15 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
     <div class="frame st"><div class="stage">
       <span class="abs role stk mi">Прибулець</span>
       <div class="abs timer bare">04:12</div>
-      <div class="abs am"><div class="track"><b style="width:100%;background:var(--co);border-right:0"></b></div><svg class="sir"><use href="#i-siren-on"/></svg></div>
+      <div class="abs am"><div class="track al ang"><b style="--v:1;background:var(--co)"></b></div><svg class="sir"><use href="#i-siren-on"/></svg></div>
       <div class="abs roster panel"><div class="rw me"><i class="hue" style="background:#7C5CC8"></i>Олена (ти)</div><div class="rw"><i class="hue" style="background:#1C7A82"></i>Ґлорп</div><div class="rw"><i class="hue" style="background:#E66B57"></i>Їжак</div><div class="rw"><i class="hue" style="background:#E8B04A"></i>Бульк</div><div class="rw"><i class="hue" style="background:#4AA3DF"></i>Зінґа</div><div class="rw"><i class="hue" style="background:#D46FB0"></i>Тарас</div></div>
       <div class="abs cops plate co"><span class="big">Сусіди викликали копів!</span><span class="lab">Копи будуть за</span><span class="num">0:58</span></div>
       <div class="abs cross"></div>
-      <div class="abs bars"><div class="track"><b style="width:80%;background:var(--gr)"></b></div><div class="track"><b style="width:55%;background:var(--ye)"></b></div></div>
+      <div class="abs bars"><div class="track al hp"><b style="--v:.24;background:var(--gr)"></b></div><div class="track"><b style="--v:.55;background:var(--ye)"></b></div></div>
       <div class="abs mic plate"><i></i><u></u><s></s></div>
       <div class="abs ia"><div class="sl plate on"><svg><use href="#i-item-battery"/></svg></div><div class="sl plate"><svg><use href="#i-slot-empty-belt"/></svg></div></div>
     </div></div>
-    <p class="cap">Гнів повний (варіант А, повний стан): сирена світиться, смужка вся коралова. Сусіди самі кличуть копів: у прибульців хвилина, щоб закінчити задачі. Відлік бачать усі. Затримати копів за очки в MVP не можна. (m8 §5)</p>
+    <p class="cap">Гнів повний (варіант А, повний стан): сирена світиться, смужка вся коралова й світиться за порогом тривоги; здоров'я тут 24 %, теж за порогом. Сусіди самі кличуть копів: у прибульців хвилина, щоб закінчити задачі. Відлік бачать усі. Затримати копів за очки в MVP не можна. (m8 §5)</p>
     <div class="q"><p><b>Відкрито:</b> показувати обидва відліки (таймер раунду й копів) чи лише той, що закінчиться раніше. Чи буде фінал після хвилини копів (§6). Скільки триває «хвилина».</p></div>
   </section>
 
@@ -583,7 +616,7 @@ ul { padding-left: 20px; display: grid; gap: 4px; }
     <div class="frame st"><div class="stage">
       <div class="abs dhead panel">Кімната мертвих</div>
       <div class="abs dcol">
-        <div class="dcount plate"><span class="lab">Повернення через</span><span class="num">0:24</span><div class="track"><b style="width:20%;background:var(--gr)"></b></div></div>
+        <div class="dcount plate"><span class="lab">Повернення через</span><span class="num">0:24</span><div class="track"><b style="--v:.2;background:var(--gr)"></b></div></div>
       </div>
       <span class="abs others chipp">Тут також: Бульк, Зінґа</span>
       <span class="abs next stk mi">Випадкова капсула · 3 с захисту</span>

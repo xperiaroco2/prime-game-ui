@@ -3,6 +3,8 @@
    never needs the token build. Every name used by the good and bad fixtures is declared here. */
 :root {
   --toy-palette-ink: #2a1f33;
+  --toy-palette-acid: #b6ff3c;
+  --toy-glow-action: 45;
   --toy-palette-cream: #fff4e2;
   --toy-palette-yellow: #ffc23a;
   --toy-palette-honey: #e5a52a;

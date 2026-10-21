@@ -5,7 +5,7 @@
 The styled connecting, failures and loading screen from the UI track (xperiaroco2/prime-game-ui), as a Godot 4.7.2 node tree for the 1920×1080 reference.
 
 - **Source:** `pages/screens/src/s03-connecting.json`; the review page is `pages/screens/screens.html#s3`; the wireframe is section `s3` («Підключення й завантаження»).
-- **Theme:** the Toy pack ui-1.2.0 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
+- **Theme:** the Toy pack ui-1.3.0 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
 - **World behind the UI** (not UI): black, no world (intro, outro, loading).
 - **How to read it:** the roots are children of the screen's full-rect root `Control`; every property not listed keeps Godot's default; sizes and offsets are reference px. In a state's **Shown** list, the first node of each subtree gives its path from the screen root.
 - **Texts** are keys of `copy/strings.csv`, and the language switches live (the Esc menu's Settings). A plain key is set as `text` and translates itself. A key with placeholders, a plural key (`tr_n`) and a key drawn in pieces are set from code with `auto_translate_mode = DISABLED`: `tr()`, then `String.format()` with the data (the samples below), rebuilt on `NOTIFICATION_TRANSLATION_CHANGED`. A "text from data" (names, the room code, times, numbers) is set in code and never translated (`auto_translate_mode = DISABLED`).
@@ -94,7 +94,7 @@ One screen on the opaque night backdrop for the join (its steps and each failure
         - Note: Join failures share connect.fail.title; a session that ended or a host that could not start has its own title.
       - **Body** `Label` · variation `ToyTextMutedOnDark` · custom_minimum_size (1272, 0) · text `connect.fail.started`: en "The round has already started. Join when everyone is back in the lobby." · uk "Раунд уже почався. Приєднуйся, коли всі повернуться в лобі." · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
     - **Buttons** `HBoxContainer` · variation `ToyRowTwentyFour` · gaps from the variation: separation 24 · alignment `ALIGNMENT_CENTER`
-      - **Primary** `Button` · variation `ToyButtonPrimary` (raised: ToyRaised with base `ToyBasePrimaryOnDark`, ToyPress; UiParts.button()) · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper · text `connect.fail.retry`: en "Try again" · uk "Спробувати ще" · shown with keyboard focus (grab_focus)
+      - **Primary** `Button` · variation `ToyButtonPrimary` · text `connect.fail.retry`: en "Try again" · uk "Спробувати ще" · shown with keyboard focus (grab_focus)
         - Note: Focus on open. connect.fail.retry tries the same target again (host-failed: hosts again the same way); connect.fail.direct opens s2 direct with the code kept in its field. Absent where the failure has no action.
       - **BackGhost** `Button` · variation `ToyButtonGhostOnDark` · text `common.back`: en "Back" · uk "Назад"
         - Note: Back beside Primary (flat, no base): returns to s2 main; after a join failure the code or address stays in its field. Esc does the same.
@@ -128,7 +128,7 @@ One screen on the opaque night backdrop for the join (its steps and each failure
         - Note: Join failures share connect.fail.title; a session that ended or a host that could not start has its own title.
       - **Body** `Label` · variation `ToyTextMutedOnDark` · custom_minimum_size (1272, 0) · text `connect.fail.full`: en "The lobby is full." · uk "Лобі заповнене." · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
     - **Buttons** `HBoxContainer` · variation `ToyRowTwentyFour` · gaps from the variation: separation 24 · alignment `ALIGNMENT_CENTER`
-      - **Primary** `Button` · variation `ToyButtonPrimary` (raised: ToyRaised with base `ToyBasePrimaryOnDark`, ToyPress; UiParts.button()) · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper · text `connect.fail.retry`: en "Try again" · uk "Спробувати ще" · shown with keyboard focus (grab_focus)
+      - **Primary** `Button` · variation `ToyButtonPrimary` · text `connect.fail.retry`: en "Try again" · uk "Спробувати ще" · shown with keyboard focus (grab_focus)
         - Note: Focus on open. connect.fail.retry tries the same target again (host-failed: hosts again the same way); connect.fail.direct opens s2 direct with the code kept in its field. Absent where the failure has no action.
       - **BackGhost** `Button` · variation `ToyButtonGhostOnDark` · text `common.back`: en "Back" · uk "Назад"
         - Note: Back beside Primary (flat, no base): returns to s2 main; after a join failure the code or address stays in its field. Esc does the same.
@@ -144,7 +144,7 @@ One screen on the opaque night backdrop for the join (its steps and each failure
         - Note: Join failures share connect.fail.title; a session that ended or a host that could not start has its own title.
       - **Body** `Label` · variation `ToyTextMutedOnDark` · custom_minimum_size (1272, 0) · text `connect.fail.service`: en "The code service isn't answering. Join directly with the host's address." · uk "Сервіс кодів не відповідає. Приєднайся напряму за адресою хоста." · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
     - **Buttons** `HBoxContainer` · variation `ToyRowTwentyFour` · gaps from the variation: separation 24 · alignment `ALIGNMENT_CENTER`
-      - **Primary** `Button` · variation `ToyButtonPrimary` (raised: ToyRaised with base `ToyBasePrimaryOnDark`, ToyPress; UiParts.button()) · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper · text `connect.fail.direct`: en "Join directly" · uk "Приєднатися напряму" · shown with keyboard focus (grab_focus)
+      - **Primary** `Button` · variation `ToyButtonPrimary` · text `connect.fail.direct`: en "Join directly" · uk "Приєднатися напряму" · shown with keyboard focus (grab_focus)
         - Note: Focus on open. connect.fail.retry tries the same target again (host-failed: hosts again the same way); connect.fail.direct opens s2 direct with the code kept in its field. Absent where the failure has no action.
       - **BackGhost** `Button` · variation `ToyButtonGhostOnDark` · text `common.back`: en "Back" · uk "Назад"
         - Note: Back beside Primary (flat, no base): returns to s2 main; after a join failure the code or address stays in its field. Esc does the same.
@@ -160,7 +160,7 @@ One screen on the opaque night backdrop for the join (its steps and each failure
         - Note: Join failures share connect.fail.title; a session that ended or a host that could not start has its own title.
       - **Body** `Label` · variation `ToyTextMutedOnDark` · custom_minimum_size (1272, 0) · text `connect.fail.unreachable`: en "No link to the host. If the lobby has room, ask the host for an address and join directly." · uk "Немає звʼязку з хостом. Якщо в лобі є місце, попроси в хоста адресу й приєднайся напряму." · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
     - **Buttons** `HBoxContainer` · variation `ToyRowTwentyFour` · gaps from the variation: separation 24 · alignment `ALIGNMENT_CENTER`
-      - **Primary** `Button` · variation `ToyButtonPrimary` (raised: ToyRaised with base `ToyBasePrimaryOnDark`, ToyPress; UiParts.button()) · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper · text `connect.fail.direct`: en "Join directly" · uk "Приєднатися напряму" · shown with keyboard focus (grab_focus)
+      - **Primary** `Button` · variation `ToyButtonPrimary` · text `connect.fail.direct`: en "Join directly" · uk "Приєднатися напряму" · shown with keyboard focus (grab_focus)
         - Note: Focus on open. connect.fail.retry tries the same target again (host-failed: hosts again the same way); connect.fail.direct opens s2 direct with the code kept in its field. Absent where the failure has no action.
       - **BackGhost** `Button` · variation `ToyButtonGhostOnDark` · text `common.back`: en "Back" · uk "Назад"
         - Note: Back beside Primary (flat, no base): returns to s2 main; after a join failure the code or address stays in its field. Esc does the same.
@@ -176,7 +176,7 @@ One screen on the opaque night backdrop for the join (its steps and each failure
         - Note: Join failures share connect.fail.title; a session that ended or a host that could not start has its own title.
       - **Body** `Label` · variation `ToyTextMutedOnDark` · custom_minimum_size (1272, 0) · text `connect.fail.body`: en "The host isn't answering. Check the address and the network." · uk "Хост не відповідає. Перевір адресу й мережу." · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
     - **Buttons** `HBoxContainer` · variation `ToyRowTwentyFour` · gaps from the variation: separation 24 · alignment `ALIGNMENT_CENTER`
-      - **Primary** `Button` · variation `ToyButtonPrimary` (raised: ToyRaised with base `ToyBasePrimaryOnDark`, ToyPress; UiParts.button()) · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper · text `connect.fail.retry`: en "Try again" · uk "Спробувати ще" · shown with keyboard focus (grab_focus)
+      - **Primary** `Button` · variation `ToyButtonPrimary` · text `connect.fail.retry`: en "Try again" · uk "Спробувати ще" · shown with keyboard focus (grab_focus)
         - Note: Focus on open. connect.fail.retry tries the same target again (host-failed: hosts again the same way); connect.fail.direct opens s2 direct with the code kept in its field. Absent where the failure has no action.
       - **BackGhost** `Button` · variation `ToyButtonGhostOnDark` · text `common.back`: en "Back" · uk "Назад"
         - Note: Back beside Primary (flat, no base): returns to s2 main; after a join failure the code or address stays in its field. Esc does the same.
@@ -234,7 +234,7 @@ One screen on the opaque night backdrop for the join (its steps and each failure
         - Note: Join failures share connect.fail.title; a session that ended or a host that could not start has its own title.
       - **Body** `Label` · variation `ToyTextMutedOnDark` · custom_minimum_size (1272, 0) · text `connect.error.body`: en "The game ran into an error. The details are in the log." · uk "У грі сталася помилка. Подробиці — в журналі." · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
     - **Buttons** `HBoxContainer` · variation `ToyRowTwentyFour` · gaps from the variation: separation 24 · alignment `ALIGNMENT_CENTER`
-      - **Primary** `Button` · variation `ToyButtonPrimary` (raised: ToyRaised with base `ToyBasePrimaryOnDark`, ToyPress; UiParts.button()) · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper · text `connect.fail.retry`: en "Try again" · uk "Спробувати ще" · shown with keyboard focus (grab_focus)
+      - **Primary** `Button` · variation `ToyButtonPrimary` · text `connect.fail.retry`: en "Try again" · uk "Спробувати ще" · shown with keyboard focus (grab_focus)
         - Note: Focus on open. connect.fail.retry tries the same target again (host-failed: hosts again the same way); connect.fail.direct opens s2 direct with the code kept in its field. Absent where the failure has no action.
       - **BackGhost** `Button` · variation `ToyButtonGhostOnDark` · text `common.back`: en "Back" · uk "Назад"
         - Note: Back beside Primary (flat, no base): returns to s2 main; after a join failure the code or address stays in its field. Esc does the same.

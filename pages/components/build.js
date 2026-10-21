@@ -23,10 +23,7 @@ const ICONS = ['check', 'item', 'mic', 'mic-off', 'pointer', 'chevron-left', 'ch
   'checkbox-checked', 'checkbox-checked-disabled', 'checkbox-unchecked', 'checkbox-unchecked-disabled', 'spin-up', 'spin-down',
   // the round HUD's siren, items and empty slots: in the icons row; on the screens only in pages/mvp-screens/ today
   'siren-off', 'siren-on', 'slot-empty-hand', 'slot-empty-belt', 'item-rocket', 'item-bun', 'item-battery', 'item-extinguisher',
-  'item-flower', 'item-car-part', 'item-patty', 'item-burger', 'item-watering-can', 'item-wrench', 'item-bin-bag', 'item-knife',
-  // the grown-up item pictograms (item2-*): a proposal on pages/mvp-screens/ beside item-*, not chosen yet
-  'item2-rocket', 'item2-bun', 'item2-patty', 'item2-burger', 'item2-flower', 'item2-watering-can', 'item2-battery',
-  'item2-car-part', 'item2-wrench', 'item2-extinguisher', 'item2-bin-bag', 'item2-knife', 'item2-film', 'item2-photo'];
+  'item-flower', 'item-car-part', 'item-patty', 'item-burger', 'item-watering-can', 'item-wrench', 'item-bin-bag', 'item-knife'];
 const ICON_HEAD = '<!-- own work, prime-game-ui, licence: own work -->';
 const FONT_LINK = 'https://fonts.googleapis.com/css2?family=Kablammo&family=Nunito:wght@800;900&family=Rubik:wght@700&display=swap';
 const TILES = [['white', '#ffffff'], ['grey', '#c9c9c9'], ['dim', '#979797']];
@@ -660,15 +657,17 @@ function renderPage(sys, componentsCss) {
     }
     if (p === 'screens') {
       ['ToyTitleHero', 'ToyTitleHeroAlert', 'ToyPlateGoal', 'ToyPlateGoalText', 'ToyPlateResult', 'ToyPlateTitle', 'ToyStickerAlert', 'ToyStickerHighlight',
-        'ToyStickerTextLarge', 'ToyTextMutedOnDark', 'ToyTextOnDark', 'ToyColumnTwentyFour'].forEach(V);
-      const col = (inner) => `<div class="tv-ToyColumnTwentyFour sc-mvp-col sc-mvp-center sc-mvp-screen">${inner}</div>`;
+        'ToyStickerTextLarge', 'ToyTextOnDark', 'ToyColumnTwentyFour', 'ToyBackdropFullScreen'].forEach(V);
+      // the full screens stand on their own ground since ui-1.3.0 (ToyBackdropFullScreen), so the titles' ink outline shows
+      const col = (inner) => `<div class="tv-ToyBackdropFullScreen"><div class="tv-ToyColumnTwentyFour sc-mvp-col sc-mvp-center sc-mvp-screen">${inner}</div></div>`;
       const st = (v, key) => `<div class="tv-${v}">${sampleSpan(key, 'tv-ToyStickerTextLarge')}</div>`;
       const goal = (key) => `<div class="tv-ToyPlateGoal">${sampleSpan(key, 'tv-ToyPlateGoalText sc-wrap')}</div>`;
       const res = (key) => `<div class="tv-ToyPlateResult">${sampleSpan(key, 'tv-ToyPlateTitle')}</div>`;
-      const back = sampleSpan('mvp_end_back', 'tv-ToyTextMutedOnDark');
+      // mint, not the muted lilac: lilac on the soft ink is 3.82:1, mint 6.99:1 (gate g9)
+      const back = sampleSpan('mvp_end_back', 'tv-ToyTextOnDark');
       const list = [
-        ['mvp_reveal_alien', col(`${sampleSpan('mvp_your_role', 'tv-ToyTextMutedOnDark')}${sampleSpan('mvp_alien', 'tv-ToyTitleHero')}${goal('mvp_goal_alien')}`)],
-        ['mvp_reveal_human', col(`${sampleSpan('mvp_your_role', 'tv-ToyTextMutedOnDark')}${sampleSpan('mvp_human', 'tv-ToyTitleHeroAlert')}${goal('mvp_goal_human')}${st('ToyStickerAlert', 'mvp_your_humans')}`)],
+        ['mvp_reveal_alien', col(`${sampleSpan('mvp_your_role', 'tv-ToyTextOnDark')}${sampleSpan('mvp_alien', 'tv-ToyTitleHero')}${goal('mvp_goal_alien')}`)],
+        ['mvp_reveal_human', col(`${sampleSpan('mvp_your_role', 'tv-ToyTextOnDark')}${sampleSpan('mvp_human', 'tv-ToyTitleHeroAlert')}${goal('mvp_goal_human')}${st('ToyStickerAlert', 'mvp_your_humans')}`)],
         ['mvp_end_aliens', col(`${sampleSpan('mvp_end_party', 'tv-ToyTitleHero')}${res('mvp_end_aliens_won')}${st('ToyStickerHighlight', 'mvp_end_done')}${back}`)],
         ['mvp_end_time', col(`${sampleSpan('mvp_end_time_title', 'tv-ToyTitleHeroAlert')}${res('mvp_end_humans_won')}${st('ToyStickerAlert', 'mvp_end_not_done')}${back}`)],
         ['mvp_end_cops', col(`${sampleSpan('mvp_end_cops_title', 'tv-ToyTitleHeroAlert')}${sampleSpan('mvp_end_humans_won', 'tv-ToyTextOnDark')}${st('ToyStickerAlert', 'mvp_end_cops_line')}${back}`)],

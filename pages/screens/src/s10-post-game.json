@@ -10,7 +10,7 @@
     { "id": "cops", "label": "Копи приїхали", "note": "An alien's view: the cops' minute ran out (frame 12). The own side lost: the winner in plain text, no plate (the decided rule: the plate is for a win)." }
   ],
   "nodes": [
-    { "name": "Night", "type": "Panel", "variation": "ToyBackdropNight", "anchors_preset": "full_rect", "note": "P2, opaque: the style's darkest stands for the decided black (the sketch's deep purple). It fades in over 0.4 s when the End phase starts (a cut under reduced motion)." },
+    { "name": "Night", "type": "Panel", "variation": "ToyBackdropFullScreen", "anchors_preset": "full_rect", "note": "P2, opaque: the full screens' soft-ink ground since ui-1.3.0 (was ToyBackdropNight), where the Kablammo title's ink outline shows. It fades in over 0.4 s when the End phase starts (a cut under reduced motion)." },
     {
       "name": "V", "type": "VBoxContainer", "variation": "ToyColumnThirtyTwo", "anchors_preset": "center", "grow_horizontal": "both", "grow_vertical": "both", "alignment": "center", "note": "A centred column on the night, 32 px between its lines (the sketch's 20 x 1.5 = 30, the nearest step).",
       "children": [
@@ -29,7 +29,7 @@
           ]
         },
         { "name": "Gap", "type": "Control", "custom_minimum_size": [0, 12], "note": "With the column's two 32 px gaps, 76 px between the reason and the countdown." },
-        { "name": "Back", "type": "Label", "variation": "ToyTextMutedOnDark", "key": "end.back_to_ship", "args": { "count": "3" }, "horizontal_alignment": "center", "note": "Counts 3, 2, 1 once a second; at 0 everyone is back in the lobby, the aliens' ship (#212). Open: how the return to the ship looks." }
+        { "name": "Back", "type": "Label", "variation": "ToyTextOnDark", "key": "end.back_to_ship", "args": { "count": "3" }, "horizontal_alignment": "center", "note": "Counts 3, 2, 1 once a second; at 0 everyone is back in the lobby, the aliens' ship (#212). Open: how the return to the ship looks." }
       ]
     }
   ]

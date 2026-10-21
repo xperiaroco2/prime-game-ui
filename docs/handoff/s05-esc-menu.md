@@ -5,7 +5,7 @@
 The styled esc menu screen from the UI track (xperiaroco2/prime-game-ui), as a Godot 4.7.2 node tree for the 1920×1080 reference.
 
 - **Source:** `pages/screens/src/s05-esc-menu.json`; the review page is `pages/screens/screens.html#s5`; the wireframe is section `s5` («Меню Esc»).
-- **Theme:** the Toy pack ui-1.2.0 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
+- **Theme:** the Toy pack ui-1.3.0 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
 - **World behind the UI** (not UI): a lit room of the level.
 - **How to read it:** the roots are children of the screen's full-rect root `Control`; every property not listed keeps Godot's default; sizes and offsets are reference px. In a state's **Shown** list, the first node of each subtree gives its path from the screen root.
 - **Texts** are keys of `copy/strings.csv`, and the language switches live (the Esc menu's Settings). A plain key is set as `text` and translates itself. A key with placeholders, a plural key (`tr_n`) and a key drawn in pieces are set from code with `auto_translate_mode = DISABLED`: `tr()`, then `String.format()` with the data (the samples below), rebuilt on `NOTIFICATION_TRANSLATION_CHANGED`. A "text from data" (names, the room code, times, numbers) is set in code and never translated (`auto_translate_mode = DISABLED`).
@@ -177,7 +177,7 @@ The menu over the running game (no pause): Esc (ui_cancel) opens and closes it; 
                   - **Lesia** `PanelContainer` · variation `ToySettingRow` · custom_minimum_size (0, 96)
                     - **H** `HBoxContainer` · variation `ToyRowSixteen` · gaps from the variation: separation 16
                       - **Name** `Label` · variation `ToySettingRowText` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text from data (auto_translate_mode = DISABLED), sample: "Lesia" / "Леся" · clip_text true · text_overrun_behavior `OVERRUN_TRIM_ELLIPSIS`
-            - **Ready** `Button` · variation `ToyButtonPrimary` (raised: ToyRaised with base `ToyBasePrimaryOnLight`, ToyPress; UiParts.button()) · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper · text `esc.lobby.ready`: en "Ready" · uk "Готовність" · toggle_mode true, button_pressed false
+            - **Ready** `Button` · variation `ToyButtonPrimary` · text `esc.lobby.ready`: en "Ready" · uk "Готовність" · toggle_mode true, button_pressed false
               - Note: Toggles the own ready state: while ready it is pressed (ToyButtonPrimary's pressed look) and shows the check icon (check.svg at 24 px, tinted by ToyButtonPrimary's icon colours) before its text, the same as the own row's mark (lobby-guest: this player is ready; the page does not draw the pressed look with its icon yet). Hidden in a round, where nobody gets ready.
 
 ## `lobby-guest`: what differs from `lobby-host`
@@ -345,7 +345,7 @@ The menu over the running game (no pause): Esc (ui_cancel) opens and closes it; 
 - **Shown:**
   - **Menu/H/Tabs/Role** `Button` · variation `ToyTab` · text `esc.tab.role`: en "Role" · uk "Роль" · alignment `LEFT` · toggle_mode true, button_pressed false
   - **Menu/H/Page/Actions** `VBoxContainer` · variation `ToyColumnTwentyFour` · size flags horizontal `SIZE_SHRINK_BEGIN` · custom_minimum_size (760, 0) · gaps from the variation: separation 24
-    - **Resume** `Button` · variation `ToyButtonPrimary` (raised: ToyRaised with base `ToyBasePrimaryOnLight`, ToyPress; UiParts.button()) · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper · text `esc.game.resume`: en "Resume" · uk "Продовжити" · shown with keyboard focus (grab_focus)
+    - **Resume** `Button` · variation `ToyButtonPrimary` · text `esc.game.resume`: en "Resume" · uk "Продовжити" · shown with keyboard focus (grab_focus)
       - Note: Closes the menu (as Esc). Takes focus when the menu opens on Game.
     - **Leave** `Button` · variation `ToyButtonDanger` (raised: ToyRaised with base `ToyBaseRaisedOnLight`, ToyPress; UiParts.button()) · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper · text `esc.game.leave`: en "Leave the session" · uk "Покинути сесію"
       - Note: The host: coral (ToyButtonDanger), opens the confirm dialog. A player: ToyButtonSecondary, leaves at once. In the tutorial: ToyButtonSecondary esc.game.leave_tutorial, back to the main menu (s2).
@@ -361,7 +361,7 @@ The menu over the running game (no pause): Esc (ui_cancel) opens and closes it; 
 - **Shown:**
   - **Menu/H/Tabs/Role** `Button` · variation `ToyTab` · text `esc.tab.role`: en "Role" · uk "Роль" · alignment `LEFT` · toggle_mode true, button_pressed false
   - **Menu/H/Page/Actions** `VBoxContainer` · variation `ToyColumnTwentyFour` · size flags horizontal `SIZE_SHRINK_BEGIN` · custom_minimum_size (760, 0) · gaps from the variation: separation 24
-    - **Resume** `Button` · variation `ToyButtonPrimary` (raised: ToyRaised with base `ToyBasePrimaryOnLight`, ToyPress; UiParts.button()) · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper · text `esc.game.resume`: en "Resume" · uk "Продовжити" · shown with keyboard focus (grab_focus)
+    - **Resume** `Button` · variation `ToyButtonPrimary` · text `esc.game.resume`: en "Resume" · uk "Продовжити" · shown with keyboard focus (grab_focus)
       - Note: Closes the menu (as Esc). Takes focus when the menu opens on Game.
     - **Leave** `Button` · variation `ToyButtonSecondary` (raised: ToyRaised with base `ToyBaseRaisedOnLight`, ToyPress; UiParts.button()) · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper · text `esc.game.leave`: en "Leave the session" · uk "Покинути сесію"
       - Note: The host: coral (ToyButtonDanger), opens the confirm dialog. A player: ToyButtonSecondary, leaves at once. In the tutorial: ToyButtonSecondary esc.game.leave_tutorial, back to the main menu (s2).
@@ -377,7 +377,7 @@ The menu over the running game (no pause): Esc (ui_cancel) opens and closes it; 
 - **Shown:**
   - **Menu/H/Tabs/Role** `Button` · variation `ToyTab` · text `esc.tab.role`: en "Role" · uk "Роль" · alignment `LEFT` · toggle_mode true, button_pressed false
   - **Menu/H/Page/Actions** `VBoxContainer` · variation `ToyColumnTwentyFour` · size flags horizontal `SIZE_SHRINK_BEGIN` · custom_minimum_size (760, 0) · gaps from the variation: separation 24
-    - **Resume** `Button` · variation `ToyButtonPrimary` (raised: ToyRaised with base `ToyBasePrimaryOnLight`, ToyPress; UiParts.button()) · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper · text `esc.game.resume`: en "Resume" · uk "Продовжити"
+    - **Resume** `Button` · variation `ToyButtonPrimary` · text `esc.game.resume`: en "Resume" · uk "Продовжити"
       - Note: Closes the menu (as Esc). Takes focus when the menu opens on Game.
     - **Leave** `Button` · variation `ToyButtonDanger` (raised: ToyRaised with base `ToyBaseRaisedOnLight`, ToyPress; UiParts.button()) · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper · text `esc.game.leave`: en "Leave the session" · uk "Покинути сесію"
       - Note: The host: coral (ToyButtonDanger), opens the confirm dialog. A player: ToyButtonSecondary, leaves at once. In the tutorial: ToyButtonSecondary esc.game.leave_tutorial, back to the main menu (s2).
@@ -755,7 +755,7 @@ The menu over the running game (no pause): Esc (ui_cancel) opens and closes it; 
 - **Changed** `Menu/H/Page/TitleRow/Title`: text `esc.tab.game`: en "Game" · uk "Гра" (was: text `esc.tab.lobby`: en "Lobby" · uk "Лобі")
 - **Shown:**
   - **Menu/H/Page/Actions** `VBoxContainer` · variation `ToyColumnTwentyFour` · size flags horizontal `SIZE_SHRINK_BEGIN` · custom_minimum_size (760, 0) · gaps from the variation: separation 24
-    - **Resume** `Button` · variation `ToyButtonPrimary` (raised: ToyRaised with base `ToyBasePrimaryOnLight`, ToyPress; UiParts.button()) · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper · text `esc.game.resume`: en "Resume" · uk "Продовжити" · shown with keyboard focus (grab_focus)
+    - **Resume** `Button` · variation `ToyButtonPrimary` · text `esc.game.resume`: en "Resume" · uk "Продовжити" · shown with keyboard focus (grab_focus)
       - Note: Closes the menu (as Esc). Takes focus when the menu opens on Game.
     - **Leave** `Button` · variation `ToyButtonSecondary` (raised: ToyRaised with base `ToyBaseRaisedOnLight`, ToyPress; UiParts.button()) · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper · text `esc.game.leave_tutorial`: en "Leave the tutorial" · uk "Вийти з навчання"
       - Note: The host: coral (ToyButtonDanger), opens the confirm dialog. A player: ToyButtonSecondary, leaves at once. In the tutorial: ToyButtonSecondary esc.game.leave_tutorial, back to the main menu (s2).

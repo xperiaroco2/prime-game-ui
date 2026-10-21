@@ -1,2 +1,8 @@
 <!-- own work, prime-game-ui, licence: own work -->
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true"><g stroke="#1E1230" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"><path d="M8 36Q8 12 32 12Q56 12 56 36z" fill="#FFD60A"/><rect x="9" y="40" width="46" height="13" rx="6.5" fill="#FFD60A"/><g fill="#FFFFFF" stroke-width="1.8"><ellipse cx="22" cy="20" rx="2.6" ry="1.6"/><ellipse cx="32" cy="17" rx="2.6" ry="1.6"/><ellipse cx="42" cy="20" rx="2.6" ry="1.6"/></g><path d="M21 28q3-3.5 6 0M37 28q3-3.5 6 0M29 31q3 2.6 6 0" fill="none" stroke-width="2.6"/></g></svg>
+<!-- Item icon "bun": the round-3 line icon pages/glow-bars/icons/line-bun.svg
+     in colouring 3 (the engineer's choice of 2026-10-21), baked with literal colours for Godot: ink line and accent #1E1230,
+     one flat fill #D7A35C under the line; 4-unit line, round caps and joins. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true">
+<g fill="#D7A35C" stroke="none"><path d="M8 41C8 25 18 15 32 15C46 15 56 25 56 41Q56 48 49 48H15Q8 48 8 41Z"/></g>
+<g fill="none" stroke="#1E1230" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 41C8 25 18 15 32 15C46 15 56 25 56 41Q56 48 49 48H15Q8 48 8 41Z"/><path d="M22 28l2.6-1.2"/><path d="M31 23h2.8"/><path d="M40 27l2.4 1.4"/><path d="M29 33h2.8"/><path d="M9 39H55"/></g>
+</svg>

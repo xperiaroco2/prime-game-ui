@@ -20,40 +20,49 @@
       }
     },
     "primary": {
-      "$description": "The main action: the alien green sticker.",
+      "$description": "The main action: the acid green sticker that glows (the engineer, 2026-10-21, ui-1.3.0; the alien green until ui-1.2.0). Its one StyleBoxFlat shadow is the glow (glow.action, offset 0, the acid at alpha 1), so the hard ink shadow is the edge form: the right and bottom outlines are 14 px (6 + 8) and reach 8 px outside the button, as ToyMenuItem's, and no base layer sits under it (ToyBasePrimaryOnDark and ToyBasePrimaryOnLight are deprecated). The button keeps the plain button's footprint and its label's place.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": {
             "variation": "ToyButtonPrimary",
             "class": "Button",
-            "parent": "ToyButton",
-            "base": { "dark": "ToyBasePrimaryOnDark", "light": "ToyBasePrimaryOnLight" }
+            "parent": "ToyButton"
           },
           "context": "any"
         }
       },
       "label": { "$type": "typography", "$value": "{type.body-large-bold}" },
       "normal": {
-        "bg-color": { "$type": "color", "$value": "{palette.green}" },
+        "bg-color": { "$type": "color", "$value": "{palette.acid}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
-        "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
+        "border-width-top": { "$type": "dimension", "$value": "{stroke.control}" },
+        "border-width-right": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } },
+        "border-width-bottom": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } },
+        "border-width-left": { "$type": "dimension", "$value": "{stroke.control}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.control}" },
         "content-margin-block": { "$type": "dimension", "$value": { "value": 16, "unit": "px" } },
         "content-margin-inline": { "$type": "dimension", "$value": { "value": 30, "unit": "px" } },
+        "expand-margin-right": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } },
+        "expand-margin-bottom": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } },
+        "shadow-color": { "$type": "color", "$value": "{palette.acid}" },
+        "shadow-size": { "$type": "dimension", "$value": "{glow.action}" },
         "font-color": { "$type": "color", "$value": "{color.on-accent.text}" }
       },
       "hover": {
-        "$description": "Hover: the face lifts to a lighter shade.",
-        "bg-color": { "$type": "color", "$value": "{palette.green-light}" }
+        "$description": "Hover: the face lifts to the lighter acid; the glow and the edge stay.",
+        "bg-color": { "$type": "color", "$value": "{palette.acid-light}" }
       },
       "pressed": {
-        "$description": "Held: the face darkens; the sticker does not move (the shadow stays).",
-        "bg-color": { "$type": "color", "$value": "{palette.green-dark}" }
+        "$description": "Held: the face darkens; the sticker does not move (the edge and the glow stay).",
+        "bg-color": { "$type": "color", "$value": "{palette.acid-dark}" }
       },
       "disabled": {
-        "$description": "Unplugged: no shadow (the base is hidden), a dulled lilac face, its outline and label in the soft ink.",
+        "$description": "Unplugged: no edge and no glow (a 6 px outline on every side, no expand), a dulled lilac face, its outline and label in the soft ink.",
         "bg-color": { "$type": "color", "$value": "{color.state.disabled-face}" },
         "border-color": { "$type": "color", "$value": "{color.state.disabled-ink}" },
+        "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
+        "expand-margin": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "shadow-size": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
         "font-color": { "$type": "color", "$value": "{color.state.disabled-ink}" }
       },
       "focus": {
@@ -63,16 +72,6 @@
         "border-width": { "$type": "dimension", "$value": "{focus.width}" },
         "corner-radius": { "$type": "dimension", "$value": { "value": 15, "unit": "px" } },
         "expand-margin": { "$type": "dimension", "$value": { "value": -6, "unit": "px" } }
-      },
-      "press": {
-        "$type": "dimension",
-        "depth": {
-          "$description": "The base sits offset.base right and down: the hard ink shadow.",
-          "$value": "{offset.base}"
-        },
-        "hover": { "$value": { "value": 0, "unit": "px" } },
-        "held": { "$value": { "value": 0, "unit": "px" } },
-        "disabled": { "$value": { "value": 0, "unit": "px" } }
       },
       "items": {
         "$description": "An icon (the ready toggle's check) in the label colour of each state; without these Godot tints it white.",
@@ -366,7 +365,7 @@
         "bg-color": { "$type": "color", "$value": "{palette.mint-light}" }
       },
       "pressed": {
-        "$description": "Held, and the open entry (toggled on): the alien green face, as the primary button; the sticker does not move (the edge stays).",
+        "$description": "Held, and the open entry (toggled on): the alien green face (the primary button's face until ui-1.2.0; the main action is acid since ui-1.3.0); the sticker does not move (the edge stays).",
         "bg-color": { "$type": "color", "$value": "{palette.green}" }
       },
       "disabled": {
@@ -432,6 +431,7 @@
     },
     "base-primary-on-dark": {
       "$description": "The hard ink shadow under the primary button on purple: 8 px right and 8 px down.",
+      "$deprecated": "The primary button glows since ui-1.3.0: its hard shadow is the edge form and no base sits under it. Removed at the next major release.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyBasePrimaryOnDark", "class": "Panel" },
@@ -449,6 +449,7 @@
     },
     "base-primary-on-light": {
       "$description": "The hard ink shadow under the primary button on mint: 8 px right and 8 px down.",
+      "$deprecated": "The primary button glows since ui-1.3.0: its hard shadow is the edge form and no base sits under it. Removed at the next major release.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyBasePrimaryOnLight", "class": "Panel" },
