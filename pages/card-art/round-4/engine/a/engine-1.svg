@@ -1,0 +1,56 @@
+<!-- own work, prime-game-ui, licence: own work -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" width="320" height="240">
+  <defs>
+    <filter id="ea1-w" filterUnits="userSpaceOnUse" x="0" y="0" width="320" height="240">
+      <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="71" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="4" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <style>
+      .k{fill:none;stroke:#1f2433;stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
+      .t{stroke-width:4}
+      .f{stroke-width:3}
+      .w{fill:#fff;stroke:#1f2433;stroke-width:5;stroke-linejoin:round}
+      .a{fill:#FFD60A;stroke:#1f2433;stroke-width:5;stroke-linejoin:round}
+      .i{fill:#1f2433}
+      .o{fill:none;stroke:#FFD60A;stroke-width:5;stroke-linecap:round}
+    </style>
+  </defs>
+  <g filter="url(#ea1-w)">
+    <ellipse cx="62" cy="213" rx="26" ry="4" fill="#1f2433" opacity=".12"/>
+    <path class="k t" d="M16 212C96 209 210 214 304 211"/>
+    <!-- the ship's engine: the body, its nozzle, the valve on its pipe -->
+    <ellipse cx="200" cy="213" rx="66" ry="4" fill="#1f2433" opacity=".12"/>
+    <path class="w" d="M250 128H262C270 128 276 120 284 106V194C276 180 270 172 262 172H250Z"/>
+    <path class="k f" d="M262 130V170"/>
+    <rect class="w" x="140" y="94" width="112" height="116" rx="14"/>
+    <circle class="i" cx="152" cy="106" r="3.5"/><circle class="i" cx="240" cy="106" r="3.5"/><circle class="i" cx="152" cy="198" r="3.5"/><circle class="i" cx="240" cy="198" r="3.5"/>
+    <path class="k f" d="M170 186H220M170 196H220"/>
+    <rect class="w" x="114" y="123" width="28" height="14" rx="3" style="stroke-width:4"/>
+    <circle class="w" cx="112" cy="130" r="17"/>
+    <path class="k t" d="M112 115V145M97 130H127"/>
+    <circle class="i" cx="112" cy="130" r="4.5"/>
+    <!-- the gauge: the band to stop in, the needle -->
+    <path class="w" d="M155 166A40 40 0 0 1 235 166Z"/>
+    <path class="a" d="M200.01 130.35A36 36 0 0 1 220.01 140.1L207.5 153.05A18 18 0 0 0 197.51 148.18Z" style="stroke-width:3.5"/>
+    <path class="k f" d="M155 166L162 166M195 126L195 133"/>
+    <path class="k" d="M195 166L165.87 155.4"/>
+    <circle class="i" cx="195" cy="166" r="6"/>
+    <!-- the problem lamp on top: lit, wailing -->
+    <rect class="w" x="181" y="84" width="28" height="11" rx="3" style="stroke-width:4"/>
+    <path class="a" d="M184 84A11 13 0 0 1 206 84Z" style="stroke-width:4"/>
+    <path class="o" d="M195 58V50M178 64l-6-5M212 64l6-5"/>
+    <path class="k t" d="M164 70q-6 8 0 16M154 64q-10 14 0 28M226 70q6 8 0 16M236 64q10 14 0 28"/>
+    <!-- the heat over the nozzle -->
+    <path class="k t" d="M262 96q-5-5 0-10t0-10M276 92q-5-5 0-10t0-10"/>
+    <!-- figure, startled by the lamp: arms up, eyes wide -->
+    <path class="k" d="M62 152L46 211M62 152L78 211"/>
+    <path class="k" d="M62 152L66 104"/>
+    <path class="k" d="M66 114L46 104L38 84"/>
+    <path class="k" d="M66 114L86 102L90 82"/>
+    <circle class="w" cx="68" cy="82" r="19"/>
+    <circle class="i" cx="73" cy="78" r="3.4"/><circle class="i" cx="82" cy="78" r="3.4"/>
+    <ellipse class="i" cx="78" cy="92" rx="3.5" ry="4.5"/>
+    <path class="k" d="M102 36V50"/>
+    <circle class="i" cx="102" cy="61" r="4"/>
+  </g>
+</svg>
