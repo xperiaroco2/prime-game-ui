@@ -119,8 +119,9 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
   - the full-screen titles (`ToyTitleHero`, `ToyTitleHeroAlert`) are Kablammo (`type.hero-display`, a value change)
     on the new `ToyBackdropFullScreen`, the soft ink `#54457A`; smaller titles stay Nunito Black;
   - the twelve `item-*` icons are the line icons in colouring 3 (ink line and accent, one muted fill of the item's
-    own colour), a value change under the same names; the fourteen `item2-*` icons are deprecated in their licence
-    records and in the pack's assets (`deprecated`, with the replacement), and leave with the next major release.
+    own colour), a value change under the same names; the fourteen `item2-*` icons (not chosen) left the pack's
+    folder before any tag shipped them, so they never reach the game; they live on in `pages/mvp-screens/item2/` for
+    the sketch page (agent).
   The look choices the agent took alone:
   - the acid hover and held shades `#CEFF73` and `#9BE800` (agent);
   - the glow sizes at the 0.75 scale: the main action's 45 px and the alarm's 42 px (the page's 30 and 28 × 1.5)

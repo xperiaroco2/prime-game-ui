@@ -253,8 +253,8 @@ deprecated itself. The pack marks both (below).
   - `deprecated` (since ui-1.3.0, only on a deprecated icon): `{ "replacement": "<assets path>" | null, "note": "<reason>" }`,
     the form of a deprecated variation, from the icon's licence record (`"deprecated": "<reason>"`, `"replacement":
     "<file of the same folder>" | null`, `tools/tokens/icons.js`). The file stays in the pack until the next major
-    release. Today: the fourteen `icons/item2-*.svg` (grown-up set 2, not chosen), replaced by the round-3 line icons
-    `icons/item-*.svg` (the engineer's choice of 2026-10-21); `item2-film` and `item2-photo` have no replacement.
+    release. None today: the grown-up set 2 (`item2-*`, not chosen on 2026-10-21) left the folder before any tag
+    shipped it, so it never reached a pack; it lives on as `pages/mvp-screens/item2/` for the sketch page only.
   - **Importing them:** ui-sync puts a `.gdignore` in the pack's folder, so Godot imports nothing under it. The game
     copies the icons into a folder Godot imports, keeps them under the same sha256 lock (`sha256` here is the file's), and
     imports each at its `svg_scale`.

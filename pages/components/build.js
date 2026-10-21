@@ -23,11 +23,7 @@ const ICONS = ['check', 'item', 'mic', 'mic-off', 'pointer', 'chevron-left', 'ch
   'checkbox-checked', 'checkbox-checked-disabled', 'checkbox-unchecked', 'checkbox-unchecked-disabled', 'spin-up', 'spin-down',
   // the round HUD's siren, items and empty slots: in the icons row; on the screens only in pages/mvp-screens/ today
   'siren-off', 'siren-on', 'slot-empty-hand', 'slot-empty-belt', 'item-rocket', 'item-bun', 'item-battery', 'item-extinguisher',
-  'item-flower', 'item-car-part', 'item-patty', 'item-burger', 'item-watering-can', 'item-wrench', 'item-bin-bag', 'item-knife',
-  // the grown-up item pictograms (item2-*): deprecated since ui-1.3.0 (the line icons item-* were chosen, 2026-10-21);
-  // they stay in the pack, and so in this row, until a major release
-  'item2-rocket', 'item2-bun', 'item2-patty', 'item2-burger', 'item2-flower', 'item2-watering-can', 'item2-battery',
-  'item2-car-part', 'item2-wrench', 'item2-extinguisher', 'item2-bin-bag', 'item2-knife', 'item2-film', 'item2-photo'];
+  'item-flower', 'item-car-part', 'item-patty', 'item-burger', 'item-watering-can', 'item-wrench', 'item-bin-bag', 'item-knife'];
 const ICON_HEAD = '<!-- own work, prime-game-ui, licence: own work -->';
 const FONT_LINK = 'https://fonts.googleapis.com/css2?family=Kablammo&family=Nunito:wght@800;900&family=Rubik:wght@700&display=swap';
 const TILES = [['white', '#ffffff'], ['grey', '#c9c9c9'], ['dim', '#979797']];

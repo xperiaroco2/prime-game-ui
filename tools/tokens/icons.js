@@ -18,7 +18,7 @@
 // side, rounded up to 0.01, the svg/scale Godot imports it at (it rasterises an SVG at import).
 // An icon whose licence record carries "deprecated" (the reason) and "replacement" (a file of the same folder, or null)
 // is marked in its assets record as a deprecated variation is: { "replacement": "<pack path>" | null, "note": "<reason>" };
-// the file stays in the pack until the next major release (since ui-1.3.0: the item2-* pictures).
+// the file stays in the pack until the next major release.
 // A root without these folders (a test fixture, an overlay's temporary copy) has no icons.
 // Node 20, no packages.
 'use strict';
