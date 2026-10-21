@@ -1,7 +1,7 @@
 {
  "about": "The copy review (prime-game-ui#4; round 4, prime-game-ui#51, and round 5, prime-game-ui#57: the deck rows the game's M7 asked for on prime-game#150). Round 2 was answered on 2026-10-05 and applied. Round 3 (2026-10-06, wave prime-game-ui#19), about the texts the styled screens added or reworded, was answered the same day and applied. open: questions still waiting for the engineer, each with options a-c; an option lists the rows it would write (empty uk and en remove the key), an option without rows keeps the deck and says so in its label. The deck keeps its current wording until an open question is answered on pages/copy/; where option a has rows, the deck could not take the change yet (an old wireframe frame still shows the current text). decided: what was applied, round 2 first. removed: keys taken out of the deck. asked: when the current round was put to the engineer; the page ignores answers saved before it. Rules: copy/README.md and docs/research/2026-10-05-ukrainian-localization/report.md.",
  "asked": "2026-10-20T22:23:30Z",
- "principle": "Гравці досвідчені, гра не для дітей: не пояснюємо звичне й очевидне (що меню не ставить на паузу, що щось нове, знайоме керування), без «водіння за руку».",
+ "principle": "Гравці досвідчені, гра не для дітей: не пояснюємо звичне й очевидне (що меню не ставить на паузу, що щось нове, знайоме керування), без «водіння за руку». Без написаних жартів: текст простий, короткий і впевнений; смішне робить гра, а не підписи (дизайн-трек, 21.10).",
  "open": [
   {
    "id": "tutorial.step.dead_room.title",
@@ -131,7 +131,7 @@
    ],
    "kind": "tone",
    "round": "new",
-   "why": "Чернетка (екрани MVP s1–s5). Порада на екрані завантаження (s3). Аудит: «Не забувай: у тебе дві руки» писалася про пакунки доставки, якої в MVP немає. Нова порада натякає на гнів сусідів. Стара лишається в колоді (порада випадкова з набору), поки ти не скажеш прибрати.",
+   "why": "Чернетка (екрани MVP s1–s5). Порада на екрані завантаження (s3). Аудит: «Не забувай: у тебе дві руки» писалася про пакунки доставки, якої в MVP немає. Нова порада натякає на гнів сусідів. Стара лишається в колоді (порада випадкова з набору), поки ти не скажеш прибрати. Перевірено 21.10 за правилом «без написаних жартів»: варіант «Гуляй тихо. Або ні.» був жартом і його замінено прямою підказкою.",
    "options": [
     {
      "id": "a",
@@ -141,13 +141,13 @@
     },
     {
      "id": "b",
-     "label": "Інший жарт",
-     "note": "Підморгує людям, які хочуть, щоб приїхали копи.",
+     "label": "Прямо",
+     "note": "Каже, що робить шум, без натяку.",
      "rows": [
       {
        "key": "tip.neighbours",
-       "en": "Party quietly. Or don't.",
-       "uk": "Гуляй тихо. Або ні."
+       "en": "Noise angers the neighbours.",
+       "uk": "Шум злить сусідів."
       }
      ]
     }
