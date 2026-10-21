@@ -523,7 +523,19 @@ function emitComponentsCss(sys) {
 
     // Focus (§13.2): the .tv-focus child, drawn over the state's StyleBox.
     const focus = variant.states.focus;
-    if (focus && (isButton || isLineEdit)) {
+    const filled = focus && isButton && focus['draw-center'] && focus['draw-center'].value.value !== false
+      && focus['bg-color'].source && Array.isArray(focus['bg-color'].value.rgba) && focus['bg-color'].value.rgba[3] > 0;
+    if (filled) {
+      // A filled focus (ui-1.4.0; P48: the normal face's exact shape, no expand): Godot draws it over the state's StyleBox
+      // and under the label, so in CSS it is the face's own fill and outline while focused. This rule comes after the
+      // state rules, so it wins over them as the focus box does in Godot.
+      const fd = new Map([['background', v(focus['bg-color'].source)]]);
+      if (!focus['border-color'].source) fail(variant, 'focus has no border colour');
+      fd.set('border-color', v(focus['border-color'].source));
+      const fc = fontDecls(null, focus['font-color']);
+      for (const [p, x] of diff(new Map(fontDecls(null, textRec && textRec['font-color'])), fc)) fd.set(p, x);
+      rule(`${cls}.is-focus, ${cls}:focus-visible`, fd);
+    } else if (focus && (isButton || isLineEdit)) {
       const fd = new Map([['display', 'none'], ['position', 'absolute'], ['pointer-events', 'none'], ['box-sizing', 'border-box'],
         ['border-style', 'solid']]);
       if (focus['draw-center'] && focus['draw-center'].value.value !== false && focus['bg-color'].source) fd.set('background', v(focus['bg-color'].source));

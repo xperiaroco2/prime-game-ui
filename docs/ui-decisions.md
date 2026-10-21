@@ -120,7 +120,8 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
     on the new `ToyBackdropFullScreen`, the soft ink `#54457A`; smaller titles stay Nunito Black;
   - the twelve `item-*` icons are the line icons in colouring 3 (ink line and accent, one muted fill of the item's
     own colour), a value change under the same names; the fourteen `item2-*` icons (not chosen) left the pack's
-    folder before any tag shipped them, so they never reach the game; they live on in `pages/mvp-screens/item2/` for
+    assets before any tag shipped them, so they never reach the game (stray copies stayed in its folder until
+    ui-1.4.0); they live on in `pages/mvp-screens/item2/` for
     the sketch page (agent).
   The look choices the agent took alone:
   - the acid hover and held shades `#CEFF73` and `#9BE800` (agent);
@@ -141,6 +142,33 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
   - on the screens, s09's bleed-out bar takes the health bar's look and alarm line (under 30 %), since the time
     left reads as life, and the dead's room return bar on the count plate moves from `ToyBarProgress` to
     `ToyBarReturnCalm` / `Alarm` (agent).
+- **Buttons are the sketches' sticker** (the engineer, 2026-10-21, chat, on the buttons-fix page, `pages/buttons-fix/`,
+  look "Б"): the ui-1.3.0 buttons sat in a dark ink slab (14 px right and bottom outlines, a base under some), the
+  focused one drew a second frame inside, and the acid main action had the slab under its glow. Look B, as on the MVP
+  sketches (`pages/mvp-screens/`, `.st .btn`), replaces that; the pack ui-1.4.0 carries it (`tokens/README.md`, "The
+  buttons since ui-1.4.0"):
+  - every sticker button (the main-menu entries `ToyMenuItem`, `ToyButtonSecondary`, `ToyButtonDanger`,
+    `ToyButtonPrimary`) is its face in its fill with an equal ink outline on every side and the corners as before; no
+    edge form;
+  - the hard ink shadow is offset right and down with no blur, drawn as the base layer (`ToyBaseRaisedOnDark` /
+    `OnLight`): exactly the face's shape moved, nothing sticking out on the left or top; the main-menu entries gain it
+    (the game builds them through ToyRaised);
+  - hover a step lighter, held a step darker with the face sinking toward its shadow, unplugged lilac with a soft-ink
+    outline and no shadow;
+  - the focused, selected or open main-menu entry is the green #A6E85A, as the sketches' open entry, with no second
+    frame inside;
+  - the main action keeps its acid fill and its glow, with the equal outline and no slab or hard shadow under it.
+  The look choices the agent took alone:
+  - the sketch's 4 px outline, 5 px shadow and 14 px corners are 6, 8 and 21 px in the pack, the 0.75 scale's × 1.5
+    as every length since ui-1.2.0 (the existing `stroke.control`, `offset.base`, `radius.control`) (agent);
+  - held, the face sinks 4 px (half the shadow) and only down, as the game's press moves it (agent);
+  - a focused secondary button turns green too, as a focused entry (both are mint stickers); the focused main action
+    and danger button keep their acid and coral, and their outline thickens inward to 11 px as one stroke instead
+    (agent);
+  - chips, tabs, keys, fields, the dropdown, preset cards, plates, `ToyButtonPlain` and the ghost buttons stay as in
+    ui-1.3.0 (agent);
+  - the fourteen stray `item2-*` SVGs left in `dist/pack/icons/` at ui-1.3.0 (listed nowhere in the pack) are deleted
+    (agent).
 - **The round HUD's pictures are icon files** (`pages/components/icons/`, own work, page-only today; the pack lists
   them but no token names them yet): the siren as two files, `siren-off` (the lilac dome, anger calm) and `siren-on`
   (the coral dome with rays, rising and full); the empty slots `slot-empty-hand` and `slot-empty-belt`; and one
@@ -153,7 +181,8 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
   `docs/research/2026-10-20-vibe/restyle-guide.md`). The look choices the agent took alone:
   - state shades inside the palette: mint, green and coral each one step lighter for hover and darker for held, a
     lighter purple `#3C2660` and a soft ink `#54457A` (agent);
-  - a pressed sticker does not move: hover lightens the face, held darkens it, the shadow stays (agent);
+  - a pressed sticker does not move: hover lightens the face, held darkens it, the shadow stays (agent; for the
+    buttons replaced by the sketches' sticker of ui-1.4.0 above: a held button sinks toward its shadow);
   - unplugged (disabled): the lilac `#B7A8D6` face, soft-ink outline and label, no shadow (agent);
   - every context keeps its place in the game, so the inside of a panel is purple with mint text, and text on a mint,
     green or coral face is ink (agent);
@@ -165,7 +194,8 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
     Kablammo; the sizes stay (agent);
   - ghost buttons are borderless with mint labels (agent);
   - main-menu entries are mint sticker buttons with the edge-form shadow; the open entry is green, as on the screens page
-    the engineer picked; they stand 12 px apart so the shadow clears the next entry (agent);
+    the engineer picked; they stand 12 px apart so the shadow clears the next entry (agent; the edge form replaced by
+    the base layer in ui-1.4.0 above);
   - the title plate is a purple sticker around a green title; titles carry a 4 px ink outline (agent);
   - the backdrop over the world is the deep purple at 82 % (Toy's was 74 %), so dim text passes 4.5:1 over a white
     world (agent);

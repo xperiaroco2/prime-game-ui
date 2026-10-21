@@ -56,20 +56,18 @@
   background: var(--toy-button-primary-normal-bg-color);
   border-style: solid;
   border-color: var(--toy-button-primary-normal-border-color);
-  border-top-width: calc(var(--toy-button-primary-normal-border-width-top) * var(--px));
-  border-right-width: calc(var(--toy-button-primary-normal-border-width-right) * var(--px));
-  border-bottom-width: calc(var(--toy-button-primary-normal-border-width-bottom) * var(--px));
-  border-left-width: calc(var(--toy-button-primary-normal-border-width-left) * var(--px));
+  border-top-width: calc(var(--toy-button-primary-normal-border-width) * var(--px));
+  border-right-width: calc(var(--toy-button-primary-normal-border-width) * var(--px));
+  border-bottom-width: calc(var(--toy-button-primary-normal-border-width) * var(--px));
+  border-left-width: calc(var(--toy-button-primary-normal-border-width) * var(--px));
   border-top-left-radius: calc(var(--toy-button-primary-normal-corner-radius) * var(--px));
   border-top-right-radius: calc(var(--toy-button-primary-normal-corner-radius) * var(--px));
   border-bottom-right-radius: calc(var(--toy-button-primary-normal-corner-radius) * var(--px));
   border-bottom-left-radius: calc(var(--toy-button-primary-normal-corner-radius) * var(--px));
-  padding-top: calc((var(--toy-button-primary-normal-content-margin-block) - var(--toy-button-primary-normal-border-width-top)) * var(--px));
-  padding-right: calc((var(--toy-button-primary-normal-content-margin-inline) + var(--toy-button-primary-normal-expand-margin-right) - var(--toy-button-primary-normal-border-width-right)) * var(--px));
-  padding-bottom: calc((var(--toy-button-primary-normal-content-margin-block) + var(--toy-button-primary-normal-expand-margin-bottom) - var(--toy-button-primary-normal-border-width-bottom)) * var(--px));
-  padding-left: calc((var(--toy-button-primary-normal-content-margin-inline) - var(--toy-button-primary-normal-border-width-left)) * var(--px));
-  margin-right: calc(var(--toy-button-primary-normal-expand-margin-right) * -1 * var(--px));
-  margin-bottom: calc(var(--toy-button-primary-normal-expand-margin-bottom) * -1 * var(--px));
+  padding-top: calc((var(--toy-button-primary-normal-content-margin-block) - var(--toy-button-primary-normal-border-width)) * var(--px));
+  padding-right: calc((var(--toy-button-primary-normal-content-margin-inline) - var(--toy-button-primary-normal-border-width)) * var(--px));
+  padding-bottom: calc((var(--toy-button-primary-normal-content-margin-block) - var(--toy-button-primary-normal-border-width)) * var(--px));
+  padding-left: calc((var(--toy-button-primary-normal-content-margin-inline) - var(--toy-button-primary-normal-border-width)) * var(--px));
   box-shadow: 0 0 calc(var(--toy-button-primary-normal-shadow-size) * var(--px)) var(--toy-button-primary-normal-shadow-color);
   font-family: var(--toy-button-primary-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-button-primary-label-font-size) * var(--px));
@@ -88,16 +86,6 @@
 .tv-ToyButtonPrimary.is-disabled {
   background: var(--toy-button-primary-disabled-bg-color);
   border-color: var(--toy-button-primary-disabled-border-color);
-  border-top-width: calc(var(--toy-button-primary-disabled-border-width) * var(--px));
-  border-right-width: calc(var(--toy-button-primary-disabled-border-width) * var(--px));
-  border-bottom-width: calc(var(--toy-button-primary-disabled-border-width) * var(--px));
-  border-left-width: calc(var(--toy-button-primary-disabled-border-width) * var(--px));
-  padding-top: calc((var(--toy-button-primary-normal-content-margin-block) - var(--toy-button-primary-disabled-border-width)) * var(--px));
-  padding-right: calc((var(--toy-button-primary-normal-content-margin-inline) - var(--toy-button-primary-disabled-border-width)) * var(--px));
-  padding-bottom: calc((var(--toy-button-primary-normal-content-margin-block) - var(--toy-button-primary-disabled-border-width)) * var(--px));
-  padding-left: calc((var(--toy-button-primary-normal-content-margin-inline) - var(--toy-button-primary-disabled-border-width)) * var(--px));
-  margin-right: 0;
-  margin-bottom: 0;
   box-shadow: none;
   color: var(--toy-button-primary-disabled-font-color);
 }
@@ -116,19 +104,13 @@
   border-top-right-radius: calc(var(--toy-button-primary-focus-corner-radius) * var(--px));
   border-bottom-right-radius: calc(var(--toy-button-primary-focus-corner-radius) * var(--px));
   border-bottom-left-radius: calc(var(--toy-button-primary-focus-corner-radius) * var(--px));
-  top: calc((0 - var(--toy-button-primary-normal-border-width-top) - var(--toy-button-primary-focus-expand-margin)) * var(--px));
-  right: calc((var(--toy-button-primary-normal-expand-margin-right) - var(--toy-button-primary-normal-border-width-right) - var(--toy-button-primary-focus-expand-margin)) * var(--px));
-  bottom: calc((var(--toy-button-primary-normal-expand-margin-bottom) - var(--toy-button-primary-normal-border-width-bottom) - var(--toy-button-primary-focus-expand-margin)) * var(--px));
-  left: calc((0 - var(--toy-button-primary-normal-border-width-left) - var(--toy-button-primary-focus-expand-margin)) * var(--px));
+  top: calc((0 - var(--toy-button-primary-normal-border-width)) * var(--px));
+  right: calc((0 - var(--toy-button-primary-normal-border-width)) * var(--px));
+  bottom: calc((0 - var(--toy-button-primary-normal-border-width)) * var(--px));
+  left: calc((0 - var(--toy-button-primary-normal-border-width)) * var(--px));
 }
 .tv-ToyButtonPrimary.is-focus > .tv-focus, .tv-ToyButtonPrimary:focus-visible > .tv-focus {
   display: block;
-}
-.tv-ToyButtonPrimary.is-disabled > .tv-focus {
-  top: calc((0 - var(--toy-button-primary-disabled-border-width) - var(--toy-button-primary-focus-expand-margin)) * var(--px));
-  right: calc((0 - var(--toy-button-primary-disabled-border-width) - var(--toy-button-primary-focus-expand-margin)) * var(--px));
-  bottom: calc((0 - var(--toy-button-primary-disabled-border-width) - var(--toy-button-primary-focus-expand-margin)) * var(--px));
-  left: calc((0 - var(--toy-button-primary-disabled-border-width) - var(--toy-button-primary-focus-expand-margin)) * var(--px));
 }
 .tv-ToyButtonPrimary .tv-icon {
   color: var(--toy-button-primary-items-icon-normal-color);
@@ -196,28 +178,9 @@
   --tv-offset: var(--toy-button-secondary-press-disabled);
   box-shadow: none;
 }
-.tv-ToyButtonSecondary > .tv-focus {
-  display: none;
-  position: absolute;
-  pointer-events: none;
-  box-sizing: border-box;
-  border-style: solid;
+.tv-ToyButtonSecondary.is-focus, .tv-ToyButtonSecondary:focus-visible {
+  background: var(--toy-button-secondary-focus-bg-color);
   border-color: var(--toy-button-secondary-focus-border-color);
-  border-top-width: calc(var(--toy-button-secondary-focus-border-width) * var(--px));
-  border-right-width: calc(var(--toy-button-secondary-focus-border-width) * var(--px));
-  border-bottom-width: calc(var(--toy-button-secondary-focus-border-width) * var(--px));
-  border-left-width: calc(var(--toy-button-secondary-focus-border-width) * var(--px));
-  border-top-left-radius: calc(var(--toy-button-secondary-focus-corner-radius) * var(--px));
-  border-top-right-radius: calc(var(--toy-button-secondary-focus-corner-radius) * var(--px));
-  border-bottom-right-radius: calc(var(--toy-button-secondary-focus-corner-radius) * var(--px));
-  border-bottom-left-radius: calc(var(--toy-button-secondary-focus-corner-radius) * var(--px));
-  top: calc((0 - var(--toy-button-secondary-normal-border-width) - var(--toy-button-secondary-focus-expand-margin)) * var(--px));
-  right: calc((0 - var(--toy-button-secondary-normal-border-width) - var(--toy-button-secondary-focus-expand-margin)) * var(--px));
-  bottom: calc((0 - var(--toy-button-secondary-normal-border-width) - var(--toy-button-secondary-focus-expand-margin)) * var(--px));
-  left: calc((0 - var(--toy-button-secondary-normal-border-width) - var(--toy-button-secondary-focus-expand-margin)) * var(--px));
-}
-.tv-ToyButtonSecondary.is-focus > .tv-focus, .tv-ToyButtonSecondary:focus-visible > .tv-focus {
-  display: block;
 }
 .tv-ToyButtonSecondary .tv-icon {
   color: var(--toy-button-secondary-items-icon-normal-color);

@@ -198,10 +198,9 @@ The engineer's choices of 2026-10-21 (prime-game#150; `pages/glow-bars/`, way 3 
   <colour>` (lint L11 allows a blur only at offset 0 0). The hard ink shadow is never a StyleBox shadow: it stays a
   base layer or the edge form.
 - **The main action glows:** `ToyButtonPrimary` is the acid `palette.acid` (#B6FF3C; hover `acid-light`, held
-  `acid-dark`) with the glow (`glow.action`, acid), and its hard shadow is the edge form (outlines 6 / 14 / 14 / 6,
-  expand 8 right and bottom, as `ToyMenuItem`), so it has no `base` and `press.depth` is 0: the game drops its ToyRaised
-  wrapper in the same change that takes the pack (a kept wrapper still draws the deprecated 8 px base under the
-  14 px edge form: a doubled hard shadow). Unplugged: a 6 px outline, no expand, `shadow-size` 0.
+  `acid-dark`) with the glow (`glow.action`, acid). It has no `base` and `press.depth` is 0: the game drops its ToyRaised
+  wrapper. In ui-1.3.0 its hard shadow was the edge form (outlines 6 / 14 / 14 / 6, expand 8 right and bottom); since
+  ui-1.4.0 it has none (below, "The buttons since ui-1.4.0"). Unplugged: `shadow-size` 0.
   `ToyBasePrimaryOnDark` and `ToyBasePrimaryOnLight` are deprecated.
 - **The bars glow only at their alarm line.** One `ProgressBar` per bar, two variations each: `ToyBar…Calm` (the white
   track as `background`, a 5 px ink outline, pill ends; the fill in the bar's colour with the same outline and ends,
@@ -221,6 +220,35 @@ The engineer's choices of 2026-10-21 (prime-game#150; `pages/glow-bars/`, way 3 
   `color.surface.full-screen` (#54457A), where their ink outline shows; the role reveal and the ends use it in place
   of `ToyBackdropNight`, which stays for the other screens. The plain lines on that ground ("Your role", the return
   count) are mint `ToyTextOnDark` (gate g9, 6.99:1), not the muted lilac (3.82:1 there).
+
+## The buttons since ui-1.4.0
+
+The engineer's choice of 2026-10-21 (`docs/ui-decisions.md`; `pages/buttons-fix/`, look B): the buttons are the MVP
+sketches' sticker (`pages/mvp-screens/`, `.st .btn`), at the 0.75 scale as every length since ui-1.2.0 (the sketch's 4 px
+outline, 5 px shadow and 14 px corners are `stroke.control` 6, `offset.base` 8 and `radius.control` 21 here).
+
+- **The face:** `ToyButtonSecondary`, `ToyButtonDanger`, `ToyMenuItem` and `ToyButtonPrimary` have a 6 px ink outline
+  on every side (`border-width` `{stroke.control}`) and no expand margin; the edge form (14 px right and bottom outlines)
+  is gone from every button.
+- **The hard shadow** is the base layer, never a StyleBox shadow (Godot's blurs): `ToyBaseRaisedOnDark` /
+  `ToyBaseRaisedOnLight`, exactly the face's shape moved 8 px right and 8 px down (expand −8 top and left, +8 right and
+  bottom, the face's corners), drawn by ToyRaised under the secondary and danger buttons and, new in ui-1.4.0, under the
+  main-menu entries (`ToyMenuItem` gains the `base` and `press.depth` 8). Nothing of it shows left of or above the face.
+- **Press:** hover a step lighter (as before), held a step darker and the face sinks `press.held` 4 px toward its shadow
+  (ToyPress moves it down only), unplugged lilac with a soft-ink outline and no shadow (`base.visible = not disabled`).
+  The open main-menu entry (toggled on) is green and does not sink.
+- **Focus, no second frame:** two new forms of the `focus` StyleBox, both checked by P48:
+  - *filled* (`ToyMenuItem`, `ToyButtonSecondary`): an opaque box of exactly the normal face's shape (the same outline
+    widths, ink and corners, no expand), the alien green `palette.green` #A6E85A, as the open entry. Godot draws `focus`
+    over the state's StyleBox and under the label ([button.cpp L228-L230](https://github.com/godotengine/godot/blob/4.7.2-stable/scene/gui/button.cpp#L228-L230),
+    the label at [L461](https://github.com/godotengine/godot/blob/4.7.2-stable/scene/gui/button.cpp#L461)), so the focused
+    entry reads green with its own label. The page draws it as the face's own fill while `.is-focus` / `:focus-visible`.
+  - *thick outline* (`ToyButtonPrimary`, `ToyButtonDanger`): a clear box over the whole face whose outline is the face's
+    plus `focus.width` (6 + 5 = 11 px), its ink and corners, so the outline thickens inward as one stroke and the acid or
+    coral face keeps its colour (an inner ring beside the outline showed a hairline gap on a scaled page).
+- **The main action** keeps its acid face and its glow (`glow.action`) with the equal 6 px outline, no base and no hard
+  shadow.
+- **Unchanged:** `ToyButtonPlain`, the ghost buttons, chips, tabs, keys, fields, the dropdown, preset cards and plates.
 
 ## Deprecated variations
 
@@ -253,8 +281,9 @@ deprecated itself. The pack marks both (below).
   - `deprecated` (since ui-1.3.0, only on a deprecated icon): `{ "replacement": "<assets path>" | null, "note": "<reason>" }`,
     the form of a deprecated variation, from the icon's licence record (`"deprecated": "<reason>"`, `"replacement":
     "<file of the same folder>" | null`, `tools/tokens/icons.js`). The file stays in the pack until the next major
-    release. None today: the grown-up set 2 (`item2-*`, not chosen on 2026-10-21) left the folder before any tag
-    shipped it, so it never reached a pack; it lives on as `pages/mvp-screens/item2/` for the sketch page only.
+    release. None today: the grown-up set 2 (`item2-*`, not chosen on 2026-10-21) left the pack's `assets` and
+    licences before any tag; fourteen stray copies of its SVGs stayed in `dist/pack/icons/` at ui-1.3.0 (listed nowhere,
+    so not part of the pack) and ui-1.4.0 deletes them. It lives on as `pages/mvp-screens/item2/` for the sketch page only.
   - **Importing them:** ui-sync puts a `.gdignore` in the pack's folder, so Godot imports nothing under it. The game
     copies the icons into a folder Godot imports, keeps them under the same sha256 lock (`sha256` here is the file's), and
     imports each at its `svg_scale`.
@@ -379,6 +408,7 @@ These extend spec §7.2 (P40–P60):
 | P43 | (extended, ui-1.3.0) a state may author the glow, `shadow-color` and `shadow-size` (any other `shadow*` field is refused: the offset stays 0); P44 refuses a `shadow-size` below 0 |
 | P44 | (extended) a listed `*-padding` item (PopupMenu's `item-start-padding`, `item-end-padding`) is ≥ 0, as separations are |
 | P47 | (extended) a PopupMenu variant needs the states `panel`, `hover`, `separator` and the items `font-color`, `font-hover-color`, `font-disabled-color`, `v-separation` (CLASSES `requiredItems`); a CheckBox variant `normal`, `disabled`, `focus`; a SpinBox variant `up-background` and all its listed items |
+| P48 | (extended, ui-1.4.0) a Button or OptionButton `focus` may also be *filled* (opaque, exactly the normal face's outline widths, colour and corners, no expand on it or on the face) or a *thick outline* (clear, no expand, each outline the face's plus `focus.width`, the face's colour and corners) |
 | P50 | (extended, ui-1.0.0) a base may also sit dx ≥ 0 to the right (the sticker's hard shadow): its left expand is the owner's − dx and its right the owner's + dx, one offset for all of a face's bases; the showcase draws it as `box-shadow: dx dy 0` (lint L12 now refuses only a shift to the left) |
 | P53 | (extended) a component dimension may also alias `offset.*` (ui-1.0.0) and `glow.*` (ui-1.3.0); a variant's `size` member may also alias `size.*`, and only a `size.*` a modifier owns |
 | P61 | `godot.textures` is a non-empty object; each key is one of the class's theme icons (`expand.js` CLASSES `textures`), each value the pack path of an icon that exists and has an allowed licence record |
