@@ -1,0 +1,67 @@
+<!-- own work, prime-game-ui, licence: own work -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" width="320" height="240">
+  <defs>
+    <filter id="ca3-w" filterUnits="userSpaceOnUse" x="0" y="0" width="320" height="240">
+      <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="65" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="4" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <style>
+      .k{fill:none;stroke:#1f2433;stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
+      .t{stroke-width:4}
+      .f{stroke-width:3}
+      .w{fill:#fff;stroke:#1f2433;stroke-width:5;stroke-linejoin:round}
+      .a{fill:#FFD60A;stroke:#1f2433;stroke-width:5;stroke-linejoin:round}
+      .i{fill:#1f2433}
+      .o{fill:none;stroke:#FFD60A;stroke-width:5;stroke-linecap:round}
+    </style>
+    <!-- the spoiler, the car part of this card, its struts' feet at 0,0; its colour comes from the use -->
+    <g id="ca3-sp">
+      <rect x="-13" y="-16" width="5" height="16" rx="1.5"/>
+      <rect x="8" y="-16" width="5" height="16" rx="1.5"/>
+      <path d="M-24 -19Q-26 -27 -19 -28L20 -31Q26 -31 25 -24L24 -19Q23 -14 18 -14H-19Q-23 -14 -24 -19Z"/>
+    </g>
+    <!-- where the paint has reached: the stream's side of the spoiler, a wavy front -->
+    <clipPath id="ca3-cl">
+      <path d="M-12 -34Q-18 -29 -13 -25Q-8 -21 -14 -17Q-18 -14 -14 -10V4H40V-34Z" fill="#fff"/>
+    </clipPath>
+    <!-- a flower head (the greenhouse's), centre 0,0: five petals around a disc; its colour comes from the use -->
+    <g id="ca3-fl">
+      <circle cx="0" cy="-11" r="8"/><circle cx="10.46" cy="-3.4" r="8"/><circle cx="6.47" cy="8.9" r="8"/><circle cx="-6.47" cy="8.9" r="8"/><circle cx="-10.46" cy="-3.4" r="8"/>
+    </g>
+  </defs>
+  <g filter="url(#ca3-w)">
+    <ellipse cx="126" cy="213" rx="26" ry="4" fill="#1f2433" opacity=".12"/>
+    <path class="k t" d="M16 212C96 209 210 214 304 211"/>
+    <!-- the paint mixer: the flower dropped in its hopper on top, the tank window full of its colour, the spout -->
+    <path class="k" d="M226 178V211M290 178V211"/>
+    <path class="w" d="M222 72L214 50H302L294 72Z" style="stroke-width:4"/>
+    <g transform="translate(262 44) scale(1.2)">
+      <use href="#ca3-fl" class="a" style="stroke-width:3"/>
+    </g>
+    <g transform="translate(262 44) scale(1.2)">
+      <use href="#ca3-fl" fill="#FFD60A"/>
+    </g>
+    <circle class="w" cx="262" cy="44" r="6" style="stroke-width:3"/>
+    <rect class="w" x="216" y="70" width="84" height="110" rx="8"/>
+    <rect x="240" y="114" width="44" height="46" rx="5" fill="#FFD60A"/>
+    <path class="k t" d="M242 114q10-5 20 0t20 0"/>
+    <rect x="240" y="88" width="44" height="72" rx="6" fill="none" stroke="#1f2433" stroke-width="4" stroke-linejoin="round"/>
+    <path class="w" d="M216 90H192Q184 90 184 98V102H196V100H216Z" style="stroke-width:4"/>
+    <!-- the stream of paint onto the held spoiler -->
+    <path class="k" d="M190 104V117" style="stroke-width:13"/>
+    <path class="o" d="M190 104V117" style="stroke-width:6"/>
+    <!-- figure, holding the printed spoiler up by its two struts, under the spout -->
+    <path class="k" d="M126 152L110 211M126 152L142 211"/>
+    <path class="k" d="M126 152L128 104"/>
+    <path class="k" d="M128 116L144 158L161 163"/>
+    <path class="k" d="M128 118L150 180L189 166"/>
+    <g transform="translate(176 160) scale(1.3)">
+      <use href="#ca3-sp" class="w" style="stroke-width:3.8"/>
+      <use href="#ca3-sp" class="a" style="stroke-width:3.8" clip-path="url(#ca3-cl)"/>
+    </g>
+    <path class="a" d="M203 148C199 154 199 158 203 158S207 154 203 148Z" style="stroke-width:3"/>
+    <circle class="w" cx="132" cy="84" r="19"/>
+    <circle class="i" cx="140" cy="78" r="2.8"/><circle class="i" cx="148" cy="78" r="2.8"/>
+    <ellipse class="i" cx="144" cy="93" rx="3.5" ry="4"/>
+  </g>
+</svg>

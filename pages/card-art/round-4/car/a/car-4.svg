@@ -1,0 +1,62 @@
+<!-- own work, prime-game-ui, licence: own work -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" width="320" height="240">
+  <defs>
+    <filter id="ca4-w" filterUnits="userSpaceOnUse" x="0" y="0" width="320" height="240">
+      <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="67" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="4" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <style>
+      .k{fill:none;stroke:#1f2433;stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
+      .t{stroke-width:4}
+      .f{stroke-width:3}
+      .w{fill:#fff;stroke:#1f2433;stroke-width:5;stroke-linejoin:round}
+      .a{fill:#FFD60A;stroke:#1f2433;stroke-width:5;stroke-linejoin:round}
+      .i{fill:#1f2433}
+      .o{fill:none;stroke:#FFD60A;stroke-width:5;stroke-linecap:round}
+    </style>
+    <!-- the spoiler, the car part of this card, its struts' feet at 0,0; its colour comes from the use -->
+    <g id="ca4-sp">
+      <rect x="-13" y="-16" width="5" height="16" rx="1.5"/>
+      <rect x="8" y="-16" width="5" height="16" rx="1.5"/>
+      <path d="M-24 -19Q-26 -27 -19 -28L20 -31Q26 -31 25 -24L24 -19Q23 -14 18 -14H-19Q-23 -14 -24 -19Z"/>
+    </g>
+    <!-- the car, side view facing right, the wheels standing on 0: body, two windows, a door seam, two wheels -->
+    <g id="ca4-car">
+      <path class="w" d="M-62 -16V-34Q-62 -40 -56 -40H-30L-16 -60Q-13 -64 -8 -64H18Q24 -64 28 -59L40 -42L58 -38Q66 -36 66 -28V-17Q66 -12 61 -12H-58Q-62 -12 -62 -16Z"/>
+      <path class="w" d="M-24 -42L-12 -58H1V-42Z" style="stroke-width:4"/>
+      <path class="w" d="M8 -42V-58H17Q20 -58 22 -55L31 -42Z" style="stroke-width:4"/>
+      <path class="k f" d="M4 -38V-18"/>
+      <circle class="w" cx="-36" cy="-14" r="14"/>
+      <circle class="i" cx="-36" cy="-14" r="5"/>
+      <circle class="w" cx="38" cy="-14" r="14"/>
+      <circle class="i" cx="38" cy="-14" r="5"/>
+    </g>
+  </defs>
+  <g filter="url(#ca4-w)">
+    <ellipse cx="200" cy="213" rx="84" ry="5" fill="#1f2433" opacity=".12"/>
+    <ellipse cx="50" cy="213" rx="24" ry="4" fill="#1f2433" opacity=".12"/>
+    <path class="k t" d="M16 212C96 209 210 214 304 211"/>
+    <!-- the car in the garage, the amber spoiler fitted on its back, lit; the headlight on -->
+    <g transform="translate(200 211) scale(1.38)">
+      <use href="#ca4-car"/>
+    </g>
+    <g transform="translate(136.5 156) scale(1.38)">
+      <use href="#ca4-sp" class="a" style="stroke-width:3.8"/>
+    </g>
+    <circle class="a" cx="284" cy="170" r="5" style="stroke-width:3"/>
+    <path class="o" d="M96 118l-10-5M136 108v-11M176 112l9-7M296 164l8-3M296 176l8 3" style="stroke-width:4"/>
+    <!-- figure, the screwdriver in hand, the other arm up -->
+    <path class="k" d="M50 152L38 211M50 152L64 211"/>
+    <path class="k" d="M50 152L52 104"/>
+    <path class="k" d="M52 114L72 136L92 142"/>
+    <!-- the screwdriver, short, gripped in the hand, its tip on the spoiler's foot -->
+    <path class="k" d="M100 146L119 154" style="stroke-width:4"/>
+    <path class="k" d="M86 140L102 147" style="stroke-width:15"/>
+    <path class="k" d="M86 140L102 147" style="stroke:#fff;stroke-width:7"/>
+    <path class="k" d="M52 112L32 92L30 64"/>
+    <circle class="w" cx="56" cy="84" r="19"/>
+    <circle class="i" cx="62" cy="80" r="2.8"/><circle class="i" cx="70" cy="80" r="2.8"/>
+    <path class="k t" d="M60 90q7 8 14 0"/>
+    <path class="k" d="M226 30l10 10l22-24" style="stroke-width:8"/>
+  </g>
+</svg>

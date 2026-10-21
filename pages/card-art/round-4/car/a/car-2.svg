@@ -1,0 +1,65 @@
+<!-- own work, prime-game-ui, licence: own work -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" width="320" height="240">
+  <defs>
+    <filter id="ca2-w" filterUnits="userSpaceOnUse" x="0" y="0" width="320" height="240">
+      <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="63" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="4" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <style>
+      .k{fill:none;stroke:#1f2433;stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
+      .t{stroke-width:4}
+      .f{stroke-width:3}
+      .w{fill:#fff;stroke:#1f2433;stroke-width:5;stroke-linejoin:round}
+      .a{fill:#FFD60A;stroke:#1f2433;stroke-width:5;stroke-linejoin:round}
+      .i{fill:#1f2433}
+      .o{fill:none;stroke:#FFD60A;stroke-width:5;stroke-linecap:round}
+      .d{fill:none;stroke:#1f2433;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:6 7}
+    </style>
+    <!-- the spoiler, the car part of this card, its struts' feet at 0,0; its colour comes from the use -->
+    <g id="ca2-sp">
+      <rect x="-13" y="-16" width="5" height="16" rx="1.5"/>
+      <rect x="8" y="-16" width="5" height="16" rx="1.5"/>
+      <path d="M-24 -19Q-26 -27 -19 -28L20 -31Q26 -31 25 -24L24 -19Q23 -14 18 -14H-19Q-23 -14 -24 -19Z"/>
+    </g>
+    <!-- how far the print has grown: the struts and the wing's lower half -->
+    <clipPath id="ca2-cl">
+      <rect x="-40" y="-25" width="80" height="28" fill="#fff"/>
+    </clipPath>
+  </defs>
+  <g filter="url(#ca2-w)">
+    <ellipse cx="64" cy="213" rx="26" ry="4" fill="#1f2433" opacity=".12"/>
+    <path class="k t" d="M16 212C96 209 210 214 304 211"/>
+    <!-- the big, wide parts printer: base, frame, spool, the rail and the print head -->
+    <rect class="w" x="122" y="186" width="182" height="24" rx="5" style="stroke-width:4"/>
+    <path class="k t" d="M134 186V62M292 186V62M128 62H298"/>
+    <circle class="w" cx="160" cy="48" r="9" style="stroke-width:3.5"/>
+    <circle class="i" cx="160" cy="48" r="3"/>
+    <path class="k f" d="M165 55C190 66 216 84 218 113"/>
+    <path class="k f" d="M134 119H292"/>
+    <rect class="w" x="150" y="179" width="126" height="7" rx="2" style="stroke-width:3"/>
+    <!-- the spoiler growing on the bed: the printed part solid, the rest still a dashed outline -->
+    <g transform="translate(213 179) scale(1.7)">
+      <use href="#ca2-sp" class="d" style="stroke-width:2.4"/>
+      <use href="#ca2-sp" class="w" style="stroke-width:3" clip-path="url(#ca2-cl)"/>
+    </g>
+    <rect class="i" x="205" y="112" width="26" height="15" rx="2"/>
+    <path class="i" d="M212 126H224L218 136Z"/>
+    <!-- the printer's panel on its post: the spoiler's button pressed (amber), the rims' button beside it -->
+    <rect class="w" x="92" y="90" width="40" height="62" rx="5" style="stroke-width:4"/>
+    <rect class="a" x="98" y="96" width="28" height="24" rx="4" style="stroke-width:3"/>
+    <g transform="translate(112 116) scale(.5)">
+      <use href="#ca2-sp" class="i"/>
+    </g>
+    <rect class="w" x="98" y="124" width="28" height="22" rx="4" style="stroke-width:3"/>
+    <circle class="i" cx="112" cy="135" r="7"/>
+    <circle cx="112" cy="135" r="2.4" fill="#fff"/>
+    <!-- figure, pressing the part's button, watching it print -->
+    <path class="k" d="M64 152L48 211M64 152L80 211"/>
+    <path class="k" d="M64 152L66 104"/>
+    <path class="k" d="M66 116L56 150"/>
+    <path class="k" d="M66 114L84 120L98 112"/>
+    <circle class="w" cx="70" cy="84" r="19"/>
+    <circle class="i" cx="77" cy="80" r="2.8"/><circle class="i" cx="85" cy="80" r="2.8"/>
+    <path class="k t" d="M77 92q5 4 10 0"/>
+  </g>
+</svg>
