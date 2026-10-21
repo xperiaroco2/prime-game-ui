@@ -39,12 +39,22 @@
             { "name": "Text", "type": "Label", "variation": "ToyStickerText", "key": "role.alien", "per_state": { "human": { "key": "role.human" } } }
           ]
         },
-        { "name": "Timer", "type": "Label", "variation": "ToyTimerBare", "text": "07:42", "anchors_preset": "center_top", "offset_top": 33, "offset_bottom": 33, "grow_horizontal": "both", "horizontal_alignment": "center", "custom_minimum_size": [140, 0], "per_state": { "cops": { "text": "04:12" } }, "note": "The round's time left, mm:ss from code (auto_translate_mode DISABLED), every second; no plate (decided 2026-10-20): mint Rubik digits with the 6 px ink text outline, its top 33 px down (the sketch's 22 x 1.5). Rubik's digits are proportional, so the minimum width holds the widest time and the centred label never changes width." },
         {
-          "name": "Anger", "type": "Control", "anchors_preset": "center_top", "offset_top": 96, "offset_bottom": 96, "grow_horizontal": "both", "note": "The neighbours' anger, meter A (decided 2026-10-20): a zero-size point at the top centre, 96 px down (the sketch's 64 x 1.5). The track centres on it, so the bar is exactly centred under the time; the siren hangs off its right end without moving that centre. No caption, no plate. It never says what raises the anger or where (open: whether it hints the type of problem, the audit's point 3).",
+          "name": "Time", "type": "PanelContainer", "variation": "ToyPlate", "anchors_preset": "center_top", "offset_top": 36, "offset_bottom": 36, "grow_horizontal": "both", "note": "ui-2.0.0 (the target page pages/suit-final, frames 5 and 6): the time and the neighbours' anger in one tile at the top centre, 36 px down (24 x 1.5): the time in Unbounded, then the anger meter A (the bar and its siren). The target's caption «Гнів сусідів» over the bar needs a copy key (the engineer's text), so it is not drawn here yet.",
           "children": [
-            { "name": "Bar", "type": "ProgressBar", "variation": "ToyBarAngerCalm", "anchors_preset": "center_top", "grow_horizontal": "both", "show_percentage": false, "max_value": 1, "value": 0.08, "per_state": { "carry": { "value": 0.55 }, "human": { "value": 0.55 }, "hurt": { "value": 0.55 }, "raising": { "value": 0.55 }, "cops": { "value": 1, "variation": "ToyBarAngerAlarm" } }, "note": "One ProgressBar, 225 x 30 (its size constants): its background is the white track, its fill the coral. value = anger / the host's threshold (0 to 1). Ongoing mischief raises it a little at a time, a one-off (the fireworks) jumps it; fixing stops the rise and the gained anger stays (m8 §5). At 1 the neighbours call the cops (Hud/Cops). The alarm line: over 0.7 the game sets theme_type_variation ToyBarAngerAlarm (the track glows coral) and pulses the light (the background StyleBox's shadow_color.a 1 to 0.25 and back, 0.9 s each way, TRANS_SINE, EASE_IN_OUT, looping, on a per-bar duplicate of the StyleBox; no pulse under reduced motion); at 0.7 or less it sets ToyBarAngerCalm (tokens/README.md, The glow since ui-1.3.0)." },
-            { "name": "Siren", "type": "TextureRect", "icon": "siren-off", "custom_minimum_size": [57, 57], "offset_left": 122, "offset_top": -14, "offset_right": 179, "offset_bottom": 43, "per_state": { "carry": { "icon": "siren-on" }, "human": { "icon": "siren-on" }, "hurt": { "icon": "siren-on" }, "raising": { "icon": "siren-on" }, "cops": { "icon": "siren-on" } }, "note": "The siren, 57 px (the sketch's 38 x 1.5), 9 px right of the track's end (112.5 + 9, rounded up) and centred on its height: icons/siren-off.svg while the anger is calm (not rising), icons/siren-on.svg while it rises and when full. Never tinted." }
+            {
+              "name": "Row", "type": "HBoxContainer", "variation": "ToyRowTwentyFour",
+              "children": [
+                { "name": "Timer", "type": "Label", "variation": "ToyTimer", "text": "07:42", "horizontal_alignment": "center", "size_flags_vertical": "shrink_center", "custom_minimum_size": [120, 0], "per_state": { "cops": { "text": "04:12" } }, "note": "The round time, m:ss from code (auto_translate_mode DISABLED), every second; light on the tile (no halo)." },
+                {
+                  "name": "Anger", "type": "HBoxContainer", "variation": "ToyRowEight", "size_flags_vertical": "shrink_center",
+                  "children": [
+                    { "name": "Bar", "type": "ProgressBar", "variation": "ToyBarAngerCalm", "custom_minimum_size": [240, 16], "show_percentage": false, "max_value": 1, "value": 0.08, "per_state": { "carry": { "value": 0.55 }, "human": { "value": 0.55 }, "hurt": { "value": 0.55 }, "raising": { "value": 0.55 }, "cops": { "value": 1, "variation": "ToyBarAngerAlarm" } }, "note": "The anger meter (A): ToyBarAngerCalm (a muted grey fill) and, past the alarm line (70 %), ToyBarAngerAlarm (the danger fill); no glow and no pulse since ui-2.0.0.", "size_flags_vertical": "shrink_center" },
+                    { "name": "Siren", "type": "TextureRect", "icon": "siren-off", "custom_minimum_size": [36, 36], "size_flags_vertical": "shrink_center", "per_state": { "carry": { "icon": "siren-on" }, "human": { "icon": "siren-on" }, "hurt": { "icon": "siren-on" }, "raising": { "icon": "siren-on" }, "cops": { "icon": "siren-on" } }, "note": "icons/siren-off.svg (dim) while calm, icons/siren-on.svg (the danger colour) while the anger rises and when full; never tinted." }
+                  ]
+                }
+              ]
+            }
           ]
         },
         {
@@ -124,15 +134,16 @@
             { "name": "Text", "type": "Label", "variation": "ToyChipPlateText", "key": "item.extinguisher" }
           ]
         },
+        { "name": "Edge", "type": "Panel", "variation": "ToyScreenEdgeAlert", "states": ["cops"], "anchors_preset": "full_rect", "note": "ui-2.0.0 (the target page's frame 7): the cops' minute is the one loud moment inside the round: a 12 px danger edge around the whole screen (8 x 1.5), its middle clear, over the HUD's world and under its tiles." },
         {
-          "name": "Cops", "type": "PanelContainer", "variation": "ToyPlateBanner", "states": ["cops"], "anchors_preset": "center_top", "offset_top": 168, "offset_bottom": 168, "grow_horizontal": "both", "note": "The cops' minute (m8 §5.3): when the anger fills, the neighbours call the cops and every player sees this coral banner, 168 px down (the sketch's 112 x 1.5), until the cops arrive (the round ends, s10 cops) or the aliens finish first. Stalling the cops is not in the MVP.",
+          "name": "Cops", "type": "PanelContainer", "variation": "ToyPlateBanner", "states": ["cops"], "anchors_preset": "center_top", "offset_top": 168, "offset_bottom": 168, "grow_horizontal": "both", "note": "The cops' minute (m8 §5.3): when the anger fills, the neighbours call the cops and every player sees this danger tile (ui-2.0.0: the danger face, its 8 px deeper bottom edge, the danger ink), 168 px down (the sketch's 112 x 1.5), until the cops arrive (the round ends, s10 cops) or the aliens finish first. Stalling the cops is not in the MVP.",
           "children": [
             {
               "name": "V", "type": "VBoxContainer", "variation": "ToyColumnFour",
               "children": [
-                { "name": "Title", "type": "Label", "variation": "ToyPlateTitle", "key": "hud.cops.title", "horizontal_alignment": "center" },
-                { "name": "In", "type": "Label", "variation": "ToyPlateText", "key": "hud.cops.in", "horizontal_alignment": "center" },
-                { "name": "Count", "type": "Label", "variation": "ToyPlateCountdown", "text": "0:58", "horizontal_alignment": "center", "note": "The time until the cops arrive, m:ss from code (auto_translate_mode DISABLED), every second." }
+                { "name": "Title", "type": "Label", "variation": "ToyPlateAlertTitle", "key": "hud.cops.title", "horizontal_alignment": "center" },
+                { "name": "In", "type": "Label", "variation": "ToyPlateAlertText", "key": "hud.cops.in", "horizontal_alignment": "center" },
+                { "name": "Count", "type": "Label", "variation": "ToyPlateAlertCountdown", "text": "0:58", "horizontal_alignment": "center", "note": "The time until the cops arrive, m:ss from code (auto_translate_mode DISABLED), every second." }
               ]
             }
           ]
@@ -141,10 +152,55 @@
           "name": "Vitals", "type": "HBoxContainer", "variation": "ToyRowTwentyFour", "anchors_preset": "bottom_left", "offset_left": 39, "offset_top": -39, "offset_right": 39, "offset_bottom": -39, "note": "The bars and the mic beside them, 39 px in at the bottom left (the sketch: bars 200 wide, the mic 244 in, x 1.5). Always shown in a round. No numbers and no captions on the bars (the engineer wants less screen): health is the green bar on top, stamina the yellow one under it, as everywhere in the game; the length is the real cue, the colour only adds to it.",
           "children": [
             {
-              "name": "Bars", "type": "VBoxContainer", "variation": "ToyColumnTwelve", "size_flags_vertical": "shrink_end",
+              "name": "Suit", "type": "PanelContainer", "variation": "ToyPlate", "size_flags_vertical": "shrink_end", "note": "ui-2.0.0 (the engineer's segmented pips; the target page's suit tile): health and stamina as ten pips each, round(value x 10) of them full. Health full pips are ToyPipHealth, under its alarm line (30 %) ToyPipAlarm with its label ToyTextAlertOnLight; stamina pips are ToyPipStamina. The game sets each pip's variation from the value.",
               "children": [
-                { "name": "Health", "type": "ProgressBar", "variation": "ToyBarHealthCalm", "show_percentage": false, "max_value": 1, "value": 0.8, "custom_minimum_size": [300, 24], "per_state": { "hurt": { "value": 0.22, "variation": "ToyBarHealthAlarm" } }, "note": "One ProgressBar: its background is the white track, its fill the alien green (one colour, no ramp since ui-1.3.0). value = hp (0 to 1). The alarm line: under 0.3 the game sets theme_type_variation ToyBarHealthAlarm (the track glows green) and pulses the light as Hud/Anger/Bar; at 0.3 or more it sets ToyBarHealthCalm." },
-                { "name": "Stamina", "type": "ProgressBar", "variation": "ToyBarStaminaCalm", "show_percentage": false, "max_value": 1, "value": 0.9, "custom_minimum_size": [300, 24], "per_state": { "hurt": { "value": 0.18, "variation": "ToyBarStaminaAlarm" } }, "note": "One ProgressBar: its background is the white track, its fill the yellow. value = stamina (0 to 1); drains while sprinting and refills at rest. The alarm line: under 0.3 the game sets theme_type_variation ToyBarStaminaAlarm (the track glows yellow) and pulses the light as Hud/Anger/Bar; at 0.3 or more it sets ToyBarStaminaCalm." }
+                {
+                  "name": "Rows", "type": "VBoxContainer", "variation": "ToyColumnEight",
+                  "children": [
+                    {
+                      "name": "Health", "type": "HBoxContainer", "variation": "ToyRowSixteen",
+                      "children": [
+                        { "name": "Label", "type": "Label", "variation": "ToyHudCaption", "key": "hud.health", "custom_minimum_size": [150, 0], "size_flags_vertical": "shrink_center", "per_state": { "hurt": { "variation": "ToyTextAlertOnLight" } } },
+                        {
+                          "name": "Pips", "type": "HBoxContainer", "variation": "ToyRowFour", "size_flags_vertical": "shrink_center",
+                          "children": [
+                            { "name": "P1", "type": "Panel", "variation": "ToyPipHealth", "per_state": { "hurt": { "variation": "ToyPipAlarm" } } },
+                            { "name": "P2", "type": "Panel", "variation": "ToyPipHealth", "per_state": { "hurt": { "variation": "ToyPipAlarm" } } },
+                            { "name": "P3", "type": "Panel", "variation": "ToyPipHealth", "per_state": { "hurt": { "variation": "ToyPip" } } },
+                            { "name": "P4", "type": "Panel", "variation": "ToyPipHealth", "per_state": { "hurt": { "variation": "ToyPip" } } },
+                            { "name": "P5", "type": "Panel", "variation": "ToyPipHealth", "per_state": { "hurt": { "variation": "ToyPip" } } },
+                            { "name": "P6", "type": "Panel", "variation": "ToyPipHealth", "per_state": { "hurt": { "variation": "ToyPip" } } },
+                            { "name": "P7", "type": "Panel", "variation": "ToyPipHealth", "per_state": { "hurt": { "variation": "ToyPip" } } },
+                            { "name": "P8", "type": "Panel", "variation": "ToyPipHealth", "per_state": { "hurt": { "variation": "ToyPip" } } },
+                            { "name": "P9", "type": "Panel", "variation": "ToyPip" },
+                            { "name": "P10", "type": "Panel", "variation": "ToyPip" }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "Stamina", "type": "HBoxContainer", "variation": "ToyRowSixteen",
+                      "children": [
+                        { "name": "Label", "type": "Label", "variation": "ToyHudCaption", "key": "hud.stamina", "custom_minimum_size": [150, 0], "size_flags_vertical": "shrink_center" },
+                        {
+                          "name": "Pips", "type": "HBoxContainer", "variation": "ToyRowFour", "size_flags_vertical": "shrink_center",
+                          "children": [
+                            { "name": "P1", "type": "Panel", "variation": "ToyPipStamina" },
+                            { "name": "P2", "type": "Panel", "variation": "ToyPipStamina" },
+                            { "name": "P3", "type": "Panel", "variation": "ToyPipStamina", "per_state": { "hurt": { "variation": "ToyPip" } } },
+                            { "name": "P4", "type": "Panel", "variation": "ToyPipStamina", "per_state": { "hurt": { "variation": "ToyPip" } } },
+                            { "name": "P5", "type": "Panel", "variation": "ToyPipStamina", "per_state": { "hurt": { "variation": "ToyPip" } } },
+                            { "name": "P6", "type": "Panel", "variation": "ToyPipStamina", "per_state": { "hurt": { "variation": "ToyPip" } } },
+                            { "name": "P7", "type": "Panel", "variation": "ToyPipStamina", "per_state": { "hurt": { "variation": "ToyPip" } } },
+                            { "name": "P8", "type": "Panel", "variation": "ToyPipStamina", "per_state": { "hurt": { "variation": "ToyPip" } } },
+                            { "name": "P9", "type": "Panel", "variation": "ToyPipStamina", "per_state": { "hurt": { "variation": "ToyPip" } } },
+                            { "name": "P10", "type": "Panel", "variation": "ToyPip" }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
               ]
             },
             {
@@ -156,38 +212,28 @@
           ]
         },
         {
-          "name": "Slots", "type": "HBoxContainer", "variation": "ToyRowSixteen", "anchors_preset": "bottom_right", "offset_left": -39, "offset_top": -51, "offset_right": -39, "offset_bottom": -51, "note": "Item bar A (decided 2026-10-20): the hand slot (green, 150) and the belt slot (mint, 126) 16 px apart, bottoms aligned, 39 px from the right and 51 from the bottom (the sketch's 26 and 34 x 1.5), so a name tag clears the edge. A slot is a Control holding its face and its tag; an empty slot shows its faint palm or pocket and no tag. Two-handed carrying is the game's data (which items take two hands); the slot does not widen. The pictures (pack icons, never tinted) and the item.* key of each MVP item: item-battery item.battery, item-flower item.flower, item-car-part item.car_part, item-bun item.bun, item-patty item.patty, item-burger item.burger, item-watering-can item.watering_can, item-wrench item.tools (the garage's cabled tools), item-bin-bag item.rubbish, item-extinguisher item.extinguisher, item-rocket item.fireworks; item-knife item.knife only if a knife stays in the MVP (weapons are deferred, open).",
+          "name": "Slots", "type": "HBoxContainer", "variation": "ToyRowSixteen", "anchors_preset": "bottom_right", "offset_left": -36, "offset_top": -36, "offset_right": -36, "offset_bottom": -36, "note": "ui-2.0.0 (the target page's frame 5): the hand and the belt as tiles 117 x 132 (78 x 88 x 1.5), 36 px from the corner, 16 px apart; the picture is the item's line icon (icons/item-*.svg, the white copy tinted: the accent in the hand, the text colour on the belt) and the name sits inside the tile at its bottom (no tag over the edge).",
           "children": [
             {
-              "name": "Hand", "type": "Control", "custom_minimum_size": [150, 150], "size_flags_vertical": "shrink_end",
+              "name": "Hand", "type": "PanelContainer", "variation": "ToySlotHand", "size_flags_vertical": "shrink_end",
               "children": [
                 {
-                  "name": "Face", "type": "PanelContainer", "variation": "ToySlotHand", "anchors_preset": "full_rect",
+                  "name": "V", "type": "VBoxContainer", "variation": "ToyColumnFour", "alignment": "center",
                   "children": [
-                    { "name": "Picture", "type": "TextureRect", "icon": "slot-empty-hand", "custom_minimum_size": [111, 111], "per_state": { "carry": { "icon": "item-rocket" }, "human": { "icon": "item-battery" } }, "note": "The carried item's pack icon (icons/item-*.svg) at 111 px, else icons/slot-empty-hand.svg; never tinted." }
-                  ]
-                },
-                {
-                  "name": "Tag", "type": "PanelContainer", "variation": "ToySlotTag", "states": ["carry", "human"], "anchors_preset": "center_bottom", "offset_top": 18, "offset_bottom": 18, "grow_horizontal": "both", "grow_vertical": "begin", "note": "The carried item's name tag over the slot's bottom edge, centred, its bottom 18 px below the face: the item's item.* key (item.fireworks here). Hidden while the slot is empty.",
-                  "children": [
-                    { "name": "Text", "type": "Label", "variation": "ToySlotTagText", "key": "item.fireworks", "per_state": { "human": { "key": "item.battery" } } }
+                    { "name": "Picture", "type": "TextureRect", "icon": "slot-empty-hand", "custom_minimum_size": [57, 57], "size_flags_horizontal": "shrink_center", "per_state": { "carry": { "icon": "item-rocket" }, "human": { "icon": "item-battery" } } },
+                    { "name": "Name", "type": "Label", "variation": "ToySlotTagText", "key": "item.fireworks", "horizontal_alignment": "center", "states": ["carry", "human"], "per_state": { "human": { "key": "item.battery" } } }
                   ]
                 }
               ]
             },
             {
-              "name": "Belt", "type": "Control", "custom_minimum_size": [126, 126], "size_flags_vertical": "shrink_end",
+              "name": "Belt", "type": "PanelContainer", "variation": "ToySlotBelt", "size_flags_vertical": "shrink_end",
               "children": [
                 {
-                  "name": "Face", "type": "PanelContainer", "variation": "ToySlotBelt", "anchors_preset": "full_rect",
+                  "name": "V", "type": "VBoxContainer", "variation": "ToyColumnFour", "alignment": "center",
                   "children": [
-                    { "name": "Picture", "type": "TextureRect", "icon": "slot-empty-belt", "custom_minimum_size": [90, 90], "per_state": { "carry": { "icon": "item-bun" } }, "note": "icons/item-*.svg at 90 px, else icons/slot-empty-belt.svg; never tinted." }
-                  ]
-                },
-                {
-                  "name": "Tag", "type": "PanelContainer", "variation": "ToySlotTag", "states": ["carry"], "anchors_preset": "center_bottom", "offset_top": 18, "offset_bottom": 18, "grow_horizontal": "both", "grow_vertical": "begin", "note": "As the hand's Tag (item.bun here).",
-                  "children": [
-                    { "name": "Text", "type": "Label", "variation": "ToySlotTagText", "key": "item.bun" }
+                    { "name": "Picture", "type": "TextureRect", "icon": "slot-empty-belt", "custom_minimum_size": [57, 57], "size_flags_horizontal": "shrink_center", "per_state": { "carry": { "icon": "item-bun" } } },
+                    { "name": "Name", "type": "Label", "variation": "ToySlotTagText", "key": "item.bun", "horizontal_alignment": "center", "states": ["carry"] }
                   ]
                 }
               ]

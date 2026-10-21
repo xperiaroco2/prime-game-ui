@@ -1,9 +1,9 @@
 {
   "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
   "roster": {
-    "$description": "The round HUD's roster (MVP, the engineer, 2026-10-20): every player's name and body colour in a slim purple list at the top right; a human sees the other humans tagged.",
+    "$description": "The roster (top right): a module tile listing the players with their body colours.",
     "panel": {
-      "$description": "The roster: a purple sticker with the 6 px ink outline (the sketch's 10/12 px padding x 1.5 with its outline: 21 and 24 px), at least 285 px wide (190 x 1.5); its rows are ToyRowTwelve (a colour dot, the name, a tag) in a ToyColumnEight. The hard shadow is the edge form: the right and bottom outlines are 14 px (6 + 8) and reach 8 px outside, as no base layer sits under it in the game.",
+      "$description": "The roster (the target's top-right tile): the plain tile, at least 276 px wide (184 x 1.5), 18 px above and below, 21 px at the sides; rows in a ToyColumnEight.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyRoster", "class": "PanelContainer" },
@@ -13,62 +13,56 @@
       "panel": {
         "bg-color": { "$type": "color", "$value": "{color.surface.plate}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
-        "border-width-top": { "$type": "dimension", "$value": "{stroke.surface}" },
-        "border-width-right": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } },
-        "border-width-bottom": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } },
-        "border-width-left": { "$type": "dimension", "$value": "{stroke.surface}" },
+        "border-width": { "$type": "dimension", "$value": "{stroke.surface}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.surface}" },
-        "content-margin-block": { "$type": "dimension", "$value": { "value": 21, "unit": "px" } },
-        "content-margin-inline": { "$type": "dimension", "$value": { "value": 24, "unit": "px" } },
-        "expand-margin-right": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } },
-        "expand-margin-bottom": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } }
+        "content-margin-block": { "$type": "dimension", "$value": { "value": 18, "unit": "px" } },
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 21, "unit": "px" } }
       },
       "size": {
-        "$type": "dimension",
-        "min-width": { "$value": { "value": 285, "unit": "px" } }
+        "min-width": { "$type": "dimension", "$value": { "value": 276, "unit": "px" } }
       }
     },
     "name": {
-      "$description": "A player's name in the roster: mint.",
+      "$description": "A player's name: light, the caption size (the target's 12 px x 1.5).",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyRosterName", "class": "Label", "on": ["ToyRoster"] },
           "context": "dark"
         }
       },
-      "label": { "$type": "typography", "$value": "{type.body}" },
+      "label": { "$type": "typography", "$value": "{type.caption}" },
       "normal": {
         "font-color": { "$type": "color", "$value": "{color.on-dark.text}" }
       }
     },
     "name-self": {
-      "$description": "The player's own name in the roster: the alien green.",
+      "$description": "The own name: the accent.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyRosterNameSelf", "class": "Label", "on": ["ToyRoster"] },
           "context": "dark"
         }
       },
-      "label": { "$type": "typography", "$value": "{type.body}" },
+      "label": { "$type": "typography", "$value": "{type.caption}" },
       "normal": {
-        "font-color": { "$type": "color", "$value": "{palette.green}" }
+        "font-color": { "$type": "color", "$value": "{palette.accent}" }
       }
     },
     "name-dead": {
-      "$description": "A dead player's name in the roster: the dim lilac.",
+      "$description": "A dead player's name: dim.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyRosterNameDead", "class": "Label", "on": ["ToyRoster"] },
           "context": "dark"
         }
       },
-      "label": { "$type": "typography", "$value": "{type.body}" },
+      "label": { "$type": "typography", "$value": "{type.caption}" },
       "normal": {
         "font-color": { "$type": "color", "$value": "{color.on-dark.text-muted}" }
       }
     },
     "dot": {
-      "$description": "A player's colour dot (in the roster): a white disc with a 5 px ink ring, 24 px (16 x 1.5); the game tints it to the body colour with self_modulate (the ink ring stays dark).",
+      "$description": "A player's colour: a 15 px square with 5 px corners (the target's 10 and 3 x 1.5), white, tinted to the body colour with self_modulate.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyRosterDot", "class": "Panel" },
@@ -77,18 +71,15 @@
       },
       "panel": {
         "bg-color": { "$type": "color", "$value": "{palette.white}" },
-        "border-color": { "$type": "color", "$value": "{color.outline}" },
-        "border-width": { "$type": "dimension", "$value": "{stroke.thin}" },
-        "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" }
+        "corner-radius": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } }
       },
       "size": {
-        "$type": "dimension",
-        "width": { "$value": { "value": 24, "unit": "px" } },
-        "height": { "$value": { "value": 24, "unit": "px" } }
+        "width": { "$type": "dimension", "$value": { "value": 15, "unit": "px" } },
+        "height": { "$type": "dimension", "$value": { "value": 15, "unit": "px" } }
       }
     },
     "tag": {
-      "$description": "The tag on another human in a human's roster: a small coral sticker, a 5 px ink outline, 12 px corners, no shadow.",
+      "$description": "The human tag in a human's roster (the target's .tg): the roster's own module fill, a 2 px danger outline, 5 px corners.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyRosterTag", "class": "PanelContainer" },
@@ -96,25 +87,26 @@
         }
       },
       "panel": {
-        "bg-color": { "$type": "color", "$value": "{color.status.alert}" },
-        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "bg-color": { "$type": "color", "$value": "{color.surface.plate}" },
+        "border-color": { "$type": "color", "$value": "{color.status.alert}" },
         "border-width": { "$type": "dimension", "$value": "{stroke.thin}" },
-        "corner-radius": { "$type": "dimension", "$value": "{radius.small}" },
-        "content-margin-block": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } },
-        "content-margin-inline": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } }
+        "corner-radius": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } },
+        "content-margin-top": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } },
+        "content-margin-bottom": { "$type": "dimension", "$value": { "value": 3, "unit": "px" } },
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 6, "unit": "px" } }
       }
     },
     "tag-text": {
-      "$description": "The word on the human tag: ink.",
+      "$description": "The human tag's word: Unbounded capitals in the danger colour (the game writes the word in capitals).",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyRosterTagText", "class": "Label", "on": ["ToyRosterTag"] },
           "context": "dark"
         }
       },
-      "label": { "$type": "typography", "$value": "{type.caption-bold}" },
+      "label": { "$type": "typography", "$value": "{type.kicker}" },
       "normal": {
-        "font-color": { "$type": "color", "$value": "{color.on-accent.text}" }
+        "font-color": { "$type": "color", "$value": "{color.status.alert}" }
       }
     }
   }

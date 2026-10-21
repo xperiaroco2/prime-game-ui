@@ -1,9 +1,9 @@
 {
   "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
   "plate": {
-    "$description": "HUD plates: mint stickers on the world with ink text (the sticker page's plates). The game's labels on a plate are the ToyPlate* Label variations below, not the dark-context text roles.",
+    "$description": "HUD plates (the plain tile on the world): a module fill, a 2 px edge, 12 px corners; the loud plates (the cops) are the danger colour with a deeper 8 px bottom edge. The labels on a plate are the ToyPlate* Label variations.",
     "default": {
-      "$description": "A HUD plate: the mint sticker with a 6 px ink outline, so it reads on a white world too. The hard shadow is the edge form: the right and bottom outlines are 14 px (6 + 8) and reach 8 px outside the plate, as no base layer sits under a plate in the game.",
+      "$description": "A HUD tile (the target's module): the module fill #2A2540, a 2 px edge #4A4170, 12 px corners (the target's 1 px and 8 px x 1.5, the 1.5 rounded up).",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyPlate", "class": "PanelContainer" },
@@ -11,21 +11,16 @@
         }
       },
       "panel": {
-        "bg-color": { "$type": "color", "$value": "{palette.mint}" },
+        "bg-color": { "$type": "color", "$value": "{color.surface.plate}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
-        "border-width-top": { "$type": "dimension", "$value": "{stroke.surface}" },
-        "border-width-right": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } },
-        "border-width-bottom": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } },
-        "border-width-left": { "$type": "dimension", "$value": "{stroke.surface}" },
-        "corner-radius": { "$type": "dimension", "$value": "{radius.large}" },
+        "border-width": { "$type": "dimension", "$value": "{stroke.surface}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.surface}" },
         "content-margin-block": { "$type": "dimension", "$value": { "value": 12, "unit": "px" } },
-        "content-margin-inline": { "$type": "dimension", "$value": { "value": 20, "unit": "px" } },
-        "expand-margin-right": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } },
-        "expand-margin-bottom": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } }
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 20, "unit": "px" } }
       }
     },
     "night": {
-      "$description": "A solid plate on the deep purple ground (the loading tip): the mint sticker, as ToyPlate. The hard shadow is the edge form: the right and bottom outlines are 14 px (6 + 8) and reach 8 px outside the plate, as no base layer sits under a plate in the game.",
+      "$description": "A tile on the base ground (the loading tip): the plain tile.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyPlateNight", "class": "PanelContainer" },
@@ -33,21 +28,16 @@
         }
       },
       "panel": {
-        "bg-color": { "$type": "color", "$value": "{palette.mint}" },
+        "bg-color": { "$type": "color", "$value": "{color.surface.plate}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
-        "border-width-top": { "$type": "dimension", "$value": "{stroke.surface}" },
-        "border-width-right": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } },
-        "border-width-bottom": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } },
-        "border-width-left": { "$type": "dimension", "$value": "{stroke.surface}" },
-        "corner-radius": { "$type": "dimension", "$value": "{radius.large}" },
+        "border-width": { "$type": "dimension", "$value": "{stroke.surface}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.surface}" },
         "content-margin-block": { "$type": "dimension", "$value": { "value": 12, "unit": "px" } },
-        "content-margin-inline": { "$type": "dimension", "$value": { "value": 20, "unit": "px" } },
-        "expand-margin-right": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } },
-        "expand-margin-bottom": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } }
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 20, "unit": "px" } }
       }
     },
     "alert": {
-      "$description": "An alert plate: the coral sticker with the 6 px ink outline (the page's coral stickers); the ink plate text reads on it. The hard shadow is the edge form: the right and bottom outlines are 14 px (6 + 8) and reach 8 px outside the plate, as no base layer sits under a plate in the game.",
+      "$description": "An alarm tile: the danger face #FF5C6C, a 2 px deeper-danger edge with an 8 px bottom (the target's 5 px x 1.5).",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyPlateAlert", "class": "PanelContainer" },
@@ -56,80 +46,82 @@
       },
       "panel": {
         "bg-color": { "$type": "color", "$value": "{color.status.alert}" },
-        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-color": { "$type": "color", "$value": "{palette.danger-deep}" },
         "border-width-top": { "$type": "dimension", "$value": "{stroke.surface}" },
-        "border-width-right": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } },
-        "border-width-bottom": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } },
+        "border-width-right": { "$type": "dimension", "$value": "{stroke.surface}" },
+        "border-width-bottom": { "$type": "dimension", "$value": "{stroke.alarm}" },
         "border-width-left": { "$type": "dimension", "$value": "{stroke.surface}" },
-        "corner-radius": { "$type": "dimension", "$value": "{radius.large}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.surface}" },
         "content-margin-block": { "$type": "dimension", "$value": { "value": 16, "unit": "px" } },
-        "content-margin-inline": { "$type": "dimension", "$value": { "value": 39, "unit": "px" } },
-        "expand-margin-right": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } },
-        "expand-margin-bottom": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } }
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 39, "unit": "px" } }
       }
     },
     "text": {
-      "$description": "The text on a plate: ink (in place of ToyTextOnDark on a plate).",
+      "$description": "Text on a tile: light #ECE8F7.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": {
             "variation": "ToyPlateText",
             "class": "Label",
-            "on": ["ToyPlate", "ToyPlateNight", "ToyPlateAlert", "ToyPlateBanner", "ToyPlateCount", "ToyMutationCard", "ToyPlateBalance"]
+            "on": ["ToyPlate", "ToyPlateNight", "ToyPlateCount", "ToyMutationCard", "ToyPlateBalance"]
           },
           "context": "dark"
         }
       },
       "label": { "$type": "typography", "$value": "{type.body}" },
-      "normal": { "font-color": { "$type": "color", "$value": "{color.on-accent.text}" } }
+      "normal": {
+        "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
+      }
     },
     "text-muted": {
-      "$description": "The dim text on a mint plate: the soft ink (in place of ToyTextMutedOnDark on a plate). Not on the coral alert plate.",
+      "$description": "Dim text on a tile: #A39DBD.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
-          "godot": {
-            "variation": "ToyPlateTextMuted",
-            "class": "Label",
-            "on": ["ToyPlate", "ToyPlateNight"]
-          },
+          "godot": { "variation": "ToyPlateTextMuted", "class": "Label", "on": ["ToyPlate", "ToyPlateNight"] },
           "context": "dark"
         }
       },
       "label": { "$type": "typography", "$value": "{type.body}" },
-      "normal": { "font-color": { "$type": "color", "$value": "{color.on-accent.text-muted}" } }
+      "normal": {
+        "font-color": { "$type": "color", "$value": "{color.on-light.text-muted}" }
+      }
     },
     "title": {
-      "$description": "A title on a plate: Nunito Black in ink, no outline (a title on a bright face; in place of ToyTitleOnDark on a plate).",
+      "$description": "A tile's title (a card's name, a price, the winner): light, Onest Bold at the heading size (the target's card names, 14 px x 1.5, rounded up to the heading step).",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": {
             "variation": "ToyPlateTitle",
             "class": "Label",
-            "on": ["ToyPlate", "ToyPlateNight", "ToyPlateAlert", "ToyPlateNotice", "ToyPlateBanner", "ToyMutationCard", "ToyPlateResult"]
+            "on": ["ToyPlate", "ToyPlateNight", "ToyPlateNotice", "ToyMutationCard", "ToyPlateResult"]
           },
           "context": "dark"
         }
       },
-      "label": { "$type": "typography", "$value": "{type.title}" },
-      "normal": { "font-color": { "$type": "color", "$value": "{color.on-accent.text}" } }
+      "label": { "$type": "typography", "$value": "{type.heading-bold}" },
+      "normal": {
+        "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
+      }
     },
     "timer": {
-      "$description": "Numbers on a plate (the round timer): Rubik, the display role, in ink (in place of ToyTimer on a plate).",
+      "$description": "A number on a tile (the timer, the price): light.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": {
             "variation": "ToyPlateTimer",
             "class": "Label",
-            "on": ["ToyPlate", "ToyPlateNight", "ToyPlateAlert", "ToyMutationCard", "ToyPlateBalance"]
+            "on": ["ToyPlate", "ToyPlateNight", "ToyMutationCard", "ToyPlateBalance"]
           },
           "context": "dark"
         }
       },
       "label": { "$type": "typography", "$value": "{type.display}" },
-      "normal": { "font-color": { "$type": "color", "$value": "{color.on-accent.text}" } }
+      "normal": {
+        "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
+      }
     },
     "notice": {
-      "$description": "A notice plate (a name after a ToyRosterDot; text ToyPlateTitle or ToyPlateHeading). No screen uses it since 2026-10-21 (the engineer dropped the kill notice and the killer line); it stays in the pack until a major release. The mint sticker, 15 and 33 px inside. The hard shadow is the edge form: the right and bottom outlines are 14 px (6 + 8) and reach 8 px outside, as no base layer sits under it in the game.",
+      "$description": "A notice tile (no screen since 2026-10-21): the plain tile.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyPlateNotice", "class": "PanelContainer" },
@@ -137,21 +129,16 @@
         }
       },
       "panel": {
-        "bg-color": { "$type": "color", "$value": "{palette.mint}" },
+        "bg-color": { "$type": "color", "$value": "{color.surface.plate}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
-        "border-width-top": { "$type": "dimension", "$value": "{stroke.surface}" },
-        "border-width-right": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } },
-        "border-width-bottom": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } },
-        "border-width-left": { "$type": "dimension", "$value": "{stroke.surface}" },
-        "corner-radius": { "$type": "dimension", "$value": "{radius.large}" },
+        "border-width": { "$type": "dimension", "$value": "{stroke.surface}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.surface}" },
         "content-margin-block": { "$type": "dimension", "$value": { "value": 15, "unit": "px" } },
-        "content-margin-inline": { "$type": "dimension", "$value": { "value": 33, "unit": "px" } },
-        "expand-margin-right": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } },
-        "expand-margin-bottom": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } }
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 33, "unit": "px" } }
       }
     },
     "banner": {
-      "$description": "The cops' banner when the anger is full: the coral sticker, 21 and 45 px inside (the sketch's 10/26 px with its outline, x 1.5); a ToyColumnFour of the big line (ToyPlateTitle), the small line (ToyPlateText) and the countdown (ToyPlateCountdown). The hard shadow is the edge form: the right and bottom outlines are 14 px (6 + 8) and reach 8 px outside, as no base layer sits under it in the game.",
+      "$description": "The cops' minute (the target's countdown tile, loud): the danger face with its deeper 8 px bottom edge; its labels are ToyPlateAlertTitle, ToyPlateAlertText and ToyPlateAlertCountdown in the danger ink.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyPlateBanner", "class": "PanelContainer" },
@@ -160,20 +147,19 @@
       },
       "panel": {
         "bg-color": { "$type": "color", "$value": "{color.status.alert}" },
-        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-color": { "$type": "color", "$value": "{palette.danger-deep}" },
         "border-width-top": { "$type": "dimension", "$value": "{stroke.surface}" },
-        "border-width-right": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } },
-        "border-width-bottom": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } },
+        "border-width-right": { "$type": "dimension", "$value": "{stroke.surface}" },
+        "border-width-bottom": { "$type": "dimension", "$value": "{stroke.alarm}" },
         "border-width-left": { "$type": "dimension", "$value": "{stroke.surface}" },
-        "corner-radius": { "$type": "dimension", "$value": "{radius.large}" },
-        "content-margin-block": { "$type": "dimension", "$value": { "value": 21, "unit": "px" } },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.surface}" },
         "content-margin-inline": { "$type": "dimension", "$value": { "value": 45, "unit": "px" } },
-        "expand-margin-right": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } },
-        "expand-margin-bottom": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } }
+        "content-margin-top": { "$type": "dimension", "$value": { "value": 24, "unit": "px" } },
+        "content-margin-bottom": { "$type": "dimension", "$value": { "value": 26, "unit": "px" } }
       }
     },
     "count": {
-      "$description": "The dead's room countdown: the mint sticker, at least 540 px wide (360 x 1.5), 30 and 39 px inside; a ToyColumnEight of its line (ToyPlateText), the number (ToyPlateCountdown) and a ToyBarProgress. The hard shadow is the edge form: the right and bottom outlines are 14 px (6 + 8) and reach 8 px outside, as no base layer sits under it in the game.",
+      "$description": "The dead's room countdown (the target's centre tile): the plain tile, at least 390 px wide (the target's 260 x 1.5).",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyPlateCount", "class": "PanelContainer" },
@@ -181,25 +167,19 @@
         }
       },
       "panel": {
-        "bg-color": { "$type": "color", "$value": "{palette.mint}" },
+        "bg-color": { "$type": "color", "$value": "{color.surface.plate}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
-        "border-width-top": { "$type": "dimension", "$value": "{stroke.surface}" },
-        "border-width-right": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } },
-        "border-width-bottom": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } },
-        "border-width-left": { "$type": "dimension", "$value": "{stroke.surface}" },
-        "corner-radius": { "$type": "dimension", "$value": "{radius.large}" },
+        "border-width": { "$type": "dimension", "$value": "{stroke.surface}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.surface}" },
         "content-margin-block": { "$type": "dimension", "$value": { "value": 30, "unit": "px" } },
-        "content-margin-inline": { "$type": "dimension", "$value": { "value": 39, "unit": "px" } },
-        "expand-margin-right": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } },
-        "expand-margin-bottom": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } }
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 39, "unit": "px" } }
       },
       "size": {
-        "$type": "dimension",
-        "min-width": { "$value": { "value": 540, "unit": "px" } }
+        "min-width": { "$type": "dimension", "$value": { "value": 390, "unit": "px" } }
       }
     },
     "head": {
-      "$description": "The dead's room head plate at the top centre: a purple sticker (the sketch's panel), 13 and 39 px inside; its text ToyPlateHeadText. The hard shadow is the edge form: the right and bottom outlines are 14 px (6 + 8) and reach 8 px outside, as no base layer sits under it in the game.",
+      "$description": "The dead's room head: the plain tile.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyPlateHead", "class": "PanelContainer" },
@@ -209,19 +189,14 @@
       "panel": {
         "bg-color": { "$type": "color", "$value": "{color.surface.plate}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
-        "border-width-top": { "$type": "dimension", "$value": "{stroke.surface}" },
-        "border-width-right": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } },
-        "border-width-bottom": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } },
-        "border-width-left": { "$type": "dimension", "$value": "{stroke.surface}" },
+        "border-width": { "$type": "dimension", "$value": "{stroke.surface}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.surface}" },
         "content-margin-block": { "$type": "dimension", "$value": { "value": 13, "unit": "px" } },
-        "content-margin-inline": { "$type": "dimension", "$value": { "value": 39, "unit": "px" } },
-        "expand-margin-right": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } },
-        "expand-margin-bottom": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } }
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 39, "unit": "px" } }
       }
     },
     "goal": {
-      "$description": "The role reveal's goal plate: the mint sticker, 22 and 39 px inside, 900 px wide (600 x 1.5; the text wraps); its text ToyPlateGoalText. The hard shadow is the edge form: the right and bottom outlines are 14 px (6 + 8) and reach 8 px outside, as no base layer sits under it in the game.",
+      "$description": "The role's goal on the role reveal: no plate (the target's plain line under the band), 900 px wide.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyPlateGoal", "class": "PanelContainer" },
@@ -229,17 +204,9 @@
         }
       },
       "panel": {
-        "bg-color": { "$type": "color", "$value": "{palette.mint}" },
-        "border-color": { "$type": "color", "$value": "{color.outline}" },
-        "border-width-top": { "$type": "dimension", "$value": "{stroke.surface}" },
-        "border-width-right": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } },
-        "border-width-bottom": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } },
-        "border-width-left": { "$type": "dimension", "$value": "{stroke.surface}" },
-        "corner-radius": { "$type": "dimension", "$value": "{radius.large}" },
+        "bg-color": { "$type": "color", "$value": "{palette.clear}" },
         "content-margin-block": { "$type": "dimension", "$value": { "value": 22, "unit": "px" } },
-        "content-margin-inline": { "$type": "dimension", "$value": { "value": 39, "unit": "px" } },
-        "expand-margin-right": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } },
-        "expand-margin-bottom": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } }
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 39, "unit": "px" } }
       },
       "size": {
         "$type": "dimension",
@@ -247,7 +214,7 @@
       }
     },
     "result": {
-      "$description": "The end screens' result plate (who won, the party's end): the mint sticker, 18 and 42 px inside; its text ToyPlateTitle. The hard shadow is the edge form: the right and bottom outlines are 14 px (6 + 8) and reach 8 px outside, as no base layer sits under it in the game.",
+      "$description": "The ends' result: no plate (the target's plain line under the band).",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyPlateResult", "class": "PanelContainer" },
@@ -255,21 +222,13 @@
         }
       },
       "panel": {
-        "bg-color": { "$type": "color", "$value": "{palette.mint}" },
-        "border-color": { "$type": "color", "$value": "{color.outline}" },
-        "border-width-top": { "$type": "dimension", "$value": "{stroke.surface}" },
-        "border-width-right": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } },
-        "border-width-bottom": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } },
-        "border-width-left": { "$type": "dimension", "$value": "{stroke.surface}" },
-        "corner-radius": { "$type": "dimension", "$value": "{radius.large}" },
+        "bg-color": { "$type": "color", "$value": "{palette.clear}" },
         "content-margin-block": { "$type": "dimension", "$value": { "value": 18, "unit": "px" } },
-        "content-margin-inline": { "$type": "dimension", "$value": { "value": 42, "unit": "px" } },
-        "expand-margin-right": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } },
-        "expand-margin-bottom": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } }
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 42, "unit": "px" } }
       }
     },
     "heading": {
-      "$description": "A line at the heading size on a plate (no screen uses it since 2026-10-21, when the killer line was dropped): ink, Nunito Black.",
+      "$description": "A heading on a tile: light.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyPlateHeading", "class": "Label", "on": ["ToyPlateNotice"] },
@@ -278,24 +237,24 @@
       },
       "label": { "$type": "typography", "$value": "{type.heading-bold}" },
       "normal": {
-        "font-color": { "$type": "color", "$value": "{color.on-accent.text}" }
+        "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
       }
     },
     "countdown": {
-      "$description": "A big countdown on a plate (the cops' minute, the dead's return): Rubik at the large display size, ink.",
+      "$description": "The dead's room countdown: light, display-large.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
-          "godot": { "variation": "ToyPlateCountdown", "class": "Label", "on": ["ToyPlateBanner", "ToyPlateCount"] },
+          "godot": { "variation": "ToyPlateCountdown", "class": "Label", "on": ["ToyPlateCount"] },
           "context": "dark"
         }
       },
       "label": { "$type": "typography", "$value": "{type.display-large}" },
       "normal": {
-        "font-color": { "$type": "color", "$value": "{color.on-accent.text}" }
+        "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
       }
     },
     "head-text": {
-      "$description": "The dead's room head: mint Nunito Black at the title size, no outline (as the sketch's panel text).",
+      "$description": "The dead's room head: light.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyPlateHeadText", "class": "Label", "on": ["ToyPlateHead"] },
@@ -308,7 +267,7 @@
       }
     },
     "goal-text": {
-      "$description": "The role's goal on the goal plate: ink, Nunito at the heading size, wrapping.",
+      "$description": "The goal line under the band: light.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyPlateGoalText", "class": "Label", "on": ["ToyPlateGoal"] },
@@ -317,7 +276,46 @@
       },
       "label": { "$type": "typography", "$value": "{type.heading}" },
       "normal": {
-        "font-color": { "$type": "color", "$value": "{color.on-accent.text}" }
+        "font-color": { "$type": "color", "$value": "{color.on-dark.text}" }
+      }
+    },
+    "alert-title": {
+      "$description": "The danger tile's title (КОПИ ЇДУТЬ): the danger ink.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyPlateAlertTitle", "class": "Label", "on": ["ToyPlateBanner", "ToyPlateAlert"] },
+          "context": "dark"
+        }
+      },
+      "label": { "$type": "typography", "$value": "{type.heading-bold}" },
+      "normal": {
+        "font-color": { "$type": "color", "$value": "{color.on-danger.text}" }
+      }
+    },
+    "alert-text": {
+      "$description": "A line on the danger tile: the danger ink.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyPlateAlertText", "class": "Label", "on": ["ToyPlateBanner", "ToyPlateAlert"] },
+          "context": "dark"
+        }
+      },
+      "label": { "$type": "typography", "$value": "{type.small-bold}" },
+      "normal": {
+        "font-color": { "$type": "color", "$value": "{color.on-danger.text}" }
+      }
+    },
+    "alert-countdown": {
+      "$description": "The cops' countdown on the danger tile: the danger ink, display-large.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyPlateAlertCountdown", "class": "Label", "on": ["ToyPlateBanner", "ToyPlateAlert"] },
+          "context": "dark"
+        }
+      },
+      "label": { "$type": "typography", "$value": "{type.display-large}" },
+      "normal": {
+        "font-color": { "$type": "color", "$value": "{color.on-danger.text}" }
       }
     }
   }

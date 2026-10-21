@@ -55,42 +55,106 @@ check(parseErr('{"a":01}')?.rule === 'D01', 'json-strict rejects a leading zero'
   check(same(r.position('/b/a'), { line: 2, col: 18 }), 'json-strict reports positions', JSON.stringify(r.position('/b/a')));
 }
 {
-  // fonts.js (ui-1.0.0): each family's weights come from the type roles and are checked against its own axis; a font
-  // without a wght axis draws only its default weight; a family no role uses is refused
-  const { fontSet, lineBoxPx } = require('../fonts.js');
+  // fonts.js (ui-1.0.0; synthetic fonts since ui-2.0.0, when the repo's own font files wait for their download): each
+  // family's weights come from the type roles and are checked against its own axis; a font without a wght axis draws
+  // only its default weight; a family no role uses is refused; a record may name its file by git blob and size, and a
+  // file not here yet is listed as missing while its record's expected metrics give the line box
+  const crypto = require('crypto');
+  const { fontSet, lineBoxPx, gitBlob } = require('../fonts.js');
   const root = path.join(tmp, 'fonts-unit');
-  for (const d of ['nunito', 'kablammo']) fs.cpSync(path.join(ROOT, 'fonts', d), path.join(root, 'fonts', d), { recursive: true });
+  // a minimal sfnt: the tables fonts.js reads (head unitsPerEm, hhea ascender/descender, OS/2 weight class,
+  // fsSelection, typo and win metrics), each 96 bytes
+  const fakeFont = (o) => {
+    const tags = ['OS/2', 'head', 'hhea'];
+    const buf = Buffer.alloc(12 + 16 * tags.length + 96 * tags.length);
+    buf.writeUInt32BE(0x00010000, 0);
+    buf.writeUInt16BE(tags.length, 4);
+    tags.forEach((t, i) => { const r = 12 + 16 * i; buf.write(t, r, 'latin1'); buf.writeUInt32BE(12 + 16 * tags.length + 96 * i, r + 8); buf.writeUInt32BE(96, r + 12); });
+    const at = (t) => 12 + 16 * tags.length + 96 * tags.indexOf(t);
+    buf.writeUInt16BE(o.upem, at('head') + 18);
+    buf.writeInt16BE(o.hhea[0], at('hhea') + 4);
+    buf.writeInt16BE(-o.hhea[1], at('hhea') + 6);
+    const os2 = at('OS/2');
+    buf.writeUInt16BE(o.weight, os2 + 4);
+    buf.writeUInt16BE(o.typo ? 128 : 0, os2 + 62);
+    buf.writeInt16BE((o.typo || o.hhea)[0], os2 + 68);
+    buf.writeInt16BE(-(o.typo || o.hhea)[1], os2 + 70);
+    buf.writeUInt16BE(o.hhea[0], os2 + 74);
+    buf.writeUInt16BE(o.hhea[1], os2 + 76);
+    buf.write(o.name, 12 + 16 * tags.length + 96 * tags.length - 16, 'latin1');
+    return buf;
+  };
+  const sha = (b) => crypto.createHash('sha256').update(b).digest('hex');
+  // Wide: a wght axis 200..1000, OS/2 typo metrics with USE_TYPO_METRICS (the old Nunito's 1011/353); Plain: no wght
+  // axis (weight class 400), hhea metrics at 2000 units (the old Kablammo's 2078/506)
+  const wide = fakeFont({ name: 'wide', upem: 1000, hhea: [900, 300], typo: [1011, 353], weight: 400 });
+  const plain = fakeFont({ name: 'plain', upem: 2000, hhea: [2078, 506], weight: 400 });
+  const ofl = Buffer.from('SIL Open Font License, Version 1.1 (test text)\n');
+  const put = (dir, name, buf, rec, text) => {
+    fs.mkdirSync(path.join(root, 'fonts', dir), { recursive: true });
+    if (buf) fs.writeFileSync(path.join(root, 'fonts', dir, name), buf);
+    fs.writeFileSync(path.join(root, 'fonts', dir, 'OFL.txt'), ofl);
+    fs.writeFileSync(path.join(root, 'fonts', dir, 'LICENCES.json'), JSON.stringify({ [name]: Object.assign({ licence: 'OFL-1.1', licence_text: 'OFL.txt' }, rec),
+      'OFL.txt': Object.assign({ licence: 'OFL-1.1' }, text || { sha256: sha(ofl) }) }));
+  };
+  put('wide', 'Wide-VariableFont_wght.ttf', wide, { sha256: sha(wide), family: 'Wide', axes: { wght: [200, 1000] } });
+  put('plain', 'Plain-Regular.ttf', plain, { sha256: sha(plain), family: 'Plain' });
   fs.mkdirSync(path.join(root, 'tokens'), { recursive: true });
   const write = (fam, roles, lines) => {
     fs.writeFileSync(path.join(root, 'tokens', 'primitives.tokens.json'), JSON.stringify({ font: {
       family: Object.fromEntries(fam.map((f) => [f.toLowerCase(), { $value: f }])),
       weight: { w150: { $value: 150 }, w400: { $value: 400 }, w700: { $value: 700 }, w900: { $value: 900 } },
-      'line-height': Object.fromEntries(Object.entries(lines || { nunito: 1.364, kablammo: 1.292 }).map(([k, v]) => [k, { $value: v }])) } }));
+      'line-height': Object.fromEntries(Object.entries(lines || { wide: 1.364, plain: 1.292 }).map(([k, v]) => [k, { $value: v }])) } }));
     fs.writeFileSync(path.join(root, 'tokens', 'semantic.tokens.json'), JSON.stringify({ type: Object.fromEntries(roles.map(([n, f, w]) => [n,
       { $value: { fontFamily: `{font.family.${f}}`, fontSize: '{font.size.body}', fontWeight: `{font.weight.${w}}`,
         lineHeight: `{font.line-height.${f}}` } }])) }));
     return fontSet(root);
   };
-  let r = write(['Nunito', 'Kablammo'], [['body', 'nunito', 'w700'], ['title', 'nunito', 'w900'], ['logo', 'kablammo', 'w400']]);
-  check(!r.problems.length && same(r.assets.map((a) => `${a.family}:${a.weights.join('/')}:${a.licence_text}`), ['Kablammo:400:fonts/OFL-Kablammo.txt', 'Nunito:700/900:fonts/OFL-Nunito.txt'])
-    && Buffer.isBuffer(r.outputs['dist/pack/fonts/OFL-Nunito.txt']) && Buffer.isBuffer(r.outputs['dist/pack/fonts/OFL-Kablammo.txt']),
+  let r = write(['Wide', 'Plain'], [['body', 'wide', 'w700'], ['title', 'wide', 'w900'], ['logo', 'plain', 'w400']]);
+  check(!r.problems.length && same(r.assets.map((a) => `${a.family}:${a.weights.join('/')}:${a.licence_text}`), ['Plain:400:fonts/OFL-Plain.txt', 'Wide:700/900:fonts/OFL-Wide.txt'])
+    && Buffer.isBuffer(r.outputs['dist/pack/fonts/OFL-Wide.txt']) && Buffer.isBuffer(r.outputs['dist/pack/fonts/OFL-Plain.txt']) && !r.missing.length,
   'fonts.js: two families, each with its roles\' weights and its own licence text name', JSON.stringify(r.problems));
   // the line box Godot 4.7.2 draws: FreeType's ascender rounded up plus its descender rounded down (#75)
   const m = r.metrics;
-  check(m.Nunito && m.Nunito.ascender === 1011 && m.Nunito.descender === 353 && m.Nunito.unitsPerEm === 1000
-    && m.Kablammo && m.Kablammo.ascender === 2078 && m.Kablammo.descender === 506 && m.Kablammo.unitsPerEm === 2000,
-  "fonts.js: each family's metrics as FreeType reads them (OS/2 typo, USE_TYPO_METRICS)", JSON.stringify(m));
-  check(same([18, 20, 22, 28, 96].map((x) => lineBoxPx(x, m.Nunito)), [26, 29, 31, 39, 132]) && lineBoxPx(64, m.Kablammo) === 84
-    && lineBoxPx(48, { ascender: 935, descender: 250, unitsPerEm: 1000 }) === 57,
-  "fonts.js: lineBoxPx gives Godot's line (Nunito 22 px: 23 + 8 = 31; Rubik 48 px: a whole 12 px descent stays 12)");
-  r = write(['Nunito', 'Kablammo'], [['body', 'nunito', 'w700'], ['logo', 'kablammo', 'w400']], { nunito: 1.25, kablammo: 1.292 });
-  check(r.problems.length === 1 && /type\.body gives Nunito the line height 1\.25, not the font's own 1\.364/.test(r.problems[0]),
+  check(m.Wide && m.Wide.ascender === 1011 && m.Wide.descender === 353 && m.Wide.unitsPerEm === 1000
+    && m.Plain && m.Plain.ascender === 2078 && m.Plain.descender === 506 && m.Plain.unitsPerEm === 2000,
+  "fonts.js: each family's metrics as FreeType reads them (OS/2 typo with USE_TYPO_METRICS, else hhea)", JSON.stringify(m));
+  check(same([18, 20, 22, 28, 96].map((x) => lineBoxPx(x, m.Wide)), [26, 29, 31, 39, 132]) && lineBoxPx(64, m.Plain) === 84
+    && lineBoxPx(48, { ascender: 935, descender: 250, unitsPerEm: 1000 }) === 57
+    && lineBoxPx(22, { ascender: 970, descender: 305, unitsPerEm: 1000 }) === 29,
+  "fonts.js: lineBoxPx gives Godot's line (22 px at 1011/353: 23 + 8 = 31; 48 px at 935/250: a whole 12 px descent stays 12; 22 px Onest's expected 970/305: 22 + 7 = 29)");
+  r = write(['Wide', 'Plain'], [['body', 'wide', 'w700'], ['logo', 'plain', 'w400']], { wide: 1.25, plain: 1.292 });
+  check(r.problems.length === 1 && /type\.body gives Wide the line height 1\.25, not the font's own 1\.364/.test(r.problems[0]),
     "fonts.js: a type role whose line height is not its family's own line box is refused", JSON.stringify(r.problems));
-  r = write(['Nunito', 'Kablammo'], [['body', 'nunito', 'w150'], ['logo', 'kablammo', 'w700']]);
-  check(r.problems.some((p) => /Nunito the weight 150, outside its wght axis 200\.\.1000/.test(p)) && r.problems.some((p) => /Kablammo the weight 700; it has no wght axis, so only its default weight 400/.test(p)),
+  r = write(['Wide', 'Plain'], [['body', 'wide', 'w150'], ['logo', 'plain', 'w700']]);
+  check(r.problems.some((p) => /Wide the weight 150, outside its wght axis 200\.\.1000/.test(p)) && r.problems.some((p) => /Plain the weight 700; it has no wght axis, so only its default weight 400/.test(p)),
     'fonts.js: a weight off a family\'s wght axis, and a weight other than the default on a font without one, are refused', JSON.stringify(r.problems));
-  r = write(['Nunito', 'Kablammo'], [['body', 'nunito', 'w700']]);
-  check(r.problems.some((p) => /no type role \(type\.\*\) uses the family Kablammo/.test(p)), 'fonts.js: a shipped family no type role uses is refused', JSON.stringify(r.problems));
+  r = write(['Wide', 'Plain'], [['body', 'wide', 'w700']]);
+  check(r.problems.some((p) => /no type role \(type\.\*\) uses the family Plain/.test(p)), 'fonts.js: a shipped family no type role uses is refused', JSON.stringify(r.problems));
+  // ui-2.0.0: a record written before the download names the file by its git blob and size, and its expected metrics
+  const blobRec = { upstream_git_blob: gitBlob(wide), bytes: wide.length, family: 'Wide', axes: { wght: [200, 1000] },
+    metrics: { ascender: 1011, descender: 353, unitsPerEm: 1000 }, download: 'https://example.test/Wide.ttf' };
+  const textBlob = { upstream_git_blob: gitBlob(ofl), bytes: ofl.length, download: 'https://example.test/OFL.txt' };
+  put('wide', 'Wide-VariableFont_wght.ttf', wide, blobRec, textBlob);
+  r = write(['Wide', 'Plain'], [['body', 'wide', 'w700'], ['logo', 'plain', 'w400']]);
+  const wideAsset = r.assets.find((a) => a.family === 'Wide');
+  check(!r.problems.length && !r.missing.length && wideAsset && wideAsset.sha256 === sha(wide)
+    && JSON.parse(r.outputs['dist/pack/fonts/LICENCES.json'])['Wide-VariableFont_wght.ttf'].sha256 === sha(wide),
+  'fonts.js: a file whose git blob and size are its record\'s ships, its sha256 computed', JSON.stringify(r.problems));
+  put('wide', 'Wide-VariableFont_wght.ttf', Buffer.concat([wide, Buffer.from('x')]), blobRec, textBlob);
+  r = write(['Wide', 'Plain'], [['body', 'wide', 'w700'], ['logo', 'plain', 'w400']]);
+  check(r.problems.some((p) => /is not the file its record holds \(git blob and size\)/.test(p)), 'fonts.js: a file that is not its record\'s git blob is refused', JSON.stringify(r.problems));
+  put('wide', 'Wide-VariableFont_wght.ttf', wide, Object.assign({}, blobRec, { metrics: { ascender: 1000, descender: 353, unitsPerEm: 1000 } }), textBlob);
+  r = write(['Wide', 'Plain'], [['body', 'wide', 'w700'], ['logo', 'plain', 'w400']]);
+  check(r.problems.some((p) => /differ from its record's expected ones/.test(p)), 'fonts.js: a file whose metrics are not its record\'s expected ones is refused', JSON.stringify(r.problems));
+  fs.rmSync(path.join(root, 'fonts', 'wide'), { recursive: true, force: true });
+  fs.mkdirSync(path.join(root, 'fonts', 'wide'), { recursive: true });
+  fs.writeFileSync(path.join(root, 'fonts', 'wide', 'LICENCES.json'), JSON.stringify({ 'Wide-VariableFont_wght.ttf': Object.assign({ licence: 'OFL-1.1', licence_text: 'OFL.txt' }, blobRec),
+    'OFL.txt': Object.assign({ licence: 'OFL-1.1' }, textBlob) }));
+  r = write(['Wide', 'Plain'], [['body', 'wide', 'w700'], ['logo', 'plain', 'w400']]);
+  check(!r.problems.length && same(r.missing.map((x) => `${x.path}:${x.bytes}:${x.download}`), ['fonts/wide/Wide-VariableFont_wght.ttf:' + wide.length + ':https://example.test/Wide.ttf', 'fonts/wide/OFL.txt:' + ofl.length + ':https://example.test/OFL.txt'])
+    && r.metrics.Wide && r.metrics.Wide.ascender === 1011 && !r.assets.some((a) => a.family === 'Wide') && !('dist/pack/fonts/OFL-Wide.txt' in r.outputs),
+  'fonts.js: a file not downloaded yet is listed as missing, its expected metrics give the line box, nothing of it ships', JSON.stringify([r.problems, r.missing]));
 }
 check(color.toHex(color.parseHex('#C98A10')) === '#c98a10', 'color hex round trip, lowercase');
 {
@@ -354,24 +418,30 @@ if (fs.existsSync(path.join(ROOT, 'tokens', 'prime.resolver.json'))) {
       && cardAssets.every((a) => a.licence === 'own work' && a.size[0] === 640 && a.size[1] === 480)
       && cardOf('delivery', 'delivery-meaning') && cardOf('colour_delivery', 'delivery') && !cards.some((k) => /switches/.test(k)),
     'tokens/: the two Delivery cards ship as four 640x480 PNGs each (by meaning: delivery, colour: colour_delivery), frame 4 done, no Switches', JSON.stringify(cardAssets));
-    // the sticker's three families (ui-1.0.0): titles and text Nunito, numbers Rubik, the logo Kablammo at its default
-    // instance; each with its own OFL text, shipped under the family's name, byte for byte
+    // the plain tile's two families (ui-2.0.0): text and numbers Onest, the display face Unbounded; each with its own
+    // OFL text, shipped under the family's name, byte for byte. Until the files are downloaded (the engineer's yes) the
+    // build lists them as missing and ships none; once they are in fonts/, each ships with the weights its roles use.
     const fontAssets = sys.pack.assets.filter((a) => a.kind === 'font');
     const sha = (b) => require('crypto').createHash('sha256').update(b).digest('hex');
-    const want = { Kablammo: '400', Nunito: '800,900', Rubik: '700' };
-    check(fontAssets.length === 3 && fontAssets.every((a) => a.licence === 'OFL-1.1' && want[a.family] === a.weights.join()
+    const want = { Onest: '500,700', Unbounded: '700' };
+    const missingFonts = (sys.missingFonts || []).map((m) => m.path).sort();
+    const shipped = fontAssets.map((a) => a.family).sort();
+    check(same(shipped.concat(Object.keys(want).filter((f) => !shipped.includes(f) && missingFonts.includes(`fonts/${f.toLowerCase()}/${f}-VariableFont_wght.ttf`))).sort(), ['Onest', 'Unbounded'])
+      && fontAssets.every((a) => a.licence === 'OFL-1.1' && want[a.family] === a.weights.join()
       && a.licence_text === `fonts/OFL-${a.family}.txt` && Buffer.isBuffer(sys.outputs[`dist/pack/${a.path}`])
       && sha(sys.outputs[`dist/pack/${a.path}`]) === a.sha256
       && sha(sys.outputs[`dist/pack/${a.licence_text}`]) === sha(fs.readFileSync(path.join(ROOT, 'fonts', a.family.toLowerCase(), 'OFL.txt'))))
       && !('dist/pack/fonts/OFL.txt' in sys.outputs),
-    'tokens/: Nunito, Rubik and Kablammo ship unmodified, each with its own OFL text, each with the weights its type roles use', JSON.stringify(fontAssets));
-    const lic = JSON.parse(sys.outputs['dist/pack/fonts/LICENCES.json']);
-    check(['Kablammo', 'Nunito', 'Rubik'].every((f) => lic[`OFL-${f}.txt`] && lic[`OFL-${f}.txt`].source === `fonts/${f.toLowerCase()}/OFL.txt`),
-      'tokens/: fonts/LICENCES.json records each family\'s licence text under its shipped name', Object.keys(lic).join(', '));
+    'tokens/: Onest and Unbounded each ship unmodified with its own OFL text and its roles\' weights, or are listed as missing', JSON.stringify([fontAssets, missingFonts]));
+    if (fontAssets.length) {
+      const lic = JSON.parse(sys.outputs['dist/pack/fonts/LICENCES.json']);
+      check(fontAssets.every((a) => lic[`OFL-${a.family}.txt`] && lic[`OFL-${a.family}.txt`].source === `fonts/${a.family.toLowerCase()}/OFL.txt`),
+        'tokens/: fonts/LICENCES.json records each family\'s licence text under its shipped name', Object.keys(lic).join(', '));
+    }
     const knob = assets.get('icons/slider-knob.svg');
     const lab = assets.get('icons/room/lab.svg');
-    check(knob && knob.tint === 'none' && lab && lab.tint === 'multiply' && lab.tint_color === '#1e1230' && lab.drawn_px >= 48 && lab.svg_scale === Math.ceil((lab.drawn_px / 48) * 100) / 100,
-      'tokens/: the knobs keep their colours; a room pictogram is white, drawn in ink, imported at its largest size', JSON.stringify(lab));
+    check(knob && knob.tint === 'none' && lab && lab.tint === 'multiply' && lab.tint_color === '#ece8f7' && lab.drawn_px >= 48 && lab.svg_scale === Math.ceil((lab.drawn_px / 48) * 100) / 100,
+      'tokens/: the knobs keep their colours; a room pictogram is white, drawn in the text colour, imported at its largest size', JSON.stringify(lab));
   }
 } else {
   skipped++;

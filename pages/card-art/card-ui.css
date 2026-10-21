@@ -18,7 +18,6 @@
   padding-right: calc((var(--toy-panel-howto-panel-content-margin) - var(--toy-panel-howto-panel-border-width)) * var(--px));
   padding-bottom: calc((var(--toy-panel-howto-panel-content-margin) - var(--toy-panel-howto-panel-border-width)) * var(--px));
   padding-left: calc((var(--toy-panel-howto-panel-content-margin) - var(--toy-panel-howto-panel-border-width)) * var(--px));
-  box-shadow: calc(var(--toy-panel-base-panel-expand-margin-right) * var(--px)) calc(var(--toy-panel-base-panel-expand-margin-bottom) * var(--px)) 0 var(--toy-panel-base-panel-bg-color);
 }
 /* ToyColumnSixteen: VBoxContainer · layout.column-16 · any */
 .tv-ToyColumnSixteen {
@@ -36,8 +35,6 @@
   line-height: calc(var(--toy-text-title-on-light-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-text-title-on-light-label-letter-spacing) * var(--px));
   color: var(--toy-text-title-on-light-normal-font-color);
-  -webkit-text-stroke: calc((var(--toy-text-title-on-light-items-shadow-outline-size) + var(--toy-text-title-on-light-items-shadow-outline-size)) * var(--px)) var(--toy-text-title-on-light-normal-font-shadow-color);
-  paint-order: stroke fill;
 }
 /* ToyHowtoNote: Label · howto.note · light */
 .tv-ToyHowtoNote {
@@ -59,20 +56,18 @@
   background: var(--toy-howto-frame-panel-bg-color);
   border-style: solid;
   border-color: var(--toy-howto-frame-panel-border-color);
-  border-top-width: calc(var(--toy-howto-frame-panel-border-width-top) * var(--px));
-  border-right-width: calc(var(--toy-howto-frame-panel-border-width-right) * var(--px));
-  border-bottom-width: calc(var(--toy-howto-frame-panel-border-width-bottom) * var(--px));
-  border-left-width: calc(var(--toy-howto-frame-panel-border-width-left) * var(--px));
+  border-top-width: calc(var(--toy-howto-frame-panel-border-width) * var(--px));
+  border-right-width: calc(var(--toy-howto-frame-panel-border-width) * var(--px));
+  border-bottom-width: calc(var(--toy-howto-frame-panel-border-width) * var(--px));
+  border-left-width: calc(var(--toy-howto-frame-panel-border-width) * var(--px));
   border-top-left-radius: calc(var(--toy-howto-frame-panel-corner-radius) * var(--px));
   border-top-right-radius: calc(var(--toy-howto-frame-panel-corner-radius) * var(--px));
   border-bottom-right-radius: calc(var(--toy-howto-frame-panel-corner-radius) * var(--px));
   border-bottom-left-radius: calc(var(--toy-howto-frame-panel-corner-radius) * var(--px));
-  padding-top: calc((var(--toy-howto-frame-panel-content-margin) - var(--toy-howto-frame-panel-border-width-top)) * var(--px));
-  padding-right: calc((var(--toy-howto-frame-panel-content-margin) + var(--toy-howto-frame-panel-expand-margin-right) - var(--toy-howto-frame-panel-border-width-right)) * var(--px));
-  padding-bottom: calc((var(--toy-howto-frame-panel-content-margin) + var(--toy-howto-frame-panel-expand-margin-bottom) - var(--toy-howto-frame-panel-border-width-bottom)) * var(--px));
-  padding-left: calc((var(--toy-howto-frame-panel-content-margin) - var(--toy-howto-frame-panel-border-width-left)) * var(--px));
-  margin-right: calc(var(--toy-howto-frame-panel-expand-margin-right) * -1 * var(--px));
-  margin-bottom: calc(var(--toy-howto-frame-panel-expand-margin-bottom) * -1 * var(--px));
+  padding-top: calc((var(--toy-howto-frame-panel-content-margin) - var(--toy-howto-frame-panel-border-width)) * var(--px));
+  padding-right: calc((var(--toy-howto-frame-panel-content-margin) - var(--toy-howto-frame-panel-border-width)) * var(--px));
+  padding-bottom: calc((var(--toy-howto-frame-panel-content-margin) - var(--toy-howto-frame-panel-border-width)) * var(--px));
+  padding-left: calc((var(--toy-howto-frame-panel-content-margin) - var(--toy-howto-frame-panel-border-width)) * var(--px));
 }
 /* ToyHowtoFrameDone: PanelContainer · howto.frame-done · light */
 .tv-ToyHowtoFrameDone {
@@ -81,20 +76,18 @@
   background: var(--toy-howto-frame-done-panel-bg-color);
   border-style: solid;
   border-color: var(--toy-howto-frame-done-panel-border-color);
-  border-top-width: calc(var(--toy-howto-frame-done-panel-border-width-top) * var(--px));
-  border-right-width: calc(var(--toy-howto-frame-done-panel-border-width-right) * var(--px));
-  border-bottom-width: calc(var(--toy-howto-frame-done-panel-border-width-bottom) * var(--px));
-  border-left-width: calc(var(--toy-howto-frame-done-panel-border-width-left) * var(--px));
+  border-top-width: calc(var(--toy-howto-frame-done-panel-border-width) * var(--px));
+  border-right-width: calc(var(--toy-howto-frame-done-panel-border-width) * var(--px));
+  border-bottom-width: calc(var(--toy-howto-frame-done-panel-border-width) * var(--px));
+  border-left-width: calc(var(--toy-howto-frame-done-panel-border-width) * var(--px));
   border-top-left-radius: calc(var(--toy-howto-frame-done-panel-corner-radius) * var(--px));
   border-top-right-radius: calc(var(--toy-howto-frame-done-panel-corner-radius) * var(--px));
   border-bottom-right-radius: calc(var(--toy-howto-frame-done-panel-corner-radius) * var(--px));
   border-bottom-left-radius: calc(var(--toy-howto-frame-done-panel-corner-radius) * var(--px));
-  padding-top: calc((var(--toy-howto-frame-done-panel-content-margin) - var(--toy-howto-frame-done-panel-border-width-top)) * var(--px));
-  padding-right: calc((var(--toy-howto-frame-done-panel-content-margin) + var(--toy-howto-frame-done-panel-expand-margin-right) - var(--toy-howto-frame-done-panel-border-width-right)) * var(--px));
-  padding-bottom: calc((var(--toy-howto-frame-done-panel-content-margin) + var(--toy-howto-frame-done-panel-expand-margin-bottom) - var(--toy-howto-frame-done-panel-border-width-bottom)) * var(--px));
-  padding-left: calc((var(--toy-howto-frame-done-panel-content-margin) - var(--toy-howto-frame-done-panel-border-width-left)) * var(--px));
-  margin-right: calc(var(--toy-howto-frame-done-panel-expand-margin-right) * -1 * var(--px));
-  margin-bottom: calc(var(--toy-howto-frame-done-panel-expand-margin-bottom) * -1 * var(--px));
+  padding-top: calc((var(--toy-howto-frame-done-panel-content-margin) - var(--toy-howto-frame-done-panel-border-width)) * var(--px));
+  padding-right: calc((var(--toy-howto-frame-done-panel-content-margin) - var(--toy-howto-frame-done-panel-border-width)) * var(--px));
+  padding-bottom: calc((var(--toy-howto-frame-done-panel-content-margin) - var(--toy-howto-frame-done-panel-border-width)) * var(--px));
+  padding-left: calc((var(--toy-howto-frame-done-panel-content-margin) - var(--toy-howto-frame-done-panel-border-width)) * var(--px));
 }
 /* ToyColumnEight: VBoxContainer · layout.column-8 · any */
 .tv-ToyColumnEight {

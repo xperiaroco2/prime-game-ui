@@ -10,11 +10,16 @@
     { "id": "cops", "label": "Копи приїхали", "note": "An alien's view: the cops' minute ran out (frame 12). The own side lost: the winner in plain text, no plate (the decided rule: the plate is for a win)." }
   ],
   "nodes": [
-    { "name": "Night", "type": "Panel", "variation": "ToyBackdropFullScreen", "anchors_preset": "full_rect", "note": "P2, opaque: the full screens' soft-ink ground since ui-1.3.0 (was ToyBackdropNight), where the Kablammo title's ink outline shows. It fades in over 0.4 s when the End phase starts (a cut under reduced motion)." },
+    { "name": "Night", "type": "Panel", "variation": "ToyBackdropFullScreen", "anchors_preset": "full_rect", "note": "P2, opaque: the full screens' base ground (ui-2.0.0). The cops' end fills the whole screen with the danger colour in the target page (ToyBackdropAlert, ToyTextOnDanger): open for the game, the screen here keeps the base under the danger band. It fades in over 0.4 s when the End phase starts (a cut under reduced motion)." },
     {
       "name": "V", "type": "VBoxContainer", "variation": "ToyColumnThirtyTwo", "anchors_preset": "center", "grow_horizontal": "both", "grow_vertical": "both", "alignment": "center", "note": "A centred column on the night, 32 px between its lines (the sketch's 20 x 1.5 = 30, the nearest step).",
       "children": [
-        { "name": "Title", "type": "Label", "variation": "ToyTitleHero", "key": "end.title.party", "horizontal_alignment": "center", "per_state": { "time": { "key": "end.title.time_up", "variation": "ToyTitleHeroAlert" }, "cops": { "key": "end.title.busted", "variation": "ToyTitleHeroAlert" } }, "note": "How the party ended, at the hero size, the same for every player: end.title.party (green, the aliens won), end.title.time_up or end.title.busted (coral, the humans won by the timer or by the cops)." },
+        {
+          "name": "Band", "type": "PanelContainer", "variation": "ToyBand", "custom_minimum_size": [1920, 315], "per_state": { "time": { "variation": "ToyBandAlert" }, "cops": { "variation": "ToyBandAlert" } }, "note": "ui-2.0.0 (the target page, frame 10): the loud band across the whole width, 315 px tall (210 x 1.5): the accent when the aliens won, the danger colour when the humans did.",
+          "children": [
+            { "name": "Title", "type": "Label", "variation": "ToyTitleHero", "key": "end.title.party", "horizontal_alignment": "center", "vertical_alignment": "center", "per_state": { "time": { "key": "end.title.time_up", "variation": "ToyTitleHeroAlert" }, "cops": { "key": "end.title.busted", "variation": "ToyTitleHeroAlert" } }, "note": "How the party ended, in Unbounded at the hero size on the band, the same for every player: end.title.party (the accent ink), end.title.time_up or end.title.busted (the danger ink)." }
+          ]
+        },
         {
           "name": "Winner", "type": "PanelContainer", "variation": "ToyPlateResult", "states": ["aliens", "time"], "size_flags_horizontal": "shrink_center", "note": "When the own side won: the winning side on the result plate.",
           "children": [
@@ -23,7 +28,7 @@
         },
         { "name": "WinnerLoss", "type": "Label", "variation": "ToyTextOnDark", "key": "end.won_humans", "horizontal_alignment": "center", "states": ["cops"], "note": "When the own side lost: the winning side in plain text, no plate. end.won_aliens or end.won_humans." },
         {
-          "name": "Reason", "type": "PanelContainer", "variation": "ToyStickerHighlight", "size_flags_horizontal": "shrink_center", "per_state": { "time": { "variation": "ToyStickerAlert" }, "cops": { "variation": "ToyStickerAlert" } }, "note": "Why the round ended, from the host's reason id (#208), on a word sticker: green when the aliens won, coral when the humans did. An unknown reason hides it.",
+          "name": "Reason", "type": "PanelContainer", "variation": "ToyStickerHighlight", "size_flags_horizontal": "shrink_center", "per_state": { "time": { "variation": "ToyStickerAlert" }, "cops": { "variation": "ToyStickerAlert" } }, "note": "Why the round ended, from the host's reason id (#208), on a word tile: an accent outline when the aliens won, a danger outline when the humans did. An unknown reason hides it.",
           "children": [
             { "name": "Text", "type": "Label", "variation": "ToyStickerTextLarge", "key": "end.reason.all_tasks", "args": { "time": "8:12" }, "per_state": { "time": { "key": "end.reason.time_up", "args": {} }, "cops": { "key": "end.reason.cops", "args": {} } }, "note": "end.reason.all_tasks with the round's time (m:ss), end.reason.time_up, or end.reason.cops." }
           ]

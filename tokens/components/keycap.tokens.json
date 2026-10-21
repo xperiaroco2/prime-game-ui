@@ -1,9 +1,9 @@
 {
   "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
   "keycap": {
-    "$description": "Keycaps: mint stickers, a 5 px ink outline with an 8 px ink bottom edge, ink key names.",
+    "$description": "Keycaps (the target's .key): a row tile with the 2 px edge and a 5 px bottom edge, 6 px corners, light text.",
     "on-dark": {
-      "$description": "A keycap on dark: the mint face, ink outline and bottom edge.",
+      "$description": "A key on the ground.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyKeyOnDark", "class": "PanelContainer" },
@@ -11,7 +11,7 @@
         }
       },
       "panel": {
-        "bg-color": { "$type": "color", "$value": "{palette.mint}" },
+        "bg-color": { "$type": "color", "$value": "{palette.row}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width-top": { "$type": "dimension", "$value": "{stroke.thin}" },
         "border-width-right": { "$type": "dimension", "$value": "{stroke.thin}" },
@@ -25,14 +25,11 @@
       "size": {
         "$type": "dimension",
         "min-width": { "$value": "{size.keycap}" },
-        "wide-min-width": {
-          "$value": { "value": 144, "unit": "px" },
-          "$description": "The wide keycap's minimum width."
-        }
+        "wide-min-width": { "$value": { "value": 144, "unit": "px" }, "$description": "The wide keycap's minimum width." }
       }
     },
     "on-light": {
-      "$description": "A keycap in a panel: the mint face, ink outline and bottom edge.",
+      "$description": "A key in a tile.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyKeyOnLight", "class": "PanelContainer" },
@@ -40,7 +37,7 @@
         }
       },
       "panel": {
-        "bg-color": { "$type": "color", "$value": "{palette.mint}" },
+        "bg-color": { "$type": "color", "$value": "{palette.row}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width-top": { "$type": "dimension", "$value": "{stroke.thin}" },
         "border-width-right": { "$type": "dimension", "$value": "{stroke.thin}" },
@@ -54,14 +51,11 @@
       "size": {
         "$type": "dimension",
         "min-width": { "$value": "{size.keycap}" },
-        "wide-min-width": {
-          "$value": { "value": 144, "unit": "px" },
-          "$description": "The wide keycap's minimum width."
-        }
+        "wide-min-width": { "$value": { "value": 144, "unit": "px" }, "$description": "The wide keycap's minimum width." }
       }
     },
     "quiet": {
-      "$description": "A dim keycap: the lilac face, soft-ink outline and edge.",
+      "$description": "A quiet key (a hint that is not the point): the base tile, dim text.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyKeyQuiet", "class": "PanelContainer" },
@@ -69,8 +63,8 @@
         }
       },
       "panel": {
-        "bg-color": { "$type": "color", "$value": "{palette.muted}" },
-        "border-color": { "$type": "color", "$value": "{palette.ink-soft}" },
+        "bg-color": { "$type": "color", "$value": "{palette.base}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width-top": { "$type": "dimension", "$value": "{stroke.thin}" },
         "border-width-right": { "$type": "dimension", "$value": "{stroke.thin}" },
         "border-width-bottom": { "$type": "dimension", "$value": "{stroke.bold}" },
@@ -83,14 +77,11 @@
       "size": {
         "$type": "dimension",
         "min-width": { "$value": "{size.keycap}" },
-        "wide-min-width": {
-          "$value": { "value": 144, "unit": "px" },
-          "$description": "The wide keycap's minimum width."
-        }
+        "wide-min-width": { "$value": { "value": 144, "unit": "px" }, "$description": "The wide keycap's minimum width." }
       }
     },
     "round": {
-      "$description": "A round keycap (the map's \"?\").",
+      "$description": "A round key (the map's ?).",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyKeyRound", "class": "PanelContainer" },
@@ -98,7 +89,7 @@
         }
       },
       "panel": {
-        "bg-color": { "$type": "color", "$value": "{palette.mint}" },
+        "bg-color": { "$type": "color", "$value": "{palette.row}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width-top": { "$type": "dimension", "$value": "{stroke.thin}" },
         "border-width-right": { "$type": "dimension", "$value": "{stroke.thin}" },
@@ -115,7 +106,7 @@
       }
     },
     "round-quiet": {
-      "$description": "A dim round keycap.",
+      "$description": "A quiet round key.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyKeyRoundQuiet", "class": "PanelContainer" },
@@ -123,8 +114,8 @@
         }
       },
       "panel": {
-        "bg-color": { "$type": "color", "$value": "{palette.muted}" },
-        "border-color": { "$type": "color", "$value": "{palette.ink-soft}" },
+        "bg-color": { "$type": "color", "$value": "{palette.base}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width-top": { "$type": "dimension", "$value": "{stroke.thin}" },
         "border-width-right": { "$type": "dimension", "$value": "{stroke.thin}" },
         "border-width-bottom": { "$type": "dimension", "$value": "{stroke.bold}" },
@@ -140,7 +131,7 @@
       }
     },
     "round-button": {
-      "$description": "The round keycap as a button (the \"?\" next to a task): the ToyKeyRound face, a lighter mint hover, a darker mint held, unplugged when disabled, an outer mint focus ring (it sits on purple).",
+      "$description": "A round keycap button (the map's ?): the round key; focus an accent ring.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyKeyRoundButton", "class": "Button", "parent": "ToyButton" },
@@ -149,7 +140,7 @@
       },
       "label": { "$type": "typography", "$value": "{type.body-bold}" },
       "normal": {
-        "bg-color": { "$type": "color", "$value": "{palette.mint}" },
+        "bg-color": { "$type": "color", "$value": "{palette.row}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width-top": { "$type": "dimension", "$value": "{stroke.thin}" },
         "border-width-right": { "$type": "dimension", "$value": "{stroke.thin}" },
@@ -159,29 +150,25 @@
         "content-margin-top": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } },
         "content-margin-inline": { "$type": "dimension", "$value": { "value": 12, "unit": "px" } },
         "content-margin-bottom": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } },
-        "font-color": { "$type": "color", "$value": "{color.on-accent.text}" }
+        "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
       },
       "hover": {
-        "$description": "Hover: the mint one step lighter.",
-        "bg-color": { "$type": "color", "$value": "{palette.mint-light}" }
+        "bg-color": { "$type": "color", "$value": "{palette.row-light}" }
       },
       "pressed": {
-        "$description": "Held: the mint one step darker (the key does not move).",
-        "bg-color": { "$type": "color", "$value": "{palette.mint-dark}" }
+        "bg-color": { "$type": "color", "$value": "{palette.base}" }
       },
       "disabled": {
-        "$description": "Unplugged: the lilac face, soft-ink outline and label.",
         "bg-color": { "$type": "color", "$value": "{color.state.disabled-face}" },
-        "border-color": { "$type": "color", "$value": "{color.state.disabled-ink}" },
+        "border-color": { "$type": "color", "$value": "{color.state.disabled-edge}" },
         "font-color": { "$type": "color", "$value": "{color.state.disabled-ink}" }
       },
       "focus": {
-        "$description": "Outer focus: a mint ring of the focus width, the focus gap outside the outline.",
         "bg-color": { "$type": "color", "$value": "{palette.clear}" },
-        "border-color": { "$type": "color", "$value": "{palette.mint}" },
+        "border-color": { "$type": "color", "$value": "{color.focus}" },
         "border-width": { "$type": "dimension", "$value": "{focus.width}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
-        "expand-margin": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } }
+        "expand-margin": { "$type": "dimension", "$value": { "value": 6, "unit": "px" } }
       },
       "size": {
         "$type": "dimension",
@@ -189,7 +176,7 @@
       }
     },
     "button": {
-      "$description": "A keycap as a button (rebinding in Settings > Controls): the ToyKeyOnLight face, a lighter mint hover, a darker mint held, unplugged when disabled, an outer mint focus ring (it sits on purple) that follows the keycap's corners.",
+      "$description": "A keycap button (rebinding): the key tile; hover lifts, held drops to the base; focus an accent ring 3 px outside (corners 6 + 6).",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyKeyButton", "class": "Button", "parent": "ToyButton" },
@@ -198,7 +185,7 @@
       },
       "label": { "$type": "typography", "$value": "{type.body-bold}" },
       "normal": {
-        "bg-color": { "$type": "color", "$value": "{palette.mint}" },
+        "bg-color": { "$type": "color", "$value": "{palette.row}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width-top": { "$type": "dimension", "$value": "{stroke.thin}" },
         "border-width-right": { "$type": "dimension", "$value": "{stroke.thin}" },
@@ -208,58 +195,47 @@
         "content-margin-top": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } },
         "content-margin-inline": { "$type": "dimension", "$value": { "value": 12, "unit": "px" } },
         "content-margin-bottom": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } },
-        "font-color": { "$type": "color", "$value": "{color.on-accent.text}" }
+        "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
       },
       "hover": {
-        "$description": "Hover: the mint one step lighter.",
-        "bg-color": { "$type": "color", "$value": "{palette.mint-light}" }
+        "bg-color": { "$type": "color", "$value": "{palette.row-light}" }
       },
       "pressed": {
-        "$description": "Held (and waiting for a key): the mint one step darker.",
-        "bg-color": { "$type": "color", "$value": "{palette.mint-dark}" }
+        "bg-color": { "$type": "color", "$value": "{palette.base}" }
       },
       "disabled": {
-        "$description": "Unplugged: the lilac face, soft-ink outline and label.",
         "bg-color": { "$type": "color", "$value": "{color.state.disabled-face}" },
-        "border-color": { "$type": "color", "$value": "{color.state.disabled-ink}" },
+        "border-color": { "$type": "color", "$value": "{color.state.disabled-edge}" },
         "font-color": { "$type": "color", "$value": "{color.state.disabled-ink}" }
       },
       "focus": {
-        "$description": "Outer focus: a mint ring of the focus width, the focus gap outside the outline, following the keycap's corners (radius.small + the expand margin).",
         "bg-color": { "$type": "color", "$value": "{palette.clear}" },
-        "border-color": { "$type": "color", "$value": "{palette.mint}" },
+        "border-color": { "$type": "color", "$value": "{color.focus}" },
         "border-width": { "$type": "dimension", "$value": "{focus.width}" },
-        "corner-radius": { "$type": "dimension", "$value": { "value": 20, "unit": "px" } },
-        "expand-margin": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } }
+        "corner-radius": { "$type": "dimension", "$value": { "value": 12, "unit": "px" } },
+        "expand-margin": { "$type": "dimension", "$value": { "value": 6, "unit": "px" } }
       },
       "size": {
         "$type": "dimension",
         "min-width": { "$value": "{size.keycap}" },
-        "wide-min-width": {
-          "$value": { "value": 144, "unit": "px" },
-          "$description": "The wide keycap's minimum width (Shift, Space, the mouse buttons)."
-        }
+        "wide-min-width": { "$value": { "value": 144, "unit": "px" }, "$description": "The wide keycap's minimum width (Shift, Space, the mouse buttons)." }
       }
     },
     "text": {
-      "$description": "The key name on a keycap.",
+      "$description": "A key's label: light.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
-          "godot": {
-            "variation": "ToyKeyText",
-            "class": "Label",
-            "on": ["ToyKeyOnDark", "ToyKeyOnLight", "ToyKeyRound"]
-          },
+          "godot": { "variation": "ToyKeyText", "class": "Label", "on": ["ToyKeyOnDark", "ToyKeyOnLight", "ToyKeyRound"] },
           "context": "any"
         }
       },
       "label": { "$type": "typography", "$value": "{type.body-bold}" },
       "normal": {
-        "font-color": { "$type": "color", "$value": "{color.on-accent.text}" }
+        "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
       }
     },
     "quiet-text": {
-      "$description": "The key name on a dim keycap: ink on the lilac face (soft ink there is 3.8:1).",
+      "$description": "A quiet key's label: dim.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyKeyQuietText", "class": "Label", "on": ["ToyKeyQuiet", "ToyKeyRoundQuiet"] },
@@ -268,7 +244,7 @@
       },
       "label": { "$type": "typography", "$value": "{type.body-bold}" },
       "normal": {
-        "font-color": { "$type": "color", "$value": "{color.on-accent.text}" }
+        "font-color": { "$type": "color", "$value": "{color.on-light.text-muted}" }
       }
     }
   }

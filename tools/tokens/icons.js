@@ -31,11 +31,13 @@ const OUT = 'dist/pack/icons';
 const SCREENS_SRC = 'pages/screens/src';
 // The licences this repo accepts (CLAUDE.md, Licences).
 const LICENCES_OK = /^(own work|OFL(-1\.1)?|CC0(-1\.0)?|MIT|ISC|Apache-2\.0)$/i;
-// the sticker ink (palette.ink); the source pictograms are drawn in it
+// the sticker ink (ui-1.0.0 to 1.4.0): the source pictograms are drawn in it, and the build writes it white
 const ROOM_INK = '#1e1230';
+// the colour the pages draw the pictograms in since ui-2.0.0 (palette.text, light on a row tile): the pack's tint_color
+const ROOM_TINT = '#ece8f7';
 const SOURCES = [
   { prefix: '', dir: 'pages/components/icons', licences: 'pages/components/icons/LICENCES.json', entry: (f) => f },
-  { prefix: 'room/', dir: 'pages/room-signs/systems/b/icons', licences: 'pages/room-signs/systems/b/LICENCES.json', entry: (f) => `icons/${f}`, ink: ROOM_INK },
+  { prefix: 'room/', dir: 'pages/room-signs/systems/b/icons', licences: 'pages/room-signs/systems/b/LICENCES.json', entry: (f) => `icons/${f}`, ink: ROOM_INK, tint: ROOM_TINT },
 ];
 // The textures a screen draws without naming them (pages/screens/build.js ARROW_ICON, LIST_ICONS, KNOB_ICON,
 // KNOB_DISABLED_ICON): an OptionButton's arrow and its open list's radio icons (ToyDropdownList), an HSlider's knobs.
@@ -83,7 +85,7 @@ function listIcons(root) {
         const ink = colours.size === 1 && colours.has(src.ink);
         text = `<!-- generated from ${source} by tools/tokens/build.js${ink ? `: ${src.ink} written as #ffffff, for Godot's tint` : ''} -->\n`
           + (ink ? raw.split(src.ink).join('#ffffff') : raw);
-        if (ink) { tint = 'multiply'; tintColor = src.ink; }
+        if (ink) { tint = 'multiply'; tintColor = src.tint || src.ink; }
       } else if (raw.includes('currentColor')) {
         text = `<!-- generated from ${source} by tools/tokens/build.js: currentColor written as #ffffff, for Godot's tint -->\n`
           + raw.replace(/currentColor/g, '#ffffff');

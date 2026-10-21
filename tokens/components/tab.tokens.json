@@ -1,9 +1,9 @@
 {
   "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
   "tab": {
-    "$description": "The Esc menu tabs: a toggle pair (the game variation EscTab becomes a variation of ToyTab). On the purple panel: idle tabs are bare mint labels, the selected tab is a flat mint sticker.",
+    "$description": "Tabs (the suit menu's list on the left, the target's .nav): dim text on the tile, the chosen one a row fill with light text.",
     "idle": {
-      "$description": "An idle Esc tab: no fill, no outline, a mint label on the purple.",
+      "$description": "A tab: dim text on the tile; hover a row fill with light text; focus an accent ring inside.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": {
@@ -15,74 +15,64 @@
           "context": "light"
         }
       },
-      "label": { "$type": "typography", "$value": "{type.body-large-bold}" },
+      "label": { "$type": "typography", "$value": "{type.body-bold}" },
       "normal": {
         "bg-color": { "$type": "color", "$value": "{palette.clear}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.medium}" },
         "content-margin-block": { "$type": "dimension", "$value": { "value": 18, "unit": "px" } },
         "content-margin-inline": { "$type": "dimension", "$value": { "value": 27, "unit": "px" } },
-        "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
+        "font-color": { "$type": "color", "$value": "{color.on-light.text-muted}" }
       },
       "hover": {
-        "$description": "Hover: the lighter purple laid under the label.",
-        "bg-color": { "$type": "color", "$value": "{color.state.hover-on-light}" }
+        "bg-color": { "$type": "color", "$value": "{color.state.hover-on-light}" },
+        "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
       },
       "pressed": {
-        "$description": "Held: as hover.",
-        "bg-color": { "$type": "color", "$value": "{color.state.hover-on-light}" }
+        "bg-color": { "$type": "color", "$value": "{color.state.hover-on-light}" },
+        "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
       },
       "disabled": {
-        "$description": "Unplugged tab: only the label goes muted.",
         "font-color": { "$type": "color", "$value": "{color.state.disabled-ink-on-dark}" }
       },
       "focus": {
-        "$description": "Inner focus at the edge of a borderless tab: a mint ring (it reads on the purple).",
         "bg-color": { "$type": "color", "$value": "{palette.clear}" },
-        "border-color": { "$type": "color", "$value": "{color.on-light.line}" },
+        "border-color": { "$type": "color", "$value": "{color.focus}" },
         "border-width": { "$type": "dimension", "$value": "{focus.width}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.medium}" },
         "expand-margin": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } }
       }
     },
     "selected": {
-      "$description": "The selected Esc tab: a flat mint sticker, a 6 px ink outline on every side (no shadow), an ink label.",
+      "$description": "The chosen tab (the target's .nav .on): a row fill with light text, 9 px corners; focus an accent ring inside.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyTabSelected", "class": "Button", "parent": "ToyButton" },
           "context": "light"
         }
       },
-      "label": { "$type": "typography", "$value": "{type.body-large-bold}" },
+      "label": { "$type": "typography", "$value": "{type.body-bold}" },
       "normal": {
-        "bg-color": { "$type": "color", "$value": "{palette.mint}" },
-        "border-color": { "$type": "color", "$value": "{color.outline}" },
-        "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
+        "bg-color": { "$type": "color", "$value": "{palette.row}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.medium}" },
         "content-margin-block": { "$type": "dimension", "$value": { "value": 18, "unit": "px" } },
         "content-margin-inline": { "$type": "dimension", "$value": { "value": 27, "unit": "px" } },
-        "font-color": { "$type": "color", "$value": "{color.on-accent.text}" }
+        "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
       },
       "hover": {
-        "$description": "Hover: the selected face lifts to the lighter mint.",
-        "bg-color": { "$type": "color", "$value": "{palette.mint-light}" }
+        "bg-color": { "$type": "color", "$value": "{palette.row-light}" }
       },
       "hover-pressed": {
-        "$description": "Selected and hovered (a toggle rests pressed): as hover.",
-        "bg-color": { "$type": "color", "$value": "{palette.mint-light}" }
+        "bg-color": { "$type": "color", "$value": "{palette.row-light}" }
       },
       "disabled": {
-        "$description": "Unplugged selected tab: a dulled lilac face, its outline and label in the soft ink.",
-        "bg-color": { "$type": "color", "$value": "{color.state.disabled-face}" },
-        "border-color": { "$type": "color", "$value": "{color.state.disabled-ink}" },
-        "font-color": { "$type": "color", "$value": "{color.state.disabled-ink}" }
+        "font-color": { "$type": "color", "$value": "{color.state.disabled-ink-on-dark}" }
       },
       "focus": {
-        "$description": "Inner focus: an ink ring of the focus width just inside the outline.",
         "bg-color": { "$type": "color", "$value": "{palette.clear}" },
-        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-color": { "$type": "color", "$value": "{color.focus}" },
         "border-width": { "$type": "dimension", "$value": "{focus.width}" },
-        "corner-radius": { "$type": "dimension", "$value": { "value": 12, "unit": "px" } },
-        "expand-margin": { "$type": "dimension", "$value": { "value": -6, "unit": "px" } }
+        "corner-radius": { "$type": "dimension", "$value": "{radius.medium}" },
+        "expand-margin": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } }
       }
     }
   }

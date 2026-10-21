@@ -1,12 +1,12 @@
 {
   "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
   "panel": {
-    "$description": "Sticker panels: a 6 px ink outline and a hard ink shadow 8 px right and 8 px down (the base layer).",
+    "$description": "Panels: the plain tile, a module fill with a 2 px edge and 12 px corners, no hard shadow.",
     "menu": {
-      "$description": "The menu panel: purple face, ink outline, on the hard ink shadow; the light context (its labels are mint).",
+      "$description": "The suit menu's panel: the plain tile.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
-          "godot": { "variation": "ToyPanelMenu", "class": "PanelContainer", "base": { "any": "ToyBasePanel" } },
+          "godot": { "variation": "ToyPanelMenu", "class": "PanelContainer" },
           "context": "light"
         }
       },
@@ -19,10 +19,10 @@
       }
     },
     "dialog": {
-      "$description": "The dialog panel: as the menu panel with more room.",
+      "$description": "A dialog and a machine's screen frame: the plain tile.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
-          "godot": { "variation": "ToyPanelDialog", "class": "PanelContainer", "base": { "any": "ToyBasePanel" } },
+          "godot": { "variation": "ToyPanelDialog", "class": "PanelContainer" },
           "context": "light"
         }
       },
@@ -35,10 +35,10 @@
       }
     },
     "howto": {
-      "$description": "The how-to card panel: as the menu panel; its frames are the mint plates the sketches sit on.",
+      "$description": "The how-to card: the plain tile.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
-          "godot": { "variation": "ToyPanelHowto", "class": "PanelContainer", "base": { "any": "ToyBasePanel" } },
+          "godot": { "variation": "ToyPanelHowto", "class": "PanelContainer" },
           "context": "light"
         }
       },
@@ -51,7 +51,8 @@
       }
     },
     "base": {
-      "$description": "The hard ink shadow under panels and the map board: the face's shape moved 8 px right and 8 px down.",
+      "$description": "The shadow layer under a panel until ui-1.4.0; clear since ui-2.0.0.",
+      "$deprecated": "ui-2.0.0: the plain tile has no hard shadow; the game can drop it. Removed at the next major release.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyBasePanel", "class": "Panel" },
@@ -59,7 +60,7 @@
         }
       },
       "panel": {
-        "bg-color": { "$type": "color", "$value": "{color.surface.drop}" },
+        "bg-color": { "$type": "color", "$value": "{palette.clear}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.surface}" },
         "expand-margin-top": { "$type": "dimension", "$value": { "value": -8, "unit": "px" } },
         "expand-margin-right": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } },

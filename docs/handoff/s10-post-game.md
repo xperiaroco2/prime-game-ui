@@ -5,7 +5,7 @@
 The styled post game screen from the UI track (xperiaroco2/prime-game-ui), as a Godot 4.7.2 node tree for the 1920×1080 reference.
 
 - **Source:** `pages/screens/src/s10-post-game.json`; the review page is `pages/screens/screens.html#s10`; the wireframe is section `s10` («Post game: кінець раунду»).
-- **Theme:** the Toy pack ui-1.4.0 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
+- **Theme:** the Toy pack ui-2.0.0 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
 - **World behind the UI** (not UI): black, no world (intro, outro, loading).
 - **How to read it:** the roots are children of the screen's full-rect root `Control`; every property not listed keeps Godot's default; sizes and offsets are reference px. In a state's **Shown** list, the first node of each subtree gives its path from the screen root.
 - **Texts** are keys of `copy/strings.csv`, and the language switches live (the Esc menu's Settings). A plain key is set as `text` and translates itself. A key with placeholders, a plural key (`tr_n`) and a key drawn in pieces are set from code with `auto_translate_mode = DISABLED`: `tr()`, then `String.format()` with the data (the samples below), rebuilt on `NOTIFICATION_TRANSLATION_CHANGED`. A "text from data" (names, the room code, times, numbers) is set in code and never translated (`auto_translate_mode = DISABLED`).
@@ -23,17 +23,19 @@ The black outro of about 3 s: the End phase fades to black (0.4 s; a cut under r
 ## Node tree in `aliens`
 
 - **Night** `Panel` · variation `ToyBackdropFullScreen` · anchors `full_rect`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both
-  - Note: P2, opaque: the full screens' soft-ink ground since ui-1.3.0 (was ToyBackdropNight), where the Kablammo title's ink outline shows. It fades in over 0.4 s when the End phase starts (a cut under reduced motion).
+  - Note: P2, opaque: the full screens' base ground (ui-2.0.0). The cops' end fills the whole screen with the danger colour in the target page (ToyBackdropAlert, ToyTextOnDanger): open for the game, the screen here keeps the base under the danger band. It fades in over 0.4 s when the End phase starts (a cut under reduced motion).
 - **V** `VBoxContainer` · variation `ToyColumnThirtyTwo` · anchors `center`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both · gaps from the variation: separation 32 · alignment `ALIGNMENT_CENTER`
   - Note: A centred column on the night, 32 px between its lines (the sketch's 20 x 1.5 = 30, the nearest step).
-  - **Title** `Label` · variation `ToyTitleHero` · text `end.title.party`: en "Great party!" · uk "Вечірка вдалася!" · horizontal_alignment `CENTER`
-    - Note: How the party ended, at the hero size, the same for every player: end.title.party (green, the aliens won), end.title.time_up or end.title.busted (coral, the humans won by the timer or by the cops).
+  - **Band** `PanelContainer` · variation `ToyBand` · custom_minimum_size (1920, 315)
+    - Note: ui-2.0.0 (the target page, frame 10): the loud band across the whole width, 315 px tall (210 x 1.5): the accent when the aliens won, the danger colour when the humans did.
+    - **Title** `Label` · variation `ToyTitleHero` · text `end.title.party`: en "Great party!" · uk "Вечірка вдалася!" · horizontal_alignment `CENTER` · vertical_alignment `CENTER`
+      - Note: How the party ended, in Unbounded at the hero size on the band, the same for every player: end.title.party (the accent ink), end.title.time_up or end.title.busted (the danger ink).
   - **Winner** `PanelContainer` · variation `ToyPlateResult` · size flags horizontal `SIZE_SHRINK_CENTER`
     - Note: When the own side won: the winning side on the result plate.
     - **Text** `Label` · variation `ToyPlateTitle` · text `end.won_aliens`: en "The aliens won" · uk "Прибульці перемогли"
       - Note: end.won_aliens or end.won_humans.
   - **Reason** `PanelContainer` · variation `ToyStickerHighlight` · size flags horizontal `SIZE_SHRINK_CENTER`
-    - Note: Why the round ended, from the host's reason id (#208), on a word sticker: green when the aliens won, coral when the humans did. An unknown reason hides it.
+    - Note: Why the round ended, from the host's reason id (#208), on a word tile: an accent outline when the aliens won, a danger outline when the humans did. An unknown reason hides it.
     - **Text** `Label` · variation `ToyStickerTextLarge` · text `end.reason.all_tasks` with sample {time} = "8:12": en "All tasks done in 8:12." · uk "Усі задачі виконано за 8:12."
       - Note: end.reason.all_tasks with the round's time (m:ss), end.reason.time_up, or end.reason.cops.
   - **Gap** `Control` · custom_minimum_size (0, 12)
@@ -43,7 +45,8 @@ The black outro of about 3 s: the End phase fades to black (0.4 s; a cut under r
 
 ## `time`: what differs from `aliens`
 
-- **Changed** `V/Title`: variation `ToyTitleHeroAlert` · text `end.title.time_up`: en "Time's up" · uk "Час вийшов" (was: variation `ToyTitleHero` · text `end.title.party`: en "Great party!" · uk "Вечірка вдалася!")
+- **Changed** `V/Band`: variation `ToyBandAlert` (was: variation `ToyBand`)
+- **Changed** `V/Band/Title`: variation `ToyTitleHeroAlert` · text `end.title.time_up`: en "Time's up" · uk "Час вийшов" (was: variation `ToyTitleHero` · text `end.title.party`: en "Great party!" · uk "Вечірка вдалася!")
 - **Changed** `V/Winner/Text`: text `end.won_humans`: en "The humans won" · uk "Люди перемогли" (was: text `end.won_aliens`: en "The aliens won" · uk "Прибульці перемогли")
 - **Changed** `V/Reason`: variation `ToyStickerAlert` (was: variation `ToyStickerHighlight`)
 - **Changed** `V/Reason/Text`: text `end.reason.time_up`: en "The tasks aren't done." · uk "Задачі не виконано." (was: text `end.reason.all_tasks` with sample {time} = "8:12": en "All tasks done in 8:12." · uk "Усі задачі виконано за 8:12.")
@@ -51,7 +54,8 @@ The black outro of about 3 s: the End phase fades to black (0.4 s; a cut under r
 ## `cops`: what differs from `aliens`
 
 - **Hidden:** `V/Winner`.
-- **Changed** `V/Title`: variation `ToyTitleHeroAlert` · text `end.title.busted`: en "Busted!" · uk "Попались!" (was: variation `ToyTitleHero` · text `end.title.party`: en "Great party!" · uk "Вечірка вдалася!")
+- **Changed** `V/Band`: variation `ToyBandAlert` (was: variation `ToyBand`)
+- **Changed** `V/Band/Title`: variation `ToyTitleHeroAlert` · text `end.title.busted`: en "Busted!" · uk "Попались!" (was: variation `ToyTitleHero` · text `end.title.party`: en "Great party!" · uk "Вечірка вдалася!")
 - **Changed** `V/Reason`: variation `ToyStickerAlert` (was: variation `ToyStickerHighlight`)
 - **Changed** `V/Reason/Text`: text `end.reason.cops`: en "The cops came: the party's over." · uk "Приїхали копи: вечірці кінець." (was: text `end.reason.all_tasks` with sample {time} = "8:12": en "All tasks done in 8:12." · uk "Усі задачі виконано за 8:12.")
 - **Shown:**

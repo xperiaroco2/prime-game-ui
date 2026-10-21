@@ -1,9 +1,9 @@
 {
   "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
   "mutation": {
-    "$description": "The mutation workbench (MVP): the points show only here. The panel is ToyPanelDialog, its title ToyTitleOnLight, the hint ToyTextMutedOnLight.",
+    "$description": "The mutation workbench, a screen on the machine (a SubViewport): cards are module tiles.",
     "card": {
-      "$description": "A mutation card: the mint sticker, 30 px inside (the sketch's 16 px padding with its outline, x 1.5). Its two states are the button's: \"can buy\" a ToyButtonPrimary (or ToyButtonSecondary), \"not enough\" the same button disabled (the lilac unplugged face) with the shortfall; the card itself does not change, as on the sketch. The name is ToyPlateTitle, the effect ToyPlateText, the cost number ToyPlateTimer. The hard shadow is the edge form: the right and bottom outlines are 14 px (6 + 8) and reach 8 px outside, as no base layer sits under it in the game.",
+      "$description": "A mutation card (the target's .card): a module tile with the 2 px edge and 12 px corners; one you cannot afford keeps its look, its button unplugged.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyMutationCard", "class": "PanelContainer" },
@@ -11,20 +11,15 @@
         }
       },
       "panel": {
-        "bg-color": { "$type": "color", "$value": "{palette.mint}" },
+        "bg-color": { "$type": "color", "$value": "{color.surface.plate}" },
         "border-color": { "$type": "color", "$value": "{color.outline}" },
-        "border-width-top": { "$type": "dimension", "$value": "{stroke.surface}" },
-        "border-width-right": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } },
-        "border-width-bottom": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } },
-        "border-width-left": { "$type": "dimension", "$value": "{stroke.surface}" },
-        "corner-radius": { "$type": "dimension", "$value": "{radius.large}" },
-        "content-margin": { "$type": "dimension", "$value": { "value": 30, "unit": "px" } },
-        "expand-margin-right": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } },
-        "expand-margin-bottom": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } }
+        "border-width": { "$type": "dimension", "$value": "{stroke.surface}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.surface}" },
+        "content-margin": { "$type": "dimension", "$value": { "value": 30, "unit": "px" } }
       }
     },
     "balance": {
-      "$description": "The points balance at the workbench's top right: a mint plate, flush above and below (the number's line is the plate's height), 27 px at the sides; its text ToyPlateText, the number ToyPlateTimer. The hard shadow is the edge form: the right and bottom outlines are 14 px (6 + 8) and reach 8 px outside, as no base layer sits under it in the game.",
+      "$description": "The points on the workbench: no plate (minimal), the number in the accent beside its word.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyPlateBalance", "class": "PanelContainer" },
@@ -32,17 +27,9 @@
         }
       },
       "panel": {
-        "bg-color": { "$type": "color", "$value": "{palette.mint}" },
-        "border-color": { "$type": "color", "$value": "{color.outline}" },
-        "border-width-top": { "$type": "dimension", "$value": "{stroke.surface}" },
-        "border-width-right": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } },
-        "border-width-bottom": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } },
-        "border-width-left": { "$type": "dimension", "$value": "{stroke.surface}" },
-        "corner-radius": { "$type": "dimension", "$value": "{radius.large}" },
+        "bg-color": { "$type": "color", "$value": "{palette.clear}" },
         "content-margin-block": { "$type": "dimension", "$value": { "value": 6, "unit": "px" } },
-        "content-margin-inline": { "$type": "dimension", "$value": { "value": 27, "unit": "px" } },
-        "expand-margin-right": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } },
-        "expand-margin-bottom": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } }
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 27, "unit": "px" } }
       }
     }
   }

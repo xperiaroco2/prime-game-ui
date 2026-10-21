@@ -1,12 +1,12 @@
 {
   "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
   "title": {
-    "$description": "The title plate, the logo and the full-screen titles: alien green (or coral) letters with a 6 px ink outline.",
+    "$description": "Titles: the loud ones are Unbounded on a band; no outline anywhere.",
     "plate": {
-      "$description": "The title plate: a purple sticker (ink outline, the hard ink shadow of its base) around a Nunito Black title in the alien green with an ink outline; expand margins replace the CSS negative margins.",
+      "$description": "A title on its own tile (pre and post game): Unbounded on the plain tile, light, no outline.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
-          "godot": { "variation": "ToyTitlePlate", "class": "Label", "base": { "any": "ToyBaseTitle" } },
+          "godot": { "variation": "ToyTitlePlate", "class": "Label" },
           "context": "dark"
         }
       },
@@ -20,17 +20,18 @@
         "expand-margin-block": { "$type": "dimension", "$value": { "value": 6, "unit": "px" } },
         "expand-margin-inline": { "$type": "dimension", "$value": { "value": 54, "unit": "px" } },
         "font-color": { "$type": "color", "$value": "{color.on-dark.title}" },
-        "font-shadow-color": { "$type": "color", "$value": "{color.outline}" }
+        "font-shadow-color": { "$type": "color", "$value": "{palette.clear}" }
       },
       "items": {
-        "$description": "The ink outline around the letters: a font shadow at no offset whose outline is the outline width (Godot draws shadow_outline_size outside the glyph edge).",
+        "$description": "No outline since ui-2.0.0 (the tiles carry the text): Godot's shadow outline at size 0.",
         "shadow-offset-x": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
         "shadow-offset-y": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
-        "shadow-outline-size": { "$type": "dimension", "$value": "{stroke.surface}" }
+        "shadow-outline-size": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } }
       }
     },
     "base": {
-      "$description": "The hard ink shadow under the title plate: its shape moved 8 px right and 8 px down.",
+      "$description": "The shadow layer under the title plate until ui-1.4.0; clear since ui-2.0.0.",
+      "$deprecated": "ui-2.0.0: the plain tile has no hard shadow; the game can drop it. Removed at the next major release.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyBaseTitle", "class": "Panel" },
@@ -38,7 +39,7 @@
         }
       },
       "panel": {
-        "bg-color": { "$type": "color", "$value": "{color.on-dark.base}" },
+        "bg-color": { "$type": "color", "$value": "{palette.clear}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.surface}" },
         "expand-margin-top": { "$type": "dimension", "$value": { "value": -2, "unit": "px" } },
         "expand-margin-right": { "$type": "dimension", "$value": { "value": 62, "unit": "px" } },
@@ -47,7 +48,7 @@
       }
     },
     "logo": {
-      "$description": "The logo: Kablammo (the cartoon face, on the logo only) in the alien green with a 6 px ink outline.",
+      "$description": "The logo: Unbounded in the accent, no outline.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyLogo", "class": "Label" },
@@ -56,54 +57,54 @@
       },
       "label": { "$type": "typography", "$value": "{type.logo}" },
       "normal": {
-        "font-color": { "$type": "color", "$value": "{color.on-dark.title}" },
-        "font-shadow-color": { "$type": "color", "$value": "{color.outline}" }
+        "font-color": { "$type": "color", "$value": "{palette.accent}" },
+        "font-shadow-color": { "$type": "color", "$value": "{palette.clear}" }
       },
       "items": {
-        "$description": "The ink outline around the letters: a font shadow at no offset whose outline is the outline width (Godot draws shadow_outline_size outside the glyph edge).",
+        "$description": "No outline since ui-2.0.0 (the tiles carry the text): Godot's shadow outline at size 0.",
         "shadow-offset-x": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
         "shadow-offset-y": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
-        "shadow-outline-size": { "$type": "dimension", "$value": "{stroke.surface}" }
+        "shadow-outline-size": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } }
       }
     },
     "hero": {
-      "$description": "A full-screen title with no plate (the alien role reveal, the aliens' won end): Kablammo, the logo's face, in the alien green at the hero size with the 6 px ink outline (type.hero-display since ui-1.3.0, Nunito Black until then; the engineer, 2026-10-21). It stands on ToyBackdropFullScreen, the soft ink, where its outline shows.",
+      "$description": "A loud title on its band (the role reveal, the aliens' win; the target's 84 to 92 px titles x 1.5): Unbounded Bold at the hero size 126 in the accent ink on ToyBand. The game writes the role words in capitals.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
-          "godot": { "variation": "ToyTitleHero", "class": "Label" },
+          "godot": { "variation": "ToyTitleHero", "class": "Label", "on": ["ToyBand"] },
           "context": "dark"
         }
       },
       "label": { "$type": "typography", "$value": "{type.hero-display}" },
       "normal": {
-        "font-color": { "$type": "color", "$value": "{color.on-dark.title}" },
-        "font-shadow-color": { "$type": "color", "$value": "{color.outline}" }
+        "font-color": { "$type": "color", "$value": "{color.on-accent.text}" },
+        "font-shadow-color": { "$type": "color", "$value": "{palette.clear}" }
       },
       "items": {
-        "$description": "The ink outline around the letters: a font shadow at no offset whose outline is the outline width (Godot draws shadow_outline_size outside the glyph edge).",
+        "$description": "No outline since ui-2.0.0 (the tiles carry the text): Godot's shadow outline at size 0.",
         "shadow-offset-x": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
         "shadow-offset-y": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
-        "shadow-outline-size": { "$type": "dimension", "$value": "{stroke.surface}" }
+        "shadow-outline-size": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } }
       }
     },
     "hero-alert": {
-      "$description": "A full-screen coral title (the human role reveal, the lost ends): as ToyTitleHero (Kablammo since ui-1.3.0) in the coral.",
+      "$description": "A loud title on the danger band or the cops' end: Unbounded Bold at the hero size in the danger ink.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
-          "godot": { "variation": "ToyTitleHeroAlert", "class": "Label" },
+          "godot": { "variation": "ToyTitleHeroAlert", "class": "Label", "on": ["ToyBandAlert", "ToyBackdropAlert"] },
           "context": "dark"
         }
       },
       "label": { "$type": "typography", "$value": "{type.hero-display}" },
       "normal": {
-        "font-color": { "$type": "color", "$value": "{color.status.alert}" },
-        "font-shadow-color": { "$type": "color", "$value": "{color.outline}" }
+        "font-color": { "$type": "color", "$value": "{color.on-danger.text}" },
+        "font-shadow-color": { "$type": "color", "$value": "{palette.clear}" }
       },
       "items": {
-        "$description": "The ink outline around the letters: a font shadow at no offset whose outline is the outline width (Godot draws shadow_outline_size outside the glyph edge).",
+        "$description": "No outline since ui-2.0.0 (the tiles carry the text): Godot's shadow outline at size 0.",
         "shadow-offset-x": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
         "shadow-offset-y": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
-        "shadow-outline-size": { "$type": "dimension", "$value": "{stroke.surface}" }
+        "shadow-outline-size": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } }
       }
     }
   }

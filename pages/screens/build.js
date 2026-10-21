@@ -119,7 +119,7 @@ const OUT_LAYOUT = 'pages/screens/screens-layout.css';
 const OUT_HANDOFF = 'docs/handoff'; // <screen file name>.md: each screen's handoff, generated
 const PACK = 'dist/pack/toy.pack.json';
 const TOKENS_CSS = 'dist/css/toy-tokens.css';
-const FONT_LINK = 'https://fonts.googleapis.com/css2?family=Kablammo&family=Nunito:wght@800;900&family=Rubik:wght@700&display=swap';
+const FONT_LINK = 'https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=Unbounded:wght@700&display=swap';
 const W = 1920;
 const H = 1080;
 const SCREENS = [

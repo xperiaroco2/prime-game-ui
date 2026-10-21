@@ -5,7 +5,7 @@
 The styled pre game screen from the UI track (xperiaroco2/prime-game-ui), as a Godot 4.7.2 node tree for the 1920×1080 reference.
 
 - **Source:** `pages/screens/src/s06-pre-game.json`; the review page is `pages/screens/screens.html#s6`; the wireframe is section `s6` («Pre game: показ ролі»).
-- **Theme:** the Toy pack ui-1.4.0 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
+- **Theme:** the Toy pack ui-2.0.0 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
 - **World behind the UI** (not UI): a lit room of the level.
 - **How to read it:** the roots are children of the screen's full-rect root `Control`; every property not listed keeps Godot's default; sizes and offsets are reference px. In a state's **Shown** list, the first node of each subtree gives its path from the screen root.
 - **Texts** are keys of `copy/strings.csv`, and the language switches live (the Esc menu's Settings). A plain key is set as `text` and translates itself. A key with placeholders, a plural key (`tr_n`) and a key drawn in pieces are set from code with `auto_translate_mode = DISABLED`: `tr()`, then `String.format()` with the data (the samples below), rebuilt on `NOTIFICATION_TRANSLATION_CHANGED`. A "text from data" (names, the room code, times, numbers) is set in code and never translated (`auto_translate_mode = DISABLED`).
@@ -23,24 +23,27 @@ The black intro of about 3 s in the silent pre game (#213): it shows when the ow
 ## Node tree in `alien`
 
 - **Night** `Panel` · variation `ToyBackdropFullScreen` · anchors `full_rect`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both
-  - Note: P2, opaque: the full screens' soft-ink ground since ui-1.3.0 (was ToyBackdropNight), where the Kablammo title's ink outline shows. In after it fades from alpha 1 to 0 over 0.4 s (modulate.a; a cut under reduced motion), then the whole screen is freed.
+  - Note: P2, opaque: the full screens' base ground (ui-2.0.0; ToyBackdropNight's colour, the soft ink until ui-1.4.0). In after it fades from alpha 1 to 0 over 0.4 s (modulate.a; a cut under reduced motion), then the whole screen is freed.
 - **V** `VBoxContainer` · variation `ToyColumnThirtyTwo` · anchors `center`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both · gaps from the variation: separation 32 · alignment `ALIGNMENT_CENTER`
   - Note: A centred column on the night, 32 px between its lines (the sketch's 20 x 1.5 = 30, the nearest step).
   - **YourRole** `Label` · variation `ToyTextOnDark` · text `pregame.your_role`: en "Your role" · uk "Твоя роль" · horizontal_alignment `CENTER`
-  - **Role** `Label` · variation `ToyTitleHero` · text `role.alien`: en "Alien" · uk "Прибулець" · horizontal_alignment `CENTER`
-    - Note: The own side at the hero size with the ink outline: ToyTitleHero (green) with role.alien, ToyTitleHeroAlert (coral) with role.human, so the side reads at a glance.
+  - **Band** `PanelContainer` · variation `ToyBand` · custom_minimum_size (1920, 285)
+    - Note: ui-2.0.0 (the target page pages/suit-final, frame 4): the loud band across the whole width, 285 px tall (190 x 1.5): the accent for an alien, the danger colour for a human.
+    - **Role** `Label` · variation `ToyTitleHero` · text `role.alien`: en "Alien" · uk "Прибулець" · horizontal_alignment `CENTER` · vertical_alignment `CENTER`
+      - Note: The own side in Unbounded at the hero size on the band: ToyTitleHero (the accent ink) with role.alien, ToyTitleHeroAlert (the danger ink) with role.human.
   - **Goal** `PanelContainer` · variation `ToyPlateGoal` · size flags horizontal `SIZE_SHRINK_CENTER` · custom_minimum_size (900, 0) = Vector2(get_theme_constant("width", "ToyPlateGoal"), 0)
-    - Note: The side's goal on the mint goal plate, 900 wide (the sketch's 600 x 1.5).
+    - Note: The side's goal as a plain line under the band (no plate since ui-2.0.0), 900 wide.
     - **Text** `Label` · variation `ToyPlateGoalText` · custom_minimum_size (802, 0) · text `role.goal.alien`: en "Throw the best party: finish every task before time runs out and the cops arrive." · uk "Влаштуй найкращу вечірку: виконай усі задачі, поки не скінчився час і не приїхали копи." · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
       - Note: role.goal.alien or role.goal.human. 802 = 900 less the plate's margins (39 + 39) and outlines (6 + 14).
 
 ## `human`: what differs from `alien`
 
-- **Changed** `V/Role`: variation `ToyTitleHeroAlert` · text `role.human`: en "Human" · uk "Людина" (was: variation `ToyTitleHero` · text `role.alien`: en "Alien" · uk "Прибулець")
+- **Changed** `V/Band`: variation `ToyBandAlert` (was: variation `ToyBand`)
+- **Changed** `V/Band/Role`: variation `ToyTitleHeroAlert` · text `role.human`: en "Human" · uk "Людина" (was: variation `ToyTitleHero` · text `role.alien`: en "Alien" · uk "Прибулець")
 - **Changed** `V/Goal/Text`: text `role.goal.human`: en "You're a human in an alien mask. Ruin the party: run out the clock or anger the neighbours until the cops come." · uk "Ти людина під маскою прибульця. Зіпсуй вечірку: протягни час або розлюти сусідів, щоб приїхали копи." (was: text `role.goal.alien`: en "Throw the best party: finish every task before time runs out and the cops arrive." · uk "Влаштуй найкращу вечірку: виконай усі задачі, поки не скінчився час і не приїхали копи.")
 - **Shown:**
   - **V/Team** `PanelContainer` · variation `ToyStickerAlert` · size flags horizontal `SIZE_SHRINK_CENTER`
-    - Note: A human's fellow humans on a coral sticker; hidden for an alien and for a human with no other human.
+    - Note: A human's fellow humans on a word tile with a danger outline; hidden for an alien and for a human with no other human.
     - **Text** `Label` · variation `ToyStickerTextLarge` · text `pregame.teammate` with sample {names} = "Zinga" / "Зінга": en "Your team: Zinga" · uk "Твоя команда: Зінга"
       - Note: The other humans' names joined with ", " (user text, auto_translate_mode DISABLED on the names).
 
@@ -57,51 +60,51 @@ The black intro of about 3 s in the silent pre game (#213): it shows when the ow
       - Note: As s7.
     - **Anger** `Control` · anchors `center_top`, offsets 0, 96, 0, 96 (left, top, right, bottom), grow both/end
       - Note: The neighbours' anger, meter A (decided 2026-10-20): a zero-size point at the top centre, 96 px down (the sketch's 64 x 1.5). The track centres on it, so the bar is exactly centred under the time; the siren hangs off its right end without moving that centre. No caption, no plate. It never says what raises the anger or where (open: whether it hints the type of problem, the audit's point 3).
-      - **Bar** `ProgressBar` · variation `ToyBarAngerCalm` · anchors `center_top`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/end · custom_minimum_size (225, 30) = Vector2(get_theme_constant("width", "ToyBarAngerCalm"), get_theme_constant("height", "ToyBarAngerCalm")) · value 0 of max_value 1, show_percentage false
+      - **Bar** `ProgressBar` · variation `ToyBarAngerCalm` · anchors `center_top`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/end · custom_minimum_size (240, 16) = Vector2(get_theme_constant("width", "ToyBarAngerCalm"), get_theme_constant("height", "ToyBarAngerCalm")) · value 0 of max_value 1, show_percentage false
         - Note: As s7: one ProgressBar, ToyBarAngerCalm, ToyBarAngerAlarm over 0.7.
       - **Siren** `TextureRect` · anchors `top_left`, offsets 122, -14, 179, 43 (left, top, right, bottom), grow end/end · custom_minimum_size (57, 57) · texture `siren-off` (dist/pack/icons/siren-off.svg, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · not tinted (drawn in its own colours)
         - Note: The siren, 57 px (the sketch's 38 x 1.5), 9 px right of the track's end (112.5 + 9, rounded up) and centred on its height: icons/siren-off.svg while the anger is calm (not rising), icons/siren-on.svg while it rises and when full. Never tinted.
-    - **Roster** `PanelContainer` · variation `ToyRoster` · anchors `top_right`, offsets -39, 39, -39, 39 (left, top, right, bottom), grow begin/end · custom_minimum_size (285, 0) = Vector2(get_theme_constant("min_width", "ToyRoster"), 0)
+    - **Roster** `PanelContainer` · variation `ToyRoster` · anchors `top_right`, offsets -39, 39, -39, 39 (left, top, right, bottom), grow begin/end · custom_minimum_size (276, 0) = Vector2(get_theme_constant("min_width", "ToyRoster"), 0)
       - Note: Every player of the round with the body colour (decided 2026-10-20), 39 px in at the top right; at least 285 wide (the sketch's 190 x 1.5), growing to its longest row. The rows are built from the player list in the session's order with the own row first; a row updates when a player dies, comes back or leaves. Names are data and are not cut. Open: whether the dead show here (the page shows them dimmed with a mark).
       - **Rows** `VBoxContainer` · variation `ToyColumnEight` · gaps from the variation: separation 8
         - **Row1** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
           - Note: As s7.
-          - **Dot** `Panel` · variation `ToyRosterDot` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (24, 24) = Vector2(get_theme_constant("width", "ToyRosterDot"), get_theme_constant("height", "ToyRosterDot")) · self_modulate from data (a content colour, not a theme colour), sample #7C5CC8
+          - **Dot** `Panel` · variation `ToyRosterDot` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (15, 15) = Vector2(get_theme_constant("width", "ToyRosterDot"), get_theme_constant("height", "ToyRosterDot")) · self_modulate from data (a content colour, not a theme colour), sample #7C5CC8
           - **Name** `Label` · variation `ToyRosterNameSelf` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text `hud.roster.self` with sample {name} = "Olena" / "Олена": en "Olena (you)" · uk "Олена (ти)"
         - **Row2** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
-          - **Dot** `Panel` · variation `ToyRosterDot` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (24, 24) = Vector2(get_theme_constant("width", "ToyRosterDot"), get_theme_constant("height", "ToyRosterDot")) · self_modulate from data (a content colour, not a theme colour), sample #1C7A82
+          - **Dot** `Panel` · variation `ToyRosterDot` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (15, 15) = Vector2(get_theme_constant("width", "ToyRosterDot"), get_theme_constant("height", "ToyRosterDot")) · self_modulate from data (a content colour, not a theme colour), sample #1C7A82
           - **Name** `Label` · variation `ToyRosterName` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text from data (auto_translate_mode = DISABLED), sample: "Glorp" / "Глорп"
         - **Row3** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
-          - **Dot** `Panel` · variation `ToyRosterDot` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (24, 24) = Vector2(get_theme_constant("width", "ToyRosterDot"), get_theme_constant("height", "ToyRosterDot")) · self_modulate from data (a content colour, not a theme colour), sample #E66B57
+          - **Dot** `Panel` · variation `ToyRosterDot` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (15, 15) = Vector2(get_theme_constant("width", "ToyRosterDot"), get_theme_constant("height", "ToyRosterDot")) · self_modulate from data (a content colour, not a theme colour), sample #E66B57
           - **Name** `Label` · variation `ToyRosterName` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text from data (auto_translate_mode = DISABLED), sample: "Yizhak" / "Їжак"
         - **Row4** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
-          - **Dot** `Panel` · variation `ToyRosterDot` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (24, 24) = Vector2(get_theme_constant("width", "ToyRosterDot"), get_theme_constant("height", "ToyRosterDot")) · self_modulate from data (a content colour, not a theme colour), sample #E8B04A
+          - **Dot** `Panel` · variation `ToyRosterDot` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (15, 15) = Vector2(get_theme_constant("width", "ToyRosterDot"), get_theme_constant("height", "ToyRosterDot")) · self_modulate from data (a content colour, not a theme colour), sample #E8B04A
           - **Name** `Label` · variation `ToyRosterName` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text from data (auto_translate_mode = DISABLED), sample: "Bulk" / "Бульк"
         - **Row5** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
-          - **Dot** `Panel` · variation `ToyRosterDot` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (24, 24) = Vector2(get_theme_constant("width", "ToyRosterDot"), get_theme_constant("height", "ToyRosterDot")) · self_modulate from data (a content colour, not a theme colour), sample #4AA3DF
+          - **Dot** `Panel` · variation `ToyRosterDot` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (15, 15) = Vector2(get_theme_constant("width", "ToyRosterDot"), get_theme_constant("height", "ToyRosterDot")) · self_modulate from data (a content colour, not a theme colour), sample #4AA3DF
           - **Name** `Label` · variation `ToyRosterName` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text from data (auto_translate_mode = DISABLED), sample: "Zinga" / "Зінга"
         - **Row6** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
-          - **Dot** `Panel` · variation `ToyRosterDot` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (24, 24) = Vector2(get_theme_constant("width", "ToyRosterDot"), get_theme_constant("height", "ToyRosterDot")) · self_modulate from data (a content colour, not a theme colour), sample #D46FB0
+          - **Dot** `Panel` · variation `ToyRosterDot` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (15, 15) = Vector2(get_theme_constant("width", "ToyRosterDot"), get_theme_constant("height", "ToyRosterDot")) · self_modulate from data (a content colour, not a theme colour), sample #D46FB0
           - **Name** `Label` · variation `ToyRosterName` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text from data (auto_translate_mode = DISABLED), sample: "Taras" / "Тарас"
     - **Cross** `Panel` · variation `ToyCrosshair` · anchors `center`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both · custom_minimum_size (12, 12) = Vector2(get_theme_constant("width", "ToyCrosshair"), get_theme_constant("height", "ToyCrosshair"))
       - Note: The crosshair dot, centred on the screen (its size is the variation's).
     - **Vitals** `HBoxContainer` · variation `ToyRowTwentyFour` · anchors `bottom_left`, offsets 39, -39, 39, -39 (left, top, right, bottom), grow end/begin · gaps from the variation: separation 24
       - **Bars** `VBoxContainer` · variation `ToyColumnTwelve` · size flags vertical `SIZE_SHRINK_END` · gaps from the variation: separation 12
-        - **Health** `ProgressBar` · variation `ToyBarHealthCalm` · custom_minimum_size (300, 24) = Vector2(300, get_theme_constant("height", "ToyBarHealthCalm")) · value 1 of max_value 1, show_percentage false
+        - **Health** `ProgressBar` · variation `ToyBarHealthCalm` · custom_minimum_size (300, 24) = Vector2(300, 24) · value 1 of max_value 1, show_percentage false
           - Note: As s7.
-        - **Stamina** `ProgressBar` · variation `ToyBarStaminaCalm` · custom_minimum_size (300, 24) = Vector2(300, get_theme_constant("height", "ToyBarStaminaCalm")) · value 1 of max_value 1, show_percentage false
+        - **Stamina** `ProgressBar` · variation `ToyBarStaminaCalm` · custom_minimum_size (300, 24) = Vector2(300, 24) · value 1 of max_value 1, show_percentage false
           - Note: As s7.
       - **Mic** `PanelContainer` · variation `ToyMic` · size flags vertical `SIZE_SHRINK_END` · custom_minimum_size (75, 75) = Vector2(get_theme_constant("width", "ToyMic"), get_theme_constant("height", "ToyMic"))
         - **Icon** `TextureRect` · size flags horizontal `SIZE_SHRINK_CENTER`, vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (42, 42) · texture `mic` (dist/pack/icons/mic.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("icon_on", "ToyMic")
     - **Slots** `HBoxContainer` · variation `ToyRowSixteen` · anchors `bottom_right`, offsets -39, -51, -39, -51 (left, top, right, bottom), grow begin/begin · gaps from the variation: separation 16
       - Note: As s7: both slots empty.
       - **Hand** `Control` · size flags vertical `SIZE_SHRINK_END` · custom_minimum_size (150, 150)
-        - **Face** `PanelContainer` · variation `ToySlotHand` · anchors `full_rect`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both · custom_minimum_size (150, 150) = Vector2(get_theme_constant("width", "ToySlotHand"), get_theme_constant("height", "ToySlotHand"))
-          - **Picture** `TextureRect` · custom_minimum_size (111, 111) · texture `slot-empty-hand` (dist/pack/icons/slot-empty-hand.svg, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · not tinted (drawn in its own colours)
+        - **Face** `PanelContainer` · variation `ToySlotHand` · anchors `full_rect`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both · custom_minimum_size (117, 132) = Vector2(get_theme_constant("width", "ToySlotHand"), get_theme_constant("height", "ToySlotHand"))
+          - **Picture** `TextureRect` · custom_minimum_size (111, 111) · texture `slot-empty-hand` (dist/pack/icons/slot-empty-hand.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyTextOnDark")
             - Note: The carried item's pack icon (icons/item-*.svg) at 111 px, else icons/slot-empty-hand.svg; never tinted.
       - **Belt** `Control` · size flags vertical `SIZE_SHRINK_END` · custom_minimum_size (126, 126)
-        - **Face** `PanelContainer` · variation `ToySlotBelt` · anchors `full_rect`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both · custom_minimum_size (126, 126) = Vector2(get_theme_constant("width", "ToySlotBelt"), get_theme_constant("height", "ToySlotBelt"))
-          - **Picture** `TextureRect` · custom_minimum_size (90, 90) · texture `slot-empty-belt` (dist/pack/icons/slot-empty-belt.svg, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · not tinted (drawn in its own colours)
+        - **Face** `PanelContainer` · variation `ToySlotBelt` · anchors `full_rect`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both · custom_minimum_size (117, 132) = Vector2(get_theme_constant("width", "ToySlotBelt"), get_theme_constant("height", "ToySlotBelt"))
+          - **Picture** `TextureRect` · custom_minimum_size (90, 90) · texture `slot-empty-belt` (dist/pack/icons/slot-empty-belt.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyTextOnDark")
             - Note: icons/item-*.svg at 90 px, else icons/slot-empty-belt.svg; never tinted.
 
 ## Notes

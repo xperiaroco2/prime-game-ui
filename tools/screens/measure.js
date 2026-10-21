@@ -27,12 +27,12 @@
 //   `(${measure})(${JSON.stringify(opts)}, ${fontState})`, `(${frameList})(${fontState})`.
 "use strict";
 
-// The sticker's web fonts (Nunito for text, Rubik for numbers, Kablammo for the logo) must be the faces the texts
+// The web fonts (Onest for text and numbers, Unbounded for the display face, ui-2.0.0) must be the faces the texts
 // were laid out with. document.fonts.check() alone is true when the page has no face of a family at all (nothing to
-// load), so the faces are counted too: the text family Nunito must have a loaded face, and every shown text whose own
-// first family is one of the three must have that family's faces and pass check() with its weight and its text.
+// load), so the faces are counted too: the text family Onest must have a loaded face, and every shown text whose own
+// first family is one of the two must have that family's faces and pass check() with its weight and its text.
 function fontState() {
-  var FAMILIES = ["nunito", "rubik", "kablammo"];
+  var FAMILIES = ["onest", "unbounded"];
   var fam = {};
   FAMILIES.forEach(function (n) { fam[n] = { faces: 0, loaded: 0 }; });
   document.fonts.forEach(function (f) {
@@ -51,7 +51,7 @@ function fontState() {
     var font = cs.fontWeight + " 32px " + first;
     if (!fam[n].faces || !document.fonts.check(font, el.textContent)) missing.push(font + ": " + el.textContent.trim().slice(0, 24));
   });
-  return { ok: fam.nunito.loaded > 0 && missing.length === 0, families: fam, shown: shown, missing: missing.slice(0, 6),
+  return { ok: fam.onest.loaded > 0 && missing.length === 0, families: fam, shown: shown, missing: missing.slice(0, 6),
     missingCount: missing.length, status: document.fonts.status };
 }
 

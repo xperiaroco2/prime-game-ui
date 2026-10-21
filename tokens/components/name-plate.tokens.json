@@ -3,7 +3,7 @@
   "name-plate": {
     "$description": "Name plates over players.",
     "plate": {
-      "$description": "A name plate: a purple sticker pill, 6 px ink outline. The hard shadow is the edge form: the right and bottom outlines are 14 px (6 + 8) and reach 8 px outside the pill.",
+      "$description": "A name over a player's head (the target's world plates): no plate, the name alone with a dark halo.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyNamePlate", "class": "PanelContainer" },
@@ -11,21 +11,13 @@
         }
       },
       "panel": {
-        "bg-color": { "$type": "color", "$value": "{color.surface.plate}" },
-        "border-color": { "$type": "color", "$value": "{color.outline}" },
-        "border-width-top": { "$type": "dimension", "$value": "{stroke.control}" },
-        "border-width-right": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } },
-        "border-width-bottom": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } },
-        "border-width-left": { "$type": "dimension", "$value": "{stroke.control}" },
-        "corner-radius": { "$type": "dimension", "$value": "{radius.pill}" },
+        "bg-color": { "$type": "color", "$value": "{palette.clear}" },
         "content-margin-block": { "$type": "dimension", "$value": { "value": 10, "unit": "px" } },
-        "content-margin-inline": { "$type": "dimension", "$value": { "value": 24, "unit": "px" } },
-        "expand-margin-right": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } },
-        "expand-margin-bottom": { "$type": "dimension", "$value": { "value": 8, "unit": "px" } }
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 24, "unit": "px" } }
       }
     },
     "text": {
-      "$description": "The name on a name plate: mint (also the teammate mark's tint).",
+      "$description": "The name over a head: light text with a 6 px shade halo (the target's 4 px x 1.5), Godot's shadow outline at offset 0.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyNamePlateText", "class": "Label", "on": ["ToyNamePlate"] },
@@ -34,7 +26,13 @@
       },
       "label": { "$type": "typography", "$value": "{type.small-bold}" },
       "normal": {
-        "font-color": { "$type": "color", "$value": "{color.on-dark.text}" }
+        "font-color": { "$type": "color", "$value": "{color.on-dark.text}" },
+        "font-shadow-color": { "$type": "color", "$value": "{palette.shade}" }
+      },
+      "items": {
+        "shadow-offset-x": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "shadow-offset-y": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "shadow-outline-size": { "$type": "dimension", "$value": "{stroke.halo}" }
       }
     }
   }

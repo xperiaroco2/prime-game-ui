@@ -5,7 +5,7 @@
 The styled main menu screen from the UI track (xperiaroco2/prime-game-ui), as a Godot 4.7.2 node tree for the 1920×1080 reference.
 
 - **Source:** `pages/screens/src/s02-main-menu.json`; the review page is `pages/screens/screens.html#s2`; the wireframe is section `s2` («Головне меню»).
-- **Theme:** the Toy pack ui-1.4.0 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
+- **Theme:** the Toy pack ui-2.0.0 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
 - **World behind the UI** (not UI): the lobby room seen behind the main menu.
 - **How to read it:** the roots are children of the screen's full-rect root `Control`; every property not listed keeps Godot's default; sizes and offsets are reference px. In a state's **Shown** list, the first node of each subtree gives its path from the screen root.
 - **Texts** are keys of `copy/strings.csv`, and the language switches live (the Esc menu's Settings). A plain key is set as `text` and translates itself. A key with placeholders, a plural key (`tr_n`) and a key drawn in pieces are set from code with `auto_translate_mode = DISABLED`: `tr()`, then `String.format()` with the data (the samples below), rebuilt on `NOTIFICATION_TRANSLATION_CHANGED`. A "text from data" (names, the room code, times, numbers) is set in code and never translated (`auto_translate_mode = DISABLED`).
@@ -38,17 +38,17 @@ The live lobby stays behind a dim backdrop with an idle camera. There is no serv
     - Note: The items, then the open panel (if any) to their right, its top on Host's top.
     - **Items** `VBoxContainer` · variation `ToyColumnSixteen` · size flags vertical `SIZE_SHRINK_BEGIN` · custom_minimum_size (600, 0) · gaps from the variation: separation 16
       - Note: Up and down move the focus through the items; the focused, hovered or pressed item shows its pointer icon.
-      - **Host** `Button` · variation `ToyMenuItem` (raised: ToyRaised with base `ToyBaseRaisedOnDark`, ToyPress; UiParts.button()) · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper · text `menu.host`: en "Host a game" · uk "Створити гру" · icon `pointer` (dist/pack/icons/pointer.svg, own work) at 36 px, tinted by `ToyMenuItem`'s icon_*_color · alignment `LEFT` · shown with keyboard focus (grab_focus)
+      - **Host** `Button` · variation `ToyMenuItem` · text `menu.host`: en "Host a game" · uk "Створити гру" · icon `pointer` (dist/pack/icons/pointer.svg, own work) at 36 px, tinted by `ToyMenuItem`'s icon_*_color · alignment `LEFT` · shown with keyboard focus (grab_focus)
         - Note: Focus on open. Hosts a game with a code (WebRTC) and goes straight to the lobby (s4); a failure shows s3 host-failed.
-      - **Join** `Button` · variation `ToyMenuItem` (raised: ToyRaised with base `ToyBaseRaisedOnDark`, ToyPress; UiParts.button()) · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper · text `menu.join`: en "Join" · uk "Приєднатися" · icon `pointer` (dist/pack/icons/pointer.svg, own work) at 36 px, tinted by `ToyMenuItem`'s icon_*_color · alignment `LEFT` · toggle_mode true, button_pressed false
+      - **Join** `Button` · variation `ToyMenuItem` · text `menu.join`: en "Join" · uk "Приєднатися" · icon `pointer` (dist/pack/icons/pointer.svg, own work) at 36 px, tinted by `ToyMenuItem`'s icon_*_color · alignment `LEFT` · toggle_mode true, button_pressed false
         - Note: In the menu ButtonGroup; button_pressed while CodePanel is open (ToyMenuItem's own pressed StyleBox and pointer). Toggles CodePanel.
-      - **Direct** `Button` · variation `ToyMenuItem` (raised: ToyRaised with base `ToyBaseRaisedOnDark`, ToyPress; UiParts.button()) · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper · text `menu.direct`: en "Join by address" · uk "Приєднатися за адресою" · icon `pointer` (dist/pack/icons/pointer.svg, own work) at 36 px, tinted by `ToyMenuItem`'s icon_*_color · alignment `LEFT` · toggle_mode true, button_pressed false
+      - **Direct** `Button` · variation `ToyMenuItem` · text `menu.direct`: en "Join by address" · uk "Приєднатися за адресою" · icon `pointer` (dist/pack/icons/pointer.svg, own work) at 36 px, tinted by `ToyMenuItem`'s icon_*_color · alignment `LEFT` · toggle_mode true, button_pressed false
         - Note: In the menu ButtonGroup; button_pressed while DirectPanel is open (its own pressed StyleBox). Toggles DirectPanel.
-      - **Tutorial** `Button` · variation `ToyMenuItem` (raised: ToyRaised with base `ToyBaseRaisedOnDark`, ToyPress; UiParts.button()) · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper · text `menu.tutorial`: en "Tutorial" · uk "Навчання" · icon `pointer` (dist/pack/icons/pointer.svg, own work) at 36 px, tinted by `ToyMenuItem`'s icon_*_color · alignment `LEFT`
+      - **Tutorial** `Button` · variation `ToyMenuItem` · text `menu.tutorial`: en "Tutorial" · uk "Навчання" · icon `pointer` (dist/pack/icons/pointer.svg, own work) at 36 px, tinted by `ToyMenuItem`'s icon_*_color · alignment `LEFT`
         - Note: Loads the tutorial's first lesson (s1).
-      - **Settings** `Button` · variation `ToyMenuItem` (raised: ToyRaised with base `ToyBaseRaisedOnDark`, ToyPress; UiParts.button()) · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper · text `menu.settings`: en "Settings" · uk "Налаштування" · icon `pointer` (dist/pack/icons/pointer.svg, own work) at 36 px, tinted by `ToyMenuItem`'s icon_*_color · alignment `LEFT` · toggle_mode true, button_pressed false
+      - **Settings** `Button` · variation `ToyMenuItem` · text `menu.settings`: en "Settings" · uk "Налаштування" · icon `pointer` (dist/pack/icons/pointer.svg, own work) at 36 px, tinted by `ToyMenuItem`'s icon_*_color · alignment `LEFT` · toggle_mode true, button_pressed false
         - Note: In the menu ButtonGroup; button_pressed while SettingsPanel is open (its own pressed StyleBox). Toggles SettingsPanel.
-      - **Quit** `Button` · variation `ToyMenuItem` (raised: ToyRaised with base `ToyBaseRaisedOnDark`, ToyPress; UiParts.button()) · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper · text `menu.quit`: en "Quit" · uk "Вийти" · icon `pointer` (dist/pack/icons/pointer.svg, own work) at 36 px, tinted by `ToyMenuItem`'s icon_*_color · alignment `LEFT`
+      - **Quit** `Button` · variation `ToyMenuItem` · text `menu.quit`: en "Quit" · uk "Вийти" · icon `pointer` (dist/pack/icons/pointer.svg, own work) at 36 px, tinted by `ToyMenuItem`'s icon_*_color · alignment `LEFT`
         - Note: Quits the game at once.
 - **Version** `Label` · variation `ToyTextMutedOnDark` · anchors `bottom_right`, offsets -39, -39, -39, -39 (left, top, right, bottom), grow begin/begin · text `menu.version` with sample {version} = "0.4": en "Version 0.4" · uk "Версія 0.4"
   - Note: The build's version (ProjectSettings application/config/version).
@@ -60,7 +60,7 @@ The live lobby stays behind a dim backdrop with an idle camera. There is no serv
 - **Shown:**
   - **Column/Body/Gap** `Control` · custom_minimum_size (64, 0)
     - Note: An empty spacer: 32 + 64 + 32 px between the items and the open panel. Shown with any panel.
-  - **Column/Body/CodePanel** `PanelContainer` · variation `ToyPanelMenu` (raised: ToyRaised with base `ToyBasePanel`) · size flags vertical `SIZE_SHRINK_BEGIN` · custom_minimum_size (784, 0) · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper
+  - **Column/Body/CodePanel** `PanelContainer` · variation `ToyPanelMenu` · size flags vertical `SIZE_SHRINK_BEGIN` · custom_minimum_size (784, 0)
     - Note: Join with a code. Shown while Join is pressed. As wide as DirectPanel, so the two panels never differ; 784 px holds the field and the buttons at large text.
     - **V** `VBoxContainer` · variation `ToyColumnTwentyFour` · gaps from the variation: separation 24
       - **Field** `VBoxContainer` · variation `ToyColumnTwelve` · gaps from the variation: separation 12
@@ -80,7 +80,7 @@ The live lobby stays behind a dim backdrop with an idle camera. There is no serv
 - **Shown:**
   - **Column/Body/Gap** `Control` · custom_minimum_size (64, 0)
     - Note: An empty spacer: 32 + 64 + 32 px between the items and the open panel. Shown with any panel.
-  - **Column/Body/CodePanel** `PanelContainer` · variation `ToyPanelMenu` (raised: ToyRaised with base `ToyBasePanel`) · size flags vertical `SIZE_SHRINK_BEGIN` · custom_minimum_size (784, 0) · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper
+  - **Column/Body/CodePanel** `PanelContainer` · variation `ToyPanelMenu` · size flags vertical `SIZE_SHRINK_BEGIN` · custom_minimum_size (784, 0)
     - Note: Join with a code. Shown while Join is pressed. As wide as DirectPanel, so the two panels never differ; 784 px holds the field and the buttons at large text.
     - **V** `VBoxContainer` · variation `ToyColumnTwentyFour` · gaps from the variation: separation 24
       - **Field** `VBoxContainer` · variation `ToyColumnTwelve` · gaps from the variation: separation 12
@@ -100,7 +100,7 @@ The live lobby stays behind a dim backdrop with an idle camera. There is no serv
 - **Shown:**
   - **Column/Body/Gap** `Control` · custom_minimum_size (64, 0)
     - Note: An empty spacer: 32 + 64 + 32 px between the items and the open panel. Shown with any panel.
-  - **Column/Body/DirectPanel** `PanelContainer` · variation `ToyPanelMenu` (raised: ToyRaised with base `ToyBasePanel`) · size flags vertical `SIZE_SHRINK_BEGIN` · custom_minimum_size (784, 0) · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper
+  - **Column/Body/DirectPanel** `PanelContainer` · variation `ToyPanelMenu` · size flags vertical `SIZE_SHRINK_BEGIN` · custom_minimum_size (784, 0)
     - Note: Join or host directly over ENet (LAN, VPN, playit.gg). Shown while Direct is pressed. No address is shown anywhere else (streams).
     - **V** `VBoxContainer` · variation `ToyColumnTwentyFour` · gaps from the variation: separation 24
       - **Field** `VBoxContainer` · variation `ToyColumnTwelve` · gaps from the variation: separation 12
@@ -112,7 +112,7 @@ The live lobby stays behind a dim backdrop with an idle camera. There is no serv
       - **Buttons** `HBoxContainer` · variation `ToyRowTwentyFour` · gaps from the variation: separation 24
         - **Join** `Button` · variation `ToyButtonPrimary` · size flags horizontal `SIZE_EXPAND_FILL` · text `join.connect`: en "Join" · uk "Приєднатися"
           - Note: Disabled (unplugged) while Address is empty. Joins over ENet: s3 (the connecting steps, no code row).
-        - **Host** `Button` · variation `ToyButtonSecondary` (raised: ToyRaised with base `ToyBaseRaisedOnLight`, ToyPress; UiParts.button()) · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper · text `menu.host`: en "Host a game" · uk "Створити гру"
+        - **Host** `Button` · variation `ToyButtonSecondary` · text `menu.host`: en "Host a game" · uk "Створити гру"
           - Note: Hosts directly (ENet) on the port typed, else the default, and opens the lobby (s4) with no code row.
         - **Back** `Button` · variation `ToyButtonGhostOnLight` · text `common.back`: en "Back" · uk "Назад"
           - Note: Closes the panel and unpresses Direct; Esc does the same.
@@ -122,7 +122,7 @@ The live lobby stays behind a dim backdrop with an idle camera. There is no serv
 - **Changed** `Column/Body/Items/Host`: no longer shown with keyboard focus (grab_focus)
 - **Changed** `Column/Body/Items/Settings`: toggle_mode true, button_pressed true (its own `pressed` StyleBox; the variation has no toggle partner) (was: toggle_mode true, button_pressed false)
 - **Shown:**
-  - **SettingsPanel** `PanelContainer` · variation `ToyPanelMenu` (raised: ToyRaised with base `ToyBasePanel`) · anchors `top_left`, offsets 812, 90, 1881, 990 (left, top, right, bottom), grow end/end · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper
+  - **SettingsPanel** `PanelContainer` · variation `ToyPanelMenu` · anchors `top_left`, offsets 812, 90, 1881, 990 (left, top, right, bottom), grow end/end
     - Note: Shown while Settings is pressed. A root of its own (too tall for Body): its left edge on the code and Direct panels' left edge (812), its right edge 39 px in (the HUD edge), 900 tall and centred vertically; raised on its ToyRaised wrapper. It holds the Esc menu's Settings scene (s5/Menu/H/Page/Settings), one scene that both menus instance (#301): the mic, the mode, the threshold with its live meter, noise suppression and the volumes work without a session; nothing is sent. Focus goes to Settings/Sub/Sound when it opens; Settings again or Esc (ui_cancel) closes it and gives the focus back to Items/Settings.
     - **Settings** `VBoxContainer` · variation `ToyColumnTwentyFour` · gaps from the variation: separation 24
       - Note: The s5 Settings scene (s5/Menu/H/Page/Settings), instanced here on its Sound and voice page; its nodes, notes and other pages are s5's. Build it once, in s5.
@@ -176,7 +176,6 @@ The live lobby stays behind a dim backdrop with an idle camera. There is no serv
 ## Notes
 
 - The review page emulates Godot's containers with CSS grid (expanding children share the free space by stretch ratio, never below their minimum size), so a pixel or two may differ from Godot.
-- A raised variation is built as the tokens spec (§6) says: a `ToyRaised` MarginContainer holding first the base `Panel` (the base named above, chosen by the context it sits in), then the face. The wrapper is the node in its parent: anchors, offsets, grow, size flags, stretch ratio, custom_minimum_size and visibility belong to the wrapper; the variation, the text, toggle_mode, disabled, focus and the signals belong to the face. Hide or show the wrapper, not the face.
 - Icons: the tinted ones are white SVGs in `dist/pack/icons/` (the pack's copy of `pages/components/icons`, currentColor written as white): a TextureRect tints one with the `self_modulate` its line gives (the colour the page draws it in), a Button with its variation's `icon_*_color`, an OptionButton its arrow with `modulate_arrow`. The room pictograms are white copies too (`dist/pack/icons/room/`), drawn in ink: their lines give the `self_modulate`. The pack's `assets` list every icon with its tint and `svg_scale`.
 - SVG import: Godot rasterises an SVG at import, so import each at `svg/scale` = the largest size it is drawn ÷ its viewBox (the largest over every screen that draws it, as the pack's `assets` give it): `chevron-down` 1 (24 px), `pointer` 1.5 (36 px), `radio-checked` 1 (24 px), `radio-checked-disabled` 1 (24 px), `radio-unchecked` 1 (24 px), `slider-knob` 1 (42 px), `slider-knob-disabled` 1 (42 px).
 - An OptionButton's open list is its `get_popup()`, a PopupMenu in a window of its own: set its `theme_type_variation` to `ToyDropdownList` in code when the scene is ready (a cream list with the dropdown's ink outline, a lavender hovered or keyboard-focused row). The selected item shows the theme icon `radio_checked` (`dist/pack/icons/radio-checked.svg`, `radio_checked_disabled` `dist/pack/icons/radio-checked-disabled.svg`); the others `radio_unchecked` and `radio_unchecked_disabled` (`dist/pack/icons/radio-unchecked.svg`, empty, so every label starts at the same x). PopupMenu does not tint these icons, so they are drawn in their own colours (not white; the pack names them in the variation's `textures`). Its rounded corners need the default embedded subwindows (`display/window/subwindows/embed_subwindows` true).

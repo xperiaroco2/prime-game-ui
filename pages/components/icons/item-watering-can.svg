@@ -1,10 +1,8 @@
 <!-- own work, prime-game-ui, licence: own work -->
 <!-- Item icon "watering-can": the round-3 line icon pages/glow-bars/icons/line-watering-can.svg
-     in colouring 3 (the engineer's choice of 2026-10-21), baked with literal colours for Godot: ink line and accent #1E1230,
-     one flat fill #93A8B2 under the line; 4-unit line, round caps and joins; the source transform translate(-2 1) as one matrix. -->
+     drawn since ui-2.0.0 as the line alone in currentColor (the plain tile's line icons; the game tints the white copy): 4-unit line, round caps and joins; the source transform translate(-2 1) as one matrix. -->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true">
 <g transform="matrix(1 0 0 1 -2 1)">
-<g fill="#93A8B2" stroke="none"><path d="M12 30Q12 27 15 27H35Q38 27 38 30V51Q38 55 34 55H16Q12 55 12 51Z"/></g>
-<g fill="none" stroke="#1E1230" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 30Q12 27 15 27H35Q38 27 38 30V51Q38 55 34 55H16Q12 55 12 51Z"/><path d="M12 32C3 32 3 48 12 48"/><path d="M18 27V22H26V27"/><path d="M38 48L53 22"/><path d="M51.3 21L54.7 23L62.6 19.4L50.4 12.4Z"/><path d="M58 27v3"/><path d="M62 30.5v3"/><path d="M57.5 34v3"/></g>
+<g fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 30Q12 27 15 27H35Q38 27 38 30V51Q38 55 34 55H16Q12 55 12 51Z"/><path d="M12 32C3 32 3 48 12 48"/><path d="M18 27V22H26V27"/><path d="M38 48L53 22"/><path d="M51.3 21L54.7 23L62.6 19.4L50.4 12.4Z"/><path d="M58 27v3"/><path d="M62 30.5v3"/><path d="M57.5 34v3"/></g>
 </g>
 </svg>

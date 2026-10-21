@@ -1,0 +1,25 @@
+{
+  "Onest-VariableFont_wght.ttf": {
+    "licence": "OFL-1.1",
+    "author": "The Onest Project Authors (https://github.com/simpals/onest)",
+    "what": "Onest, the plain tile's text and numbers (Medium 500, Bold 700): a variable font, wght 100 to 900, Latin and Cyrillic (METADATA.pb subsets cyrillic, cyrillic-ext, latin, latin-ext); unmodified, renamed from Onest[wght].ttf",
+    "licence_text": "OFL.txt",
+    "upstream": "https://github.com/google/fonts/blob/45e3d5269e4a17d823f6d84470bc084dc5ae46f6/ofl/onest/Onest%5Bwght%5D.ttf",
+    "download": "https://raw.githubusercontent.com/google/fonts/45e3d5269e4a17d823f6d84470bc084dc5ae46f6/ofl/onest/Onest%5Bwght%5D.ttf",
+    "upstream_git_blob": "477cb31027450d80e486a53119641bf87dde3d4c",
+    "bytes": 193056,
+    "family": "Onest",
+    "axes": { "wght": [100, 900] },
+    "metrics": { "ascender": 970, "descender": 305, "unitsPerEm": 1000, "source": "(unconfirmed) @capsizecss/metrics 4.4.0, entireMetricsCollection/onest (hhea, line gap 0); the build reads the file's own metrics once it is here and refuses (B04) any difference" },
+    "approved": "pending: the engineer's yes to the download (ui-2.0.0)"
+  },
+  "OFL.txt": {
+    "licence": "OFL-1.1",
+    "author": "The Onest Project Authors (https://github.com/simpals/onest)",
+    "what": "the SIL Open Font License 1.1 text that ships with Onest, byte for byte",
+    "upstream": "https://github.com/google/fonts/blob/45e3d5269e4a17d823f6d84470bc084dc5ae46f6/ofl/onest/OFL.txt",
+    "download": "https://raw.githubusercontent.com/google/fonts/45e3d5269e4a17d823f6d84470bc084dc5ae46f6/ofl/onest/OFL.txt",
+    "upstream_git_blob": "b6f4f91487900bb8f00ae991724121f1d59e30d9",
+    "bytes": 4384
+  }
+}
