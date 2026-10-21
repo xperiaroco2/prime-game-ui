@@ -229,7 +229,8 @@ function compute(pack, gates) {
         const ring = layer("ring", `${f}.border-color`);
         if (ring && ring.c[3] > 0 && widths.some(w => w > 0)) {
           const outer = SIDES.some(s => ((T[`${f}.expand-margin-${s}`] || {}).px || 0) > 0);
-          if (outer) for (const st of contextStacks(v.context, vname)) autoEval(`auto:${vname}:focus`, ring, st, "ui");
+          // an outer ring stands on the button's surface: its `on` variations where it names them (ui-1.4.0), else its context
+          if (outer) for (const st of (v.on && v.on.length ? onStacks(vname) : contextStacks(v.context, vname))) autoEval(`auto:${vname}:focus`, ring, st, "ui");
           else for (const s of isButton ? BUTTON_STATES : LINE_EDIT_STATES) if (boxes.includes(s)) {
             for (const st of faceStacks(vname, s, "face")) autoEval(`auto:${vname}:focus-on-${s}`, ring, st, "ui");
           }

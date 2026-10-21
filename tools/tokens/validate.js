@@ -278,7 +278,8 @@ function checkStructure(model, structs, P, icons) {
     // P58
     if ('on' in v.godot) {
       const onp = extPtr(v, 'godot', 'on');
-      if (v.cls !== 'Label' && v.cls !== 'ProgressBar') P.error('P58', v.file, onp, tp, 'on is only for Label and ProgressBar variants');
+      // a Button too since ui-1.4.0: the surface its outer focus ring stands on (the ring's colour follows it)
+      if (v.cls !== 'Label' && v.cls !== 'ProgressBar' && v.cls !== 'Button') P.error('P58', v.file, onp, tp, 'on is only for Label, ProgressBar and Button variants');
       else if (!Array.isArray(v.godot.on) || !v.godot.on.length || !v.godot.on.every((s) => typeof s === 'string')) P.error('P58', v.file, onp, tp, 'on is a non-empty array of variation names');
       else {
         v.godot.on.forEach((name, i) => {
@@ -581,9 +582,45 @@ function checkFocus(s, v, fg, res, P) {
   const m = new Map();
   for (const c of fg.children) if (c.kind === 'token') m.set(c.name, c);
   const a = alphaOf(rec['bg-color']);
-  if (a != null && a !== 0) e(m.get('bg-color') || fg, 'focus bg-color is transparent (alpha 0): the ring draws no fill');
+  if (a != null && a !== 0) {
+    // A filled focus (ui-1.4.0, the sketches' sticker): an opaque face over the whole control, drawn over the state's
+    // StyleBox and under the label (button.cpp L228-L230, L461), so it must be exactly the normal face's shape: the same
+    // outline widths, colour and corners, no expand, and a normal face with no expand either (Godot draws both at the
+    // control's rect). Only a Button or OptionButton draws its label over it.
+    if (!['Button', 'OptionButton'].includes(s.cls)) { e(m.get('bg-color') || fg, 'focus bg-color is transparent (alpha 0): the ring draws no fill'); return; }
+    if (a !== 1) e(m.get('bg-color') || fg, `a filled focus is opaque (alpha 1), not ${a}`);
+    const node = m.get('bg-color') || fg;
+    for (const x of SIDES) {
+      if (pxOf(rec[`expand-margin-${x}`]) !== 0) e(node, `a filled focus has no expand margin (${x} is ${pxOf(rec[`expand-margin-${x}`])})`);
+      if (pxOf(nrec[`expand-margin-${x}`]) !== 0) e(node, `a filled focus needs a normal face with no expand margin (${x} is ${pxOf(nrec[`expand-margin-${x}`])})`);
+      if (pxOf(rec[`border-width-${x}`]) !== pxOf(nrec[`border-width-${x}`])) e(node, `a filled focus border-width-${x} is ${pxOf(rec[`border-width-${x}`])}; the normal face's is ${pxOf(nrec[`border-width-${x}`])}`);
+    }
+    for (const c of CORNERS) {
+      if (pxOf(rec[`corner-radius-${c}`]) !== pxOf(nrec[`corner-radius-${c}`])) e(node, `a filled focus corner-radius-${c} is ${pxOf(rec[`corner-radius-${c}`])}; the normal face's is ${pxOf(nrec[`corner-radius-${c}`])}`);
+    }
+    if (JSON.stringify(rec['border-color'].value) !== JSON.stringify(nrec['border-color'].value)) e(node, 'a filled focus border-color is the normal face\'s');
+    return;
+  }
   const bwTok = m.get('border-width');
   const perSide = SIDES.filter((x) => m.has(`border-width-${x}`));
+  const noExpand = (r) => SIDES.every((x) => pxOf(r[`expand-margin-${x}`]) === 0);
+  if (['Button', 'OptionButton'].includes(s.cls) && bwTok && bwTok.raw !== '{focus.width}' && !perSide.length && noExpand(rec) && noExpand(nrec)) {
+    // The thick outline (ui-1.4.0): a clear focus box over the whole face whose outline is the face's own plus the
+    // focus width, in the face's colour and corners, so the face's outline thickens inward as one stroke (an inner ring
+    // beside it can show a hairline gap where the page scales to a fraction of a pixel).
+    const fwv = res.valueOf('focus.width');
+    if (!fwv) return;
+    const node = bwTok || fg;
+    for (const x of SIDES) {
+      const want = pxOf(nrec[`border-width-${x}`]) + fwv.px;
+      if (pxOf(rec[`border-width-${x}`]) !== want) e(node, `thick-outline focus: border-width-${x} is ${pxOf(rec[`border-width-${x}`])}; it must be ${want} (normal ${pxOf(nrec[`border-width-${x}`])} + focus.width ${fwv.px})`);
+    }
+    for (const c of CORNERS) {
+      if (pxOf(rec[`corner-radius-${c}`]) !== pxOf(nrec[`corner-radius-${c}`])) e(m.get('corner-radius') || fg, `thick-outline focus: corner-radius-${c} is ${pxOf(rec[`corner-radius-${c}`])}; the normal face's is ${pxOf(nrec[`corner-radius-${c}`])}`);
+    }
+    if (JSON.stringify(rec['border-color'].value) !== JSON.stringify(nrec['border-color'].value)) e(m.get('border-color') || fg, 'thick-outline focus: border-color is the normal face\'s');
+    return;
+  }
   if (!bwTok || bwTok.raw !== '{focus.width}' || perSide.length) e(bwTok || fg, 'focus border-width is the shorthand "{focus.width}"');
   const exNames = ['expand-margin-block', 'expand-margin-inline', ...SIDES.map((x) => `expand-margin-${x}`)].filter((x) => m.has(x));
   if (exNames.length) {

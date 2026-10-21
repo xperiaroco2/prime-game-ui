@@ -5,7 +5,7 @@
 The styled mutation workbench screen from the UI track (xperiaroco2/prime-game-ui), as a Godot 4.7.2 node tree for the 1920×1080 reference.
 
 - **Source:** `pages/screens/src/s11-workbench.json`; the review page is `pages/screens/screens.html#s11`; no wireframe section (a screen new with the MVP; its page heading is «Мутаційний верстат»).
-- **Theme:** the Toy pack ui-1.3.0 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
+- **Theme:** the Toy pack ui-1.4.0 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
 - **World behind the UI** (not UI): a lit room of the level.
 - **How to read it:** the roots are children of the screen's full-rect root `Control`; every property not listed keeps Godot's default; sizes and offsets are reference px. In a state's **Shown** list, the first node of each subtree gives its path from the screen root.
 - **Texts** are keys of `copy/strings.csv`, and the language switches live (the Esc menu's Settings). A plain key is set as `text` and translates itself. A key with placeholders, a plural key (`tr_n`) and a key drawn in pieces are set from code with `auto_translate_mode = DISABLED`: `tr()`, then `String.format()` with the data (the samples below), rebuilt on `NOTIFICATION_TRANSLATION_CHANGED`. A "text from data" (names, the room code, times, numbers) is set in code and never translated (`auto_translate_mode = DISABLED`).
@@ -43,20 +43,20 @@ New with the MVP (m8 §4; the sketch pages/mvp-screens frame 6 at 0.75, every le
             - Note: Takes the card's free height, so the price and the button sit at the bottom.
           - **Cost** `Label` · variation `ToyPlateTitle` · text `tr_n("unit.points", "unit.points", 4)`: en "4 points" · uk "4 очки"
             - Note: The price, tr_n("unit.points", "unit.points", price) with {count} = the price (content data; the prices are placeholders, open).
-          - **Buy** `Button` · variation `ToyButtonPrimary` · text `workbench.mutate`: en "Mutate" · uk "Мутувати" · shown with keyboard focus (grab_focus)
+          - **Buy** `Button` · variation `ToyButtonPrimaryOnMint` · text `workbench.mutate`: en "Mutate" · uk "Мутувати" · shown with keyboard focus (grab_focus)
             - Note: Spends the price and gives the mutation; disabled when the balance is short.
       - **Jump** `PanelContainer` · variation `ToyMutationCard` · size flags horizontal `SIZE_EXPAND_FILL`
         - **V** `VBoxContainer` · variation `ToyColumnSixteen` · gaps from the variation: separation 16
           - **Name** `Label` · variation `ToyPlateTitle` · text `mutation.jump.name`: en "Spring legs" · uk "Пружні ноги"
           - **Effect** `Label` · variation `ToyPlateText` · size flags vertical `SIZE_EXPAND_FILL` · custom_minimum_size (280, 0) · text `mutation.jump.effect`: en "You jump higher" · uk "Стрибаєш вище" · autowrap_mode `AUTOWRAP_WORD_SMART`
           - **Cost** `Label` · variation `ToyPlateTitle` · text `tr_n("unit.points", "unit.points", 3)`: en "3 points" · uk "3 очки"
-          - **Buy** `Button` · variation `ToyButtonPrimary` · text `workbench.mutate`: en "Mutate" · uk "Мутувати"
+          - **Buy** `Button` · variation `ToyButtonPrimaryOnMint` · text `workbench.mutate`: en "Mutate" · uk "Мутувати"
       - **Health** `PanelContainer` · variation `ToyMutationCard` · size flags horizontal `SIZE_EXPAND_FILL`
         - **V** `VBoxContainer` · variation `ToyColumnSixteen` · gaps from the variation: separation 16
           - **Name** `Label` · variation `ToyPlateTitle` · text `mutation.health.name`: en "Thick skin" · uk "Товста шкіра"
           - **Effect** `Label` · variation `ToyPlateText` · size flags vertical `SIZE_EXPAND_FILL` · custom_minimum_size (280, 0) · text `mutation.health.effect`: en "More health" · uk "Більше здоровʼя" · autowrap_mode `AUTOWRAP_WORD_SMART`
           - **Cost** `Label` · variation `ToyPlateTitle` · text `tr_n("unit.points", "unit.points", 9)`: en "9 points" · uk "9 очок"
-          - **Buy** `Button` · variation `ToyButtonPrimary` · text `workbench.short` with sample {count} = "2": en "2 short" · uk "Бракує 2" · disabled true
+          - **Buy** `Button` · variation `ToyButtonPrimaryOnMint` · text `workbench.short` with sample {count} = "2": en "2 short" · uk "Бракує 2" · disabled true
             - Note: Not enough points: disabled, with workbench.short, {count} = price - balance.
     - **Bar** `HBoxContainer` · alignment `ALIGNMENT_END`
       - **Close** `Button` · variation `ToyButtonSecondary` (raised: ToyRaised with base `ToyBaseRaisedOnLight`, ToyPress; UiParts.button()) · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper · text `common.close`: en "Close" · uk "Закрити"
