@@ -326,6 +326,15 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
     green bar on top, stamina the yellow one under it, 12 px apart (the sketch's 8 × 1.5), as everywhere in the game;
     the same in every screen that draws s7's vitals (s1, s6, s9); `hud.health` and `hud.stamina` stay in the deck
     (agent).
+- **The UI is the alien's own equipment; no main menu** (the engineer, 2026-10-21, chat, translated): the current UI
+  looks like a website, soulless, with no signature; bright and aggressive where it should be calm, dull where it
+  should be fun; too much of everything. The UI should feel like the aliens' own: the alien ship's or the suit's
+  interface (a helmet visor, a wrist device, something in that spirit). There is no main-menu screen: the game boots
+  straight into the alien ship, which is the lobby the player walks around; Esc opens the menu on the suit (find a
+  lobby, join one, settings). Three directions inside that idea, each on the same four frames, are on the suit UI page
+  (`pages/suit-ui/`): A the helmet visor, B the wrist device, C the ship's plastic modules; calm everywhere except the
+  cops' minute (the role reveal and the ends are loud too), one accent per direction plus the danger colour (agent:
+  the three directions, their accents and fonts, for the engineer to pick from).
 
 ## Principles
 - **The UI never tells the player what to do.** No "take it to X" line, no destination marker, no key prompts on the HUD;

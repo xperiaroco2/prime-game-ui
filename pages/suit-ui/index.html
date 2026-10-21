@@ -1,0 +1,635 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Інтерфейс костюма</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@400;500;700&family=M+PLUS+Rounded+1c:wght@500;800&family=Unbounded:wght@500;700&family=Onest:wght@400;500;600;700&display=swap">
+<style>
+/* The suit UI page: three directions for a UI that belongs to the aliens (the engineer, 2026-10-21, chat): the
+   helmet visor (A), the wrist device (B) and the ship's plastic modules (C). Each shows the same four 16:9 frames
+   over a plain world-colour stand-in: the boot into the ship with the Esc suit menu, the round HUD, the mutation
+   workbench, and the one loud moment (the cops' minute). The texts are the copy deck's (copy/strings.csv) where it
+   has them; the rest are drafts. A sticky switch sets the UI scale as on pages/mvp-screens: at 1x the stage is
+   960x540, at 0.75x 1280x720, at 0.5x 1920x1080, with the same px values, so the UI shrinks and keeps its anchors.
+   Inside the frames: Godot-safe only (solid fills, alpha allowed; per-side border widths with one colour; per-corner
+   radii; at most one shadow, no inset, no spread; one text outline). The world stand-ins (walls, floors, the arms in
+   B) are not UI: in the game they are the 3D scene. Hand-written; the item icons are own work (LICENCES.json). */
+:root {
+  color-scheme: dark;
+  --ground: #121216;
+  --raise: #1B1B21;
+  --line: #2C2C34;
+  --ink-c: #ECEAF0;
+  --dim: #A3A1AD;
+  --chrome: "Onest", "Segoe UI", system-ui, sans-serif;
+}
+body { margin: 0; background: var(--ground); color: var(--ink-c); font: 16px/1.5 var(--chrome); overflow-wrap: anywhere; }
+.wrap { max-width: 1040px; margin: 0 auto; padding-block: 28px 64px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid; gap: 44px; }
+h1 { font-size: clamp(30px, 6vw, 46px); line-height: 1.05; margin: 0; text-wrap: balance; letter-spacing: -0.01em; }
+h2 { font-size: clamp(24px, 4.4vw, 32px); line-height: 1.1; margin: 0; text-wrap: balance; }
+h3 { font-size: 13px; text-transform: uppercase; letter-spacing: .1em; color: var(--dim); margin: 0; font-weight: 600; }
+p { margin: 0; max-width: 66ch; }
+.lede { font-size: 18px; }
+.intro { display: grid; gap: 14px; }
+.kicker { font-size: 13px; text-transform: uppercase; letter-spacing: .1em; color: var(--dim); font-weight: 600; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag { font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; border: 1px solid var(--line); border-radius: 999px; padding: 2px 10px; color: var(--dim); }
+.tag.loud { color: #FF6B5E; border-color: #FF6B5E; }
+.note { color: var(--dim); font-size: 15px; }
+.switch { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--ground); padding-block: 10px; display: grid; gap: 6px; border-bottom: 1px solid var(--line); }
+.seg { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.seg span { font-weight: 600; margin-right: 4px; }
+.seg button { font: 600 15px/1.2 var(--chrome); color: var(--ink-c); background: var(--raise); border: 1px solid var(--line); border-radius: 999px; padding: 8px 16px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--ink-c); color: var(--ground); border-color: var(--ink-c); }
+.seg button:focus-visible { outline: 2px solid var(--ink-c); outline-offset: 2px; }
+.vnote { color: var(--dim); font-size: 14px; }
+.dir { display: grid; gap: 16px; }
+.dir > header { display: grid; gap: 8px; }
+.fishka { font-size: 17px; }
+.fishka b { color: var(--acc-c); }
+.sw { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; color: var(--dim); font-size: 13px; }
+.sw i { display: inline-block; width: 18px; height: 18px; border-radius: 5px; border: 1px solid var(--line); vertical-align: -4px; margin-right: 4px; }
+.fr { display: grid; gap: 8px; }
+.fr .cap { color: var(--dim); font-size: 14px; }
+.frame { position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden; background: #55606A; }
+.stage { position: absolute; left: 0; top: 0; width: 960px; height: 540px; transform-origin: 0 0; overflow: hidden; }
+.godot { border: 1px solid var(--line); border-radius: 12px; padding: 12px 16px; background: var(--raise); display: grid; gap: 4px; font-size: 15px; }
+.godot b { color: var(--ink-c); }
+.foot { color: var(--dim); font-size: 14px; display: grid; gap: 8px; border-top: 1px solid var(--line); padding-top: 20px; }
+.foot a, .intro a { color: var(--ink-c); }
+.foot ul { margin: 0; padding-left: 20px; display: grid; gap: 4px; }
+#A { --acc-c: #C8F26A; } #B { --acc-c: #B9A2FF; } #C { --acc-c: #63D9C9; }
+
+/* ---------- Inside the frames ---------- */
+.stage { overflow-wrap: normal; white-space: nowrap; line-height: 1.2; }
+.abs { position: absolute; }
+.row { display: flex; align-items: center; }
+.col { display: flex; flex-direction: column; }
+.hc { position: absolute; left: 0; right: 0; display: flex; flex-direction: column; align-items: center; }
+.fill { position: absolute; left: 0; top: 0; bottom: 0; width: calc(var(--v) * 100%); }
+svg.ic { display: block; fill: none; stroke: currentColor; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+
+/* the world stand-ins: a wall, a floor and a few blocks (in the game: the 3D scene) */
+.w-ship { background: #2B2740; }
+.w-ship .floor { position: absolute; left: 0; right: 0; bottom: 0; height: 36%; background: #1F1C2E; }
+.w-ship .port { position: absolute; left: 60%; top: 15%; width: 15%; aspect-ratio: 1; border-radius: 999px; background: #10223A; border: 0 solid #3A3553; border-width: 12px; }
+.w-ship .door { position: absolute; left: 24%; bottom: 36%; width: 12%; height: 40%; border-radius: 60px 60px 0 0; background: #1A1726; }
+.w-ship .pod { position: absolute; left: 82%; bottom: 30%; width: 9%; height: 26%; border-radius: 40px; background: #3A3553; }
+.w-house { background: #7A6F63; }
+.w-house .floor { position: absolute; left: 0; right: 0; bottom: 0; height: 34%; background: #514539; }
+.w-house .door { position: absolute; left: 13%; bottom: 34%; width: 11%; height: 44%; background: #5F5448; }
+.w-house .win { position: absolute; left: 57%; top: 17%; width: 19%; height: 23%; background: #8C9AA3; border: 0 solid #6A5F54; border-width: 8px; }
+.w-house .sofa { position: absolute; left: 52%; bottom: 22%; width: 28%; height: 15%; border-radius: 18px 18px 6px 6px; background: #4E5A6A; }
+.w-lab { background: #55615F; }
+.w-lab .floor { position: absolute; left: 0; right: 0; bottom: 0; height: 32%; background: #3A4241; }
+.w-lab .bench { position: absolute; left: 22%; bottom: 24%; width: 56%; height: 14%; border-radius: 8px; background: #2E3433; }
+.w-lab .rig { position: absolute; left: 40%; bottom: 38%; width: 20%; height: 22%; border-radius: 30px 30px 6px 6px; background: #434D4C; }
+
+/* ===== A · the helmet visor: Martian Mono, one accent (lime), thin lines on the glass ===== */
+.dA { --rim: #101215; --tx: #E6EBE4; --dm: #9AA39B; --acc: #C8F26A; --dan: #FF5148; --glass: rgba(9, 12, 14, 0.66);
+  font-family: "Martian Mono", ui-monospace, monospace; color: var(--tx); }
+.dA .o { -webkit-text-stroke: 2px rgba(10, 12, 14, 0.7); paint-order: stroke fill; }
+.dA .rim { position: absolute; left: -80px; right: -80px; top: -80px; bottom: -80px; border: 0 solid var(--rim); border-width: 104px 104px 116px 104px; border-radius: 260px; }
+.dA .rim2 { position: absolute; left: 24px; right: 24px; top: 24px; bottom: 36px; border: 1px solid rgba(200, 242, 106, 0.22); border-radius: 156px; }
+.dA .lab { font-size: 9px; letter-spacing: 2px; color: var(--dm); text-transform: uppercase; }
+.dA .notch { position: absolute; top: 0; left: calc(50% - 160px); width: 320px; height: 82px; background: var(--rim); border-radius: 0 0 30px 30px; }
+.dA.loud .notch { background: #2E0A0B; }
+.dA .top { top: 30px; gap: 8px; }
+.dA .brk { border: 1px solid rgba(230, 235, 228, 0.5); border-top-width: 0; border-bottom-width: 0; padding: 0 12px; font-size: 24px; font-weight: 500; letter-spacing: 1px; }
+.dA .ang { gap: 8px; }
+.dA .bar { position: relative; height: 4px; border-radius: 2px; background: rgba(230, 235, 228, 0.2); }
+.dA .bar .fill { border-radius: 2px; }
+.dA .tick { position: absolute; top: -3px; width: 1px; height: 10px; background: rgba(230, 235, 228, 0.45); }
+.dA .num { font-size: 10px; color: var(--dm); }
+.dA .roster { right: 112px; top: 50px; gap: 4px; align-items: flex-end; font-size: 11px; }
+.dA .roster .rw { gap: 7px; }
+.dA .roster i { display: block; width: 3px; height: 11px; border-radius: 1px; }
+.dA .roster .me { color: var(--acc); }
+.dA .roster .dead { color: var(--dm); }
+.dA .vit { left: 110px; bottom: 60px; gap: 9px; }
+.dA .vit .row { gap: 8px; }
+.dA .slots { right: 112px; bottom: 58px; gap: 10px; align-items: flex-end; }
+.dA .sl { gap: 4px; align-items: center; }
+.dA .box { width: 52px; height: 52px; border: 1px solid rgba(230, 235, 228, 0.35); border-radius: 8px; display: flex; align-items: center; justify-content: center; background: rgba(9, 12, 14, 0.3); }
+.dA .box.on { border: 2px solid var(--acc); color: var(--acc); }
+.dA .sl .nm { font-size: 10px; }
+.dA .cross { left: calc(50% - 8px); top: calc(50% - 8px); width: 16px; height: 16px; border: 1px solid rgba(230, 235, 228, 0.8); border-radius: 8px; }
+.dA .dot { left: calc(50% - 1px); top: calc(50% - 1px); width: 2px; height: 2px; background: var(--tx); }
+.dA .stat { top: 32px; gap: 8px; font-size: 10px; color: var(--dm); letter-spacing: 1px; }
+.dA .stat i { display: block; width: 6px; height: 6px; border-radius: 3px; background: var(--acc); }
+.dA .menu { left: 96px; top: 80px; width: 372px; background: var(--glass); border: 0 solid var(--acc); border-left-width: 2px; border-radius: 0 14px 14px 0; padding: 16px 20px; box-sizing: border-box; gap: 10px; }
+.dA .menu .hd { justify-content: space-between; }
+.dA .key { font-size: 9px; border: 1px solid rgba(230, 235, 228, 0.4); border-radius: 4px; padding: 2px 6px; color: var(--dm); }
+.dA .h { font-size: 14px; font-weight: 500; }
+.dA .lr { height: 30px; padding: 0 10px; font-size: 11px; gap: 10px; border: 0 solid var(--acc); }
+.dA .lr .n { flex-grow: 1; }
+.dA .lr.on { background: rgba(200, 242, 106, 0.12); border-left-width: 2px; color: var(--acc); }
+.dA .lr.full { color: var(--dm); }
+.dA .btn { font-size: 11px; font-weight: 700; padding: 7px 14px; border-radius: 6px; border: 1px solid var(--acc); color: var(--acc); }
+.dA .btn.p { background: var(--acc); color: #111409; }
+.dA .sep { height: 1px; background: rgba(230, 235, 228, 0.16); }
+.dA .code { gap: 6px; }
+.dA .cell { width: 22px; height: 26px; border: 0 solid var(--tx); border-bottom-width: 2px; font-size: 15px; display: flex; align-items: center; justify-content: center; }
+.dA .cell.cur { border-color: var(--acc); }
+.dA .mi { justify-content: space-between; font-size: 12px; padding: 6px 0; }
+.dA .mi.q { color: var(--dm); }
+.dA .hint { right: 120px; bottom: 54px; font-size: 10px; color: var(--dm); }
+.dA .wb { top: calc(50% - 200px); left: calc(50% - 310px); width: 620px; background: var(--glass); border: 0 solid var(--acc); border-top-width: 2px; border-radius: 0 0 14px 14px; padding: 18px 20px 16px; box-sizing: border-box; gap: 14px; }
+.dA .wb .hd { justify-content: space-between; align-items: flex-end; }
+.dA .wb .pts { gap: 8px; align-items: baseline; }
+.dA .wb .pts b { font-size: 26px; font-weight: 500; color: var(--acc); }
+.dA .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.dA .card { border: 1px solid rgba(230, 235, 228, 0.25); border-radius: 10px; padding: 12px; gap: 6px; white-space: normal; }
+.dA .card.on { border: 2px solid var(--acc); padding: 11px; }
+.dA .card .nm { font-size: 13px; font-weight: 500; }
+.dA .card .fx { font-size: 10px; color: var(--dm); }
+.dA .card .cost { font-size: 20px; margin-top: 6px; }
+.dA .card .cost small { font-size: 10px; color: var(--dm); margin-left: 4px; }
+.dA .card .btn { align-self: flex-start; margin-top: 4px; }
+.dA .card.off { color: var(--dm); }
+.dA .card.off .btn { border-color: rgba(230, 235, 228, 0.3); color: var(--dm); }
+/* A, loud: the rim goes dark red, its inner line the danger colour, one danger plate */
+.dA.loud .rim { border-color: #2E0A0B; }
+.dA.loud .rim2 { border: 3px solid var(--dan); }
+.dA .cops { top: 120px; background: var(--dan); color: #1A0606; border-radius: 12px; padding: 14px 34px 10px; align-items: center; gap: 2px; left: calc(50% - 230px); width: 460px; box-sizing: border-box; box-shadow: 0 6px 18px rgba(40, 0, 0, 0.45); }
+.dA .cops .big { font-size: 18px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+.dA .cops .l { font-size: 11px; font-weight: 500; }
+.dA .cops .t { font-size: 60px; font-weight: 700; line-height: 1; }
+
+/* ===== B · the wrist device: M PLUS Rounded 1c, one accent (lilac), a bone device with a dark screen ===== */
+.dB { --skin: #86AE93; --cuff: #3A3E49; --strap: #2B2E37; --body: #E6E0D4; --body2: #BDB5A6; --scr: #17181D; --row: #24252D;
+  --tx: #EDEAE3; --dm: #8E8C96; --acc: #B9A2FF; --dan: #FF5148;
+  font-family: "M PLUS Rounded 1c", "Segoe UI", sans-serif; color: var(--tx); font-weight: 500; }
+.dB .o { -webkit-text-stroke: 3px rgba(12, 12, 16, 0.75); paint-order: stroke fill; }
+.dB .skin { background: var(--skin); }
+.dB .cuff { background: var(--cuff); }
+.dB .strap { background: var(--strap); border-radius: 16px; }
+.dB .dev { background: var(--body); border: 0 solid var(--body2); border-bottom-width: 7px; border-radius: 30px; box-shadow: 0 10px 18px rgba(0, 0, 0, 0.35); }
+.dB .scr { position: absolute; left: 12px; right: 12px; top: 12px; bottom: 12px; background: var(--scr); border-radius: 20px; padding: 10px 16px; box-sizing: border-box; gap: 7px; }
+.dB .side { position: absolute; right: -7px; width: 8px; border-radius: 0 4px 4px 0; background: var(--body2); }
+.dB .lab { font-size: 10px; color: var(--dm); }
+.dB .bar { position: relative; height: 8px; border-radius: 4px; background: #2C2D35; }
+.dB .bar .fill { border-radius: 4px; }
+.dB .big { font-size: 38px; font-weight: 800; line-height: 1; letter-spacing: 1px; }
+.dB .leds { gap: 9px; }
+.dB .leds i { display: block; width: 10px; height: 10px; border-radius: 5px; }
+.dB .leds i.me { width: 10px; height: 10px; border: 2px solid var(--acc); border-radius: 7px; }
+.dB .leds i.dead { background: #4A4B52; }
+.dB .cross { left: calc(50% - 3px); top: calc(50% - 3px); width: 4px; height: 4px; border-radius: 3px; background: var(--acc); border: 1px solid #101014; }
+.dB .held { right: 34px; bottom: 26px; align-items: flex-end; gap: 2px; }
+.dB .held .n { font-size: 15px; font-weight: 800; }
+.dB .held .b { font-size: 12px; color: #D9D5CC; }
+.dB .lr { height: 34px; border-radius: 10px; padding: 0 12px; gap: 12px; font-size: 13px; border: 0 solid var(--acc); }
+.dB .lr .n { flex-grow: 1; font-weight: 800; }
+.dB .lr .m { color: var(--dm); font-size: 11px; }
+.dB .lr.on { background: var(--row); border-left-width: 4px; }
+.dB .lr.on .n { color: var(--acc); }
+.dB .lr.full { color: var(--dm); }
+.dB .pill { font-size: 13px; font-weight: 800; padding: 7px 16px; border-radius: 999px; border: 2px solid var(--acc); color: var(--acc); }
+.dB .pill.p { background: var(--acc); color: #17121F; }
+.dB .field { background: var(--row); border-radius: 10px; padding: 6px 12px; font-size: 15px; font-weight: 800; letter-spacing: 3px; }
+.dB .hw { position: absolute; bottom: 12px; left: 22px; right: 22px; gap: 10px; justify-content: center; }
+.dB .hwb { background: #D3CBBC; color: #3A3640; border: 0 solid #A9A090; border-bottom-width: 4px; border-radius: 12px; padding: 5px 16px 4px; font-size: 12px; font-weight: 800; }
+.dB .hwb.on { background: var(--acc); border-color: #8C74DB; color: #17121F; }
+.dB .tile { background: var(--row); border-radius: 14px; padding: 10px 12px; gap: 4px; flex: 1; white-space: normal; border: 2px solid var(--row); }
+.dB .tile.on { border-color: var(--acc); }
+.dB .tile .nm { font-size: 14px; font-weight: 800; }
+.dB .tile .fx { font-size: 11px; color: var(--dm); }
+.dB .tile .c { font-size: 22px; font-weight: 800; margin-top: auto; }
+.dB .tile .c small { font-size: 11px; color: var(--dm); margin-left: 4px; font-weight: 500; }
+.dB .tile.off { color: var(--dm); }
+.dB .hint { right: 22px; bottom: 18px; font-size: 11px; color: #D9D5CC; }
+.dB .alarm { position: absolute; left: 0; right: 0; top: 0; bottom: 0; border: 8px solid var(--dan); }
+.dB .shout { top: 34px; gap: 4px; }
+.dB .shout .s1 { font-size: 38px; font-weight: 800; color: var(--dan); }
+.dB .shout .s2 { font-size: 20px; font-weight: 800; }
+.dB .o2 { -webkit-text-stroke: 5px #1A0707; paint-order: stroke fill; }
+
+/* ===== C · the ship's plastic modules: Unbounded and Onest, one accent (aqua), one big corner and a thick base ===== */
+.dC { --mod: #2B2D34; --mod2: #363941; --base: #17181C; --bone: #E4DED2; --tx: #E4DED2; --dm: #9A978F; --acc: #63D9C9; --dan: #FF5148;
+  font-family: "Onest", "Segoe UI", sans-serif; color: var(--tx); }
+.dC .u { font-family: "Unbounded", "Segoe UI", sans-serif; }
+.dC .m { position: absolute; background: var(--mod); border: 0 solid var(--base); border-bottom-width: 5px; border-radius: 18px 5px 18px 5px; box-sizing: border-box; }
+.dC .tab { position: absolute; top: -10px; left: 14px; background: var(--bone); color: #1C1D22; border-radius: 6px; padding: 3px 8px 2px; font: 700 8px/1.2 "Unbounded", sans-serif; letter-spacing: 1px; text-transform: uppercase; }
+.dC .bar { position: relative; height: 10px; border-radius: 5px; background: var(--base); }
+.dC .bar .fill { border-radius: 5px; }
+.dC .segs { gap: 3px; }
+.dC .segs i { display: block; width: 15px; height: 10px; border-radius: 3px; background: var(--base); }
+.dC .segs i.a { background: var(--acc); }
+.dC .segs i.b { background: var(--bone); }
+.dC .segs i.d { background: var(--dan); }
+.dC .lab { font-size: 10px; color: var(--dm); }
+.dC .rw { gap: 8px; font-size: 12px; font-weight: 500; }
+.dC .rw i { display: block; width: 10px; height: 10px; border-radius: 3px; }
+.dC .rw.me { color: var(--acc); }
+.dC .rw.dead { color: var(--dm); }
+.dC .sl { width: 78px; height: 84px; align-items: center; justify-content: center; gap: 4px; display: flex; flex-direction: column; padding-top: 6px; }
+.dC .sl.on { border: 2px solid var(--acc); border-bottom-width: 5px; }
+.dC .sl .nm { font-size: 10px; }
+.dC .ch1 { left: calc(50% - 7px); top: calc(50% - 1px); width: 14px; height: 2px; background: var(--bone); }
+.dC .ch2 { left: calc(50% - 1px); top: calc(50% - 7px); width: 2px; height: 14px; background: var(--bone); }
+.dC .lr { height: 44px; background: var(--mod2); border-radius: 12px 4px 12px 4px; padding: 0 14px; gap: 12px; font-size: 14px; font-weight: 600; border: 2px solid var(--mod2); box-sizing: border-box; }
+.dC .lr .n { flex-grow: 1; }
+.dC .lr .m2 { font-size: 11px; color: var(--dm); font-weight: 500; }
+.dC .lr.on { border-color: var(--acc); }
+.dC .lr.full { color: var(--dm); }
+.dC .btn { font: 700 11px/1.2 "Unbounded", sans-serif; padding: 10px 16px 8px; border-radius: 14px 4px 14px 4px; background: var(--acc); color: #0E2623; border: 0 solid #2E9E90; border-bottom-width: 4px; }
+.dC .btn.o { background: var(--mod2); color: var(--acc); border: 2px solid var(--acc); border-bottom-width: 4px; }
+.dC .btn.off { background: var(--mod2); color: var(--dm); border: 0 solid var(--base); border-bottom-width: 4px; }
+.dC .cell { width: 34px; height: 40px; background: var(--base); border-radius: 8px; display: flex; align-items: center; justify-content: center; font: 700 16px/1 "Unbounded", sans-serif; border: 0 solid var(--acc); }
+.dC .cell.cur { border-bottom-width: 3px; }
+.dC .card { white-space: normal; gap: 6px; padding: 22px 16px 16px; }
+.dC .card.on { border: 2px solid var(--acc); border-bottom-width: 5px; }
+.dC .card .nm { font: 700 13px/1.25 "Unbounded", sans-serif; }
+.dC .card .fx { font-size: 12px; color: var(--dm); }
+.dC .card .c { font: 700 26px/1 "Unbounded", sans-serif; margin-top: 8px; }
+.dC .card .c small { font: 500 11px/1 "Onest", sans-serif; color: var(--dm); margin-left: 6px; }
+.dC .card.off { color: var(--dm); }
+.dC .hint { font-size: 11px; color: var(--dm); }
+.dC .cops { background: var(--dan); color: #1E0807; border-color: #A82A22; border-bottom-width: 7px; align-items: center; gap: 2px; padding: 16px 30px 12px; }
+.dC .cops .s1 { font: 700 19px/1.2 "Unbounded", sans-serif; }
+.dC .cops .s2 { font-size: 12px; font-weight: 600; }
+.dC .cops .t { font: 700 58px/1 "Unbounded", sans-serif; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <!-- own work (LICENCES.json): line icons in a 48 box, drawn in currentColor -->
+  <symbol id="i-rocket" viewBox="0 0 48 48"><path d="M24 5C30 11 32 19 30 31H18C16 19 18 11 24 5Z"/><circle cx="24" cy="17" r="3"/><path d="M18 24L12 33L18 32M30 24L36 33L30 32M21 35L24 42L27 35"/></symbol>
+  <symbol id="i-bun" viewBox="0 0 48 48"><path d="M7 25C7 14 41 14 41 25Z"/><rect x="7" y="29" width="34" height="8" rx="4"/><path d="M18 19L20 18M27 18L29 19"/></symbol>
+  <symbol id="i-battery" viewBox="0 0 48 48"><rect x="13" y="12" width="22" height="30" rx="4"/><path d="M20 7H28V12H20ZM25 18L20 27H28L23 36"/></symbol>
+</svg>
+
+<main class="wrap">
+  <header class="intro">
+    <p class="kicker">prime-game · UI · інтерфейс костюма · 21.10.2026</p>
+    <h1>Інтерфейс — спорядження прибульця</h1>
+    <p class="lede">Не сайт, а те, що прибулець носить на собі: візор шолома, пристрій на руці чи модулі корабля. Головного меню немає: гра одразу вантажиться на корабель — це лобі, по якому ходиш; Esc відкриває меню на костюмі.</p>
+    <div class="tags"><span class="tag">тексти — чернетки</span><span class="tag loud">гучно лише кадр 4</span></div>
+    <p class="note">Три напрямки, у кожному ті самі чотири кадри: старт на кораблі з меню Esc, раунд, мутаційний верстат і єдиний гучний момент — сусіди викликали копів. Скрізь спокійно, крім кадру 4; показ ролі й кінці раунду теж гучні, їх тут немає. Один акцентний колір на напрямок плюс колір небезпеки. Тло — просто кольори замість світу гри.</p>
+  </header>
+
+  <div class="switch">
+    <div class="seg" role="group" aria-label="Масштаб UI"><span>Масштаб UI:</span>
+      <button type="button" data-m="05">0.5×</button>
+      <button type="button" data-m="075">0.75×</button>
+      <button type="button" data-m="1">1×</button>
+    </div>
+    <p class="vnote">0.75× — ваш вибір для MVP (20.10). Те саме значення px, лише більший екран: UI менший і тримається своїх країв.</p>
+  </div>
+
+  <!-- ===================== A · the helmet visor ===================== -->
+  <section class="dir" id="A">
+    <header>
+      <h2>А · Візор шолома</h2>
+      <p class="fishka"><b>Фішка:</b> ти дивишся крізь скло шолома — обідок візора обрамлює все, HUD — тонкі риски на його краю, центр вільний для світу.</p>
+      <div class="sw"><span><i style="background:#C8F26A"></i>акцент</span><span><i style="background:#FF5148"></i>небезпека</span><span><i style="background:#101215"></i>обідок</span><span><i style="background:#E6EBE4"></i>текст</span><span>Martian Mono</span></div>
+    </header>
+
+    <div class="fr"><h3>1 · Старт на кораблі, меню Esc</h3>
+    <div class="frame"><div class="stage dA w-ship">
+      <div class="floor"></div><div class="door"></div><div class="port"></div><div class="pod"></div>
+      <div class="abs col menu">
+        <div class="row hd"><span class="lab">Костюм</span><span class="key">Esc</span></div>
+        <span class="h">Лобі поруч</span>
+        <div class="col" style="gap:4px">
+          <div class="row lr on"><span class="n">Лобі: Ґлорп</span><span>6 / 10</span><span>24 мс</span></div>
+          <div class="row lr"><span class="n">Вечірка в лісі</span><span>9 / 10</span><span>61 мс</span></div>
+          <div class="row lr full"><span class="n">Лобі: Бульк</span><span>Лобі заповнене</span></div>
+        </div>
+        <div class="row" style="justify-content:flex-end"><span class="btn p">Приєднатися</span></div>
+        <div class="sep"></div>
+        <span class="lab">Код</span>
+        <div class="row" style="justify-content:space-between"><div class="row code"><span class="cell">Q</span><span class="cell">F</span><span class="cell">7</span><span class="cell">K</span><span class="cell cur"></span></div><span class="btn">Приєднатися</span></div>
+        <div class="sep"></div>
+        <div class="row mi"><span>Налаштування</span><span>›</span></div>
+        <div class="row mi q"><span>Вийти з гри</span><span>›</span></div>
+      </div>
+      <span class="abs hint o">Esc — закрити</span>
+      <div class="rim"></div><div class="rim2"></div><div class="notch"></div>
+      <div class="hc stat"><div class="row" style="gap:8px"><i></i><span class="o">Лобі: Олена · Гравці 1 / 10</span></div></div>
+    </div></div>
+    <p class="cap">Гра вантажиться просто на корабель: ти вже у своєму лобі (нагорі). Меню Esc — скляна панель на лівому краю візора; світ за нею не гасне.</p></div>
+
+    <div class="fr"><h3>2 · Раунд</h3>
+    <div class="frame" id="shot-A"><div class="stage dA w-house">
+      <div class="floor"></div><div class="door"></div><div class="win"></div><div class="sofa"></div>
+      <div class="rim"></div><div class="rim2"></div><div class="notch"></div>
+      <div class="hc top">
+        <span class="brk o">07:42</span>
+        <div class="row ang"><span class="lab o">Гнів</span><div class="bar" style="width:200px"><b class="fill" style="--v:.55;background:var(--dan)"></b><i class="tick" style="left:50px"></i><i class="tick" style="left:100px"></i><i class="tick" style="left:150px"></i></div><span class="num o">55</span></div>
+      </div>
+      <div class="abs col roster o">
+        <div class="row rw me">Олена (ти)<i style="background:#7C5CC8"></i></div>
+        <div class="row rw">Ґлорп<i style="background:#1C7A82"></i></div>
+        <div class="row rw">Їжак<i style="background:#E66B57"></i></div>
+        <div class="row rw">Бульк<i style="background:#E8B04A"></i></div>
+        <div class="row rw">Зінґа<i style="background:#4AA3DF"></i></div>
+        <div class="row rw dead">Тарас · поза грою<i style="background:#5C5A60"></i></div>
+      </div>
+      <div class="abs cross"></div><div class="abs dot"></div>
+      <div class="abs col vit">
+        <div class="row"><span class="lab o" style="width:110px">Здоровʼя</span><div class="bar" style="width:140px"><b class="fill" style="--v:.8;background:var(--tx)"></b></div><span class="num o">80</span></div>
+        <div class="row"><span class="lab o" style="width:110px">Витривалість</span><div class="bar" style="width:140px"><b class="fill" style="--v:.55;background:var(--dm)"></b></div><span class="num o">55</span></div>
+      </div>
+      <div class="abs row slots">
+        <div class="col sl"><span class="lab o">Рука</span><div class="box on"><svg class="ic" width="32" height="32"><use href="#i-rocket"/></svg></div><span class="nm o">Феєрверк</span></div>
+        <div class="col sl"><span class="lab o">Пояс</span><div class="box"><svg class="ic" width="30" height="30"><use href="#i-bun"/></svg></div><span class="nm o">Булка</span></div>
+      </div>
+    </div></div>
+    <p class="cap">Час у дужках нагорі, під ним тонка лінія гніву з поділками. Гравці — справа вгорі, кольоровою рискою. Здоровʼя, витривалість і руки — на нижньому краю скла.</p></div>
+
+    <div class="fr"><h3>3 · Мутаційний верстат</h3>
+    <div class="frame"><div class="stage dA w-lab">
+      <div class="floor"></div><div class="bench"></div><div class="rig"></div>
+      <div class="abs col wb">
+        <div class="row hd"><span class="h">Мутаційний верстат</span><div class="row pts"><span class="lab">Твої очки</span><b>7</b></div></div>
+        <div class="cards">
+          <div class="col card on"><span class="nm">Швидкі ноги</span><span class="fx">Бігаєш швидше</span><span class="cost">4<small>очки</small></span><span class="btn p">Мутувати</span></div>
+          <div class="col card"><span class="nm">Пружні ноги</span><span class="fx">Стрибаєш вище</span><span class="cost">3<small>очки</small></span><span class="btn">Мутувати</span></div>
+          <div class="col card off"><span class="nm">Товста шкіра</span><span class="fx">Більше здоровʼя</span><span class="cost">9<small>очок</small></span><span class="btn">Бракує 2</span></div>
+        </div>
+        <span class="lab" style="text-align:right">Esc — закрити</span>
+      </div>
+      <div class="rim"></div><div class="rim2"></div><div class="notch"></div>
+    </div></div>
+    <p class="cap">Верстат виводить на скло три мутації; HUD раунду ховається, доки панель відкрита.</p></div>
+
+    <div class="fr"><h3>4 · Гучно: сусіди викликали копів</h3>
+    <div class="frame"><div class="stage dA loud w-house">
+      <div class="floor"></div><div class="door"></div><div class="win"></div><div class="sofa"></div>
+      <div class="rim"></div><div class="rim2"></div><div class="notch"></div>
+      <div class="hc top">
+        <span class="brk o">04:12</span>
+        <div class="row ang"><span class="lab o">Гнів</span><div class="bar" style="width:200px"><b class="fill" style="--v:1;background:var(--dan)"></b></div><span class="num o" style="color:var(--dan)">100</span></div>
+      </div>
+      <div class="abs col cops"><span class="big">Сусіди викликали копів!</span><span class="l">Копи будуть за</span><span class="t">0:58</span></div>
+      <div class="abs col roster o">
+        <div class="row rw me">Олена (ти)<i style="background:#7C5CC8"></i></div>
+        <div class="row rw">Ґлорп<i style="background:#1C7A82"></i></div>
+        <div class="row rw">Їжак<i style="background:#E66B57"></i></div>
+        <div class="row rw">Бульк<i style="background:#E8B04A"></i></div>
+        <div class="row rw">Зінґа<i style="background:#4AA3DF"></i></div>
+        <div class="row rw">Тарас<i style="background:#D46FB0"></i></div>
+      </div>
+      <div class="abs cross"></div><div class="abs dot"></div>
+      <div class="abs col vit">
+        <div class="row"><span class="lab o" style="width:110px;color:var(--dan)">Здоровʼя</span><div class="bar" style="width:140px"><b class="fill" style="--v:.24;background:var(--dan)"></b></div><span class="num o" style="color:var(--dan)">24</span></div>
+        <div class="row"><span class="lab o" style="width:110px">Витривалість</span><div class="bar" style="width:140px"><b class="fill" style="--v:.55;background:var(--dm)"></b></div><span class="num o">55</span></div>
+      </div>
+      <div class="abs row slots">
+        <div class="col sl"><span class="lab o">Рука</span><div class="box on"><svg class="ic" width="32" height="32"><use href="#i-battery"/></svg></div><span class="nm o">Батарейка</span></div>
+        <div class="col sl"><span class="lab o">Пояс</span><div class="box"></div><span class="nm o">&nbsp;</span></div>
+      </div>
+    </div></div>
+    <p class="cap">Обідок візора темніє до червоного, його внутрішня лінія — колір небезпеки, по центру одна червона плашка з відліком.</p></div>
+
+    <div class="godot"><p><b>Як це малює Godot.</b> Обідок — один Panel, більший за екран: StyleBoxFlat без заливки, межі різної ширини одного кольору й радіус 260 px; внутрішня лінія — другий StyleBoxFlat.</p>
+      <p>Скляні панелі — StyleBoxFlat з напівпрозорою заливкою й межею лише зліва чи згори; текст — Label з одним контуром, смужки — ProgressBar висотою 3–4 px.</p></div>
+  </section>
+
+  <!-- ===================== B · the wrist device ===================== -->
+  <section class="dir" id="B">
+    <header>
+      <h2>Б · Пристрій на зап'ясті</h2>
+      <p class="fishka"><b>Фішка:</b> глянь на руку — час, гнів і здоровʼя живуть на матовому пристрої на зап'ясті, гравці — вогники на ремінці; поверх світу майже нічого.</p>
+      <div class="sw"><span><i style="background:#B9A2FF"></i>акцент</span><span><i style="background:#FF5148"></i>небезпека</span><span><i style="background:#E6E0D4"></i>корпус</span><span><i style="background:#17181D"></i>екран</span><span>M PLUS Rounded 1c</span></div>
+    </header>
+
+    <div class="fr"><h3>1 · Старт на кораблі, меню Esc</h3>
+    <div class="frame"><div class="stage dB w-ship">
+      <div class="floor"></div><div class="door"></div><div class="port"></div><div class="pod"></div>
+      <div class="abs skin" style="left:calc(50% - 150px);top:calc(50% - 60px);width:300px;height:1000px;border-radius:150px"></div>
+      <div class="abs strap" style="left:calc(50% - 168px);top:calc(50% - 202px);width:336px;height:356px"></div>
+      <div class="abs dev" style="left:calc(50% - 284px);top:calc(50% - 186px);width:568px;height:320px">
+        <div class="scr col" style="bottom:62px;padding:12px 18px;gap:6px">
+          <div class="row" style="justify-content:space-between"><span class="lab">Лобі: Олена · Гравці 1 / 10</span><span class="lab">Esc</span></div>
+          <div class="row lr on"><span class="n">Лобі: Ґлорп</span><span>6 / 10</span><span class="m">24 мс</span></div>
+          <div class="row lr"><span class="n">Вечірка в лісі</span><span>9 / 10</span><span class="m">61 мс</span></div>
+          <div class="row lr full"><span class="n">Лобі: Бульк</span><span>Лобі заповнене</span></div>
+          <div class="row" style="justify-content:space-between;margin-top:2px"><div class="row" style="gap:8px"><span class="lab">Код</span><span class="field">QF7K_</span><span class="pill">›</span></div><span class="pill p">Приєднатися</span></div>
+        </div>
+        <div class="row hw"><span class="hwb on">Лобі поруч</span><span class="hwb">Налаштування</span><span class="hwb">Вийти з гри</span></div>
+        <div class="side" style="top:60px;height:40px"></div><div class="side" style="top:120px;height:40px"></div>
+      </div>
+    </div></div>
+    <p class="cap">Гра вантажиться просто на корабель. Esc — прибулець підносить руку: на екрані лобі поруч і код, під екраном три фізичні кнопки. Рука — 3D-модель у грі, тут заглушка.</p></div>
+
+    <div class="fr"><h3>2 · Раунд</h3>
+    <div class="frame" id="shot-B"><div class="stage dB w-house">
+      <div class="floor"></div><div class="door"></div><div class="win"></div><div class="sofa"></div>
+      <div class="abs skin" style="left:70px;bottom:-140px;width:190px;height:390px;border-radius:95px"></div>
+      <div class="abs cuff" style="left:58px;bottom:-30px;width:214px;height:70px;border-radius:24px 24px 0 0"></div>
+      <div class="abs strap" style="left:66px;bottom:52px;width:198px;height:190px"></div>
+      <div class="abs row leds" style="left:96px;bottom:224px"><i class="me" style="background:#7C5CC8"></i><i style="background:#1C7A82"></i><i style="background:#E66B57"></i><i style="background:#E8B04A"></i><i style="background:#4AA3DF"></i><i class="dead"></i></div>
+      <div class="abs dev" style="left:30px;bottom:66px;width:270px;height:152px">
+        <div class="scr col" style="justify-content:center">
+          <div class="row" style="justify-content:space-between;align-items:flex-end"><span class="big">07:42</span><span class="lab" style="padding-bottom:3px">гнів 55</span></div>
+          <div class="bar"><b class="fill" style="--v:.55;background:var(--dan)"></b></div>
+          <div class="row" style="gap:10px;margin-top:2px"><div class="col" style="gap:3px;flex:1"><span class="lab">Здоровʼя</span><div class="bar" style="height:5px"><b class="fill" style="--v:.8;background:var(--tx)"></b></div></div><div class="col" style="gap:3px;flex:1"><span class="lab">Витривалість</span><div class="bar" style="height:5px"><b class="fill" style="--v:.55;background:var(--dm)"></b></div></div></div>
+        </div>
+        <div class="side" style="top:36px;height:30px"></div>
+      </div>
+      <svg class="ic abs" width="96" height="96" style="right:148px;bottom:56px;color:#E6E0D4;stroke-width:4"><use href="#i-rocket"/></svg>
+      <div class="abs skin" style="right:120px;bottom:-190px;width:150px;height:280px;border-radius:75px"></div>
+      <div class="abs col held"><span class="n o">Феєрверк</span><span class="b o">Пояс: Булка</span></div>
+      <div class="abs cross"></div>
+    </div></div>
+    <p class="cap">Ліва рука завжди в кадрі: на пристрої час, гнів, здоровʼя й витривалість; над ним шість вогників — гравці їхніми кольорами (твій — у кільці, мертвий — згаслий; імена — коли піднімаєш руку). Поверх світу лише крапка прицілу й назва предмета в руці.</p></div>
+
+    <div class="fr"><h3>3 · Мутаційний верстат</h3>
+    <div class="frame"><div class="stage dB w-lab">
+      <div class="floor"></div><div class="bench"></div><div class="rig"></div>
+      <div class="abs skin" style="left:calc(50% - 150px);top:calc(50% - 60px);width:300px;height:1000px;border-radius:150px"></div>
+      <div class="abs strap" style="left:calc(50% - 168px);top:calc(50% - 202px);width:336px;height:356px"></div>
+      <div class="abs dev" style="left:calc(50% - 304px);top:calc(50% - 186px);width:608px;height:320px">
+        <div class="scr col" style="bottom:62px;padding:12px 16px;gap:10px">
+          <div class="row" style="justify-content:space-between;align-items:baseline"><span style="font-size:16px;font-weight:800">Мутаційний верстат</span><span class="lab">Твої очки <b style="font-size:22px;color:var(--acc);font-weight:800;margin-left:6px">7</b></span></div>
+          <div class="row" style="gap:8px;align-items:stretch;flex:1">
+            <div class="col tile on"><span class="nm">Швидкі ноги</span><span class="fx">Бігаєш швидше</span><span class="c">4<small>очки</small></span></div>
+            <div class="col tile"><span class="nm">Пружні ноги</span><span class="fx">Стрибаєш вище</span><span class="c">3<small>очки</small></span></div>
+            <div class="col tile off"><span class="nm">Товста шкіра</span><span class="fx">Більше здоровʼя</span><span class="fx">Бракує 2</span><span class="c">9<small>очок</small></span></div>
+          </div>
+        </div>
+        <div class="row hw"><span class="hwb">‹</span><span class="hwb on">Мутувати</span><span class="hwb">›</span></div>
+        <div class="side" style="top:60px;height:40px"></div><div class="side" style="top:120px;height:40px"></div>
+      </div>
+      <span class="abs hint o">Esc — закрити</span>
+    </div></div>
+    <p class="cap">Біля верстата пристрій підключається до нього: три мутації на екрані, вибір — фізичними кнопками під ним.</p></div>
+
+    <div class="fr"><h3>4 · Гучно: сусіди викликали копів</h3>
+    <div class="frame"><div class="stage dB w-house">
+      <div class="floor"></div><div class="door"></div><div class="win"></div><div class="sofa"></div>
+      <div class="abs skin" style="left:70px;bottom:-140px;width:190px;height:390px;border-radius:95px"></div>
+      <div class="abs cuff" style="left:58px;bottom:-30px;width:214px;height:70px;border-radius:24px 24px 0 0"></div>
+      <div class="abs strap" style="left:66px;bottom:52px;width:198px;height:190px"></div>
+      <div class="abs row leds" style="left:96px;bottom:224px"><i class="me" style="background:#7C5CC8"></i><i style="background:#1C7A82"></i><i style="background:#E66B57"></i><i style="background:#E8B04A"></i><i style="background:#4AA3DF"></i><i style="background:#D46FB0"></i></div>
+      <div class="abs dev" style="left:30px;bottom:66px;width:270px;height:152px">
+        <div class="scr col" style="justify-content:center;background:var(--dan);color:#1E0807">
+          <span style="font-size:12px;font-weight:800">Копи будуть за</span>
+          <div class="row" style="justify-content:space-between;align-items:flex-end"><span class="big" style="font-size:48px">0:58</span><span style="font-size:12px;font-weight:800;padding-bottom:4px">04:12</span></div>
+          <div class="bar" style="background:#7A1A14"><b class="fill" style="--v:.24;background:#1E0807"></b></div>
+        </div>
+        <div class="side" style="top:36px;height:30px"></div>
+      </div>
+      <svg class="ic abs" width="96" height="96" style="right:148px;bottom:56px;color:#E6E0D4;stroke-width:4"><use href="#i-battery"/></svg>
+      <div class="abs skin" style="right:120px;bottom:-190px;width:150px;height:280px;border-radius:75px"></div>
+      <div class="abs col held"><span class="n o">Батарейка</span><span class="b o">Пояс: —</span></div>
+      <div class="hc shout"><span class="s1 o2">Сусіди викликали копів!</span><span class="s2 o2">Копи будуть за 0:58</span></div>
+      <div class="abs cross"></div>
+      <div class="alarm"></div>
+    </div></div>
+    <p class="cap">Єдиний раз, коли UI виходить з руки на весь екран: червона рамка, крик угорі, а екран пристрою стає червоним із відліком (смужка — здоровʼя, 24 %).</p></div>
+
+    <div class="godot"><p><b>Як це малює Godot.</b> Руки з пристроєм — 3D-модель від першої особи; екран пристрою — SubViewport із тим самим Theme: StyleBoxFlat із радіусами, корпус — StyleBoxFlat із товщою нижньою межею одного кольору.</p>
+      <p>Поверх світу — лише крапка прицілу, Label предмета з контуром і в кадрі 4 Panel без заливки з червоною межею 8 px.</p></div>
+  </section>
+
+  <!-- ===================== C · the ship's plastic modules ===================== -->
+  <section class="dir" id="C">
+    <header>
+      <h2>В · Модулі корабля</h2>
+      <p class="fishka"><b>Фішка:</b> матові пластикові модулі корабля, як іграшкові тіла прибульців: один великий кут, товстий низ і світла бирка зверху.</p>
+      <div class="sw"><span><i style="background:#63D9C9"></i>акцент</span><span><i style="background:#FF5148"></i>небезпека</span><span><i style="background:#2B2D34"></i>модуль</span><span><i style="background:#E4DED2"></i>бирка</span><span>Unbounded + Onest</span></div>
+    </header>
+
+    <div class="fr"><h3>1 · Старт на кораблі, меню Esc</h3>
+    <div class="frame"><div class="stage dC w-ship">
+      <div class="floor"></div><div class="door"></div><div class="port"></div><div class="pod"></div>
+      <div class="m col" style="left:28px;top:30px;padding:16px 16px 10px;gap:2px"><span class="tab">Корабель</span><span class="u" style="font-size:12px;font-weight:700">Лобі: Олена</span><span class="lab">Гравці 1 / 10 · Esc — закрити</span></div>
+      <div class="m col" style="left:calc(50% - 330px);top:calc(50% - 150px);width:400px;padding:24px 18px 16px;gap:8px">
+        <span class="tab">Лобі поруч</span>
+        <div class="row lr on"><span class="n">Лобі: Ґлорп</span><span>6 / 10</span><span class="m2">24 мс</span></div>
+        <div class="row lr"><span class="n">Вечірка в лісі</span><span>9 / 10</span><span class="m2">61 мс</span></div>
+        <div class="row lr full"><span class="n">Лобі: Бульк</span><span class="m2">Лобі заповнене</span></div>
+        <div class="row" style="justify-content:flex-end;margin-top:6px"><span class="btn">Приєднатися</span></div>
+      </div>
+      <div class="m col" style="left:calc(50% + 86px);top:calc(50% - 150px);width:250px;padding:24px 16px 16px;gap:12px">
+        <span class="tab">Код</span>
+        <div class="row" style="gap:6px"><span class="cell">Q</span><span class="cell">F</span><span class="cell">7</span><span class="cell">K</span><span class="cell cur"></span></div>
+        <div class="row"><span class="btn o">Приєднатися</span></div>
+      </div>
+      <div class="m row" style="left:calc(50% + 86px);top:calc(50% + 30px);width:250px;height:64px;padding:0 18px;justify-content:space-between;font-size:15px;font-weight:600"><span>Налаштування</span><span>›</span></div>
+      <div class="m row" style="left:calc(50% + 86px);top:calc(50% + 108px);width:250px;height:52px;padding:0 18px;justify-content:space-between;font-size:13px;color:var(--dm)"><span>Вийти з гри</span><span>›</span></div>
+    </div></div>
+    <p class="cap">Гра вантажиться просто на корабель. Esc — костюм підтягує модулі: лобі поруч, код, налаштування; кожен модуль зі своєю биркою.</p></div>
+
+    <div class="fr"><h3>2 · Раунд</h3>
+    <div class="frame" id="shot-C"><div class="stage dC w-house">
+      <div class="floor"></div><div class="door"></div><div class="win"></div><div class="sofa"></div>
+      <div class="m row" style="left:calc(50% - 170px);top:26px;width:340px;height:60px;padding:4px 18px 0;gap:16px">
+        <span class="u" style="font-size:24px;font-weight:700">07:42</span>
+        <div style="width:2px;height:32px;background:var(--base)"></div>
+        <div class="col" style="gap:5px;flex:1"><span class="lab">Гнів сусідів</span><div class="bar"><b class="fill" style="--v:.55;background:var(--dan)"></b></div></div>
+      </div>
+      <div class="m col" style="right:24px;top:26px;width:176px;padding:20px 14px 12px;gap:5px">
+        <span class="tab">Гравці</span>
+        <div class="row rw me"><i style="background:#7C5CC8"></i>Олена (ти)</div>
+        <div class="row rw"><i style="background:#1C7A82"></i>Ґлорп</div>
+        <div class="row rw"><i style="background:#E66B57"></i>Їжак</div>
+        <div class="row rw"><i style="background:#E8B04A"></i>Бульк</div>
+        <div class="row rw"><i style="background:#4AA3DF"></i>Зінґа</div>
+        <div class="row rw dead"><i style="background:#5C5A60"></i>Тарас · поза грою</div>
+      </div>
+      <div class="abs ch1"></div><div class="abs ch2"></div>
+      <div class="m col" style="left:24px;bottom:24px;padding:20px 16px 12px;gap:7px">
+        <span class="tab">Костюм</span>
+        <div class="row" style="gap:10px"><span class="lab" style="width:86px">Здоровʼя</span><div class="row segs"><i class="a"></i><i class="a"></i><i class="a"></i><i class="a"></i><i class="a"></i><i class="a"></i><i class="a"></i><i class="a"></i><i></i><i></i></div></div>
+        <div class="row" style="gap:10px"><span class="lab" style="width:86px">Витривалість</span><div class="row segs"><i class="b"></i><i class="b"></i><i class="b"></i><i class="b"></i><i class="b"></i><i class="b"></i><i></i><i></i><i></i><i></i></div></div>
+      </div>
+      <div class="m sl on" style="right:112px;bottom:24px"><span class="tab">Рука</span><svg class="ic" width="38" height="38"><use href="#i-rocket"/></svg><span class="nm">Феєрверк</span></div>
+      <div class="m sl" style="right:24px;bottom:24px"><span class="tab">Пояс</span><svg class="ic" width="36" height="36"><use href="#i-bun"/></svg><span class="nm">Булка</span></div>
+    </div></div>
+    <p class="cap">Чотири модулі по кутах і по центру згори: час із гнівом, гравці, костюм (здоровʼя й витривалість сегментами), рука й пояс. Рука в акценті — це те, що ти тримаєш.</p></div>
+
+    <div class="fr"><h3>3 · Мутаційний верстат</h3>
+    <div class="frame"><div class="stage dC w-lab">
+      <div class="floor"></div><div class="bench"></div><div class="rig"></div>
+      <div class="m row" style="left:calc(50% - 330px);top:calc(50% - 206px);width:460px;height:62px;padding:4px 20px 0"><span class="tab">Лабораторія</span><span class="u" style="font-size:17px;font-weight:700">Мутаційний верстат</span></div>
+      <div class="m row" style="left:calc(50% + 142px);top:calc(50% - 206px);width:188px;height:62px;padding:4px 18px 0;gap:12px;justify-content:space-between"><span class="lab">Твої очки</span><span class="u" style="font-size:26px;font-weight:700;color:var(--acc)">7</span></div>
+      <div class="m col card on" style="left:calc(50% - 330px);top:calc(50% - 120px);width:210px;height:196px"><span class="nm">Швидкі ноги</span><span class="fx">Бігаєш швидше</span><span class="c">4<small>очки</small></span><span class="row" style="margin-top:auto"><span class="btn">Мутувати</span></span></div>
+      <div class="m col card" style="left:calc(50% - 105px);top:calc(50% - 120px);width:210px;height:196px"><span class="nm">Пружні ноги</span><span class="fx">Стрибаєш вище</span><span class="c">3<small>очки</small></span><span class="row" style="margin-top:auto"><span class="btn o">Мутувати</span></span></div>
+      <div class="m col card off" style="left:calc(50% + 120px);top:calc(50% - 120px);width:210px;height:196px"><span class="nm">Товста шкіра</span><span class="fx">Більше здоровʼя</span><span class="c">9<small>очок</small></span><span class="row" style="margin-top:auto"><span class="btn off">Бракує 2</span></span></div>
+      <span class="abs hint" style="left:calc(50% + 230px);top:calc(50% + 92px)">Esc — закрити</span>
+    </div></div>
+    <p class="cap">Верстат — ті самі модулі: заголовок, баланс і три картки мутацій; вибрана — в акцентній рамці.</p></div>
+
+    <div class="fr"><h3>4 · Гучно: сусіди викликали копів</h3>
+    <div class="frame"><div class="stage dC w-house">
+      <div class="floor"></div><div class="door"></div><div class="win"></div><div class="sofa"></div>
+      <div class="m row" style="left:calc(50% - 170px);top:26px;width:340px;height:60px;padding:4px 18px 0;gap:16px;border-color:#A82A22">
+        <span class="u" style="font-size:24px;font-weight:700">04:12</span>
+        <div style="width:2px;height:32px;background:var(--base)"></div>
+        <div class="col" style="gap:5px;flex:1"><span class="lab" style="color:var(--dan)">Гнів сусідів</span><div class="bar"><b class="fill" style="--v:1;background:var(--dan)"></b></div></div>
+      </div>
+      <div class="m col cops" style="left:calc(50% - 250px);top:104px;width:500px"><span class="s1">Сусіди викликали копів!</span><span class="s2">Копи будуть за</span><span class="t">0:58</span></div>
+      <div class="m col" style="right:24px;top:26px;width:176px;padding:20px 14px 12px;gap:5px">
+        <span class="tab">Гравці</span>
+        <div class="row rw me"><i style="background:#7C5CC8"></i>Олена (ти)</div>
+        <div class="row rw"><i style="background:#1C7A82"></i>Ґлорп</div>
+        <div class="row rw"><i style="background:#E66B57"></i>Їжак</div>
+        <div class="row rw"><i style="background:#E8B04A"></i>Бульк</div>
+        <div class="row rw"><i style="background:#4AA3DF"></i>Зінґа</div>
+        <div class="row rw"><i style="background:#D46FB0"></i>Тарас</div>
+      </div>
+      <div class="abs ch1"></div><div class="abs ch2"></div>
+      <div class="m col" style="left:24px;bottom:24px;padding:20px 16px 12px;gap:7px">
+        <span class="tab">Костюм</span>
+        <div class="row" style="gap:10px"><span class="lab" style="width:86px;color:var(--dan)">Здоровʼя</span><div class="row segs"><i class="d"></i><i class="d"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+        <div class="row" style="gap:10px"><span class="lab" style="width:86px">Витривалість</span><div class="row segs"><i class="b"></i><i class="b"></i><i class="b"></i><i class="b"></i><i class="b"></i><i class="b"></i><i></i><i></i><i></i><i></i></div></div>
+      </div>
+      <div class="m sl on" style="right:112px;bottom:24px"><span class="tab">Рука</span><svg class="ic" width="38" height="38"><use href="#i-battery"/></svg><span class="nm">Батарейка</span></div>
+      <div class="m sl" style="right:24px;bottom:24px"><span class="tab">Пояс</span></div>
+    </div></div>
+    <p class="cap">Під модулем часу виїжджає червоний модуль із відліком; низ модуля часу теж червоніє, здоровʼя 24 % — червоні сегменти.</p></div>
+
+    <div class="godot"><p><b>Як це малює Godot.</b> Кожен модуль — StyleBoxFlat: два великі й два малі радіуси, нижня межа 5 px одного кольору; бирка — Label зі своїм StyleBoxFlat, зсунутий угору.</p>
+      <p>Сегментні смужки — HBoxContainer з маленьких Panel (або ProgressBar з тайловою текстурою); без текстур, крім іконок предметів.</p></div>
+  </section>
+
+  <footer class="foot">
+    <p><b>Шрифти</b> (Google Fonts, усі з кирилицею; ліцензію перевірено в METADATA.pb репозиторію google/fonts, 21.10.2026):</p>
+    <ul>
+      <li>Martian Mono (А) — SIL Open Font License 1.1, <a href="https://github.com/google/fonts/tree/main/ofl/martianmono">ofl/martianmono</a></li>
+      <li>M PLUS Rounded 1c (Б) — SIL Open Font License 1.1, <a href="https://github.com/google/fonts/tree/main/ofl/mplusrounded1c">ofl/mplusrounded1c</a></li>
+      <li>Unbounded (В) — SIL Open Font License 1.1, <a href="https://github.com/google/fonts/tree/main/ofl/unbounded">ofl/unbounded</a></li>
+      <li>Onest (В і ця сторінка) — SIL Open Font License 1.1, <a href="https://github.com/google/fonts/tree/main/ofl/onest">ofl/onest</a></li>
+    </ul>
+    <p>Іконки предметів (феєрверк, булка, батарейка) — власна робота, <code>pages/suit-ui/LICENCES.json</code>. Жодних зображень: світ, руки й корабель — плоскі кольори-заглушки. Імена гравців, назви лобі, числа — зразки.</p>
+    <p>Джерело: <code>pages/suit-ui/index.html</code> у prime-game-ui.</p>
+  </footer>
+</main>
+
+<script>
+// The UI scale, as on pages/mvp-screens: "05" draws the stage at 1920x1080, "075" at 1280x720, "1" at 960x540.
+let mode = "075";
+try { mode = localStorage.getItem("suit-ui-scale") || "075"; } catch (e) {}
+if (mode !== "05" && mode !== "075" && mode !== "1") mode = "075";
+function fit() {
+  const uw = mode === "05" ? 1920 : mode === "075" ? 1280 : 960, uh = uw * 9 / 16;
+  document.querySelectorAll(".frame").forEach(f => {
+    const st = f.querySelector(".stage");
+    st.style.width = uw + "px"; st.style.height = uh + "px";
+    st.style.transform = "scale(" + f.clientWidth / uw + ")";
+  });
+}
+function setMode(m) {
+  mode = m;
+  document.querySelectorAll(".seg button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.m === m)));
+  try { localStorage.setItem("suit-ui-scale", m); } catch (e) {}
+  fit();
+}
+document.querySelectorAll(".seg button").forEach(b => b.addEventListener("click", () => setMode(b.dataset.m)));
+setMode(mode);
+if ("ResizeObserver" in window) new ResizeObserver(fit).observe(document.body); else addEventListener("resize", fit);
+document.fonts.ready.then(() => { document.documentElement.dataset.ready = "1"; });
+</script>
+</body>
+</html>
