@@ -1,5 +1,6 @@
 {
   "index.html#i-hand": { "licence": "own work", "author": "prime-game-ui", "what": "item bar C (not chosen): the alien's green hand gripping the rocket (#i-item-rocket), inline SVG symbol" },
   "index.html#i-siren": { "licence": "own work", "author": "prime-game-ui", "what": "anger meter C (not chosen): the siren filling up, a coral dome (lilac when dark, var(--dome)) with a white glint, a yellow knob, an ink base, and sound rays when lit (var(--rays)); inline SVG symbol" },
-  "index.html#i-siren-off, #i-siren-on, #i-slot-empty-*, #i-item-*": { "licence": "own work", "author": "prime-game-ui", "what": "copies of pages/components/icons/<name>.svg written by pages/mvp-screens/build.js; their records are in pages/components/icons/LICENCES.json" }
+  "index.html#i-siren-off, #i-siren-on, #i-slot-empty-*, #i-item-*, #i-item2-*": { "licence": "own work", "author": "prime-game-ui", "what": "copies of pages/components/icons/<name>.svg written by pages/mvp-screens/build.js; their records are in pages/components/icons/LICENCES.json" },
+  "index.html#i-room-*": { "licence": "own work", "author": "prime-game-ui", "what": "copies of the room pictograms pages/room-signs/systems/b/icons/<name>.svg written by pages/mvp-screens/build.js; their records are in pages/room-signs/systems/b/LICENCES.json" }
 }
