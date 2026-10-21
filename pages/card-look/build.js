@@ -8,8 +8,11 @@ const path = require('path');
 
 const root = path.join(__dirname, '..', 'card-art', 'round-4');
 const sets = [
-  { name: 'Wi-Fi · кандидат A', dir: 'wifi/a', files: ['wifi-1', 'wifi-2', 'wifi-3', 'wifi-4'] },
-  { name: 'Готування · кандидат B', dir: 'cooking/b', files: ['cooking-1', 'cooking-2', 'cooking-3', 'cooking-4'] },
+  { name: 'Wi-Fi', dir: 'wifi/a', files: ['wifi-1', 'wifi-2', 'wifi-3', 'wifi-4'] },
+  { name: 'Готування', dir: 'cooking/b', files: ['cooking-1', 'cooking-2', 'cooking-3', 'cooking-4'] },
+  { name: 'Двигун', dir: 'engine/a', files: ['engine-1', 'engine-2', 'engine-3', 'engine-4'] },
+  { name: 'Тюнінг авто', dir: 'car/a', files: ['car-1', 'car-2', 'car-3', 'car-4'] },
+  { name: 'Фото', dir: 'photo/a', files: ['photo-1', 'photo-2', 'photo-3', 'photo-4'] },
 ];
 const source = '#FFD60A'; // the pilot's accent since 2026-10-21 (Б); each variant swaps it
 const accents = [
@@ -68,7 +71,7 @@ p { margin: 0; max-width: 66ch; }
     <p class="lede">Пілот карток (Wi-Fi A і готування B, обидва пройшли критика) намальовано 07.10 у стилі «чистий скетч» — ще до дорослого повороту. Тут ті самі картки в рамці ui-1.3.0, з одним акцентом у трьох кольорах.</p>
     <div class="how">
       <p><b>Що вирішити.</b> 1) Чи лишаємо чистий скетч для карток: чорнильна лінія, фігурка з антенками, без слів, маленький візуальний жарт у кадрі (не написаний). 2) Якщо так — який акцент: А, Б чи В.</p>
-      <p><b>Після вашого слова</b> домалюємо картки ще трьох задач MVP (двигун, авто, фото) у тому ж стилі.</p>
+      <p><b>21.10:</b> ви обрали Б; картки всіх п'яти задач MVP тепер у цьому стилі (двигун, авто й фото домальовано того ж дня).</p>
     </div>
   </header>
 ${body}  <footer class="cap">Малюнки — наша власна робота (<code>pages/card-art/round-4/</code>, їхні <code>LICENCES.json</code>); сторінку збирає <code>pages/card-look/build.js</code>.</footer>
