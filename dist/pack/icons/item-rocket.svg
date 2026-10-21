@@ -1,2 +1,10 @@
 <!-- own work, prime-game-ui, licence: own work -->
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true"><g stroke="#1E1230" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"><path d="M32 50V62" fill="none"/><path d="M42 44q7 1 8-6" fill="none"/><path d="M50 30l2 4 4 1-4 2-2 4-2-4-4-2 4-1z" fill="#FFD60A" stroke-width="2.5"/><path d="M23 37l-9 13 10-2z" fill="#A6E85A"/><path d="M41 37l9 13-10-2z" fill="#A6E85A"/><rect x="22" y="18" width="20" height="32" rx="6" fill="#FF8A6B"/><path d="M22 20Q32 0 42 20z" fill="#FFD60A"/><path d="M22 42H42" fill="none"/><circle cx="27.6" cy="28" r="3.8" fill="#FFFFFF" stroke-width="2.5"/><circle cx="36.4" cy="28" r="3.8" fill="#FFFFFF" stroke-width="2.5"/><path d="M28.5 35q3.5 2.6 7 0" fill="none" stroke-width="2.5"/></g><circle cx="28.4" cy="28.6" r="1.6" fill="#1E1230"/><circle cx="37.2" cy="28.6" r="1.6" fill="#1E1230"/></svg>
+<!-- Item icon "rocket": the round-3 line icon pages/glow-bars/icons/line-rocket.svg
+     in colouring 3 (the engineer's choice of 2026-10-21), baked with literal colours for Godot: ink line and accent #1E1230,
+     one flat fill #C8644E under the line; 4-unit line, round caps and joins; the source transform rotate(30 32 32) translate(32 32) scale(1.18) translate(-32 -33) as one matrix. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true">
+<g transform="matrix(1.0219 0.59 -0.59 1.0219 18.7689 -20.603)">
+<g fill="#C8644E" stroke="none"><path d="M25 22L32 9L39 22V44H25Z"/></g>
+<g fill="none" stroke="#1E1230" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M25 22L32 9L39 22V44H25Z"/><path d="M25 22H39"/><path d="M32 44V60"/><path d="M28 44q-1 4-5 5.5"/><path d="M25 33l3.5-3 3.5 3 3.5-3 3.5 3"/></g>
+</g>
+</svg>

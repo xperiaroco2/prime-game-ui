@@ -1,2 +1,8 @@
 <!-- own work, prime-game-ui, licence: own work -->
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true"><g stroke="#1E1230" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"><path d="M26 18Q8 26 9 44Q10 58 32 58Q54 58 55 44Q56 26 38 18z" fill="#3C2660"/><path d="M26 18L18 6Q26 8 32 14Q38 8 46 6L38 18z" fill="#3C2660"/><rect x="24" y="15" width="16" height="6" rx="3" fill="#FFD60A" stroke-width="3"/></g><path d="M16 38Q16 30 22 26" fill="none" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round"/></svg>
+<!-- Item icon "bin-bag": the round-3 line icon pages/glow-bars/icons/line-bin-bag.svg
+     in colouring 3 (the engineer's choice of 2026-10-21), baked with literal colours for Godot: ink line and accent #1E1230,
+     one flat fill #4E4860 under the line; 4-unit line, round caps and joins. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true">
+<g fill="#4E4860" stroke="none"><path d="M25 23C12 28 8 38 9 46C10 53 17 56 23 54C27 57.5 37 57.5 41 54C47 56 54 53 55 46C56 38 52 28 39 23Z"/><path d="M26 22L19 10C25 10 30 13 32 17C34 13 39 10 45 10L38 22Z"/></g>
+<g fill="none" stroke="#1E1230" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M25 23C12 28 8 38 9 46C10 53 17 56 23 54C27 57.5 37 57.5 41 54C47 56 54 53 55 46C56 38 52 28 39 23"/><path d="M26 22L19 10C25 10 30 13 32 17C34 13 39 10 45 10L38 22"/><path d="M28 27L26 33"/><path d="M36 27L38 33"/><path d="M24 23H40"/></g>
+</svg>

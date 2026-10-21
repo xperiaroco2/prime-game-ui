@@ -5,7 +5,7 @@
 The styled post game screen from the UI track (xperiaroco2/prime-game-ui), as a Godot 4.7.2 node tree for the 1920×1080 reference.
 
 - **Source:** `pages/screens/src/s10-post-game.json`; the review page is `pages/screens/screens.html#s10`; the wireframe is section `s10` («Post game: кінець раунду»).
-- **Theme:** the Toy pack ui-1.2.0 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
+- **Theme:** the Toy pack ui-1.3.0 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
 - **World behind the UI** (not UI): black, no world (intro, outro, loading).
 - **How to read it:** the roots are children of the screen's full-rect root `Control`; every property not listed keeps Godot's default; sizes and offsets are reference px. In a state's **Shown** list, the first node of each subtree gives its path from the screen root.
 - **Texts** are keys of `copy/strings.csv`, and the language switches live (the Esc menu's Settings). A plain key is set as `text` and translates itself. A key with placeholders, a plural key (`tr_n`) and a key drawn in pieces are set from code with `auto_translate_mode = DISABLED`: `tr()`, then `String.format()` with the data (the samples below), rebuilt on `NOTIFICATION_TRANSLATION_CHANGED`. A "text from data" (names, the room code, times, numbers) is set in code and never translated (`auto_translate_mode = DISABLED`).
@@ -22,8 +22,8 @@ The black outro of about 3 s: the End phase fades to black (0.4 s; a cut under r
 
 ## Node tree in `aliens`
 
-- **Night** `Panel` · variation `ToyBackdropNight` · anchors `full_rect`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both
-  - Note: P2, opaque: the style's darkest stands for the decided black (the sketch's deep purple). It fades in over 0.4 s when the End phase starts (a cut under reduced motion).
+- **Night** `Panel` · variation `ToyBackdropFullScreen` · anchors `full_rect`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both
+  - Note: P2, opaque: the full screens' soft-ink ground since ui-1.3.0 (was ToyBackdropNight), where the Kablammo title's ink outline shows. It fades in over 0.4 s when the End phase starts (a cut under reduced motion).
 - **V** `VBoxContainer` · variation `ToyColumnThirtyTwo` · anchors `center`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both · gaps from the variation: separation 32 · alignment `ALIGNMENT_CENTER`
   - Note: A centred column on the night, 32 px between its lines (the sketch's 20 x 1.5 = 30, the nearest step).
   - **Title** `Label` · variation `ToyTitleHero` · text `end.title.party`: en "Great party!" · uk "Вечірка вдалася!" · horizontal_alignment `CENTER`
@@ -38,7 +38,7 @@ The black outro of about 3 s: the End phase fades to black (0.4 s; a cut under r
       - Note: end.reason.all_tasks with the round's time (m:ss), end.reason.time_up, or end.reason.cops.
   - **Gap** `Control` · custom_minimum_size (0, 12)
     - Note: With the column's two 32 px gaps, 76 px between the reason and the countdown.
-  - **Back** `Label` · variation `ToyTextMutedOnDark` · text `end.back_to_ship` with sample {count} = "3": en "Back to the ship in 3…" · uk "Повернення на корабель через 3…" · horizontal_alignment `CENTER`
+  - **Back** `Label` · variation `ToyTextOnDark` · text `end.back_to_ship` with sample {count} = "3": en "Back to the ship in 3…" · uk "Повернення на корабель через 3…" · horizontal_alignment `CENTER`
     - Note: Counts 3, 2, 1 once a second; at 0 everyone is back in the lobby, the aliens' ship (#212). Open: how the return to the ship looks.
 
 ## `time`: what differs from `aliens`

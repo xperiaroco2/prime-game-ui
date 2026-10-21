@@ -5,7 +5,7 @@
 The styled tutorial screen from the UI track (xperiaroco2/prime-game-ui), as a Godot 4.7.2 node tree for the 1920×1080 reference.
 
 - **Source:** `pages/screens/src/s01-tutorial.json`; the review page is `pages/screens/screens.html#s1`; the wireframe is section `s1` («Перший запуск і навчання»).
-- **Theme:** the Toy pack ui-1.2.0 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
+- **Theme:** the Toy pack ui-1.3.0 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
 - **World behind the UI** (not UI): a lit room of the level.
 - **How to read it:** the roots are children of the screen's full-rect root `Control`; every property not listed keeps Godot's default; sizes and offsets are reference px. In a state's **Shown** list, the first node of each subtree gives its path from the screen root.
 - **Texts** are keys of `copy/strings.csv`, and the language switches live (the Esc menu's Settings). A plain key is set as `text` and translates itself. A key with placeholders, a plural key (`tr_n`) and a key drawn in pieces are set from code with `auto_translate_mode = DISABLED`: `tr()`, then `String.format()` with the data (the samples below), rebuilt on `NOTIFICATION_TRANSLATION_CHANGED`. A "text from data" (names, the room code, times, numbers) is set in code and never translated (`auto_translate_mode = DISABLED`).
@@ -38,7 +38,7 @@ The tutorial room. On the first launch the invite with the language choice; in t
       - **Title** `Label` · variation `ToyTitleOnLight` · text `tutorial.invite.title`: en "First time here?" · uk "Перший раз тут?" · horizontal_alignment `CENTER`
       - **Body** `Label` · variation `ToyTextMutedOnLight` · custom_minimum_size (720, 0) · text `tutorial.invite.body`: en "About three minutes, only once." · uk "Близько трьох хвилин, лише один раз." · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
     - **Buttons** `HBoxContainer` · variation `ToyRowTwentyFour` · gaps from the variation: separation 24 · alignment `ALIGNMENT_CENTER`
-      - **Start** `Button` · variation `ToyButtonPrimary` (raised: ToyRaised with base `ToyBasePrimaryOnLight`, ToyPress; UiParts.button()) · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper · text `tutorial.invite.start`: en "Start the tutorial" · uk "Почати навчання" · shown with keyboard focus (grab_focus)
+      - **Start** `Button` · variation `ToyButtonPrimary` · text `tutorial.invite.start`: en "Start the tutorial" · uk "Почати навчання" · shown with keyboard focus (grab_focus)
         - Note: Focused on open. Starts lesson 1 and hides the invite for good.
       - **Skip** `Button` · variation `ToyButtonGhostOnLight` · text `tutorial.invite.skip`: en "Skip" · uk "Пропустити"
         - Note: Goes to the main menu (s2) and hides the invite for good. Esc (ui_cancel) does the same.

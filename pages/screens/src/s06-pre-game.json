@@ -142,11 +142,11 @@
         }
       ]
     },
-    { "name": "Night", "type": "Panel", "variation": "ToyBackdropNight", "anchors_preset": "full_rect", "states": ["alien", "human"], "note": "P2, opaque: the style's darkest stands for the decided black (the sketch's deep purple). In after it fades from alpha 1 to 0 over 0.4 s (modulate.a; a cut under reduced motion), then the whole screen is freed." },
+    { "name": "Night", "type": "Panel", "variation": "ToyBackdropFullScreen", "anchors_preset": "full_rect", "states": ["alien", "human"], "note": "P2, opaque: the full screens' soft-ink ground since ui-1.3.0 (was ToyBackdropNight), where the Kablammo title's ink outline shows. In after it fades from alpha 1 to 0 over 0.4 s (modulate.a; a cut under reduced motion), then the whole screen is freed." },
     {
       "name": "V", "type": "VBoxContainer", "variation": "ToyColumnThirtyTwo", "states": ["alien", "human"], "anchors_preset": "center", "grow_horizontal": "both", "grow_vertical": "both", "alignment": "center", "note": "A centred column on the night, 32 px between its lines (the sketch's 20 x 1.5 = 30, the nearest step).",
       "children": [
-        { "name": "YourRole", "type": "Label", "variation": "ToyTextMutedOnDark", "key": "pregame.your_role", "horizontal_alignment": "center" },
+        { "name": "YourRole", "type": "Label", "variation": "ToyTextOnDark", "key": "pregame.your_role", "horizontal_alignment": "center" },
         { "name": "Role", "type": "Label", "variation": "ToyTitleHero", "key": "role.alien", "horizontal_alignment": "center", "per_state": { "human": { "key": "role.human", "variation": "ToyTitleHeroAlert" } }, "note": "The own side at the hero size with the ink outline: ToyTitleHero (green) with role.alien, ToyTitleHeroAlert (coral) with role.human, so the side reads at a glance." },
         {
           "name": "Goal", "type": "PanelContainer", "variation": "ToyPlateGoal", "size_flags_horizontal": "shrink_center", "note": "The side's goal on the mint goal plate, 900 wide (the sketch's 600 x 1.5).",

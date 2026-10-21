@@ -16,6 +16,9 @@
 // icons and an HSlider's knobs at their own size; an item picture, which the game swaps in a slot, the largest size any
 // item picture is drawn at (SWAPPED); an icon no screen draws keeps its own size), and `svg_scale` = drawn_px / the larger
 // side, rounded up to 0.01, the svg/scale Godot imports it at (it rasterises an SVG at import).
+// An icon whose licence record carries "deprecated" (the reason) and "replacement" (a file of the same folder, or null)
+// is marked in its assets record as a deprecated variation is: { "replacement": "<pack path>" | null, "note": "<reason>" };
+// the file stays in the pack until the next major release (since ui-1.3.0: the item2-* pictures).
 // A root without these folders (a test fixture, an overlay's temporary copy) has no icons.
 // Node 20, no packages.
 'use strict';
@@ -55,7 +58,7 @@ function svgSize(text) {
 }
 
 // Every icon of the root: [{ name (the screens' id: check, room/lab), path (in the pack: icons/check.svg), out, source,
-// text (the pack's bytes), size, tint, tintColor, licence, licenceOk, licenceFile }] plus the LICENCES.json outputs.
+// text (the pack's bytes), size, tint, tintColor, licence, licenceOk, licenceFile, deprecated }] plus the LICENCES.json outputs.
 function listIcons(root) {
   const icons = [];
   const licenceOutputs = {};
@@ -94,6 +97,8 @@ function listIcons(root) {
         licence: rec && typeof rec.licence === 'string' ? rec.licence : null,
         licenceOk: !!(rec && typeof rec.licence === 'string' && LICENCES_OK.test(rec.licence)),
         licenceFile: `${packDir}LICENCES.json`,
+        deprecated: rec && rec.deprecated ? { replacement: typeof rec.replacement === 'string' ? `${packDir}${rec.replacement}` : null,
+          note: typeof rec.deprecated === 'string' ? rec.deprecated : null } : null,
       });
     }
     // the components' records are copied as they are; the room pictograms' are the records of the copied files
@@ -157,6 +162,7 @@ function iconSet(root) {
     const rec = { path: ic.path, kind: 'icon', sha256: sha256(ic.text), licence: ic.licence, licence_file: ic.licenceFile, source: ic.source,
       size: ic.size, drawn_px: Math.round(px * 100) / 100, svg_scale: Math.ceil((px / side) * 100) / 100, tint: ic.tint };
     if (ic.tintColor) rec.tint_color = ic.tintColor;
+    if (ic.deprecated) rec.deprecated = ic.deprecated;
     return rec;
   });
   return { outputs: sorted, assets, icons };

@@ -1,6 +1,6 @@
 // The MVP screens page (pages/mvp-screens/index.html) is hand-written, but the round HUD's pictures on it are the game's
-// icon files: pages/components/icons/<name>.svg (the siren, the carried items in both sets, item-* and the grown-up
-// item2-*, the empty slots; their licence records are in pages/components/icons/LICENCES.json), and, beside the item2
+// icon files: pages/components/icons/<name>.svg (the siren, the carried items in both sets, item-* (the line icons,
+// chosen 2026-10-21) and the grown-up item2-* (deprecated since ui-1.3.0), the empty slots; their licence records are in pages/components/icons/LICENCES.json), and, beside the item2
 // set for comparison, room pictograms named room/<name>: pages/room-signs/systems/b/icons/<name>.svg (records in
 // pages/room-signs/systems/b/LICENCES.json), drawn as <symbol id="i-room-<name>">. The page is reviewed as one self-contained file, so it carries them
 // as inline <symbol id="i-<name>"> copies between the markers below; this script writes that block from the files.

@@ -5,7 +5,7 @@
 The styled main menu screen from the UI track (xperiaroco2/prime-game-ui), as a Godot 4.7.2 node tree for the 1920×1080 reference.
 
 - **Source:** `pages/screens/src/s02-main-menu.json`; the review page is `pages/screens/screens.html#s2`; the wireframe is section `s2` («Головне меню»).
-- **Theme:** the Toy pack ui-1.2.0 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
+- **Theme:** the Toy pack ui-1.3.0 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
 - **World behind the UI** (not UI): the lobby room seen behind the main menu.
 - **How to read it:** the roots are children of the screen's full-rect root `Control`; every property not listed keeps Godot's default; sizes and offsets are reference px. In a state's **Shown** list, the first node of each subtree gives its path from the screen root.
 - **Texts** are keys of `copy/strings.csv`, and the language switches live (the Esc menu's Settings). A plain key is set as `text` and translates itself. A key with placeholders, a plural key (`tr_n`) and a key drawn in pieces are set from code with `auto_translate_mode = DISABLED`: `tr()`, then `String.format()` with the data (the samples below), rebuilt on `NOTIFICATION_TRANSLATION_CHANGED`. A "text from data" (names, the room code, times, numbers) is set in code and never translated (`auto_translate_mode = DISABLED`).
@@ -68,7 +68,7 @@ The live lobby stays behind a dim backdrop with an idle camera. There is no serv
         - **Code** `LineEdit` · variation `ToyField` · empty (no text, no placeholder) · context_menu_enabled false (Godot's right-click menu would show untranslated English labels; see the notes) · shown focused with the caret
           - Note: Focused and empty when the panel opens. max_length 6; upper-cases as typed, drops spaces and dashes on paste, accepts only the 31-letter code alphabet (no 0, O, 1, I, L). Keeps what was typed after a failure (back from s3). Enter = Join when it is enabled. auto_translate_mode DISABLED.
       - **Buttons** `HBoxContainer` · variation `ToyRowTwentyFour` · gaps from the variation: separation 24
-        - **Join** `Button` · variation `ToyButtonPrimary` (raised: ToyRaised with base `ToyBasePrimaryOnLight`, ToyPress; UiParts.button()) · size flags horizontal `SIZE_EXPAND_FILL` · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper · text `join.connect`: en "Join" · uk "Приєднатися" · disabled true
+        - **Join** `Button` · variation `ToyButtonPrimary` · size flags horizontal `SIZE_EXPAND_FILL` · text `join.connect`: en "Join" · uk "Приєднатися" · disabled true
           - Note: Disabled (unplugged) until the field holds 6 valid characters. Joins by the code: s3 finding.
         - **Back** `Button` · variation `ToyButtonGhostOnLight` · text `common.back`: en "Back" · uk "Назад"
           - Note: Closes the panel and unpresses Join; Esc does the same.
@@ -88,7 +88,7 @@ The live lobby stays behind a dim backdrop with an idle camera. There is no serv
         - **Code** `LineEdit` · variation `ToyField` · text (sample data) "K7Q2XR" · context_menu_enabled false (Godot's right-click menu would show untranslated English labels; see the notes) · shown focused with the caret
           - Note: Focused and empty when the panel opens. max_length 6; upper-cases as typed, drops spaces and dashes on paste, accepts only the 31-letter code alphabet (no 0, O, 1, I, L). Keeps what was typed after a failure (back from s3). Enter = Join when it is enabled. auto_translate_mode DISABLED.
       - **Buttons** `HBoxContainer` · variation `ToyRowTwentyFour` · gaps from the variation: separation 24
-        - **Join** `Button` · variation `ToyButtonPrimary` (raised: ToyRaised with base `ToyBasePrimaryOnLight`, ToyPress; UiParts.button()) · size flags horizontal `SIZE_EXPAND_FILL` · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper · text `join.connect`: en "Join" · uk "Приєднатися"
+        - **Join** `Button` · variation `ToyButtonPrimary` · size flags horizontal `SIZE_EXPAND_FILL` · text `join.connect`: en "Join" · uk "Приєднатися"
           - Note: Disabled (unplugged) until the field holds 6 valid characters. Joins by the code: s3 finding.
         - **Back** `Button` · variation `ToyButtonGhostOnLight` · text `common.back`: en "Back" · uk "Назад"
           - Note: Closes the panel and unpresses Join; Esc does the same.
@@ -110,7 +110,7 @@ The live lobby stays behind a dim backdrop with an idle camera. There is no serv
         - **Port** `Label` · variation `ToyTextMutedOnLight` · text `join.port` with sample {port} = "7777": en "Port 7777" · uk "Порт 7777"
           - Note: The default port, used when the address has none.
       - **Buttons** `HBoxContainer` · variation `ToyRowTwentyFour` · gaps from the variation: separation 24
-        - **Join** `Button` · variation `ToyButtonPrimary` (raised: ToyRaised with base `ToyBasePrimaryOnLight`, ToyPress; UiParts.button()) · size flags horizontal `SIZE_EXPAND_FILL` · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper · text `join.connect`: en "Join" · uk "Приєднатися"
+        - **Join** `Button` · variation `ToyButtonPrimary` · size flags horizontal `SIZE_EXPAND_FILL` · text `join.connect`: en "Join" · uk "Приєднатися"
           - Note: Disabled (unplugged) while Address is empty. Joins over ENet: s3 (the connecting steps, no code row).
         - **Host** `Button` · variation `ToyButtonSecondary` (raised: ToyRaised with base `ToyBaseRaisedOnLight`, ToyPress; UiParts.button()) · placement, size flags, custom_minimum_size and visibility on its ToyRaised wrapper · text `menu.host`: en "Host a game" · uk "Створити гру"
           - Note: Hosts directly (ENet) on the port typed, else the default, and opens the lobby (s4) with no code row.

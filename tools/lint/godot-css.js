@@ -581,7 +581,11 @@ function lintText(text, opts) {
         }
         if (lens.length > 3) add(line, "L10", "box-shadow with a spread (" + lens.length + " lengths)");
         if (lens.length < 2) add(line, "L28", "box-shadow needs an x and a y offset: " + layer);
-        if (lens.length >= 3 && !R.ZERO_RE.test(lens[2])) add(line, "L11", "box-shadow blur " + lens[2]);
+        // a blur only at no offset: the glow, StyleBoxFlat's shadow_size around the box (ui-1.3.0)
+        if (lens.length >= 3 && !R.ZERO_RE.test(lens[2])) {
+          if (!R.ZERO_RE.test(lens[0]) || !R.ZERO_RE.test(lens[1])) add(line, "L11", "box-shadow blur " + lens[2] + " with an offset (a glow is a blur at 0 0)");
+          else { const p = R.checkLength(lens[2], ctx); if (p) add(line, p.rule, p.msg); }
+        }
         // the x offset is 0 or a shift to the right (the sticker's hard shadow: a base layer with expand margins), never left
         if (lens.length >= 1 && !R.ZERO_RE.test(lens[0])) {
           if (/^-|^calc\(\s*\(?\s*-/.test(lens[0])) add(line, "L12", "box-shadow x offset to the left " + lens[0]);
