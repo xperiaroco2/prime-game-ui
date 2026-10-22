@@ -1574,7 +1574,7 @@ const LAYERS_MD = [
   '| 1 | Name plates in the world (s4, s7) |',
   '| 2 | HUD: the round HUD (s7), downed and the dead\'s room (s9), the lobby HUD (s4), the tutorial\'s lesson plates (s1) |',
   '| 3 | Map and tasks (s8), with its how-to card |',
-  '| 4 | Esc menu (s5) and its dim |',
+  '| 4 | Esc menu (s5): the side panel and its open page (no dim) |',
   '| 5 | The Esc menu\'s confirm dialog |',
   '| 6 | Black screens: connecting and loading (s3), pre game (s6), post game (s10) |',
   '',

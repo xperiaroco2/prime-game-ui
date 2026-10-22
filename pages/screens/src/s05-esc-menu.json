@@ -3,52 +3,157 @@
   "wireframe": "s5",
   "title": "Esc menu",
   "background": "menu",
-  "note": "The suit menu over the running game (no pause), in the approved look (pages/suit-final, section 2, «Меню костюма (Esc)»): one tile, the tabs as text on the hairline strip with the small Esc keycap at its right, no page title under the tabs (the chosen tab names the page), small-capitals heads (ToyKicker) and hairline rows (ToySettingRow). Esc (ui_cancel) opens and closes it; the game runs on, the mouse is free while it is open and captured again on close. While it is open the own character takes no gameplay input (it stands still: no move, look, sprint, jump, interact or item use; those keys go to the menu or nowhere); the voice keeps working as set (voice activation, or the Talk key while held). Focus: the frames show the mouse's view with no focus drawn; ship-keys shows the ring keyboard and gamepad focus draws. The game boots straight into the ship (the engineer, 2026-10-21; s2 was removed): with no session the menu has Find a lobby (host, join with a code, join by address, the tutorial, quit) and Settings. The host's match settings are the ship console's screen (s4), so this menu has no Lobby tab. Open (each a visible placeholder here): the lobbies nearby and the own code (the target's list and «Твій код» row) need the game's network discovery and the engineer's words; the Guide's new topics (points, mutations, the neighbours' anger, the cops, the dead's room); every MVP task's card art (the art track's; own-work Delivery frames stand in here).",
+  "note": "The suit menu over the running game (no pause), the left side panel the engineer approved on 2026-10-22 (pages/esc-start: «Yes, the menu on the left as on the page»), like a start menu: Esc (ui_cancel) brings one panel out at the left, full height, and the world stays visible at its right; no tabs and no footer row. The panel holds only what makes sense where the player is: in the ship with no session the own code and Find a lobby, Host, Tutorial, Guide, Settings, Quit; in the lobby the lobby's code and Resume, Character, Guide, Settings, Leave, Quit; in a round Resume, Guide, Settings, Leave, Quit (no Role: the HUD shows the role; no Character: it is changed only in the lobby); in the tutorial Resume, Guide, Settings, Leave the tutorial. An entry with a page opens it in a tile beside the panel. The game runs on; the mouse is free while the menu is open and captured again on close. While it is open the own character takes no gameplay input (it stands still: no move, look, sprint, jump, interact or item use; those keys go to the menu or nowhere); the voice keeps working as set (voice activation, or the Talk key while held). Focus: the frames show the mouse's view with no focus drawn; ship-keys shows the ring keyboard and gamepad focus draws. The host's match settings are the ship console's screen (s4). Open (each a visible placeholder here): the lobbies nearby and the own code need the game's network discovery (prime-game#1316); the Guide's new topics (points, mutations, the neighbours' anger, the cops, the dead's room); every MVP task's card art (the art track's; own-work Delivery frames stand in here).",
   "states": [
-    { "id": "ship", "label": "Корабель", "note": "In the ship with no session: the game boots straight here (the engineer, 2026-10-21) and every player returns here when a session ends or they leave it. Two tabs only, as the target page (pages/suit-final, section 2): Find a lobby (esc.tab.find, the Game tab's name while there is no session) and Settings; no Role, Guide, Character or Lobby tab without a session. The code field is empty, so Join is disabled. No control is drawn focused: the frames show the mouse's view (ship-keys shows the focus ring)." },
-    { "id": "ship-empty", "label": "Корабель: поруч нікого", "note": "No lobby found on the network nearby: the list says so in one line, with no Join; the code entry and the footer as in ship." },
-    { "id": "ship-code", "label": "Корабель: код", "note": "Six valid characters typed into the code field, so Join is enabled." },
-    { "id": "ship-keys", "label": "З клавіатури", "note": "The same frame reached with the keyboard or a gamepad: Join has the focus and draws its focus ring. The one frame that documents the ring; every other frame shows the mouse's view, with no focus drawn." },
-    { "id": "ship-direct", "label": "Корабель: за адресою", "note": "Join by address pressed in the footer: the address entry takes the code entry's place, with the default port under it; Join, or host directly." },
-    { "id": "character", "label": "Персонаж", "note": "In the lobby (a session in the ship): the tabs Game, Guide, Character and Settings (Role is hidden in the lobby; the match settings are the ship console's screen, s4, not a tab here). The name and the body colour apply live." },
-    { "id": "character-round", "label": "Персонаж у раунді", "note": "In a round: locked; the name is read-only and the swatches take no input." },
-    { "id": "game-host", "label": "Гра: хост", "note": "In a round (the menu opens on Game there), the host: Leave and Quit open the confirm dialog." },
-    { "id": "game-guest", "label": "Гра: гравець", "note": "In a round, a player: Leave and Quit act at once." },
-    { "id": "game-confirm", "label": "Гра: підтвердження", "note": "The host pressed Leave: the confirm dialog (P1) over the menu. Quit opens the same dialog titled esc.game.quit_confirm with Confirm esc.game.quit." },
-    { "id": "role-alien", "label": "Роль: прибулець", "note": "In a round only: the own role and its goal." },
-    { "id": "role-human", "label": "Роль: людина", "note": "A human also sees the other humans (humans know each other: the engineer, 2026-10-20; one here, Zinga, as in s6 and s7); the list scrolls when it is longer than the view. With no other human the Team column is hidden." },
-    { "id": "guide", "label": "Посібник", "note": "In a round: every how-to card, the basics from the tutorial and one card per MVP task type; Cooking selected. Its art is a placeholder (own-work Delivery frames) until the art track's cards exist; the card holds as many frames as its task needs and scrolls sideways." },
-    { "id": "settings-sound", "label": "Звук і голос", "note": "Settings opens on Sound and voice. Drawn in the ship with no session, as the target page; in a session the same page sits under the session's tabs. Voice activation is selected, so the threshold row shows. The language is chosen only here, on Language." },
+    { "id": "ship", "label": "Корабель", "note": "In the ship with no session, nothing open: the game boots straight here (the engineer, 2026-10-21) and every player returns here when a session ends or they leave it. The approved page's frame 1: the own code with Copy at the top, the entries, Quit apart at the bottom. No control is drawn focused: the frames show the mouse's view (ship-keys shows the focus ring)." },
+    { "id": "ship-find", "label": "Корабель: знайти лобі", "note": "Find a lobby open beside the panel (the approved page's frame 2): the lobbies nearby, the code entry with Join by address under it. The code field is empty, so its Join is disabled." },
+    { "id": "ship-empty", "label": "Корабель: поруч нікого", "note": "No lobby found on the network nearby: the list says so in one line, with no Join; the code entry as in ship-find." },
+    { "id": "ship-code", "label": "Корабель: код", "note": "Six valid characters typed into the code field, so its Join is enabled." },
+    { "id": "ship-keys", "label": "З клавіатури", "note": "The same frame reached with the keyboard or a gamepad: the code's Join has the focus and draws its focus ring. The one frame that documents the ring; every other frame shows the mouse's view, with no focus drawn." },
+    { "id": "ship-direct", "label": "Корабель: за адресою", "note": "Join by address pressed: the address entry takes the code entry's place, with the default port under it; Join, or host directly." },
+    { "id": "lobby", "label": "Лобі", "note": "In the lobby (a session in the ship, no round yet), nothing open (the approved page's frame 3): the lobby's code with Copy at the top; Resume, Character, Guide, Settings; Leave and Quit apart at the bottom." },
+    { "id": "character", "label": "Персонаж", "note": "In the lobby, Character open: the name and the body colour apply live." },
+    { "id": "round", "label": "Раунд", "note": "In a round, nothing open: Resume, Guide, Settings; Leave and Quit at the bottom. No head, no Role (the HUD shows the role), no Character (changed only in the lobby)." },
+    { "id": "round-confirm", "label": "Раунд: підтвердження", "note": "The host pressed Leave: the confirm dialog (P1) over the menu. Quit opens the same dialog titled esc.game.quit_confirm with Confirm esc.game.quit. A player leaves or quits at once." },
+    { "id": "guide", "label": "Посібник", "note": "In a round, Guide open: every how-to card, the basics from the tutorial and one card per MVP task type; Cooking selected. Its art is a placeholder (own-work Delivery frames) until the art track's cards exist; the card holds as many frames as its task needs and scrolls sideways." },
+    { "id": "settings-sound", "label": "Звук і голос", "note": "In a round, Settings open (the approved page's frame 4), on Sound and voice; the same page opens from the panel in every place. Voice activation is selected, so the threshold row shows. The language is chosen only here, on Language." },
     { "id": "settings-controls", "label": "Керування", "note": "Interact is capturing a key; Talk was rebound to M, so Talk and Map show Same key. The list scrolls." },
     { "id": "settings-display", "label": "Екран", "note": "The window mode." },
     { "id": "settings-access", "label": "Доступність", "note": "Large text and reduced motion." },
     { "id": "settings-language", "label": "Мова", "note": "The game language, chosen only here; it applies at once." },
-    { "id": "tutorial-game", "label": "Навчання", "note": "The tutorial's menu: only Game, Guide and Settings; Leave goes back to the ship." }
+    { "id": "tutorial", "label": "Навчання", "note": "The tutorial's menu: Resume, Guide, Settings, and Leave the tutorial at the bottom, back to the ship." }
   ],
   "nodes": [
-    { "name": "Dim", "type": "Panel", "variation": "ToyBackdropDeep", "anchors_preset": "full_rect", "note": "Dims the running game behind the menu." },
     {
-      "name": "Menu", "type": "PanelContainer", "variation": "ToyPanelMenu", "anchors_preset": "center", "custom_minimum_size": [1200, 780], "note": "One fixed size for every tab (1200x780, agent), so switching tabs never moves the tile: the target's 990 px wide tile holds its two tabs, a session's five tabs need more at large text, and Character's 456x608 preview sets the height.",
+      "name": "Menu", "type": "Control", "anchors_preset": "full_rect", "note": "The suit menu over the running game (no pause, no dim: the world stays visible at the right), the approved side panel (the engineer, 2026-10-22, pages/esc-start). mouse_filter IGNORE on this Control, so a click on the world outside the panel and the page reaches nothing (agent: it does not close the menu; Esc and Resume do). While the confirm dialog is open set focus_behavior_recursive = FOCUS_BEHAVIOR_DISABLED here (Control, Godot 4.5+) and restore FOCUS_BEHAVIOR_INHERITED on close.",
       "children": [
         {
-          "name": "V", "type": "VBoxContainer", "variation": "ToyColumnTwentyFour",
+          "name": "Side", "type": "PanelContainer", "variation": "ToyPanelMenu", "anchors_preset": "left_wide", "offset_left": 36, "offset_top": 36, "offset_right": 556, "offset_bottom": -36, "note": "The suit menu (the engineer, 2026-10-22: «Yes, the menu on the left as on the page», pages/esc-start): one panel at the left, full height less the HUD's 36 px margin on three sides, 520 px wide (the page's frame); the world stays visible at its right, with no dim. ToyPanelMenu as it is (agent): its rounded corners and edge on every side are why the panel stands 36 px off the screen's edges instead of square against them, so the pack needs no new variation. Only what makes sense where the player is: the head (the own or the lobby's code), the entries, and at the bottom, apart under a hairline, leaving and quitting.",
           "children": [
             {
-              "name": "Strip", "type": "PanelContainer", "variation": "ToyTabStrip", "note": "ui-2.1.0 (the target page's .tabs): the tabs in one row on the strip, its 2 px edge line under them; the chosen tab light over the accent underline (ToyTabSelected); the small Esc keycap at the right closes the menu.",
+              "name": "V", "type": "VBoxContainer", "variation": "ToyColumnSixteen",
               "children": [
                 {
-                  "name": "Tabs", "type": "HBoxContainer", "variation": "ToyRowFour", "note": "One ButtonGroup; the selected tab shows its page. With no session (the ship): Find a lobby and Settings. In the lobby: Game, Guide, Character, Settings. In a round: Game, Role, Guide, Character, Settings. In the tutorial: Game, Guide, Settings. Default tab: Game (named Find a lobby with no session); the last tab is kept for the session. Opening the menu grabs no focus, so the mouse's view draws no ring: the first ui_left, ui_right, ui_up, ui_down or ui_focus_next grabs focus on the selected tab (keyboard and gamepad then draw the ring, ship-keys).",
+                  "name": "Head", "type": "PanelContainer", "variation": "ToySettingRow", "states": ["ship", "ship-find", "ship-empty", "ship-code", "ship-keys", "ship-direct", "lobby", "character"], "note": "The head row over the entries, its hairline under it (ToySettingRow draws only its bottom line); its 18 px sides line the code up with the entries' text. In the ship with no session: «Твій код», the own code, to call friends into the ship (whether every ship listens with a code is the game's, prime-game#1316; while there is none the head hides). In the lobby: «Код», the lobby's code. Hidden in a round and the tutorial.",
                   "children": [
-                    { "name": "Game", "type": "Button", "variation": "ToyTab", "key": "esc.tab.game", "toggle_mode": true, "per_state": { "ship": { "state": "selected", "key": "esc.tab.find" }, "ship-empty": { "state": "selected", "key": "esc.tab.find" }, "ship-code": { "state": "selected", "key": "esc.tab.find" }, "ship-keys": { "state": "selected", "key": "esc.tab.find" }, "ship-direct": { "state": "selected", "key": "esc.tab.find" }, "settings-sound": { "key": "esc.tab.find" }, "settings-controls": { "key": "esc.tab.find" }, "settings-display": { "key": "esc.tab.find" }, "settings-access": { "key": "esc.tab.find" }, "settings-language": { "key": "esc.tab.find" }, "game-host": { "state": "selected" }, "game-guest": { "state": "selected" }, "game-confirm": { "state": "selected" }, "tutorial-game": { "state": "selected" } }, "note": "One tab, two names: esc.tab.find («Знайти лобі», the engineer's word, 2026-10-22) while there is no session, esc.tab.game in a session; the game swaps the key when a session starts or ends." },
-                    { "name": "Role", "type": "Button", "variation": "ToyTab", "key": "esc.tab.role", "toggle_mode": true, "states": ["character-round", "game-host", "game-guest", "game-confirm", "role-alien", "role-human", "guide"], "per_state": { "role-alien": { "state": "selected" }, "role-human": { "state": "selected" } }, "note": "In a round only." },
-                    { "name": "Guide", "type": "Button", "variation": "ToyTab", "key": "esc.tab.guide", "toggle_mode": true, "states": ["character", "character-round", "game-host", "game-guest", "game-confirm", "role-alien", "role-human", "guide", "tutorial-game"], "per_state": { "guide": { "state": "selected" } }, "note": "In a session only." },
-                    { "name": "Character", "type": "Button", "variation": "ToyTab", "key": "esc.tab.character", "toggle_mode": true, "states": ["character", "character-round", "game-host", "game-guest", "game-confirm", "role-alien", "role-human", "guide"], "per_state": { "character": { "state": "selected" }, "character-round": { "state": "selected" } }, "note": "In a session (not the tutorial); changes apply live in the lobby." },
-                    { "name": "Settings", "type": "Button", "variation": "ToyTab", "key": "esc.tab.settings", "toggle_mode": true, "per_state": { "settings-sound": { "state": "selected" }, "settings-controls": { "state": "selected" }, "settings-display": { "state": "selected" }, "settings-access": { "state": "selected" }, "settings-language": { "state": "selected" } } },
-                    { "name": "Gap", "type": "Control", "size_flags_horizontal": "expand_fill", "note": "Pushes the Esc keycap to the right end of the strip." },
                     {
-                      "name": "Esc", "type": "PanelContainer", "variation": "ToyKeyQuiet", "size_flags_vertical": "shrink_center", "note": "The key that closes the menu, shown small (the target); its name is the bound key from the InputMap (data, not a copy key).",
+                      "name": "V", "type": "VBoxContainer", "variation": "ToyColumnEight", "note": "Two lines: the small-capitals head over the code and Copy, as the other heads stand over their content; the page's one line does not fit 520 px at large text.",
                       "children": [
-                        { "name": "Text", "type": "Label", "variation": "ToyKeyQuietText", "text": "Esc" }
+                        { "name": "Label", "type": "Label", "variation": "ToyKicker", "key": "find.your_code", "per_state": { "lobby": { "key": "common.code" }, "character": { "key": "common.code" } }, "note": "A small-capitals head (uppercase = true): find.your_code in the ship with no session, common.code in the lobby." },
+                        {
+                          "name": "Row", "type": "HBoxContainer", "variation": "ToyRowTwelve",
+                          "children": [
+                            { "name": "Value", "type": "Label", "variation": "ToyTextOnLight", "text": "MD4WXT", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center", "per_state": { "lobby": { "text": "K7Q2XR" }, "character": { "text": "K7Q2XR" } }, "note": "The own code in the ship, the lobby's code in the lobby (auto_translate_mode DISABLED); «…» while the code service has not made it yet." },
+                            { "name": "Copy", "type": "Button", "variation": "ToyButtonSecondary", "key": "esc.lobby.copy", "size_flags_vertical": "shrink_center", "note": "Copies the code to the clipboard; the button reads esc.lobby.copied for 2 s." }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Entries", "type": "VBoxContainer", "variation": "ToyColumnFour", "note": "The panel's entries, ToyMenuItem rows (dim idle text, the open page the pressed row fill with light text). An entry with a page (Find a lobby, Character, Guide, Settings) is a toggle in one ButtonGroup: pressing it opens its page in the tile beside the panel, pressing it again or Esc closes the page (Esc with no page open closes the menu). An entry that acts (Resume, Host, Tutorial) is a plain button outside the group. Per place: the ship with no session, Find a lobby, Host, Tutorial, Guide, Settings; the lobby, Resume, Character, Guide, Settings; a round and the tutorial, Resume, Guide, Settings. Opening the menu opens no page and grabs no focus, so the mouse's view draws no ring: the first ui_up, ui_down or ui_focus_next grabs focus on the first entry (keyboard and gamepad then draw the ring, ship-keys); ui_right moves it into the open page.",
+                  "children": [
+                    { "name": "Resume", "type": "Button", "variation": "ToyMenuItem", "key": "esc.game.resume", "states": ["lobby", "character", "round", "round-confirm", "guide", "settings-sound", "settings-controls", "settings-display", "settings-access", "settings-language", "tutorial"], "alignment": "left", "note": "Closes the menu (as Esc). In a session and the tutorial; not in the ship with no session, where nothing runs to resume." },
+                    { "name": "Find", "type": "Button", "variation": "ToyMenuItem", "key": "esc.tab.find", "states": ["ship", "ship-find", "ship-empty", "ship-code", "ship-keys", "ship-direct"], "alignment": "left", "toggle_mode": true, "per_state": { "ship-find": { "state": "selected" }, "ship-empty": { "state": "selected" }, "ship-code": { "state": "selected" }, "ship-keys": { "state": "selected" }, "ship-direct": { "state": "selected" } }, "note": "Opens Find a lobby beside the panel. The ship with no session only." },
+                    { "name": "Host", "type": "Button", "variation": "ToyMenuItem", "key": "menu.host", "states": ["ship", "ship-find", "ship-empty", "ship-code", "ship-keys", "ship-direct"], "alignment": "left", "note": "Hosts a game with a code (WebRTC): the ship becomes the lobby (s4) and the menu closes; the menu, opened again, shows the lobby's entries; a failure shows s3 host-failed. The code is on the ship console (s4) and in the head." },
+                    { "name": "Tutorial", "type": "Button", "variation": "ToyMenuItem", "key": "menu.tutorial", "states": ["ship", "ship-find", "ship-empty", "ship-code", "ship-keys", "ship-direct"], "alignment": "left", "note": "Loads the tutorial's first lesson (s1); its end returns to the ship." },
+                    { "name": "Character", "type": "Button", "variation": "ToyMenuItem", "key": "esc.tab.character", "states": ["lobby", "character"], "alignment": "left", "toggle_mode": true, "per_state": { "character": { "state": "selected" } }, "note": "The lobby only (the engineer, 2026-10-22): the character is changed before the round, so the entry is not in a round or the tutorial." },
+                    { "name": "Guide", "type": "Button", "variation": "ToyMenuItem", "key": "esc.tab.guide", "states": ["ship", "ship-find", "ship-empty", "ship-code", "ship-keys", "ship-direct", "lobby", "character", "round", "round-confirm", "guide", "settings-sound", "settings-controls", "settings-display", "settings-access", "settings-language", "tutorial"], "alignment": "left", "toggle_mode": true, "per_state": { "guide": { "state": "selected" } }, "note": "Always there." },
+                    { "name": "Settings", "type": "Button", "variation": "ToyMenuItem", "key": "esc.tab.settings", "states": ["ship", "ship-find", "ship-empty", "ship-code", "ship-keys", "ship-direct", "lobby", "character", "round", "round-confirm", "guide", "settings-sound", "settings-controls", "settings-display", "settings-access", "settings-language", "tutorial"], "alignment": "left", "toggle_mode": true, "per_state": { "settings-sound": { "state": "selected" }, "settings-controls": { "state": "selected" }, "settings-display": { "state": "selected" }, "settings-access": { "state": "selected" }, "settings-language": { "state": "selected" } }, "note": "Always there; opens on Sound and voice." }
+                  ]
+                },
+                { "name": "Gap", "type": "Control", "size_flags_vertical": "expand_fill", "note": "Pushes the leaving group to the bottom of the panel." },
+                { "name": "Rule", "type": "PanelContainer", "variation": "ToySettingRow", "note": "The hairline over the leaving group: an empty ToySettingRow, so the line is the one every hairline row draws." },
+                {
+                  "name": "Bottom", "type": "VBoxContainer", "variation": "ToyColumnFour", "note": "Leaving and quitting, apart at the bottom, the same quiet rows as the entries.",
+                  "children": [
+                    { "name": "Leave", "type": "Button", "variation": "ToyMenuItem", "key": "esc.game.leave", "states": ["lobby", "character", "round", "round-confirm", "guide", "settings-sound", "settings-controls", "settings-display", "settings-access", "settings-language", "tutorial"], "alignment": "left", "note": "The host of a session: opens the confirm dialog (round-confirm), whose Confirm is the danger button. A player: leaves at once. In the tutorial: esc.game.leave_tutorial, back to the ship at once. Leaving returns the player to the ship (s5 ship).", "per_state": { "tutorial": { "key": "esc.game.leave_tutorial" } } },
+                    { "name": "Quit", "type": "Button", "variation": "ToyMenuItem", "key": "esc.game.quit", "states": ["ship", "ship-find", "ship-empty", "ship-code", "ship-keys", "ship-direct", "lobby", "character", "round", "round-confirm", "guide", "settings-sound", "settings-controls", "settings-display", "settings-access", "settings-language"], "alignment": "left", "note": "The host of a session: opens the confirm dialog (esc.game.quit_confirm, Confirm esc.game.quit). A player, and in the ship with no session: quits at once. Not in the tutorial (leave it first)." }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Page", "type": "PanelContainer", "variation": "ToyPanelMenu", "anchors_preset": "top_left", "offset_left": 580, "offset_top": 36, "custom_minimum_size": [1120, 0], "states": ["ship-find", "ship-empty", "ship-code", "ship-keys", "ship-direct", "character", "guide", "settings-sound", "settings-controls", "settings-display", "settings-access", "settings-language"], "note": "The open entry's page, in a tile beside the panel (the approved page's frames 2 and 4): 24 px right of the panel, top-aligned with it, 1120 px wide on every page (agent), so switching entries never moves its edges sideways; its height follows the page (Settings and Guide share one 828 px view). One page at a time; with no page open the tile is hidden and the world shows.",
+          "children": [
+            {
+              "name": "Find", "type": "HBoxContainer", "variation": "ToyRowTwentyFour", "states": ["ship-find", "ship-empty", "ship-code", "ship-keys", "ship-direct"], "note": "Find a lobby (esc.tab.find), the page beside the panel as the approved page's frame 2: the lobbies nearby at the left, the code entry at the right with Join by address under it. There is no server browser yet: Host (the panel's entry) makes a game with a code, the code entry takes a code, Join by address joins or hosts directly (LAN, VPN). The jobs of the removed start screen (s2, #111; prime-game#1285).",
+              "children": [
+                {
+                  "name": "Nearby", "type": "VBoxContainer", "variation": "ToyColumnTwelve", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_begin", "note": "The lobbies nearby (the engineer, 2026-10-22: needed; the game's discovery is prime-game#1316), as the target's list (.lst): the head in small capitals, the rows, Join under them at the right. What \"nearby\" means (LAN discovery, public lobbies) is the game's; the list is the same either way. It refreshes while the tab is open; a lobby that goes away leaves its row.",
+                  "children": [
+                    { "name": "Head", "type": "Label", "variation": "ToyKicker", "key": "find.nearby", "note": "The tile head in small capitals (uppercase = true)." },
+                    {
+                      "name": "List", "type": "VBoxContainer", "variation": "ToyColumnEight", "states": ["ship-find", "ship-code", "ship-keys", "ship-direct"], "note": "Rows 8 px apart; the first lobby found is chosen when the tab opens. A long list scrolls (a ScrollContainer at the page's height; three rows here).",
+                      "children": [
+                        {
+                          "name": "Glorp", "type": "Button", "variation": "ToyPresetCard", "toggle_mode": true, "state": "selected", "custom_minimum_size": [0, 60], "note": "One row per lobby found nearby, built from the discovery's list (prime-game#1316): ToyPresetCard, a toggle in one ButtonGroup with the other rows; the chosen one draws ToyPresetCardSelected (the target's accent edge). Its content (no text of its own) is a row: the lobby's name, its players and the latency. A Button's minimum size does not follow its children: custom_minimum_size holds the row at 60 (the target's 40 x 1.5). Double click = Join.",
+                          "children": [
+                            {
+                              "name": "H", "type": "HBoxContainer", "variation": "ToyRowTwelve",
+                              "children": [
+                                { "name": "Name", "type": "Label", "variation": "ToyPresetCardName", "key": "lobby.default_name", "args": { "name": { "uk": "Ґлорп", "en": "Glorp" } }, "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center", "clip_text": true, "text_overrun_behavior": "trim_ellipsis" },
+                                { "name": "Count", "type": "Label", "variation": "ToyPresetCardName", "text": "6 / 10", "size_flags_vertical": "shrink_center", "note": "Players of the maximum (data, auto_translate_mode DISABLED), as the target's «6 / 10»." },
+                                { "name": "Ping", "type": "Label", "variation": "ToyPresetCardNoteSelected", "key": "unit.ms", "args": { "count": "24" }, "size_flags_vertical": "shrink_center", "note": "The latency to the lobby's host, in whole ms." }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "Zinga", "type": "Button", "variation": "ToyPresetCard", "toggle_mode": true, "custom_minimum_size": [0, 60], "note": "As the first row, not chosen.",
+                          "children": [
+                            {
+                              "name": "H", "type": "HBoxContainer", "variation": "ToyRowTwelve",
+                              "children": [
+                                { "name": "Name", "type": "Label", "variation": "ToyPresetCardName", "key": "lobby.default_name", "args": { "name": { "uk": "Зінґа", "en": "Zinga" } }, "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center", "clip_text": true, "text_overrun_behavior": "trim_ellipsis" },
+                                { "name": "Count", "type": "Label", "variation": "ToyPresetCardName", "text": "3 / 10", "size_flags_vertical": "shrink_center", "note": "Players of the maximum (data, auto_translate_mode DISABLED), as the target's «6 / 10»." },
+                                { "name": "Ping", "type": "Label", "variation": "ToyPresetCardNote", "key": "unit.ms", "args": { "count": "41" }, "size_flags_vertical": "shrink_center", "note": "The latency to the lobby's host, in whole ms." }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "Bulk", "type": "Button", "variation": "ToyPresetCard", "toggle_mode": true, "state": "disabled", "custom_minimum_size": [0, 60], "note": "A full lobby: disabled (it cannot be chosen), its name dim and «Лобі заповнене.» in place of the players and the latency, as the target's muted row.",
+                          "children": [
+                            {
+                              "name": "H", "type": "HBoxContainer", "variation": "ToyRowTwelve",
+                              "children": [
+                                { "name": "Name", "type": "Label", "variation": "ToyPresetCardNote", "key": "lobby.default_name", "args": { "name": { "uk": "Бульк", "en": "Bulk" } }, "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center", "clip_text": true, "text_overrun_behavior": "trim_ellipsis" },
+                                { "name": "Full", "type": "Label", "variation": "ToyPresetCardNote", "key": "connect.fail.full", "size_flags_vertical": "shrink_center" }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    { "name": "None", "type": "Label", "variation": "ToyTextMutedOnLight", "key": "find.none", "states": ["ship-empty"], "note": "No lobby found nearby: one quiet line in the list's place, and no Join. It stays until a lobby appears." },
+                    { "name": "Join", "type": "Button", "variation": "ToyButtonPrimary", "key": "join.connect", "states": ["ship-find", "ship-code", "ship-keys", "ship-direct"], "size_flags_horizontal": "shrink_end", "note": "Joins the chosen lobby: s3 (the connecting steps). The target's filled Join under the list; the code entry's Join stays outlined. Disabled while no row is chosen." }
+                  ]
+                },
+                {
+                  "name": "Code", "type": "VBoxContainer", "variation": "ToyColumnTwelve", "states": ["ship-find", "ship-empty", "ship-code", "ship-keys"], "custom_minimum_size": [420, 0], "size_flags_vertical": "shrink_begin", "note": "Join with a code: the target's code entry (.jn), a small-capitals head over the field, Join under it, then the quiet Join by address. 420 px holds «Приєднатися за адресою»'s column in ship-direct, so the column keeps one width.",
+                  "children": [
+                    { "name": "Head", "type": "Label", "variation": "ToyKicker", "key": "common.code", "note": "The tile head in small capitals: the game sets uppercase = true on this Label (the pack's uppercase member)." },
+                    { "name": "Field", "type": "LineEdit", "variation": "ToyField", "per_state": { "ship-code": { "text": "K7Q2XR" }, "ship-keys": { "text": "K7Q2XR" } }, "note": "Empty until typed (ship). max_length 6; upper-cases as typed, drops spaces and dashes on paste, accepts only the 31-letter code alphabet (no 0, O, 1, I, L). Keeps what was typed after a failure (back from s3). Enter = Join when it is enabled. auto_translate_mode DISABLED. A click focuses it (the caret shows); the menu does not grab focus for it on open." },
+                    { "name": "Join", "type": "Button", "variation": "ToyButtonSecondary", "key": "join.connect", "state": "disabled", "per_state": { "ship-code": { "state": "normal" }, "ship-keys": { "state": "focus" } }, "note": "The target's outlined Join. Disabled (unplugged) until the field holds 6 valid characters. Joins by the code: s3 finding. ship-keys: reached with the keyboard, it draws the focus ring." },
+                    { "name": "Direct", "type": "Button", "variation": "ToyButtonGhostOnLight", "key": "menu.direct", "size_flags_horizontal": "shrink_begin", "note": "Join or host directly (LAN, VPN): opens the address entry in this column's place (ship-direct); Back or Esc (ui_cancel) closes it and the code entry comes back. A quiet ghost under the code's Join, as the approved side-panel page (pages/esc-start, frame 2)." }
+                  ]
+                },
+                {
+                  "name": "Address", "type": "VBoxContainer", "variation": "ToyColumnTwelve", "states": ["ship-direct"], "custom_minimum_size": [420, 0], "size_flags_vertical": "shrink_begin", "note": "Join or host directly over ENet (LAN, VPN, playit.gg), in the code entry's place while Join by address is pressed. No address is shown anywhere else (streams).",
+                  "children": [
+                    { "name": "Head", "type": "Label", "variation": "ToyKicker", "key": "join.address", "note": "The tile head in small capitals (uppercase = true)." },
+                    { "name": "Field", "type": "LineEdit", "variation": "ToyField", "text": "192.168.0.12", "note": "Takes host or host:port, host names included (JoinTarget). Keeps what was typed after a failure. Enter = Join. auto_translate_mode DISABLED." },
+                    { "name": "Port", "type": "Label", "variation": "ToyTextMutedOnLight", "key": "join.port", "args": { "port": "7777" }, "note": "The default port, used when the address has none." },
+                    {
+                      "name": "Buttons", "type": "VBoxContainer", "variation": "ToyColumnTwelve",
+                      "children": [
+                        { "name": "Join", "type": "Button", "variation": "ToyButtonSecondary", "key": "join.connect", "note": "Disabled (unplugged) while Address is empty. Joins over ENet: s3 (the connecting steps, no code row)." },
+                        { "name": "Host", "type": "Button", "variation": "ToyButtonSecondary", "key": "menu.host", "note": "Hosts directly (ENet) on the port typed, else the default; the ship becomes the lobby (s4) with no code row." },
+                        { "name": "Back", "type": "Button", "variation": "ToyButtonGhostOnLight", "key": "common.back", "note": "Closes the address entry (the code entry comes back, its Join by address focused when the keyboard opened it); Esc does the same." }
                       ]
                     }
                   ]
@@ -56,838 +161,656 @@
               ]
             },
             {
-              "name": "Page", "type": "VBoxContainer", "variation": "ToyColumnTwentyFour", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "expand_fill", "note": "The selected tab's page; no title row (the chosen tab already names the page).",
+              "name": "Settings", "type": "HBoxContainer", "variation": "ToyRowTwentyFour", "states": ["settings-sound", "settings-controls", "settings-display", "settings-access", "settings-language"], "note": "One scene (#301), the target's settings page: the section list at the left, the section's hairline rows at the right. The mic, the mode, the threshold with its live meter, noise suppression and the volumes work without a session, in the ship, the lobby, a round and the tutorial. Saved per player.",
               "children": [
                 {
-                  "name": "Find", "type": "VBoxContainer", "variation": "ToyColumnSixteen", "states": ["ship", "ship-empty", "ship-code", "ship-keys", "ship-direct"], "size_flags_vertical": "expand_fill", "note": "The Game page while there is no session, its tab named esc.tab.find, as the target page's «Знайти лобі»: the list area at the left, the code entry at its right, the footer row under the hairline. There is no server browser yet: Host makes a game with a code, the code entry takes a code, Join by address joins or hosts directly (LAN, VPN). The jobs of the removed start screen (s2, #111; prime-game#1285).",
+                  "name": "Nav", "type": "VBoxContainer", "variation": "ToyColumnFour", "custom_minimum_size": [300, 0], "size_flags_vertical": "shrink_begin", "note": "The section list (the target's .nav): one ButtonGroup of toggle rows; the open section shows the pressed row fill. Settings opens on Sound and voice. Up and down move the focus through the list; ui_right moves it into the rows. 300 px holds «Звук і голос» and «Accessibility» at large text.",
                   "children": [
-                    {
-                      "name": "Body", "type": "PanelContainer", "variation": "ToySettingRow", "size_flags_vertical": "expand_fill", "note": "The page's body over the footer row: ToySettingRow draws only its bottom hairline, the target's line between the body and the footer (.mf).",
-                      "children": [
-                        {
-                          "name": "H", "type": "HBoxContainer", "variation": "ToyRowTwentyFour",
-                          "children": [
-                            {
-                              "name": "Nearby", "type": "VBoxContainer", "variation": "ToyColumnTwelve", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_begin", "note": "The lobbies nearby (the engineer, 2026-10-22: needed; the game's discovery is prime-game#1316), as the target's list (.lst): the head in small capitals, the rows, Join under them at the right. What \"nearby\" means (LAN discovery, public lobbies) is the game's; the list is the same either way. It refreshes while the tab is open; a lobby that goes away leaves its row.",
-                              "children": [
-                                { "name": "Head", "type": "Label", "variation": "ToyKicker", "key": "find.nearby", "note": "The tile head in small capitals (uppercase = true)." },
-                                {
-                                  "name": "List", "type": "VBoxContainer", "variation": "ToyColumnEight", "states": ["ship", "ship-code", "ship-keys", "ship-direct"], "note": "Rows 8 px apart; the first lobby found is chosen when the tab opens. A long list scrolls (a ScrollContainer at the page's height; three rows here).",
-                                  "children": [
-                                    {
-                                      "name": "Glorp", "type": "Button", "variation": "ToyPresetCard", "toggle_mode": true, "state": "selected", "custom_minimum_size": [0, 60], "note": "One row per lobby found nearby, built from the discovery's list (prime-game#1316): ToyPresetCard, a toggle in one ButtonGroup with the other rows; the chosen one draws ToyPresetCardSelected (the target's accent edge). Its content (no text of its own) is a row: the lobby's name, its players and the latency. A Button's minimum size does not follow its children: custom_minimum_size holds the row at 60 (the target's 40 x 1.5). Double click = Join.",
-                                      "children": [
-                                        {
-                                          "name": "H", "type": "HBoxContainer", "variation": "ToyRowTwelve",
-                                          "children": [
-                                            { "name": "Name", "type": "Label", "variation": "ToyPresetCardName", "key": "lobby.default_name", "args": { "name": { "uk": "Ґлорп", "en": "Glorp" } }, "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center", "clip_text": true, "text_overrun_behavior": "trim_ellipsis" },
-                                            { "name": "Count", "type": "Label", "variation": "ToyPresetCardName", "text": "6 / 10", "size_flags_vertical": "shrink_center", "note": "Players of the maximum (data, auto_translate_mode DISABLED), as the target's «6 / 10»." },
-                                            { "name": "Ping", "type": "Label", "variation": "ToyPresetCardNoteSelected", "key": "unit.ms", "args": { "count": "24" }, "size_flags_vertical": "shrink_center", "note": "The latency to the lobby's host, in whole ms." }
-                                          ]
-                                        }
-                                      ]
-                                    },
-                                    {
-                                      "name": "Zinga", "type": "Button", "variation": "ToyPresetCard", "toggle_mode": true, "custom_minimum_size": [0, 60], "note": "As the first row, not chosen.",
-                                      "children": [
-                                        {
-                                          "name": "H", "type": "HBoxContainer", "variation": "ToyRowTwelve",
-                                          "children": [
-                                            { "name": "Name", "type": "Label", "variation": "ToyPresetCardName", "key": "lobby.default_name", "args": { "name": { "uk": "Зінґа", "en": "Zinga" } }, "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center", "clip_text": true, "text_overrun_behavior": "trim_ellipsis" },
-                                            { "name": "Count", "type": "Label", "variation": "ToyPresetCardName", "text": "3 / 10", "size_flags_vertical": "shrink_center", "note": "Players of the maximum (data, auto_translate_mode DISABLED), as the target's «6 / 10»." },
-                                            { "name": "Ping", "type": "Label", "variation": "ToyPresetCardNote", "key": "unit.ms", "args": { "count": "41" }, "size_flags_vertical": "shrink_center", "note": "The latency to the lobby's host, in whole ms." }
-                                          ]
-                                        }
-                                      ]
-                                    },
-                                    {
-                                      "name": "Bulk", "type": "Button", "variation": "ToyPresetCard", "toggle_mode": true, "state": "disabled", "custom_minimum_size": [0, 60], "note": "A full lobby: disabled (it cannot be chosen), its name dim and «Лобі заповнене.» in place of the players and the latency, as the target's muted row.",
-                                      "children": [
-                                        {
-                                          "name": "H", "type": "HBoxContainer", "variation": "ToyRowTwelve",
-                                          "children": [
-                                            { "name": "Name", "type": "Label", "variation": "ToyPresetCardNote", "key": "lobby.default_name", "args": { "name": { "uk": "Бульк", "en": "Bulk" } }, "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center", "clip_text": true, "text_overrun_behavior": "trim_ellipsis" },
-                                            { "name": "Full", "type": "Label", "variation": "ToyPresetCardNote", "key": "connect.fail.full", "size_flags_vertical": "shrink_center" }
-                                          ]
-                                        }
-                                      ]
-                                    }
-                                  ]
-                                },
-                                { "name": "None", "type": "Label", "variation": "ToyTextMutedOnLight", "key": "find.none", "states": ["ship-empty"], "note": "No lobby found nearby: one quiet line in the list's place, and no Join. It stays until a lobby appears." },
-                                { "name": "Join", "type": "Button", "variation": "ToyButtonPrimary", "key": "join.connect", "states": ["ship", "ship-code", "ship-keys", "ship-direct"], "size_flags_horizontal": "shrink_end", "note": "Joins the chosen lobby: s3 (the connecting steps). The target's filled Join under the list; the code entry's Join stays outlined. Disabled while no row is chosen." }
-                              ]
-                            },
-                            {
-                              "name": "Code", "type": "VBoxContainer", "variation": "ToyColumnTwelve", "states": ["ship", "ship-empty", "ship-code", "ship-keys"], "custom_minimum_size": [420, 0], "size_flags_vertical": "shrink_begin", "note": "Join with a code: the target's code entry (.jn), a small-capitals head over the field and Join under it. 420 px holds «Приєднатися за адресою»'s column in ship-direct, so the column keeps one width.",
-                              "children": [
-                                { "name": "Head", "type": "Label", "variation": "ToyKicker", "key": "common.code", "note": "The tile head in small capitals: the game sets uppercase = true on this Label (the pack's uppercase member)." },
-                                { "name": "Field", "type": "LineEdit", "variation": "ToyField", "per_state": { "ship-code": { "text": "K7Q2XR" }, "ship-keys": { "text": "K7Q2XR" } }, "note": "Empty until typed (ship). max_length 6; upper-cases as typed, drops spaces and dashes on paste, accepts only the 31-letter code alphabet (no 0, O, 1, I, L). Keeps what was typed after a failure (back from s3). Enter = Join when it is enabled. auto_translate_mode DISABLED. A click focuses it (the caret shows); the menu does not grab focus for it on open." },
-                                { "name": "Join", "type": "Button", "variation": "ToyButtonSecondary", "key": "join.connect", "state": "disabled", "per_state": { "ship-code": { "state": "normal" }, "ship-keys": { "state": "focus" } }, "note": "The target's outlined Join. Disabled (unplugged) until the field holds 6 valid characters. Joins by the code: s3 finding. ship-keys: reached with the keyboard, it draws the focus ring." }
-                              ]
-                            },
-                            {
-                              "name": "Address", "type": "VBoxContainer", "variation": "ToyColumnTwelve", "states": ["ship-direct"], "custom_minimum_size": [420, 0], "size_flags_vertical": "shrink_begin", "note": "Join or host directly over ENet (LAN, VPN, playit.gg), in the code entry's place while Join by address is pressed. No address is shown anywhere else (streams).",
-                              "children": [
-                                { "name": "Head", "type": "Label", "variation": "ToyKicker", "key": "join.address", "note": "The tile head in small capitals (uppercase = true)." },
-                                { "name": "Field", "type": "LineEdit", "variation": "ToyField", "text": "192.168.0.12", "note": "Takes host or host:port, host names included (JoinTarget). Keeps what was typed after a failure. Enter = Join. auto_translate_mode DISABLED." },
-                                { "name": "Port", "type": "Label", "variation": "ToyTextMutedOnLight", "key": "join.port", "args": { "port": "7777" }, "note": "The default port, used when the address has none." },
-                                {
-                                  "name": "Buttons", "type": "VBoxContainer", "variation": "ToyColumnTwelve",
-                                  "children": [
-                                    { "name": "Join", "type": "Button", "variation": "ToyButtonSecondary", "key": "join.connect", "note": "Disabled (unplugged) while Address is empty. Joins over ENet: s3 (the connecting steps, no code row)." },
-                                    { "name": "Host", "type": "Button", "variation": "ToyButtonSecondary", "key": "menu.host", "note": "Hosts directly (ENet) on the port typed, else the default; the ship becomes the lobby (s4) with no code row." },
-                                    { "name": "Back", "type": "Button", "variation": "ToyButtonGhostOnLight", "key": "common.back", "note": "Closes the address entry and unpresses Join by address (the code entry comes back); Esc does the same." }
-                                  ]
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      ]
-                    },
-                    {
-                      "name": "Foot", "type": "HBoxContainer", "variation": "ToyRowTwelve", "note": "The target's footer row (.mf): your own code with Copy at the left, then the quiet jobs as ghost buttons, Quit the game at the right, where the target has «Вийти з гри».",
-                      "children": [
-                        { "name": "YourCode", "type": "Label", "variation": "ToyTextMutedOnLight", "key": "find.your_code", "size_flags_vertical": "shrink_center", "note": "Your own code, to call friends into your ship (the target's «Твій код»). Whether every ship listens with a code while there is no session is the game's (prime-game#1316); while there is none, the three nodes hide." },
-                        { "name": "CodeValue", "type": "Label", "variation": "ToyTextOnLight", "text": "MD4WXT", "size_flags_vertical": "shrink_center", "note": "The own code (auto_translate_mode DISABLED); «…» while the code service has not made it yet." },
-                        { "name": "Copy", "type": "Button", "variation": "ToyButtonSecondary", "key": "esc.lobby.copy", "note": "Copies the code to the clipboard; the button reads esc.lobby.copied for 2 s (as on the session's Game page)." },
-                        { "name": "Host", "type": "Button", "variation": "ToyButtonGhostOnLight", "key": "menu.host", "note": "Hosts a game with a code (WebRTC): the ship becomes the lobby (s4); the menu, opened again, shows the session's tabs; a failure shows s3 host-failed. The code is on the ship console (s4)." },
-                        { "name": "Direct", "type": "Button", "variation": "ToyButtonGhostOnLight", "key": "menu.direct", "toggle_mode": true, "per_state": { "ship-direct": { "state": "selected" } }, "note": "button_pressed while the address entry is open (the ghost's pressed StyleBox); pressing it again, Back or Esc (ui_cancel) closes it (Esc with nothing open closes the menu)." },
-                        { "name": "Tutorial", "type": "Button", "variation": "ToyButtonGhostOnLight", "key": "menu.tutorial", "note": "Loads the tutorial's first lesson (s1); its end returns to the ship." },
-                        { "name": "Gap", "type": "Control", "size_flags_horizontal": "expand_fill", "note": "Pushes Quit to the right end of the footer." },
-                        { "name": "Quit", "type": "Button", "variation": "ToyButtonGhostOnLight", "key": "esc.game.quit", "note": "Quits the game at once (no session to end)." }
-                      ]
-                    }
+                    { "name": "Sound", "type": "Button", "variation": "ToyMenuItem", "note": "ToyMenuItem (the target's .nav item; a light-context variation since ui-2.2.0): dim idle text, the open section the pressed row fill with light text.", "key": "settings.tab.sound", "toggle_mode": true, "alignment": "left", "per_state": { "settings-sound": { "state": "selected" } } },
+                    { "name": "Controls", "type": "Button", "variation": "ToyMenuItem", "key": "settings.tab.controls", "toggle_mode": true, "alignment": "left", "per_state": { "settings-controls": { "state": "selected" } } },
+                    { "name": "Display", "type": "Button", "variation": "ToyMenuItem", "key": "settings.tab.display", "toggle_mode": true, "alignment": "left", "per_state": { "settings-display": { "state": "selected" } } },
+                    { "name": "Access", "type": "Button", "variation": "ToyMenuItem", "key": "settings.tab.accessibility", "toggle_mode": true, "alignment": "left", "per_state": { "settings-access": { "state": "selected" } } },
+                    { "name": "Language", "type": "Button", "variation": "ToyMenuItem", "key": "settings.tab.language", "toggle_mode": true, "alignment": "left", "per_state": { "settings-language": { "state": "selected" } } }
                   ]
                 },
                 {
-                  "name": "Settings", "type": "HBoxContainer", "variation": "ToyRowTwentyFour", "states": ["settings-sound", "settings-controls", "settings-display", "settings-access", "settings-language"], "size_flags_vertical": "expand_fill", "note": "One scene (#301), the target's settings page: the section list at the left, the section's hairline rows at the right. The mic, the mode, the threshold with its live meter, noise suppression and the volumes work without a session. Saved per player.",
+                  "name": "Scroll", "type": "ScrollContainer", "variation": "ToyScroll", "size_flags_vertical": "expand_fill", "note": "follow_focus = true, so keyboard and gamepad focus scrolls the focused row in view (the 15 keys of Controls). The view is 700 x 828, so Sound and voice's nine rows fit without scrolling and the tile keeps one size on every section. Spectating left the MVP (the dead wait in the dead's room), so its two keys are gone from Controls.", "size_flags_horizontal": "expand_fill", "custom_minimum_size": [700, 828],
                   "children": [
                     {
-                      "name": "Nav", "type": "VBoxContainer", "variation": "ToyColumnFour", "custom_minimum_size": [300, 0], "size_flags_vertical": "shrink_begin", "note": "The section list (the target's .nav): one ButtonGroup of toggle rows; the open section shows the pressed row fill. Settings opens on Sound and voice. Up and down move the focus through the list; ui_right moves it into the rows. 300 px holds «Звук і голос» and «Accessibility» at large text.",
-                      "children": [
-                        { "name": "Sound", "type": "Button", "variation": "ToyMenuItem", "note": "ToyMenuItem (the target's .nav item; a light-context variation since ui-2.2.0): dim idle text, the open section the pressed row fill with light text.", "key": "settings.tab.sound", "toggle_mode": true, "alignment": "left", "per_state": { "settings-sound": { "state": "selected" } } },
-                        { "name": "Controls", "type": "Button", "variation": "ToyMenuItem", "key": "settings.tab.controls", "toggle_mode": true, "alignment": "left", "per_state": { "settings-controls": { "state": "selected" } } },
-                        { "name": "Display", "type": "Button", "variation": "ToyMenuItem", "key": "settings.tab.display", "toggle_mode": true, "alignment": "left", "per_state": { "settings-display": { "state": "selected" } } },
-                        { "name": "Access", "type": "Button", "variation": "ToyMenuItem", "key": "settings.tab.accessibility", "toggle_mode": true, "alignment": "left", "per_state": { "settings-access": { "state": "selected" } } },
-                        { "name": "Language", "type": "Button", "variation": "ToyMenuItem", "key": "settings.tab.language", "toggle_mode": true, "alignment": "left", "per_state": { "settings-language": { "state": "selected" } } }
-                      ]
-                    },
-                    {
-                      "name": "Scroll", "type": "ScrollContainer", "variation": "ToyScroll", "size_flags_vertical": "expand_fill", "note": "follow_focus = true, so keyboard and gamepad focus scrolls the focused row in view (the 15 keys of Controls, the volumes at large text). Spectating left the MVP (the dead wait in the dead's room), so its two keys are gone from Controls.", "size_flags_horizontal": "expand_fill",
+                      "name": "Rows", "type": "VBoxContainer", "variation": "ToyColumnFour", "size_flags_horizontal": "expand_fill", "note": "Hairline rows (ToySettingRow: the label at the left, the control at the row's right, a 2 px line under each), as the target's .sr; the pack has no zero-gap column, so 4 px stand between the rows. Every row is at least 88 px tall (a dropdown row's height), so the rows of every section keep one height.",
                       "children": [
                         {
-                          "name": "Rows", "type": "VBoxContainer", "variation": "ToyColumnFour", "size_flags_horizontal": "expand_fill", "note": "Hairline rows (ToySettingRow: the label at the left, the control at the row's right, a 2 px line under each), as the target's .sr; the pack has no zero-gap column, so 4 px stand between the rows. Every row is at least 88 px tall (a dropdown row's height), so the rows of every section keep one height.",
-                          "children": [
-                            {
-                              "name": "Overall", "type": "PanelContainer", "variation": "ToySettingRow", "states": ["settings-sound"], "custom_minimum_size": [0, 88],
-                              "children": [
-                                {
-                                  "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
-                                  "children": [
-                                    { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "settings.game_volume", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
-                                    {
-                                      "name": "Ctl", "type": "HBoxContainer", "variation": "ToyRowTwelve", "custom_minimum_size": [345, 0], "size_flags_vertical": "shrink_center", "note": "The target's slider with its value at the right (.sld, .vv).",
-                                      "children": [
-                                        { "name": "Slider", "type": "HSlider", "variation": "ToySlider", "value": 55, "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center", "note": "The Master bus, 0 to 100 %." },
-                                        { "name": "Value", "type": "Label", "variation": "ToySettingRowValue", "text": "55", "custom_minimum_size": [48, 0], "horizontal_alignment": "right", "size_flags_vertical": "shrink_center", "note": "str(value) (auto_translate_mode DISABLED), updated as the slider moves." }
-                                      ]
-                                    }
-                                  ]
-                                }
-                              ]
-                            },
-                            {
-                              "name": "Voices", "type": "PanelContainer", "variation": "ToySettingRow", "states": ["settings-sound"], "custom_minimum_size": [0, 88],
-                              "children": [
-                                {
-                                  "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
-                                  "children": [
-                                    { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "settings.voice_volume", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
-                                    {
-                                      "name": "Ctl", "type": "HBoxContainer", "variation": "ToyRowTwelve", "custom_minimum_size": [345, 0], "size_flags_vertical": "shrink_center", "note": "The target's slider with its value at the right (.sld, .vv).",
-                                      "children": [
-                                        { "name": "Slider", "type": "HSlider", "variation": "ToySlider", "value": 70, "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center", "note": "The voice bus, 0 to 100 %." },
-                                        { "name": "Value", "type": "Label", "variation": "ToySettingRowValue", "text": "70", "custom_minimum_size": [48, 0], "horizontal_alignment": "right", "size_flags_vertical": "shrink_center", "note": "str(value) (auto_translate_mode DISABLED), updated as the slider moves." }
-                                      ]
-                                    }
-                                  ]
-                                }
-                              ]
-                            },
-                            {
-                              "name": "Effects", "type": "PanelContainer", "variation": "ToySettingRow", "states": ["settings-sound"], "custom_minimum_size": [0, 88],
-                              "children": [
-                                {
-                                  "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
-                                  "children": [
-                                    { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "settings.effects_volume", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
-                                    {
-                                      "name": "Ctl", "type": "HBoxContainer", "variation": "ToyRowTwelve", "custom_minimum_size": [345, 0], "size_flags_vertical": "shrink_center", "note": "The target's slider with its value at the right (.sld, .vv).",
-                                      "children": [
-                                        { "name": "Slider", "type": "HSlider", "variation": "ToySlider", "value": 80, "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center", "note": "The effects bus, 0 to 100 %." },
-                                        { "name": "Value", "type": "Label", "variation": "ToySettingRowValue", "text": "80", "custom_minimum_size": [48, 0], "horizontal_alignment": "right", "size_flags_vertical": "shrink_center", "note": "str(value) (auto_translate_mode DISABLED), updated as the slider moves." }
-                                      ]
-                                    }
-                                  ]
-                                }
-                              ]
-                            },
-                            {
-                              "name": "Music", "type": "PanelContainer", "variation": "ToySettingRow", "states": ["settings-sound"], "custom_minimum_size": [0, 88],
-                              "children": [
-                                {
-                                  "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
-                                  "children": [
-                                    { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "settings.music_volume", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
-                                    {
-                                      "name": "Ctl", "type": "HBoxContainer", "variation": "ToyRowTwelve", "custom_minimum_size": [345, 0], "size_flags_vertical": "shrink_center", "note": "The target's slider with its value at the right (.sld, .vv).",
-                                      "children": [
-                                        { "name": "Slider", "type": "HSlider", "variation": "ToySlider", "value": 50, "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center", "note": "The music bus, 0 to 100 %." },
-                                        { "name": "Value", "type": "Label", "variation": "ToySettingRowValue", "text": "50", "custom_minimum_size": [48, 0], "horizontal_alignment": "right", "size_flags_vertical": "shrink_center", "note": "str(value) (auto_translate_mode DISABLED), updated as the slider moves." }
-                                      ]
-                                    }
-                                  ]
-                                }
-                              ]
-                            },
-                            {
-                              "name": "TalkMode", "type": "PanelContainer", "variation": "ToySettingRow", "states": ["settings-sound"], "custom_minimum_size": [0, 88],
-                              "children": [
-                                {
-                                  "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
-                                  "children": [
-                                    { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "settings.talk_mode", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
-                                    { "name": "Mode", "type": "OptionButton", "variation": "ToyDropdown", "key": "settings.talk_mode.open", "items": ["settings.talk_mode.open", "settings.talk_mode.push", "common.off"], "size_flags_vertical": "shrink_center", "note": "Voice activation (with the threshold row), push to talk (the Talk key) or off: the target's dropdown, as wide as its text, at the row's right." }
-                                  ]
-                                }
-                              ]
-                            },
-                            {
-                              "name": "Threshold", "type": "PanelContainer", "variation": "ToySettingRow", "note": "Shown for voice activation only.", "states": ["settings-sound"], "custom_minimum_size": [0, 88],
-                              "children": [
-                                {
-                                  "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
-                                  "children": [
-                                    { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "settings.voice_threshold", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
-                                    {
-                                      "name": "Ctl", "type": "HBoxContainer", "variation": "ToyRowTwelve", "custom_minimum_size": [345, 0], "size_flags_vertical": "shrink_center", "note": "The target's slider with its value at the right (.sld, .vv).",
-                                      "children": [
-                                        { "name": "Slider", "type": "HSlider", "variation": "ToySlider", "value": 40, "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center", "note": "The voice-activation threshold, 0 to 100 %." },
-                                        { "name": "Value", "type": "Label", "variation": "ToySettingRowValue", "text": "40", "custom_minimum_size": [48, 0], "horizontal_alignment": "right", "size_flags_vertical": "shrink_center", "note": "str(value) (auto_translate_mode DISABLED), updated as the slider moves." }
-                                      ]
-                                    }
-                                  ]
-                                }
-                              ]
-                            },
-                            {
-                              "name": "Mic", "type": "PanelContainer", "variation": "ToySettingRow", "note": "Without the voice add-on, Mic, TalkMode, Threshold and MicTest give way to one Label(ToyTextMutedOnLight) settings.voice_unavailable.", "states": ["settings-sound"], "custom_minimum_size": [0, 88],
-                              "children": [
-                                {
-                                  "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
-                                  "children": [
-                                    { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "settings.mic", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
-                                    { "name": "Device", "type": "OptionButton", "variation": "ToyDropdown", "key": "settings.mic.default", "items": ["settings.mic.default"], "custom_minimum_size": [345, 0], "size_flags_vertical": "shrink_center", "clip_text": true, "text_overrun_behavior": "trim_ellipsis", "note": "Items: settings.mic.default, then the device names (not translated). A pick opens the device under the existing \"opening\" mark. A long device name is cut with an ellipsis, so the row keeps its 450 px." }
-                                  ]
-                                }
-                              ]
-                            },
-                            {
-                              "name": "MicTest", "type": "PanelContainer", "variation": "ToySettingRow", "states": ["settings-sound"], "custom_minimum_size": [0, 88],
-                              "children": [
-                                {
-                                  "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
-                                  "children": [
-                                    { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "settings.mic_test", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
-                                    { "name": "Meter", "type": "ProgressBar", "variation": "ToyBarSlider", "value": 40, "show_percentage": false, "custom_minimum_size": [345, 15], "size_flags_vertical": "shrink_center", "note": "The live mic level; it runs without a session (#301)." }
-                                  ]
-                                }
-                              ]
-                            },
-                            {
-                              "name": "Noise", "type": "PanelContainer", "variation": "ToySettingRow", "states": ["settings-sound"], "custom_minimum_size": [0, 88],
-                              "children": [
-                                {
-                                  "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
-                                  "children": [
-                                    { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "settings.noise_suppression", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
-                                    {
-                                      "name": "Toggle", "type": "HBoxContainer", "variation": "ToyRowTwelve", "size_flags_vertical": "shrink_center", "note": "One ButtonGroup: RNNoise off or on.", "size_flags_horizontal": "shrink_end",
-                                      "children": [
-                                        { "name": "Off", "type": "Button", "variation": "ToyChipToggleOnLight", "key": "common.off", "toggle_mode": true },
-                                        { "name": "On", "type": "Button", "variation": "ToyChipToggleOnLight", "key": "common.on", "toggle_mode": true, "state": "selected" }
-                                      ]
-                                    }
-                                  ]
-                                }
-                              ]
-                            },
-                            {
-                              "name": "Forward", "type": "PanelContainer", "variation": "ToySettingRow", "states": ["settings-controls"], "custom_minimum_size": [0, 88],
-                              "children": [
-                                {
-                                  "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
-                                  "children": [
-                                    { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "control.forward", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
-                                    { "name": "Bind", "type": "Button", "variation": "ToyKeyButton", "wide": true, "text": "W", "size_flags_vertical": "shrink_center", "note": "Button(ToyKeyButton), wide (min 96): its text is the bound key's label, DisplayServer.keyboard_get_label_from_physical() of the action's binding (data, auto_translate_mode DISABLED); Space and the mouse buttons use key.space, key.mouse_left, key.mouse_right. A click or ui_accept starts capture." }
-                                  ]
-                                }
-                              ]
-                            },
-                            {
-                              "name": "Backward", "type": "PanelContainer", "variation": "ToySettingRow", "states": ["settings-controls"], "custom_minimum_size": [0, 88],
-                              "children": [
-                                {
-                                  "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
-                                  "children": [
-                                    { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "control.backward", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
-                                    { "name": "Bind", "type": "Button", "variation": "ToyKeyButton", "wide": true, "text": "S", "size_flags_vertical": "shrink_center" }
-                                  ]
-                                }
-                              ]
-                            },
-                            {
-                              "name": "Left", "type": "PanelContainer", "variation": "ToySettingRow", "states": ["settings-controls"], "custom_minimum_size": [0, 88],
-                              "children": [
-                                {
-                                  "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
-                                  "children": [
-                                    { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "control.left", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
-                                    { "name": "Bind", "type": "Button", "variation": "ToyKeyButton", "wide": true, "text": "A", "size_flags_vertical": "shrink_center" }
-                                  ]
-                                }
-                              ]
-                            },
-                            {
-                              "name": "Right", "type": "PanelContainer", "variation": "ToySettingRow", "states": ["settings-controls"], "custom_minimum_size": [0, 88],
-                              "children": [
-                                {
-                                  "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
-                                  "children": [
-                                    { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "control.right", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
-                                    { "name": "Bind", "type": "Button", "variation": "ToyKeyButton", "wide": true, "text": "D", "size_flags_vertical": "shrink_center" }
-                                  ]
-                                }
-                              ]
-                            },
-                            {
-                              "name": "Sprint", "type": "PanelContainer", "variation": "ToySettingRow", "states": ["settings-controls"], "custom_minimum_size": [0, 88],
-                              "children": [
-                                {
-                                  "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
-                                  "children": [
-                                    { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "control.sprint", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
-                                    { "name": "Bind", "type": "Button", "variation": "ToyKeyButton", "wide": true, "text": "Shift", "size_flags_vertical": "shrink_center" }
-                                  ]
-                                }
-                              ]
-                            },
-                            {
-                              "name": "Jump", "type": "PanelContainer", "variation": "ToySettingRow", "states": ["settings-controls"], "custom_minimum_size": [0, 88],
-                              "children": [
-                                {
-                                  "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
-                                  "children": [
-                                    { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "control.jump", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
-                                    { "name": "Bind", "type": "Button", "variation": "ToyKeyButton", "wide": true, "key": "key.space", "size_flags_vertical": "shrink_center" }
-                                  ]
-                                }
-                              ]
-                            },
-                            {
-                              "name": "Crouch", "type": "PanelContainer", "variation": "ToySettingRow", "states": ["settings-controls"], "custom_minimum_size": [0, 88],
-                              "children": [
-                                {
-                                  "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
-                                  "children": [
-                                    { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "control.crouch", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
-                                    { "name": "Bind", "type": "Button", "variation": "ToyKeyButton", "wide": true, "text": "Ctrl", "size_flags_vertical": "shrink_center" }
-                                  ]
-                                }
-                              ]
-                            },
-                            {
-                              "name": "Sneak", "type": "PanelContainer", "variation": "ToySettingRow", "states": ["settings-controls"], "custom_minimum_size": [0, 88],
-                              "children": [
-                                {
-                                  "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
-                                  "children": [
-                                    { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "control.sneak", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
-                                    { "name": "Bind", "type": "Button", "variation": "ToyKeyButton", "wide": true, "text": "Alt", "size_flags_vertical": "shrink_center" }
-                                  ]
-                                }
-                              ]
-                            },
-                            {
-                              "name": "Interact", "type": "PanelContainer", "variation": "ToySettingRow", "states": ["settings-controls"], "custom_minimum_size": [0, 88],
-                              "children": [
-                                {
-                                  "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
-                                  "children": [
-                                    { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "control.interact", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
-                                    { "name": "Bind", "type": "Button", "variation": "ToyKeyButton", "wide": true, "key": "settings.controls.press_key", "state": "held", "size_flags_vertical": "shrink_center", "note": "Capturing: settings.controls.press_key on the pressed look; idle it shows the bound key's label (E). A click or ui_accept starts capture: set toggle_mode = true and set_pressed_no_signal(true), which draws ToyKeyButton's pressed StyleBox (it has no toggle partner), and restore both when capture ends. Capture runs in _input and calls get_viewport().set_input_as_handled() on every event, so nothing else sees it: the next key or mouse button binds, except the release of the click that started capture, which is ignored; Esc cancels and is consumed (the menu stays open); the arrows and ui_accept do not move or press focus while capturing." }
-                                  ]
-                                }
-                              ]
-                            },
-                            {
-                              "name": "Use", "type": "PanelContainer", "variation": "ToySettingRow", "states": ["settings-controls"], "custom_minimum_size": [0, 88],
-                              "children": [
-                                {
-                                  "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
-                                  "children": [
-                                    { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "control.use", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
-                                    { "name": "Bind", "type": "Button", "variation": "ToyKeyButton", "wide": true, "key": "key.mouse_left", "size_flags_vertical": "shrink_center" }
-                                  ]
-                                }
-                              ]
-                            },
-                            {
-                              "name": "PutDown", "type": "PanelContainer", "variation": "ToySettingRow", "states": ["settings-controls"], "custom_minimum_size": [0, 88],
-                              "children": [
-                                {
-                                  "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
-                                  "children": [
-                                    { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "control.put_down", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
-                                    { "name": "Bind", "type": "Button", "variation": "ToyKeyButton", "wide": true, "text": "Q", "size_flags_vertical": "shrink_center" }
-                                  ]
-                                }
-                              ]
-                            },
-                            {
-                              "name": "Swap", "type": "PanelContainer", "variation": "ToySettingRow", "states": ["settings-controls"], "custom_minimum_size": [0, 88],
-                              "children": [
-                                {
-                                  "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
-                                  "children": [
-                                    { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "control.swap", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
-                                    { "name": "Bind", "type": "Button", "variation": "ToyKeyButton", "wide": true, "text": "X", "size_flags_vertical": "shrink_center" }
-                                  ]
-                                }
-                              ]
-                            },
-                            {
-                              "name": "Throw", "type": "PanelContainer", "variation": "ToySettingRow", "states": ["settings-controls"], "custom_minimum_size": [0, 88],
-                              "children": [
-                                {
-                                  "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
-                                  "children": [
-                                    { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "control.throw", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
-                                    { "name": "Bind", "type": "Button", "variation": "ToyKeyButton", "wide": true, "text": "G", "size_flags_vertical": "shrink_center" }
-                                  ]
-                                }
-                              ]
-                            },
-                            {
-                              "name": "Map", "type": "PanelContainer", "variation": "ToySettingRow", "states": ["settings-controls"], "custom_minimum_size": [0, 88],
-                              "children": [
-                                {
-                                  "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
-                                  "children": [
-                                    { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "control.map", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
-                                    {
-                                      "name": "Same", "type": "PanelContainer", "variation": "ToyChipAlert", "size_flags_vertical": "shrink_center", "note": "Only on rows whose key clashes with another action of the same phase (here Map and Talk on M); give_up and ready share F legally (different phases, #211).",
-                                      "children": [
-                                        { "name": "Text", "type": "Label", "variation": "ToyChipAlertText", "key": "settings.controls.same_key" }
-                                      ]
-                                    },
-                                    { "name": "Bind", "type": "Button", "variation": "ToyKeyButton", "wide": true, "text": "M", "size_flags_vertical": "shrink_center" }
-                                  ]
-                                }
-                              ]
-                            },
-                            {
-                              "name": "GiveUp", "type": "PanelContainer", "variation": "ToySettingRow", "states": ["settings-controls"], "custom_minimum_size": [0, 88],
-                              "children": [
-                                {
-                                  "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
-                                  "children": [
-                                    { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "control.give_up", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
-                                    { "name": "Bind", "type": "Button", "variation": "ToyKeyButton", "wide": true, "text": "F", "size_flags_vertical": "shrink_center" }
-                                  ]
-                                }
-                              ]
-                            },
-                            {
-                              "name": "ReadyKey", "type": "PanelContainer", "variation": "ToySettingRow", "states": ["settings-controls"], "custom_minimum_size": [0, 88],
-                              "children": [
-                                {
-                                  "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
-                                  "children": [
-                                    { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "control.ready", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
-                                    { "name": "Bind", "type": "Button", "variation": "ToyKeyButton", "wide": true, "text": "F", "size_flags_vertical": "shrink_center" }
-                                  ]
-                                }
-                              ]
-                            },
-                            {
-                              "name": "Talk", "type": "PanelContainer", "variation": "ToySettingRow", "states": ["settings-controls"], "custom_minimum_size": [0, 88],
-                              "children": [
-                                {
-                                  "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
-                                  "children": [
-                                    { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "control.talk", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
-                                    {
-                                      "name": "Same", "type": "PanelContainer", "variation": "ToyChipAlert", "size_flags_vertical": "shrink_center",
-                                      "children": [
-                                        { "name": "Text", "type": "Label", "variation": "ToyChipAlertText", "key": "settings.controls.same_key" }
-                                      ]
-                                    },
-                                    { "name": "Bind", "type": "Button", "variation": "ToyKeyButton", "wide": true, "text": "M", "size_flags_vertical": "shrink_center" }
-                                  ]
-                                }
-                              ]
-                            },
-                            { "name": "ResetGap", "type": "Control", "custom_minimum_size": [0, 18], "states": ["settings-controls"], "note": "A spacer: 4 + 12 + 4 = 20 px between the last row and Reset." },
-                            { "name": "Reset", "type": "Button", "variation": "ToyButtonGhostOnLight", "key": "settings.controls.reset", "states": ["settings-controls"], "size_flags_horizontal": "shrink_begin", "note": "Restores the default bindings. Esc itself is fixed." },
-                            {
-                              "name": "Window", "type": "PanelContainer", "variation": "ToySettingRow", "states": ["settings-display"], "custom_minimum_size": [0, 88],
-                              "children": [
-                                {
-                                  "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
-                                  "children": [
-                                    { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "settings.window", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
-                                    {
-                                      "name": "Mode", "type": "HBoxContainer", "variation": "ToyRowTwelve", "size_flags_vertical": "shrink_center", "note": "One ButtonGroup: DisplayServer window mode.", "size_flags_horizontal": "shrink_end",
-                                      "children": [
-                                        { "name": "Fullscreen", "type": "Button", "variation": "ToyChipToggleOnLight", "key": "settings.window.fullscreen", "toggle_mode": true, "state": "selected" },
-                                        { "name": "Windowed", "type": "Button", "variation": "ToyChipToggleOnLight", "key": "settings.window.windowed", "toggle_mode": true }
-                                      ]
-                                    }
-                                  ]
-                                }
-                              ]
-                            },
-                            {
-                              "name": "LargeText", "type": "PanelContainer", "variation": "ToySettingRow", "states": ["settings-access"], "custom_minimum_size": [0, 88],
-                              "children": [
-                                {
-                                  "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
-                                  "children": [
-                                    { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "settings.large_text", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
-                                    {
-                                      "name": "Toggle", "type": "HBoxContainer", "variation": "ToyRowTwelve", "size_flags_vertical": "shrink_center", "note": "One ButtonGroup. On swaps GameUi's theme to game_theme_large.tres live.", "size_flags_horizontal": "shrink_end",
-                                      "children": [
-                                        { "name": "Off", "type": "Button", "variation": "ToyChipToggleOnLight", "key": "common.off", "toggle_mode": true, "state": "selected" },
-                                        { "name": "On", "type": "Button", "variation": "ToyChipToggleOnLight", "key": "common.on", "toggle_mode": true }
-                                      ]
-                                    }
-                                  ]
-                                }
-                              ]
-                            },
-                            {
-                              "name": "ReducedMotion", "type": "PanelContainer", "variation": "ToySettingRow", "states": ["settings-access"], "custom_minimum_size": [0, 88],
-                              "children": [
-                                {
-                                  "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
-                                  "children": [
-                                    { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "settings.reduced_motion", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
-                                    {
-                                      "name": "Toggle", "type": "HBoxContainer", "variation": "ToyRowTwelve", "size_flags_vertical": "shrink_center", "note": "One ButtonGroup; the default comes from DisplayServer.accessibility_should_reduce_animation(). On: the connecting spinner (s3) turns at half speed; the pre and post game fades (s6, s10) and the End fade are cuts; the button press is instant (the pressed StyleBox still shows).", "size_flags_horizontal": "shrink_end",
-                                      "children": [
-                                        { "name": "Off", "type": "Button", "variation": "ToyChipToggleOnLight", "key": "common.off", "toggle_mode": true, "state": "selected" },
-                                        { "name": "On", "type": "Button", "variation": "ToyChipToggleOnLight", "key": "common.on", "toggle_mode": true }
-                                      ]
-                                    }
-                                  ]
-                                }
-                              ]
-                            },
-                            {
-                              "name": "Language", "type": "PanelContainer", "variation": "ToySettingRow", "states": ["settings-language"], "custom_minimum_size": [0, 88],
-                              "children": [
-                                {
-                                  "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
-                                  "children": [
-                                    { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "settings.language.title", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
-                                    {
-                                      "name": "Choice", "type": "HBoxContainer", "variation": "ToyRowTwelve", "size_flags_vertical": "shrink_center", "note": "One ButtonGroup; each language is named in itself (auto_translate_mode DISABLED); the language applies at once (#208). A long list later would take ToyRadio rows.", "size_flags_horizontal": "shrink_end",
-                                      "children": [
-                                        { "name": "Ukrainian", "type": "Button", "variation": "ToyChipToggleOnLight", "key": "lang.uk", "toggle_mode": true, "state": "selected" },
-                                        { "name": "English", "type": "Button", "variation": "ToyChipToggleOnLight", "key": "lang.en", "toggle_mode": true }
-                                      ]
-                                    }
-                                  ]
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "name": "Game", "type": "VBoxContainer", "variation": "ToyColumnSixteen", "states": ["game-host", "game-guest", "game-confirm", "tutorial-game"], "size_flags_vertical": "expand_fill", "note": "The Game page in a session, built as Find a lobby: the body over the hairline with Resume, the footer row with Leave at the left and Quit at the right (where the target has «Вийти з гри»).",
-                  "children": [
-                    {
-                      "name": "Body", "type": "PanelContainer", "variation": "ToySettingRow", "size_flags_vertical": "expand_fill", "note": "The body over the footer row; ToySettingRow draws only its bottom hairline.",
-                      "children": [
-                        {
-                          "name": "V", "type": "VBoxContainer",
-                          "children": [
-                            { "name": "Resume", "type": "Button", "variation": "ToyButtonPrimary", "key": "esc.game.resume", "size_flags_horizontal": "shrink_begin", "note": "Closes the menu (as Esc)." }
-                          ]
-                        }
-                      ]
-                    },
-                    {
-                      "name": "Foot", "type": "HBoxContainer", "variation": "ToyRowTwelve",
-                      "children": [
-                        { "name": "Inset", "type": "Control", "custom_minimum_size": [6, 0], "note": "A spacer: 6 + 12 = 18 px, so Leave lines up with Resume inside the body row (ToySettingRow keeps 18 px at its sides)." },
-                        { "name": "Leave", "type": "Button", "variation": "ToyButtonSecondary", "key": "esc.game.leave", "per_state": { "tutorial-game": { "key": "esc.game.leave_tutorial" } }, "note": "Everyone: the outlined secondary, so the menu stays calm. The host: opens the confirm dialog, whose Confirm is the danger button. A player: leaves at once. In the tutorial: esc.game.leave_tutorial, back to the ship. Leaving a session returns the player to the ship (s5 ship)." },
-                        { "name": "Gap", "type": "Control", "size_flags_horizontal": "expand_fill", "note": "Pushes Quit to the right end of the footer." },
-                        { "name": "Quit", "type": "Button", "variation": "ToyButtonGhostOnLight", "key": "esc.game.quit", "note": "The host: opens the confirm dialog (esc.game.quit_confirm, Confirm esc.game.quit). A player, and in the tutorial: quits at once." }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "name": "Role", "type": "HBoxContainer", "variation": "ToyRowThirtyTwo", "states": ["role-alien", "role-human"], "note": "Reads only the own role and, for a human, the other humans.",
-                  "children": [
-                    {
-                      "name": "Left", "type": "VBoxContainer", "variation": "ToyColumnTwelve", "size_flags_horizontal": "expand_fill", "size_flags_stretch_ratio": 1.1,
-                      "children": [
-                        { "name": "You", "type": "Label", "variation": "ToyKicker", "key": "player.you", "note": "A small-capitals head (uppercase = true) over the own side." },
-                        { "name": "Role", "type": "Label", "variation": "ToyDisplayOnLight", "key": "role.alien", "per_state": { "role-human": { "key": "role.human", "variation": "ToyDisplayAlertOnLight" } }, "note": "The own side at the display size: ToyDisplayOnLight (the accent) with role.alien, ToyDisplayAlertOnLight (the danger colour) with role.human, as in s6 and s7." },
-                        { "name": "Goal", "type": "Label", "variation": "ToyTextOnLight", "key": "role.goal.alien", "autowrap_mode": "word_smart", "custom_minimum_size": [560, 0], "per_state": { "role-human": { "key": "role.goal.human" } } }
-                      ]
-                    },
-                    {
-                      "name": "Team", "type": "VBoxContainer", "variation": "ToyColumnTwelve", "states": ["role-human"], "size_flags_horizontal": "expand_fill", "note": "Humans only (humans know each other: the engineer, 2026-10-20); hidden when there is no other human. Aliens see no list.",
-                      "children": [
-                        { "name": "Count", "type": "Label", "variation": "ToyKicker", "key": "esc.role.teammates", "args": { "count": "1" }, "note": "The number of the other humans (here one, Zinga, as in s6 and s7). A small-capitals head (uppercase = true)." },
-                        {
-                          "name": "Scroll", "type": "ScrollContainer", "variation": "ToyScroll", "custom_minimum_size": [0, 375], "note": "The view is 375 px tall; the list scrolls when it is longer.",
-                          "children": [
-                            {
-                              "name": "Rows", "type": "VBoxContainer", "variation": "ToyColumnFour", "size_flags_horizontal": "expand_fill", "note": "One hairline row per other human, in join order; a long list scrolls in the 375 px view.",
-                              "children": [
-                                {
-                                  "name": "Zinga", "type": "PanelContainer", "variation": "ToySettingRow",
-                                  "children": [
-                                    {
-                                      "name": "H", "type": "HBoxContainer", "variation": "ToyRowTwelve",
-                                      "children": [
-                                        { "name": "Mark", "type": "TextureRect", "icon": "teammate-mark", "custom_minimum_size": [30, 30], "size_flags_vertical": "shrink_center" },
-                                        { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "text": { "uk": "Зінга", "en": "Zinga" }, "size_flags_horizontal": "expand_fill", "clip_text": true, "text_overrun_behavior": "trim_ellipsis", "note": "The other human's name (auto_translate_mode DISABLED); a long name is cut with an ellipsis.", "size_flags_vertical": "shrink_center" }
-                                      ]
-                                    }
-                                  ]
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "name": "Guide", "type": "HBoxContainer", "variation": "ToyRowThirtyTwo", "states": ["guide"], "size_flags_vertical": "expand_fill",
-                  "children": [
-                    {
-                      "name": "List", "type": "ScrollContainer", "variation": "ToyScroll", "custom_minimum_size": [360, 0], "note": "Fills the page height. follow_focus = true, so keyboard and gamepad focus scrolls the topic in view. 360 px holds the longest topic at large text.",
-                      "children": [
-                        {
-                          "name": "V", "type": "VBoxContainer", "variation": "ToyColumnFour", "size_flags_horizontal": "expand_fill", "note": "One ButtonGroup over every topic, drawn as the settings' section list (the open topic shows the pressed row fill); a topic shows its card, headed with the topic's name. The MVP's new topics (points, mutations, the neighbours' anger, the cops, the dead's room) are open: their texts and cards are the engineer's.",
-                          "children": [
-                            { "name": "Basics", "type": "Label", "variation": "ToyKicker", "key": "guide.basics", "note": "A small-capitals head (uppercase = true)." },
-                            { "name": "Moving", "type": "Button", "variation": "ToyMenuItem", "key": "guide.moving", "toggle_mode": true, "note": "Card frames: tutorial.step.move.title, .pick_up.title, .put_down.title, .hand_belt.title.", "alignment": "left" },
-                            { "name": "Voice", "type": "Button", "variation": "ToyMenuItem", "key": "guide.voice", "toggle_mode": true, "note": "Card frames: tutorial.step.voice.title, tutorial.step.voice.how, tutorial.list.death.", "alignment": "left" },
-                            { "name": "Downed", "type": "Button", "variation": "ToyMenuItem", "key": "guide.downed", "toggle_mode": true, "note": "Card frames: tutorial.step.downed.title, downed.give_up_hold, then the death frames: tutorial.step.dead_room.title, tutorial.step.dead_room.how (drafts; the dead wait in the dead's room, m8 §3).", "alignment": "left" },
-                            { "name": "Gap", "type": "Control", "custom_minimum_size": [0, 16], "note": "A spacer: 4 + 16 + 4 = 24 px between the Downed row and the Tasks head." },
-                            { "name": "Tasks", "type": "Label", "variation": "ToyKicker", "key": "guide.tasks", "note": "A small-capitals head (uppercase = true)." },
-                            { "name": "CarTuning", "type": "Button", "variation": "ToyMenuItem", "key": "task.car_tuning", "toggle_mode": true, "note": "The MVP's five task types (GDD §8, #1144), in the deck's order. Each card needs new wordless art (the card art quality bar); until the art track's cards exist every card shows the placeholder (own-work Delivery frames, dist/pack/cards/).", "alignment": "left" },
-                            { "name": "Engine", "type": "Button", "variation": "ToyMenuItem", "key": "task.engine", "toggle_mode": true, "alignment": "left" },
-                            { "name": "Cooking", "type": "Button", "variation": "ToyMenuItem", "key": "task.cooking", "toggle_mode": true, "state": "selected", "alignment": "left" },
-                            { "name": "Photo", "type": "Button", "variation": "ToyMenuItem", "key": "task.photo", "toggle_mode": true, "alignment": "left" },
-                            { "name": "Wifi", "type": "Button", "variation": "ToyMenuItem", "key": "task.wifi", "toggle_mode": true, "alignment": "left" }
-                          ]
-                        }
-                      ]
-                    },
-                    {
-                      "name": "Card", "type": "VBoxContainer", "variation": "ToyColumnSixteen", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_begin", "note": "P8's how-to card without its own panel inside the menu's tile (the target draws no tile in a tile): the head, then the frames in one row that scroll sideways, as in s3 and s8, with 272 px art beside the topic list. A card is content data per task type (#254).",
-                      "children": [
-                        {
-                          "name": "Head", "type": "VBoxContainer", "variation": "ToyColumnEight", "note": "The card's head as in s3 and s8: howto.label in small capitals over the open topic's name, so the card is the same in s3, s5 and s8.",
-                          "children": [
-                            { "name": "Note", "type": "Label", "variation": "ToyKicker", "key": "howto.label", "note": "The game sets uppercase = true." },
-                            { "name": "Title", "type": "Label", "variation": "ToyTitleOnLight", "key": "task.cooking", "note": "The open topic's name (a basics topic shows its guide.* name)." }
-                          ]
-                        },
-                        {
-                          "name": "Scroll", "type": "ScrollContainer", "horizontal_scroll_mode": "show_never", "custom_minimum_size": [302, 0], "note": "The frames scroll sideways when they do not fit (the engineer, 2026-10-22): a card holds as many frames as its task needs. No bar is drawn (SCROLL_MODE_SHOW_NEVER) until the pack has a sideways bar; the frame cut at the card's edge shows there is more. The wheel scrolls it sideways while vertical scrolling is disabled, a drag on a touch screen too (unconfirmed for Godot 4.7.2: check ScrollContainer's wheel handling); follow_focus true. Here the view fills the card beside the topic list (at least one frame, 302 px).",
-                          "children": [
-                            {
-                              "name": "Frames", "type": "HBoxContainer", "variation": "ToyRowSixteen",
-                              "children": [
-                                {
-                                  "name": "Frame1", "type": "PanelContainer", "variation": "ToyHowtoFrame",
-                                  "children": [
-                                    { "name": "Art", "type": "TextureRect", "icon": "card/delivery-meaning-1", "custom_minimum_size": [272, 204], "note": "PLACEHOLDER art: seven own-work Delivery frames (dist/pack/cards/delivery-meaning-1..3, delivery-1..3 and delivery-meaning-4, 640x480, transparent) stand in for the Cooking card's seven frames, which the engineer named every card's placeholder (2026-10-22). Those frames are generated art kept in the art track (prime-game-art#272) and this repo's licence list does not cover generated art yet, so the game takes them from the art track's pack. expand_mode IGNORE_272x204 here, 352x264 in s3 and s8, stretch_mode KEEP_ASPECT_CENTERED; SIZE here; the same card in s3, s5 and s8. The cards are wordless: a frame holds only its art, no caption." }
-                                  ]
-                                },
-                                {
-                                  "name": "Frame2", "type": "PanelContainer", "variation": "ToyHowtoFrame",
-                                  "children": [
-                                    { "name": "Art", "type": "TextureRect", "icon": "card/delivery-meaning-2", "custom_minimum_size": [272, 204] }
-                                  ]
-                                },
-                                {
-                                  "name": "Frame3", "type": "PanelContainer", "variation": "ToyHowtoFrame",
-                                  "children": [
-                                    { "name": "Art", "type": "TextureRect", "icon": "card/delivery-meaning-3", "custom_minimum_size": [272, 204] }
-                                  ]
-                                },
-                                {
-                                  "name": "Frame4", "type": "PanelContainer", "variation": "ToyHowtoFrame",
-                                  "children": [
-                                    { "name": "Art", "type": "TextureRect", "icon": "card/delivery-1", "custom_minimum_size": [272, 204] }
-                                  ]
-                                },
-                                {
-                                  "name": "Frame5", "type": "PanelContainer", "variation": "ToyHowtoFrame",
-                                  "children": [
-                                    { "name": "Art", "type": "TextureRect", "icon": "card/delivery-2", "custom_minimum_size": [272, 204] }
-                                  ]
-                                },
-                                {
-                                  "name": "Frame6", "type": "PanelContainer", "variation": "ToyHowtoFrame",
-                                  "children": [
-                                    { "name": "Art", "type": "TextureRect", "icon": "card/delivery-3", "custom_minimum_size": [272, 204] }
-                                  ]
-                                },
-                                {
-                                  "name": "Frame7", "type": "PanelContainer", "variation": "ToyHowtoFrameDone", "note": "The frame that shows the finish.",
-                                  "children": [
-                                    { "name": "Art", "type": "TextureRect", "icon": "card/delivery-meaning-4", "custom_minimum_size": [272, 204] }
-                                  ]
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "name": "Character", "type": "HBoxContainer", "variation": "ToyRowThirtyTwo", "states": ["character", "character-round"],
-                  "children": [
-                    { "name": "Preview", "type": "PanelContainer", "variation": "ToyHowtoFrame", "custom_minimum_size": [456, 608], "note": "In the game: SubViewportContainer (stretch true) · min 456×608 with a SubViewport showing the own character; the page draws a ToyHowtoFrame placeholder." },
-                    {
-                      "name": "Form", "type": "VBoxContainer", "variation": "ToyColumnFour", "size_flags_horizontal": "expand_fill", "note": "Changes apply live in the lobby. The Hat row (esc.character.hat) stays hidden until hats exist.",
-                      "children": [
-                        {
-                          "name": "NameRow", "type": "PanelContainer", "variation": "ToySettingRow",
+                          "name": "Overall", "type": "PanelContainer", "variation": "ToySettingRow", "states": ["settings-sound"], "custom_minimum_size": [0, 88],
                           "children": [
                             {
                               "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
                               "children": [
-                                { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "player.name", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
-                                { "name": "Field", "type": "LineEdit", "variation": "ToyField", "text": { "uk": "Олена", "en": "Olena" }, "custom_minimum_size": [345, 0], "size_flags_vertical": "shrink_center", "per_state": { "character-round": { "editable": false } }, "note": "The player's name, kept between sessions; auto_translate_mode DISABLED. editable false in a round." }
-                              ]
-                            }
-                          ]
-                        },
-                        {
-                          "name": "ColourRow", "type": "PanelContainer", "variation": "ToySettingRow",
-                          "children": [
-                            {
-                              "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
-                              "children": [
-                                { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "esc.character.colour", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
+                                { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "settings.game_volume", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
                                 {
-                                  "name": "Swatches", "type": "GridContainer", "variation": "ToyGridSwatch", "columns": 5, "size_flags_vertical": "shrink_center", "note": "The ten body colours (#255; the palette is not decided yet).",
+                                  "name": "Ctl", "type": "HBoxContainer", "variation": "ToyRowTwelve", "custom_minimum_size": [345, 0], "size_flags_vertical": "shrink_center", "note": "The target's slider with its value at the right (.sld, .vv).",
                                   "children": [
-                                    {
-                                      "name": "Swatch1", "type": "Control", "custom_minimum_size": [60, 60], "note": "In the game: TextureButton · toggle_mode · one ButtonGroup · 60×60 (focus_mode ALL in the lobby, NONE in a round; mouse_filter IGNORE in a round). The disc is tinted with the body colour (content data, #255; the page's colours are samples only). Keyboard and gamepad focus shows ToySwatchFocus, a Panel over the swatch (mouse_filter IGNORE), visible while it has focus; the frames show the mouse's view, so no swatch is drawn focused.",
-                                      "children": [
-                                        { "name": "Disc", "type": "TextureRect", "icon": "swatch-disc", "anchors_preset": "full_rect", "custom_minimum_size": [60, 60], "self_modulate": "#ff8466", "note": "self_modulate = the body colour (content data)." },
-                                        { "name": "Ring", "type": "Panel", "variation": "ToySwatchRing", "anchors_preset": "full_rect", "note": "mouse_filter IGNORE." },
-                                        { "name": "Sel", "type": "Panel", "variation": "ToySwatchSelected", "anchors_preset": "full_rect", "note": "mouse_filter IGNORE; visible while the swatch is selected." }
-                                      ]
-                                    },
-                                    {
-                                      "name": "Swatch2", "type": "Control", "custom_minimum_size": [60, 60],
-                                      "children": [
-                                        { "name": "Disc", "type": "TextureRect", "icon": "swatch-disc", "anchors_preset": "full_rect", "custom_minimum_size": [60, 60], "self_modulate": "#ffc23a" },
-                                        { "name": "Ring", "type": "Panel", "variation": "ToySwatchRing", "anchors_preset": "full_rect" }
-                                      ]
-                                    },
-                                    {
-                                      "name": "Swatch3", "type": "Control", "custom_minimum_size": [60, 60],
-                                      "children": [
-                                        { "name": "Disc", "type": "TextureRect", "icon": "swatch-disc", "anchors_preset": "full_rect", "custom_minimum_size": [60, 60], "self_modulate": "#3cc4a8" },
-                                        { "name": "Ring", "type": "Panel", "variation": "ToySwatchRing", "anchors_preset": "full_rect" }
-                                      ]
-                                    },
-                                    {
-                                      "name": "Swatch4", "type": "Control", "custom_minimum_size": [60, 60],
-                                      "children": [
-                                        { "name": "Disc", "type": "TextureRect", "icon": "swatch-disc", "anchors_preset": "full_rect", "custom_minimum_size": [60, 60], "self_modulate": "#5bcb4e" },
-                                        { "name": "Ring", "type": "Panel", "variation": "ToySwatchRing", "anchors_preset": "full_rect" }
-                                      ]
-                                    },
-                                    {
-                                      "name": "Swatch5", "type": "Control", "custom_minimum_size": [60, 60],
-                                      "children": [
-                                        { "name": "Disc", "type": "TextureRect", "icon": "swatch-disc", "anchors_preset": "full_rect", "custom_minimum_size": [60, 60], "self_modulate": "#d9482f" },
-                                        { "name": "Ring", "type": "Panel", "variation": "ToySwatchRing", "anchors_preset": "full_rect" }
-                                      ]
-                                    },
-                                    {
-                                      "name": "Swatch6", "type": "Control", "custom_minimum_size": [60, 60],
-                                      "children": [
-                                        { "name": "Disc", "type": "TextureRect", "icon": "swatch-disc", "anchors_preset": "full_rect", "custom_minimum_size": [60, 60], "self_modulate": "#c98a10" },
-                                        { "name": "Ring", "type": "Panel", "variation": "ToySwatchRing", "anchors_preset": "full_rect" }
-                                      ]
-                                    },
-                                    {
-                                      "name": "Swatch7", "type": "Control", "custom_minimum_size": [60, 60],
-                                      "children": [
-                                        { "name": "Disc", "type": "TextureRect", "icon": "swatch-disc", "anchors_preset": "full_rect", "custom_minimum_size": [60, 60], "self_modulate": "#b9a8c7" },
-                                        { "name": "Ring", "type": "Panel", "variation": "ToySwatchRing", "anchors_preset": "full_rect" }
-                                      ]
-                                    },
-                                    {
-                                      "name": "Swatch8", "type": "Control", "custom_minimum_size": [60, 60],
-                                      "children": [
-                                        { "name": "Disc", "type": "TextureRect", "icon": "swatch-disc", "anchors_preset": "full_rect", "custom_minimum_size": [60, 60], "self_modulate": "#64566f" },
-                                        { "name": "Ring", "type": "Panel", "variation": "ToySwatchRing", "anchors_preset": "full_rect" }
-                                      ]
-                                    },
-                                    {
-                                      "name": "Swatch9", "type": "Control", "custom_minimum_size": [60, 60],
-                                      "children": [
-                                        { "name": "Disc", "type": "TextureRect", "icon": "swatch-disc", "anchors_preset": "full_rect", "custom_minimum_size": [60, 60], "self_modulate": "#4a3c5c" },
-                                        { "name": "Ring", "type": "Panel", "variation": "ToySwatchRing", "anchors_preset": "full_rect" }
-                                      ]
-                                    },
-                                    {
-                                      "name": "Swatch10", "type": "Control", "custom_minimum_size": [60, 60],
-                                      "children": [
-                                        { "name": "Disc", "type": "TextureRect", "icon": "swatch-disc", "anchors_preset": "full_rect", "custom_minimum_size": [60, 60], "self_modulate": "#fff4e2" },
-                                        { "name": "Ring", "type": "Panel", "variation": "ToySwatchRing", "anchors_preset": "full_rect" }
-                                      ]
-                                    }
+                                    { "name": "Slider", "type": "HSlider", "variation": "ToySlider", "value": 55, "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center", "note": "The Master bus, 0 to 100 %." },
+                                    { "name": "Value", "type": "Label", "variation": "ToySettingRowValue", "text": "55", "custom_minimum_size": [48, 0], "horizontal_alignment": "right", "size_flags_vertical": "shrink_center", "note": "str(value) (auto_translate_mode DISABLED), updated as the slider moves." }
                                   ]
                                 }
                               ]
                             }
                           ]
                         },
-                        { "name": "Gap", "type": "Control", "custom_minimum_size": [0, 12], "states": ["character-round"], "note": "A spacer: 4 + 12 + 12 = 28 px between the rows and the lock line." },
                         {
-                          "name": "Locked", "type": "HBoxContainer", "variation": "ToyRowTwelve", "states": ["character-round"], "note": "In a round the tab is locked: the lock line under the rows, the rows keep their place.",
+                          "name": "Voices", "type": "PanelContainer", "variation": "ToySettingRow", "states": ["settings-sound"], "custom_minimum_size": [0, 88],
                           "children": [
-                            { "name": "Lock", "type": "TextureRect", "icon": "lock", "custom_minimum_size": [30, 30], "size_flags_vertical": "shrink_center" },
-                            { "name": "Text", "type": "Label", "variation": "ToyTextMutedOnLight", "key": "esc.character.locked" }
+                            {
+                              "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
+                              "children": [
+                                { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "settings.voice_volume", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
+                                {
+                                  "name": "Ctl", "type": "HBoxContainer", "variation": "ToyRowTwelve", "custom_minimum_size": [345, 0], "size_flags_vertical": "shrink_center", "note": "The target's slider with its value at the right (.sld, .vv).",
+                                  "children": [
+                                    { "name": "Slider", "type": "HSlider", "variation": "ToySlider", "value": 70, "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center", "note": "The voice bus, 0 to 100 %." },
+                                    { "name": "Value", "type": "Label", "variation": "ToySettingRowValue", "text": "70", "custom_minimum_size": [48, 0], "horizontal_alignment": "right", "size_flags_vertical": "shrink_center", "note": "str(value) (auto_translate_mode DISABLED), updated as the slider moves." }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "Effects", "type": "PanelContainer", "variation": "ToySettingRow", "states": ["settings-sound"], "custom_minimum_size": [0, 88],
+                          "children": [
+                            {
+                              "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
+                              "children": [
+                                { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "settings.effects_volume", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
+                                {
+                                  "name": "Ctl", "type": "HBoxContainer", "variation": "ToyRowTwelve", "custom_minimum_size": [345, 0], "size_flags_vertical": "shrink_center", "note": "The target's slider with its value at the right (.sld, .vv).",
+                                  "children": [
+                                    { "name": "Slider", "type": "HSlider", "variation": "ToySlider", "value": 80, "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center", "note": "The effects bus, 0 to 100 %." },
+                                    { "name": "Value", "type": "Label", "variation": "ToySettingRowValue", "text": "80", "custom_minimum_size": [48, 0], "horizontal_alignment": "right", "size_flags_vertical": "shrink_center", "note": "str(value) (auto_translate_mode DISABLED), updated as the slider moves." }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "Music", "type": "PanelContainer", "variation": "ToySettingRow", "states": ["settings-sound"], "custom_minimum_size": [0, 88],
+                          "children": [
+                            {
+                              "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
+                              "children": [
+                                { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "settings.music_volume", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
+                                {
+                                  "name": "Ctl", "type": "HBoxContainer", "variation": "ToyRowTwelve", "custom_minimum_size": [345, 0], "size_flags_vertical": "shrink_center", "note": "The target's slider with its value at the right (.sld, .vv).",
+                                  "children": [
+                                    { "name": "Slider", "type": "HSlider", "variation": "ToySlider", "value": 50, "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center", "note": "The music bus, 0 to 100 %." },
+                                    { "name": "Value", "type": "Label", "variation": "ToySettingRowValue", "text": "50", "custom_minimum_size": [48, 0], "horizontal_alignment": "right", "size_flags_vertical": "shrink_center", "note": "str(value) (auto_translate_mode DISABLED), updated as the slider moves." }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "TalkMode", "type": "PanelContainer", "variation": "ToySettingRow", "states": ["settings-sound"], "custom_minimum_size": [0, 88],
+                          "children": [
+                            {
+                              "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
+                              "children": [
+                                { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "settings.talk_mode", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
+                                { "name": "Mode", "type": "OptionButton", "variation": "ToyDropdown", "key": "settings.talk_mode.open", "items": ["settings.talk_mode.open", "settings.talk_mode.push", "common.off"], "size_flags_vertical": "shrink_center", "note": "Voice activation (with the threshold row), push to talk (the Talk key) or off: the target's dropdown, as wide as its text, at the row's right." }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "Threshold", "type": "PanelContainer", "variation": "ToySettingRow", "note": "Shown for voice activation only.", "states": ["settings-sound"], "custom_minimum_size": [0, 88],
+                          "children": [
+                            {
+                              "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
+                              "children": [
+                                { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "settings.voice_threshold", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
+                                {
+                                  "name": "Ctl", "type": "HBoxContainer", "variation": "ToyRowTwelve", "custom_minimum_size": [345, 0], "size_flags_vertical": "shrink_center", "note": "The target's slider with its value at the right (.sld, .vv).",
+                                  "children": [
+                                    { "name": "Slider", "type": "HSlider", "variation": "ToySlider", "value": 40, "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center", "note": "The voice-activation threshold, 0 to 100 %." },
+                                    { "name": "Value", "type": "Label", "variation": "ToySettingRowValue", "text": "40", "custom_minimum_size": [48, 0], "horizontal_alignment": "right", "size_flags_vertical": "shrink_center", "note": "str(value) (auto_translate_mode DISABLED), updated as the slider moves." }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "Mic", "type": "PanelContainer", "variation": "ToySettingRow", "note": "Without the voice add-on, Mic, TalkMode, Threshold and MicTest give way to one Label(ToyTextMutedOnLight) settings.voice_unavailable.", "states": ["settings-sound"], "custom_minimum_size": [0, 88],
+                          "children": [
+                            {
+                              "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
+                              "children": [
+                                { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "settings.mic", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
+                                { "name": "Device", "type": "OptionButton", "variation": "ToyDropdown", "key": "settings.mic.default", "items": ["settings.mic.default"], "custom_minimum_size": [345, 0], "size_flags_vertical": "shrink_center", "clip_text": true, "text_overrun_behavior": "trim_ellipsis", "note": "Items: settings.mic.default, then the device names (not translated). A pick opens the device under the existing \"opening\" mark. A long device name is cut with an ellipsis, so the row keeps its 450 px." }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "MicTest", "type": "PanelContainer", "variation": "ToySettingRow", "states": ["settings-sound"], "custom_minimum_size": [0, 88],
+                          "children": [
+                            {
+                              "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
+                              "children": [
+                                { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "settings.mic_test", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
+                                { "name": "Meter", "type": "ProgressBar", "variation": "ToyBarSlider", "value": 40, "show_percentage": false, "custom_minimum_size": [345, 15], "size_flags_vertical": "shrink_center", "note": "The live mic level; it runs without a session (#301)." }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "Noise", "type": "PanelContainer", "variation": "ToySettingRow", "states": ["settings-sound"], "custom_minimum_size": [0, 88],
+                          "children": [
+                            {
+                              "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
+                              "children": [
+                                { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "settings.noise_suppression", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
+                                {
+                                  "name": "Toggle", "type": "HBoxContainer", "variation": "ToyRowTwelve", "size_flags_vertical": "shrink_center", "note": "One ButtonGroup: RNNoise off or on.", "size_flags_horizontal": "shrink_end",
+                                  "children": [
+                                    { "name": "Off", "type": "Button", "variation": "ToyChipToggleOnLight", "key": "common.off", "toggle_mode": true },
+                                    { "name": "On", "type": "Button", "variation": "ToyChipToggleOnLight", "key": "common.on", "toggle_mode": true, "state": "selected" }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "Forward", "type": "PanelContainer", "variation": "ToySettingRow", "states": ["settings-controls"], "custom_minimum_size": [0, 88],
+                          "children": [
+                            {
+                              "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
+                              "children": [
+                                { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "control.forward", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
+                                { "name": "Bind", "type": "Button", "variation": "ToyKeyButton", "wide": true, "text": "W", "size_flags_vertical": "shrink_center", "note": "Button(ToyKeyButton), wide (min 96): its text is the bound key's label, DisplayServer.keyboard_get_label_from_physical() of the action's binding (data, auto_translate_mode DISABLED); Space and the mouse buttons use key.space, key.mouse_left, key.mouse_right. A click or ui_accept starts capture." }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "Backward", "type": "PanelContainer", "variation": "ToySettingRow", "states": ["settings-controls"], "custom_minimum_size": [0, 88],
+                          "children": [
+                            {
+                              "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
+                              "children": [
+                                { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "control.backward", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
+                                { "name": "Bind", "type": "Button", "variation": "ToyKeyButton", "wide": true, "text": "S", "size_flags_vertical": "shrink_center" }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "Left", "type": "PanelContainer", "variation": "ToySettingRow", "states": ["settings-controls"], "custom_minimum_size": [0, 88],
+                          "children": [
+                            {
+                              "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
+                              "children": [
+                                { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "control.left", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
+                                { "name": "Bind", "type": "Button", "variation": "ToyKeyButton", "wide": true, "text": "A", "size_flags_vertical": "shrink_center" }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "Right", "type": "PanelContainer", "variation": "ToySettingRow", "states": ["settings-controls"], "custom_minimum_size": [0, 88],
+                          "children": [
+                            {
+                              "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
+                              "children": [
+                                { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "control.right", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
+                                { "name": "Bind", "type": "Button", "variation": "ToyKeyButton", "wide": true, "text": "D", "size_flags_vertical": "shrink_center" }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "Sprint", "type": "PanelContainer", "variation": "ToySettingRow", "states": ["settings-controls"], "custom_minimum_size": [0, 88],
+                          "children": [
+                            {
+                              "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
+                              "children": [
+                                { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "control.sprint", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
+                                { "name": "Bind", "type": "Button", "variation": "ToyKeyButton", "wide": true, "text": "Shift", "size_flags_vertical": "shrink_center" }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "Jump", "type": "PanelContainer", "variation": "ToySettingRow", "states": ["settings-controls"], "custom_minimum_size": [0, 88],
+                          "children": [
+                            {
+                              "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
+                              "children": [
+                                { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "control.jump", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
+                                { "name": "Bind", "type": "Button", "variation": "ToyKeyButton", "wide": true, "key": "key.space", "size_flags_vertical": "shrink_center" }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "Crouch", "type": "PanelContainer", "variation": "ToySettingRow", "states": ["settings-controls"], "custom_minimum_size": [0, 88],
+                          "children": [
+                            {
+                              "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
+                              "children": [
+                                { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "control.crouch", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
+                                { "name": "Bind", "type": "Button", "variation": "ToyKeyButton", "wide": true, "text": "Ctrl", "size_flags_vertical": "shrink_center" }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "Sneak", "type": "PanelContainer", "variation": "ToySettingRow", "states": ["settings-controls"], "custom_minimum_size": [0, 88],
+                          "children": [
+                            {
+                              "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
+                              "children": [
+                                { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "control.sneak", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
+                                { "name": "Bind", "type": "Button", "variation": "ToyKeyButton", "wide": true, "text": "Alt", "size_flags_vertical": "shrink_center" }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "Interact", "type": "PanelContainer", "variation": "ToySettingRow", "states": ["settings-controls"], "custom_minimum_size": [0, 88],
+                          "children": [
+                            {
+                              "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
+                              "children": [
+                                { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "control.interact", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
+                                { "name": "Bind", "type": "Button", "variation": "ToyKeyButton", "wide": true, "key": "settings.controls.press_key", "state": "held", "size_flags_vertical": "shrink_center", "note": "Capturing: settings.controls.press_key on the pressed look; idle it shows the bound key's label (E). A click or ui_accept starts capture: set toggle_mode = true and set_pressed_no_signal(true), which draws ToyKeyButton's pressed StyleBox (it has no toggle partner), and restore both when capture ends. Capture runs in _input and calls get_viewport().set_input_as_handled() on every event, so nothing else sees it: the next key or mouse button binds, except the release of the click that started capture, which is ignored; Esc cancels and is consumed (the menu stays open); the arrows and ui_accept do not move or press focus while capturing." }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "Use", "type": "PanelContainer", "variation": "ToySettingRow", "states": ["settings-controls"], "custom_minimum_size": [0, 88],
+                          "children": [
+                            {
+                              "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
+                              "children": [
+                                { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "control.use", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
+                                { "name": "Bind", "type": "Button", "variation": "ToyKeyButton", "wide": true, "key": "key.mouse_left", "size_flags_vertical": "shrink_center" }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "PutDown", "type": "PanelContainer", "variation": "ToySettingRow", "states": ["settings-controls"], "custom_minimum_size": [0, 88],
+                          "children": [
+                            {
+                              "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
+                              "children": [
+                                { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "control.put_down", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
+                                { "name": "Bind", "type": "Button", "variation": "ToyKeyButton", "wide": true, "text": "Q", "size_flags_vertical": "shrink_center" }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "Swap", "type": "PanelContainer", "variation": "ToySettingRow", "states": ["settings-controls"], "custom_minimum_size": [0, 88],
+                          "children": [
+                            {
+                              "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
+                              "children": [
+                                { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "control.swap", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
+                                { "name": "Bind", "type": "Button", "variation": "ToyKeyButton", "wide": true, "text": "X", "size_flags_vertical": "shrink_center" }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "Throw", "type": "PanelContainer", "variation": "ToySettingRow", "states": ["settings-controls"], "custom_minimum_size": [0, 88],
+                          "children": [
+                            {
+                              "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
+                              "children": [
+                                { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "control.throw", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
+                                { "name": "Bind", "type": "Button", "variation": "ToyKeyButton", "wide": true, "text": "G", "size_flags_vertical": "shrink_center" }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "Map", "type": "PanelContainer", "variation": "ToySettingRow", "states": ["settings-controls"], "custom_minimum_size": [0, 88],
+                          "children": [
+                            {
+                              "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
+                              "children": [
+                                { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "control.map", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
+                                {
+                                  "name": "Same", "type": "PanelContainer", "variation": "ToyChipAlert", "size_flags_vertical": "shrink_center", "note": "Only on rows whose key clashes with another action of the same phase (here Map and Talk on M); give_up and ready share F legally (different phases, #211).",
+                                  "children": [
+                                    { "name": "Text", "type": "Label", "variation": "ToyChipAlertText", "key": "settings.controls.same_key" }
+                                  ]
+                                },
+                                { "name": "Bind", "type": "Button", "variation": "ToyKeyButton", "wide": true, "text": "M", "size_flags_vertical": "shrink_center" }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "GiveUp", "type": "PanelContainer", "variation": "ToySettingRow", "states": ["settings-controls"], "custom_minimum_size": [0, 88],
+                          "children": [
+                            {
+                              "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
+                              "children": [
+                                { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "control.give_up", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
+                                { "name": "Bind", "type": "Button", "variation": "ToyKeyButton", "wide": true, "text": "F", "size_flags_vertical": "shrink_center" }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "ReadyKey", "type": "PanelContainer", "variation": "ToySettingRow", "states": ["settings-controls"], "custom_minimum_size": [0, 88],
+                          "children": [
+                            {
+                              "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
+                              "children": [
+                                { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "control.ready", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
+                                { "name": "Bind", "type": "Button", "variation": "ToyKeyButton", "wide": true, "text": "F", "size_flags_vertical": "shrink_center" }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "Talk", "type": "PanelContainer", "variation": "ToySettingRow", "states": ["settings-controls"], "custom_minimum_size": [0, 88],
+                          "children": [
+                            {
+                              "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
+                              "children": [
+                                { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "control.talk", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
+                                {
+                                  "name": "Same", "type": "PanelContainer", "variation": "ToyChipAlert", "size_flags_vertical": "shrink_center",
+                                  "children": [
+                                    { "name": "Text", "type": "Label", "variation": "ToyChipAlertText", "key": "settings.controls.same_key" }
+                                  ]
+                                },
+                                { "name": "Bind", "type": "Button", "variation": "ToyKeyButton", "wide": true, "text": "M", "size_flags_vertical": "shrink_center" }
+                              ]
+                            }
+                          ]
+                        },
+                        { "name": "ResetGap", "type": "Control", "custom_minimum_size": [0, 18], "states": ["settings-controls"], "note": "A spacer: 4 + 12 + 4 = 20 px between the last row and Reset." },
+                        { "name": "Reset", "type": "Button", "variation": "ToyButtonGhostOnLight", "key": "settings.controls.reset", "states": ["settings-controls"], "size_flags_horizontal": "shrink_begin", "note": "Restores the default bindings. Esc itself is fixed." },
+                        {
+                          "name": "Window", "type": "PanelContainer", "variation": "ToySettingRow", "states": ["settings-display"], "custom_minimum_size": [0, 88],
+                          "children": [
+                            {
+                              "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
+                              "children": [
+                                { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "settings.window", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
+                                {
+                                  "name": "Mode", "type": "HBoxContainer", "variation": "ToyRowTwelve", "size_flags_vertical": "shrink_center", "note": "One ButtonGroup: DisplayServer window mode.", "size_flags_horizontal": "shrink_end",
+                                  "children": [
+                                    { "name": "Fullscreen", "type": "Button", "variation": "ToyChipToggleOnLight", "key": "settings.window.fullscreen", "toggle_mode": true, "state": "selected" },
+                                    { "name": "Windowed", "type": "Button", "variation": "ToyChipToggleOnLight", "key": "settings.window.windowed", "toggle_mode": true }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "LargeText", "type": "PanelContainer", "variation": "ToySettingRow", "states": ["settings-access"], "custom_minimum_size": [0, 88],
+                          "children": [
+                            {
+                              "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
+                              "children": [
+                                { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "settings.large_text", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
+                                {
+                                  "name": "Toggle", "type": "HBoxContainer", "variation": "ToyRowTwelve", "size_flags_vertical": "shrink_center", "note": "One ButtonGroup. On swaps GameUi's theme to game_theme_large.tres live.", "size_flags_horizontal": "shrink_end",
+                                  "children": [
+                                    { "name": "Off", "type": "Button", "variation": "ToyChipToggleOnLight", "key": "common.off", "toggle_mode": true, "state": "selected" },
+                                    { "name": "On", "type": "Button", "variation": "ToyChipToggleOnLight", "key": "common.on", "toggle_mode": true }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "ReducedMotion", "type": "PanelContainer", "variation": "ToySettingRow", "states": ["settings-access"], "custom_minimum_size": [0, 88],
+                          "children": [
+                            {
+                              "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
+                              "children": [
+                                { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "settings.reduced_motion", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
+                                {
+                                  "name": "Toggle", "type": "HBoxContainer", "variation": "ToyRowTwelve", "size_flags_vertical": "shrink_center", "note": "One ButtonGroup; the default comes from DisplayServer.accessibility_should_reduce_animation(). On: the connecting spinner (s3) turns at half speed; the pre and post game fades (s6, s10) and the End fade are cuts; the button press is instant (the pressed StyleBox still shows).", "size_flags_horizontal": "shrink_end",
+                                  "children": [
+                                    { "name": "Off", "type": "Button", "variation": "ToyChipToggleOnLight", "key": "common.off", "toggle_mode": true, "state": "selected" },
+                                    { "name": "On", "type": "Button", "variation": "ToyChipToggleOnLight", "key": "common.on", "toggle_mode": true }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "Language", "type": "PanelContainer", "variation": "ToySettingRow", "states": ["settings-language"], "custom_minimum_size": [0, 88],
+                          "children": [
+                            {
+                              "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
+                              "children": [
+                                { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "settings.language.title", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
+                                {
+                                  "name": "Choice", "type": "HBoxContainer", "variation": "ToyRowTwelve", "size_flags_vertical": "shrink_center", "note": "One ButtonGroup; each language is named in itself (auto_translate_mode DISABLED); the language applies at once (#208). A long list later would take ToyRadio rows.", "size_flags_horizontal": "shrink_end",
+                                  "children": [
+                                    { "name": "Ukrainian", "type": "Button", "variation": "ToyChipToggleOnLight", "key": "lang.uk", "toggle_mode": true, "state": "selected" },
+                                    { "name": "English", "type": "Button", "variation": "ToyChipToggleOnLight", "key": "lang.en", "toggle_mode": true }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Guide", "type": "HBoxContainer", "variation": "ToyRowThirtyTwo", "states": ["guide"],
+              "children": [
+                {
+                  "name": "List", "type": "ScrollContainer", "variation": "ToyScroll", "custom_minimum_size": [360, 828], "note": "The view is 828 px tall, as Settings', so the tile keeps one size between Guide and Settings. follow_focus = true, so keyboard and gamepad focus scrolls the topic in view. 360 px holds the longest topic at large text.",
+                  "children": [
+                    {
+                      "name": "V", "type": "VBoxContainer", "variation": "ToyColumnFour", "size_flags_horizontal": "expand_fill", "note": "One ButtonGroup over every topic, drawn as the settings' section list (the open topic shows the pressed row fill); a topic shows its card, headed with the topic's name. The MVP's new topics (points, mutations, the neighbours' anger, the cops, the dead's room) are open: their texts and cards are the engineer's.",
+                      "children": [
+                        { "name": "Basics", "type": "Label", "variation": "ToyKicker", "key": "guide.basics", "note": "A small-capitals head (uppercase = true)." },
+                        { "name": "Moving", "type": "Button", "variation": "ToyMenuItem", "key": "guide.moving", "toggle_mode": true, "note": "Card frames: tutorial.step.move.title, .pick_up.title, .put_down.title, .hand_belt.title.", "alignment": "left" },
+                        { "name": "Voice", "type": "Button", "variation": "ToyMenuItem", "key": "guide.voice", "toggle_mode": true, "note": "Card frames: tutorial.step.voice.title, tutorial.step.voice.how, tutorial.list.death.", "alignment": "left" },
+                        { "name": "Downed", "type": "Button", "variation": "ToyMenuItem", "key": "guide.downed", "toggle_mode": true, "note": "Card frames: tutorial.step.downed.title, downed.give_up_hold, then the death frames: tutorial.step.dead_room.title, tutorial.step.dead_room.how (drafts; the dead wait in the dead's room, m8 §3).", "alignment": "left" },
+                        { "name": "Gap", "type": "Control", "custom_minimum_size": [0, 16], "note": "A spacer: 4 + 16 + 4 = 24 px between the Downed row and the Tasks head." },
+                        { "name": "Tasks", "type": "Label", "variation": "ToyKicker", "key": "guide.tasks", "note": "A small-capitals head (uppercase = true)." },
+                        { "name": "CarTuning", "type": "Button", "variation": "ToyMenuItem", "key": "task.car_tuning", "toggle_mode": true, "note": "The MVP's five task types (GDD §8, #1144), in the deck's order. Each card needs new wordless art (the card art quality bar); until the art track's cards exist every card shows the placeholder (own-work Delivery frames, dist/pack/cards/).", "alignment": "left" },
+                        { "name": "Engine", "type": "Button", "variation": "ToyMenuItem", "key": "task.engine", "toggle_mode": true, "alignment": "left" },
+                        { "name": "Cooking", "type": "Button", "variation": "ToyMenuItem", "key": "task.cooking", "toggle_mode": true, "state": "selected", "alignment": "left" },
+                        { "name": "Photo", "type": "Button", "variation": "ToyMenuItem", "key": "task.photo", "toggle_mode": true, "alignment": "left" },
+                        { "name": "Wifi", "type": "Button", "variation": "ToyMenuItem", "key": "task.wifi", "toggle_mode": true, "alignment": "left" }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Card", "type": "VBoxContainer", "variation": "ToyColumnSixteen", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_begin", "note": "P8's how-to card without its own panel inside the page's tile (no tile in a tile): the head, then the frames in one row that scroll sideways, as in s3 and s8, with 272 px art beside the topic list. A card is content data per task type (#254).",
+                  "children": [
+                    {
+                      "name": "Head", "type": "VBoxContainer", "variation": "ToyColumnEight", "note": "The card's head as in s3 and s8: howto.label in small capitals over the open topic's name, so the card is the same in s3, s5 and s8.",
+                      "children": [
+                        { "name": "Note", "type": "Label", "variation": "ToyKicker", "key": "howto.label", "note": "The game sets uppercase = true." },
+                        { "name": "Title", "type": "Label", "variation": "ToyTitleOnLight", "key": "task.cooking", "note": "The open topic's name (a basics topic shows its guide.* name)." }
+                      ]
+                    },
+                    {
+                      "name": "Scroll", "type": "ScrollContainer", "horizontal_scroll_mode": "show_never", "custom_minimum_size": [302, 0], "note": "The frames scroll sideways when they do not fit (the engineer, 2026-10-22): a card holds as many frames as its task needs. No bar is drawn (SCROLL_MODE_SHOW_NEVER) until the pack has a sideways bar; the frame cut at the card's edge shows there is more. The wheel scrolls it sideways while vertical scrolling is disabled, a drag on a touch screen too (unconfirmed for Godot 4.7.2: check ScrollContainer's wheel handling); follow_focus true. Here the view fills the card beside the topic list (at least one frame, 302 px; two frames and the edge of a third at the tile's width).",
+                      "children": [
+                        {
+                          "name": "Frames", "type": "HBoxContainer", "variation": "ToyRowSixteen",
+                          "children": [
+                            {
+                              "name": "Frame1", "type": "PanelContainer", "variation": "ToyHowtoFrame",
+                              "children": [
+                                { "name": "Art", "type": "TextureRect", "icon": "card/delivery-meaning-1", "custom_minimum_size": [272, 204], "note": "PLACEHOLDER art: seven own-work Delivery frames (dist/pack/cards/delivery-meaning-1..3, delivery-1..3 and delivery-meaning-4, 640x480, transparent) stand in for the Cooking card's seven frames, which the engineer named every card's placeholder (2026-10-22). Those frames are generated art kept in the art track (prime-game-art#272) and this repo's licence list does not cover generated art yet, so the game takes them from the art track's pack. expand_mode IGNORE_272x204 here, 352x264 in s3 and s8, stretch_mode KEEP_ASPECT_CENTERED; SIZE here; the same card in s3, s5 and s8. The cards are wordless: a frame holds only its art, no caption." }
+                              ]
+                            },
+                            {
+                              "name": "Frame2", "type": "PanelContainer", "variation": "ToyHowtoFrame",
+                              "children": [
+                                { "name": "Art", "type": "TextureRect", "icon": "card/delivery-meaning-2", "custom_minimum_size": [272, 204] }
+                              ]
+                            },
+                            {
+                              "name": "Frame3", "type": "PanelContainer", "variation": "ToyHowtoFrame",
+                              "children": [
+                                { "name": "Art", "type": "TextureRect", "icon": "card/delivery-meaning-3", "custom_minimum_size": [272, 204] }
+                              ]
+                            },
+                            {
+                              "name": "Frame4", "type": "PanelContainer", "variation": "ToyHowtoFrame",
+                              "children": [
+                                { "name": "Art", "type": "TextureRect", "icon": "card/delivery-1", "custom_minimum_size": [272, 204] }
+                              ]
+                            },
+                            {
+                              "name": "Frame5", "type": "PanelContainer", "variation": "ToyHowtoFrame",
+                              "children": [
+                                { "name": "Art", "type": "TextureRect", "icon": "card/delivery-2", "custom_minimum_size": [272, 204] }
+                              ]
+                            },
+                            {
+                              "name": "Frame6", "type": "PanelContainer", "variation": "ToyHowtoFrame",
+                              "children": [
+                                { "name": "Art", "type": "TextureRect", "icon": "card/delivery-3", "custom_minimum_size": [272, 204] }
+                              ]
+                            },
+                            {
+                              "name": "Frame7", "type": "PanelContainer", "variation": "ToyHowtoFrameDone", "note": "The frame that shows the finish.",
+                              "children": [
+                                { "name": "Art", "type": "TextureRect", "icon": "card/delivery-meaning-4", "custom_minimum_size": [272, 204] }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Character", "type": "HBoxContainer", "variation": "ToyRowThirtyTwo", "states": ["character"],
+              "children": [
+                { "name": "Preview", "type": "PanelContainer", "variation": "ToyHowtoFrame", "custom_minimum_size": [456, 608], "note": "In the game: SubViewportContainer (stretch true) · min 456×608 with a SubViewport showing the own character; the page draws a ToyHowtoFrame placeholder." },
+                {
+                  "name": "Form", "type": "VBoxContainer", "variation": "ToyColumnFour", "size_flags_horizontal": "expand_fill", "note": "Changes apply live (the engineer, 2026-10-22: the character is changed only in the lobby, so the entry is not in the panel in a round or the tutorial). The Hat row (esc.character.hat) stays hidden until hats exist.",
+                  "children": [
+                    {
+                      "name": "NameRow", "type": "PanelContainer", "variation": "ToySettingRow",
+                      "children": [
+                        {
+                          "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
+                          "children": [
+                            { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "player.name", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
+                            { "name": "Field", "type": "LineEdit", "variation": "ToyField", "text": { "uk": "Олена", "en": "Olena" }, "custom_minimum_size": [345, 0], "size_flags_vertical": "shrink_center", "note": "The player's name, kept between sessions; auto_translate_mode DISABLED." }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "ColourRow", "type": "PanelContainer", "variation": "ToySettingRow",
+                      "children": [
+                        {
+                          "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
+                          "children": [
+                            { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "esc.character.colour", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
+                            {
+                              "name": "Swatches", "type": "GridContainer", "variation": "ToyGridSwatch", "columns": 5, "size_flags_vertical": "shrink_center", "note": "The ten body colours (#255; the palette is not decided yet).",
+                              "children": [
+                                {
+                                  "name": "Swatch1", "type": "Control", "custom_minimum_size": [60, 60], "note": "In the game: TextureButton · toggle_mode · one ButtonGroup · 60×60 · focus_mode ALL. The disc is tinted with the body colour (content data, #255; the page's colours are samples only). Keyboard and gamepad focus shows ToySwatchFocus, a Panel over the swatch (mouse_filter IGNORE), visible while it has focus; the frames show the mouse's view, so no swatch is drawn focused.",
+                                  "children": [
+                                    { "name": "Disc", "type": "TextureRect", "icon": "swatch-disc", "anchors_preset": "full_rect", "custom_minimum_size": [60, 60], "self_modulate": "#ff8466", "note": "self_modulate = the body colour (content data)." },
+                                    { "name": "Ring", "type": "Panel", "variation": "ToySwatchRing", "anchors_preset": "full_rect", "note": "mouse_filter IGNORE." },
+                                    { "name": "Sel", "type": "Panel", "variation": "ToySwatchSelected", "anchors_preset": "full_rect", "note": "mouse_filter IGNORE; visible while the swatch is selected." }
+                                  ]
+                                },
+                                {
+                                  "name": "Swatch2", "type": "Control", "custom_minimum_size": [60, 60],
+                                  "children": [
+                                    { "name": "Disc", "type": "TextureRect", "icon": "swatch-disc", "anchors_preset": "full_rect", "custom_minimum_size": [60, 60], "self_modulate": "#ffc23a" },
+                                    { "name": "Ring", "type": "Panel", "variation": "ToySwatchRing", "anchors_preset": "full_rect" }
+                                  ]
+                                },
+                                {
+                                  "name": "Swatch3", "type": "Control", "custom_minimum_size": [60, 60],
+                                  "children": [
+                                    { "name": "Disc", "type": "TextureRect", "icon": "swatch-disc", "anchors_preset": "full_rect", "custom_minimum_size": [60, 60], "self_modulate": "#3cc4a8" },
+                                    { "name": "Ring", "type": "Panel", "variation": "ToySwatchRing", "anchors_preset": "full_rect" }
+                                  ]
+                                },
+                                {
+                                  "name": "Swatch4", "type": "Control", "custom_minimum_size": [60, 60],
+                                  "children": [
+                                    { "name": "Disc", "type": "TextureRect", "icon": "swatch-disc", "anchors_preset": "full_rect", "custom_minimum_size": [60, 60], "self_modulate": "#5bcb4e" },
+                                    { "name": "Ring", "type": "Panel", "variation": "ToySwatchRing", "anchors_preset": "full_rect" }
+                                  ]
+                                },
+                                {
+                                  "name": "Swatch5", "type": "Control", "custom_minimum_size": [60, 60],
+                                  "children": [
+                                    { "name": "Disc", "type": "TextureRect", "icon": "swatch-disc", "anchors_preset": "full_rect", "custom_minimum_size": [60, 60], "self_modulate": "#d9482f" },
+                                    { "name": "Ring", "type": "Panel", "variation": "ToySwatchRing", "anchors_preset": "full_rect" }
+                                  ]
+                                },
+                                {
+                                  "name": "Swatch6", "type": "Control", "custom_minimum_size": [60, 60],
+                                  "children": [
+                                    { "name": "Disc", "type": "TextureRect", "icon": "swatch-disc", "anchors_preset": "full_rect", "custom_minimum_size": [60, 60], "self_modulate": "#c98a10" },
+                                    { "name": "Ring", "type": "Panel", "variation": "ToySwatchRing", "anchors_preset": "full_rect" }
+                                  ]
+                                },
+                                {
+                                  "name": "Swatch7", "type": "Control", "custom_minimum_size": [60, 60],
+                                  "children": [
+                                    { "name": "Disc", "type": "TextureRect", "icon": "swatch-disc", "anchors_preset": "full_rect", "custom_minimum_size": [60, 60], "self_modulate": "#b9a8c7" },
+                                    { "name": "Ring", "type": "Panel", "variation": "ToySwatchRing", "anchors_preset": "full_rect" }
+                                  ]
+                                },
+                                {
+                                  "name": "Swatch8", "type": "Control", "custom_minimum_size": [60, 60],
+                                  "children": [
+                                    { "name": "Disc", "type": "TextureRect", "icon": "swatch-disc", "anchors_preset": "full_rect", "custom_minimum_size": [60, 60], "self_modulate": "#64566f" },
+                                    { "name": "Ring", "type": "Panel", "variation": "ToySwatchRing", "anchors_preset": "full_rect" }
+                                  ]
+                                },
+                                {
+                                  "name": "Swatch9", "type": "Control", "custom_minimum_size": [60, 60],
+                                  "children": [
+                                    { "name": "Disc", "type": "TextureRect", "icon": "swatch-disc", "anchors_preset": "full_rect", "custom_minimum_size": [60, 60], "self_modulate": "#4a3c5c" },
+                                    { "name": "Ring", "type": "Panel", "variation": "ToySwatchRing", "anchors_preset": "full_rect" }
+                                  ]
+                                },
+                                {
+                                  "name": "Swatch10", "type": "Control", "custom_minimum_size": [60, 60],
+                                  "children": [
+                                    { "name": "Disc", "type": "TextureRect", "icon": "swatch-disc", "anchors_preset": "full_rect", "custom_minimum_size": [60, 60], "self_modulate": "#fff4e2" },
+                                    { "name": "Ring", "type": "Panel", "variation": "ToySwatchRing", "anchors_preset": "full_rect" }
+                                  ]
+                                }
+                              ]
+                            }
                           ]
                         }
                       ]
@@ -900,9 +823,9 @@
         }
       ]
     },
-    { "name": "ConfirmDim", "type": "Panel", "variation": "ToyBackdrop", "anchors_preset": "full_rect", "states": ["game-confirm"], "note": "mouse_filter STOP: blocks the mouse to the menu behind while the dialog is open. Keyboard and gamepad focus search ignores what is drawn on top, so while the dialog is open set focus_behavior_recursive = FOCUS_BEHAVIOR_DISABLED on Menu (Control, Godot 4.5+) and restore FOCUS_BEHAVIOR_INHERITED on close. The dialog handles ui_cancel itself (= Cancel) and calls get_viewport().set_input_as_handled(), so Esc closes only the dialog, not the menu too." },
+    { "name": "ConfirmDim", "type": "Panel", "variation": "ToyBackdrop", "anchors_preset": "full_rect", "states": ["round-confirm"], "note": "mouse_filter STOP: blocks the mouse to the menu behind while the dialog is open. Keyboard and gamepad focus search ignores what is drawn on top, so Menu disables its focus while the dialog is open (its note). The dialog handles ui_cancel itself (= Cancel) and calls get_viewport().set_input_as_handled(), so Esc closes only the dialog, not the menu too." },
     {
-      "name": "Confirm", "type": "PanelContainer", "variation": "ToyPanelDialog", "anchors_preset": "center", "custom_minimum_size": [1080, 0], "states": ["game-confirm"], "note": "P1. Opened by the host's Leave (esc.game.leave_confirm, Confirm esc.game.leave) or Quit (esc.game.quit_confirm, Confirm esc.game.quit). ui_cancel = Cancel.",
+      "name": "Confirm", "type": "PanelContainer", "variation": "ToyPanelDialog", "anchors_preset": "center", "custom_minimum_size": [1080, 0], "states": ["round-confirm"], "note": "P1. Opened by the host's Leave (esc.game.leave_confirm, Confirm esc.game.leave) or Quit (esc.game.quit_confirm, Confirm esc.game.quit). ui_cancel = Cancel.",
       "children": [
         {
           "name": "V", "type": "VBoxContainer", "variation": "ToyColumnThirtyTwo",

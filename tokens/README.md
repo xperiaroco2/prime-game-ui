@@ -160,7 +160,8 @@ The screens redrawn to the approved target (`docs/ui-decisions.md`, "The screens
 (ui-2.2.0)"). A minor release: a variation's context and an asset's tint changed; nothing added or removed.
 
 - **`ToyMenuItem`** is a light-context variation, since it sits on a tile (the suit menu's settings section list and the
-  Guide's topic list, s5); its values are as in ui-2.1.0 (dim idle text, the open entry a row fill with light text).
+  Guide's topic list, s5; since ui-2.3.0 also the entries of the suit menu's side panel); its values are as in ui-2.1.0
+  (dim idle text, the open entry a row fill with light text).
 - **The room pictograms' `tint_color`** is the dim colour `#a39dbd`, the quiet level of a room's `ToyKicker` head on
   the map; the pages now draw them in it (they drew the source ink, nearly invisible on the dark tiles).
 

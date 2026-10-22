@@ -65,6 +65,36 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
   it must not fill the screen". The dead's room is a place to walk in, not a waiting screen: its name and the return
   countdown sit in one quiet tile at the top centre, the middle of the screen stays clear. This replaces the centred
   countdown plate of the target page and of s9; the design note is on [prime-game#1032](https://github.com/xperiaroco2/prime-game/issues/1032).
+- **The suit menu is a left side panel** (the engineer, 2026-10-22, chat, translated, on the proposal page
+  `pages/esc-start/`): "Yes, the menu on the left as on the page." His notes: the ship's footer row (Copy, Host, Join by
+  address, Tutorial, Quit) under the top tabs read oddly; no Role tab, since the HUD shows the role; Character can be
+  changed only in the lobby; Guide and Settings are always there; Esc brings a menu out from the left, like a start
+  menu, with options; the Game tab with Resume and Leave looked odd. s5 (ui-2.3.0) is one panel at the left, full
+  height, the world visible at its right with no dim (the game is not paused); per place only what makes sense there:
+  the ship with no session, the own code with Copy, Find a lobby, Host, Tutorial, Guide, Settings and, apart at the
+  bottom, Quit; the lobby, the lobby's code with Copy, Resume, Character, Guide, Settings, then Leave and Quit; a round,
+  Resume, Guide, Settings, then Leave and Quit; the tutorial, Resume, Guide, Settings, then Leave the tutorial. An entry
+  with a page opens it in a tile beside the panel; Join by address moved into Find a lobby's code column as a quiet
+  ghost button; the host's confirm dialog is unchanged. This replaces, in the lines below: the tabs on the hairline
+  strip with the Esc keycap (ui-2.1.0), the fixed 1200 x 780 tile, the footer row and the Game tab's body over the
+  hairline, Resume's absence in the ship and the Esc keycap closing the menu (ui-2.2.0), the backdrop behind the suit
+  menu at 87 % (ui-2.0.0), the Game tab's name «Знайти лобі» / «Гра» (ui-2.0.2), the Game tab of the ship (the boot
+  into the ship), the Role tab and the locked Character in a round. Taken by the agent, for the engineer to veto
+  (agent):
+  - the panel is the existing `ToyPanelMenu` (rounded, its edge on every side), so it stands 36 px off the screen's left,
+    top and bottom edges (the HUD tiles' margin) instead of square against them, and the pack gains no variation; 520 px
+    wide, as the page;
+  - the head is two lines, «Твій код» / «Код» in small capitals over the code and Copy (the page's one line does not fit
+    520 px at large text); it sits in a hairline row (`ToySettingRow`) whose 18 px sides line the code up with the
+    entries' text; the hairline over the bottom group is an empty `ToySettingRow`;
+  - every entry is a `ToyMenuItem` row with dim idle text; the entries with a page (Find a lobby, Character, Guide,
+    Settings) are toggles in one ButtonGroup, the open one pressed; the ones that act (Resume, Host, Tutorial, Leave,
+    Quit) are plain buttons; the page's brighter first entry is not drawn; Quit is not in the tutorial's menu;
+  - the page tile is `ToyPanelMenu` 24 px right of the panel, top-aligned with it, 1120 px wide on every page (Settings'
+    rows and Character's preview need it; the Guide's card then shows two frames and the edge of a third), its height
+    following the page; Settings and Guide share an 828 px view, so Sound and voice's nine rows fit unscrolled;
+  - a click on the world beside the menu does nothing (the menu closes with Esc or Resume);
+  - the states: Settings and Guide are drawn in a round (the page's frame 4), Find a lobby's states in the ship.
 - **The library brought to the approved target (ui-2.1.0)** (the engineer's "the look is ok" on `pages/suit-final/`; the nine
   differences of `pages/library-check/`; `tokens/README.md`, "The library brought to the target, ui-2.1.0"). This replaces
   the lines of "The look in the tokens and the pack, ui-2.0.0" below on the chosen tab as a row fill and on the target's
