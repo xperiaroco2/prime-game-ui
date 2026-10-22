@@ -56,6 +56,10 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
 - **The anger meter is A** (the engineer, 2026-10-20, chat, translated, on the MVP screens page): a thicker bar with the
   siren at its right end; B (six pips) and C (the siren filling up) stay on the page, not chosen. One "A" answered
   both open choices, this one and the item bar's; read as both.
+- **The anger meter gives no hint, A** (the engineer, 2026-10-22, chat, translated, on section 2 of the MVP screens
+  page): "A, only the bar". The HUD names neither the cause nor the place of the mischief; the aliens find it themselves
+  (they hear the music, see the bins, talk), and the map marks no mischief. B (a line under the bar naming the type of
+  problem) stays on the page, not chosen. The game design (m8 §5, §9) is updated by [prime-game#1312](https://github.com/xperiaroco2/prime-game/issues/1312).
 - **The item bar is A** (the engineer, 2026-10-20, chat, translated, on the MVP screens page): sticker slots with a
   big item picture and a name tag over the bottom edge; B (a belt strap with a pocket) and C (the alien's hand
   holding the item) stay on the page, not chosen. The name tags' words are his texts.
