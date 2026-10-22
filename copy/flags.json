@@ -2,153 +2,7 @@
  "about": "The copy review (prime-game-ui#4; round 4, prime-game-ui#51, and round 5, prime-game-ui#57: the deck rows the game's M7 asked for on prime-game#150). Round 2 was answered on 2026-10-05 and applied. Round 3 (2026-10-06, wave prime-game-ui#19), about the texts the styled screens added or reworded, was answered the same day and applied. open: questions still waiting for the engineer, each with options a-c; an option lists the rows it would write (empty uk and en remove the key), an option without rows keeps the deck and says so in its label. The deck keeps its current wording until an open question is answered on pages/copy/; where option a has rows, the deck could not take the change yet (an old wireframe frame still shows the current text). decided: what was applied, round 2 first. removed: keys taken out of the deck. asked: when the current round was put to the engineer; the page ignores answers saved before it. Rules: copy/README.md and docs/research/2026-10-05-ukrainian-localization/report.md.",
  "asked": "2026-10-22T11:15:49Z",
  "principle": "Гравці досвідчені, гра не для дітей: не пояснюємо звичне й очевидне (що меню не ставить на паузу, що щось нове, знайоме керування), без «водіння за руку». Без написаних жартів: текст простий, короткий і впевнений; смішне робить гра, а не підписи (дизайн-трек, 21.10).",
- "open": [
-  {
-   "id": "workbench.start",
-   "keys": [
-    "workbench.start"
-   ],
-   "kind": "word",
-   "round": "new",
-   "why": "Чернетка (сторінка «Екрани костюма», 9а). Кнопка на екрані верстата, з якої починається мутація: підходиш, наводиш приціл, тиснеш.",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "note": "«Почати» / «Start».",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "label": "Старт",
-     "note": "Коротше, як на апараті.",
-     "rows": [
-      {
-       "key": "workbench.start",
-       "en": "Start",
-       "uk": "Старт"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "workbench.step_in",
-   "keys": [
-    "workbench.step_in"
-   ],
-   "kind": "word",
-   "round": "new",
-   "why": "Чернетка (9в). Після вибору мутації екран машини каже стати в капсулу; великий напис на екрані верстата.",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "note": "«Стань у машину» / «Step into the machine».",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "label": "Про капсулу",
-     "note": "Назвати капсулу, а не машину.",
-     "rows": [
-      {
-       "key": "workbench.step_in",
-       "en": "Step into the capsule",
-       "uk": "Стань у капсулу"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "esc.tab.find",
-   "keys": [
-    "esc.tab.find"
-   ],
-   "kind": "word",
-   "round": "new",
-   "why": "Чернетка (меню костюма, s5). Вкладка, де лобі поруч, вхід за кодом і власний код.",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "note": "«Знайти лобі» / «Find a lobby».",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "label": "Коротко",
-     "note": "Як інші вкладки — коротко; «Лобі» вже є вкладкою, коли ти в лобі, тому «Лобі поруч».",
-     "rows": [
-      {
-       "key": "esc.tab.find",
-       "en": "Lobbies",
-       "uk": "Лобі поруч"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "hud.anger",
-   "keys": [
-    "hud.anger"
-   ],
-   "kind": "word",
-   "round": "new",
-   "why": "Чернетка (HUD раунду, s7). Підпис над смужкою гніву сусідів.",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "note": "«Гнів сусідів» / «Neighbours' anger».",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "label": "Без підпису",
-     "note": "Смужка й сирена говорять самі; гравці досвідчені. Рядок зникає з колоди.",
-     "rows": [
-      {
-       "key": "hud.anger",
-       "en": "",
-       "uk": ""
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "hud.suit",
-   "keys": [
-    "hud.suit"
-   ],
-   "kind": "word",
-   "round": "new",
-   "why": "Чернетка (HUD раунду, s7). Підпис над плиткою костюма зі здоровʼям і витривалістю.",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "note": "«Костюм» / «Suit».",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "label": "Без підпису",
-     "note": "Рядки «Здоровʼя» й «Витривалість» уже підписані; нічого зайвого. Рядок зникає з колоди.",
-     "rows": [
-      {
-       "key": "hud.suit",
-       "en": "",
-       "uk": ""
-      }
-     ]
-    }
-   ]
-  }
- ],
+ "open": [],
  "removed": [
   "downed.can_raise",
   "esc.running",
@@ -1047,6 +901,41 @@
     "mutation.health.effect"
    ],
    "how": "Коло 6, MVP (2026-10-21, чат): інженер прийняв усі рекомендації — a, Як у колоді (рекомендую)."
+  },
+  {
+   "id": "workbench.start",
+   "keys": [
+    "workbench.start"
+   ],
+   "how": "Коло 7, екрани костюма (2026-10-22, чат): інженер прийняв усі пʼять рекомендацій — a, Як у колоді (рекомендую)."
+  },
+  {
+   "id": "workbench.step_in",
+   "keys": [
+    "workbench.step_in"
+   ],
+   "how": "Коло 7, екрани костюма (2026-10-22, чат): інженер прийняв усі пʼять рекомендацій — a, Як у колоді (рекомендую)."
+  },
+  {
+   "id": "esc.tab.find",
+   "keys": [
+    "esc.tab.find"
+   ],
+   "how": "Коло 7, екрани костюма (2026-10-22, чат): інженер прийняв усі пʼять рекомендацій — a, Як у колоді (рекомендую)."
+  },
+  {
+   "id": "hud.anger",
+   "keys": [
+    "hud.anger"
+   ],
+   "how": "Коло 7, екрани костюма (2026-10-22, чат): інженер прийняв усі пʼять рекомендацій — a, Як у колоді (рекомендую)."
+  },
+  {
+   "id": "hud.suit",
+   "keys": [
+    "hud.suit"
+   ],
+   "how": "Коло 7, екрани костюма (2026-10-22, чат): інженер прийняв усі пʼять рекомендацій — a, Як у колоді (рекомендую)."
   }
  ]
 }
