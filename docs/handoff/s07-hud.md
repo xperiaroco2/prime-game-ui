@@ -5,7 +5,7 @@
 The styled round hud screen from the UI track (xperiaroco2/prime-game-ui), as a Godot 4.7.2 node tree for the 1920×1080 reference.
 
 - **Source:** `pages/screens/src/s07-hud.json`; the review page is `pages/screens/screens.html#s7`; the wireframe is section `s7` («HUD у раунді»).
-- **Theme:** the Toy pack ui-2.0.1 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
+- **Theme:** the Toy pack ui-2.0.2 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
 - **World behind the UI** (not UI): a lit room of the level.
 - **How to read it:** the roots are children of the screen's full-rect root `Control`; every property not listed keeps Godot's default; sizes and offsets are reference px. In a state's **Shown** list, the first node of each subtree gives its path from the screen root.
 - **Texts** are keys of `copy/strings.csv`, and the language switches live (the Esc menu's Settings). A plain key is set as `text` and translates itself. A key with placeholders, a plural key (`tr_n`) and a key drawn in pieces are set from code with `auto_translate_mode = DISABLED`: `tr()`, then `String.format()` with the data (the samples below), rebuilt on `NOTIFICATION_TRANSLATION_CHANGED`. A "text from data" (names, the room code, times, numbers) is set in code and never translated (`auto_translate_mode = DISABLED`).
@@ -32,15 +32,18 @@ One HUD for the whole round, the MVP's (the engineer's decisions of 2026-10-20 i
     - Note: The player's own side for the round, a word tile 39 px in (the sketch's 26 x 1.5): ToySticker with role.alien, ToyStickerAlert (the danger outline) with role.human.
     - **Text** `Label` · variation `ToyStickerText` · text `role.alien`: en "Alien" · uk "Прибулець"
   - **Time** `PanelContainer` · variation `ToyPlate` · anchors `center_top`, offsets 0, 36, 0, 36 (left, top, right, bottom), grow both/end
-    - Note: ui-2.0.0 (the target page pages/suit-final, frames 5 and 6): the time and the neighbours' anger in one tile at the top centre, 36 px down (24 x 1.5): the time in Unbounded, then the anger meter A (the bar and its siren). The target's caption «Гнів сусідів» over the bar needs a copy key (the engineer's text), so it is not drawn here yet.
+    - Note: ui-2.0.0 (the target page pages/suit-final, frames 5 and 6): the time and the neighbours' anger in one tile at the top centre, 36 px down (24 x 1.5): the time in Unbounded, then the anger meter A (the bar and its siren). The caption hud.anger («Гнів сусідів», the engineer's word, 2026-10-22) sits over the bar in ToyHudCaption, in ToyTextAlertOnLight past the alarm line (agent).
     - **Row** `HBoxContainer` · variation `ToyRowTwentyFour` · gaps from the variation: separation 24
       - **Timer** `Label` · variation `ToyTimer` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (120, 0) · text from data (auto_translate_mode = DISABLED), sample: "07:42" · horizontal_alignment `CENTER`
         - Note: The round time, m:ss from code (auto_translate_mode DISABLED), every second; light on the tile (no halo).
-      - **Anger** `HBoxContainer` · variation `ToyRowEight` · size flags vertical `SIZE_SHRINK_CENTER` · gaps from the variation: separation 8
-        - **Bar** `ProgressBar` · variation `ToyBarAngerCalm` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (240, 16) = Vector2(get_theme_constant("width", "ToyBarAngerCalm"), get_theme_constant("height", "ToyBarAngerCalm")) · value 0.08 of max_value 1, show_percentage false
-          - Note: The anger meter (A): ToyBarAngerCalm (a muted grey fill) and, past the alarm line (70 %), ToyBarAngerAlarm (the danger fill); no glow and no pulse since ui-2.0.0.
-        - **Siren** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (36, 36) · texture `siren-off` (dist/pack/icons/siren-off.svg, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · not tinted (drawn in its own colours)
-          - Note: icons/siren-off.svg (dim) while calm, icons/siren-on.svg (the danger colour) while the anger rises and when full; never tinted.
+      - **AngerColumn** `VBoxContainer` · variation `ToyColumnFour` · size flags vertical `SIZE_SHRINK_CENTER` · gaps from the variation: separation 4
+        - **Caption** `Label` · variation `ToyHudCaption` · text `hud.anger`: en "Neighbours' anger" · uk "Гнів сусідів"
+          - Note: The meter's name; the danger colour with the bar past its alarm line (70 %).
+        - **Anger** `HBoxContainer` · variation `ToyRowEight` · size flags vertical `SIZE_SHRINK_CENTER` · gaps from the variation: separation 8
+          - **Bar** `ProgressBar` · variation `ToyBarAngerCalm` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (240, 16) = Vector2(get_theme_constant("width", "ToyBarAngerCalm"), get_theme_constant("height", "ToyBarAngerCalm")) · value 0.08 of max_value 1, show_percentage false
+            - Note: The anger meter (A): ToyBarAngerCalm (a muted grey fill) and, past the alarm line (70 %), ToyBarAngerAlarm (the danger fill); no glow and no pulse since ui-2.0.0.
+          - **Siren** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (36, 36) · texture `siren-off` (dist/pack/icons/siren-off.svg, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · not tinted (drawn in its own colours)
+            - Note: icons/siren-off.svg (dim) while calm, icons/siren-on.svg (the danger colour) while the anger rises and when full; never tinted.
   - **Roster** `PanelContainer` · variation `ToyRoster` · anchors `top_right`, offsets -39, 39, -39, 39 (left, top, right, bottom), grow begin/end · custom_minimum_size (276, 0) = Vector2(get_theme_constant("min_width", "ToyRoster"), 0)
     - Note: Every player of the round with the body colour (decided 2026-10-20), 39 px in at the top right; at least 285 wide (the sketch's 190 x 1.5), growing to its longest row. The rows are built from the player list in the session's order with the own row first; a row updates when a player dies, comes back or leaves. Names are data and are not cut. Open: whether the dead show here (the page shows them dimmed with a mark).
     - **Rows** `VBoxContainer` · variation `ToyColumnEight` · gaps from the variation: separation 8
@@ -73,6 +76,8 @@ One HUD for the whole round, the MVP's (the engineer's decisions of 2026-10-20 i
     - **Suit** `PanelContainer` · variation `ToyPlate` · size flags vertical `SIZE_SHRINK_END`
       - Note: ui-2.0.0 (the engineer's segmented pips; the target page's suit tile): health and stamina as ten pips each, round(value x 10) of them full. Health full pips are ToyPipHealth, under its alarm line (30 %) ToyPipAlarm with its label ToyTextAlertOnLight; stamina pips are ToyPipStamina. The game sets each pip's variation from the value.
       - **Rows** `VBoxContainer` · variation `ToyColumnEight` · gaps from the variation: separation 8
+        - **Title** `Label` · variation `ToyHudCaption` · text `hud.suit`: en "Suit" · uk "Костюм"
+          - Note: The tile's name over the pips, hud.suit («Костюм», the engineer's word, 2026-10-22), in the captions' dim style (agent).
         - **Health** `HBoxContainer` · variation `ToyRowSixteen` · gaps from the variation: separation 16
           - **Label** `Label` · variation `ToyHudCaption` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (150, 0) · text `hud.health`: en "Health" · uk "Здоровʼя"
           - **Pips** `HBoxContainer` · variation `ToyRowFour` · size flags vertical `SIZE_SHRINK_CENTER` · gaps from the variation: separation 4
@@ -114,8 +119,8 @@ One HUD for the whole round, the MVP's (the engineer's decisions of 2026-10-20 i
 ## `carry`: what differs from `empty`
 
 - **Hidden:** `Hud/Aim`.
-- **Changed** `Hud/Time/Row/Anger/Bar`: value 0.55 of max_value 1, show_percentage false (was: value 0.08 of max_value 1, show_percentage false)
-- **Changed** `Hud/Time/Row/Anger/Siren`: texture `siren-on` (dist/pack/icons/siren-on.svg, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` (was: texture `siren-off` (dist/pack/icons/siren-off.svg, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED`)
+- **Changed** `Hud/Time/Row/AngerColumn/Anger/Bar`: value 0.55 of max_value 1, show_percentage false (was: value 0.08 of max_value 1, show_percentage false)
+- **Changed** `Hud/Time/Row/AngerColumn/Anger/Siren`: texture `siren-on` (dist/pack/icons/siren-on.svg, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` (was: texture `siren-off` (dist/pack/icons/siren-off.svg, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED`)
 - **Changed** `Hud/Slots/Hand/V/Picture`: texture `item-rocket` (dist/pack/icons/item-rocket.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` (was: texture `slot-empty-hand` (dist/pack/icons/slot-empty-hand.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED`)
 - **Changed** `Hud/Slots/Belt/V/Picture`: texture `item-bun` (dist/pack/icons/item-bun.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` (was: texture `slot-empty-belt` (dist/pack/icons/slot-empty-belt.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED`)
 - **Shown:**
@@ -127,8 +132,8 @@ One HUD for the whole round, the MVP's (the engineer's decisions of 2026-10-20 i
 - **Hidden:** `Hud/Aim`.
 - **Changed** `Hud/Role`: variation `ToyStickerAlert` (was: variation `ToySticker`)
 - **Changed** `Hud/Role/Text`: text `role.human`: en "Human" · uk "Людина" (was: text `role.alien`: en "Alien" · uk "Прибулець")
-- **Changed** `Hud/Time/Row/Anger/Bar`: value 0.55 of max_value 1, show_percentage false (was: value 0.08 of max_value 1, show_percentage false)
-- **Changed** `Hud/Time/Row/Anger/Siren`: texture `siren-on` (dist/pack/icons/siren-on.svg, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` (was: texture `siren-off` (dist/pack/icons/siren-off.svg, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED`)
+- **Changed** `Hud/Time/Row/AngerColumn/Anger/Bar`: value 0.55 of max_value 1, show_percentage false (was: value 0.08 of max_value 1, show_percentage false)
+- **Changed** `Hud/Time/Row/AngerColumn/Anger/Siren`: texture `siren-on` (dist/pack/icons/siren-on.svg, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` (was: texture `siren-off` (dist/pack/icons/siren-off.svg, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED`)
 - **Changed** `Hud/Roster/Rows/Row1/Dot`: self_modulate from data (a content colour, not a theme colour), sample #E8B04A (was: self_modulate from data (a content colour, not a theme colour), sample #7C5CC8)
 - **Changed** `Hud/Roster/Rows/Row1/Name`: text `hud.roster.self` with sample {name} = "Bulk" / "Бульк": en "Bulk (you)" · uk "Бульк (ти)" (was: text `hud.roster.self` with sample {name} = "Olena" / "Олена": en "Olena (you)" · uk "Олена (ти)")
 - **Changed** `Hud/Roster/Rows/Row2/Dot`: self_modulate from data (a content colour, not a theme colour), sample #7C5CC8 (was: self_modulate from data (a content colour, not a theme colour), sample #1C7A82)
@@ -155,8 +160,8 @@ One HUD for the whole round, the MVP's (the engineer's decisions of 2026-10-20 i
 ## `hurt`: what differs from `empty`
 
 - **Hidden:** `Hud/Aim`.
-- **Changed** `Hud/Time/Row/Anger/Bar`: value 0.55 of max_value 1, show_percentage false (was: value 0.08 of max_value 1, show_percentage false)
-- **Changed** `Hud/Time/Row/Anger/Siren`: texture `siren-on` (dist/pack/icons/siren-on.svg, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` (was: texture `siren-off` (dist/pack/icons/siren-off.svg, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED`)
+- **Changed** `Hud/Time/Row/AngerColumn/Anger/Bar`: value 0.55 of max_value 1, show_percentage false (was: value 0.08 of max_value 1, show_percentage false)
+- **Changed** `Hud/Time/Row/AngerColumn/Anger/Siren`: texture `siren-on` (dist/pack/icons/siren-on.svg, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` (was: texture `siren-off` (dist/pack/icons/siren-off.svg, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED`)
 - **Changed** `Hud/Vitals/Suit/Rows/Health/Label`: variation `ToyTextAlertOnLight` (was: variation `ToyHudCaption`)
 - **Changed** `Hud/Vitals/Suit/Rows/Health/Pips/P1`: variation `ToyPipAlarm` · custom_minimum_size (23, 15) = Vector2(get_theme_constant("width", "ToyPipAlarm"), get_theme_constant("height", "ToyPipAlarm")) (was: variation `ToyPipHealth` · custom_minimum_size (23, 15) = Vector2(get_theme_constant("width", "ToyPipHealth"), get_theme_constant("height", "ToyPipHealth")))
 - **Changed** `Hud/Vitals/Suit/Rows/Health/Pips/P2`: variation `ToyPipAlarm` · custom_minimum_size (23, 15) = Vector2(get_theme_constant("width", "ToyPipAlarm"), get_theme_constant("height", "ToyPipAlarm")) (was: variation `ToyPipHealth` · custom_minimum_size (23, 15) = Vector2(get_theme_constant("width", "ToyPipHealth"), get_theme_constant("height", "ToyPipHealth")))
@@ -177,8 +182,8 @@ One HUD for the whole round, the MVP's (the engineer's decisions of 2026-10-20 i
 ## `raising`: what differs from `empty`
 
 - **Hidden:** `Hud/Aim`.
-- **Changed** `Hud/Time/Row/Anger/Bar`: value 0.55 of max_value 1, show_percentage false (was: value 0.08 of max_value 1, show_percentage false)
-- **Changed** `Hud/Time/Row/Anger/Siren`: texture `siren-on` (dist/pack/icons/siren-on.svg, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` (was: texture `siren-off` (dist/pack/icons/siren-off.svg, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED`)
+- **Changed** `Hud/Time/Row/AngerColumn/Anger/Bar`: value 0.55 of max_value 1, show_percentage false (was: value 0.08 of max_value 1, show_percentage false)
+- **Changed** `Hud/Time/Row/AngerColumn/Anger/Siren`: texture `siren-on` (dist/pack/icons/siren-on.svg, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` (was: texture `siren-off` (dist/pack/icons/siren-off.svg, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED`)
 - **Shown:**
   - **Hud/Raising** `PanelContainer` · variation `ToyPlate` · anchors `center`, offsets 0, 64, 0, 64 (left, top, right, bottom), grow both/both
     - Note: See the state raising. Shown while the player holds Interact on a downed player, in place of Aim; hidden when the key is released or the player is up. Its top sits as Aim's.
@@ -189,8 +194,9 @@ One HUD for the whole round, the MVP's (the engineer's decisions of 2026-10-20 i
 
 - **Hidden:** `Hud/Aim`.
 - **Changed** `Hud/Time/Row/Timer`: text from data (auto_translate_mode = DISABLED), sample: "04:12" (was: text from data (auto_translate_mode = DISABLED), sample: "07:42")
-- **Changed** `Hud/Time/Row/Anger/Bar`: variation `ToyBarAngerAlarm` · custom_minimum_size (240, 16) = Vector2(get_theme_constant("width", "ToyBarAngerAlarm"), get_theme_constant("height", "ToyBarAngerAlarm")) · value 1 of max_value 1, show_percentage false (was: variation `ToyBarAngerCalm` · custom_minimum_size (240, 16) = Vector2(get_theme_constant("width", "ToyBarAngerCalm"), get_theme_constant("height", "ToyBarAngerCalm")) · value 0.08 of max_value 1, show_percentage false)
-- **Changed** `Hud/Time/Row/Anger/Siren`: texture `siren-on` (dist/pack/icons/siren-on.svg, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` (was: texture `siren-off` (dist/pack/icons/siren-off.svg, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED`)
+- **Changed** `Hud/Time/Row/AngerColumn/Caption`: variation `ToyTextAlertOnLight` (was: variation `ToyHudCaption`)
+- **Changed** `Hud/Time/Row/AngerColumn/Anger/Bar`: variation `ToyBarAngerAlarm` · custom_minimum_size (240, 16) = Vector2(get_theme_constant("width", "ToyBarAngerAlarm"), get_theme_constant("height", "ToyBarAngerAlarm")) · value 1 of max_value 1, show_percentage false (was: variation `ToyBarAngerCalm` · custom_minimum_size (240, 16) = Vector2(get_theme_constant("width", "ToyBarAngerCalm"), get_theme_constant("height", "ToyBarAngerCalm")) · value 0.08 of max_value 1, show_percentage false)
+- **Changed** `Hud/Time/Row/AngerColumn/Anger/Siren`: texture `siren-on` (dist/pack/icons/siren-on.svg, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` (was: texture `siren-off` (dist/pack/icons/siren-off.svg, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED`)
 - **Shown:**
   - **Hud/Edge** `Panel` · variation `ToyScreenEdgeAlert` · anchors `full_rect`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both
     - Note: ui-2.0.0 (the target page's frame 7): the cops' minute is the one loud moment inside the round: a 12 px danger edge around the whole screen (8 x 1.5), its middle clear, over the HUD's world and under its tiles.
@@ -212,7 +218,7 @@ One HUD for the whole round, the MVP's (the engineer's decisions of 2026-10-20 i
 
 ## Keys
 
-- **Drawn** (12): `hud.cops.in`, `hud.cops.title`, `hud.health`, `hud.roster.dead`, `hud.roster.self`, `hud.stamina`, `item.battery`, `item.bun`, `item.extinguisher`, `item.fireworks`, `role.alien`, `role.human`.
+- **Drawn** (14): `hud.anger`, `hud.cops.in`, `hud.cops.title`, `hud.health`, `hud.roster.dead`, `hud.roster.self`, `hud.stamina`, `hud.suit`, `item.battery`, `item.bun`, `item.extinguisher`, `item.fireworks`, `role.alien`, `role.human`.
 
 ## Layers and input (every screen)
 

@@ -753,9 +753,10 @@
 [data-node="s7/Hud/Time"] { flex: none; min-width: 100%; min-height: 100%; }
 [data-node="s7/Hud/Time/Row"] { grid-area: 1 / 1; grid-template-columns: minmax(min-content, auto) minmax(min-content, auto); }
 [data-node="s7/Hud/Time/Row/Timer"] { min-width: calc(120 * var(--px)); align-self: center; text-align: center; }
-[data-node="s7/Hud/Time/Row/Anger"] { align-self: center; grid-template-columns: minmax(min-content, auto) minmax(min-content, auto); }
-[data-node="s7/Hud/Time/Row/Anger/Bar"] { min-width: calc(240 * var(--px)); min-height: calc(16 * var(--px)); align-self: center; }
-[data-node="s7/Hud/Time/Row/Anger/Siren"] { min-width: calc(36 * var(--px)); min-height: calc(36 * var(--px)); align-self: center; }
+[data-node="s7/Hud/Time/Row/AngerColumn"] { align-self: center; grid-template-rows: minmax(min-content, auto) minmax(min-content, auto); }
+[data-node="s7/Hud/Time/Row/AngerColumn/Anger"] { align-self: center; grid-template-columns: minmax(min-content, auto) minmax(min-content, auto); }
+[data-node="s7/Hud/Time/Row/AngerColumn/Anger/Bar"] { min-width: calc(240 * var(--px)); min-height: calc(16 * var(--px)); align-self: center; }
+[data-node="s7/Hud/Time/Row/AngerColumn/Anger/Siren"] { min-width: calc(36 * var(--px)); min-height: calc(36 * var(--px)); align-self: center; }
 [data-anchor="s7/Hud/Roster"] { left: calc(100% - 39 * var(--px)); top: calc(39 * var(--px)); right: calc(39 * var(--px)); bottom: calc(100% - 39 * var(--px)); justify-content: flex-end; align-items: flex-start; }
 [data-node="s7/Hud/Roster"] { flex: none; min-width: max(100%, calc(276 * var(--px))); min-height: 100%; }
 [data-node="s7/Hud/Roster/Rows"] { grid-area: 1 / 1; grid-template-rows: minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto); }
@@ -802,7 +803,7 @@
 [data-anchor="s7/Hud/Vitals"] { left: calc(39 * var(--px)); top: calc(100% - 39 * var(--px)); right: calc(100% - 39 * var(--px)); bottom: calc(39 * var(--px)); justify-content: flex-start; align-items: flex-end; }
 [data-node="s7/Hud/Vitals"] { flex: none; min-width: 100%; min-height: 100%; grid-template-columns: minmax(min-content, auto) minmax(min-content, auto); }
 [data-node="s7/Hud/Vitals/Suit"] { align-self: end; }
-[data-node="s7/Hud/Vitals/Suit/Rows"] { grid-area: 1 / 1; grid-template-rows: minmax(min-content, auto) minmax(min-content, auto); }
+[data-node="s7/Hud/Vitals/Suit/Rows"] { grid-area: 1 / 1; grid-template-rows: minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto); }
 [data-node="s7/Hud/Vitals/Suit/Rows/Health"] { grid-template-columns: minmax(min-content, auto) minmax(min-content, auto); }
 [data-node="s7/Hud/Vitals/Suit/Rows/Health/Label"] { min-width: calc(150 * var(--px)); align-self: center; }
 [data-node="s7/Hud/Vitals/Suit/Rows/Health/Pips"] { align-self: center; grid-template-columns: minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto); }
@@ -1027,7 +1028,9 @@
 [data-anchor="s11/Screen"] { left: 50%; top: 50%; right: 50%; bottom: 50%; justify-content: center; align-items: center; }
 [data-node="s11/Screen"] { flex: none; min-width: max(100%, calc(960 * var(--px))); min-height: max(100%, calc(540 * var(--px))); }
 [data-node="s11/Screen/Idle"] { grid-area: 1 / 1; }
-[data-node="s11/Screen/Idle/Title"] { grid-area: 1 / 1; justify-self: center; align-self: center; text-align: center; }
+[data-node="s11/Screen/Idle/V"] { grid-area: 1 / 1; justify-self: center; align-self: center; align-content: center; grid-template-rows: minmax(min-content, auto) minmax(min-content, auto); }
+[data-node="s11/Screen/Idle/V/Title"] { text-align: center; }
+[data-node="s11/Screen/Idle/V/Start"] { min-width: calc(288 * var(--px)); justify-self: center; column-gap: calc(4 * var(--px)); }
 [data-node="s11/Screen/Choose"] { grid-area: 1 / 1; grid-template-rows: minmax(min-content, auto) minmax(min-content, 1fr); }
 [data-node="s11/Screen/Choose/Top"] { grid-template-columns: minmax(min-content, 1fr) minmax(min-content, auto); }
 [data-node="s11/Screen/Choose/Top/Title"] { align-self: center; }
@@ -1046,6 +1049,7 @@
 [data-node="s11/Screen/Choose/Cards/Health/V/Effect"] { min-width: calc(200 * var(--px)); white-space: normal; contain: inline-size; overflow-wrap: anywhere; }
 [data-node="s11/Screen/Choose/Cards/Health/V/Buy"] { column-gap: calc(4 * var(--px)); }
 [data-node="s11/Screen/Step"] { grid-area: 1 / 1; }
-[data-node="s11/Screen/Step/V"] { grid-area: 1 / 1; justify-self: center; align-self: center; align-content: center; grid-template-rows: minmax(min-content, auto) minmax(min-content, auto); }
+[data-node="s11/Screen/Step/V"] { grid-area: 1 / 1; justify-self: center; align-self: center; align-content: center; grid-template-rows: minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto); }
 [data-node="s11/Screen/Step/V/Chosen"] { text-align: center; }
+[data-node="s11/Screen/Step/V/StepIn"] { text-align: center; }
 [data-node="s11/Screen/Step/V/Pips"] { justify-self: center; grid-template-columns: minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto); }

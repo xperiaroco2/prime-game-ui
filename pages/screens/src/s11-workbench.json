@@ -5,7 +5,7 @@
   "background": "black",
   "note": "New with the MVP (m8 §4). The workbench is the machine's own screen (the engineer, 2026-10-21/22; the target page pages/suit-final, frames 9a to 9c): this scene is the root of a SubViewport (960 x 540, the target's 640 x 360 x 1.5, with the game's Theme) whose ViewportTexture the machine's screen mesh shows, so whoever stands there sees the same screen. It is no overlay: the mouse stays captured, the player's own HUD (s7) stays over the world, and the player works the screen with the crosshair: the game raycasts the screen mesh and pushes the hit point into the SubViewport as mouse motion and Interact as a left click (SubViewport.push_input), so the control under the crosshair hovers; how the input reaches it is the game's choice. The page draws the 960 x 540 canvas alone, centred in the frame. The flow: walk up and start it, choose a mutation, step into the capsule beside the machine, and it mutates you. Points buy three positive mutations; the points show only here. Walking away leaves the screen to the next player (no Close).",
   "states": [
-    { "id": "idle", "label": "Чекає", "note": "Nobody uses the machine: its name alone. Interact at the screen starts it. The target page's start button («Почати») and its line «Стань у машину» have no copy key (the engineer's texts), so they are not drawn." },
+    { "id": "idle", "label": "Чекає", "note": "Nobody uses the machine: its name and Start. Interact on Start starts it." },
     { "id": "choose", "label": "Вибір", "note": "7 points: Quick feet (4) and Spring legs (3) can be bought, Thick skin (9) cannot. The crosshair is on Spring legs' button, so it hovers." },
     { "id": "step", "label": "У машині", "note": "Spring legs chosen: the screen names it and fills its ten pips while the player stands in the capsule (seen from inside on the target page); when they are full the mutation is done and the screen goes back to idle." }
   ],
@@ -16,7 +16,13 @@
         {
           "name": "Idle", "type": "CenterContainer", "states": ["idle"],
           "children": [
-            { "name": "Title", "type": "Label", "variation": "ToyTitleOnLight", "key": "workbench.title", "horizontal_alignment": "center" }
+            {
+              "name": "V", "type": "VBoxContainer", "variation": "ToyColumnTwentyFour", "alignment": "center",
+              "children": [
+                { "name": "Title", "type": "Label", "variation": "ToyTitleOnLight", "key": "workbench.title", "horizontal_alignment": "center" },
+                { "name": "Start", "type": "Button", "variation": "ToyButtonPrimary", "key": "workbench.start", "custom_minimum_size": [288, 0], "size_flags_horizontal": "shrink_center", "note": "workbench.start («Почати», the engineer's word, 2026-10-22): Interact with the crosshair on it opens the choice (choose) for this player. At least 288 wide (the target's large button), an easy mark for the crosshair (agent)." }
+              ]
+            }
           ]
         },
         {
@@ -96,6 +102,7 @@
               "name": "V", "type": "VBoxContainer", "variation": "ToyColumnTwentyFour", "alignment": "center",
               "children": [
                 { "name": "Chosen", "type": "Label", "variation": "ToyKicker", "key": "mutation.jump.name", "horizontal_alignment": "center", "note": "The chosen mutation's name (content data) in the kicker (the game writes it in capitals)." },
+                { "name": "StepIn", "type": "Label", "variation": "ToyTitleOnLight", "key": "workbench.step_in", "horizontal_alignment": "center", "note": "workbench.step_in («Стань у машину», the engineer's word, 2026-10-22): the capsule beside the machine; the pips fill only while the player stands in it." },
                 {
                   "name": "Pips", "type": "HBoxContainer", "variation": "ToyRowFour", "size_flags_horizontal": "shrink_center", "note": "The mutation's progress as ten pips (the suit's ToyPip and ToyPipHealth), filling while the player stands in the capsule; 6 of 10 here.",
                   "children": [

@@ -5,7 +5,7 @@
 The styled mutation workbench screen from the UI track (xperiaroco2/prime-game-ui), as a Godot 4.7.2 node tree for the 1920×1080 reference.
 
 - **Source:** `pages/screens/src/s11-workbench.json`; the review page is `pages/screens/screens.html#s11`; no wireframe section (a screen new with the MVP; its page heading is «Мутаційний верстат»).
-- **Theme:** the Toy pack ui-2.0.1 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
+- **Theme:** the Toy pack ui-2.0.2 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
 - **World behind the UI** (not UI): black, no world (intro, outro, loading).
 - **How to read it:** the roots are children of the screen's full-rect root `Control`; every property not listed keeps Godot's default; sizes and offsets are reference px. In a state's **Shown** list, the first node of each subtree gives its path from the screen root.
 - **Texts** are keys of `copy/strings.csv`, and the language switches live (the Esc menu's Settings). A plain key is set as `text` and translates itself. A key with placeholders, a plural key (`tr_n`) and a key drawn in pieces are set from code with `auto_translate_mode = DISABLED`: `tr()`, then `String.format()` with the data (the samples below), rebuilt on `NOTIFICATION_TRANSLATION_CHANGED`. A "text from data" (names, the room code, times, numbers) is set in code and never translated (`auto_translate_mode = DISABLED`).
@@ -16,7 +16,7 @@ New with the MVP (m8 §4). The workbench is the machine's own screen (the engine
 
 | State | Page label | What it shows |
 |---|---|---|
-| `idle` | Чекає | Nobody uses the machine: its name alone. Interact at the screen starts it. The target page's start button («Почати») and its line «Стань у машину» have no copy key (the engineer's texts), so they are not drawn. |
+| `idle` | Чекає | Nobody uses the machine: its name and Start. Interact on Start starts it. |
 | `choose` | Вибір | 7 points: Quick feet (4) and Spring legs (3) can be bought, Thick skin (9) cannot. The crosshair is on Spring legs' button, so it hovers. |
 | `step` | У машині | Spring legs chosen: the screen names it and fills its ten pips while the player stands in the capsule (seen from inside on the target page); when they are full the mutation is done and the screen goes back to idle. |
 
@@ -25,7 +25,10 @@ New with the MVP (m8 §4). The workbench is the machine's own screen (the engine
 - **Screen** `PanelContainer` · variation `ToyPanelDialog` · anchors `center`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both · custom_minimum_size (960, 540)
   - Note: In the game: the SubViewport's root, anchors full_rect in the 960 x 540 viewport (the page centres it in the frame). ToyPanelDialog is the pack's machine screen frame: the plain tile, 42 px inside.
   - **Idle** `CenterContainer`
-    - **Title** `Label` · variation `ToyTitleOnLight` · centred by its CenterContainer · text `workbench.title`: en "Mutation workbench" · uk "Мутаційний верстат" · horizontal_alignment `CENTER`
+    - **V** `VBoxContainer` · variation `ToyColumnTwentyFour` · centred by its CenterContainer · gaps from the variation: separation 24 · alignment `ALIGNMENT_CENTER`
+      - **Title** `Label` · variation `ToyTitleOnLight` · text `workbench.title`: en "Mutation workbench" · uk "Мутаційний верстат" · horizontal_alignment `CENTER`
+      - **Start** `Button` · variation `ToyButtonPrimary` · size flags horizontal `SIZE_SHRINK_CENTER` · custom_minimum_size (288, 0) · text `workbench.start`: en "Start" · uk "Почати"
+        - Note: workbench.start («Почати», the engineer's word, 2026-10-22): Interact with the crosshair on it opens the choice (choose) for this player. At least 288 wide (the target's large button), an easy mark for the crosshair (agent).
 
 ## `choose`: what differs from `idle`
 
@@ -75,6 +78,8 @@ New with the MVP (m8 §4). The workbench is the machine's own screen (the engine
     - **V** `VBoxContainer` · variation `ToyColumnTwentyFour` · centred by its CenterContainer · gaps from the variation: separation 24 · alignment `ALIGNMENT_CENTER`
       - **Chosen** `Label` · variation `ToyKicker` · text `mutation.jump.name`: en "Spring legs" · uk "Пружні ноги" · horizontal_alignment `CENTER`
         - Note: The chosen mutation's name (content data) in the kicker (the game writes it in capitals).
+      - **StepIn** `Label` · variation `ToyTitleOnLight` · text `workbench.step_in`: en "Step into the machine" · uk "Стань у машину" · horizontal_alignment `CENTER`
+        - Note: workbench.step_in («Стань у машину», the engineer's word, 2026-10-22): the capsule beside the machine; the pips fill only while the player stands in it.
       - **Pips** `HBoxContainer` · variation `ToyRowFour` · size flags horizontal `SIZE_SHRINK_CENTER` · gaps from the variation: separation 4
         - Note: The mutation's progress as ten pips (the suit's ToyPip and ToyPipHealth), filling while the player stands in the capsule; 6 of 10 here.
         - **P1** `Panel` · variation `ToyPipHealth` · custom_minimum_size (23, 15) = Vector2(get_theme_constant("width", "ToyPipHealth"), get_theme_constant("height", "ToyPipHealth"))
@@ -96,7 +101,7 @@ New with the MVP (m8 §4). The workbench is the machine's own screen (the engine
 
 ## Keys
 
-- **Drawn** (11): `mutation.fast.effect`, `mutation.fast.name`, `mutation.health.effect`, `mutation.health.name`, `mutation.jump.effect`, `mutation.jump.name`, `unit.points`, `workbench.mutate`, `workbench.points`, `workbench.short`, `workbench.title`.
+- **Drawn** (13): `mutation.fast.effect`, `mutation.fast.name`, `mutation.health.effect`, `mutation.health.name`, `mutation.jump.effect`, `mutation.jump.name`, `unit.points`, `workbench.mutate`, `workbench.points`, `workbench.short`, `workbench.start`, `workbench.step_in`, `workbench.title`.
 
 ## Layers and input (every screen)
 

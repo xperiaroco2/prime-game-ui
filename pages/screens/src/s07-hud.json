@@ -40,17 +40,23 @@
           ]
         },
         {
-          "name": "Time", "type": "PanelContainer", "variation": "ToyPlate", "anchors_preset": "center_top", "offset_top": 36, "offset_bottom": 36, "grow_horizontal": "both", "note": "ui-2.0.0 (the target page pages/suit-final, frames 5 and 6): the time and the neighbours' anger in one tile at the top centre, 36 px down (24 x 1.5): the time in Unbounded, then the anger meter A (the bar and its siren). The target's caption «Гнів сусідів» over the bar needs a copy key (the engineer's text), so it is not drawn here yet.",
+          "name": "Time", "type": "PanelContainer", "variation": "ToyPlate", "anchors_preset": "center_top", "offset_top": 36, "offset_bottom": 36, "grow_horizontal": "both", "note": "ui-2.0.0 (the target page pages/suit-final, frames 5 and 6): the time and the neighbours' anger in one tile at the top centre, 36 px down (24 x 1.5): the time in Unbounded, then the anger meter A (the bar and its siren). The caption hud.anger («Гнів сусідів», the engineer's word, 2026-10-22) sits over the bar in ToyHudCaption, in ToyTextAlertOnLight past the alarm line (agent).",
           "children": [
             {
               "name": "Row", "type": "HBoxContainer", "variation": "ToyRowTwentyFour",
               "children": [
                 { "name": "Timer", "type": "Label", "variation": "ToyTimer", "text": "07:42", "horizontal_alignment": "center", "size_flags_vertical": "shrink_center", "custom_minimum_size": [120, 0], "per_state": { "cops": { "text": "04:12" } }, "note": "The round time, m:ss from code (auto_translate_mode DISABLED), every second; light on the tile (no halo)." },
                 {
-                  "name": "Anger", "type": "HBoxContainer", "variation": "ToyRowEight", "size_flags_vertical": "shrink_center",
+                  "name": "AngerColumn", "type": "VBoxContainer", "variation": "ToyColumnFour", "size_flags_vertical": "shrink_center",
                   "children": [
-                    { "name": "Bar", "type": "ProgressBar", "variation": "ToyBarAngerCalm", "custom_minimum_size": [240, 16], "show_percentage": false, "max_value": 1, "value": 0.08, "per_state": { "carry": { "value": 0.55 }, "human": { "value": 0.55 }, "hurt": { "value": 0.55 }, "raising": { "value": 0.55 }, "cops": { "value": 1, "variation": "ToyBarAngerAlarm" } }, "note": "The anger meter (A): ToyBarAngerCalm (a muted grey fill) and, past the alarm line (70 %), ToyBarAngerAlarm (the danger fill); no glow and no pulse since ui-2.0.0.", "size_flags_vertical": "shrink_center" },
-                    { "name": "Siren", "type": "TextureRect", "icon": "siren-off", "custom_minimum_size": [36, 36], "size_flags_vertical": "shrink_center", "per_state": { "carry": { "icon": "siren-on" }, "human": { "icon": "siren-on" }, "hurt": { "icon": "siren-on" }, "raising": { "icon": "siren-on" }, "cops": { "icon": "siren-on" } }, "note": "icons/siren-off.svg (dim) while calm, icons/siren-on.svg (the danger colour) while the anger rises and when full; never tinted." }
+                    { "name": "Caption", "type": "Label", "variation": "ToyHudCaption", "key": "hud.anger", "per_state": { "cops": { "variation": "ToyTextAlertOnLight" } }, "note": "The meter's name; the danger colour with the bar past its alarm line (70 %)." },
+                    {
+                      "name": "Anger", "type": "HBoxContainer", "variation": "ToyRowEight", "size_flags_vertical": "shrink_center",
+                      "children": [
+                        { "name": "Bar", "type": "ProgressBar", "variation": "ToyBarAngerCalm", "custom_minimum_size": [240, 16], "show_percentage": false, "max_value": 1, "value": 0.08, "per_state": { "carry": { "value": 0.55 }, "human": { "value": 0.55 }, "hurt": { "value": 0.55 }, "raising": { "value": 0.55 }, "cops": { "value": 1, "variation": "ToyBarAngerAlarm" } }, "note": "The anger meter (A): ToyBarAngerCalm (a muted grey fill) and, past the alarm line (70 %), ToyBarAngerAlarm (the danger fill); no glow and no pulse since ui-2.0.0.", "size_flags_vertical": "shrink_center" },
+                        { "name": "Siren", "type": "TextureRect", "icon": "siren-off", "custom_minimum_size": [36, 36], "size_flags_vertical": "shrink_center", "per_state": { "carry": { "icon": "siren-on" }, "human": { "icon": "siren-on" }, "hurt": { "icon": "siren-on" }, "raising": { "icon": "siren-on" }, "cops": { "icon": "siren-on" } }, "note": "icons/siren-off.svg (dim) while calm, icons/siren-on.svg (the danger colour) while the anger rises and when full; never tinted." }
+                      ]
+                    }
                   ]
                 }
               ]
@@ -157,6 +163,7 @@
                 {
                   "name": "Rows", "type": "VBoxContainer", "variation": "ToyColumnEight",
                   "children": [
+                    { "name": "Title", "type": "Label", "variation": "ToyHudCaption", "key": "hud.suit", "note": "The tile's name over the pips, hud.suit («Костюм», the engineer's word, 2026-10-22), in the captions' dim style (agent)." },
                     {
                       "name": "Health", "type": "HBoxContainer", "variation": "ToyRowSixteen",
                       "children": [
