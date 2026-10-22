@@ -1521,30 +1521,6 @@
 .tv-ToyKeyOnDark.tv-wide {
   min-width: calc(var(--toy-keycap-on-dark-size-wide-min-width) * var(--px));
 }
-/* ToyKeyOnLight: PanelContainer · keycap.on-light · light */
-.tv-ToyKeyOnLight {
-  box-sizing: border-box;
-  position: relative;
-  background: var(--toy-keycap-on-light-panel-bg-color);
-  border-style: solid;
-  border-color: var(--toy-keycap-on-light-panel-border-color);
-  border-top-width: calc(var(--toy-keycap-on-light-panel-border-width-top) * var(--px));
-  border-right-width: calc(var(--toy-keycap-on-light-panel-border-width-right) * var(--px));
-  border-bottom-width: calc(var(--toy-keycap-on-light-panel-border-width-bottom) * var(--px));
-  border-left-width: calc(var(--toy-keycap-on-light-panel-border-width-left) * var(--px));
-  border-top-left-radius: calc(var(--toy-keycap-on-light-panel-corner-radius) * var(--px));
-  border-top-right-radius: calc(var(--toy-keycap-on-light-panel-corner-radius) * var(--px));
-  border-bottom-right-radius: calc(var(--toy-keycap-on-light-panel-corner-radius) * var(--px));
-  border-bottom-left-radius: calc(var(--toy-keycap-on-light-panel-corner-radius) * var(--px));
-  padding-top: calc((var(--toy-keycap-on-light-panel-content-margin-top) - var(--toy-keycap-on-light-panel-border-width-top)) * var(--px));
-  padding-right: calc((var(--toy-keycap-on-light-panel-content-margin-inline) - var(--toy-keycap-on-light-panel-border-width-right)) * var(--px));
-  padding-bottom: calc((var(--toy-keycap-on-light-panel-content-margin-bottom) - var(--toy-keycap-on-light-panel-border-width-bottom)) * var(--px));
-  padding-left: calc((var(--toy-keycap-on-light-panel-content-margin-inline) - var(--toy-keycap-on-light-panel-border-width-left)) * var(--px));
-  min-width: calc(var(--toy-keycap-on-light-size-min-width) * var(--px));
-}
-.tv-ToyKeyOnLight.tv-wide {
-  min-width: calc(var(--toy-keycap-on-light-size-wide-min-width) * var(--px));
-}
 /* ToyKeyQuiet: PanelContainer · keycap.quiet · light */
 .tv-ToyKeyQuiet {
   box-sizing: border-box;
@@ -1782,11 +1758,6 @@
 /* ToyRowThirtyTwo: HBoxContainer · layout.row-32 · any */
 .tv-ToyRowThirtyTwo {
   gap: calc(var(--toy-layout-row-32-items-separation) * var(--px));
-}
-/* ToyGridList: GridContainer · layout.grid-list · any */
-.tv-ToyGridList {
-  column-gap: calc(var(--toy-layout-grid-list-items-h-separation) * var(--px));
-  row-gap: calc(var(--toy-layout-grid-list-items-v-separation) * var(--px));
 }
 /* ToyGridSwatch: GridContainer · layout.grid-swatch · any */
 .tv-ToyGridSwatch {
@@ -2263,30 +2234,6 @@
   margin-bottom: calc(var(--toy-pick-swatch-selected-panel-expand-margin) * -1 * var(--px));
   margin-left: calc(var(--toy-pick-swatch-selected-panel-expand-margin) * -1 * var(--px));
 }
-/* ToySwatchFocus: Panel · pick.swatch-focus · light */
-.tv-ToySwatchFocus {
-  box-sizing: border-box;
-  position: relative;
-  background: var(--toy-palette-clear);
-  border-style: solid;
-  border-color: var(--toy-pick-swatch-focus-panel-border-color);
-  border-top-width: calc(var(--toy-pick-swatch-focus-panel-border-width) * var(--px));
-  border-right-width: calc(var(--toy-pick-swatch-focus-panel-border-width) * var(--px));
-  border-bottom-width: calc(var(--toy-pick-swatch-focus-panel-border-width) * var(--px));
-  border-left-width: calc(var(--toy-pick-swatch-focus-panel-border-width) * var(--px));
-  border-top-left-radius: calc(var(--toy-pick-swatch-focus-panel-corner-radius) * var(--px));
-  border-top-right-radius: calc(var(--toy-pick-swatch-focus-panel-corner-radius) * var(--px));
-  border-bottom-right-radius: calc(var(--toy-pick-swatch-focus-panel-corner-radius) * var(--px));
-  border-bottom-left-radius: calc(var(--toy-pick-swatch-focus-panel-corner-radius) * var(--px));
-  padding-top: calc((var(--toy-pick-swatch-focus-panel-border-width) + var(--toy-pick-swatch-focus-panel-expand-margin) - var(--toy-pick-swatch-focus-panel-border-width)) * var(--px));
-  padding-right: calc((var(--toy-pick-swatch-focus-panel-border-width) + var(--toy-pick-swatch-focus-panel-expand-margin) - var(--toy-pick-swatch-focus-panel-border-width)) * var(--px));
-  padding-bottom: calc((var(--toy-pick-swatch-focus-panel-border-width) + var(--toy-pick-swatch-focus-panel-expand-margin) - var(--toy-pick-swatch-focus-panel-border-width)) * var(--px));
-  padding-left: calc((var(--toy-pick-swatch-focus-panel-border-width) + var(--toy-pick-swatch-focus-panel-expand-margin) - var(--toy-pick-swatch-focus-panel-border-width)) * var(--px));
-  margin-top: calc(var(--toy-pick-swatch-focus-panel-expand-margin) * -1 * var(--px));
-  margin-right: calc(var(--toy-pick-swatch-focus-panel-expand-margin) * -1 * var(--px));
-  margin-bottom: calc(var(--toy-pick-swatch-focus-panel-expand-margin) * -1 * var(--px));
-  margin-left: calc(var(--toy-pick-swatch-focus-panel-expand-margin) * -1 * var(--px));
-}
 /* ToyPlate: PanelContainer · plate.default · dark */
 .tv-ToyPlate {
   box-sizing: border-box;
@@ -2437,152 +2384,6 @@
   line-height: calc(var(--toy-plate-alert-countdown-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-plate-alert-countdown-label-letter-spacing) * var(--px));
   color: var(--toy-plate-alert-countdown-normal-font-color);
-}
-/* ToyPresetCard: Button → ToyButton · preset-card.idle · light */
-.tv-ToyPresetCard {
-  box-sizing: border-box;
-  position: relative;
-  background: var(--toy-preset-card-idle-normal-bg-color);
-  border-style: solid;
-  border-color: var(--toy-preset-card-idle-normal-border-color);
-  border-top-width: calc(var(--toy-preset-card-idle-normal-border-width) * var(--px));
-  border-right-width: calc(var(--toy-preset-card-idle-normal-border-width) * var(--px));
-  border-bottom-width: calc(var(--toy-preset-card-idle-normal-border-width) * var(--px));
-  border-left-width: calc(var(--toy-preset-card-idle-normal-border-width) * var(--px));
-  border-top-left-radius: calc(var(--toy-preset-card-idle-normal-corner-radius) * var(--px));
-  border-top-right-radius: calc(var(--toy-preset-card-idle-normal-corner-radius) * var(--px));
-  border-bottom-right-radius: calc(var(--toy-preset-card-idle-normal-corner-radius) * var(--px));
-  border-bottom-left-radius: calc(var(--toy-preset-card-idle-normal-corner-radius) * var(--px));
-  padding-top: calc((var(--toy-preset-card-idle-normal-content-margin) - var(--toy-preset-card-idle-normal-border-width)) * var(--px));
-  padding-right: calc((var(--toy-preset-card-idle-normal-content-margin) - var(--toy-preset-card-idle-normal-border-width)) * var(--px));
-  padding-bottom: calc((var(--toy-preset-card-idle-normal-content-margin) - var(--toy-preset-card-idle-normal-border-width)) * var(--px));
-  padding-left: calc((var(--toy-preset-card-idle-normal-content-margin) - var(--toy-preset-card-idle-normal-border-width)) * var(--px));
-  font-family: var(--toy-preset-card-idle-label-font-family), system-ui, sans-serif;
-  font-size: calc(var(--toy-preset-card-idle-label-font-size) * var(--px));
-  font-weight: var(--toy-preset-card-idle-label-font-weight);
-  line-height: calc(var(--toy-preset-card-idle-label-line-box) * var(--px));
-  letter-spacing: calc(var(--toy-preset-card-idle-label-letter-spacing) * var(--px));
-  color: var(--toy-preset-card-idle-normal-font-color);
-  cursor: pointer;
-}
-.tv-ToyPresetCard.is-hover {
-  background: var(--toy-preset-card-idle-hover-bg-color);
-}
-.tv-ToyPresetCard.is-held {
-  background: var(--toy-preset-card-idle-pressed-bg-color);
-}
-.tv-ToyPresetCard.is-disabled {
-  background: var(--toy-preset-card-idle-disabled-bg-color);
-  border-color: var(--toy-preset-card-idle-disabled-border-color);
-  color: var(--toy-preset-card-idle-disabled-font-color);
-}
-.tv-ToyPresetCard > .tv-focus {
-  display: none;
-  position: absolute;
-  pointer-events: none;
-  box-sizing: border-box;
-  border-style: solid;
-  border-color: var(--toy-preset-card-idle-focus-border-color);
-  border-top-width: calc(var(--toy-preset-card-idle-focus-border-width) * var(--px));
-  border-right-width: calc(var(--toy-preset-card-idle-focus-border-width) * var(--px));
-  border-bottom-width: calc(var(--toy-preset-card-idle-focus-border-width) * var(--px));
-  border-left-width: calc(var(--toy-preset-card-idle-focus-border-width) * var(--px));
-  border-top-left-radius: calc(var(--toy-preset-card-idle-focus-corner-radius) * var(--px));
-  border-top-right-radius: calc(var(--toy-preset-card-idle-focus-corner-radius) * var(--px));
-  border-bottom-right-radius: calc(var(--toy-preset-card-idle-focus-corner-radius) * var(--px));
-  border-bottom-left-radius: calc(var(--toy-preset-card-idle-focus-corner-radius) * var(--px));
-  top: calc((0 - var(--toy-preset-card-idle-normal-border-width) - var(--toy-preset-card-idle-focus-expand-margin)) * var(--px));
-  right: calc((0 - var(--toy-preset-card-idle-normal-border-width) - var(--toy-preset-card-idle-focus-expand-margin)) * var(--px));
-  bottom: calc((0 - var(--toy-preset-card-idle-normal-border-width) - var(--toy-preset-card-idle-focus-expand-margin)) * var(--px));
-  left: calc((0 - var(--toy-preset-card-idle-normal-border-width) - var(--toy-preset-card-idle-focus-expand-margin)) * var(--px));
-}
-.tv-ToyPresetCard.is-focus > .tv-focus, .tv-ToyPresetCard:focus-visible > .tv-focus {
-  display: block;
-}
-/* ToyPresetCardSelected: Button → ToyButton · preset-card.selected · light */
-.tv-ToyPresetCardSelected {
-  box-sizing: border-box;
-  position: relative;
-  background: var(--toy-preset-card-selected-normal-bg-color);
-  border-style: solid;
-  border-color: var(--toy-preset-card-selected-normal-border-color);
-  border-top-width: calc(var(--toy-preset-card-selected-normal-border-width) * var(--px));
-  border-right-width: calc(var(--toy-preset-card-selected-normal-border-width) * var(--px));
-  border-bottom-width: calc(var(--toy-preset-card-selected-normal-border-width) * var(--px));
-  border-left-width: calc(var(--toy-preset-card-selected-normal-border-width) * var(--px));
-  border-top-left-radius: calc(var(--toy-preset-card-selected-normal-corner-radius) * var(--px));
-  border-top-right-radius: calc(var(--toy-preset-card-selected-normal-corner-radius) * var(--px));
-  border-bottom-right-radius: calc(var(--toy-preset-card-selected-normal-corner-radius) * var(--px));
-  border-bottom-left-radius: calc(var(--toy-preset-card-selected-normal-corner-radius) * var(--px));
-  padding-top: calc((var(--toy-preset-card-selected-normal-content-margin) - var(--toy-preset-card-selected-normal-border-width)) * var(--px));
-  padding-right: calc((var(--toy-preset-card-selected-normal-content-margin) - var(--toy-preset-card-selected-normal-border-width)) * var(--px));
-  padding-bottom: calc((var(--toy-preset-card-selected-normal-content-margin) - var(--toy-preset-card-selected-normal-border-width)) * var(--px));
-  padding-left: calc((var(--toy-preset-card-selected-normal-content-margin) - var(--toy-preset-card-selected-normal-border-width)) * var(--px));
-  font-family: var(--toy-preset-card-selected-label-font-family), system-ui, sans-serif;
-  font-size: calc(var(--toy-preset-card-selected-label-font-size) * var(--px));
-  font-weight: var(--toy-preset-card-selected-label-font-weight);
-  line-height: calc(var(--toy-preset-card-selected-label-line-box) * var(--px));
-  letter-spacing: calc(var(--toy-preset-card-selected-label-letter-spacing) * var(--px));
-  color: var(--toy-preset-card-selected-normal-font-color);
-  cursor: pointer;
-}
-.tv-ToyPresetCardSelected.is-hover {
-  background: var(--toy-preset-card-selected-hover-bg-color);
-}
-.tv-ToyPresetCardSelected.is-disabled {
-  background: var(--toy-preset-card-selected-disabled-bg-color);
-  border-color: var(--toy-preset-card-selected-disabled-border-color);
-  color: var(--toy-preset-card-selected-disabled-font-color);
-}
-.tv-ToyPresetCardSelected > .tv-focus {
-  display: none;
-  position: absolute;
-  pointer-events: none;
-  box-sizing: border-box;
-  border-style: solid;
-  border-color: var(--toy-preset-card-selected-focus-border-color);
-  border-top-width: calc(var(--toy-preset-card-selected-focus-border-width) * var(--px));
-  border-right-width: calc(var(--toy-preset-card-selected-focus-border-width) * var(--px));
-  border-bottom-width: calc(var(--toy-preset-card-selected-focus-border-width) * var(--px));
-  border-left-width: calc(var(--toy-preset-card-selected-focus-border-width) * var(--px));
-  border-top-left-radius: calc(var(--toy-preset-card-selected-focus-corner-radius) * var(--px));
-  border-top-right-radius: calc(var(--toy-preset-card-selected-focus-corner-radius) * var(--px));
-  border-bottom-right-radius: calc(var(--toy-preset-card-selected-focus-corner-radius) * var(--px));
-  border-bottom-left-radius: calc(var(--toy-preset-card-selected-focus-corner-radius) * var(--px));
-  top: calc((0 - var(--toy-preset-card-selected-normal-border-width) - var(--toy-preset-card-selected-focus-expand-margin)) * var(--px));
-  right: calc((0 - var(--toy-preset-card-selected-normal-border-width) - var(--toy-preset-card-selected-focus-expand-margin)) * var(--px));
-  bottom: calc((0 - var(--toy-preset-card-selected-normal-border-width) - var(--toy-preset-card-selected-focus-expand-margin)) * var(--px));
-  left: calc((0 - var(--toy-preset-card-selected-normal-border-width) - var(--toy-preset-card-selected-focus-expand-margin)) * var(--px));
-}
-.tv-ToyPresetCardSelected.is-focus > .tv-focus, .tv-ToyPresetCardSelected:focus-visible > .tv-focus {
-  display: block;
-}
-/* ToyPresetCardNote: Label · preset-card.note · light */
-.tv-ToyPresetCardNote {
-  font-family: var(--toy-preset-card-note-label-font-family), system-ui, sans-serif;
-  font-size: calc(var(--toy-preset-card-note-label-font-size) * var(--px));
-  font-weight: var(--toy-preset-card-note-label-font-weight);
-  line-height: calc(var(--toy-preset-card-note-label-line-box) * var(--px));
-  letter-spacing: calc(var(--toy-preset-card-note-label-letter-spacing) * var(--px));
-  color: var(--toy-preset-card-note-normal-font-color);
-}
-/* ToyPresetCardNoteSelected: Label · preset-card.note-selected · light */
-.tv-ToyPresetCardNoteSelected {
-  font-family: var(--toy-preset-card-note-selected-label-font-family), system-ui, sans-serif;
-  font-size: calc(var(--toy-preset-card-note-selected-label-font-size) * var(--px));
-  font-weight: var(--toy-preset-card-note-selected-label-font-weight);
-  line-height: calc(var(--toy-preset-card-note-selected-label-line-box) * var(--px));
-  letter-spacing: calc(var(--toy-preset-card-note-selected-label-letter-spacing) * var(--px));
-  color: var(--toy-preset-card-note-selected-normal-font-color);
-}
-/* ToyPresetCardName: Label · preset-card.name · light */
-.tv-ToyPresetCardName {
-  font-family: var(--toy-preset-card-name-label-font-family), system-ui, sans-serif;
-  font-size: calc(var(--toy-preset-card-name-label-font-size) * var(--px));
-  font-weight: var(--toy-preset-card-name-label-font-weight);
-  line-height: calc(var(--toy-preset-card-name-label-line-box) * var(--px));
-  letter-spacing: calc(var(--toy-preset-card-name-label-letter-spacing) * var(--px));
-  color: var(--toy-preset-card-name-normal-font-color);
 }
 /* ToyRoster: PanelContainer · roster.panel · dark */
 .tv-ToyRoster {
