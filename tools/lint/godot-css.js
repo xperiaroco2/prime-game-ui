@@ -1002,9 +1002,9 @@ const ADVERSARIAL = [
   ["layout", '.gd-Label { display: grid !important; }', ["L27"]],
   ["layout", '.gd-Label { grid-template-columns: repeat(2, 1fr); }', ["L28"]],
   ["layout", '.gd-Label::after { display: block; }', ["L06"]],
-  // A ScrollContainer's view scrolls vertically with its native bar hidden; nothing else scrolls.
+  // A ScrollContainer's view scrolls vertically or sideways with its native bar hidden; nothing else scrolls.
   ["layout", '.gd-scroll-view { overflow-x: hidden; overflow-y: auto; scrollbar-width: none; grid-template-rows: 0; }', []],
-  ["layout", '.gd-scroll-view { overflow-x: auto; }', ["L28"]],
+  ["layout", '.gd-scroll-h > .gd-scroll-view { overflow-x: auto; overflow-y: hidden; grid-template-columns: 0; }', []],
   ["layout", '.gd-scroll-view { overflow: auto; scrollbar-width: thin; }', ["L28"]],
   // Godot's combined minimum (min-content) and a clipped text (clip_text, text_overrun_behavior).
   ["layout", '.gd-anchor > .gd-node { width: min-content; } .gd-scroll-view { min-width: min-content; }', []],

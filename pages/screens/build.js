@@ -4,9 +4,9 @@
 //   node pages/screens/build.js                      write screens.html, screens-ui.css, screens-layout.css and the
 //                                                    handoffs docs/handoff/<screen file>.md
 //   node pages/screens/build.js --check              exit 1 when an output differs from what the build would write
-//   node pages/screens/build.js --validate [s2 ...]  validate the sources only (all, or these screens); writes nothing
-//   node pages/screens/build.js --handoff s2         print the screen's Godot handoff (Markdown) to stdout
-//   node pages/screens/build.js --out <file.html> s2 [s5 ...]
+//   node pages/screens/build.js --validate [s3 ...]  validate the sources only (all, or these screens); writes nothing
+//   node pages/screens/build.js --handoff s3         print the screen's Godot handoff (Markdown) to stdout
+//   node pages/screens/build.js --out <file.html> s3 [s5 ...]
 //                                                    a private page with only these screens (validated alone), written
 //                                                    outside the repo, CSS inlined: build and measure one screen while
 //                                                    other screens are being edited (tools/screens/fit.js --page <file>)
@@ -17,7 +17,7 @@
 // THE FORMAT (pages/screens/README.md has the long form). One file per screen, src/s01-tutorial.json …
 // src/s11-workbench.json; a missing file is a screen not drawn yet. Godot's defaults are the format's defaults, so a
 // node states only what differs, with Godot's property names.
-//   screen: { id "s2" (from the file name), wireframe "s2" (a wireframe section) or, for a screen new with the MVP,
+//   screen: { id "s3" (from the file name), wireframe "s3" (a wireframe section) or, for a screen new with the MVP,
 //     heading (its Ukrainian page heading), title (English), background (the
 //     world behind the UI, page art: menu | room-light | room-dark | black), note?, states [{id, label (Ukrainian), note?}],
 //     nodes [root nodes] }
@@ -32,9 +32,10 @@
 //   types (rendered faithfully, nothing else): Control, Panel, PanelContainer (wide), MarginContainer (no margins:
 //     they are theme constants, so overrides the theme test forbids), CenterContainer, VBoxContainer and HBoxContainer
 //     (alignment begin|center|end; the gap only from a spacing variation: ToyColumn*/ToyRow*), GridContainer (columns
-//     1; the gaps only from ToyGridList/ToyGridSwatch), ScrollContainer (vertical only: scroll_vertical; one child,
+//     1; the gaps only from ToyGridList/ToyGridSwatch), ScrollContainer (vertical by default: scroll_vertical; one child,
 //     expand_fill across; its bar is a VScrollBar drawn with ToyScrollBar when the child is taller; the gap between the
-//     child and the bar only from ToyScroll), HSlider (value, min_value, max_value, step, editable, state
+//     child and the bar only from ToyScroll; or sideways with horizontal_scroll_mode show_never: vertical scrolling
+//     disabled, the child keeps its minimum width, no bar drawn, the container's width its custom_minimum_size), HSlider (value, min_value, max_value, step, editable, state
 //     normal|hover|focus), VScrollBar (value, min_value, max_value, page, state normal|hover|held|focus),
 //     Label (key, args, count, piece, value_of, or text; horizontal_alignment left|center|right|fill,
 //     vertical_alignment top|center|bottom|fill, autowrap_mode off|arbitrary|word|word_smart), Button (key or text,
@@ -123,12 +124,12 @@ const FONT_LINK = 'https://fonts.googleapis.com/css2?family=Onest:wght@400;500;6
 const W = 1920;
 const H = 1080;
 const SCREENS = [
-  ['s1', 's01-tutorial.json'], ['s2', 's02-main-menu.json'], ['s3', 's03-connecting.json'], ['s4', 's04-lobby.json'],
+  ['s1', 's01-tutorial.json'], ['s3', 's03-connecting.json'], ['s4', 's04-lobby.json'],
   ['s5', 's05-esc-menu.json'], ['s6', 's06-pre-game.json'], ['s7', 's07-hud.json'], ['s8', 's08-map.json'],
   ['s9', 's09-downed.json'], ['s10', 's10-post-game.json'], ['s11', 's11-workbench.json'],
 ];
 const BACKGROUNDS = {
-  menu: 'the lobby room seen behind the main menu',
+  menu: 'the ship (the lobby room) seen behind a menu',
   'room-light': 'a lit room of the level',
   'room-dark': 'a dark room of the level',
   black: 'black, no world (intro, outro, loading)',
@@ -164,7 +165,7 @@ const GODOT = {
   GridContainer: { chain: ['GridContainer', 'Container', 'Control'], holds: 'grid', fields: ['columns'], spacing: ['h-separation', 'v-separation'] },
   // Vertical scrolling only (horizontal_scroll_mode SCROLL_MODE_DISABLED): one child; the bar is drawn with SCROLL_BAR.
   // The gap between the child and the bar (scrollbar_h_separation, Godot's default 0) comes only from a variation.
-  ScrollContainer: { chain: ['ScrollContainer', 'Container', 'Control'], holds: 'scroll', fields: ['scroll_vertical'], spacing: ['scrollbar-h-separation'] },
+  ScrollContainer: { chain: ['ScrollContainer', 'Container', 'Control'], holds: 'scroll', fields: ['scroll_vertical', 'horizontal_scroll_mode'], spacing: ['scrollbar-h-separation'] },
   HSlider: { chain: ['HSlider', 'Slider', 'Range', 'Control'], holds: null, themed: true, fields: ['value', 'min_value', 'max_value', 'step', 'editable', 'state'] },
   VScrollBar: { chain: ['VScrollBar', 'ScrollBar', 'Range', 'Control'], holds: null, themed: true, fields: ['value', 'min_value', 'max_value', 'page', 'state'] },
   Label: { chain: ['Label', 'Control'], holds: null, themed: true, fields: ['key', 'args', 'count', 'piece', 'value_of', 'text', 'horizontal_alignment', 'vertical_alignment', 'autowrap_mode', 'clip_text', 'text_overrun_behavior'] },
@@ -242,11 +243,12 @@ const ENUMS = {
   autowrap_mode: ['off', 'arbitrary', 'word', 'word_smart'],
   // TextServer.OverrunBehavior (Label, Button and OptionButton text_overrun_behavior).
   text_overrun_behavior: ['no_trimming', 'trim_char', 'trim_word', 'trim_ellipsis', 'trim_word_ellipsis'],
+  horizontal_scroll_mode: ['disabled', 'show_never'],
 };
 const DEFAULTS = {
   separation: 4, h_separation: 4, v_separation: 4, scrollbar_h_separation: 0, columns: 1,
   horizontal_alignment: 'left', vertical_alignment: 'top', autowrap_mode: 'off', state: 'normal', toggle_mode: false,
-  editable: true, value: 0, min_value: 0, max_value: 100, step: 1, page: 0, scroll_vertical: 0, show_percentage: true,
+  editable: true, value: 0, min_value: 0, max_value: 100, step: 1, page: 0, scroll_vertical: 0, horizontal_scroll_mode: 'disabled', show_percentage: true,
   clip_text: false, text_overrun_behavior: 'no_trimming',
 };
 const SPLIT = ['key', 'preset']; // placeholders drawn as their own element (copy/README.md, tools/copy/deck.js PH_SPLIT)
@@ -430,7 +432,7 @@ function fieldProblem(type, field, v) {
     case 'count': return int(0, 1000000);
     case 'piece': return int(0, 9);
     case 'value_of': return typeof v === 'string' && /^[a-z_]+$/.test(v) ? null : 'value_of names a placeholder of the key, such as "key"';
-    case 'horizontal_alignment': case 'vertical_alignment': case 'autowrap_mode': case 'text_overrun_behavior': return oneOf(ENUMS[field]);
+    case 'horizontal_alignment': case 'vertical_alignment': case 'autowrap_mode': case 'text_overrun_behavior': case 'horizontal_scroll_mode': return oneOf(ENUMS[field]);
     case 'icon_size': return int(8, 512);
     case 'state':
       if (type === 'Button') return oneOf(Object.keys(BUTTON_STATES));
@@ -857,7 +859,14 @@ function checkContent(n, st, S, C, R) {
     const list = spacingVariations(C, T).map((x) => `${x.name} (${x.gaps.join(' × ')})`).join(', ');
     R.err(n.ptr, `a ${T} with ${n.children.length} children takes its gap from a spacing variation (the theme test forbids a separation override): add "variation", one of ${list}`);
   }
-  if (T === 'ScrollContainer') {
+  if (T === 'ScrollContainer' && p.horizontal_scroll_mode === 'show_never') {
+    // Sideways (the how-to card's frames): vertical scrolling disabled, so the container is as tall as its child; its
+    // width is only its custom_minimum_size (Godot counts the child's width only where horizontal scrolling is off).
+    if (n.children.length !== 1) R.err(n.ptr, `a ScrollContainer holds exactly one child, the scrolled content (it has ${n.children.length})`);
+    else if (FLAGS[n.children[0].flags.h][0]) R.err(ptr(n.children[0].ptr, 'size_flags_horizontal'), 'the child of a sideways ScrollContainer keeps its minimum width (it scrolls sideways): drop the horizontal expand flag');
+    if (p.scroll_vertical) R.err(at('scroll_vertical'), 'a sideways ScrollContainer (horizontal_scroll_mode show_never) does not scroll vertically: drop scroll_vertical');
+    if (!(n.cmin[0] > 0)) R.err(n.ptr, 'a sideways ScrollContainer adds no width of its own (Godot: its custom_minimum_size only): give it a custom_minimum_size width');
+  } else if (T === 'ScrollContainer') {
     if (n.children.length !== 1) R.err(n.ptr, `a ScrollContainer holds exactly one child, the scrolled content (it has ${n.children.length})`);
     else {
       const c = n.children[0];
@@ -908,7 +917,7 @@ function checkContext(nodes, st, surface, C, R) {
         R.err(fieldAt(n, st, 'theme_color'), `in ${st}: ${surface.name || 'the world'} has no colour item ${p.theme_color} to tint this icon with`);
       }
     }
-    if (n.type === 'ScrollContainer') {
+    if (n.type === 'ScrollContainer' && p.horizontal_scroll_mode !== 'show_never') {
       const sb = C.pack.variations[SCROLL_BAR];
       const on = surface.name ? `${surface.name} (${surface.context})` : 'the world (dark)';
       if (sb && (sb.context === 'dark' || sb.context === 'light') && sb.context !== surface.context) {
@@ -1013,6 +1022,7 @@ function nodeLook(n, p, C) {
   if (p.theme_color) cls.push(TINTS[p.theme_color]);
   if (n.type === 'Button') for (const c of buttonClasses(C.pack.variations[p.variation], p)) cls.push(c);
   if (n.content) cls.push('gd-content');
+  if (n.type === 'ScrollContainer' && p.horizontal_scroll_mode === 'show_never') cls.push('gd-scroll-h');
   if (n.type === 'OptionButton' && p.state !== 'normal') cls.push({ hover: 'is-hover', held: 'is-held', disabled: 'is-disabled', focus: 'is-focus' }[p.state]);
   if (n.type === 'LineEdit') { if (p.state === 'focus') cls.push('is-focus'); if (p.editable === false) cls.push('is-readonly'); }
   if ((n.type === 'HSlider' || n.type === 'VScrollBar') && p.state !== 'normal') cls.push({ hover: 'is-hover', held: 'is-held', focus: 'is-focus' }[p.state]);
@@ -1120,6 +1130,11 @@ function renderNode(n, st, S, C, ctx) {
       break;
     }
     case 'ScrollContainer': {
+      if (p.horizontal_scroll_mode === 'show_never') {
+        // Sideways with no bar (Godot's SCROLL_MODE_SHOW_NEVER): the view scrolls on the page by wheel and touch.
+        inner = `<div class="gd-scroll-view">${kids()}</div>`;
+        break;
+      }
       // The view scrolls (its native bar hidden); the drawn bar is ToyScrollBar, shown and sized by page.js (Godot's
       // update_scrollbars: visible when the child's minimum height is more than the view's height).
       ctx.used.add(SCROLL_BAR);
@@ -1154,6 +1169,8 @@ const LAYOUT_HEAD = `/* Generated by pages/screens/build.js: Godot 4.7.2 contain
 .gd-scroll-view > .gd-node { align-self: start; }
 .gd-ScrollContainer > .gd-VScrollBar { grid-area: 1 / 2; display: none; }
 .gd-ScrollContainer[data-vscroll="1"] > .gd-VScrollBar { display: flex; }
+.gd-scroll-h > .gd-scroll-view { grid-template-rows: auto; grid-template-columns: 0; overflow-x: auto; overflow-y: hidden; min-width: 0; }
+.gd-scroll-h > .gd-scroll-view > .gd-node { justify-self: start; }
 .gd-Label { display: flex; flex-direction: column; justify-content: flex-start; white-space: nowrap; text-align: left; }
 .gd-Button { display: flex; align-items: center; justify-content: center; white-space: nowrap; }
 .gd-Button.gd-content { display: grid; justify-content: stretch; align-items: stretch; }
@@ -1436,13 +1453,13 @@ function renderPage(screens, C, sys, ui, layout) {
     '<body>',
     '<main>',
     '<h1>Екрани гри</h1>',
-    `<p class="pg-lead">Екрани сесії у стилі Toy, зібрані з компонентів і текстів колоди так, як їх збудує Godot: кожен стан — окремий кадр 1920×1080. ${screens.length ? `Готово: ${screens.length} з ${SCREENS.length}.` : 'Екранів ще немає.'}</p>`,
+    `<p class="pg-lead">Екрани сесії у вигляді ui-2.0.0 («Плитка», палітра «Чорнильна мʼята»), зібрані з компонентів і текстів колоди так, як їх збудує Godot: кожен стан — окремий кадр 1920×1080. ${screens.length ? `Готово: ${screens.length} з ${SCREENS.length}.` : 'Екранів ще немає.'}</p>`,
     '<nav class="pg-bar" id="pg-bar" aria-label="Екрани й вигляд">',
     `<div class="pg-list">${chips}</div>`,
     `<div class="pg-controls">${seg('lang', 'Мова', [['uk', 'UA'], ['en', 'EN']])}${seg('text', 'Текст', [['default', 'Звичайний'], ['large', 'Великий']])}${seg('zoom', 'Масштаб', [['fit', 'По ширині'], ['50', '50 %'], ['100', '100 %']])}</div>`,
     '</nav>',
     sections,
-    `<footer class="pg-foot">Зібрано з pages/screens/src (${screens.length} ${screens.length === 1 ? 'екран' : 'екранів'}), токенів Toy ${esc(sys.version)} і copy/strings.csv. ${missing.length ? `Ще немає екранів: ${missing.join(', ')}. ` : ''}Світ за інтерфейсом — лише фон сторінки. Для гри: node pages/screens/build.js --handoff &lt;екран&gt;.</footer>`,
+    `<footer class="pg-foot">Зібрано з pages/screens/src (${screens.length} ${screens.length === 1 ? 'екран' : 'екранів'}), токенів ui-${esc(sys.version)} («Плитка», «Чорнильна мʼята») і copy/strings.csv. Гра вантажиться одразу на корабель; створити гру, приєднатися й налаштування — у меню костюма (s5). ${missing.length ? `Ще немає екранів: ${missing.join(', ')}. ` : ''}Світ за інтерфейсом — лише фон сторінки. Для гри: node pages/screens/build.js --handoff &lt;екран&gt;.</footer>`,
     '</main>',
     `<script>\n${readText('pages/screens/page.js').replace(/\s+$/, '')}\n</script>`,
     '</body>',
@@ -1546,13 +1563,14 @@ const LAYERS_MD = [
   '| CanvasLayer | What |',
   '|---|---|',
   '| 1 | Name plates in the world (s4, s7) |',
-  '| 2 | HUD: the round HUD (s7), downed and spectating (s9), the lobby HUD (s4), the tutorial\'s lesson plates (s1) |',
+  '| 2 | HUD: the round HUD (s7), downed and the dead\'s room (s9), the lobby HUD (s4), the tutorial\'s lesson plates (s1) |',
   '| 3 | Map and tasks (s8), with its how-to card |',
   '| 4 | Esc menu (s5) and its dim |',
   '| 5 | The Esc menu\'s confirm dialog |',
   '| 6 | Black screens: connecting and loading (s3), pre game (s6), post game (s10) |',
   '',
-  '- The main menu (s2) is its own scene, under none of these.',
+  '- The game boots straight into the ship (the lobby, s4); the suit menu (s5) hosts, joins and holds Settings.',
+  '- The mutation workbench (s11) is on no CanvasLayer: it is a SubViewport drawn on the machine in the world, under the HUD.',
   '- Esc closes the topmost open overlay first (a how-to card, then the map; in the Esc menu its confirm dialog, then the menu) and opens the Esc menu only when nothing else is open. M is ignored while the Esc menu is open.',
 ];
 
@@ -1623,7 +1641,9 @@ function handoff(S, C) {
       if (p.alignment !== 'begin') bits.push(`alignment \`ALIGNMENT_${p.alignment.toUpperCase()}\``);
     }
     if (T === 'GridContainer') bits.push(`columns ${p.columns}`);
-    if (T === 'ScrollContainer') {
+    if (T === 'ScrollContainer' && p.horizontal_scroll_mode === 'show_never') {
+      bits.push('scrolls sideways: horizontal_scroll_mode `SCROLL_MODE_SHOW_NEVER` (no bar drawn), vertical_scroll_mode `SCROLL_MODE_DISABLED`; the child keeps its minimum width, the container is as tall as the child and as wide as its custom_minimum_size');
+    } else if (T === 'ScrollContainer') {
       bits.push(`horizontal_scroll_mode \`SCROLL_MODE_DISABLED\` (vertical scrolling only); \`get_v_scroll_bar().theme_type_variation = &"${SCROLL_BAR}"\`; the bar shows when the child is taller`);
       if (p.scroll_vertical) bits.push(`shown scrolled: scroll_vertical ${p.scroll_vertical} (review only)`);
     }
@@ -1800,7 +1820,7 @@ function handoff(S, C) {
   if (S.all.some((n) => n.type === 'LineEdit')) out.push('- A LineEdit\'s right-click menu is a PopupMenu too, but its labels (Cut, Copy, Paste, Select All, Clear, Undo, Redo, Text Writing Direction, …) are Godot\'s English source strings, translated at run time only through translations of those exact strings, which the copy deck (keyed, copy/strings.csv) does not have: in Ukrainian they would show in English. So LineEdits keep `context_menu_enabled = false`; the keyboard shortcuts (copy, paste, select all, undo) still work.');
   if (S.all.some((n) => n.G.spacing)) out.push('- Boxes and grids take their gaps only from their spacing variation (ToyColumn…, ToyRow…, ToyGrid…), and a ScrollContainer the gap to its bar from ToyScroll; a box without one has a single child. No `theme_override_constants`: the theme test forbids them.');
   if (S.all.some((n) => n.type === 'HSlider')) out.push(`- An HSlider's grabber is a texture: the theme icons \`grabber\` and \`grabber_highlight\` are \`${C.icons.get(KNOB_ICON).game}\`, \`grabber_disabled\` \`${C.icons.get(KNOB_DISABLED_ICON).game}\` (own work, in their own colours, not tinted; the pack names them in the variation's \`textures\`). Slider draws no focus StyleBox of its own: draw the variation's \`focus\` StyleBox over the slider while it has visible focus.`);
-  if (S.all.some((n) => n.type === 'ScrollContainer')) out.push(`- A ScrollContainer's bar is its own \`VScrollBar\`: set its \`theme_type_variation\` to \`${SCROLL_BAR}\` in code (\`get_v_scroll_bar()\`); the child fills the width (\`SIZE_EXPAND_FILL\`) and keeps its minimum height.`);
+  if (S.all.some((n) => n.type === 'ScrollContainer' && n.raw.horizontal_scroll_mode !== 'show_never')) out.push(`- A ScrollContainer's bar is its own \`VScrollBar\`: set its \`theme_type_variation\` to \`${SCROLL_BAR}\` in code (\`get_v_scroll_bar()\`); the child fills the width (\`SIZE_EXPAND_FILL\`) and keeps its minimum height.`);
   out.push('');
   out.push(...keysSection(S, C));
   out.push('');
@@ -1937,6 +1957,29 @@ function selfTest() {
     check(md.includes('**Changed** `Row/Dot`: self_modulate from data (a content colour, not a theme colour), sample #E8B04A'), 'x5: the handoff gives the other state its tint');
   }
 
+  // 6. A ScrollContainer with horizontal_scroll_mode show_never scrolls sideways with no bar drawn: the page marks it
+  //    gd-scroll-h and draws only its view, the layout CSS gives it its custom_minimum_size width, and the handoff gives
+  //    the two scroll modes; a vertical one beside it keeps its ToyScrollBar. A sideways one with no width is refused.
+  const x6 = screen('x6');
+  if (x6) {
+    const html = page(x6, 'one');
+    const side = tagOf(html, 'x6/Card/Col/Side');
+    check(/class="[^"]*\bgd-scroll-h\b/.test(side), 'x6: the sideways container is marked gd-scroll-h', side);
+    const after = html.slice(html.indexOf('data-node="x6/Card/Col/Side"'), html.indexOf('data-node="x6/Card/Col/Down"'));
+    check(!after.includes('data-bar-of'), 'x6: the sideways container draws no bar');
+    check(html.includes('data-bar-of="x6/Card/Col/Down"') && !/class="[^"]*\bgd-scroll-h\b/.test(tagOf(html, 'x6/Card/Col/Down')), 'x6: the vertical container keeps its ToyScrollBar');
+    const css = layoutCss([x6], C);
+    check(css.includes('.gd-scroll-h > .gd-scroll-view { grid-template-rows: auto; grid-template-columns: 0; overflow-x: auto; overflow-y: hidden; min-width: 0; }'), 'x6: the layout CSS scrolls a gd-scroll-h view sideways');
+    check(css.includes('[data-node="x6/Card/Col/Side"] { min-width: calc(300 * var(--px)); }'), 'x6: the sideways container is its custom_minimum_size wide');
+    const md = handoff(x6, C);
+    check(md.includes('horizontal_scroll_mode `SCROLL_MODE_SHOW_NEVER` (no bar drawn), vertical_scroll_mode `SCROLL_MODE_DISABLED`'), 'x6: the handoff gives the sideways scroll modes');
+    check(md.includes('horizontal_scroll_mode `SCROLL_MODE_DISABLED` (vertical scrolling only)'), 'x6: the handoff keeps the vertical one as before');
+    const bad = J.parse(readText(`${SELFTEST}/x6-scroll-sideways.json`)).value;
+    delete bad.nodes[0].children[0].children[0].custom_minimum_size;
+    const r = validateAll([{ id: 'x6', file: 'x6-scroll-sideways.json', rel: `${SELFTEST}/x6-scroll-sideways.json`, data: bad, position: () => null }], C);
+    check(r.errors.some((e) => /a sideways ScrollContainer adds no width of its own/.test(e)), 'x6: a sideways container with no width is refused', r.errors.join(' | ') || 'no error');
+  }
+
   for (const f of files) check(loaded.has(f), `${SELFTEST}/${f} is a case of the self-test`);
   for (const line of failed) console.log(line);
   console.log(failed.length ? `FAILED: ${failed.length} of ${passed + failed.length} checks` : `ALL CLEAN: ${passed} checks on ${files.length} fixture screens`);
@@ -1955,7 +1998,7 @@ function privateOutProblem(file) {
 }
 
 function main(argv) {
-  const usage = 'usage: node pages/screens/build.js [--check | --validate [s2 ...] | --handoff s2 | --out <file.html> s2 [s5 ...] | --self-test]';
+  const usage = 'usage: node pages/screens/build.js [--check | --validate [s3 ...] | --handoff s3 | --out <file.html> s3 [s5 ...] | --self-test]';
   let out = null;
   const oi = argv.indexOf('--out');
   if (oi >= 0) {
@@ -1974,7 +2017,7 @@ function main(argv) {
   if ((mode === 'write' || mode === 'check' || mode === 'selftest') && ids.length) { console.error(usage); return 2; }
   if (mode === 'handoff' && ids.length !== 1) { console.error(usage); return 2; }
   if (mode === 'private') {
-    if (!ids.length) { console.error(`--out builds the screens you name: --out <file.html> s2 [s5 ...]\n${usage}`); return 2; }
+    if (!ids.length) { console.error(`--out builds the screens you name: --out <file.html> s3 [s5 ...]\n${usage}`); return 2; }
     const why = privateOutProblem(out);
     if (why) { console.error(`error: ${why}`); return 2; }
   }

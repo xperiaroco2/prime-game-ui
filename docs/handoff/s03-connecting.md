@@ -10,7 +10,7 @@ The styled connecting, failures and loading screen from the UI track (xperiaroco
 - **How to read it:** the roots are children of the screen's full-rect root `Control`; every property not listed keeps Godot's default; sizes and offsets are reference px. In a state's **Shown** list, the first node of each subtree gives its path from the screen root.
 - **Texts** are keys of `copy/strings.csv`, and the language switches live (the Esc menu's Settings). A plain key is set as `text` and translates itself. A key with placeholders, a plural key (`tr_n`) and a key drawn in pieces are set from code with `auto_translate_mode = DISABLED`: `tr()`, then `String.format()` with the data (the samples below), rebuilt on `NOTIFICATION_TRANSLATION_CHANGED`. A "text from data" (names, the room code, times, numbers) is set in code and never translated (`auto_translate_mode = DISABLED`).
 
-One screen on the opaque night backdrop for the join (its steps and each failure in plain words), a session that ended (lost, map failed, error), a host that could not start, and the map loading with the players and a tip or a how-to card. Leaving (left, closed) shows nothing here: straight to s2. Every text is rebuilt on NOTIFICATION_TRANSLATION_CHANGED. Open (the engineer's design): whether loading shows the aliens' flight to Earth (m8 §1). New work: wordless card art for each MVP task; the load-card frame shows Delivery's art as a placeholder.
+One screen on the opaque night backdrop for the join (its steps and each failure in plain words), a session that ended (lost, map failed, error), a host that could not start, and the map loading with the players and a tip or a how-to card. Leaving (left, closed) shows nothing here: straight back to the ship (the game boots into the ship; the suit menu, s5, joins and hosts). Every text is rebuilt on NOTIFICATION_TRANSLATION_CHANGED. Open (the engineer's design): whether loading shows the aliens' flight to Earth (m8 §1). The how-to card holds as many frames as its task needs and scrolls sideways when they do not fit (the engineer, 2026-10-22); its art is a placeholder here (below).
 
 ## States
 
@@ -51,11 +51,11 @@ One screen on the opaque night backdrop for the join (its steps and each failure
     - **Label** `Label` · variation `ToyTextMutedOnDark` · size flags vertical `SIZE_SHRINK_CENTER` · text `common.code`: en "Code" · uk "Код"
     - **Code** `PanelContainer` · variation `ToyKeyOnDark` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (42, 0) = Vector2(get_theme_constant("min_width", "ToyKeyOnDark"), 0)
       - **Text** `Label` · variation `ToyKeyText` · text from data (auto_translate_mode = DISABLED), sample: "K7Q2XR" · horizontal_alignment `CENTER`
-        - Note: The code typed in s2 (auto_translate_mode DISABLED).
+        - Note: The code typed in the suit menu (s5 ship-code; auto_translate_mode DISABLED).
   - **Elapsed** `Label` · variation `ToyTextMutedOnDark` · text from data (auto_translate_mode = DISABLED), sample: "0:04" · horizontal_alignment `CENTER`
     - Note: The time since Join as m:ss, updated every second (auto_translate_mode DISABLED).
   - **Cancel** `Button` · variation `ToyButtonSecondary` · size flags horizontal `SIZE_SHRINK_CENTER` · text `common.cancel`: en "Cancel" · uk "Скасувати" · shown with keyboard focus (grab_focus)
-    - Note: The only button, so raised (ToyButtonSecondary), as the failure layout's lone Back. Focus on open; Esc (ui_cancel) does the same. Aborts the join and returns to s2 with the code or address kept in its field. The traversal timeout is the game's (M6 §2.3).
+    - Note: The only button, so ToyButtonSecondary, as the failure layout's lone Back. Focus on open; Esc (ui_cancel) does the same. Aborts the join and returns to the ship with the suit menu open where the join started (s5 ship-code or ship-direct), the code or address kept in its field. The traversal timeout is the game's (M6 §2.3).
 
 ## `connecting-direct`: what differs from `finding`
 
@@ -81,7 +81,7 @@ One screen on the opaque night backdrop for the join (its steps and each failure
       - **Body** `Label` · variation `ToyTextMutedOnDark` · custom_minimum_size (1272, 0) · text `connect.fail.no_room`: en "No game has this code. Check it with the host." · uk "Гри з таким кодом немає. Перевір код у хоста." · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
     - **Buttons** `HBoxContainer` · variation `ToyRowTwentyFour` · gaps from the variation: separation 24 · alignment `ALIGNMENT_CENTER`
       - **BackSolo** `Button` · variation `ToyButtonSecondary` · text `common.back`: en "Back" · uk "Назад" · shown with keyboard focus (grab_focus)
-        - Note: Back when it is the only button (no_room, the version failures, lost, map failed, error): raised on its ToyRaised wrapper, focused on open. Same action as BackGhost; the two are separate nodes because only this one has a base.
+        - Note: Back when it is the only button (no_room, the version failures, lost, map failed, error): ToyButtonSecondary, focused on open. Same action as BackGhost; the two are separate nodes because their variations differ.
 
 ## `fail-started`: what differs from `finding`
 
@@ -95,9 +95,9 @@ One screen on the opaque night backdrop for the join (its steps and each failure
       - **Body** `Label` · variation `ToyTextMutedOnDark` · custom_minimum_size (1272, 0) · text `connect.fail.started`: en "The round has already started. Join when everyone is back in the lobby." · uk "Раунд уже почався. Приєднуйся, коли всі повернуться в лобі." · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
     - **Buttons** `HBoxContainer` · variation `ToyRowTwentyFour` · gaps from the variation: separation 24 · alignment `ALIGNMENT_CENTER`
       - **Primary** `Button` · variation `ToyButtonPrimary` · text `connect.fail.retry`: en "Try again" · uk "Спробувати ще" · shown with keyboard focus (grab_focus)
-        - Note: Focus on open. connect.fail.retry tries the same target again (host-failed: hosts again the same way); connect.fail.direct opens s2 direct with the code kept in its field. Absent where the failure has no action.
+        - Note: Focus on open. connect.fail.retry tries the same target again (host-failed: hosts again the same way); connect.fail.direct returns to the ship with the suit menu open on Join by address (s5 ship-direct). Absent where the failure has no action.
       - **BackGhost** `Button` · variation `ToyButtonGhostOnDark` · text `common.back`: en "Back" · uk "Назад"
-        - Note: Back beside Primary (flat, no base): returns to s2 main; after a join failure the code or address stays in its field. Esc does the same.
+        - Note: Back beside Primary (a ghost button): returns to the ship with the suit menu open on Game (s5 ship); after a join failure the code or address stays in its field. Esc does the same.
 
 ## `fail-version`: what differs from `finding`
 
@@ -115,7 +115,7 @@ One screen on the opaque night backdrop for the join (its steps and each failure
         - **Own** `Label` · variation `ToyTextOnDark` · text `connect.fail.version_own` with sample {version} = "0.4 (9f8e7d)": en "You: 0.4 (9f8e7d)" · uk "Ти: 0.4 (9f8e7d)" · horizontal_alignment `CENTER`
     - **Buttons** `HBoxContainer` · variation `ToyRowTwentyFour` · gaps from the variation: separation 24 · alignment `ALIGNMENT_CENTER`
       - **BackSolo** `Button` · variation `ToyButtonSecondary` · text `common.back`: en "Back" · uk "Назад" · shown with keyboard focus (grab_focus)
-        - Note: Back when it is the only button (no_room, the version failures, lost, map failed, error): raised on its ToyRaised wrapper, focused on open. Same action as BackGhost; the two are separate nodes because only this one has a base.
+        - Note: Back when it is the only button (no_room, the version failures, lost, map failed, error): ToyButtonSecondary, focused on open. Same action as BackGhost; the two are separate nodes because their variations differ.
 
 ## `fail-full`: what differs from `finding`
 
@@ -129,9 +129,9 @@ One screen on the opaque night backdrop for the join (its steps and each failure
       - **Body** `Label` · variation `ToyTextMutedOnDark` · custom_minimum_size (1272, 0) · text `connect.fail.full`: en "The lobby is full." · uk "Лобі заповнене." · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
     - **Buttons** `HBoxContainer` · variation `ToyRowTwentyFour` · gaps from the variation: separation 24 · alignment `ALIGNMENT_CENTER`
       - **Primary** `Button` · variation `ToyButtonPrimary` · text `connect.fail.retry`: en "Try again" · uk "Спробувати ще" · shown with keyboard focus (grab_focus)
-        - Note: Focus on open. connect.fail.retry tries the same target again (host-failed: hosts again the same way); connect.fail.direct opens s2 direct with the code kept in its field. Absent where the failure has no action.
+        - Note: Focus on open. connect.fail.retry tries the same target again (host-failed: hosts again the same way); connect.fail.direct returns to the ship with the suit menu open on Join by address (s5 ship-direct). Absent where the failure has no action.
       - **BackGhost** `Button` · variation `ToyButtonGhostOnDark` · text `common.back`: en "Back" · uk "Назад"
-        - Note: Back beside Primary (flat, no base): returns to s2 main; after a join failure the code or address stays in its field. Esc does the same.
+        - Note: Back beside Primary (a ghost button): returns to the ship with the suit menu open on Game (s5 ship); after a join failure the code or address stays in its field. Esc does the same.
 
 ## `fail-service`: what differs from `finding`
 
@@ -145,9 +145,9 @@ One screen on the opaque night backdrop for the join (its steps and each failure
       - **Body** `Label` · variation `ToyTextMutedOnDark` · custom_minimum_size (1272, 0) · text `connect.fail.service`: en "The code service isn't answering. Join directly with the host's address." · uk "Сервіс кодів не відповідає. Приєднайся напряму за адресою хоста." · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
     - **Buttons** `HBoxContainer` · variation `ToyRowTwentyFour` · gaps from the variation: separation 24 · alignment `ALIGNMENT_CENTER`
       - **Primary** `Button` · variation `ToyButtonPrimary` · text `connect.fail.direct`: en "Join directly" · uk "Приєднатися напряму" · shown with keyboard focus (grab_focus)
-        - Note: Focus on open. connect.fail.retry tries the same target again (host-failed: hosts again the same way); connect.fail.direct opens s2 direct with the code kept in its field. Absent where the failure has no action.
+        - Note: Focus on open. connect.fail.retry tries the same target again (host-failed: hosts again the same way); connect.fail.direct returns to the ship with the suit menu open on Join by address (s5 ship-direct). Absent where the failure has no action.
       - **BackGhost** `Button` · variation `ToyButtonGhostOnDark` · text `common.back`: en "Back" · uk "Назад"
-        - Note: Back beside Primary (flat, no base): returns to s2 main; after a join failure the code or address stays in its field. Esc does the same.
+        - Note: Back beside Primary (a ghost button): returns to the ship with the suit menu open on Game (s5 ship); after a join failure the code or address stays in its field. Esc does the same.
 
 ## `fail-unreachable`: what differs from `finding`
 
@@ -161,9 +161,9 @@ One screen on the opaque night backdrop for the join (its steps and each failure
       - **Body** `Label` · variation `ToyTextMutedOnDark` · custom_minimum_size (1272, 0) · text `connect.fail.unreachable`: en "No link to the host. If the lobby has room, ask the host for an address and join directly." · uk "Немає звʼязку з хостом. Якщо в лобі є місце, попроси в хоста адресу й приєднайся напряму." · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
     - **Buttons** `HBoxContainer` · variation `ToyRowTwentyFour` · gaps from the variation: separation 24 · alignment `ALIGNMENT_CENTER`
       - **Primary** `Button` · variation `ToyButtonPrimary` · text `connect.fail.direct`: en "Join directly" · uk "Приєднатися напряму" · shown with keyboard focus (grab_focus)
-        - Note: Focus on open. connect.fail.retry tries the same target again (host-failed: hosts again the same way); connect.fail.direct opens s2 direct with the code kept in its field. Absent where the failure has no action.
+        - Note: Focus on open. connect.fail.retry tries the same target again (host-failed: hosts again the same way); connect.fail.direct returns to the ship with the suit menu open on Join by address (s5 ship-direct). Absent where the failure has no action.
       - **BackGhost** `Button` · variation `ToyButtonGhostOnDark` · text `common.back`: en "Back" · uk "Назад"
-        - Note: Back beside Primary (flat, no base): returns to s2 main; after a join failure the code or address stays in its field. Esc does the same.
+        - Note: Back beside Primary (a ghost button): returns to the ship with the suit menu open on Game (s5 ship); after a join failure the code or address stays in its field. Esc does the same.
 
 ## `fail-no-answer`: what differs from `finding`
 
@@ -177,9 +177,9 @@ One screen on the opaque night backdrop for the join (its steps and each failure
       - **Body** `Label` · variation `ToyTextMutedOnDark` · custom_minimum_size (1272, 0) · text `connect.fail.body`: en "The host isn't answering. Check the address and the network." · uk "Хост не відповідає. Перевір адресу й мережу." · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
     - **Buttons** `HBoxContainer` · variation `ToyRowTwentyFour` · gaps from the variation: separation 24 · alignment `ALIGNMENT_CENTER`
       - **Primary** `Button` · variation `ToyButtonPrimary` · text `connect.fail.retry`: en "Try again" · uk "Спробувати ще" · shown with keyboard focus (grab_focus)
-        - Note: Focus on open. connect.fail.retry tries the same target again (host-failed: hosts again the same way); connect.fail.direct opens s2 direct with the code kept in its field. Absent where the failure has no action.
+        - Note: Focus on open. connect.fail.retry tries the same target again (host-failed: hosts again the same way); connect.fail.direct returns to the ship with the suit menu open on Join by address (s5 ship-direct). Absent where the failure has no action.
       - **BackGhost** `Button` · variation `ToyButtonGhostOnDark` · text `common.back`: en "Back" · uk "Назад"
-        - Note: Back beside Primary (flat, no base): returns to s2 main; after a join failure the code or address stays in its field. Esc does the same.
+        - Note: Back beside Primary (a ghost button): returns to the ship with the suit menu open on Game (s5 ship); after a join failure the code or address stays in its field. Esc does the same.
 
 ## `lost`: what differs from `finding`
 
@@ -193,7 +193,7 @@ One screen on the opaque night backdrop for the join (its steps and each failure
       - **Body** `Label` · variation `ToyTextMutedOnDark` · custom_minimum_size (1272, 0) · text `connect.lost.body`: en "The session was closed, or the network dropped." · uk "Сесію закрито або обірвалася мережа." · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
     - **Buttons** `HBoxContainer` · variation `ToyRowTwentyFour` · gaps from the variation: separation 24 · alignment `ALIGNMENT_CENTER`
       - **BackSolo** `Button` · variation `ToyButtonSecondary` · text `common.back`: en "Back" · uk "Назад" · shown with keyboard focus (grab_focus)
-        - Note: Back when it is the only button (no_room, the version failures, lost, map failed, error): raised on its ToyRaised wrapper, focused on open. Same action as BackGhost; the two are separate nodes because only this one has a base.
+        - Note: Back when it is the only button (no_room, the version failures, lost, map failed, error): ToyButtonSecondary, focused on open. Same action as BackGhost; the two are separate nodes because their variations differ.
 
 ## `map-failed`: what differs from `finding`
 
@@ -207,7 +207,7 @@ One screen on the opaque night backdrop for the join (its steps and each failure
       - **Body** `Label` · variation `ToyTextMutedOnDark` · custom_minimum_size (1272, 0) · text `connect.map_fail.body`: en "The round goes on without you." · uk "Раунд іде без тебе." · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
     - **Buttons** `HBoxContainer` · variation `ToyRowTwentyFour` · gaps from the variation: separation 24 · alignment `ALIGNMENT_CENTER`
       - **BackSolo** `Button` · variation `ToyButtonSecondary` · text `common.back`: en "Back" · uk "Назад" · shown with keyboard focus (grab_focus)
-        - Note: Back when it is the only button (no_room, the version failures, lost, map failed, error): raised on its ToyRaised wrapper, focused on open. Same action as BackGhost; the two are separate nodes because only this one has a base.
+        - Note: Back when it is the only button (no_room, the version failures, lost, map failed, error): ToyButtonSecondary, focused on open. Same action as BackGhost; the two are separate nodes because their variations differ.
 
 ## `error`: what differs from `finding`
 
@@ -221,7 +221,7 @@ One screen on the opaque night backdrop for the join (its steps and each failure
       - **Body** `Label` · variation `ToyTextMutedOnDark` · custom_minimum_size (1272, 0) · text `connect.error.body`: en "The game ran into an error. The details are in the log." · uk "У грі сталася помилка. Подробиці — в журналі." · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
     - **Buttons** `HBoxContainer` · variation `ToyRowTwentyFour` · gaps from the variation: separation 24 · alignment `ALIGNMENT_CENTER`
       - **BackSolo** `Button` · variation `ToyButtonSecondary` · text `common.back`: en "Back" · uk "Назад" · shown with keyboard focus (grab_focus)
-        - Note: Back when it is the only button (no_room, the version failures, lost, map failed, error): raised on its ToyRaised wrapper, focused on open. Same action as BackGhost; the two are separate nodes because only this one has a base.
+        - Note: Back when it is the only button (no_room, the version failures, lost, map failed, error): ToyButtonSecondary, focused on open. Same action as BackGhost; the two are separate nodes because their variations differ.
 
 ## `host-failed`: what differs from `finding`
 
@@ -235,9 +235,9 @@ One screen on the opaque night backdrop for the join (its steps and each failure
       - **Body** `Label` · variation `ToyTextMutedOnDark` · custom_minimum_size (1272, 0) · text `connect.error.body`: en "The game ran into an error. The details are in the log." · uk "У грі сталася помилка. Подробиці — в журналі." · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
     - **Buttons** `HBoxContainer` · variation `ToyRowTwentyFour` · gaps from the variation: separation 24 · alignment `ALIGNMENT_CENTER`
       - **Primary** `Button` · variation `ToyButtonPrimary` · text `connect.fail.retry`: en "Try again" · uk "Спробувати ще" · shown with keyboard focus (grab_focus)
-        - Note: Focus on open. connect.fail.retry tries the same target again (host-failed: hosts again the same way); connect.fail.direct opens s2 direct with the code kept in its field. Absent where the failure has no action.
+        - Note: Focus on open. connect.fail.retry tries the same target again (host-failed: hosts again the same way); connect.fail.direct returns to the ship with the suit menu open on Join by address (s5 ship-direct). Absent where the failure has no action.
       - **BackGhost** `Button` · variation `ToyButtonGhostOnDark` · text `common.back`: en "Back" · uk "Назад"
-        - Note: Back beside Primary (flat, no base): returns to s2 main; after a join failure the code or address stays in its field. Esc does the same.
+        - Note: Back beside Primary (a ghost button): returns to the ship with the suit menu open on Game (s5 ship); after a join failure the code or address stays in its field. Esc does the same.
 
 ## `load`: what differs from `finding`
 
@@ -272,29 +272,37 @@ One screen on the opaque night backdrop for the join (its steps and each failure
     - **Title** `Label` · variation `ToyTitleOnDark` · text `loading.title`: en "Loading the map" · uk "Завантаження мапи" · horizontal_alignment `CENTER`
     - **Bar** `ProgressBar` · variation `ToyBarProgress` · custom_minimum_size (1152, 24) · value 62 of max_value 100, show_percentage false
   - **Card** `PanelContainer` · variation `ToyPanelHowto` · anchors `center`, offsets 0, 39, 0, 39 (left, top, right, bottom), grow both/both
-    - Note: The how-to card (P8) of a task type in this round that the player has not completed: at most twice per type and never after its first completion (user:// counters, #254). Content data per task type; here Cooking, one of the MVP's five, with PLACEHOLDER art (Delivery's frames) until the MVP task cards are drawn (new work: wordless card art per MVP task). No line says the task is new. Its width is its four frames' (352 px art each).
+    - Note: The how-to card (P8) of a task type in this round that the player has not completed: at most twice per type and never after its first completion (user:// counters, #254). Content data per task type; here Cooking, one of the MVP's five, with PLACEHOLDER art (see Frames). No line says the task is new. A card has as many frames as its task needs (Cooking has seven, 352 px art each); the card shows three and a half of them and its frames scroll sideways inside it (Scroll).
     - **V** `VBoxContainer` · variation `ToyColumnTwentyFour` · gaps from the variation: separation 24
       - **Head** `HBoxContainer` · variation `ToyRowTwentyFour` · gaps from the variation: separation 24
         - **Title** `Label` · variation `ToyTitleOnLight` · size flags horizontal `SIZE_EXPAND_FILL` · text `task.cooking`: en "Cooking" · uk "Готування"
         - **Note** `Label` · variation `ToyHowtoNote` · size flags vertical `SIZE_SHRINK_CENTER` · text `howto.label`: en "How to" · uk "Як робити"
-      - **Frames** `HBoxContainer` · variation `ToyRowSixteen` · gaps from the variation: separation 16
-        - **Take** `PanelContainer` · variation `ToyHowtoFrame` · size flags horizontal `SIZE_EXPAND_FILL`
-          - **Art** `TextureRect` · custom_minimum_size (352, 264) · texture `card/delivery-meaning-1` (dist/pack/cards/delivery-meaning-1.png, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · not tinted (drawn in its own colours)
-            - Note: PLACEHOLDER art: the pack's Delivery-by-meaning PNGs dist/pack/cards/delivery-meaning-1.png … delivery-meaning-4.png (640x480, transparent), until each MVP task has its own wordless card. expand_mode IGNORE_SIZE, stretch_mode KEEP_ASPECT_CENTERED; 352x264 here, 320x240 in s8 and 272x204 in s5's Guide; the same card as s5/Guide/Card and s8/Guide/Card. The cards are wordless: a frame holds only its art, no caption.
-        - **Sign** `PanelContainer` · variation `ToyHowtoFrame` · size flags horizontal `SIZE_EXPAND_FILL`
-          - **Art** `TextureRect` · custom_minimum_size (352, 264) · texture `card/delivery-meaning-2` (dist/pack/cards/delivery-meaning-2.png, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · not tinted (drawn in its own colours)
-        - **Find** `PanelContainer` · variation `ToyHowtoFrame` · size flags horizontal `SIZE_EXPAND_FILL`
-          - **Art** `TextureRect` · custom_minimum_size (352, 264) · texture `card/delivery-meaning-3` (dist/pack/cards/delivery-meaning-3.png, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · not tinted (drawn in its own colours)
-        - **Drop** `PanelContainer` · variation `ToyHowtoFrameDone` · size flags horizontal `SIZE_EXPAND_FILL`
-          - Note: The frame that shows the finish.
-          - **Art** `TextureRect` · custom_minimum_size (352, 264) · texture `card/delivery-meaning-4` (dist/pack/cards/delivery-meaning-4.png, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · not tinted (drawn in its own colours)
+      - **Scroll** `ScrollContainer` · custom_minimum_size (1384, 0) · scrolls sideways: horizontal_scroll_mode `SCROLL_MODE_SHOW_NEVER` (no bar drawn), vertical_scroll_mode `SCROLL_MODE_DISABLED`; the child keeps its minimum width, the container is as tall as the child and as wide as its custom_minimum_size
+        - Note: The frames scroll sideways when they do not fit (the engineer, 2026-10-22): a card holds as many frames as its task needs. No bar is drawn (SCROLL_MODE_SHOW_NEVER) until the pack has a sideways bar; the frame cut at the card's edge shows there is more. The wheel scrolls it sideways while vertical scrolling is disabled, a drag on a touch screen too (unconfirmed for Godot 4.7.2: check ScrollContainer's wheel handling); follow_focus true. The view shows three and a half frames (1384 px), so the cut frame says the card goes on.
+        - **Frames** `HBoxContainer` · variation `ToyRowSixteen` · gaps from the variation: separation 16
+          - **Frame1** `PanelContainer` · variation `ToyHowtoFrame`
+            - **Art** `TextureRect` · custom_minimum_size (352, 264) · texture `card/delivery-meaning-1` (dist/pack/cards/delivery-meaning-1.png, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · not tinted (drawn in its own colours)
+              - Note: PLACEHOLDER art: seven own-work Delivery frames (dist/pack/cards/delivery-meaning-1..3, delivery-1..3 and delivery-meaning-4, 640x480, transparent) stand in for the Cooking card's seven frames, which the engineer named every card's placeholder (2026-10-22). Those frames are generated art kept in the art track (prime-game-art#272) and this repo's licence list does not cover generated art yet, so the game takes them from the art track's pack. expand_mode IGNORE_352x264 here and in s8, 272x204 in s5's Guide, stretch_mode KEEP_ASPECT_CENTERED; SIZE here; the same card in s3, s5 and s8. The cards are wordless: a frame holds only its art, no caption.
+          - **Frame2** `PanelContainer` · variation `ToyHowtoFrame`
+            - **Art** `TextureRect` · custom_minimum_size (352, 264) · texture `card/delivery-meaning-2` (dist/pack/cards/delivery-meaning-2.png, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · not tinted (drawn in its own colours)
+          - **Frame3** `PanelContainer` · variation `ToyHowtoFrame`
+            - **Art** `TextureRect` · custom_minimum_size (352, 264) · texture `card/delivery-meaning-3` (dist/pack/cards/delivery-meaning-3.png, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · not tinted (drawn in its own colours)
+          - **Frame4** `PanelContainer` · variation `ToyHowtoFrame`
+            - **Art** `TextureRect` · custom_minimum_size (352, 264) · texture `card/delivery-1` (dist/pack/cards/delivery-1.png, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · not tinted (drawn in its own colours)
+          - **Frame5** `PanelContainer` · variation `ToyHowtoFrame`
+            - **Art** `TextureRect` · custom_minimum_size (352, 264) · texture `card/delivery-2` (dist/pack/cards/delivery-2.png, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · not tinted (drawn in its own colours)
+          - **Frame6** `PanelContainer` · variation `ToyHowtoFrame`
+            - **Art** `TextureRect` · custom_minimum_size (352, 264) · texture `card/delivery-3` (dist/pack/cards/delivery-3.png, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · not tinted (drawn in its own colours)
+          - **Frame7** `PanelContainer` · variation `ToyHowtoFrameDone`
+            - Note: The frame that shows the finish.
+            - **Art** `TextureRect` · custom_minimum_size (352, 264) · texture `card/delivery-meaning-4` (dist/pack/cards/delivery-meaning-4.png, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · not tinted (drawn in its own colours)
 
 ## Notes
 
 - The review page emulates Godot's containers with CSS grid (expanding children share the free space by stretch ratio, never below their minimum size), so a pixel or two may differ from Godot.
 - Size constants: a variation's `width`, `height`, `min_width`, `wide_width` and `wide_min_width` theme constants are read by code into `custom_minimum_size`, as the node lines give them. A Panel or PanelContainer takes no size from them on its own: an anchored Panel at offsets 0 is 0×0, a slot shrinks to its text.
 - Size constants that follow the text size: `min_width` 42 (50 in the pack's `modes.textSize.large`) of ToyKeyOnDark. The large-text theme is swapped in while a screen is open, so code that sets custom_minimum_size from such a constant sets it again on `NOTIFICATION_THEME_CHANGED`.
-- Card art: the how-to frames draw the pack's PNGs, `dist/pack/cards/delivery-meaning-1.png`, `dist/pack/cards/delivery-meaning-2.png`, `dist/pack/cards/delivery-meaning-3.png`, `dist/pack/cards/delivery-meaning-4.png` (640x480, transparent, own work; rendered from `pages/card-art/round-3/a/` by `tools/card-art/render.js`), in their own colours, never tinted. They are drawn smaller than their size (up to 352x264 px here), so import them as Texture2D with `compress/mode` Lossless and `mipmaps/generate` on.
+- Card art: the how-to frames draw the pack's PNGs, `dist/pack/cards/delivery-1.png`, `dist/pack/cards/delivery-2.png`, `dist/pack/cards/delivery-3.png`, `dist/pack/cards/delivery-meaning-1.png`, `dist/pack/cards/delivery-meaning-2.png`, `dist/pack/cards/delivery-meaning-3.png`, `dist/pack/cards/delivery-meaning-4.png` (640x480, transparent, own work; rendered from `pages/card-art/round-2/clean-sketch/`, `pages/card-art/round-3/a/` by `tools/card-art/render.js`), in their own colours, never tinted. They are drawn smaller than their size (up to 352x264 px here), so import them as Texture2D with `compress/mode` Lossless and `mipmaps/generate` on.
 - Boxes and grids take their gaps only from their spacing variation (ToyColumn…, ToyRow…, ToyGrid…), and a ScrollContainer the gap to its bar from ToyScroll; a box without one has a single child. No `theme_override_constants`: the theme test forbids them.
 
 ## Keys
@@ -307,11 +315,12 @@ One screen on the opaque night backdrop for the join (its steps and each failure
 | CanvasLayer | What |
 |---|---|
 | 1 | Name plates in the world (s4, s7) |
-| 2 | HUD: the round HUD (s7), downed and spectating (s9), the lobby HUD (s4), the tutorial's lesson plates (s1) |
+| 2 | HUD: the round HUD (s7), downed and the dead's room (s9), the lobby HUD (s4), the tutorial's lesson plates (s1) |
 | 3 | Map and tasks (s8), with its how-to card |
 | 4 | Esc menu (s5) and its dim |
 | 5 | The Esc menu's confirm dialog |
 | 6 | Black screens: connecting and loading (s3), pre game (s6), post game (s10) |
 
-- The main menu (s2) is its own scene, under none of these.
+- The game boots straight into the ship (the lobby, s4); the suit menu (s5) hosts, joins and holds Settings.
+- The mutation workbench (s11) is on no CanvasLayer: it is a SubViewport drawn on the machine in the world, under the HUD.
 - Esc closes the topmost open overlay first (a how-to card, then the map; in the Esc menu its confirm dialog, then the menu) and opens the Esc menu only when nothing else is open. M is ignored while the Esc menu is open.

@@ -76,11 +76,12 @@ The black outro of about 3 s: the End phase fades to black (0.4 s; a cut under r
 | CanvasLayer | What |
 |---|---|
 | 1 | Name plates in the world (s4, s7) |
-| 2 | HUD: the round HUD (s7), downed and spectating (s9), the lobby HUD (s4), the tutorial's lesson plates (s1) |
+| 2 | HUD: the round HUD (s7), downed and the dead's room (s9), the lobby HUD (s4), the tutorial's lesson plates (s1) |
 | 3 | Map and tasks (s8), with its how-to card |
 | 4 | Esc menu (s5) and its dim |
 | 5 | The Esc menu's confirm dialog |
 | 6 | Black screens: connecting and loading (s3), pre game (s6), post game (s10) |
 
-- The main menu (s2) is its own scene, under none of these.
+- The game boots straight into the ship (the lobby, s4); the suit menu (s5) hosts, joins and holds Settings.
+- The mutation workbench (s11) is on no CanvasLayer: it is a SubViewport drawn on the machine in the world, under the HUD.
 - Esc closes the topmost open overlay first (a how-to card, then the map; in the Esc menu its confirm dialog, then the menu) and opens the Esc menu only when nothing else is open. M is ignored while the Esc menu is open.

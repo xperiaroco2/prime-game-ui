@@ -16,17 +16,27 @@
       "name": "Hud", "type": "Control", "anchors_preset": "full_rect", "note": "s7's Hud. While downed only Vitals/Mic shows; in the dead's room nothing shows; on return everything as in s7.",
       "children": [
         {
-          "name": "Role", "type": "PanelContainer", "variation": "ToySticker", "states": ["back"], "offset_left": 39, "offset_top": 39, "offset_right": 39, "offset_bottom": 39, "note": "The player's own side for the round, a flat word sticker 39 px in (the sketch's 26 x 1.5): ToySticker with role.alien, ToyStickerAlert (coral) with role.human.",
+          "name": "Role", "type": "PanelContainer", "variation": "ToySticker", "offset_left": 39, "offset_top": 39, "offset_right": 39, "offset_bottom": 39, "states": ["back"],
           "children": [
             { "name": "Text", "type": "Label", "variation": "ToyStickerText", "key": "role.alien" }
           ]
         },
-        { "name": "Timer", "type": "Label", "variation": "ToyTimerBare", "states": ["back"], "text": "05:10", "anchors_preset": "center_top", "offset_top": 33, "offset_bottom": 33, "grow_horizontal": "both", "horizontal_alignment": "center", "custom_minimum_size": [140, 0], "note": "As s7." },
         {
-          "name": "Anger", "type": "Control", "states": ["back"], "anchors_preset": "center_top", "offset_top": 96, "offset_bottom": 96, "grow_horizontal": "both", "note": "The neighbours' anger, meter A (decided 2026-10-20): a zero-size point at the top centre, 96 px down (the sketch's 64 x 1.5). The track centres on it, so the bar is exactly centred under the time; the siren hangs off its right end without moving that centre. No caption, no plate. It never says what raises the anger or where (open: whether it hints the type of problem, the audit's point 3).",
+          "name": "Time", "type": "PanelContainer", "variation": "ToyPlate", "anchors_preset": "center_top", "offset_top": 36, "offset_bottom": 36, "grow_horizontal": "both", "states": ["back"], "note": "As s7.",
           "children": [
-            { "name": "Bar", "type": "ProgressBar", "variation": "ToyBarAngerCalm", "anchors_preset": "center_top", "grow_horizontal": "both", "show_percentage": false, "max_value": 1, "value": 0.55, "note": "As s7: one ProgressBar, ToyBarAngerCalm, ToyBarAngerAlarm over 0.7." },
-            { "name": "Siren", "type": "TextureRect", "icon": "siren-on", "custom_minimum_size": [57, 57], "offset_left": 122, "offset_top": -14, "offset_right": 179, "offset_bottom": 43, "note": "The siren, 57 px (the sketch's 38 x 1.5), 9 px right of the track's end (112.5 + 9, rounded up) and centred on its height: icons/siren-off.svg while the anger is calm (not rising), icons/siren-on.svg while it rises and when full. Never tinted." }
+            {
+              "name": "Row", "type": "HBoxContainer", "variation": "ToyRowTwentyFour",
+              "children": [
+                { "name": "Timer", "type": "Label", "variation": "ToyTimer", "text": "05:10", "horizontal_alignment": "center", "size_flags_vertical": "shrink_center", "custom_minimum_size": [120, 0] },
+                {
+                  "name": "Anger", "type": "HBoxContainer", "variation": "ToyRowEight", "size_flags_vertical": "shrink_center",
+                  "children": [
+                    { "name": "Bar", "type": "ProgressBar", "variation": "ToyBarAngerCalm", "custom_minimum_size": [240, 16], "show_percentage": false, "max_value": 1, "value": 0.55, "size_flags_vertical": "shrink_center" },
+                    { "name": "Siren", "type": "TextureRect", "icon": "siren-on", "custom_minimum_size": [36, 36], "size_flags_vertical": "shrink_center" }
+                  ]
+                }
+              ]
+            }
           ]
         },
         {
@@ -81,15 +91,60 @@
             }
           ]
         },
-        { "name": "Cross", "type": "Panel", "variation": "ToyCrosshair", "anchors_preset": "center", "states": ["back"], "note": "The crosshair dot, centred on the screen (its size is the variation's)." },
+        { "name": "Cross", "type": "Panel", "variation": "ToyCrosshair", "anchors_preset": "center", "states": ["back"] },
         {
-          "name": "Vitals", "type": "HBoxContainer", "variation": "ToyRowTwentyFour", "states": ["down", "down-holding", "raise", "back"], "anchors_preset": "bottom_left", "offset_left": 39, "offset_top": -39, "offset_right": 39, "offset_bottom": -39,
+          "name": "Vitals", "type": "HBoxContainer", "variation": "ToyRowTwentyFour", "anchors_preset": "bottom_left", "offset_left": 39, "offset_top": -39, "offset_right": 39, "offset_bottom": -39, "states": ["down", "down-holding", "raise", "back"],
           "children": [
             {
-              "name": "Bars", "type": "VBoxContainer", "variation": "ToyColumnTwelve", "size_flags_vertical": "shrink_end", "states": ["back"], "note": "Hidden while downed; full again on return.",
+              "name": "Suit", "type": "PanelContainer", "variation": "ToyPlate", "size_flags_vertical": "shrink_end", "states": ["back"], "note": "Hidden while downed; every pip full again on return.",
               "children": [
-                { "name": "Health", "type": "ProgressBar", "variation": "ToyBarHealthCalm", "show_percentage": false, "max_value": 1, "value": 1, "custom_minimum_size": [300, 24], "note": "As s7." },
-                { "name": "Stamina", "type": "ProgressBar", "variation": "ToyBarStaminaCalm", "show_percentage": false, "max_value": 1, "value": 1, "custom_minimum_size": [300, 24], "per_state": { "back": { "value": 0.35 } }, "note": "As s7." }
+                {
+                  "name": "Rows", "type": "VBoxContainer", "variation": "ToyColumnEight",
+                  "children": [
+                    {
+                      "name": "Health", "type": "HBoxContainer", "variation": "ToyRowSixteen",
+                      "children": [
+                        { "name": "Label", "type": "Label", "variation": "ToyHudCaption", "key": "hud.health", "custom_minimum_size": [150, 0], "size_flags_vertical": "shrink_center" },
+                        {
+                          "name": "Pips", "type": "HBoxContainer", "variation": "ToyRowFour", "size_flags_vertical": "shrink_center",
+                          "children": [
+                            { "name": "P1", "type": "Panel", "variation": "ToyPipHealth" },
+                            { "name": "P2", "type": "Panel", "variation": "ToyPipHealth" },
+                            { "name": "P3", "type": "Panel", "variation": "ToyPipHealth" },
+                            { "name": "P4", "type": "Panel", "variation": "ToyPipHealth" },
+                            { "name": "P5", "type": "Panel", "variation": "ToyPipHealth" },
+                            { "name": "P6", "type": "Panel", "variation": "ToyPipHealth" },
+                            { "name": "P7", "type": "Panel", "variation": "ToyPipHealth" },
+                            { "name": "P8", "type": "Panel", "variation": "ToyPipHealth" },
+                            { "name": "P9", "type": "Panel", "variation": "ToyPipHealth" },
+                            { "name": "P10", "type": "Panel", "variation": "ToyPipHealth" }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "Stamina", "type": "HBoxContainer", "variation": "ToyRowSixteen",
+                      "children": [
+                        { "name": "Label", "type": "Label", "variation": "ToyHudCaption", "key": "hud.stamina", "custom_minimum_size": [150, 0], "size_flags_vertical": "shrink_center" },
+                        {
+                          "name": "Pips", "type": "HBoxContainer", "variation": "ToyRowFour", "size_flags_vertical": "shrink_center",
+                          "children": [
+                            { "name": "P1", "type": "Panel", "variation": "ToyPipStamina" },
+                            { "name": "P2", "type": "Panel", "variation": "ToyPipStamina" },
+                            { "name": "P3", "type": "Panel", "variation": "ToyPipStamina" },
+                            { "name": "P4", "type": "Panel", "variation": "ToyPipStamina" },
+                            { "name": "P5", "type": "Panel", "variation": "ToyPipStamina" },
+                            { "name": "P6", "type": "Panel", "variation": "ToyPipStamina" },
+                            { "name": "P7", "type": "Panel", "variation": "ToyPipStamina" },
+                            { "name": "P8", "type": "Panel", "variation": "ToyPipStamina" },
+                            { "name": "P9", "type": "Panel", "variation": "ToyPipStamina" },
+                            { "name": "P10", "type": "Panel", "variation": "ToyPipStamina" }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
               ]
             },
             {
@@ -101,26 +156,26 @@
           ]
         },
         {
-          "name": "Slots", "type": "HBoxContainer", "variation": "ToyRowSixteen", "states": ["back"], "anchors_preset": "bottom_right", "offset_left": -39, "offset_top": -51, "offset_right": -39, "offset_bottom": -51, "note": "As s7; the player comes back with empty hands.",
+          "name": "Slots", "type": "HBoxContainer", "variation": "ToyRowSixteen", "anchors_preset": "bottom_right", "offset_left": -36, "offset_top": -36, "offset_right": -36, "offset_bottom": -36, "states": ["back"], "note": "As s7; the player comes back with empty hands.",
           "children": [
             {
-              "name": "Hand", "type": "Control", "custom_minimum_size": [150, 150], "size_flags_vertical": "shrink_end",
+              "name": "Hand", "type": "PanelContainer", "variation": "ToySlotHand", "size_flags_vertical": "shrink_end",
               "children": [
                 {
-                  "name": "Face", "type": "PanelContainer", "variation": "ToySlotHand", "anchors_preset": "full_rect",
+                  "name": "V", "type": "VBoxContainer", "variation": "ToyColumnFour", "alignment": "center",
                   "children": [
-                    { "name": "Picture", "type": "TextureRect", "icon": "slot-empty-hand", "custom_minimum_size": [111, 111], "note": "The carried item's pack icon (icons/item-*.svg) at 111 px, else icons/slot-empty-hand.svg; never tinted." }
+                    { "name": "Picture", "type": "TextureRect", "icon": "slot-empty-hand", "custom_minimum_size": [57, 57], "size_flags_horizontal": "shrink_center" }
                   ]
                 }
               ]
             },
             {
-              "name": "Belt", "type": "Control", "custom_minimum_size": [126, 126], "size_flags_vertical": "shrink_end",
+              "name": "Belt", "type": "PanelContainer", "variation": "ToySlotBelt", "size_flags_vertical": "shrink_end",
               "children": [
                 {
-                  "name": "Face", "type": "PanelContainer", "variation": "ToySlotBelt", "anchors_preset": "full_rect",
+                  "name": "V", "type": "VBoxContainer", "variation": "ToyColumnFour", "alignment": "center",
                   "children": [
-                    { "name": "Picture", "type": "TextureRect", "icon": "slot-empty-belt", "custom_minimum_size": [90, 90], "note": "icons/item-*.svg at 90 px, else icons/slot-empty-belt.svg; never tinted." }
+                    { "name": "Picture", "type": "TextureRect", "icon": "slot-empty-belt", "custom_minimum_size": [57, 57], "size_flags_horizontal": "shrink_center" }
                   ]
                 }
               ]
@@ -136,7 +191,7 @@
           "name": "V", "type": "VBoxContainer", "variation": "ToyColumnTwelve",
           "children": [
             { "name": "Title", "type": "Label", "variation": "ToyPlateTitle", "key": "downed.title", "horizontal_alignment": "center", "autowrap_mode": "word_smart", "custom_minimum_size": [810, 0], "per_state": { "raise": { "key": "downed.raised_by", "args": { "name": { "uk": "Олена", "en": "Olena" } } } }, "note": "downed.title while bleeding out; downed.raised_by with the raiser's name (auto_translate_mode DISABLED on the name) while someone raises the player." },
-            { "name": "Bleed", "type": "ProgressBar", "variation": "ToyBarHealthCalm", "show_percentage": false, "max_value": 1, "value": 0.7, "custom_minimum_size": [810, 24], "states": ["down", "down-holding"], "note": "One ProgressBar in the health bar's look (the time left reads as life; one green, no ramp since ui-1.3.0). value = bleed-out time left / bleed-out duration, falling to 0. The alarm line is health's (s7 Hud/Vitals/Bars/Health): under 0.3 the game sets ToyBarHealthAlarm and pulses the light as s7's bars; otherwise ToyBarHealthCalm (agent, open to the engineer's veto)." },
+            { "name": "Bleed", "type": "ProgressBar", "variation": "ToyBarReturnCalm", "show_percentage": false, "max_value": 1, "value": 0.7, "custom_minimum_size": [810, 24], "states": ["down", "down-holding"], "note": "One ProgressBar, ToyBarReturnCalm (the base track, the accent fill), since the health bars are pips now (ui-2.0.0) and the time left is a countdown as the dead's room return. value = bleed-out time left / bleed-out duration, falling to 0. Under 0.3 (health's alarm line) the game sets ToyBarReturnAlarm (the danger fill); no pulse (agent, open to the engineer's veto)." },
             { "name": "Left", "type": "Label", "variation": "ToyPlateTextMuted", "key": "downed.time_left", "args": { "time": "0:10" }, "horizontal_alignment": "center", "states": ["down", "down-holding"], "note": "{time} is the bleed-out time left as m:ss, updated every second." },
             { "name": "Raise", "type": "ProgressBar", "variation": "ToyBarProgress", "show_percentage": false, "max_value": 1, "value": 0.6, "custom_minimum_size": [810, 24], "states": ["raise"], "note": "The raise progress (0 to 1) while someone holds raise; if they stop, the bleed-out bar and the time return." },
             { "name": "Pad", "type": "Control", "custom_minimum_size": [0, 6], "states": ["raise"], "note": "An empty spacer: a bar that ends a plate gets 6 px more room under it than the plate's padding." }
@@ -179,14 +234,14 @@
       "name": "DeadCol", "type": "VBoxContainer", "variation": "ToyColumnTwentyFour", "states": ["dead-room"], "anchors_preset": "center", "grow_horizontal": "both", "grow_vertical": "both", "note": "Centred on the screen: the return countdown. No killer line (the engineer, 2026-10-21: the game does not show who killed the player).",
       "children": [
         {
-          "name": "Count", "type": "PanelContainer", "variation": "ToyPlateCount", "size_flags_horizontal": "shrink_center", "note": "The return countdown on the mint count plate, at least 540 wide (the sketch's 360 x 1.5). Open: how the return from the dead's room is shown: to be redone later (the engineer, 2026-10-21).",
+          "name": "Count", "type": "PanelContainer", "variation": "ToyPlateCount", "size_flags_horizontal": "shrink_center", "note": "The return countdown on the count plate, at least 540 wide (the sketch's 360 x 1.5). Open: how the return from the dead's room is shown: to be redone later (the engineer, 2026-10-21).",
           "children": [
             {
               "name": "V", "type": "VBoxContainer", "variation": "ToyColumnTwelve",
               "children": [
                 { "name": "Label", "type": "Label", "variation": "ToyPlateText", "key": "dead.back_in", "horizontal_alignment": "center" },
                 { "name": "Time", "type": "Label", "variation": "ToyPlateCountdown", "text": "0:24", "horizontal_alignment": "center", "note": "The time to respawn, m:ss from code (auto_translate_mode DISABLED), every second; the wait is 30 s (m8 §3)." },
-                { "name": "Bar", "type": "ProgressBar", "variation": "ToyBarReturnCalm", "show_percentage": false, "max_value": 1, "value": 0.2, "custom_minimum_size": [0, 24], "note": "The dead's room return bar, one ProgressBar: its background is the white track, its fill the alien green. value = the wait passed (0 to 1), filling to the return. The alarm line: in the wait's last 5 s (value over 25 / 30) the game sets theme_type_variation ToyBarReturnAlarm (the track glows green) and pulses the light as s7's bars (the background StyleBox's shadow_color.a 1 to 0.25 and back, 0.9 s each way, no pulse under reduced motion); before that ToyBarReturnCalm." }
+                { "name": "Bar", "type": "ProgressBar", "variation": "ToyBarReturnCalm", "show_percentage": false, "max_value": 1, "value": 0.2, "custom_minimum_size": [0, 24], "note": "The dead's room return bar, one ProgressBar: its background is the base track, its fill the accent. value = the wait passed (0 to 1), filling to the return. In the wait's last 5 s (value over 25 / 30) the game sets theme_type_variation ToyBarReturnAlarm (the danger fill; no glow and no pulse since ui-2.0.0); before that ToyBarReturnCalm." }
               ]
             }
           ]

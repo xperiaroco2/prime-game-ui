@@ -141,70 +141,6 @@
           "label": "host_game",
           "icon": "pointer",
           "live": true
-        },
-        {
-          "id": "bases",
-          "kind": "static",
-          "title_key": "row_bases",
-          "items": [
-            {
-              "v": "ToyBasePrimaryOnDark",
-              "context": "dark",
-              "box": [
-                260,
-                56
-              ]
-            },
-            {
-              "v": "ToyBaseRaisedOnDark",
-              "context": "dark",
-              "box": [
-                260,
-                56
-              ]
-            },
-            {
-              "v": "ToyBasePanel",
-              "context": "dark",
-              "box": [
-                260,
-                120
-              ]
-            },
-            {
-              "v": "ToyBaseTitle",
-              "context": "dark",
-              "box": [
-                260,
-                96
-              ],
-              "pad": 48
-            },
-            {
-              "v": "ToyBasePrimaryOnLight",
-              "context": "light",
-              "box": [
-                260,
-                56
-              ]
-            },
-            {
-              "v": "ToyBaseRaisedOnLight",
-              "context": "light",
-              "box": [
-                260,
-                56
-              ]
-            },
-            {
-              "v": "ToyBaseCard",
-              "context": "light",
-              "box": [
-                200,
-                96
-              ]
-            }
-          ]
         }
       ]
     },
@@ -239,12 +175,6 @@
               "v": "ToyChipLight",
               "text": "ToyChipLightText",
               "label": "players",
-              "context": "light"
-            },
-            {
-              "v": "ToyChipNew",
-              "text": "ToyChipNewText",
-              "label": "new",
               "context": "light"
             },
             {
@@ -350,9 +280,50 @@
           "title_key": "row_mvp_top",
           "hud": true,
           "variations": [
-            "ToyTimerBare",
-            "ToyBarAngerTrack",
-            "ToyBarAnger"
+            "ToyPlate",
+            "ToyTimer",
+            "ToyBarAngerCalm",
+            "ToyBarAngerAlarm"
+          ]
+        },
+        {
+          "id": "mvp-suit",
+          "kind": "mvp",
+          "part": "suit",
+          "title_key": "row_mvp_suit",
+          "hud": true,
+          "variations": [
+            "ToyPlate",
+            "ToyHudCaption",
+            "ToyTextAlertOnLight",
+            "ToyPip",
+            "ToyPipHealth",
+            "ToyPipStamina",
+            "ToyPipAlarm"
+          ]
+        },
+        {
+          "id": "pips",
+          "kind": "static",
+          "title_key": "row_pips",
+          "hud": true,
+          "items": [
+            {
+              "v": "ToyPip",
+              "context": "dark"
+            },
+            {
+              "v": "ToyPipHealth",
+              "context": "dark"
+            },
+            {
+              "v": "ToyPipStamina",
+              "context": "dark"
+            },
+            {
+              "v": "ToyPipAlarm",
+              "context": "dark"
+            }
           ]
         },
         {
@@ -427,6 +398,8 @@
           "title_key": "row_mvp_screens",
           "hud": true,
           "variations": [
+            "ToyBand",
+            "ToyBandAlert",
             "ToyTitleHero",
             "ToyTitleHeroAlert",
             "ToyPlateGoal",
@@ -488,72 +461,6 @@
           "hud": true
         },
         {
-          "id": "bar-health-calm",
-          "kind": "bar",
-          "variations": [
-            "ToyBarHealthCalm"
-          ],
-          "contexts": [
-            "dark"
-          ],
-          "values": [
-            1,
-            0.6,
-            0.35
-          ],
-          "live": true,
-          "hud": true
-        },
-        {
-          "id": "bar-health-alarm",
-          "kind": "bar",
-          "variations": [
-            "ToyBarHealthAlarm"
-          ],
-          "contexts": [
-            "dark"
-          ],
-          "values": [
-            0.25,
-            0.1,
-            0.03
-          ],
-          "hud": true
-        },
-        {
-          "id": "bar-stamina-calm",
-          "kind": "bar",
-          "variations": [
-            "ToyBarStaminaCalm"
-          ],
-          "contexts": [
-            "dark"
-          ],
-          "values": [
-            1,
-            0.6,
-            0.35
-          ],
-          "live": true,
-          "hud": true
-        },
-        {
-          "id": "bar-stamina-alarm",
-          "kind": "bar",
-          "variations": [
-            "ToyBarStaminaAlarm"
-          ],
-          "contexts": [
-            "dark"
-          ],
-          "values": [
-            0.25,
-            0.1,
-            0.03
-          ],
-          "hud": true
-        },
-        {
           "id": "bar-return-calm",
           "kind": "bar",
           "variations": [
@@ -584,47 +491,6 @@
             0.95,
             1
           ],
-          "hud": true
-        },
-        {
-          "id": "bar-stamina",
-          "kind": "bar",
-          "variations": [
-            "ToyBarStamina"
-          ],
-          "track": true,
-          "contexts": [
-            "dark"
-          ],
-          "values": [
-            1,
-            0.9,
-            0.5,
-            0.18,
-            0.03
-          ],
-          "live": true,
-          "hud": true
-        },
-        {
-          "id": "bar-health",
-          "kind": "bar",
-          "variations": [
-            "ToyBarHealth"
-          ],
-          "track": true,
-          "contexts": [
-            "dark"
-          ],
-          "values": [
-            1,
-            0.8,
-            0.5,
-            0.22,
-            0.05,
-            0
-          ],
-          "live": true,
           "hud": true
         },
         {
@@ -705,16 +571,16 @@
           ]
         },
         {
-          "id": "hud-bar",
-          "kind": "hud-bar",
+          "id": "bar-label",
+          "kind": "static",
           "title_key": "row_hud_bar",
-          "hud": true,
-          "variations": [
-            "ToyBarLabel",
-            "ToyHudCaption",
-            "ToyBarTrack",
-            "ToyBarStamina",
-            "ToyBarHealth"
+          "items": [
+            {
+              "v": "ToyBarLabel",
+              "text": "ToyHudCaption",
+              "label": "stamina",
+              "context": "dark"
+            }
           ]
         }
       ]
@@ -769,30 +635,6 @@
               "context": "dark"
             }
           ]
-        },
-        {
-          "id": "pips",
-          "kind": "static",
-          "title_key": "row_pips",
-          "hud": true,
-          "items": [
-            {
-              "v": "ToyPip",
-              "context": "dark"
-            },
-            {
-              "v": "ToyPipHealth",
-              "context": "dark"
-            },
-            {
-              "v": "ToyPipStamina",
-              "context": "dark"
-            },
-            {
-              "v": "ToyPipAlarm",
-              "context": "dark"
-            }
-          ]
         }
       ]
     },
@@ -805,8 +647,7 @@
           "kind": "menu",
           "title_key": "row_menu",
           "variations": [
-            "ToyPanelMenu",
-            "ToyBasePanel"
+            "ToyPanelMenu"
           ]
         },
         {
@@ -815,8 +656,7 @@
           "title_key": "row_dialog",
           "variations": [
             "ToyBackdrop",
-            "ToyPanelDialog",
-            "ToyBasePanel"
+            "ToyPanelDialog"
           ]
         },
         {
@@ -997,12 +837,9 @@
           "title_key": "row_howto",
           "variations": [
             "ToyPanelHowto",
-            "ToyBasePanel",
             "ToyHowtoFrame",
             "ToyHowtoFrameDone",
-            "ToyHowtoCaption",
-            "ToyHowtoNote",
-            "ToyChipNew"
+            "ToyHowtoNote"
           ]
         }
       ]
@@ -1399,6 +1236,11 @@
               "context": "dark"
             },
             {
+              "v": "ToyTimerBare",
+              "label": "mvp_timer",
+              "context": "dark"
+            },
+            {
               "v": "ToyHudCaption",
               "label": "stamina",
               "context": "dark"
@@ -1536,6 +1378,17 @@
           "id": "icons",
           "kind": "icons",
           "title_key": "row_icons"
+        }
+      ]
+    },
+    {
+      "id": "deprecated",
+      "title_key": "sec_deprecated",
+      "rows": [
+        {
+          "id": "deprecated",
+          "kind": "deprecated",
+          "title_key": "row_deprecated"
         }
       ]
     },

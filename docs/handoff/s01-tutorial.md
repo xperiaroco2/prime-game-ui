@@ -10,7 +10,7 @@ The styled tutorial screen from the UI track (xperiaroco2/prime-game-ui), as a G
 - **How to read it:** the roots are children of the screen's full-rect root `Control`; every property not listed keeps Godot's default; sizes and offsets are reference px. In a state's **Shown** list, the first node of each subtree gives its path from the screen root.
 - **Texts** are keys of `copy/strings.csv`, and the language switches live (the Esc menu's Settings). A plain key is set as `text` and translates itself. A key with placeholders, a plural key (`tr_n`) and a key drawn in pieces are set from code with `auto_translate_mode = DISABLED`: `tr()`, then `String.format()` with the data (the samples below), rebuilt on `NOTIFICATION_TRANSLATION_CHANGED`. A "text from data" (names, the room code, times, numbers) is set in code and never translated (`auto_translate_mode = DISABLED`).
 
-The tutorial room. On the first launch the invite with the language choice; in the room, the current lesson at the top and the lesson list at the right, over the MVP round HUD of s7 without the timer, the anger meter, the roster and the role (Hud). After lesson 9 the game returns to the main menu (s2) with no end screen. The nine lessons are the game's (GDD §15: Throwing replaced Delivery in #901); which lessons the MVP adds (points and the workbench, the neighbours' anger and the cops, a task) is open, the engineer's design. Lesson 2 names the battery, an MVP item (a draft; which item lies in the room is the game's data).
+The tutorial room. On the first launch the invite with the language choice; in the room, the current lesson at the top and the lesson list at the right, over the MVP round HUD of s7 without the timer, the anger meter, the roster and the role (Hud). After lesson 9 the game returns to the ship (the player's own, no session) with no end screen, where the game boots (the engineer, 2026-10-21). The nine lessons are the game's (GDD §15: Throwing replaced Delivery in #901); which lessons the MVP adds (points and the workbench, the neighbours' anger and the cops, a task) is open, the engineer's design. Lesson 2 names the battery, an MVP item (a draft; which item lies in the room is the game's data).
 
 ## States
 
@@ -41,31 +41,55 @@ The tutorial room. On the first launch the invite with the language choice; in t
       - **Start** `Button` · variation `ToyButtonPrimary` · text `tutorial.invite.start`: en "Start the tutorial" · uk "Почати навчання" · shown with keyboard focus (grab_focus)
         - Note: Focused on open. Starts lesson 1 and hides the invite for good.
       - **Skip** `Button` · variation `ToyButtonGhostOnLight` · text `tutorial.invite.skip`: en "Skip" · uk "Пропустити"
-        - Note: Goes to the main menu (s2) and hides the invite for good. Esc (ui_cancel) does the same.
+        - Note: Closes the invite for good; the player stays in the ship, where the game booted. Esc (ui_cancel) does the same.
 
 ## `step`: what differs from `invite`
 
 - **Hidden:** `Dim`, `Lang`, `Box`.
 - **Shown:**
   - **Hud** `Control` · anchors `full_rect`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both
-    - Note: Not part of this scene: the MVP round HUD of s7 (s7/Hud) as in a round, without the timer, the anger meter, the roster (the lesson list takes the top right) and the role; Aim shows as in s7. Drawn here only to show what the lesson plates share the screen with: the vitals at the bottom left with the mic beside them, item bar A at the bottom right (both hands empty here), each 39 px in (the sketch's 26 x 1.5; the item bar 51 from the bottom, the sketch's 34, so a name tag clears the edge). Build it once, in s7.
+    - Note: Not part of this scene: the MVP round HUD of s7 (s7/Hud) as in a round, without the timer, the anger meter, the roster (the lesson list takes the top right) and the role; Aim shows as in s7 (not drawn here). Drawn here only to show what the lesson plates share the screen with: the suit tile (health and stamina as ten pips each) at the bottom left with the mic beside it, the hand and belt tiles at the bottom right (both empty here), placed as in s7. Build it once, in s7.
     - **Cross** `Panel` · variation `ToyCrosshair` · anchors `center`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both · custom_minimum_size (12, 12) = Vector2(get_theme_constant("width", "ToyCrosshair"), get_theme_constant("height", "ToyCrosshair"))
     - **Vitals** `HBoxContainer` · variation `ToyRowTwentyFour` · anchors `bottom_left`, offsets 39, -39, 39, -39 (left, top, right, bottom), grow end/begin · gaps from the variation: separation 24
-      - **Bars** `VBoxContainer` · variation `ToyColumnTwelve` · size flags vertical `SIZE_SHRINK_END` · gaps from the variation: separation 12
-        - **Health** `ProgressBar` · variation `ToyBarHealthCalm` · custom_minimum_size (300, 24) = Vector2(300, 24) · value 1 of max_value 1, show_percentage false
-          - Note: As s7.
-        - **Stamina** `ProgressBar` · variation `ToyBarStaminaCalm` · custom_minimum_size (300, 24) = Vector2(300, 24) · value 1 of max_value 1, show_percentage false
-          - Note: As s7.
+      - Note: As s7.
+      - **Suit** `PanelContainer` · variation `ToyPlate` · size flags vertical `SIZE_SHRINK_END`
+        - **Rows** `VBoxContainer` · variation `ToyColumnEight` · gaps from the variation: separation 8
+          - **Health** `HBoxContainer` · variation `ToyRowSixteen` · gaps from the variation: separation 16
+            - **Label** `Label` · variation `ToyHudCaption` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (150, 0) · text `hud.health`: en "Health" · uk "Здоровʼя"
+            - **Pips** `HBoxContainer` · variation `ToyRowFour` · size flags vertical `SIZE_SHRINK_CENTER` · gaps from the variation: separation 4
+              - **P1** `Panel` · variation `ToyPipHealth` · custom_minimum_size (23, 15) = Vector2(get_theme_constant("width", "ToyPipHealth"), get_theme_constant("height", "ToyPipHealth"))
+              - **P2** `Panel` · variation `ToyPipHealth` · custom_minimum_size (23, 15) = Vector2(get_theme_constant("width", "ToyPipHealth"), get_theme_constant("height", "ToyPipHealth"))
+              - **P3** `Panel` · variation `ToyPipHealth` · custom_minimum_size (23, 15) = Vector2(get_theme_constant("width", "ToyPipHealth"), get_theme_constant("height", "ToyPipHealth"))
+              - **P4** `Panel` · variation `ToyPipHealth` · custom_minimum_size (23, 15) = Vector2(get_theme_constant("width", "ToyPipHealth"), get_theme_constant("height", "ToyPipHealth"))
+              - **P5** `Panel` · variation `ToyPipHealth` · custom_minimum_size (23, 15) = Vector2(get_theme_constant("width", "ToyPipHealth"), get_theme_constant("height", "ToyPipHealth"))
+              - **P6** `Panel` · variation `ToyPipHealth` · custom_minimum_size (23, 15) = Vector2(get_theme_constant("width", "ToyPipHealth"), get_theme_constant("height", "ToyPipHealth"))
+              - **P7** `Panel` · variation `ToyPipHealth` · custom_minimum_size (23, 15) = Vector2(get_theme_constant("width", "ToyPipHealth"), get_theme_constant("height", "ToyPipHealth"))
+              - **P8** `Panel` · variation `ToyPipHealth` · custom_minimum_size (23, 15) = Vector2(get_theme_constant("width", "ToyPipHealth"), get_theme_constant("height", "ToyPipHealth"))
+              - **P9** `Panel` · variation `ToyPipHealth` · custom_minimum_size (23, 15) = Vector2(get_theme_constant("width", "ToyPipHealth"), get_theme_constant("height", "ToyPipHealth"))
+              - **P10** `Panel` · variation `ToyPipHealth` · custom_minimum_size (23, 15) = Vector2(get_theme_constant("width", "ToyPipHealth"), get_theme_constant("height", "ToyPipHealth"))
+          - **Stamina** `HBoxContainer` · variation `ToyRowSixteen` · gaps from the variation: separation 16
+            - **Label** `Label` · variation `ToyHudCaption` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (150, 0) · text `hud.stamina`: en "Stamina" · uk "Витривалість"
+            - **Pips** `HBoxContainer` · variation `ToyRowFour` · size flags vertical `SIZE_SHRINK_CENTER` · gaps from the variation: separation 4
+              - **P1** `Panel` · variation `ToyPipStamina` · custom_minimum_size (23, 15) = Vector2(get_theme_constant("width", "ToyPipStamina"), get_theme_constant("height", "ToyPipStamina"))
+              - **P2** `Panel` · variation `ToyPipStamina` · custom_minimum_size (23, 15) = Vector2(get_theme_constant("width", "ToyPipStamina"), get_theme_constant("height", "ToyPipStamina"))
+              - **P3** `Panel` · variation `ToyPipStamina` · custom_minimum_size (23, 15) = Vector2(get_theme_constant("width", "ToyPipStamina"), get_theme_constant("height", "ToyPipStamina"))
+              - **P4** `Panel` · variation `ToyPipStamina` · custom_minimum_size (23, 15) = Vector2(get_theme_constant("width", "ToyPipStamina"), get_theme_constant("height", "ToyPipStamina"))
+              - **P5** `Panel` · variation `ToyPipStamina` · custom_minimum_size (23, 15) = Vector2(get_theme_constant("width", "ToyPipStamina"), get_theme_constant("height", "ToyPipStamina"))
+              - **P6** `Panel` · variation `ToyPipStamina` · custom_minimum_size (23, 15) = Vector2(get_theme_constant("width", "ToyPipStamina"), get_theme_constant("height", "ToyPipStamina"))
+              - **P7** `Panel` · variation `ToyPipStamina` · custom_minimum_size (23, 15) = Vector2(get_theme_constant("width", "ToyPipStamina"), get_theme_constant("height", "ToyPipStamina"))
+              - **P8** `Panel` · variation `ToyPipStamina` · custom_minimum_size (23, 15) = Vector2(get_theme_constant("width", "ToyPipStamina"), get_theme_constant("height", "ToyPipStamina"))
+              - **P9** `Panel` · variation `ToyPipStamina` · custom_minimum_size (23, 15) = Vector2(get_theme_constant("width", "ToyPipStamina"), get_theme_constant("height", "ToyPipStamina"))
+              - **P10** `Panel` · variation `ToyPipStamina` · custom_minimum_size (23, 15) = Vector2(get_theme_constant("width", "ToyPipStamina"), get_theme_constant("height", "ToyPipStamina"))
       - **Mic** `PanelContainer` · variation `ToyMic` · size flags vertical `SIZE_SHRINK_END` · custom_minimum_size (75, 75) = Vector2(get_theme_constant("width", "ToyMic"), get_theme_constant("height", "ToyMic"))
         - **Icon** `TextureRect` · size flags horizontal `SIZE_SHRINK_CENTER`, vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (42, 42) · texture `mic` (dist/pack/icons/mic.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("icon_on", "ToyMic")
-    - **Slots** `HBoxContainer` · variation `ToyRowSixteen` · anchors `bottom_right`, offsets -39, -51, -39, -51 (left, top, right, bottom), grow begin/begin · gaps from the variation: separation 16
-      - Note: Item bar A (the engineer, 2026-10-20): the hand slot (green, 150) and the belt slot (mint, 126), bottoms aligned; an empty slot shows its faint palm or pocket and no name tag.
+    - **Slots** `HBoxContainer` · variation `ToyRowSixteen` · anchors `bottom_right`, offsets -36, -36, -36, -36 (left, top, right, bottom), grow begin/begin · gaps from the variation: separation 16
+      - Note: As s7: both slots empty.
       - **Hand** `PanelContainer` · variation `ToySlotHand` · size flags vertical `SIZE_SHRINK_END` · custom_minimum_size (117, 132) = Vector2(get_theme_constant("width", "ToySlotHand"), get_theme_constant("height", "ToySlotHand"))
-        - **Picture** `TextureRect` · custom_minimum_size (111, 111) · texture `slot-empty-hand` (dist/pack/icons/slot-empty-hand.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyTextOnDark")
-          - Note: The carried item's pack icon (icons/item-*.svg), else icons/slot-empty-hand.svg; never tinted.
+        - **V** `VBoxContainer` · variation `ToyColumnFour` · gaps from the variation: separation 4 · alignment `ALIGNMENT_CENTER`
+          - **Picture** `TextureRect` · size flags horizontal `SIZE_SHRINK_CENTER` · custom_minimum_size (57, 57) · texture `slot-empty-hand` (dist/pack/icons/slot-empty-hand.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyTextOnDark")
       - **Belt** `PanelContainer` · variation `ToySlotBelt` · size flags vertical `SIZE_SHRINK_END` · custom_minimum_size (117, 132) = Vector2(get_theme_constant("width", "ToySlotBelt"), get_theme_constant("height", "ToySlotBelt"))
-        - **Picture** `TextureRect` · custom_minimum_size (90, 90) · texture `slot-empty-belt` (dist/pack/icons/slot-empty-belt.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyTextOnDark")
-          - Note: icons/item-*.svg, else icons/slot-empty-belt.svg; never tinted.
+        - **V** `VBoxContainer` · variation `ToyColumnFour` · gaps from the variation: separation 4 · alignment `ALIGNMENT_CENTER`
+          - **Picture** `TextureRect` · size flags horizontal `SIZE_SHRINK_CENTER` · custom_minimum_size (57, 57) · texture `slot-empty-belt` (dist/pack/icons/slot-empty-belt.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyTextOnDark")
   - **Step** `PanelContainer` · variation `ToyPlate` · anchors `center_top`, offsets 0, 39, 0, 39 (left, top, right, bottom), grow both/end · custom_minimum_size (1140, 0)
     - Note: mouse_filter IGNORE (and its children). The current lesson. A lesson advances when the game sees its action; a lesson with two instructions swaps Title and How within the same step number. The lessons (Progress {count} of 9; the list key; the title key, the how key and the binding that fills {key}): 1 tutorial.list.move: tutorial.step.move.title with the key row HowKeys (control.forward, control.left, control.backward, control.right, control.sprint, control.jump), advancing once the player has moved. 2 tutorial.list.pick_up: tutorial.step.pick_up.title, tutorial.step.pick_up.how, control.interact (E); then tutorial.step.put_down.title, tutorial.step.press, control.put_down (Q). 3 tutorial.list.hand_belt: tutorial.step.hand_belt.title, tutorial.step.press, control.swap (X). 4 tutorial.list.throw: tutorial.step.throw.title, tutorial.step.throw.how, control.throw (G). 5 tutorial.list.map: tutorial.step.map.title, tutorial.step.press, control.map (M); then tutorial.step.howto.title, tutorial.step.howto.how with the round «?» keycap (the map's «?» button). 6 tutorial.list.downed: tutorial.step.downed.title, tutorial.step.downed.how, control.interact held (E). 7 tutorial.list.death: tutorial.step.dead_room.title, tutorial.step.dead_room.how (drafts), no key: the player waits in the dead's room (m8 §3) and comes back at a capsule. 8 tutorial.list.voice: tutorial.step.voice.title, tutorial.step.voice.how, no key. 9 tutorial.list.menu: tutorial.step.menu.title, tutorial.step.press, Esc (ui_cancel, a wide keycap).
     - **V** `VBoxContainer` · variation `ToyColumnTwelve` · gaps from the variation: separation 12 · alignment `ALIGNMENT_CENTER`
@@ -100,24 +124,48 @@ The tutorial room. On the first launch the invite with the language choice; in t
 - **Hidden:** `Dim`, `Lang`, `Box`.
 - **Shown:**
   - **Hud** `Control` · anchors `full_rect`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both
-    - Note: Not part of this scene: the MVP round HUD of s7 (s7/Hud) as in a round, without the timer, the anger meter, the roster (the lesson list takes the top right) and the role; Aim shows as in s7. Drawn here only to show what the lesson plates share the screen with: the vitals at the bottom left with the mic beside them, item bar A at the bottom right (both hands empty here), each 39 px in (the sketch's 26 x 1.5; the item bar 51 from the bottom, the sketch's 34, so a name tag clears the edge). Build it once, in s7.
+    - Note: Not part of this scene: the MVP round HUD of s7 (s7/Hud) as in a round, without the timer, the anger meter, the roster (the lesson list takes the top right) and the role; Aim shows as in s7 (not drawn here). Drawn here only to show what the lesson plates share the screen with: the suit tile (health and stamina as ten pips each) at the bottom left with the mic beside it, the hand and belt tiles at the bottom right (both empty here), placed as in s7. Build it once, in s7.
     - **Cross** `Panel` · variation `ToyCrosshair` · anchors `center`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both · custom_minimum_size (12, 12) = Vector2(get_theme_constant("width", "ToyCrosshair"), get_theme_constant("height", "ToyCrosshair"))
     - **Vitals** `HBoxContainer` · variation `ToyRowTwentyFour` · anchors `bottom_left`, offsets 39, -39, 39, -39 (left, top, right, bottom), grow end/begin · gaps from the variation: separation 24
-      - **Bars** `VBoxContainer` · variation `ToyColumnTwelve` · size flags vertical `SIZE_SHRINK_END` · gaps from the variation: separation 12
-        - **Health** `ProgressBar` · variation `ToyBarHealthCalm` · custom_minimum_size (300, 24) = Vector2(300, 24) · value 1 of max_value 1, show_percentage false
-          - Note: As s7.
-        - **Stamina** `ProgressBar` · variation `ToyBarStaminaCalm` · custom_minimum_size (300, 24) = Vector2(300, 24) · value 1 of max_value 1, show_percentage false
-          - Note: As s7.
+      - Note: As s7.
+      - **Suit** `PanelContainer` · variation `ToyPlate` · size flags vertical `SIZE_SHRINK_END`
+        - **Rows** `VBoxContainer` · variation `ToyColumnEight` · gaps from the variation: separation 8
+          - **Health** `HBoxContainer` · variation `ToyRowSixteen` · gaps from the variation: separation 16
+            - **Label** `Label` · variation `ToyHudCaption` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (150, 0) · text `hud.health`: en "Health" · uk "Здоровʼя"
+            - **Pips** `HBoxContainer` · variation `ToyRowFour` · size flags vertical `SIZE_SHRINK_CENTER` · gaps from the variation: separation 4
+              - **P1** `Panel` · variation `ToyPipHealth` · custom_minimum_size (23, 15) = Vector2(get_theme_constant("width", "ToyPipHealth"), get_theme_constant("height", "ToyPipHealth"))
+              - **P2** `Panel` · variation `ToyPipHealth` · custom_minimum_size (23, 15) = Vector2(get_theme_constant("width", "ToyPipHealth"), get_theme_constant("height", "ToyPipHealth"))
+              - **P3** `Panel` · variation `ToyPipHealth` · custom_minimum_size (23, 15) = Vector2(get_theme_constant("width", "ToyPipHealth"), get_theme_constant("height", "ToyPipHealth"))
+              - **P4** `Panel` · variation `ToyPipHealth` · custom_minimum_size (23, 15) = Vector2(get_theme_constant("width", "ToyPipHealth"), get_theme_constant("height", "ToyPipHealth"))
+              - **P5** `Panel` · variation `ToyPipHealth` · custom_minimum_size (23, 15) = Vector2(get_theme_constant("width", "ToyPipHealth"), get_theme_constant("height", "ToyPipHealth"))
+              - **P6** `Panel` · variation `ToyPipHealth` · custom_minimum_size (23, 15) = Vector2(get_theme_constant("width", "ToyPipHealth"), get_theme_constant("height", "ToyPipHealth"))
+              - **P7** `Panel` · variation `ToyPipHealth` · custom_minimum_size (23, 15) = Vector2(get_theme_constant("width", "ToyPipHealth"), get_theme_constant("height", "ToyPipHealth"))
+              - **P8** `Panel` · variation `ToyPipHealth` · custom_minimum_size (23, 15) = Vector2(get_theme_constant("width", "ToyPipHealth"), get_theme_constant("height", "ToyPipHealth"))
+              - **P9** `Panel` · variation `ToyPipHealth` · custom_minimum_size (23, 15) = Vector2(get_theme_constant("width", "ToyPipHealth"), get_theme_constant("height", "ToyPipHealth"))
+              - **P10** `Panel` · variation `ToyPipHealth` · custom_minimum_size (23, 15) = Vector2(get_theme_constant("width", "ToyPipHealth"), get_theme_constant("height", "ToyPipHealth"))
+          - **Stamina** `HBoxContainer` · variation `ToyRowSixteen` · gaps from the variation: separation 16
+            - **Label** `Label` · variation `ToyHudCaption` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (150, 0) · text `hud.stamina`: en "Stamina" · uk "Витривалість"
+            - **Pips** `HBoxContainer` · variation `ToyRowFour` · size flags vertical `SIZE_SHRINK_CENTER` · gaps from the variation: separation 4
+              - **P1** `Panel` · variation `ToyPipStamina` · custom_minimum_size (23, 15) = Vector2(get_theme_constant("width", "ToyPipStamina"), get_theme_constant("height", "ToyPipStamina"))
+              - **P2** `Panel` · variation `ToyPipStamina` · custom_minimum_size (23, 15) = Vector2(get_theme_constant("width", "ToyPipStamina"), get_theme_constant("height", "ToyPipStamina"))
+              - **P3** `Panel` · variation `ToyPipStamina` · custom_minimum_size (23, 15) = Vector2(get_theme_constant("width", "ToyPipStamina"), get_theme_constant("height", "ToyPipStamina"))
+              - **P4** `Panel` · variation `ToyPipStamina` · custom_minimum_size (23, 15) = Vector2(get_theme_constant("width", "ToyPipStamina"), get_theme_constant("height", "ToyPipStamina"))
+              - **P5** `Panel` · variation `ToyPipStamina` · custom_minimum_size (23, 15) = Vector2(get_theme_constant("width", "ToyPipStamina"), get_theme_constant("height", "ToyPipStamina"))
+              - **P6** `Panel` · variation `ToyPipStamina` · custom_minimum_size (23, 15) = Vector2(get_theme_constant("width", "ToyPipStamina"), get_theme_constant("height", "ToyPipStamina"))
+              - **P7** `Panel` · variation `ToyPipStamina` · custom_minimum_size (23, 15) = Vector2(get_theme_constant("width", "ToyPipStamina"), get_theme_constant("height", "ToyPipStamina"))
+              - **P8** `Panel` · variation `ToyPipStamina` · custom_minimum_size (23, 15) = Vector2(get_theme_constant("width", "ToyPipStamina"), get_theme_constant("height", "ToyPipStamina"))
+              - **P9** `Panel` · variation `ToyPipStamina` · custom_minimum_size (23, 15) = Vector2(get_theme_constant("width", "ToyPipStamina"), get_theme_constant("height", "ToyPipStamina"))
+              - **P10** `Panel` · variation `ToyPipStamina` · custom_minimum_size (23, 15) = Vector2(get_theme_constant("width", "ToyPipStamina"), get_theme_constant("height", "ToyPipStamina"))
       - **Mic** `PanelContainer` · variation `ToyMic` · size flags vertical `SIZE_SHRINK_END` · custom_minimum_size (75, 75) = Vector2(get_theme_constant("width", "ToyMic"), get_theme_constant("height", "ToyMic"))
         - **Icon** `TextureRect` · size flags horizontal `SIZE_SHRINK_CENTER`, vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (42, 42) · texture `mic` (dist/pack/icons/mic.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("icon_on", "ToyMic")
-    - **Slots** `HBoxContainer` · variation `ToyRowSixteen` · anchors `bottom_right`, offsets -39, -51, -39, -51 (left, top, right, bottom), grow begin/begin · gaps from the variation: separation 16
-      - Note: Item bar A (the engineer, 2026-10-20): the hand slot (green, 150) and the belt slot (mint, 126), bottoms aligned; an empty slot shows its faint palm or pocket and no name tag.
+    - **Slots** `HBoxContainer` · variation `ToyRowSixteen` · anchors `bottom_right`, offsets -36, -36, -36, -36 (left, top, right, bottom), grow begin/begin · gaps from the variation: separation 16
+      - Note: As s7: both slots empty.
       - **Hand** `PanelContainer` · variation `ToySlotHand` · size flags vertical `SIZE_SHRINK_END` · custom_minimum_size (117, 132) = Vector2(get_theme_constant("width", "ToySlotHand"), get_theme_constant("height", "ToySlotHand"))
-        - **Picture** `TextureRect` · custom_minimum_size (111, 111) · texture `slot-empty-hand` (dist/pack/icons/slot-empty-hand.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyTextOnDark")
-          - Note: The carried item's pack icon (icons/item-*.svg), else icons/slot-empty-hand.svg; never tinted.
+        - **V** `VBoxContainer` · variation `ToyColumnFour` · gaps from the variation: separation 4 · alignment `ALIGNMENT_CENTER`
+          - **Picture** `TextureRect` · size flags horizontal `SIZE_SHRINK_CENTER` · custom_minimum_size (57, 57) · texture `slot-empty-hand` (dist/pack/icons/slot-empty-hand.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyTextOnDark")
       - **Belt** `PanelContainer` · variation `ToySlotBelt` · size flags vertical `SIZE_SHRINK_END` · custom_minimum_size (117, 132) = Vector2(get_theme_constant("width", "ToySlotBelt"), get_theme_constant("height", "ToySlotBelt"))
-        - **Picture** `TextureRect` · custom_minimum_size (90, 90) · texture `slot-empty-belt` (dist/pack/icons/slot-empty-belt.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyTextOnDark")
-          - Note: icons/item-*.svg, else icons/slot-empty-belt.svg; never tinted.
+        - **V** `VBoxContainer` · variation `ToyColumnFour` · gaps from the variation: separation 4 · alignment `ALIGNMENT_CENTER`
+          - **Picture** `TextureRect` · size flags horizontal `SIZE_SHRINK_CENTER` · custom_minimum_size (57, 57) · texture `slot-empty-belt` (dist/pack/icons/slot-empty-belt.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyTextOnDark")
   - **Step** `PanelContainer` · variation `ToyPlate` · anchors `center_top`, offsets 0, 39, 0, 39 (left, top, right, bottom), grow both/end · custom_minimum_size (1140, 0)
     - Note: mouse_filter IGNORE (and its children). The current lesson. A lesson advances when the game sees its action; a lesson with two instructions swaps Title and How within the same step number. The lessons (Progress {count} of 9; the list key; the title key, the how key and the binding that fills {key}): 1 tutorial.list.move: tutorial.step.move.title with the key row HowKeys (control.forward, control.left, control.backward, control.right, control.sprint, control.jump), advancing once the player has moved. 2 tutorial.list.pick_up: tutorial.step.pick_up.title, tutorial.step.pick_up.how, control.interact (E); then tutorial.step.put_down.title, tutorial.step.press, control.put_down (Q). 3 tutorial.list.hand_belt: tutorial.step.hand_belt.title, tutorial.step.press, control.swap (X). 4 tutorial.list.throw: tutorial.step.throw.title, tutorial.step.throw.how, control.throw (G). 5 tutorial.list.map: tutorial.step.map.title, tutorial.step.press, control.map (M); then tutorial.step.howto.title, tutorial.step.howto.how with the round «?» keycap (the map's «?» button). 6 tutorial.list.downed: tutorial.step.downed.title, tutorial.step.downed.how, control.interact held (E). 7 tutorial.list.death: tutorial.step.dead_room.title, tutorial.step.dead_room.how (drafts), no key: the player waits in the dead's room (m8 §3) and comes back at a capsule. 8 tutorial.list.voice: tutorial.step.voice.title, tutorial.step.voice.how, no key. 9 tutorial.list.menu: tutorial.step.menu.title, tutorial.step.press, Esc (ui_cancel, a wide keycap).
     - **V** `VBoxContainer` · variation `ToyColumnTwelve` · gaps from the variation: separation 12 · alignment `ALIGNMENT_CENTER`
@@ -246,12 +294,12 @@ The tutorial room. On the first launch the invite with the language choice; in t
 - Size constants: a variation's `width`, `height`, `min_width`, `wide_width` and `wide_min_width` theme constants are read by code into `custom_minimum_size`, as the node lines give them. A Panel or PanelContainer takes no size from them on its own: an anchored Panel at offsets 0 is 0×0, a slot shrinks to its text.
 - Size constants that follow the text size: `min_width` 42 (50 in the pack's `modes.textSize.large`) of ToyKeyOnDark, ToyKeyRound. The large-text theme is swapped in while a screen is open, so code that sets custom_minimum_size from such a constant sets it again on `NOTIFICATION_THEME_CHANGED`.
 - Icons: the tinted ones are white SVGs in `dist/pack/icons/` (the pack's copy of `pages/components/icons`, currentColor written as white): a TextureRect tints one with the `self_modulate` its line gives (the colour the page draws it in), a Button with its variation's `icon_*_color`, an OptionButton its arrow with `modulate_arrow`. The room pictograms are white copies too (`dist/pack/icons/room/`), drawn in ink: their lines give the `self_modulate`. The pack's `assets` list every icon with its tint and `svg_scale`.
-- SVG import: Godot rasterises an SVG at import, so import each at `svg/scale` = the largest size it is drawn ÷ its viewBox (the largest over every screen that draws it, as the pack's `assets` give it): `check` 1.5 (36 px), `mic` 1.75 (42 px), `slot-empty-belt` 1.41 (90 px), `slot-empty-hand` 1.74 (111 px).
+- SVG import: Godot rasterises an SVG at import, so import each at `svg/scale` = the largest size it is drawn ÷ its viewBox (the largest over every screen that draws it, as the pack's `assets` give it): `check` 1.5 (36 px), `mic` 1.75 (42 px), `slot-empty-belt` 0.9 (57 px), `slot-empty-hand` 0.9 (57 px).
 - Boxes and grids take their gaps only from their spacing variation (ToyColumn…, ToyRow…, ToyGrid…), and a ScrollContainer the gap to its bar from ToyScroll; a box without one has a single child. No `theme_override_constants`: the theme test forbids them.
 
 ## Keys
 
-- **Drawn** (28): `control.jump`, `control.sprint`, `control.walk`, `key.space`, `lang.en`, `lang.uk`, `tutorial.invite.body`, `tutorial.invite.skip`, `tutorial.invite.start`, `tutorial.invite.title`, `tutorial.list.death`, `tutorial.list.downed`, `tutorial.list.hand_belt`, `tutorial.list.map`, `tutorial.list.menu`, `tutorial.list.move`, `tutorial.list.pick_up`, `tutorial.list.throw`, `tutorial.list.title`, `tutorial.list.voice`, `tutorial.step.dead_room.how`, `tutorial.step.dead_room.title`, `tutorial.step.howto.how`, `tutorial.step.howto.title`, `tutorial.step.move.title`, `tutorial.step.pick_up.how`, `tutorial.step.pick_up.title`, `tutorial.step.progress`.
+- **Drawn** (30): `control.jump`, `control.sprint`, `control.walk`, `hud.health`, `hud.stamina`, `key.space`, `lang.en`, `lang.uk`, `tutorial.invite.body`, `tutorial.invite.skip`, `tutorial.invite.start`, `tutorial.invite.title`, `tutorial.list.death`, `tutorial.list.downed`, `tutorial.list.hand_belt`, `tutorial.list.map`, `tutorial.list.menu`, `tutorial.list.move`, `tutorial.list.pick_up`, `tutorial.list.throw`, `tutorial.list.title`, `tutorial.list.voice`, `tutorial.step.dead_room.how`, `tutorial.step.dead_room.title`, `tutorial.step.howto.how`, `tutorial.step.howto.title`, `tutorial.step.move.title`, `tutorial.step.pick_up.how`, `tutorial.step.pick_up.title`, `tutorial.step.progress`.
 - **Named only in the notes** (wire them too): `control.backward`, `control.forward`, `control.interact`, `control.left`, `control.map`, `control.put_down`, `control.right`, `control.swap`, `control.throw`, `key.mouse_left`, `key.mouse_right`, `tutorial.step.downed.how`, `tutorial.step.downed.title`, `tutorial.step.hand_belt.title`, `tutorial.step.map.title`, `tutorial.step.menu.title`, `tutorial.step.press`, `tutorial.step.put_down.title`, `tutorial.step.throw.how`, `tutorial.step.throw.title`, `tutorial.step.voice.how`, `tutorial.step.voice.title`.
 
 ## Layers and input (every screen)
@@ -259,11 +307,12 @@ The tutorial room. On the first launch the invite with the language choice; in t
 | CanvasLayer | What |
 |---|---|
 | 1 | Name plates in the world (s4, s7) |
-| 2 | HUD: the round HUD (s7), downed and spectating (s9), the lobby HUD (s4), the tutorial's lesson plates (s1) |
+| 2 | HUD: the round HUD (s7), downed and the dead's room (s9), the lobby HUD (s4), the tutorial's lesson plates (s1) |
 | 3 | Map and tasks (s8), with its how-to card |
 | 4 | Esc menu (s5) and its dim |
 | 5 | The Esc menu's confirm dialog |
 | 6 | Black screens: connecting and loading (s3), pre game (s6), post game (s10) |
 
-- The main menu (s2) is its own scene, under none of these.
+- The game boots straight into the ship (the lobby, s4); the suit menu (s5) hosts, joins and holds Settings.
+- The mutation workbench (s11) is on no CanvasLayer: it is a SubViewport drawn on the machine in the world, under the HUD.
 - Esc closes the topmost open overlay first (a how-to card, then the map; in the Esc menu its confirm dialog, then the menu) and opens the Esc menu only when nothing else is open. M is ignored while the Esc menu is open.

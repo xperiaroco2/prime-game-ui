@@ -6,7 +6,7 @@ The styled lobby screen from the UI track (xperiaroco2/prime-game-ui), as a Godo
 
 - **Source:** `pages/screens/src/s04-lobby.json`; the review page is `pages/screens/screens.html#s4`; the wireframe is section `s4` («Лобі»).
 - **Theme:** the Toy pack ui-2.0.0 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
-- **World behind the UI** (not UI): the lobby room seen behind the main menu.
+- **World behind the UI** (not UI): the ship (the lobby room) seen behind a menu.
 - **How to read it:** the roots are children of the screen's full-rect root `Control`; every property not listed keeps Godot's default; sizes and offsets are reference px. In a state's **Shown** list, the first node of each subtree gives its path from the screen root.
 - **Texts** are keys of `copy/strings.csv`, and the language switches live (the Esc menu's Settings). A plain key is set as `text` and translates itself. A key with placeholders, a plural key (`tr_n`) and a key drawn in pieces are set from code with `auto_translate_mode = DISABLED`: `tr()`, then `String.format()` with the data (the samples below), rebuilt on `NOTIFICATION_TRANSLATION_CHANGED`. A "text from data" (names, the room code, times, numbers) is set in code and never translated (`auto_translate_mode = DISABLED`).
 
@@ -37,7 +37,7 @@ The lobby's HUD in the world: the mouse is captured and every node has mouse_fil
   - **Text** `Label` · variation `ToyPlateText` · text `lobby.waiting` with sample {count} = "3", {total} = "4": en "3 of 4 ready" · uk "Готові 3 з 4" · horizontal_alignment `CENTER`
     - Note: lobby.waiting {count} ready of {total} players; lobby.need_more (tr_n) while the lobby has fewer players than the mode needs (other unmet demands of #208 take their own keys later); during the countdown lobby.countdown in ToyPlateTitle, once a second from 5 to 1.
 - **Players** `PanelContainer` · variation `ToyPlate` · anchors `top_right`, offsets -39, 39, -39, 39 (left, top, right, bottom), grow begin/end · custom_minimum_size (570, 0)
-  - Note: Rebuilt when a player joins, leaves, renames or toggles ready. 570 px: the sticker sketch's lobby plate (380 x 1.5); a long name is cut with an ellipsis.
+  - Note: Rebuilt when a player joins, leaves, renames or toggles ready. 570 px (the MVP sketch's lobby plate, 380 x 1.5); a long name is cut with an ellipsis.
   - **V** `VBoxContainer` · variation `ToyColumnTwentyFour` · gaps from the variation: separation 24
     - **Info** `VBoxContainer` · variation `ToyColumnTwelve` · gaps from the variation: separation 12
       - **LobbyName** `Label` · variation `ToyPlateTextMuted` · text `lobby.default_name` with sample {name} = "Olena" / "Олена": en "Olena's lobby" · uk "Лобі: Олена" · clip_text true · text_overrun_behavior `OVERRUN_TRIM_ELLIPSIS`
@@ -120,11 +120,12 @@ The lobby's HUD in the world: the mouse is captured and every node has mouse_fil
 | CanvasLayer | What |
 |---|---|
 | 1 | Name plates in the world (s4, s7) |
-| 2 | HUD: the round HUD (s7), downed and spectating (s9), the lobby HUD (s4), the tutorial's lesson plates (s1) |
+| 2 | HUD: the round HUD (s7), downed and the dead's room (s9), the lobby HUD (s4), the tutorial's lesson plates (s1) |
 | 3 | Map and tasks (s8), with its how-to card |
 | 4 | Esc menu (s5) and its dim |
 | 5 | The Esc menu's confirm dialog |
 | 6 | Black screens: connecting and loading (s3), pre game (s6), post game (s10) |
 
-- The main menu (s2) is its own scene, under none of these.
+- The game boots straight into the ship (the lobby, s4); the suit menu (s5) hosts, joins and holds Settings.
+- The mutation workbench (s11) is on no CanvasLayer: it is a SubViewport drawn on the machine in the world, under the HUD.
 - Esc closes the topmost open overlay first (a how-to card, then the map; in the Esc menu its confirm dialog, then the menu) and opens the Esc menu only when nothing else is open. M is ignored while the Esc menu is open.

@@ -458,90 +458,6 @@
   height: 100%;
   width: calc(var(--value) * 100%);
 }
-/* ToyBarHealthCalm: ProgressBar · bar.health-calm · dark */
-.tv-ToyBarHealthCalm {
-  position: relative;
-  box-sizing: border-box;
-  background: var(--toy-bar-health-calm-background-bg-color);
-  border-style: solid;
-  border-top-width: 0;
-  border-right-width: 0;
-  border-bottom-width: 0;
-  border-left-width: 0;
-  border-top-left-radius: calc(var(--toy-bar-health-calm-background-corner-radius) * var(--px));
-  border-top-right-radius: calc(var(--toy-bar-health-calm-background-corner-radius) * var(--px));
-  border-bottom-right-radius: calc(var(--toy-bar-health-calm-background-corner-radius) * var(--px));
-  border-bottom-left-radius: calc(var(--toy-bar-health-calm-background-corner-radius) * var(--px));
-  padding-top: calc(var(--toy-bar-health-calm-background-content-margin-block) * var(--px));
-  padding-right: calc(var(--toy-bar-health-calm-background-content-margin-inline) * var(--px));
-  padding-bottom: calc(var(--toy-bar-health-calm-background-content-margin-block) * var(--px));
-  padding-left: calc(var(--toy-bar-health-calm-background-content-margin-inline) * var(--px));
-}
-.tv-ToyBarHealthCalm > .tv-fill {
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: block;
-  box-sizing: border-box;
-  background: var(--toy-bar-health-calm-fill-bg-color);
-  border-style: solid;
-  border-top-width: 0;
-  border-right-width: 0;
-  border-bottom-width: 0;
-  border-left-width: 0;
-  border-top-left-radius: calc(var(--toy-bar-health-calm-fill-corner-radius) * var(--px));
-  border-top-right-radius: calc(var(--toy-bar-health-calm-fill-corner-radius) * var(--px));
-  border-bottom-right-radius: calc(var(--toy-bar-health-calm-fill-corner-radius) * var(--px));
-  border-bottom-left-radius: calc(var(--toy-bar-health-calm-fill-corner-radius) * var(--px));
-  padding-top: 0;
-  padding-right: 0;
-  padding-bottom: 0;
-  padding-left: 0;
-  height: 100%;
-  width: calc(var(--value) * 100%);
-}
-/* ToyBarStaminaCalm: ProgressBar · bar.stamina-calm · dark */
-.tv-ToyBarStaminaCalm {
-  position: relative;
-  box-sizing: border-box;
-  background: var(--toy-bar-stamina-calm-background-bg-color);
-  border-style: solid;
-  border-top-width: 0;
-  border-right-width: 0;
-  border-bottom-width: 0;
-  border-left-width: 0;
-  border-top-left-radius: calc(var(--toy-bar-stamina-calm-background-corner-radius) * var(--px));
-  border-top-right-radius: calc(var(--toy-bar-stamina-calm-background-corner-radius) * var(--px));
-  border-bottom-right-radius: calc(var(--toy-bar-stamina-calm-background-corner-radius) * var(--px));
-  border-bottom-left-radius: calc(var(--toy-bar-stamina-calm-background-corner-radius) * var(--px));
-  padding-top: calc(var(--toy-bar-stamina-calm-background-content-margin-block) * var(--px));
-  padding-right: calc(var(--toy-bar-stamina-calm-background-content-margin-inline) * var(--px));
-  padding-bottom: calc(var(--toy-bar-stamina-calm-background-content-margin-block) * var(--px));
-  padding-left: calc(var(--toy-bar-stamina-calm-background-content-margin-inline) * var(--px));
-}
-.tv-ToyBarStaminaCalm > .tv-fill {
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: block;
-  box-sizing: border-box;
-  background: var(--toy-bar-stamina-calm-fill-bg-color);
-  border-style: solid;
-  border-top-width: 0;
-  border-right-width: 0;
-  border-bottom-width: 0;
-  border-left-width: 0;
-  border-top-left-radius: calc(var(--toy-bar-stamina-calm-fill-corner-radius) * var(--px));
-  border-top-right-radius: calc(var(--toy-bar-stamina-calm-fill-corner-radius) * var(--px));
-  border-bottom-right-radius: calc(var(--toy-bar-stamina-calm-fill-corner-radius) * var(--px));
-  border-bottom-left-radius: calc(var(--toy-bar-stamina-calm-fill-corner-radius) * var(--px));
-  padding-top: 0;
-  padding-right: 0;
-  padding-bottom: 0;
-  padding-left: 0;
-  height: 100%;
-  width: calc(var(--value) * 100%);
-}
 /* ToyBarReturnCalm: ProgressBar · bar.return-calm · dark */
 .tv-ToyBarReturnCalm {
   position: relative;
@@ -743,82 +659,6 @@
 }
 .tv-ToyButtonPrimary.is-disabled .tv-icon {
   color: var(--toy-button-primary-items-icon-disabled-color);
-}
-/* ToyButtonPrimaryOnMint: Button → ToyButton · button.primary-on-mint · any */
-.tv-ToyButtonPrimaryOnMint {
-  box-sizing: border-box;
-  position: relative;
-  background: var(--toy-button-primary-on-mint-normal-bg-color);
-  border-style: solid;
-  border-color: var(--toy-button-primary-on-mint-normal-border-color);
-  border-top-width: calc(var(--toy-button-primary-on-mint-normal-border-width-top) * var(--px));
-  border-right-width: calc(var(--toy-button-primary-on-mint-normal-border-width-right) * var(--px));
-  border-bottom-width: calc(var(--toy-button-primary-on-mint-normal-border-width-bottom) * var(--px));
-  border-left-width: calc(var(--toy-button-primary-on-mint-normal-border-width-left) * var(--px));
-  border-top-left-radius: calc(var(--toy-button-primary-on-mint-normal-corner-radius) * var(--px));
-  border-top-right-radius: calc(var(--toy-button-primary-on-mint-normal-corner-radius) * var(--px));
-  border-bottom-right-radius: calc(var(--toy-button-primary-on-mint-normal-corner-radius) * var(--px));
-  border-bottom-left-radius: calc(var(--toy-button-primary-on-mint-normal-corner-radius) * var(--px));
-  padding-top: calc((var(--toy-button-primary-on-mint-normal-content-margin-top) - var(--toy-button-primary-on-mint-normal-border-width-top)) * var(--px));
-  padding-right: calc((var(--toy-button-primary-on-mint-normal-content-margin-inline) - var(--toy-button-primary-on-mint-normal-border-width-right)) * var(--px));
-  padding-bottom: calc((var(--toy-button-primary-on-mint-normal-content-margin-bottom) - var(--toy-button-primary-on-mint-normal-border-width-bottom)) * var(--px));
-  padding-left: calc((var(--toy-button-primary-on-mint-normal-content-margin-inline) - var(--toy-button-primary-on-mint-normal-border-width-left)) * var(--px));
-  font-family: var(--toy-button-primary-on-mint-label-font-family), system-ui, sans-serif;
-  font-size: calc(var(--toy-button-primary-on-mint-label-font-size) * var(--px));
-  font-weight: var(--toy-button-primary-on-mint-label-font-weight);
-  line-height: calc(var(--toy-button-primary-on-mint-label-line-box) * var(--px));
-  letter-spacing: calc(var(--toy-button-primary-on-mint-label-letter-spacing) * var(--px));
-  color: var(--toy-button-primary-on-mint-normal-font-color);
-  cursor: pointer;
-}
-.tv-ToyButtonPrimaryOnMint.is-hover {
-  background: var(--toy-button-primary-on-mint-hover-bg-color);
-}
-.tv-ToyButtonPrimaryOnMint.is-held {
-  background: var(--toy-button-primary-on-mint-pressed-bg-color);
-}
-.tv-ToyButtonPrimaryOnMint.is-disabled {
-  background: var(--toy-button-primary-on-mint-disabled-bg-color);
-  border-color: var(--toy-button-primary-on-mint-disabled-border-color);
-  color: var(--toy-button-primary-on-mint-disabled-font-color);
-}
-.tv-ToyButtonPrimaryOnMint > .tv-focus {
-  display: none;
-  position: absolute;
-  pointer-events: none;
-  box-sizing: border-box;
-  border-style: solid;
-  border-color: var(--toy-button-primary-on-mint-focus-border-color);
-  border-top-width: calc(var(--toy-button-primary-on-mint-focus-border-width) * var(--px));
-  border-right-width: calc(var(--toy-button-primary-on-mint-focus-border-width) * var(--px));
-  border-bottom-width: calc(var(--toy-button-primary-on-mint-focus-border-width) * var(--px));
-  border-left-width: calc(var(--toy-button-primary-on-mint-focus-border-width) * var(--px));
-  border-top-left-radius: calc(var(--toy-button-primary-on-mint-focus-corner-radius) * var(--px));
-  border-top-right-radius: calc(var(--toy-button-primary-on-mint-focus-corner-radius) * var(--px));
-  border-bottom-right-radius: calc(var(--toy-button-primary-on-mint-focus-corner-radius) * var(--px));
-  border-bottom-left-radius: calc(var(--toy-button-primary-on-mint-focus-corner-radius) * var(--px));
-  top: calc((0 - var(--toy-button-primary-on-mint-normal-border-width-top) - var(--toy-button-primary-on-mint-focus-expand-margin)) * var(--px));
-  right: calc((0 - var(--toy-button-primary-on-mint-normal-border-width-right) - var(--toy-button-primary-on-mint-focus-expand-margin)) * var(--px));
-  bottom: calc((0 - var(--toy-button-primary-on-mint-normal-border-width-bottom) - var(--toy-button-primary-on-mint-focus-expand-margin)) * var(--px));
-  left: calc((0 - var(--toy-button-primary-on-mint-normal-border-width-left) - var(--toy-button-primary-on-mint-focus-expand-margin)) * var(--px));
-}
-.tv-ToyButtonPrimaryOnMint.is-focus > .tv-focus, .tv-ToyButtonPrimaryOnMint:focus-visible > .tv-focus {
-  display: block;
-}
-.tv-ToyButtonPrimaryOnMint .tv-icon {
-  color: var(--toy-button-primary-on-mint-items-icon-normal-color);
-}
-.tv-ToyButtonPrimaryOnMint.is-focus .tv-icon, .tv-ToyButtonPrimaryOnMint:focus-visible .tv-icon {
-  color: var(--toy-button-primary-on-mint-items-icon-focus-color);
-}
-.tv-ToyButtonPrimaryOnMint.is-hover .tv-icon {
-  color: var(--toy-button-primary-on-mint-items-icon-hover-color);
-}
-.tv-ToyButtonPrimaryOnMint.is-held .tv-icon {
-  color: var(--toy-button-primary-on-mint-items-icon-pressed-color);
-}
-.tv-ToyButtonPrimaryOnMint.is-disabled .tv-icon {
-  color: var(--toy-button-primary-on-mint-items-icon-disabled-color);
 }
 /* ToyButtonSecondary: Button → ToyButton · button.secondary · any */
 .tv-ToyButtonSecondary {
@@ -1087,82 +927,6 @@
 }
 .tv-ToyButtonGhostOnLight.is-focus > .tv-focus, .tv-ToyButtonGhostOnLight:focus-visible > .tv-focus {
   display: block;
-}
-/* ToyMenuItem: Button → ToyButton · button.menu-item · dark */
-.tv-ToyMenuItem {
-  box-sizing: border-box;
-  position: relative;
-  background: var(--toy-palette-clear);
-  border-style: solid;
-  border-top-width: 0;
-  border-right-width: 0;
-  border-bottom-width: 0;
-  border-left-width: 0;
-  border-top-left-radius: calc(var(--toy-button-menu-item-normal-corner-radius) * var(--px));
-  border-top-right-radius: calc(var(--toy-button-menu-item-normal-corner-radius) * var(--px));
-  border-bottom-right-radius: calc(var(--toy-button-menu-item-normal-corner-radius) * var(--px));
-  border-bottom-left-radius: calc(var(--toy-button-menu-item-normal-corner-radius) * var(--px));
-  padding-top: calc(var(--toy-button-menu-item-normal-content-margin-block) * var(--px));
-  padding-right: calc(var(--toy-button-menu-item-normal-content-margin-inline) * var(--px));
-  padding-bottom: calc(var(--toy-button-menu-item-normal-content-margin-block) * var(--px));
-  padding-left: calc(var(--toy-button-menu-item-normal-content-margin-inline) * var(--px));
-  font-family: var(--toy-button-menu-item-label-font-family), system-ui, sans-serif;
-  font-size: calc(var(--toy-button-menu-item-label-font-size) * var(--px));
-  font-weight: var(--toy-button-menu-item-label-font-weight);
-  line-height: calc(var(--toy-button-menu-item-label-line-box) * var(--px));
-  letter-spacing: calc(var(--toy-button-menu-item-label-letter-spacing) * var(--px));
-  color: var(--toy-button-menu-item-normal-font-color);
-  column-gap: calc(var(--toy-button-menu-item-items-h-separation) * var(--px));
-  cursor: pointer;
-}
-.tv-ToyMenuItem.is-hover {
-  background: var(--toy-button-menu-item-hover-bg-color);
-  color: var(--toy-button-menu-item-hover-font-color);
-}
-.tv-ToyMenuItem.is-held {
-  background: var(--toy-button-menu-item-pressed-bg-color);
-  color: var(--toy-button-menu-item-pressed-font-color);
-}
-.tv-ToyMenuItem.is-disabled {
-  color: var(--toy-button-menu-item-disabled-font-color);
-}
-.tv-ToyMenuItem > .tv-focus {
-  display: none;
-  position: absolute;
-  pointer-events: none;
-  box-sizing: border-box;
-  border-style: solid;
-  border-color: var(--toy-button-menu-item-focus-border-color);
-  border-top-width: calc(var(--toy-button-menu-item-focus-border-width) * var(--px));
-  border-right-width: calc(var(--toy-button-menu-item-focus-border-width) * var(--px));
-  border-bottom-width: calc(var(--toy-button-menu-item-focus-border-width) * var(--px));
-  border-left-width: calc(var(--toy-button-menu-item-focus-border-width) * var(--px));
-  border-top-left-radius: calc(var(--toy-button-menu-item-focus-corner-radius) * var(--px));
-  border-top-right-radius: calc(var(--toy-button-menu-item-focus-corner-radius) * var(--px));
-  border-bottom-right-radius: calc(var(--toy-button-menu-item-focus-corner-radius) * var(--px));
-  border-bottom-left-radius: calc(var(--toy-button-menu-item-focus-corner-radius) * var(--px));
-  top: calc((0 - var(--toy-button-menu-item-focus-expand-margin)) * var(--px));
-  right: calc((0 - var(--toy-button-menu-item-focus-expand-margin)) * var(--px));
-  bottom: calc((0 - var(--toy-button-menu-item-focus-expand-margin)) * var(--px));
-  left: calc((0 - var(--toy-button-menu-item-focus-expand-margin)) * var(--px));
-}
-.tv-ToyMenuItem.is-focus > .tv-focus, .tv-ToyMenuItem:focus-visible > .tv-focus {
-  display: block;
-}
-.tv-ToyMenuItem .tv-icon {
-  color: var(--toy-button-menu-item-items-icon-normal-color);
-}
-.tv-ToyMenuItem.is-focus .tv-icon, .tv-ToyMenuItem:focus-visible .tv-icon {
-  color: var(--toy-button-menu-item-items-icon-focus-color);
-}
-.tv-ToyMenuItem.is-hover .tv-icon {
-  color: var(--toy-button-menu-item-items-icon-hover-color);
-}
-.tv-ToyMenuItem.is-held .tv-icon {
-  color: var(--toy-button-menu-item-items-icon-pressed-color);
-}
-.tv-ToyMenuItem.is-disabled .tv-icon {
-  color: var(--toy-button-menu-item-items-icon-disabled-color);
 }
 /* ToyChipPlate: PanelContainer · chip.plate · dark */
 .tv-ToyChipPlate {
@@ -3201,17 +2965,6 @@
   letter-spacing: calc(var(--toy-text-hud-caption-label-letter-spacing) * var(--px));
   color: var(--toy-text-hud-caption-normal-font-color);
 }
-/* ToyTimerBare: Label · text.timer-bare · dark */
-.tv-ToyTimerBare {
-  font-family: var(--toy-text-timer-bare-label-font-family), system-ui, sans-serif;
-  font-size: calc(var(--toy-text-timer-bare-label-font-size) * var(--px));
-  font-weight: var(--toy-text-timer-bare-label-font-weight);
-  line-height: calc(var(--toy-text-timer-bare-label-line-box) * var(--px));
-  letter-spacing: calc(var(--toy-text-timer-bare-label-letter-spacing) * var(--px));
-  color: var(--toy-text-timer-bare-normal-font-color);
-  -webkit-text-stroke: calc((var(--toy-text-timer-bare-items-shadow-outline-size) + var(--toy-text-timer-bare-items-shadow-outline-size)) * var(--px)) var(--toy-text-timer-bare-normal-font-shadow-color);
-  paint-order: stroke fill;
-}
 /* ToyTextAlertOnLight: Label · text.text-alert-on-light · light */
 .tv-ToyTextAlertOnLight {
   font-family: var(--toy-text-text-alert-on-light-label-font-family), system-ui, sans-serif;
@@ -3221,14 +2974,14 @@
   letter-spacing: calc(var(--toy-text-text-alert-on-light-label-letter-spacing) * var(--px));
   color: var(--toy-text-text-alert-on-light-normal-font-color);
 }
-/* ToyLogo: Label · title.logo · dark */
-.tv-ToyLogo {
-  font-family: var(--toy-title-logo-label-font-family), system-ui, sans-serif;
-  font-size: calc(var(--toy-title-logo-label-font-size) * var(--px));
-  font-weight: var(--toy-title-logo-label-font-weight);
-  line-height: calc(var(--toy-title-logo-label-line-box) * var(--px));
-  letter-spacing: calc(var(--toy-title-logo-label-letter-spacing) * var(--px));
-  color: var(--toy-title-logo-normal-font-color);
+/* ToyKicker: Label · text.kicker · light */
+.tv-ToyKicker {
+  font-family: var(--toy-text-kicker-label-font-family), system-ui, sans-serif;
+  font-size: calc(var(--toy-text-kicker-label-font-size) * var(--px));
+  font-weight: var(--toy-text-kicker-label-font-weight);
+  line-height: calc(var(--toy-text-kicker-label-line-box) * var(--px));
+  letter-spacing: calc(var(--toy-text-kicker-label-letter-spacing) * var(--px));
+  color: var(--toy-text-kicker-normal-font-color);
 }
 /* ToyTitleHero: Label · title.hero · dark */
 .tv-ToyTitleHero {

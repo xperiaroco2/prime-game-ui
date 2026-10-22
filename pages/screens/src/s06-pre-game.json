@@ -6,7 +6,7 @@
   "note": "The black intro of about 3 s in the silent pre game (#213): it shows when the own side arrives, names it and its goal (and, for a human, the other humans), plays one sound per side, and needs no input. Nobody hears anybody and no text says so. Then the round fades in. No mic, no other HUD while it shows. The sketch pages/mvp-screens frames 8 and 9 at 0.75 (every length x 1.5). Open: how the trip from the spaceship lobby maps onto Countdown, Loading and Pregame.",
   "states": [
     { "id": "alien", "label": "Прибулець", "note": "An alien's intro (the sketch's frame 8)." },
-    { "id": "human", "label": "Людина", "note": "A human's intro (the sketch's frame 9): the coral title, and the other humans named under the goal (humans know each other, decided 2026-10-20)." },
+    { "id": "human", "label": "Людина", "note": "A human's intro (the sketch's frame 9): the danger band and title, and the other humans named under the goal (humans know each other, decided 2026-10-20)." },
     { "id": "after", "label": "Потім: раунд", "note": "The round fading in: Night fades from alpha 1 to 0 over 0.4 s (a cut under reduced motion) over the round HUD, s7 at the round's first second." }
   ],
   "nodes": [
@@ -14,27 +14,37 @@
       "name": "Hud", "type": "Control", "anchors_preset": "full_rect", "states": ["after"], "note": "Not part of this scene: the round HUD of s7 (s7/Hud at the round's first second: the full time, no anger, empty hands, nothing within reach), drawn here only to show what the fading Night uncovers. Build it once, in s7.",
       "children": [
         {
-          "name": "Role", "type": "PanelContainer", "variation": "ToySticker", "offset_left": 39, "offset_top": 39, "offset_right": 39, "offset_bottom": 39, "note": "The player's own side for the round, a flat word sticker 39 px in (the sketch's 26 x 1.5): ToySticker with role.alien, ToyStickerAlert (coral) with role.human.",
+          "name": "Role", "type": "PanelContainer", "variation": "ToySticker", "offset_left": 39, "offset_top": 39, "offset_right": 39, "offset_bottom": 39,
           "children": [
             { "name": "Text", "type": "Label", "variation": "ToyStickerText", "key": "role.alien" }
           ]
         },
-        { "name": "Timer", "type": "Label", "variation": "ToyTimerBare", "text": "09:57", "anchors_preset": "center_top", "offset_top": 33, "offset_bottom": 33, "grow_horizontal": "both", "horizontal_alignment": "center", "custom_minimum_size": [140, 0], "note": "As s7." },
         {
-          "name": "Anger", "type": "Control", "anchors_preset": "center_top", "offset_top": 96, "offset_bottom": 96, "grow_horizontal": "both", "note": "The neighbours' anger, meter A (decided 2026-10-20): a zero-size point at the top centre, 96 px down (the sketch's 64 x 1.5). The track centres on it, so the bar is exactly centred under the time; the siren hangs off its right end without moving that centre. No caption, no plate. It never says what raises the anger or where (open: whether it hints the type of problem, the audit's point 3).",
+          "name": "Time", "type": "PanelContainer", "variation": "ToyPlate", "anchors_preset": "center_top", "offset_top": 36, "offset_bottom": 36, "grow_horizontal": "both", "note": "As s7, at the round's first second: the full time, no anger.",
           "children": [
-            { "name": "Bar", "type": "ProgressBar", "variation": "ToyBarAngerCalm", "anchors_preset": "center_top", "grow_horizontal": "both", "show_percentage": false, "max_value": 1, "value": 0, "note": "As s7: one ProgressBar, ToyBarAngerCalm, ToyBarAngerAlarm over 0.7." },
-            { "name": "Siren", "type": "TextureRect", "icon": "siren-off", "custom_minimum_size": [57, 57], "offset_left": 122, "offset_top": -14, "offset_right": 179, "offset_bottom": 43, "note": "The siren, 57 px (the sketch's 38 x 1.5), 9 px right of the track's end (112.5 + 9, rounded up) and centred on its height: icons/siren-off.svg while the anger is calm (not rising), icons/siren-on.svg while it rises and when full. Never tinted." }
+            {
+              "name": "Row", "type": "HBoxContainer", "variation": "ToyRowTwentyFour",
+              "children": [
+                { "name": "Timer", "type": "Label", "variation": "ToyTimer", "text": "09:57", "horizontal_alignment": "center", "size_flags_vertical": "shrink_center", "custom_minimum_size": [120, 0] },
+                {
+                  "name": "Anger", "type": "HBoxContainer", "variation": "ToyRowEight", "size_flags_vertical": "shrink_center",
+                  "children": [
+                    { "name": "Bar", "type": "ProgressBar", "variation": "ToyBarAngerCalm", "custom_minimum_size": [240, 16], "show_percentage": false, "max_value": 1, "value": 0, "size_flags_vertical": "shrink_center" },
+                    { "name": "Siren", "type": "TextureRect", "icon": "siren-off", "custom_minimum_size": [36, 36], "size_flags_vertical": "shrink_center" }
+                  ]
+                }
+              ]
+            }
           ]
         },
         {
-          "name": "Roster", "type": "PanelContainer", "variation": "ToyRoster", "anchors_preset": "top_right", "offset_left": -39, "offset_top": 39, "offset_right": -39, "offset_bottom": 39, "grow_horizontal": "begin", "note": "Every player of the round with the body colour (decided 2026-10-20), 39 px in at the top right; at least 285 wide (the sketch's 190 x 1.5), growing to its longest row. The rows are built from the player list in the session's order with the own row first; a row updates when a player dies, comes back or leaves. Names are data and are not cut. Open: whether the dead show here (the page shows them dimmed with a mark).",
+          "name": "Roster", "type": "PanelContainer", "variation": "ToyRoster", "anchors_preset": "top_right", "offset_left": -39, "offset_top": 39, "offset_right": -39, "offset_bottom": 39, "grow_horizontal": "begin", "note": "As s7; nobody is dead yet.",
           "children": [
             {
               "name": "Rows", "type": "VBoxContainer", "variation": "ToyColumnEight",
               "children": [
                 {
-                  "name": "Row1", "type": "HBoxContainer", "variation": "ToyRowTwelve", "note": "As s7.",
+                  "name": "Row1", "type": "HBoxContainer", "variation": "ToyRowTwelve",
                   "children": [
                     { "name": "Dot", "type": "Panel", "variation": "ToyRosterDot", "self_modulate": "#7C5CC8", "size_flags_vertical": "shrink_center" },
                     { "name": "Name", "type": "Label", "variation": "ToyRosterNameSelf", "key": "hud.roster.self", "args": { "name": { "uk": "Олена", "en": "Olena" } }, "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" }
@@ -72,22 +82,67 @@
                   "name": "Row6", "type": "HBoxContainer", "variation": "ToyRowTwelve",
                   "children": [
                     { "name": "Dot", "type": "Panel", "variation": "ToyRosterDot", "self_modulate": "#D46FB0", "size_flags_vertical": "shrink_center" },
-                    { "name": "Name", "type": "Label", "variation": "ToyRosterName", "text": { "uk": "Тарас", "en": "Taras" }, "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" }
+                    { "name": "Name", "type": "Label", "variation": "ToyRosterName", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center", "text": { "uk": "Тарас", "en": "Taras" } }
                   ]
                 }
               ]
             }
           ]
         },
-        { "name": "Cross", "type": "Panel", "variation": "ToyCrosshair", "anchors_preset": "center", "note": "The crosshair dot, centred on the screen (its size is the variation's)." },
+        { "name": "Cross", "type": "Panel", "variation": "ToyCrosshair", "anchors_preset": "center" },
         {
-          "name": "Vitals", "type": "HBoxContainer", "variation": "ToyRowTwentyFour", "anchors_preset": "bottom_left", "offset_left": 39, "offset_top": -39, "offset_right": 39, "offset_bottom": -39,
+          "name": "Vitals", "type": "HBoxContainer", "variation": "ToyRowTwentyFour", "anchors_preset": "bottom_left", "offset_left": 39, "offset_top": -39, "offset_right": 39, "offset_bottom": -39, "note": "As s7.",
           "children": [
             {
-              "name": "Bars", "type": "VBoxContainer", "variation": "ToyColumnTwelve", "size_flags_vertical": "shrink_end",
+              "name": "Suit", "type": "PanelContainer", "variation": "ToyPlate", "size_flags_vertical": "shrink_end",
               "children": [
-                { "name": "Health", "type": "ProgressBar", "variation": "ToyBarHealthCalm", "show_percentage": false, "max_value": 1, "value": 1, "custom_minimum_size": [300, 24], "note": "As s7." },
-                { "name": "Stamina", "type": "ProgressBar", "variation": "ToyBarStaminaCalm", "show_percentage": false, "max_value": 1, "value": 1, "custom_minimum_size": [300, 24], "note": "As s7." }
+                {
+                  "name": "Rows", "type": "VBoxContainer", "variation": "ToyColumnEight",
+                  "children": [
+                    {
+                      "name": "Health", "type": "HBoxContainer", "variation": "ToyRowSixteen",
+                      "children": [
+                        { "name": "Label", "type": "Label", "variation": "ToyHudCaption", "key": "hud.health", "custom_minimum_size": [150, 0], "size_flags_vertical": "shrink_center" },
+                        {
+                          "name": "Pips", "type": "HBoxContainer", "variation": "ToyRowFour", "size_flags_vertical": "shrink_center",
+                          "children": [
+                            { "name": "P1", "type": "Panel", "variation": "ToyPipHealth" },
+                            { "name": "P2", "type": "Panel", "variation": "ToyPipHealth" },
+                            { "name": "P3", "type": "Panel", "variation": "ToyPipHealth" },
+                            { "name": "P4", "type": "Panel", "variation": "ToyPipHealth" },
+                            { "name": "P5", "type": "Panel", "variation": "ToyPipHealth" },
+                            { "name": "P6", "type": "Panel", "variation": "ToyPipHealth" },
+                            { "name": "P7", "type": "Panel", "variation": "ToyPipHealth" },
+                            { "name": "P8", "type": "Panel", "variation": "ToyPipHealth" },
+                            { "name": "P9", "type": "Panel", "variation": "ToyPipHealth" },
+                            { "name": "P10", "type": "Panel", "variation": "ToyPipHealth" }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "Stamina", "type": "HBoxContainer", "variation": "ToyRowSixteen",
+                      "children": [
+                        { "name": "Label", "type": "Label", "variation": "ToyHudCaption", "key": "hud.stamina", "custom_minimum_size": [150, 0], "size_flags_vertical": "shrink_center" },
+                        {
+                          "name": "Pips", "type": "HBoxContainer", "variation": "ToyRowFour", "size_flags_vertical": "shrink_center",
+                          "children": [
+                            { "name": "P1", "type": "Panel", "variation": "ToyPipStamina" },
+                            { "name": "P2", "type": "Panel", "variation": "ToyPipStamina" },
+                            { "name": "P3", "type": "Panel", "variation": "ToyPipStamina" },
+                            { "name": "P4", "type": "Panel", "variation": "ToyPipStamina" },
+                            { "name": "P5", "type": "Panel", "variation": "ToyPipStamina" },
+                            { "name": "P6", "type": "Panel", "variation": "ToyPipStamina" },
+                            { "name": "P7", "type": "Panel", "variation": "ToyPipStamina" },
+                            { "name": "P8", "type": "Panel", "variation": "ToyPipStamina" },
+                            { "name": "P9", "type": "Panel", "variation": "ToyPipStamina" },
+                            { "name": "P10", "type": "Panel", "variation": "ToyPipStamina" }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
               ]
             },
             {
@@ -99,26 +154,26 @@
           ]
         },
         {
-          "name": "Slots", "type": "HBoxContainer", "variation": "ToyRowSixteen", "anchors_preset": "bottom_right", "offset_left": -39, "offset_top": -51, "offset_right": -39, "offset_bottom": -51, "note": "As s7: both slots empty.",
+          "name": "Slots", "type": "HBoxContainer", "variation": "ToyRowSixteen", "anchors_preset": "bottom_right", "offset_left": -36, "offset_top": -36, "offset_right": -36, "offset_bottom": -36, "note": "As s7: both slots empty.",
           "children": [
             {
-              "name": "Hand", "type": "Control", "custom_minimum_size": [150, 150], "size_flags_vertical": "shrink_end",
+              "name": "Hand", "type": "PanelContainer", "variation": "ToySlotHand", "size_flags_vertical": "shrink_end",
               "children": [
                 {
-                  "name": "Face", "type": "PanelContainer", "variation": "ToySlotHand", "anchors_preset": "full_rect",
+                  "name": "V", "type": "VBoxContainer", "variation": "ToyColumnFour", "alignment": "center",
                   "children": [
-                    { "name": "Picture", "type": "TextureRect", "icon": "slot-empty-hand", "custom_minimum_size": [111, 111], "note": "The carried item's pack icon (icons/item-*.svg) at 111 px, else icons/slot-empty-hand.svg; never tinted." }
+                    { "name": "Picture", "type": "TextureRect", "icon": "slot-empty-hand", "custom_minimum_size": [57, 57], "size_flags_horizontal": "shrink_center" }
                   ]
                 }
               ]
             },
             {
-              "name": "Belt", "type": "Control", "custom_minimum_size": [126, 126], "size_flags_vertical": "shrink_end",
+              "name": "Belt", "type": "PanelContainer", "variation": "ToySlotBelt", "size_flags_vertical": "shrink_end",
               "children": [
                 {
-                  "name": "Face", "type": "PanelContainer", "variation": "ToySlotBelt", "anchors_preset": "full_rect",
+                  "name": "V", "type": "VBoxContainer", "variation": "ToyColumnFour", "alignment": "center",
                   "children": [
-                    { "name": "Picture", "type": "TextureRect", "icon": "slot-empty-belt", "custom_minimum_size": [90, 90], "note": "icons/item-*.svg at 90 px, else icons/slot-empty-belt.svg; never tinted." }
+                    { "name": "Picture", "type": "TextureRect", "icon": "slot-empty-belt", "custom_minimum_size": [57, 57], "size_flags_horizontal": "shrink_center" }
                   ]
                 }
               ]

@@ -36,7 +36,7 @@
       ]
     },
     {
-      "name": "Players", "type": "PanelContainer", "variation": "ToyPlate", "anchors_preset": "top_right", "offset_left": -39, "offset_top": 39, "offset_right": -39, "offset_bottom": 39, "custom_minimum_size": [570, 0], "note": "Rebuilt when a player joins, leaves, renames or toggles ready. 570 px: the sticker sketch's lobby plate (380 x 1.5); a long name is cut with an ellipsis.",
+      "name": "Players", "type": "PanelContainer", "variation": "ToyPlate", "anchors_preset": "top_right", "offset_left": -39, "offset_top": 39, "offset_right": -39, "offset_bottom": 39, "custom_minimum_size": [570, 0], "note": "Rebuilt when a player joins, leaves, renames or toggles ready. 570 px (the MVP sketch's lobby plate, 380 x 1.5); a long name is cut with an ellipsis.",
       "children": [
         {
           "name": "V", "type": "VBoxContainer", "variation": "ToyColumnTwentyFour",
