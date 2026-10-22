@@ -3,56 +3,128 @@
   "wireframe": "s4",
   "title": "Lobby",
   "background": "menu",
-  "note": "The lobby's HUD in the world: the mouse is captured and every node has mouse_filter IGNORE. Ready toggles on the bound ready key (control.ready, rebindable in Settings › Controls); no prompt on screen, and the Esc Lobby tab has the Ready button. The countdown starts when everyone is ready and the mode's demands are met; an un-ready stops it. The lobby is the aliens' spaceship (m8 §1): the world behind this HUD changes; how the trip maps onto Lobby, Countdown, Loading and Pregame is open (the engineer's design), so the HUD stays as it is.",
+  "note": "The ship is the lobby (the target page pages/suit-final, frames 1, 3 and 3b): the game boots into the aliens' ship and the player walks around it; the HUD over the world is thin and calm. The mouse is captured and every HUD node has mouse_filter IGNORE. In a session the HUD is the ready count at the top centre, the roster at the top right (the host mark and a ready pip per player), the own ready state and the mic at the bottom left. Ready toggles on the bound ready key (control.ready, rebindable in Settings › Controls). The countdown starts when everyone is ready and the mode's demands are met; an un-ready stops it. The match settings are no tab of the Esc menu: they are a screen on the ship's console (Console below), a SubViewport scene as the workbench s11 is, shown on the console's mesh to whoever stands near it; the host edits it with the crosshair, everyone else reads it. How the trip maps onto Lobby, Countdown, Loading and Pregame is open (the engineer's design).",
   "states": [
-    { "id": "wait", "label": "Очікування", "note": "A code joiner's view with the code known: three of four ready, the own row not ready." },
-    { "id": "count", "label": "Відлік", "note": "Everyone ready and the mode's demands met: the countdown runs 5, 4, 3, 2, 1." },
-    { "id": "short", "label": "Замало гравців", "note": "Fewer players than the mode needs: the status plate says how many more, instead of the ready count." },
-    { "id": "code-waiting", "label": "Код ще не готовий", "note": "The host's own view before the code service has made the room (JoinProgress.CODE_WAITING), so nobody else can be in yet: the host alone, whose row reads player.you as in s5 lobby-host; the code keycap reads \"…\"; when the service is gone it reads \"—\" and the Esc Lobby tab explains (s5 lobby-no-code)." },
-    { "id": "direct", "label": "Напряму", "note": "A player who joined directly (LAN or VPN): no code row; the own row not ready." }
+    { "id": "boot", "label": "Старт", "note": "The game has just loaded into the ship with no session: no HUD but a small hint at the bottom left (the target's frame 1). Esc opens the suit menu (s5 ship), where the player hosts or joins." },
+    { "id": "wait", "label": "Очікування", "note": "A code joiner's view (Zinga) in a lobby of six: four ready, the own player among them. The two players in sight carry their name plates." },
+    { "id": "count", "label": "Відлік", "note": "Everyone ready and the mode's demands met: the countdown runs 5, 4, 3, 2, 1 in the same plate, every pip full." },
+    { "id": "short", "label": "Замало гравців", "note": "Fewer players than the mode needs: the plate says how many more, instead of the ready count, and its pips hide. The own player not ready." },
+    { "id": "console-host", "label": "Пульт: хост", "note": "The host (Olena) at the console (the target's frame 3b): the console's screen, the SubViewport scene Console, drawn at its 960 x 540 where the player looks, with the HUD over the world. The crosshair is on the humans' minus, so it hovers (pushed mouse motion, as in s11)." },
+    { "id": "console-guest", "label": "Пульт: гравець", "note": "Another player (Zinga) reading the console: the same screen without steppers or choices, values only, and the lock line naming the host." }
   ],
   "nodes": [
     {
-      "name": "Plates", "type": "Control", "anchors_preset": "full_rect", "note": "The name plate layer (P6, #257), the same as s7/Plates, under the rest of the HUD: one Plate per other player in line of sight within about 10 m. Code: position = camera.unproject_position(head + 0.35 m), the plate centred on it; hidden behind walls (raycast), beyond 10 m or behind the camera. No role, no health.",
+      "name": "Plates", "type": "Control", "anchors_preset": "full_rect", "states": ["wait", "count", "short"], "note": "The name plate layer (P6, #257), the same as s7/Plates, under the rest of the HUD: one Plate per other player in line of sight within about 10 m. Code: position = camera.unproject_position(head + 0.35 m), the plate centred on it; hidden behind walls (raycast), beyond 10 m or behind the camera. No role, no health. Not drawn in the console frames, where the screen fills the view.",
       "children": [
         {
-          "name": "Plate", "type": "PanelContainer", "variation": "ToyNamePlate", "states": ["wait", "count", "short", "direct"], "offset_left": 1296, "offset_top": 500, "offset_right": 1296, "offset_bottom": 500, "grow_horizontal": "both", "grow_vertical": "both", "note": "One instance per visible player, moved every frame to the projected point (the sample stands over one player). The teammate mark of s7 never shows here: roles do not exist yet in the lobby.",
+          "name": "Glorp", "type": "PanelContainer", "variation": "ToyNamePlate", "offset_left": 1026, "offset_top": 408, "offset_right": 1026, "offset_bottom": 408, "grow_horizontal": "both", "grow_vertical": "both", "note": "One instance per visible player, moved every frame to the projected point (the samples stand over two players, as on the target). The teammate mark of s7 never shows here: roles do not exist yet in the lobby.",
           "children": [
-            {
-              "name": "Row", "type": "HBoxContainer", "variation": "ToyRowTwelve",
-              "children": [
-                { "name": "Name", "type": "Label", "variation": "ToyNamePlateText", "text": { "uk": "Тарас", "en": "Taras" }, "note": "The player's name from code (auto_translate_mode DISABLED); no translated text." }
-              ]
-            }
+            { "name": "Name", "type": "Label", "variation": "ToyNamePlateText", "text": { "uk": "Глорп", "en": "Glorp" }, "note": "The player's name from code (auto_translate_mode DISABLED); no translated text." }
+          ]
+        },
+        {
+          "name": "Bulk", "type": "PanelContainer", "variation": "ToyNamePlate", "offset_left": 1258, "offset_top": 453, "offset_right": 1258, "offset_bottom": 453, "grow_horizontal": "both", "grow_vertical": "both", "states": ["wait", "count"],
+          "children": [
+            { "name": "Name", "type": "Label", "variation": "ToyNamePlateText", "text": { "uk": "Бульк", "en": "Bulk" } }
           ]
         }
       ]
     },
-    { "name": "Cross", "type": "Panel", "variation": "ToyCrosshair", "anchors_preset": "center", "note": "The crosshair (P5), centred on the screen (its size is the variation's)." },
     {
-      "name": "Status", "type": "PanelContainer", "variation": "ToyPlate", "anchors_preset": "center_top", "offset_top": 39, "offset_bottom": 39, "grow_horizontal": "both",
-      "children": [
-        { "name": "Text", "type": "Label", "variation": "ToyPlateText", "key": "lobby.waiting", "args": { "count": "3", "total": "4" }, "horizontal_alignment": "center", "per_state": { "count": { "variation": "ToyPlateTitle", "key": "lobby.countdown", "args": { "count": "5" } }, "short": { "key": "lobby.need_more", "count": 1, "args": {} }, "code-waiting": { "key": "lobby.need_more", "count": 3, "args": {} } }, "note": "lobby.waiting {count} ready of {total} players; lobby.need_more (tr_n) while the lobby has fewer players than the mode needs (other unmet demands of #208 take their own keys later); during the countdown lobby.countdown in ToyPlateTitle, once a second from 5 to 1." }
-      ]
-    },
-    {
-      "name": "Players", "type": "PanelContainer", "variation": "ToyPlate", "anchors_preset": "top_right", "offset_left": -39, "offset_top": 39, "offset_right": -39, "offset_bottom": 39, "custom_minimum_size": [570, 0], "note": "Rebuilt when a player joins, leaves, renames or toggles ready. 570 px (the MVP sketch's lobby plate, 380 x 1.5); a long name is cut with an ellipsis.",
+      "name": "Console", "type": "PanelContainer", "variation": "ToyPanelDialog", "states": ["console-host", "console-guest"], "anchors_preset": "center", "grow_horizontal": "both", "grow_vertical": "both", "custom_minimum_size": [960, 540], "offset_left": -162, "offset_top": 128, "offset_right": -162, "offset_bottom": 128, "note": "Not a HUD node: the console's own scene, the root of a SubViewport (960 x 540, the target's 640 x 360 x 1.5, with the game's Theme) whose ViewportTexture the ship console's screen mesh shows, built as s11 is (anchors full_rect in the viewport). Whoever stands near the console sees the same screen; the host works it with the crosshair (the game raycasts the screen mesh and pushes the hit point into the SubViewport as mouse motion and Interact as a left click, SubViewport.push_input), so the control under the crosshair hovers. The page draws the canvas at its own size where the player looks (moved so the crosshair falls on a stepper), under the HUD. Every change applies live for everyone. There are no presets (the target has none, agent); the lobby name field and Knives are not on it (open).",
       "children": [
         {
-          "name": "V", "type": "VBoxContainer", "variation": "ToyColumnTwentyFour",
+          "name": "V", "type": "VBoxContainer", "variation": "ToyColumnSixteen",
           "children": [
             {
-              "name": "Info", "type": "VBoxContainer", "variation": "ToyColumnTwelve",
+              "name": "Top", "type": "HBoxContainer", "variation": "ToyRowSixteen",
               "children": [
-                { "name": "LobbyName", "type": "Label", "variation": "ToyPlateTextMuted", "key": "lobby.default_name", "args": { "name": { "uk": "Олена", "en": "Olena" } }, "clip_text": true, "text_overrun_behavior": "trim_ellipsis", "note": "The lobby name the host set (#214), user text with auto_translate_mode DISABLED; lobby.default_name with the host's name while it is the default." },
+                { "name": "Title", "type": "Label", "variation": "ToyTitleMachine", "key": "lobby.default_name", "args": { "name": { "uk": "Олена", "en": "Olena" } }, "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center", "clip_text": true, "text_overrun_behavior": "trim_ellipsis", "note": "The console's title is the lobby's name (#214): lobby.default_name with the host's name while it is the default, else the name the host set (user text, auto_translate_mode DISABLED). The target's draft title «Матч» has no copy key." },
+                { "name": "HostNote", "type": "Label", "variation": "ToyTextMutedOnLight", "key": "esc.lobby.you_host", "states": ["console-host"], "size_flags_vertical": "shrink_center", "horizontal_alignment": "right", "autowrap_mode": "word_smart", "custom_minimum_size": [420, 0], "note": "At most 420 wide, so the title keeps its room; a long translation wraps to two lines." },
                 {
-                  "name": "CodeRow", "type": "HBoxContainer", "variation": "ToyRowTwelve", "states": ["wait", "count", "short", "code-waiting"], "note": "The host and every player who joined with the code (M6 §3); hidden for a Direct joiner. Copy lives in the Esc Lobby tab (the mouse is captured here).",
+                  "name": "HostOnly", "type": "HBoxContainer", "variation": "ToyRowTwelve", "states": ["console-guest"], "size_flags_vertical": "shrink_center", "note": "Everyone but the host: the lock and who changes the settings.",
                   "children": [
-                    { "name": "Label", "type": "Label", "variation": "ToyPlateTextMuted", "key": "common.code", "size_flags_vertical": "shrink_center" },
+                    { "name": "Lock", "type": "TextureRect", "icon": "lock", "custom_minimum_size": [30, 30], "size_flags_vertical": "shrink_center" },
+                    { "name": "Text", "type": "Label", "variation": "ToyTextMutedOnLight", "key": "esc.lobby.host_only", "args": { "name": { "uk": "Олена", "en": "Olena" } }, "size_flags_vertical": "shrink_center", "horizontal_alignment": "right", "autowrap_mode": "word_smart", "custom_minimum_size": [378, 0] }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Rows", "type": "VBoxContainer", "variation": "ToyColumnFour", "size_flags_vertical": "expand_fill", "note": "The MVP match settings of frame 7 of pages/mvp-screens, moved here from the Esc menu's Lobby tab: the humans, the anger threshold, the match length, the Wi-Fi passwords. Rows at least 72 px (four rows and the code fit the 456 px inside the frame; the target's three rows are 96), the controls right-aligned, every value 156 px wide so the arrows line up. The host sees the steppers and the choice; everyone else the values only.",
+              "children": [
+                {
+                  "name": "Humans", "type": "PanelContainer", "variation": "ToySettingRow", "custom_minimum_size": [0, 72], "note": "The exact number of humans among the players (m8 §2, #1032). Bounds and the default per player count are open.",
+                  "children": [
                     {
-                      "name": "Code", "type": "PanelContainer", "variation": "ToyKeyOnDark", "size_flags_vertical": "shrink_center",
+                      "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
                       "children": [
-                        { "name": "Text", "type": "Label", "variation": "ToyKeyText", "text": "K7Q2XR", "horizontal_alignment": "center", "per_state": { "code-waiting": { "text": "…" } }, "note": "The room code (auto_translate_mode DISABLED); \"…\" while the code service has not made the room (CODE_WAITING), \"—\" when the service is gone." }
+                        { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "lobby.setting.humans", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center", "autowrap_mode": "word_smart", "custom_minimum_size": [240, 0] },
+                        {
+                          "name": "Stepper", "type": "HBoxContainer", "variation": "ToyRowTwelve", "size_flags_vertical": "shrink_center", "alignment": "end",
+                          "children": [
+                            { "name": "Less", "type": "Button", "variation": "ToyStepper", "icon": "minus", "states": ["console-host"], "state": "hover", "note": "Steps the value down; disabled (unplugged) at the lower bound. Under the crosshair in console-host, so it hovers. Every stepper here works the same; a player who is not the host sees only the value." },
+                            { "name": "Value", "type": "Label", "variation": "ToySettingRowValue", "custom_minimum_size": [156, 0], "horizontal_alignment": "center", "size_flags_vertical": "shrink_center", "key": "lobby.setting.humans_of", "args": { "count": "2", "total": "6" }, "note": "{count} the humans set; {total} the players now in the lobby, also the stepper's maximum, so it follows joins and leaves." },
+                            { "name": "More", "type": "Button", "variation": "ToyStepper", "icon": "plus", "states": ["console-host"], "note": "Steps the value up; disabled at the upper bound." }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Anger", "type": "PanelContainer", "variation": "ToySettingRow", "custom_minimum_size": [0, 72], "note": "The neighbours' anger threshold that calls the cops (m8 §5).",
+                  "children": [
+                    {
+                      "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
+                      "children": [
+                        { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "lobby.setting.anger", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center", "autowrap_mode": "word_smart", "custom_minimum_size": [240, 0] },
+                        {
+                          "name": "Choice", "type": "Control", "states": ["console-host"], "custom_minimum_size": [240, 51], "size_flags_vertical": "shrink_center", "note": "One ButtonGroup of two toggles that touch (the target's .seg): a Control with the two halves placed side by side by anchors, since a box's smallest gap is 4 px. Each label is the number (data, auto_translate_mode DISABLED). The choices are open (the engineer's design); 50 and 100 are the sketch's samples.",
+                          "children": [
+                            { "name": "Fifty", "type": "Button", "variation": "ToySegmentStart", "text": "50", "toggle_mode": true, "state": "selected", "offset_right": 120, "offset_bottom": 51 },
+                            { "name": "Hundred", "type": "Button", "variation": "ToySegmentEnd", "text": "100", "toggle_mode": true, "offset_left": 120, "offset_right": 240, "offset_bottom": 51 }
+                          ]
+                        },
+                        { "name": "Value", "type": "Label", "variation": "ToySettingRowValue", "text": "50", "states": ["console-guest"], "custom_minimum_size": [156, 0], "horizontal_alignment": "center", "size_flags_vertical": "shrink_center", "note": "A player who is not the host sees the chosen threshold only: str(value) (auto_translate_mode DISABLED), in the steppers' value column." }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Duration", "type": "PanelContainer", "variation": "ToySettingRow", "custom_minimum_size": [0, 72],
+                  "children": [
+                    {
+                      "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
+                      "children": [
+                        { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "lobby.setting.duration", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center", "autowrap_mode": "word_smart", "custom_minimum_size": [240, 0] },
+                        {
+                          "name": "Stepper", "type": "HBoxContainer", "variation": "ToyRowTwelve", "size_flags_vertical": "shrink_center", "alignment": "end",
+                          "children": [
+                            { "name": "Less", "type": "Button", "variation": "ToyStepper", "icon": "minus", "states": ["console-host"] },
+                            { "name": "Value", "type": "Label", "variation": "ToySettingRowValue", "custom_minimum_size": [156, 0], "horizontal_alignment": "center", "size_flags_vertical": "shrink_center", "key": "unit.minutes", "args": { "count": "10" } },
+                            { "name": "More", "type": "Button", "variation": "ToyStepper", "icon": "plus", "states": ["console-host"] }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "WifiPasswords", "type": "PanelContainer", "variation": "ToySettingRow", "custom_minimum_size": [0, 72], "note": "The Wi-Fi task's N: the passwords to enter before the task is done (GDD §8). Bounds and the default are the game's data.",
+                  "children": [
+                    {
+                      "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
+                      "children": [
+                        { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "lobby.setting.wifi_passwords", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center", "autowrap_mode": "word_smart", "custom_minimum_size": [240, 0] },
+                        {
+                          "name": "Stepper", "type": "HBoxContainer", "variation": "ToyRowTwelve", "size_flags_vertical": "shrink_center", "alignment": "end",
+                          "children": [
+                            { "name": "Less", "type": "Button", "variation": "ToyStepper", "icon": "minus", "states": ["console-host"] },
+                            { "name": "Value", "type": "Label", "variation": "ToySettingRowValue", "custom_minimum_size": [156, 0], "horizontal_alignment": "center", "size_flags_vertical": "shrink_center", "text": "3", "note": "str(value) (auto_translate_mode DISABLED)." },
+                            { "name": "More", "type": "Button", "variation": "ToyStepper", "icon": "plus", "states": ["console-host"] }
+                          ]
+                        }
                       ]
                     }
                   ]
@@ -60,42 +132,33 @@
               ]
             },
             {
-              "name": "List", "type": "VBoxContainer", "variation": "ToyColumnTwelve",
+              "name": "Code", "type": "HBoxContainer", "variation": "ToyRowTwelve", "note": "The room code at the screen's foot (the target's .vft), for everyone near the console to read out: the host who hosted with a code and every player who joined with it. Hidden in a Direct session (LAN or VPN: no code exists). There is no Copy here (the crosshair is no clipboard); copying the code is the Esc menu's (s5).",
               "children": [
-                { "name": "Head", "type": "Label", "variation": "ToyPlateText", "key": "lobby.player_count", "args": { "count": "4", "total": "10" }, "per_state": { "short": { "args": { "count": "3", "total": "10" } }, "code-waiting": { "args": { "count": "1", "total": "10" } } }, "note": "Players in the lobby / the lobby's limit." },
-                {
-                  "name": "Rows", "type": "VBoxContainer", "variation": "ToyColumnTwelve", "note": "One row per player in join order, the host first. Name expands; Ready shows the check while that player is ready and hides otherwise (an empty mark, not a dash).",
-                  "children": [
-                    {
-                      "name": "HostRow", "type": "HBoxContainer", "variation": "ToyRowSixteen",
-                      "children": [
-                        { "name": "Name", "type": "Label", "variation": "ToyPlateText", "key": "lobby.host_mark", "args": { "name": { "uk": "Олена", "en": "Olena" } }, "size_flags_horizontal": "expand_fill", "clip_text": true, "text_overrun_behavior": "trim_ellipsis", "per_state": { "code-waiting": { "key": "player.you", "args": {} } }, "note": "The host's row: lobby.host_mark with the name (auto_translate_mode DISABLED on the name), seen by the other players; on the host's own client it reads player.you, as every own row does." },
-                        { "name": "Ready", "type": "TextureRect", "icon": "check", "custom_minimum_size": [36, 36], "size_flags_vertical": "shrink_center", "states": ["wait", "count", "short", "direct"] }
-                      ]
-                    },
-                    {
-                      "name": "Row2", "type": "HBoxContainer", "variation": "ToyRowSixteen", "states": ["wait", "count", "short", "direct"],
-                      "children": [
-                        { "name": "Name", "type": "Label", "variation": "ToyPlateText", "text": { "uk": "Тарас", "en": "Taras" }, "size_flags_horizontal": "expand_fill", "clip_text": true, "text_overrun_behavior": "trim_ellipsis", "note": "Another player's row: the name only (auto_translate_mode DISABLED)." },
-                        { "name": "Ready", "type": "TextureRect", "icon": "check", "custom_minimum_size": [36, 36], "size_flags_vertical": "shrink_center" }
-                      ]
-                    },
-                    {
-                      "name": "OwnRow", "type": "HBoxContainer", "variation": "ToyRowSixteen", "states": ["wait", "count", "short", "direct"],
-                      "children": [
-                        { "name": "Name", "type": "Label", "variation": "ToyPlateText", "key": "player.you", "size_flags_horizontal": "expand_fill", "clip_text": true, "text_overrun_behavior": "trim_ellipsis", "note": "The own row reads player.you." },
-                        { "name": "Ready", "type": "TextureRect", "icon": "check", "custom_minimum_size": [36, 36], "size_flags_vertical": "shrink_center", "states": ["count"] }
-                      ]
-                    },
-                    {
-                      "name": "Row4", "type": "HBoxContainer", "variation": "ToyRowSixteen", "states": ["wait", "count", "direct"],
-                      "children": [
-                        { "name": "Name", "type": "Label", "variation": "ToyPlateText", "text": { "uk": "Марко", "en": "Marko" }, "size_flags_horizontal": "expand_fill", "clip_text": true, "text_overrun_behavior": "trim_ellipsis" },
-                        { "name": "Ready", "type": "TextureRect", "icon": "check", "custom_minimum_size": [36, 36], "size_flags_vertical": "shrink_center" }
-                      ]
-                    }
-                  ]
-                }
+                { "name": "Label", "type": "Label", "variation": "ToyTextMutedOnLight", "key": "common.code", "size_flags_vertical": "shrink_center" },
+                { "name": "Value", "type": "Label", "variation": "ToyTextOnLight", "text": "K7Q2XR", "size_flags_vertical": "shrink_center", "note": "The room code (auto_translate_mode DISABLED); \"…\" while the code service has not made the room yet (JoinProgress.CODE_WAITING). When the service is gone, the row shows esc.lobby.code_gone in ToyTextMutedOnLight instead." }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    { "name": "Cross", "type": "Panel", "variation": "ToyCrosshair", "anchors_preset": "center", "states": ["wait", "count", "short", "console-host", "console-guest"], "note": "The crosshair (P5), centred on the screen (its size is the variation's); over the console it is what the host points with. Not drawn at the boot (the target's frame 1 has no UI but the hint)." },
+    {
+      "name": "Status", "type": "PanelContainer", "variation": "ToyPlate", "states": ["wait", "count", "short", "console-host", "console-guest"], "anchors_preset": "center_top", "offset_top": 36, "offset_bottom": 36, "grow_horizontal": "both", "custom_minimum_size": [360, 66], "note": "The ready plate (the target's .wait): the count at the left, one pip per player at the right, the ready ones full and first. 360 x 66 (the target's 240 x 44 x 1.5).",
+      "children": [
+        {
+          "name": "Row", "type": "HBoxContainer", "variation": "ToyRowTwentyFour",
+          "children": [
+            { "name": "Text", "type": "Label", "variation": "ToyPlateText", "key": "lobby.waiting", "args": { "count": "4", "total": "6" }, "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center", "per_state": { "count": { "key": "lobby.countdown", "args": { "count": "5" } }, "short": { "key": "lobby.need_more", "count": 1, "args": {} } }, "note": "lobby.waiting {count} ready of {total} players; lobby.need_more (tr_n) while the lobby has fewer players than the mode needs (other unmet demands of #208 take their own keys later); during the countdown lobby.countdown, once a second from 5 to 1, in the same calm text (agent)." },
+            {
+              "name": "Pips", "type": "HBoxContainer", "variation": "ToyRowFour", "states": ["wait", "count", "console-host", "console-guest"], "size_flags_vertical": "shrink_center", "note": "One pip per player in the lobby (up to 10): ToyPipHealth for each ready player, ToyPip for the rest (the suit's pips). Hidden while the plate says how many more players are needed.",
+              "children": [
+                { "name": "P1", "type": "Panel", "variation": "ToyPipHealth", "size_flags_vertical": "shrink_center" },
+                { "name": "P2", "type": "Panel", "variation": "ToyPipHealth", "size_flags_vertical": "shrink_center" },
+                { "name": "P3", "type": "Panel", "variation": "ToyPipHealth", "size_flags_vertical": "shrink_center" },
+                { "name": "P4", "type": "Panel", "variation": "ToyPipHealth", "size_flags_vertical": "shrink_center" },
+                { "name": "P5", "type": "Panel", "variation": "ToyPip", "size_flags_vertical": "shrink_center", "per_state": { "count": { "variation": "ToyPipHealth" } } },
+                { "name": "P6", "type": "Panel", "variation": "ToyPip", "size_flags_vertical": "shrink_center", "per_state": { "count": { "variation": "ToyPipHealth" } } }
               ]
             }
           ]
@@ -103,16 +166,106 @@
       ]
     },
     {
-      "name": "Bottom", "type": "VBoxContainer", "variation": "ToyColumnSixteen", "anchors_preset": "bottom_left", "offset_left": 39, "offset_top": -39, "offset_right": 39, "offset_bottom": -39,
+      "name": "Players", "type": "PanelContainer", "variation": "ToyRoster", "states": ["wait", "count", "short", "console-host", "console-guest"], "anchors_preset": "top_right", "offset_left": -36, "offset_top": 36, "offset_right": -36, "offset_bottom": 36, "grow_horizontal": "begin", "custom_minimum_size": [330, 0], "note": "The roster as in the round (s7/Roster), with a ready pip per row. Rebuilt when a player joins, leaves, renames or toggles ready. 330 px wide (the target's 184 x 1.5 = 276, widened so «Олена · хост» fits at large text); a long name is cut with an ellipsis.",
       "children": [
         {
-          "name": "ReadyChip", "type": "PanelContainer", "variation": "ToyChipPlate", "size_flags_horizontal": "shrink_begin", "per_state": { "count": { "variation": "ToyChipLight" } }, "note": "The own ready state: ToyChipPlate with lobby.ready_no while not ready, ToyChipLight with lobby.ready_yes while ready.",
+          "name": "Rows", "type": "VBoxContainer", "variation": "ToyColumnEight",
           "children": [
-            { "name": "Text", "type": "Label", "variation": "ToyChipPlateText", "key": "lobby.ready_no", "per_state": { "count": { "variation": "ToyChipLightText", "key": "lobby.ready_yes" } } }
+            { "name": "Head", "type": "Label", "variation": "ToyKicker", "key": "lobby.player_count", "args": { "count": "6", "total": "10" }, "per_state": { "short": { "args": { "count": "3", "total": "10" } } }, "note": "Players in the lobby / the lobby's limit, the tile's head (the target's .tab «ГРАВЦІ 6 / 10»; the game sets uppercase = true)." },
+            {
+              "name": "Host", "type": "HBoxContainer", "variation": "ToyRowTwelve",
+              "children": [
+                { "name": "Dot", "type": "Panel", "variation": "ToyRosterDot", "self_modulate": "#7C5CC8", "size_flags_vertical": "shrink_center" },
+                { "name": "Name", "type": "Label", "variation": "ToyRosterName", "key": "lobby.host_mark", "args": { "name": { "uk": "Олена", "en": "Olena" } }, "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center", "clip_text": true, "text_overrun_behavior": "trim_ellipsis", "per_state": { "console-host": { "key": "hud.roster.self", "variation": "ToyRosterNameSelf" } }, "note": "One row per player in join order, the host first: the body colour, the name, the ready pip. The host's row reads lobby.host_mark with the name for the others (the target's separate «хост» tag has no copy key); the own row reads hud.roster.self in the accent, as in the round, so the host's own view (console-host) reads «Олена (ти)». Names are user text (auto_translate_mode DISABLED)." },
+                { "name": "Ready", "type": "Panel", "variation": "ToyPipHealth", "size_flags_vertical": "shrink_center", "note": "ToyPipHealth while that player is ready, ToyPip while not." }
+              ]
+            },
+            {
+              "name": "Glorp", "type": "HBoxContainer", "variation": "ToyRowTwelve",
+              "children": [
+                { "name": "Dot", "type": "Panel", "variation": "ToyRosterDot", "self_modulate": "#1C7A82", "size_flags_vertical": "shrink_center" },
+                { "name": "Name", "type": "Label", "variation": "ToyRosterName", "text": { "uk": "Глорп", "en": "Glorp" }, "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center", "clip_text": true, "text_overrun_behavior": "trim_ellipsis" },
+                { "name": "Ready", "type": "Panel", "variation": "ToyPipHealth", "size_flags_vertical": "shrink_center", "per_state": { "short": { "variation": "ToyPip" } } }
+              ]
+            },
+            {
+              "name": "Yizhak", "type": "HBoxContainer", "variation": "ToyRowTwelve", "states": ["wait", "count", "console-host", "console-guest"],
+              "children": [
+                { "name": "Dot", "type": "Panel", "variation": "ToyRosterDot", "self_modulate": "#E66B57", "size_flags_vertical": "shrink_center" },
+                { "name": "Name", "type": "Label", "variation": "ToyRosterName", "text": { "uk": "Їжак", "en": "Yizhak" }, "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center", "clip_text": true, "text_overrun_behavior": "trim_ellipsis" },
+                { "name": "Ready", "type": "Panel", "variation": "ToyPip", "size_flags_vertical": "shrink_center", "per_state": { "count": { "variation": "ToyPipHealth" } } }
+              ]
+            },
+            {
+              "name": "Bulk", "type": "HBoxContainer", "variation": "ToyRowTwelve", "states": ["wait", "count", "console-host", "console-guest"],
+              "children": [
+                { "name": "Dot", "type": "Panel", "variation": "ToyRosterDot", "self_modulate": "#E8B04A", "size_flags_vertical": "shrink_center" },
+                { "name": "Name", "type": "Label", "variation": "ToyRosterName", "text": { "uk": "Бульк", "en": "Bulk" }, "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center", "clip_text": true, "text_overrun_behavior": "trim_ellipsis" },
+                { "name": "Ready", "type": "Panel", "variation": "ToyPipHealth", "size_flags_vertical": "shrink_center" }
+              ]
+            },
+            {
+              "name": "Self", "type": "HBoxContainer", "variation": "ToyRowTwelve", "states": ["wait", "count", "short", "console-guest"],
+              "children": [
+                { "name": "Dot", "type": "Panel", "variation": "ToyRosterDot", "self_modulate": "#4AA3DF", "size_flags_vertical": "shrink_center" },
+                { "name": "Name", "type": "Label", "variation": "ToyRosterNameSelf", "key": "hud.roster.self", "args": { "name": { "uk": "Зінга", "en": "Zinga" } }, "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center", "clip_text": true, "text_overrun_behavior": "trim_ellipsis" },
+                { "name": "Ready", "type": "Panel", "variation": "ToyPipHealth", "size_flags_vertical": "shrink_center", "per_state": { "short": { "variation": "ToyPip" } } }
+              ]
+            },
+            {
+              "name": "Zinga", "type": "HBoxContainer", "variation": "ToyRowTwelve", "states": ["console-host"],
+              "children": [
+                { "name": "Dot", "type": "Panel", "variation": "ToyRosterDot", "self_modulate": "#4AA3DF", "size_flags_vertical": "shrink_center" },
+                { "name": "Name", "type": "Label", "variation": "ToyRosterName", "text": { "uk": "Зінга", "en": "Zinga" }, "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center", "clip_text": true, "text_overrun_behavior": "trim_ellipsis" },
+                { "name": "Ready", "type": "Panel", "variation": "ToyPipHealth", "size_flags_vertical": "shrink_center" }
+              ]
+            },
+            {
+              "name": "Taras", "type": "HBoxContainer", "variation": "ToyRowTwelve", "states": ["wait", "count", "console-host", "console-guest"],
+              "children": [
+                { "name": "Dot", "type": "Panel", "variation": "ToyRosterDot", "self_modulate": "#D46FB0", "size_flags_vertical": "shrink_center" },
+                { "name": "Name", "type": "Label", "variation": "ToyRosterName", "text": { "uk": "Тарас", "en": "Taras" }, "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center", "clip_text": true, "text_overrun_behavior": "trim_ellipsis" },
+                { "name": "Ready", "type": "Panel", "variation": "ToyPip", "size_flags_vertical": "shrink_center", "per_state": { "count": { "variation": "ToyPipHealth" } } }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Bottom", "type": "HBoxContainer", "variation": "ToyRowSixteen", "anchors_preset": "bottom_left", "offset_left": 36, "offset_top": -36, "offset_right": 36, "offset_bottom": -36,
+      "children": [
+        {
+          "name": "Hint", "type": "PanelContainer", "variation": "ToyPlate", "states": ["boot"], "size_flags_vertical": "shrink_end", "note": "The only UI at the boot (the target's frame 1): the key that opens the suit menu. Hidden once a session starts. Its word is tutorial.list.menu, the controls list's «Меню» (the target's draft is «меню»).",
+          "children": [
+            {
+              "name": "Row", "type": "HBoxContainer", "variation": "ToyRowTwelve",
+              "children": [
+                {
+                  "name": "Key", "type": "PanelContainer", "variation": "ToyKeyOnDark", "size_flags_vertical": "shrink_center",
+                  "children": [
+                    { "name": "Text", "type": "Label", "variation": "ToyKeyText", "text": "Esc", "horizontal_alignment": "center", "note": "The bound key's label (ui_cancel, auto_translate_mode DISABLED)." }
+                  ]
+                },
+                { "name": "Text", "type": "Label", "variation": "ToyPlateTextMuted", "key": "tutorial.list.menu", "size_flags_vertical": "shrink_center" }
+              ]
+            }
           ]
         },
         {
-          "name": "Mic", "type": "PanelContainer", "variation": "ToyMic", "size_flags_horizontal": "shrink_begin", "note": "The mic (P4): mic.svg in icon_on while anybody can hear the player, mic-off.svg in icon_off when nobody does (mic off, push-to-talk released).",
+          "name": "Ready", "type": "PanelContainer", "variation": "ToyPlate", "states": ["wait", "count", "short", "console-host", "console-guest"], "size_flags_vertical": "shrink_end", "note": "The own ready state (the target's .rdy): a calm tile with the ready pip and the words, ToyPipHealth with lobby.ready_yes while ready, ToyPip with lobby.ready_no while not.",
+          "children": [
+            {
+              "name": "Row", "type": "HBoxContainer", "variation": "ToyRowTwelve",
+              "children": [
+                { "name": "Pip", "type": "Panel", "variation": "ToyPipHealth", "size_flags_vertical": "shrink_center", "per_state": { "short": { "variation": "ToyPip" } } },
+                { "name": "Text", "type": "Label", "variation": "ToyPlateText", "key": "lobby.ready_yes", "size_flags_vertical": "shrink_center", "per_state": { "short": { "key": "lobby.ready_no" } } }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Mic", "type": "PanelContainer", "variation": "ToyMic", "states": ["wait", "count", "short", "console-host", "console-guest"], "size_flags_vertical": "shrink_end", "note": "The mic (P4): mic.svg in icon_on while anybody can hear the player, mic-off.svg in icon_off when nobody does. The target's lobby frame has no mic; it stays beside the ready tile (agent).",
           "children": [
             { "name": "Icon", "type": "TextureRect", "icon": "mic", "theme_color": "icon-on", "custom_minimum_size": [42, 42], "size_flags_horizontal": "shrink_center", "size_flags_vertical": "shrink_center" }
           ]
