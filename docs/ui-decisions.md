@@ -390,8 +390,11 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
     files to add (`tokens/README.md`, "The pack's fonts").
 - **The how-to cards in the game's own look** (the engineer, 2026-10-22, chat, translated): the clean-sketch cards are
   outdated now that the game has its own look, so their art is generated with the art track's OpenAI image tool
-  (prime-game-art `docs/openai-images.md`, its standing permission) in that look, with the chameleon head h01-3 of the
-  alien roster as the character (rf2 rejected: "he's awful, take another"). **A card has as many frames as its task
+  (prime-game-art `docs/openai-images.md`, its standing permission). **Amended the same day:** the pilot in 3D with the
+  roster's chameleon h01-3 (rf2 was rejected first) reads as "AI slop"; the cards are **flat 2D cartoon**, not 3D
+  renders, and their figure need not be a game character (any cartoon alien); a player must not take them for AI
+  images at first glance. Next: research, then about ten card looks side by side before any one card is finished
+  (`docs/research/2026-10-22-howto-card-styles/`). **A card has as many frames as its task
   needs**, not four: when they do not fit, the card scrolls ("we're not limited to 4 cards; it can scroll if needed;
   the engine, for one, is hard to fit in 4"). The pilot is Cooking, seven frames (batch
   `2026-10-22-howto-cooking-pilot` in prime-game-art). This replaces the colourings of the card-ink page
