@@ -98,10 +98,11 @@
       "name": "Board", "type": "PanelContainer", "variation": "ToyMapBoard", "offset_left": 732, "offset_top": 60, "offset_right": 1860, "offset_bottom": 1020, "note": "732 to 1860 across, 60 to 1020 down: 48 px right of the task list, 60 px in. While the how-to card is open, focus_behavior_recursive = FOCUS_BEHAVIOR_DISABLED here (see Dim2).",
       "children": [
         {
-          "name": "Rooms", "type": "Control", "note": "Children are built from the level's map data (room rects, the pin), scaled to fit this rect. The rects here are sample data in Rooms px (1116 x 948) until the House's map exists. Open: whether the map shows the capsules or the mutation workbench; the map never marks a mischief while the hint rule is open.",
+          "name": "Rooms", "type": "Control", "note": "Children but Head are built from the level's map data (room rects, the pin), scaled to fit this rect under the head (the sample rooms start 72 px down, 48 px in). The rects here are sample data in Rooms px (1116 x 948) until the House's map exists. Open: whether the map shows the capsules or the mutation workbench; the map never marks a mischief while the hint rule is open.",
           "children": [
+            { "name": "Head", "type": "Label", "variation": "ToyKicker", "key": "map.title", "offset_left": 48, "offset_top": 24, "note": "The board's head in small capitals (the game sets uppercase = true; the target's tile heads), map.title (the engineer's word, 2026-10-22). Fixed, not from the map data: 30 px from the board's top edge, on the line of the task list's head, and in line with the rooms' left edge." },
             {
-              "name": "Lab", "type": "PanelContainer", "variation": "ToyMapRoom", "offset_left": 48, "offset_top": 48, "offset_right": 340, "offset_bottom": 400, "note": "One room: its rect from the map data, its name as the head at the top left and its system B pictogram centred. Sample rooms of the House; the pictograms that fit them stand in (the garage takes the workshop's, the pantry the storage's, the study the office's, the living room the lounge's) until the House's rooms have their own; a room without one shows only its name.",
+              "name": "Lab", "type": "PanelContainer", "variation": "ToyMapRoom", "offset_left": 48, "offset_top": 72, "offset_right": 340, "offset_bottom": 424, "note": "One room: its rect from the map data, its name as the head at the top left and its system B pictogram centred. Sample rooms of the House; the pictograms that fit them stand in (the garage takes the workshop's, the pantry the storage's, the study the office's, the living room the lounge's) until the House's rooms have their own; a room without one shows only its name.",
               "children": [
                 {
                   "name": "V", "type": "VBoxContainer", "variation": "ToyColumnEight", "note": "The room as a quiet tile: its name in small capitals as the head at the top left (ToyKicker; the game sets uppercase = true), its system B pictogram (72 px, the old 48 x 1.5, in the dim colour of its head: the pack's tint_color, ui-2.2.0) centred in the rest of the room.",
@@ -118,7 +119,7 @@
               ]
             },
             {
-              "name": "Kitchen", "type": "PanelContainer", "variation": "ToyMapRoom", "offset_left": 388, "offset_top": 48, "offset_right": 760, "offset_bottom": 400,
+              "name": "Kitchen", "type": "PanelContainer", "variation": "ToyMapRoom", "offset_left": 388, "offset_top": 72, "offset_right": 760, "offset_bottom": 424,
               "children": [
                 {
                   "name": "V", "type": "VBoxContainer", "variation": "ToyColumnEight",
@@ -136,7 +137,7 @@
               ]
             },
             {
-              "name": "Garage", "type": "PanelContainer", "variation": "ToyMapRoom", "offset_left": 808, "offset_top": 48, "offset_right": 1068, "offset_bottom": 480,
+              "name": "Garage", "type": "PanelContainer", "variation": "ToyMapRoom", "offset_left": 808, "offset_top": 72, "offset_right": 1068, "offset_bottom": 504,
               "children": [
                 {
                   "name": "V", "type": "VBoxContainer", "variation": "ToyColumnEight",
@@ -153,7 +154,7 @@
               ]
             },
             {
-              "name": "Study", "type": "PanelContainer", "variation": "ToyMapRoom", "offset_left": 48, "offset_top": 528, "offset_right": 340, "offset_bottom": 900,
+              "name": "Study", "type": "PanelContainer", "variation": "ToyMapRoom", "offset_left": 48, "offset_top": 552, "offset_right": 340, "offset_bottom": 924,
               "children": [
                 {
                   "name": "V", "type": "VBoxContainer", "variation": "ToyColumnEight",
@@ -170,7 +171,7 @@
               ]
             },
             {
-              "name": "LivingRoom", "type": "PanelContainer", "variation": "ToyMapRoom", "offset_left": 388, "offset_top": 528, "offset_right": 760, "offset_bottom": 900,
+              "name": "LivingRoom", "type": "PanelContainer", "variation": "ToyMapRoom", "offset_left": 388, "offset_top": 552, "offset_right": 760, "offset_bottom": 924,
               "children": [
                 {
                   "name": "V", "type": "VBoxContainer", "variation": "ToyColumnEight",
@@ -187,7 +188,7 @@
               ]
             },
             {
-              "name": "Pantry", "type": "PanelContainer", "variation": "ToyMapRoom", "offset_left": 808, "offset_top": 560, "offset_right": 1068, "offset_bottom": 900,
+              "name": "Pantry", "type": "PanelContainer", "variation": "ToyMapRoom", "offset_left": 808, "offset_top": 584, "offset_right": 1068, "offset_bottom": 924,
               "children": [
                 {
                   "name": "V", "type": "VBoxContainer", "variation": "ToyColumnEight",
@@ -204,14 +205,14 @@
               ]
             },
             {
-              "name": "ZoneTag", "type": "PanelContainer", "variation": "ToyChipLight", "states": ["zone", "keyboard"], "offset_left": 388, "offset_top": 418, "offset_right": 388, "offset_bottom": 418, "note": "mouse_filter IGNORE. Under the first zone's room, its left edge on the room's, 18 px below it (the old 12 x 1.5).",
+              "name": "ZoneTag", "type": "PanelContainer", "variation": "ToyChipLight", "states": ["zone", "keyboard"], "offset_left": 388, "offset_top": 442, "offset_right": 388, "offset_bottom": 442, "note": "mouse_filter IGNORE. Under the first zone's room, its left edge on the room's, 18 px below it (the old 12 x 1.5).",
               "children": [
                 { "name": "Text", "type": "Label", "variation": "ToyChipLightText", "key": "map.zone_hint.task" }
               ]
             },
-            { "name": "Pin", "type": "Panel", "variation": "ToyMapPin", "offset_left": 412, "offset_top": 568, "offset_right": 454, "offset_bottom": 610, "note": "You are here: the local player's position from the map data, 42 px (its size constants; the old 28 x 1.5). pivot_offset_ratio (0.5, 0.5); rotation = PI / 4 + the player's heading on the map (0 = up, clockwise), so the sharp top-left corner points where the player looks. Updated every frame while the map is open." },
+            { "name": "Pin", "type": "Panel", "variation": "ToyMapPin", "offset_left": 412, "offset_top": 592, "offset_right": 454, "offset_bottom": 634, "note": "You are here: the local player's position from the map data, 42 px (its size constants; the old 28 x 1.5). pivot_offset_ratio (0.5, 0.5); rotation = PI / 4 + the player's heading on the map (0 = up, clockwise), so the sharp top-left corner points where the player looks. Updated every frame while the map is open." },
             {
-              "name": "Here", "type": "PanelContainer", "variation": "ToyChipPlate", "offset_left": 475, "offset_top": 558, "offset_right": 475, "offset_bottom": 558, "note": "Follows the pin: its left edge 21 px right of the pin's rect (the 9 px a turned pin's corner reaches past its rect, then 12 px), its centre on the pin's centre line; it does not rotate.",
+              "name": "Here", "type": "PanelContainer", "variation": "ToyChipPlate", "offset_left": 475, "offset_top": 582, "offset_right": 475, "offset_bottom": 582, "note": "Follows the pin: its left edge 21 px right of the pin's rect (the 9 px a turned pin's corner reaches past its rect, then 12 px), its centre on the pin's centre line; it does not rotate.",
               "children": [
                 { "name": "Text", "type": "Label", "variation": "ToyHudCaption", "key": "map.you_are_here" }
               ]

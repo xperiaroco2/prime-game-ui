@@ -5,7 +5,7 @@
 The styled map and tasks screen from the UI track (xperiaroco2/prime-game-ui), as a Godot 4.7.2 node tree for the 1920×1080 reference.
 
 - **Source:** `pages/screens/src/s08-map.json`; the review page is `pages/screens/screens.html#s8`; the wireframe is section `s8` («Мапа й задачі (M)»).
-- **Theme:** the Toy pack ui-2.2.0 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
+- **Theme:** the Toy pack ui-2.2.1 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
 - **World behind the UI** (not UI): a lit room of the house (the level).
 - **How to read it:** the roots are children of the screen's full-rect root `Control`; every property not listed keeps Godot's default; sizes and offsets are reference px. In a state's **Shown** list, the first node of each subtree gives its path from the screen root.
 - **Texts** are keys of `copy/strings.csv`, and the language switches live (the Esc menu's Settings). A plain key is set as `text` and translates itself. A key with placeholders, a plural key (`tr_n`) and a key drawn in pieces are set from code with `auto_translate_mode = DISABLED`: `tr()`, then `String.format()` with the data (the samples below), rebuilt on `NOTIFICATION_TRANSLATION_CHANGED`. A "text from data" (names, the room code, times, numbers) is set in code and never translated (`auto_translate_mode = DISABLED`).
@@ -70,8 +70,10 @@ M opens and closes this screen over the running round (press, not hold; rebindab
 - **Board** `PanelContainer` · variation `ToyMapBoard` · anchors `top_left`, offsets 732, 60, 1860, 1020 (left, top, right, bottom), grow end/end
   - Note: 732 to 1860 across, 60 to 1020 down: 48 px right of the task list, 60 px in. While the how-to card is open, focus_behavior_recursive = FOCUS_BEHAVIOR_DISABLED here (see Dim2).
   - **Rooms** `Control`
-    - Note: Children are built from the level's map data (room rects, the pin), scaled to fit this rect. The rects here are sample data in Rooms px (1116 x 948) until the House's map exists. Open: whether the map shows the capsules or the mutation workbench; the map never marks a mischief while the hint rule is open.
-    - **Lab** `PanelContainer` · variation `ToyMapRoom` · anchors `top_left`, offsets 48, 48, 340, 400 (left, top, right, bottom), grow end/end
+    - Note: Children but Head are built from the level's map data (room rects, the pin), scaled to fit this rect under the head (the sample rooms start 72 px down, 48 px in). The rects here are sample data in Rooms px (1116 x 948) until the House's map exists. Open: whether the map shows the capsules or the mutation workbench; the map never marks a mischief while the hint rule is open.
+    - **Head** `Label` · variation `ToyKicker` · anchors `top_left`, offsets 48, 24, 0, 0 (left, top, right, bottom), grow end/end · text `map.title`: en "Map" · uk "Мапа"
+      - Note: The board's head in small capitals (the game sets uppercase = true; the target's tile heads), map.title (the engineer's word, 2026-10-22). Fixed, not from the map data: 30 px from the board's top edge, on the line of the task list's head, and in line with the rooms' left edge.
+    - **Lab** `PanelContainer` · variation `ToyMapRoom` · anchors `top_left`, offsets 48, 72, 340, 424 (left, top, right, bottom), grow end/end
       - Note: One room: its rect from the map data, its name as the head at the top left and its system B pictogram centred. Sample rooms of the House; the pictograms that fit them stand in (the garage takes the workshop's, the pantry the storage's, the study the office's, the living room the lounge's) until the House's rooms have their own; a room without one shows only its name.
       - **V** `VBoxContainer` · variation `ToyColumnEight` · gaps from the variation: separation 8
         - Note: The room as a quiet tile: its name in small capitals as the head at the top left (ToyKicker; the game sets uppercase = true), its system B pictogram (72 px, the old 48 x 1.5, in the dim colour of its head: the pack's tint_color, ui-2.2.0) centred in the rest of the room.
@@ -79,34 +81,34 @@ M opens and closes this screen over the running round (press, not hold; rebindab
         - **Area** `Control` · size flags vertical `SIZE_EXPAND_FILL`
           - Note: The room under its head: the pictogram centred in it, and the lit zone filling it (Kitchen/V/Area/Zone).
           - **Icon** `TextureRect` · anchors `center`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both · custom_minimum_size (72, 72) · texture `room/lab` (dist/pack/icons/room/lab.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate #a39dbd (the colour the pages draw it in; the pack's copy is white)
-    - **Kitchen** `PanelContainer` · variation `ToyMapRoom` · anchors `top_left`, offsets 388, 48, 760, 400 (left, top, right, bottom), grow end/end
+    - **Kitchen** `PanelContainer` · variation `ToyMapRoom` · anchors `top_left`, offsets 388, 72, 760, 424 (left, top, right, bottom), grow end/end
       - **V** `VBoxContainer` · variation `ToyColumnEight` · gaps from the variation: separation 8
         - **Name** `Label` · variation `ToyKicker` · text `room.kitchen`: en "Kitchen" · uk "Кухня"
         - **Area** `Control` · size flags vertical `SIZE_EXPAND_FILL`
           - **Icon** `TextureRect` · anchors `center`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both · custom_minimum_size (72, 72) · texture `room/kitchen` (dist/pack/icons/room/kitchen.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate #a39dbd (the colour the pages draw it in; the pack's copy is white)
-    - **Garage** `PanelContainer` · variation `ToyMapRoom` · anchors `top_left`, offsets 808, 48, 1068, 480 (left, top, right, bottom), grow end/end
+    - **Garage** `PanelContainer` · variation `ToyMapRoom` · anchors `top_left`, offsets 808, 72, 1068, 504 (left, top, right, bottom), grow end/end
       - **V** `VBoxContainer` · variation `ToyColumnEight` · gaps from the variation: separation 8
         - **Name** `Label` · variation `ToyKicker` · text `room.garage`: en "Garage" · uk "Гараж"
         - **Area** `Control` · size flags vertical `SIZE_EXPAND_FILL`
           - **Icon** `TextureRect` · anchors `center`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both · custom_minimum_size (72, 72) · texture `room/workshop` (dist/pack/icons/room/workshop.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate #a39dbd (the colour the pages draw it in; the pack's copy is white)
-    - **Study** `PanelContainer` · variation `ToyMapRoom` · anchors `top_left`, offsets 48, 528, 340, 900 (left, top, right, bottom), grow end/end
+    - **Study** `PanelContainer` · variation `ToyMapRoom` · anchors `top_left`, offsets 48, 552, 340, 924 (left, top, right, bottom), grow end/end
       - **V** `VBoxContainer` · variation `ToyColumnEight` · gaps from the variation: separation 8
         - **Name** `Label` · variation `ToyKicker` · text `room.study`: en "Study" · uk "Кабінет"
         - **Area** `Control` · size flags vertical `SIZE_EXPAND_FILL`
           - **Icon** `TextureRect` · anchors `center`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both · custom_minimum_size (72, 72) · texture `room/office` (dist/pack/icons/room/office.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate #a39dbd (the colour the pages draw it in; the pack's copy is white)
-    - **LivingRoom** `PanelContainer` · variation `ToyMapRoom` · anchors `top_left`, offsets 388, 528, 760, 900 (left, top, right, bottom), grow end/end
+    - **LivingRoom** `PanelContainer` · variation `ToyMapRoom` · anchors `top_left`, offsets 388, 552, 760, 924 (left, top, right, bottom), grow end/end
       - **V** `VBoxContainer` · variation `ToyColumnEight` · gaps from the variation: separation 8
         - **Name** `Label` · variation `ToyKicker` · text `room.living_room`: en "Living room" · uk "Вітальня"
         - **Area** `Control` · size flags vertical `SIZE_EXPAND_FILL`
           - **Icon** `TextureRect` · anchors `center`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both · custom_minimum_size (72, 72) · texture `room/lounge` (dist/pack/icons/room/lounge.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate #a39dbd (the colour the pages draw it in; the pack's copy is white)
-    - **Pantry** `PanelContainer` · variation `ToyMapRoom` · anchors `top_left`, offsets 808, 560, 1068, 900 (left, top, right, bottom), grow end/end
+    - **Pantry** `PanelContainer` · variation `ToyMapRoom` · anchors `top_left`, offsets 808, 584, 1068, 924 (left, top, right, bottom), grow end/end
       - **V** `VBoxContainer` · variation `ToyColumnEight` · gaps from the variation: separation 8
         - **Name** `Label` · variation `ToyKicker` · text `room.pantry`: en "Pantry" · uk "Комора"
         - **Area** `Control` · size flags vertical `SIZE_EXPAND_FILL`
           - **Icon** `TextureRect` · anchors `center`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both · custom_minimum_size (72, 72) · texture `room/storage` (dist/pack/icons/room/storage.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate #a39dbd (the colour the pages draw it in; the pack's copy is white)
-    - **Pin** `Panel` · variation `ToyMapPin` · anchors `top_left`, offsets 412, 568, 454, 610 (left, top, right, bottom), grow end/end · custom_minimum_size (42, 42) = Vector2(get_theme_constant("width", "ToyMapPin"), get_theme_constant("height", "ToyMapPin"))
+    - **Pin** `Panel` · variation `ToyMapPin` · anchors `top_left`, offsets 412, 592, 454, 634 (left, top, right, bottom), grow end/end · custom_minimum_size (42, 42) = Vector2(get_theme_constant("width", "ToyMapPin"), get_theme_constant("height", "ToyMapPin"))
       - Note: You are here: the local player's position from the map data, 42 px (its size constants; the old 28 x 1.5). pivot_offset_ratio (0.5, 0.5); rotation = PI / 4 + the player's heading on the map (0 = up, clockwise), so the sharp top-left corner points where the player looks. Updated every frame while the map is open.
-    - **Here** `PanelContainer` · variation `ToyChipPlate` · anchors `top_left`, offsets 475, 558, 475, 558 (left, top, right, bottom), grow end/end
+    - **Here** `PanelContainer` · variation `ToyChipPlate` · anchors `top_left`, offsets 475, 582, 475, 582 (left, top, right, bottom), grow end/end
       - Note: Follows the pin: its left edge 21 px right of the pin's rect (the 9 px a turned pin's corner reaches past its rect, then 12 px), its centre on the pin's centre line; it does not rotate.
       - **Text** `Label` · variation `ToyHudCaption` · text `map.you_are_here`: en "You are here" · uk "Ти тут"
 
@@ -115,7 +117,7 @@ M opens and closes this screen over the running round (press, not hold; rebindab
 - **Shown:**
   - **Board/Rooms/Kitchen/V/Area/Zone** `Panel` · variation `ToyMapZone` · anchors `full_rect`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both
     - Note: mouse_filter IGNORE. A lit zone of the hovered or focused task (level or content data): a zone that is a whole room is the first child of the room's Area, so it fills the room under its head; a zone that is part of a room is placed the same way inside it by its rect. Cooking lights the kitchen here (sample data). Zones never light a hidden thing (nothing hidden is found by highlighting, GDD §8).
-  - **Board/Rooms/ZoneTag** `PanelContainer` · variation `ToyChipLight` · anchors `top_left`, offsets 388, 418, 388, 418 (left, top, right, bottom), grow end/end
+  - **Board/Rooms/ZoneTag** `PanelContainer` · variation `ToyChipLight` · anchors `top_left`, offsets 388, 442, 388, 442 (left, top, right, bottom), grow end/end
     - Note: mouse_filter IGNORE. Under the first zone's room, its left edge on the room's, 18 px below it (the old 12 x 1.5).
     - **Text** `Label` · variation `ToyChipLightText` · text `map.zone_hint.task`: en "This task is here" · uk "Тут ця задача"
 
@@ -125,7 +127,7 @@ M opens and closes this screen over the running round (press, not hold; rebindab
 - **Shown:**
   - **Board/Rooms/Kitchen/V/Area/Zone** `Panel` · variation `ToyMapZone` · anchors `full_rect`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both
     - Note: mouse_filter IGNORE. A lit zone of the hovered or focused task (level or content data): a zone that is a whole room is the first child of the room's Area, so it fills the room under its head; a zone that is part of a room is placed the same way inside it by its rect. Cooking lights the kitchen here (sample data). Zones never light a hidden thing (nothing hidden is found by highlighting, GDD §8).
-  - **Board/Rooms/ZoneTag** `PanelContainer` · variation `ToyChipLight` · anchors `top_left`, offsets 388, 418, 388, 418 (left, top, right, bottom), grow end/end
+  - **Board/Rooms/ZoneTag** `PanelContainer` · variation `ToyChipLight` · anchors `top_left`, offsets 388, 442, 388, 442 (left, top, right, bottom), grow end/end
     - Note: mouse_filter IGNORE. Under the first zone's room, its left edge on the room's, 18 px below it (the old 12 x 1.5).
     - **Text** `Label` · variation `ToyChipLightText` · text `map.zone_hint.task`: en "This task is here" · uk "Тут ця задача"
 
@@ -179,7 +181,7 @@ M opens and closes this screen over the running round (press, not hold; rebindab
 
 ## Keys
 
-- **Drawn** (18): `common.close`, `howto.label`, `map.progress`, `map.tasks`, `map.time`, `map.you_are_here`, `map.zone_hint.task`, `room.garage`, `room.kitchen`, `room.lab`, `room.living_room`, `room.pantry`, `room.study`, `task.car_tuning`, `task.cooking`, `task.engine`, `task.photo`, `task.wifi`.
+- **Drawn** (19): `common.close`, `howto.label`, `map.progress`, `map.tasks`, `map.time`, `map.title`, `map.you_are_here`, `map.zone_hint.task`, `room.garage`, `room.kitchen`, `room.lab`, `room.living_room`, `room.pantry`, `room.study`, `task.car_tuning`, `task.cooking`, `task.engine`, `task.photo`, `task.wifi`.
 
 ## Layers and input (every screen)
 

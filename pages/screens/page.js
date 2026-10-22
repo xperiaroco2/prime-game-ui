@@ -170,8 +170,18 @@
     void root.offsetHeight;
     root.setAttribute('data-ready', '1');
   }
+  // A web font's subset that only some shown texts need (Onest Bold's Cyrillic for «Ґлорп») may start loading after
+  // fonts.ready has settled, so the faces of every shown text are loaded explicitly before the page is ready.
+  function shownFaces() {
+    return Promise.all(all('[data-key], [data-text]').filter(function (el) {
+      return el.getClientRects().length && el.textContent.trim();
+    }).map(function (el) {
+      var cs = getComputedStyle(el);
+      return document.fonts.load(cs.fontStyle + ' ' + cs.fontWeight + ' 32px ' + cs.fontFamily, el.textContent).catch(function () {});
+    }));
+  }
   if (document.fonts && document.fonts.ready) {
-    document.fonts.ready.then(function () { ready('loaded'); }, function () { ready('failed'); });
+    document.fonts.ready.then(shownFaces).then(function () { ready('loaded'); }, function () { ready('failed'); });
     window.setTimeout(function () { ready('timeout'); }, 8000);
   } else {
     ready('unsupported');

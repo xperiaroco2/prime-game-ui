@@ -146,11 +146,22 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
     and dead's room (`room-dark`) in its colours, instead of the old lilac and beige stand-ins.
 
   Open:
-  - the lobbies nearby and «Твій код» in s5's Find a lobby (a placeholder tile) need the game's network discovery and
-    the engineer's words;
-  - missing copy keys, not drawn: «хост» on its own (the roster's host tag; the host's row uses `lobby.host_mark`),
-    «Матч» (the console's title), a map head (`map.title`);
+  - a missing copy key, not drawn: «хост» on its own (the roster's host tag; the host's row uses `lobby.host_mark`);
   - the workbench step screen is parked until the device's new art.
+
+  Since (the engineer, 2026-10-22, chat: the six drafts "as recommended", copy round 8): `find.nearby` «Лобі поруч»,
+  `find.none` «Поруч лобі немає», `find.your_code` «Твій код», `unit.ms` «{count} мс», `console.title` «Матч» and
+  `map.title` «Мапа», drawn in ui-2.2.1. Taken by the agent, for the engineer to veto (agent):
+  - s5's lobbies nearby replace the placeholder tile, as the target's list: the head, one `ToyPresetCard` row per
+    lobby (a toggle; the chosen one draws `ToyPresetCardSelected`, the target's accent edge) with the name
+    (`lobby.default_name`), the players as data («6 / 10») and the latency (`unit.ms`); a full lobby is a disabled row
+    with its name dim and `connect.fail.full`; the filled Join under the list at the right (the code entry's stays
+    outlined); a new state, nobody nearby, shows `find.none` in one quiet line and no Join. What "nearby" means and
+    whether every ship has a code are the game's ([prime-game#1316](https://github.com/xperiaroco2/prime-game/issues/1316));
+  - s5's footer starts with «Твій код», the code and an outlined Copy, before the ghost jobs, as the target's `.mf`;
+  - s4's console title is `console.title` «Матч» in place of the lobby's name (#214), which the nearby list shows;
+  - s8's board has the head «МАПА» (`ToyKicker`) 30 px from its top, on the line of the task list's «ЗАДАЧІ», in line
+    with the rooms' left edge; the sample rooms moved 24 px down under it.
 
   Since (agent, 2026-10-22): the role bands «Прибулець» / «Людина» (s6) and the cops' «Попались!» (s10) are in
   capitals, as the target writes them, while «Вечірка вдалася!» and «Час вийшов» keep their case (the target sets
