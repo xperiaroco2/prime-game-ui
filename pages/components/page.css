@@ -215,7 +215,7 @@ h2 { font-size: 21px; margin: 34px 0 10px; padding-top: 4px; }
 .sc-frames { display: flex; gap: calc(14 * var(--px)); }
 .sc-frame { width: calc(190 * var(--px)); flex-direction: column; justify-content: flex-start !important; }
 .sc-frame .sc-icon { width: calc(56 * var(--px)); height: calc(56 * var(--px)); }
-.sc-frames-scroll { max-width: calc(700 * var(--px)); overflow-x: auto; }
+.sc-frames-scroll { max-width: calc(700 * var(--px)); overflow-x: auto; scrollbar-width: none; }
 .sc-frames-scroll > .sc-frame { flex: none; }
 .sc-setrow { width: calc(600 * var(--px)); justify-content: space-between !important; gap: calc(16 * var(--px)); }
 /* A CheckBox's box texture at its size (28 px); the live one shows the box of its aria-pressed. */
