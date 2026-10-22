@@ -408,6 +408,10 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
   are the same in every frame, white eyeballs with dark pupils (the fry frame's), never dark alien ovals. One
   high-quality check first ("to make sure we understood each other"): batch `2026-10-22-howto-style-check`, the fry
   frame and the plate frame drawn from it ([page](https://claude.ai/artifact/3cgDfjGFYs3cZjmWFQ9cvw)).
+  On the check (the engineer, same day): right, but the done burger gets round 3's thumbs-up; the three dots under
+  the burger (the agent's plate mark for the order's place) are dropped, unclear in one frame (agent). The whole Cooking
+  card, seven frames, each drawn from the check frame's alien: batch `2026-10-22-howto-cooking-card`
+  ([page](https://claude.ai/artifact/3TRbWHbruTJm8nTZz2CrW8)).
   **A card has as many frames as its task
   needs**, not four: when they do not fit, the card scrolls ("we're not limited to 4 cards; it can scroll if needed;
   the engine, for one, is hard to fit in 4"). The pilot is Cooking, seven frames (batch
