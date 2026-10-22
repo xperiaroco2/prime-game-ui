@@ -447,6 +447,17 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
     in the round HUD's section; the deprecated variations in a section of their own, a table with nothing drawn, so no
     clear base layer or caption shows; the role reveal and the ends on their bands; the workbench's buttons
     `ToyButtonPrimary`; a wordless how-to card, and one of seven frames that scrolls.
+- **The five suit-screen words drawn on the screens spec** (the engineer's words, 2026-10-22, prime-ui#123, #124; ui-2.0.2).
+  Taken by the agent, for the engineer to veto (agent):
+  - s5: the Game tab and its page title read «Знайти лобі» (`esc.tab.find`) while there is no session (`ship`, `ship-code`,
+    `ship-direct`) and «Гра» in a session: one tab, the game swaps its key; the target's list of lobbies nearby stays
+    undrawn (no server browser);
+  - s7: «Гнів сусідів» (`hud.anger`) over the anger bar inside the time tile, in `ToyHudCaption`, in
+    `ToyTextAlertOnLight` past the alarm line; «Костюм» (`hud.suit`) heads the suit tile over the pips in
+    `ToyHudCaption`; the target's small capitals were not added as a new style;
+  - s11: idle shows the machine's name and «Почати» (`workbench.start`, `ToyButtonPrimary`, at least 288 wide for the
+    crosshair); step shows «Стань у машину» (`workbench.step_in`, `ToyTitleOnLight`) between the mutation's name and
+    its pips. This replaces the line above that the two are not drawn.
 
 ## Principles
 - **The UI never tells the player what to do.** No "take it to X" line, no destination marker, no key prompts on the HUD;

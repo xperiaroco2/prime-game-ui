@@ -5,7 +5,7 @@
 The styled esc menu screen from the UI track (xperiaroco2/prime-game-ui), as a Godot 4.7.2 node tree for the 1920×1080 reference.
 
 - **Source:** `pages/screens/src/s05-esc-menu.json`; the review page is `pages/screens/screens.html#s5`; the wireframe is section `s5` («Меню Esc»).
-- **Theme:** the Toy pack ui-2.0.1 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
+- **Theme:** the Toy pack ui-2.0.2 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
 - **World behind the UI** (not UI): a lit room of the level.
 - **How to read it:** the roots are children of the screen's full-rect root `Control`; every property not listed keeps Godot's default; sizes and offsets are reference px. In a state's **Shown** list, the first node of each subtree gives its path from the screen root.
 - **Texts** are keys of `copy/strings.csv`, and the language switches live (the Esc menu's Settings). A plain key is set as `text` and translates itself. A key with placeholders, a plural key (`tr_n`) and a key drawn in pieces are set from code with `auto_translate_mode = DISABLED`: `tr()`, then `String.format()` with the data (the samples below), rebuilt on `NOTIFICATION_TRANSLATION_CHANGED`. A "text from data" (names, the room code, times, numbers) is set in code and never translated (`auto_translate_mode = DISABLED`).
@@ -16,7 +16,7 @@ The menu over the running game (no pause): Esc (ui_cancel) opens and closes it; 
 
 | State | Page label | What it shows |
 |---|---|---|
-| `ship` | Корабель | In the ship with no session: the game boots straight here (the engineer, 2026-10-21) and every player returns here when a session ends or they leave it. The menu opens on Game, whose page holds the jobs of the removed start screen (s2): host, join with a code, join by address, the tutorial. No Lobby or Role tab without a session; Character applies live. Focus on Resume. |
+| `ship` | Корабель | In the ship with no session: the game boots straight here (the engineer, 2026-10-21) and every player returns here when a session ends or they leave it. The menu opens on Game, named Find a lobby (esc.tab.find) while there is no session, whose page holds the jobs of the removed start screen (s2): host, join with a code, join by address, the tutorial. No Lobby or Role tab without a session; Character applies live. Focus on Resume. |
 | `ship-code` | Корабель: код | Join pressed: the code field opens beside the list, focused; six valid characters typed, so Join is enabled (it stays disabled until then). |
 | `ship-direct` | Корабель: за адресою | Join by address pressed: the address field, focused, with the default port under it; Join, or host directly. |
 | `lobby-host` | Лобі: хост | In the lobby, the host's view (the Esc menu opens on Lobby there): presets, the MVP match settings the host edits live (the humans, the anger threshold, the match length, the Wi-Fi passwords; frame 7 of pages/mvp-screens), the room code with Copy, a full lobby of 10 players (the list scrolls) and Ready. Role is hidden in the lobby. |
@@ -45,17 +45,18 @@ The menu over the running game (no pause): Esc (ui_cancel) opens and closes it; 
   - **H** `HBoxContainer` · variation `ToyRowThirtyTwo` · gaps from the variation: separation 32
     - **Tabs** `VBoxContainer` · variation `ToyColumnTwelve` · custom_minimum_size (288, 0) · gaps from the variation: separation 12
       - Note: One ButtonGroup; the selected tab shows its page. 288 px holds the longest tab, «Налаштування», at large text, so the page never shifts between text sizes. Default tab: Game in the ship with no session, Lobby in the lobby, Game in a round and in the tutorial; the last tab is kept for the session. Role is hidden in the lobby; the tutorial shows only Game, Guide and Settings. Focus starts on the selected tab (drawn selected-focus); on Game, Resume takes it.
-      - **Game** `Button` · variation `ToyTab` · text `esc.tab.game`: en "Game" · uk "Гра" · alignment `LEFT` · toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`)
+      - **Game** `Button` · variation `ToyTab` · text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі" · alignment `LEFT` · toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`)
+        - Note: One tab, two names: esc.tab.find («Знайти лобі», the engineer's word, 2026-10-22) while there is no session, esc.tab.game in a session; the game swaps the key when a session starts or ends.
       - **Guide** `Button` · variation `ToyTab` · text `esc.tab.guide`: en "Guide" · uk "Посібник" · alignment `LEFT` · toggle_mode true, button_pressed false
       - **Character** `Button` · variation `ToyTab` · text `esc.tab.character`: en "Character" · uk "Персонаж" · alignment `LEFT` · toggle_mode true, button_pressed false
       - **Settings** `Button` · variation `ToyTab` · text `esc.tab.settings`: en "Settings" · uk "Налаштування" · alignment `LEFT` · toggle_mode true, button_pressed false
         - Note: settings-controls: focus is on the capturing Interact key, so this tab is drawn selected without focus.
     - **Page** `VBoxContainer` · variation `ToyColumnTwentyFour` · size flags horizontal `SIZE_EXPAND_FILL` · gaps from the variation: separation 24
       - **TitleRow** `HBoxContainer` · variation `ToyRowTwentyFour` · gaps from the variation: separation 24
-        - **Title** `Label` · variation `ToyTitleOnLight` · size flags horizontal `SIZE_EXPAND_FILL` · text `esc.tab.game`: en "Game" · uk "Гра"
+        - **Title** `Label` · variation `ToyTitleOnLight` · size flags horizontal `SIZE_EXPAND_FILL` · text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі"
           - Note: The selected tab's name.
       - **Ship** `HBoxContainer` · variation `ToyRowThirtyTwo` · gaps from the variation: separation 32
-        - Note: The Game page in the ship with no session (the jobs of the removed start screen s2, #111; prime-game#1285): the list at the left, the open join field at its right. There is no server browser: Host makes a game with a code, Join takes a code, Join by address joins or hosts directly (LAN, VPN). Join and Join by address are one ButtonGroup with allow_unpress: pressing one opens its field, pressing it again, Back or Esc (ui_cancel) closes it (Esc with no field open closes the menu). The target page's «Знайти лобі» list (lobbies nearby) is not drawn: it has no copy key and the game has no server browser (docs/ui-decisions.md).
+        - Note: The Game page in the ship with no session, its tab named esc.tab.find (the jobs of the removed start screen s2, #111; prime-game#1285): the list at the left, the open join field at its right. There is no server browser: Host makes a game with a code, Join takes a code, Join by address joins or hosts directly (LAN, VPN). Join and Join by address are one ButtonGroup with allow_unpress: pressing one opens its field, pressing it again, Back or Esc (ui_cancel) closes it (Esc with no field open closes the menu). The target page's «Знайти лобі» list (lobbies nearby) is not drawn: it has no copy key and the game has no server browser (docs/ui-decisions.md).
         - **Items** `VBoxContainer` · variation `ToyColumnSixteen` · size flags vertical `SIZE_SHRINK_BEGIN` · custom_minimum_size (420, 0) · gaps from the variation: separation 16
           - Note: Up and down move the focus through the list. 420 px holds «Приєднатися за адресою» at large text.
           - **Resume** `Button` · variation `ToyButtonPrimary` · text `esc.game.resume`: en "Resume" · uk "Продовжити" · shown with keyboard focus (grab_focus)
@@ -112,8 +113,8 @@ The menu over the running game (no pause): Esc (ui_cancel) opens and closes it; 
 ## `lobby-host`: what differs from `ship`
 
 - **Hidden:** `Menu/H/Page/Ship`.
-- **Changed** `Menu/H/Tabs/Game`: toggle_mode true, button_pressed false (was: toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`))
-- **Changed** `Menu/H/Page/TitleRow/Title`: text `esc.tab.lobby`: en "Lobby" · uk "Лобі" (was: text `esc.tab.game`: en "Game" · uk "Гра")
+- **Changed** `Menu/H/Tabs/Game`: text `esc.tab.game`: en "Game" · uk "Гра" · toggle_mode true, button_pressed false (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі" · toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`))
+- **Changed** `Menu/H/Page/TitleRow/Title`: text `esc.tab.lobby`: en "Lobby" · uk "Лобі" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
 - **Shown:**
   - **Menu/H/Tabs/Lobby** `Button` · variation `ToyTab` · text `esc.tab.lobby`: en "Lobby" · uk "Лобі" · alignment `LEFT` · toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`) · shown with keyboard focus (grab_focus)
   - **Menu/H/Page/TitleRow/HostNote** `Label` · variation `ToyTextMutedOnLight` · size flags vertical `SIZE_SHRINK_CENTER` · text `esc.lobby.you_host`: en "You're the host: everyone sees your changes" · uk "Ти хост: зміни бачать усі"
@@ -247,8 +248,8 @@ The menu over the running game (no pause): Esc (ui_cancel) opens and closes it; 
 ## `lobby-guest`: what differs from `ship`
 
 - **Hidden:** `Menu/H/Page/Ship`.
-- **Changed** `Menu/H/Tabs/Game`: toggle_mode true, button_pressed false (was: toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`))
-- **Changed** `Menu/H/Page/TitleRow/Title`: text `esc.tab.lobby`: en "Lobby" · uk "Лобі" (was: text `esc.tab.game`: en "Game" · uk "Гра")
+- **Changed** `Menu/H/Tabs/Game`: text `esc.tab.game`: en "Game" · uk "Гра" · toggle_mode true, button_pressed false (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі" · toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`))
+- **Changed** `Menu/H/Page/TitleRow/Title`: text `esc.tab.lobby`: en "Lobby" · uk "Лобі" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
 - **Shown:**
   - **Menu/H/Tabs/Lobby** `Button` · variation `ToyTab` · text `esc.tab.lobby`: en "Lobby" · uk "Лобі" · alignment `LEFT` · toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`) · shown with keyboard focus (grab_focus)
   - **Menu/H/Page/TitleRow/HostOnly** `HBoxContainer` · variation `ToyRowTwelve` · size flags vertical `SIZE_SHRINK_CENTER` · gaps from the variation: separation 12
@@ -334,8 +335,8 @@ The menu over the running game (no pause): Esc (ui_cancel) opens and closes it; 
 ## `lobby-no-code`: what differs from `ship`
 
 - **Hidden:** `Menu/H/Page/Ship`.
-- **Changed** `Menu/H/Tabs/Game`: toggle_mode true, button_pressed false (was: toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`))
-- **Changed** `Menu/H/Page/TitleRow/Title`: text `esc.tab.lobby`: en "Lobby" · uk "Лобі" (was: text `esc.tab.game`: en "Game" · uk "Гра")
+- **Changed** `Menu/H/Tabs/Game`: text `esc.tab.game`: en "Game" · uk "Гра" · toggle_mode true, button_pressed false (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі" · toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`))
+- **Changed** `Menu/H/Page/TitleRow/Title`: text `esc.tab.lobby`: en "Lobby" · uk "Лобі" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
 - **Shown:**
   - **Menu/H/Tabs/Lobby** `Button` · variation `ToyTab` · text `esc.tab.lobby`: en "Lobby" · uk "Лобі" · alignment `LEFT` · toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`) · shown with keyboard focus (grab_focus)
   - **Menu/H/Page/TitleRow/HostNote** `Label` · variation `ToyTextMutedOnLight` · size flags vertical `SIZE_SHRINK_CENTER` · text `esc.lobby.you_host`: en "You're the host: everyone sees your changes" · uk "Ти хост: зміни бачать усі"
@@ -463,9 +464,9 @@ The menu over the running game (no pause): Esc (ui_cancel) opens and closes it; 
 ## `character`: what differs from `ship`
 
 - **Hidden:** `Menu/H/Page/Ship`.
-- **Changed** `Menu/H/Tabs/Game`: toggle_mode true, button_pressed false (was: toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`))
+- **Changed** `Menu/H/Tabs/Game`: text `esc.tab.game`: en "Game" · uk "Гра" · toggle_mode true, button_pressed false (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі" · toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`))
 - **Changed** `Menu/H/Tabs/Character`: toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`) · shown with keyboard focus (grab_focus) (was: toggle_mode true, button_pressed false)
-- **Changed** `Menu/H/Page/TitleRow/Title`: text `esc.tab.character`: en "Character" · uk "Персонаж" (was: text `esc.tab.game`: en "Game" · uk "Гра")
+- **Changed** `Menu/H/Page/TitleRow/Title`: text `esc.tab.character`: en "Character" · uk "Персонаж" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
 - **Shown:**
   - **Menu/H/Tabs/Lobby** `Button` · variation `ToyTab` · text `esc.tab.lobby`: en "Lobby" · uk "Лобі" · alignment `LEFT` · toggle_mode true, button_pressed false
   - **Menu/H/Page/Character** `VBoxContainer` · variation `ToyColumnTwentyFour` · gaps from the variation: separation 24
@@ -525,9 +526,9 @@ The menu over the running game (no pause): Esc (ui_cancel) opens and closes it; 
 ## `character-round`: what differs from `ship`
 
 - **Hidden:** `Menu/H/Page/Ship`.
-- **Changed** `Menu/H/Tabs/Game`: toggle_mode true, button_pressed false (was: toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`))
+- **Changed** `Menu/H/Tabs/Game`: text `esc.tab.game`: en "Game" · uk "Гра" · toggle_mode true, button_pressed false (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі" · toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`))
 - **Changed** `Menu/H/Tabs/Character`: toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`) · shown with keyboard focus (grab_focus) (was: toggle_mode true, button_pressed false)
-- **Changed** `Menu/H/Page/TitleRow/Title`: text `esc.tab.character`: en "Character" · uk "Персонаж" (was: text `esc.tab.game`: en "Game" · uk "Гра")
+- **Changed** `Menu/H/Page/TitleRow/Title`: text `esc.tab.character`: en "Character" · uk "Персонаж" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
 - **Shown:**
   - **Menu/H/Tabs/Role** `Button` · variation `ToyTab` · text `esc.tab.role`: en "Role" · uk "Роль" · alignment `LEFT` · toggle_mode true, button_pressed false
   - **Menu/H/Tabs/Lobby** `Button` · variation `ToyTab` · text `esc.tab.lobby`: en "Lobby" · uk "Лобі" · alignment `LEFT` · toggle_mode true, button_pressed false
@@ -592,6 +593,8 @@ The menu over the running game (no pause): Esc (ui_cancel) opens and closes it; 
 ## `game-host`: what differs from `ship`
 
 - **Hidden:** `Menu/H/Page/Ship`.
+- **Changed** `Menu/H/Tabs/Game`: text `esc.tab.game`: en "Game" · uk "Гра" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
+- **Changed** `Menu/H/Page/TitleRow/Title`: text `esc.tab.game`: en "Game" · uk "Гра" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
 - **Shown:**
   - **Menu/H/Tabs/Role** `Button` · variation `ToyTab` · text `esc.tab.role`: en "Role" · uk "Роль" · alignment `LEFT` · toggle_mode true, button_pressed false
   - **Menu/H/Tabs/Lobby** `Button` · variation `ToyTab` · text `esc.tab.lobby`: en "Lobby" · uk "Лобі" · alignment `LEFT` · toggle_mode true, button_pressed false
@@ -606,6 +609,8 @@ The menu over the running game (no pause): Esc (ui_cancel) opens and closes it; 
 ## `game-guest`: what differs from `ship`
 
 - **Hidden:** `Menu/H/Page/Ship`.
+- **Changed** `Menu/H/Tabs/Game`: text `esc.tab.game`: en "Game" · uk "Гра" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
+- **Changed** `Menu/H/Page/TitleRow/Title`: text `esc.tab.game`: en "Game" · uk "Гра" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
 - **Shown:**
   - **Menu/H/Tabs/Role** `Button` · variation `ToyTab` · text `esc.tab.role`: en "Role" · uk "Роль" · alignment `LEFT` · toggle_mode true, button_pressed false
   - **Menu/H/Tabs/Lobby** `Button` · variation `ToyTab` · text `esc.tab.lobby`: en "Lobby" · uk "Лобі" · alignment `LEFT` · toggle_mode true, button_pressed false
@@ -620,6 +625,8 @@ The menu over the running game (no pause): Esc (ui_cancel) opens and closes it; 
 ## `game-confirm`: what differs from `ship`
 
 - **Hidden:** `Menu/H/Page/Ship`.
+- **Changed** `Menu/H/Tabs/Game`: text `esc.tab.game`: en "Game" · uk "Гра" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
+- **Changed** `Menu/H/Page/TitleRow/Title`: text `esc.tab.game`: en "Game" · uk "Гра" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
 - **Shown:**
   - **Menu/H/Tabs/Role** `Button` · variation `ToyTab` · text `esc.tab.role`: en "Role" · uk "Роль" · alignment `LEFT` · toggle_mode true, button_pressed false
   - **Menu/H/Tabs/Lobby** `Button` · variation `ToyTab` · text `esc.tab.lobby`: en "Lobby" · uk "Лобі" · alignment `LEFT` · toggle_mode true, button_pressed false
@@ -647,8 +654,8 @@ The menu over the running game (no pause): Esc (ui_cancel) opens and closes it; 
 ## `role-alien`: what differs from `ship`
 
 - **Hidden:** `Menu/H/Page/Ship`.
-- **Changed** `Menu/H/Tabs/Game`: toggle_mode true, button_pressed false (was: toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`))
-- **Changed** `Menu/H/Page/TitleRow/Title`: text `esc.tab.role`: en "Role" · uk "Роль" (was: text `esc.tab.game`: en "Game" · uk "Гра")
+- **Changed** `Menu/H/Tabs/Game`: text `esc.tab.game`: en "Game" · uk "Гра" · toggle_mode true, button_pressed false (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі" · toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`))
+- **Changed** `Menu/H/Page/TitleRow/Title`: text `esc.tab.role`: en "Role" · uk "Роль" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
 - **Shown:**
   - **Menu/H/Tabs/Role** `Button` · variation `ToyTab` · text `esc.tab.role`: en "Role" · uk "Роль" · alignment `LEFT` · toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`) · shown with keyboard focus (grab_focus)
   - **Menu/H/Tabs/Lobby** `Button` · variation `ToyTab` · text `esc.tab.lobby`: en "Lobby" · uk "Лобі" · alignment `LEFT` · toggle_mode true, button_pressed false
@@ -663,8 +670,8 @@ The menu over the running game (no pause): Esc (ui_cancel) opens and closes it; 
 ## `role-human`: what differs from `ship`
 
 - **Hidden:** `Menu/H/Page/Ship`.
-- **Changed** `Menu/H/Tabs/Game`: toggle_mode true, button_pressed false (was: toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`))
-- **Changed** `Menu/H/Page/TitleRow/Title`: text `esc.tab.role`: en "Role" · uk "Роль" (was: text `esc.tab.game`: en "Game" · uk "Гра")
+- **Changed** `Menu/H/Tabs/Game`: text `esc.tab.game`: en "Game" · uk "Гра" · toggle_mode true, button_pressed false (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі" · toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`))
+- **Changed** `Menu/H/Page/TitleRow/Title`: text `esc.tab.role`: en "Role" · uk "Роль" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
 - **Shown:**
   - **Menu/H/Tabs/Role** `Button` · variation `ToyTab` · text `esc.tab.role`: en "Role" · uk "Роль" · alignment `LEFT` · toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`) · shown with keyboard focus (grab_focus)
   - **Menu/H/Tabs/Lobby** `Button` · variation `ToyTab` · text `esc.tab.lobby`: en "Lobby" · uk "Лобі" · alignment `LEFT` · toggle_mode true, button_pressed false
@@ -691,9 +698,9 @@ The menu over the running game (no pause): Esc (ui_cancel) opens and closes it; 
 ## `guide`: what differs from `ship`
 
 - **Hidden:** `Menu/H/Page/Ship`.
-- **Changed** `Menu/H/Tabs/Game`: toggle_mode true, button_pressed false (was: toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`))
+- **Changed** `Menu/H/Tabs/Game`: text `esc.tab.game`: en "Game" · uk "Гра" · toggle_mode true, button_pressed false (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі" · toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`))
 - **Changed** `Menu/H/Tabs/Guide`: toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`) · shown with keyboard focus (grab_focus) (was: toggle_mode true, button_pressed false)
-- **Changed** `Menu/H/Page/TitleRow/Title`: text `esc.tab.guide`: en "Guide" · uk "Посібник" (was: text `esc.tab.game`: en "Game" · uk "Гра")
+- **Changed** `Menu/H/Page/TitleRow/Title`: text `esc.tab.guide`: en "Guide" · uk "Посібник" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
 - **Shown:**
   - **Menu/H/Tabs/Role** `Button` · variation `ToyTab` · text `esc.tab.role`: en "Role" · uk "Роль" · alignment `LEFT` · toggle_mode true, button_pressed false
   - **Menu/H/Tabs/Lobby** `Button` · variation `ToyTab` · text `esc.tab.lobby`: en "Lobby" · uk "Лобі" · alignment `LEFT` · toggle_mode true, button_pressed false
@@ -747,9 +754,9 @@ The menu over the running game (no pause): Esc (ui_cancel) opens and closes it; 
 ## `settings-sound`: what differs from `ship`
 
 - **Hidden:** `Menu/H/Page/Ship`.
-- **Changed** `Menu/H/Tabs/Game`: toggle_mode true, button_pressed false (was: toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`))
+- **Changed** `Menu/H/Tabs/Game`: text `esc.tab.game`: en "Game" · uk "Гра" · toggle_mode true, button_pressed false (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі" · toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`))
 - **Changed** `Menu/H/Tabs/Settings`: toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`) · shown with keyboard focus (grab_focus) (was: toggle_mode true, button_pressed false)
-- **Changed** `Menu/H/Page/TitleRow/Title`: text `esc.tab.settings`: en "Settings" · uk "Налаштування" (was: text `esc.tab.game`: en "Game" · uk "Гра")
+- **Changed** `Menu/H/Page/TitleRow/Title`: text `esc.tab.settings`: en "Settings" · uk "Налаштування" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
 - **Shown:**
   - **Menu/H/Tabs/Role** `Button` · variation `ToyTab` · text `esc.tab.role`: en "Role" · uk "Роль" · alignment `LEFT` · toggle_mode true, button_pressed false
   - **Menu/H/Tabs/Lobby** `Button` · variation `ToyTab` · text `esc.tab.lobby`: en "Lobby" · uk "Лобі" · alignment `LEFT` · toggle_mode true, button_pressed false
@@ -818,9 +825,9 @@ The menu over the running game (no pause): Esc (ui_cancel) opens and closes it; 
 ## `settings-controls`: what differs from `ship`
 
 - **Hidden:** `Menu/H/Page/Ship`.
-- **Changed** `Menu/H/Tabs/Game`: toggle_mode true, button_pressed false (was: toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`))
+- **Changed** `Menu/H/Tabs/Game`: text `esc.tab.game`: en "Game" · uk "Гра" · toggle_mode true, button_pressed false (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі" · toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`))
 - **Changed** `Menu/H/Tabs/Settings`: toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`) (was: toggle_mode true, button_pressed false)
-- **Changed** `Menu/H/Page/TitleRow/Title`: text `esc.tab.settings`: en "Settings" · uk "Налаштування" (was: text `esc.tab.game`: en "Game" · uk "Гра")
+- **Changed** `Menu/H/Page/TitleRow/Title`: text `esc.tab.settings`: en "Settings" · uk "Налаштування" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
 - **Shown:**
   - **Menu/H/Tabs/Role** `Button` · variation `ToyTab` · text `esc.tab.role`: en "Role" · uk "Роль" · alignment `LEFT` · toggle_mode true, button_pressed false
   - **Menu/H/Tabs/Lobby** `Button` · variation `ToyTab` · text `esc.tab.lobby`: en "Lobby" · uk "Лобі" · alignment `LEFT` · toggle_mode true, button_pressed false
@@ -919,9 +926,9 @@ The menu over the running game (no pause): Esc (ui_cancel) opens and closes it; 
 ## `settings-display`: what differs from `ship`
 
 - **Hidden:** `Menu/H/Page/Ship`.
-- **Changed** `Menu/H/Tabs/Game`: toggle_mode true, button_pressed false (was: toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`))
+- **Changed** `Menu/H/Tabs/Game`: text `esc.tab.game`: en "Game" · uk "Гра" · toggle_mode true, button_pressed false (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі" · toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`))
 - **Changed** `Menu/H/Tabs/Settings`: toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`) · shown with keyboard focus (grab_focus) (was: toggle_mode true, button_pressed false)
-- **Changed** `Menu/H/Page/TitleRow/Title`: text `esc.tab.settings`: en "Settings" · uk "Налаштування" (was: text `esc.tab.game`: en "Game" · uk "Гра")
+- **Changed** `Menu/H/Page/TitleRow/Title`: text `esc.tab.settings`: en "Settings" · uk "Налаштування" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
 - **Shown:**
   - **Menu/H/Tabs/Role** `Button` · variation `ToyTab` · text `esc.tab.role`: en "Role" · uk "Роль" · alignment `LEFT` · toggle_mode true, button_pressed false
   - **Menu/H/Tabs/Lobby** `Button` · variation `ToyTab` · text `esc.tab.lobby`: en "Lobby" · uk "Лобі" · alignment `LEFT` · toggle_mode true, button_pressed false
@@ -948,9 +955,9 @@ The menu over the running game (no pause): Esc (ui_cancel) opens and closes it; 
 ## `settings-access`: what differs from `ship`
 
 - **Hidden:** `Menu/H/Page/Ship`.
-- **Changed** `Menu/H/Tabs/Game`: toggle_mode true, button_pressed false (was: toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`))
+- **Changed** `Menu/H/Tabs/Game`: text `esc.tab.game`: en "Game" · uk "Гра" · toggle_mode true, button_pressed false (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі" · toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`))
 - **Changed** `Menu/H/Tabs/Settings`: toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`) · shown with keyboard focus (grab_focus) (was: toggle_mode true, button_pressed false)
-- **Changed** `Menu/H/Page/TitleRow/Title`: text `esc.tab.settings`: en "Settings" · uk "Налаштування" (was: text `esc.tab.game`: en "Game" · uk "Гра")
+- **Changed** `Menu/H/Page/TitleRow/Title`: text `esc.tab.settings`: en "Settings" · uk "Налаштування" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
 - **Shown:**
   - **Menu/H/Tabs/Role** `Button` · variation `ToyTab` · text `esc.tab.role`: en "Role" · uk "Роль" · alignment `LEFT` · toggle_mode true, button_pressed false
   - **Menu/H/Tabs/Lobby** `Button` · variation `ToyTab` · text `esc.tab.lobby`: en "Lobby" · uk "Лобі" · alignment `LEFT` · toggle_mode true, button_pressed false
@@ -984,9 +991,9 @@ The menu over the running game (no pause): Esc (ui_cancel) opens and closes it; 
 ## `settings-language`: what differs from `ship`
 
 - **Hidden:** `Menu/H/Page/Ship`.
-- **Changed** `Menu/H/Tabs/Game`: toggle_mode true, button_pressed false (was: toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`))
+- **Changed** `Menu/H/Tabs/Game`: text `esc.tab.game`: en "Game" · uk "Гра" · toggle_mode true, button_pressed false (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі" · toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`))
 - **Changed** `Menu/H/Tabs/Settings`: toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`) · shown with keyboard focus (grab_focus) (was: toggle_mode true, button_pressed false)
-- **Changed** `Menu/H/Page/TitleRow/Title`: text `esc.tab.settings`: en "Settings" · uk "Налаштування" (was: text `esc.tab.game`: en "Game" · uk "Гра")
+- **Changed** `Menu/H/Page/TitleRow/Title`: text `esc.tab.settings`: en "Settings" · uk "Налаштування" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
 - **Shown:**
   - **Menu/H/Tabs/Role** `Button` · variation `ToyTab` · text `esc.tab.role`: en "Role" · uk "Роль" · alignment `LEFT` · toggle_mode true, button_pressed false
   - **Menu/H/Tabs/Lobby** `Button` · variation `ToyTab` · text `esc.tab.lobby`: en "Lobby" · uk "Лобі" · alignment `LEFT` · toggle_mode true, button_pressed false
@@ -1013,6 +1020,8 @@ The menu over the running game (no pause): Esc (ui_cancel) opens and closes it; 
 ## `tutorial-game`: what differs from `ship`
 
 - **Hidden:** `Menu/H/Tabs/Character`, `Menu/H/Page/Ship`.
+- **Changed** `Menu/H/Tabs/Game`: text `esc.tab.game`: en "Game" · uk "Гра" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
+- **Changed** `Menu/H/Page/TitleRow/Title`: text `esc.tab.game`: en "Game" · uk "Гра" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
 - **Shown:**
   - **Menu/H/Page/Actions** `VBoxContainer` · variation `ToyColumnTwentyFour` · size flags horizontal `SIZE_SHRINK_BEGIN` · custom_minimum_size (760, 0) · gaps from the variation: separation 24
     - **Resume** `Button` · variation `ToyButtonPrimary` · text `esc.game.resume`: en "Resume" · uk "Продовжити" · shown with keyboard focus (grab_focus)
@@ -1038,7 +1047,7 @@ The menu over the running game (no pause): Esc (ui_cancel) opens and closes it; 
 
 ## Keys
 
-- **Drawn** (111): `common.back`, `common.cancel`, `common.code`, `common.off`, `common.on`, `control.backward`, `control.crouch`, `control.forward`, `control.give_up`, `control.interact`, `control.jump`, `control.left`, `control.map`, `control.put_down`, `control.ready`, `control.right`, `control.sneak`, `control.sprint`, `control.swap`, `control.talk`, `control.throw`, `control.use`, `esc.character.colour`, `esc.character.locked`, `esc.game.leave`, `esc.game.leave_confirm`, `esc.game.leave_host_note`, `esc.game.leave_tutorial`, `esc.game.quit`, `esc.game.resume`, `esc.lobby.code_gone`, `esc.lobby.copy`, `esc.lobby.host_only`, `esc.lobby.preset`, `esc.lobby.ready`, `esc.lobby.you_host`, `esc.role.teammates`, `esc.tab.character`, `esc.tab.game`, `esc.tab.guide`, `esc.tab.lobby`, `esc.tab.role`, `esc.tab.settings`, `guide.basics`, `guide.downed`, `guide.moving`, `guide.tasks`, `guide.voice`, `howto.label`, `join.address`, `join.connect`, `join.port`, `key.mouse_left`, `key.space`, `lang.en`, `lang.uk`, `lobby.host_mark`, `lobby.player_count`, `lobby.setting.anger`, `lobby.setting.duration`, `lobby.setting.humans`, `lobby.setting.humans_of`, `lobby.setting.knives`, `lobby.setting.name`, `lobby.setting.wifi_passwords`, `menu.direct`, `menu.host`, `menu.join`, `menu.tutorial`, `player.name`, `player.you`, `preset.no_knives`, `preset.quick`, `preset.save_own`, `preset.standard`, `role.alien`, `role.goal.alien`, `role.goal.human`, `role.human`, `settings.controls.press_key`, `settings.controls.reset`, `settings.controls.same_key`, `settings.effects_volume`, `settings.game_volume`, `settings.language.title`, `settings.large_text`, `settings.mic`, `settings.mic.default`, `settings.mic_test`, `settings.music_volume`, `settings.noise_suppression`, `settings.reduced_motion`, `settings.tab.accessibility`, `settings.tab.controls`, `settings.tab.display`, `settings.tab.language`, `settings.tab.sound`, `settings.talk_mode`, `settings.talk_mode.open`, `settings.talk_mode.push`, `settings.voice_threshold`, `settings.voice_volume`, `settings.window`, `settings.window.fullscreen`, `settings.window.windowed`, `task.car_tuning`, `task.cooking`, `task.engine`, `task.photo`, `task.wifi`, `unit.minutes`.
+- **Drawn** (112): `common.back`, `common.cancel`, `common.code`, `common.off`, `common.on`, `control.backward`, `control.crouch`, `control.forward`, `control.give_up`, `control.interact`, `control.jump`, `control.left`, `control.map`, `control.put_down`, `control.ready`, `control.right`, `control.sneak`, `control.sprint`, `control.swap`, `control.talk`, `control.throw`, `control.use`, `esc.character.colour`, `esc.character.locked`, `esc.game.leave`, `esc.game.leave_confirm`, `esc.game.leave_host_note`, `esc.game.leave_tutorial`, `esc.game.quit`, `esc.game.resume`, `esc.lobby.code_gone`, `esc.lobby.copy`, `esc.lobby.host_only`, `esc.lobby.preset`, `esc.lobby.ready`, `esc.lobby.you_host`, `esc.role.teammates`, `esc.tab.character`, `esc.tab.find`, `esc.tab.game`, `esc.tab.guide`, `esc.tab.lobby`, `esc.tab.role`, `esc.tab.settings`, `guide.basics`, `guide.downed`, `guide.moving`, `guide.tasks`, `guide.voice`, `howto.label`, `join.address`, `join.connect`, `join.port`, `key.mouse_left`, `key.space`, `lang.en`, `lang.uk`, `lobby.host_mark`, `lobby.player_count`, `lobby.setting.anger`, `lobby.setting.duration`, `lobby.setting.humans`, `lobby.setting.humans_of`, `lobby.setting.knives`, `lobby.setting.name`, `lobby.setting.wifi_passwords`, `menu.direct`, `menu.host`, `menu.join`, `menu.tutorial`, `player.name`, `player.you`, `preset.no_knives`, `preset.quick`, `preset.save_own`, `preset.standard`, `role.alien`, `role.goal.alien`, `role.goal.human`, `role.human`, `settings.controls.press_key`, `settings.controls.reset`, `settings.controls.same_key`, `settings.effects_volume`, `settings.game_volume`, `settings.language.title`, `settings.large_text`, `settings.mic`, `settings.mic.default`, `settings.mic_test`, `settings.music_volume`, `settings.noise_suppression`, `settings.reduced_motion`, `settings.tab.accessibility`, `settings.tab.controls`, `settings.tab.display`, `settings.tab.language`, `settings.tab.sound`, `settings.talk_mode`, `settings.talk_mode.open`, `settings.talk_mode.push`, `settings.voice_threshold`, `settings.voice_volume`, `settings.window`, `settings.window.fullscreen`, `settings.window.windowed`, `task.car_tuning`, `task.cooking`, `task.engine`, `task.photo`, `task.wifi`, `unit.minutes`.
 - **Named only in the notes** (wire them too): `downed.give_up_hold`, `esc.character.hat`, `esc.game.quit_confirm`, `esc.lobby.copied`, `key.mouse_right`, `lobby.default_name`, `preset.custom`, `settings.voice_unavailable`, `tutorial.list.death`, `tutorial.step.dead_room.how`, `tutorial.step.dead_room.title`, `tutorial.step.downed.title`, `tutorial.step.move.title`, `tutorial.step.voice.how`, `tutorial.step.voice.title`.
 
 ## Layers and input (every screen)
