@@ -5,12 +5,12 @@
 The styled round hud screen from the UI track (xperiaroco2/prime-game-ui), as a Godot 4.7.2 node tree for the 1920×1080 reference.
 
 - **Source:** `pages/screens/src/s07-hud.json`; the review page is `pages/screens/screens.html#s7`; the wireframe is section `s7` («HUD у раунді»).
-- **Theme:** the Toy pack ui-2.0.0 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
+- **Theme:** the Toy pack ui-2.0.1 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
 - **World behind the UI** (not UI): a lit room of the level.
 - **How to read it:** the roots are children of the screen's full-rect root `Control`; every property not listed keeps Godot's default; sizes and offsets are reference px. In a state's **Shown** list, the first node of each subtree gives its path from the screen root.
 - **Texts** are keys of `copy/strings.csv`, and the language switches live (the Esc menu's Settings). A plain key is set as `text` and translates itself. A key with placeholders, a plural key (`tr_n`) and a key drawn in pieces are set from code with `auto_translate_mode = DISABLED`: `tr()`, then `String.format()` with the data (the samples below), rebuilt on `NOTIFICATION_TRANSLATION_CHANGED`. A "text from data" (names, the room code, times, numbers) is set in code and never translated (`auto_translate_mode = DISABLED`).
 
-One HUD for the whole round, the MVP's (the engineer's decisions of 2026-10-20 in docs/ui-decisions.md, the sketch pages/mvp-screens frames 1, 1a, 3 and 4 at 0.75: every sketch length x 1.5). s9 hides and returns the same nodes; s1 and s6 draw them as context. Every node has mouse_filter IGNORE. The top: the bare time, the anger meter exactly centred under it, the own side at the top left, every player at the top right. No points on the HUD (they show only on the mutation workbench, s11). The HUD never shows keys, walking or running, who knocked the player down, who killed whom (the engineer, 2026-10-21), a destination or task progress. HUD edges sit 39 px in (the sketch's 26 x 1.5).
+One HUD for the whole round, the MVP's (the engineer's decisions of 2026-10-20 in docs/ui-decisions.md, the sketch pages/mvp-screens frames 1, 1a, 3 and 4 at 0.75: every sketch length x 1.5). s9 hides and returns the same nodes; s1 and s6 draw them as context. Every node has mouse_filter IGNORE. The top: the time and the anger meter side by side in one ToyPlate row, the own side at the top left, every player at the top right. No points on the HUD (they show only on the mutation workbench, s11). The HUD never shows keys, walking or running, who knocked the player down, who killed whom (the engineer, 2026-10-21), a destination or task progress. HUD edges sit 39 px in (the sketch's 26 x 1.5).
 
 ## States
 

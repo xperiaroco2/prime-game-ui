@@ -5,7 +5,7 @@
 The styled downed, dead and respawn screen from the UI track (xperiaroco2/prime-game-ui), as a Godot 4.7.2 node tree for the 1920×1080 reference.
 
 - **Source:** `pages/screens/src/s09-downed.json`; the review page is `pages/screens/screens.html#s9`; the wireframe is section `s9` («Повалений, мертвий, повернення»).
-- **Theme:** the Toy pack ui-2.0.0 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
+- **Theme:** the Toy pack ui-2.0.1 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
 - **World behind the UI** (not UI): a dark room of the level.
 - **How to read it:** the roots are children of the screen's full-rect root `Control`; every property not listed keeps Godot's default; sizes and offsets are reference px. In a state's **Shown** list, the first node of each subtree gives its path from the screen root.
 - **Texts** are keys of `copy/strings.csv`, and the language switches live (the Esc menu's Settings). A plain key is set as `text` and translates itself. A key with placeholders, a plural key (`tr_n`) and a key drawn in pieces are set from code with `auto_translate_mode = DISABLED`: `tr()`, then `String.format()` with the data (the samples below), rebuilt on `NOTIFICATION_TRANSLATION_CHANGED`. A "text from data" (names, the room code, times, numbers) is set in code and never translated (`auto_translate_mode = DISABLED`).
@@ -20,7 +20,7 @@ The same HUD as s7: Hud and its nodes are s7's (same names and places); this scr
 | `down-holding` | Утримуєш F | The give-up key is held: the hold bar fills over 1 s. |
 | `raise` | Тебе піднімають | Someone is raising the player: the raise progress replaces the bleed-out bar; giving up hides. |
 | `dead-room` | Кімната мертвих | Dead (killed, bled out or gave up): the player waits 30 s with the other dead in the dead's room, not watching the living (m8 §3, the sketch's frame 5). The rest of the HUD hides. Open: where the room is; whether the dead can talk to each other there; whether they see the timer and the anger (so no timer and no mic here). No killer is shown (the engineer, 2026-10-21). Open: how the return from the dead's room is shown: to be redone later (the engineer, 2026-10-21). |
-| `back` | Повернення | Back in the round at a random capsule: the s7 HUD returns with the 3 s protection chip. Stamina returns full in the game; the sample shows it part-empty only so the bar is reviewed over a dark room. |
+| `back` | Повернення | Back in the round at a random capsule: the s7 HUD returns with the 3 s protection chip. Stamina returns full: all ten pips lit. |
 
 ## Node tree in `down`
 

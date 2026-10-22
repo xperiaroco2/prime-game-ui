@@ -9,7 +9,7 @@
     { "id": "down-holding", "label": "Утримуєш F", "note": "The give-up key is held: the hold bar fills over 1 s." },
     { "id": "raise", "label": "Тебе піднімають", "note": "Someone is raising the player: the raise progress replaces the bleed-out bar; giving up hides." },
     { "id": "dead-room", "label": "Кімната мертвих", "note": "Dead (killed, bled out or gave up): the player waits 30 s with the other dead in the dead's room, not watching the living (m8 §3, the sketch's frame 5). The rest of the HUD hides. Open: where the room is; whether the dead can talk to each other there; whether they see the timer and the anger (so no timer and no mic here). No killer is shown (the engineer, 2026-10-21). Open: how the return from the dead's room is shown: to be redone later (the engineer, 2026-10-21)." },
-    { "id": "back", "label": "Повернення", "note": "Back in the round at a random capsule: the s7 HUD returns with the 3 s protection chip. Stamina returns full in the game; the sample shows it part-empty only so the bar is reviewed over a dark room." }
+    { "id": "back", "label": "Повернення", "note": "Back in the round at a random capsule: the s7 HUD returns with the 3 s protection chip. Stamina returns full: all ten pips lit." }
   ],
   "nodes": [
     {
