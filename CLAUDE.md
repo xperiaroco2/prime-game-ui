@@ -28,12 +28,14 @@ human's language (Ukrainian); everything in this repo is English.
     - technical choices;
     - applying the engineer's decisions;
     - small look adjustments that are easy to change later and keep the style's character (a pixel or two, alignment,
-      consistent states).
-    Every look decision the agent takes alone goes into `docs/ui-decisions.md` marked "(agent)", so the engineer can veto
-    it later.
+      consistent states);
+    - player-facing texts and the look within the approved style, by its own recommended option (the engineer,
+      2026-10-22: "do everything by the recommendations, I approve it all; I will look at the finished results and say
+      what to change"): no draft waits for him; he reviews the finished screens and pages.
+    Every look or text decision the agent takes alone goes into `docs/ui-decisions.md` marked "(agent)", so the
+    engineer can veto it later.
   - **The agent stops and asks about:**
-    - the style's character (new colours, fonts, large component changes);
-    - player-facing texts;
+    - the style's character (new colours, fonts);
     - money, subscriptions and downloads;
     - decisions that affect the whole game or a large scope;
     - changes to these rules.
