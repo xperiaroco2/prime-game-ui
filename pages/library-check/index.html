@@ -42,6 +42,7 @@ p { margin: 0; max-width: 68ch; }
 .num { font: 700 13px/1 var(--display); color: var(--bg); background: var(--mint); border-radius: 6px; padding: 5px 8px; }
 .tag { font: 700 11px/1 var(--display); letter-spacing: 1px; text-transform: uppercase; border: 2px solid var(--coral); color: var(--coral); border-radius: 6px; padding: 4px 7px; }
 .tag.miss { border-color: var(--dim); color: var(--dim); }
+.tag.fixed { border-color: var(--mint); color: var(--mint); }
 .pair { display: grid; gap: 12px; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; }
 .pair.one { grid-template-columns: minmax(0, 1fr); }
 figure { margin: 0; display: grid; gap: 6px; min-width: 0; }
@@ -72,7 +73,7 @@ figure img { width: 100%; height: auto; display: block; border-radius: 8px; bord
       </ul>
     </div>
     <div class="box no">
-      <h3>Не схоже — 9 місць</h3>
+      <h3>Було не схоже — 9 місць</h3>
       <ul>
         <li>Немає стилю дрібних заголовків плиток (ГРАВЦІ, КОСТЮМ, РУКА).</li>
         <li>Вкладки, слоти, рядки налаштувань, степер — інша будова.</li>
@@ -80,6 +81,13 @@ figure img { width: 100%; height: auto; display: block; border-radius: 8px; bord
       </ul>
     </div>
   </section>
+
+  <article class="item" id="after">
+    <div class="head"><h2>Стало в ui-2.1.0</h2><span class="tag fixed">виправлено</span></div>
+    <div class="diff"><p>Бібліотеку підтягнуто до зразка за всіма девʼятьма пунктами нижче. Ось три екрани, зібрані з неї: раунд (заголовки КОСТЮМ, РУКА, ПОЯС, риска й підпис гніву, нові слоти), кімната мертвих (назва й відлік тихо вгорі, середина вільна) і верстат (тихий, кнопка залита лише під прицілом).</p><p class="note">Ще не перероблено, це крок з екранами: меню Esc (вкладки вже нові, але зайвий великий заголовок і розділи налаштувань чипами), рамка фокусу на кнопках у кресленнях, пульт налаштувань матчу на кораблі, «Знайти лобі».</p></div>
+    <div class="pair one"><figure class="t"><figcaption>Раунд</figcaption><img src="shots/after-round.png" alt="Раунд у ui-2.1.0"></figure></div>
+    <div class="pair"><figure class="t"><figcaption>Кімната мертвих</figcaption><img src="shots/after-dead.png" alt="Кімната мертвих у ui-2.1.0"></figure><figure class="t"><figcaption>Верстат</figcaption><img src="shots/after-bench.png" alt="Верстат у ui-2.1.0"></figure></div>
+  </article>
 
   <article class="item">
     <div class="head"><span class="num">1</span><h2>Вкладки меню</h2><span class="tag">інакше</span></div>
