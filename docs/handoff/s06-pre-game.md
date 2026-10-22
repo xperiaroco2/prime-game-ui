@@ -30,8 +30,8 @@ The black intro of about 3 s in the silent pre game (#213): it shows when the ow
     - Note: The kicker over the band (the target's .who: dim capitals; the game sets uppercase = true).
   - **Band** `PanelContainer` · variation `ToyBand` · anchors `top_wide`, offsets 0, 345, 0, 630 (left, top, right, bottom), grow both/end
     - Note: The loud band across the whole width, 285 px tall (190 x 1.5): the accent for an alien, the danger colour for a human.
-    - **Role** `Label` · variation `ToyTitleHero` · text `role.alien`: en "Alien" · uk "Прибулець" · horizontal_alignment `CENTER` · vertical_alignment `CENTER`
-      - Note: The own side in Unbounded at the hero size on the band, (the target writes it in capitals; ToyTitleHero sets no uppercase, open): ToyTitleHero (the accent ink) with role.alien, ToyTitleHeroAlert (the danger ink) with role.human.
+    - **Role** `Label` · variation `ToyTitleHero` · text `role.alien`: en "Alien" · uk "Прибулець" · horizontal_alignment `CENTER` · vertical_alignment `CENTER` · uppercase true (the text drawn in capitals)
+      - Note: The own side in Unbounded capitals at the hero size on the band (uppercase, as the target writes it): ToyTitleHero (the accent ink) with role.alien, ToyTitleHeroAlert (the danger ink) with role.human.
   - **Goal** `PanelContainer` · variation `ToyPlateGoal` · anchors `center_top`, offsets 0, 684, 0, 684 (left, top, right, bottom), grow both/end · custom_minimum_size (900, 0) = Vector2(get_theme_constant("width", "ToyPlateGoal"), 0)
     - Note: The side's goal as a plain line under the band (ToyPlateGoal draws no plate since ui-2.0.0), 1080 wide (the target's 720 x 1.5).
     - **Text** `Label` · variation `ToyPlateGoalText` · custom_minimum_size (1080, 0) · text `role.goal.alien`: en "Throw the best party: finish every task before time runs out and the cops arrive." · uk "Влаштуй найкращу вечірку: виконай усі задачі, поки не скінчився час і не приїхали копи." · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`

@@ -27,7 +27,7 @@ The outro of about 3 s, one of the three loud moments that end a round (the targ
   - **Band** `PanelContainer` · variation `ToyBand` · anchors `top_wide`, offsets 0, 300, 0, 615 (left, top, right, bottom), grow both/end
     - Note: The loud band across the whole width, 300 px down and 315 tall (the target's 200 and 210 x 1.5): the accent when the aliens won, the danger colour when the humans did; on the cops' danger ground it is the same colour, so the title stands on the whole screen.
     - **Title** `Label` · variation `ToyTitleHero` · text `end.title.party`: en "Great party!" · uk "Вечірка вдалася!" · horizontal_alignment `CENTER` · vertical_alignment `CENTER`
-      - Note: How the party ended, the same for every player, in Unbounded at the hero size: end.title.party in the accent ink, end.title.time_up or end.title.busted in the danger ink. The target sets the cops' title in capitals and larger (210 px); the pack's hero is 126 px and has no capitals (open, see the PR).
+      - Note: How the party ended, the same for every player, in Unbounded at the hero size: end.title.party in the accent ink, end.title.time_up or end.title.busted in the danger ink. The cops' title is in capitals (uppercase in that state only), as the target writes it; the party's and the time's are not. The target also sets the cops' title larger (210 px); the pack's hero is 126 px (open).
   - **Lines** `VBoxContainer` · variation `ToyColumnTwentyFour` · anchors `top_wide`, offsets 0, 672, 0, 672 (left, top, right, bottom), grow both/end · gaps from the variation: separation 24
     - Note: Under the band, 57 px below it (the target's 450 - 410 = 40 x 1.5 less the title's leading): who won, then why. Quiet text, centred.
     - **Won** `Label` · variation `ToyTitleOnDark` · text `end.won_aliens`: en "The aliens won" · uk "Прибульці перемогли" · horizontal_alignment `CENTER`
@@ -48,7 +48,7 @@ The outro of about 3 s, one of the three loud moments that end a round (the targ
 
 - **Changed** `Night`: variation `ToyBackdropAlert` (was: variation `ToyBackdropFullScreen`)
 - **Changed** `Night/Band`: variation `ToyBandAlert` (was: variation `ToyBand`)
-- **Changed** `Night/Band/Title`: variation `ToyTitleHeroAlert` · text `end.title.busted`: en "Busted!" · uk "Попались!" (was: variation `ToyTitleHero` · text `end.title.party`: en "Great party!" · uk "Вечірка вдалася!")
+- **Changed** `Night/Band/Title`: variation `ToyTitleHeroAlert` · text `end.title.busted`: en "Busted!" · uk "Попались!" · uppercase true (the text drawn in capitals) (was: variation `ToyTitleHero` · text `end.title.party`: en "Great party!" · uk "Вечірка вдалася!")
 - **Changed** `Night/Lines/Won`: variation `ToyTextOnDanger` · text `end.won_humans`: en "The humans won" · uk "Люди перемогли" (was: variation `ToyTitleOnDark` · text `end.won_aliens`: en "The aliens won" · uk "Прибульці перемогли")
 - **Changed** `Night/Lines/Reason`: variation `ToyTextOnDanger` · text `end.reason.cops`: en "The cops came: the party's over." · uk "Приїхали копи: вечірці кінець." (was: variation `ToyTextMutedOnDark` · text `end.reason.all_tasks` with sample {time} = "8:12": en "All tasks done in 8:12." · uk "Усі задачі виконано за 8:12.")
 - **Changed** `Night/Back`: variation `ToyTextOnDanger` (was: variation `ToyTextMutedOnDark`)

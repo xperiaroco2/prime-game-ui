@@ -1,0 +1,20 @@
+{
+  "id": "x7",
+  "wireframe": "s6",
+  "title": "Self-test: a Label drawn in capitals",
+  "background": "black",
+  "note": "Label.uppercase is a node property a Theme cannot set: a Label sets it on its own (the role band) or only in some states (the cops' end title). The page marks such a Label tv-upper, the screens' components CSS draws it in capitals, and the handoff gives uppercase true where it is set.",
+  "states": [
+    { "id": "plain", "label": "Звичайні" },
+    { "id": "loud", "label": "Великі" }
+  ],
+  "nodes": [
+    {
+      "name": "Col", "type": "VBoxContainer", "variation": "ToyColumnEight", "anchors_preset": "center",
+      "children": [
+        { "name": "Always", "type": "Label", "variation": "ToyTitleOnDark", "key": "selftest.upper", "uppercase": true },
+        { "name": "Some", "type": "Label", "variation": "ToyTitleOnDark", "key": "selftest.upper", "per_state": { "loud": { "uppercase": true } } }
+      ]
+    }
+  ]
+}

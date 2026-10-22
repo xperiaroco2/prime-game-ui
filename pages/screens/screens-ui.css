@@ -3002,3 +3002,7 @@
   letter-spacing: calc(var(--toy-title-hero-alert-label-letter-spacing) * var(--px));
   color: var(--toy-title-hero-alert-normal-font-color);
 }
+/* A Label's uppercase node property (Label.uppercase, set per node in a screen source) */
+.tv-upper {
+  text-transform: uppercase;
+}

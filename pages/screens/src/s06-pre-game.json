@@ -193,7 +193,7 @@
         {
           "name": "Band", "type": "PanelContainer", "variation": "ToyBand", "anchors_preset": "top_wide", "offset_top": 345, "offset_bottom": 630, "per_state": { "human": { "variation": "ToyBandAlert" } }, "note": "The loud band across the whole width, 285 px tall (190 x 1.5): the accent for an alien, the danger colour for a human.",
           "children": [
-            { "name": "Role", "type": "Label", "variation": "ToyTitleHero", "key": "role.alien", "horizontal_alignment": "center", "vertical_alignment": "center", "per_state": { "human": { "key": "role.human", "variation": "ToyTitleHeroAlert" } }, "note": "The own side in Unbounded at the hero size on the band, (the target writes it in capitals; ToyTitleHero sets no uppercase, open): ToyTitleHero (the accent ink) with role.alien, ToyTitleHeroAlert (the danger ink) with role.human." }
+            { "name": "Role", "type": "Label", "variation": "ToyTitleHero", "key": "role.alien", "horizontal_alignment": "center", "vertical_alignment": "center", "uppercase": true, "per_state": { "human": { "key": "role.human", "variation": "ToyTitleHeroAlert" } }, "note": "The own side in Unbounded capitals at the hero size on the band (uppercase, as the target writes it): ToyTitleHero (the accent ink) with role.alien, ToyTitleHeroAlert (the danger ink) with role.human." }
           ]
         },
         {
