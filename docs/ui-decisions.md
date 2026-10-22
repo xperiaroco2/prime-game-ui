@@ -60,6 +60,11 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
   page): "A, only the bar". The HUD names neither the cause nor the place of the mischief; the aliens find it themselves
   (they hear the music, see the bins, talk), and the map marks no mischief. B (a line under the bar naming the type of
   problem) stays on the page, not chosen. The game design (m8 §5, §9) is updated by [prime-game#1312](https://github.com/xperiaroco2/prime-game/issues/1312).
+- **The dead's room: the return shown small at the top** (the engineer, 2026-10-22, chat, translated): "the return
+  must be written nicely at the top, because the player can hang out in the purgatory and interact with the space, so
+  it must not fill the screen". The dead's room is a place to walk in, not a waiting screen: its name and the return
+  countdown sit in one quiet tile at the top centre, the middle of the screen stays clear. This replaces the centred
+  countdown plate of the target page and of s9; the design note is on [prime-game#1032](https://github.com/xperiaroco2/prime-game/issues/1032).
 - **The item bar is A** (the engineer, 2026-10-20, chat, translated, on the MVP screens page): sticker slots with a
   big item picture and a name tag over the bottom edge; B (a belt strap with a pocket) and C (the alien's hand
   holding the item) stay on the page, not chosen. The name tags' words are his texts.
