@@ -25,7 +25,7 @@
 .gd-anchor { position: absolute; display: flex; pointer-events: none; }
 .gd-anchor > .gd-node { width: min-content; }
 .gd-arrow { width: calc(24 * var(--px)); height: calc(24 * var(--px)); }
-.gd-knob { width: calc(42 * var(--px)); height: calc(42 * var(--px)); }
+.gd-knob { width: calc(21 * var(--px)); height: calc(42 * var(--px)); }
 .gd-ScrollContainer[data-vscroll="1"] { grid-template-columns: 1fr calc(16 * var(--px)); }
 /* s1: Tutorial */
 [data-anchor="s1/Dim"] { left: 0; top: 0; right: 0; bottom: 0; justify-content: center; align-items: center; }
