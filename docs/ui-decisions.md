@@ -394,7 +394,12 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
   roster's chameleon h01-3 (rf2 was rejected first) reads as "AI slop"; the cards are **flat 2D cartoon**, not 3D
   renders, and their figure need not be a game character (any cartoon alien); a player must not take them for AI
   images at first glance. Next: research, then about ten card looks side by side before any one card is finished
-  (`docs/research/2026-10-22-howto-card-styles/`). **A card has as many frames as its task
+  (`docs/research/2026-10-22-howto-card-styles/`). **Round 1's pick** (the engineer, 2026-10-22, chat, on
+  [the styles page](https://claude.ai/artifact/UdYpeFtaeo7drCXmeToqrN)): direction 1, the three-ink screenprint; go
+  deeper into mid-20th-century American commercial art (print ads, enamel signs, safety posters with a cartoon
+  mascot), with ten sub-directions next. His references stay private; the agent's reading: bold flat colour on cream
+  paper, a thick ink line, an expressive mascot with motion bursts, slightly worn print; no lettering (the cards stay
+  wordless) (agent). **A card has as many frames as its task
   needs**, not four: when they do not fit, the card scrolls ("we're not limited to 4 cards; it can scroll if needed;
   the engine, for one, is hard to fit in 4"). The pilot is Cooking, seven frames (batch
   `2026-10-22-howto-cooking-pilot` in prime-game-art). This replaces the colourings of the card-ink page
