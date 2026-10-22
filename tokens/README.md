@@ -154,6 +154,13 @@ variations, a type role, two icons and a pack member; changed values; three depr
   (`ToyKicker`), then `dead.back_in` (`ToyHudCaption`) and the countdown (`ToyTimer`); no bar, no title plate.
   `ToyPlateCount`, `ToyPlateHead` (replacement `ToyPlate`) and `ToyPlateHeadText` (replacement `ToyKicker`) are deprecated.
 
+## The host tag, ui-2.4.0
+
+A minor release: two variations added for the lobby roster's host tag (the target's quiet `.tg.h`; copy round 9, `hud.roster.host`).
+
+- **`ToyRosterTagHost`** is `ToyRosterTag` with the edge colour (`color.outline`) in place of the danger outline.
+- **`ToyRosterTagHostText`** is the tag's word in Unbounded capitals at the kicker size, dim (`color.on-dark.text-muted`); the capitals are the Label's `uppercase` (godot.uppercase).
+
 ## The screens step, ui-2.2.0
 
 The screens redrawn to the approved target (`docs/ui-decisions.md`, "The screens redrawn to the approved target

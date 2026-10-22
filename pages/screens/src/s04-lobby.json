@@ -176,7 +176,14 @@
               "name": "Host", "type": "HBoxContainer", "variation": "ToyRowTwelve",
               "children": [
                 { "name": "Dot", "type": "Panel", "variation": "ToyRosterDot", "self_modulate": "#7C5CC8", "size_flags_vertical": "shrink_center" },
-                { "name": "Name", "type": "Label", "variation": "ToyRosterName", "key": "lobby.host_mark", "args": { "name": { "uk": "Олена", "en": "Olena" } }, "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center", "clip_text": true, "text_overrun_behavior": "trim_ellipsis", "per_state": { "console-host": { "key": "hud.roster.self", "variation": "ToyRosterNameSelf" } }, "note": "One row per player in join order, the host first: the body colour, the name, the ready pip. The host's row reads lobby.host_mark with the name for the others (the target's separate «хост» tag has no copy key); the own row reads hud.roster.self in the accent, as in the round, so the host's own view (console-host) reads «Олена (ти)». Names are user text (auto_translate_mode DISABLED)." },
+                { "name": "Name", "states": ["wait", "count", "short", "console-guest"], "variation": "ToyRosterName", "text": { "uk": "Олена", "en": "Olena" }, "type": "Label", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center", "clip_text": true, "text_overrun_behavior": "trim_ellipsis", "note": "One row per player in join order, the host first: the body colour, the name, the host tag on the host's row, the ready pip. Names are user text (auto_translate_mode DISABLED)." },
+                { "name": "NameSelf", "states": ["console-host"], "variation": "ToyRosterNameSelf", "key": "hud.roster.self", "args": { "name": { "uk": "Олена", "en": "Olena" } }, "type": "Label", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center", "clip_text": true, "text_overrun_behavior": "trim_ellipsis", "note": "The own row reads hud.roster.self in the accent, as in the round: the host's own view (console-host) reads «Олена (ти)». In the game one Label swaps key and variation." },
+                {
+                  "name": "HostTag", "type": "PanelContainer", "variation": "ToyRosterTagHost", "size_flags_vertical": "shrink_center", "note": "The host tag (the target's quiet «ХОСТ»; hud.roster.host, the engineer's copy round 9), on the host's row only.",
+                  "children": [
+                    { "name": "Text", "type": "Label", "variation": "ToyRosterTagHostText", "key": "hud.roster.host" }
+                  ]
+                },
                 { "name": "Ready", "type": "Panel", "variation": "ToyPipHealth", "size_flags_vertical": "shrink_center", "note": "ToyPipHealth while that player is ready, ToyPip while not." }
               ]
             },

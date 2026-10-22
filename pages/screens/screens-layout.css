@@ -262,9 +262,12 @@
 [data-node="s4/Players"] { flex: none; min-width: max(100%, calc(330 * var(--px))); min-height: 100%; }
 [data-node="s4/Players/Rows"] { grid-area: 1 / 1; grid-template-rows: minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto); }
 .sc-frame[data-state="short"] [data-node="s4/Players/Rows"] { grid-template-rows: minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto); }
-[data-node="s4/Players/Rows/Host"] { grid-template-columns: minmax(min-content, auto) minmax(min-content, 1fr) minmax(min-content, auto); }
+[data-node="s4/Players/Rows/Host"] { grid-template-columns: minmax(min-content, auto) minmax(min-content, 1fr) minmax(min-content, auto) minmax(min-content, auto); }
 [data-node="s4/Players/Rows/Host/Dot"] { align-self: center; }
 [data-node="s4/Players/Rows/Host/Name"] { align-self: center; display: block; contain: inline-size; overflow: hidden; text-overflow: ellipsis; }
+[data-node="s4/Players/Rows/Host/NameSelf"] { align-self: center; display: block; contain: inline-size; overflow: hidden; text-overflow: ellipsis; }
+[data-node="s4/Players/Rows/Host/HostTag"] { align-self: center; }
+[data-node="s4/Players/Rows/Host/HostTag/Text"] { grid-area: 1 / 1; }
 [data-node="s4/Players/Rows/Host/Ready"] { align-self: center; }
 [data-node="s4/Players/Rows/Glorp"] { grid-template-columns: minmax(min-content, auto) minmax(min-content, 1fr) minmax(min-content, auto); }
 [data-node="s4/Players/Rows/Glorp/Dot"] { align-self: center; }

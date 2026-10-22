@@ -108,6 +108,37 @@
       "normal": {
         "font-color": { "$type": "color", "$value": "{color.status.alert}" }
       }
+    },
+    "tag-host": {
+      "$description": "The host tag in the lobby's roster (the target's .tg.h): as ToyRosterTag, its outline the quiet edge colour instead of the danger colour.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyRosterTagHost", "class": "PanelContainer" },
+          "context": "dark"
+        }
+      },
+      "panel": {
+        "bg-color": { "$type": "color", "$value": "{color.surface.plate}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-width": { "$type": "dimension", "$value": "{stroke.thin}" },
+        "corner-radius": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } },
+        "content-margin-top": { "$type": "dimension", "$value": { "value": 5, "unit": "px" } },
+        "content-margin-bottom": { "$type": "dimension", "$value": { "value": 3, "unit": "px" } },
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 6, "unit": "px" } }
+      }
+    },
+    "tag-host-text": {
+      "$description": "The host tag's word: Unbounded capitals, dim (the capitals are the Label's uppercase property).",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyRosterTagHostText", "class": "Label", "on": ["ToyRosterTagHost"], "uppercase": true },
+          "context": "dark"
+        }
+      },
+      "label": { "$type": "typography", "$value": "{type.kicker}" },
+      "normal": {
+        "font-color": { "$type": "color", "$value": "{color.on-dark.text-muted}" }
+      }
     }
   }
 }

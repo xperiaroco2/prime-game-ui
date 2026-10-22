@@ -4303,6 +4303,36 @@
   color: var(--toy-roster-tag-text-normal-font-color);
   text-transform: uppercase;
 }
+/* ToyRosterTagHost: PanelContainer · roster.tag-host · dark */
+.tv-ToyRosterTagHost {
+  box-sizing: border-box;
+  position: relative;
+  background: var(--toy-roster-tag-host-panel-bg-color);
+  border-style: solid;
+  border-color: var(--toy-roster-tag-host-panel-border-color);
+  border-top-width: calc(var(--toy-roster-tag-host-panel-border-width) * var(--px));
+  border-right-width: calc(var(--toy-roster-tag-host-panel-border-width) * var(--px));
+  border-bottom-width: calc(var(--toy-roster-tag-host-panel-border-width) * var(--px));
+  border-left-width: calc(var(--toy-roster-tag-host-panel-border-width) * var(--px));
+  border-top-left-radius: calc(var(--toy-roster-tag-host-panel-corner-radius) * var(--px));
+  border-top-right-radius: calc(var(--toy-roster-tag-host-panel-corner-radius) * var(--px));
+  border-bottom-right-radius: calc(var(--toy-roster-tag-host-panel-corner-radius) * var(--px));
+  border-bottom-left-radius: calc(var(--toy-roster-tag-host-panel-corner-radius) * var(--px));
+  padding-top: calc((var(--toy-roster-tag-host-panel-content-margin-top) - var(--toy-roster-tag-host-panel-border-width)) * var(--px));
+  padding-right: calc((var(--toy-roster-tag-host-panel-content-margin-inline) - var(--toy-roster-tag-host-panel-border-width)) * var(--px));
+  padding-bottom: calc((var(--toy-roster-tag-host-panel-content-margin-bottom) - var(--toy-roster-tag-host-panel-border-width)) * var(--px));
+  padding-left: calc((var(--toy-roster-tag-host-panel-content-margin-inline) - var(--toy-roster-tag-host-panel-border-width)) * var(--px));
+}
+/* ToyRosterTagHostText: Label · roster.tag-host-text · dark */
+.tv-ToyRosterTagHostText {
+  font-family: var(--toy-roster-tag-host-text-label-font-family), system-ui, sans-serif;
+  font-size: calc(var(--toy-roster-tag-host-text-label-font-size) * var(--px));
+  font-weight: var(--toy-roster-tag-host-text-label-font-weight);
+  line-height: calc(var(--toy-roster-tag-host-text-label-line-box) * var(--px));
+  letter-spacing: calc(var(--toy-roster-tag-host-text-label-letter-spacing) * var(--px));
+  color: var(--toy-roster-tag-host-text-normal-font-color);
+  text-transform: uppercase;
+}
 /* ToySettingRow: PanelContainer · setting.row · light */
 .tv-ToySettingRow {
   box-sizing: border-box;
