@@ -197,11 +197,11 @@
       }
     },
     "kicker": {
-      "$description": "A tile's kicker (the target's .tab: ЧАС, ГНІВ, КОСТЮМ): Unbounded capitals, dim, 2 px apart; the game writes the word in capitals.",
+      "$description": "A tile's head (the target's .tab: ГРАВЦІ, КОСТЮМ, РУКА, ПОЯС, КОД): Unbounded capitals, dim, 2 px apart; the capitals are the Label's uppercase property (godot.uppercase, since ui-2.1.0), the 2 px the FontVariation's spacing.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
-          "godot": { "variation": "ToyKicker", "class": "Label" },
-          "context": "light"
+          "godot": { "variation": "ToyKicker", "class": "Label", "uppercase": true },
+          "context": "any"
         }
       },
       "label": { "$type": "typography", "$value": "{type.kicker}" },
@@ -209,5 +209,18 @@
         "font-color": { "$type": "color", "$value": "{color.on-light.text-muted}" }
       }
     }
-  }
+  },
+    "title-machine": {
+      "$description": "A machine screen's title (the target's .vt, new in ui-2.1.0): light Unbounded at the display size (the target's 20 px x 1.5 = 30; display 36 is the nearest role).",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyTitleMachine", "class": "Label" },
+          "context": "light"
+        }
+      },
+      "label": { "$type": "typography", "$value": "{type.display}" },
+      "normal": {
+        "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
+      }
+    }
 }

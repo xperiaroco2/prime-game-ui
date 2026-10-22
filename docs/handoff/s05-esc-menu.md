@@ -5,7 +5,7 @@
 The styled esc menu screen from the UI track (xperiaroco2/prime-game-ui), as a Godot 4.7.2 node tree for the 1920×1080 reference.
 
 - **Source:** `pages/screens/src/s05-esc-menu.json`; the review page is `pages/screens/screens.html#s5`; the wireframe is section `s5` («Меню Esc»).
-- **Theme:** the Toy pack ui-2.0.2 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
+- **Theme:** the Toy pack ui-2.1.0 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
 - **World behind the UI** (not UI): a lit room of the level.
 - **How to read it:** the roots are children of the screen's full-rect root `Control`; every property not listed keeps Godot's default; sizes and offsets are reference px. In a state's **Shown** list, the first node of each subtree gives its path from the screen root.
 - **Texts** are keys of `copy/strings.csv`, and the language switches live (the Esc menu's Settings). A plain key is set as `text` and translates itself. A key with placeholders, a plural key (`tr_n`) and a key drawn in pieces are set from code with `auto_translate_mode = DISABLED`: `tr()`, then `String.format()` with the data (the samples below), rebuilt on `NOTIFICATION_TRANSLATION_CHANGED`. A "text from data" (names, the room code, times, numbers) is set in code and never translated (`auto_translate_mode = DISABLED`).
@@ -42,16 +42,23 @@ The menu over the running game (no pause): Esc (ui_cancel) opens and closes it; 
 - **Dim** `Panel` · variation `ToyBackdropDeep` · anchors `full_rect`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both
   - Note: Dims the running game behind the menu.
 - **Menu** `PanelContainer` · variation `ToyPanelMenu` · anchors `center`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both · custom_minimum_size (1536, 864)
-  - **H** `HBoxContainer` · variation `ToyRowThirtyTwo` · gaps from the variation: separation 32
-    - **Tabs** `VBoxContainer` · variation `ToyColumnTwelve` · custom_minimum_size (288, 0) · gaps from the variation: separation 12
-      - Note: One ButtonGroup; the selected tab shows its page. 288 px holds the longest tab, «Налаштування», at large text, so the page never shifts between text sizes. Default tab: Game in the ship with no session, Lobby in the lobby, Game in a round and in the tutorial; the last tab is kept for the session. Role is hidden in the lobby; the tutorial shows only Game, Guide and Settings. Focus starts on the selected tab (drawn selected-focus); on Game, Resume takes it.
-      - **Game** `Button` · variation `ToyTab` · text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі" · alignment `LEFT` · toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`)
-        - Note: One tab, two names: esc.tab.find («Знайти лобі», the engineer's word, 2026-10-22) while there is no session, esc.tab.game in a session; the game swaps the key when a session starts or ends.
-      - **Guide** `Button` · variation `ToyTab` · text `esc.tab.guide`: en "Guide" · uk "Посібник" · alignment `LEFT` · toggle_mode true, button_pressed false
-      - **Character** `Button` · variation `ToyTab` · text `esc.tab.character`: en "Character" · uk "Персонаж" · alignment `LEFT` · toggle_mode true, button_pressed false
-      - **Settings** `Button` · variation `ToyTab` · text `esc.tab.settings`: en "Settings" · uk "Налаштування" · alignment `LEFT` · toggle_mode true, button_pressed false
-        - Note: settings-controls: focus is on the capturing Interact key, so this tab is drawn selected without focus.
-    - **Page** `VBoxContainer` · variation `ToyColumnTwentyFour` · size flags horizontal `SIZE_EXPAND_FILL` · gaps from the variation: separation 24
+  - **V** `VBoxContainer` · variation `ToyColumnTwentyFour` · gaps from the variation: separation 24
+    - **Strip** `PanelContainer` · variation `ToyTabStrip`
+      - Note: ui-2.1.0 (the target page's .tabs): the tabs in one row on the strip, its 2 px edge line under them; the chosen tab light over the accent underline (ToyTabSelected); the small Esc keycap at the right closes the menu.
+      - **Tabs** `HBoxContainer` · variation `ToyRowFour` · gaps from the variation: separation 4
+        - Note: One ButtonGroup; the selected tab shows its page. Default tab: Game in the ship with no session, Lobby in the lobby, Game in a round and in the tutorial; the last tab is kept for the session. Role is hidden in the lobby; the tutorial shows only Game, Guide and Settings. Focus starts on the selected tab (drawn selected-focus); on Game, Resume takes it.
+        - **Game** `Button` · variation `ToyTab` · text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі" · toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`)
+          - Note: One tab, two names: esc.tab.find («Знайти лобі», the engineer's word, 2026-10-22) while there is no session, esc.tab.game in a session; the game swaps the key when a session starts or ends.
+        - **Guide** `Button` · variation `ToyTab` · text `esc.tab.guide`: en "Guide" · uk "Посібник" · toggle_mode true, button_pressed false
+        - **Character** `Button` · variation `ToyTab` · text `esc.tab.character`: en "Character" · uk "Персонаж" · toggle_mode true, button_pressed false
+        - **Settings** `Button` · variation `ToyTab` · text `esc.tab.settings`: en "Settings" · uk "Налаштування" · toggle_mode true, button_pressed false
+          - Note: settings-controls: focus is on the capturing Interact key, so this tab is drawn selected without focus.
+        - **Gap** `Control` · size flags horizontal `SIZE_EXPAND_FILL`
+          - Note: Pushes the Esc keycap to the right end of the strip.
+        - **Esc** `PanelContainer` · variation `ToyKeyQuiet` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (42, 0) = Vector2(get_theme_constant("min_width", "ToyKeyQuiet"), 0)
+          - Note: The key that closes the menu, shown small (the target); its name is the bound key from the InputMap (data, not a copy key).
+          - **Text** `Label` · variation `ToyKeyQuietText` · text from data (auto_translate_mode = DISABLED), sample: "Esc"
+    - **Page** `VBoxContainer` · variation `ToyColumnTwentyFour` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_EXPAND_FILL` · gaps from the variation: separation 24
       - **TitleRow** `HBoxContainer` · variation `ToyRowTwentyFour` · gaps from the variation: separation 24
         - **Title** `Label` · variation `ToyTitleOnLight` · size flags horizontal `SIZE_EXPAND_FILL` · text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі"
           - Note: The selected tab's name.
@@ -74,10 +81,10 @@ The menu over the running game (no pause): Esc (ui_cancel) opens and closes it; 
 
 ## `ship-code`: what differs from `ship`
 
-- **Changed** `Menu/H/Page/Ship/Items/Resume`: no longer shown with keyboard focus (grab_focus)
-- **Changed** `Menu/H/Page/Ship/Items/Join`: toggle_mode true, button_pressed true (its own `pressed` StyleBox; the variation has no toggle partner) (was: toggle_mode true, button_pressed false)
+- **Changed** `Menu/V/Page/Ship/Items/Resume`: no longer shown with keyboard focus (grab_focus)
+- **Changed** `Menu/V/Page/Ship/Items/Join`: toggle_mode true, button_pressed true (its own `pressed` StyleBox; the variation has no toggle partner) (was: toggle_mode true, button_pressed false)
 - **Shown:**
-  - **Menu/H/Page/Ship/CodePanel** `VBoxContainer` · variation `ToyColumnTwentyFour` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_BEGIN` · gaps from the variation: separation 24
+  - **Menu/V/Page/Ship/CodePanel** `VBoxContainer` · variation `ToyColumnTwentyFour` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_BEGIN` · gaps from the variation: separation 24
     - Note: Join with a code; no panel of its own inside the menu's tile (agent).
     - **Field** `VBoxContainer` · variation `ToyColumnTwelve` · gaps from the variation: separation 12
       - **CodeLabel** `Label` · variation `ToyTextMutedOnLight` · text `common.code`: en "Code" · uk "Код"
@@ -91,10 +98,10 @@ The menu over the running game (no pause): Esc (ui_cancel) opens and closes it; 
 
 ## `ship-direct`: what differs from `ship`
 
-- **Changed** `Menu/H/Page/Ship/Items/Resume`: no longer shown with keyboard focus (grab_focus)
-- **Changed** `Menu/H/Page/Ship/Items/Direct`: toggle_mode true, button_pressed true (its own `pressed` StyleBox; the variation has no toggle partner) (was: toggle_mode true, button_pressed false)
+- **Changed** `Menu/V/Page/Ship/Items/Resume`: no longer shown with keyboard focus (grab_focus)
+- **Changed** `Menu/V/Page/Ship/Items/Direct`: toggle_mode true, button_pressed true (its own `pressed` StyleBox; the variation has no toggle partner) (was: toggle_mode true, button_pressed false)
 - **Shown:**
-  - **Menu/H/Page/Ship/DirectPanel** `VBoxContainer` · variation `ToyColumnTwentyFour` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_BEGIN` · gaps from the variation: separation 24
+  - **Menu/V/Page/Ship/DirectPanel** `VBoxContainer` · variation `ToyColumnTwentyFour` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_BEGIN` · gaps from the variation: separation 24
     - Note: Join or host directly over ENet (LAN, VPN, playit.gg). No address is shown anywhere else (streams).
     - **Field** `VBoxContainer` · variation `ToyColumnTwelve` · gaps from the variation: separation 12
       - **AddressLabel** `Label` · variation `ToyTextMutedOnLight` · text `join.address`: en "Host address" · uk "Адреса хоста"
@@ -112,13 +119,13 @@ The menu over the running game (no pause): Esc (ui_cancel) opens and closes it; 
 
 ## `lobby-host`: what differs from `ship`
 
-- **Hidden:** `Menu/H/Page/Ship`.
-- **Changed** `Menu/H/Tabs/Game`: text `esc.tab.game`: en "Game" · uk "Гра" · toggle_mode true, button_pressed false (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі" · toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`))
-- **Changed** `Menu/H/Page/TitleRow/Title`: text `esc.tab.lobby`: en "Lobby" · uk "Лобі" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
+- **Hidden:** `Menu/V/Page/Ship`.
+- **Changed** `Menu/V/Strip/Tabs/Game`: text `esc.tab.game`: en "Game" · uk "Гра" · toggle_mode true, button_pressed false (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі" · toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`))
+- **Changed** `Menu/V/Page/TitleRow/Title`: text `esc.tab.lobby`: en "Lobby" · uk "Лобі" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
 - **Shown:**
-  - **Menu/H/Tabs/Lobby** `Button` · variation `ToyTab` · text `esc.tab.lobby`: en "Lobby" · uk "Лобі" · alignment `LEFT` · toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`) · shown with keyboard focus (grab_focus)
-  - **Menu/H/Page/TitleRow/HostNote** `Label` · variation `ToyTextMutedOnLight` · size flags vertical `SIZE_SHRINK_CENTER` · text `esc.lobby.you_host`: en "You're the host: everyone sees your changes" · uk "Ти хост: зміни бачать усі"
-  - **Menu/H/Page/Lobby** `VBoxContainer` · variation `ToyColumnTwentyFour` · size flags vertical `SIZE_EXPAND_FILL` · gaps from the variation: separation 24
+  - **Menu/V/Strip/Tabs/Lobby** `Button` · variation `ToyTab` · text `esc.tab.lobby`: en "Lobby" · uk "Лобі" · toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`) · shown with keyboard focus (grab_focus)
+  - **Menu/V/Page/TitleRow/HostNote** `Label` · variation `ToyTextMutedOnLight` · size flags vertical `SIZE_SHRINK_CENTER` · text `esc.lobby.you_host`: en "You're the host: everyone sees your changes" · uk "Ти хост: зміни бачать усі"
+  - **Menu/V/Page/Lobby** `VBoxContainer` · variation `ToyColumnTwentyFour` · size flags vertical `SIZE_EXPAND_FILL` · gaps from the variation: separation 24
     - **Presets** `HBoxContainer` · variation `ToyRowTwentyFour` · gaps from the variation: separation 24
       - Note: One ButtonGroup over the cards (Save is not in it). A card applies its values; any other change deselects every card (a player then reads preset.custom). Save your own stores one custom preset: a card named preset.custom, built like Standard, appears before Save. The four cards share the page width (expand_fill, at least 196 px: «Звичайний» at large text), as on the MVP sketch. What Standard and Quick set for the humans and the anger threshold is open (the engineer's design); whether No knives stays is open (weapons are deferred, m8 §7).
       - **Standard** `Button` · variation `ToyPresetCard` · size flags horizontal `SIZE_EXPAND_FILL` · custom_minimum_size (196, 96) · no text or icon: its child is its content, drawn in its StyleBox content rect (the child and every node inside ignore the mouse, so the Button takes the press); a Button's minimum size does not follow its children, so custom_minimum_size holds the content at large text · toggle_mode true, button_pressed true (ToyToggle draws `ToyPresetCardSelected`)
@@ -152,10 +159,10 @@ The menu over the running game (no pause): Esc (ui_cancel) opens and closes it; 
           - **H** `HBoxContainer` · variation `ToyRowSixteen` · gaps from the variation: separation 16
             - **Name** `Label` · variation `ToySettingRowText` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (160, 0) · text `lobby.setting.humans`: en "Humans" · uk "Люди" · autowrap_mode `AUTOWRAP_WORD_SMART`
             - **Stepper** `HBoxContainer` · variation `ToyRowTwelve` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (345, 0) · gaps from the variation: separation 12 · alignment `ALIGNMENT_END`
-              - **Less** `Button` · variation `ToyStepper` · icon `chevron-left` (dist/pack/icons/chevron-left.svg, own work) at 24 px, tinted by `ToyStepper`'s icon_*_color
+              - **Less** `Button` · variation `ToyStepper` · custom_minimum_size (51, 51) = Vector2(get_theme_constant("width", "ToyStepper"), get_theme_constant("height", "ToyStepper")) · icon `minus` (dist/pack/icons/minus.svg, own work) at 24 px, tinted by `ToyStepper`'s icon_*_color
               - **Value** `Label` · variation `ToySettingRowValue` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (156, 0) · text `lobby.setting.humans_of` with sample {count} = "3", {total} = "10": en "3 of 10" · uk "3 з 10" · horizontal_alignment `CENTER`
                 - Note: {count} the humans set; {total} the players now in the lobby, which is also the stepper's maximum, so it follows joins and leaves: 3 of 10 in the full lobby, 1 of 4 in the guest's lobby of 4.
-              - **More** `Button` · variation `ToyStepper` · icon `chevron-right` (dist/pack/icons/chevron-right.svg, own work) at 24 px, tinted by `ToyStepper`'s icon_*_color
+              - **More** `Button` · variation `ToyStepper` · custom_minimum_size (51, 51) = Vector2(get_theme_constant("width", "ToyStepper"), get_theme_constant("height", "ToyStepper")) · icon `plus` (dist/pack/icons/plus.svg, own work) at 24 px, tinted by `ToyStepper`'s icon_*_color
         - **Anger** `PanelContainer` · variation `ToySettingRow` · custom_minimum_size (0, 96)
           - Note: The neighbours' anger threshold that calls the cops (m8 §5). Its choices are open (the engineer's design); 50 and 100 are the sketch's samples.
           - **H** `HBoxContainer` · variation `ToyRowSixteen` · gaps from the variation: separation 16
@@ -168,29 +175,29 @@ The menu over the running game (no pause): Esc (ui_cancel) opens and closes it; 
           - **H** `HBoxContainer` · variation `ToyRowSixteen` · gaps from the variation: separation 16
             - **Name** `Label` · variation `ToySettingRowText` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (160, 0) · text `lobby.setting.duration`: en "Match duration" · uk "Тривалість матчу" · autowrap_mode `AUTOWRAP_WORD_SMART`
             - **Stepper** `HBoxContainer` · variation `ToyRowTwelve` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (345, 0) · gaps from the variation: separation 12 · alignment `ALIGNMENT_END`
-              - **Less** `Button` · variation `ToyStepper` · icon `chevron-left` (dist/pack/icons/chevron-left.svg, own work) at 24 px, tinted by `ToyStepper`'s icon_*_color
+              - **Less** `Button` · variation `ToyStepper` · custom_minimum_size (51, 51) = Vector2(get_theme_constant("width", "ToyStepper"), get_theme_constant("height", "ToyStepper")) · icon `minus` (dist/pack/icons/minus.svg, own work) at 24 px, tinted by `ToyStepper`'s icon_*_color
                 - Note: Steps the value down; disabled (unplugged) at the lower bound. Keyboard and gamepad reach Less and More by focus (ui_left and ui_right move between them) and step with ui_accept. When a step reaches a bound, the other arrow takes focus (More.grab_focus()) before this one is disabled, so focus never rests on an unplugged arrow. The value is 156 px wide, so every stepper has one width and the arrows line up down the list. Every stepper below works the same; a player sees only the value.
               - **Value** `Label` · variation `ToySettingRowValue` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (156, 0) · text `unit.minutes` with sample {count} = "10": en "10 min" · uk "10 хв" · horizontal_alignment `CENTER`
-              - **More** `Button` · variation `ToyStepper` · icon `chevron-right` (dist/pack/icons/chevron-right.svg, own work) at 24 px, tinted by `ToyStepper`'s icon_*_color
+              - **More** `Button` · variation `ToyStepper` · custom_minimum_size (51, 51) = Vector2(get_theme_constant("width", "ToyStepper"), get_theme_constant("height", "ToyStepper")) · icon `plus` (dist/pack/icons/plus.svg, own work) at 24 px, tinted by `ToyStepper`'s icon_*_color
                 - Note: Steps the value up; disabled (unplugged) at the upper bound.
         - **WifiPasswords** `PanelContainer` · variation `ToySettingRow` · custom_minimum_size (0, 96)
           - Note: The Wi-Fi task's N: the passwords to enter before the task is done (GDD §8, a decided lobby setting). Bounds and the default are the game's data.
           - **H** `HBoxContainer` · variation `ToyRowSixteen` · gaps from the variation: separation 16
             - **Name** `Label` · variation `ToySettingRowText` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (160, 0) · text `lobby.setting.wifi_passwords`: en "Wi-Fi passwords" · uk "Паролі Wi-Fi" · autowrap_mode `AUTOWRAP_WORD_SMART`
             - **Stepper** `HBoxContainer` · variation `ToyRowTwelve` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (345, 0) · gaps from the variation: separation 12 · alignment `ALIGNMENT_END`
-              - **Less** `Button` · variation `ToyStepper` · icon `chevron-left` (dist/pack/icons/chevron-left.svg, own work) at 24 px, tinted by `ToyStepper`'s icon_*_color
+              - **Less** `Button` · variation `ToyStepper` · custom_minimum_size (51, 51) = Vector2(get_theme_constant("width", "ToyStepper"), get_theme_constant("height", "ToyStepper")) · icon `minus` (dist/pack/icons/minus.svg, own work) at 24 px, tinted by `ToyStepper`'s icon_*_color
               - **Value** `Label` · variation `ToySettingRowValue` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (156, 0) · text from data (auto_translate_mode = DISABLED), sample: "3" · horizontal_alignment `CENTER`
                 - Note: str(value) (auto_translate_mode DISABLED).
-              - **More** `Button` · variation `ToyStepper` · icon `chevron-right` (dist/pack/icons/chevron-right.svg, own work) at 24 px, tinted by `ToyStepper`'s icon_*_color
+              - **More** `Button` · variation `ToyStepper` · custom_minimum_size (51, 51) = Vector2(get_theme_constant("width", "ToyStepper"), get_theme_constant("height", "ToyStepper")) · icon `plus` (dist/pack/icons/plus.svg, own work) at 24 px, tinted by `ToyStepper`'s icon_*_color
         - **Knives** `PanelContainer` · variation `ToySettingRow` · custom_minimum_size (0, 96)
           - Note: Open (weapons are deferred, m8 §7): a placeholder until the engineer decides which melee the MVP keeps.
           - **H** `HBoxContainer` · variation `ToyRowSixteen` · gaps from the variation: separation 16
             - **Name** `Label` · variation `ToySettingRowText` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (160, 0) · text `lobby.setting.knives`: en "Knives" · uk "Ножі" · autowrap_mode `AUTOWRAP_WORD_SMART`
             - **Stepper** `HBoxContainer` · variation `ToyRowTwelve` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (345, 0) · gaps from the variation: separation 12 · alignment `ALIGNMENT_END`
-              - **Less** `Button` · variation `ToyStepper` · icon `chevron-left` (dist/pack/icons/chevron-left.svg, own work) at 24 px, tinted by `ToyStepper`'s icon_*_color
+              - **Less** `Button` · variation `ToyStepper` · custom_minimum_size (51, 51) = Vector2(get_theme_constant("width", "ToyStepper"), get_theme_constant("height", "ToyStepper")) · icon `minus` (dist/pack/icons/minus.svg, own work) at 24 px, tinted by `ToyStepper`'s icon_*_color
               - **Value** `Label` · variation `ToySettingRowValue` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (156, 0) · text from data (auto_translate_mode = DISABLED), sample: "2" · horizontal_alignment `CENTER`
                 - Note: str(value) (auto_translate_mode DISABLED).
-              - **More** `Button` · variation `ToyStepper` · icon `chevron-right` (dist/pack/icons/chevron-right.svg, own work) at 24 px, tinted by `ToyStepper`'s icon_*_color
+              - **More** `Button` · variation `ToyStepper` · custom_minimum_size (51, 51) = Vector2(get_theme_constant("width", "ToyStepper"), get_theme_constant("height", "ToyStepper")) · icon `plus` (dist/pack/icons/plus.svg, own work) at 24 px, tinted by `ToyStepper`'s icon_*_color
       - **Side** `VBoxContainer` · variation `ToyColumnTwentyFour` · custom_minimum_size (420, 0) · gaps from the variation: separation 24
         - **CodeRow** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
           - Note: The room code, to whoever knows it: the host who hosted with a code and each player who joined with it (never an address), drawn as a keycap as on the lobby HUD (s4, the same row). Hidden for a Direct host and for Direct joiners (no code exists).
@@ -247,16 +254,16 @@ The menu over the running game (no pause): Esc (ui_cancel) opens and closes it; 
 
 ## `lobby-guest`: what differs from `ship`
 
-- **Hidden:** `Menu/H/Page/Ship`.
-- **Changed** `Menu/H/Tabs/Game`: text `esc.tab.game`: en "Game" · uk "Гра" · toggle_mode true, button_pressed false (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі" · toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`))
-- **Changed** `Menu/H/Page/TitleRow/Title`: text `esc.tab.lobby`: en "Lobby" · uk "Лобі" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
+- **Hidden:** `Menu/V/Page/Ship`.
+- **Changed** `Menu/V/Strip/Tabs/Game`: text `esc.tab.game`: en "Game" · uk "Гра" · toggle_mode true, button_pressed false (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі" · toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`))
+- **Changed** `Menu/V/Page/TitleRow/Title`: text `esc.tab.lobby`: en "Lobby" · uk "Лобі" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
 - **Shown:**
-  - **Menu/H/Tabs/Lobby** `Button` · variation `ToyTab` · text `esc.tab.lobby`: en "Lobby" · uk "Лобі" · alignment `LEFT` · toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`) · shown with keyboard focus (grab_focus)
-  - **Menu/H/Page/TitleRow/HostOnly** `HBoxContainer` · variation `ToyRowTwelve` · size flags vertical `SIZE_SHRINK_CENTER` · gaps from the variation: separation 12
+  - **Menu/V/Strip/Tabs/Lobby** `Button` · variation `ToyTab` · text `esc.tab.lobby`: en "Lobby" · uk "Лобі" · toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`) · shown with keyboard focus (grab_focus)
+  - **Menu/V/Page/TitleRow/HostOnly** `HBoxContainer` · variation `ToyRowTwelve` · size flags vertical `SIZE_SHRINK_CENTER` · gaps from the variation: separation 12
     - Note: A player's view in the lobby only; hidden in a round, where nobody changes the settings and the values without steppers already read as fixed.
     - **Lock** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (30, 30) · texture `lock` (dist/pack/icons/lock.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyTextMutedOnLight")
     - **Text** `Label` · variation `ToyTextMutedOnLight` · text `esc.lobby.host_only` with sample {name} = "Olena" / "Олена": en "Only the host changes these · Olena" · uk "Змінює лише хост · Олена"
-  - **Menu/H/Page/Lobby** `VBoxContainer` · variation `ToyColumnTwentyFour` · size flags vertical `SIZE_EXPAND_FILL` · gaps from the variation: separation 24
+  - **Menu/V/Page/Lobby** `VBoxContainer` · variation `ToyColumnTwentyFour` · size flags vertical `SIZE_EXPAND_FILL` · gaps from the variation: separation 24
     - **Preset** `Label` · variation `ToyTextOnLight` · text `esc.lobby.preset` with sample {preset} = "Standard" / "Звичайний": en "Preset: Standard" · uk "Шаблон: Звичайний"
       - Note: {preset} is tr() of the applied preset's name key (preset.standard, preset.quick, preset.no_knives), or preset.custom.
     - **Body** `HBoxContainer` · variation `ToyRowThirtyTwo` · size flags vertical `SIZE_EXPAND_FILL` · gaps from the variation: separation 32
@@ -334,13 +341,13 @@ The menu over the running game (no pause): Esc (ui_cancel) opens and closes it; 
 
 ## `lobby-no-code`: what differs from `ship`
 
-- **Hidden:** `Menu/H/Page/Ship`.
-- **Changed** `Menu/H/Tabs/Game`: text `esc.tab.game`: en "Game" · uk "Гра" · toggle_mode true, button_pressed false (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі" · toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`))
-- **Changed** `Menu/H/Page/TitleRow/Title`: text `esc.tab.lobby`: en "Lobby" · uk "Лобі" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
+- **Hidden:** `Menu/V/Page/Ship`.
+- **Changed** `Menu/V/Strip/Tabs/Game`: text `esc.tab.game`: en "Game" · uk "Гра" · toggle_mode true, button_pressed false (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі" · toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`))
+- **Changed** `Menu/V/Page/TitleRow/Title`: text `esc.tab.lobby`: en "Lobby" · uk "Лобі" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
 - **Shown:**
-  - **Menu/H/Tabs/Lobby** `Button` · variation `ToyTab` · text `esc.tab.lobby`: en "Lobby" · uk "Лобі" · alignment `LEFT` · toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`) · shown with keyboard focus (grab_focus)
-  - **Menu/H/Page/TitleRow/HostNote** `Label` · variation `ToyTextMutedOnLight` · size flags vertical `SIZE_SHRINK_CENTER` · text `esc.lobby.you_host`: en "You're the host: everyone sees your changes" · uk "Ти хост: зміни бачать усі"
-  - **Menu/H/Page/Lobby** `VBoxContainer` · variation `ToyColumnTwentyFour` · size flags vertical `SIZE_EXPAND_FILL` · gaps from the variation: separation 24
+  - **Menu/V/Strip/Tabs/Lobby** `Button` · variation `ToyTab` · text `esc.tab.lobby`: en "Lobby" · uk "Лобі" · toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`) · shown with keyboard focus (grab_focus)
+  - **Menu/V/Page/TitleRow/HostNote** `Label` · variation `ToyTextMutedOnLight` · size flags vertical `SIZE_SHRINK_CENTER` · text `esc.lobby.you_host`: en "You're the host: everyone sees your changes" · uk "Ти хост: зміни бачать усі"
+  - **Menu/V/Page/Lobby** `VBoxContainer` · variation `ToyColumnTwentyFour` · size flags vertical `SIZE_EXPAND_FILL` · gaps from the variation: separation 24
     - **Presets** `HBoxContainer` · variation `ToyRowTwentyFour` · gaps from the variation: separation 24
       - Note: One ButtonGroup over the cards (Save is not in it). A card applies its values; any other change deselects every card (a player then reads preset.custom). Save your own stores one custom preset: a card named preset.custom, built like Standard, appears before Save. The four cards share the page width (expand_fill, at least 196 px: «Звичайний» at large text), as on the MVP sketch. What Standard and Quick set for the humans and the anger threshold is open (the engineer's design); whether No knives stays is open (weapons are deferred, m8 §7).
       - **Standard** `Button` · variation `ToyPresetCard` · size flags horizontal `SIZE_EXPAND_FILL` · custom_minimum_size (196, 96) · no text or icon: its child is its content, drawn in its StyleBox content rect (the child and every node inside ignore the mouse, so the Button takes the press); a Button's minimum size does not follow its children, so custom_minimum_size holds the content at large text · toggle_mode true, button_pressed true (ToyToggle draws `ToyPresetCardSelected`)
@@ -374,10 +381,10 @@ The menu over the running game (no pause): Esc (ui_cancel) opens and closes it; 
           - **H** `HBoxContainer` · variation `ToyRowSixteen` · gaps from the variation: separation 16
             - **Name** `Label` · variation `ToySettingRowText` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (160, 0) · text `lobby.setting.humans`: en "Humans" · uk "Люди" · autowrap_mode `AUTOWRAP_WORD_SMART`
             - **Stepper** `HBoxContainer` · variation `ToyRowTwelve` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (345, 0) · gaps from the variation: separation 12 · alignment `ALIGNMENT_END`
-              - **Less** `Button` · variation `ToyStepper` · icon `chevron-left` (dist/pack/icons/chevron-left.svg, own work) at 24 px, tinted by `ToyStepper`'s icon_*_color
+              - **Less** `Button` · variation `ToyStepper` · custom_minimum_size (51, 51) = Vector2(get_theme_constant("width", "ToyStepper"), get_theme_constant("height", "ToyStepper")) · icon `minus` (dist/pack/icons/minus.svg, own work) at 24 px, tinted by `ToyStepper`'s icon_*_color
               - **Value** `Label` · variation `ToySettingRowValue` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (156, 0) · text `lobby.setting.humans_of` with sample {count} = "3", {total} = "10": en "3 of 10" · uk "3 з 10" · horizontal_alignment `CENTER`
                 - Note: {count} the humans set; {total} the players now in the lobby, which is also the stepper's maximum, so it follows joins and leaves: 3 of 10 in the full lobby, 1 of 4 in the guest's lobby of 4.
-              - **More** `Button` · variation `ToyStepper` · icon `chevron-right` (dist/pack/icons/chevron-right.svg, own work) at 24 px, tinted by `ToyStepper`'s icon_*_color
+              - **More** `Button` · variation `ToyStepper` · custom_minimum_size (51, 51) = Vector2(get_theme_constant("width", "ToyStepper"), get_theme_constant("height", "ToyStepper")) · icon `plus` (dist/pack/icons/plus.svg, own work) at 24 px, tinted by `ToyStepper`'s icon_*_color
         - **Anger** `PanelContainer` · variation `ToySettingRow` · custom_minimum_size (0, 96)
           - Note: The neighbours' anger threshold that calls the cops (m8 §5). Its choices are open (the engineer's design); 50 and 100 are the sketch's samples.
           - **H** `HBoxContainer` · variation `ToyRowSixteen` · gaps from the variation: separation 16
@@ -390,29 +397,29 @@ The menu over the running game (no pause): Esc (ui_cancel) opens and closes it; 
           - **H** `HBoxContainer` · variation `ToyRowSixteen` · gaps from the variation: separation 16
             - **Name** `Label` · variation `ToySettingRowText` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (160, 0) · text `lobby.setting.duration`: en "Match duration" · uk "Тривалість матчу" · autowrap_mode `AUTOWRAP_WORD_SMART`
             - **Stepper** `HBoxContainer` · variation `ToyRowTwelve` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (345, 0) · gaps from the variation: separation 12 · alignment `ALIGNMENT_END`
-              - **Less** `Button` · variation `ToyStepper` · icon `chevron-left` (dist/pack/icons/chevron-left.svg, own work) at 24 px, tinted by `ToyStepper`'s icon_*_color
+              - **Less** `Button` · variation `ToyStepper` · custom_minimum_size (51, 51) = Vector2(get_theme_constant("width", "ToyStepper"), get_theme_constant("height", "ToyStepper")) · icon `minus` (dist/pack/icons/minus.svg, own work) at 24 px, tinted by `ToyStepper`'s icon_*_color
                 - Note: Steps the value down; disabled (unplugged) at the lower bound. Keyboard and gamepad reach Less and More by focus (ui_left and ui_right move between them) and step with ui_accept. When a step reaches a bound, the other arrow takes focus (More.grab_focus()) before this one is disabled, so focus never rests on an unplugged arrow. The value is 156 px wide, so every stepper has one width and the arrows line up down the list. Every stepper below works the same; a player sees only the value.
               - **Value** `Label` · variation `ToySettingRowValue` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (156, 0) · text `unit.minutes` with sample {count} = "10": en "10 min" · uk "10 хв" · horizontal_alignment `CENTER`
-              - **More** `Button` · variation `ToyStepper` · icon `chevron-right` (dist/pack/icons/chevron-right.svg, own work) at 24 px, tinted by `ToyStepper`'s icon_*_color
+              - **More** `Button` · variation `ToyStepper` · custom_minimum_size (51, 51) = Vector2(get_theme_constant("width", "ToyStepper"), get_theme_constant("height", "ToyStepper")) · icon `plus` (dist/pack/icons/plus.svg, own work) at 24 px, tinted by `ToyStepper`'s icon_*_color
                 - Note: Steps the value up; disabled (unplugged) at the upper bound.
         - **WifiPasswords** `PanelContainer` · variation `ToySettingRow` · custom_minimum_size (0, 96)
           - Note: The Wi-Fi task's N: the passwords to enter before the task is done (GDD §8, a decided lobby setting). Bounds and the default are the game's data.
           - **H** `HBoxContainer` · variation `ToyRowSixteen` · gaps from the variation: separation 16
             - **Name** `Label` · variation `ToySettingRowText` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (160, 0) · text `lobby.setting.wifi_passwords`: en "Wi-Fi passwords" · uk "Паролі Wi-Fi" · autowrap_mode `AUTOWRAP_WORD_SMART`
             - **Stepper** `HBoxContainer` · variation `ToyRowTwelve` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (345, 0) · gaps from the variation: separation 12 · alignment `ALIGNMENT_END`
-              - **Less** `Button` · variation `ToyStepper` · icon `chevron-left` (dist/pack/icons/chevron-left.svg, own work) at 24 px, tinted by `ToyStepper`'s icon_*_color
+              - **Less** `Button` · variation `ToyStepper` · custom_minimum_size (51, 51) = Vector2(get_theme_constant("width", "ToyStepper"), get_theme_constant("height", "ToyStepper")) · icon `minus` (dist/pack/icons/minus.svg, own work) at 24 px, tinted by `ToyStepper`'s icon_*_color
               - **Value** `Label` · variation `ToySettingRowValue` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (156, 0) · text from data (auto_translate_mode = DISABLED), sample: "3" · horizontal_alignment `CENTER`
                 - Note: str(value) (auto_translate_mode DISABLED).
-              - **More** `Button` · variation `ToyStepper` · icon `chevron-right` (dist/pack/icons/chevron-right.svg, own work) at 24 px, tinted by `ToyStepper`'s icon_*_color
+              - **More** `Button` · variation `ToyStepper` · custom_minimum_size (51, 51) = Vector2(get_theme_constant("width", "ToyStepper"), get_theme_constant("height", "ToyStepper")) · icon `plus` (dist/pack/icons/plus.svg, own work) at 24 px, tinted by `ToyStepper`'s icon_*_color
         - **Knives** `PanelContainer` · variation `ToySettingRow` · custom_minimum_size (0, 96)
           - Note: Open (weapons are deferred, m8 §7): a placeholder until the engineer decides which melee the MVP keeps.
           - **H** `HBoxContainer` · variation `ToyRowSixteen` · gaps from the variation: separation 16
             - **Name** `Label` · variation `ToySettingRowText` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (160, 0) · text `lobby.setting.knives`: en "Knives" · uk "Ножі" · autowrap_mode `AUTOWRAP_WORD_SMART`
             - **Stepper** `HBoxContainer` · variation `ToyRowTwelve` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (345, 0) · gaps from the variation: separation 12 · alignment `ALIGNMENT_END`
-              - **Less** `Button` · variation `ToyStepper` · icon `chevron-left` (dist/pack/icons/chevron-left.svg, own work) at 24 px, tinted by `ToyStepper`'s icon_*_color
+              - **Less** `Button` · variation `ToyStepper` · custom_minimum_size (51, 51) = Vector2(get_theme_constant("width", "ToyStepper"), get_theme_constant("height", "ToyStepper")) · icon `minus` (dist/pack/icons/minus.svg, own work) at 24 px, tinted by `ToyStepper`'s icon_*_color
               - **Value** `Label` · variation `ToySettingRowValue` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (156, 0) · text from data (auto_translate_mode = DISABLED), sample: "2" · horizontal_alignment `CENTER`
                 - Note: str(value) (auto_translate_mode DISABLED).
-              - **More** `Button` · variation `ToyStepper` · icon `chevron-right` (dist/pack/icons/chevron-right.svg, own work) at 24 px, tinted by `ToyStepper`'s icon_*_color
+              - **More** `Button` · variation `ToyStepper` · custom_minimum_size (51, 51) = Vector2(get_theme_constant("width", "ToyStepper"), get_theme_constant("height", "ToyStepper")) · icon `plus` (dist/pack/icons/plus.svg, own work) at 24 px, tinted by `ToyStepper`'s icon_*_color
       - **Side** `VBoxContainer` · variation `ToyColumnTwentyFour` · custom_minimum_size (420, 0) · gaps from the variation: separation 24
         - **CodeGone** `Label` · variation `ToyTextMutedOnLight` · custom_minimum_size (420, 0) · text `esc.lobby.code_gone`: en "The code service isn't answering. To let more players in, host directly." · uk "Сервіс кодів не відповідає. Щоб прийняти ще гравців, створи гру напряму." · autowrap_mode `AUTOWRAP_WORD_SMART`
           - Note: In place of CodeRow, only for a host who hosted with a code, when the code service closed or was never reachable; a Direct host sees neither.
@@ -463,13 +470,13 @@ The menu over the running game (no pause): Esc (ui_cancel) opens and closes it; 
 
 ## `character`: what differs from `ship`
 
-- **Hidden:** `Menu/H/Page/Ship`.
-- **Changed** `Menu/H/Tabs/Game`: text `esc.tab.game`: en "Game" · uk "Гра" · toggle_mode true, button_pressed false (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі" · toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`))
-- **Changed** `Menu/H/Tabs/Character`: toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`) · shown with keyboard focus (grab_focus) (was: toggle_mode true, button_pressed false)
-- **Changed** `Menu/H/Page/TitleRow/Title`: text `esc.tab.character`: en "Character" · uk "Персонаж" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
+- **Hidden:** `Menu/V/Page/Ship`.
+- **Changed** `Menu/V/Strip/Tabs/Game`: text `esc.tab.game`: en "Game" · uk "Гра" · toggle_mode true, button_pressed false (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі" · toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`))
+- **Changed** `Menu/V/Strip/Tabs/Character`: toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`) · shown with keyboard focus (grab_focus) (was: toggle_mode true, button_pressed false)
+- **Changed** `Menu/V/Page/TitleRow/Title`: text `esc.tab.character`: en "Character" · uk "Персонаж" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
 - **Shown:**
-  - **Menu/H/Tabs/Lobby** `Button` · variation `ToyTab` · text `esc.tab.lobby`: en "Lobby" · uk "Лобі" · alignment `LEFT` · toggle_mode true, button_pressed false
-  - **Menu/H/Page/Character** `VBoxContainer` · variation `ToyColumnTwentyFour` · gaps from the variation: separation 24
+  - **Menu/V/Strip/Tabs/Lobby** `Button` · variation `ToyTab` · text `esc.tab.lobby`: en "Lobby" · uk "Лобі" · toggle_mode true, button_pressed false
+  - **Menu/V/Page/Character** `VBoxContainer` · variation `ToyColumnTwentyFour` · gaps from the variation: separation 24
     - **Body** `HBoxContainer` · variation `ToyRowThirtyTwo` · gaps from the variation: separation 32
       - **Preview** `PanelContainer` · variation `ToyHowtoFrame` · custom_minimum_size (456, 608)
         - Note: In the game: SubViewportContainer (stretch true) · min 456×608 with a SubViewport showing the own character; the page draws a ToyHowtoFrame placeholder.
@@ -525,18 +532,18 @@ The menu over the running game (no pause): Esc (ui_cancel) opens and closes it; 
 
 ## `character-round`: what differs from `ship`
 
-- **Hidden:** `Menu/H/Page/Ship`.
-- **Changed** `Menu/H/Tabs/Game`: text `esc.tab.game`: en "Game" · uk "Гра" · toggle_mode true, button_pressed false (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі" · toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`))
-- **Changed** `Menu/H/Tabs/Character`: toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`) · shown with keyboard focus (grab_focus) (was: toggle_mode true, button_pressed false)
-- **Changed** `Menu/H/Page/TitleRow/Title`: text `esc.tab.character`: en "Character" · uk "Персонаж" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
+- **Hidden:** `Menu/V/Page/Ship`.
+- **Changed** `Menu/V/Strip/Tabs/Game`: text `esc.tab.game`: en "Game" · uk "Гра" · toggle_mode true, button_pressed false (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі" · toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`))
+- **Changed** `Menu/V/Strip/Tabs/Character`: toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`) · shown with keyboard focus (grab_focus) (was: toggle_mode true, button_pressed false)
+- **Changed** `Menu/V/Page/TitleRow/Title`: text `esc.tab.character`: en "Character" · uk "Персонаж" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
 - **Shown:**
-  - **Menu/H/Tabs/Role** `Button` · variation `ToyTab` · text `esc.tab.role`: en "Role" · uk "Роль" · alignment `LEFT` · toggle_mode true, button_pressed false
-  - **Menu/H/Tabs/Lobby** `Button` · variation `ToyTab` · text `esc.tab.lobby`: en "Lobby" · uk "Лобі" · alignment `LEFT` · toggle_mode true, button_pressed false
-  - **Menu/H/Page/TitleRow/Locked** `HBoxContainer` · variation `ToyRowTwelve` · size flags vertical `SIZE_SHRINK_CENTER` · gaps from the variation: separation 12
+  - **Menu/V/Strip/Tabs/Role** `Button` · variation `ToyTab` · text `esc.tab.role`: en "Role" · uk "Роль" · toggle_mode true, button_pressed false
+  - **Menu/V/Strip/Tabs/Lobby** `Button` · variation `ToyTab` · text `esc.tab.lobby`: en "Lobby" · uk "Лобі" · toggle_mode true, button_pressed false
+  - **Menu/V/Page/TitleRow/Locked** `HBoxContainer` · variation `ToyRowTwelve` · size flags vertical `SIZE_SHRINK_CENTER` · gaps from the variation: separation 12
     - Note: In a round the Character tab is locked: the same lock line as the guest's HostOnly, in the title row, so the page below does not move.
     - **Lock** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (30, 30) · texture `lock` (dist/pack/icons/lock.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyTextMutedOnLight")
     - **Text** `Label` · variation `ToyTextMutedOnLight` · text `esc.character.locked`: en "You can change this only in the lobby" · uk "Змінювати можна лише в лобі"
-  - **Menu/H/Page/Character** `VBoxContainer` · variation `ToyColumnTwentyFour` · gaps from the variation: separation 24
+  - **Menu/V/Page/Character** `VBoxContainer` · variation `ToyColumnTwentyFour` · gaps from the variation: separation 24
     - **Body** `HBoxContainer` · variation `ToyRowThirtyTwo` · gaps from the variation: separation 32
       - **Preview** `PanelContainer` · variation `ToyHowtoFrame` · custom_minimum_size (456, 608)
         - Note: In the game: SubViewportContainer (stretch true) · min 456×608 with a SubViewport showing the own character; the page draws a ToyHowtoFrame placeholder.
@@ -592,13 +599,13 @@ The menu over the running game (no pause): Esc (ui_cancel) opens and closes it; 
 
 ## `game-host`: what differs from `ship`
 
-- **Hidden:** `Menu/H/Page/Ship`.
-- **Changed** `Menu/H/Tabs/Game`: text `esc.tab.game`: en "Game" · uk "Гра" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
-- **Changed** `Menu/H/Page/TitleRow/Title`: text `esc.tab.game`: en "Game" · uk "Гра" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
+- **Hidden:** `Menu/V/Page/Ship`.
+- **Changed** `Menu/V/Strip/Tabs/Game`: text `esc.tab.game`: en "Game" · uk "Гра" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
+- **Changed** `Menu/V/Page/TitleRow/Title`: text `esc.tab.game`: en "Game" · uk "Гра" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
 - **Shown:**
-  - **Menu/H/Tabs/Role** `Button` · variation `ToyTab` · text `esc.tab.role`: en "Role" · uk "Роль" · alignment `LEFT` · toggle_mode true, button_pressed false
-  - **Menu/H/Tabs/Lobby** `Button` · variation `ToyTab` · text `esc.tab.lobby`: en "Lobby" · uk "Лобі" · alignment `LEFT` · toggle_mode true, button_pressed false
-  - **Menu/H/Page/Actions** `VBoxContainer` · variation `ToyColumnTwentyFour` · size flags horizontal `SIZE_SHRINK_BEGIN` · custom_minimum_size (760, 0) · gaps from the variation: separation 24
+  - **Menu/V/Strip/Tabs/Role** `Button` · variation `ToyTab` · text `esc.tab.role`: en "Role" · uk "Роль" · toggle_mode true, button_pressed false
+  - **Menu/V/Strip/Tabs/Lobby** `Button` · variation `ToyTab` · text `esc.tab.lobby`: en "Lobby" · uk "Лобі" · toggle_mode true, button_pressed false
+  - **Menu/V/Page/Actions** `VBoxContainer` · variation `ToyColumnTwentyFour` · size flags horizontal `SIZE_SHRINK_BEGIN` · custom_minimum_size (760, 0) · gaps from the variation: separation 24
     - **Resume** `Button` · variation `ToyButtonPrimary` · text `esc.game.resume`: en "Resume" · uk "Продовжити" · shown with keyboard focus (grab_focus)
       - Note: Closes the menu (as Esc). Takes focus when the menu opens on Game.
     - **Leave** `Button` · variation `ToyButtonDanger` · text `esc.game.leave`: en "Leave the session" · uk "Покинути сесію"
@@ -608,13 +615,13 @@ The menu over the running game (no pause): Esc (ui_cancel) opens and closes it; 
 
 ## `game-guest`: what differs from `ship`
 
-- **Hidden:** `Menu/H/Page/Ship`.
-- **Changed** `Menu/H/Tabs/Game`: text `esc.tab.game`: en "Game" · uk "Гра" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
-- **Changed** `Menu/H/Page/TitleRow/Title`: text `esc.tab.game`: en "Game" · uk "Гра" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
+- **Hidden:** `Menu/V/Page/Ship`.
+- **Changed** `Menu/V/Strip/Tabs/Game`: text `esc.tab.game`: en "Game" · uk "Гра" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
+- **Changed** `Menu/V/Page/TitleRow/Title`: text `esc.tab.game`: en "Game" · uk "Гра" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
 - **Shown:**
-  - **Menu/H/Tabs/Role** `Button` · variation `ToyTab` · text `esc.tab.role`: en "Role" · uk "Роль" · alignment `LEFT` · toggle_mode true, button_pressed false
-  - **Menu/H/Tabs/Lobby** `Button` · variation `ToyTab` · text `esc.tab.lobby`: en "Lobby" · uk "Лобі" · alignment `LEFT` · toggle_mode true, button_pressed false
-  - **Menu/H/Page/Actions** `VBoxContainer` · variation `ToyColumnTwentyFour` · size flags horizontal `SIZE_SHRINK_BEGIN` · custom_minimum_size (760, 0) · gaps from the variation: separation 24
+  - **Menu/V/Strip/Tabs/Role** `Button` · variation `ToyTab` · text `esc.tab.role`: en "Role" · uk "Роль" · toggle_mode true, button_pressed false
+  - **Menu/V/Strip/Tabs/Lobby** `Button` · variation `ToyTab` · text `esc.tab.lobby`: en "Lobby" · uk "Лобі" · toggle_mode true, button_pressed false
+  - **Menu/V/Page/Actions** `VBoxContainer` · variation `ToyColumnTwentyFour` · size flags horizontal `SIZE_SHRINK_BEGIN` · custom_minimum_size (760, 0) · gaps from the variation: separation 24
     - **Resume** `Button` · variation `ToyButtonPrimary` · text `esc.game.resume`: en "Resume" · uk "Продовжити" · shown with keyboard focus (grab_focus)
       - Note: Closes the menu (as Esc). Takes focus when the menu opens on Game.
     - **Leave** `Button` · variation `ToyButtonSecondary` · text `esc.game.leave`: en "Leave the session" · uk "Покинути сесію"
@@ -624,13 +631,13 @@ The menu over the running game (no pause): Esc (ui_cancel) opens and closes it; 
 
 ## `game-confirm`: what differs from `ship`
 
-- **Hidden:** `Menu/H/Page/Ship`.
-- **Changed** `Menu/H/Tabs/Game`: text `esc.tab.game`: en "Game" · uk "Гра" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
-- **Changed** `Menu/H/Page/TitleRow/Title`: text `esc.tab.game`: en "Game" · uk "Гра" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
+- **Hidden:** `Menu/V/Page/Ship`.
+- **Changed** `Menu/V/Strip/Tabs/Game`: text `esc.tab.game`: en "Game" · uk "Гра" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
+- **Changed** `Menu/V/Page/TitleRow/Title`: text `esc.tab.game`: en "Game" · uk "Гра" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
 - **Shown:**
-  - **Menu/H/Tabs/Role** `Button` · variation `ToyTab` · text `esc.tab.role`: en "Role" · uk "Роль" · alignment `LEFT` · toggle_mode true, button_pressed false
-  - **Menu/H/Tabs/Lobby** `Button` · variation `ToyTab` · text `esc.tab.lobby`: en "Lobby" · uk "Лобі" · alignment `LEFT` · toggle_mode true, button_pressed false
-  - **Menu/H/Page/Actions** `VBoxContainer` · variation `ToyColumnTwentyFour` · size flags horizontal `SIZE_SHRINK_BEGIN` · custom_minimum_size (760, 0) · gaps from the variation: separation 24
+  - **Menu/V/Strip/Tabs/Role** `Button` · variation `ToyTab` · text `esc.tab.role`: en "Role" · uk "Роль" · toggle_mode true, button_pressed false
+  - **Menu/V/Strip/Tabs/Lobby** `Button` · variation `ToyTab` · text `esc.tab.lobby`: en "Lobby" · uk "Лобі" · toggle_mode true, button_pressed false
+  - **Menu/V/Page/Actions** `VBoxContainer` · variation `ToyColumnTwentyFour` · size flags horizontal `SIZE_SHRINK_BEGIN` · custom_minimum_size (760, 0) · gaps from the variation: separation 24
     - **Resume** `Button` · variation `ToyButtonPrimary` · text `esc.game.resume`: en "Resume" · uk "Продовжити"
       - Note: Closes the menu (as Esc). Takes focus when the menu opens on Game.
     - **Leave** `Button` · variation `ToyButtonDanger` · text `esc.game.leave`: en "Leave the session" · uk "Покинути сесію"
@@ -653,13 +660,13 @@ The menu over the running game (no pause): Esc (ui_cancel) opens and closes it; 
 
 ## `role-alien`: what differs from `ship`
 
-- **Hidden:** `Menu/H/Page/Ship`.
-- **Changed** `Menu/H/Tabs/Game`: text `esc.tab.game`: en "Game" · uk "Гра" · toggle_mode true, button_pressed false (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі" · toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`))
-- **Changed** `Menu/H/Page/TitleRow/Title`: text `esc.tab.role`: en "Role" · uk "Роль" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
+- **Hidden:** `Menu/V/Page/Ship`.
+- **Changed** `Menu/V/Strip/Tabs/Game`: text `esc.tab.game`: en "Game" · uk "Гра" · toggle_mode true, button_pressed false (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі" · toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`))
+- **Changed** `Menu/V/Page/TitleRow/Title`: text `esc.tab.role`: en "Role" · uk "Роль" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
 - **Shown:**
-  - **Menu/H/Tabs/Role** `Button` · variation `ToyTab` · text `esc.tab.role`: en "Role" · uk "Роль" · alignment `LEFT` · toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`) · shown with keyboard focus (grab_focus)
-  - **Menu/H/Tabs/Lobby** `Button` · variation `ToyTab` · text `esc.tab.lobby`: en "Lobby" · uk "Лобі" · alignment `LEFT` · toggle_mode true, button_pressed false
-  - **Menu/H/Page/Role** `HBoxContainer` · variation `ToyRowThirtyTwo` · gaps from the variation: separation 32
+  - **Menu/V/Strip/Tabs/Role** `Button` · variation `ToyTab` · text `esc.tab.role`: en "Role" · uk "Роль" · toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`) · shown with keyboard focus (grab_focus)
+  - **Menu/V/Strip/Tabs/Lobby** `Button` · variation `ToyTab` · text `esc.tab.lobby`: en "Lobby" · uk "Лобі" · toggle_mode true, button_pressed false
+  - **Menu/V/Page/Role** `HBoxContainer` · variation `ToyRowThirtyTwo` · gaps from the variation: separation 32
     - Note: Reads only the own role and, for a human, the other humans.
     - **Left** `VBoxContainer` · variation `ToyColumnTwelve` · size flags horizontal `SIZE_EXPAND_FILL`, stretch_ratio 1.1 · gaps from the variation: separation 12
       - **You** `Label` · variation `ToyTextMutedOnLight` · text `player.you`: en "You" · uk "Ти"
@@ -669,13 +676,13 @@ The menu over the running game (no pause): Esc (ui_cancel) opens and closes it; 
 
 ## `role-human`: what differs from `ship`
 
-- **Hidden:** `Menu/H/Page/Ship`.
-- **Changed** `Menu/H/Tabs/Game`: text `esc.tab.game`: en "Game" · uk "Гра" · toggle_mode true, button_pressed false (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі" · toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`))
-- **Changed** `Menu/H/Page/TitleRow/Title`: text `esc.tab.role`: en "Role" · uk "Роль" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
+- **Hidden:** `Menu/V/Page/Ship`.
+- **Changed** `Menu/V/Strip/Tabs/Game`: text `esc.tab.game`: en "Game" · uk "Гра" · toggle_mode true, button_pressed false (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі" · toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`))
+- **Changed** `Menu/V/Page/TitleRow/Title`: text `esc.tab.role`: en "Role" · uk "Роль" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
 - **Shown:**
-  - **Menu/H/Tabs/Role** `Button` · variation `ToyTab` · text `esc.tab.role`: en "Role" · uk "Роль" · alignment `LEFT` · toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`) · shown with keyboard focus (grab_focus)
-  - **Menu/H/Tabs/Lobby** `Button` · variation `ToyTab` · text `esc.tab.lobby`: en "Lobby" · uk "Лобі" · alignment `LEFT` · toggle_mode true, button_pressed false
-  - **Menu/H/Page/Role** `HBoxContainer` · variation `ToyRowThirtyTwo` · gaps from the variation: separation 32
+  - **Menu/V/Strip/Tabs/Role** `Button` · variation `ToyTab` · text `esc.tab.role`: en "Role" · uk "Роль" · toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`) · shown with keyboard focus (grab_focus)
+  - **Menu/V/Strip/Tabs/Lobby** `Button` · variation `ToyTab` · text `esc.tab.lobby`: en "Lobby" · uk "Лобі" · toggle_mode true, button_pressed false
+  - **Menu/V/Page/Role** `HBoxContainer` · variation `ToyRowThirtyTwo` · gaps from the variation: separation 32
     - Note: Reads only the own role and, for a human, the other humans.
     - **Left** `VBoxContainer` · variation `ToyColumnTwelve` · size flags horizontal `SIZE_EXPAND_FILL`, stretch_ratio 1.1 · gaps from the variation: separation 12
       - **You** `Label` · variation `ToyTextMutedOnLight` · text `player.you`: en "You" · uk "Ти"
@@ -697,14 +704,14 @@ The menu over the running game (no pause): Esc (ui_cancel) opens and closes it; 
 
 ## `guide`: what differs from `ship`
 
-- **Hidden:** `Menu/H/Page/Ship`.
-- **Changed** `Menu/H/Tabs/Game`: text `esc.tab.game`: en "Game" · uk "Гра" · toggle_mode true, button_pressed false (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі" · toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`))
-- **Changed** `Menu/H/Tabs/Guide`: toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`) · shown with keyboard focus (grab_focus) (was: toggle_mode true, button_pressed false)
-- **Changed** `Menu/H/Page/TitleRow/Title`: text `esc.tab.guide`: en "Guide" · uk "Посібник" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
+- **Hidden:** `Menu/V/Page/Ship`.
+- **Changed** `Menu/V/Strip/Tabs/Game`: text `esc.tab.game`: en "Game" · uk "Гра" · toggle_mode true, button_pressed false (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі" · toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`))
+- **Changed** `Menu/V/Strip/Tabs/Guide`: toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`) · shown with keyboard focus (grab_focus) (was: toggle_mode true, button_pressed false)
+- **Changed** `Menu/V/Page/TitleRow/Title`: text `esc.tab.guide`: en "Guide" · uk "Посібник" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
 - **Shown:**
-  - **Menu/H/Tabs/Role** `Button` · variation `ToyTab` · text `esc.tab.role`: en "Role" · uk "Роль" · alignment `LEFT` · toggle_mode true, button_pressed false
-  - **Menu/H/Tabs/Lobby** `Button` · variation `ToyTab` · text `esc.tab.lobby`: en "Lobby" · uk "Лобі" · alignment `LEFT` · toggle_mode true, button_pressed false
-  - **Menu/H/Page/Guide** `HBoxContainer` · variation `ToyRowThirtyTwo` · size flags vertical `SIZE_EXPAND_FILL` · gaps from the variation: separation 32
+  - **Menu/V/Strip/Tabs/Role** `Button` · variation `ToyTab` · text `esc.tab.role`: en "Role" · uk "Роль" · toggle_mode true, button_pressed false
+  - **Menu/V/Strip/Tabs/Lobby** `Button` · variation `ToyTab` · text `esc.tab.lobby`: en "Lobby" · uk "Лобі" · toggle_mode true, button_pressed false
+  - **Menu/V/Page/Guide** `HBoxContainer` · variation `ToyRowThirtyTwo` · size flags vertical `SIZE_EXPAND_FILL` · gaps from the variation: separation 32
     - **List** `ScrollContainer` · variation `ToyScroll` · custom_minimum_size (360, 0) · the gap between the child and the bar from the variation: scrollbar_h_separation 8 · horizontal_scroll_mode `SCROLL_MODE_DISABLED` (vertical scrolling only); `get_v_scroll_bar().theme_type_variation = &"ToyScrollBar"`; the bar shows when the child is taller
       - Note: Fills the page height. follow_focus = true, so keyboard and gamepad focus scrolls the chip in view. 360 px holds the longest chip at large text.
       - **V** `VBoxContainer` · variation `ToyColumnTwelve` · size flags horizontal `SIZE_EXPAND_FILL` · gaps from the variation: separation 12
@@ -753,14 +760,14 @@ The menu over the running game (no pause): Esc (ui_cancel) opens and closes it; 
 
 ## `settings-sound`: what differs from `ship`
 
-- **Hidden:** `Menu/H/Page/Ship`.
-- **Changed** `Menu/H/Tabs/Game`: text `esc.tab.game`: en "Game" · uk "Гра" · toggle_mode true, button_pressed false (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі" · toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`))
-- **Changed** `Menu/H/Tabs/Settings`: toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`) · shown with keyboard focus (grab_focus) (was: toggle_mode true, button_pressed false)
-- **Changed** `Menu/H/Page/TitleRow/Title`: text `esc.tab.settings`: en "Settings" · uk "Налаштування" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
+- **Hidden:** `Menu/V/Page/Ship`.
+- **Changed** `Menu/V/Strip/Tabs/Game`: text `esc.tab.game`: en "Game" · uk "Гра" · toggle_mode true, button_pressed false (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі" · toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`))
+- **Changed** `Menu/V/Strip/Tabs/Settings`: toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`) · shown with keyboard focus (grab_focus) (was: toggle_mode true, button_pressed false)
+- **Changed** `Menu/V/Page/TitleRow/Title`: text `esc.tab.settings`: en "Settings" · uk "Налаштування" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
 - **Shown:**
-  - **Menu/H/Tabs/Role** `Button` · variation `ToyTab` · text `esc.tab.role`: en "Role" · uk "Роль" · alignment `LEFT` · toggle_mode true, button_pressed false
-  - **Menu/H/Tabs/Lobby** `Button` · variation `ToyTab` · text `esc.tab.lobby`: en "Lobby" · uk "Лобі" · alignment `LEFT` · toggle_mode true, button_pressed false
-  - **Menu/H/Page/Settings** `VBoxContainer` · variation `ToyColumnTwentyFour` · size flags vertical `SIZE_EXPAND_FILL` · gaps from the variation: separation 24
+  - **Menu/V/Strip/Tabs/Role** `Button` · variation `ToyTab` · text `esc.tab.role`: en "Role" · uk "Роль" · toggle_mode true, button_pressed false
+  - **Menu/V/Strip/Tabs/Lobby** `Button` · variation `ToyTab` · text `esc.tab.lobby`: en "Lobby" · uk "Лобі" · toggle_mode true, button_pressed false
+  - **Menu/V/Page/Settings** `VBoxContainer` · variation `ToyColumnTwentyFour` · size flags vertical `SIZE_EXPAND_FILL` · gaps from the variation: separation 24
     - Note: One scene (#301; since the boot into the ship only the suit menu shows it): the mic, the mode, the threshold with its live meter, noise suppression and the volumes work without a session. Saved per player.
     - **Sub** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
       - Note: One ButtonGroup; Settings opens on Sound and voice.
@@ -824,14 +831,14 @@ The menu over the running game (no pause): Esc (ui_cancel) opens and closes it; 
 
 ## `settings-controls`: what differs from `ship`
 
-- **Hidden:** `Menu/H/Page/Ship`.
-- **Changed** `Menu/H/Tabs/Game`: text `esc.tab.game`: en "Game" · uk "Гра" · toggle_mode true, button_pressed false (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі" · toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`))
-- **Changed** `Menu/H/Tabs/Settings`: toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`) (was: toggle_mode true, button_pressed false)
-- **Changed** `Menu/H/Page/TitleRow/Title`: text `esc.tab.settings`: en "Settings" · uk "Налаштування" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
+- **Hidden:** `Menu/V/Page/Ship`.
+- **Changed** `Menu/V/Strip/Tabs/Game`: text `esc.tab.game`: en "Game" · uk "Гра" · toggle_mode true, button_pressed false (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі" · toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`))
+- **Changed** `Menu/V/Strip/Tabs/Settings`: toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`) (was: toggle_mode true, button_pressed false)
+- **Changed** `Menu/V/Page/TitleRow/Title`: text `esc.tab.settings`: en "Settings" · uk "Налаштування" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
 - **Shown:**
-  - **Menu/H/Tabs/Role** `Button` · variation `ToyTab` · text `esc.tab.role`: en "Role" · uk "Роль" · alignment `LEFT` · toggle_mode true, button_pressed false
-  - **Menu/H/Tabs/Lobby** `Button` · variation `ToyTab` · text `esc.tab.lobby`: en "Lobby" · uk "Лобі" · alignment `LEFT` · toggle_mode true, button_pressed false
-  - **Menu/H/Page/Settings** `VBoxContainer` · variation `ToyColumnTwentyFour` · size flags vertical `SIZE_EXPAND_FILL` · gaps from the variation: separation 24
+  - **Menu/V/Strip/Tabs/Role** `Button` · variation `ToyTab` · text `esc.tab.role`: en "Role" · uk "Роль" · toggle_mode true, button_pressed false
+  - **Menu/V/Strip/Tabs/Lobby** `Button` · variation `ToyTab` · text `esc.tab.lobby`: en "Lobby" · uk "Лобі" · toggle_mode true, button_pressed false
+  - **Menu/V/Page/Settings** `VBoxContainer` · variation `ToyColumnTwentyFour` · size flags vertical `SIZE_EXPAND_FILL` · gaps from the variation: separation 24
     - Note: One scene (#301; since the boot into the ship only the suit menu shows it): the mic, the mode, the threshold with its live meter, noise suppression and the volumes work without a session. Saved per player.
     - **Sub** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
       - Note: One ButtonGroup; Settings opens on Sound and voice.
@@ -925,14 +932,14 @@ The menu over the running game (no pause): Esc (ui_cancel) opens and closes it; 
 
 ## `settings-display`: what differs from `ship`
 
-- **Hidden:** `Menu/H/Page/Ship`.
-- **Changed** `Menu/H/Tabs/Game`: text `esc.tab.game`: en "Game" · uk "Гра" · toggle_mode true, button_pressed false (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі" · toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`))
-- **Changed** `Menu/H/Tabs/Settings`: toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`) · shown with keyboard focus (grab_focus) (was: toggle_mode true, button_pressed false)
-- **Changed** `Menu/H/Page/TitleRow/Title`: text `esc.tab.settings`: en "Settings" · uk "Налаштування" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
+- **Hidden:** `Menu/V/Page/Ship`.
+- **Changed** `Menu/V/Strip/Tabs/Game`: text `esc.tab.game`: en "Game" · uk "Гра" · toggle_mode true, button_pressed false (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі" · toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`))
+- **Changed** `Menu/V/Strip/Tabs/Settings`: toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`) · shown with keyboard focus (grab_focus) (was: toggle_mode true, button_pressed false)
+- **Changed** `Menu/V/Page/TitleRow/Title`: text `esc.tab.settings`: en "Settings" · uk "Налаштування" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
 - **Shown:**
-  - **Menu/H/Tabs/Role** `Button` · variation `ToyTab` · text `esc.tab.role`: en "Role" · uk "Роль" · alignment `LEFT` · toggle_mode true, button_pressed false
-  - **Menu/H/Tabs/Lobby** `Button` · variation `ToyTab` · text `esc.tab.lobby`: en "Lobby" · uk "Лобі" · alignment `LEFT` · toggle_mode true, button_pressed false
-  - **Menu/H/Page/Settings** `VBoxContainer` · variation `ToyColumnTwentyFour` · size flags vertical `SIZE_EXPAND_FILL` · gaps from the variation: separation 24
+  - **Menu/V/Strip/Tabs/Role** `Button` · variation `ToyTab` · text `esc.tab.role`: en "Role" · uk "Роль" · toggle_mode true, button_pressed false
+  - **Menu/V/Strip/Tabs/Lobby** `Button` · variation `ToyTab` · text `esc.tab.lobby`: en "Lobby" · uk "Лобі" · toggle_mode true, button_pressed false
+  - **Menu/V/Page/Settings** `VBoxContainer` · variation `ToyColumnTwentyFour` · size flags vertical `SIZE_EXPAND_FILL` · gaps from the variation: separation 24
     - Note: One scene (#301; since the boot into the ship only the suit menu shows it): the mic, the mode, the threshold with its live meter, noise suppression and the volumes work without a session. Saved per player.
     - **Sub** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
       - Note: One ButtonGroup; Settings opens on Sound and voice.
@@ -954,14 +961,14 @@ The menu over the running game (no pause): Esc (ui_cancel) opens and closes it; 
 
 ## `settings-access`: what differs from `ship`
 
-- **Hidden:** `Menu/H/Page/Ship`.
-- **Changed** `Menu/H/Tabs/Game`: text `esc.tab.game`: en "Game" · uk "Гра" · toggle_mode true, button_pressed false (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі" · toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`))
-- **Changed** `Menu/H/Tabs/Settings`: toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`) · shown with keyboard focus (grab_focus) (was: toggle_mode true, button_pressed false)
-- **Changed** `Menu/H/Page/TitleRow/Title`: text `esc.tab.settings`: en "Settings" · uk "Налаштування" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
+- **Hidden:** `Menu/V/Page/Ship`.
+- **Changed** `Menu/V/Strip/Tabs/Game`: text `esc.tab.game`: en "Game" · uk "Гра" · toggle_mode true, button_pressed false (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі" · toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`))
+- **Changed** `Menu/V/Strip/Tabs/Settings`: toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`) · shown with keyboard focus (grab_focus) (was: toggle_mode true, button_pressed false)
+- **Changed** `Menu/V/Page/TitleRow/Title`: text `esc.tab.settings`: en "Settings" · uk "Налаштування" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
 - **Shown:**
-  - **Menu/H/Tabs/Role** `Button` · variation `ToyTab` · text `esc.tab.role`: en "Role" · uk "Роль" · alignment `LEFT` · toggle_mode true, button_pressed false
-  - **Menu/H/Tabs/Lobby** `Button` · variation `ToyTab` · text `esc.tab.lobby`: en "Lobby" · uk "Лобі" · alignment `LEFT` · toggle_mode true, button_pressed false
-  - **Menu/H/Page/Settings** `VBoxContainer` · variation `ToyColumnTwentyFour` · size flags vertical `SIZE_EXPAND_FILL` · gaps from the variation: separation 24
+  - **Menu/V/Strip/Tabs/Role** `Button` · variation `ToyTab` · text `esc.tab.role`: en "Role" · uk "Роль" · toggle_mode true, button_pressed false
+  - **Menu/V/Strip/Tabs/Lobby** `Button` · variation `ToyTab` · text `esc.tab.lobby`: en "Lobby" · uk "Лобі" · toggle_mode true, button_pressed false
+  - **Menu/V/Page/Settings** `VBoxContainer` · variation `ToyColumnTwentyFour` · size flags vertical `SIZE_EXPAND_FILL` · gaps from the variation: separation 24
     - Note: One scene (#301; since the boot into the ship only the suit menu shows it): the mic, the mode, the threshold with its live meter, noise suppression and the volumes work without a session. Saved per player.
     - **Sub** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
       - Note: One ButtonGroup; Settings opens on Sound and voice.
@@ -990,14 +997,14 @@ The menu over the running game (no pause): Esc (ui_cancel) opens and closes it; 
 
 ## `settings-language`: what differs from `ship`
 
-- **Hidden:** `Menu/H/Page/Ship`.
-- **Changed** `Menu/H/Tabs/Game`: text `esc.tab.game`: en "Game" · uk "Гра" · toggle_mode true, button_pressed false (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі" · toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`))
-- **Changed** `Menu/H/Tabs/Settings`: toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`) · shown with keyboard focus (grab_focus) (was: toggle_mode true, button_pressed false)
-- **Changed** `Menu/H/Page/TitleRow/Title`: text `esc.tab.settings`: en "Settings" · uk "Налаштування" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
+- **Hidden:** `Menu/V/Page/Ship`.
+- **Changed** `Menu/V/Strip/Tabs/Game`: text `esc.tab.game`: en "Game" · uk "Гра" · toggle_mode true, button_pressed false (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі" · toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`))
+- **Changed** `Menu/V/Strip/Tabs/Settings`: toggle_mode true, button_pressed true (ToyToggle draws `ToyTabSelected`) · shown with keyboard focus (grab_focus) (was: toggle_mode true, button_pressed false)
+- **Changed** `Menu/V/Page/TitleRow/Title`: text `esc.tab.settings`: en "Settings" · uk "Налаштування" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
 - **Shown:**
-  - **Menu/H/Tabs/Role** `Button` · variation `ToyTab` · text `esc.tab.role`: en "Role" · uk "Роль" · alignment `LEFT` · toggle_mode true, button_pressed false
-  - **Menu/H/Tabs/Lobby** `Button` · variation `ToyTab` · text `esc.tab.lobby`: en "Lobby" · uk "Лобі" · alignment `LEFT` · toggle_mode true, button_pressed false
-  - **Menu/H/Page/Settings** `VBoxContainer` · variation `ToyColumnTwentyFour` · size flags vertical `SIZE_EXPAND_FILL` · gaps from the variation: separation 24
+  - **Menu/V/Strip/Tabs/Role** `Button` · variation `ToyTab` · text `esc.tab.role`: en "Role" · uk "Роль" · toggle_mode true, button_pressed false
+  - **Menu/V/Strip/Tabs/Lobby** `Button` · variation `ToyTab` · text `esc.tab.lobby`: en "Lobby" · uk "Лобі" · toggle_mode true, button_pressed false
+  - **Menu/V/Page/Settings** `VBoxContainer` · variation `ToyColumnTwentyFour` · size flags vertical `SIZE_EXPAND_FILL` · gaps from the variation: separation 24
     - Note: One scene (#301; since the boot into the ship only the suit menu shows it): the mic, the mode, the threshold with its live meter, noise suppression and the volumes work without a session. Saved per player.
     - **Sub** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
       - Note: One ButtonGroup; Settings opens on Sound and voice.
@@ -1019,11 +1026,11 @@ The menu over the running game (no pause): Esc (ui_cancel) opens and closes it; 
 
 ## `tutorial-game`: what differs from `ship`
 
-- **Hidden:** `Menu/H/Tabs/Character`, `Menu/H/Page/Ship`.
-- **Changed** `Menu/H/Tabs/Game`: text `esc.tab.game`: en "Game" · uk "Гра" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
-- **Changed** `Menu/H/Page/TitleRow/Title`: text `esc.tab.game`: en "Game" · uk "Гра" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
+- **Hidden:** `Menu/V/Strip/Tabs/Character`, `Menu/V/Page/Ship`.
+- **Changed** `Menu/V/Strip/Tabs/Game`: text `esc.tab.game`: en "Game" · uk "Гра" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
+- **Changed** `Menu/V/Page/TitleRow/Title`: text `esc.tab.game`: en "Game" · uk "Гра" (was: text `esc.tab.find`: en "Find a lobby" · uk "Знайти лобі")
 - **Shown:**
-  - **Menu/H/Page/Actions** `VBoxContainer` · variation `ToyColumnTwentyFour` · size flags horizontal `SIZE_SHRINK_BEGIN` · custom_minimum_size (760, 0) · gaps from the variation: separation 24
+  - **Menu/V/Page/Actions** `VBoxContainer` · variation `ToyColumnTwentyFour` · size flags horizontal `SIZE_SHRINK_BEGIN` · custom_minimum_size (760, 0) · gaps from the variation: separation 24
     - **Resume** `Button` · variation `ToyButtonPrimary` · text `esc.game.resume`: en "Resume" · uk "Продовжити" · shown with keyboard focus (grab_focus)
       - Note: Closes the menu (as Esc). Takes focus when the menu opens on Game.
     - **Leave** `Button` · variation `ToyButtonSecondary` · text `esc.game.leave_tutorial`: en "Leave the tutorial" · uk "Вийти з навчання"
@@ -1035,9 +1042,9 @@ The menu over the running game (no pause): Esc (ui_cancel) opens and closes it; 
 
 - The review page emulates Godot's containers with CSS grid (expanding children share the free space by stretch ratio, never below their minimum size), so a pixel or two may differ from Godot.
 - Size constants: a variation's `width`, `height`, `min_width`, `wide_width` and `wide_min_width` theme constants are read by code into `custom_minimum_size`, as the node lines give them. A Panel or PanelContainer takes no size from them on its own: an anchored Panel at offsets 0 is 0×0, a slot shrinks to its text.
-- Size constants that follow the text size: `min_width` 42 (50 in the pack's `modes.textSize.large`) of ToyKeyButton, ToyKeyOnLight. The large-text theme is swapped in while a screen is open, so code that sets custom_minimum_size from such a constant sets it again on `NOTIFICATION_THEME_CHANGED`.
+- Size constants that follow the text size: `min_width` 42 (50 in the pack's `modes.textSize.large`) of ToyKeyButton, ToyKeyOnLight, ToyKeyQuiet. The large-text theme is swapped in while a screen is open, so code that sets custom_minimum_size from such a constant sets it again on `NOTIFICATION_THEME_CHANGED`.
 - Icons: the tinted ones are white SVGs in `dist/pack/icons/` (the pack's copy of `pages/components/icons`, currentColor written as white): a TextureRect tints one with the `self_modulate` its line gives (the colour the page draws it in), a Button with its variation's `icon_*_color`, an OptionButton its arrow with `modulate_arrow`. The room pictograms are white copies too (`dist/pack/icons/room/`), drawn in ink: their lines give the `self_modulate`. The pack's `assets` list every icon with its tint and `svg_scale`.
-- SVG import: Godot rasterises an SVG at import, so import each at `svg/scale` = the largest size it is drawn ÷ its viewBox (the largest over every screen that draws it, as the pack's `assets` give it): `check` 1.5 (36 px), `chevron-down` 1 (24 px), `chevron-left` 1 (24 px), `chevron-right` 1 (24 px), `lock` 1.25 (30 px), `radio-checked` 1 (24 px), `radio-checked-disabled` 1 (24 px), `radio-unchecked` 1 (24 px), `slider-knob` 1 (42 px), `slider-knob-disabled` 1 (42 px), `swatch-disc` 2.31 (60 px), `teammate-mark` 1.25 (30 px).
+- SVG import: Godot rasterises an SVG at import, so import each at `svg/scale` = the largest size it is drawn ÷ its viewBox (the largest over every screen that draws it, as the pack's `assets` give it): `check` 1.5 (36 px), `chevron-down` 1 (24 px), `lock` 1.25 (30 px), `minus` 1 (24 px), `plus` 1 (24 px), `radio-checked` 1 (24 px), `radio-checked-disabled` 1 (24 px), `radio-unchecked` 1 (24 px), `slider-knob` 1 (42 px), `slider-knob-disabled` 1 (42 px), `swatch-disc` 2.31 (60 px), `teammate-mark` 1.25 (30 px).
 - Card art: the how-to frames draw the pack's PNGs, `dist/pack/cards/delivery-1.png`, `dist/pack/cards/delivery-2.png`, `dist/pack/cards/delivery-3.png`, `dist/pack/cards/delivery-meaning-1.png`, `dist/pack/cards/delivery-meaning-2.png`, `dist/pack/cards/delivery-meaning-3.png`, `dist/pack/cards/delivery-meaning-4.png` (640x480, transparent, own work; rendered from `pages/card-art/round-2/clean-sketch/`, `pages/card-art/round-3/a/` by `tools/card-art/render.js`), in their own colours, never tinted. They are drawn smaller than their size (up to 272x204 px here), so import them as Texture2D with `compress/mode` Lossless and `mipmaps/generate` on.
 - An OptionButton's open list is its `get_popup()`, a PopupMenu in a window of its own: set its `theme_type_variation` to `ToyDropdownList` in code when the scene is ready (a cream list with the dropdown's ink outline, a lavender hovered or keyboard-focused row). The selected item shows the theme icon `radio_checked` (`dist/pack/icons/radio-checked.svg`, `radio_checked_disabled` `dist/pack/icons/radio-checked-disabled.svg`); the others `radio_unchecked` and `radio_unchecked_disabled` (`dist/pack/icons/radio-unchecked.svg`, empty, so every label starts at the same x). PopupMenu does not tint these icons, so they are drawn in their own colours (not white; the pack names them in the variation's `textures`). Its rounded corners need the default embedded subwindows (`display/window/subwindows/embed_subwindows` true).
 - A LineEdit's right-click menu is a PopupMenu too, but its labels (Cut, Copy, Paste, Select All, Clear, Undo, Redo, Text Writing Direction, …) are Godot's English source strings, translated at run time only through translations of those exact strings, which the copy deck (keyed, copy/strings.csv) does not have: in Ukrainian they would show in English. So LineEdits keep `context_menu_enabled = false`; the keyboard shortcuts (copy, paste, select all, undo) still work.

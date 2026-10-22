@@ -5,7 +5,7 @@
 The styled downed, dead and respawn screen from the UI track (xperiaroco2/prime-game-ui), as a Godot 4.7.2 node tree for the 1920×1080 reference.
 
 - **Source:** `pages/screens/src/s09-downed.json`; the review page is `pages/screens/screens.html#s9`; the wireframe is section `s9` («Повалений, мертвий, повернення»).
-- **Theme:** the Toy pack ui-2.0.2 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
+- **Theme:** the Toy pack ui-2.1.0 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
 - **World behind the UI** (not UI): a dark room of the level.
 - **How to read it:** the roots are children of the screen's full-rect root `Control`; every property not listed keeps Godot's default; sizes and offsets are reference px. In a state's **Shown** list, the first node of each subtree gives its path from the screen root.
 - **Texts** are keys of `copy/strings.csv`, and the language switches live (the Esc menu's Settings). A plain key is set as `text` and translates itself. A key with placeholders, a plural key (`tr_n`) and a key drawn in pieces are set from code with `auto_translate_mode = DISABLED`: `tr()`, then `String.format()` with the data (the samples below), rebuilt on `NOTIFICATION_TRANSLATION_CHANGED`. A "text from data" (names, the room code, times, numbers) is set in code and never translated (`auto_translate_mode = DISABLED`).
@@ -19,7 +19,7 @@ The same HUD as s7: Hud and its nodes are s7's (same names and places); this scr
 | `down` | Нокдаун | Downed and bleeding out: only the two plates and the mic (off) show; the rest of the HUD hides. As decided, kept. |
 | `down-holding` | Утримуєш F | The give-up key is held: the hold bar fills over 1 s. |
 | `raise` | Тебе піднімають | Someone is raising the player: the raise progress replaces the bleed-out bar; giving up hides. |
-| `dead-room` | Кімната мертвих | Dead (killed, bled out or gave up): the player waits 30 s with the other dead in the dead's room, not watching the living (m8 §3, the sketch's frame 5). The rest of the HUD hides. Open: where the room is; whether the dead can talk to each other there; whether they see the timer and the anger (so no timer and no mic here). No killer is shown (the engineer, 2026-10-21). Open: how the return from the dead's room is shown: to be redone later (the engineer, 2026-10-21). |
+| `dead-room` | Кімната мертвих | Dead (killed, bled out or gave up): the player waits 30 s with the other dead in the dead's room, not watching the living (m8 §3, the sketch's frame 5). The rest of the HUD hides. Open: where the room is; whether the dead can talk to each other there; whether they see the timer and the anger (so no timer and no mic here). No killer is shown (the engineer, 2026-10-21). The return shows small at the top (the engineer, 2026-10-22). |
 | `back` | Повернення | Back in the round at a random capsule: the s7 HUD returns with the 3 s protection chip. Stamina returns full: all ten pips lit. |
 
 ## Node tree in `down`
@@ -72,25 +72,21 @@ The same HUD as s7: Hud and its nodes are s7's (same names and places); this scr
 
 - **Hidden:** `Hud/Vitals`, `Downed`, `GiveUp`.
 - **Shown:**
-  - **DeadHead** `PanelContainer` · variation `ToyPlateHead` · anchors `center_top`, offsets 0, 39, 0, 39 (left, top, right, bottom), grow both/end
-    - Note: The dead's room overlay replaces spectating (m8 §3, decided 2026-10-20). Its head, 39 px down (the sketch's 26 x 1.5). The room itself is a place in the world (open: where).
-    - **Text** `Label` · variation `ToyPlateHeadText` · text `dead.room.title`: en "The dead's room" · uk "Кімната мертвих"
-  - **DeadCol** `VBoxContainer` · variation `ToyColumnTwentyFour` · anchors `center`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both · gaps from the variation: separation 24
-    - Note: Centred on the screen: the return countdown. No killer line (the engineer, 2026-10-21: the game does not show who killed the player).
-    - **Count** `PanelContainer` · variation `ToyPlateCount` · size flags horizontal `SIZE_SHRINK_CENTER` · custom_minimum_size (390, 0) = Vector2(get_theme_constant("min_width", "ToyPlateCount"), 0)
-      - Note: The return countdown on the count plate, at least 540 wide (the sketch's 360 x 1.5). Open: how the return from the dead's room is shown: to be redone later (the engineer, 2026-10-21).
-      - **V** `VBoxContainer` · variation `ToyColumnTwelve` · gaps from the variation: separation 12
-        - **Label** `Label` · variation `ToyPlateText` · text `dead.back_in`: en "Back in" · uk "Повернення через" · horizontal_alignment `CENTER`
-        - **Time** `Label` · variation `ToyPlateCountdown` · text from data (auto_translate_mode = DISABLED), sample: "0:24" · horizontal_alignment `CENTER`
+  - **DeadTop** `PanelContainer` · variation `ToyPlate` · anchors `center_top`, offsets 0, 36, 0, 36 (left, top, right, bottom), grow both/end
+    - Note: The dead's room: its name and the return countdown in one quiet tile at the top centre, where the round's time tile sits (36 px down); the middle of the screen stays clear, since the dead walk around and interact there (the engineer, 2026-10-22: the return written nicely at the top, not filling the screen). No bar under the countdown and no big title plate. No killer line (the engineer, 2026-10-21).
+    - **V** `VBoxContainer` · variation `ToyColumnFour` · gaps from the variation: separation 4
+      - **Room** `Label` · variation `ToyKicker` · text `dead.room.title`: en "The dead's room" · uk "Кімната мертвих" · horizontal_alignment `CENTER`
+        - Note: The tile's head: ToyKicker sets Unbounded with 2 px spacing; the game sets uppercase = true on this Label (the pack's uppercase member).
+      - **Return** `HBoxContainer` · variation `ToyRowSixteen` · gaps from the variation: separation 16 · alignment `ALIGNMENT_CENTER`
+        - **Label** `Label` · variation `ToyHudCaption` · size flags vertical `SIZE_SHRINK_CENTER` · text `dead.back_in`: en "Back in" · uk "Повернення через"
+        - **Time** `Label` · variation `ToyTimer` · size flags vertical `SIZE_SHRINK_CENTER` · text from data (auto_translate_mode = DISABLED), sample: "0:24"
           - Note: The time to respawn, m:ss from code (auto_translate_mode DISABLED), every second; the wait is 30 s (m8 §3).
-        - **Bar** `ProgressBar` · variation `ToyBarReturnCalm` · custom_minimum_size (0, 24) = Vector2(0, 24) · value 0.2 of max_value 1, show_percentage false
-          - Note: The dead's room return bar, one ProgressBar: its background is the base track, its fill the accent. value = the wait passed (0 to 1), filling to the return. In the wait's last 5 s (value over 25 / 30) the game sets theme_type_variation ToyBarReturnAlarm (the danger fill; no glow and no pulse since ui-2.0.0); before that ToyBarReturnCalm.
   - **Others** `PanelContainer` · variation `ToyChipPlate` · anchors `bottom_left`, offsets 39, -39, 39, -39 (left, top, right, bottom), grow end/begin
     - Note: Who else waits in the room, 39 px in at the bottom left; hidden when the player is alone there.
     - **Text** `Label` · variation `ToyChipPlateText` · text `dead.also_here` with sample {names} = "Bulk, Zinga" / "Бульк, Зінга": en "Also here: Bulk, Zinga" · uk "Тут також: Бульк, Зінга"
       - Note: {names}: the other dead players' names joined with ", " (data).
   - **Capsule** `PanelContainer` · variation `ToySticker` · anchors `bottom_right`, offsets -39, -39, -39, -39 (left, top, right, bottom), grow begin/begin
-    - Note: Where the player comes back: a random capsule, with the 3 s protection of state back. Choosing the capsule is a later perk (m8 §3). Open: how the return from the dead's room is shown: to be redone later (the engineer, 2026-10-21).
+    - Note: Where the player comes back: a random capsule, with the 3 s protection of state back. Choosing the capsule is a later perk (m8 §3).
     - **Text** `Label` · variation `ToyStickerText` · text `dead.capsule_note` with sample {count} = "3": en "Random capsule · 3 s protection" · uk "Випадкова капсула · 3 с захисту"
 
 ## `back`: what differs from `down`
@@ -104,6 +100,8 @@ The same HUD as s7: Hud and its nodes are s7's (same names and places); this scr
     - Note: As s7.
     - **Row** `HBoxContainer` · variation `ToyRowTwentyFour` · gaps from the variation: separation 24
       - **Timer** `Label` · variation `ToyTimer` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (120, 0) · text from data (auto_translate_mode = DISABLED), sample: "05:10" · horizontal_alignment `CENTER`
+      - **Divider** `Panel` · variation `ToyTileDivider` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (3, 48) = Vector2(get_theme_constant("width", "ToyTileDivider"), get_theme_constant("height", "ToyTileDivider"))
+        - Note: The thin line between the time and the anger (the target's .time .div, ui-2.1.0).
       - **Anger** `HBoxContainer` · variation `ToyRowEight` · size flags vertical `SIZE_SHRINK_CENTER` · gaps from the variation: separation 8
         - **Bar** `ProgressBar` · variation `ToyBarAngerCalm` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (240, 16) = Vector2(get_theme_constant("width", "ToyBarAngerCalm"), get_theme_constant("height", "ToyBarAngerCalm")) · value 0.55 of max_value 1, show_percentage false
         - **Siren** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (36, 36) · texture `siren-on` (dist/pack/icons/siren-on.svg, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · not tinted (drawn in its own colours)
@@ -163,9 +161,13 @@ The same HUD as s7: Hud and its nodes are s7's (same names and places); this scr
     - Note: As s7; the player comes back with empty hands.
     - **Hand** `PanelContainer` · variation `ToySlotHand` · size flags vertical `SIZE_SHRINK_END` · custom_minimum_size (117, 132) = Vector2(get_theme_constant("width", "ToySlotHand"), get_theme_constant("height", "ToySlotHand"))
       - **V** `VBoxContainer` · variation `ToyColumnFour` · gaps from the variation: separation 4 · alignment `ALIGNMENT_CENTER`
+        - **Head** `Label` · variation `ToyKicker` · text `hud.slot.hand`: en "Hand" · uk "Рука" · horizontal_alignment `CENTER`
+          - Note: The slot's head at the top inside (the target's .sl .tab, ui-2.1.0); the game sets uppercase = true.
         - **Picture** `TextureRect` · size flags horizontal `SIZE_SHRINK_CENTER` · custom_minimum_size (57, 57) · texture `slot-empty-hand` (dist/pack/icons/slot-empty-hand.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyTextOnDark")
     - **Belt** `PanelContainer` · variation `ToySlotBelt` · size flags vertical `SIZE_SHRINK_END` · custom_minimum_size (117, 132) = Vector2(get_theme_constant("width", "ToySlotBelt"), get_theme_constant("height", "ToySlotBelt"))
       - **V** `VBoxContainer` · variation `ToyColumnFour` · gaps from the variation: separation 4 · alignment `ALIGNMENT_CENTER`
+        - **Head** `Label` · variation `ToyKicker` · text `hud.slot.belt`: en "Belt" · uk "Пояс" · horizontal_alignment `CENTER`
+          - Note: The slot's head at the top inside (the target's .sl .tab, ui-2.1.0); the game sets uppercase = true.
         - **Picture** `TextureRect` · size flags horizontal `SIZE_SHRINK_CENTER` · custom_minimum_size (57, 57) · texture `slot-empty-belt` (dist/pack/icons/slot-empty-belt.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyTextOnDark")
   - **Protect** `PanelContainer` · variation `ToyChipLight` · anchors `center_top`, offsets 0, 165, 0, 165 (left, top, right, bottom), grow both/end
     - Note: Spawn protection: count 3, 2, 1 (one per second), then hidden. 165 px down (the sketch's 110 x 1.5), 39 px under the anger meter.
@@ -182,7 +184,7 @@ The same HUD as s7: Hud and its nodes are s7's (same names and places); this scr
 
 ## Keys
 
-- **Drawn** (14): `dead.also_here`, `dead.back_in`, `dead.capsule_note`, `dead.room.title`, `downed.give_up_hold`, `downed.raised_by`, `downed.time_left`, `downed.title`, `hud.health`, `hud.roster.dead`, `hud.roster.self`, `hud.stamina`, `respawn.protected`, `role.alien`.
+- **Drawn** (16): `dead.also_here`, `dead.back_in`, `dead.capsule_note`, `dead.room.title`, `downed.give_up_hold`, `downed.raised_by`, `downed.time_left`, `downed.title`, `hud.health`, `hud.roster.dead`, `hud.roster.self`, `hud.slot.belt`, `hud.slot.hand`, `hud.stamina`, `respawn.protected`, `role.alien`.
 
 ## Layers and input (every screen)
 

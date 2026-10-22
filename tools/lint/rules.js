@@ -32,6 +32,7 @@ const RULES = {
   L26: "letter-spacing is calc(var(--toy-…-letter-spacing) * var(--px))",
   L27: "!important only in skin",
   L28: "property (and value form) outside the profile's allowlist",
+  L29: "text-transform is only uppercase (a Label's uppercase property)",
 };
 
 const PROFILES = ["tokens", "skin", "motion", "generated", "layout"];

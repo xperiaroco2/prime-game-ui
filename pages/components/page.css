@@ -253,17 +253,42 @@ h2 { font-size: 21px; margin: 34px 0 10px; padding-top: 4px; }
 .sc-mvp-gap { gap: calc(24 * var(--px)); }
 .sc-mvp-pic { display: inline-flex; flex: none; }
 .sc-mvp-pic svg { display: block; width: 100%; height: 100%; }
-.sc-mvp-hand { width: calc(111 * var(--px)); height: calc(111 * var(--px)); }
-.sc-mvp-belt { width: calc(90 * var(--px)); height: calc(90 * var(--px)); }
+/* ui-2.1.0: a slot's picture is a 57 px TextureRect in the middle of the tile (the target's 38 x 1.5), its
+   self_modulate the accent in the hand and the light text on the belt (dim on an empty slot's outline) */
+.sc-mvp-item { width: calc(57 * var(--px)); height: calc(57 * var(--px)); margin: auto 0; }
+.sc-mvp-tint-accent { color: var(--toy-palette-accent); }
+.sc-mvp-tint-text { color: var(--toy-palette-text); }
+.sc-mvp-tint-dim { color: var(--toy-palette-dim); }
+.sc-mvp-slot .sc-mvp-fill { height: 100%; }
+.sc-mvp-room { width: calc(1100 * var(--px)); min-height: calc(560 * var(--px)); gap: 0 !important; }
+.sc-mvp-clear { flex: 1 1 auto; }
+.sc-mvp-push { margin-top: auto; padding-top: calc(16 * var(--px)); }
+.sc-mvp-stretch-row { align-items: stretch !important; align-self: stretch; }
+.sc-strip { align-self: stretch; justify-content: flex-start !important; }
+.sc-strip > .sc-strip-row { flex: 1 1 auto; align-self: stretch; }
+.sc-strip-row { align-items: center !important; }
+.sc-strip-gap { flex: 1 1 auto; }
+.sc-panel-wide { width: calc(1000 * var(--px)); }
+.sc-setpage { width: calc(1200 * var(--px)); display: flex; flex-direction: column; gap: calc(24 * var(--px)); }
+.sc-setbody { align-items: flex-start !important; }
+.sc-nav { width: calc(255 * var(--px)); }
+.sc-nav > button { align-self: stretch; text-align: left; justify-content: flex-start !important; }
+.sc-setlist { display: flex; flex-direction: column; flex: 1 1 auto; align-self: stretch; }
+.sc-setlist > .sc-setrow { width: auto; }
+.sc-setlist > .sc-setrow:last-child { border-bottom-width: 0 !important; }
+.sc-setctl { display: inline-flex; align-items: center; gap: calc(24 * var(--px)); }
+.sc-setctl .sc-sliderbox { width: calc(285 * var(--px)); }
+.sc-setnum { display: inline-block; min-width: calc(39 * var(--px)); text-align: right; }
+.sc-stepper-value { display: inline-block; min-width: calc(144 * var(--px)); text-align: center; }
+.sc-halves { display: inline-flex; }
 .sc-mvp-sirentile { width: calc(36 * var(--px)); height: calc(36 * var(--px)); }
 .sc-mvp-angerbar > .sc-barbox { width: calc(240 * var(--px)); }
-.sc-mvp-label { display: inline-block; min-width: calc(150 * var(--px)); }
+.sc-mvp-label { display: inline-block; min-width: calc(129 * var(--px)); }
 .sc-mvp-band { align-self: stretch; padding-left: calc(48 * var(--px)); padding-right: calc(48 * var(--px)); }
 .sc-mvp-stretch { align-self: stretch; }
 .sc-mvp-stretch > .sc-barbox { width: 100%; }
 .sc-mvp-bottom { align-items: flex-end !important; padding-bottom: calc(24 * var(--px)); }
 .sc-mvp-slot { position: relative; }
-.sc-mvp-tag { position: absolute !important; left: 50%; bottom: calc(-24 * var(--px)); transform: translateX(-50%); }
 .sc-mvp-bench { width: calc(1260 * var(--px)); display: flex !important; align-items: stretch !important; justify-content: flex-start !important; }
 .sc-mvp-card { flex: 1 1 0; align-items: stretch !important; justify-content: flex-start !important; }
 .sc-mvp-card .sc-mvp-col > button { align-self: stretch; }

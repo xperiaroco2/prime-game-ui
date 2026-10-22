@@ -125,6 +125,7 @@ function collectVariants(model) {
       on: Array.isArray(g.on) ? g.on.filter((s) => typeof s === 'string') : null,
       textures: isObj(g.textures) ? g.textures : null,
       replacement: typeof g.replacement === 'string' ? g.replacement : null,
+      uppercase: g.uppercase === true,
       deprecated: n.deprecated,
       context: typeof n.ext.context === 'string' ? n.ext.context : null,
       description: n.description,
@@ -361,6 +362,7 @@ function expandVariant(v, structs, res) {
     proposal: proposalChildren(v),
     // godot.textures as authored (P61 checks each names a pack icon); $deprecated with its replacement (P62)
     textures: v.textures ? Object.fromEntries(Object.entries(v.textures).filter(([, p]) => typeof p === 'string')) : null,
+    uppercase: v.uppercase,
     deprecated: v.deprecated ? { replacement: v.replacement, note: typeof v.deprecated === 'string' ? v.deprecated : null } : null,
     stateProposal: Object.fromEntries(Object.keys(states).map((st) => [st, v.child(st) ? !!v.child(st).proposal : !!v.proposal])),
     description: v.description, file: v.file, pointer: v.pointer,

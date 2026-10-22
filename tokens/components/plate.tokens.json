@@ -160,9 +160,10 @@
     },
     "count": {
       "$description": "The dead's room countdown (the target's centre tile): the plain tile, at least 390 px wide (the target's 260 x 1.5).",
+      "$deprecated": "ui-2.1.0: the dead's room shows its return small at the top in one ToyPlate (the engineer, 2026-10-22), so no screen draws the centre countdown plate. Removed at the next major release.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
-          "godot": { "variation": "ToyPlateCount", "class": "PanelContainer" },
+          "godot": { "variation": "ToyPlateCount", "class": "PanelContainer", "replacement": "ToyPlate" },
           "context": "dark"
         }
       },
@@ -180,9 +181,10 @@
     },
     "head": {
       "$description": "The dead's room head: the plain tile.",
+      "$deprecated": "ui-2.1.0: the room's name sits in the same top ToyPlate as the return, so the head plate is gone. Removed at the next major release.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
-          "godot": { "variation": "ToyPlateHead", "class": "PanelContainer" },
+          "godot": { "variation": "ToyPlateHead", "class": "PanelContainer", "replacement": "ToyPlate" },
           "context": "dark"
         }
       },
@@ -255,9 +257,10 @@
     },
     "head-text": {
       "$description": "The dead's room head: light.",
+      "$deprecated": "ui-2.1.0: the room's name is the top tile's head (ToyKicker). Removed at the next major release.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
-          "godot": { "variation": "ToyPlateHeadText", "class": "Label", "on": ["ToyPlateHead"] },
+          "godot": { "variation": "ToyPlateHeadText", "class": "Label", "on": ["ToyPlateHead"], "replacement": "ToyKicker" },
           "context": "dark"
         }
       },

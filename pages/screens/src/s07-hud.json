@@ -46,6 +46,7 @@
               "name": "Row", "type": "HBoxContainer", "variation": "ToyRowTwentyFour",
               "children": [
                 { "name": "Timer", "type": "Label", "variation": "ToyTimer", "text": "07:42", "horizontal_alignment": "center", "size_flags_vertical": "shrink_center", "custom_minimum_size": [120, 0], "per_state": { "cops": { "text": "04:12" } }, "note": "The round time, m:ss from code (auto_translate_mode DISABLED), every second; light on the tile (no halo)." },
+                { "name": "Divider", "type": "Panel", "variation": "ToyTileDivider", "size_flags_vertical": "shrink_center", "note": "The thin line between the time and the anger (the target's .time .div, ui-2.1.0)." },
                 {
                   "name": "AngerColumn", "type": "VBoxContainer", "variation": "ToyColumnFour", "size_flags_vertical": "shrink_center",
                   "children": [
@@ -163,7 +164,7 @@
                 {
                   "name": "Rows", "type": "VBoxContainer", "variation": "ToyColumnEight",
                   "children": [
-                    { "name": "Title", "type": "Label", "variation": "ToyHudCaption", "key": "hud.suit", "note": "The tile's name over the pips, hud.suit («Костюм», the engineer's word, 2026-10-22), in the captions' dim style (agent)." },
+                    { "name": "Title", "type": "Label", "variation": "ToyKicker", "key": "hud.suit", "note": "The tile's name over the pips, hud.suit («Костюм», the engineer's word, 2026-10-22), in the captions' dim style (agent)." },
                     {
                       "name": "Health", "type": "HBoxContainer", "variation": "ToyRowSixteen",
                       "children": [
@@ -227,6 +228,7 @@
                 {
                   "name": "V", "type": "VBoxContainer", "variation": "ToyColumnFour", "alignment": "center",
                   "children": [
+                    { "name": "Head", "type": "Label", "variation": "ToyKicker", "key": "hud.slot.hand", "horizontal_alignment": "center", "note": "The slot's head at the top inside (the target's .sl .tab, ui-2.1.0); the game sets uppercase = true." },
                     { "name": "Picture", "type": "TextureRect", "icon": "slot-empty-hand", "custom_minimum_size": [57, 57], "size_flags_horizontal": "shrink_center", "per_state": { "carry": { "icon": "item-rocket" }, "human": { "icon": "item-battery" } } },
                     { "name": "Name", "type": "Label", "variation": "ToySlotTagText", "key": "item.fireworks", "horizontal_alignment": "center", "states": ["carry", "human"], "per_state": { "human": { "key": "item.battery" } } }
                   ]
@@ -239,6 +241,7 @@
                 {
                   "name": "V", "type": "VBoxContainer", "variation": "ToyColumnFour", "alignment": "center",
                   "children": [
+                    { "name": "Head", "type": "Label", "variation": "ToyKicker", "key": "hud.slot.belt", "horizontal_alignment": "center", "note": "The slot's head at the top inside (the target's .sl .tab, ui-2.1.0); the game sets uppercase = true." },
                     { "name": "Picture", "type": "TextureRect", "icon": "slot-empty-belt", "custom_minimum_size": [57, 57], "size_flags_horizontal": "shrink_center", "per_state": { "carry": { "icon": "item-bun" } } },
                     { "name": "Name", "type": "Label", "variation": "ToySlotTagText", "key": "item.bun", "horizontal_alignment": "center", "states": ["carry"] }
                   ]

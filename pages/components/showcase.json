@@ -282,6 +282,7 @@
           "variations": [
             "ToyPlate",
             "ToyTimer",
+            "ToyTileDivider",
             "ToyBarAngerCalm",
             "ToyBarAngerAlarm"
           ]
@@ -352,7 +353,8 @@
             "ToySlotHand",
             "ToySlotBelt",
             "ToySlotTag",
-            "ToySlotTagText"
+            "ToySlotTagText",
+            "ToyKicker"
           ]
         },
         {
@@ -375,9 +377,10 @@
           "title_key": "row_mvp_dead",
           "hud": true,
           "variations": [
-            "ToyPlateHead",
-            "ToyPlateHeadText",
-            "ToyPlateCount"
+            "ToyPlate",
+            "ToyKicker",
+            "ToyHudCaption",
+            "ToyTimer"
           ]
         },
         {
@@ -388,6 +391,12 @@
           "hud": true,
           "variations": [
             "ToyMutationCard",
+            "ToyMutationCardPointed",
+            "ToyMutationCardName",
+            "ToyMutationCardText",
+            "ToyMutationCardCost",
+            "ToyButtonMutate",
+            "ToyTitleMachine",
             "ToyPlateBalance"
           ]
         },
@@ -647,7 +656,10 @@
           "kind": "menu",
           "title_key": "row_menu",
           "variations": [
-            "ToyPanelMenu"
+            "ToyPanelMenu",
+            "ToyTabStrip",
+            "ToyTab",
+            "ToyTabSelected"
           ]
         },
         {
@@ -1000,7 +1012,12 @@
             "ToySettingRow",
             "ToySettingRowText",
             "ToySettingRowValue",
-            "ToyStepper"
+            "ToyStepper",
+            "ToyMenuItem",
+            "ToySlider",
+            "ToyDropdown",
+            "ToySegmentStart",
+            "ToySegmentEnd"
           ]
         },
         {
@@ -1020,8 +1037,62 @@
             "focus"
           ],
           "live": true,
-          "icon": "chevron-right",
+          "icon": "plus",
           "icon_only": true
+        },
+        {
+          "id": "segment-start",
+          "kind": "toggle",
+          "variations": [
+            "ToySegmentStart",
+            "ToySegmentStartSelected"
+          ],
+          "contexts": [
+            "light"
+          ],
+          "states": [
+            "normal",
+            "hover",
+            "held",
+            "selected",
+            "selected-hover",
+            "disabled",
+            "focus",
+            "selected-focus"
+          ],
+          "label": "num_50",
+          "live": true,
+          "group": [
+            "num_50",
+            "num_100"
+          ]
+        },
+        {
+          "id": "segment-end",
+          "kind": "toggle",
+          "variations": [
+            "ToySegmentEnd",
+            "ToySegmentEndSelected"
+          ],
+          "contexts": [
+            "light"
+          ],
+          "states": [
+            "normal",
+            "hover",
+            "held",
+            "selected",
+            "selected-hover",
+            "disabled",
+            "focus",
+            "selected-focus"
+          ],
+          "label": "num_100",
+          "live": true,
+          "group": [
+            "num_100",
+            "num_50"
+          ]
         }
       ]
     },

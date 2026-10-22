@@ -1,9 +1,9 @@
 {
   "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
   "tab": {
-    "$description": "Tabs (the suit menu's list on the left, the target's .nav): dim text on the tile, the chosen one a row fill with light text.",
+    "$description": "Tabs (the target's .tabs since ui-2.1.0): text tabs in one row on a strip with a hairline under it; the chosen one light with a 3 px accent underline (a bottom border only), no fill.",
     "idle": {
-      "$description": "A tab: dim text on the tile; hover a row fill with light text; focus an accent ring inside.",
+      "$description": "A tab (the target's .tabs .t): dim text, no face; hover light text; focus an accent ring inside.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": {
@@ -18,17 +18,15 @@
       "label": { "$type": "typography", "$value": "{type.body-bold}" },
       "normal": {
         "bg-color": { "$type": "color", "$value": "{palette.clear}" },
-        "corner-radius": { "$type": "dimension", "$value": "{radius.medium}" },
-        "content-margin-block": { "$type": "dimension", "$value": { "value": 18, "unit": "px" } },
+        "content-margin-top": { "$type": "dimension", "$value": { "value": 23, "unit": "px" } },
+        "content-margin-bottom": { "$type": "dimension", "$value": { "value": 20, "unit": "px" } },
         "content-margin-inline": { "$type": "dimension", "$value": { "value": 27, "unit": "px" } },
         "font-color": { "$type": "color", "$value": "{color.on-light.text-muted}" }
       },
       "hover": {
-        "bg-color": { "$type": "color", "$value": "{color.state.hover-on-light}" },
         "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
       },
       "pressed": {
-        "bg-color": { "$type": "color", "$value": "{color.state.hover-on-light}" },
         "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
       },
       "disabled": {
@@ -38,12 +36,11 @@
         "bg-color": { "$type": "color", "$value": "{palette.clear}" },
         "border-color": { "$type": "color", "$value": "{color.focus}" },
         "border-width": { "$type": "dimension", "$value": "{focus.width}" },
-        "corner-radius": { "$type": "dimension", "$value": "{radius.medium}" },
-        "expand-margin": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } }
+                "expand-margin": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } }
       }
     },
     "selected": {
-      "$description": "The chosen tab (the target's .nav .on): a row fill with light text, 9 px corners; focus an accent ring inside.",
+      "$description": "The chosen tab (the target's .tabs .t.on): light text over a 3 px accent underline (the target's 2 px x 1.5), a bottom border only, no fill; focus an accent ring inside.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyTabSelected", "class": "Button", "parent": "ToyButton" },
@@ -52,17 +49,19 @@
       },
       "label": { "$type": "typography", "$value": "{type.body-bold}" },
       "normal": {
-        "bg-color": { "$type": "color", "$value": "{palette.row}" },
-        "corner-radius": { "$type": "dimension", "$value": "{radius.medium}" },
-        "content-margin-block": { "$type": "dimension", "$value": { "value": 18, "unit": "px" } },
+        "bg-color": { "$type": "color", "$value": "{palette.clear}" },
+        "border-color": { "$type": "color", "$value": "{color.on-light.line}" },
+        "border-width-top": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "border-width-right": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "border-width-bottom": { "$type": "dimension", "$value": "{stroke.selected}" },
+        "border-width-left": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "content-margin-top": { "$type": "dimension", "$value": { "value": 23, "unit": "px" } },
+        "content-margin-bottom": { "$type": "dimension", "$value": { "value": 20, "unit": "px" } },
         "content-margin-inline": { "$type": "dimension", "$value": { "value": 27, "unit": "px" } },
         "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
       },
       "hover": {
-        "bg-color": { "$type": "color", "$value": "{palette.row-light}" }
-      },
-      "hover-pressed": {
-        "bg-color": { "$type": "color", "$value": "{palette.row-light}" }
+        "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
       },
       "disabled": {
         "font-color": { "$type": "color", "$value": "{color.state.disabled-ink-on-dark}" }
@@ -71,8 +70,27 @@
         "bg-color": { "$type": "color", "$value": "{palette.clear}" },
         "border-color": { "$type": "color", "$value": "{color.focus}" },
         "border-width": { "$type": "dimension", "$value": "{focus.width}" },
-        "corner-radius": { "$type": "dimension", "$value": "{radius.medium}" },
-        "expand-margin": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } }
+                        "expand-margin": { "$type": "dimension", "$value": { "value": -3, "unit": "px" } }
+      }
+    },
+    "strip": {
+      "$description": "The tab strip (the target's .tabs, new in ui-2.1.0): no fill, a 2 px edge line under the row (the target's 1 px x 1.5) and no margins but the line's own 2 px, so the chosen tab's underline stands right on the line; the row holds the tabs, then the small Esc keycap at the right (ToyKeyQuiet).",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyTabStrip", "class": "PanelContainer" },
+          "context": "light"
+        }
+      },
+      "panel": {
+        "bg-color": { "$type": "color", "$value": "{palette.clear}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-width-top": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "border-width-right": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "border-width-bottom": { "$type": "dimension", "$value": "{stroke.thin}" },
+        "border-width-left": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "content-margin-top": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "content-margin-bottom": { "$type": "dimension", "$value": "{stroke.thin}" },
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } }
       }
     }
   }

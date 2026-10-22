@@ -5,7 +5,7 @@
 The styled mutation workbench screen from the UI track (xperiaroco2/prime-game-ui), as a Godot 4.7.2 node tree for the 1920×1080 reference.
 
 - **Source:** `pages/screens/src/s11-workbench.json`; the review page is `pages/screens/screens.html#s11`; no wireframe section (a screen new with the MVP; its page heading is «Мутаційний верстат»).
-- **Theme:** the Toy pack ui-2.0.2 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
+- **Theme:** the Toy pack ui-2.1.0 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
 - **World behind the UI** (not UI): black, no world (intro, outro, loading).
 - **How to read it:** the roots are children of the screen's full-rect root `Control`; every property not listed keeps Godot's default; sizes and offsets are reference px. In a state's **Shown** list, the first node of each subtree gives its path from the screen root.
 - **Texts** are keys of `copy/strings.csv`, and the language switches live (the Esc menu's Settings). A plain key is set as `text` and translates itself. A key with placeholders, a plural key (`tr_n`) and a key drawn in pieces are set from code with `auto_translate_mode = DISABLED`: `tr()`, then `String.format()` with the data (the samples below), rebuilt on `NOTIFICATION_TRANSLATION_CHANGED`. A "text from data" (names, the room code, times, numbers) is set in code and never translated (`auto_translate_mode = DISABLED`).
@@ -26,7 +26,7 @@ New with the MVP (m8 §4). The workbench is the machine's own screen (the engine
   - Note: In the game: the SubViewport's root, anchors full_rect in the 960 x 540 viewport (the page centres it in the frame). ToyPanelDialog is the pack's machine screen frame: the plain tile, 42 px inside.
   - **Idle** `CenterContainer`
     - **V** `VBoxContainer` · variation `ToyColumnTwentyFour` · centred by its CenterContainer · gaps from the variation: separation 24 · alignment `ALIGNMENT_CENTER`
-      - **Title** `Label` · variation `ToyTitleOnLight` · text `workbench.title`: en "Mutation workbench" · uk "Мутаційний верстат" · horizontal_alignment `CENTER`
+      - **Title** `Label` · variation `ToyTitleMachine` · text `workbench.title`: en "Mutation workbench" · uk "Мутаційний верстат" · horizontal_alignment `CENTER`
       - **Start** `Button` · variation `ToyButtonPrimary` · size flags horizontal `SIZE_SHRINK_CENTER` · custom_minimum_size (288, 0) · text `workbench.start`: en "Start" · uk "Почати"
         - Note: workbench.start («Почати», the engineer's word, 2026-10-22): Interact with the crosshair on it opens the choice (choose) for this player. At least 288 wide (the target's large button), an easy mark for the crosshair (agent).
 
@@ -36,11 +36,11 @@ New with the MVP (m8 §4). The workbench is the machine's own screen (the engine
 - **Shown:**
   - **Screen/Choose** `VBoxContainer` · variation `ToyColumnTwentyFour` · gaps from the variation: separation 24
     - **Top** `HBoxContainer` · variation `ToyRowSixteen` · gaps from the variation: separation 16
-      - **Title** `Label` · variation `ToyTitleOnLight` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text `workbench.title`: en "Mutation workbench" · uk "Мутаційний верстат"
+      - **Title** `Label` · variation `ToyTitleMachine` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text `workbench.title`: en "Mutation workbench" · uk "Мутаційний верстат"
       - **Balance** `PanelContainer` · variation `ToyPlateBalance` · size flags vertical `SIZE_SHRINK_CENTER`
         - Note: The player's points: the only place they show (decided 2026-10-20: no points on the HUD). The screen shows the points of the player using it; updates live.
         - **Row** `HBoxContainer` · variation `ToyRowSixteen` · gaps from the variation: separation 16
-          - **Label** `Label` · variation `ToyPlateText` · size flags vertical `SIZE_SHRINK_CENTER` · text `workbench.points`: en "Your points" · uk "Твої очки"
+          - **Label** `Label` · variation `ToyTextMutedOnLight` · size flags vertical `SIZE_SHRINK_CENTER` · text `workbench.points`: en "Your points" · uk "Твої очки"
           - **Points** `Label` · variation `ToyPlateTimer` · size flags vertical `SIZE_SHRINK_CENTER` · text from data (auto_translate_mode = DISABLED), sample: "7"
             - Note: The points, a number from code (auto_translate_mode DISABLED).
     - **Cards** `HBoxContainer` · variation `ToyRowTwentyFour` · size flags vertical `SIZE_EXPAND_FILL` · gaps from the variation: separation 24
@@ -48,26 +48,26 @@ New with the MVP (m8 §4). The workbench is the machine's own screen (the engine
       - **Fast** `PanelContainer` · variation `ToyMutationCard` · size flags horizontal `SIZE_EXPAND_FILL`
         - Note: One mutation (content data): its name, what it does, its price in points and the buy button. The card looks the same whether it can be bought or not; only its button changes (Mutate: enabled; disabled with workbench.short when the points are short). There is no "already have" state: whether a mutation can be bought twice is open.
         - **V** `VBoxContainer` · variation `ToyColumnSixteen` · gaps from the variation: separation 16
-          - **Name** `Label` · variation `ToyPlateTitle` · text `mutation.fast.name`: en "Quick feet" · uk "Швидкі ноги"
-          - **Effect** `Label` · variation `ToyPlateText` · size flags vertical `SIZE_EXPAND_FILL` · custom_minimum_size (200, 0) · text `mutation.fast.effect`: en "You run faster" · uk "Бігаєш швидше" · autowrap_mode `AUTOWRAP_WORD_SMART`
+          - **Name** `Label` · variation `ToyMutationCardName` · text `mutation.fast.name`: en "Quick feet" · uk "Швидкі ноги"
+          - **Effect** `Label` · variation `ToyMutationCardText` · size flags vertical `SIZE_EXPAND_FILL` · custom_minimum_size (200, 0) · text `mutation.fast.effect`: en "You run faster" · uk "Бігаєш швидше" · autowrap_mode `AUTOWRAP_WORD_SMART`
             - Note: Takes the card's free height, so the price and the button sit at the bottom.
-          - **Cost** `Label` · variation `ToyPlateTitle` · text `tr_n("unit.points", "unit.points", 4)`: en "4 points" · uk "4 очки"
+          - **Cost** `Label` · variation `ToyMutationCardCost` · text `tr_n("unit.points", "unit.points", 4)`: en "4 points" · uk "4 очки"
             - Note: The price, tr_n("unit.points", "unit.points", price) with {count} = the price (content data; the prices are placeholders, open).
-          - **Buy** `Button` · variation `ToyButtonPrimary` · text `workbench.mutate`: en "Mutate" · uk "Мутувати"
+          - **Buy** `Button` · variation `ToyButtonMutate` · text `workbench.mutate`: en "Mutate" · uk "Мутувати"
             - Note: Spends the price, and the screen asks the player into the capsule (step); disabled when the points are short.
-      - **Jump** `PanelContainer` · variation `ToyMutationCard` · size flags horizontal `SIZE_EXPAND_FILL`
+      - **Jump** `PanelContainer` · variation `ToyMutationCardPointed` · size flags horizontal `SIZE_EXPAND_FILL`
         - **V** `VBoxContainer` · variation `ToyColumnSixteen` · gaps from the variation: separation 16
-          - **Name** `Label` · variation `ToyPlateTitle` · text `mutation.jump.name`: en "Spring legs" · uk "Пружні ноги"
-          - **Effect** `Label` · variation `ToyPlateText` · size flags vertical `SIZE_EXPAND_FILL` · custom_minimum_size (200, 0) · text `mutation.jump.effect`: en "You jump higher" · uk "Стрибаєш вище" · autowrap_mode `AUTOWRAP_WORD_SMART`
-          - **Cost** `Label` · variation `ToyPlateTitle` · text `tr_n("unit.points", "unit.points", 3)`: en "3 points" · uk "3 очки"
-          - **Buy** `Button` · variation `ToyButtonPrimary` · text `workbench.mutate`: en "Mutate" · uk "Мутувати" · shown hovered (review only)
+          - **Name** `Label` · variation `ToyMutationCardName` · text `mutation.jump.name`: en "Spring legs" · uk "Пружні ноги"
+          - **Effect** `Label` · variation `ToyMutationCardText` · size flags vertical `SIZE_EXPAND_FILL` · custom_minimum_size (200, 0) · text `mutation.jump.effect`: en "You jump higher" · uk "Стрибаєш вище" · autowrap_mode `AUTOWRAP_WORD_SMART`
+          - **Cost** `Label` · variation `ToyMutationCardCost` · text `tr_n("unit.points", "unit.points", 3)`: en "3 points" · uk "3 очки"
+          - **Buy** `Button` · variation `ToyButtonMutate` · text `workbench.mutate`: en "Mutate" · uk "Мутувати" · shown hovered (review only)
             - Note: Under the crosshair: hovered (the pushed mouse motion).
       - **Health** `PanelContainer` · variation `ToyMutationCard` · size flags horizontal `SIZE_EXPAND_FILL`
         - **V** `VBoxContainer` · variation `ToyColumnSixteen` · gaps from the variation: separation 16
-          - **Name** `Label` · variation `ToyPlateTitle` · text `mutation.health.name`: en "Thick skin" · uk "Товста шкіра"
-          - **Effect** `Label` · variation `ToyPlateText` · size flags vertical `SIZE_EXPAND_FILL` · custom_minimum_size (200, 0) · text `mutation.health.effect`: en "More health" · uk "Більше здоровʼя" · autowrap_mode `AUTOWRAP_WORD_SMART`
-          - **Cost** `Label` · variation `ToyPlateTitle` · text `tr_n("unit.points", "unit.points", 9)`: en "9 points" · uk "9 очок"
-          - **Buy** `Button` · variation `ToyButtonPrimary` · text `workbench.short` with sample {count} = "2": en "2 short" · uk "Бракує 2" · disabled true
+          - **Name** `Label` · variation `ToyMutationCardNameOff` · text `mutation.health.name`: en "Thick skin" · uk "Товста шкіра"
+          - **Effect** `Label` · variation `ToyMutationCardText` · size flags vertical `SIZE_EXPAND_FILL` · custom_minimum_size (200, 0) · text `mutation.health.effect`: en "More health" · uk "Більше здоровʼя" · autowrap_mode `AUTOWRAP_WORD_SMART`
+          - **Cost** `Label` · variation `ToyMutationCardCostOff` · text `tr_n("unit.points", "unit.points", 9)`: en "9 points" · uk "9 очок"
+          - **Buy** `Button` · variation `ToyButtonMutate` · text `workbench.short` with sample {count} = "2": en "2 short" · uk "Бракує 2" · disabled true
             - Note: Not enough points: disabled, with workbench.short, {count} = price - balance.
 
 ## `step`: what differs from `idle`

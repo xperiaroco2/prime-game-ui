@@ -258,7 +258,7 @@ function baseSelector(sel) {
 // ---------- the lint ----------
 
 const DRAWING = new Set(["background", "background-color", "color", "box-shadow", "text-shadow", "font-size", "font-weight",
-  "font-family", "letter-spacing", "line-height", "stroke", "fill", "outline-color", "outline", "transform", "opacity",
+  "font-family", "letter-spacing", "text-transform", "line-height", "stroke", "fill", "outline-color", "outline", "transform", "opacity",
   // one text outline (a Label's shadow_outline_size at a zero offset): only on the title selectors (L25)
   "-webkit-text-stroke", "paint-order"]);
 // The longer logical sides come first, and SIDE_RE is anchored, so border-block-start never reads as border-block.
@@ -512,6 +512,11 @@ function lintText(text, opts) {
         return;
       }
       if (prop === "font-family") return;
+      // L29 (ui-2.1.0): a Label's uppercase property (Label.uppercase, a node property the handoff names), nothing else
+      if (prop === "text-transform") {
+        if (val.trim().toLowerCase() !== "uppercase") add(line, "L29", "text-transform is only uppercase (Label.uppercase), found " + val);
+        return;
+      }
       if (prop === "letter-spacing") {
         if (!/^calc\(\s*var\(\s*--toy-[\w-]*-letter-spacing\s*\)\s*\*\s*var\(\s*--px\s*\)\s*\)$/i.test(val)) add(line, "L26", "letter-spacing must be calc(var(--toy-…-letter-spacing) * var(--px)), found " + val);
         return;
