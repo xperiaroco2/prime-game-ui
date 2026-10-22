@@ -3483,15 +3483,6 @@
   padding-bottom: calc((var(--toy-howto-frame-done-panel-content-margin) - var(--toy-howto-frame-done-panel-border-width)) * var(--px));
   padding-left: calc((var(--toy-howto-frame-done-panel-content-margin) - var(--toy-howto-frame-done-panel-border-width)) * var(--px));
 }
-/* ToyHowtoNote: Label · howto.note · light */
-.tv-ToyHowtoNote {
-  font-family: var(--toy-howto-note-label-font-family), system-ui, sans-serif;
-  font-size: calc(var(--toy-howto-note-label-font-size) * var(--px));
-  font-weight: var(--toy-howto-note-label-font-weight);
-  line-height: calc(var(--toy-howto-note-label-line-box) * var(--px));
-  letter-spacing: calc(var(--toy-howto-note-label-letter-spacing) * var(--px));
-  color: var(--toy-howto-note-normal-font-color);
-}
 /* ToyCrosshair: Panel · hud.crosshair · dark */
 .tv-ToyCrosshair {
   box-sizing: border-box;
@@ -3580,6 +3571,30 @@
 }
 .tv-ToyKeyOnDark.tv-wide {
   min-width: calc(var(--toy-keycap-on-dark-size-wide-min-width) * var(--px));
+}
+/* ToyKeyOnLight: PanelContainer · keycap.on-light · light */
+.tv-ToyKeyOnLight {
+  box-sizing: border-box;
+  position: relative;
+  background: var(--toy-keycap-on-light-panel-bg-color);
+  border-style: solid;
+  border-color: var(--toy-keycap-on-light-panel-border-color);
+  border-top-width: calc(var(--toy-keycap-on-light-panel-border-width-top) * var(--px));
+  border-right-width: calc(var(--toy-keycap-on-light-panel-border-width-right) * var(--px));
+  border-bottom-width: calc(var(--toy-keycap-on-light-panel-border-width-bottom) * var(--px));
+  border-left-width: calc(var(--toy-keycap-on-light-panel-border-width-left) * var(--px));
+  border-top-left-radius: calc(var(--toy-keycap-on-light-panel-corner-radius) * var(--px));
+  border-top-right-radius: calc(var(--toy-keycap-on-light-panel-corner-radius) * var(--px));
+  border-bottom-right-radius: calc(var(--toy-keycap-on-light-panel-corner-radius) * var(--px));
+  border-bottom-left-radius: calc(var(--toy-keycap-on-light-panel-corner-radius) * var(--px));
+  padding-top: calc((var(--toy-keycap-on-light-panel-content-margin-top) - var(--toy-keycap-on-light-panel-border-width-top)) * var(--px));
+  padding-right: calc((var(--toy-keycap-on-light-panel-content-margin-inline) - var(--toy-keycap-on-light-panel-border-width-right)) * var(--px));
+  padding-bottom: calc((var(--toy-keycap-on-light-panel-content-margin-bottom) - var(--toy-keycap-on-light-panel-border-width-bottom)) * var(--px));
+  padding-left: calc((var(--toy-keycap-on-light-panel-content-margin-inline) - var(--toy-keycap-on-light-panel-border-width-left)) * var(--px));
+  min-width: calc(var(--toy-keycap-on-light-size-min-width) * var(--px));
+}
+.tv-ToyKeyOnLight.tv-wide {
+  min-width: calc(var(--toy-keycap-on-light-size-wide-min-width) * var(--px));
 }
 /* ToyKeyQuiet: PanelContainer · keycap.quiet · light */
 .tv-ToyKeyQuiet {
@@ -4850,15 +4865,6 @@
   line-height: calc(var(--toy-sticker-text-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-sticker-text-label-letter-spacing) * var(--px));
   color: var(--toy-sticker-text-normal-font-color);
-}
-/* ToyStickerTextLarge: Label · sticker.text-large · dark */
-.tv-ToyStickerTextLarge {
-  font-family: var(--toy-sticker-text-large-label-font-family), system-ui, sans-serif;
-  font-size: calc(var(--toy-sticker-text-large-label-font-size) * var(--px));
-  font-weight: var(--toy-sticker-text-large-label-font-weight);
-  line-height: calc(var(--toy-sticker-text-large-label-line-box) * var(--px));
-  letter-spacing: calc(var(--toy-sticker-text-large-label-letter-spacing) * var(--px));
-  color: var(--toy-sticker-text-large-normal-font-color);
 }
 /* ToyTab: Button → ToyButton · tab.idle · light */
 .tv-ToyTab {
