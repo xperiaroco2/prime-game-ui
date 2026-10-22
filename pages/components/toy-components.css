@@ -2651,6 +2651,27 @@
   width: calc(var(--toy-hud-spinner-size-width) * var(--px));
   height: calc(var(--toy-hud-spinner-size-height) * var(--px));
 }
+/* ToyTileDivider: Panel · divider · dark */
+.tv-ToyTileDivider {
+  box-sizing: border-box;
+  position: relative;
+  background: var(--toy-divider-panel-bg-color);
+  border-style: solid;
+  border-top-width: 0;
+  border-right-width: 0;
+  border-bottom-width: 0;
+  border-left-width: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  padding-top: 0;
+  padding-right: 0;
+  padding-bottom: 0;
+  padding-left: 0;
+  width: calc(var(--toy-divider-size-width) * var(--px));
+  height: calc(var(--toy-divider-size-height) * var(--px));
+}
 /* ToyKeyOnDark: PanelContainer · keycap.on-dark · dark */
 .tv-ToyKeyOnDark {
   box-sizing: border-box;
@@ -3129,6 +3150,178 @@
   padding-right: calc(var(--toy-mutation-balance-panel-content-margin-inline) * var(--px));
   padding-bottom: calc(var(--toy-mutation-balance-panel-content-margin-block) * var(--px));
   padding-left: calc(var(--toy-mutation-balance-panel-content-margin-inline) * var(--px));
+}
+/* ToyMutationCardPointed: PanelContainer · card-pointed · light */
+.tv-ToyMutationCardPointed {
+  box-sizing: border-box;
+  position: relative;
+  background: var(--toy-card-pointed-panel-bg-color);
+  border-style: solid;
+  border-color: var(--toy-card-pointed-panel-border-color);
+  border-top-width: calc(var(--toy-card-pointed-panel-border-width) * var(--px));
+  border-right-width: calc(var(--toy-card-pointed-panel-border-width) * var(--px));
+  border-bottom-width: calc(var(--toy-card-pointed-panel-border-width) * var(--px));
+  border-left-width: calc(var(--toy-card-pointed-panel-border-width) * var(--px));
+  border-top-left-radius: calc(var(--toy-card-pointed-panel-corner-radius) * var(--px));
+  border-top-right-radius: calc(var(--toy-card-pointed-panel-corner-radius) * var(--px));
+  border-bottom-right-radius: calc(var(--toy-card-pointed-panel-corner-radius) * var(--px));
+  border-bottom-left-radius: calc(var(--toy-card-pointed-panel-corner-radius) * var(--px));
+  padding-top: calc((var(--toy-card-pointed-panel-content-margin) - var(--toy-card-pointed-panel-border-width)) * var(--px));
+  padding-right: calc((var(--toy-card-pointed-panel-content-margin) - var(--toy-card-pointed-panel-border-width)) * var(--px));
+  padding-bottom: calc((var(--toy-card-pointed-panel-content-margin) - var(--toy-card-pointed-panel-border-width)) * var(--px));
+  padding-left: calc((var(--toy-card-pointed-panel-content-margin) - var(--toy-card-pointed-panel-border-width)) * var(--px));
+}
+/* ToyMutationCardName: Label · card-name · light */
+.tv-ToyMutationCardName {
+  font-family: var(--toy-card-name-label-font-family), system-ui, sans-serif;
+  font-size: calc(var(--toy-card-name-label-font-size) * var(--px));
+  font-weight: var(--toy-card-name-label-font-weight);
+  line-height: calc(var(--toy-card-name-label-line-box) * var(--px));
+  letter-spacing: calc(var(--toy-card-name-label-letter-spacing) * var(--px));
+  color: var(--toy-card-name-normal-font-color);
+}
+/* ToyMutationCardNameOff: Label · card-name-off · light */
+.tv-ToyMutationCardNameOff {
+  font-family: var(--toy-card-name-off-label-font-family), system-ui, sans-serif;
+  font-size: calc(var(--toy-card-name-off-label-font-size) * var(--px));
+  font-weight: var(--toy-card-name-off-label-font-weight);
+  line-height: calc(var(--toy-card-name-off-label-line-box) * var(--px));
+  letter-spacing: calc(var(--toy-card-name-off-label-letter-spacing) * var(--px));
+  color: var(--toy-card-name-off-normal-font-color);
+}
+/* ToyMutationCardText: Label · card-text · light */
+.tv-ToyMutationCardText {
+  font-family: var(--toy-card-text-label-font-family), system-ui, sans-serif;
+  font-size: calc(var(--toy-card-text-label-font-size) * var(--px));
+  font-weight: var(--toy-card-text-label-font-weight);
+  line-height: calc(var(--toy-card-text-label-line-box) * var(--px));
+  letter-spacing: calc(var(--toy-card-text-label-letter-spacing) * var(--px));
+  color: var(--toy-card-text-normal-font-color);
+}
+/* ToyMutationCardCost: Label · card-cost · light */
+.tv-ToyMutationCardCost {
+  font-family: var(--toy-card-cost-label-font-family), system-ui, sans-serif;
+  font-size: calc(var(--toy-card-cost-label-font-size) * var(--px));
+  font-weight: var(--toy-card-cost-label-font-weight);
+  line-height: calc(var(--toy-card-cost-label-line-box) * var(--px));
+  letter-spacing: calc(var(--toy-card-cost-label-letter-spacing) * var(--px));
+  color: var(--toy-card-cost-normal-font-color);
+}
+/* ToyMutationCardCostOff: Label · card-cost-off · light */
+.tv-ToyMutationCardCostOff {
+  font-family: var(--toy-card-cost-off-label-font-family), system-ui, sans-serif;
+  font-size: calc(var(--toy-card-cost-off-label-font-size) * var(--px));
+  font-weight: var(--toy-card-cost-off-label-font-weight);
+  line-height: calc(var(--toy-card-cost-off-label-line-box) * var(--px));
+  letter-spacing: calc(var(--toy-card-cost-off-label-letter-spacing) * var(--px));
+  color: var(--toy-card-cost-off-normal-font-color);
+}
+/* ToyButtonMutate: Button → ToyButton · button · light */
+.tv-ToyButtonMutate {
+  box-sizing: border-box;
+  position: relative;
+  background: var(--toy-button-normal-bg-color);
+  border-style: solid;
+  border-color: var(--toy-button-normal-border-color);
+  border-top-width: calc(var(--toy-button-normal-border-width) * var(--px));
+  border-right-width: calc(var(--toy-button-normal-border-width) * var(--px));
+  border-bottom-width: calc(var(--toy-button-normal-border-width) * var(--px));
+  border-left-width: calc(var(--toy-button-normal-border-width) * var(--px));
+  border-top-left-radius: calc(var(--toy-button-normal-corner-radius) * var(--px));
+  border-top-right-radius: calc(var(--toy-button-normal-corner-radius) * var(--px));
+  border-bottom-right-radius: calc(var(--toy-button-normal-corner-radius) * var(--px));
+  border-bottom-left-radius: calc(var(--toy-button-normal-corner-radius) * var(--px));
+  padding-top: calc((var(--toy-button-normal-content-margin-top) - var(--toy-button-normal-border-width)) * var(--px));
+  padding-right: calc((var(--toy-button-normal-content-margin-inline) - var(--toy-button-normal-border-width)) * var(--px));
+  padding-bottom: calc((var(--toy-button-normal-content-margin-bottom) - var(--toy-button-normal-border-width)) * var(--px));
+  padding-left: calc((var(--toy-button-normal-content-margin-inline) - var(--toy-button-normal-border-width)) * var(--px));
+  font-family: var(--toy-button-label-font-family), system-ui, sans-serif;
+  font-size: calc(var(--toy-button-label-font-size) * var(--px));
+  font-weight: var(--toy-button-label-font-weight);
+  line-height: calc(var(--toy-button-label-line-box) * var(--px));
+  letter-spacing: calc(var(--toy-button-label-letter-spacing) * var(--px));
+  color: var(--toy-button-normal-font-color);
+  cursor: pointer;
+}
+.tv-ToyButtonMutate.is-hover {
+  background: var(--toy-button-hover-bg-color);
+  border-color: var(--toy-button-hover-border-color);
+  border-top-width: calc(var(--toy-button-hover-border-width-top) * var(--px));
+  border-right-width: calc(var(--toy-button-hover-border-width-right) * var(--px));
+  border-bottom-width: calc(var(--toy-button-hover-border-width-bottom) * var(--px));
+  border-left-width: calc(var(--toy-button-hover-border-width-left) * var(--px));
+  padding-top: calc((var(--toy-button-normal-content-margin-top) - var(--toy-button-hover-border-width-top)) * var(--px));
+  padding-right: calc((var(--toy-button-normal-content-margin-inline) - var(--toy-button-hover-border-width-right)) * var(--px));
+  padding-bottom: calc((var(--toy-button-normal-content-margin-bottom) - var(--toy-button-hover-border-width-bottom)) * var(--px));
+  padding-left: calc((var(--toy-button-normal-content-margin-inline) - var(--toy-button-hover-border-width-left)) * var(--px));
+  color: var(--toy-button-hover-font-color);
+}
+.tv-ToyButtonMutate.is-held {
+  background: var(--toy-button-pressed-bg-color);
+  border-color: var(--toy-button-pressed-border-color);
+  border-top-width: calc(var(--toy-button-pressed-border-width-top) * var(--px));
+  border-right-width: calc(var(--toy-button-pressed-border-width-right) * var(--px));
+  border-bottom-width: calc(var(--toy-button-pressed-border-width-bottom) * var(--px));
+  border-left-width: calc(var(--toy-button-pressed-border-width-left) * var(--px));
+  padding-top: calc((var(--toy-button-normal-content-margin-top) - var(--toy-button-pressed-border-width-top)) * var(--px));
+  padding-right: calc((var(--toy-button-normal-content-margin-inline) - var(--toy-button-pressed-border-width-right)) * var(--px));
+  padding-bottom: calc((var(--toy-button-normal-content-margin-bottom) - var(--toy-button-pressed-border-width-bottom)) * var(--px));
+  padding-left: calc((var(--toy-button-normal-content-margin-inline) - var(--toy-button-pressed-border-width-left)) * var(--px));
+  color: var(--toy-button-pressed-font-color);
+}
+.tv-ToyButtonMutate.is-disabled {
+  background: var(--toy-button-disabled-bg-color);
+  border-color: var(--toy-button-disabled-border-color);
+  border-top-width: calc(var(--toy-button-disabled-border-width-top) * var(--px));
+  border-right-width: calc(var(--toy-button-disabled-border-width-right) * var(--px));
+  border-bottom-width: calc(var(--toy-button-disabled-border-width-bottom) * var(--px));
+  border-left-width: calc(var(--toy-button-disabled-border-width-left) * var(--px));
+  padding-top: calc((var(--toy-button-normal-content-margin-top) - var(--toy-button-disabled-border-width-top)) * var(--px));
+  padding-right: calc((var(--toy-button-normal-content-margin-inline) - var(--toy-button-disabled-border-width-right)) * var(--px));
+  padding-bottom: calc((var(--toy-button-normal-content-margin-bottom) - var(--toy-button-disabled-border-width-bottom)) * var(--px));
+  padding-left: calc((var(--toy-button-normal-content-margin-inline) - var(--toy-button-disabled-border-width-left)) * var(--px));
+  color: var(--toy-button-disabled-font-color);
+}
+.tv-ToyButtonMutate > .tv-focus {
+  display: none;
+  position: absolute;
+  pointer-events: none;
+  box-sizing: border-box;
+  border-style: solid;
+  border-color: var(--toy-button-focus-border-color);
+  border-top-width: calc(var(--toy-button-focus-border-width) * var(--px));
+  border-right-width: calc(var(--toy-button-focus-border-width) * var(--px));
+  border-bottom-width: calc(var(--toy-button-focus-border-width) * var(--px));
+  border-left-width: calc(var(--toy-button-focus-border-width) * var(--px));
+  border-top-left-radius: calc(var(--toy-button-focus-corner-radius) * var(--px));
+  border-top-right-radius: calc(var(--toy-button-focus-corner-radius) * var(--px));
+  border-bottom-right-radius: calc(var(--toy-button-focus-corner-radius) * var(--px));
+  border-bottom-left-radius: calc(var(--toy-button-focus-corner-radius) * var(--px));
+  top: calc((0 - var(--toy-button-normal-border-width) - var(--toy-button-focus-expand-margin)) * var(--px));
+  right: calc((0 - var(--toy-button-normal-border-width) - var(--toy-button-focus-expand-margin)) * var(--px));
+  bottom: calc((0 - var(--toy-button-normal-border-width) - var(--toy-button-focus-expand-margin)) * var(--px));
+  left: calc((0 - var(--toy-button-normal-border-width) - var(--toy-button-focus-expand-margin)) * var(--px));
+}
+.tv-ToyButtonMutate.is-focus > .tv-focus, .tv-ToyButtonMutate:focus-visible > .tv-focus {
+  display: block;
+}
+.tv-ToyButtonMutate.is-hover > .tv-focus {
+  top: calc((0 - var(--toy-button-hover-border-width-top) - var(--toy-button-focus-expand-margin)) * var(--px));
+  right: calc((0 - var(--toy-button-hover-border-width-right) - var(--toy-button-focus-expand-margin)) * var(--px));
+  bottom: calc((0 - var(--toy-button-hover-border-width-bottom) - var(--toy-button-focus-expand-margin)) * var(--px));
+  left: calc((0 - var(--toy-button-hover-border-width-left) - var(--toy-button-focus-expand-margin)) * var(--px));
+}
+.tv-ToyButtonMutate.is-held > .tv-focus {
+  top: calc((0 - var(--toy-button-pressed-border-width-top) - var(--toy-button-focus-expand-margin)) * var(--px));
+  right: calc((0 - var(--toy-button-pressed-border-width-right) - var(--toy-button-focus-expand-margin)) * var(--px));
+  bottom: calc((0 - var(--toy-button-pressed-border-width-bottom) - var(--toy-button-focus-expand-margin)) * var(--px));
+  left: calc((0 - var(--toy-button-pressed-border-width-left) - var(--toy-button-focus-expand-margin)) * var(--px));
+}
+.tv-ToyButtonMutate.is-disabled > .tv-focus {
+  top: calc((0 - var(--toy-button-disabled-border-width-top) - var(--toy-button-focus-expand-margin)) * var(--px));
+  right: calc((0 - var(--toy-button-disabled-border-width-right) - var(--toy-button-focus-expand-margin)) * var(--px));
+  bottom: calc((0 - var(--toy-button-disabled-border-width-bottom) - var(--toy-button-focus-expand-margin)) * var(--px));
+  left: calc((0 - var(--toy-button-disabled-border-width-left) - var(--toy-button-focus-expand-margin)) * var(--px));
 }
 /* ToyNamePlate: PanelContainer · name-plate.plate · dark */
 .tv-ToyNamePlate {
@@ -4108,6 +4301,7 @@
   line-height: calc(var(--toy-roster-tag-text-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-roster-tag-text-label-letter-spacing) * var(--px));
   color: var(--toy-roster-tag-text-normal-font-color);
+  text-transform: uppercase;
 }
 /* ToySettingRow: PanelContainer · setting.row · light */
 .tv-ToySettingRow {
@@ -4162,16 +4356,18 @@
   border-top-right-radius: calc(var(--toy-setting-stepper-normal-corner-radius) * var(--px));
   border-bottom-right-radius: calc(var(--toy-setting-stepper-normal-corner-radius) * var(--px));
   border-bottom-left-radius: calc(var(--toy-setting-stepper-normal-corner-radius) * var(--px));
-  padding-top: calc((var(--toy-setting-stepper-normal-content-margin-block) - var(--toy-setting-stepper-normal-border-width)) * var(--px));
-  padding-right: calc((var(--toy-setting-stepper-normal-content-margin-inline) - var(--toy-setting-stepper-normal-border-width)) * var(--px));
-  padding-bottom: calc((var(--toy-setting-stepper-normal-content-margin-block) - var(--toy-setting-stepper-normal-border-width)) * var(--px));
-  padding-left: calc((var(--toy-setting-stepper-normal-content-margin-inline) - var(--toy-setting-stepper-normal-border-width)) * var(--px));
+  padding-top: calc((var(--toy-setting-stepper-normal-content-margin) - var(--toy-setting-stepper-normal-border-width)) * var(--px));
+  padding-right: calc((var(--toy-setting-stepper-normal-content-margin) - var(--toy-setting-stepper-normal-border-width)) * var(--px));
+  padding-bottom: calc((var(--toy-setting-stepper-normal-content-margin) - var(--toy-setting-stepper-normal-border-width)) * var(--px));
+  padding-left: calc((var(--toy-setting-stepper-normal-content-margin) - var(--toy-setting-stepper-normal-border-width)) * var(--px));
   font-family: var(--toy-setting-stepper-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-setting-stepper-label-font-size) * var(--px));
   font-weight: var(--toy-setting-stepper-label-font-weight);
   line-height: calc(var(--toy-setting-stepper-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-setting-stepper-label-letter-spacing) * var(--px));
   color: var(--toy-setting-stepper-normal-font-color);
+  min-width: calc(var(--toy-setting-stepper-size-width) * var(--px));
+  height: calc(var(--toy-setting-stepper-size-height) * var(--px));
   cursor: pointer;
 }
 .tv-ToyStepper.is-hover {
@@ -4222,6 +4418,240 @@
 }
 .tv-ToyStepper.is-disabled .tv-icon {
   color: var(--toy-setting-stepper-items-icon-disabled-color);
+}
+/* ToySegmentStart: Button → ToyButton · segment-start · light */
+.tv-ToySegmentStart {
+  box-sizing: border-box;
+  position: relative;
+  background: var(--toy-segment-start-normal-bg-color);
+  border-style: solid;
+  border-color: var(--toy-segment-start-normal-border-color);
+  border-top-width: calc(var(--toy-segment-start-normal-border-width) * var(--px));
+  border-right-width: calc(var(--toy-segment-start-normal-border-width) * var(--px));
+  border-bottom-width: calc(var(--toy-segment-start-normal-border-width) * var(--px));
+  border-left-width: calc(var(--toy-segment-start-normal-border-width) * var(--px));
+  border-top-left-radius: calc(var(--toy-segment-start-normal-corner-radius-top-left) * var(--px));
+  border-top-right-radius: calc(var(--toy-segment-start-normal-corner-radius-top-right) * var(--px));
+  border-bottom-right-radius: calc(var(--toy-segment-start-normal-corner-radius-bottom-right) * var(--px));
+  border-bottom-left-radius: calc(var(--toy-segment-start-normal-corner-radius-bottom-left) * var(--px));
+  padding-top: calc((var(--toy-segment-start-normal-content-margin-block) - var(--toy-segment-start-normal-border-width)) * var(--px));
+  padding-right: calc((var(--toy-segment-start-normal-content-margin-inline) - var(--toy-segment-start-normal-border-width)) * var(--px));
+  padding-bottom: calc((var(--toy-segment-start-normal-content-margin-block) - var(--toy-segment-start-normal-border-width)) * var(--px));
+  padding-left: calc((var(--toy-segment-start-normal-content-margin-inline) - var(--toy-segment-start-normal-border-width)) * var(--px));
+  font-family: var(--toy-segment-start-label-font-family), system-ui, sans-serif;
+  font-size: calc(var(--toy-segment-start-label-font-size) * var(--px));
+  font-weight: var(--toy-segment-start-label-font-weight);
+  line-height: calc(var(--toy-segment-start-label-line-box) * var(--px));
+  letter-spacing: calc(var(--toy-segment-start-label-letter-spacing) * var(--px));
+  color: var(--toy-segment-start-normal-font-color);
+  cursor: pointer;
+}
+.tv-ToySegmentStart.is-hover {
+  background: var(--toy-segment-start-hover-bg-color);
+  color: var(--toy-segment-start-hover-font-color);
+}
+.tv-ToySegmentStart.is-disabled {
+  background: var(--toy-segment-start-disabled-bg-color);
+  border-color: var(--toy-segment-start-disabled-border-color);
+  color: var(--toy-segment-start-disabled-font-color);
+}
+.tv-ToySegmentStart > .tv-focus {
+  display: none;
+  position: absolute;
+  pointer-events: none;
+  box-sizing: border-box;
+  border-style: solid;
+  border-color: var(--toy-segment-start-focus-border-color);
+  border-top-width: calc(var(--toy-segment-start-focus-border-width) * var(--px));
+  border-right-width: calc(var(--toy-segment-start-focus-border-width) * var(--px));
+  border-bottom-width: calc(var(--toy-segment-start-focus-border-width) * var(--px));
+  border-left-width: calc(var(--toy-segment-start-focus-border-width) * var(--px));
+  border-top-left-radius: calc(var(--toy-segment-start-focus-corner-radius-top-left) * var(--px));
+  border-top-right-radius: calc(var(--toy-segment-start-focus-corner-radius-top-right) * var(--px));
+  border-bottom-right-radius: calc(var(--toy-segment-start-focus-corner-radius-bottom-right) * var(--px));
+  border-bottom-left-radius: calc(var(--toy-segment-start-focus-corner-radius-bottom-left) * var(--px));
+  top: calc((0 - var(--toy-segment-start-normal-border-width) - var(--toy-segment-start-focus-expand-margin)) * var(--px));
+  right: calc((0 - var(--toy-segment-start-normal-border-width) - var(--toy-segment-start-focus-expand-margin)) * var(--px));
+  bottom: calc((0 - var(--toy-segment-start-normal-border-width) - var(--toy-segment-start-focus-expand-margin)) * var(--px));
+  left: calc((0 - var(--toy-segment-start-normal-border-width) - var(--toy-segment-start-focus-expand-margin)) * var(--px));
+}
+.tv-ToySegmentStart.is-focus > .tv-focus, .tv-ToySegmentStart:focus-visible > .tv-focus {
+  display: block;
+}
+/* ToySegmentStartSelected: Button → ToyButton · segment-start-selected · light */
+.tv-ToySegmentStartSelected {
+  box-sizing: border-box;
+  position: relative;
+  background: var(--toy-segment-start-selected-normal-bg-color);
+  border-style: solid;
+  border-color: var(--toy-segment-start-selected-normal-border-color);
+  border-top-width: calc(var(--toy-segment-start-selected-normal-border-width) * var(--px));
+  border-right-width: calc(var(--toy-segment-start-selected-normal-border-width) * var(--px));
+  border-bottom-width: calc(var(--toy-segment-start-selected-normal-border-width) * var(--px));
+  border-left-width: calc(var(--toy-segment-start-selected-normal-border-width) * var(--px));
+  border-top-left-radius: calc(var(--toy-segment-start-selected-normal-corner-radius-top-left) * var(--px));
+  border-top-right-radius: calc(var(--toy-segment-start-selected-normal-corner-radius-top-right) * var(--px));
+  border-bottom-right-radius: calc(var(--toy-segment-start-selected-normal-corner-radius-bottom-right) * var(--px));
+  border-bottom-left-radius: calc(var(--toy-segment-start-selected-normal-corner-radius-bottom-left) * var(--px));
+  padding-top: calc((var(--toy-segment-start-selected-normal-content-margin-block) - var(--toy-segment-start-selected-normal-border-width)) * var(--px));
+  padding-right: calc((var(--toy-segment-start-selected-normal-content-margin-inline) - var(--toy-segment-start-selected-normal-border-width)) * var(--px));
+  padding-bottom: calc((var(--toy-segment-start-selected-normal-content-margin-block) - var(--toy-segment-start-selected-normal-border-width)) * var(--px));
+  padding-left: calc((var(--toy-segment-start-selected-normal-content-margin-inline) - var(--toy-segment-start-selected-normal-border-width)) * var(--px));
+  font-family: var(--toy-segment-start-selected-label-font-family), system-ui, sans-serif;
+  font-size: calc(var(--toy-segment-start-selected-label-font-size) * var(--px));
+  font-weight: var(--toy-segment-start-selected-label-font-weight);
+  line-height: calc(var(--toy-segment-start-selected-label-line-box) * var(--px));
+  letter-spacing: calc(var(--toy-segment-start-selected-label-letter-spacing) * var(--px));
+  color: var(--toy-segment-start-selected-normal-font-color);
+  cursor: pointer;
+}
+.tv-ToySegmentStartSelected.is-hover {
+  background: var(--toy-segment-start-selected-hover-bg-color);
+}
+.tv-ToySegmentStartSelected.is-disabled {
+  background: var(--toy-segment-start-selected-disabled-bg-color);
+  border-color: var(--toy-segment-start-selected-disabled-border-color);
+  color: var(--toy-segment-start-selected-disabled-font-color);
+}
+.tv-ToySegmentStartSelected > .tv-focus {
+  display: none;
+  position: absolute;
+  pointer-events: none;
+  box-sizing: border-box;
+  border-style: solid;
+  border-color: var(--toy-segment-start-selected-focus-border-color);
+  border-top-width: calc(var(--toy-segment-start-selected-focus-border-width) * var(--px));
+  border-right-width: calc(var(--toy-segment-start-selected-focus-border-width) * var(--px));
+  border-bottom-width: calc(var(--toy-segment-start-selected-focus-border-width) * var(--px));
+  border-left-width: calc(var(--toy-segment-start-selected-focus-border-width) * var(--px));
+  border-top-left-radius: calc(var(--toy-segment-start-selected-focus-corner-radius-top-left) * var(--px));
+  border-top-right-radius: calc(var(--toy-segment-start-selected-focus-corner-radius-top-right) * var(--px));
+  border-bottom-right-radius: calc(var(--toy-segment-start-selected-focus-corner-radius-bottom-right) * var(--px));
+  border-bottom-left-radius: calc(var(--toy-segment-start-selected-focus-corner-radius-bottom-left) * var(--px));
+  top: calc((0 - var(--toy-segment-start-selected-normal-border-width) - var(--toy-segment-start-selected-focus-expand-margin)) * var(--px));
+  right: calc((0 - var(--toy-segment-start-selected-normal-border-width) - var(--toy-segment-start-selected-focus-expand-margin)) * var(--px));
+  bottom: calc((0 - var(--toy-segment-start-selected-normal-border-width) - var(--toy-segment-start-selected-focus-expand-margin)) * var(--px));
+  left: calc((0 - var(--toy-segment-start-selected-normal-border-width) - var(--toy-segment-start-selected-focus-expand-margin)) * var(--px));
+}
+.tv-ToySegmentStartSelected.is-focus > .tv-focus, .tv-ToySegmentStartSelected:focus-visible > .tv-focus {
+  display: block;
+}
+/* ToySegmentEnd: Button → ToyButton · segment-end · light */
+.tv-ToySegmentEnd {
+  box-sizing: border-box;
+  position: relative;
+  background: var(--toy-segment-end-normal-bg-color);
+  border-style: solid;
+  border-color: var(--toy-segment-end-normal-border-color);
+  border-top-width: calc(var(--toy-segment-end-normal-border-width) * var(--px));
+  border-right-width: calc(var(--toy-segment-end-normal-border-width) * var(--px));
+  border-bottom-width: calc(var(--toy-segment-end-normal-border-width) * var(--px));
+  border-left-width: calc(var(--toy-segment-end-normal-border-width) * var(--px));
+  border-top-left-radius: calc(var(--toy-segment-end-normal-corner-radius-top-left) * var(--px));
+  border-top-right-radius: calc(var(--toy-segment-end-normal-corner-radius-top-right) * var(--px));
+  border-bottom-right-radius: calc(var(--toy-segment-end-normal-corner-radius-bottom-right) * var(--px));
+  border-bottom-left-radius: calc(var(--toy-segment-end-normal-corner-radius-bottom-left) * var(--px));
+  padding-top: calc((var(--toy-segment-end-normal-content-margin-block) - var(--toy-segment-end-normal-border-width)) * var(--px));
+  padding-right: calc((var(--toy-segment-end-normal-content-margin-inline) - var(--toy-segment-end-normal-border-width)) * var(--px));
+  padding-bottom: calc((var(--toy-segment-end-normal-content-margin-block) - var(--toy-segment-end-normal-border-width)) * var(--px));
+  padding-left: calc((var(--toy-segment-end-normal-content-margin-inline) - var(--toy-segment-end-normal-border-width)) * var(--px));
+  font-family: var(--toy-segment-end-label-font-family), system-ui, sans-serif;
+  font-size: calc(var(--toy-segment-end-label-font-size) * var(--px));
+  font-weight: var(--toy-segment-end-label-font-weight);
+  line-height: calc(var(--toy-segment-end-label-line-box) * var(--px));
+  letter-spacing: calc(var(--toy-segment-end-label-letter-spacing) * var(--px));
+  color: var(--toy-segment-end-normal-font-color);
+  cursor: pointer;
+}
+.tv-ToySegmentEnd.is-hover {
+  background: var(--toy-segment-end-hover-bg-color);
+  color: var(--toy-segment-end-hover-font-color);
+}
+.tv-ToySegmentEnd.is-disabled {
+  background: var(--toy-segment-end-disabled-bg-color);
+  border-color: var(--toy-segment-end-disabled-border-color);
+  color: var(--toy-segment-end-disabled-font-color);
+}
+.tv-ToySegmentEnd > .tv-focus {
+  display: none;
+  position: absolute;
+  pointer-events: none;
+  box-sizing: border-box;
+  border-style: solid;
+  border-color: var(--toy-segment-end-focus-border-color);
+  border-top-width: calc(var(--toy-segment-end-focus-border-width) * var(--px));
+  border-right-width: calc(var(--toy-segment-end-focus-border-width) * var(--px));
+  border-bottom-width: calc(var(--toy-segment-end-focus-border-width) * var(--px));
+  border-left-width: calc(var(--toy-segment-end-focus-border-width) * var(--px));
+  border-top-left-radius: calc(var(--toy-segment-end-focus-corner-radius-top-left) * var(--px));
+  border-top-right-radius: calc(var(--toy-segment-end-focus-corner-radius-top-right) * var(--px));
+  border-bottom-right-radius: calc(var(--toy-segment-end-focus-corner-radius-bottom-right) * var(--px));
+  border-bottom-left-radius: calc(var(--toy-segment-end-focus-corner-radius-bottom-left) * var(--px));
+  top: calc((0 - var(--toy-segment-end-normal-border-width) - var(--toy-segment-end-focus-expand-margin)) * var(--px));
+  right: calc((0 - var(--toy-segment-end-normal-border-width) - var(--toy-segment-end-focus-expand-margin)) * var(--px));
+  bottom: calc((0 - var(--toy-segment-end-normal-border-width) - var(--toy-segment-end-focus-expand-margin)) * var(--px));
+  left: calc((0 - var(--toy-segment-end-normal-border-width) - var(--toy-segment-end-focus-expand-margin)) * var(--px));
+}
+.tv-ToySegmentEnd.is-focus > .tv-focus, .tv-ToySegmentEnd:focus-visible > .tv-focus {
+  display: block;
+}
+/* ToySegmentEndSelected: Button → ToyButton · segment-end-selected · light */
+.tv-ToySegmentEndSelected {
+  box-sizing: border-box;
+  position: relative;
+  background: var(--toy-segment-end-selected-normal-bg-color);
+  border-style: solid;
+  border-color: var(--toy-segment-end-selected-normal-border-color);
+  border-top-width: calc(var(--toy-segment-end-selected-normal-border-width) * var(--px));
+  border-right-width: calc(var(--toy-segment-end-selected-normal-border-width) * var(--px));
+  border-bottom-width: calc(var(--toy-segment-end-selected-normal-border-width) * var(--px));
+  border-left-width: calc(var(--toy-segment-end-selected-normal-border-width) * var(--px));
+  border-top-left-radius: calc(var(--toy-segment-end-selected-normal-corner-radius-top-left) * var(--px));
+  border-top-right-radius: calc(var(--toy-segment-end-selected-normal-corner-radius-top-right) * var(--px));
+  border-bottom-right-radius: calc(var(--toy-segment-end-selected-normal-corner-radius-bottom-right) * var(--px));
+  border-bottom-left-radius: calc(var(--toy-segment-end-selected-normal-corner-radius-bottom-left) * var(--px));
+  padding-top: calc((var(--toy-segment-end-selected-normal-content-margin-block) - var(--toy-segment-end-selected-normal-border-width)) * var(--px));
+  padding-right: calc((var(--toy-segment-end-selected-normal-content-margin-inline) - var(--toy-segment-end-selected-normal-border-width)) * var(--px));
+  padding-bottom: calc((var(--toy-segment-end-selected-normal-content-margin-block) - var(--toy-segment-end-selected-normal-border-width)) * var(--px));
+  padding-left: calc((var(--toy-segment-end-selected-normal-content-margin-inline) - var(--toy-segment-end-selected-normal-border-width)) * var(--px));
+  font-family: var(--toy-segment-end-selected-label-font-family), system-ui, sans-serif;
+  font-size: calc(var(--toy-segment-end-selected-label-font-size) * var(--px));
+  font-weight: var(--toy-segment-end-selected-label-font-weight);
+  line-height: calc(var(--toy-segment-end-selected-label-line-box) * var(--px));
+  letter-spacing: calc(var(--toy-segment-end-selected-label-letter-spacing) * var(--px));
+  color: var(--toy-segment-end-selected-normal-font-color);
+  cursor: pointer;
+}
+.tv-ToySegmentEndSelected.is-hover {
+  background: var(--toy-segment-end-selected-hover-bg-color);
+}
+.tv-ToySegmentEndSelected.is-disabled {
+  background: var(--toy-segment-end-selected-disabled-bg-color);
+  border-color: var(--toy-segment-end-selected-disabled-border-color);
+  color: var(--toy-segment-end-selected-disabled-font-color);
+}
+.tv-ToySegmentEndSelected > .tv-focus {
+  display: none;
+  position: absolute;
+  pointer-events: none;
+  box-sizing: border-box;
+  border-style: solid;
+  border-color: var(--toy-segment-end-selected-focus-border-color);
+  border-top-width: calc(var(--toy-segment-end-selected-focus-border-width) * var(--px));
+  border-right-width: calc(var(--toy-segment-end-selected-focus-border-width) * var(--px));
+  border-bottom-width: calc(var(--toy-segment-end-selected-focus-border-width) * var(--px));
+  border-left-width: calc(var(--toy-segment-end-selected-focus-border-width) * var(--px));
+  border-top-left-radius: calc(var(--toy-segment-end-selected-focus-corner-radius-top-left) * var(--px));
+  border-top-right-radius: calc(var(--toy-segment-end-selected-focus-corner-radius-top-right) * var(--px));
+  border-bottom-right-radius: calc(var(--toy-segment-end-selected-focus-corner-radius-bottom-right) * var(--px));
+  border-bottom-left-radius: calc(var(--toy-segment-end-selected-focus-corner-radius-bottom-left) * var(--px));
+  top: calc((0 - var(--toy-segment-end-selected-normal-border-width) - var(--toy-segment-end-selected-focus-expand-margin)) * var(--px));
+  right: calc((0 - var(--toy-segment-end-selected-normal-border-width) - var(--toy-segment-end-selected-focus-expand-margin)) * var(--px));
+  bottom: calc((0 - var(--toy-segment-end-selected-normal-border-width) - var(--toy-segment-end-selected-focus-expand-margin)) * var(--px));
+  left: calc((0 - var(--toy-segment-end-selected-normal-border-width) - var(--toy-segment-end-selected-focus-expand-margin)) * var(--px));
+}
+.tv-ToySegmentEndSelected.is-focus > .tv-focus, .tv-ToySegmentEndSelected:focus-visible > .tv-focus {
+  display: block;
 }
 /* ToySlot: PanelContainer · slot.idle · dark */
 .tv-ToySlot {
@@ -4306,10 +4736,10 @@
   border-top-right-radius: calc(var(--toy-slot-hand-panel-corner-radius) * var(--px));
   border-bottom-right-radius: calc(var(--toy-slot-hand-panel-corner-radius) * var(--px));
   border-bottom-left-radius: calc(var(--toy-slot-hand-panel-corner-radius) * var(--px));
-  padding-top: calc((var(--toy-slot-hand-panel-content-margin) - var(--toy-slot-hand-panel-border-width)) * var(--px));
-  padding-right: calc((var(--toy-slot-hand-panel-content-margin) - var(--toy-slot-hand-panel-border-width)) * var(--px));
-  padding-bottom: calc((var(--toy-slot-hand-panel-content-margin) - var(--toy-slot-hand-panel-border-width)) * var(--px));
-  padding-left: calc((var(--toy-slot-hand-panel-content-margin) - var(--toy-slot-hand-panel-border-width)) * var(--px));
+  padding-top: calc((var(--toy-slot-hand-panel-content-margin-block) - var(--toy-slot-hand-panel-border-width)) * var(--px));
+  padding-right: calc((var(--toy-slot-hand-panel-content-margin-inline) - var(--toy-slot-hand-panel-border-width)) * var(--px));
+  padding-bottom: calc((var(--toy-slot-hand-panel-content-margin-block) - var(--toy-slot-hand-panel-border-width)) * var(--px));
+  padding-left: calc((var(--toy-slot-hand-panel-content-margin-inline) - var(--toy-slot-hand-panel-border-width)) * var(--px));
   min-width: calc(var(--toy-slot-hand-size-width) * var(--px));
   height: calc(var(--toy-slot-hand-size-height) * var(--px));
 }
@@ -4328,10 +4758,10 @@
   border-top-right-radius: calc(var(--toy-slot-belt-panel-corner-radius) * var(--px));
   border-bottom-right-radius: calc(var(--toy-slot-belt-panel-corner-radius) * var(--px));
   border-bottom-left-radius: calc(var(--toy-slot-belt-panel-corner-radius) * var(--px));
-  padding-top: calc((var(--toy-slot-belt-panel-content-margin) - var(--toy-slot-belt-panel-border-width)) * var(--px));
-  padding-right: calc((var(--toy-slot-belt-panel-content-margin) - var(--toy-slot-belt-panel-border-width)) * var(--px));
-  padding-bottom: calc((var(--toy-slot-belt-panel-content-margin) - var(--toy-slot-belt-panel-border-width)) * var(--px));
-  padding-left: calc((var(--toy-slot-belt-panel-content-margin) - var(--toy-slot-belt-panel-border-width)) * var(--px));
+  padding-top: calc((var(--toy-slot-belt-panel-content-margin-block) - var(--toy-slot-belt-panel-border-width)) * var(--px));
+  padding-right: calc((var(--toy-slot-belt-panel-content-margin-inline) - var(--toy-slot-belt-panel-border-width)) * var(--px));
+  padding-bottom: calc((var(--toy-slot-belt-panel-content-margin-block) - var(--toy-slot-belt-panel-border-width)) * var(--px));
+  padding-left: calc((var(--toy-slot-belt-panel-content-margin-inline) - var(--toy-slot-belt-panel-border-width)) * var(--px));
   min-width: calc(var(--toy-slot-belt-size-width) * var(--px));
   height: calc(var(--toy-slot-belt-size-height) * var(--px));
 }
@@ -4451,13 +4881,13 @@
   border-right-width: 0;
   border-bottom-width: 0;
   border-left-width: 0;
-  border-top-left-radius: calc(var(--toy-tab-idle-normal-corner-radius) * var(--px));
-  border-top-right-radius: calc(var(--toy-tab-idle-normal-corner-radius) * var(--px));
-  border-bottom-right-radius: calc(var(--toy-tab-idle-normal-corner-radius) * var(--px));
-  border-bottom-left-radius: calc(var(--toy-tab-idle-normal-corner-radius) * var(--px));
-  padding-top: calc(var(--toy-tab-idle-normal-content-margin-block) * var(--px));
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  padding-top: calc(var(--toy-tab-idle-normal-content-margin-top) * var(--px));
   padding-right: calc(var(--toy-tab-idle-normal-content-margin-inline) * var(--px));
-  padding-bottom: calc(var(--toy-tab-idle-normal-content-margin-block) * var(--px));
+  padding-bottom: calc(var(--toy-tab-idle-normal-content-margin-bottom) * var(--px));
   padding-left: calc(var(--toy-tab-idle-normal-content-margin-inline) * var(--px));
   font-family: var(--toy-tab-idle-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-tab-idle-label-font-size) * var(--px));
@@ -4468,11 +4898,9 @@
   cursor: pointer;
 }
 .tv-ToyTab.is-hover {
-  background: var(--toy-tab-idle-hover-bg-color);
   color: var(--toy-tab-idle-hover-font-color);
 }
 .tv-ToyTab.is-held {
-  background: var(--toy-tab-idle-pressed-bg-color);
   color: var(--toy-tab-idle-pressed-font-color);
 }
 .tv-ToyTab.is-disabled {
@@ -4489,10 +4917,10 @@
   border-right-width: calc(var(--toy-tab-idle-focus-border-width) * var(--px));
   border-bottom-width: calc(var(--toy-tab-idle-focus-border-width) * var(--px));
   border-left-width: calc(var(--toy-tab-idle-focus-border-width) * var(--px));
-  border-top-left-radius: calc(var(--toy-tab-idle-focus-corner-radius) * var(--px));
-  border-top-right-radius: calc(var(--toy-tab-idle-focus-corner-radius) * var(--px));
-  border-bottom-right-radius: calc(var(--toy-tab-idle-focus-corner-radius) * var(--px));
-  border-bottom-left-radius: calc(var(--toy-tab-idle-focus-corner-radius) * var(--px));
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
   top: calc((0 - var(--toy-tab-idle-focus-expand-margin)) * var(--px));
   right: calc((0 - var(--toy-tab-idle-focus-expand-margin)) * var(--px));
   bottom: calc((0 - var(--toy-tab-idle-focus-expand-margin)) * var(--px));
@@ -4505,20 +4933,21 @@
 .tv-ToyTabSelected {
   box-sizing: border-box;
   position: relative;
-  background: var(--toy-tab-selected-normal-bg-color);
+  background: var(--toy-palette-clear);
   border-style: solid;
-  border-top-width: 0;
-  border-right-width: 0;
-  border-bottom-width: 0;
-  border-left-width: 0;
-  border-top-left-radius: calc(var(--toy-tab-selected-normal-corner-radius) * var(--px));
-  border-top-right-radius: calc(var(--toy-tab-selected-normal-corner-radius) * var(--px));
-  border-bottom-right-radius: calc(var(--toy-tab-selected-normal-corner-radius) * var(--px));
-  border-bottom-left-radius: calc(var(--toy-tab-selected-normal-corner-radius) * var(--px));
-  padding-top: calc(var(--toy-tab-selected-normal-content-margin-block) * var(--px));
-  padding-right: calc(var(--toy-tab-selected-normal-content-margin-inline) * var(--px));
-  padding-bottom: calc(var(--toy-tab-selected-normal-content-margin-block) * var(--px));
-  padding-left: calc(var(--toy-tab-selected-normal-content-margin-inline) * var(--px));
+  border-color: var(--toy-tab-selected-normal-border-color);
+  border-top-width: calc(var(--toy-tab-selected-normal-border-width-top) * var(--px));
+  border-right-width: calc(var(--toy-tab-selected-normal-border-width-right) * var(--px));
+  border-bottom-width: calc(var(--toy-tab-selected-normal-border-width-bottom) * var(--px));
+  border-left-width: calc(var(--toy-tab-selected-normal-border-width-left) * var(--px));
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  padding-top: calc((var(--toy-tab-selected-normal-content-margin-top) - var(--toy-tab-selected-normal-border-width-top)) * var(--px));
+  padding-right: calc((var(--toy-tab-selected-normal-content-margin-inline) - var(--toy-tab-selected-normal-border-width-right)) * var(--px));
+  padding-bottom: calc((var(--toy-tab-selected-normal-content-margin-bottom) - var(--toy-tab-selected-normal-border-width-bottom)) * var(--px));
+  padding-left: calc((var(--toy-tab-selected-normal-content-margin-inline) - var(--toy-tab-selected-normal-border-width-left)) * var(--px));
   font-family: var(--toy-tab-selected-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-tab-selected-label-font-size) * var(--px));
   font-weight: var(--toy-tab-selected-label-font-weight);
@@ -4528,7 +4957,7 @@
   cursor: pointer;
 }
 .tv-ToyTabSelected.is-hover {
-  background: var(--toy-tab-selected-hover-bg-color);
+  color: var(--toy-tab-selected-hover-font-color);
 }
 .tv-ToyTabSelected.is-disabled {
   color: var(--toy-tab-selected-disabled-font-color);
@@ -4544,17 +4973,37 @@
   border-right-width: calc(var(--toy-tab-selected-focus-border-width) * var(--px));
   border-bottom-width: calc(var(--toy-tab-selected-focus-border-width) * var(--px));
   border-left-width: calc(var(--toy-tab-selected-focus-border-width) * var(--px));
-  border-top-left-radius: calc(var(--toy-tab-selected-focus-corner-radius) * var(--px));
-  border-top-right-radius: calc(var(--toy-tab-selected-focus-corner-radius) * var(--px));
-  border-bottom-right-radius: calc(var(--toy-tab-selected-focus-corner-radius) * var(--px));
-  border-bottom-left-radius: calc(var(--toy-tab-selected-focus-corner-radius) * var(--px));
-  top: calc((0 - var(--toy-tab-selected-focus-expand-margin)) * var(--px));
-  right: calc((0 - var(--toy-tab-selected-focus-expand-margin)) * var(--px));
-  bottom: calc((0 - var(--toy-tab-selected-focus-expand-margin)) * var(--px));
-  left: calc((0 - var(--toy-tab-selected-focus-expand-margin)) * var(--px));
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  top: calc((0 - var(--toy-tab-selected-normal-border-width-top) - var(--toy-tab-selected-focus-expand-margin)) * var(--px));
+  right: calc((0 - var(--toy-tab-selected-normal-border-width-right) - var(--toy-tab-selected-focus-expand-margin)) * var(--px));
+  bottom: calc((0 - var(--toy-tab-selected-normal-border-width-bottom) - var(--toy-tab-selected-focus-expand-margin)) * var(--px));
+  left: calc((0 - var(--toy-tab-selected-normal-border-width-left) - var(--toy-tab-selected-focus-expand-margin)) * var(--px));
 }
 .tv-ToyTabSelected.is-focus > .tv-focus, .tv-ToyTabSelected:focus-visible > .tv-focus {
   display: block;
+}
+/* ToyTabStrip: PanelContainer · tab.strip · light */
+.tv-ToyTabStrip {
+  box-sizing: border-box;
+  position: relative;
+  background: var(--toy-palette-clear);
+  border-style: solid;
+  border-color: var(--toy-tab-strip-panel-border-color);
+  border-top-width: calc(var(--toy-tab-strip-panel-border-width-top) * var(--px));
+  border-right-width: calc(var(--toy-tab-strip-panel-border-width-right) * var(--px));
+  border-bottom-width: calc(var(--toy-tab-strip-panel-border-width-bottom) * var(--px));
+  border-left-width: calc(var(--toy-tab-strip-panel-border-width-left) * var(--px));
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  padding-top: calc((var(--toy-tab-strip-panel-content-margin-top) - var(--toy-tab-strip-panel-border-width-top)) * var(--px));
+  padding-right: calc((var(--toy-tab-strip-panel-content-margin-inline) - var(--toy-tab-strip-panel-border-width-right)) * var(--px));
+  padding-bottom: calc((var(--toy-tab-strip-panel-content-margin-bottom) - var(--toy-tab-strip-panel-border-width-bottom)) * var(--px));
+  padding-left: calc((var(--toy-tab-strip-panel-content-margin-inline) - var(--toy-tab-strip-panel-border-width-left)) * var(--px));
 }
 /* ToyTextOnDark: Label · text.on-dark · dark */
 .tv-ToyTextOnDark {
@@ -4675,7 +5124,7 @@
   letter-spacing: calc(var(--toy-text-text-on-danger-label-letter-spacing) * var(--px));
   color: var(--toy-text-text-on-danger-normal-font-color);
 }
-/* ToyKicker: Label · text.kicker · light */
+/* ToyKicker: Label · text.kicker · any */
 .tv-ToyKicker {
   font-family: var(--toy-text-kicker-label-font-family), system-ui, sans-serif;
   font-size: calc(var(--toy-text-kicker-label-font-size) * var(--px));
@@ -4683,6 +5132,16 @@
   line-height: calc(var(--toy-text-kicker-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-text-kicker-label-letter-spacing) * var(--px));
   color: var(--toy-text-kicker-normal-font-color);
+  text-transform: uppercase;
+}
+/* ToyTitleMachine: Label · title-machine · light */
+.tv-ToyTitleMachine {
+  font-family: var(--toy-title-machine-label-font-family), system-ui, sans-serif;
+  font-size: calc(var(--toy-title-machine-label-font-size) * var(--px));
+  font-weight: var(--toy-title-machine-label-font-weight);
+  line-height: calc(var(--toy-title-machine-label-line-box) * var(--px));
+  letter-spacing: calc(var(--toy-title-machine-label-letter-spacing) * var(--px));
+  color: var(--toy-title-machine-normal-font-color);
 }
 /* ToyTitlePlate: Label · title.plate · dark */
 .tv-ToyTitlePlate {

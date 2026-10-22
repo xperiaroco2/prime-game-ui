@@ -12,7 +12,7 @@ const X = require('./expand.js');
 // blocks by `/* Toy[A-Za-z]+: `. A number is spelled (ToyColumnSixteen for space.16).
 const VARIATION_RE = /^Toy[A-Za-z]+$/;
 const CONTEXTS = ['dark', 'light', 'any'];
-const GODOT_VARIANT_KEYS = ['variation', 'class', 'parent', 'abstract', 'base', 'toggle', 'on', 'textures', 'replacement'];
+const GODOT_VARIANT_KEYS = ['variation', 'class', 'parent', 'abstract', 'base', 'toggle', 'on', 'textures', 'replacement', 'uppercase'];
 // P63: the paths each modifier owns, exactly (the resolver's descriptions say the same). "a.*" is every path under the
 // group a; anything else is one path. textSize owns the font sizes and size.keycap, the keycaps' minimum width, which
 // follows the text: a single-letter keycap is at least as wide as it is tall at every text size (prime-game-ui#27).
@@ -274,6 +274,12 @@ function checkStructure(model, structs, P, icons) {
       else if (rv === v) P.error('P62', v.file, rp, tp, 'a variant is not its own replacement');
       else if (rv.cls !== v.cls) P.error('P62', v.file, rp, tp, `replacement ${rv.variation} is a ${rv.cls}, not a ${v.cls}`);
       else if (rv.node.deprecated) P.error('P62', v.file, rp, tp, `replacement ${rv.variation} is deprecated itself`);
+    }
+    // P64 (ui-2.1.0): uppercase is the Label node property the game sets (Label.uppercase): a Theme cannot set it
+    if ('uppercase' in v.godot) {
+      const up = extPtr(v, 'godot', 'uppercase');
+      if (v.godot.uppercase !== true) P.error('P64', v.file, up, tp, 'uppercase is true or absent');
+      else if (v.cls !== 'Label') P.error('P64', v.file, up, tp, 'uppercase is only for Label variants (Label.uppercase)');
     }
     // P58
     if ('on' in v.godot) {
@@ -644,8 +650,10 @@ function checkFocus(s, v, fg, res, P) {
       const nr = pxOf(nrec[`corner-radius-${c}`]);
       const fr = pxOf(rec[`corner-radius-${c}`]);
       if (nr == null || fr == null) continue;
-      const ok = fr === nr + ex || (nr >= 999 && fr >= 999);
-      if (!ok) e(m.get('corner-radius') || m.get(`corner-radius-${c}`) || fg, `inner focus: corner-radius-${c} is ${fr}; it must be ${nr + ex} (normal ${nr} + expand ${ex})`);
+      // a square corner stays square (ui-2.1.0: a radius is never negative, P44)
+      const want = Math.max(0, nr + ex);
+      const ok = fr === want || (nr >= 999 && fr >= 999);
+      if (!ok) e(m.get('corner-radius') || m.get(`corner-radius-${c}`) || fg, `inner focus: corner-radius-${c} is ${fr}; it must be ${want} (normal ${nr} + expand ${ex}, at least 0)`);
     }
     const cms = SIDES.map((x) => pxOf(nrec[`content-margin-${x}`]));
     if (cms.every((x) => x != null)) {

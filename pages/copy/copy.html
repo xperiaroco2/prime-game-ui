@@ -213,6 +213,12 @@
   --toy-type-kicker-letter-spacing: var(--toy-font-letter-spacing-wide);
   --toy-type-kicker-line-height: var(--toy-font-line-height-logo);
   --toy-type-kicker-line-box: 18;
+  --toy-type-display-small-font-family: var(--toy-font-family-number);
+  --toy-type-display-small-font-size: var(--toy-font-size-body);
+  --toy-type-display-small-font-weight: var(--toy-font-weight-bold);
+  --toy-type-display-small-letter-spacing: var(--toy-font-letter-spacing-none);
+  --toy-type-display-small-line-height: var(--toy-font-line-height-number);
+  --toy-type-display-small-line-box: 28;
   --toy-motion-press-duration: var(--toy-duration-press);
   --toy-motion-press-delay: var(--toy-duration-none);
   --toy-motion-press-timing-function: var(--toy-ease-press);
@@ -1011,6 +1017,9 @@
   --toy-hud-spinner-panel-corner-radius: var(--toy-radius-pill);
   --toy-hud-spinner-size-width: 135;
   --toy-hud-spinner-size-height: 135;
+  --toy-divider-panel-bg-color: var(--toy-palette-base);
+  --toy-divider-size-width: 3;
+  --toy-divider-size-height: 48;
   --toy-keycap-on-dark-panel-bg-color: var(--toy-palette-row);
   --toy-keycap-on-dark-panel-border-color: var(--toy-color-outline);
   --toy-keycap-on-dark-panel-border-width-top: var(--toy-stroke-thin);
@@ -1200,10 +1209,90 @@
   --toy-mutation-card-panel-border-color: var(--toy-color-outline);
   --toy-mutation-card-panel-border-width: var(--toy-stroke-surface);
   --toy-mutation-card-panel-corner-radius: var(--toy-radius-surface);
-  --toy-mutation-card-panel-content-margin: 30;
+  --toy-mutation-card-panel-content-margin: 21;
   --toy-mutation-balance-panel-bg-color: var(--toy-palette-clear);
   --toy-mutation-balance-panel-content-margin-block: 6;
   --toy-mutation-balance-panel-content-margin-inline: 27;
+  --toy-card-pointed-panel-bg-color: var(--toy-color-surface-plate);
+  --toy-card-pointed-panel-border-color: var(--toy-color-focus);
+  --toy-card-pointed-panel-border-width: var(--toy-stroke-selected);
+  --toy-card-pointed-panel-corner-radius: var(--toy-radius-surface);
+  --toy-card-pointed-panel-content-margin: 21;
+  --toy-card-name-label-font-family: var(--toy-type-display-small-font-family);
+  --toy-card-name-label-font-size: var(--toy-type-display-small-font-size);
+  --toy-card-name-label-font-weight: var(--toy-type-display-small-font-weight);
+  --toy-card-name-label-letter-spacing: var(--toy-type-display-small-letter-spacing);
+  --toy-card-name-label-line-height: var(--toy-type-display-small-line-height);
+  --toy-card-name-label-line-box: var(--toy-type-display-small-line-box);
+  --toy-card-name-normal-font-color: var(--toy-color-on-light-text);
+  --toy-card-name-off-label-font-family: var(--toy-type-display-small-font-family);
+  --toy-card-name-off-label-font-size: var(--toy-type-display-small-font-size);
+  --toy-card-name-off-label-font-weight: var(--toy-type-display-small-font-weight);
+  --toy-card-name-off-label-letter-spacing: var(--toy-type-display-small-letter-spacing);
+  --toy-card-name-off-label-line-height: var(--toy-type-display-small-line-height);
+  --toy-card-name-off-label-line-box: var(--toy-type-display-small-line-box);
+  --toy-card-name-off-normal-font-color: var(--toy-color-on-light-text-muted);
+  --toy-card-text-label-font-family: var(--toy-type-small-font-family);
+  --toy-card-text-label-font-size: var(--toy-type-small-font-size);
+  --toy-card-text-label-font-weight: var(--toy-type-small-font-weight);
+  --toy-card-text-label-letter-spacing: var(--toy-type-small-letter-spacing);
+  --toy-card-text-label-line-height: var(--toy-type-small-line-height);
+  --toy-card-text-label-line-box: var(--toy-type-small-line-box);
+  --toy-card-text-normal-font-color: var(--toy-color-on-light-text-muted);
+  --toy-card-cost-label-font-family: var(--toy-type-display-font-family);
+  --toy-card-cost-label-font-size: var(--toy-type-display-font-size);
+  --toy-card-cost-label-font-weight: var(--toy-type-display-font-weight);
+  --toy-card-cost-label-letter-spacing: var(--toy-type-display-letter-spacing);
+  --toy-card-cost-label-line-height: var(--toy-type-display-line-height);
+  --toy-card-cost-label-line-box: var(--toy-type-display-line-box);
+  --toy-card-cost-normal-font-color: var(--toy-color-on-light-text);
+  --toy-card-cost-off-label-font-family: var(--toy-type-display-font-family);
+  --toy-card-cost-off-label-font-size: var(--toy-type-display-font-size);
+  --toy-card-cost-off-label-font-weight: var(--toy-type-display-font-weight);
+  --toy-card-cost-off-label-letter-spacing: var(--toy-type-display-letter-spacing);
+  --toy-card-cost-off-label-line-height: var(--toy-type-display-line-height);
+  --toy-card-cost-off-label-line-box: var(--toy-type-display-line-box);
+  --toy-card-cost-off-normal-font-color: var(--toy-color-on-light-text-muted);
+  --toy-button-label-font-family: var(--toy-type-body-bold-font-family);
+  --toy-button-label-font-size: var(--toy-type-body-bold-font-size);
+  --toy-button-label-font-weight: var(--toy-type-body-bold-font-weight);
+  --toy-button-label-letter-spacing: var(--toy-type-body-bold-letter-spacing);
+  --toy-button-label-line-height: var(--toy-type-body-bold-line-height);
+  --toy-button-label-line-box: var(--toy-type-body-bold-line-box);
+  --toy-button-normal-bg-color: var(--toy-palette-row);
+  --toy-button-normal-border-color: var(--toy-palette-accent);
+  --toy-button-normal-border-width: var(--toy-stroke-control);
+  --toy-button-normal-corner-radius: var(--toy-radius-control);
+  --toy-button-normal-content-margin-top: 15;
+  --toy-button-normal-content-margin-bottom: 16;
+  --toy-button-normal-content-margin-inline: 21;
+  --toy-button-normal-font-color: var(--toy-palette-accent);
+  --toy-button-hover-bg-color: var(--toy-palette-accent);
+  --toy-button-hover-border-color: var(--toy-palette-accent-deep);
+  --toy-button-hover-border-width-top: 0;
+  --toy-button-hover-border-width-right: 0;
+  --toy-button-hover-border-width-bottom: var(--toy-stroke-edge);
+  --toy-button-hover-border-width-left: 0;
+  --toy-button-hover-font-color: var(--toy-color-on-accent-text);
+  --toy-button-pressed-bg-color: var(--toy-palette-accent-dark);
+  --toy-button-pressed-border-color: var(--toy-palette-accent-deep);
+  --toy-button-pressed-border-width-top: 0;
+  --toy-button-pressed-border-width-right: 0;
+  --toy-button-pressed-border-width-bottom: var(--toy-stroke-edge);
+  --toy-button-pressed-border-width-left: 0;
+  --toy-button-pressed-font-color: var(--toy-color-on-accent-text);
+  --toy-button-disabled-bg-color: var(--toy-color-state-disabled-face);
+  --toy-button-disabled-border-color: var(--toy-color-state-disabled-edge);
+  --toy-button-disabled-border-width-top: 0;
+  --toy-button-disabled-border-width-right: 0;
+  --toy-button-disabled-border-width-bottom: var(--toy-stroke-edge);
+  --toy-button-disabled-border-width-left: 0;
+  --toy-button-disabled-font-color: var(--toy-color-state-disabled-ink);
+  --toy-button-focus-bg-color: var(--toy-palette-clear);
+  --toy-button-focus-border-color: var(--toy-color-focus);
+  --toy-button-focus-border-width: var(--toy-focus-width);
+  --toy-button-focus-corner-radius: 15;
+  --toy-button-focus-expand-margin: 6;
   --toy-name-plate-plate-panel-bg-color: var(--toy-palette-clear);
   --toy-name-plate-plate-panel-content-margin-block: 10;
   --toy-name-plate-plate-panel-content-margin-inline: 24;
@@ -1633,8 +1722,7 @@
   --toy-setting-stepper-normal-border-color: var(--toy-color-outline);
   --toy-setting-stepper-normal-border-width: var(--toy-stroke-control);
   --toy-setting-stepper-normal-corner-radius: var(--toy-radius-medium);
-  --toy-setting-stepper-normal-content-margin-block: 13;
-  --toy-setting-stepper-normal-content-margin-inline: 15;
+  --toy-setting-stepper-normal-content-margin: 13;
   --toy-setting-stepper-normal-font-color: var(--toy-color-on-light-text);
   --toy-setting-stepper-hover-bg-color: var(--toy-palette-row-light);
   --toy-setting-stepper-pressed-bg-color: var(--toy-palette-base);
@@ -1652,6 +1740,122 @@
   --toy-setting-stepper-items-icon-hover-pressed-color: var(--toy-color-on-light-text);
   --toy-setting-stepper-items-icon-disabled-color: var(--toy-color-state-disabled-ink);
   --toy-setting-stepper-items-icon-focus-color: var(--toy-color-on-light-text);
+  --toy-setting-stepper-size-width: 51;
+  --toy-setting-stepper-size-height: 51;
+  --toy-segment-start-label-font-family: var(--toy-type-display-small-font-family);
+  --toy-segment-start-label-font-size: var(--toy-type-display-small-font-size);
+  --toy-segment-start-label-font-weight: var(--toy-type-display-small-font-weight);
+  --toy-segment-start-label-letter-spacing: var(--toy-type-display-small-letter-spacing);
+  --toy-segment-start-label-line-height: var(--toy-type-display-small-line-height);
+  --toy-segment-start-label-line-box: var(--toy-type-display-small-line-box);
+  --toy-segment-start-normal-bg-color: var(--toy-palette-row);
+  --toy-segment-start-normal-border-color: var(--toy-color-outline);
+  --toy-segment-start-normal-border-width: var(--toy-stroke-control);
+  --toy-segment-start-normal-corner-radius-top-left: var(--toy-radius-medium);
+  --toy-segment-start-normal-corner-radius-top-right: 0;
+  --toy-segment-start-normal-corner-radius-bottom-right: 0;
+  --toy-segment-start-normal-corner-radius-bottom-left: var(--toy-radius-medium);
+  --toy-segment-start-normal-content-margin-block: 14;
+  --toy-segment-start-normal-content-margin-inline: 27;
+  --toy-segment-start-normal-font-color: var(--toy-color-on-light-text-muted);
+  --toy-segment-start-hover-bg-color: var(--toy-palette-row-light);
+  --toy-segment-start-hover-font-color: var(--toy-color-on-light-text);
+  --toy-segment-start-disabled-bg-color: var(--toy-color-state-disabled-face);
+  --toy-segment-start-disabled-border-color: var(--toy-color-state-disabled-edge);
+  --toy-segment-start-disabled-font-color: var(--toy-color-state-disabled-ink);
+  --toy-segment-start-focus-bg-color: var(--toy-palette-clear);
+  --toy-segment-start-focus-border-color: var(--toy-color-focus);
+  --toy-segment-start-focus-border-width: var(--toy-focus-width);
+  --toy-segment-start-focus-corner-radius-top-left: 7;
+  --toy-segment-start-focus-corner-radius-top-right: 0;
+  --toy-segment-start-focus-corner-radius-bottom-right: 0;
+  --toy-segment-start-focus-corner-radius-bottom-left: 7;
+  --toy-segment-start-focus-expand-margin: -2;
+  --toy-segment-start-selected-label-font-family: var(--toy-type-display-small-font-family);
+  --toy-segment-start-selected-label-font-size: var(--toy-type-display-small-font-size);
+  --toy-segment-start-selected-label-font-weight: var(--toy-type-display-small-font-weight);
+  --toy-segment-start-selected-label-letter-spacing: var(--toy-type-display-small-letter-spacing);
+  --toy-segment-start-selected-label-line-height: var(--toy-type-display-small-line-height);
+  --toy-segment-start-selected-label-line-box: var(--toy-type-display-small-line-box);
+  --toy-segment-start-selected-normal-bg-color: var(--toy-palette-accent);
+  --toy-segment-start-selected-normal-border-color: var(--toy-palette-accent);
+  --toy-segment-start-selected-normal-border-width: var(--toy-stroke-control);
+  --toy-segment-start-selected-normal-corner-radius-top-left: var(--toy-radius-medium);
+  --toy-segment-start-selected-normal-corner-radius-top-right: 0;
+  --toy-segment-start-selected-normal-corner-radius-bottom-right: 0;
+  --toy-segment-start-selected-normal-corner-radius-bottom-left: var(--toy-radius-medium);
+  --toy-segment-start-selected-normal-content-margin-block: 14;
+  --toy-segment-start-selected-normal-content-margin-inline: 27;
+  --toy-segment-start-selected-normal-font-color: var(--toy-color-on-accent-text);
+  --toy-segment-start-selected-hover-bg-color: var(--toy-palette-accent-light);
+  --toy-segment-start-selected-disabled-bg-color: var(--toy-palette-accent-deep);
+  --toy-segment-start-selected-disabled-border-color: var(--toy-palette-accent-deep);
+  --toy-segment-start-selected-disabled-font-color: var(--toy-color-on-accent-text);
+  --toy-segment-start-selected-focus-bg-color: var(--toy-palette-clear);
+  --toy-segment-start-selected-focus-border-color: var(--toy-palette-accent-ink);
+  --toy-segment-start-selected-focus-border-width: var(--toy-focus-width);
+  --toy-segment-start-selected-focus-corner-radius-top-left: 7;
+  --toy-segment-start-selected-focus-corner-radius-top-right: 0;
+  --toy-segment-start-selected-focus-corner-radius-bottom-right: 0;
+  --toy-segment-start-selected-focus-corner-radius-bottom-left: 7;
+  --toy-segment-start-selected-focus-expand-margin: -2;
+  --toy-segment-end-label-font-family: var(--toy-type-display-small-font-family);
+  --toy-segment-end-label-font-size: var(--toy-type-display-small-font-size);
+  --toy-segment-end-label-font-weight: var(--toy-type-display-small-font-weight);
+  --toy-segment-end-label-letter-spacing: var(--toy-type-display-small-letter-spacing);
+  --toy-segment-end-label-line-height: var(--toy-type-display-small-line-height);
+  --toy-segment-end-label-line-box: var(--toy-type-display-small-line-box);
+  --toy-segment-end-normal-bg-color: var(--toy-palette-row);
+  --toy-segment-end-normal-border-color: var(--toy-color-outline);
+  --toy-segment-end-normal-border-width: var(--toy-stroke-control);
+  --toy-segment-end-normal-corner-radius-top-left: 0;
+  --toy-segment-end-normal-corner-radius-top-right: var(--toy-radius-medium);
+  --toy-segment-end-normal-corner-radius-bottom-right: var(--toy-radius-medium);
+  --toy-segment-end-normal-corner-radius-bottom-left: 0;
+  --toy-segment-end-normal-content-margin-block: 14;
+  --toy-segment-end-normal-content-margin-inline: 27;
+  --toy-segment-end-normal-font-color: var(--toy-color-on-light-text-muted);
+  --toy-segment-end-hover-bg-color: var(--toy-palette-row-light);
+  --toy-segment-end-hover-font-color: var(--toy-color-on-light-text);
+  --toy-segment-end-disabled-bg-color: var(--toy-color-state-disabled-face);
+  --toy-segment-end-disabled-border-color: var(--toy-color-state-disabled-edge);
+  --toy-segment-end-disabled-font-color: var(--toy-color-state-disabled-ink);
+  --toy-segment-end-focus-bg-color: var(--toy-palette-clear);
+  --toy-segment-end-focus-border-color: var(--toy-color-focus);
+  --toy-segment-end-focus-border-width: var(--toy-focus-width);
+  --toy-segment-end-focus-corner-radius-top-left: 0;
+  --toy-segment-end-focus-corner-radius-top-right: 7;
+  --toy-segment-end-focus-corner-radius-bottom-right: 7;
+  --toy-segment-end-focus-corner-radius-bottom-left: 0;
+  --toy-segment-end-focus-expand-margin: -2;
+  --toy-segment-end-selected-label-font-family: var(--toy-type-display-small-font-family);
+  --toy-segment-end-selected-label-font-size: var(--toy-type-display-small-font-size);
+  --toy-segment-end-selected-label-font-weight: var(--toy-type-display-small-font-weight);
+  --toy-segment-end-selected-label-letter-spacing: var(--toy-type-display-small-letter-spacing);
+  --toy-segment-end-selected-label-line-height: var(--toy-type-display-small-line-height);
+  --toy-segment-end-selected-label-line-box: var(--toy-type-display-small-line-box);
+  --toy-segment-end-selected-normal-bg-color: var(--toy-palette-accent);
+  --toy-segment-end-selected-normal-border-color: var(--toy-palette-accent);
+  --toy-segment-end-selected-normal-border-width: var(--toy-stroke-control);
+  --toy-segment-end-selected-normal-corner-radius-top-left: 0;
+  --toy-segment-end-selected-normal-corner-radius-top-right: var(--toy-radius-medium);
+  --toy-segment-end-selected-normal-corner-radius-bottom-right: var(--toy-radius-medium);
+  --toy-segment-end-selected-normal-corner-radius-bottom-left: 0;
+  --toy-segment-end-selected-normal-content-margin-block: 14;
+  --toy-segment-end-selected-normal-content-margin-inline: 27;
+  --toy-segment-end-selected-normal-font-color: var(--toy-color-on-accent-text);
+  --toy-segment-end-selected-hover-bg-color: var(--toy-palette-accent-light);
+  --toy-segment-end-selected-disabled-bg-color: var(--toy-palette-accent-deep);
+  --toy-segment-end-selected-disabled-border-color: var(--toy-palette-accent-deep);
+  --toy-segment-end-selected-disabled-font-color: var(--toy-color-on-accent-text);
+  --toy-segment-end-selected-focus-bg-color: var(--toy-palette-clear);
+  --toy-segment-end-selected-focus-border-color: var(--toy-palette-accent-ink);
+  --toy-segment-end-selected-focus-border-width: var(--toy-focus-width);
+  --toy-segment-end-selected-focus-corner-radius-top-left: 0;
+  --toy-segment-end-selected-focus-corner-radius-top-right: 7;
+  --toy-segment-end-selected-focus-corner-radius-bottom-right: 7;
+  --toy-segment-end-selected-focus-corner-radius-bottom-left: 0;
+  --toy-segment-end-selected-focus-expand-margin: -2;
   --toy-slot-idle-panel-bg-color: var(--toy-color-surface-plate);
   --toy-slot-idle-panel-border-color: var(--toy-color-outline);
   --toy-slot-idle-panel-border-width: var(--toy-stroke-surface);
@@ -1686,14 +1890,16 @@
   --toy-slot-hand-panel-border-color: var(--toy-palette-accent);
   --toy-slot-hand-panel-border-width: var(--toy-stroke-selected);
   --toy-slot-hand-panel-corner-radius: var(--toy-radius-surface);
-  --toy-slot-hand-panel-content-margin: 19;
+  --toy-slot-hand-panel-content-margin-block: 6;
+  --toy-slot-hand-panel-content-margin-inline: 12;
   --toy-slot-hand-size-width: 117;
   --toy-slot-hand-size-height: 132;
   --toy-slot-belt-panel-bg-color: var(--toy-color-surface-plate);
   --toy-slot-belt-panel-border-color: var(--toy-color-outline);
   --toy-slot-belt-panel-border-width: var(--toy-stroke-surface);
   --toy-slot-belt-panel-corner-radius: var(--toy-radius-surface);
-  --toy-slot-belt-panel-content-margin: 18;
+  --toy-slot-belt-panel-content-margin-block: 6;
+  --toy-slot-belt-panel-content-margin-inline: 12;
   --toy-slot-belt-size-width: 117;
   --toy-slot-belt-size-height: 132;
   --toy-slot-tag-panel-bg-color: var(--toy-palette-clear);
@@ -1745,19 +1951,16 @@
   --toy-tab-idle-label-line-height: var(--toy-type-body-bold-line-height);
   --toy-tab-idle-label-line-box: var(--toy-type-body-bold-line-box);
   --toy-tab-idle-normal-bg-color: var(--toy-palette-clear);
-  --toy-tab-idle-normal-corner-radius: var(--toy-radius-medium);
-  --toy-tab-idle-normal-content-margin-block: 18;
+  --toy-tab-idle-normal-content-margin-top: 23;
+  --toy-tab-idle-normal-content-margin-bottom: 20;
   --toy-tab-idle-normal-content-margin-inline: 27;
   --toy-tab-idle-normal-font-color: var(--toy-color-on-light-text-muted);
-  --toy-tab-idle-hover-bg-color: var(--toy-color-state-hover-on-light);
   --toy-tab-idle-hover-font-color: var(--toy-color-on-light-text);
-  --toy-tab-idle-pressed-bg-color: var(--toy-color-state-hover-on-light);
   --toy-tab-idle-pressed-font-color: var(--toy-color-on-light-text);
   --toy-tab-idle-disabled-font-color: var(--toy-color-state-disabled-ink-on-dark);
   --toy-tab-idle-focus-bg-color: var(--toy-palette-clear);
   --toy-tab-idle-focus-border-color: var(--toy-color-focus);
   --toy-tab-idle-focus-border-width: var(--toy-focus-width);
-  --toy-tab-idle-focus-corner-radius: var(--toy-radius-medium);
   --toy-tab-idle-focus-expand-margin: 0;
   --toy-tab-selected-label-font-family: var(--toy-type-body-bold-font-family);
   --toy-tab-selected-label-font-size: var(--toy-type-body-bold-font-size);
@@ -1765,19 +1968,31 @@
   --toy-tab-selected-label-letter-spacing: var(--toy-type-body-bold-letter-spacing);
   --toy-tab-selected-label-line-height: var(--toy-type-body-bold-line-height);
   --toy-tab-selected-label-line-box: var(--toy-type-body-bold-line-box);
-  --toy-tab-selected-normal-bg-color: var(--toy-palette-row);
-  --toy-tab-selected-normal-corner-radius: var(--toy-radius-medium);
-  --toy-tab-selected-normal-content-margin-block: 18;
+  --toy-tab-selected-normal-bg-color: var(--toy-palette-clear);
+  --toy-tab-selected-normal-border-color: var(--toy-color-on-light-line);
+  --toy-tab-selected-normal-border-width-top: 0;
+  --toy-tab-selected-normal-border-width-right: 0;
+  --toy-tab-selected-normal-border-width-bottom: var(--toy-stroke-selected);
+  --toy-tab-selected-normal-border-width-left: 0;
+  --toy-tab-selected-normal-content-margin-top: 23;
+  --toy-tab-selected-normal-content-margin-bottom: 20;
   --toy-tab-selected-normal-content-margin-inline: 27;
   --toy-tab-selected-normal-font-color: var(--toy-color-on-light-text);
-  --toy-tab-selected-hover-bg-color: var(--toy-palette-row-light);
-  --toy-tab-selected-hover-pressed-bg-color: var(--toy-palette-row-light);
+  --toy-tab-selected-hover-font-color: var(--toy-color-on-light-text);
   --toy-tab-selected-disabled-font-color: var(--toy-color-state-disabled-ink-on-dark);
   --toy-tab-selected-focus-bg-color: var(--toy-palette-clear);
   --toy-tab-selected-focus-border-color: var(--toy-color-focus);
   --toy-tab-selected-focus-border-width: var(--toy-focus-width);
-  --toy-tab-selected-focus-corner-radius: var(--toy-radius-medium);
-  --toy-tab-selected-focus-expand-margin: 0;
+  --toy-tab-selected-focus-expand-margin: -3;
+  --toy-tab-strip-panel-bg-color: var(--toy-palette-clear);
+  --toy-tab-strip-panel-border-color: var(--toy-color-outline);
+  --toy-tab-strip-panel-border-width-top: 0;
+  --toy-tab-strip-panel-border-width-right: 0;
+  --toy-tab-strip-panel-border-width-bottom: var(--toy-stroke-thin);
+  --toy-tab-strip-panel-border-width-left: 0;
+  --toy-tab-strip-panel-content-margin-top: 0;
+  --toy-tab-strip-panel-content-margin-bottom: var(--toy-stroke-thin);
+  --toy-tab-strip-panel-content-margin-inline: 0;
   --toy-text-on-dark-label-font-family: var(--toy-type-body-font-family);
   --toy-text-on-dark-label-font-size: var(--toy-type-body-font-size);
   --toy-text-on-dark-label-font-weight: var(--toy-type-body-font-weight);
@@ -1888,6 +2103,13 @@
   --toy-text-kicker-label-line-height: var(--toy-type-kicker-line-height);
   --toy-text-kicker-label-line-box: var(--toy-type-kicker-line-box);
   --toy-text-kicker-normal-font-color: var(--toy-color-on-light-text-muted);
+  --toy-title-machine-label-font-family: var(--toy-type-display-font-family);
+  --toy-title-machine-label-font-size: var(--toy-type-display-font-size);
+  --toy-title-machine-label-font-weight: var(--toy-type-display-font-weight);
+  --toy-title-machine-label-letter-spacing: var(--toy-type-display-letter-spacing);
+  --toy-title-machine-label-line-height: var(--toy-type-display-line-height);
+  --toy-title-machine-label-line-box: var(--toy-type-display-line-box);
+  --toy-title-machine-normal-font-color: var(--toy-color-on-light-text);
   --toy-title-plate-label-font-family: var(--toy-type-hero-font-family);
   --toy-title-plate-label-font-size: var(--toy-type-hero-font-size);
   --toy-title-plate-label-font-weight: var(--toy-type-hero-font-weight);
@@ -1983,6 +2205,7 @@
   --toy-type-title-line-box: 57;
   --toy-type-display-line-box: 57;
   --toy-type-kicker-line-box: 23;
+  --toy-type-display-small-line-box: 35;
 }
 :root[data-motion="reduced"] {
   --toy-duration-press: 0ms;
@@ -2601,17 +2824,42 @@ h2 { font-size: 21px; margin: 34px 0 10px; padding-top: 4px; }
 .sc-mvp-gap { gap: calc(24 * var(--px)); }
 .sc-mvp-pic { display: inline-flex; flex: none; }
 .sc-mvp-pic svg { display: block; width: 100%; height: 100%; }
-.sc-mvp-hand { width: calc(111 * var(--px)); height: calc(111 * var(--px)); }
-.sc-mvp-belt { width: calc(90 * var(--px)); height: calc(90 * var(--px)); }
+/* ui-2.1.0: a slot's picture is a 57 px TextureRect in the middle of the tile (the target's 38 x 1.5), its
+   self_modulate the accent in the hand and the light text on the belt (dim on an empty slot's outline) */
+.sc-mvp-item { width: calc(57 * var(--px)); height: calc(57 * var(--px)); margin: auto 0; }
+.sc-mvp-tint-accent { color: var(--toy-palette-accent); }
+.sc-mvp-tint-text { color: var(--toy-palette-text); }
+.sc-mvp-tint-dim { color: var(--toy-palette-dim); }
+.sc-mvp-slot .sc-mvp-fill { height: 100%; }
+.sc-mvp-room { width: calc(1100 * var(--px)); min-height: calc(560 * var(--px)); gap: 0 !important; }
+.sc-mvp-clear { flex: 1 1 auto; }
+.sc-mvp-push { margin-top: auto; padding-top: calc(16 * var(--px)); }
+.sc-mvp-stretch-row { align-items: stretch !important; align-self: stretch; }
+.sc-strip { align-self: stretch; justify-content: flex-start !important; }
+.sc-strip > .sc-strip-row { flex: 1 1 auto; align-self: stretch; }
+.sc-strip-row { align-items: center !important; }
+.sc-strip-gap { flex: 1 1 auto; }
+.sc-panel-wide { width: calc(1000 * var(--px)); }
+.sc-setpage { width: calc(1200 * var(--px)); display: flex; flex-direction: column; gap: calc(24 * var(--px)); }
+.sc-setbody { align-items: flex-start !important; }
+.sc-nav { width: calc(255 * var(--px)); }
+.sc-nav > button { align-self: stretch; text-align: left; justify-content: flex-start !important; }
+.sc-setlist { display: flex; flex-direction: column; flex: 1 1 auto; align-self: stretch; }
+.sc-setlist > .sc-setrow { width: auto; }
+.sc-setlist > .sc-setrow:last-child { border-bottom-width: 0 !important; }
+.sc-setctl { display: inline-flex; align-items: center; gap: calc(24 * var(--px)); }
+.sc-setctl .sc-sliderbox { width: calc(285 * var(--px)); }
+.sc-setnum { display: inline-block; min-width: calc(39 * var(--px)); text-align: right; }
+.sc-stepper-value { display: inline-block; min-width: calc(144 * var(--px)); text-align: center; }
+.sc-halves { display: inline-flex; }
 .sc-mvp-sirentile { width: calc(36 * var(--px)); height: calc(36 * var(--px)); }
 .sc-mvp-angerbar > .sc-barbox { width: calc(240 * var(--px)); }
-.sc-mvp-label { display: inline-block; min-width: calc(150 * var(--px)); }
+.sc-mvp-label { display: inline-block; min-width: calc(129 * var(--px)); }
 .sc-mvp-band { align-self: stretch; padding-left: calc(48 * var(--px)); padding-right: calc(48 * var(--px)); }
 .sc-mvp-stretch { align-self: stretch; }
 .sc-mvp-stretch > .sc-barbox { width: 100%; }
 .sc-mvp-bottom { align-items: flex-end !important; padding-bottom: calc(24 * var(--px)); }
 .sc-mvp-slot { position: relative; }
-.sc-mvp-tag { position: absolute !important; left: 50%; bottom: calc(-24 * var(--px)); transform: translateX(-50%); }
 .sc-mvp-bench { width: calc(1260 * var(--px)); display: flex !important; align-items: stretch !important; justify-content: flex-start !important; }
 .sc-mvp-card { flex: 1 1 0; align-items: stretch !important; justify-content: flex-start !important; }
 .sc-mvp-card .sc-mvp-col > button { align-self: stretch; }
@@ -2783,7 +3031,7 @@ h2 small { font-size: 14px; font-weight: 600; color: var(--c-muted); }
 <h3 class="cp-sub">10 · Post game: кінець раунду <small>13</small></h3><ul class="cp-list"><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Кінець раунду</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">End of the round</span></div><div class="cp-meta"><code class="cp-key">end.title</code><span class="cp-where">екран 10</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Перемогли Інженери</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">The Engineers won</span></div><div class="cp-meta"><code class="cp-key">end.won_engineers</code><span class="cp-where">екран 10</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Перемогли Дисиденти</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">The Dissidents won</span></div><div class="cp-meta"><code class="cp-key">end.won_dissidents</code><span class="cp-where">екран 10</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Вечірка вдалася!</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">Great party!</span></div><div class="cp-meta"><code class="cp-key">end.title.party</code><span class="cp-where">екран 10 · поза кадрами</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Час вийшов</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">Time's up</span></div><div class="cp-meta"><code class="cp-key">end.title.time_up</code><span class="cp-where">екран 10 · поза кадрами</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Попались!</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">Busted!</span></div><div class="cp-meta"><code class="cp-key">end.title.busted</code><span class="cp-where">екран 10 · поза кадрами</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Прибульці перемогли</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">The aliens won</span></div><div class="cp-meta"><code class="cp-key">end.won_aliens</code><span class="cp-where">екран 10 · поза кадрами</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Люди перемогли</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">The humans won</span></div><div class="cp-meta"><code class="cp-key">end.won_humans</code><span class="cp-where">екран 10 · поза кадрами</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Усі задачі виконано за <span class="cp-ph">time</span>.</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">All tasks done in <span class="cp-ph">time</span>.</span></div><div class="cp-meta"><code class="cp-key">end.reason.all_tasks</code><span class="cp-where">екран 10</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Задачі не виконано.</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">The tasks aren't done.</span></div><div class="cp-meta"><code class="cp-key">end.reason.time_up</code><span class="cp-where">екран 10</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Приїхали копи: вечірці кінець.</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">The cops came: the party's over.</span></div><div class="cp-meta"><code class="cp-key">end.reason.cops</code><span class="cp-where">екран 10 · поза кадрами</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Повернення в лобі через <span class="cp-ph">count</span>…</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">Back to the lobby in <span class="cp-ph">count</span>…</span></div><div class="cp-meta"><code class="cp-key">end.back_to_lobby</code><span class="cp-where">екран 10</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Повернення на корабель через <span class="cp-ph">count</span>…</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">Back to the ship in <span class="cp-ph">count</span>…</span></div><div class="cp-meta"><code class="cp-key">end.back_to_ship</code><span class="cp-where">екран 10 · поза кадрами</span></div></li></ul>
 <h3 class="cp-sub">Спільне для кількох екранів <small>58</small></h3><ul class="cp-list"><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Українська</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">Українська</span></div><div class="cp-meta"><code class="cp-key">lang.uk</code><span class="cp-where">екрани 1, 5</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">English</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">English</span></div><div class="cp-meta"><code class="cp-key">lang.en</code><span class="cp-where">поза кадрами</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Імʼя</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">Name</span></div><div class="cp-meta"><code class="cp-key">player.name</code><span class="cp-where">екрани 2, 5</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Ти</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">You</span></div><div class="cp-meta"><code class="cp-key">player.you</code><span class="cp-where">екрани 3, 4, 5</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Назад</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">Back</span></div><div class="cp-meta"><code class="cp-key">common.back</code><span class="cp-where">екрани 2, 3</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Скасувати</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">Cancel</span></div><div class="cp-meta"><code class="cp-key">common.cancel</code><span class="cp-where">екрани 3</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Закрити</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">Close</span></div><div class="cp-meta"><code class="cp-key">common.close</code><span class="cp-where">екрани 8</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Код</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">Code</span></div><div class="cp-meta"><code class="cp-key">common.code</code><span class="cp-where">поза кадрами</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Увімкнено</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">On</span></div><div class="cp-meta"><code class="cp-key">common.on</code><span class="cp-where">поза кадрами</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Вимкнено</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">Off</span></div><div class="cp-meta"><code class="cp-key">common.off</code><span class="cp-where">поза кадрами</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Доставка</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">Delivery</span></div><div class="cp-meta"><code class="cp-key">task.delivery</code><span class="cp-where">екрани 1, 5, 8</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Рубильники</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">Switches</span></div><div class="cp-meta"><code class="cp-key">task.switches</code><span class="cp-where">екрани 3, 5, 8</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Тюнінг авто</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">Car tuning</span></div><div class="cp-meta"><code class="cp-key">task.car_tuning</code><span class="cp-where">поза кадрами</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Двигун корабля</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">Ship's engine</span></div><div class="cp-meta"><code class="cp-key">task.engine</code><span class="cp-where">поза кадрами</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Готування</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">Cooking</span></div><div class="cp-meta"><code class="cp-key">task.cooking</code><span class="cp-where">поза кадрами</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Фото</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">Photo</span></div><div class="cp-meta"><code class="cp-key">task.photo</code><span class="cp-where">поза кадрами</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Wi-Fi</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">Wi-Fi</span></div><div class="cp-meta"><code class="cp-key">task.wifi</code><span class="cp-where">поза кадрами</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Інженер</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">Engineer</span></div><div class="cp-meta"><code class="cp-key">role.engineer</code><span class="cp-where">екрани 5, 6, 7</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Дисидент</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">Dissident</span></div><div class="cp-meta"><code class="cp-key">role.dissident</code><span class="cp-where">екрани 5, 6, 7</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Твоя мета: виконати всі задачі, поки не вийшов час.</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">Your goal: complete every task before time runs out.</span></div><div class="cp-meta"><code class="cp-key">role.goal.engineer</code><span class="cp-where">екрани 5, 6</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Твоя мета: заважати Інженерам виконати задачі.</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">Your goal: stop the Engineers from completing their tasks.</span></div><div class="cp-meta"><code class="cp-key">role.goal.dissident</code><span class="cp-where">екрани 5, 6</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Прибулець</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">Alien</span></div><div class="cp-meta"><code class="cp-key">role.alien</code><span class="cp-where">поза кадрами</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Людина</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">Human</span></div><div class="cp-meta"><code class="cp-key">role.human</code><span class="cp-where">поза кадрами</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Влаштуй найкращу вечірку: виконай усі задачі, поки не скінчився час і не приїхали копи.</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">Throw the best party: finish every task before time runs out and the cops arrive.</span></div><div class="cp-meta"><code class="cp-key">role.goal.alien</code><span class="cp-where">поза кадрами</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Ти людина під маскою прибульця. Зіпсуй вечірку: протягни час або розлюти сусідів, щоб приїхали копи.</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">You're a human in an alien mask. Ruin the party: run out the clock or anger the neighbours until the cops come.</span></div><div class="cp-meta"><code class="cp-key">role.goal.human</code><span class="cp-where">поза кадрами</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Уперед</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">Forward</span></div><div class="cp-meta"><code class="cp-key">control.forward</code><span class="cp-where">поза кадрами</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Назад</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">Back</span></div><div class="cp-meta"><code class="cp-key">control.backward</code><span class="cp-where">екрани 2, 3</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Ліворуч</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">Left</span></div><div class="cp-meta"><code class="cp-key">control.left</code><span class="cp-where">поза кадрами</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Праворуч</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">Right</span></div><div class="cp-meta"><code class="cp-key">control.right</code><span class="cp-where">поза кадрами</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Ходити</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">Walk</span></div><div class="cp-meta"><code class="cp-key">control.walk</code><span class="cp-where">поза кадрами</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Бігти</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">Sprint</span></div><div class="cp-meta"><code class="cp-key">control.sprint</code><span class="cp-where">поза кадрами</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Стрибнути</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">Jump</span></div><div class="cp-meta"><code class="cp-key">control.jump</code><span class="cp-where">поза кадрами</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Взаємодіяти</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">Interact</span></div><div class="cp-meta"><code class="cp-key">control.interact</code><span class="cp-where">поза кадрами</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Використати</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">Use</span></div><div class="cp-meta"><code class="cp-key">control.use</code><span class="cp-where">поза кадрами</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Покласти</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">Put down</span></div><div class="cp-meta"><code class="cp-key">control.put_down</code><span class="cp-where">поза кадрами</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Поміняти руку й пояс</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">Swap hand and belt</span></div><div class="cp-meta"><code class="cp-key">control.swap</code><span class="cp-where">поза кадрами</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Здатися</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">Give up</span></div><div class="cp-meta"><code class="cp-key">control.give_up</code><span class="cp-where">поза кадрами</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Готовність</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">Ready</span></div><div class="cp-meta"><code class="cp-key">control.ready</code><span class="cp-where">екрани 5</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Мапа й задачі</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">Map and tasks</span></div><div class="cp-meta"><code class="cp-key">control.map</code><span class="cp-where">поза кадрами</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Говорити</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">Talk</span></div><div class="cp-meta"><code class="cp-key">control.talk</code><span class="cp-where">поза кадрами</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Присісти</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">Crouch</span></div><div class="cp-meta"><code class="cp-key">control.crouch</code><span class="cp-where">поза кадрами</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Жбурнути</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">Toss</span></div><div class="cp-meta"><code class="cp-key">control.throw</code><span class="cp-where">поза кадрами</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Крастися</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">Sneak</span></div><div class="cp-meta"><code class="cp-key">control.sneak</code><span class="cp-where">поза кадрами</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Пробіл</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">Space</span></div><div class="cp-meta"><code class="cp-key">key.space</code><span class="cp-where">поза кадрами</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">ЛКМ</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">LMB</span></div><div class="cp-meta"><code class="cp-key">key.mouse_left</code><span class="cp-where">поза кадрами</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">ПКМ</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">RMB</span></div><div class="cp-meta"><code class="cp-key">key.mouse_right</code><span class="cp-where">поза кадрами</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Мутаційний верстат</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">Mutation workbench</span></div><div class="cp-meta"><code class="cp-key">workbench.title</code><span class="cp-where">поза кадрами</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Твої очки</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">Your points</span></div><div class="cp-meta"><code class="cp-key">workbench.points</code><span class="cp-where">поза кадрами</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Мутувати</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">Mutate</span></div><div class="cp-meta"><code class="cp-key">workbench.mutate</code><span class="cp-where">поза кадрами</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Почати</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">Start</span></div><div class="cp-meta"><code class="cp-key">workbench.start</code><span class="cp-where">поза кадрами</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Стань у машину</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">Step into the machine</span></div><div class="cp-meta"><code class="cp-key">workbench.step_in</code><span class="cp-where">поза кадрами</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Бракує <span class="cp-ph">count</span></span><span class="cp-en tv-ToyTextMutedOnLight" lang="en"><span class="cp-ph">count</span> short</span></div><div class="cp-meta"><code class="cp-key">workbench.short</code><span class="cp-where">поза кадрами</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Швидкі ноги</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">Quick feet</span></div><div class="cp-meta"><code class="cp-key">mutation.fast.name</code><span class="cp-where">поза кадрами</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Бігаєш швидше</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">You run faster</span></div><div class="cp-meta"><code class="cp-key">mutation.fast.effect</code><span class="cp-where">поза кадрами</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Пружні ноги</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">Spring legs</span></div><div class="cp-meta"><code class="cp-key">mutation.jump.name</code><span class="cp-where">поза кадрами</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Стрибаєш вище</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">You jump higher</span></div><div class="cp-meta"><code class="cp-key">mutation.jump.effect</code><span class="cp-where">поза кадрами</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Товста шкіра</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">Thick skin</span></div><div class="cp-meta"><code class="cp-key">mutation.health.name</code><span class="cp-where">поза кадрами</span></div></li><li class="cp-row"><div class="cp-texts"><span class="cp-uk tv-ToyTextOnLight" lang="uk">Більше здоровʼя</span><span class="cp-en tv-ToyTextMutedOnLight" lang="en">More health</span></div><div class="cp-meta"><code class="cp-key">mutation.health.effect</code><span class="cp-where">поза кадрами</span></div></li></ul></div></details></section>
 <div class="cp-summary" id="cp-summary" hidden><label for="cp-summary-text">Підсумок відповідей, щоб скопіювати в чат</label><textarea id="cp-summary-text" rows="5" readonly></textarea></div>
-<footer class="cp-foot">Зібрано з copy/strings.csv (315 ключів, 3 з множиною) і copy/flags.json. Правила: copy/README.md і docs/research/2026-10-05-ukrainian-localization/report.md. Заповнювачі в рамці (як <span class="cp-ph">name</span>) гра підставляє сама. Вигляд — токени Toy 2.0.2.</footer>
+<footer class="cp-foot">Зібрано з copy/strings.csv (315 ключів, 3 з множиною) і copy/flags.json. Правила: copy/README.md і docs/research/2026-10-05-ukrainian-localization/report.md. Заповнювачі в рамці (як <span class="cp-ph">name</span>) гра підставляє сама. Вигляд — токени Toy 2.1.0.</footer>
 </main>
 <script>
 var ASKED = "2026-10-22T11:15:49Z";

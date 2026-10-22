@@ -3,7 +3,7 @@
   "mutation": {
     "$description": "The mutation workbench, a screen on the machine (a SubViewport): cards are module tiles.",
     "card": {
-      "$description": "A mutation card (the target's .card): a module tile with the 2 px edge and 12 px corners; one you cannot afford keeps its look, its button unplugged.",
+      "$description": "A mutation card (the target's .card): a module tile with the 2 px edge and 12 px corners; one you cannot afford keeps its look, its button unplugged; 21 px inside (the target's 14 px x 1.5, since ui-2.1.0).",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyMutationCard", "class": "PanelContainer" },
@@ -15,7 +15,7 @@
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width": { "$type": "dimension", "$value": "{stroke.surface}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.surface}" },
-        "content-margin": { "$type": "dimension", "$value": { "value": 30, "unit": "px" } }
+        "content-margin": { "$type": "dimension", "$value": { "value": 21, "unit": "px" } }
       }
     },
     "balance": {
@@ -32,5 +32,140 @@
         "content-margin-inline": { "$type": "dimension", "$value": { "value": 27, "unit": "px" } }
       }
     }
-  }
+  },
+    "card-pointed": {
+      "$description": "The card under the crosshair (the target's .card.on, new in ui-2.1.0): the card with a 3 px accent outline (the target's 2 px x 1.5).",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyMutationCardPointed", "class": "PanelContainer" },
+          "context": "light"
+        }
+      },
+      "panel": {
+        "bg-color": { "$type": "color", "$value": "{color.surface.plate}" },
+        "border-color": { "$type": "color", "$value": "{color.focus}" },
+        "border-width": { "$type": "dimension", "$value": "{stroke.selected}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.surface}" },
+        "content-margin": { "$type": "dimension", "$value": { "value": 21, "unit": "px" } }
+      }
+    },
+    "card-name": {
+      "$description": "A card's name (the target's .card .nm, new in ui-2.1.0): light Unbounded at the body size (14 px x 1.5).",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyMutationCardName", "class": "Label", "on": ["ToyMutationCard", "ToyMutationCardPointed"] },
+          "context": "light"
+        }
+      },
+      "label": { "$type": "typography", "$value": "{type.display-small}" },
+      "normal": {
+        "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
+      }
+    },
+    "card-name-off": {
+      "$description": "The name on a card you cannot afford (the target's .card.off): dim.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyMutationCardNameOff", "class": "Label", "on": ["ToyMutationCard", "ToyMutationCardPointed"] },
+          "context": "light"
+        }
+      },
+      "label": { "$type": "typography", "$value": "{type.display-small}" },
+      "normal": {
+        "font-color": { "$type": "color", "$value": "{color.on-light.text-muted}" }
+      }
+    },
+    "card-text": {
+      "$description": "A card's effect (the target's .card .fx, new in ui-2.1.0): dim Onest at the small size (13 px x 1.5).",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyMutationCardText", "class": "Label", "on": ["ToyMutationCard", "ToyMutationCardPointed"] },
+          "context": "light"
+        }
+      },
+      "label": { "$type": "typography", "$value": "{type.small}" },
+      "normal": {
+        "font-color": { "$type": "color", "$value": "{color.on-light.text-muted}" }
+      }
+    },
+    "card-cost": {
+      "$description": "A card's price (the target's .card .c, new in ui-2.1.0): light Unbounded at the display size (22 px x 1.5 = 33; display 36).",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyMutationCardCost", "class": "Label", "on": ["ToyMutationCard", "ToyMutationCardPointed"] },
+          "context": "light"
+        }
+      },
+      "label": { "$type": "typography", "$value": "{type.display}" },
+      "normal": {
+        "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
+      }
+    },
+    "card-cost-off": {
+      "$description": "The price on a card you cannot afford: dim.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyMutationCardCostOff", "class": "Label", "on": ["ToyMutationCard", "ToyMutationCardPointed"] },
+          "context": "light"
+        }
+      },
+      "label": { "$type": "typography", "$value": "{type.display}" },
+      "normal": {
+        "font-color": { "$type": "color", "$value": "{color.on-light.text-muted}" }
+      }
+    },
+    "button": {
+      "$description": "A card's Mutate button (the target's .btn.o and .btn, new in ui-2.1.0): the secondary look (a row face, a 2 px accent outline, accent text) until the crosshair is on it; hover and held are the main action's accent face with the 5 px deeper bottom edge, so only the card under the crosshair shows a filled button; unplugged the main action's row face with dim text; focus an accent ring 3 px outside.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyButtonMutate", "class": "Button", "parent": "ToyButton" },
+          "context": "light"
+        }
+      },
+      "label": { "$type": "typography", "$value": "{type.body-bold}" },
+      "normal": {
+        "bg-color": { "$type": "color", "$value": "{palette.row}" },
+        "border-color": { "$type": "color", "$value": "{palette.accent}" },
+        "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
+        "corner-radius": { "$type": "dimension", "$value": "{radius.control}" },
+        "content-margin-top": { "$type": "dimension", "$value": { "value": 15, "unit": "px" } },
+        "content-margin-bottom": { "$type": "dimension", "$value": { "value": 16, "unit": "px" } },
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 21, "unit": "px" } },
+        "font-color": { "$type": "color", "$value": "{palette.accent}" }
+      },
+      "hover": {
+        "bg-color": { "$type": "color", "$value": "{palette.accent}" },
+        "border-color": { "$type": "color", "$value": "{palette.accent-deep}" },
+        "border-width-top": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "border-width-right": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "border-width-bottom": { "$type": "dimension", "$value": "{stroke.edge}" },
+        "border-width-left": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "font-color": { "$type": "color", "$value": "{color.on-accent.text}" }
+      },
+      "pressed": {
+        "bg-color": { "$type": "color", "$value": "{palette.accent-dark}" },
+        "border-color": { "$type": "color", "$value": "{palette.accent-deep}" },
+        "border-width-top": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "border-width-right": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "border-width-bottom": { "$type": "dimension", "$value": "{stroke.edge}" },
+        "border-width-left": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "font-color": { "$type": "color", "$value": "{color.on-accent.text}" }
+      },
+      "disabled": {
+        "bg-color": { "$type": "color", "$value": "{color.state.disabled-face}" },
+        "border-color": { "$type": "color", "$value": "{color.state.disabled-edge}" },
+        "border-width-top": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "border-width-right": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "border-width-bottom": { "$type": "dimension", "$value": "{stroke.edge}" },
+        "border-width-left": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "font-color": { "$type": "color", "$value": "{color.state.disabled-ink}" }
+      },
+      "focus": {
+        "bg-color": { "$type": "color", "$value": "{palette.clear}" },
+        "border-color": { "$type": "color", "$value": "{color.focus}" },
+        "border-width": { "$type": "dimension", "$value": "{focus.width}" },
+        "corner-radius": { "$type": "dimension", "$value": { "value": 15, "unit": "px" } },
+        "expand-margin": { "$type": "dimension", "$value": { "value": 6, "unit": "px" } }
+      }
+    }
 }

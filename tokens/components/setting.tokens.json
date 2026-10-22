@@ -49,7 +49,7 @@
       }
     },
     "stepper": {
-      "$description": "A stepper's arrow button (the target's .sb): a row tile with the 2 px edge and 9 px corners, a light chevron; hover lifts, held drops to the base; focus an accent ring outside.",
+      "$description": "A stepper's button (the target's .sb): a 51 px square row tile (34 x 1.5) with the 2 px edge and 9 px corners and a light minus or plus (icons/minus.svg, icons/plus.svg since ui-2.1.0, centred); hover lifts, held drops to the base; focus an accent ring outside.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyStepper", "class": "Button", "parent": "ToyButton" },
@@ -62,8 +62,7 @@
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.medium}" },
-        "content-margin-block": { "$type": "dimension", "$value": { "value": 13, "unit": "px" } },
-        "content-margin-inline": { "$type": "dimension", "$value": { "value": 15, "unit": "px" } },
+        "content-margin": { "$type": "dimension", "$value": { "value": 13, "unit": "px" } },
         "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
       },
       "hover": {
@@ -85,14 +84,190 @@
         "expand-margin": { "$type": "dimension", "$value": { "value": 6, "unit": "px" } }
       },
       "items": {
-        "$description": "The chevron icons follow the label: light, and dim when disabled.",
+        "$description": "The minus and plus icons follow the label: light, and dim when disabled.",
         "icon-normal-color": { "$type": "color", "$value": "{color.on-light.text}" },
         "icon-hover-color": { "$type": "color", "$value": "{color.on-light.text}" },
         "icon-pressed-color": { "$type": "color", "$value": "{color.on-light.text}" },
         "icon-hover-pressed-color": { "$type": "color", "$value": "{color.on-light.text}" },
         "icon-disabled-color": { "$type": "color", "$value": "{color.state.disabled-ink}" },
         "icon-focus-color": { "$type": "color", "$value": "{color.on-light.text}" }
+      },
+      "size": {
+        "width": { "$type": "dimension", "$value": { "value": 51, "unit": "px" } },
+        "height": { "$type": "dimension", "$value": { "value": 51, "unit": "px" } }
       }
     }
-  }
+  },
+    "segment-start": {
+      "$description": "The left half of a two-way choice (the target's .seg, the anger threshold 50 | 100, new in ui-2.1.0): a row face with the 2 px edge, the left corners 9 px and the joined side square, dim Unbounded; hover lifts; focus an accent ring inside.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": {
+            "variation": "ToySegmentStart",
+            "class": "Button",
+            "parent": "ToyButton",
+            "toggle": { "selected": "ToySegmentStartSelected" }
+          },
+          "context": "light"
+        }
+      },
+      "label": { "$type": "typography", "$value": "{type.display-small}" },
+      "normal": {
+        "bg-color": { "$type": "color", "$value": "{palette.row}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
+        "corner-radius-top-left": { "$type": "dimension", "$value": "{radius.medium}" },
+        "corner-radius-top-right": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "corner-radius-bottom-right": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "corner-radius-bottom-left": { "$type": "dimension", "$value": "{radius.medium}" },
+        "content-margin-block": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } },
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 27, "unit": "px" } },
+        "font-color": { "$type": "color", "$value": "{color.on-light.text-muted}" }
+      },
+      "hover": {
+        "bg-color": { "$type": "color", "$value": "{palette.row-light}" },
+        "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
+      },
+      "disabled": {
+        "bg-color": { "$type": "color", "$value": "{color.state.disabled-face}" },
+        "border-color": { "$type": "color", "$value": "{color.state.disabled-edge}" },
+        "font-color": { "$type": "color", "$value": "{color.state.disabled-ink}" }
+      },
+      "focus": {
+        "bg-color": { "$type": "color", "$value": "{palette.clear}" },
+        "border-color": { "$type": "color", "$value": "{color.focus}" },
+        "border-width": { "$type": "dimension", "$value": "{focus.width}" },
+        "corner-radius-top-left": { "$type": "dimension", "$value": { "value": 7, "unit": "px" } },
+        "corner-radius-top-right": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "corner-radius-bottom-right": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "corner-radius-bottom-left": { "$type": "dimension", "$value": { "value": 7, "unit": "px" } },
+        "expand-margin": { "$type": "dimension", "$value": { "value": -2, "unit": "px" } }
+      }
+    },
+    "segment-start-selected": {
+      "$description": "The chosen left half (the target's .seg .u.on): the accent face and outline with the accent ink; locked (a guest) the deeper accent, so the choice stays readable.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToySegmentStartSelected", "class": "Button", "parent": "ToyButton" },
+          "context": "light"
+        }
+      },
+      "label": { "$type": "typography", "$value": "{type.display-small}" },
+      "normal": {
+        "bg-color": { "$type": "color", "$value": "{palette.accent}" },
+        "border-color": { "$type": "color", "$value": "{palette.accent}" },
+        "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
+        "corner-radius-top-left": { "$type": "dimension", "$value": "{radius.medium}" },
+        "corner-radius-top-right": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "corner-radius-bottom-right": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "corner-radius-bottom-left": { "$type": "dimension", "$value": "{radius.medium}" },
+        "content-margin-block": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } },
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 27, "unit": "px" } },
+        "font-color": { "$type": "color", "$value": "{color.on-accent.text}" }
+      },
+      "hover": {
+        "bg-color": { "$type": "color", "$value": "{palette.accent-light}" }
+      },
+      "disabled": {
+        "bg-color": { "$type": "color", "$value": "{palette.accent-deep}" },
+        "border-color": { "$type": "color", "$value": "{palette.accent-deep}" },
+        "font-color": { "$type": "color", "$value": "{color.on-accent.text}" }
+      },
+      "focus": {
+        "bg-color": { "$type": "color", "$value": "{palette.clear}" },
+        "border-color": { "$type": "color", "$value": "{palette.accent-ink}" },
+        "border-width": { "$type": "dimension", "$value": "{focus.width}" },
+        "corner-radius-top-left": { "$type": "dimension", "$value": { "value": 7, "unit": "px" } },
+        "corner-radius-top-right": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "corner-radius-bottom-right": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "corner-radius-bottom-left": { "$type": "dimension", "$value": { "value": 7, "unit": "px" } },
+        "expand-margin": { "$type": "dimension", "$value": { "value": -2, "unit": "px" } }
+      }
+    },
+    "segment-end": {
+      "$description": "The right half of a two-way choice (the target's .seg, the anger threshold 50 | 100, new in ui-2.1.0): a row face with the 2 px edge, the right corners 9 px and the joined side square, dim Unbounded; hover lifts; focus an accent ring inside.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": {
+            "variation": "ToySegmentEnd",
+            "class": "Button",
+            "parent": "ToyButton",
+            "toggle": { "selected": "ToySegmentEndSelected" }
+          },
+          "context": "light"
+        }
+      },
+      "label": { "$type": "typography", "$value": "{type.display-small}" },
+      "normal": {
+        "bg-color": { "$type": "color", "$value": "{palette.row}" },
+        "border-color": { "$type": "color", "$value": "{color.outline}" },
+        "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
+        "corner-radius-top-left": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "corner-radius-top-right": { "$type": "dimension", "$value": "{radius.medium}" },
+        "corner-radius-bottom-right": { "$type": "dimension", "$value": "{radius.medium}" },
+        "corner-radius-bottom-left": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "content-margin-block": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } },
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 27, "unit": "px" } },
+        "font-color": { "$type": "color", "$value": "{color.on-light.text-muted}" }
+      },
+      "hover": {
+        "bg-color": { "$type": "color", "$value": "{palette.row-light}" },
+        "font-color": { "$type": "color", "$value": "{color.on-light.text}" }
+      },
+      "disabled": {
+        "bg-color": { "$type": "color", "$value": "{color.state.disabled-face}" },
+        "border-color": { "$type": "color", "$value": "{color.state.disabled-edge}" },
+        "font-color": { "$type": "color", "$value": "{color.state.disabled-ink}" }
+      },
+      "focus": {
+        "bg-color": { "$type": "color", "$value": "{palette.clear}" },
+        "border-color": { "$type": "color", "$value": "{color.focus}" },
+        "border-width": { "$type": "dimension", "$value": "{focus.width}" },
+        "corner-radius-top-left": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "corner-radius-top-right": { "$type": "dimension", "$value": { "value": 7, "unit": "px" } },
+        "corner-radius-bottom-right": { "$type": "dimension", "$value": { "value": 7, "unit": "px" } },
+        "corner-radius-bottom-left": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "expand-margin": { "$type": "dimension", "$value": { "value": -2, "unit": "px" } }
+      }
+    },
+    "segment-end-selected": {
+      "$description": "The chosen right half (the target's .seg .u.on): the accent face and outline with the accent ink; locked (a guest) the deeper accent, so the choice stays readable.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToySegmentEndSelected", "class": "Button", "parent": "ToyButton" },
+          "context": "light"
+        }
+      },
+      "label": { "$type": "typography", "$value": "{type.display-small}" },
+      "normal": {
+        "bg-color": { "$type": "color", "$value": "{palette.accent}" },
+        "border-color": { "$type": "color", "$value": "{palette.accent}" },
+        "border-width": { "$type": "dimension", "$value": "{stroke.control}" },
+        "corner-radius-top-left": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "corner-radius-top-right": { "$type": "dimension", "$value": "{radius.medium}" },
+        "corner-radius-bottom-right": { "$type": "dimension", "$value": "{radius.medium}" },
+        "corner-radius-bottom-left": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "content-margin-block": { "$type": "dimension", "$value": { "value": 14, "unit": "px" } },
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 27, "unit": "px" } },
+        "font-color": { "$type": "color", "$value": "{color.on-accent.text}" }
+      },
+      "hover": {
+        "bg-color": { "$type": "color", "$value": "{palette.accent-light}" }
+      },
+      "disabled": {
+        "bg-color": { "$type": "color", "$value": "{palette.accent-deep}" },
+        "border-color": { "$type": "color", "$value": "{palette.accent-deep}" },
+        "font-color": { "$type": "color", "$value": "{color.on-accent.text}" }
+      },
+      "focus": {
+        "bg-color": { "$type": "color", "$value": "{palette.clear}" },
+        "border-color": { "$type": "color", "$value": "{palette.accent-ink}" },
+        "border-width": { "$type": "dimension", "$value": "{focus.width}" },
+        "corner-radius-top-left": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "corner-radius-top-right": { "$type": "dimension", "$value": { "value": 7, "unit": "px" } },
+        "corner-radius-bottom-right": { "$type": "dimension", "$value": { "value": 7, "unit": "px" } },
+        "corner-radius-bottom-left": { "$type": "dimension", "$value": { "value": 0, "unit": "px" } },
+        "expand-margin": { "$type": "dimension", "$value": { "value": -2, "unit": "px" } }
+      }
+    }
 }

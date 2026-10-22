@@ -45,5 +45,21 @@
         "height": { "$value": { "value": 135, "unit": "px" } }
       }
     }
-  }
+  },
+    "divider": {
+      "$description": "A thin upright line between two parts of a tile (the target's .time .div, new in ui-2.1.0): a 3 x 48 base fill (2 x 32 x 1.5) between the time and the anger.",
+      "$extensions": {
+        "io.github.xperiaroco2.prime-game": {
+          "godot": { "variation": "ToyTileDivider", "class": "Panel" },
+          "context": "dark"
+        }
+      },
+      "panel": {
+        "bg-color": { "$type": "color", "$value": "{palette.base}" }
+      },
+      "size": {
+        "width": { "$type": "dimension", "$value": { "value": 3, "unit": "px" } },
+        "height": { "$type": "dimension", "$value": { "value": 48, "unit": "px" } }
+      }
+    }
 }

@@ -65,6 +65,29 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
   it must not fill the screen". The dead's room is a place to walk in, not a waiting screen: its name and the return
   countdown sit in one quiet tile at the top centre, the middle of the screen stays clear. This replaces the centred
   countdown plate of the target page and of s9; the design note is on [prime-game#1032](https://github.com/xperiaroco2/prime-game/issues/1032).
+- **The library brought to the approved target (ui-2.1.0)** (the engineer's "the look is ok" on `pages/suit-final/`; the nine
+  differences of `pages/library-check/`; `tokens/README.md`, "The library brought to the target, ui-2.1.0"). This replaces
+  the lines of "The look in the tokens and the pack, ui-2.0.0" below on the chosen tab as a row fill and on the target's
+  small capitals not added as a style. Taken by the agent, for the engineer to veto (agent):
+  - the tile head is the existing `ToyKicker` (Unbounded capitals at 14 px, 2 px apart; the target's 8 px x 1.5 = 12 would
+    be too small), now usable on every surface, not a second style; the capitals are the Label's `uppercase` property,
+    which the pack names (`uppercase: true`) since a Theme cannot set it; the roster's human tag uses the same;
+  - the chosen tab's underline is 3 px and stands right on the strip's 2 px line (a StyleBox's content cannot overlap
+    its own border, so the target's overlap is not drawn); a hovered tab only lightens its text; a focused tab's ring is
+    inside with square corners; the s5 suit menu's tabs moved from the left column into the strip with Esc at its right;
+  - the stepper's buttons are 51 px squares with own-work minus and plus icons; the threshold's joined halves are
+    `ToySegmentStart` and `ToySegmentEnd` with Unbounded numbers, and a chosen half locked for a guest keeps the deeper
+    accent so the choice stays readable; s5's threshold stays two chips until the screens step (no zero-gap row exists);
+  - the time tile's divider is 3 x 48 px of the base; a slot is 6 px inside above and below (12 at the sides) so a
+    large-text name still fits the 132 px tile; the slot's picture is 57 px, the accent in the hand and light on the belt;
+  - the workbench: the title Unbounded 36 (the nearest role to the target's 30), the card's name Unbounded 22 (a new
+    role, `type.display-small`), its effect Onest 20 dim, its price Unbounded 36, a card you cannot afford dims its name
+    and price; the card under the crosshair has a 3 px accent outline; «Мутувати» is one variation, outlined until
+    hovered and filled while hovered or held;
+  - the dead's room's tile sits 36 px down, where the round's time tile is: the room's name as its head, then «Повернення
+    через» and the countdown at the time's size (36), so the return reads as the round's time does; `ToyPlateCount`,
+    `ToyPlateHead` and `ToyPlateHeadText` are deprecated;
+  - not drawn: the target's «Лобі поруч» head, since it has no copy key.
 - **The item bar is A** (the engineer, 2026-10-20, chat, translated, on the MVP screens page): sticker slots with a
   big item picture and a name tag over the bottom edge; B (a belt strap with a pocket) and C (the alien's hand
   holding the item) stay on the page, not chosen. The name tags' words are his texts.

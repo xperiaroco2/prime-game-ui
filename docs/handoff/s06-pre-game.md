@@ -5,7 +5,7 @@
 The styled pre game screen from the UI track (xperiaroco2/prime-game-ui), as a Godot 4.7.2 node tree for the 1920×1080 reference.
 
 - **Source:** `pages/screens/src/s06-pre-game.json`; the review page is `pages/screens/screens.html#s6`; the wireframe is section `s6` («Pre game: показ ролі»).
-- **Theme:** the Toy pack ui-2.0.2 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
+- **Theme:** the Toy pack ui-2.1.0 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
 - **World behind the UI** (not UI): a lit room of the level.
 - **How to read it:** the roots are children of the screen's full-rect root `Control`; every property not listed keeps Godot's default; sizes and offsets are reference px. In a state's **Shown** list, the first node of each subtree gives its path from the screen root.
 - **Texts** are keys of `copy/strings.csv`, and the language switches live (the Esc menu's Settings). A plain key is set as `text` and translates itself. A key with placeholders, a plural key (`tr_n`) and a key drawn in pieces are set from code with `auto_translate_mode = DISABLED`: `tr()`, then `String.format()` with the data (the samples below), rebuilt on `NOTIFICATION_TRANSLATION_CHANGED`. A "text from data" (names, the room code, times, numbers) is set in code and never translated (`auto_translate_mode = DISABLED`).
@@ -59,6 +59,8 @@ The black intro of about 3 s in the silent pre game (#213): it shows when the ow
       - Note: As s7, at the round's first second: the full time, no anger.
       - **Row** `HBoxContainer` · variation `ToyRowTwentyFour` · gaps from the variation: separation 24
         - **Timer** `Label` · variation `ToyTimer` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (120, 0) · text from data (auto_translate_mode = DISABLED), sample: "09:57" · horizontal_alignment `CENTER`
+        - **Divider** `Panel` · variation `ToyTileDivider` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (3, 48) = Vector2(get_theme_constant("width", "ToyTileDivider"), get_theme_constant("height", "ToyTileDivider"))
+          - Note: The thin line between the time and the anger (the target's .time .div, ui-2.1.0).
         - **Anger** `HBoxContainer` · variation `ToyRowEight` · size flags vertical `SIZE_SHRINK_CENTER` · gaps from the variation: separation 8
           - **Bar** `ProgressBar` · variation `ToyBarAngerCalm` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (240, 16) = Vector2(get_theme_constant("width", "ToyBarAngerCalm"), get_theme_constant("height", "ToyBarAngerCalm")) · value 0 of max_value 1, show_percentage false
           - **Siren** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (36, 36) · texture `siren-off` (dist/pack/icons/siren-off.svg, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · not tinted (drawn in its own colours)
@@ -120,9 +122,13 @@ The black intro of about 3 s in the silent pre game (#213): it shows when the ow
       - Note: As s7: both slots empty.
       - **Hand** `PanelContainer` · variation `ToySlotHand` · size flags vertical `SIZE_SHRINK_END` · custom_minimum_size (117, 132) = Vector2(get_theme_constant("width", "ToySlotHand"), get_theme_constant("height", "ToySlotHand"))
         - **V** `VBoxContainer` · variation `ToyColumnFour` · gaps from the variation: separation 4 · alignment `ALIGNMENT_CENTER`
+          - **Head** `Label` · variation `ToyKicker` · text `hud.slot.hand`: en "Hand" · uk "Рука" · horizontal_alignment `CENTER`
+            - Note: The slot's head at the top inside (the target's .sl .tab, ui-2.1.0); the game sets uppercase = true.
           - **Picture** `TextureRect` · size flags horizontal `SIZE_SHRINK_CENTER` · custom_minimum_size (57, 57) · texture `slot-empty-hand` (dist/pack/icons/slot-empty-hand.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyTextOnDark")
       - **Belt** `PanelContainer` · variation `ToySlotBelt` · size flags vertical `SIZE_SHRINK_END` · custom_minimum_size (117, 132) = Vector2(get_theme_constant("width", "ToySlotBelt"), get_theme_constant("height", "ToySlotBelt"))
         - **V** `VBoxContainer` · variation `ToyColumnFour` · gaps from the variation: separation 4 · alignment `ALIGNMENT_CENTER`
+          - **Head** `Label` · variation `ToyKicker` · text `hud.slot.belt`: en "Belt" · uk "Пояс" · horizontal_alignment `CENTER`
+            - Note: The slot's head at the top inside (the target's .sl .tab, ui-2.1.0); the game sets uppercase = true.
           - **Picture** `TextureRect` · size flags horizontal `SIZE_SHRINK_CENTER` · custom_minimum_size (57, 57) · texture `slot-empty-belt` (dist/pack/icons/slot-empty-belt.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyTextOnDark")
 
 ## Notes
@@ -135,7 +141,7 @@ The black intro of about 3 s in the silent pre game (#213): it shows when the ow
 
 ## Keys
 
-- **Drawn** (9): `hud.health`, `hud.roster.self`, `hud.stamina`, `pregame.teammate`, `pregame.your_role`, `role.alien`, `role.goal.alien`, `role.goal.human`, `role.human`.
+- **Drawn** (11): `hud.health`, `hud.roster.self`, `hud.slot.belt`, `hud.slot.hand`, `hud.stamina`, `pregame.teammate`, `pregame.your_role`, `role.alien`, `role.goal.alien`, `role.goal.human`, `role.human`.
 
 ## Layers and input (every screen)
 

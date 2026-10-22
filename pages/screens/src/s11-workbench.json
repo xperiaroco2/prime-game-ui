@@ -19,7 +19,7 @@
             {
               "name": "V", "type": "VBoxContainer", "variation": "ToyColumnTwentyFour", "alignment": "center",
               "children": [
-                { "name": "Title", "type": "Label", "variation": "ToyTitleOnLight", "key": "workbench.title", "horizontal_alignment": "center" },
+                { "name": "Title", "type": "Label", "variation": "ToyTitleMachine", "key": "workbench.title", "horizontal_alignment": "center" },
                 { "name": "Start", "type": "Button", "variation": "ToyButtonPrimary", "key": "workbench.start", "custom_minimum_size": [288, 0], "size_flags_horizontal": "shrink_center", "note": "workbench.start («Почати», the engineer's word, 2026-10-22): Interact with the crosshair on it opens the choice (choose) for this player. At least 288 wide (the target's large button), an easy mark for the crosshair (agent)." }
               ]
             }
@@ -31,14 +31,14 @@
             {
               "name": "Top", "type": "HBoxContainer", "variation": "ToyRowSixteen",
               "children": [
-                { "name": "Title", "type": "Label", "variation": "ToyTitleOnLight", "key": "workbench.title", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
+                { "name": "Title", "type": "Label", "variation": "ToyTitleMachine", "key": "workbench.title", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
                 {
                   "name": "Balance", "type": "PanelContainer", "variation": "ToyPlateBalance", "size_flags_vertical": "shrink_center", "note": "The player's points: the only place they show (decided 2026-10-20: no points on the HUD). The screen shows the points of the player using it; updates live.",
                   "children": [
                     {
                       "name": "Row", "type": "HBoxContainer", "variation": "ToyRowSixteen",
                       "children": [
-                        { "name": "Label", "type": "Label", "variation": "ToyPlateText", "key": "workbench.points", "size_flags_vertical": "shrink_center" },
+                        { "name": "Label", "type": "Label", "variation": "ToyTextMutedOnLight", "key": "workbench.points", "size_flags_vertical": "shrink_center" },
                         { "name": "Points", "type": "Label", "variation": "ToyPlateTimer", "text": "7", "size_flags_vertical": "shrink_center", "note": "The points, a number from code (auto_translate_mode DISABLED)." }
                       ]
                     }
@@ -55,24 +55,24 @@
                     {
                       "name": "V", "type": "VBoxContainer", "variation": "ToyColumnSixteen",
                       "children": [
-                        { "name": "Name", "type": "Label", "variation": "ToyPlateTitle", "key": "mutation.fast.name" },
-                        { "name": "Effect", "type": "Label", "variation": "ToyPlateText", "key": "mutation.fast.effect", "autowrap_mode": "word_smart", "custom_minimum_size": [200, 0], "size_flags_vertical": "expand_fill", "note": "Takes the card's free height, so the price and the button sit at the bottom." },
-                        { "name": "Cost", "type": "Label", "variation": "ToyPlateTitle", "key": "unit.points", "count": 4, "note": "The price, tr_n(\"unit.points\", \"unit.points\", price) with {count} = the price (content data; the prices are placeholders, open)." },
-                        { "name": "Buy", "type": "Button", "variation": "ToyButtonPrimary", "key": "workbench.mutate", "note": "Spends the price, and the screen asks the player into the capsule (step); disabled when the points are short." }
+                        { "name": "Name", "type": "Label", "variation": "ToyMutationCardName", "key": "mutation.fast.name" },
+                        { "name": "Effect", "type": "Label", "variation": "ToyMutationCardText", "key": "mutation.fast.effect", "autowrap_mode": "word_smart", "custom_minimum_size": [200, 0], "size_flags_vertical": "expand_fill", "note": "Takes the card's free height, so the price and the button sit at the bottom." },
+                        { "name": "Cost", "type": "Label", "variation": "ToyMutationCardCost", "key": "unit.points", "count": 4, "note": "The price, tr_n(\"unit.points\", \"unit.points\", price) with {count} = the price (content data; the prices are placeholders, open)." },
+                        { "name": "Buy", "type": "Button", "variation": "ToyButtonMutate", "key": "workbench.mutate", "note": "Spends the price, and the screen asks the player into the capsule (step); disabled when the points are short." }
                       ]
                     }
                   ]
                 },
                 {
-                  "name": "Jump", "type": "PanelContainer", "variation": "ToyMutationCard", "size_flags_horizontal": "expand_fill",
+                  "name": "Jump", "type": "PanelContainer", "variation": "ToyMutationCardPointed", "size_flags_horizontal": "expand_fill",
                   "children": [
                     {
                       "name": "V", "type": "VBoxContainer", "variation": "ToyColumnSixteen",
                       "children": [
-                        { "name": "Name", "type": "Label", "variation": "ToyPlateTitle", "key": "mutation.jump.name" },
-                        { "name": "Effect", "type": "Label", "variation": "ToyPlateText", "key": "mutation.jump.effect", "autowrap_mode": "word_smart", "custom_minimum_size": [200, 0], "size_flags_vertical": "expand_fill" },
-                        { "name": "Cost", "type": "Label", "variation": "ToyPlateTitle", "key": "unit.points", "count": 3 },
-                        { "name": "Buy", "type": "Button", "variation": "ToyButtonPrimary", "key": "workbench.mutate", "state": "hover", "note": "Under the crosshair: hovered (the pushed mouse motion)." }
+                        { "name": "Name", "type": "Label", "variation": "ToyMutationCardName", "key": "mutation.jump.name" },
+                        { "name": "Effect", "type": "Label", "variation": "ToyMutationCardText", "key": "mutation.jump.effect", "autowrap_mode": "word_smart", "custom_minimum_size": [200, 0], "size_flags_vertical": "expand_fill" },
+                        { "name": "Cost", "type": "Label", "variation": "ToyMutationCardCost", "key": "unit.points", "count": 3 },
+                        { "name": "Buy", "type": "Button", "variation": "ToyButtonMutate", "key": "workbench.mutate", "state": "hover", "note": "Under the crosshair: hovered (the pushed mouse motion)." }
                       ]
                     }
                   ]
@@ -83,10 +83,10 @@
                     {
                       "name": "V", "type": "VBoxContainer", "variation": "ToyColumnSixteen",
                       "children": [
-                        { "name": "Name", "type": "Label", "variation": "ToyPlateTitle", "key": "mutation.health.name" },
-                        { "name": "Effect", "type": "Label", "variation": "ToyPlateText", "key": "mutation.health.effect", "autowrap_mode": "word_smart", "custom_minimum_size": [200, 0], "size_flags_vertical": "expand_fill" },
-                        { "name": "Cost", "type": "Label", "variation": "ToyPlateTitle", "key": "unit.points", "count": 9 },
-                        { "name": "Buy", "type": "Button", "variation": "ToyButtonPrimary", "key": "workbench.short", "args": { "count": "2" }, "state": "disabled", "note": "Not enough points: disabled, with workbench.short, {count} = price - balance." }
+                        { "name": "Name", "type": "Label", "variation": "ToyMutationCardNameOff", "key": "mutation.health.name" },
+                        { "name": "Effect", "type": "Label", "variation": "ToyMutationCardText", "key": "mutation.health.effect", "autowrap_mode": "word_smart", "custom_minimum_size": [200, 0], "size_flags_vertical": "expand_fill" },
+                        { "name": "Cost", "type": "Label", "variation": "ToyMutationCardCostOff", "key": "unit.points", "count": 9 },
+                        { "name": "Buy", "type": "Button", "variation": "ToyButtonMutate", "key": "workbench.short", "args": { "count": "2" }, "state": "disabled", "note": "Not enough points: disabled, with workbench.short, {count} = price - balance." }
                       ]
                     }
                   ]

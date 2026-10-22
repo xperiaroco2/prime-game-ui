@@ -5,7 +5,7 @@
 The styled round hud screen from the UI track (xperiaroco2/prime-game-ui), as a Godot 4.7.2 node tree for the 1920×1080 reference.
 
 - **Source:** `pages/screens/src/s07-hud.json`; the review page is `pages/screens/screens.html#s7`; the wireframe is section `s7` («HUD у раунді»).
-- **Theme:** the Toy pack ui-2.0.2 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
+- **Theme:** the Toy pack ui-2.1.0 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
 - **World behind the UI** (not UI): a lit room of the level.
 - **How to read it:** the roots are children of the screen's full-rect root `Control`; every property not listed keeps Godot's default; sizes and offsets are reference px. In a state's **Shown** list, the first node of each subtree gives its path from the screen root.
 - **Texts** are keys of `copy/strings.csv`, and the language switches live (the Esc menu's Settings). A plain key is set as `text` and translates itself. A key with placeholders, a plural key (`tr_n`) and a key drawn in pieces are set from code with `auto_translate_mode = DISABLED`: `tr()`, then `String.format()` with the data (the samples below), rebuilt on `NOTIFICATION_TRANSLATION_CHANGED`. A "text from data" (names, the room code, times, numbers) is set in code and never translated (`auto_translate_mode = DISABLED`).
@@ -36,6 +36,8 @@ One HUD for the whole round, the MVP's (the engineer's decisions of 2026-10-20 i
     - **Row** `HBoxContainer` · variation `ToyRowTwentyFour` · gaps from the variation: separation 24
       - **Timer** `Label` · variation `ToyTimer` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (120, 0) · text from data (auto_translate_mode = DISABLED), sample: "07:42" · horizontal_alignment `CENTER`
         - Note: The round time, m:ss from code (auto_translate_mode DISABLED), every second; light on the tile (no halo).
+      - **Divider** `Panel` · variation `ToyTileDivider` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (3, 48) = Vector2(get_theme_constant("width", "ToyTileDivider"), get_theme_constant("height", "ToyTileDivider"))
+        - Note: The thin line between the time and the anger (the target's .time .div, ui-2.1.0).
       - **AngerColumn** `VBoxContainer` · variation `ToyColumnFour` · size flags vertical `SIZE_SHRINK_CENTER` · gaps from the variation: separation 4
         - **Caption** `Label` · variation `ToyHudCaption` · text `hud.anger`: en "Neighbours' anger" · uk "Гнів сусідів"
           - Note: The meter's name; the danger colour with the bar past its alarm line (70 %).
@@ -76,7 +78,7 @@ One HUD for the whole round, the MVP's (the engineer's decisions of 2026-10-20 i
     - **Suit** `PanelContainer` · variation `ToyPlate` · size flags vertical `SIZE_SHRINK_END`
       - Note: ui-2.0.0 (the engineer's segmented pips; the target page's suit tile): health and stamina as ten pips each, round(value x 10) of them full. Health full pips are ToyPipHealth, under its alarm line (30 %) ToyPipAlarm with its label ToyTextAlertOnLight; stamina pips are ToyPipStamina. The game sets each pip's variation from the value.
       - **Rows** `VBoxContainer` · variation `ToyColumnEight` · gaps from the variation: separation 8
-        - **Title** `Label` · variation `ToyHudCaption` · text `hud.suit`: en "Suit" · uk "Костюм"
+        - **Title** `Label` · variation `ToyKicker` · text `hud.suit`: en "Suit" · uk "Костюм"
           - Note: The tile's name over the pips, hud.suit («Костюм», the engineer's word, 2026-10-22), in the captions' dim style (agent).
         - **Health** `HBoxContainer` · variation `ToyRowSixteen` · gaps from the variation: separation 16
           - **Label** `Label` · variation `ToyHudCaption` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (150, 0) · text `hud.health`: en "Health" · uk "Здоровʼя"
@@ -111,9 +113,13 @@ One HUD for the whole round, the MVP's (the engineer's decisions of 2026-10-20 i
     - Note: ui-2.0.0 (the target page's frame 5): the hand and the belt as tiles 117 x 132 (78 x 88 x 1.5), 36 px from the corner, 16 px apart; the picture is the item's line icon (icons/item-*.svg, the white copy tinted: the accent in the hand, the text colour on the belt) and the name sits inside the tile at its bottom (no tag over the edge).
     - **Hand** `PanelContainer` · variation `ToySlotHand` · size flags vertical `SIZE_SHRINK_END` · custom_minimum_size (117, 132) = Vector2(get_theme_constant("width", "ToySlotHand"), get_theme_constant("height", "ToySlotHand"))
       - **V** `VBoxContainer` · variation `ToyColumnFour` · gaps from the variation: separation 4 · alignment `ALIGNMENT_CENTER`
+        - **Head** `Label` · variation `ToyKicker` · text `hud.slot.hand`: en "Hand" · uk "Рука" · horizontal_alignment `CENTER`
+          - Note: The slot's head at the top inside (the target's .sl .tab, ui-2.1.0); the game sets uppercase = true.
         - **Picture** `TextureRect` · size flags horizontal `SIZE_SHRINK_CENTER` · custom_minimum_size (57, 57) · texture `slot-empty-hand` (dist/pack/icons/slot-empty-hand.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyTextOnDark")
     - **Belt** `PanelContainer` · variation `ToySlotBelt` · size flags vertical `SIZE_SHRINK_END` · custom_minimum_size (117, 132) = Vector2(get_theme_constant("width", "ToySlotBelt"), get_theme_constant("height", "ToySlotBelt"))
       - **V** `VBoxContainer` · variation `ToyColumnFour` · gaps from the variation: separation 4 · alignment `ALIGNMENT_CENTER`
+        - **Head** `Label` · variation `ToyKicker` · text `hud.slot.belt`: en "Belt" · uk "Пояс" · horizontal_alignment `CENTER`
+          - Note: The slot's head at the top inside (the target's .sl .tab, ui-2.1.0); the game sets uppercase = true.
         - **Picture** `TextureRect` · size flags horizontal `SIZE_SHRINK_CENTER` · custom_minimum_size (57, 57) · texture `slot-empty-belt` (dist/pack/icons/slot-empty-belt.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyTextOnDark")
 
 ## `carry`: what differs from `empty`
@@ -218,7 +224,7 @@ One HUD for the whole round, the MVP's (the engineer's decisions of 2026-10-20 i
 
 ## Keys
 
-- **Drawn** (14): `hud.anger`, `hud.cops.in`, `hud.cops.title`, `hud.health`, `hud.roster.dead`, `hud.roster.self`, `hud.stamina`, `hud.suit`, `item.battery`, `item.bun`, `item.extinguisher`, `item.fireworks`, `role.alien`, `role.human`.
+- **Drawn** (16): `hud.anger`, `hud.cops.in`, `hud.cops.title`, `hud.health`, `hud.roster.dead`, `hud.roster.self`, `hud.slot.belt`, `hud.slot.hand`, `hud.stamina`, `hud.suit`, `item.battery`, `item.bun`, `item.extinguisher`, `item.fireworks`, `role.alien`, `role.human`.
 
 ## Layers and input (every screen)
 

@@ -120,6 +120,7 @@
                 {
                   "name": "V", "type": "VBoxContainer", "variation": "ToyColumnFour", "alignment": "center",
                   "children": [
+                    { "name": "Head", "type": "Label", "variation": "ToyKicker", "key": "hud.slot.hand", "horizontal_alignment": "center", "note": "The slot's head at the top inside (the target's .sl .tab, ui-2.1.0); the game sets uppercase = true." },
                     { "name": "Picture", "type": "TextureRect", "icon": "slot-empty-hand", "custom_minimum_size": [57, 57], "size_flags_horizontal": "shrink_center" }
                   ]
                 }
@@ -131,6 +132,7 @@
                 {
                   "name": "V", "type": "VBoxContainer", "variation": "ToyColumnFour", "alignment": "center",
                   "children": [
+                    { "name": "Head", "type": "Label", "variation": "ToyKicker", "key": "hud.slot.belt", "horizontal_alignment": "center", "note": "The slot's head at the top inside (the target's .sl .tab, ui-2.1.0); the game sets uppercase = true." },
                     { "name": "Picture", "type": "TextureRect", "icon": "slot-empty-belt", "custom_minimum_size": [57, 57], "size_flags_horizontal": "shrink_center" }
                   ]
                 }

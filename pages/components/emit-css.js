@@ -384,6 +384,8 @@ function emitComponentsCss(sys) {
     if (variant.label || (textRec && textRec['font-color'])) {
       for (const [p, x] of fontDecls(variant.label, textRec && textRec['font-color'])) base.set(p, x);
     }
+    // godot.uppercase (ui-2.1.0): the game sets the Label's uppercase property, a node property a Theme cannot set
+    if (variant.uppercase) base.set('text-transform', 'uppercase');
 
     // Sizes (§13.2): width/height/min-width on the base rule; wide-* on .tv-wide. The game reads them into
     // custom_minimum_size, so a control that holds content (a PanelContainer or a Button: a slot, the mic plate, a

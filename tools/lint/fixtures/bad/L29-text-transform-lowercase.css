@@ -1,0 +1,2 @@
+/* profile: skin; expect: L29 */
+body[data-style="toy"] .frame .a { text-transform: lowercase; }

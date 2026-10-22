@@ -24,6 +24,8 @@
   "lock.svg": {"licence": "own work", "author": "prime-game-ui", "what": "the \"only the host changes these\" note and the character-locked chip"},
   "mic-off.svg": {"licence": "own work", "author": "prime-game-ui", "what": "placeholder crossed microphone (tinted by ToyMic icon-off)"},
   "mic.svg": {"licence": "own work", "author": "prime-game-ui", "what": "placeholder microphone (tinted by ToyMic icon-on)"},
+  "minus.svg": {"licence": "own work", "author": "prime-game-ui", "what": "the stepper's decrease icon, the target's square minus button (ui-2.1.0; tinted by ToyStepper's icon colours)"},
+  "plus.svg": {"licence": "own work", "author": "prime-game-ui", "what": "the stepper's increase icon, the target's square plus button (ui-2.1.0; tinted by ToyStepper's icon colours)"},
   "pointer.svg": {"licence": "own work", "author": "prime-game-ui", "what": "the marker of the hovered, focused or open main-menu entry (ToyMenuItem's icon, tinted by its icon colours)"},
   "radio-checked-disabled.svg": {"licence": "own work", "author": "prime-game-ui", "what": "ToyDropdownList's check on a disabled selected row (24 px): a dim tick (#a39dbd), not tinted (ui-2.0.0)"},
   "radio-checked.svg": {"licence": "own work", "author": "prime-game-ui", "what": "ToyDropdownList's check on the selected row (24 px): an accent tick (#6ff2b4), not tinted (ui-2.0.0)"},

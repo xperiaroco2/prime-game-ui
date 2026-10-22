@@ -221,6 +221,16 @@
         "letterSpacing": "{font.letter-spacing.wide}",
         "lineHeight": "{font.line-height.logo}"
       }
+    },
+    "display-small": {
+      "$description": "A card's name and a segment's number on a machine screen (the target's .card .nm and .seg 13 to 14 px x 1.5, new in ui-2.1.0): Unbounded Bold at the body size.",
+      "$value": {
+        "fontFamily": "{font.family.number}",
+        "fontSize": "{font.size.body}",
+        "fontWeight": "{font.weight.bold}",
+        "letterSpacing": "{font.letter-spacing.none}",
+        "lineHeight": "{font.line-height.number}"
+      }
     }
   },
   "motion": {

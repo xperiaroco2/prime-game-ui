@@ -97,10 +97,10 @@
       }
     },
     "tag-text": {
-      "$description": "The human tag's word: Unbounded capitals in the danger colour (the game writes the word in capitals).",
+      "$description": "The human tag's word: Unbounded capitals in the danger colour (the capitals are the Label's uppercase property, godot.uppercase since ui-2.1.0).",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
-          "godot": { "variation": "ToyRosterTagText", "class": "Label", "on": ["ToyRosterTag"] },
+          "godot": { "variation": "ToyRosterTagText", "class": "Label", "on": ["ToyRosterTag"], "uppercase": true },
           "context": "dark"
         }
       },

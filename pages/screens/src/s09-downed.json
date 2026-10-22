@@ -8,7 +8,7 @@
     { "id": "down", "label": "Нокдаун", "note": "Downed and bleeding out: only the two plates and the mic (off) show; the rest of the HUD hides. As decided, kept." },
     { "id": "down-holding", "label": "Утримуєш F", "note": "The give-up key is held: the hold bar fills over 1 s." },
     { "id": "raise", "label": "Тебе піднімають", "note": "Someone is raising the player: the raise progress replaces the bleed-out bar; giving up hides." },
-    { "id": "dead-room", "label": "Кімната мертвих", "note": "Dead (killed, bled out or gave up): the player waits 30 s with the other dead in the dead's room, not watching the living (m8 §3, the sketch's frame 5). The rest of the HUD hides. Open: where the room is; whether the dead can talk to each other there; whether they see the timer and the anger (so no timer and no mic here). No killer is shown (the engineer, 2026-10-21). Open: how the return from the dead's room is shown: to be redone later (the engineer, 2026-10-21)." },
+    { "id": "dead-room", "label": "Кімната мертвих", "note": "Dead (killed, bled out or gave up): the player waits 30 s with the other dead in the dead's room, not watching the living (m8 §3, the sketch's frame 5). The rest of the HUD hides. Open: where the room is; whether the dead can talk to each other there; whether they see the timer and the anger (so no timer and no mic here). No killer is shown (the engineer, 2026-10-21). The return shows small at the top (the engineer, 2026-10-22)." },
     { "id": "back", "label": "Повернення", "note": "Back in the round at a random capsule: the s7 HUD returns with the 3 s protection chip. Stamina returns full: all ten pips lit." }
   ],
   "nodes": [
@@ -28,6 +28,7 @@
               "name": "Row", "type": "HBoxContainer", "variation": "ToyRowTwentyFour",
               "children": [
                 { "name": "Timer", "type": "Label", "variation": "ToyTimer", "text": "05:10", "horizontal_alignment": "center", "size_flags_vertical": "shrink_center", "custom_minimum_size": [120, 0] },
+                { "name": "Divider", "type": "Panel", "variation": "ToyTileDivider", "size_flags_vertical": "shrink_center", "note": "The thin line between the time and the anger (the target's .time .div, ui-2.1.0)." },
                 {
                   "name": "Anger", "type": "HBoxContainer", "variation": "ToyRowEight", "size_flags_vertical": "shrink_center",
                   "children": [
@@ -164,6 +165,7 @@
                 {
                   "name": "V", "type": "VBoxContainer", "variation": "ToyColumnFour", "alignment": "center",
                   "children": [
+                    { "name": "Head", "type": "Label", "variation": "ToyKicker", "key": "hud.slot.hand", "horizontal_alignment": "center", "note": "The slot's head at the top inside (the target's .sl .tab, ui-2.1.0); the game sets uppercase = true." },
                     { "name": "Picture", "type": "TextureRect", "icon": "slot-empty-hand", "custom_minimum_size": [57, 57], "size_flags_horizontal": "shrink_center" }
                   ]
                 }
@@ -175,6 +177,7 @@
                 {
                   "name": "V", "type": "VBoxContainer", "variation": "ToyColumnFour", "alignment": "center",
                   "children": [
+                    { "name": "Head", "type": "Label", "variation": "ToyKicker", "key": "hud.slot.belt", "horizontal_alignment": "center", "note": "The slot's head at the top inside (the target's .sl .tab, ui-2.1.0); the game sets uppercase = true." },
                     { "name": "Picture", "type": "TextureRect", "icon": "slot-empty-belt", "custom_minimum_size": [57, 57], "size_flags_horizontal": "shrink_center" }
                   ]
                 }
@@ -225,23 +228,17 @@
       ]
     },
     {
-      "name": "DeadHead", "type": "PanelContainer", "variation": "ToyPlateHead", "states": ["dead-room"], "anchors_preset": "center_top", "offset_top": 39, "offset_bottom": 39, "grow_horizontal": "both", "note": "The dead's room overlay replaces spectating (m8 §3, decided 2026-10-20). Its head, 39 px down (the sketch's 26 x 1.5). The room itself is a place in the world (open: where).",
-      "children": [
-        { "name": "Text", "type": "Label", "variation": "ToyPlateHeadText", "key": "dead.room.title" }
-      ]
-    },
-    {
-      "name": "DeadCol", "type": "VBoxContainer", "variation": "ToyColumnTwentyFour", "states": ["dead-room"], "anchors_preset": "center", "grow_horizontal": "both", "grow_vertical": "both", "note": "Centred on the screen: the return countdown. No killer line (the engineer, 2026-10-21: the game does not show who killed the player).",
+      "name": "DeadTop", "type": "PanelContainer", "variation": "ToyPlate", "states": ["dead-room"], "anchors_preset": "center_top", "offset_top": 36, "offset_bottom": 36, "grow_horizontal": "both", "note": "The dead's room: its name and the return countdown in one quiet tile at the top centre, where the round's time tile sits (36 px down); the middle of the screen stays clear, since the dead walk around and interact there (the engineer, 2026-10-22: the return written nicely at the top, not filling the screen). No bar under the countdown and no big title plate. No killer line (the engineer, 2026-10-21).",
       "children": [
         {
-          "name": "Count", "type": "PanelContainer", "variation": "ToyPlateCount", "size_flags_horizontal": "shrink_center", "note": "The return countdown on the count plate, at least 540 wide (the sketch's 360 x 1.5). Open: how the return from the dead's room is shown: to be redone later (the engineer, 2026-10-21).",
+          "name": "V", "type": "VBoxContainer", "variation": "ToyColumnFour",
           "children": [
+            { "name": "Room", "type": "Label", "variation": "ToyKicker", "key": "dead.room.title", "horizontal_alignment": "center", "note": "The tile's head: ToyKicker sets Unbounded with 2 px spacing; the game sets uppercase = true on this Label (the pack's uppercase member)." },
             {
-              "name": "V", "type": "VBoxContainer", "variation": "ToyColumnTwelve",
+              "name": "Return", "type": "HBoxContainer", "variation": "ToyRowSixteen", "alignment": "center",
               "children": [
-                { "name": "Label", "type": "Label", "variation": "ToyPlateText", "key": "dead.back_in", "horizontal_alignment": "center" },
-                { "name": "Time", "type": "Label", "variation": "ToyPlateCountdown", "text": "0:24", "horizontal_alignment": "center", "note": "The time to respawn, m:ss from code (auto_translate_mode DISABLED), every second; the wait is 30 s (m8 §3)." },
-                { "name": "Bar", "type": "ProgressBar", "variation": "ToyBarReturnCalm", "show_percentage": false, "max_value": 1, "value": 0.2, "custom_minimum_size": [0, 24], "note": "The dead's room return bar, one ProgressBar: its background is the base track, its fill the accent. value = the wait passed (0 to 1), filling to the return. In the wait's last 5 s (value over 25 / 30) the game sets theme_type_variation ToyBarReturnAlarm (the danger fill; no glow and no pulse since ui-2.0.0); before that ToyBarReturnCalm." }
+                { "name": "Label", "type": "Label", "variation": "ToyHudCaption", "key": "dead.back_in", "size_flags_vertical": "shrink_center" },
+                { "name": "Time", "type": "Label", "variation": "ToyTimer", "text": "0:24", "size_flags_vertical": "shrink_center", "note": "The time to respawn, m:ss from code (auto_translate_mode DISABLED), every second; the wait is 30 s (m8 §3)." }
               ]
             }
           ]
@@ -255,7 +252,7 @@
       ]
     },
     {
-      "name": "Capsule", "type": "PanelContainer", "variation": "ToySticker", "states": ["dead-room"], "anchors_preset": "bottom_right", "offset_left": -39, "offset_top": -39, "offset_right": -39, "offset_bottom": -39, "grow_horizontal": "begin", "grow_vertical": "begin", "note": "Where the player comes back: a random capsule, with the 3 s protection of state back. Choosing the capsule is a later perk (m8 §3). Open: how the return from the dead's room is shown: to be redone later (the engineer, 2026-10-21).",
+      "name": "Capsule", "type": "PanelContainer", "variation": "ToySticker", "states": ["dead-room"], "anchors_preset": "bottom_right", "offset_left": -39, "offset_top": -39, "offset_right": -39, "offset_bottom": -39, "grow_horizontal": "begin", "grow_vertical": "begin", "note": "Where the player comes back: a random capsule, with the 3 s protection of state back. Choosing the capsule is a later perk (m8 §3).",
       "children": [
         { "name": "Text", "type": "Label", "variation": "ToyStickerText", "key": "dead.capsule_note", "args": { "count": "3" } }
       ]

@@ -111,6 +111,7 @@ const sortedObject = (map) => {
 
 // A variation's optional members (schema 1, present only where they apply):
 //   textures    { "<theme icon, kebab-case>": "<pack path of an assets entry>" } (godot.textures, P61)
+//   uppercase   true: the game sets the Label's uppercase property (godot.uppercase, P64; a Theme cannot set it)
 //   deprecated  { "replacement": "<variation>" | null, "note": "<the $deprecated text>" | null } (`$deprecated`, godot.replacement, P62)
 function buildPack(model, results, modes, version, assets) {
   const r0 = results[0];
@@ -120,6 +121,7 @@ function buildPack(model, results, modes, version, assets) {
     const out = { class: v.class, parent: v.parent, prefix: v.prefix, context: v.context, abstract: v.abstract,
       styleboxes: v.styleboxes, empty: v.empty, base: v.base, toggle: v.toggle, on: v.on, proposal: v.proposal };
     if (v.textures && Object.keys(v.textures).length) out.textures = v.textures;
+    if (v.uppercase) out.uppercase = true;
     if (v.deprecated) out.deprecated = v.deprecated;
     variations.set(v.variation, out);
   }

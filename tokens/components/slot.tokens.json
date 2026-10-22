@@ -73,7 +73,7 @@
       }
     },
     "hand": {
-      "$description": "The hand (the target's .sl.on): a 117 x 132 module tile (78 x 88 x 1.5) with a 3 px accent outline; the item's line picture tinted the accent, its name inside at the bottom.",
+      "$description": "The hand (the target's .sl.on): a 117 x 132 module tile (78 x 88 x 1.5) with a 3 px accent outline; the item's line picture tinted the accent, since ui-2.1.0 the head (ToyKicker, hud.slot.hand) at the top, the picture (57 px) in the centre and the name under it, all inside, 6 px above and below (so a large-text name still fits the 132 px) and 12 at the sides.",
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToySlotHand", "class": "PanelContainer" },
@@ -85,7 +85,8 @@
         "border-color": { "$type": "color", "$value": "{palette.accent}" },
         "border-width": { "$type": "dimension", "$value": "{stroke.selected}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.surface}" },
-        "content-margin": { "$type": "dimension", "$value": { "value": 19, "unit": "px" } }
+        "content-margin-block": { "$type": "dimension", "$value": { "value": 6, "unit": "px" } },
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 12, "unit": "px" } }
       },
       "size": {
         "width": { "$type": "dimension", "$value": { "value": 117, "unit": "px" } },
@@ -105,7 +106,8 @@
         "border-color": { "$type": "color", "$value": "{color.outline}" },
         "border-width": { "$type": "dimension", "$value": "{stroke.surface}" },
         "corner-radius": { "$type": "dimension", "$value": "{radius.surface}" },
-        "content-margin": { "$type": "dimension", "$value": { "value": 18, "unit": "px" } }
+        "content-margin-block": { "$type": "dimension", "$value": { "value": 6, "unit": "px" } },
+        "content-margin-inline": { "$type": "dimension", "$value": { "value": 12, "unit": "px" } }
       },
       "size": {
         "width": { "$type": "dimension", "$value": { "value": 117, "unit": "px" } },

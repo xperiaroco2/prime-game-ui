@@ -32,21 +32,33 @@
       "name": "Menu", "type": "PanelContainer", "variation": "ToyPanelMenu", "anchors_preset": "center", "custom_minimum_size": [1536, 864],
       "children": [
         {
-          "name": "H", "type": "HBoxContainer", "variation": "ToyRowThirtyTwo",
+          "name": "V", "type": "VBoxContainer", "variation": "ToyColumnTwentyFour",
           "children": [
             {
-              "name": "Tabs", "type": "VBoxContainer", "variation": "ToyColumnTwelve", "custom_minimum_size": [288, 0], "note": "One ButtonGroup; the selected tab shows its page. 288 px holds the longest tab, «Налаштування», at large text, so the page never shifts between text sizes. Default tab: Game in the ship with no session, Lobby in the lobby, Game in a round and in the tutorial; the last tab is kept for the session. Role is hidden in the lobby; the tutorial shows only Game, Guide and Settings. Focus starts on the selected tab (drawn selected-focus); on Game, Resume takes it.",
+              "name": "Strip", "type": "PanelContainer", "variation": "ToyTabStrip", "note": "ui-2.1.0 (the target page's .tabs): the tabs in one row on the strip, its 2 px edge line under them; the chosen tab light over the accent underline (ToyTabSelected); the small Esc keycap at the right closes the menu.",
               "children": [
-                { "name": "Game", "type": "Button", "variation": "ToyTab", "key": "esc.tab.game", "toggle_mode": true, "alignment": "left", "per_state": { "ship": { "state": "selected", "key": "esc.tab.find" }, "ship-code": { "state": "selected", "key": "esc.tab.find" }, "ship-direct": { "state": "selected", "key": "esc.tab.find" }, "game-host": { "state": "selected" }, "game-guest": { "state": "selected" }, "game-confirm": { "state": "selected" }, "tutorial-game": { "state": "selected" } }, "note": "One tab, two names: esc.tab.find («Знайти лобі», the engineer's word, 2026-10-22) while there is no session, esc.tab.game in a session; the game swaps the key when a session starts or ends." },
-                { "name": "Role", "type": "Button", "variation": "ToyTab", "key": "esc.tab.role", "toggle_mode": true, "alignment": "left", "states": ["character-round", "game-host", "game-guest", "game-confirm", "role-alien", "role-human", "guide", "settings-sound", "settings-controls", "settings-display", "settings-access", "settings-language"], "per_state": { "role-alien": { "state": "selected-focus" }, "role-human": { "state": "selected-focus" } } },
-                { "name": "Guide", "type": "Button", "variation": "ToyTab", "key": "esc.tab.guide", "toggle_mode": true, "alignment": "left", "per_state": { "guide": { "state": "selected-focus" } } },
-                { "name": "Lobby", "type": "Button", "variation": "ToyTab", "key": "esc.tab.lobby", "toggle_mode": true, "alignment": "left", "states": ["lobby-host", "lobby-guest", "lobby-no-code", "character", "character-round", "game-host", "game-guest", "game-confirm", "role-alien", "role-human", "guide", "settings-sound", "settings-controls", "settings-display", "settings-access", "settings-language"], "per_state": { "lobby-host": { "state": "selected-focus" }, "lobby-guest": { "state": "selected-focus" }, "lobby-no-code": { "state": "selected-focus" } } },
-                { "name": "Character", "type": "Button", "variation": "ToyTab", "key": "esc.tab.character", "toggle_mode": true, "alignment": "left", "states": ["ship", "ship-code", "ship-direct", "lobby-host", "lobby-guest", "lobby-no-code", "character", "character-round", "game-host", "game-guest", "game-confirm", "role-alien", "role-human", "guide", "settings-sound", "settings-controls", "settings-display", "settings-access", "settings-language"], "per_state": { "character": { "state": "selected-focus" }, "character-round": { "state": "selected-focus" } } },
-                { "name": "Settings", "type": "Button", "variation": "ToyTab", "key": "esc.tab.settings", "toggle_mode": true, "alignment": "left", "per_state": { "settings-sound": { "state": "selected-focus" }, "settings-controls": { "state": "selected" }, "settings-display": { "state": "selected-focus" }, "settings-access": { "state": "selected-focus" }, "settings-language": { "state": "selected-focus" } }, "note": "settings-controls: focus is on the capturing Interact key, so this tab is drawn selected without focus." }
+                {
+                  "name": "Tabs", "type": "HBoxContainer", "variation": "ToyRowFour", "note": "One ButtonGroup; the selected tab shows its page. Default tab: Game in the ship with no session, Lobby in the lobby, Game in a round and in the tutorial; the last tab is kept for the session. Role is hidden in the lobby; the tutorial shows only Game, Guide and Settings. Focus starts on the selected tab (drawn selected-focus); on Game, Resume takes it.",
+                  "children": [
+                    { "name": "Game", "type": "Button", "variation": "ToyTab", "key": "esc.tab.game", "toggle_mode": true, "per_state": { "ship": { "state": "selected", "key": "esc.tab.find" }, "ship-code": { "state": "selected", "key": "esc.tab.find" }, "ship-direct": { "state": "selected", "key": "esc.tab.find" }, "game-host": { "state": "selected" }, "game-guest": { "state": "selected" }, "game-confirm": { "state": "selected" }, "tutorial-game": { "state": "selected" } }, "note": "One tab, two names: esc.tab.find («Знайти лобі», the engineer's word, 2026-10-22) while there is no session, esc.tab.game in a session; the game swaps the key when a session starts or ends." },
+                    { "name": "Role", "type": "Button", "variation": "ToyTab", "key": "esc.tab.role", "toggle_mode": true, "states": ["character-round", "game-host", "game-guest", "game-confirm", "role-alien", "role-human", "guide", "settings-sound", "settings-controls", "settings-display", "settings-access", "settings-language"], "per_state": { "role-alien": { "state": "selected-focus" }, "role-human": { "state": "selected-focus" } } },
+                    { "name": "Guide", "type": "Button", "variation": "ToyTab", "key": "esc.tab.guide", "toggle_mode": true, "per_state": { "guide": { "state": "selected-focus" } } },
+                    { "name": "Lobby", "type": "Button", "variation": "ToyTab", "key": "esc.tab.lobby", "toggle_mode": true, "states": ["lobby-host", "lobby-guest", "lobby-no-code", "character", "character-round", "game-host", "game-guest", "game-confirm", "role-alien", "role-human", "guide", "settings-sound", "settings-controls", "settings-display", "settings-access", "settings-language"], "per_state": { "lobby-host": { "state": "selected-focus" }, "lobby-guest": { "state": "selected-focus" }, "lobby-no-code": { "state": "selected-focus" } } },
+                    { "name": "Character", "type": "Button", "variation": "ToyTab", "key": "esc.tab.character", "toggle_mode": true, "states": ["ship", "ship-code", "ship-direct", "lobby-host", "lobby-guest", "lobby-no-code", "character", "character-round", "game-host", "game-guest", "game-confirm", "role-alien", "role-human", "guide", "settings-sound", "settings-controls", "settings-display", "settings-access", "settings-language"], "per_state": { "character": { "state": "selected-focus" }, "character-round": { "state": "selected-focus" } } },
+                    { "name": "Settings", "type": "Button", "variation": "ToyTab", "key": "esc.tab.settings", "toggle_mode": true, "per_state": { "settings-sound": { "state": "selected-focus" }, "settings-controls": { "state": "selected" }, "settings-display": { "state": "selected-focus" }, "settings-access": { "state": "selected-focus" }, "settings-language": { "state": "selected-focus" } }, "note": "settings-controls: focus is on the capturing Interact key, so this tab is drawn selected without focus." },
+                    { "name": "Gap", "type": "Control", "size_flags_horizontal": "expand_fill", "note": "Pushes the Esc keycap to the right end of the strip." },
+                    {
+                      "name": "Esc", "type": "PanelContainer", "variation": "ToyKeyQuiet", "size_flags_vertical": "shrink_center", "note": "The key that closes the menu, shown small (the target); its name is the bound key from the InputMap (data, not a copy key).",
+                      "children": [
+                        { "name": "Text", "type": "Label", "variation": "ToyKeyQuietText", "text": "Esc" }
+                      ]
+                    }
+                  ]
+                }
               ]
             },
             {
-              "name": "Page", "type": "VBoxContainer", "variation": "ToyColumnTwentyFour", "size_flags_horizontal": "expand_fill",
+              "name": "Page", "type": "VBoxContainer", "variation": "ToyColumnTwentyFour", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "expand_fill",
               "children": [
                 {
                   "name": "TitleRow", "type": "HBoxContainer", "variation": "ToyRowTwentyFour",
@@ -153,9 +165,9 @@
                                     {
                                       "name": "Stepper", "type": "HBoxContainer", "variation": "ToyRowTwelve", "size_flags_vertical": "shrink_center", "custom_minimum_size": [345, 0], "alignment": "end",
                                       "children": [
-                                        { "name": "Less", "type": "Button", "variation": "ToyStepper", "icon": "chevron-left", "states": ["lobby-host", "lobby-no-code"] },
+                                        { "name": "Less", "type": "Button", "variation": "ToyStepper", "icon": "minus", "states": ["lobby-host", "lobby-no-code"] },
                                         { "name": "Value", "type": "Label", "variation": "ToySettingRowValue", "custom_minimum_size": [156, 0], "horizontal_alignment": "center", "size_flags_vertical": "shrink_center", "key": "lobby.setting.humans_of", "args": { "count": "3", "total": "10" }, "per_state": { "lobby-guest": { "args": { "count": "1", "total": "4" } } }, "note": "{count} the humans set; {total} the players now in the lobby, which is also the stepper's maximum, so it follows joins and leaves: 3 of 10 in the full lobby, 1 of 4 in the guest's lobby of 4." },
-                                        { "name": "More", "type": "Button", "variation": "ToyStepper", "icon": "chevron-right", "states": ["lobby-host", "lobby-no-code"] }
+                                        { "name": "More", "type": "Button", "variation": "ToyStepper", "icon": "plus", "states": ["lobby-host", "lobby-no-code"] }
                                       ]
                                     }
                                   ]
@@ -191,9 +203,9 @@
                                     {
                                       "name": "Stepper", "type": "HBoxContainer", "variation": "ToyRowTwelve", "size_flags_vertical": "shrink_center", "custom_minimum_size": [345, 0], "alignment": "end",
                                       "children": [
-                                        { "name": "Less", "type": "Button", "variation": "ToyStepper", "icon": "chevron-left", "states": ["lobby-host", "lobby-no-code"], "note": "Steps the value down; disabled (unplugged) at the lower bound. Keyboard and gamepad reach Less and More by focus (ui_left and ui_right move between them) and step with ui_accept. When a step reaches a bound, the other arrow takes focus (More.grab_focus()) before this one is disabled, so focus never rests on an unplugged arrow. The value is 156 px wide, so every stepper has one width and the arrows line up down the list. Every stepper below works the same; a player sees only the value." },
+                                        { "name": "Less", "type": "Button", "variation": "ToyStepper", "icon": "minus", "states": ["lobby-host", "lobby-no-code"], "note": "Steps the value down; disabled (unplugged) at the lower bound. Keyboard and gamepad reach Less and More by focus (ui_left and ui_right move between them) and step with ui_accept. When a step reaches a bound, the other arrow takes focus (More.grab_focus()) before this one is disabled, so focus never rests on an unplugged arrow. The value is 156 px wide, so every stepper has one width and the arrows line up down the list. Every stepper below works the same; a player sees only the value." },
                                         { "name": "Value", "type": "Label", "variation": "ToySettingRowValue", "custom_minimum_size": [156, 0], "horizontal_alignment": "center", "size_flags_vertical": "shrink_center", "key": "unit.minutes", "args": { "count": "10" } },
-                                        { "name": "More", "type": "Button", "variation": "ToyStepper", "icon": "chevron-right", "states": ["lobby-host", "lobby-no-code"], "note": "Steps the value up; disabled (unplugged) at the upper bound." }
+                                        { "name": "More", "type": "Button", "variation": "ToyStepper", "icon": "plus", "states": ["lobby-host", "lobby-no-code"], "note": "Steps the value up; disabled (unplugged) at the upper bound." }
                                       ]
                                     }
                                   ]
@@ -210,9 +222,9 @@
                                     {
                                       "name": "Stepper", "type": "HBoxContainer", "variation": "ToyRowTwelve", "size_flags_vertical": "shrink_center", "custom_minimum_size": [345, 0], "alignment": "end",
                                       "children": [
-                                        { "name": "Less", "type": "Button", "variation": "ToyStepper", "icon": "chevron-left", "states": ["lobby-host", "lobby-no-code"] },
+                                        { "name": "Less", "type": "Button", "variation": "ToyStepper", "icon": "minus", "states": ["lobby-host", "lobby-no-code"] },
                                         { "name": "Value", "type": "Label", "variation": "ToySettingRowValue", "custom_minimum_size": [156, 0], "horizontal_alignment": "center", "size_flags_vertical": "shrink_center", "text": "3", "note": "str(value) (auto_translate_mode DISABLED)." },
-                                        { "name": "More", "type": "Button", "variation": "ToyStepper", "icon": "chevron-right", "states": ["lobby-host", "lobby-no-code"] }
+                                        { "name": "More", "type": "Button", "variation": "ToyStepper", "icon": "plus", "states": ["lobby-host", "lobby-no-code"] }
                                       ]
                                     }
                                   ]
@@ -229,9 +241,9 @@
                                     {
                                       "name": "Stepper", "type": "HBoxContainer", "variation": "ToyRowTwelve", "size_flags_vertical": "shrink_center", "custom_minimum_size": [345, 0], "alignment": "end",
                                       "children": [
-                                        { "name": "Less", "type": "Button", "variation": "ToyStepper", "icon": "chevron-left", "states": ["lobby-host", "lobby-no-code"] },
+                                        { "name": "Less", "type": "Button", "variation": "ToyStepper", "icon": "minus", "states": ["lobby-host", "lobby-no-code"] },
                                         { "name": "Value", "type": "Label", "variation": "ToySettingRowValue", "text": "2", "custom_minimum_size": [156, 0], "horizontal_alignment": "center", "size_flags_vertical": "shrink_center", "note": "str(value) (auto_translate_mode DISABLED)." },
-                                        { "name": "More", "type": "Button", "variation": "ToyStepper", "icon": "chevron-right", "states": ["lobby-host", "lobby-no-code"] }
+                                        { "name": "More", "type": "Button", "variation": "ToyStepper", "icon": "plus", "states": ["lobby-host", "lobby-no-code"] }
                                       ]
                                     }
                                   ]

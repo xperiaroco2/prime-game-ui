@@ -10,7 +10,7 @@ spec, [`docs/research/2026-10-03-tokens/spec.md`](../docs/research/2026-10-03-to
 |---|---|
 | `prime.resolver.json` | The resolver: one base set (the files below, in order) and two modifiers, `textSize` and `motion` |
 | `primitives.tokens.json` | Literals: the palette, font families, weights, letter spacing, line height, `ease.press`, `duration.none`, `focus.*`, `stroke.*` (edges, the bright faces' bottom edge, the halo, the cops' edges), `radius.*`, `space.*` (the screens' gaps: 4, 8, 12, 16, 24, 32); `offset.*` and `glow.*` left in ui-2.0.0 |
-| `semantic.tokens.json` | Aliases of primitives: colour roles by context (`color.*`), the 16 type roles (`type.*`; `kicker` new in ui-2.0.0), `motion.press` |
+| `semantic.tokens.json` | Aliases of primitives: colour roles by context (`color.*`), the 17 type roles (`type.*`; `kicker` new in ui-2.0.0, `display-small` in ui-2.1.0), `motion.press` |
 | `components/<name>.tokens.json` | 24 files, 187 Godot type variations (the abstract ToyButton and the twenty deprecated ones included): one variant group per variation, with its StyleBox states, `label`, `press`, `size`, `items`, `ramp` |
 | `text-size/default.tokens.json`, `text-size/large.tokens.json` | `font.size.*` (with `font.size.theme-default`, the theme's `default_font_size`) and `size.keycap` (a keycap's minimum width) for the player's text size setting |
 | `motion/default.tokens.json`, `motion/reduced.tokens.json` | `duration.press` for the reduced-motion setting |
@@ -122,6 +122,38 @@ A variant's `godot.class` is one of these (`tools/tokens/expand.js` CLASSES); it
   default ([popup_menu.cpp L3327-L3338](https://github.com/godotengine/godot/blob/4.7.2-stable/scene/gui/popup_menu.cpp#L3327-L3338)).
   Labeled separators, accelerators, submenus and the search bar are not bound: no Toy list has them.
 
+## The library brought to the target, ui-2.1.0
+
+The component library matches the approved target page (`pages/suit-final/`) where `pages/library-check/` found nine
+differences (`docs/ui-decisions.md`, "The library brought to the approved target (ui-2.1.0)"). A minor release: new
+variations, a type role, two icons and a pack member; changed values; three deprecations; nothing removed.
+
+- **Tabs:** `ToyTab` is dim text with no face, `ToyTabSelected` light text over a 3 px accent underline (a bottom border
+  only); both stand on `ToyTabStrip` (new, a PanelContainer: no fill, a 2 px edge line under the row), the small Esc
+  keycap (`ToyKeyQuiet`) at its right. The settings section list is `ToyMenuItem` (the target's `.nav`).
+- **Tile heads:** `ToyKicker` (context `any`) heads the tiles: ГРАВЦІ (`lobby.players`), КОСТЮМ (`hud.suit`), РУКА and
+  ПОЯС (`hud.slot.hand`, `hud.slot.belt`), КОД (`common.code`), the dead's room's name. **`godot.uppercase`** (new, P64):
+  `true` on a Label variant whose text the game writes in capitals (`ToyKicker`, `ToyRosterTagText`); a Theme cannot set
+  it, so the pack names it (`variations.<name>.uppercase: true`) and the game sets `Label.uppercase` on the node; the
+  letter spacing is the label's `letterSpacingPx`, a FontVariation's `spacing_glyph` in the game. The showcase draws it as
+  `text-transform: uppercase` (lint L29 allows that value only).
+- **The time tile:** `ToyTileDivider` (new, a 3 x 48 Panel of the base) between the time and the anger column, whose
+  caption (`hud.anger`, `ToyHudCaption`) sits over the bar.
+- **The slots:** `ToySlotHand` and `ToySlotBelt` 6 px above and below and 12 at the sides; inside, top to bottom, the head
+  (`ToyKicker`), the 57 px picture (the accent in the hand, light on the belt) and the name (`ToySlotTagText`).
+- **The stepper:** `ToyStepper` is a 51 px square with `icons/minus.svg` and `icons/plus.svg` (new, own work); the
+  two-way choice (the anger threshold) is two joined halves, `ToySegmentStart` and `ToySegmentEnd` (toggles to their
+  `…Selected`; the outer corners 9 px, the joined side square, an inner focus ring; a chosen half locked for a guest is the
+  deeper accent). P48's inner ring keeps a square corner square (the face's radius + the expand, at least 0).
+- **The workbench:** `ToyTitleMachine` (display, Unbounded 36), `ToyMutationCardName` (`type.display-small`, Unbounded
+  22), `ToyMutationCardText` (small, dim), `ToyMutationCardCost` (display), their `…Off` forms (dim) on a card you cannot
+  afford, `ToyMutationCardPointed` (the card under the crosshair, a 3 px accent outline), and `ToyButtonMutate`: the
+  secondary look until hovered, the main action's face while hovered or held, so only the card under the crosshair shows a
+  filled button. `ToyMutationCard` is 21 px inside.
+- **The dead's room:** one `ToyPlate` at the top centre (36 px down, where the round's time tile sits): the room's name
+  (`ToyKicker`), then `dead.back_in` (`ToyHudCaption`) and the countdown (`ToyTimer`); no bar, no title plate.
+  `ToyPlateCount`, `ToyPlateHead` (replacement `ToyPlate`) and `ToyPlateHeadText` (replacement `ToyKicker`) are deprecated.
+
 ## Proposal marks
 
 `"$extensions": { "io.github.xperiaroco2.prime-game": { "proposal": true } }` with a `$description` marks a value the
@@ -181,8 +213,8 @@ A MAJOR release: the palette's names, the glow, the hard shadow and the old font
   no StyleBox has a shadow (the alarm pulse has nothing to pulse; the game can drop it).
 - **Buttons:** the main action (`ToyButtonPrimary`) and danger (`ToyButtonDanger`) are bright faces with the ink text and a
   5 px deeper bottom edge (`stroke.edge`; per-side border widths, one colour); secondary is a row face with a 2 px accent
-  outline and accent text; plain is a row face with the edge; ghosts, the menu item (the target's `.nav`) and tabs are text
-  with a row fill on hover, the chosen tab a row fill. Focus is an accent ring (`color.focus`, `focus.width` 3): outside
+  outline and accent text; plain is a row face with the edge; ghosts, the menu item (the target's `.nav`) are text
+  with a row fill on hover; tabs are text on `ToyTabStrip`, the chosen one over a 3 px accent underline (ui-2.1.0). Focus is an accent ring (`color.focus`, `focus.width` 3): outside
   the face (expand `focus.gap` + `focus.width` = 6, the face's radius + 6) on the faced buttons, inside the edge on
   fields, ghosts, tabs and cards. `ToyButtonPrimaryOnMint` and `ToyButtonDangerOnMint` are deprecated (no surface is mint).
 - **The suit's pips** (new, `bar.pip*`): health and stamina are ten pips each (the engineer's segmented pips), a ProgressBar
@@ -208,8 +240,8 @@ A MAJOR release: the palette's names, the glow, the hard shadow and the old font
   knob (a 21 × 33 light tile) and the sirens are redrawn in the palette (own colours); the room pictograms' `tint_color` is
   the text colour #ece8f7.
 - **Type:** Onest for text (Medium 500, Bold 700) and Unbounded Bold for titles, numbers, the loud titles, the logo and the new
-  `type.kicker` (Unbounded capitals at `font.size.kicker` 14, 2 px apart; `ToyKicker`, `ToyRosterTagText`; the game writes
-  the words in capitals). `font.family.text` is Onest, `font.family.number` and `font.family.logo` (the names kept) Unbounded.
+  `type.kicker` (Unbounded capitals at `font.size.kicker` 14, 2 px apart; `ToyKicker`, `ToyRosterTagText`; since ui-2.1.0 the
+  capitals are the Label's `uppercase` property, `godot.uppercase` in the tokens and `uppercase: true` in the pack). `font.family.text` is Onest, `font.family.number` and `font.family.logo` (the names kept) Unbounded.
 
 ## The MVP round HUD since ui-1.2.0 (re-skinned in ui-2.0.0)
 
@@ -484,6 +516,7 @@ These extend spec §7.2 (P40–P60):
 | P61 | `godot.textures` is a non-empty object; each key is one of the class's theme icons (`expand.js` CLASSES `textures`), each value the pack path of an icon that exists and has an allowed licence record |
 | P62 | `godot.replacement` only on a variant with `$deprecated`; it names a variant of the same class that is not deprecated |
 | P63 | A modifier's files define only the paths it owns (`validate.js` MODIFIER_OWNS: textSize `font.size.*`, `size.keycap`; motion `duration.press`), and the base set none of them |
+| P64 | `godot.uppercase` is `true` or absent, and only on a Label variant (ui-2.1.0) |
 
 ## Releases
 
