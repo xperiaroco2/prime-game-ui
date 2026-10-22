@@ -388,6 +388,15 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
     engineer's texts (`ToyKicker` is ready for them).
   - The fonts (Onest, Unbounded, OFL-1.1, google/fonts at 45e3d52) are wired but not downloaded: the build names the four
     files to add (`tokens/README.md`, "The pack's fonts").
+- **The how-to cards in the game's own look** (the engineer, 2026-10-22, chat, translated): the clean-sketch cards are
+  outdated now that the game has its own look, so their art is generated with the art track's OpenAI image tool
+  (prime-game-art `docs/openai-images.md`, its standing permission) in that look, with the chameleon head h01-3 of the
+  alien roster as the character (rf2 rejected: "he's awful, take another"). **A card has as many frames as its task
+  needs**, not four: when they do not fit, the card scrolls ("we're not limited to 4 cards; it can scroll if needed;
+  the engine, for one, is hard to fit in 4"). The pilot is Cooking, seven frames (batch
+  `2026-10-22-howto-cooking-pilot` in prime-game-art). This replaces the colourings of the card-ink page
+  (`pages/card-ink/`), which is not decided. The images stay in the art repo (the raw folder, its manifests): this
+  repo's licence list does not cover generated art, and the frame, the tile and the scroll stay the UI's.
 
 ## Principles
 - **The UI never tells the player what to do.** No "take it to X" line, no destination marker, no key prompts on the HUD;
