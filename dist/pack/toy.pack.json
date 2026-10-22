@@ -1,7 +1,7 @@
 {
   "format": "prime-game-ui/pack",
   "schema": 1,
-  "version": "2.2.3",
+  "version": "2.3.0",
   "style": "toy",
   "dtcg": "2025.10",
   "reference": {"width":1920,"height":1080},

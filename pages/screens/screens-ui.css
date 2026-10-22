@@ -1453,30 +1453,6 @@
 .tv-ToyKeyOnLight.tv-wide {
   min-width: calc(var(--toy-keycap-on-light-size-wide-min-width) * var(--px));
 }
-/* ToyKeyQuiet: PanelContainer · keycap.quiet · light */
-.tv-ToyKeyQuiet {
-  box-sizing: border-box;
-  position: relative;
-  background: var(--toy-keycap-quiet-panel-bg-color);
-  border-style: solid;
-  border-color: var(--toy-keycap-quiet-panel-border-color);
-  border-top-width: calc(var(--toy-keycap-quiet-panel-border-width-top) * var(--px));
-  border-right-width: calc(var(--toy-keycap-quiet-panel-border-width-right) * var(--px));
-  border-bottom-width: calc(var(--toy-keycap-quiet-panel-border-width-bottom) * var(--px));
-  border-left-width: calc(var(--toy-keycap-quiet-panel-border-width-left) * var(--px));
-  border-top-left-radius: calc(var(--toy-keycap-quiet-panel-corner-radius) * var(--px));
-  border-top-right-radius: calc(var(--toy-keycap-quiet-panel-corner-radius) * var(--px));
-  border-bottom-right-radius: calc(var(--toy-keycap-quiet-panel-corner-radius) * var(--px));
-  border-bottom-left-radius: calc(var(--toy-keycap-quiet-panel-corner-radius) * var(--px));
-  padding-top: calc((var(--toy-keycap-quiet-panel-content-margin-top) - var(--toy-keycap-quiet-panel-border-width-top)) * var(--px));
-  padding-right: calc((var(--toy-keycap-quiet-panel-content-margin-inline) - var(--toy-keycap-quiet-panel-border-width-right)) * var(--px));
-  padding-bottom: calc((var(--toy-keycap-quiet-panel-content-margin-bottom) - var(--toy-keycap-quiet-panel-border-width-bottom)) * var(--px));
-  padding-left: calc((var(--toy-keycap-quiet-panel-content-margin-inline) - var(--toy-keycap-quiet-panel-border-width-left)) * var(--px));
-  min-width: calc(var(--toy-keycap-quiet-size-min-width) * var(--px));
-}
-.tv-ToyKeyQuiet.tv-wide {
-  min-width: calc(var(--toy-keycap-quiet-size-wide-min-width) * var(--px));
-}
 /* ToyKeyRound: PanelContainer · keycap.round · light */
 .tv-ToyKeyRound {
   box-sizing: border-box;
@@ -1633,15 +1609,6 @@
   line-height: calc(var(--toy-keycap-text-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-keycap-text-label-letter-spacing) * var(--px));
   color: var(--toy-keycap-text-normal-font-color);
-}
-/* ToyKeyQuietText: Label · keycap.quiet-text · light */
-.tv-ToyKeyQuietText {
-  font-family: var(--toy-keycap-quiet-text-label-font-family), system-ui, sans-serif;
-  font-size: calc(var(--toy-keycap-quiet-text-label-font-size) * var(--px));
-  font-weight: var(--toy-keycap-quiet-text-label-font-weight);
-  line-height: calc(var(--toy-keycap-quiet-text-label-line-box) * var(--px));
-  letter-spacing: calc(var(--toy-keycap-quiet-text-label-letter-spacing) * var(--px));
-  color: var(--toy-keycap-quiet-text-normal-font-color);
 }
 /* ToyColumnFour: VBoxContainer · layout.column-4 · any */
 .tv-ToyColumnFour {
@@ -2869,140 +2836,6 @@
   letter-spacing: calc(var(--toy-sticker-text-label-letter-spacing) * var(--px));
   color: var(--toy-sticker-text-normal-font-color);
 }
-/* ToyTab: Button → ToyButton · tab.idle · light */
-.tv-ToyTab {
-  box-sizing: border-box;
-  position: relative;
-  background: var(--toy-palette-clear);
-  border-style: solid;
-  border-top-width: 0;
-  border-right-width: 0;
-  border-bottom-width: 0;
-  border-left-width: 0;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-  padding-top: calc(var(--toy-tab-idle-normal-content-margin-top) * var(--px));
-  padding-right: calc(var(--toy-tab-idle-normal-content-margin-inline) * var(--px));
-  padding-bottom: calc(var(--toy-tab-idle-normal-content-margin-bottom) * var(--px));
-  padding-left: calc(var(--toy-tab-idle-normal-content-margin-inline) * var(--px));
-  font-family: var(--toy-tab-idle-label-font-family), system-ui, sans-serif;
-  font-size: calc(var(--toy-tab-idle-label-font-size) * var(--px));
-  font-weight: var(--toy-tab-idle-label-font-weight);
-  line-height: calc(var(--toy-tab-idle-label-line-box) * var(--px));
-  letter-spacing: calc(var(--toy-tab-idle-label-letter-spacing) * var(--px));
-  color: var(--toy-tab-idle-normal-font-color);
-  cursor: pointer;
-}
-.tv-ToyTab.is-hover {
-  color: var(--toy-tab-idle-hover-font-color);
-}
-.tv-ToyTab.is-held {
-  color: var(--toy-tab-idle-pressed-font-color);
-}
-.tv-ToyTab.is-disabled {
-  color: var(--toy-tab-idle-disabled-font-color);
-}
-.tv-ToyTab > .tv-focus {
-  display: none;
-  position: absolute;
-  pointer-events: none;
-  box-sizing: border-box;
-  border-style: solid;
-  border-color: var(--toy-tab-idle-focus-border-color);
-  border-top-width: calc(var(--toy-tab-idle-focus-border-width) * var(--px));
-  border-right-width: calc(var(--toy-tab-idle-focus-border-width) * var(--px));
-  border-bottom-width: calc(var(--toy-tab-idle-focus-border-width) * var(--px));
-  border-left-width: calc(var(--toy-tab-idle-focus-border-width) * var(--px));
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-  top: calc((0 - var(--toy-tab-idle-focus-expand-margin)) * var(--px));
-  right: calc((0 - var(--toy-tab-idle-focus-expand-margin)) * var(--px));
-  bottom: calc((0 - var(--toy-tab-idle-focus-expand-margin)) * var(--px));
-  left: calc((0 - var(--toy-tab-idle-focus-expand-margin)) * var(--px));
-}
-.tv-ToyTab.is-focus > .tv-focus, .tv-ToyTab:focus-visible > .tv-focus {
-  display: block;
-}
-/* ToyTabSelected: Button → ToyButton · tab.selected · light */
-.tv-ToyTabSelected {
-  box-sizing: border-box;
-  position: relative;
-  background: var(--toy-palette-clear);
-  border-style: solid;
-  border-color: var(--toy-tab-selected-normal-border-color);
-  border-top-width: calc(var(--toy-tab-selected-normal-border-width-top) * var(--px));
-  border-right-width: calc(var(--toy-tab-selected-normal-border-width-right) * var(--px));
-  border-bottom-width: calc(var(--toy-tab-selected-normal-border-width-bottom) * var(--px));
-  border-left-width: calc(var(--toy-tab-selected-normal-border-width-left) * var(--px));
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-  padding-top: calc((var(--toy-tab-selected-normal-content-margin-top) - var(--toy-tab-selected-normal-border-width-top)) * var(--px));
-  padding-right: calc((var(--toy-tab-selected-normal-content-margin-inline) - var(--toy-tab-selected-normal-border-width-right)) * var(--px));
-  padding-bottom: calc((var(--toy-tab-selected-normal-content-margin-bottom) - var(--toy-tab-selected-normal-border-width-bottom)) * var(--px));
-  padding-left: calc((var(--toy-tab-selected-normal-content-margin-inline) - var(--toy-tab-selected-normal-border-width-left)) * var(--px));
-  font-family: var(--toy-tab-selected-label-font-family), system-ui, sans-serif;
-  font-size: calc(var(--toy-tab-selected-label-font-size) * var(--px));
-  font-weight: var(--toy-tab-selected-label-font-weight);
-  line-height: calc(var(--toy-tab-selected-label-line-box) * var(--px));
-  letter-spacing: calc(var(--toy-tab-selected-label-letter-spacing) * var(--px));
-  color: var(--toy-tab-selected-normal-font-color);
-  cursor: pointer;
-}
-.tv-ToyTabSelected.is-hover {
-  color: var(--toy-tab-selected-hover-font-color);
-}
-.tv-ToyTabSelected.is-disabled {
-  color: var(--toy-tab-selected-disabled-font-color);
-}
-.tv-ToyTabSelected > .tv-focus {
-  display: none;
-  position: absolute;
-  pointer-events: none;
-  box-sizing: border-box;
-  border-style: solid;
-  border-color: var(--toy-tab-selected-focus-border-color);
-  border-top-width: calc(var(--toy-tab-selected-focus-border-width) * var(--px));
-  border-right-width: calc(var(--toy-tab-selected-focus-border-width) * var(--px));
-  border-bottom-width: calc(var(--toy-tab-selected-focus-border-width) * var(--px));
-  border-left-width: calc(var(--toy-tab-selected-focus-border-width) * var(--px));
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-  top: calc((0 - var(--toy-tab-selected-normal-border-width-top) - var(--toy-tab-selected-focus-expand-margin)) * var(--px));
-  right: calc((0 - var(--toy-tab-selected-normal-border-width-right) - var(--toy-tab-selected-focus-expand-margin)) * var(--px));
-  bottom: calc((0 - var(--toy-tab-selected-normal-border-width-bottom) - var(--toy-tab-selected-focus-expand-margin)) * var(--px));
-  left: calc((0 - var(--toy-tab-selected-normal-border-width-left) - var(--toy-tab-selected-focus-expand-margin)) * var(--px));
-}
-.tv-ToyTabSelected.is-focus > .tv-focus, .tv-ToyTabSelected:focus-visible > .tv-focus {
-  display: block;
-}
-/* ToyTabStrip: PanelContainer · tab.strip · light */
-.tv-ToyTabStrip {
-  box-sizing: border-box;
-  position: relative;
-  background: var(--toy-palette-clear);
-  border-style: solid;
-  border-color: var(--toy-tab-strip-panel-border-color);
-  border-top-width: calc(var(--toy-tab-strip-panel-border-width-top) * var(--px));
-  border-right-width: calc(var(--toy-tab-strip-panel-border-width-right) * var(--px));
-  border-bottom-width: calc(var(--toy-tab-strip-panel-border-width-bottom) * var(--px));
-  border-left-width: calc(var(--toy-tab-strip-panel-border-width-left) * var(--px));
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-  padding-top: calc((var(--toy-tab-strip-panel-content-margin-top) - var(--toy-tab-strip-panel-border-width-top)) * var(--px));
-  padding-right: calc((var(--toy-tab-strip-panel-content-margin-inline) - var(--toy-tab-strip-panel-border-width-right)) * var(--px));
-  padding-bottom: calc((var(--toy-tab-strip-panel-content-margin-bottom) - var(--toy-tab-strip-panel-border-width-bottom)) * var(--px));
-  padding-left: calc((var(--toy-tab-strip-panel-content-margin-inline) - var(--toy-tab-strip-panel-border-width-left)) * var(--px));
-}
 /* ToyTextOnDark: Label · text.on-dark · dark */
 .tv-ToyTextOnDark {
   font-family: var(--toy-text-on-dark-label-font-family), system-ui, sans-serif;
@@ -3056,24 +2889,6 @@
   line-height: calc(var(--toy-text-title-on-light-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-text-title-on-light-label-letter-spacing) * var(--px));
   color: var(--toy-text-title-on-light-normal-font-color);
-}
-/* ToyDisplayOnLight: Label · text.display-on-light · light */
-.tv-ToyDisplayOnLight {
-  font-family: var(--toy-text-display-on-light-label-font-family), system-ui, sans-serif;
-  font-size: calc(var(--toy-text-display-on-light-label-font-size) * var(--px));
-  font-weight: var(--toy-text-display-on-light-label-font-weight);
-  line-height: calc(var(--toy-text-display-on-light-label-line-box) * var(--px));
-  letter-spacing: calc(var(--toy-text-display-on-light-label-letter-spacing) * var(--px));
-  color: var(--toy-text-display-on-light-normal-font-color);
-}
-/* ToyDisplayAlertOnLight: Label · text.display-alert-on-light · light */
-.tv-ToyDisplayAlertOnLight {
-  font-family: var(--toy-text-display-alert-on-light-label-font-family), system-ui, sans-serif;
-  font-size: calc(var(--toy-text-display-alert-on-light-label-font-size) * var(--px));
-  font-weight: var(--toy-text-display-alert-on-light-label-font-weight);
-  line-height: calc(var(--toy-text-display-alert-on-light-label-line-box) * var(--px));
-  letter-spacing: calc(var(--toy-text-display-alert-on-light-label-letter-spacing) * var(--px));
-  color: var(--toy-text-display-alert-on-light-normal-font-color);
 }
 /* ToyTimer: Label · text.timer · dark */
 .tv-ToyTimer {
