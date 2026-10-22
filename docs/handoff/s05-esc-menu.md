@@ -5,7 +5,7 @@
 The styled esc menu screen from the UI track (xperiaroco2/prime-game-ui), as a Godot 4.7.2 node tree for the 1920×1080 reference.
 
 - **Source:** `pages/screens/src/s05-esc-menu.json`; the review page is `pages/screens/screens.html#s5`; the wireframe is section `s5` («Меню Esc»).
-- **Theme:** the Toy pack ui-2.2.0 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
+- **Theme:** the Toy pack ui-2.2.1 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
 - **World behind the UI** (not UI): the ship (the lobby room) seen behind a menu.
 - **How to read it:** the roots are children of the screen's full-rect root `Control`; every property not listed keeps Godot's default; sizes and offsets are reference px. In a state's **Shown** list, the first node of each subtree gives its path from the screen root.
 - **Texts** are keys of `copy/strings.csv`, and the language switches live (the Esc menu's Settings). A plain key is set as `text` and translates itself. A key with placeholders, a plural key (`tr_n`) and a key drawn in pieces are set from code with `auto_translate_mode = DISABLED`: `tr()`, then `String.format()` with the data (the samples below), rebuilt on `NOTIFICATION_TRANSLATION_CHANGED`. A "text from data" (names, the room code, times, numbers) is set in code and never translated (`auto_translate_mode = DISABLED`).
@@ -17,6 +17,7 @@ The suit menu over the running game (no pause), in the approved look (pages/suit
 | State | Page label | What it shows |
 |---|---|---|
 | `ship` | Корабель | In the ship with no session: the game boots straight here (the engineer, 2026-10-21) and every player returns here when a session ends or they leave it. Two tabs only, as the target page (pages/suit-final, section 2): Find a lobby (esc.tab.find, the Game tab's name while there is no session) and Settings; no Role, Guide, Character or Lobby tab without a session. The code field is empty, so Join is disabled. No control is drawn focused: the frames show the mouse's view (ship-keys shows the focus ring). |
+| `ship-empty` | Корабель: поруч нікого | No lobby found on the network nearby: the list says so in one line, with no Join; the code entry and the footer as in ship. |
 | `ship-code` | Корабель: код | Six valid characters typed into the code field, so Join is enabled. |
 | `ship-keys` | З клавіатури | The same frame reached with the keyboard or a gamepad: Join has the focus and draws its focus ring. The one frame that documents the ring; every other frame shows the mouse's view, with no focus drawn. |
 | `ship-direct` | Корабель: за адресою | Join by address pressed in the footer: the address entry takes the code entry's place, with the default port under it; Join, or host directly. |
@@ -61,8 +62,35 @@ The suit menu over the running game (no pause), in the approved look (pages/suit
         - **Body** `PanelContainer` · variation `ToySettingRow` · size flags vertical `SIZE_EXPAND_FILL`
           - Note: The page's body over the footer row: ToySettingRow draws only its bottom hairline, the target's line between the body and the footer (.mf).
           - **H** `HBoxContainer` · variation `ToyRowTwentyFour` · gaps from the variation: separation 24
-            - **Nearby** `PanelContainer` · variation `ToyHowtoFrame` · size flags horizontal `SIZE_EXPAND_FILL`
-              - Note: PLACEHOLDER, open: lobbies nearby and your code need the game's network discovery and the engineer's words. The target page draws here the list of lobbies nearby (each row: the lobby's name, players of the maximum, the ping; a full lobby muted) with Join under it, and the own code with Copy in the footer row. The game finds no lobbies on the network yet and the deck has no words for them (the target's «Лобі поруч», «Твій код» are drafts), so the area stays one empty frame until both exist.
+            - **Nearby** `VBoxContainer` · variation `ToyColumnTwelve` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_BEGIN` · gaps from the variation: separation 12
+              - Note: The lobbies nearby (the engineer, 2026-10-22: needed; the game's discovery is prime-game#1316), as the target's list (.lst): the head in small capitals, the rows, Join under them at the right. What "nearby" means (LAN discovery, public lobbies) is the game's; the list is the same either way. It refreshes while the tab is open; a lobby that goes away leaves its row.
+              - **Head** `Label` · variation `ToyKicker` · text `find.nearby`: en "Lobbies nearby" · uk "Лобі поруч"
+                - Note: The tile head in small capitals (uppercase = true).
+              - **List** `VBoxContainer` · variation `ToyColumnEight` · gaps from the variation: separation 8
+                - Note: Rows 8 px apart; the first lobby found is chosen when the tab opens. A long list scrolls (a ScrollContainer at the page's height; three rows here).
+                - **Glorp** `Button` · variation `ToyPresetCard` · custom_minimum_size (0, 60) · no text or icon: its child is its content, drawn in its StyleBox content rect (the child and every node inside ignore the mouse, so the Button takes the press); a Button's minimum size does not follow its children, so custom_minimum_size holds the content at large text · toggle_mode true, button_pressed true (ToyToggle draws `ToyPresetCardSelected`)
+                  - Note: One row per lobby found nearby, built from the discovery's list (prime-game#1316): ToyPresetCard, a toggle in one ButtonGroup with the other rows; the chosen one draws ToyPresetCardSelected (the target's accent edge). Its content (no text of its own) is a row: the lobby's name, its players and the latency. A Button's minimum size does not follow its children: custom_minimum_size holds the row at 60 (the target's 40 x 1.5). Double click = Join.
+                  - **H** `HBoxContainer` · variation `ToyRowTwelve` · the Button's content: anchors `full_rect`, offsets 16, 16, -16, -16 (the `normal` StyleBox's content margins), mouse_filter `MOUSE_FILTER_IGNORE` on it and every node inside · gaps from the variation: separation 12
+                    - **Name** `Label` · variation `ToyPresetCardName` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text `lobby.default_name` with sample {name} = "Glorp" / "Ґлорп": en "Glorp's lobby" · uk "Лобі: Ґлорп" · clip_text true · text_overrun_behavior `OVERRUN_TRIM_ELLIPSIS`
+                    - **Count** `Label` · variation `ToyPresetCardName` · size flags vertical `SIZE_SHRINK_CENTER` · text from data (auto_translate_mode = DISABLED), sample: "6 / 10"
+                      - Note: Players of the maximum (data, auto_translate_mode DISABLED), as the target's «6 / 10».
+                    - **Ping** `Label` · variation `ToyPresetCardNoteSelected` · size flags vertical `SIZE_SHRINK_CENTER` · text `unit.ms` with sample {count} = "24": en "24 ms" · uk "24 мс"
+                      - Note: The latency to the lobby's host, in whole ms.
+                - **Zinga** `Button` · variation `ToyPresetCard` · custom_minimum_size (0, 60) · no text or icon: its child is its content, drawn in its StyleBox content rect (the child and every node inside ignore the mouse, so the Button takes the press); a Button's minimum size does not follow its children, so custom_minimum_size holds the content at large text · toggle_mode true, button_pressed false
+                  - Note: As the first row, not chosen.
+                  - **H** `HBoxContainer` · variation `ToyRowTwelve` · the Button's content: anchors `full_rect`, offsets 16, 16, -16, -16 (the `normal` StyleBox's content margins), mouse_filter `MOUSE_FILTER_IGNORE` on it and every node inside · gaps from the variation: separation 12
+                    - **Name** `Label` · variation `ToyPresetCardName` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text `lobby.default_name` with sample {name} = "Zinga" / "Зінґа": en "Zinga's lobby" · uk "Лобі: Зінґа" · clip_text true · text_overrun_behavior `OVERRUN_TRIM_ELLIPSIS`
+                    - **Count** `Label` · variation `ToyPresetCardName` · size flags vertical `SIZE_SHRINK_CENTER` · text from data (auto_translate_mode = DISABLED), sample: "3 / 10"
+                      - Note: Players of the maximum (data, auto_translate_mode DISABLED), as the target's «6 / 10».
+                    - **Ping** `Label` · variation `ToyPresetCardNote` · size flags vertical `SIZE_SHRINK_CENTER` · text `unit.ms` with sample {count} = "41": en "41 ms" · uk "41 мс"
+                      - Note: The latency to the lobby's host, in whole ms.
+                - **Bulk** `Button` · variation `ToyPresetCard` · custom_minimum_size (0, 60) · no text or icon: its child is its content, drawn in its StyleBox content rect (the child and every node inside ignore the mouse, so the Button takes the press); a Button's minimum size does not follow its children, so custom_minimum_size holds the content at large text · toggle_mode true, button_pressed false · disabled true
+                  - Note: A full lobby: disabled (it cannot be chosen), its name dim and «Лобі заповнене.» in place of the players and the latency, as the target's muted row.
+                  - **H** `HBoxContainer` · variation `ToyRowTwelve` · the Button's content: anchors `full_rect`, offsets 16, 16, -16, -16 (the `normal` StyleBox's content margins), mouse_filter `MOUSE_FILTER_IGNORE` on it and every node inside · gaps from the variation: separation 12
+                    - **Name** `Label` · variation `ToyPresetCardNote` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text `lobby.default_name` with sample {name} = "Bulk" / "Бульк": en "Bulk's lobby" · uk "Лобі: Бульк" · clip_text true · text_overrun_behavior `OVERRUN_TRIM_ELLIPSIS`
+                    - **Full** `Label` · variation `ToyPresetCardNote` · size flags vertical `SIZE_SHRINK_CENTER` · text `connect.fail.full`: en "The lobby is full." · uk "Лобі заповнене."
+              - **Join** `Button` · variation `ToyButtonPrimary` · size flags horizontal `SIZE_SHRINK_END` · text `join.connect`: en "Join" · uk "Приєднатися"
+                - Note: Joins the chosen lobby: s3 (the connecting steps). The target's filled Join under the list; the code entry's Join stays outlined. Disabled while no row is chosen.
             - **Code** `VBoxContainer` · variation `ToyColumnTwelve` · size flags vertical `SIZE_SHRINK_BEGIN` · custom_minimum_size (420, 0) · gaps from the variation: separation 12
               - Note: Join with a code: the target's code entry (.jn), a small-capitals head over the field and Join under it. 420 px holds «Приєднатися за адресою»'s column in ship-direct, so the column keeps one width.
               - **Head** `Label` · variation `ToyKicker` · text `common.code`: en "Code" · uk "Код"
@@ -72,7 +100,13 @@ The suit menu over the running game (no pause), in the approved look (pages/suit
               - **Join** `Button` · variation `ToyButtonSecondary` · text `join.connect`: en "Join" · uk "Приєднатися" · disabled true
                 - Note: The target's outlined Join. Disabled (unplugged) until the field holds 6 valid characters. Joins by the code: s3 finding. ship-keys: reached with the keyboard, it draws the focus ring.
         - **Foot** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
-          - Note: The target's footer row (.mf): the quiet jobs at the left as ghost buttons, Quit the game at the right, where the target has «Вийти з гри». The target's «Твій код» and Copy are not drawn (no session, no network discovery, no words yet).
+          - Note: The target's footer row (.mf): your own code with Copy at the left, then the quiet jobs as ghost buttons, Quit the game at the right, where the target has «Вийти з гри».
+          - **YourCode** `Label` · variation `ToyTextMutedOnLight` · size flags vertical `SIZE_SHRINK_CENTER` · text `find.your_code`: en "Your code" · uk "Твій код"
+            - Note: Your own code, to call friends into your ship (the target's «Твій код»). Whether every ship listens with a code while there is no session is the game's (prime-game#1316); while there is none, the three nodes hide.
+          - **CodeValue** `Label` · variation `ToyTextOnLight` · size flags vertical `SIZE_SHRINK_CENTER` · text from data (auto_translate_mode = DISABLED), sample: "MD4WXT"
+            - Note: The own code (auto_translate_mode DISABLED); «…» while the code service has not made it yet.
+          - **Copy** `Button` · variation `ToyButtonSecondary` · text `esc.lobby.copy`: en "Copy" · uk "Копіювати"
+            - Note: Copies the code to the clipboard; the button reads esc.lobby.copied for 2 s (as on the session's Game page).
           - **Host** `Button` · variation `ToyButtonGhostOnLight` · text `menu.host`: en "Host a game" · uk "Створити гру"
             - Note: Hosts a game with a code (WebRTC): the ship becomes the lobby (s4); the menu, opened again, shows the session's tabs; a failure shows s3 host-failed. The code is on the ship console (s4).
           - **Direct** `Button` · variation `ToyButtonGhostOnLight` · text `menu.direct`: en "Join by address" · uk "Приєднатися за адресою" · toggle_mode true, button_pressed false
@@ -83,6 +117,13 @@ The suit menu over the running game (no pause), in the approved look (pages/suit
             - Note: Pushes Quit to the right end of the footer.
           - **Quit** `Button` · variation `ToyButtonGhostOnLight` · text `esc.game.quit`: en "Quit the game" · uk "Вийти з гри"
             - Note: Quits the game at once (no session to end).
+
+## `ship-empty`: what differs from `ship`
+
+- **Hidden:** `Menu/V/Page/Find/Body/H/Nearby/List`, `Menu/V/Page/Find/Body/H/Nearby/Join`.
+- **Shown:**
+  - **Menu/V/Page/Find/Body/H/Nearby/None** `Label` · variation `ToyTextMutedOnLight` · text `find.none`: en "No lobbies nearby" · uk "Поруч лобі немає"
+    - Note: No lobby found nearby: one quiet line in the list's place, and no Join. It stays until a lobby appears.
 
 ## `ship-code`: what differs from `ship`
 
@@ -776,8 +817,8 @@ The suit menu over the running game (no pause), in the approved look (pages/suit
 
 ## Keys
 
-- **Drawn** (90): `common.back`, `common.cancel`, `common.code`, `common.off`, `common.on`, `control.backward`, `control.crouch`, `control.forward`, `control.give_up`, `control.interact`, `control.jump`, `control.left`, `control.map`, `control.put_down`, `control.ready`, `control.right`, `control.sneak`, `control.sprint`, `control.swap`, `control.talk`, `control.throw`, `control.use`, `esc.character.colour`, `esc.character.locked`, `esc.game.leave`, `esc.game.leave_confirm`, `esc.game.leave_host_note`, `esc.game.leave_tutorial`, `esc.game.quit`, `esc.game.resume`, `esc.role.teammates`, `esc.tab.character`, `esc.tab.find`, `esc.tab.game`, `esc.tab.guide`, `esc.tab.role`, `esc.tab.settings`, `guide.basics`, `guide.downed`, `guide.moving`, `guide.tasks`, `guide.voice`, `howto.label`, `join.address`, `join.connect`, `join.port`, `key.mouse_left`, `key.space`, `lang.en`, `lang.uk`, `menu.direct`, `menu.host`, `menu.tutorial`, `player.name`, `player.you`, `role.alien`, `role.goal.alien`, `role.goal.human`, `role.human`, `settings.controls.press_key`, `settings.controls.reset`, `settings.controls.same_key`, `settings.effects_volume`, `settings.game_volume`, `settings.language.title`, `settings.large_text`, `settings.mic`, `settings.mic.default`, `settings.mic_test`, `settings.music_volume`, `settings.noise_suppression`, `settings.reduced_motion`, `settings.tab.accessibility`, `settings.tab.controls`, `settings.tab.display`, `settings.tab.language`, `settings.tab.sound`, `settings.talk_mode`, `settings.talk_mode.open`, `settings.talk_mode.push`, `settings.voice_threshold`, `settings.voice_volume`, `settings.window`, `settings.window.fullscreen`, `settings.window.windowed`, `task.car_tuning`, `task.cooking`, `task.engine`, `task.photo`, `task.wifi`.
-- **Named only in the notes** (wire them too): `downed.give_up_hold`, `esc.character.hat`, `esc.game.quit_confirm`, `key.mouse_right`, `settings.voice_unavailable`, `tutorial.list.death`, `tutorial.step.dead_room.how`, `tutorial.step.dead_room.title`, `tutorial.step.downed.title`, `tutorial.step.move.title`, `tutorial.step.voice.how`, `tutorial.step.voice.title`.
+- **Drawn** (97): `common.back`, `common.cancel`, `common.code`, `common.off`, `common.on`, `connect.fail.full`, `control.backward`, `control.crouch`, `control.forward`, `control.give_up`, `control.interact`, `control.jump`, `control.left`, `control.map`, `control.put_down`, `control.ready`, `control.right`, `control.sneak`, `control.sprint`, `control.swap`, `control.talk`, `control.throw`, `control.use`, `esc.character.colour`, `esc.character.locked`, `esc.game.leave`, `esc.game.leave_confirm`, `esc.game.leave_host_note`, `esc.game.leave_tutorial`, `esc.game.quit`, `esc.game.resume`, `esc.lobby.copy`, `esc.role.teammates`, `esc.tab.character`, `esc.tab.find`, `esc.tab.game`, `esc.tab.guide`, `esc.tab.role`, `esc.tab.settings`, `find.nearby`, `find.none`, `find.your_code`, `guide.basics`, `guide.downed`, `guide.moving`, `guide.tasks`, `guide.voice`, `howto.label`, `join.address`, `join.connect`, `join.port`, `key.mouse_left`, `key.space`, `lang.en`, `lang.uk`, `lobby.default_name`, `menu.direct`, `menu.host`, `menu.tutorial`, `player.name`, `player.you`, `role.alien`, `role.goal.alien`, `role.goal.human`, `role.human`, `settings.controls.press_key`, `settings.controls.reset`, `settings.controls.same_key`, `settings.effects_volume`, `settings.game_volume`, `settings.language.title`, `settings.large_text`, `settings.mic`, `settings.mic.default`, `settings.mic_test`, `settings.music_volume`, `settings.noise_suppression`, `settings.reduced_motion`, `settings.tab.accessibility`, `settings.tab.controls`, `settings.tab.display`, `settings.tab.language`, `settings.tab.sound`, `settings.talk_mode`, `settings.talk_mode.open`, `settings.talk_mode.push`, `settings.voice_threshold`, `settings.voice_volume`, `settings.window`, `settings.window.fullscreen`, `settings.window.windowed`, `task.car_tuning`, `task.cooking`, `task.engine`, `task.photo`, `task.wifi`, `unit.ms`.
+- **Named only in the notes** (wire them too): `downed.give_up_hold`, `esc.character.hat`, `esc.game.quit_confirm`, `esc.lobby.copied`, `key.mouse_right`, `settings.voice_unavailable`, `tutorial.list.death`, `tutorial.step.dead_room.how`, `tutorial.step.dead_room.title`, `tutorial.step.downed.title`, `tutorial.step.move.title`, `tutorial.step.voice.how`, `tutorial.step.voice.title`.
 
 ## Layers and input (every screen)
 
