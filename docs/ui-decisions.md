@@ -412,6 +412,11 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
   the burger (the agent's plate mark for the order's place) are dropped, unclear in one frame (agent). The whole Cooking
   card, seven frames, each drawn from the check frame's alien: batch `2026-10-22-howto-cooking-card`
   ([page](https://claude.ai/artifact/3TRbWHbruTJm8nTZz2CrW8)).
+  **A concept, not the final art** (the engineer, same day, chat, translated): "we don't know yet how the final art
+  will look, the herbs, the barbecue, the 3D printer, the icons; we'll do these later, when the main art is ready; I
+  wanted to see the concept". So the look is the concept (the 1940s poster with the teal alien); **the Cooking card
+  stands in as the placeholder for every how-to card** in the screens and the pack until the game's art exists, and
+  then each task's card is drawn to match its real props. Frame 5's herb mismatch is left for then.
   **A card has as many frames as its task
   needs**, not four: when they do not fit, the card scrolls ("we're not limited to 4 cards; it can scroll if needed;
   the engine, for one, is hard to fit in 4"). The pilot is Cooking, seven frames (batch
