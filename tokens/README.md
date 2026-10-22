@@ -154,6 +154,16 @@ variations, a type role, two icons and a pack member; changed values; three depr
   (`ToyKicker`), then `dead.back_in` (`ToyHudCaption`) and the countdown (`ToyTimer`); no bar, no title plate.
   `ToyPlateCount`, `ToyPlateHead` (replacement `ToyPlate`) and `ToyPlateHeadText` (replacement `ToyKicker`) are deprecated.
 
+## The screens step, ui-2.2.0
+
+The screens redrawn to the approved target (`docs/ui-decisions.md`, "The screens redrawn to the approved target
+(ui-2.2.0)"). A minor release: a variation's context and an asset's tint changed; nothing added or removed.
+
+- **`ToyMenuItem`** is a light-context variation, since it sits on a tile (the suit menu's settings section list and the
+  Guide's topic list, s5); its values are as in ui-2.1.0 (dim idle text, the open entry a row fill with light text).
+- **The room pictograms' `tint_color`** is the dim colour `#a39dbd`, the quiet level of a room's `ToyKicker` head on
+  the map; the pages now draw them in it (they drew the source ink, nearly invisible on the dark tiles).
+
 ## Proposal marks
 
 `"$extensions": { "io.github.xperiaroco2.prime-game": { "proposal": true } }` with a `$description` marks a value the
@@ -238,7 +248,7 @@ A MAJOR release: the palette's names, the glow, the hard shadow and the old font
 - **Icons:** the item pictures and the empty slots are line drawings in `currentColor` now (`tint: "multiply"`: the game
   tints the white copy, the text colour; the accent in the hand is open); the check boxes, the dropdown's check, the slider's
   knob (a 21 × 33 light tile) and the sirens are redrawn in the palette (own colours); the room pictograms' `tint_color` is
-  the text colour #ece8f7.
+  the text colour #ece8f7 (the dim colour #a39dbd since ui-2.2.0).
 - **Type:** Onest for text (Medium 500, Bold 700) and Unbounded Bold for titles, numbers, the loud titles, the logo and the new
   `type.kicker` (Unbounded capitals at `font.size.kicker` 14, 2 px apart; `ToyKicker`, `ToyRosterTagText`; since ui-2.1.0 the
   capitals are the Label's `uppercase` property, `godot.uppercase` in the tokens and `uppercase: true` in the pack). `font.family.text` is Onest, `font.family.number` and `font.family.logo` (the names kept) Unbounded.
@@ -373,7 +383,7 @@ deprecated itself. The pack marks both (below).
     multiplying (`self_modulate`, a Button's `icon_*_color`, OptionButton's `modulate_arrow`); `"none"` for an icon in
     its own colours (the slider knobs), never tinted.
   - `tint_color` (only where the pages always draw the icon in one colour): the `self_modulate` that draws it as the
-    pages do, `#2a1f33` (ink) for the room pictograms.
+    pages do: the dim colour `#a39dbd` for the room pictograms since ui-2.2.0.
   - `deprecated` (since ui-1.3.0, only on a deprecated icon): `{ "replacement": "<assets path>" | null, "note": "<reason>" }`,
     the form of a deprecated variation, from the icon's licence record (`"deprecated": "<reason>"`, `"replacement":
     "<file of the same folder>" | null`, `tools/tokens/icons.js`). The file stays in the pack until the next major

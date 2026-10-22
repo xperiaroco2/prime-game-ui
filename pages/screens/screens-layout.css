@@ -192,7 +192,7 @@
 [data-anchor="s4/Plates/Bulk"] { left: calc(1258 * var(--px)); top: calc(453 * var(--px)); right: calc(100% - 1258 * var(--px)); bottom: calc(100% - 453 * var(--px)); justify-content: center; align-items: center; }
 [data-node="s4/Plates/Bulk"] { flex: none; min-width: 100%; min-height: 100%; }
 [data-node="s4/Plates/Bulk/Name"] { grid-area: 1 / 1; }
-[data-anchor="s4/Console"] { left: calc(50% - 162 * var(--px)); top: calc(50% + 128 * var(--px)); right: calc(50% + 162 * var(--px)); bottom: calc(50% - 128 * var(--px)); justify-content: center; align-items: center; }
+[data-anchor="s4/Console"] { left: calc(50% - 180 * var(--px)); top: calc(50% + 112 * var(--px)); right: calc(50% + 180 * var(--px)); bottom: calc(50% - 112 * var(--px)); justify-content: center; align-items: center; }
 [data-node="s4/Console"] { flex: none; min-width: max(100%, calc(960 * var(--px))); min-height: max(100%, calc(540 * var(--px))); }
 [data-node="s4/Console/V"] { grid-area: 1 / 1; grid-template-rows: minmax(min-content, auto) minmax(min-content, 1fr) minmax(min-content, auto); }
 [data-node="s4/Console/V/Top"] { grid-template-columns: minmax(min-content, 1fr) minmax(min-content, auto); }
@@ -339,11 +339,11 @@
 [data-node="s5/Menu/V/Page/Find/Foot/Quit"] { column-gap: calc(4 * var(--px)); }
 [data-node="s5/Menu/V/Page/Settings"] { grid-template-columns: minmax(min-content, auto) minmax(min-content, 1fr); }
 [data-node="s5/Menu/V/Page/Settings/Nav"] { min-width: calc(300 * var(--px)); align-self: start; grid-template-rows: minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto); }
-[data-node="s5/Menu/V/Page/Settings/Nav/Sound"] { justify-content: flex-start; column-gap: calc(4 * var(--px)); }
-[data-node="s5/Menu/V/Page/Settings/Nav/Controls"] { justify-content: flex-start; column-gap: calc(4 * var(--px)); }
-[data-node="s5/Menu/V/Page/Settings/Nav/Display"] { justify-content: flex-start; column-gap: calc(4 * var(--px)); }
-[data-node="s5/Menu/V/Page/Settings/Nav/Access"] { justify-content: flex-start; column-gap: calc(4 * var(--px)); }
-[data-node="s5/Menu/V/Page/Settings/Nav/Language"] { justify-content: flex-start; column-gap: calc(4 * var(--px)); }
+[data-node="s5/Menu/V/Page/Settings/Nav/Sound"] { justify-content: flex-start; }
+[data-node="s5/Menu/V/Page/Settings/Nav/Controls"] { justify-content: flex-start; }
+[data-node="s5/Menu/V/Page/Settings/Nav/Display"] { justify-content: flex-start; }
+[data-node="s5/Menu/V/Page/Settings/Nav/Access"] { justify-content: flex-start; }
+[data-node="s5/Menu/V/Page/Settings/Nav/Language"] { justify-content: flex-start; }
 [data-node="s5/Menu/V/Page/Settings/Scroll/Rows"] { grid-template-rows: minmax(min-content, auto); }
 .sc-frame[data-state="settings-sound"] [data-node="s5/Menu/V/Page/Settings/Scroll/Rows"] { grid-template-rows: minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto); }
 .sc-frame[data-state="settings-controls"] [data-node="s5/Menu/V/Page/Settings/Scroll/Rows"] { grid-template-rows: minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto); }
@@ -515,19 +515,17 @@
 [data-node="s5/Menu/V/Page/Guide"] { grid-template-columns: minmax(min-content, auto) minmax(min-content, 1fr); }
 [data-node="s5/Menu/V/Page/Guide/List"] { min-width: calc(360 * var(--px)); }
 [data-node="s5/Menu/V/Page/Guide/List/V"] { grid-template-rows: minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto); }
-[data-node="s5/Menu/V/Page/Guide/List/V/Moving"] { justify-content: flex-start; column-gap: calc(4 * var(--px)); }
-[data-node="s5/Menu/V/Page/Guide/List/V/Voice"] { justify-content: flex-start; column-gap: calc(4 * var(--px)); }
-[data-node="s5/Menu/V/Page/Guide/List/V/Downed"] { justify-content: flex-start; column-gap: calc(4 * var(--px)); }
+[data-node="s5/Menu/V/Page/Guide/List/V/Moving"] { justify-content: flex-start; }
+[data-node="s5/Menu/V/Page/Guide/List/V/Voice"] { justify-content: flex-start; }
+[data-node="s5/Menu/V/Page/Guide/List/V/Downed"] { justify-content: flex-start; }
 [data-node="s5/Menu/V/Page/Guide/List/V/Gap"] { min-height: calc(16 * var(--px)); }
-[data-node="s5/Menu/V/Page/Guide/List/V/CarTuning"] { justify-content: flex-start; column-gap: calc(4 * var(--px)); }
-[data-node="s5/Menu/V/Page/Guide/List/V/Engine"] { justify-content: flex-start; column-gap: calc(4 * var(--px)); }
-[data-node="s5/Menu/V/Page/Guide/List/V/Cooking"] { justify-content: flex-start; column-gap: calc(4 * var(--px)); }
-[data-node="s5/Menu/V/Page/Guide/List/V/Photo"] { justify-content: flex-start; column-gap: calc(4 * var(--px)); }
-[data-node="s5/Menu/V/Page/Guide/List/V/Wifi"] { justify-content: flex-start; column-gap: calc(4 * var(--px)); }
+[data-node="s5/Menu/V/Page/Guide/List/V/CarTuning"] { justify-content: flex-start; }
+[data-node="s5/Menu/V/Page/Guide/List/V/Engine"] { justify-content: flex-start; }
+[data-node="s5/Menu/V/Page/Guide/List/V/Cooking"] { justify-content: flex-start; }
+[data-node="s5/Menu/V/Page/Guide/List/V/Photo"] { justify-content: flex-start; }
+[data-node="s5/Menu/V/Page/Guide/List/V/Wifi"] { justify-content: flex-start; }
 [data-node="s5/Menu/V/Page/Guide/Card"] { align-self: start; grid-template-rows: minmax(min-content, auto) minmax(min-content, auto); }
-[data-node="s5/Menu/V/Page/Guide/Card/Head"] { grid-template-columns: minmax(min-content, 1fr) minmax(min-content, auto); }
-[data-node="s5/Menu/V/Page/Guide/Card/Head/Title"] { align-self: center; }
-[data-node="s5/Menu/V/Page/Guide/Card/Head/Note"] { align-self: center; }
+[data-node="s5/Menu/V/Page/Guide/Card/Head"] { grid-template-rows: minmax(min-content, auto) minmax(min-content, auto); }
 [data-node="s5/Menu/V/Page/Guide/Card/Scroll"] { min-width: calc(302 * var(--px)); }
 [data-node="s5/Menu/V/Page/Guide/Card/Scroll/Frames"] { grid-template-columns: minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto); }
 [data-node="s5/Menu/V/Page/Guide/Card/Scroll/Frames/Frame1/Art"] { min-width: calc(272 * var(--px)); min-height: calc(204 * var(--px)); grid-area: 1 / 1; }

@@ -104,7 +104,7 @@
               "name": "Lab", "type": "PanelContainer", "variation": "ToyMapRoom", "offset_left": 48, "offset_top": 48, "offset_right": 340, "offset_bottom": 400, "note": "One room: its rect from the map data, its name as the head at the top left and its system B pictogram centred. Sample rooms of the House; the pictograms that fit them stand in (the garage takes the workshop's, the pantry the storage's, the study the office's, the living room the lounge's) until the House's rooms have their own; a room without one shows only its name.",
               "children": [
                 {
-                  "name": "V", "type": "VBoxContainer", "variation": "ToyColumnEight", "note": "The room as a quiet tile: its name in small capitals as the head at the top left (ToyKicker; the game sets uppercase = true), its system B pictogram (72 px, the old 48 x 1.5, in the pictograms' ink) centred in the rest of the room.",
+                  "name": "V", "type": "VBoxContainer", "variation": "ToyColumnEight", "note": "The room as a quiet tile: its name in small capitals as the head at the top left (ToyKicker; the game sets uppercase = true), its system B pictogram (72 px, the old 48 x 1.5, in the dim colour of its head: the pack's tint_color, ui-2.2.0) centred in the rest of the room.",
                   "children": [
                     { "name": "Name", "type": "Label", "variation": "ToyKicker", "key": "room.lab" },
                     {

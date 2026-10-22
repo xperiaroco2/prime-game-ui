@@ -113,11 +113,11 @@
                     {
                       "name": "Nav", "type": "VBoxContainer", "variation": "ToyColumnFour", "custom_minimum_size": [300, 0], "size_flags_vertical": "shrink_begin", "note": "The section list (the target's .nav): one ButtonGroup of toggle rows; the open section shows the pressed row fill. Settings opens on Sound and voice. Up and down move the focus through the list; ui_right moves it into the rows. 300 px holds «Звук і голос» and «Accessibility» at large text.",
                       "children": [
-                        { "name": "Sound", "type": "Button", "variation": "ToyButtonGhostOnLight", "note": "Stands in for ToyMenuItem (the target's .nav item, tokens/README.md): ToyMenuItem is declared a dark-context variation, so the screens refuse it on the light ToyPanelMenu; with its context made light (the tokens) this node takes ToyMenuItem, whose idle text is dim. Both have the same clear face and the same pressed row fill.", "key": "settings.tab.sound", "toggle_mode": true, "alignment": "left", "per_state": { "settings-sound": { "state": "selected" } } },
-                        { "name": "Controls", "type": "Button", "variation": "ToyButtonGhostOnLight", "key": "settings.tab.controls", "toggle_mode": true, "alignment": "left", "per_state": { "settings-controls": { "state": "selected" } } },
-                        { "name": "Display", "type": "Button", "variation": "ToyButtonGhostOnLight", "key": "settings.tab.display", "toggle_mode": true, "alignment": "left", "per_state": { "settings-display": { "state": "selected" } } },
-                        { "name": "Access", "type": "Button", "variation": "ToyButtonGhostOnLight", "key": "settings.tab.accessibility", "toggle_mode": true, "alignment": "left", "per_state": { "settings-access": { "state": "selected" } } },
-                        { "name": "Language", "type": "Button", "variation": "ToyButtonGhostOnLight", "key": "settings.tab.language", "toggle_mode": true, "alignment": "left", "per_state": { "settings-language": { "state": "selected" } } }
+                        { "name": "Sound", "type": "Button", "variation": "ToyMenuItem", "note": "ToyMenuItem (the target's .nav item; a light-context variation since ui-2.2.0): dim idle text, the open section the pressed row fill with light text.", "key": "settings.tab.sound", "toggle_mode": true, "alignment": "left", "per_state": { "settings-sound": { "state": "selected" } } },
+                        { "name": "Controls", "type": "Button", "variation": "ToyMenuItem", "key": "settings.tab.controls", "toggle_mode": true, "alignment": "left", "per_state": { "settings-controls": { "state": "selected" } } },
+                        { "name": "Display", "type": "Button", "variation": "ToyMenuItem", "key": "settings.tab.display", "toggle_mode": true, "alignment": "left", "per_state": { "settings-display": { "state": "selected" } } },
+                        { "name": "Access", "type": "Button", "variation": "ToyMenuItem", "key": "settings.tab.accessibility", "toggle_mode": true, "alignment": "left", "per_state": { "settings-access": { "state": "selected" } } },
+                        { "name": "Language", "type": "Button", "variation": "ToyMenuItem", "key": "settings.tab.language", "toggle_mode": true, "alignment": "left", "per_state": { "settings-language": { "state": "selected" } } }
                       ]
                     },
                     {
@@ -642,16 +642,16 @@
                           "name": "V", "type": "VBoxContainer", "variation": "ToyColumnFour", "size_flags_horizontal": "expand_fill", "note": "One ButtonGroup over every topic, drawn as the settings' section list (the open topic shows the pressed row fill); a topic shows its card, headed with the topic's name. The MVP's new topics (points, mutations, the neighbours' anger, the cops, the dead's room) are open: their texts and cards are the engineer's.",
                           "children": [
                             { "name": "Basics", "type": "Label", "variation": "ToyKicker", "key": "guide.basics", "note": "A small-capitals head (uppercase = true)." },
-                            { "name": "Moving", "type": "Button", "variation": "ToyButtonGhostOnLight", "key": "guide.moving", "toggle_mode": true, "note": "Card frames: tutorial.step.move.title, .pick_up.title, .put_down.title, .hand_belt.title.", "alignment": "left" },
-                            { "name": "Voice", "type": "Button", "variation": "ToyButtonGhostOnLight", "key": "guide.voice", "toggle_mode": true, "note": "Card frames: tutorial.step.voice.title, tutorial.step.voice.how, tutorial.list.death.", "alignment": "left" },
-                            { "name": "Downed", "type": "Button", "variation": "ToyButtonGhostOnLight", "key": "guide.downed", "toggle_mode": true, "note": "Card frames: tutorial.step.downed.title, downed.give_up_hold, then the death frames: tutorial.step.dead_room.title, tutorial.step.dead_room.how (drafts; the dead wait in the dead's room, m8 §3).", "alignment": "left" },
+                            { "name": "Moving", "type": "Button", "variation": "ToyMenuItem", "key": "guide.moving", "toggle_mode": true, "note": "Card frames: tutorial.step.move.title, .pick_up.title, .put_down.title, .hand_belt.title.", "alignment": "left" },
+                            { "name": "Voice", "type": "Button", "variation": "ToyMenuItem", "key": "guide.voice", "toggle_mode": true, "note": "Card frames: tutorial.step.voice.title, tutorial.step.voice.how, tutorial.list.death.", "alignment": "left" },
+                            { "name": "Downed", "type": "Button", "variation": "ToyMenuItem", "key": "guide.downed", "toggle_mode": true, "note": "Card frames: tutorial.step.downed.title, downed.give_up_hold, then the death frames: tutorial.step.dead_room.title, tutorial.step.dead_room.how (drafts; the dead wait in the dead's room, m8 §3).", "alignment": "left" },
                             { "name": "Gap", "type": "Control", "custom_minimum_size": [0, 16], "note": "A spacer: 4 + 16 + 4 = 24 px between the Downed row and the Tasks head." },
                             { "name": "Tasks", "type": "Label", "variation": "ToyKicker", "key": "guide.tasks", "note": "A small-capitals head (uppercase = true)." },
-                            { "name": "CarTuning", "type": "Button", "variation": "ToyButtonGhostOnLight", "key": "task.car_tuning", "toggle_mode": true, "note": "The MVP's five task types (GDD §8, #1144), in the deck's order. Each card needs new wordless art (the card art quality bar); until the art track's cards exist every card shows the placeholder (own-work Delivery frames, dist/pack/cards/).", "alignment": "left" },
-                            { "name": "Engine", "type": "Button", "variation": "ToyButtonGhostOnLight", "key": "task.engine", "toggle_mode": true, "alignment": "left" },
-                            { "name": "Cooking", "type": "Button", "variation": "ToyButtonGhostOnLight", "key": "task.cooking", "toggle_mode": true, "state": "selected", "alignment": "left" },
-                            { "name": "Photo", "type": "Button", "variation": "ToyButtonGhostOnLight", "key": "task.photo", "toggle_mode": true, "alignment": "left" },
-                            { "name": "Wifi", "type": "Button", "variation": "ToyButtonGhostOnLight", "key": "task.wifi", "toggle_mode": true, "alignment": "left" }
+                            { "name": "CarTuning", "type": "Button", "variation": "ToyMenuItem", "key": "task.car_tuning", "toggle_mode": true, "note": "The MVP's five task types (GDD §8, #1144), in the deck's order. Each card needs new wordless art (the card art quality bar); until the art track's cards exist every card shows the placeholder (own-work Delivery frames, dist/pack/cards/).", "alignment": "left" },
+                            { "name": "Engine", "type": "Button", "variation": "ToyMenuItem", "key": "task.engine", "toggle_mode": true, "alignment": "left" },
+                            { "name": "Cooking", "type": "Button", "variation": "ToyMenuItem", "key": "task.cooking", "toggle_mode": true, "state": "selected", "alignment": "left" },
+                            { "name": "Photo", "type": "Button", "variation": "ToyMenuItem", "key": "task.photo", "toggle_mode": true, "alignment": "left" },
+                            { "name": "Wifi", "type": "Button", "variation": "ToyMenuItem", "key": "task.wifi", "toggle_mode": true, "alignment": "left" }
                           ]
                         }
                       ]
@@ -660,10 +660,10 @@
                       "name": "Card", "type": "VBoxContainer", "variation": "ToyColumnSixteen", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_begin", "note": "P8's how-to card without its own panel inside the menu's tile (the target draws no tile in a tile): the head, then the frames in one row that scroll sideways, as in s3 and s8, with 272 px art beside the topic list. A card is content data per task type (#254).",
                       "children": [
                         {
-                          "name": "Head", "type": "HBoxContainer", "variation": "ToyRowTwentyFour",
+                          "name": "Head", "type": "VBoxContainer", "variation": "ToyColumnEight", "note": "The card's head as in s3 and s8: howto.label in small capitals over the open topic's name, so the card is the same in s3, s5 and s8.",
                           "children": [
-                            { "name": "Title", "type": "Label", "variation": "ToyKicker", "key": "task.cooking", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center", "note": "The open topic's name as the small-capitals head (uppercase = true), not a big title." },
-                            { "name": "Note", "type": "Label", "variation": "ToyTextMutedOnLight", "key": "howto.label", "size_flags_vertical": "shrink_center", "note": "The card's label in muted text (ToyHowtoNote sits only on ToyPanelHowto, which the menu does not draw here)." }
+                            { "name": "Note", "type": "Label", "variation": "ToyKicker", "key": "howto.label", "note": "The game sets uppercase = true." },
+                            { "name": "Title", "type": "Label", "variation": "ToyTitleOnLight", "key": "task.cooking", "note": "The open topic's name (a basics topic shows its guide.* name)." }
                           ]
                         },
                         {

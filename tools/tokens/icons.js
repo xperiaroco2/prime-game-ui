@@ -33,8 +33,10 @@ const SCREENS_SRC = 'pages/screens/src';
 const LICENCES_OK = /^(own work|OFL(-1\.1)?|CC0(-1\.0)?|MIT|ISC|Apache-2\.0)$/i;
 // the sticker ink (ui-1.0.0 to 1.4.0): the source pictograms are drawn in it, and the build writes it white
 const ROOM_INK = '#1e1230';
-// the colour the pages draw the pictograms in since ui-2.0.0 (palette.text, light on a row tile): the pack's tint_color
-const ROOM_TINT = '#ece8f7';
+// the colour the pages draw the pictograms in (the pack's tint_color): palette.dim since ui-2.2.0, the quiet level of a
+// map room's head (ToyKicker) on its dark tile; palette.text in ui-2.0.0 to 2.1.1, which the pages did not draw (they drew
+// the source ink, nearly invisible on the dark tiles)
+const ROOM_TINT = '#a39dbd';
 const SOURCES = [
   { prefix: '', dir: 'pages/components/icons', licences: 'pages/components/icons/LICENCES.json', entry: (f) => f },
   { prefix: 'room/', dir: 'pages/room-signs/systems/b/icons', licences: 'pages/room-signs/systems/b/LICENCES.json', entry: (f) => `icons/${f}`, ink: ROOM_INK, tint: ROOM_TINT },

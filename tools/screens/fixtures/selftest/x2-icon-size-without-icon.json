@@ -12,7 +12,7 @@
     {
       "name": "Col", "type": "VBoxContainer", "variation": "ToyColumnEight", "anchors_preset": "center",
       "children": [
-        { "name": "Bare", "type": "Button", "variation": "ToyMenuItem", "text": "Q", "icon_size": 20, "per_state": { "two": { "text": "Z" } } }
+        { "name": "Bare", "type": "Button", "variation": "ToyButtonSecondary", "text": "Q", "icon_size": 20, "per_state": { "two": { "text": "Z" } } }
       ]
     }
   ]

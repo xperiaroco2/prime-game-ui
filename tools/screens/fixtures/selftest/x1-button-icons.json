@@ -15,11 +15,11 @@
       "name": "Col", "type": "VBoxContainer", "variation": "ToyColumnEight", "anchors_preset": "center",
       "children": [
         {
-          "name": "Sized", "type": "Button", "variation": "ToyMenuItem", "text": "Q", "icon_size": 20,
+          "name": "Sized", "type": "Button", "variation": "ToyButtonSecondary", "text": "Q", "icon_size": 20,
           "per_state": { "on": { "icon": "mic" }, "on-again": { "icon": "mic" }, "cut": { "icon": "mic-off" } }
         },
         {
-          "name": "Natural", "type": "Button", "variation": "ToyMenuItem", "text": "Z",
+          "name": "Natural", "type": "Button", "variation": "ToyButtonSecondary", "text": "Z",
           "per_state": { "on": { "icon": "lock" }, "on-again": { "icon": "lock" }, "cut": { "icon": "knife" } }
         }
       ]

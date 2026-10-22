@@ -1593,7 +1593,7 @@
 .tv-ToyButtonGhostOnLight.is-focus > .tv-focus, .tv-ToyButtonGhostOnLight:focus-visible > .tv-focus {
   display: block;
 }
-/* ToyMenuItem: Button → ToyButton · button.menu-item · dark */
+/* ToyMenuItem: Button → ToyButton · button.menu-item · light */
 .tv-ToyMenuItem {
   box-sizing: border-box;
   position: relative;
