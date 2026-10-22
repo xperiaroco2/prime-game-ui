@@ -10,7 +10,7 @@
     { "id": "human", "label": "Очима людини", "note": "A human's view: the danger role tile, the other humans tagged in the roster, a battery in the hand. A teammate's name plate keeps the old dissident mark as a visible placeholder: whether a mark over another human's head is still needed beside the roster's tag is open." },
     { "id": "hurt", "label": "Мало здоровʼя й сил", "note": "Health at 0.22 (two of ten pips, under the 30 % alarm line: ToyPipAlarm and the danger label) and stamina at 0.18 (two pips)." },
     { "id": "raising", "label": "Підняття", "note": "Decided by the engineer (2026-10-06, the wave-19 question page, q9): what the raiser sees while holding Interact next to a downed player. A thin progress bar under the crosshair in place of the object name, filling at the same rate as the downed player's raise bar (s9 raise); no text." },
-    { "id": "cops", "label": "Копи за хвилину", "note": "The anger is full: the neighbours called the cops, and the whole party sees the countdown. Open: whether the round timer still shows beside the cops' minute, or only the one that ends first; how long the minute is." }
+    { "id": "cops", "label": "Копи за хвилину", "note": "The anger is full: the neighbours called the cops, and the whole party sees the countdown. The round timer hides while the minute runs (one clock: the engineer, 2026-10-22). Open: how long the minute is." }
   ],
   "nodes": [
     {
@@ -45,8 +45,8 @@
             {
               "name": "Row", "type": "HBoxContainer", "variation": "ToyRowTwentyFour",
               "children": [
-                { "name": "Timer", "type": "Label", "variation": "ToyTimer", "text": "07:42", "horizontal_alignment": "center", "size_flags_vertical": "shrink_center", "custom_minimum_size": [120, 0], "per_state": { "cops": { "text": "04:12" } }, "note": "The round time, m:ss from code (auto_translate_mode DISABLED), every second; light on the tile (no halo)." },
-                { "name": "Divider", "type": "Panel", "variation": "ToyTileDivider", "size_flags_vertical": "shrink_center", "note": "The thin line between the time and the anger (the target's .time .div, ui-2.1.0)." },
+                { "name": "Timer", "type": "Label", "variation": "ToyTimer", "states": ["empty", "carry", "human", "hurt", "raising"], "text": "07:42", "horizontal_alignment": "center", "size_flags_vertical": "shrink_center", "custom_minimum_size": [120, 0], "note": "The round time, m:ss from code (auto_translate_mode DISABLED), every second; light on the tile (no halo). Hidden with its Divider while the cops' minute runs (the engineer, 2026-10-22: one clock, the one that ends first): both ends are a human win, so only the cops' countdown matters then. When the round has less time left than the cops' countdown, the cops' banner is not shown and the timer stays (the round ends first; as on the choice page)." },
+                { "name": "Divider", "type": "Panel", "variation": "ToyTileDivider", "states": ["empty", "carry", "human", "hurt", "raising"], "size_flags_vertical": "shrink_center", "note": "The thin line between the time and the anger (the target's .time .div, ui-2.1.0)." },
                 {
                   "name": "AngerColumn", "type": "VBoxContainer", "variation": "ToyColumnFour", "size_flags_vertical": "shrink_center",
                   "children": [
