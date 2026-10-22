@@ -722,6 +722,7 @@
 [data-anchor="s7/Hud/Time"] { left: 50%; top: calc(36 * var(--px)); right: 50%; bottom: calc(100% - 36 * var(--px)); justify-content: center; align-items: flex-start; }
 [data-node="s7/Hud/Time"] { flex: none; min-width: 100%; min-height: 100%; }
 [data-node="s7/Hud/Time/Row"] { grid-area: 1 / 1; grid-template-columns: minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto); }
+.sc-frame[data-state="cops"] [data-node="s7/Hud/Time/Row"] { grid-template-columns: minmax(min-content, auto); }
 [data-node="s7/Hud/Time/Row/Timer"] { min-width: calc(120 * var(--px)); align-self: center; text-align: center; }
 [data-node="s7/Hud/Time/Row/Divider"] { align-self: center; }
 [data-node="s7/Hud/Time/Row/AngerColumn"] { align-self: center; grid-template-rows: minmax(min-content, auto) minmax(min-content, auto); }

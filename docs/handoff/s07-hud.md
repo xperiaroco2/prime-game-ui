@@ -5,7 +5,7 @@
 The styled round hud screen from the UI track (xperiaroco2/prime-game-ui), as a Godot 4.7.2 node tree for the 1920×1080 reference.
 
 - **Source:** `pages/screens/src/s07-hud.json`; the review page is `pages/screens/screens.html#s7`; the wireframe is section `s7` («HUD у раунді»).
-- **Theme:** the Toy pack ui-2.2.1 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
+- **Theme:** the Toy pack ui-2.2.2 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
 - **World behind the UI** (not UI): a lit room of the house (the level).
 - **How to read it:** the roots are children of the screen's full-rect root `Control`; every property not listed keeps Godot's default; sizes and offsets are reference px. In a state's **Shown** list, the first node of each subtree gives its path from the screen root.
 - **Texts** are keys of `copy/strings.csv`, and the language switches live (the Esc menu's Settings). A plain key is set as `text` and translates itself. A key with placeholders, a plural key (`tr_n`) and a key drawn in pieces are set from code with `auto_translate_mode = DISABLED`: `tr()`, then `String.format()` with the data (the samples below), rebuilt on `NOTIFICATION_TRANSLATION_CHANGED`. A "text from data" (names, the room code, times, numbers) is set in code and never translated (`auto_translate_mode = DISABLED`).
@@ -21,7 +21,7 @@ One HUD for the whole round, the MVP's (the engineer's decisions of 2026-10-20 i
 | `human` | Очима людини | A human's view: the danger role tile, the other humans tagged in the roster, a battery in the hand. A teammate's name plate keeps the old dissident mark as a visible placeholder: whether a mark over another human's head is still needed beside the roster's tag is open. |
 | `hurt` | Мало здоровʼя й сил | Health at 0.22 (two of ten pips, under the 30 % alarm line: ToyPipAlarm and the danger label) and stamina at 0.18 (two pips). |
 | `raising` | Підняття | Decided by the engineer (2026-10-06, the wave-19 question page, q9): what the raiser sees while holding Interact next to a downed player. A thin progress bar under the crosshair in place of the object name, filling at the same rate as the downed player's raise bar (s9 raise); no text. |
-| `cops` | Копи за хвилину | The anger is full: the neighbours called the cops, and the whole party sees the countdown. Open: whether the round timer still shows beside the cops' minute, or only the one that ends first; how long the minute is. |
+| `cops` | Копи за хвилину | The anger is full: the neighbours called the cops, and the whole party sees the countdown. The round timer hides while the minute runs (one clock: the engineer, 2026-10-22). Open: how long the minute is. |
 
 ## Node tree in `empty`
 
@@ -35,7 +35,7 @@ One HUD for the whole round, the MVP's (the engineer's decisions of 2026-10-20 i
     - Note: ui-2.0.0 (the target page pages/suit-final, frames 5 and 6): the time and the neighbours' anger in one tile at the top centre, 36 px down (24 x 1.5): the time in Unbounded, then the anger meter A (the bar and its siren). The caption hud.anger («Гнів сусідів», the engineer's word, 2026-10-22) sits over the bar in ToyHudCaption, in ToyTextAlertOnLight past the alarm line (agent).
     - **Row** `HBoxContainer` · variation `ToyRowTwentyFour` · gaps from the variation: separation 24
       - **Timer** `Label` · variation `ToyTimer` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (120, 0) · text from data (auto_translate_mode = DISABLED), sample: "07:42" · horizontal_alignment `CENTER`
-        - Note: The round time, m:ss from code (auto_translate_mode DISABLED), every second; light on the tile (no halo).
+        - Note: The round time, m:ss from code (auto_translate_mode DISABLED), every second; light on the tile (no halo). Hidden with its Divider while the cops' minute runs (the engineer, 2026-10-22: one clock, the one that ends first): both ends are a human win, so only the cops' countdown matters then. When the round has less time left than the cops' countdown, the cops' banner is not shown and the timer stays (the round ends first; as on the choice page).
       - **Divider** `Panel` · variation `ToyTileDivider` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (3, 48) = Vector2(get_theme_constant("width", "ToyTileDivider"), get_theme_constant("height", "ToyTileDivider"))
         - Note: The thin line between the time and the anger (the target's .time .div, ui-2.1.0).
       - **AngerColumn** `VBoxContainer` · variation `ToyColumnFour` · size flags vertical `SIZE_SHRINK_CENTER` · gaps from the variation: separation 4
@@ -198,8 +198,7 @@ One HUD for the whole round, the MVP's (the engineer's decisions of 2026-10-20 i
 
 ## `cops`: what differs from `empty`
 
-- **Hidden:** `Hud/Aim`.
-- **Changed** `Hud/Time/Row/Timer`: text from data (auto_translate_mode = DISABLED), sample: "04:12" (was: text from data (auto_translate_mode = DISABLED), sample: "07:42")
+- **Hidden:** `Hud/Time/Row/Timer`, `Hud/Time/Row/Divider`, `Hud/Aim`.
 - **Changed** `Hud/Time/Row/AngerColumn/Caption`: variation `ToyTextAlertOnLight` (was: variation `ToyHudCaption`)
 - **Changed** `Hud/Time/Row/AngerColumn/Anger/Bar`: variation `ToyBarAngerAlarm` · custom_minimum_size (240, 16) = Vector2(get_theme_constant("width", "ToyBarAngerAlarm"), get_theme_constant("height", "ToyBarAngerAlarm")) · value 1 of max_value 1, show_percentage false (was: variation `ToyBarAngerCalm` · custom_minimum_size (240, 16) = Vector2(get_theme_constant("width", "ToyBarAngerCalm"), get_theme_constant("height", "ToyBarAngerCalm")) · value 0.08 of max_value 1, show_percentage false)
 - **Changed** `Hud/Time/Row/AngerColumn/Anger/Siren`: texture `siren-on` (dist/pack/icons/siren-on.svg, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` (was: texture `siren-off` (dist/pack/icons/siren-off.svg, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED`)
