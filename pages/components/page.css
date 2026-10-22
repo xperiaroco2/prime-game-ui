@@ -125,7 +125,7 @@ h2 { font-size: 21px; margin: 34px 0 10px; padding-top: 4px; }
 .sc-hint { display: block; font-size: 12px; line-height: 1.45; color: var(--c-muted); overflow-wrap: anywhere; }
 .sc-stage-label { margin: 10px 0 4px; font-size: 12px; color: var(--c-muted); }
 .sc-scroll { overflow-x: auto; overscroll-behavior-x: contain; margin: 0 -14px; padding: 0 14px; }
-.sc-stage { display: flex; gap: 12px; width: max-content; align-items: flex-start; padding: 2px 0 8px; }
+.sc-stage { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-start; padding: 2px 0 8px; }
 .sc-cell { margin: 0; display: flex; flex-direction: column; gap: 5px; flex: none; }
 .sc-cell figcaption { font-size: 12px; line-height: 1.3; color: var(--c-muted); white-space: nowrap; }
 .sc-live figcaption { color: var(--c-accent); font-weight: 700; }
