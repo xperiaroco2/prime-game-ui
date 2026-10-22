@@ -8,7 +8,7 @@
     { "id": "down", "label": "Нокдаун", "note": "Downed and bleeding out: only the two plates and the mic (off) show; the rest of the HUD hides. As decided, kept." },
     { "id": "down-holding", "label": "Утримуєш F", "note": "The give-up key is held: the hold bar fills over 1 s." },
     { "id": "raise", "label": "Тебе піднімають", "note": "Someone is raising the player: the raise progress replaces the bleed-out bar; giving up hides." },
-    { "id": "dead-room", "label": "Кімната мертвих", "note": "Dead (killed, bled out or gave up): the player waits 30 s with the other dead in the dead's room, not watching the living (m8 §3, the sketch's frame 5). The rest of the HUD hides. Open: where the room is; whether the dead can talk to each other there; whether they see the timer and the anger (so no timer and no mic here). No killer is shown (the engineer, 2026-10-21). The return shows small at the top (the engineer, 2026-10-22)." },
+    { "id": "dead-room", "label": "Кімната мертвих", "note": "Dead (killed, bled out or gave up): the player waits 30 s with the other dead in the dead's room, not watching the living (m8 §3, the sketch's frame 5). The rest of the HUD hides but the mic: the dead hear and talk to each other, the living do not hear them (the engineer, 2026-10-22), so the mic is on with who else is here beside it. Open: where the room is; whether they see the timer and the anger (so no timer here). No killer is shown (the engineer, 2026-10-21). The return shows small at the top (the engineer, 2026-10-22)." },
     { "id": "back", "label": "Повернення", "note": "Back in the round at a random capsule: the s7 HUD returns with the 3 s protection chip. Stamina returns full: all ten pips lit." }
   ],
   "nodes": [
@@ -94,7 +94,7 @@
         },
         { "name": "Cross", "type": "Panel", "variation": "ToyCrosshair", "anchors_preset": "center", "states": ["back"] },
         {
-          "name": "Vitals", "type": "HBoxContainer", "variation": "ToyRowTwentyFour", "anchors_preset": "bottom_left", "offset_left": 39, "offset_top": -39, "offset_right": 39, "offset_bottom": -39, "states": ["down", "down-holding", "raise", "back"],
+          "name": "Vitals", "type": "HBoxContainer", "variation": "ToyRowTwentyFour", "anchors_preset": "bottom_left", "offset_left": 39, "offset_top": -39, "offset_right": 39, "offset_bottom": -39, "states": ["down", "down-holding", "raise", "dead-room", "back"],
           "children": [
             {
               "name": "Suit", "type": "PanelContainer", "variation": "ToyPlate", "size_flags_vertical": "shrink_end", "states": ["back"], "note": "Hidden while downed; every pip full again on return.",
@@ -149,9 +149,15 @@
               ]
             },
             {
-              "name": "Mic", "type": "PanelContainer", "variation": "ToyMic", "size_flags_vertical": "shrink_end", "note": "Off while downed (nobody hears a downed player); hidden in the dead's room; on again on return (when the player is heard).",
+              "name": "Mic", "type": "PanelContainer", "variation": "ToyMic", "size_flags_vertical": "shrink_end", "note": "Off while downed (nobody hears a downed player); on in the dead's room, where only the other dead hear the player and the living do not (the engineer, 2026-10-22: the dead hear and talk to each other, the living and the dead never hear one another); on again on return (when the living hear the player).",
               "children": [
-                { "name": "Icon", "type": "TextureRect", "icon": "mic-off", "theme_color": "icon-off", "custom_minimum_size": [42, 42], "size_flags_horizontal": "shrink_center", "size_flags_vertical": "shrink_center", "per_state": { "back": { "icon": "mic", "theme_color": "icon-on" } } }
+                { "name": "Icon", "type": "TextureRect", "icon": "mic-off", "theme_color": "icon-off", "custom_minimum_size": [42, 42], "size_flags_horizontal": "shrink_center", "size_flags_vertical": "shrink_center", "per_state": { "dead-room": { "icon": "mic", "theme_color": "icon-on" }, "back": { "icon": "mic", "theme_color": "icon-on" } } }
+              ]
+            },
+            {
+              "name": "Others", "type": "PanelContainer", "variation": "ToyChipPlate", "states": ["dead-room"], "size_flags_vertical": "shrink_center", "note": "Who else waits in the room, beside the mic: the dead hear and talk to each other there (the engineer, 2026-10-22), so these are the voices the player hears; hidden when the player is alone there.",
+              "children": [
+                { "name": "Text", "type": "Label", "variation": "ToyChipPlateText", "key": "dead.also_here", "args": { "names": { "uk": "Бульк, Зінга", "en": "Bulk, Zinga" } }, "note": "{names}: the other dead players' names joined with \", \" (data)." }
               ]
             }
           ]
@@ -243,12 +249,6 @@
             }
           ]
         }
-      ]
-    },
-    {
-      "name": "Others", "type": "PanelContainer", "variation": "ToyChipPlate", "states": ["dead-room"], "anchors_preset": "bottom_left", "offset_left": 39, "offset_top": -39, "offset_right": 39, "offset_bottom": -39, "note": "Who else waits in the room, 39 px in at the bottom left; hidden when the player is alone there.",
-      "children": [
-        { "name": "Text", "type": "Label", "variation": "ToyChipPlateText", "key": "dead.also_here", "args": { "names": { "uk": "Бульк, Зінга", "en": "Bulk, Zinga" } }, "note": "{names}: the other dead players' names joined with \", \" (data)." }
       ]
     },
     {
