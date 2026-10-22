@@ -423,6 +423,30 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
   `2026-10-22-howto-cooking-pilot` in prime-game-art). This replaces the colourings of the card-ink page
   (`pages/card-ink/`), which is not decided. The images stay in the art repo (the raw folder, its manifests): this
   repo's licence list does not cover generated art, and the frame, the tile and the scroll stay the UI's.
+- **The screens spec and the showcase in the new flow and ui-2.0.0** ([#111](https://github.com/xperiaroco2/prime-game-ui/issues/111);
+  the engineer's decisions above: the boot into the ship, the suit menu, the pips, the workbench on the machine, the how-to
+  card that scrolls). The main-menu screen s02 and its handoff are removed (the other numbers stay); this replaces the
+  main-menu lines of "Screens" and "Styled screens" below. Taken by the agent, for the engineer to veto (agent):
+  - the suit menu's Game tab in the ship with no session (s5 `ship`, `ship-code`, `ship-direct`) holds the old main menu's
+    jobs with its existing texts: Resume, Host, Join (a code field), Join by address (the address field; Join or host
+    directly), Tutorial, Quit, as a 420 px list of secondary buttons with the open field to its right and no panel of its
+    own; Join and Join by address show their pressed look while their field is open; there is no Lobby or Role tab without
+    a session; the target page's «Знайти лобі» list is not drawn (no copy key, no server browser);
+  - the how-to card's frames scroll sideways with no bar drawn (the pack has no sideways bar yet): in s3 and s8 the view
+    shows three and a half frames (1384 px), in s5's Guide it fills the card beside the topic list (one row, 272 px art),
+    so a frame cut at the edge shows there is more; seven own-work Delivery frames stand in for the Cooking card's seven,
+    whose generated art stays in the art track;
+  - s11 is the SubViewport's own scene, 960 x 540 (the target's 640 x 360 x 1.5), framed by ToyPanelDialog: idle (the
+    machine's name), choose (the cards; the button under the crosshair hovered) and step (the chosen mutation's name and ten
+    progress pips); no Close (walking away frees the machine); the target's «Почати» and «Стань у машину» are not drawn,
+    since they have no copy key;
+  - s1, s6 and s9 draw s7's HUD as it is now (the time tile, the suit tile with ten pips each, the slot tiles), every pip
+    full at the round's start, in the tutorial and on the return from the dead's room;
+  - s9's bleed-out bar is `ToyBarReturnCalm`, `ToyBarReturnAlarm` under 30 % (the health bars are deprecated);
+  - the component showcase: the time tile (the anger calm, rising, past the alarm line, full) and the suit tile with the pips
+    in the round HUD's section; the deprecated variations in a section of their own, a table with nothing drawn, so no
+    clear base layer or caption shows; the role reveal and the ends on their bands; the workbench's buttons
+    `ToyButtonPrimary`; a wordless how-to card, and one of seven frames that scrolls.
 
 ## Principles
 - **The UI never tells the player what to do.** No "take it to X" line, no destination marker, no key prompts on the HUD;

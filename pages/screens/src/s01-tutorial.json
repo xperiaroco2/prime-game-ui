@@ -3,7 +3,7 @@
   "wireframe": "s1",
   "title": "Tutorial",
   "background": "room-light",
-  "note": "The tutorial room. On the first launch the invite with the language choice; in the room, the current lesson at the top and the lesson list at the right, over the MVP round HUD of s7 without the timer, the anger meter, the roster and the role (Hud). After lesson 9 the game returns to the main menu (s2) with no end screen. The nine lessons are the game's (GDD §15: Throwing replaced Delivery in #901); which lessons the MVP adds (points and the workbench, the neighbours' anger and the cops, a task) is open, the engineer's design. Lesson 2 names the battery, an MVP item (a draft; which item lies in the room is the game's data).",
+  "note": "The tutorial room. On the first launch the invite with the language choice; in the room, the current lesson at the top and the lesson list at the right, over the MVP round HUD of s7 without the timer, the anger meter, the roster and the role (Hud). After lesson 9 the game returns to the ship (the player's own, no session) with no end screen, where the game boots (the engineer, 2026-10-21). The nine lessons are the game's (GDD §15: Throwing replaced Delivery in #901); which lessons the MVP adds (points and the workbench, the neighbours' anger and the cops, a task) is open, the engineer's design. Lesson 2 names the battery, an MVP item (a draft; which item lies in the room is the game's data).",
   "states": [
     { "id": "invite", "label": "Запрошення", "note": "First launch only (a user:// flag). Focus starts on Start the tutorial." },
     { "id": "step", "label": "Крок навчання", "note": "Lesson 2, its first instruction: a sentence with one keycap." },
@@ -37,7 +37,7 @@
               "name": "Buttons", "type": "HBoxContainer", "variation": "ToyRowTwentyFour", "alignment": "center",
               "children": [
                 { "name": "Start", "type": "Button", "variation": "ToyButtonPrimary", "key": "tutorial.invite.start", "state": "focus", "note": "Focused on open. Starts lesson 1 and hides the invite for good." },
-                { "name": "Skip", "type": "Button", "variation": "ToyButtonGhostOnLight", "key": "tutorial.invite.skip", "note": "Goes to the main menu (s2) and hides the invite for good. Esc (ui_cancel) does the same." }
+                { "name": "Skip", "type": "Button", "variation": "ToyButtonGhostOnLight", "key": "tutorial.invite.skip", "note": "Closes the invite for good; the player stays in the ship, where the game booted. Esc (ui_cancel) does the same." }
               ]
             }
           ]
@@ -45,17 +45,62 @@
       ]
     },
     {
-      "name": "Hud", "type": "Control", "anchors_preset": "full_rect", "states": ["step", "step-keys"], "note": "Not part of this scene: the MVP round HUD of s7 (s7/Hud) as in a round, without the timer, the anger meter, the roster (the lesson list takes the top right) and the role; Aim shows as in s7. Drawn here only to show what the lesson plates share the screen with: the vitals at the bottom left with the mic beside them, item bar A at the bottom right (both hands empty here), each 39 px in (the sketch's 26 x 1.5; the item bar 51 from the bottom, the sketch's 34, so a name tag clears the edge). Build it once, in s7.",
+      "name": "Hud", "type": "Control", "anchors_preset": "full_rect", "states": ["step", "step-keys"], "note": "Not part of this scene: the MVP round HUD of s7 (s7/Hud) as in a round, without the timer, the anger meter, the roster (the lesson list takes the top right) and the role; Aim shows as in s7 (not drawn here). Drawn here only to show what the lesson plates share the screen with: the suit tile (health and stamina as ten pips each) at the bottom left with the mic beside it, the hand and belt tiles at the bottom right (both empty here), placed as in s7. Build it once, in s7.",
       "children": [
         { "name": "Cross", "type": "Panel", "variation": "ToyCrosshair", "anchors_preset": "center" },
         {
-          "name": "Vitals", "type": "HBoxContainer", "variation": "ToyRowTwentyFour", "anchors_preset": "bottom_left", "offset_left": 39, "offset_top": -39, "offset_right": 39, "offset_bottom": -39,
+          "name": "Vitals", "type": "HBoxContainer", "variation": "ToyRowTwentyFour", "anchors_preset": "bottom_left", "offset_left": 39, "offset_top": -39, "offset_right": 39, "offset_bottom": -39, "note": "As s7.",
           "children": [
             {
-              "name": "Bars", "type": "VBoxContainer", "variation": "ToyColumnTwelve", "size_flags_vertical": "shrink_end",
+              "name": "Suit", "type": "PanelContainer", "variation": "ToyPlate", "size_flags_vertical": "shrink_end",
               "children": [
-                { "name": "Health", "type": "ProgressBar", "variation": "ToyBarHealthCalm", "show_percentage": false, "max_value": 1, "value": 1, "custom_minimum_size": [300, 24], "note": "As s7." },
-                { "name": "Stamina", "type": "ProgressBar", "variation": "ToyBarStaminaCalm", "show_percentage": false, "max_value": 1, "value": 1, "custom_minimum_size": [300, 24], "note": "As s7." }
+                {
+                  "name": "Rows", "type": "VBoxContainer", "variation": "ToyColumnEight",
+                  "children": [
+                    {
+                      "name": "Health", "type": "HBoxContainer", "variation": "ToyRowSixteen",
+                      "children": [
+                        { "name": "Label", "type": "Label", "variation": "ToyHudCaption", "key": "hud.health", "custom_minimum_size": [150, 0], "size_flags_vertical": "shrink_center" },
+                        {
+                          "name": "Pips", "type": "HBoxContainer", "variation": "ToyRowFour", "size_flags_vertical": "shrink_center",
+                          "children": [
+                            { "name": "P1", "type": "Panel", "variation": "ToyPipHealth" },
+                            { "name": "P2", "type": "Panel", "variation": "ToyPipHealth" },
+                            { "name": "P3", "type": "Panel", "variation": "ToyPipHealth" },
+                            { "name": "P4", "type": "Panel", "variation": "ToyPipHealth" },
+                            { "name": "P5", "type": "Panel", "variation": "ToyPipHealth" },
+                            { "name": "P6", "type": "Panel", "variation": "ToyPipHealth" },
+                            { "name": "P7", "type": "Panel", "variation": "ToyPipHealth" },
+                            { "name": "P8", "type": "Panel", "variation": "ToyPipHealth" },
+                            { "name": "P9", "type": "Panel", "variation": "ToyPipHealth" },
+                            { "name": "P10", "type": "Panel", "variation": "ToyPipHealth" }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "Stamina", "type": "HBoxContainer", "variation": "ToyRowSixteen",
+                      "children": [
+                        { "name": "Label", "type": "Label", "variation": "ToyHudCaption", "key": "hud.stamina", "custom_minimum_size": [150, 0], "size_flags_vertical": "shrink_center" },
+                        {
+                          "name": "Pips", "type": "HBoxContainer", "variation": "ToyRowFour", "size_flags_vertical": "shrink_center",
+                          "children": [
+                            { "name": "P1", "type": "Panel", "variation": "ToyPipStamina" },
+                            { "name": "P2", "type": "Panel", "variation": "ToyPipStamina" },
+                            { "name": "P3", "type": "Panel", "variation": "ToyPipStamina" },
+                            { "name": "P4", "type": "Panel", "variation": "ToyPipStamina" },
+                            { "name": "P5", "type": "Panel", "variation": "ToyPipStamina" },
+                            { "name": "P6", "type": "Panel", "variation": "ToyPipStamina" },
+                            { "name": "P7", "type": "Panel", "variation": "ToyPipStamina" },
+                            { "name": "P8", "type": "Panel", "variation": "ToyPipStamina" },
+                            { "name": "P9", "type": "Panel", "variation": "ToyPipStamina" },
+                            { "name": "P10", "type": "Panel", "variation": "ToyPipStamina" }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
               ]
             },
             {
@@ -67,18 +112,28 @@
           ]
         },
         {
-          "name": "Slots", "type": "HBoxContainer", "variation": "ToyRowSixteen", "anchors_preset": "bottom_right", "offset_left": -39, "offset_top": -51, "offset_right": -39, "offset_bottom": -51, "note": "Item bar A (the engineer, 2026-10-20): the hand slot (green, 150) and the belt slot (mint, 126), bottoms aligned; an empty slot shows its faint palm or pocket and no name tag.",
+          "name": "Slots", "type": "HBoxContainer", "variation": "ToyRowSixteen", "anchors_preset": "bottom_right", "offset_left": -36, "offset_top": -36, "offset_right": -36, "offset_bottom": -36, "note": "As s7: both slots empty.",
           "children": [
             {
               "name": "Hand", "type": "PanelContainer", "variation": "ToySlotHand", "size_flags_vertical": "shrink_end",
               "children": [
-                { "name": "Picture", "type": "TextureRect", "icon": "slot-empty-hand", "custom_minimum_size": [111, 111], "note": "The carried item's pack icon (icons/item-*.svg), else icons/slot-empty-hand.svg; never tinted." }
+                {
+                  "name": "V", "type": "VBoxContainer", "variation": "ToyColumnFour", "alignment": "center",
+                  "children": [
+                    { "name": "Picture", "type": "TextureRect", "icon": "slot-empty-hand", "custom_minimum_size": [57, 57], "size_flags_horizontal": "shrink_center" }
+                  ]
+                }
               ]
             },
             {
               "name": "Belt", "type": "PanelContainer", "variation": "ToySlotBelt", "size_flags_vertical": "shrink_end",
               "children": [
-                { "name": "Picture", "type": "TextureRect", "icon": "slot-empty-belt", "custom_minimum_size": [90, 90], "note": "icons/item-*.svg, else icons/slot-empty-belt.svg; never tinted." }
+                {
+                  "name": "V", "type": "VBoxContainer", "variation": "ToyColumnFour", "alignment": "center",
+                  "children": [
+                    { "name": "Picture", "type": "TextureRect", "icon": "slot-empty-belt", "custom_minimum_size": [57, 57], "size_flags_horizontal": "shrink_center" }
+                  ]
+                }
               ]
             }
           ]

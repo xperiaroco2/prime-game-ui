@@ -18,7 +18,7 @@ M opens and closes this screen over the running round (press, not hold; rebindab
 |---|---|---|
 | `list` | Задачі | The task list beside the map; nothing hovered. |
 | `zone` | Наведено на задачу | Cooking's «?» has keyboard focus (the mouse over the Cooking row does the same, with no look of its own): the map lights that task's zones, the kitchen here (sample data); the zone is drawn inside the room, under its pictogram and name. |
-| `guide` | Натиснуто «?» | Cooking's «?» was pressed: its how-to card opens over the map (Delivery's art as a placeholder); Close, Esc or M closes it. |
+| `guide` | Натиснуто «?» | Cooking's «?» was pressed: its how-to card opens over the map (own-work Delivery frames as a placeholder; the card holds as many frames as its task needs and scrolls sideways); Close, Esc or M closes it. |
 
 ## Node tree in `list`
 
@@ -69,7 +69,7 @@ M opens and closes this screen over the running round (press, not hold; rebindab
   - **Rooms** `Control`
     - Note: Children are built from the level's map data (room rects, the pin), scaled to fit this rect. The rects here are sample data in Rooms px (1116 x 948) until the House's map exists. Open: whether the map shows the capsules or the mutation workbench; the map never marks a mischief while the hint rule is open.
     - **Lab** `PanelContainer` · variation `ToyMapRoom` · anchors `top_left`, offsets 48, 48, 340, 400 (left, top, right, bottom), grow end/end
-      - Note: One room: its rect from the map data, its system B pictogram (ink, not tinted, no plate; 72 px, the old 48 x 1.5) and its name. Sample rooms of the House; the pictograms that fit them stand in (the garage takes the workshop's, the pantry the storage's, the study the office's, the living room the lounge's) until the House's rooms have their own; a room without one shows only its name.
+      - Note: One room: its rect from the map data, its system B pictogram (the text colour, no plate; 72 px, the old 48 x 1.5) and its name. Sample rooms of the House; the pictograms that fit them stand in (the garage takes the workshop's, the pantry the storage's, the study the office's, the living room the lounge's) until the House's rooms have their own; a room without one shows only its name.
       - **V** `VBoxContainer` · variation `ToyColumnEight` · gaps from the variation: separation 8 · alignment `ALIGNMENT_CENTER`
         - **Icon** `TextureRect` · size flags horizontal `SIZE_SHRINK_CENTER` · custom_minimum_size (72, 72) · texture `room/lab` (dist/pack/icons/room/lab.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate #ece8f7 (the colour the pages draw it in; the pack's copy is white)
         - **Name** `Label` · variation `ToyMapRoomText` · custom_minimum_size (180, 0) · text `room.lab`: en "Lab" · uk "Лабораторія" · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
@@ -117,22 +117,30 @@ M opens and closes this screen over the running round (press, not hold; rebindab
   - **Guide** `CenterContainer` · anchors `full_rect`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both
     - Note: Centres the how-to card of the task whose «?» was pressed (content data per task type, #254) on the screen. Close, Esc (ui_cancel) or M closes it; focus goes back to that «?» only when the card was opened by keyboard or gamepad. mouse_filter IGNORE (Dim2 blocks the mouse).
     - **Card** `PanelContainer` · variation `ToyPanelHowto` · centred by its CenterContainer
-      - Note: The same card tree as s3/Card and the Esc menu's s5 Guide/Card (Head, Frames/Frame1..4, each holding its Art), plus Bar with Close; it takes its content's width.
+      - Note: The same card tree as s3/Card and the Esc menu's s5 Guide/Card (Head, Scroll/Frames/Frame1..7, each holding its Art), plus Bar with Close; it takes its content's width, the Scroll's 1384 px.
       - **V** `VBoxContainer` · variation `ToyColumnTwentyFour` · gaps from the variation: separation 24
         - **Head** `HBoxContainer` · variation `ToyRowTwentyFour` · gaps from the variation: separation 24
           - **Title** `Label` · variation `ToyTitleOnLight` · size flags horizontal `SIZE_EXPAND_FILL` · text `task.cooking`: en "Cooking" · uk "Готування"
           - **Note** `Label` · variation `ToyHowtoNote` · size flags vertical `SIZE_SHRINK_CENTER` · text `howto.label`: en "How to" · uk "Як робити"
-        - **Frames** `HBoxContainer` · variation `ToyRowSixteen` · gaps from the variation: separation 16
-          - Note: 3 to 4 frames from the card data; the frame that shows the finish uses ToyHowtoFrameDone.
-          - **Frame1** `PanelContainer` · variation `ToyHowtoFrame` · size flags horizontal `SIZE_EXPAND_FILL`
-            - **Art** `TextureRect` · custom_minimum_size (352, 264) · texture `card/delivery-meaning-1` (dist/pack/cards/delivery-meaning-1.png, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · not tinted (drawn in its own colours)
-              - Note: PLACEHOLDER art: the pack's Delivery-by-meaning PNGs dist/pack/cards/delivery-meaning-1.png … delivery-meaning-4.png (640x480, transparent) stand in until each MVP task has its own wordless card art (new work). expand_mode IGNORE_SIZE, stretch_mode KEEP_ASPECT_CENTERED; 352x264, as s3's card. The cards are wordless: a frame holds only its art, no caption.
-          - **Frame2** `PanelContainer` · variation `ToyHowtoFrame` · size flags horizontal `SIZE_EXPAND_FILL`
-            - **Art** `TextureRect` · custom_minimum_size (352, 264) · texture `card/delivery-meaning-2` (dist/pack/cards/delivery-meaning-2.png, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · not tinted (drawn in its own colours)
-          - **Frame3** `PanelContainer` · variation `ToyHowtoFrame` · size flags horizontal `SIZE_EXPAND_FILL`
-            - **Art** `TextureRect` · custom_minimum_size (352, 264) · texture `card/delivery-meaning-3` (dist/pack/cards/delivery-meaning-3.png, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · not tinted (drawn in its own colours)
-          - **Frame4** `PanelContainer` · variation `ToyHowtoFrameDone` · size flags horizontal `SIZE_EXPAND_FILL`
-            - **Art** `TextureRect` · custom_minimum_size (352, 264) · texture `card/delivery-meaning-4` (dist/pack/cards/delivery-meaning-4.png, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · not tinted (drawn in its own colours)
+        - **Scroll** `ScrollContainer` · custom_minimum_size (1384, 0) · scrolls sideways: horizontal_scroll_mode `SCROLL_MODE_SHOW_NEVER` (no bar drawn), vertical_scroll_mode `SCROLL_MODE_DISABLED`; the child keeps its minimum width, the container is as tall as the child and as wide as its custom_minimum_size
+          - Note: The frames scroll sideways when they do not fit (the engineer, 2026-10-22): a card holds as many frames as its task needs. No bar is drawn (SCROLL_MODE_SHOW_NEVER) until the pack has a sideways bar; the frame cut at the card's edge shows there is more. The wheel scrolls it sideways while vertical scrolling is disabled, a drag on a touch screen too (unconfirmed for Godot 4.7.2: check ScrollContainer's wheel handling); follow_focus true. The view shows three and a half frames (1384 px), as s3's.
+          - **Frames** `HBoxContainer` · variation `ToyRowSixteen` · gaps from the variation: separation 16
+            - **Frame1** `PanelContainer` · variation `ToyHowtoFrame`
+              - **Art** `TextureRect` · custom_minimum_size (352, 264) · texture `card/delivery-meaning-1` (dist/pack/cards/delivery-meaning-1.png, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · not tinted (drawn in its own colours)
+                - Note: PLACEHOLDER art: seven own-work Delivery frames (dist/pack/cards/delivery-meaning-1..3, delivery-1..3 and delivery-meaning-4, 640x480, transparent) stand in for the Cooking card's seven frames, which the engineer named every card's placeholder (2026-10-22). Those frames are generated art kept in the art track (prime-game-art#272) and this repo's licence list does not cover generated art yet, so the game takes them from the art track's pack. expand_mode IGNORE_352x264 here and in s3, 272x204 in s5's Guide, stretch_mode KEEP_ASPECT_CENTERED; SIZE here; the same card in s3, s5 and s8. The cards are wordless: a frame holds only its art, no caption.
+            - **Frame2** `PanelContainer` · variation `ToyHowtoFrame`
+              - **Art** `TextureRect` · custom_minimum_size (352, 264) · texture `card/delivery-meaning-2` (dist/pack/cards/delivery-meaning-2.png, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · not tinted (drawn in its own colours)
+            - **Frame3** `PanelContainer` · variation `ToyHowtoFrame`
+              - **Art** `TextureRect` · custom_minimum_size (352, 264) · texture `card/delivery-meaning-3` (dist/pack/cards/delivery-meaning-3.png, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · not tinted (drawn in its own colours)
+            - **Frame4** `PanelContainer` · variation `ToyHowtoFrame`
+              - **Art** `TextureRect` · custom_minimum_size (352, 264) · texture `card/delivery-1` (dist/pack/cards/delivery-1.png, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · not tinted (drawn in its own colours)
+            - **Frame5** `PanelContainer` · variation `ToyHowtoFrame`
+              - **Art** `TextureRect` · custom_minimum_size (352, 264) · texture `card/delivery-2` (dist/pack/cards/delivery-2.png, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · not tinted (drawn in its own colours)
+            - **Frame6** `PanelContainer` · variation `ToyHowtoFrame`
+              - **Art** `TextureRect` · custom_minimum_size (352, 264) · texture `card/delivery-3` (dist/pack/cards/delivery-3.png, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · not tinted (drawn in its own colours)
+            - **Frame7** `PanelContainer` · variation `ToyHowtoFrameDone`
+              - Note: The frame that shows the finish.
+              - **Art** `TextureRect` · custom_minimum_size (352, 264) · texture `card/delivery-meaning-4` (dist/pack/cards/delivery-meaning-4.png, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · not tinted (drawn in its own colours)
         - **Bar** `HBoxContainer` · alignment `ALIGNMENT_END`
           - **Close** `Button` · variation `ToyButtonSecondary` · text `common.close`: en "Close" · uk "Закрити" · shown with keyboard focus (grab_focus)
             - Note: Takes focus when the card opens by keyboard or gamepad (the page shows that case).
@@ -144,7 +152,7 @@ M opens and closes this screen over the running round (press, not hold; rebindab
 - Size constants that follow the text size: `min_width` 42 (50 in the pack's `modes.textSize.large`) of ToyKeyRoundButton. The large-text theme is swapped in while a screen is open, so code that sets custom_minimum_size from such a constant sets it again on `NOTIFICATION_THEME_CHANGED`.
 - Icons: the tinted ones are white SVGs in `dist/pack/icons/` (the pack's copy of `pages/components/icons`, currentColor written as white): a TextureRect tints one with the `self_modulate` its line gives (the colour the page draws it in), a Button with its variation's `icon_*_color`, an OptionButton its arrow with `modulate_arrow`. The room pictograms are white copies too (`dist/pack/icons/room/`), drawn in ink: their lines give the `self_modulate`. The pack's `assets` list every icon with its tint and `svg_scale`.
 - SVG import: Godot rasterises an SVG at import, so import each at `svg/scale` = the largest size it is drawn ÷ its viewBox (the largest over every screen that draws it, as the pack's `assets` give it): `room/kitchen` 1.5 (72 px), `room/lab` 1.5 (72 px), `room/lounge` 1.5 (72 px), `room/office` 1.5 (72 px), `room/storage` 1.5 (72 px), `room/workshop` 1.5 (72 px).
-- Card art: the how-to frames draw the pack's PNGs, `dist/pack/cards/delivery-meaning-1.png`, `dist/pack/cards/delivery-meaning-2.png`, `dist/pack/cards/delivery-meaning-3.png`, `dist/pack/cards/delivery-meaning-4.png` (640x480, transparent, own work; rendered from `pages/card-art/round-3/a/` by `tools/card-art/render.js`), in their own colours, never tinted. They are drawn smaller than their size (up to 352x264 px here), so import them as Texture2D with `compress/mode` Lossless and `mipmaps/generate` on.
+- Card art: the how-to frames draw the pack's PNGs, `dist/pack/cards/delivery-1.png`, `dist/pack/cards/delivery-2.png`, `dist/pack/cards/delivery-3.png`, `dist/pack/cards/delivery-meaning-1.png`, `dist/pack/cards/delivery-meaning-2.png`, `dist/pack/cards/delivery-meaning-3.png`, `dist/pack/cards/delivery-meaning-4.png` (640x480, transparent, own work; rendered from `pages/card-art/round-2/clean-sketch/`, `pages/card-art/round-3/a/` by `tools/card-art/render.js`), in their own colours, never tinted. They are drawn smaller than their size (up to 352x264 px here), so import them as Texture2D with `compress/mode` Lossless and `mipmaps/generate` on.
 - Boxes and grids take their gaps only from their spacing variation (ToyColumn…, ToyRow…, ToyGrid…), and a ScrollContainer the gap to its bar from ToyScroll; a box without one has a single child. No `theme_override_constants`: the theme test forbids them.
 
 ## Keys
@@ -156,11 +164,12 @@ M opens and closes this screen over the running round (press, not hold; rebindab
 | CanvasLayer | What |
 |---|---|
 | 1 | Name plates in the world (s4, s7) |
-| 2 | HUD: the round HUD (s7), downed and spectating (s9), the lobby HUD (s4), the tutorial's lesson plates (s1) |
+| 2 | HUD: the round HUD (s7), downed and the dead's room (s9), the lobby HUD (s4), the tutorial's lesson plates (s1) |
 | 3 | Map and tasks (s8), with its how-to card |
 | 4 | Esc menu (s5) and its dim |
 | 5 | The Esc menu's confirm dialog |
 | 6 | Black screens: connecting and loading (s3), pre game (s6), post game (s10) |
 
-- The main menu (s2) is its own scene, under none of these.
+- The game boots straight into the ship (the lobby, s4); the suit menu (s5) hosts, joins and holds Settings.
+- The mutation workbench (s11) is on no CanvasLayer: it is a SubViewport drawn on the machine in the world, under the HUD.
 - Esc closes the topmost open overlay first (a how-to card, then the map; in the Esc menu its confirm dialog, then the menu) and opens the Esc menu only when nothing else is open. M is ignored while the Esc menu is open.

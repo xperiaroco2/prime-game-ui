@@ -7,7 +7,7 @@
   "states": [
     { "id": "list", "label": "Задачі", "note": "The task list beside the map; nothing hovered." },
     { "id": "zone", "label": "Наведено на задачу", "note": "Cooking's «?» has keyboard focus (the mouse over the Cooking row does the same, with no look of its own): the map lights that task's zones, the kitchen here (sample data); the zone is drawn inside the room, under its pictogram and name." },
-    { "id": "guide", "label": "Натиснуто «?»", "note": "Cooking's «?» was pressed: its how-to card opens over the map (Delivery's art as a placeholder); Close, Esc or M closes it." }
+    { "id": "guide", "label": "Натиснуто «?»", "note": "Cooking's «?» was pressed: its how-to card opens over the map (own-work Delivery frames as a placeholder; the card holds as many frames as its task needs and scrolls sideways); Close, Esc or M closes it." }
   ],
   "nodes": [
     { "name": "Dim", "type": "Panel", "variation": "ToyBackdropDeep", "anchors_preset": "full_rect", "note": "mouse_filter IGNORE. The round keeps running behind it." },
@@ -100,7 +100,7 @@
           "name": "Rooms", "type": "Control", "note": "Children are built from the level's map data (room rects, the pin), scaled to fit this rect. The rects here are sample data in Rooms px (1116 x 948) until the House's map exists. Open: whether the map shows the capsules or the mutation workbench; the map never marks a mischief while the hint rule is open.",
           "children": [
             {
-              "name": "Lab", "type": "PanelContainer", "variation": "ToyMapRoom", "offset_left": 48, "offset_top": 48, "offset_right": 340, "offset_bottom": 400, "note": "One room: its rect from the map data, its system B pictogram (ink, not tinted, no plate; 72 px, the old 48 x 1.5) and its name. Sample rooms of the House; the pictograms that fit them stand in (the garage takes the workshop's, the pantry the storage's, the study the office's, the living room the lounge's) until the House's rooms have their own; a room without one shows only its name.",
+              "name": "Lab", "type": "PanelContainer", "variation": "ToyMapRoom", "offset_left": 48, "offset_top": 48, "offset_right": 340, "offset_bottom": 400, "note": "One room: its rect from the map data, its system B pictogram (the text colour, no plate; 72 px, the old 48 x 1.5) and its name. Sample rooms of the House; the pictograms that fit them stand in (the garage takes the workshop's, the pantry the storage's, the study the office's, the living room the lounge's) until the House's rooms have their own; a room without one shows only its name.",
               "children": [
                 {
                   "name": "V", "type": "VBoxContainer", "variation": "ToyColumnEight", "alignment": "center",
@@ -194,7 +194,7 @@
       "name": "Guide", "type": "CenterContainer", "states": ["guide"], "anchors_preset": "full_rect", "note": "Centres the how-to card of the task whose «?» was pressed (content data per task type, #254) on the screen. Close, Esc (ui_cancel) or M closes it; focus goes back to that «?» only when the card was opened by keyboard or gamepad. mouse_filter IGNORE (Dim2 blocks the mouse).",
       "children": [
         {
-          "name": "Card", "type": "PanelContainer", "variation": "ToyPanelHowto", "note": "The same card tree as s3/Card and the Esc menu's s5 Guide/Card (Head, Frames/Frame1..4, each holding its Art), plus Bar with Close; it takes its content's width.",
+          "name": "Card", "type": "PanelContainer", "variation": "ToyPanelHowto", "note": "The same card tree as s3/Card and the Esc menu's s5 Guide/Card (Head, Scroll/Frames/Frame1..7, each holding its Art), plus Bar with Close; it takes its content's width, the Scroll's 1384 px.",
           "children": [
             {
               "name": "V", "type": "VBoxContainer", "variation": "ToyColumnTwentyFour",
@@ -207,30 +207,53 @@
                   ]
                 },
                 {
-                  "name": "Frames", "type": "HBoxContainer", "variation": "ToyRowSixteen", "note": "3 to 4 frames from the card data; the frame that shows the finish uses ToyHowtoFrameDone.",
+                  "name": "Scroll", "type": "ScrollContainer", "horizontal_scroll_mode": "show_never", "custom_minimum_size": [1384, 0], "note": "The frames scroll sideways when they do not fit (the engineer, 2026-10-22): a card holds as many frames as its task needs. No bar is drawn (SCROLL_MODE_SHOW_NEVER) until the pack has a sideways bar; the frame cut at the card's edge shows there is more. The wheel scrolls it sideways while vertical scrolling is disabled, a drag on a touch screen too (unconfirmed for Godot 4.7.2: check ScrollContainer's wheel handling); follow_focus true. The view shows three and a half frames (1384 px), as s3's.",
                   "children": [
                     {
-                      "name": "Frame1", "type": "PanelContainer", "variation": "ToyHowtoFrame", "size_flags_horizontal": "expand_fill",
+                      "name": "Frames", "type": "HBoxContainer", "variation": "ToyRowSixteen",
                       "children": [
-                        { "name": "Art", "type": "TextureRect", "icon": "card/delivery-meaning-1", "custom_minimum_size": [352, 264], "note": "PLACEHOLDER art: the pack's Delivery-by-meaning PNGs dist/pack/cards/delivery-meaning-1.png … delivery-meaning-4.png (640x480, transparent) stand in until each MVP task has its own wordless card art (new work). expand_mode IGNORE_SIZE, stretch_mode KEEP_ASPECT_CENTERED; 352x264, as s3's card. The cards are wordless: a frame holds only its art, no caption." }
-                      ]
-                    },
-                    {
-                      "name": "Frame2", "type": "PanelContainer", "variation": "ToyHowtoFrame", "size_flags_horizontal": "expand_fill",
-                      "children": [
-                        { "name": "Art", "type": "TextureRect", "icon": "card/delivery-meaning-2", "custom_minimum_size": [352, 264] }
-                      ]
-                    },
-                    {
-                      "name": "Frame3", "type": "PanelContainer", "variation": "ToyHowtoFrame", "size_flags_horizontal": "expand_fill",
-                      "children": [
-                        { "name": "Art", "type": "TextureRect", "icon": "card/delivery-meaning-3", "custom_minimum_size": [352, 264] }
-                      ]
-                    },
-                    {
-                      "name": "Frame4", "type": "PanelContainer", "variation": "ToyHowtoFrameDone", "size_flags_horizontal": "expand_fill",
-                      "children": [
-                        { "name": "Art", "type": "TextureRect", "icon": "card/delivery-meaning-4", "custom_minimum_size": [352, 264] }
+                        {
+                          "name": "Frame1", "type": "PanelContainer", "variation": "ToyHowtoFrame",
+                          "children": [
+                            { "name": "Art", "type": "TextureRect", "icon": "card/delivery-meaning-1", "custom_minimum_size": [352, 264], "note": "PLACEHOLDER art: seven own-work Delivery frames (dist/pack/cards/delivery-meaning-1..3, delivery-1..3 and delivery-meaning-4, 640x480, transparent) stand in for the Cooking card's seven frames, which the engineer named every card's placeholder (2026-10-22). Those frames are generated art kept in the art track (prime-game-art#272) and this repo's licence list does not cover generated art yet, so the game takes them from the art track's pack. expand_mode IGNORE_352x264 here and in s3, 272x204 in s5's Guide, stretch_mode KEEP_ASPECT_CENTERED; SIZE here; the same card in s3, s5 and s8. The cards are wordless: a frame holds only its art, no caption." }
+                          ]
+                        },
+                        {
+                          "name": "Frame2", "type": "PanelContainer", "variation": "ToyHowtoFrame",
+                          "children": [
+                            { "name": "Art", "type": "TextureRect", "icon": "card/delivery-meaning-2", "custom_minimum_size": [352, 264] }
+                          ]
+                        },
+                        {
+                          "name": "Frame3", "type": "PanelContainer", "variation": "ToyHowtoFrame",
+                          "children": [
+                            { "name": "Art", "type": "TextureRect", "icon": "card/delivery-meaning-3", "custom_minimum_size": [352, 264] }
+                          ]
+                        },
+                        {
+                          "name": "Frame4", "type": "PanelContainer", "variation": "ToyHowtoFrame",
+                          "children": [
+                            { "name": "Art", "type": "TextureRect", "icon": "card/delivery-1", "custom_minimum_size": [352, 264] }
+                          ]
+                        },
+                        {
+                          "name": "Frame5", "type": "PanelContainer", "variation": "ToyHowtoFrame",
+                          "children": [
+                            { "name": "Art", "type": "TextureRect", "icon": "card/delivery-2", "custom_minimum_size": [352, 264] }
+                          ]
+                        },
+                        {
+                          "name": "Frame6", "type": "PanelContainer", "variation": "ToyHowtoFrame",
+                          "children": [
+                            { "name": "Art", "type": "TextureRect", "icon": "card/delivery-3", "custom_minimum_size": [352, 264] }
+                          ]
+                        },
+                        {
+                          "name": "Frame7", "type": "PanelContainer", "variation": "ToyHowtoFrameDone", "note": "The frame that shows the finish.",
+                          "children": [
+                            { "name": "Art", "type": "TextureRect", "icon": "card/delivery-meaning-4", "custom_minimum_size": [352, 264] }
+                          ]
+                        }
                       ]
                     }
                   ]

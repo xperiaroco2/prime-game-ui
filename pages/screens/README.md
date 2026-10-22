@@ -1,16 +1,19 @@
 # Styled screens
 
-The session screens (the ten of wave #19 and the MVP's mutation workbench) in the Toy style, each described as a Godot 4.7.2 scene tree, rendered from the Toy components
-and the copy deck into one review page, validated, and handed off to the game one issue per screen
-([prime-game-ui#19](https://github.com/xperiaroco2/prime-game-ui/issues/19)).
+The session screens (those of wave #19 and the MVP's mutation workbench) in the ui-2.0.0 look (the plain tile and the ink-mint
+palette), each described as a Godot 4.7.2 scene tree, rendered from the pack's components and the copy deck into one review
+page, validated, and handed off to the game one issue per screen
+([prime-game-ui#19](https://github.com/xperiaroco2/prime-game-ui/issues/19)). There is no main-menu screen since
+[#111](https://github.com/xperiaroco2/prime-game-ui/issues/111): the game boots into the ship (the lobby, s4), and the suit
+menu (s5) hosts, joins and holds Settings; s02 was removed and the other numbers were kept.
 
 ```text
 node pages/screens/build.js                      write screens.html, screens-ui.css, screens-layout.css and
                                                  docs/handoff/<screen file>.md
 node pages/screens/build.js --check              exit 1 when an output is stale (a step of tools/check.js)
-node pages/screens/build.js --validate [s2 ...]  validate the sources only (all, or these screens); writes nothing
-node pages/screens/build.js --handoff s2         print the screen's Godot handoff (Markdown) to stdout
-node pages/screens/build.js --out <file.html> s2 [s5 ...]
+node pages/screens/build.js --validate [s3 ...]  validate the sources only (all, or these screens); writes nothing
+node pages/screens/build.js --handoff s3         print the screen's Godot handoff (Markdown) to stdout
+node pages/screens/build.js --out <file.html> s3 [s5 ...]
                                                  a private page with only these screens, outside the repo
 node pages/screens/build.js --self-test          the renderer's behaviours on the fixture screens of
                                                  tools/screens/fixtures/selftest/ (writes nothing)
@@ -25,14 +28,15 @@ can build and measure one screen while others edit theirs; `tools/screens/fit.js
 `--self-test` builds the small screens of `tools/screens/fixtures/selftest/` (`x<N>-<case>.json`, with the fixture keys
 of `keys.json`, which the deck does not have) and asserts on their layout CSS, page HTML and handoff text: a Button
 whose icon only some states set, `icon_size` with no icon (refused), sentence pieces through `strip_edges()`, and an
-icon tinted by its row's Label or by its context ([prime-game-ui#34](https://github.com/xperiaroco2/prime-game-ui/issues/34)).
+icon tinted by its row's Label or by its context ([prime-game-ui#34](https://github.com/xperiaroco2/prime-game-ui/issues/34)), and a
+ScrollContainer that scrolls sideways (#111).
 A new renderer behaviour gets a fixture screen and its checks there.
 
 ## Files
 
 | File | What it is |
 |---|---|
-| `src/sNN-name.json` | one screen: `s01-tutorial`, `s02-main-menu`, `s03-connecting`, `s04-lobby`, `s05-esc-menu`, `s06-pre-game`, `s07-hud`, `s08-map`, `s09-downed`, `s10-post-game`, `s11-workbench` (the mutation workbench, new with the MVP). A missing file is a screen not drawn yet. |
+| `src/sNN-name.json` | one screen: `s01-tutorial`, `s03-connecting`, `s04-lobby`, `s05-esc-menu`, `s06-pre-game`, `s07-hud`, `s08-map`, `s09-downed`, `s10-post-game`, `s11-workbench` (the mutation workbench, new with the MVP: the machine's own screen, a SubViewport). s02 (the main menu) was removed in #111. A missing file is a screen not drawn yet. |
 | `build.js` | the format (its header comment), the validation, the build and the handoff |
 | `screens.html` | the review page (generated) |
 | `screens-ui.css` | the components CSS of the variations the screens draw (generated, lint profile `generated`) |
@@ -47,19 +51,19 @@ states only what differs, with Godot's property names.
 
 ```json
 {
-  "id": "s2", "wireframe": "s2", "title": "Main menu", "background": "menu",
+  "id": "s3", "wireframe": "s3", "title": "Connecting", "background": "black",
   "note": "English, for the game developer (optional)",
-  "states": [{ "id": "main", "label": "Меню", "note": "optional, English" }, { "id": "join", "label": "Приєднатися" }],
-  "nodes": [{ "name": "Menu", "type": "VBoxContainer", "anchors_preset": "center_left", "offset_left": 134, "children": [] }]
+  "states": [{ "id": "finding", "label": "Пошук", "note": "optional, English" }, { "id": "joined", "label": "Вхід" }],
+  "nodes": [{ "name": "Connecting", "type": "VBoxContainer", "anchors_preset": "center", "children": [] }]
 }
 ```
 
-- **Screen:** `id` comes from the file name (`s02-…` is `s2`); `wireframe` names a section of `pages/wireframes`, whose
+- **Screen:** `id` comes from the file name (`s03-…` is `s3`); `wireframe` names a section of `pages/wireframes`, whose
   title heads the screen on the page; a screen new with the MVP has no wireframe section and gives its Ukrainian
   `heading` instead (one of the two); `title` is English; `background` is the world behind the UI, page art outside the game UI and the lint: `menu` (the
-  lobby behind the main menu), `room-light`, `room-dark`, `black`. `states` are the frames: an `id` (lower case), a
+  ship, the lobby room, behind a menu), `room-light`, `room-dark`, `black`. `states` are the frames: an `id` (lower case), a
   short Ukrainian `label` for the page's tabs and an optional English `note`.
-- **Node:** `name` (unique among its siblings; the names make the path `s2/Menu/Buttons/Host`), `type`, `variation` (a
+- **Node:** `name` (unique among its siblings; the names make the path `s5/Menu/H/Page/Ship/Items/Host`), `type`, `variation` (a
   pack variation whose class is the type or a base of it: a Label takes Label variations, an OptionButton also Button
   ones), `states` (the states it is visible in; default all; a child cannot show where its parent is hidden),
   `per_state` (`{"join": {"state": "normal"}}`: only `key`, `args`, `count`, `state`, `value`, `text`, `placeholder`,
@@ -85,7 +89,7 @@ states only what differs, with Godot's property names.
 | `CenterContainer` | – | children centred at their minimum size |
 | `VBoxContainer`, `HBoxContainer` | `variation` (a spacing variation, below), `alignment` `begin`/`center`/`end` | a box: free space to expanding children by ratio; the gap is the variation's |
 | `GridContainer` | `variation` (`ToyGridList` or `ToyGridSwatch`), `columns` (1) | a grid; a column or row with an expanding child expands |
-| `ScrollContainer` | `variation` (`ToyScroll`: 8 px between the child and the bar), `scroll_vertical` (0, reference px; the page shows the view scrolled) | vertical scrolling only: one child, which fills the width and keeps its minimum height; the bar is a `VScrollBar` drawn with `ToyScrollBar` when the child is taller than the view, and the child is then narrower by the bar and the variation's `scrollbar_h_separation` |
+| `ScrollContainer` | `variation` (`ToyScroll`: 8 px between the child and the bar), `scroll_vertical` (0, reference px; the page shows the view scrolled), `horizontal_scroll_mode` (`disabled`, or `show_never`: sideways) | by default vertical scrolling only: one child, which fills the width and keeps its minimum height; the bar is a `VScrollBar` drawn with `ToyScrollBar` when the child is taller than the view, and the child is then narrower by the bar and the variation's `scrollbar_h_separation`. With `horizontal_scroll_mode: show_never` it scrolls sideways (the how-to card's frames, #111): vertical scrolling disabled, no bar drawn, the child keeps its minimum width (no horizontal expand flag), the container is as tall as the child and as wide as its `custom_minimum_size` (required) |
 | `HSlider` | `variation` (`ToySlider`), `value` (0), `min_value` (0), `max_value` (100), `step` (1), `editable` (true), `state` `normal`/`hover`/`focus` | the track, the fill to the grabber's centre, the grabber texture (`icons/slider-knob.svg`, `slider-knob-disabled.svg` when not editable), the focus ring |
 | `VScrollBar` | `variation` (`ToyScrollBar`), `value` (0), `min_value` (0), `max_value` (100), `page` (0), `state` `normal`/`hover`/`held`/`focus` | the track and the grabber (page ÷ range long, at value ÷ range) |
 | `Label` | `key`, `args`, `count`, `piece`, `value_of`, or `text` (a data text), `horizontal_alignment` (`left`), `vertical_alignment` (`top`), `autowrap_mode` (`off`, `arbitrary`, `word`, `word_smart`; needs a `custom_minimum_size` width), `clip_text` (false), `text_overrun_behavior` (`no_trimming`, `trim_char`, `trim_word`, `trim_ellipsis`, `trim_word_ellipsis`) | the text |
@@ -209,9 +213,9 @@ Content sizes (a text that overflows its box, at large text or in English) are t
 
 1. `<html>` carries `lang`, `data-lang` (`uk`, `en`) and `data-text-size` (`default`, `large`); the page switches both,
    Ukrainian and default first. Large text is the tokens' textSize modifier.
-2. Every state is one frame, `<div class="sc-frame" data-screen="s2" data-state="main">`, 1920x1080 reference px
+2. Every state is one frame, `<div class="sc-frame" data-screen="s3" data-state="finding">`, 1920x1080 reference px
    (`calc(1920 * var(--px))`), clipping like the game window; all of the state's UI is inside it.
-3. Every node is one element with `data-node="s2/Menu/Buttons/Host"`, `data-type` (the Godot class) and
+3. Every node is one element with `data-node="s5/Menu/H/Page/Ship/Items/Host"`, `data-type` (the Godot class) and
    `data-variation` (the variation drawn, the selected one for a pressed toggle). The element holding a text carries
    `data-key` (a deck text) or `data-text="data"` (a data text) and only that text (a Label is that element itself; a
    Button's text is a child span; a LineEdit's sample value is a child span marked `data-text`; an icon is a
@@ -224,7 +228,7 @@ Content sizes (a text that overflows its box, at large text or in English) are t
 
 ## The handoff
 
-`--handoff s2` prints Markdown for the body of a prime-game issue: the source, the theme version, the world, the
+`--handoff s3` prints Markdown for the body of a prime-game issue: the source, the theme version, the world, the
 states; the full node tree in the first state (types, variations with their ToyRaised base, anchors and grow, size
 flags, minimum sizes, the spacing variations' gaps, keys with their English and Ukrainian, sample values, notes); then
 for every other state what is shown (each shown subtree from its path), hidden or changed. `node pages/screens/build.js`

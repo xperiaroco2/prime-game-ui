@@ -172,11 +172,14 @@ function renderPage(sys, componentsCss) {
     return false;
   }
   const BADGE = `<span class="sc-badge">${esc(T('badge'))}</span>`;
+  // A deprecated variation (`$deprecated` in the tokens, the pack's `deprecated`): marked wherever its name shows.
+  const DEP_BADGE = `<span class="sc-badge sc-badge-dep">${esc(T('deprecated'))}</span>`;
   // The large text sizes are badged only while a textSize=large font size still carries a proposal mark.
   const largeProposal = Object.values((sys.pack.modes.textSize || {}).large || {}).some((e) => e && e.proposal);
 
   function hint(v) {
     const parts = [v.variation, `${v.class}${v.parent ? ` → ${v.parent}` : ''}`, v.context];
+    if (v.deprecated) parts.push(`${T('deprecated')}${v.deprecated.replacement ? ` → ${v.deprecated.replacement}` : ''}`);
     const st = Object.keys(v.states);
     if (st.length) parts.push(st.join(' '));
     if (v.base) {
@@ -574,20 +577,34 @@ function renderPage(sys, componentsCss) {
     return `<span class="sc-mvp-pic ${cls}">${icons[name]}</span>`;
   };
   const dot = (hex) => `<div class="tv-ToyRosterDot" style="background-color: ${hex}"></div>`;
+  // The anger meter A in the time tile (s7 Hud/Time, ui-2.0.0): ToyBarAngerCalm (muted) under the alarm line (70 %),
+  // ToyBarAngerAlarm (the danger fill) past it; the siren off while calm, on while the anger rises and when full.
   function angerMeter(value, siren) {
-    V('ToyBarAngerTrack');
-    return `<div class="sc-mvp-anger"><div class="tv-ToyBarAngerTrack sc-mvp-angertrack">${barEl('ToyBarAnger', value).html}</div>`
-      + `${pic(siren, 'sc-mvp-siren')}</div>`;
+    const bar = value > 0.7 ? 'ToyBarAngerAlarm' : 'ToyBarAngerCalm';
+    return `<div class="tv-ToyRowEight sc-mvp-row"><div class="sc-mvp-angerbar">${barEl(bar, value).html}</div>${pic(siren, 'sc-mvp-sirentile')}</div>`;
   }
   function rowMvp(row) {
     const p = row.part;
     if (p === 'top') {
-      const top = (value, siren) => `<div class="sc-mvp-top">${sampleSpan('mvp_timer', 'tv-ToyTimerBare')}${angerMeter(value, siren)}</div>`;
-      const uses = [['ToyTimerBare', 'normal'], ['ToyBarAngerTrack'], ['ToyBarAnger', 'fill']];
+      ['ToyPlate', 'ToyTimer', 'ToyRowTwentyFour', 'ToyRowEight'].forEach(V);
+      const top = (value, siren) => `<div class="tv-ToyPlate"><div class="tv-ToyRowTwentyFour sc-mvp-row">${sampleSpan('mvp_timer', 'tv-ToyTimer')}${angerMeter(value, siren)}</div></div>`;
+      const uses = [['ToyPlate'], ['ToyTimer', 'normal'], ['ToyBarAngerCalm', 'fill'], ['ToyBarAngerCalm', 'background'], ['ToyBarAngerAlarm', 'fill']];
       const b = proposal(uses);
       const cells = [cell(T('mvp_anger_calm'), b, top(0.08, 'siren-off')), cell(T('mvp_anger_rising'), b, top(0.55, 'siren-on')),
-        cell(T('mvp_anger_full'), b, top(1, 'siren-on'))];
+        cell(T('mvp_anger_alarm'), b, top(0.8, 'siren-on')), cell(T('mvp_anger_full'), b, top(1, 'siren-on'))];
       return stage('dark', [...cells, ...hudTiles(top(0.55, 'siren-on'), b)]);
+    }
+    if (p === 'suit') {
+      ['ToyPlate', 'ToyHudCaption', 'ToyTextAlertOnLight', 'ToyPip', 'ToyPipHealth', 'ToyPipStamina', 'ToyPipAlarm', 'ToyColumnEight', 'ToyRowSixteen', 'ToyRowFour'].forEach(V);
+      const pips = (n, full) => `<div class="tv-ToyRowFour sc-mvp-row">${Array.from({ length: 10 }, (_, i) => `<div class="tv-${i < n ? full : 'ToyPip'}"></div>`).join('')}</div>`;
+      const row = (key, cls, n, full) => `<div class="tv-ToyRowSixteen sc-mvp-row"><span class="sc-mvp-label">${sampleSpan(key, cls)}</span>${pips(n, full)}</div>`;
+      const suit = (h, s) => `<div class="tv-ToyPlate"><div class="tv-ToyColumnEight sc-mvp-col">`
+        + row('health', h < 3 ? 'tv-ToyTextAlertOnLight' : 'tv-ToyHudCaption', h, h < 3 ? 'ToyPipAlarm' : 'ToyPipHealth')
+        + row('stamina', 'tv-ToyHudCaption', s, 'ToyPipStamina') + '</div></div>';
+      const b = proposal([['ToyPlate'], ['ToyHudCaption', 'normal'], ['ToyPip'], ['ToyPipHealth'], ['ToyPipStamina']]);
+      const ba = proposal([['ToyPlate'], ['ToyTextAlertOnLight', 'normal'], ['ToyPip'], ['ToyPipAlarm'], ['ToyPipStamina']]);
+      return stage('dark', [cell(T('mvp_suit_full'), b, suit(10, 10)), cell(T('mvp_suit_mid'), b, suit(8, 6)),
+        cell(T('mvp_suit_hurt'), ba, suit(2, 2)), ...hudTiles(suit(8, 6), b)]);
     }
     if (p === 'roster') {
       ['ToyRoster', 'ToyRosterName', 'ToyRosterNameSelf', 'ToyRosterNameDead', 'ToyRosterDot', 'ToyRosterTag', 'ToyRosterTagText'].forEach(V);
@@ -640,27 +657,26 @@ function renderPage(sys, componentsCss) {
       return stage('dark', [cell(T('mvp_dead'), b, room), ...hudTiles(room, b)]);
     }
     if (p === 'workbench') {
-      ['ToyPanelDialog', 'ToyBasePanel', 'ToyTitleOnLight', 'ToyPlateBalance', 'ToyPlateText', 'ToyPlateTimer', 'ToyMutationCard', 'ToyPlateTitle',
-        'ToyButtonPrimaryOnMint', 'ToyButtonDangerOnMint', 'ToyButtonSecondary', 'ToyColumnTwentyFour', 'ToyRowTwentyFour', 'ToyColumnTwelve', 'ToyRowEight'].forEach(V);
+      ['ToyPanelDialog', 'ToyTitleOnLight', 'ToyPlateBalance', 'ToyPlateText', 'ToyPlateTimer', 'ToyMutationCard', 'ToyPlateTitle',
+        'ToyButtonPrimary', 'ToyColumnTwentyFour', 'ToyRowTwentyFour', 'ToyColumnTwelve', 'ToyRowEight'].forEach(V);
       const card = (name, fx, cost, btn, state, label) => `<div class="tv-ToyMutationCard sc-mvp-card"><div class="tv-ToyColumnTwelve sc-mvp-col sc-mvp-fill">`
         + `${sampleSpan(name, 'tv-ToyPlateTitle')}${sampleSpan(fx, 'tv-ToyPlateText')}${sampleSpan(cost, 'tv-ToyPlateTitle')}`
         + `${buttonEl(btn, state, sampleSpan(label))}</div></div>`;
       const bench = `<div class="tv-ToyPanelDialog sc-mvp-bench"><div class="tv-ToyColumnTwentyFour sc-mvp-col sc-mvp-fill">`
         + `<div class="sc-mvp-row sc-mvp-between">${sampleSpan('mvp_wb_title', 'tv-ToyTitleOnLight')}<div class="tv-ToyPlateBalance"><div class="tv-ToyRowEight sc-mvp-row sc-mvp-base">${sampleSpan('mvp_wb_have', 'tv-ToyPlateText')}${sampleSpan('mvp_wb_points', 'tv-ToyPlateTimer')}</div></div></div>`
         + `<div class="tv-ToyRowTwentyFour sc-mvp-row sc-mvp-top-align">`
-        + card('mvp_wb_fast', 'mvp_wb_fast_fx', 'mvp_wb_four', 'ToyButtonPrimaryOnMint', 'is-focus', 'mvp_wb_buy')
-        + card('mvp_wb_jump', 'mvp_wb_jump_fx', 'mvp_wb_three', 'ToyButtonPrimaryOnMint', '', 'mvp_wb_buy')
-        + card('mvp_wb_skin', 'mvp_wb_skin_fx', 'mvp_wb_nine', 'ToyButtonPrimaryOnMint', 'is-disabled', 'mvp_wb_short')
-        + `</div><div class="sc-mvp-row sc-mvp-end">${buttonEl('ToyButtonSecondary', '', sampleSpan('mvp_wb_close'))}</div></div></div>`;
-      const b = proposal([['ToyMutationCard'], ['ToyPlateBalance'], ['ToyPlateTimer', 'normal'], ['ToyPanelDialog'], ['ToyButtonPrimaryOnMint', 'disabled'], ['ToyButtonPrimaryOnMint', 'focus']]);
-      // a danger button on a mint card (ToyButtonDangerOnMint, ui-1.4.0): its outer focus ring is ink, as the buy buttons'
-      const onMint = `<div class="tv-ToyMutationCard sc-mvp-card"><div class="tv-ToyColumnTwelve sc-mvp-col">${buttonEl('ToyButtonDangerOnMint', 'is-focus', sampleSpan('leave'))}${buttonEl('ToyButtonDangerOnMint', '', sampleSpan('leave'))}</div></div>`;
-      const bd = proposal([['ToyButtonDangerOnMint', 'focus'], ['ToyButtonDangerOnMint', 'normal']]);
-      return `<p class="sc-stage-label">${esc(T('mvp_wb_note'))}</p>` + stage('light', [cell(T('mvp_wb'), b, bench), cell(T('mvp_wb_danger'), bd, onMint)]);
+        + card('mvp_wb_fast', 'mvp_wb_fast_fx', 'mvp_wb_four', 'ToyButtonPrimary', '', 'mvp_wb_buy')
+        + card('mvp_wb_jump', 'mvp_wb_jump_fx', 'mvp_wb_three', 'ToyButtonPrimary', 'is-hover', 'mvp_wb_buy')
+        + card('mvp_wb_skin', 'mvp_wb_skin_fx', 'mvp_wb_nine', 'ToyButtonPrimary', 'is-disabled', 'mvp_wb_short')
+        + '</div></div></div>';
+      const b = proposal([['ToyMutationCard'], ['ToyPlateBalance'], ['ToyPlateTimer', 'normal'], ['ToyPanelDialog'], ['ToyButtonPrimary', 'disabled'], ['ToyButtonPrimary', 'hover']]);
+      return `<p class="sc-stage-label">${esc(T('mvp_wb_note'))}</p>` + stage('light', [cell(T('mvp_wb'), b, bench)]);
     }
     if (p === 'screens') {
-      ['ToyTitleHero', 'ToyTitleHeroAlert', 'ToyPlateGoal', 'ToyPlateGoalText', 'ToyPlateResult', 'ToyPlateTitle', 'ToyStickerAlert', 'ToyStickerHighlight',
+      ['ToyTitleHero', 'ToyTitleHeroAlert', 'ToyBand', 'ToyBandAlert', 'ToyPlateGoal', 'ToyPlateGoalText', 'ToyPlateResult', 'ToyPlateTitle', 'ToyStickerAlert', 'ToyStickerHighlight',
         'ToyStickerTextLarge', 'ToyTextOnDark', 'ToyColumnTwentyFour', 'ToyBackdropFullScreen'].forEach(V);
+      // the loud titles stand on a band since ui-2.0.0 (ToyBand, ToyBandAlert), as s6 and s10 draw them
+      const band = (alert, key) => `<div class="tv-${alert ? 'ToyBandAlert' : 'ToyBand'} sc-mvp-band">${sampleSpan(key, alert ? 'tv-ToyTitleHeroAlert' : 'tv-ToyTitleHero')}</div>`;
       // the full screens stand on their own ground since ui-1.3.0 (ToyBackdropFullScreen), so the titles' ink outline shows
       const col = (inner) => `<div class="tv-ToyBackdropFullScreen"><div class="tv-ToyColumnTwentyFour sc-mvp-col sc-mvp-center sc-mvp-screen">${inner}</div></div>`;
       const st = (v, key) => `<div class="tv-${v}">${sampleSpan(key, 'tv-ToyStickerTextLarge')}</div>`;
@@ -669,13 +685,13 @@ function renderPage(sys, componentsCss) {
       // mint, not the muted lilac: lilac on the soft ink is 3.82:1, mint 6.99:1 (gate g9)
       const back = sampleSpan('mvp_end_back', 'tv-ToyTextOnDark');
       const list = [
-        ['mvp_reveal_alien', col(`${sampleSpan('mvp_your_role', 'tv-ToyTextOnDark')}${sampleSpan('mvp_alien', 'tv-ToyTitleHero')}${goal('mvp_goal_alien')}`)],
-        ['mvp_reveal_human', col(`${sampleSpan('mvp_your_role', 'tv-ToyTextOnDark')}${sampleSpan('mvp_human', 'tv-ToyTitleHeroAlert')}${goal('mvp_goal_human')}${st('ToyStickerAlert', 'mvp_your_humans')}`)],
-        ['mvp_end_aliens', col(`${sampleSpan('mvp_end_party', 'tv-ToyTitleHero')}${res('mvp_end_aliens_won')}${st('ToyStickerHighlight', 'mvp_end_done')}${back}`)],
-        ['mvp_end_time', col(`${sampleSpan('mvp_end_time_title', 'tv-ToyTitleHeroAlert')}${res('mvp_end_humans_won')}${st('ToyStickerAlert', 'mvp_end_not_done')}${back}`)],
-        ['mvp_end_cops', col(`${sampleSpan('mvp_end_cops_title', 'tv-ToyTitleHeroAlert')}${sampleSpan('mvp_end_humans_won', 'tv-ToyTextOnDark')}${st('ToyStickerAlert', 'mvp_end_cops_line')}${back}`)],
+        ['mvp_reveal_alien', col(`${sampleSpan('mvp_your_role', 'tv-ToyTextOnDark')}${band(false, 'mvp_alien')}${goal('mvp_goal_alien')}`)],
+        ['mvp_reveal_human', col(`${sampleSpan('mvp_your_role', 'tv-ToyTextOnDark')}${band(true, 'mvp_human')}${goal('mvp_goal_human')}${st('ToyStickerAlert', 'mvp_your_humans')}`)],
+        ['mvp_end_aliens', col(`${band(false, 'mvp_end_party')}${res('mvp_end_aliens_won')}${st('ToyStickerHighlight', 'mvp_end_done')}${back}`)],
+        ['mvp_end_time', col(`${band(true, 'mvp_end_time_title')}${res('mvp_end_humans_won')}${st('ToyStickerAlert', 'mvp_end_not_done')}${back}`)],
+        ['mvp_end_cops', col(`${band(true, 'mvp_end_cops_title')}${sampleSpan('mvp_end_humans_won', 'tv-ToyTextOnDark')}${st('ToyStickerAlert', 'mvp_end_cops_line')}${back}`)],
       ];
-      const b = proposal([['ToyTitleHero', 'normal'], ['ToyTitleHeroAlert', 'normal'], ['ToyPlateGoal'], ['ToyPlateGoalText', 'normal'], ['ToyPlateResult'], ['ToyStickerTextLarge', 'normal']]);
+      const b = proposal([['ToyBand'], ['ToyBandAlert'], ['ToyTitleHero', 'normal'], ['ToyTitleHeroAlert', 'normal'], ['ToyPlateGoal'], ['ToyPlateGoalText', 'normal'], ['ToyPlateResult'], ['ToyStickerTextLarge', 'normal']]);
       return stage('dark', list.map(([cap, html]) => cell(T(cap), b, html)));
     }
     if (p === 'stickers') {
@@ -687,28 +703,30 @@ function renderPage(sys, componentsCss) {
     }
     return fail(`showcase.json: ${row.id}: unknown mvp part ${p}`);
   }
-  function rowHudBar() {
-    ['ToyBarLabel', 'ToyHudCaption'].forEach(V);
-    const html = `<div class="sc-hudbar"><div class="tv-ToyBarLabel">${sampleSpan('stamina', 'tv-ToyHudCaption')}</div>${barEl('ToyBarStamina', 0.9, true).html}`
-      + `<div class="tv-ToyBarLabel">${sampleSpan('health', 'tv-ToyHudCaption')}</div>${barEl('ToyBarHealth', 0.8, true).html}</div>`;
-    const badge = proposal([['ToyBarLabel'], ['ToyHudCaption'], ['ToyBarTrack'], ['ToyBarStamina', 'fill'], ['ToyBarHealth', 'fill']]);
-    return stage('dark', [cell('ToyBarLabel + ToyHudCaption', badge, html), ...hudTiles(html, badge)]);
+  // Every deprecated variation (the tokens' `$deprecated`): its class, its replacement and why; none is drawn, since a
+  // clear base layer has nothing to show and the others' replacements are drawn above.
+  function rowDeprecated() {
+    const list = sys.variants.filter((v) => v.deprecated).sort((a, b) => a.variation.localeCompare(b.variation));
+    list.forEach((v) => V(v.variation));
+    return `<p class="sc-note">${esc(T('dep_note'))}</p><table class="sc-perm sc-dep"><thead><tr><th>${esc(T('dep_name'))}</th><th>${esc(T('dep_class'))}</th><th>${esc(T('dep_replacement'))}</th><th>${esc(T('dep_why'))}</th></tr></thead><tbody>`
+      + list.map((v) => `<tr><td><code>${esc(v.variation)}</code>${DEP_BADGE}</td><td><code>${esc(v.class)}</code></td><td>${v.deprecated.replacement ? `<code>${esc(v.deprecated.replacement)}</code>` : '–'}</td><td lang="en">${esc(v.deprecated.note || '')}</td></tr>`).join('')
+      + '</tbody></table>';
   }
   function rowMenu() {
-    ['ToyPanelMenu', 'ToyBasePanel', 'ToyTitleOnLight', 'ToyTextMutedOnLight', 'ToyTab', 'ToyTabSelected', 'ToyButtonPrimary', 'ToyButtonSecondary'].forEach(V);
+    ['ToyPanelMenu', 'ToyTitleOnLight', 'ToyTextMutedOnLight', 'ToyTab', 'ToyTabSelected', 'ToyButtonPrimary', 'ToyButtonSecondary'].forEach(V);
     const html = `<div class="tv-ToyPanelMenu sc-panel" data-context="light">${sampleSpan('settings', 'tv-ToyTitleOnLight')}`
       + `<div class="sc-group">${buttonEl('ToyTabSelected', '', sampleSpan('game'))}${buttonEl('ToyTab', '', sampleSpan('lobby'))}${buttonEl('ToyTab', '', sampleSpan('character'))}</div>`
       + `${sampleSpan('leave_host_note', 'tv-ToyTextMutedOnLight sc-wrap')}`
       + `<div class="sc-actions">${buttonEl('ToyButtonPrimary', '', sampleSpan('resume'))}${buttonEl('ToyButtonSecondary', '', sampleSpan('settings'))}</div></div>`;
-    const badge = proposal([['ToyPanelMenu'], ['ToyBasePanel'], ['ToyTitleOnLight'], ['ToyTextMutedOnLight'], ['ToyTab', 'normal'], ['ToyTabSelected', 'normal'], ['ToyButtonPrimary', 'normal'], ['ToyButtonSecondary', 'normal']]);
+    const badge = proposal([['ToyPanelMenu'], ['ToyTitleOnLight'], ['ToyTextMutedOnLight'], ['ToyTab', 'normal'], ['ToyTabSelected', 'normal'], ['ToyButtonPrimary', 'normal'], ['ToyButtonSecondary', 'normal']]);
     return stage('dark', [cell(T('menu_panel'), badge, html)]);
   }
   function rowDialog() {
-    ['ToyBackdrop', 'ToyPanelDialog', 'ToyBasePanel', 'ToyTitleOnLight', 'ToyTextOnLight', 'ToyTextMutedOnLight', 'ToyButtonPrimary', 'ToyButtonDanger', 'ToyButtonGhostOnLight'].forEach(V);
+    ['ToyBackdrop', 'ToyPanelDialog', 'ToyTitleOnLight', 'ToyTextOnLight', 'ToyTextMutedOnLight', 'ToyButtonPrimary', 'ToyButtonDanger', 'ToyButtonGhostOnLight'].forEach(V);
     const dialog = (title, body, note, act, actLabel, ghostLabel) => `<div class="tv-ToyBackdrop sc-backdrop"><div class="tv-ToyPanelDialog sc-dialog" data-context="light">`
       + `${sampleSpan(title, 'tv-ToyTitleOnLight sc-wrap')}${sampleSpan(body, 'tv-ToyTextOnLight sc-wrap')}${note ? sampleSpan(note, 'tv-ToyTextMutedOnLight sc-wrap') : ''}`
       + `<div class="sc-actions">${buttonEl(act, '', sampleSpan(actLabel), { live: true })}${buttonEl('ToyButtonGhostOnLight', '', sampleSpan(ghostLabel), { live: true })}</div></div></div>`;
-    const base = [['ToyBackdrop'], ['ToyPanelDialog'], ['ToyBasePanel'], ['ToyTitleOnLight'], ['ToyTextOnLight'], ['ToyButtonGhostOnLight', 'normal']];
+    const base = [['ToyBackdrop'], ['ToyPanelDialog'], ['ToyTitleOnLight'], ['ToyTextOnLight'], ['ToyButtonGhostOnLight', 'normal']];
     return stage('dark', [
       cell(T('dialog_tutorial'), proposal([...base, ['ToyButtonPrimary', 'normal']]), dialog('first_time', 'tutorial_body', null, 'ToyButtonPrimary', 'start', 'skip'), { live: true, tile: 'grey', pad: 0 }),
       cell(T('dialog_confirm'), proposal([...base, ['ToyTextMutedOnLight'], ['ToyButtonDanger', 'normal']]), dialog('leave_q', 'leave_body', 'host_note', 'ToyButtonDanger', 'leave', 'cancel'), { live: true, tile: 'grey', pad: 0 }),
@@ -727,16 +745,15 @@ function renderPage(sys, componentsCss) {
     return stage('dark', cells);
   }
   function rowHowto() {
-    ['ToyPanelHowto', 'ToyBasePanel', 'ToyHowtoFrame', 'ToyHowtoFrameDone', 'ToyHowtoCaption', 'ToyTitleOnLight', 'ToyHowtoNote'].forEach(V);
-    const frame = (label, done) => `<div class="tv-${done ? 'ToyHowtoFrameDone' : 'ToyHowtoFrame'} sc-frame">${icon(done ? 'check' : 'item')}${sampleSpan(label, 'tv-ToyHowtoCaption')}</div>`;
-    const card = (steps, doneIdx) => `<div class="tv-ToyPanelHowto sc-howto" data-context="light"><div class="sc-howto-head">${sampleSpan('switches', 'tv-ToyTitleOnLight')}</div>${sampleSpan('how_to', 'tv-ToyHowtoNote')}`
-      + `<div class="sc-frames">${steps.map((s, i) => frame(s, i === doneIdx)).join('')}</div></div>`;
-    const uses = [['ToyPanelHowto'], ['ToyBasePanel'], ['ToyHowtoFrame'], ['ToyHowtoCaption'], ['ToyTitleOnLight'], ['ToyHowtoNote']];
-    const four = ['step1', 'step2', 'step3', 'step4'];
+    ['ToyPanelHowto', 'ToyHowtoFrame', 'ToyHowtoFrameDone', 'ToyTitleOnLight', 'ToyHowtoNote'].forEach(V);
+    // wordless frames (the art is the game's; the page draws a pictogram): the last one the finish
+    const frame = (done) => `<div class="tv-${done ? 'ToyHowtoFrameDone' : 'ToyHowtoFrame'} sc-frame">${icon(done ? 'check' : 'item')}</div>`;
+    const card = (n, cls) => `<div class="tv-ToyPanelHowto sc-howto" data-context="light"><div class="sc-howto-head">${sampleSpan('switches', 'tv-ToyTitleOnLight')}</div>${sampleSpan('how_to', 'tv-ToyHowtoNote')}`
+      + `<div class="sc-frames${cls ? ` ${cls}` : ''}">${Array.from({ length: n }, (_, i) => frame(i === n - 1)).join('')}</div></div>`;
+    const uses = [['ToyPanelHowto'], ['ToyHowtoFrame'], ['ToyHowtoFrameDone'], ['ToyTitleOnLight'], ['ToyHowtoNote']];
     return stage('dark', [
-      cell(T('howto_four'), proposal(uses), card(four, -1)),
-      cell(T('howto_done'), proposal([...uses, ['ToyHowtoFrameDone']]), card(four, 3)),
-      cell(T('howto_three'), proposal([...uses, ['ToyHowtoFrameDone']]), card(['step1', 'step2', 'step4'], 1)),
+      cell(T('howto_three'), proposal(uses), card(3)),
+      cell(T('howto_seven'), proposal(uses), card(7, 'sc-frames-scroll'), { live: true }),
     ]);
   }
   function rowSettings() {
@@ -754,7 +771,7 @@ function renderPage(sys, componentsCss) {
     ]);
   }
   function rowMap() {
-    ['ToyMapBoard', 'ToyBasePanel', 'ToyMapRoom', 'ToyMapRoomText', 'ToyMapZone', 'ToyMapPin', 'ToyChipPlate', 'ToyHudCaption', 'ToyKeyRound', 'ToyKeyText'].forEach(V);
+    ['ToyMapBoard', 'ToyMapRoom', 'ToyMapRoomText', 'ToyMapZone', 'ToyMapPin', 'ToyChipPlate', 'ToyHudCaption', 'ToyKeyRound', 'ToyKeyText'].forEach(V);
     const room = (label, extra) => `<div class="sc-room-wrap"><div class="tv-ToyMapRoom sc-room">${icon('item')}${sampleSpan(label, 'tv-ToyMapRoomText')}</div>${extra || ''}</div>`;
     const chip = textIn('ToyChipPlate', 'ToyHudCaption', 'you_are_here');
     const pin = (deg) => `<div class="tv-ToyMapPin" style="transform: rotate(${deg}deg)"></div>`;
@@ -762,7 +779,7 @@ function renderPage(sys, componentsCss) {
       + room('storage') + room('kitchen', `<div class="tv-ToyMapZone sc-overlay"></div>`) + room('lab', `<div class="sc-pin-at">${textIn('ToyKeyRound', 'ToyKeyText', 'question')}</div>`)
       + room('office', `<div class="sc-pin-at">${pin(80)}${chip}</div>`) + room('hall') + '</div></div>';
     return stage('dark', [
-      cell(T('map_board'), proposal([['ToyMapBoard'], ['ToyBasePanel'], ['ToyMapRoom'], ['ToyMapRoomText'], ['ToyMapZone'], ['ToyMapPin'], ['ToyChipPlate'], ['ToyHudCaption'], ['ToyKeyRound'], ['ToyKeyText']]), board),
+      cell(T('map_board'), proposal([['ToyMapBoard'], ['ToyMapRoom'], ['ToyMapRoomText'], ['ToyMapZone'], ['ToyMapPin'], ['ToyChipPlate'], ['ToyHudCaption'], ['ToyKeyRound'], ['ToyKeyText']]), board),
       cell(T('map_pin0'), proposal([['ToyMapPin']]), `<div class="sc-pin-solo" data-context="light">${pin(0)}</div>`),
       cell(T('map_pin80'), proposal([['ToyMapPin']]), `<div class="sc-pin-solo" data-context="light">${pin(80)}</div>`),
       cell(T('map_zone'), proposal([['ToyMapZone']]), `<div class="tv-ToyMapZone" style="width: calc(120 * var(--px)); height: calc(80 * var(--px))"></div>`),
@@ -858,12 +875,12 @@ function renderPage(sys, componentsCss) {
 
   const KINDS = {
     button: rowButton, toggle: rowButton, field: rowField, bar: rowBar, static: rowStatic, 'slot-set': rowSlotSet,
-    'hud-bar': rowHudBar, menu: rowMenu, dialog: rowDialog, backdrops: rowBackdrops, howto: rowHowto, settings: rowSettings,
+    deprecated: rowDeprecated, menu: rowMenu, dialog: rowDialog, backdrops: rowBackdrops, howto: rowHowto, settings: rowSettings,
     map: rowMap, mic: rowMic, swatches: rowSwatches, palette: rowPalette, 'type-scale': rowTypeScale, ramp: rowRamp,
     contrast: rowContrast, icons: rowIcons, slider: rowSlider, scrollbar: rowScrollBar, layout: rowLayout,
     'dropdown-list': rowDropdownList, checkbox: rowCheckBox, spinbox: rowSpinBox, mvp: rowMvp,
   };
-  const TOKEN_KINDS = new Set(['palette', 'type-scale', 'ramp', 'contrast', 'icons']);
+  const TOKEN_KINDS = new Set(['palette', 'type-scale', 'ramp', 'contrast', 'icons', 'deprecated']);
 
   // The page.
   const sections = [];

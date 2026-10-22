@@ -18,8 +18,8 @@ One HUD for the whole round, the MVP's (the engineer's decisions of 2026-10-20 i
 |---|---|---|
 | `empty` | Порожні руки | An alien with nothing carried; the crosshair is on an extinguisher within reach; the anger is calm (the siren off). |
 | `carry` | Предмети | Fireworks in the hand and a bun on the belt, each with its name tag; the anger rises (the siren on). |
-| `human` | Очима людини | A human's view: the coral role sticker, the other humans tagged in the roster, a battery in the hand. A teammate's name plate keeps the old dissident mark as a visible placeholder: whether a mark over another human's head is still needed beside the roster's tag is open. |
-| `hurt` | Мало здоровʼя й сил | Health at 0.22 (ramp stop 04) and stamina at 0.18. |
+| `human` | Очима людини | A human's view: the danger role tile, the other humans tagged in the roster, a battery in the hand. A teammate's name plate keeps the old dissident mark as a visible placeholder: whether a mark over another human's head is still needed beside the roster's tag is open. |
+| `hurt` | Мало здоровʼя й сил | Health at 0.22 (two of ten pips, under the 30 % alarm line: ToyPipAlarm and the danger label) and stamina at 0.18 (two pips). |
 | `raising` | Підняття | Decided by the engineer (2026-10-06, the wave-19 question page, q9): what the raiser sees while holding Interact next to a downed player. A thin progress bar under the crosshair in place of the object name, filling at the same rate as the downed player's raise bar (s9 raise); no text. |
 | `cops` | Копи за хвилину | The anger is full: the neighbours called the cops, and the whole party sees the countdown. Open: whether the round timer still shows beside the cops' minute, or only the one that ends first; how long the minute is. |
 
@@ -29,7 +29,7 @@ One HUD for the whole round, the MVP's (the engineer's decisions of 2026-10-20 i
   - Note: The name plate layer (#257), under the rest of the HUD: one Plate per other player in line of sight within about 10 m. Code: position = camera.unproject_position(head + 0.35 m), the plate centred on it; hidden behind walls (raycast), beyond 10 m or behind the camera. No role, no health.
 - **Hud** `Control` · anchors `full_rect`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both
   - **Role** `PanelContainer` · variation `ToySticker` · anchors `top_left`, offsets 39, 39, 39, 39 (left, top, right, bottom), grow end/end
-    - Note: The player's own side for the round, a flat word sticker 39 px in (the sketch's 26 x 1.5): ToySticker with role.alien, ToyStickerAlert (coral) with role.human.
+    - Note: The player's own side for the round, a word tile 39 px in (the sketch's 26 x 1.5): ToySticker with role.alien, ToyStickerAlert (the danger outline) with role.human.
     - **Text** `Label` · variation `ToyStickerText` · text `role.alien`: en "Alien" · uk "Прибулець"
   - **Time** `PanelContainer` · variation `ToyPlate` · anchors `center_top`, offsets 0, 36, 0, 36 (left, top, right, bottom), grow both/end
     - Note: ui-2.0.0 (the target page pages/suit-final, frames 5 and 6): the time and the neighbours' anger in one tile at the top centre, 36 px down (24 x 1.5): the time in Unbounded, then the anger meter A (the bar and its siren). The target's caption «Гнів сусідів» over the bar needs a copy key (the engineer's text), so it is not drawn here yet.
@@ -45,7 +45,7 @@ One HUD for the whole round, the MVP's (the engineer's decisions of 2026-10-20 i
     - Note: Every player of the round with the body colour (decided 2026-10-20), 39 px in at the top right; at least 285 wide (the sketch's 190 x 1.5), growing to its longest row. The rows are built from the player list in the session's order with the own row first; a row updates when a player dies, comes back or leaves. Names are data and are not cut. Open: whether the dead show here (the page shows them dimmed with a mark).
     - **Rows** `VBoxContainer` · variation `ToyColumnEight` · gaps from the variation: separation 8
       - **Row1** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
-        - Note: One row: Dot is ToyRosterDot, a white disc the game tints to the player's body colour (self_modulate from data); Name is the player's name (auto_translate_mode DISABLED), the own one through hud.roster.self in ToyRosterNameSelf (green), a dead player's through hud.roster.dead in ToyRosterNameDead (lilac), else the bare name in ToyRosterName. In a human's roster the other humans and the own row carry Tag (role.human, coral); an alien's roster has no tags (humans know each other, decided 2026-10-20).
+        - Note: One row: Dot is ToyRosterDot, a white disc the game tints to the player's body colour (self_modulate from data); Name is the player's name (auto_translate_mode DISABLED), the own one through hud.roster.self in ToyRosterNameSelf (the accent), a dead player's through hud.roster.dead in ToyRosterNameDead (dim), else the bare name in ToyRosterName. In a human's roster the other humans and the own row carry Tag (role.human, the danger colour); an alien's roster has no tags (humans know each other, decided 2026-10-20).
         - **Dot** `Panel` · variation `ToyRosterDot` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (15, 15) = Vector2(get_theme_constant("width", "ToyRosterDot"), get_theme_constant("height", "ToyRosterDot")) · self_modulate from data (a content colour, not a theme colour), sample #7C5CC8
         - **Name** `Label` · variation `ToyRosterNameSelf` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text `hud.roster.self` with sample {name} = "Olena" / "Олена": en "Olena (you)" · uk "Олена (ти)"
       - **Row2** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
@@ -69,7 +69,7 @@ One HUD for the whole round, the MVP's (the engineer's decisions of 2026-10-20 i
     - Note: The name of the object under the crosshair within reach (an item.* key, item.extinguisher here; a mischief station or a machine takes its own key when the game adds one); hidden when nothing within reach is under the crosshair. Centred 64 px under the screen's centre, so its top is the sketch's 22 x 1.5 = 33 px under it.
     - **Text** `Label` · variation `ToyChipPlateText` · text `item.extinguisher`: en "Extinguisher" · uk "Вогнегасник"
   - **Vitals** `HBoxContainer` · variation `ToyRowTwentyFour` · anchors `bottom_left`, offsets 39, -39, 39, -39 (left, top, right, bottom), grow end/begin · gaps from the variation: separation 24
-    - Note: The bars and the mic beside them, 39 px in at the bottom left (the sketch: bars 200 wide, the mic 244 in, x 1.5). Always shown in a round. No numbers and no captions on the bars (the engineer wants less screen): health is the green bar on top, stamina the yellow one under it, as everywhere in the game; the length is the real cue, the colour only adds to it.
+    - Note: The suit tile and the mic beside it, 39 px in at the bottom left. Always shown in a round. Health and stamina are ten pips each (the engineer's segmented pips, 2026-10-21), no numbers: health on top in the accent, stamina under it in the text colour, each with its label; the count of full pips is the real cue, the colour only adds to it.
     - **Suit** `PanelContainer` · variation `ToyPlate` · size flags vertical `SIZE_SHRINK_END`
       - Note: ui-2.0.0 (the engineer's segmented pips; the target page's suit tile): health and stamina as ten pips each, round(value x 10) of them full. Health full pips are ToyPipHealth, under its alarm line (30 %) ToyPipAlarm with its label ToyTextAlertOnLight; stamina pips are ToyPipStamina. The game sets each pip's variation from the value.
       - **Rows** `VBoxContainer` · variation `ToyColumnEight` · gaps from the variation: separation 8
@@ -100,7 +100,7 @@ One HUD for the whole round, the MVP's (the engineer's decisions of 2026-10-20 i
             - **P9** `Panel` · variation `ToyPipStamina` · custom_minimum_size (23, 15) = Vector2(get_theme_constant("width", "ToyPipStamina"), get_theme_constant("height", "ToyPipStamina"))
             - **P10** `Panel` · variation `ToyPip` · custom_minimum_size (23, 15) = Vector2(get_theme_constant("width", "ToyPip"), get_theme_constant("height", "ToyPip"))
     - **Mic** `PanelContainer` · variation `ToyMic` · size flags vertical `SIZE_SHRINK_END` · custom_minimum_size (75, 75) = Vector2(get_theme_constant("width", "ToyMic"), get_theme_constant("height", "ToyMic"))
-      - Note: Whether anyone hears the player. On: mic.svg tinted icon_on. Off (mic off, push-to-talk released, downed, pre and post game): mic-off.svg tinted icon_off (coral). 42 px in the 75 px badge.
+      - Note: Whether anyone hears the player. On: mic.svg tinted icon_on. Off (mic off, push-to-talk released, downed, pre and post game): mic-off.svg tinted icon_off (the danger colour). 42 px in the 75 px badge.
       - **Icon** `TextureRect` · size flags horizontal `SIZE_SHRINK_CENTER`, vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (42, 42) · texture `mic` (dist/pack/icons/mic.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("icon_on", "ToyMic")
   - **Slots** `HBoxContainer` · variation `ToyRowSixteen` · anchors `bottom_right`, offsets -36, -36, -36, -36 (left, top, right, bottom), grow begin/begin · gaps from the variation: separation 16
     - Note: ui-2.0.0 (the target page's frame 5): the hand and the belt as tiles 117 x 132 (78 x 88 x 1.5), 36 px from the corner, 16 px apart; the picture is the item's line icon (icons/item-*.svg, the white copy tinted: the accent in the hand, the text colour on the belt) and the name sits inside the tile at its bottom (no tag over the edge).
@@ -207,7 +207,7 @@ One HUD for the whole round, the MVP's (the engineer's decisions of 2026-10-20 i
 - The review page emulates Godot's containers with CSS grid (expanding children share the free space by stretch ratio, never below their minimum size), so a pixel or two may differ from Godot.
 - Size constants: a variation's `width`, `height`, `min_width`, `wide_width` and `wide_min_width` theme constants are read by code into `custom_minimum_size`, as the node lines give them. A Panel or PanelContainer takes no size from them on its own: an anchored Panel at offsets 0 is 0×0, a slot shrinks to its text.
 - Icons: the tinted ones are white SVGs in `dist/pack/icons/` (the pack's copy of `pages/components/icons`, currentColor written as white): a TextureRect tints one with the `self_modulate` its line gives (the colour the page draws it in), a Button with its variation's `icon_*_color`, an OptionButton its arrow with `modulate_arrow`. The room pictograms are white copies too (`dist/pack/icons/room/`), drawn in ink: their lines give the `self_modulate`. The pack's `assets` list every icon with its tint and `svg_scale`.
-- SVG import: Godot rasterises an SVG at import, so import each at `svg/scale` = the largest size it is drawn ÷ its viewBox (the largest over every screen that draws it, as the pack's `assets` give it): `item-battery` 0.9 (57 px), `item-bun` 0.9 (57 px), `item-rocket` 0.9 (57 px), `mic` 1.75 (42 px), `siren-off` 0.9 (57 px), `siren-on` 0.9 (57 px), `slot-empty-belt` 1.41 (90 px), `slot-empty-hand` 1.74 (111 px), `teammate-mark` 1.25 (30 px).
+- SVG import: Godot rasterises an SVG at import, so import each at `svg/scale` = the largest size it is drawn ÷ its viewBox (the largest over every screen that draws it, as the pack's `assets` give it): `item-battery` 0.9 (57 px), `item-bun` 0.9 (57 px), `item-rocket` 0.9 (57 px), `mic` 1.75 (42 px), `siren-off` 0.57 (36 px), `siren-on` 0.57 (36 px), `slot-empty-belt` 0.9 (57 px), `slot-empty-hand` 0.9 (57 px), `teammate-mark` 1.25 (30 px).
 - Boxes and grids take their gaps only from their spacing variation (ToyColumn…, ToyRow…, ToyGrid…), and a ScrollContainer the gap to its bar from ToyScroll; a box without one has a single child. No `theme_override_constants`: the theme test forbids them.
 
 ## Keys
@@ -219,11 +219,12 @@ One HUD for the whole round, the MVP's (the engineer's decisions of 2026-10-20 i
 | CanvasLayer | What |
 |---|---|
 | 1 | Name plates in the world (s4, s7) |
-| 2 | HUD: the round HUD (s7), downed and spectating (s9), the lobby HUD (s4), the tutorial's lesson plates (s1) |
+| 2 | HUD: the round HUD (s7), downed and the dead's room (s9), the lobby HUD (s4), the tutorial's lesson plates (s1) |
 | 3 | Map and tasks (s8), with its how-to card |
 | 4 | Esc menu (s5) and its dim |
 | 5 | The Esc menu's confirm dialog |
 | 6 | Black screens: connecting and loading (s3), pre game (s6), post game (s10) |
 
-- The main menu (s2) is its own scene, under none of these.
+- The game boots straight into the ship (the lobby, s4); the suit menu (s5) hosts, joins and holds Settings.
+- The mutation workbench (s11) is on no CanvasLayer: it is a SubViewport drawn on the machine in the world, under the HUD.
 - Esc closes the topmost open overlay first (a how-to card, then the map; in the Esc menu its confirm dialog, then the menu) and opens the Esc menu only when nothing else is open. M is ignored while the Esc menu is open.

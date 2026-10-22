@@ -7,8 +7,8 @@
   "states": [
     { "id": "empty", "label": "Порожні руки", "note": "An alien with nothing carried; the crosshair is on an extinguisher within reach; the anger is calm (the siren off)." },
     { "id": "carry", "label": "Предмети", "note": "Fireworks in the hand and a bun on the belt, each with its name tag; the anger rises (the siren on)." },
-    { "id": "human", "label": "Очима людини", "note": "A human's view: the coral role sticker, the other humans tagged in the roster, a battery in the hand. A teammate's name plate keeps the old dissident mark as a visible placeholder: whether a mark over another human's head is still needed beside the roster's tag is open." },
-    { "id": "hurt", "label": "Мало здоровʼя й сил", "note": "Health at 0.22 (ramp stop 04) and stamina at 0.18." },
+    { "id": "human", "label": "Очима людини", "note": "A human's view: the danger role tile, the other humans tagged in the roster, a battery in the hand. A teammate's name plate keeps the old dissident mark as a visible placeholder: whether a mark over another human's head is still needed beside the roster's tag is open." },
+    { "id": "hurt", "label": "Мало здоровʼя й сил", "note": "Health at 0.22 (two of ten pips, under the 30 % alarm line: ToyPipAlarm and the danger label) and stamina at 0.18 (two pips)." },
     { "id": "raising", "label": "Підняття", "note": "Decided by the engineer (2026-10-06, the wave-19 question page, q9): what the raiser sees while holding Interact next to a downed player. A thin progress bar under the crosshair in place of the object name, filling at the same rate as the downed player's raise bar (s9 raise); no text." },
     { "id": "cops", "label": "Копи за хвилину", "note": "The anger is full: the neighbours called the cops, and the whole party sees the countdown. Open: whether the round timer still shows beside the cops' minute, or only the one that ends first; how long the minute is." }
   ],
@@ -34,7 +34,7 @@
       "name": "Hud", "type": "Control", "anchors_preset": "full_rect",
       "children": [
         {
-          "name": "Role", "type": "PanelContainer", "variation": "ToySticker", "offset_left": 39, "offset_top": 39, "offset_right": 39, "offset_bottom": 39, "per_state": { "human": { "variation": "ToyStickerAlert" } }, "note": "The player's own side for the round, a flat word sticker 39 px in (the sketch's 26 x 1.5): ToySticker with role.alien, ToyStickerAlert (coral) with role.human.",
+          "name": "Role", "type": "PanelContainer", "variation": "ToySticker", "offset_left": 39, "offset_top": 39, "offset_right": 39, "offset_bottom": 39, "per_state": { "human": { "variation": "ToyStickerAlert" } }, "note": "The player's own side for the round, a word tile 39 px in (the sketch's 26 x 1.5): ToySticker with role.alien, ToyStickerAlert (the danger outline) with role.human.",
           "children": [
             { "name": "Text", "type": "Label", "variation": "ToyStickerText", "key": "role.alien", "per_state": { "human": { "key": "role.human" } } }
           ]
@@ -64,7 +64,7 @@
               "name": "Rows", "type": "VBoxContainer", "variation": "ToyColumnEight",
               "children": [
                 {
-                  "name": "Row1", "type": "HBoxContainer", "variation": "ToyRowTwelve", "note": "One row: Dot is ToyRosterDot, a white disc the game tints to the player's body colour (self_modulate from data); Name is the player's name (auto_translate_mode DISABLED), the own one through hud.roster.self in ToyRosterNameSelf (green), a dead player's through hud.roster.dead in ToyRosterNameDead (lilac), else the bare name in ToyRosterName. In a human's roster the other humans and the own row carry Tag (role.human, coral); an alien's roster has no tags (humans know each other, decided 2026-10-20).",
+                  "name": "Row1", "type": "HBoxContainer", "variation": "ToyRowTwelve", "note": "One row: Dot is ToyRosterDot, a white disc the game tints to the player's body colour (self_modulate from data); Name is the player's name (auto_translate_mode DISABLED), the own one through hud.roster.self in ToyRosterNameSelf (the accent), a dead player's through hud.roster.dead in ToyRosterNameDead (dim), else the bare name in ToyRosterName. In a human's roster the other humans and the own row carry Tag (role.human, the danger colour); an alien's roster has no tags (humans know each other, decided 2026-10-20).",
                   "children": [
                     { "name": "Dot", "type": "Panel", "variation": "ToyRosterDot", "self_modulate": "#7C5CC8", "size_flags_vertical": "shrink_center", "per_state": { "human": { "self_modulate": "#E8B04A" } } },
                     { "name": "Name", "type": "Label", "variation": "ToyRosterNameSelf", "key": "hud.roster.self", "args": { "name": { "uk": "Олена", "en": "Olena" } }, "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center", "per_state": { "human": { "variation": "ToyRosterNameSelf", "key": "hud.roster.self", "args": { "name": { "uk": "Бульк", "en": "Bulk" } } } } },
@@ -149,7 +149,7 @@
           ]
         },
         {
-          "name": "Vitals", "type": "HBoxContainer", "variation": "ToyRowTwentyFour", "anchors_preset": "bottom_left", "offset_left": 39, "offset_top": -39, "offset_right": 39, "offset_bottom": -39, "note": "The bars and the mic beside them, 39 px in at the bottom left (the sketch: bars 200 wide, the mic 244 in, x 1.5). Always shown in a round. No numbers and no captions on the bars (the engineer wants less screen): health is the green bar on top, stamina the yellow one under it, as everywhere in the game; the length is the real cue, the colour only adds to it.",
+          "name": "Vitals", "type": "HBoxContainer", "variation": "ToyRowTwentyFour", "anchors_preset": "bottom_left", "offset_left": 39, "offset_top": -39, "offset_right": 39, "offset_bottom": -39, "note": "The suit tile and the mic beside it, 39 px in at the bottom left. Always shown in a round. Health and stamina are ten pips each (the engineer's segmented pips, 2026-10-21), no numbers: health on top in the accent, stamina under it in the text colour, each with its label; the count of full pips is the real cue, the colour only adds to it.",
           "children": [
             {
               "name": "Suit", "type": "PanelContainer", "variation": "ToyPlate", "size_flags_vertical": "shrink_end", "note": "ui-2.0.0 (the engineer's segmented pips; the target page's suit tile): health and stamina as ten pips each, round(value x 10) of them full. Health full pips are ToyPipHealth, under its alarm line (30 %) ToyPipAlarm with its label ToyTextAlertOnLight; stamina pips are ToyPipStamina. The game sets each pip's variation from the value.",
@@ -204,7 +204,7 @@
               ]
             },
             {
-              "name": "Mic", "type": "PanelContainer", "variation": "ToyMic", "size_flags_vertical": "shrink_end", "note": "Whether anyone hears the player. On: mic.svg tinted icon_on. Off (mic off, push-to-talk released, downed, pre and post game): mic-off.svg tinted icon_off (coral). 42 px in the 75 px badge.",
+              "name": "Mic", "type": "PanelContainer", "variation": "ToyMic", "size_flags_vertical": "shrink_end", "note": "Whether anyone hears the player. On: mic.svg tinted icon_on. Off (mic off, push-to-talk released, downed, pre and post game): mic-off.svg tinted icon_off (the danger colour). 42 px in the 75 px badge.",
               "children": [
                 { "name": "Icon", "type": "TextureRect", "icon": "mic", "theme_color": "icon-on", "custom_minimum_size": [42, 42], "size_flags_horizontal": "shrink_center", "size_flags_vertical": "shrink_center" }
               ]

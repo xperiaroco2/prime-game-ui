@@ -55,8 +55,9 @@ const LAYOUT_KEYWORDS = {
   "white-space": ["nowrap", "normal"],
   "text-align": ["left", "center", "right", "justify"],
   overflow: ["hidden", "visible"],
-  // A ScrollContainer's view: it scrolls vertically, its native bar hidden (the drawn bar is a VScrollBar variation).
-  "overflow-x": ["hidden", "visible"],
+  // A ScrollContainer's view: it scrolls vertically, its native bar hidden (the drawn bar is a VScrollBar variation), or
+  // sideways with no bar (horizontal_scroll_mode SHOW_NEVER, the how-to card's frames, #111).
+  "overflow-x": ["hidden", "visible", "auto"],
   "overflow-y": ["hidden", "visible", "auto"],
   "scrollbar-width": ["none"],
   "overflow-wrap": ["normal", "anywhere", "break-word"],

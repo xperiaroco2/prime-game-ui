@@ -1,0 +1,50 @@
+{
+  "id": "x6",
+  "wireframe": "s8",
+  "title": "Self-test: a ScrollContainer that scrolls sideways",
+  "background": "black",
+  "note": "The how-to card's frames (#111): horizontal_scroll_mode show_never scrolls the row sideways with no bar; the container is as wide as its custom_minimum_size and the row keeps its minimum width. The same container without the field scrolls vertically and carries its ToyScrollBar.",
+  "states": [
+    { "id": "one", "label": "Один" }
+  ],
+  "nodes": [
+    {
+      "name": "Card", "type": "PanelContainer", "variation": "ToyPanelHowto", "anchors_preset": "center", "grow_horizontal": "both", "grow_vertical": "both",
+      "children": [
+        {
+          "name": "Col", "type": "VBoxContainer", "variation": "ToyColumnSixteen",
+          "children": [
+            {
+              "name": "Side", "type": "ScrollContainer", "horizontal_scroll_mode": "show_never", "custom_minimum_size": [300, 0],
+              "children": [
+                {
+                  "name": "Frames", "type": "HBoxContainer", "variation": "ToyRowSixteen",
+                  "children": [
+                    {
+                      "name": "A", "type": "PanelContainer", "variation": "ToyHowtoFrame",
+                      "children": [
+                        { "name": "Art", "type": "Control", "custom_minimum_size": [200, 150] }
+                      ]
+                    },
+                    {
+                      "name": "B", "type": "PanelContainer", "variation": "ToyHowtoFrame",
+                      "children": [
+                        { "name": "Art", "type": "Control", "custom_minimum_size": [200, 150] }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Down", "type": "ScrollContainer", "variation": "ToyScroll", "custom_minimum_size": [0, 100],
+              "children": [
+                { "name": "Tall", "type": "Control", "size_flags_horizontal": "expand_fill", "custom_minimum_size": [0, 300] }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

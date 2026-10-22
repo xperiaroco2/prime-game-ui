@@ -149,6 +149,8 @@ h2 { font-size: 21px; margin: 34px 0 10px; padding-top: 4px; }
   display: inline-block; margin-left: 6px; padding: 0 7px; border-radius: 999px; vertical-align: 1px;
   background: var(--c-badge-bg); color: var(--c-badge-fg); font-size: 11px; line-height: 17px; font-weight: 700;
 }
+.sc-badge-dep { background: var(--c-line); color: var(--c-fg); }
+.sc-dep td { vertical-align: top; }
 
 /* Component layout (never looks): display and alignment only, at zero specificity. */
 :where(.sc-sample) :where(button[class*="tv-"], label[class*="tv-"]) {
@@ -213,7 +215,8 @@ h2 { font-size: 21px; margin: 34px 0 10px; padding-top: 4px; }
 .sc-frames { display: flex; gap: calc(14 * var(--px)); }
 .sc-frame { width: calc(190 * var(--px)); flex-direction: column; justify-content: flex-start !important; }
 .sc-frame .sc-icon { width: calc(56 * var(--px)); height: calc(56 * var(--px)); }
-.sc-frame [class*="tv-ToyHowtoCaption"] { white-space: normal; text-align: center; }
+.sc-frames-scroll { max-width: calc(700 * var(--px)); overflow-x: auto; }
+.sc-frames-scroll > .sc-frame { flex: none; }
 .sc-setrow { width: calc(600 * var(--px)); justify-content: space-between !important; gap: calc(16 * var(--px)); }
 /* A CheckBox's box texture at its size (28 px); the live one shows the box of its aria-pressed. */
 .sc-cbox { display: inline-flex; flex: none; width: calc(28 * var(--px)); height: calc(28 * var(--px)); }
@@ -252,11 +255,10 @@ h2 { font-size: 21px; margin: 34px 0 10px; padding-top: 4px; }
 .sc-mvp-pic svg { display: block; width: 100%; height: 100%; }
 .sc-mvp-hand { width: calc(111 * var(--px)); height: calc(111 * var(--px)); }
 .sc-mvp-belt { width: calc(90 * var(--px)); height: calc(90 * var(--px)); }
-.sc-mvp-siren { position: absolute; left: calc(100% + 9 * var(--px)); top: 50%; margin-top: calc(-28.5 * var(--px)); width: calc(57 * var(--px)); height: calc(57 * var(--px)); }
-.sc-mvp-top { display: flex; flex-direction: column; align-items: center; gap: calc(6 * var(--px)); padding: 0 calc(66 * var(--px)); }
-.sc-mvp-anger { position: relative; display: inline-flex; }
-.sc-mvp-angertrack { display: flex !important; align-items: stretch !important; }
-.sc-mvp-angertrack > .sc-barbox { width: 100%; }
+.sc-mvp-sirentile { width: calc(36 * var(--px)); height: calc(36 * var(--px)); }
+.sc-mvp-angerbar > .sc-barbox { width: calc(240 * var(--px)); }
+.sc-mvp-label { display: inline-block; min-width: calc(150 * var(--px)); }
+.sc-mvp-band { align-self: stretch; padding-left: calc(48 * var(--px)); padding-right: calc(48 * var(--px)); }
 .sc-mvp-stretch { align-self: stretch; }
 .sc-mvp-stretch > .sc-barbox { width: 100%; }
 .sc-mvp-bottom { align-items: flex-end !important; padding-bottom: calc(24 * var(--px)); }
@@ -300,7 +302,7 @@ h2 { font-size: 21px; margin: 34px 0 10px; padding-top: 4px; }
 .sc-perm td { font-variant-numeric: tabular-nums; }
 .sc-cr-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
 .sc-cr { display: grid; grid-template-columns: 50px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 6px 8px; border: 1px solid var(--c-line); border-radius: 10px; }
-.sc-cr-sw { width: 50px; height: 38px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font: 700 17px Comfortaa, system-ui, sans-serif; border: 1px solid var(--c-line); }
+.sc-cr-sw { width: 50px; height: 38px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font: 700 17px var(--toy-font-family-text), system-ui, sans-serif; border: 1px solid var(--c-line); }
 .sc-cr-txt { font-size: 12px; min-width: 0; overflow-wrap: anywhere; }
 .sc-cr-txt code { font-size: 11px; color: var(--c-muted); }
 .sc-cr-num { text-align: right; font-size: 12px; display: flex; flex-direction: column; align-items: flex-end; font-variant-numeric: tabular-nums; }
