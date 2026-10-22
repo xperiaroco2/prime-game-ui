@@ -340,7 +340,9 @@
             "ToyRosterNameDead",
             "ToyRosterDot",
             "ToyRosterTag",
-            "ToyRosterTagText"
+            "ToyRosterTagText",
+            "ToyRosterTagHost",
+            "ToyRosterTagHostText"
           ]
         },
         {

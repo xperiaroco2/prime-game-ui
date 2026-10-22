@@ -234,7 +234,7 @@
     "leave_body": { "uk": "Сесія завершиться для всіх гравців.", "en": "The session ends for every player.", "new": true },
     "host_note": { "uk": "Ти хост: зміни бачать усі", "en": "You're the host: everyone sees your changes" },
     "leave_host_note": { "uk": "Ти хост: якщо вийдеш, сесія закінчиться для всіх.", "en": "You host this session: leaving ends it for every player." },
-    "host_chip": { "deck": "lobby.host_mark", "args": { "name": { "uk": "Олена", "en": "Olena" } } },
+    "host_chip": { "deck": "hud.roster.host" },
     "players": { "uk": "Гравці 4 / 10", "en": "Players 4 / 10" },
     "same_key": { "uk": "Та сама клавіша", "en": "Same key", "new": true },
     "host_game": { "uk": "Створити гру", "en": "Host a game", "new": true },

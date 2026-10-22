@@ -5,7 +5,7 @@
 The styled lobby screen from the UI track (xperiaroco2/prime-game-ui), as a Godot 4.7.2 node tree for the 1920×1080 reference.
 
 - **Source:** `pages/screens/src/s04-lobby.json`; the review page is `pages/screens/screens.html#s4`; the wireframe is section `s4` («Лобі»).
-- **Theme:** the Toy pack ui-2.3.0 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
+- **Theme:** the Toy pack ui-2.4.0 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
 - **World behind the UI** (not UI): the ship (the lobby room) seen behind a menu.
 - **How to read it:** the roots are children of the screen's full-rect root `Control`; every property not listed keeps Godot's default; sizes and offsets are reference px. In a state's **Shown** list, the first node of each subtree gives its path from the screen root.
 - **Texts** are keys of `copy/strings.csv`, and the language switches live (the Esc menu's Settings). A plain key is set as `text` and translates itself. A key with placeholders, a plural key (`tr_n`) and a key drawn in pieces are set from code with `auto_translate_mode = DISABLED`: `tr()`, then `String.format()` with the data (the samples below), rebuilt on `NOTIFICATION_TRANSLATION_CHANGED`. A "text from data" (names, the room code, times, numbers) is set in code and never translated (`auto_translate_mode = DISABLED`).
@@ -68,8 +68,11 @@ The ship is the lobby (the target page pages/suit-final, frames 1, 3 and 3b): th
         - Note: Players in the lobby / the lobby's limit, the tile's head (the target's .tab «ГРАВЦІ 6 / 10»; the game sets uppercase = true).
       - **Host** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
         - **Dot** `Panel` · variation `ToyRosterDot` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (15, 15) = Vector2(get_theme_constant("width", "ToyRosterDot"), get_theme_constant("height", "ToyRosterDot")) · self_modulate from data (a content colour, not a theme colour), sample #7C5CC8
-        - **Name** `Label` · variation `ToyRosterName` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text `lobby.host_mark` with sample {name} = "Olena" / "Олена": en "Olena · host" · uk "Олена · хост" · clip_text true · text_overrun_behavior `OVERRUN_TRIM_ELLIPSIS`
-          - Note: One row per player in join order, the host first: the body colour, the name, the ready pip. The host's row reads lobby.host_mark with the name for the others (the target's separate «хост» tag has no copy key); the own row reads hud.roster.self in the accent, as in the round, so the host's own view (console-host) reads «Олена (ти)». Names are user text (auto_translate_mode DISABLED).
+        - **Name** `Label` · variation `ToyRosterName` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text from data (auto_translate_mode = DISABLED), sample: "Olena" / "Олена" · clip_text true · text_overrun_behavior `OVERRUN_TRIM_ELLIPSIS`
+          - Note: One row per player in join order, the host first: the body colour, the name, the host tag on the host's row, the ready pip. Names are user text (auto_translate_mode DISABLED).
+        - **HostTag** `PanelContainer` · variation `ToyRosterTagHost` · size flags vertical `SIZE_SHRINK_CENTER`
+          - Note: The host tag (the target's quiet «ХОСТ»; hud.roster.host, the engineer's copy round 9), on the host's row only.
+          - **Text** `Label` · variation `ToyRosterTagHostText` · text `hud.roster.host`: en "host" · uk "хост"
         - **Ready** `Panel` · variation `ToyPipHealth` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (23, 15) = Vector2(get_theme_constant("width", "ToyPipHealth"), get_theme_constant("height", "ToyPipHealth"))
           - Note: ToyPipHealth while that player is ready, ToyPip while not.
       - **Glorp** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
@@ -135,8 +138,11 @@ The ship is the lobby (the target page pages/suit-final, frames 1, 3 and 3b): th
         - Note: Players in the lobby / the lobby's limit, the tile's head (the target's .tab «ГРАВЦІ 6 / 10»; the game sets uppercase = true).
       - **Host** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
         - **Dot** `Panel` · variation `ToyRosterDot` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (15, 15) = Vector2(get_theme_constant("width", "ToyRosterDot"), get_theme_constant("height", "ToyRosterDot")) · self_modulate from data (a content colour, not a theme colour), sample #7C5CC8
-        - **Name** `Label` · variation `ToyRosterName` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text `lobby.host_mark` with sample {name} = "Olena" / "Олена": en "Olena · host" · uk "Олена · хост" · clip_text true · text_overrun_behavior `OVERRUN_TRIM_ELLIPSIS`
-          - Note: One row per player in join order, the host first: the body colour, the name, the ready pip. The host's row reads lobby.host_mark with the name for the others (the target's separate «хост» tag has no copy key); the own row reads hud.roster.self in the accent, as in the round, so the host's own view (console-host) reads «Олена (ти)». Names are user text (auto_translate_mode DISABLED).
+        - **Name** `Label` · variation `ToyRosterName` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text from data (auto_translate_mode = DISABLED), sample: "Olena" / "Олена" · clip_text true · text_overrun_behavior `OVERRUN_TRIM_ELLIPSIS`
+          - Note: One row per player in join order, the host first: the body colour, the name, the host tag on the host's row, the ready pip. Names are user text (auto_translate_mode DISABLED).
+        - **HostTag** `PanelContainer` · variation `ToyRosterTagHost` · size flags vertical `SIZE_SHRINK_CENTER`
+          - Note: The host tag (the target's quiet «ХОСТ»; hud.roster.host, the engineer's copy round 9), on the host's row only.
+          - **Text** `Label` · variation `ToyRosterTagHostText` · text `hud.roster.host`: en "host" · uk "хост"
         - **Ready** `Panel` · variation `ToyPipHealth` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (23, 15) = Vector2(get_theme_constant("width", "ToyPipHealth"), get_theme_constant("height", "ToyPipHealth"))
           - Note: ToyPipHealth while that player is ready, ToyPip while not.
       - **Glorp** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
@@ -192,8 +198,11 @@ The ship is the lobby (the target page pages/suit-final, frames 1, 3 and 3b): th
         - Note: Players in the lobby / the lobby's limit, the tile's head (the target's .tab «ГРАВЦІ 6 / 10»; the game sets uppercase = true).
       - **Host** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
         - **Dot** `Panel` · variation `ToyRosterDot` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (15, 15) = Vector2(get_theme_constant("width", "ToyRosterDot"), get_theme_constant("height", "ToyRosterDot")) · self_modulate from data (a content colour, not a theme colour), sample #7C5CC8
-        - **Name** `Label` · variation `ToyRosterName` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text `lobby.host_mark` with sample {name} = "Olena" / "Олена": en "Olena · host" · uk "Олена · хост" · clip_text true · text_overrun_behavior `OVERRUN_TRIM_ELLIPSIS`
-          - Note: One row per player in join order, the host first: the body colour, the name, the ready pip. The host's row reads lobby.host_mark with the name for the others (the target's separate «хост» tag has no copy key); the own row reads hud.roster.self in the accent, as in the round, so the host's own view (console-host) reads «Олена (ти)». Names are user text (auto_translate_mode DISABLED).
+        - **Name** `Label` · variation `ToyRosterName` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text from data (auto_translate_mode = DISABLED), sample: "Olena" / "Олена" · clip_text true · text_overrun_behavior `OVERRUN_TRIM_ELLIPSIS`
+          - Note: One row per player in join order, the host first: the body colour, the name, the host tag on the host's row, the ready pip. Names are user text (auto_translate_mode DISABLED).
+        - **HostTag** `PanelContainer` · variation `ToyRosterTagHost` · size flags vertical `SIZE_SHRINK_CENTER`
+          - Note: The host tag (the target's quiet «ХОСТ»; hud.roster.host, the engineer's copy round 9), on the host's row only.
+          - **Text** `Label` · variation `ToyRosterTagHostText` · text `hud.roster.host`: en "host" · uk "хост"
         - **Ready** `Panel` · variation `ToyPipHealth` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (23, 15) = Vector2(get_theme_constant("width", "ToyPipHealth"), get_theme_constant("height", "ToyPipHealth"))
           - Note: ToyPipHealth while that player is ready, ToyPip while not.
       - **Glorp** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
@@ -289,8 +298,11 @@ The ship is the lobby (the target page pages/suit-final, frames 1, 3 and 3b): th
         - Note: Players in the lobby / the lobby's limit, the tile's head (the target's .tab «ГРАВЦІ 6 / 10»; the game sets uppercase = true).
       - **Host** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
         - **Dot** `Panel` · variation `ToyRosterDot` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (15, 15) = Vector2(get_theme_constant("width", "ToyRosterDot"), get_theme_constant("height", "ToyRosterDot")) · self_modulate from data (a content colour, not a theme colour), sample #7C5CC8
-        - **Name** `Label` · variation `ToyRosterNameSelf` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text `hud.roster.self` with sample {name} = "Olena" / "Олена": en "Olena (you)" · uk "Олена (ти)" · clip_text true · text_overrun_behavior `OVERRUN_TRIM_ELLIPSIS`
-          - Note: One row per player in join order, the host first: the body colour, the name, the ready pip. The host's row reads lobby.host_mark with the name for the others (the target's separate «хост» tag has no copy key); the own row reads hud.roster.self in the accent, as in the round, so the host's own view (console-host) reads «Олена (ти)». Names are user text (auto_translate_mode DISABLED).
+        - **NameSelf** `Label` · variation `ToyRosterNameSelf` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text `hud.roster.self` with sample {name} = "Olena" / "Олена": en "Olena (you)" · uk "Олена (ти)" · clip_text true · text_overrun_behavior `OVERRUN_TRIM_ELLIPSIS`
+          - Note: The own row reads hud.roster.self in the accent, as in the round: the host's own view (console-host) reads «Олена (ти)». In the game one Label swaps key and variation.
+        - **HostTag** `PanelContainer` · variation `ToyRosterTagHost` · size flags vertical `SIZE_SHRINK_CENTER`
+          - Note: The host tag (the target's quiet «ХОСТ»; hud.roster.host, the engineer's copy round 9), on the host's row only.
+          - **Text** `Label` · variation `ToyRosterTagHostText` · text `hud.roster.host`: en "host" · uk "хост"
         - **Ready** `Panel` · variation `ToyPipHealth` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (23, 15) = Vector2(get_theme_constant("width", "ToyPipHealth"), get_theme_constant("height", "ToyPipHealth"))
           - Note: ToyPipHealth while that player is ready, ToyPip while not.
       - **Glorp** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
@@ -390,8 +402,11 @@ The ship is the lobby (the target page pages/suit-final, frames 1, 3 and 3b): th
         - Note: Players in the lobby / the lobby's limit, the tile's head (the target's .tab «ГРАВЦІ 6 / 10»; the game sets uppercase = true).
       - **Host** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
         - **Dot** `Panel` · variation `ToyRosterDot` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (15, 15) = Vector2(get_theme_constant("width", "ToyRosterDot"), get_theme_constant("height", "ToyRosterDot")) · self_modulate from data (a content colour, not a theme colour), sample #7C5CC8
-        - **Name** `Label` · variation `ToyRosterName` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text `lobby.host_mark` with sample {name} = "Olena" / "Олена": en "Olena · host" · uk "Олена · хост" · clip_text true · text_overrun_behavior `OVERRUN_TRIM_ELLIPSIS`
-          - Note: One row per player in join order, the host first: the body colour, the name, the ready pip. The host's row reads lobby.host_mark with the name for the others (the target's separate «хост» tag has no copy key); the own row reads hud.roster.self in the accent, as in the round, so the host's own view (console-host) reads «Олена (ти)». Names are user text (auto_translate_mode DISABLED).
+        - **Name** `Label` · variation `ToyRosterName` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text from data (auto_translate_mode = DISABLED), sample: "Olena" / "Олена" · clip_text true · text_overrun_behavior `OVERRUN_TRIM_ELLIPSIS`
+          - Note: One row per player in join order, the host first: the body colour, the name, the host tag on the host's row, the ready pip. Names are user text (auto_translate_mode DISABLED).
+        - **HostTag** `PanelContainer` · variation `ToyRosterTagHost` · size flags vertical `SIZE_SHRINK_CENTER`
+          - Note: The host tag (the target's quiet «ХОСТ»; hud.roster.host, the engineer's copy round 9), on the host's row only.
+          - **Text** `Label` · variation `ToyRosterTagHostText` · text `hud.roster.host`: en "host" · uk "хост"
         - **Ready** `Panel` · variation `ToyPipHealth` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (23, 15) = Vector2(get_theme_constant("width", "ToyPipHealth"), get_theme_constant("height", "ToyPipHealth"))
           - Note: ToyPipHealth while that player is ready, ToyPip while not.
       - **Glorp** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
@@ -434,7 +449,7 @@ The ship is the lobby (the target page pages/suit-final, frames 1, 3 and 3b): th
 
 ## Keys
 
-- **Drawn** (19): `common.code`, `console.title`, `esc.lobby.host_only`, `esc.lobby.you_host`, `hud.roster.self`, `lobby.countdown`, `lobby.host_mark`, `lobby.need_more`, `lobby.player_count`, `lobby.ready_no`, `lobby.ready_yes`, `lobby.setting.anger`, `lobby.setting.duration`, `lobby.setting.humans`, `lobby.setting.humans_of`, `lobby.setting.wifi_passwords`, `lobby.waiting`, `tutorial.list.menu`, `unit.minutes`.
+- **Drawn** (19): `common.code`, `console.title`, `esc.lobby.host_only`, `esc.lobby.you_host`, `hud.roster.host`, `hud.roster.self`, `lobby.countdown`, `lobby.need_more`, `lobby.player_count`, `lobby.ready_no`, `lobby.ready_yes`, `lobby.setting.anger`, `lobby.setting.duration`, `lobby.setting.humans`, `lobby.setting.humans_of`, `lobby.setting.wifi_passwords`, `lobby.waiting`, `tutorial.list.menu`, `unit.minutes`.
 - **Named only in the notes** (wire them too): `control.ready`, `esc.lobby.code_gone`.
 
 ## Layers and input (every screen)

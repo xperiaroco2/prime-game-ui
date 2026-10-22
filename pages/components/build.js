@@ -609,17 +609,18 @@ function renderPage(sys, componentsCss) {
         cell(T('mvp_suit_hurt'), ba, suit(2, 2)), ...hudTiles(suit(8, 6), b)]);
     }
     if (p === 'roster') {
-      ['ToyRoster', 'ToyRosterName', 'ToyRosterNameSelf', 'ToyRosterNameDead', 'ToyRosterDot', 'ToyRosterTag', 'ToyRosterTagText'].forEach(V);
+      ['ToyRoster', 'ToyRosterName', 'ToyRosterNameSelf', 'ToyRosterNameDead', 'ToyRosterDot', 'ToyRosterTag', 'ToyRosterTagText', 'ToyRosterTagHost', 'ToyRosterTagHostText'].forEach(V);
       const tag = `<div class="tv-ToyRosterTag">${sampleSpan('mvp_human_tag', 'tv-ToyRosterTagText')}</div>`;
-      const r = (hex, key, cls, tagged) => `<div class="tv-ToyRowTwelve sc-mvp-row sc-mvp-fill">${dot(hex)}${sampleSpan(key, cls)}${tagged ? tag : ''}</div>`;
+      const hostTag = `<div class="tv-ToyRosterTagHost">${sampleSpan('host_chip', 'tv-ToyRosterTagHostText')}</div>`;
+      const r = (hex, key, cls, tagged, host) => `<div class="tv-ToyRowTwelve sc-mvp-row sc-mvp-fill">${dot(hex)}${sampleSpan(key, cls)}${host ? hostTag : ''}${tagged ? tag : ''}</div>`;
       const roster = (human) => `<div class="tv-ToyRoster"><div class="tv-ToyColumnEight sc-mvp-col sc-mvp-fill">${sampleSpan('head_players', 'tv-ToyKicker')}`
         + (human
-          ? r('#E8B04A', 'mvp_r_bulk_self', 'tv-ToyRosterNameSelf', true) + r('#7C5CC8', 'mvp_r_olena', 'tv-ToyRosterName')
-          : r('#7C5CC8', 'mvp_r_olena_self', 'tv-ToyRosterNameSelf') + r('#E8B04A', 'mvp_r_bulk', 'tv-ToyRosterName'))
+          ? r('#E8B04A', 'mvp_r_bulk_self', 'tv-ToyRosterNameSelf', true) + r('#7C5CC8', 'mvp_r_olena', 'tv-ToyRosterName', false, true)
+          : r('#7C5CC8', 'mvp_r_olena_self', 'tv-ToyRosterNameSelf', false, true) + r('#E8B04A', 'mvp_r_bulk', 'tv-ToyRosterName'))
         + r('#1C7A82', 'mvp_r_glorp', 'tv-ToyRosterName') + r('#4AA3DF', 'mvp_r_zinga', 'tv-ToyRosterName', human)
         + r('#D46FB0', 'mvp_r_taras_dead', 'tv-ToyRosterNameDead') + '</div></div>';
       ['ToyRowTwelve', 'ToyColumnEight', 'ToyKicker'].forEach(V);
-      const b = proposal([['ToyRoster'], ['ToyRosterName', 'normal'], ['ToyRosterNameSelf', 'normal'], ['ToyRosterNameDead', 'normal'], ['ToyRosterDot'], ['ToyRosterTag'], ['ToyRosterTagText', 'normal']]);
+      const b = proposal([['ToyRoster'], ['ToyRosterName', 'normal'], ['ToyRosterNameSelf', 'normal'], ['ToyRosterNameDead', 'normal'], ['ToyRosterDot'], ['ToyRosterTag'], ['ToyRosterTagText', 'normal'], ['ToyRosterTagHost'], ['ToyRosterTagHostText', 'normal']]);
       return `<p class="sc-stage-label">${esc(T('upper_note'))}</p>` + stage('dark', [cell(T('mvp_roster_alien'), b, roster(false)), cell(T('mvp_roster_human'), b, roster(true)), ...hudTiles(roster(true), b)]);
     }
     if (p === 'items') {

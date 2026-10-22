@@ -2,84 +2,7 @@
  "about": "The copy review (prime-game-ui#4; round 4, prime-game-ui#51, and round 5, prime-game-ui#57: the deck rows the game's M7 asked for on prime-game#150). Round 2 was answered on 2026-10-05 and applied. Round 3 (2026-10-06, wave prime-game-ui#19), about the texts the styled screens added or reworded, was answered the same day and applied. open: questions still waiting for the engineer, each with options a-c; an option lists the rows it would write (empty uk and en remove the key), an option without rows keeps the deck and says so in its label. The deck keeps its current wording until an open question is answered on pages/copy/; where option a has rows, the deck could not take the change yet (an old wireframe frame still shows the current text). decided: what was applied, round 2 first. removed: keys taken out of the deck. asked: when the current round was put to the engineer; the page ignores answers saved before it. Rules: copy/README.md and docs/research/2026-10-05-ukrainian-localization/report.md.",
  "asked": "2026-10-22T15:27:42Z",
  "principle": "Гравці досвідчені, гра не для дітей: не пояснюємо звичне й очевидне (що меню не ставить на паузу, що щось нове, знайоме керування), без «водіння за руку». Без написаних жартів: текст простий, короткий і впевнений; смішне робить гра, а не підписи (дизайн-трек, 21.10).",
- "open": [
-  {
-   "id": "hud.roster.host",
-   "keys": [
-    "hud.roster.host"
-   ],
-   "kind": "word",
-   "round": "new",
-   "why": "Чернетка (зразок «вигляд ок»: у списку гравців біля хоста маленька мітка «ХОСТ», як мітка «людина»). Зараз хост позначений текстом у рядку: «Олена · хост».",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "note": "Мітка «хост» / «host» біля імені, як на зразку (дрібні великі літери).",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "label": "Без мітки",
-     "note": "Лишити «{name} · хост» у рядку; ключ прибрати.",
-     "rows": [
-      {
-       "key": "hud.roster.host",
-       "en": "",
-       "uk": ""
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "topic.r9_unused",
-   "keys": [
-    "esc.tab.game",
-    "esc.tab.role",
-    "esc.role.teammates",
-    "esc.character.locked"
-   ],
-   "kind": "less-text",
-   "round": "new",
-   "why": "Після нового меню зліва (ui-2.3.0) ці тексти ніде не показуються: «Гра», «Роль», «Твоя команда · {count}», «Змінювати можна лише в лобі».",
-   "options": [
-    {
-     "id": "a",
-     "label": "Прибрати всі чотири (рекомендую)",
-     "note": "Гра їх не використовує; повернути можна будь-коли.",
-     "rows": [
-      {
-       "key": "esc.tab.game",
-       "en": "",
-       "uk": ""
-      },
-      {
-       "key": "esc.tab.role",
-       "en": "",
-       "uk": ""
-      },
-      {
-       "key": "esc.role.teammates",
-       "en": "",
-       "uk": ""
-      },
-      {
-       "key": "esc.character.locked",
-       "en": "",
-       "uk": ""
-      }
-     ]
-    },
-    {
-     "id": "b",
-     "label": "Лишити в колоді",
-     "note": "Нічого не змінювати.",
-     "rows": []
-    }
-   ]
-  }
- ],
+ "open": [],
  "removed": [
   "downed.can_raise",
   "esc.running",
@@ -116,7 +39,12 @@
   "item.parasol",
   "map.zone_hint",
   "hud.kill_notice",
-  "dead.killed_by"
+  "dead.killed_by",
+  "esc.tab.game",
+  "esc.tab.role",
+  "esc.role.teammates",
+  "esc.character.locked",
+  "lobby.host_mark"
  ],
  "decided": [
   {
@@ -1055,6 +983,30 @@
     "map.title"
    ],
    "how": "Коло 8, пошук лобі (2026-10-22, чат): інженер прийняв усі шість рекомендацій — a, Як у колоді (рекомендую)."
+  },
+  {
+   "id": "hud.roster.host",
+   "keys": [
+    "hud.roster.host"
+   ],
+   "how": "Коло 9 (2026-10-22, чат): інженер прийняв обидві рекомендації — a. Як у колоді (рекомендую)."
+  },
+  {
+   "id": "topic.r9_unused",
+   "keys": [
+    "esc.tab.game",
+    "esc.tab.role",
+    "esc.role.teammates",
+    "esc.character.locked"
+   ],
+   "how": "Коло 9 (2026-10-22, чат): інженер прийняв обидві рекомендації — a. Прибрати всі чотири (рекомендую)."
+  },
+  {
+   "id": "lobby.host_mark",
+   "keys": [
+    "lobby.host_mark"
+   ],
+   "how": "Коло 9 (2026-10-22): мітка hud.roster.host замінила «{name} · хост» у рядку хоста; ключ прибрано агентом за постійною вказівкою інженера (вирішувати за рекомендаціями, він дивиться готовий результат)."
   }
  ]
 }
