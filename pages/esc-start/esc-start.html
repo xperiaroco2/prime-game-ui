@@ -1,0 +1,188 @@
+<title>Меню костюма зліва</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+/* Layout: one column of 16:9 frames at the 1920x1080 reference, each scaled by container units; the game UI inside
+   uses only what Godot's StyleBoxFlat draws (solid fills, one border colour, radii). */
+:root {
+  --base: #1a1629; --module: #2a2540; --row: #352f4f; --row-light: #403962; --edge: #4a4170;
+  --text: #ece8f7; --dim: #a39dbd; --accent: #6ff2b4; --accent-ink: #082418; --danger: #ff5c6c;
+  --ship-wall: #5c6470; --ship-floor: #3f4650; --ship-port: #1c2438; --room-wall: #7a6e62; --room-floor: #4e4438;
+  --page-bg: #f3f1f8; --page-fg: #1a1629; --page-dim: #5f5878; --page-line: #d9d4e8; --page-card: #ffffff; --page-accent: #1f8f5f;
+  --font-text: "Onest", system-ui, sans-serif; --font-display: "Unbounded", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --page-bg: #14111f; --page-fg: #ece8f7; --page-dim: #a39dbd; --page-line: #3a3358; --page-card: #221d36; --page-accent: #6ff2b4; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --page-bg: #14111f; --page-fg: #ece8f7; --page-dim: #a39dbd; --page-line: #3a3358; --page-card: #221d36; --page-accent: #6ff2b4; color-scheme: dark }
+body { background: var(--page-bg); color: var(--page-fg); font: 16px/1.5 var(--font-text); }
+main { max-width: 1100px; margin: 0 auto; padding-block: 24px 48px; padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px)); display: grid; gap: 32px; }
+h1 { font: 700 28px/1.2 var(--font-display); margin: 0; text-wrap: balance; }
+.lead { margin: 0; max-width: 68ch; color: var(--page-dim); }
+.lead b { color: var(--page-fg); }
+figure { margin: 0; display: grid; gap: 10px; }
+figcaption { max-width: 68ch; }
+figcaption b { font-family: var(--font-display); font-size: 15px; }
+.rules { margin: 0; padding-left: 20px; max-width: 68ch; display: grid; gap: 6px; }
+
+/* The frame: 1920 x 1080 reference px. */
+.frame { container-type: inline-size; width: 100%; aspect-ratio: 16 / 9; border-radius: 10px; overflow: hidden; }
+.stage { --px: calc(100cqw / 1920); position: relative; width: 100%; height: 100%; font-family: var(--font-text); color: var(--text); }
+.w-ship { background: var(--ship-wall); }
+.w-ship .floor { position: absolute; left: 0; right: 0; bottom: 0; height: calc(380 * var(--px)); background: var(--ship-floor); }
+.w-ship .port { position: absolute; right: calc(420 * var(--px)); top: calc(150 * var(--px)); width: calc(260 * var(--px)); height: calc(260 * var(--px));
+  border-radius: 50%; background: var(--ship-port); border: calc(18 * var(--px)) solid #7c8592; }
+.w-ship .pod { position: absolute; bottom: calc(300 * var(--px)); width: calc(150 * var(--px)); height: calc(420 * var(--px)); background: #6f7884;
+  border-radius: calc(75 * var(--px)) calc(75 * var(--px)) calc(12 * var(--px)) calc(12 * var(--px)); }
+.w-room { background: var(--room-wall); }
+.w-room .floor { position: absolute; left: 0; right: 0; bottom: 0; height: calc(360 * var(--px)); background: var(--room-floor); }
+.w-room .window { position: absolute; right: calc(380 * var(--px)); top: calc(180 * var(--px)); width: calc(340 * var(--px)); height: calc(240 * var(--px));
+  background: #8f9ba6; border: calc(12 * var(--px)) solid #6a5d50; }
+.w-room .door { position: absolute; left: calc(980 * var(--px)); bottom: calc(360 * var(--px)); width: calc(200 * var(--px)); height: calc(470 * var(--px)); background: #5d5248; }
+
+/* The side menu: full height at the left, the world stays visible at the right. */
+.side { position: absolute; left: 0; top: 0; bottom: 0; width: calc(520 * var(--px)); background: var(--module);
+  border-right: calc(2 * var(--px)) solid var(--edge); display: flex; flex-direction: column;
+  padding: calc(48 * var(--px)) calc(30 * var(--px)) calc(36 * var(--px)); box-sizing: border-box; gap: calc(28 * var(--px)); }
+.head { display: flex; align-items: center; gap: calc(12 * var(--px)); padding: 0 calc(18 * var(--px)); }
+.kicker { font: 700 calc(14 * var(--px))/1.24 var(--font-display); letter-spacing: calc(2 * var(--px)); text-transform: uppercase; color: var(--dim); }
+.code { font: 500 calc(22 * var(--px))/1.275 var(--font-text); color: var(--text); flex: 1; }
+.keycap { margin-left: auto; font: 700 calc(18 * var(--px))/1 var(--font-text); color: var(--text); background: var(--row);
+  border: calc(2 * var(--px)) solid var(--edge); border-radius: calc(6 * var(--px)); padding: calc(6 * var(--px)) calc(10 * var(--px)); }
+.btn-o { font: 700 calc(20 * var(--px))/1.275 var(--font-text); color: var(--accent); background: var(--row);
+  border: calc(2 * var(--px)) solid var(--accent); border-radius: calc(9 * var(--px)); padding: calc(8 * var(--px)) calc(16 * var(--px)); }
+.list { display: flex; flex-direction: column; gap: calc(4 * var(--px)); }
+.item { font: 700 calc(22 * var(--px))/1.275 var(--font-text); color: var(--dim); border-radius: calc(9 * var(--px));
+  padding: calc(14 * var(--px)) calc(18 * var(--px)); }
+.item.on { background: var(--row); color: var(--text); }
+.item.first { color: var(--text); }
+.rule { height: calc(2 * var(--px)); background: var(--edge); }
+.spacer { flex: 1; }
+.item.danger { color: var(--danger); }
+
+/* A page opened beside the menu. */
+.page { position: absolute; left: calc(560 * var(--px)); top: calc(48 * var(--px)); width: calc(900 * var(--px)); background: var(--module);
+  border: calc(2 * var(--px)) solid var(--edge); border-radius: calc(12 * var(--px)); padding: calc(30 * var(--px)); box-sizing: border-box;
+  display: flex; flex-direction: column; gap: calc(16 * var(--px)); }
+.row { display: flex; align-items: center; gap: calc(12 * var(--px)); background: var(--row); border: calc(2 * var(--px)) solid var(--edge);
+  border-radius: calc(12 * var(--px)); padding: calc(14 * var(--px)) calc(16 * var(--px)); font: 700 calc(20 * var(--px))/1.275 var(--font-text); }
+.row.on { border: calc(3 * var(--px)) solid var(--accent); }
+.row.full { color: var(--dim); font-weight: 500; }
+.row .n { flex: 1; }
+.row .p { color: var(--dim); font-weight: 500; }
+.btn { align-self: flex-end; font: 700 calc(22 * var(--px))/1.275 var(--font-text); color: var(--accent-ink); background: var(--accent);
+  border-bottom: calc(5 * var(--px)) solid #33a877; border-radius: calc(9 * var(--px)); padding: calc(14 * var(--px)) calc(21 * var(--px)); }
+.cols { display: flex; gap: calc(24 * var(--px)); align-items: flex-start; }
+.cols > .grow { flex: 1; display: flex; flex-direction: column; gap: calc(12 * var(--px)); }
+.cols > .side-col { width: calc(300 * var(--px)); display: flex; flex-direction: column; gap: calc(12 * var(--px)); }
+.field { height: calc(58 * var(--px)); background: var(--base); border: calc(2 * var(--px)) solid var(--edge); border-radius: calc(9 * var(--px)); }
+.btn-s { font: 700 calc(22 * var(--px))/1.275 var(--font-text); color: var(--accent); background: var(--row); text-align: center;
+  border: calc(2 * var(--px)) solid var(--accent); border-radius: calc(9 * var(--px)); padding: calc(13 * var(--px)) calc(21 * var(--px)); }
+.btn-s.off { color: var(--dim); border-color: var(--base); }
+.ghost { font: 700 calc(20 * var(--px))/1.275 var(--font-text); color: var(--text); padding: calc(10 * var(--px)) 0; }
+.srow { display: flex; align-items: center; justify-content: space-between; border-bottom: calc(2 * var(--px)) solid var(--row);
+  padding: calc(16 * var(--px)) calc(18 * var(--px)); font: 500 calc(22 * var(--px))/1.275 var(--font-text); }
+.sld { width: calc(240 * var(--px)); height: calc(16 * var(--px)); border-radius: calc(8 * var(--px)); background: var(--base); position: relative; }
+.sld b { position: absolute; left: 0; top: 0; bottom: 0; border-radius: calc(8 * var(--px)); background: var(--accent); }
+.hint { position: absolute; left: calc(39 * var(--px)); bottom: calc(39 * var(--px)); display: flex; gap: calc(10 * var(--px)); align-items: center;
+  font: 500 calc(20 * var(--px))/1 var(--font-text); color: var(--text); }
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@500;700&family=Unbounded:wght@700&display=swap">
+<main>
+  <h1>Меню костюма зліва</h1>
+  <p class="lead">Як «Пуск»: Esc висуває одну панель зліва, світ праворуч лишається видно. У панелі — лише те, що
+  має сенс там, де ти є. Пункт відкриває свою сторінку поруч із панеллю. <b>Немає вкладок угорі й нижнього ряду кнопок,
+  немає «Ролі»</b> (роль показує HUD), «Персонаж» лише в лобі, «Посібник» і «Налаштування» є завжди.</p>
+
+  <figure>
+    <div class="frame"><div class="stage w-ship"><div class="floor"></div><div class="port"></div>
+      <div class="pod" style="left:58%"></div><div class="pod" style="left:68%"></div>
+      <div class="side">
+        <div class="head"><span class="kicker">Твій код</span><span class="code">MD4WXT</span><span class="btn-o">Копіювати</span></div>
+        <div class="rule"></div>
+        <div class="list">
+          <span class="item first">Знайти лобі</span><span class="item">Створити гру</span><span class="item">Навчання</span>
+          <span class="item">Посібник</span><span class="item">Налаштування</span>
+        </div>
+        <div class="spacer"></div><div class="rule"></div>
+        <div class="list"><span class="item">Вийти з гри</span></div>
+      </div>
+    </div></div>
+    <figcaption><b>1 · Корабель, сесії немає.</b> Угорі твій код, щоб покликати друзів. Далі те, з чого починається гра:
+    знайти лобі, створити гру, навчання. Внизу, окремо, вихід з гри.</figcaption>
+  </figure>
+
+  <figure>
+    <div class="frame"><div class="stage w-ship"><div class="floor"></div><div class="port"></div>
+      <div class="pod" style="left:80%"></div>
+      <div class="side">
+        <div class="head"><span class="kicker">Твій код</span><span class="code">MD4WXT</span><span class="btn-o">Копіювати</span></div>
+        <div class="rule"></div>
+        <div class="list">
+          <span class="item on">Знайти лобі</span><span class="item">Створити гру</span><span class="item">Навчання</span>
+          <span class="item">Посібник</span><span class="item">Налаштування</span>
+        </div>
+        <div class="spacer"></div><div class="rule"></div>
+        <div class="list"><span class="item">Вийти з гри</span></div>
+      </div>
+      <div class="page">
+        <div class="cols">
+          <div class="grow"><span class="kicker">Лобі поруч</span>
+            <div class="row on"><span class="n">Лобі: Ґлорп</span><span>6 / 10</span><span class="p">24 мс</span></div>
+            <div class="row"><span class="n">Лобі: Зінґа</span><span>3 / 10</span><span class="p">41 мс</span></div>
+            <div class="row full"><span class="n">Лобі: Бульк</span><span>Лобі заповнене.</span></div>
+            <span class="btn">Приєднатися</span>
+          </div>
+          <div class="side-col"><span class="kicker">Код</span><div class="field"></div><span class="btn-s off">Приєднатися</span>
+            <span class="ghost">Приєднатися за адресою</span></div>
+        </div>
+      </div>
+    </div></div>
+    <figcaption><b>2 · Корабель → «Знайти лобі».</b> Сторінка відкривається поруч: лобі поруч, вхід за кодом,
+    і тут же, тихо, «Приєднатися за адресою». Esc або пункт ще раз закриває сторінку.</figcaption>
+  </figure>
+
+  <figure>
+    <div class="frame"><div class="stage w-ship"><div class="floor"></div><div class="port"></div>
+      <div class="pod" style="left:58%"></div><div class="pod" style="left:68%"></div>
+      <div class="side">
+        <div class="head"><span class="kicker">Код</span><span class="code">K7Q2XR</span><span class="btn-o">Копіювати</span></div>
+        <div class="rule"></div>
+        <div class="list">
+          <span class="item first">Продовжити</span><span class="item">Персонаж</span>
+          <span class="item">Посібник</span><span class="item">Налаштування</span>
+        </div>
+        <div class="spacer"></div><div class="rule"></div>
+        <div class="list"><span class="item">Покинути сесію</span><span class="item">Вийти з гри</span></div>
+      </div>
+    </div></div>
+    <figcaption><b>3 · Лобі (сесія на кораблі, раунд ще не почався).</b> Угорі код лобі. «Персонаж» є лише тут.
+    «Продовжити» просто закриває меню.</figcaption>
+  </figure>
+
+  <figure>
+    <div class="frame"><div class="stage w-room"><div class="floor"></div><div class="window"></div><div class="door"></div>
+      <div class="side">
+        <div class="list">
+          <span class="item first">Продовжити</span><span class="item">Посібник</span><span class="item on">Налаштування</span>
+        </div>
+        <div class="spacer"></div><div class="rule"></div>
+        <div class="list"><span class="item">Покинути сесію</span><span class="item">Вийти з гри</span></div>
+      </div>
+      <div class="page">
+        <span class="kicker">Звук і голос</span>
+        <div class="srow"><span>Загальна гучність</span><span class="sld"><b style="width:80%"></b></span></div>
+        <div class="srow"><span>Голос інших</span><span class="sld"><b style="width:65%"></b></span></div>
+        <div class="srow"><span>Музика</span><span class="sld"><b style="width:50%"></b></span></div>
+      </div>
+    </div></div>
+    <figcaption><b>4 · Раунд.</b> Лише продовжити, посібник, налаштування, а внизу покинути сесію і вийти. Без ролі й
+    без персонажа. Гра не стає на паузу. Тут відкрито «Налаштування».</figcaption>
+  </figure>
+
+  <ul class="rules">
+    <li>Слова ті самі, що вже є в колоді; нових текстів немає.</li>
+    <li>Підтвердження для хоста («Покинути сесію?») лишається, як було.</li>
+    <li>Кадри — ескіз: після вашого «так» перемалюю s05 у бібліотеці й перевірю, як завжди.</li>
+  </ul>
+</main>
