@@ -2799,6 +2799,123 @@
 .tv-ToyStepper.is-disabled .tv-icon {
   color: var(--toy-setting-stepper-items-icon-disabled-color);
 }
+/* ToySegmentStartSelected: Button → ToyButton · segment-start-selected · light */
+.tv-ToySegmentStartSelected {
+  box-sizing: border-box;
+  position: relative;
+  background: var(--toy-segment-start-selected-normal-bg-color);
+  border-style: solid;
+  border-color: var(--toy-segment-start-selected-normal-border-color);
+  border-top-width: calc(var(--toy-segment-start-selected-normal-border-width) * var(--px));
+  border-right-width: calc(var(--toy-segment-start-selected-normal-border-width) * var(--px));
+  border-bottom-width: calc(var(--toy-segment-start-selected-normal-border-width) * var(--px));
+  border-left-width: calc(var(--toy-segment-start-selected-normal-border-width) * var(--px));
+  border-top-left-radius: calc(var(--toy-segment-start-selected-normal-corner-radius-top-left) * var(--px));
+  border-top-right-radius: calc(var(--toy-segment-start-selected-normal-corner-radius-top-right) * var(--px));
+  border-bottom-right-radius: calc(var(--toy-segment-start-selected-normal-corner-radius-bottom-right) * var(--px));
+  border-bottom-left-radius: calc(var(--toy-segment-start-selected-normal-corner-radius-bottom-left) * var(--px));
+  padding-top: calc((var(--toy-segment-start-selected-normal-content-margin-block) - var(--toy-segment-start-selected-normal-border-width)) * var(--px));
+  padding-right: calc((var(--toy-segment-start-selected-normal-content-margin-inline) - var(--toy-segment-start-selected-normal-border-width)) * var(--px));
+  padding-bottom: calc((var(--toy-segment-start-selected-normal-content-margin-block) - var(--toy-segment-start-selected-normal-border-width)) * var(--px));
+  padding-left: calc((var(--toy-segment-start-selected-normal-content-margin-inline) - var(--toy-segment-start-selected-normal-border-width)) * var(--px));
+  font-family: var(--toy-segment-start-selected-label-font-family), system-ui, sans-serif;
+  font-size: calc(var(--toy-segment-start-selected-label-font-size) * var(--px));
+  font-weight: var(--toy-segment-start-selected-label-font-weight);
+  line-height: calc(var(--toy-segment-start-selected-label-line-box) * var(--px));
+  letter-spacing: calc(var(--toy-segment-start-selected-label-letter-spacing) * var(--px));
+  color: var(--toy-segment-start-selected-normal-font-color);
+  cursor: pointer;
+}
+.tv-ToySegmentStartSelected.is-hover {
+  background: var(--toy-segment-start-selected-hover-bg-color);
+}
+.tv-ToySegmentStartSelected.is-disabled {
+  background: var(--toy-segment-start-selected-disabled-bg-color);
+  border-color: var(--toy-segment-start-selected-disabled-border-color);
+  color: var(--toy-segment-start-selected-disabled-font-color);
+}
+.tv-ToySegmentStartSelected > .tv-focus {
+  display: none;
+  position: absolute;
+  pointer-events: none;
+  box-sizing: border-box;
+  border-style: solid;
+  border-color: var(--toy-segment-start-selected-focus-border-color);
+  border-top-width: calc(var(--toy-segment-start-selected-focus-border-width) * var(--px));
+  border-right-width: calc(var(--toy-segment-start-selected-focus-border-width) * var(--px));
+  border-bottom-width: calc(var(--toy-segment-start-selected-focus-border-width) * var(--px));
+  border-left-width: calc(var(--toy-segment-start-selected-focus-border-width) * var(--px));
+  border-top-left-radius: calc(var(--toy-segment-start-selected-focus-corner-radius-top-left) * var(--px));
+  border-top-right-radius: calc(var(--toy-segment-start-selected-focus-corner-radius-top-right) * var(--px));
+  border-bottom-right-radius: calc(var(--toy-segment-start-selected-focus-corner-radius-bottom-right) * var(--px));
+  border-bottom-left-radius: calc(var(--toy-segment-start-selected-focus-corner-radius-bottom-left) * var(--px));
+  top: calc((0 - var(--toy-segment-start-selected-normal-border-width) - var(--toy-segment-start-selected-focus-expand-margin)) * var(--px));
+  right: calc((0 - var(--toy-segment-start-selected-normal-border-width) - var(--toy-segment-start-selected-focus-expand-margin)) * var(--px));
+  bottom: calc((0 - var(--toy-segment-start-selected-normal-border-width) - var(--toy-segment-start-selected-focus-expand-margin)) * var(--px));
+  left: calc((0 - var(--toy-segment-start-selected-normal-border-width) - var(--toy-segment-start-selected-focus-expand-margin)) * var(--px));
+}
+.tv-ToySegmentStartSelected.is-focus > .tv-focus, .tv-ToySegmentStartSelected:focus-visible > .tv-focus {
+  display: block;
+}
+/* ToySegmentEnd: Button → ToyButton · segment-end · light */
+.tv-ToySegmentEnd {
+  box-sizing: border-box;
+  position: relative;
+  background: var(--toy-segment-end-normal-bg-color);
+  border-style: solid;
+  border-color: var(--toy-segment-end-normal-border-color);
+  border-top-width: calc(var(--toy-segment-end-normal-border-width) * var(--px));
+  border-right-width: calc(var(--toy-segment-end-normal-border-width) * var(--px));
+  border-bottom-width: calc(var(--toy-segment-end-normal-border-width) * var(--px));
+  border-left-width: calc(var(--toy-segment-end-normal-border-width) * var(--px));
+  border-top-left-radius: calc(var(--toy-segment-end-normal-corner-radius-top-left) * var(--px));
+  border-top-right-radius: calc(var(--toy-segment-end-normal-corner-radius-top-right) * var(--px));
+  border-bottom-right-radius: calc(var(--toy-segment-end-normal-corner-radius-bottom-right) * var(--px));
+  border-bottom-left-radius: calc(var(--toy-segment-end-normal-corner-radius-bottom-left) * var(--px));
+  padding-top: calc((var(--toy-segment-end-normal-content-margin-block) - var(--toy-segment-end-normal-border-width)) * var(--px));
+  padding-right: calc((var(--toy-segment-end-normal-content-margin-inline) - var(--toy-segment-end-normal-border-width)) * var(--px));
+  padding-bottom: calc((var(--toy-segment-end-normal-content-margin-block) - var(--toy-segment-end-normal-border-width)) * var(--px));
+  padding-left: calc((var(--toy-segment-end-normal-content-margin-inline) - var(--toy-segment-end-normal-border-width)) * var(--px));
+  font-family: var(--toy-segment-end-label-font-family), system-ui, sans-serif;
+  font-size: calc(var(--toy-segment-end-label-font-size) * var(--px));
+  font-weight: var(--toy-segment-end-label-font-weight);
+  line-height: calc(var(--toy-segment-end-label-line-box) * var(--px));
+  letter-spacing: calc(var(--toy-segment-end-label-letter-spacing) * var(--px));
+  color: var(--toy-segment-end-normal-font-color);
+  cursor: pointer;
+}
+.tv-ToySegmentEnd.is-hover {
+  background: var(--toy-segment-end-hover-bg-color);
+  color: var(--toy-segment-end-hover-font-color);
+}
+.tv-ToySegmentEnd.is-disabled {
+  background: var(--toy-segment-end-disabled-bg-color);
+  border-color: var(--toy-segment-end-disabled-border-color);
+  color: var(--toy-segment-end-disabled-font-color);
+}
+.tv-ToySegmentEnd > .tv-focus {
+  display: none;
+  position: absolute;
+  pointer-events: none;
+  box-sizing: border-box;
+  border-style: solid;
+  border-color: var(--toy-segment-end-focus-border-color);
+  border-top-width: calc(var(--toy-segment-end-focus-border-width) * var(--px));
+  border-right-width: calc(var(--toy-segment-end-focus-border-width) * var(--px));
+  border-bottom-width: calc(var(--toy-segment-end-focus-border-width) * var(--px));
+  border-left-width: calc(var(--toy-segment-end-focus-border-width) * var(--px));
+  border-top-left-radius: calc(var(--toy-segment-end-focus-corner-radius-top-left) * var(--px));
+  border-top-right-radius: calc(var(--toy-segment-end-focus-corner-radius-top-right) * var(--px));
+  border-bottom-right-radius: calc(var(--toy-segment-end-focus-corner-radius-bottom-right) * var(--px));
+  border-bottom-left-radius: calc(var(--toy-segment-end-focus-corner-radius-bottom-left) * var(--px));
+  top: calc((0 - var(--toy-segment-end-normal-border-width) - var(--toy-segment-end-focus-expand-margin)) * var(--px));
+  right: calc((0 - var(--toy-segment-end-normal-border-width) - var(--toy-segment-end-focus-expand-margin)) * var(--px));
+  bottom: calc((0 - var(--toy-segment-end-normal-border-width) - var(--toy-segment-end-focus-expand-margin)) * var(--px));
+  left: calc((0 - var(--toy-segment-end-normal-border-width) - var(--toy-segment-end-focus-expand-margin)) * var(--px));
+}
+.tv-ToySegmentEnd.is-focus > .tv-focus, .tv-ToySegmentEnd:focus-visible > .tv-focus {
+  display: block;
+}
 /* ToySlotHand: PanelContainer · slot.hand · dark */
 .tv-ToySlotHand {
   box-sizing: border-box;

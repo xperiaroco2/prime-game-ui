@@ -10,46 +10,49 @@ The styled pre game screen from the UI track (xperiaroco2/prime-game-ui), as a G
 - **How to read it:** the roots are children of the screen's full-rect root `Control`; every property not listed keeps Godot's default; sizes and offsets are reference px. In a state's **Shown** list, the first node of each subtree gives its path from the screen root.
 - **Texts** are keys of `copy/strings.csv`, and the language switches live (the Esc menu's Settings). A plain key is set as `text` and translates itself. A key with placeholders, a plural key (`tr_n`) and a key drawn in pieces are set from code with `auto_translate_mode = DISABLED`: `tr()`, then `String.format()` with the data (the samples below), rebuilt on `NOTIFICATION_TRANSLATION_CHANGED`. A "text from data" (names, the room code, times, numbers) is set in code and never translated (`auto_translate_mode = DISABLED`).
 
-The black intro of about 3 s in the silent pre game (#213): it shows when the own side arrives, names it and its goal (and, for a human, the other humans), plays one sound per side, and needs no input. Nobody hears anybody and no text says so. Then the round fades in. No mic, no other HUD while it shows. The sketch pages/mvp-screens frames 8 and 9 at 0.75 (every length x 1.5). Open: how the trip from the spaceship lobby maps onto Countdown, Loading and Pregame.
+The black intro of about 3 s in the silent pre game (#213): it shows when the own side arrives, names it and its goal (and, for a human, the other humans), plays one sound per side, and needs no input. Nobody hears anybody and no text says so. Then the round fades in. No mic, no other HUD while it shows. The target page pages/suit-final, frame 4 (the role reveal, loud), every length x 1.5. Open: how the trip from the spaceship lobby maps onto Countdown, Loading and Pregame.
 
 ## States
 
 | State | Page label | What it shows |
 |---|---|---|
-| `alien` | Прибулець | An alien's intro (the sketch's frame 8). |
-| `human` | Людина | A human's intro (the sketch's frame 9): the danger band and title, and the other humans named under the goal (humans know each other, decided 2026-10-20). |
+| `alien` | Прибулець | An alien's intro (the target's frame 4, the mint band). |
+| `human` | Людина | A human's intro (the target's frame 4b): the danger band and title, and the other humans under the goal with their body colours (humans know each other, decided 2026-10-20). |
 | `after` | Потім: раунд | The round fading in: Night fades from alpha 1 to 0 over 0.4 s (a cut under reduced motion) over the round HUD, s7 at the round's first second. |
 
 ## Node tree in `alien`
 
 - **Night** `Panel` · variation `ToyBackdropFullScreen` · anchors `full_rect`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both
   - Note: P2, opaque: the full screens' base ground (ui-2.0.0; ToyBackdropNight's colour, the soft ink until ui-1.4.0). In after it fades from alpha 1 to 0 over 0.4 s (modulate.a; a cut under reduced motion), then the whole screen is freed.
-- **V** `VBoxContainer` · variation `ToyColumnThirtyTwo` · anchors `center`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both · gaps from the variation: separation 32 · alignment `ALIGNMENT_CENTER`
-  - Note: A centred column on the night, 32 px between its lines (the sketch's 20 x 1.5 = 30, the nearest step).
-  - **YourRole** `Label` · variation `ToyTextOnDark` · text `pregame.your_role`: en "Your role" · uk "Твоя роль" · horizontal_alignment `CENTER`
-  - **Band** `PanelContainer` · variation `ToyBand` · custom_minimum_size (1920, 285)
-    - Note: ui-2.0.0 (the target page pages/suit-final, frame 4): the loud band across the whole width, 285 px tall (190 x 1.5): the accent for an alien, the danger colour for a human.
+- **Reveal** `Control` · anchors `full_rect`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both
+  - Note: The target page's frame 4 (pages/suit-final, the role reveal, the first loud moment): fixed places on the night, so the band never moves between the two sides: the kicker at 270, the band from 345 to 630 across the whole width, the goal from 684, a human's team at 870 (the target's 180, 230 to 420, 456 and 580 x 1.5).
+  - **YourRole** `Label` · variation `ToyKicker` · anchors `top_wide`, offsets 0, 270, 0, 270 (left, top, right, bottom), grow both/end · text `pregame.your_role`: en "Your role" · uk "Твоя роль" · horizontal_alignment `CENTER`
+    - Note: The kicker over the band (the target's .who: dim capitals; the game sets uppercase = true).
+  - **Band** `PanelContainer` · variation `ToyBand` · anchors `top_wide`, offsets 0, 345, 0, 630 (left, top, right, bottom), grow both/end
+    - Note: The loud band across the whole width, 285 px tall (190 x 1.5): the accent for an alien, the danger colour for a human.
     - **Role** `Label` · variation `ToyTitleHero` · text `role.alien`: en "Alien" · uk "Прибулець" · horizontal_alignment `CENTER` · vertical_alignment `CENTER`
-      - Note: The own side in Unbounded at the hero size on the band: ToyTitleHero (the accent ink) with role.alien, ToyTitleHeroAlert (the danger ink) with role.human.
-  - **Goal** `PanelContainer` · variation `ToyPlateGoal` · size flags horizontal `SIZE_SHRINK_CENTER` · custom_minimum_size (900, 0) = Vector2(get_theme_constant("width", "ToyPlateGoal"), 0)
-    - Note: The side's goal as a plain line under the band (no plate since ui-2.0.0), 900 wide.
-    - **Text** `Label` · variation `ToyPlateGoalText` · custom_minimum_size (802, 0) · text `role.goal.alien`: en "Throw the best party: finish every task before time runs out and the cops arrive." · uk "Влаштуй найкращу вечірку: виконай усі задачі, поки не скінчився час і не приїхали копи." · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
-      - Note: role.goal.alien or role.goal.human. 802 = 900 less the plate's margins (39 + 39) and outlines (6 + 14).
+      - Note: The own side in Unbounded at the hero size on the band, (the target writes it in capitals; ToyTitleHero sets no uppercase, open): ToyTitleHero (the accent ink) with role.alien, ToyTitleHeroAlert (the danger ink) with role.human.
+  - **Goal** `PanelContainer` · variation `ToyPlateGoal` · anchors `center_top`, offsets 0, 684, 0, 684 (left, top, right, bottom), grow both/end · custom_minimum_size (900, 0) = Vector2(get_theme_constant("width", "ToyPlateGoal"), 0)
+    - Note: The side's goal as a plain line under the band (ToyPlateGoal draws no plate since ui-2.0.0), 1080 wide (the target's 720 x 1.5).
+    - **Text** `Label` · variation `ToyPlateGoalText` · custom_minimum_size (1080, 0) · text `role.goal.alien`: en "Throw the best party: finish every task before time runs out and the cops arrive." · uk "Влаштуй найкращу вечірку: виконай усі задачі, поки не скінчився час і не приїхали копи." · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
+      - Note: role.goal.alien or role.goal.human.
 
 ## `human`: what differs from `alien`
 
-- **Changed** `V/Band`: variation `ToyBandAlert` (was: variation `ToyBand`)
-- **Changed** `V/Band/Role`: variation `ToyTitleHeroAlert` · text `role.human`: en "Human" · uk "Людина" (was: variation `ToyTitleHero` · text `role.alien`: en "Alien" · uk "Прибулець")
-- **Changed** `V/Goal/Text`: text `role.goal.human`: en "You're a human in an alien mask. Ruin the party: run out the clock or anger the neighbours until the cops come." · uk "Ти людина під маскою прибульця. Зіпсуй вечірку: протягни час або розлюти сусідів, щоб приїхали копи." (was: text `role.goal.alien`: en "Throw the best party: finish every task before time runs out and the cops arrive." · uk "Влаштуй найкращу вечірку: виконай усі задачі, поки не скінчився час і не приїхали копи.")
+- **Changed** `Reveal/Band`: variation `ToyBandAlert` (was: variation `ToyBand`)
+- **Changed** `Reveal/Band/Role`: variation `ToyTitleHeroAlert` · text `role.human`: en "Human" · uk "Людина" (was: variation `ToyTitleHero` · text `role.alien`: en "Alien" · uk "Прибулець")
+- **Changed** `Reveal/Goal/Text`: text `role.goal.human`: en "You're a human in an alien mask. Ruin the party: run out the clock or anger the neighbours until the cops come." · uk "Ти людина під маскою прибульця. Зіпсуй вечірку: протягни час або розлюти сусідів, щоб приїхали копи." (was: text `role.goal.alien`: en "Throw the best party: finish every task before time runs out and the cops arrive." · uk "Влаштуй найкращу вечірку: виконай усі задачі, поки не скінчився час і не приїхали копи.")
 - **Shown:**
-  - **V/Team** `PanelContainer` · variation `ToyStickerAlert` · size flags horizontal `SIZE_SHRINK_CENTER`
-    - Note: A human's fellow humans on a word tile with a danger outline; hidden for an alien and for a human with no other human.
-    - **Text** `Label` · variation `ToyStickerTextLarge` · text `pregame.teammate` with sample {names} = "Zinga" / "Зінга": en "Your team: Zinga" · uk "Твоя команда: Зінга"
+  - **Reveal/Team** `HBoxContainer` · variation `ToyRowTwelve` · anchors `center_top`, offsets 0, 870, 0, 870 (left, top, right, bottom), grow both/end · gaps from the variation: separation 12
+    - Note: A human's fellow humans (humans know each other, decided 2026-10-20), as the target's .team: each one's body colour, then the line; hidden for an alien and for a human with no other human. One Dot per other human, in the roster's order.
+    - **Dot** `Panel` · variation `ToyRosterDot` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (15, 15) = Vector2(get_theme_constant("width", "ToyRosterDot"), get_theme_constant("height", "ToyRosterDot")) · self_modulate from data (a content colour, not a theme colour), sample #4AA3DF
+      - Note: The other human's body colour (self_modulate, content data).
+    - **Text** `Label` · variation `ToyTextOnDark` · size flags vertical `SIZE_SHRINK_CENTER` · text `pregame.teammate` with sample {names} = "Zinga" / "Зінга": en "Your team: Zinga" · uk "Твоя команда: Зінга"
       - Note: The other humans' names joined with ", " (user text, auto_translate_mode DISABLED on the names).
 
 ## `after`: what differs from `alien`
 
-- **Hidden:** `Night`, `V`.
+- **Hidden:** `Night`, `Reveal`.
 - **Shown:**
   - **Hud** `Control` · anchors `full_rect`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both
     - Note: Not part of this scene: the round HUD of s7 (s7/Hud at the round's first second: the full time, no anger, empty hands, nothing within reach), drawn here only to show what the fading Night uncovers. Build it once, in s7.

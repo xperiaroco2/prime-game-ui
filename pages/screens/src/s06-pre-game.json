@@ -3,10 +3,10 @@
   "wireframe": "s6",
   "title": "Pre game",
   "background": "room-light",
-  "note": "The black intro of about 3 s in the silent pre game (#213): it shows when the own side arrives, names it and its goal (and, for a human, the other humans), plays one sound per side, and needs no input. Nobody hears anybody and no text says so. Then the round fades in. No mic, no other HUD while it shows. The sketch pages/mvp-screens frames 8 and 9 at 0.75 (every length x 1.5). Open: how the trip from the spaceship lobby maps onto Countdown, Loading and Pregame.",
+  "note": "The black intro of about 3 s in the silent pre game (#213): it shows when the own side arrives, names it and its goal (and, for a human, the other humans), plays one sound per side, and needs no input. Nobody hears anybody and no text says so. Then the round fades in. No mic, no other HUD while it shows. The target page pages/suit-final, frame 4 (the role reveal, loud), every length x 1.5. Open: how the trip from the spaceship lobby maps onto Countdown, Loading and Pregame.",
   "states": [
-    { "id": "alien", "label": "Прибулець", "note": "An alien's intro (the sketch's frame 8)." },
-    { "id": "human", "label": "Людина", "note": "A human's intro (the sketch's frame 9): the danger band and title, and the other humans named under the goal (humans know each other, decided 2026-10-20)." },
+    { "id": "alien", "label": "Прибулець", "note": "An alien's intro (the target's frame 4, the mint band)." },
+    { "id": "human", "label": "Людина", "note": "A human's intro (the target's frame 4b): the danger band and title, and the other humans under the goal with their body colours (humans know each other, decided 2026-10-20)." },
     { "id": "after", "label": "Потім: раунд", "note": "The round fading in: Night fades from alpha 1 to 0 over 0.4 s (a cut under reduced motion) over the round HUD, s7 at the round's first second." }
   ],
   "nodes": [
@@ -187,25 +187,26 @@
     },
     { "name": "Night", "type": "Panel", "variation": "ToyBackdropFullScreen", "anchors_preset": "full_rect", "states": ["alien", "human"], "note": "P2, opaque: the full screens' base ground (ui-2.0.0; ToyBackdropNight's colour, the soft ink until ui-1.4.0). In after it fades from alpha 1 to 0 over 0.4 s (modulate.a; a cut under reduced motion), then the whole screen is freed." },
     {
-      "name": "V", "type": "VBoxContainer", "variation": "ToyColumnThirtyTwo", "states": ["alien", "human"], "anchors_preset": "center", "grow_horizontal": "both", "grow_vertical": "both", "alignment": "center", "note": "A centred column on the night, 32 px between its lines (the sketch's 20 x 1.5 = 30, the nearest step).",
+      "name": "Reveal", "type": "Control", "anchors_preset": "full_rect", "states": ["alien", "human"], "note": "The target page's frame 4 (pages/suit-final, the role reveal, the first loud moment): fixed places on the night, so the band never moves between the two sides: the kicker at 270, the band from 345 to 630 across the whole width, the goal from 684, a human's team at 870 (the target's 180, 230 to 420, 456 and 580 x 1.5).",
       "children": [
-        { "name": "YourRole", "type": "Label", "variation": "ToyTextOnDark", "key": "pregame.your_role", "horizontal_alignment": "center" },
+        { "name": "YourRole", "type": "Label", "variation": "ToyKicker", "key": "pregame.your_role", "anchors_preset": "top_wide", "offset_top": 270, "offset_bottom": 270, "horizontal_alignment": "center", "note": "The kicker over the band (the target's .who: dim capitals; the game sets uppercase = true)." },
         {
-          "name": "Band", "type": "PanelContainer", "variation": "ToyBand", "custom_minimum_size": [1920, 285], "per_state": { "human": { "variation": "ToyBandAlert" } }, "note": "ui-2.0.0 (the target page pages/suit-final, frame 4): the loud band across the whole width, 285 px tall (190 x 1.5): the accent for an alien, the danger colour for a human.",
+          "name": "Band", "type": "PanelContainer", "variation": "ToyBand", "anchors_preset": "top_wide", "offset_top": 345, "offset_bottom": 630, "per_state": { "human": { "variation": "ToyBandAlert" } }, "note": "The loud band across the whole width, 285 px tall (190 x 1.5): the accent for an alien, the danger colour for a human.",
           "children": [
-            { "name": "Role", "type": "Label", "variation": "ToyTitleHero", "key": "role.alien", "horizontal_alignment": "center", "vertical_alignment": "center", "per_state": { "human": { "key": "role.human", "variation": "ToyTitleHeroAlert" } }, "note": "The own side in Unbounded at the hero size on the band: ToyTitleHero (the accent ink) with role.alien, ToyTitleHeroAlert (the danger ink) with role.human." }
+            { "name": "Role", "type": "Label", "variation": "ToyTitleHero", "key": "role.alien", "horizontal_alignment": "center", "vertical_alignment": "center", "per_state": { "human": { "key": "role.human", "variation": "ToyTitleHeroAlert" } }, "note": "The own side in Unbounded at the hero size on the band, (the target writes it in capitals; ToyTitleHero sets no uppercase, open): ToyTitleHero (the accent ink) with role.alien, ToyTitleHeroAlert (the danger ink) with role.human." }
           ]
         },
         {
-          "name": "Goal", "type": "PanelContainer", "variation": "ToyPlateGoal", "size_flags_horizontal": "shrink_center", "note": "The side's goal as a plain line under the band (no plate since ui-2.0.0), 900 wide.",
+          "name": "Goal", "type": "PanelContainer", "variation": "ToyPlateGoal", "anchors_preset": "center_top", "offset_top": 684, "offset_bottom": 684, "grow_horizontal": "both", "note": "The side's goal as a plain line under the band (ToyPlateGoal draws no plate since ui-2.0.0), 1080 wide (the target's 720 x 1.5).",
           "children": [
-            { "name": "Text", "type": "Label", "variation": "ToyPlateGoalText", "key": "role.goal.alien", "horizontal_alignment": "center", "autowrap_mode": "word_smart", "custom_minimum_size": [802, 0], "per_state": { "human": { "key": "role.goal.human" } }, "note": "role.goal.alien or role.goal.human. 802 = 900 less the plate's margins (39 + 39) and outlines (6 + 14)." }
+            { "name": "Text", "type": "Label", "variation": "ToyPlateGoalText", "key": "role.goal.alien", "horizontal_alignment": "center", "autowrap_mode": "word_smart", "custom_minimum_size": [1080, 0], "per_state": { "human": { "key": "role.goal.human" } }, "note": "role.goal.alien or role.goal.human." }
           ]
         },
         {
-          "name": "Team", "type": "PanelContainer", "variation": "ToyStickerAlert", "states": ["human"], "size_flags_horizontal": "shrink_center", "note": "A human's fellow humans on a word tile with a danger outline; hidden for an alien and for a human with no other human.",
+          "name": "Team", "type": "HBoxContainer", "variation": "ToyRowTwelve", "states": ["human"], "anchors_preset": "center_top", "offset_top": 870, "offset_bottom": 870, "grow_horizontal": "both", "note": "A human's fellow humans (humans know each other, decided 2026-10-20), as the target's .team: each one's body colour, then the line; hidden for an alien and for a human with no other human. One Dot per other human, in the roster's order.",
           "children": [
-            { "name": "Text", "type": "Label", "variation": "ToyStickerTextLarge", "key": "pregame.teammate", "args": { "names": { "uk": "Зінга", "en": "Zinga" } }, "note": "The other humans' names joined with \", \" (user text, auto_translate_mode DISABLED on the names)." }
+            { "name": "Dot", "type": "Panel", "variation": "ToyRosterDot", "self_modulate": "#4AA3DF", "size_flags_vertical": "shrink_center", "note": "The other human's body colour (self_modulate, content data)." },
+            { "name": "Text", "type": "Label", "variation": "ToyTextOnDark", "key": "pregame.teammate", "args": { "names": { "uk": "Зінга", "en": "Zinga" } }, "size_flags_vertical": "shrink_center", "note": "The other humans' names joined with \", \" (user text, auto_translate_mode DISABLED on the names)." }
           ]
         }
       ]
