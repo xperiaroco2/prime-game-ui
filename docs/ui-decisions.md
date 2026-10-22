@@ -88,6 +88,71 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
     через» and the countdown at the time's size (36), so the return reads as the round's time does; `ToyPlateCount`,
     `ToyPlateHead` and `ToyPlateHeadText` are deprecated;
   - not drawn: the target's «Лобі поруч» head, since it has no copy key.
+- **The screens redrawn to the approved target (ui-2.2.0)** (the target `pages/suit-final/`; prime-game-ui#133 s5, #134
+  s4 and s6, #135 s1, s3, s8 and s10, and the follow-ups that finished the step; `tokens/README.md`, "The screens step,
+  ui-2.2.0"). The engineer's words (2026-10-22, chat, translated):
+  - no frame draws a focus ring by default: the game grabs no visible focus when a screen opens, and one «З клавіатури»
+    state per screen shows the ring (s5 `ship-keys`, s8 `keyboard`); s4 and s6 have no focusable control, s1, s3 and s10
+    no keyboard state;
+  - the language is chosen only in Settings (s1's invite lost its language chips);
+  - the match settings are on the ship's console (s4 `console-host`, `console-guest`), not in the Esc menu;
+  - the Lobby tab is gone from the Esc menu (s5), with its states.
+
+  Taken by the agents, for the engineer to veto (agent):
+  - s5: the menu tile is a fixed 1200 x 780 on every tab, so switching tabs never moves it (a session's five tabs at large
+    text and Character's 456 x 608 preview set it; the target's 990 holds two tabs);
+  - s5: the page body above the footer is a `ToySettingRow`, so its bottom hairline is the target's line over the footer
+    (Find a lobby, Game); Host, Join by address and Tutorial are ghost buttons at the footer's left, Quit at its right; no
+    Resume in the ship (the Esc keycap closes the menu); Join by address is a ghost toggle whose pressed fill marks the
+    open address entry; the code entry's column is 420 px and the address entry takes its place and width;
+  - s5: every settings row is at least 88 px (a dropdown row's height; the target's is 69), in the target's order, volumes
+    first (Overall, Voices, Effects, Music, Talk mode, Threshold, Mic, Mic test, Noise); the two-way choices (noise,
+    window, large text, reduced motion, language) stay toggle chips, since the screens have no zero-gap row for the joined
+    halves;
+  - s5: Leave is the outlined secondary button for everyone, the host's danger colour stays on the confirm dialog's
+    button; the Guide's card has no panel of its own inside the menu's tile (no tile in a tile); the world behind s5 is
+    the ship, as in the target's frames;
+  - s5: the settings section list and the Guide's topic list are `ToyMenuItem` (dim idle text, the open entry a row fill
+    with light text), now a light-context variation; the Guide's card has the same head as s3's and s8's, «Як робити» in
+    small capitals over the task's name, so the card is the same in s3, s5 and s8;
+  - s4: the console's title is the lobby's name (`lobby.default_name`); no presets, no lobby-name field and no Knives on
+    it; its setting rows are at least 72 px, so four rows and the code fit the 456 px inside the frame, the four values in
+    one 156 px column; the 50 | 100 halves (`ToySegmentStart`, `ToySegmentEnd`, 120 px each) touch, placed by anchors
+    inside a `Control`; a guest sees the value «50», not the locked segment; the room code is plain text after «Код», no
+    keycap and no Copy (the crosshair is no clipboard);
+  - s4: the console is drawn off centre so the crosshair rests on the lower right of the humans' minus, which hovers, clear
+    of its icon (on the icon it read as a broken glyph);
+  - s4: the ready marks (roster, ready plate, own tile) are the suit's pips (`ToyPip`, `ToyPipHealth`, 23 x 15); the roster
+    is 330 wide (target 276) so «Олена · хост» fits at large text; the countdown keeps the calm `ToyPlateText`; no
+    crosshair at the boot; the mic stays beside the ready tile; the boot hint is an «Esc» keycap (`ToyKeyOnDark`) and
+    `tutorial.list.menu` («Меню»); the sample names are Глорп and Зінга, as on the other screens;
+  - s6: the human's team line is a body-colour dot and the text, as on the target;
+  - s1: the invite's head and the lesson list's head reuse `tutorial.list.title` («Навчання»); the lesson tile's head is
+    `tutorial.step.progress` in `ToyKicker`; the lesson tile sits 36 px down (the time tile's place) and hugs its content
+    (at least 720), everything at the left; the lesson list takes the roster's styles and place, the current lesson in
+    the accent instead of a mint chip;
+  - s3: the three tiles keep their text at the left; the spinner is 72 px inside the join tile; the loading title is
+    `ToyPlateTitle`, not a small-capitals head (a frame with only Unbounded text stops the shots tool's font check);
+  - s3 and s8: the how-to card's head is «Як робити» (`ToyKicker`) over the task's name, `ToyHowtoNote` no longer used
+    there; s8: a room's name is its small-capitals head (`ToyKicker`), its pictogram stays 72 px and centred in the room's
+    body, the lit zone fills that body; the pictograms are drawn in the dim colour (`palette.dim`, the pack's
+    `tint_color`), the quiet level of the room's head (they were the source ink, nearly invisible on the dark tiles);
+  - s10: the winner line is `ToyTitleOnDark` (Unbounded 44, the target's 30 x 1.5), the reason and the countdown
+    `ToyTextMutedOnDark`; on the cops' coral ground all three lines are `ToyTextOnDanger`, so the target's three sizes are
+    one there;
+  - s3 and s8: the hairline rows (`ToySettingRow`) keep the row's 18 px inside margin, so they sit 18 px in from the
+    small-capitals head above them (in the target they line up);
+  - the screens page's worlds behind the UI (page art, not game UI) are the target's ship (`menu`), house (`room-light`)
+    and dead's room (`room-dark`) in its colours, instead of the old lilac and beige stand-ins.
+
+  Open:
+  - the lobbies nearby and «Твій код» in s5's Find a lobby (a placeholder tile) need the game's network discovery and
+    the engineer's words;
+  - missing copy keys, not drawn: «хост» on its own (the roster's host tag; the host's row uses `lobby.host_mark`),
+    «Матч» (the console's title), a map head (`map.title`), a failure head over s3's failure tiles;
+  - «ПОПАЛИСЬ!» (s10) and the role bands «Прибулець» / «Людина» (s6) are not in capitals as on the target:
+    `ToyTitleHeroAlert` and `ToyTitleHero` set no `uppercase` (a library change, or a deck text in capitals, his text);
+  - the workbench step screen is parked until the device's new art.
 - **The item bar is A** (the engineer, 2026-10-20, chat, translated, on the MVP screens page): sticker slots with a
   big item picture and a name tag over the bottom edge; B (a belt strap with a pocket) and C (the alien's hand
   holding the item) stay on the page, not chosen. The name tags' words are his texts.

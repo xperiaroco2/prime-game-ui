@@ -440,8 +440,8 @@ if (fs.existsSync(path.join(ROOT, 'tokens', 'prime.resolver.json'))) {
     }
     const knob = assets.get('icons/slider-knob.svg');
     const lab = assets.get('icons/room/lab.svg');
-    check(knob && knob.tint === 'none' && lab && lab.tint === 'multiply' && lab.tint_color === '#ece8f7' && lab.drawn_px >= 48 && lab.svg_scale === Math.ceil((lab.drawn_px / 48) * 100) / 100,
-      'tokens/: the knobs keep their colours; a room pictogram is white, drawn in the text colour, imported at its largest size', JSON.stringify(lab));
+    check(knob && knob.tint === 'none' && lab && lab.tint === 'multiply' && lab.tint_color === '#a39dbd' && lab.drawn_px >= 48 && lab.svg_scale === Math.ceil((lab.drawn_px / 48) * 100) / 100,
+      'tokens/: the knobs keep their colours; a room pictogram is white, drawn in the dim colour (ui-2.2.0), imported at its largest size', JSON.stringify(lab));
   }
 } else {
   skipped++;

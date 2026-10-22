@@ -130,15 +130,17 @@ const SCREENS = [
 ];
 const BACKGROUNDS = {
   menu: 'the ship (the lobby room) seen behind a menu',
-  'room-light': 'a lit room of the level',
-  'room-dark': 'a dark room of the level',
+  'room-light': 'a lit room of the house (the level)',
+  'room-dark': "the dead's room",
   black: 'black, no world (intro, outro, loading)',
 };
 const LICENCES_OK = /^(own work|OFL(-1\.1)?|CC0(-1\.0)?|MIT|ISC|Apache-2\.0)$/i;
 const GAME_ICONS = 'dist/pack/icons'; // the white copies of the tinted icons the game imports (tools/tokens/api.js)
 const ICON_SOURCES = [
   { prefix: '', dir: 'pages/components/icons', licences: 'pages/components/icons/LICENCES.json', entry: (f) => f },
-  { prefix: 'room/', dir: 'pages/room-signs/systems/b/icons', licences: 'pages/room-signs/systems/b/LICENCES.json', entry: (f) => `icons/${f}` },
+  // the room pictograms are drawn in one ink (tools/tokens/icons.js ROOM_INK); the page draws them in the pack's
+  // tint_color, which the game gives back as self_modulate on the white copy
+  { prefix: 'room/', dir: 'pages/room-signs/systems/b/icons', licences: 'pages/room-signs/systems/b/LICENCES.json', entry: (f) => `icons/${f}`, ink: '#1e1230' },
   // the how-to card art (prime-game-ui#3): the clean-sketch Delivery panels, which the game draws as the pack's PNGs
   // (dist/pack/cards/, rendered by tools/card-art/render.js); the page draws the SVG they are rendered from, as an
   // <img>, so its filter (the wobbly line) stays inside the picture. Switches is a sample card: not drawn here.
@@ -322,12 +324,14 @@ function loadIcons(pack) {
       // A tinted icon draws in currentColor on the page; the game imports its white copy (dist/pack/icons, written by
       // tools/tokens/build.js) and tints it. An icon in its own colours (the room pictograms, the slider knobs) is not.
       // The pack's assets record says where the game's copy is, whether it is white (tint "multiply") and, for an icon the
-      // pages always draw in one colour (the room pictograms' ink), the self_modulate that gives that colour back.
+      // pages always draw in one colour (the room pictograms, drawn in its tint_color), the self_modulate that gives that colour back.
       const tinted = !src.card && /currentColor/.test(text);
       const asset = assets.get(rel) || null;
       const svg = src.card
         ? `<img alt="" width="100%" height="100%" src="data:image/svg+xml;base64,${Buffer.from(text, 'utf8').toString('base64')}">`
-        : head + text.slice(open[0].length);
+        : head + (asset && asset.tint === 'multiply' && asset.tint_color && !tinted && src.ink
+          ? text.slice(open[0].length).split(src.ink).join(asset.tint_color)
+          : text.slice(open[0].length));
       icons.set(src.prefix + f.replace(/\.svg$/, ''), {
         file: rel, svg, w, h, tinted, card: !!src.card,
         game: asset ? `dist/pack/${asset.path}` : tinted && !src.prefix ? `${GAME_ICONS}/${f}` : rel,
@@ -1527,7 +1531,7 @@ function iconImportNotes(S, C) {
     return `${tick}${name}${tick} ${scale} (${fmt(px)} px)`;
   });
   return [
-    `- Icons: the tinted ones are white SVGs in ${tick}${GAME_ICONS}/${tick} (the pack's copy of ${tick}pages/components/icons${tick}, currentColor written as white): a TextureRect tints one with the ${tick}self_modulate${tick} its line gives (the colour the page draws it in), a Button with its variation's ${tick}icon_*_color${tick}, an OptionButton its arrow with ${tick}modulate_arrow${tick}. The room pictograms are white copies too (${tick}${GAME_ICONS}/room/${tick}), drawn in ink: their lines give the ${tick}self_modulate${tick}. The pack's ${tick}assets${tick} list every icon with its tint and ${tick}svg_scale${tick}.`,
+    `- Icons: the tinted ones are white SVGs in ${tick}${GAME_ICONS}/${tick} (the pack's copy of ${tick}pages/components/icons${tick}, currentColor written as white): a TextureRect tints one with the ${tick}self_modulate${tick} its line gives (the colour the page draws it in), a Button with its variation's ${tick}icon_*_color${tick}, an OptionButton its arrow with ${tick}modulate_arrow${tick}. The room pictograms are white copies too (${tick}${GAME_ICONS}/room/${tick}), drawn in the pack's ${tick}tint_color${tick}: their lines give the ${tick}self_modulate${tick}. The pack's ${tick}assets${tick} list every icon with its tint and ${tick}svg_scale${tick}.`,
     `- SVG import: Godot rasterises an SVG at import, so import each at ${tick}svg/scale${tick} = the largest size it is drawn ÷ its viewBox (the largest over every screen that draws it, as the pack's ${tick}assets${tick} give it): ${list.join(', ')}.`,
     ...cardNotes,
   ];

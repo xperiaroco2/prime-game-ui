@@ -122,24 +122,39 @@ html[data-zoom="100"] .pg-stage { --px: 1px; overflow-x: auto; overscroll-behavi
 .sc-frame [data-context="light"] { color: var(--toy-color-on-light-text); }
 .sc-frame svg { display: block; }
 
-/* The worlds behind the UI: page art, a wall, a floor and one prop, so that the UI is seen over something. */
+/* The worlds behind the UI: page art in the approved target's colours (pages/suit-final/build.js: the ship, the
+   house and the dead's room at 1280x720 there, x1.5 here), so that the UI is seen over the place it will be seen in.
+   Three blocks per world (the build writes three <i>), so the ship's pods and the house's sofa are left out; the dead's
+   room's second pair of capsules is the first pair's hard copy (one shadow, no blur and no spread).
+   menu = the ship, room-light = the house, room-dark = the dead's room. */
 .pg-world { position: absolute; inset: 0; }
-.pg-world i { position: absolute; display: block; }
-.pg-world i:nth-child(1) { left: 0; right: 0; bottom: 0; height: 30%; }
-.pg-world i:nth-child(2) { bottom: 30%; left: 62%; width: 11%; height: 42%; border-radius: 6px 6px 0 0; }
-.pg-world i:nth-child(3) { bottom: 30%; left: 18%; width: 22%; height: 14%; border-radius: 14px 14px 4px 4px; }
-.pg-world-menu { background: #b9a7c9; }
-.pg-world-menu i:nth-child(1) { background: #8d7a63; }
-.pg-world-menu i:nth-child(2) { background: #f3e3c4; }
-.pg-world-menu i:nth-child(3) { background: #d0644f; }
-.pg-world-room-light { background: #ece6dc; }
-.pg-world-room-light i:nth-child(1) { background: #c9bba5; }
-.pg-world-room-light i:nth-child(2) { background: #9c8a76; }
-.pg-world-room-light i:nth-child(3) { background: #7fa1b5; }
-.pg-world-room-dark { background: #2e2838; }
-.pg-world-room-dark i:nth-child(1) { background: #1c1823; }
-.pg-world-room-dark i:nth-child(2) { background: #3f3650; }
-.pg-world-room-dark i:nth-child(3) { background: #463a4f; }
+.pg-world i { position: absolute; display: block; box-sizing: border-box; }
+.pg-world i:nth-child(1) { left: 0; right: 0; bottom: 0; height: 34%; }
+.pg-world-menu { background: #5a6472; }
+.pg-world-menu i:nth-child(1) { background: #3d444e; }
+.pg-world-menu i:nth-child(2) {
+  left: 36%; bottom: 34%; width: 11%; height: 42%; background: #444c58;
+  border-radius: calc(90 * var(--px)) calc(90 * var(--px)) 0 0;
+}
+.pg-world-menu i:nth-child(3) {
+  left: 60%; top: 13%; width: 15%; aspect-ratio: 1; border-radius: 999px; background: #18233a;
+  border: calc(18 * var(--px)) solid #747e8c;
+}
+.pg-world-room-light { background: #7a6f63; }
+.pg-world-room-light i:nth-child(1) { background: #514539; }
+.pg-world-room-light i:nth-child(2) { left: 13%; bottom: 34%; width: 11%; height: 44%; background: #5f5448; }
+.pg-world-room-light i:nth-child(3) {
+  left: 57%; top: 17%; width: 19%; height: 23%; background: #8c9aa3; border: calc(12 * var(--px)) solid #6a5f54;
+}
+.pg-world-room-dark { background: #3f3b4a; }
+.pg-world-room-dark i:nth-child(1) { height: 32%; background: #2d2a36; }
+.pg-world-room-dark i:nth-child(2), .pg-world-room-dark i:nth-child(3) {
+  bottom: 26%; width: 8%; height: 40%; background: #514c5f;
+  border-radius: calc(75 * var(--px)) calc(75 * var(--px)) calc(15 * var(--px)) calc(15 * var(--px));
+  box-shadow: calc(269 * var(--px)) 0 0 #514c5f;
+}
+.pg-world-room-dark i:nth-child(2) { left: 8%; }
+.pg-world-room-dark i:nth-child(3) { left: 70%; }
 .pg-world-black { background: #000000; }
 .pg-world-black i { display: none; }
 

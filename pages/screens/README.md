@@ -61,7 +61,8 @@ states only what differs, with Godot's property names.
 - **Screen:** `id` comes from the file name (`s03-…` is `s3`); `wireframe` names a section of `pages/wireframes`, whose
   title heads the screen on the page; a screen new with the MVP has no wireframe section and gives its Ukrainian
   `heading` instead (one of the two); `title` is English; `background` is the world behind the UI, page art outside the game UI and the lint: `menu` (the
-  ship, the lobby room, behind a menu), `room-light`, `room-dark`, `black`. `states` are the frames: an `id` (lower case), a
+  ship, the lobby room, behind a menu), `room-light` (a room of the house), `room-dark` (the dead's room), `black`; since
+  ui-2.2.0 `page.css` draws them in the approved target's ship, house and dead's-room colours. `states` are the frames: an `id` (lower case), a
   short Ukrainian `label` for the page's tabs and an optional English `note`.
 - **Node:** `name` (unique among its siblings; the names make the path `s5/Menu/H/Page/Ship/Items/Host`), `type`, `variation` (a
   pack variation whose class is the type or a base of it: a Label takes Label variations, an OptionButton also Button

@@ -398,7 +398,7 @@
       "$extensions": {
         "io.github.xperiaroco2.prime-game": {
           "godot": { "variation": "ToyMenuItem", "class": "Button", "parent": "ToyButton" },
-          "context": "dark"
+          "context": "light"
         }
       },
       "label": { "$type": "typography", "$value": "{type.body-bold}" },
