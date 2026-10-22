@@ -5,21 +5,22 @@
   "background": "room-light",
   "note": "M opens and closes this screen over the running round (press, not hold; rebindable, #211); Tab does nothing here. The mouse is freed while it is open and the player keeps walking: only the mouse look stops. Nothing here is a HUD hint: the map never shows players, items, roles, teammates or done points. The MVP: the five MVP task types, the House's rooms, Delivery's zones gone and the zone highlight kept for the MVP tasks; the pin 42 px and the you-are-here chip clear of it. Every length the old x 1.5, the panels kept inside the frame. Input while it is open: the gameplay actions keep working (move, sprint, jump, interact, talk), so Space, which jumps, must never press a focused «?»: remove Space from ui_accept in the project InputMap (Enter and the gamepad's A still press; jump keeps Space), and when the card was opened with the mouse, closing it releases focus instead of giving it back to the «?». The map's focus moves only with the arrows and the d-pad; the left stick and WASD walk.",
   "states": [
-    { "id": "list", "label": "Задачі", "note": "The task list beside the map; nothing hovered." },
-    { "id": "zone", "label": "Наведено на задачу", "note": "Cooking's «?» has keyboard focus (the mouse over the Cooking row does the same, with no look of its own): the map lights that task's zones, the kitchen here (sample data); the zone is drawn inside the room, under its pictogram and name." },
+    { "id": "list", "label": "Задачі", "note": "The task list beside the map; nothing hovered, nothing focused." },
+    { "id": "zone", "label": "Наведено на задачу", "note": "The mouse is over the Cooking row (no look of its own): the map lights that task's zones, the kitchen here (sample data); the zone fills the room under its head." },
+    { "id": "keyboard", "label": "З клавіатури", "note": "The same from the keyboard or gamepad: an arrow or the d-pad gave Cooking's «?» focus, which shows its ring and lights the zones as hovering the row does. The only frame of this screen that shows a focus ring." },
     { "id": "guide", "label": "Натиснуто «?»", "note": "Cooking's «?» was pressed: its how-to card opens over the map (own-work Delivery frames as a placeholder; the card holds as many frames as its task needs and scrolls sideways); Close, Esc or M closes it." }
   ],
   "nodes": [
     { "name": "Dim", "type": "Panel", "variation": "ToyBackdropDeep", "anchors_preset": "full_rect", "note": "mouse_filter IGNORE. The round keeps running behind it." },
     {
-      "name": "Tasks", "type": "PanelContainer", "variation": "ToyPanelMenu", "offset_left": 60, "offset_top": 60, "offset_right": 684, "offset_bottom": 60, "note": "60 px in, 624 wide (the old 80 and 608 kept near: x 1.5 would leave the frame); grows down from its top to its content (the rows, then the time). On open no control has focus (state list); the first ui_down or ui_up gives focus to the first row's «?», which lights that task's zones (state zone). While the how-to card is open, focus_behavior_recursive = FOCUS_BEHAVIOR_DISABLED here (see Dim2).",
+      "name": "Tasks", "type": "PanelContainer", "variation": "ToyPanelMenu", "offset_left": 60, "offset_top": 60, "offset_right": 684, "offset_bottom": 60, "note": "60 px in, 624 wide (the old 80 and 608 kept near: x 1.5 would leave the frame); grows down from its top to its content (the rows, then the time). On open no control has focus (state list); the first ui_down or ui_up gives focus to the first row's «?», which lights that task's zones (state keyboard; the mouse over a row lights them with no focus, state zone). While the how-to card is open, focus_behavior_recursive = FOCUS_BEHAVIOR_DISABLED here (see Dim2).",
       "children": [
         {
-          "name": "V", "type": "VBoxContainer", "variation": "ToyColumnThirtyTwo",
+          "name": "V", "type": "VBoxContainer", "variation": "ToyColumnSixteen",
           "children": [
-            { "name": "Title", "type": "Label", "variation": "ToyTitleOnLight", "key": "map.tasks" },
+            { "name": "Title", "type": "Label", "variation": "ToyKicker", "key": "map.tasks", "note": "The tile's head in small capitals (the target's tile heads); the game sets uppercase = true." },
             {
-              "name": "Rows", "type": "VBoxContainer", "variation": "ToyColumnTwelve",
+              "name": "Rows", "type": "VBoxContainer", "variation": "ToyColumnFour", "note": "Hairline rows (ToySettingRow), 4 px apart.",
               "children": [
                 {
                   "name": "CarTuning", "type": "PanelContainer", "variation": "ToySettingRow", "custom_minimum_size": [0, 96], "note": "One row per task type the round deals (the MVP's five: car tuning, the ship's engine, cooking, photo, Wi-Fi), in the round's task order. A counter only, never a description: what counts is each task type's data (the car's order cards, the engine's stages, the burgers, the photo, the Wi-Fi's N passwords). Hovering a row or focusing its «?» lights the task's zones.",
@@ -48,14 +49,14 @@
                   ]
                 },
                 {
-                  "name": "Cooking", "type": "PanelContainer", "variation": "ToySettingRow", "custom_minimum_size": [0, 96], "note": "mouse_entered and mouse_exited (and focus on its «?») show and hide this task's zones on the board (Kitchen/Zone, ZoneTag).",
+                  "name": "Cooking", "type": "PanelContainer", "variation": "ToySettingRow", "custom_minimum_size": [0, 96], "note": "mouse_entered and mouse_exited (and focus on its «?») show and hide this task's zones on the board (Kitchen/V/Area/Zone, ZoneTag).",
                   "children": [
                     {
                       "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
                       "children": [
                         { "name": "Name", "type": "Label", "variation": "ToySettingRowValue", "key": "task.cooking", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center" },
                         { "name": "Count", "type": "Label", "variation": "ToySettingRowText", "key": "map.progress", "args": { "count": "2", "total": "4" }, "size_flags_vertical": "shrink_center" },
-                        { "name": "Help", "type": "Button", "variation": "ToyKeyRoundButton", "text": "?", "custom_minimum_size": [63, 63], "size_flags_vertical": "shrink_center", "per_state": { "zone": { "state": "focus" } }, "note": "As the first row's Help." }
+                        { "name": "Help", "type": "Button", "variation": "ToyKeyRoundButton", "text": "?", "custom_minimum_size": [63, 63], "size_flags_vertical": "shrink_center", "per_state": { "keyboard": { "state": "focus" } }, "note": "As the first row's Help." }
                       ]
                     }
                   ]
@@ -100,13 +101,18 @@
           "name": "Rooms", "type": "Control", "note": "Children are built from the level's map data (room rects, the pin), scaled to fit this rect. The rects here are sample data in Rooms px (1116 x 948) until the House's map exists. Open: whether the map shows the capsules or the mutation workbench; the map never marks a mischief while the hint rule is open.",
           "children": [
             {
-              "name": "Lab", "type": "PanelContainer", "variation": "ToyMapRoom", "offset_left": 48, "offset_top": 48, "offset_right": 340, "offset_bottom": 400, "note": "One room: its rect from the map data, its system B pictogram (the text colour, no plate; 72 px, the old 48 x 1.5) and its name. Sample rooms of the House; the pictograms that fit them stand in (the garage takes the workshop's, the pantry the storage's, the study the office's, the living room the lounge's) until the House's rooms have their own; a room without one shows only its name.",
+              "name": "Lab", "type": "PanelContainer", "variation": "ToyMapRoom", "offset_left": 48, "offset_top": 48, "offset_right": 340, "offset_bottom": 400, "note": "One room: its rect from the map data, its name as the head at the top left and its system B pictogram centred. Sample rooms of the House; the pictograms that fit them stand in (the garage takes the workshop's, the pantry the storage's, the study the office's, the living room the lounge's) until the House's rooms have their own; a room without one shows only its name.",
               "children": [
                 {
-                  "name": "V", "type": "VBoxContainer", "variation": "ToyColumnEight", "alignment": "center",
+                  "name": "V", "type": "VBoxContainer", "variation": "ToyColumnEight", "note": "The room as a quiet tile: its name in small capitals as the head at the top left (ToyKicker; the game sets uppercase = true), its system B pictogram (72 px, the old 48 x 1.5, in the pictograms' ink) centred in the rest of the room.",
                   "children": [
-                    { "name": "Icon", "type": "TextureRect", "icon": "room/lab", "custom_minimum_size": [72, 72], "size_flags_horizontal": "shrink_center" },
-                    { "name": "Name", "type": "Label", "variation": "ToyMapRoomText", "key": "room.lab", "horizontal_alignment": "center", "autowrap_mode": "word_smart", "custom_minimum_size": [180, 0] }
+                    { "name": "Name", "type": "Label", "variation": "ToyKicker", "key": "room.lab" },
+                    {
+                      "name": "Area", "type": "Control", "size_flags_vertical": "expand_fill", "note": "The room under its head: the pictogram centred in it, and the lit zone filling it (Kitchen/V/Area/Zone).",
+                      "children": [
+                        { "name": "Icon", "type": "TextureRect", "icon": "room/lab", "custom_minimum_size": [72, 72], "anchors_preset": "center" }
+                      ]
+                    }
                   ]
                 }
               ]
@@ -114,12 +120,17 @@
             {
               "name": "Kitchen", "type": "PanelContainer", "variation": "ToyMapRoom", "offset_left": 388, "offset_top": 48, "offset_right": 760, "offset_bottom": 400,
               "children": [
-                { "name": "Zone", "type": "Panel", "variation": "ToyMapZone", "states": ["zone"], "note": "mouse_filter IGNORE. A lit zone of the hovered or focused task (level or content data): a zone that is a whole room is the room's first child, so it fills the room's content rect under its pictogram and name; a zone that is part of a room is placed the same way inside it by its rect. Cooking lights the kitchen here (sample data). Zones never light a hidden thing (nothing hidden is found by highlighting, GDD §8)." },
                 {
-                  "name": "V", "type": "VBoxContainer", "variation": "ToyColumnEight", "alignment": "center",
+                  "name": "V", "type": "VBoxContainer", "variation": "ToyColumnEight",
                   "children": [
-                    { "name": "Icon", "type": "TextureRect", "icon": "room/kitchen", "custom_minimum_size": [72, 72], "size_flags_horizontal": "shrink_center" },
-                    { "name": "Name", "type": "Label", "variation": "ToyMapRoomText", "key": "room.kitchen", "horizontal_alignment": "center", "autowrap_mode": "word_smart", "custom_minimum_size": [180, 0] }
+                    { "name": "Name", "type": "Label", "variation": "ToyKicker", "key": "room.kitchen" },
+                    {
+                      "name": "Area", "type": "Control", "size_flags_vertical": "expand_fill",
+                      "children": [
+                        { "name": "Zone", "type": "Panel", "variation": "ToyMapZone", "states": ["zone", "keyboard"], "note": "mouse_filter IGNORE. A lit zone of the hovered or focused task (level or content data): a zone that is a whole room is the first child of the room's Area, so it fills the room under its head; a zone that is part of a room is placed the same way inside it by its rect. Cooking lights the kitchen here (sample data). Zones never light a hidden thing (nothing hidden is found by highlighting, GDD §8).", "anchors_preset": "full_rect" },
+                        { "name": "Icon", "type": "TextureRect", "icon": "room/kitchen", "custom_minimum_size": [72, 72], "anchors_preset": "center" }
+                      ]
+                    }
                   ]
                 }
               ]
@@ -128,10 +139,15 @@
               "name": "Garage", "type": "PanelContainer", "variation": "ToyMapRoom", "offset_left": 808, "offset_top": 48, "offset_right": 1068, "offset_bottom": 480,
               "children": [
                 {
-                  "name": "V", "type": "VBoxContainer", "variation": "ToyColumnEight", "alignment": "center",
+                  "name": "V", "type": "VBoxContainer", "variation": "ToyColumnEight",
                   "children": [
-                    { "name": "Icon", "type": "TextureRect", "icon": "room/workshop", "custom_minimum_size": [72, 72], "size_flags_horizontal": "shrink_center" },
-                    { "name": "Name", "type": "Label", "variation": "ToyMapRoomText", "key": "room.garage", "horizontal_alignment": "center", "autowrap_mode": "word_smart", "custom_minimum_size": [180, 0] }
+                    { "name": "Name", "type": "Label", "variation": "ToyKicker", "key": "room.garage" },
+                    {
+                      "name": "Area", "type": "Control", "size_flags_vertical": "expand_fill",
+                      "children": [
+                        { "name": "Icon", "type": "TextureRect", "icon": "room/workshop", "custom_minimum_size": [72, 72], "anchors_preset": "center" }
+                      ]
+                    }
                   ]
                 }
               ]
@@ -140,10 +156,15 @@
               "name": "Study", "type": "PanelContainer", "variation": "ToyMapRoom", "offset_left": 48, "offset_top": 528, "offset_right": 340, "offset_bottom": 900,
               "children": [
                 {
-                  "name": "V", "type": "VBoxContainer", "variation": "ToyColumnEight", "alignment": "center",
+                  "name": "V", "type": "VBoxContainer", "variation": "ToyColumnEight",
                   "children": [
-                    { "name": "Icon", "type": "TextureRect", "icon": "room/office", "custom_minimum_size": [72, 72], "size_flags_horizontal": "shrink_center" },
-                    { "name": "Name", "type": "Label", "variation": "ToyMapRoomText", "key": "room.study", "horizontal_alignment": "center", "autowrap_mode": "word_smart", "custom_minimum_size": [180, 0] }
+                    { "name": "Name", "type": "Label", "variation": "ToyKicker", "key": "room.study" },
+                    {
+                      "name": "Area", "type": "Control", "size_flags_vertical": "expand_fill",
+                      "children": [
+                        { "name": "Icon", "type": "TextureRect", "icon": "room/office", "custom_minimum_size": [72, 72], "anchors_preset": "center" }
+                      ]
+                    }
                   ]
                 }
               ]
@@ -152,10 +173,15 @@
               "name": "LivingRoom", "type": "PanelContainer", "variation": "ToyMapRoom", "offset_left": 388, "offset_top": 528, "offset_right": 760, "offset_bottom": 900,
               "children": [
                 {
-                  "name": "V", "type": "VBoxContainer", "variation": "ToyColumnEight", "alignment": "center",
+                  "name": "V", "type": "VBoxContainer", "variation": "ToyColumnEight",
                   "children": [
-                    { "name": "Icon", "type": "TextureRect", "icon": "room/lounge", "custom_minimum_size": [72, 72], "size_flags_horizontal": "shrink_center" },
-                    { "name": "Name", "type": "Label", "variation": "ToyMapRoomText", "key": "room.living_room", "horizontal_alignment": "center", "autowrap_mode": "word_smart", "custom_minimum_size": [180, 0] }
+                    { "name": "Name", "type": "Label", "variation": "ToyKicker", "key": "room.living_room" },
+                    {
+                      "name": "Area", "type": "Control", "size_flags_vertical": "expand_fill",
+                      "children": [
+                        { "name": "Icon", "type": "TextureRect", "icon": "room/lounge", "custom_minimum_size": [72, 72], "anchors_preset": "center" }
+                      ]
+                    }
                   ]
                 }
               ]
@@ -164,16 +190,21 @@
               "name": "Pantry", "type": "PanelContainer", "variation": "ToyMapRoom", "offset_left": 808, "offset_top": 560, "offset_right": 1068, "offset_bottom": 900,
               "children": [
                 {
-                  "name": "V", "type": "VBoxContainer", "variation": "ToyColumnEight", "alignment": "center",
+                  "name": "V", "type": "VBoxContainer", "variation": "ToyColumnEight",
                   "children": [
-                    { "name": "Icon", "type": "TextureRect", "icon": "room/storage", "custom_minimum_size": [72, 72], "size_flags_horizontal": "shrink_center" },
-                    { "name": "Name", "type": "Label", "variation": "ToyMapRoomText", "key": "room.pantry", "horizontal_alignment": "center", "autowrap_mode": "word_smart", "custom_minimum_size": [180, 0] }
+                    { "name": "Name", "type": "Label", "variation": "ToyKicker", "key": "room.pantry" },
+                    {
+                      "name": "Area", "type": "Control", "size_flags_vertical": "expand_fill",
+                      "children": [
+                        { "name": "Icon", "type": "TextureRect", "icon": "room/storage", "custom_minimum_size": [72, 72], "anchors_preset": "center" }
+                      ]
+                    }
                   ]
                 }
               ]
             },
             {
-              "name": "ZoneTag", "type": "PanelContainer", "variation": "ToyChipLight", "states": ["zone"], "offset_left": 388, "offset_top": 418, "offset_right": 388, "offset_bottom": 418, "note": "mouse_filter IGNORE. Under the first zone's room, its left edge on the room's, 18 px below it (the old 12 x 1.5).",
+              "name": "ZoneTag", "type": "PanelContainer", "variation": "ToyChipLight", "states": ["zone", "keyboard"], "offset_left": 388, "offset_top": 418, "offset_right": 388, "offset_bottom": 418, "note": "mouse_filter IGNORE. Under the first zone's room, its left edge on the room's, 18 px below it (the old 12 x 1.5).",
               "children": [
                 { "name": "Text", "type": "Label", "variation": "ToyChipLightText", "key": "map.zone_hint.task" }
               ]
@@ -200,10 +231,10 @@
               "name": "V", "type": "VBoxContainer", "variation": "ToyColumnTwentyFour",
               "children": [
                 {
-                  "name": "Head", "type": "HBoxContainer", "variation": "ToyRowTwentyFour",
+                  "name": "Head", "type": "VBoxContainer", "variation": "ToyColumnEight", "note": "The card's head as a tile head: howto.label in small capitals over the task's name.",
                   "children": [
-                    { "name": "Title", "type": "Label", "variation": "ToyTitleOnLight", "key": "task.cooking", "size_flags_horizontal": "expand_fill" },
-                    { "name": "Note", "type": "Label", "variation": "ToyHowtoNote", "key": "howto.label", "size_flags_vertical": "shrink_center" }
+                    { "name": "Note", "type": "Label", "variation": "ToyKicker", "key": "howto.label", "note": "The game sets uppercase = true." },
+                    { "name": "Title", "type": "Label", "variation": "ToyTitleOnLight", "key": "task.cooking" }
                   ]
                 },
                 {
@@ -261,7 +292,7 @@
                 {
                   "name": "Bar", "type": "HBoxContainer", "alignment": "end",
                   "children": [
-                    { "name": "Close", "type": "Button", "variation": "ToyButtonSecondary", "key": "common.close", "state": "focus", "note": "Takes focus when the card opens by keyboard or gamepad (the page shows that case)." }
+                    { "name": "Close", "type": "Button", "variation": "ToyButtonSecondary", "key": "common.close", "note": "Takes focus when the card opens by keyboard or gamepad, with the ring hidden until the next arrow or d-pad press (grab_focus(true), Godot 4.5+; unconfirmed for 4.7.2); opened with the mouse, nothing has focus." }
                   ]
                 }
               ]

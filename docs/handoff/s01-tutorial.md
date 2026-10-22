@@ -10,13 +10,13 @@ The styled tutorial screen from the UI track (xperiaroco2/prime-game-ui), as a G
 - **How to read it:** the roots are children of the screen's full-rect root `Control`; every property not listed keeps Godot's default; sizes and offsets are reference px. In a state's **Shown** list, the first node of each subtree gives its path from the screen root.
 - **Texts** are keys of `copy/strings.csv`, and the language switches live (the Esc menu's Settings). A plain key is set as `text` and translates itself. A key with placeholders, a plural key (`tr_n`) and a key drawn in pieces are set from code with `auto_translate_mode = DISABLED`: `tr()`, then `String.format()` with the data (the samples below), rebuilt on `NOTIFICATION_TRANSLATION_CHANGED`. A "text from data" (names, the room code, times, numbers) is set in code and never translated (`auto_translate_mode = DISABLED`).
 
-The tutorial room. On the first launch the invite with the language choice; in the room, the current lesson at the top and the lesson list at the right, over the MVP round HUD of s7 without the timer, the anger meter, the roster and the role (Hud). After lesson 9 the game returns to the ship (the player's own, no session) with no end screen, where the game boots (the engineer, 2026-10-21). The nine lessons are the game's (GDD §15: Throwing replaced Delivery in #901); which lessons the MVP adds (points and the workbench, the neighbours' anger and the cops, a task) is open, the engineer's design. Lesson 2 names the battery, an MVP item (a draft; which item lies in the room is the game's data).
+The tutorial room. On the first launch the invite (the language is chosen only in Settings, s5); in the room, the current lesson at the top and the lesson list at the right, over the MVP round HUD of s7 without the timer, the anger meter, the roster and the role (Hud). After lesson 9 the game returns to the ship (the player's own, no session) with no end screen, where the game boots (the engineer, 2026-10-21). The nine lessons are the game's (GDD §15: Throwing replaced Delivery in #901); which lessons the MVP adds (points and the workbench, the neighbours' anger and the cops, a task) is open, the engineer's design. Lesson 2 names the battery, an MVP item (a draft; which item lies in the room is the game's data).
 
 ## States
 
 | State | Page label | What it shows |
 |---|---|---|
-| `invite` | Запрошення | First launch only (a user:// flag). Focus starts on Start the tutorial. |
+| `invite` | Запрошення | First launch only (a user:// flag). A quiet tile over the dimmed room; Start the tutorial takes focus with its ring hidden (below), so no control shows focus here. |
 | `step` | Крок навчання | Lesson 2, its first instruction: a sentence with one keycap. |
 | `step-keys` | Крок: керування | Lesson 1 (Controls): a row of keycaps instead of the sentence. |
 | `step-howto` | Крок: «?» на мапі | Lesson 5, its second instruction: the round «?» keycap inside the sentence. The map (s8) is open in this lesson; it is not drawn here, nor the HUD under its dim. |
@@ -26,26 +26,23 @@ The tutorial room. On the first launch the invite with the language choice; in t
 
 - **Dim** `Panel` · variation `ToyBackdrop` · anchors `full_rect`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both
   - Note: Dims the tutorial room behind the invite.
-- **Lang** `HBoxContainer` · variation `ToyRowTwelve` · anchors `top_right`, offsets -39, 39, -39, 39 (left, top, right, bottom), grow begin/end · gaps from the variation: separation 12
-  - Note: The two chips share one ButtonGroup. The default is Ukrainian when OS.get_locale_language() is "uk", else English. A press applies at once (TranslationServer.set_locale) and is saved; the invite's texts rebuild on NOTIFICATION_TRANSLATION_CHANGED.
-  - **Uk** `Button` · variation `ToyChipToggleOnDark` · text `lang.uk`: en "Українська" · uk "Українська" · button_pressed while this is the game's language (TranslationServer.get_locale()); the page draws the shown language's chip pressed · toggle_mode true, button_pressed true (ToyToggle draws `ToyChipToggleOnDarkSelected`)
-    - Note: A language's name is always in its own language: lang.uk holds the same word in every locale, so the key translates to it.
-  - **En** `Button` · variation `ToyChipToggleOnDark` · text `lang.en`: en "English" · uk "English" · button_pressed while this is the game's language (TranslationServer.get_locale()); the page draws the shown language's chip pressed · toggle_mode true, button_pressed false
-    - Note: lang.en holds the same word in every locale.
-- **Box** `PanelContainer` · variation `ToyPanelDialog` · anchors `center`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both · custom_minimum_size (1032, 0)
+- **Box** `PanelContainer` · variation `ToyPanelDialog` · anchors `center`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both · custom_minimum_size (960, 0)
+  - Note: The invite as a quiet tile (the target page's tile language): the small-capitals head, the question, one dim line, then the two buttons at the left. No language chips: the language is chosen only in Settings (the engineer, 2026-10-22).
   - **V** `VBoxContainer` · variation `ToyColumnThirtyTwo` · gaps from the variation: separation 32
-    - **Text** `VBoxContainer` · variation `ToyColumnSixteen` · gaps from the variation: separation 16
-      - **Title** `Label` · variation `ToyTitleOnLight` · text `tutorial.invite.title`: en "First time here?" · uk "Перший раз тут?" · horizontal_alignment `CENTER`
-      - **Body** `Label` · variation `ToyTextMutedOnLight` · custom_minimum_size (720, 0) · text `tutorial.invite.body`: en "About three minutes, only once." · uk "Близько трьох хвилин, лише один раз." · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
-    - **Buttons** `HBoxContainer` · variation `ToyRowTwentyFour` · gaps from the variation: separation 24 · alignment `ALIGNMENT_CENTER`
-      - **Start** `Button` · variation `ToyButtonPrimary` · text `tutorial.invite.start`: en "Start the tutorial" · uk "Почати навчання" · shown with keyboard focus (grab_focus)
-        - Note: Focused on open. Starts lesson 1 and hides the invite for good.
+    - **Text** `VBoxContainer` · variation `ToyColumnTwelve` · gaps from the variation: separation 12
+      - **Head** `Label` · variation `ToyKicker` · text `tutorial.list.title`: en "Tutorial" · uk "Навчання"
+        - Note: The tile's head (the lesson list's own word); the game sets uppercase = true.
+      - **Title** `Label` · variation `ToyTitleOnLight` · text `tutorial.invite.title`: en "First time here?" · uk "Перший раз тут?"
+      - **Body** `Label` · variation `ToyTextMutedOnLight` · custom_minimum_size (876, 0) · text `tutorial.invite.body`: en "About three minutes, only once." · uk "Близько трьох хвилин, лише один раз." · autowrap_mode `AUTOWRAP_WORD_SMART`
+    - **Buttons** `HBoxContainer` · variation `ToyRowSixteen` · gaps from the variation: separation 16
+      - **Start** `Button` · variation `ToyButtonPrimary` · text `tutorial.invite.start`: en "Start the tutorial" · uk "Почати навчання"
+        - Note: Takes focus on open with the ring hidden: grab_focus(true) (Control.grab_focus's hide_focus, Godot 4.5+; unconfirmed for 4.7.2), so Enter or the gamepad's A starts at once and the ring shows only after an arrow or d-pad press. Starts lesson 1 and hides the invite for good.
       - **Skip** `Button` · variation `ToyButtonGhostOnLight` · text `tutorial.invite.skip`: en "Skip" · uk "Пропустити"
         - Note: Closes the invite for good; the player stays in the ship, where the game booted. Esc (ui_cancel) does the same.
 
 ## `step`: what differs from `invite`
 
-- **Hidden:** `Dim`, `Lang`, `Box`.
+- **Hidden:** `Dim`, `Box`.
 - **Shown:**
   - **Hud** `Control` · anchors `full_rect`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both
     - Note: Not part of this scene: the MVP round HUD of s7 (s7/Hud) as in a round, without the timer, the anger meter, the roster (the lesson list takes the top right) and the role; Aim shows as in s7 (not drawn here). Drawn here only to show what the lesson plates share the screen with: the suit tile (health and stamina as ten pips each) at the bottom left with the mic beside it, the hand and belt tiles at the bottom right (both empty here), placed as in s7. Build it once, in s7.
@@ -54,6 +51,8 @@ The tutorial room. On the first launch the invite with the language choice; in t
       - Note: As s7.
       - **Suit** `PanelContainer` · variation `ToyPlate` · size flags vertical `SIZE_SHRINK_END`
         - **Rows** `VBoxContainer` · variation `ToyColumnEight` · gaps from the variation: separation 8
+          - **Title** `Label` · variation `ToyKicker` · text `hud.suit`: en "Suit" · uk "Костюм"
+            - Note: As s7: the tile's head over the pips.
           - **Health** `HBoxContainer` · variation `ToyRowSixteen` · gaps from the variation: separation 16
             - **Label** `Label` · variation `ToyHudCaption` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (150, 0) · text `hud.health`: en "Health" · uk "Здоровʼя"
             - **Pips** `HBoxContainer` · variation `ToyRowFour` · size flags vertical `SIZE_SHRINK_CENTER` · gaps from the variation: separation 4
@@ -94,38 +93,48 @@ The tutorial room. On the first launch the invite with the language choice; in t
           - **Head** `Label` · variation `ToyKicker` · text `hud.slot.belt`: en "Belt" · uk "Пояс" · horizontal_alignment `CENTER`
             - Note: The slot's head at the top inside (the target's .sl .tab, ui-2.1.0); the game sets uppercase = true.
           - **Picture** `TextureRect` · size flags horizontal `SIZE_SHRINK_CENTER` · custom_minimum_size (57, 57) · texture `slot-empty-belt` (dist/pack/icons/slot-empty-belt.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyTextOnDark")
-  - **Step** `PanelContainer` · variation `ToyPlate` · anchors `center_top`, offsets 0, 39, 0, 39 (left, top, right, bottom), grow both/end · custom_minimum_size (1140, 0)
-    - Note: mouse_filter IGNORE (and its children). The current lesson. A lesson advances when the game sees its action; a lesson with two instructions swaps Title and How within the same step number. The lessons (Progress {count} of 9; the list key; the title key, the how key and the binding that fills {key}): 1 tutorial.list.move: tutorial.step.move.title with the key row HowKeys (control.forward, control.left, control.backward, control.right, control.sprint, control.jump), advancing once the player has moved. 2 tutorial.list.pick_up: tutorial.step.pick_up.title, tutorial.step.pick_up.how, control.interact (E); then tutorial.step.put_down.title, tutorial.step.press, control.put_down (Q). 3 tutorial.list.hand_belt: tutorial.step.hand_belt.title, tutorial.step.press, control.swap (X). 4 tutorial.list.throw: tutorial.step.throw.title, tutorial.step.throw.how, control.throw (G). 5 tutorial.list.map: tutorial.step.map.title, tutorial.step.press, control.map (M); then tutorial.step.howto.title, tutorial.step.howto.how with the round «?» keycap (the map's «?» button). 6 tutorial.list.downed: tutorial.step.downed.title, tutorial.step.downed.how, control.interact held (E). 7 tutorial.list.death: tutorial.step.dead_room.title, tutorial.step.dead_room.how (drafts), no key: the player waits in the dead's room (m8 §3) and comes back at a capsule. 8 tutorial.list.voice: tutorial.step.voice.title, tutorial.step.voice.how, no key. 9 tutorial.list.menu: tutorial.step.menu.title, tutorial.step.press, Esc (ui_cancel, a wide keycap).
-    - **V** `VBoxContainer` · variation `ToyColumnTwelve` · gaps from the variation: separation 12 · alignment `ALIGNMENT_CENTER`
-      - **Progress** `Label` · variation `ToyPlateTextMuted` · text `tutorial.step.progress` with sample {count} = "2", {total} = "9": en "Step 2 of 9" · uk "Крок 2 з 9" · horizontal_alignment `CENTER`
-      - **Title** `Label` · variation `ToyPlateTitle` · custom_minimum_size (900, 0) · text `tutorial.step.pick_up.title`: en "Pick up the battery" · uk "Візьми батарейку" · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
-      - **How** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12 · alignment `ALIGNMENT_CENTER`
+  - **Step** `PanelContainer` · variation `ToyPlate` · anchors `center_top`, offsets 0, 36, 0, 36 (left, top, right, bottom), grow both/end · custom_minimum_size (720, 0)
+    - Note: mouse_filter IGNORE (and its children). The current lesson as a quiet tile at the top centre, 36 px down, where the round's time tile sits (the tutorial has no timer): the step count as the small-capitals head, the lesson's title, then how, all at the left. A lesson advances when the game sees its action; a lesson with two instructions swaps Title and How within the same step number. The lessons (Progress {count} of 9; the list key; the title key, the how key and the binding that fills {key}): 1 tutorial.list.move: tutorial.step.move.title with the key row HowKeys (control.forward, control.left, control.backward, control.right, control.sprint, control.jump), advancing once the player has moved. 2 tutorial.list.pick_up: tutorial.step.pick_up.title, tutorial.step.pick_up.how, control.interact (E); then tutorial.step.put_down.title, tutorial.step.press, control.put_down (Q). 3 tutorial.list.hand_belt: tutorial.step.hand_belt.title, tutorial.step.press, control.swap (X). 4 tutorial.list.throw: tutorial.step.throw.title, tutorial.step.throw.how, control.throw (G). 5 tutorial.list.map: tutorial.step.map.title, tutorial.step.press, control.map (M); then tutorial.step.howto.title, tutorial.step.howto.how with the round «?» keycap (the map's «?» button). 6 tutorial.list.downed: tutorial.step.downed.title, tutorial.step.downed.how, control.interact held (E). 7 tutorial.list.death: tutorial.step.dead_room.title, tutorial.step.dead_room.how (drafts), no key: the player waits in the dead's room (m8 §3) and comes back at a capsule. 8 tutorial.list.voice: tutorial.step.voice.title, tutorial.step.voice.how, no key. 9 tutorial.list.menu: tutorial.step.menu.title, tutorial.step.press, Esc (ui_cancel, a wide keycap).
+    - **V** `VBoxContainer` · variation `ToyColumnTwelve` · gaps from the variation: separation 12
+      - **Progress** `Label` · variation `ToyKicker` · text `tutorial.step.progress` with sample {count} = "2", {total} = "9": en "Step 2 of 9" · uk "Крок 2 з 9"
+        - Note: The tile's head; the game sets uppercase = true.
+      - **Title** `Label` · variation `ToyPlateTitle` · text `tutorial.step.pick_up.title`: en "Pick up the battery" · uk "Візьми батарейку"
+      - **How** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
         - Note: A sentence with a keycap (P3), built in code: tr() the lesson's how-string, split it at {key}, strip_edges() each piece, add a Label per non-empty piece and the keycap between them; a how-string without {key} (death, voice) is one Label. The keycap is a ToyKeyOnDark PanelContainer holding a ToyKeyText Label: DisplayServer.keyboard_get_label_from_physical() of the action's binding (#211); Space and the mouse buttons use key.space, key.mouse_left, key.mouse_right, and Space, Shift, Tab and Esc keycaps take the wide size. Lesson 5's «?» is a ToyKeyRound keycap with the text «?», the look of the map's «?» button.
         - **Before** `Label` · variation `ToyPlateText` · size flags vertical `SIZE_SHRINK_CENTER` · text piece 0 of `tr("tutorial.step.pick_up.how")` split at {key}/{preset} (strip_edges(); hidden when the piece is empty) with sample {key} = "E": en "Aim at the battery and press" · uk "Наведи приціл на батарейку і натисни"
         - **Key** `PanelContainer` · variation `ToyKeyOnDark` · custom_minimum_size (42, 0) = Vector2(get_theme_constant("min_width", "ToyKeyOnDark"), 0)
           - **Text** `Label` · variation `ToyKeyText` · text the value of {key} in `tutorial.step.pick_up.how` with sample {key} = "E": en "E" · uk "E" · horizontal_alignment `CENTER`
-  - **List** `PanelContainer` · variation `ToyPlate` · anchors `top_right`, offsets -39, 270, -39, 270 (left, top, right, bottom), grow begin/end · custom_minimum_size (520, 0)
-    - Note: mouse_filter IGNORE; not clickable. The nine lessons in order, built in code: a done lesson is its name with a check at the right edge (XDone), the current one a one-line light chip (XNow), the rest muted and wrapping (the plain names). 520 px holds every lesson's chip at large text.
-    - **V** `VBoxContainer` · variation `ToyColumnTwentyFour` · gaps from the variation: separation 24
-      - **Head** `Label` · variation `ToyPlateText` · text `tutorial.list.title`: en "Tutorial" · uk "Навчання"
-      - **Rows** `VBoxContainer` · variation `ToyColumnTwelve` · gaps from the variation: separation 12
-        - **MoveDone** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
-          - **Name** `Label` · variation `ToyPlateText` · size flags horizontal `SIZE_EXPAND_FILL` · custom_minimum_size (360, 0) · text `tutorial.list.move`: en "Controls" · uk "Керування" · autowrap_mode `AUTOWRAP_WORD_SMART`
-          - **Check** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (36, 36) · texture `check` (dist/pack/icons/check.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyPlateText")
-        - **PickUpNow** `PanelContainer` · variation `ToyChipLight` · size flags horizontal `SIZE_SHRINK_BEGIN`
-          - **Name** `Label` · variation `ToyChipLightText` · text `tutorial.list.pick_up`: en "Picking up and putting down" · uk "Взяти й покласти"
-        - **HandBelt** `Label` · variation `ToyPlateTextMuted` · custom_minimum_size (360, 0) · text `tutorial.list.hand_belt`: en "Hand and belt" · uk "Рука й пояс" · autowrap_mode `AUTOWRAP_WORD_SMART`
-        - **Throw** `Label` · variation `ToyPlateTextMuted` · custom_minimum_size (360, 0) · text `tutorial.list.throw`: en "Throwing" · uk "Кидання" · autowrap_mode `AUTOWRAP_WORD_SMART`
-        - **Map** `Label` · variation `ToyPlateTextMuted` · custom_minimum_size (360, 0) · text `tutorial.list.map` with sample {key} = "M": en "Map and tasks (M)" · uk "Мапа й задачі (M)" · autowrap_mode `AUTOWRAP_WORD_SMART`
-          - Note: {key} is the bound key of the map action (control.map).
-        - **Downed** `Label` · variation `ToyPlateTextMuted` · custom_minimum_size (360, 0) · text `tutorial.list.downed`: en "Downed" · uk "Нокдаун" · autowrap_mode `AUTOWRAP_WORD_SMART`
-        - **Death** `Label` · variation `ToyPlateTextMuted` · custom_minimum_size (360, 0) · text `tutorial.list.death`: en "Death" · uk "Смерть" · autowrap_mode `AUTOWRAP_WORD_SMART`
-        - **Voice** `Label` · variation `ToyPlateTextMuted` · custom_minimum_size (360, 0) · text `tutorial.list.voice`: en "Voice nearby" · uk "Голос поруч" · autowrap_mode `AUTOWRAP_WORD_SMART`
-        - **Menu** `Label` · variation `ToyPlateTextMuted` · custom_minimum_size (360, 0) · text `tutorial.list.menu`: en "Menu" · uk "Меню" · autowrap_mode `AUTOWRAP_WORD_SMART`
+  - **List** `PanelContainer` · variation `ToyRoster` · anchors `top_right`, offsets -39, 39, -39, 39 (left, top, right, bottom), grow begin/end · custom_minimum_size (330, 0) = Vector2(330, 0)
+    - Note: mouse_filter IGNORE; not clickable. The nine lessons in the roster's place and look (the tutorial has no roster): 39 px in at the top right, a quiet tile with the small-capitals head and compact rows, growing to its longest row.
+    - **V** `VBoxContainer` · variation `ToyColumnTwelve` · gaps from the variation: separation 12
+      - **Head** `Label` · variation `ToyKicker` · text `tutorial.list.title`: en "Tutorial" · uk "Навчання"
+        - Note: The tile's head; the game sets uppercase = true.
+      - **Rows** `VBoxContainer` · variation `ToyColumnEight` · gaps from the variation: separation 8
+        - **Move** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
+          - Note: One row per lesson, built in code, in the lessons' order: a done lesson is its name in ToyRosterName (the text colour) with the check at the right edge (tinted by the name), the current one ToyRosterNameSelf (the accent, as the own name in the round's roster), the rest ToyRosterNameDead (dim).
+          - **Name** `Label` · variation `ToyRosterName` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text `tutorial.list.move`: en "Controls" · uk "Керування"
+          - **Check** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (27, 27) · texture `check` (dist/pack/icons/check.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyRosterName")
+        - **PickUp** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
+          - **Name** `Label` · variation `ToyRosterNameSelf` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text `tutorial.list.pick_up`: en "Picking up and putting down" · uk "Взяти й покласти"
+        - **HandBelt** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
+          - **Name** `Label` · variation `ToyRosterNameDead` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text `tutorial.list.hand_belt`: en "Hand and belt" · uk "Рука й пояс"
+        - **Throw** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
+          - **Name** `Label` · variation `ToyRosterNameDead` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text `tutorial.list.throw`: en "Throwing" · uk "Кидання"
+        - **Map** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
+          - **Name** `Label` · variation `ToyRosterNameDead` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text `tutorial.list.map` with sample {key} = "M": en "Map and tasks (M)" · uk "Мапа й задачі (M)"
+            - Note: {key} is the bound key of the map action (control.map).
+        - **Downed** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
+          - **Name** `Label` · variation `ToyRosterNameDead` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text `tutorial.list.downed`: en "Downed" · uk "Нокдаун"
+        - **Death** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
+          - **Name** `Label` · variation `ToyRosterNameDead` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text `tutorial.list.death`: en "Death" · uk "Смерть"
+        - **Voice** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
+          - **Name** `Label` · variation `ToyRosterNameDead` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text `tutorial.list.voice`: en "Voice nearby" · uk "Голос поруч"
+        - **Menu** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
+          - **Name** `Label` · variation `ToyRosterNameDead` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text `tutorial.list.menu`: en "Menu" · uk "Меню"
 
 ## `step-keys`: what differs from `invite`
 
-- **Hidden:** `Dim`, `Lang`, `Box`.
+- **Hidden:** `Dim`, `Box`.
 - **Shown:**
   - **Hud** `Control` · anchors `full_rect`, offsets 0, 0, 0, 0 (left, top, right, bottom), grow both/both
     - Note: Not part of this scene: the MVP round HUD of s7 (s7/Hud) as in a round, without the timer, the anger meter, the roster (the lesson list takes the top right) and the role; Aim shows as in s7 (not drawn here). Drawn here only to show what the lesson plates share the screen with: the suit tile (health and stamina as ten pips each) at the bottom left with the mic beside it, the hand and belt tiles at the bottom right (both empty here), placed as in s7. Build it once, in s7.
@@ -134,6 +143,8 @@ The tutorial room. On the first launch the invite with the language choice; in t
       - Note: As s7.
       - **Suit** `PanelContainer` · variation `ToyPlate` · size flags vertical `SIZE_SHRINK_END`
         - **Rows** `VBoxContainer` · variation `ToyColumnEight` · gaps from the variation: separation 8
+          - **Title** `Label` · variation `ToyKicker` · text `hud.suit`: en "Suit" · uk "Костюм"
+            - Note: As s7: the tile's head over the pips.
           - **Health** `HBoxContainer` · variation `ToyRowSixteen` · gaps from the variation: separation 16
             - **Label** `Label` · variation `ToyHudCaption` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (150, 0) · text `hud.health`: en "Health" · uk "Здоровʼя"
             - **Pips** `HBoxContainer` · variation `ToyRowFour` · size flags vertical `SIZE_SHRINK_CENTER` · gaps from the variation: separation 4
@@ -174,12 +185,13 @@ The tutorial room. On the first launch the invite with the language choice; in t
           - **Head** `Label` · variation `ToyKicker` · text `hud.slot.belt`: en "Belt" · uk "Пояс" · horizontal_alignment `CENTER`
             - Note: The slot's head at the top inside (the target's .sl .tab, ui-2.1.0); the game sets uppercase = true.
           - **Picture** `TextureRect` · size flags horizontal `SIZE_SHRINK_CENTER` · custom_minimum_size (57, 57) · texture `slot-empty-belt` (dist/pack/icons/slot-empty-belt.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyTextOnDark")
-  - **Step** `PanelContainer` · variation `ToyPlate` · anchors `center_top`, offsets 0, 39, 0, 39 (left, top, right, bottom), grow both/end · custom_minimum_size (1140, 0)
-    - Note: mouse_filter IGNORE (and its children). The current lesson. A lesson advances when the game sees its action; a lesson with two instructions swaps Title and How within the same step number. The lessons (Progress {count} of 9; the list key; the title key, the how key and the binding that fills {key}): 1 tutorial.list.move: tutorial.step.move.title with the key row HowKeys (control.forward, control.left, control.backward, control.right, control.sprint, control.jump), advancing once the player has moved. 2 tutorial.list.pick_up: tutorial.step.pick_up.title, tutorial.step.pick_up.how, control.interact (E); then tutorial.step.put_down.title, tutorial.step.press, control.put_down (Q). 3 tutorial.list.hand_belt: tutorial.step.hand_belt.title, tutorial.step.press, control.swap (X). 4 tutorial.list.throw: tutorial.step.throw.title, tutorial.step.throw.how, control.throw (G). 5 tutorial.list.map: tutorial.step.map.title, tutorial.step.press, control.map (M); then tutorial.step.howto.title, tutorial.step.howto.how with the round «?» keycap (the map's «?» button). 6 tutorial.list.downed: tutorial.step.downed.title, tutorial.step.downed.how, control.interact held (E). 7 tutorial.list.death: tutorial.step.dead_room.title, tutorial.step.dead_room.how (drafts), no key: the player waits in the dead's room (m8 §3) and comes back at a capsule. 8 tutorial.list.voice: tutorial.step.voice.title, tutorial.step.voice.how, no key. 9 tutorial.list.menu: tutorial.step.menu.title, tutorial.step.press, Esc (ui_cancel, a wide keycap).
-    - **V** `VBoxContainer` · variation `ToyColumnTwelve` · gaps from the variation: separation 12 · alignment `ALIGNMENT_CENTER`
-      - **Progress** `Label` · variation `ToyPlateTextMuted` · text `tutorial.step.progress` with sample {count} = "1", {total} = "9": en "Step 1 of 9" · uk "Крок 1 з 9" · horizontal_alignment `CENTER`
-      - **Title** `Label` · variation `ToyPlateTitle` · custom_minimum_size (900, 0) · text `tutorial.step.move.title`: en "Move around" · uk "Походи кімнатою" · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
-      - **HowKeys** `HBoxContainer` · variation `ToyRowThirtyTwo` · gaps from the variation: separation 32 · alignment `ALIGNMENT_CENTER`
+  - **Step** `PanelContainer` · variation `ToyPlate` · anchors `center_top`, offsets 0, 36, 0, 36 (left, top, right, bottom), grow both/end · custom_minimum_size (720, 0)
+    - Note: mouse_filter IGNORE (and its children). The current lesson as a quiet tile at the top centre, 36 px down, where the round's time tile sits (the tutorial has no timer): the step count as the small-capitals head, the lesson's title, then how, all at the left. A lesson advances when the game sees its action; a lesson with two instructions swaps Title and How within the same step number. The lessons (Progress {count} of 9; the list key; the title key, the how key and the binding that fills {key}): 1 tutorial.list.move: tutorial.step.move.title with the key row HowKeys (control.forward, control.left, control.backward, control.right, control.sprint, control.jump), advancing once the player has moved. 2 tutorial.list.pick_up: tutorial.step.pick_up.title, tutorial.step.pick_up.how, control.interact (E); then tutorial.step.put_down.title, tutorial.step.press, control.put_down (Q). 3 tutorial.list.hand_belt: tutorial.step.hand_belt.title, tutorial.step.press, control.swap (X). 4 tutorial.list.throw: tutorial.step.throw.title, tutorial.step.throw.how, control.throw (G). 5 tutorial.list.map: tutorial.step.map.title, tutorial.step.press, control.map (M); then tutorial.step.howto.title, tutorial.step.howto.how with the round «?» keycap (the map's «?» button). 6 tutorial.list.downed: tutorial.step.downed.title, tutorial.step.downed.how, control.interact held (E). 7 tutorial.list.death: tutorial.step.dead_room.title, tutorial.step.dead_room.how (drafts), no key: the player waits in the dead's room (m8 §3) and comes back at a capsule. 8 tutorial.list.voice: tutorial.step.voice.title, tutorial.step.voice.how, no key. 9 tutorial.list.menu: tutorial.step.menu.title, tutorial.step.press, Esc (ui_cancel, a wide keycap).
+    - **V** `VBoxContainer` · variation `ToyColumnTwelve` · gaps from the variation: separation 12
+      - **Progress** `Label` · variation `ToyKicker` · text `tutorial.step.progress` with sample {count} = "1", {total} = "9": en "Step 1 of 9" · uk "Крок 1 з 9"
+        - Note: The tile's head; the game sets uppercase = true.
+      - **Title** `Label` · variation `ToyPlateTitle` · text `tutorial.step.move.title`: en "Move around" · uk "Походи кімнатою"
+      - **HowKeys** `HBoxContainer` · variation `ToyRowThirtyTwo` · gaps from the variation: separation 32
         - Note: The Controls lesson: the bound keys of walking, sprinting and jumping, each group followed by its action name; it advances once the player has moved. Each keycap shows the label of its action's binding as a data text (DisplayServer.keyboard_get_label_from_physical(), #211; auto_translate_mode DISABLED); Space is key.space. Shift and Space keycaps take the wide size.
         - **Walk** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
           - **Keys** `HBoxContainer` · variation `ToyRowEight` · gaps from the variation: separation 8
@@ -200,101 +212,124 @@ The tutorial room. On the first launch the invite with the language choice; in t
           - **Key** `PanelContainer` · variation `ToyKeyOnDark` · custom_minimum_size (144, 0) = Vector2(get_theme_constant("wide_min_width", "ToyKeyOnDark"), 0) (wide)
             - **Text** `Label` · variation `ToyKeyText` · text `key.space`: en "Space" · uk "Пробіл" · horizontal_alignment `CENTER`
           - **Label** `Label` · variation `ToyPlateText` · size flags vertical `SIZE_SHRINK_CENTER` · text `control.jump`: en "Jump" · uk "Стрибнути"
-  - **List** `PanelContainer` · variation `ToyPlate` · anchors `top_right`, offsets -39, 270, -39, 270 (left, top, right, bottom), grow begin/end · custom_minimum_size (520, 0)
-    - Note: mouse_filter IGNORE; not clickable. The nine lessons in order, built in code: a done lesson is its name with a check at the right edge (XDone), the current one a one-line light chip (XNow), the rest muted and wrapping (the plain names). 520 px holds every lesson's chip at large text.
-    - **V** `VBoxContainer` · variation `ToyColumnTwentyFour` · gaps from the variation: separation 24
-      - **Head** `Label` · variation `ToyPlateText` · text `tutorial.list.title`: en "Tutorial" · uk "Навчання"
-      - **Rows** `VBoxContainer` · variation `ToyColumnTwelve` · gaps from the variation: separation 12
-        - **MoveNow** `PanelContainer` · variation `ToyChipLight` · size flags horizontal `SIZE_SHRINK_BEGIN`
-          - Note: The current lesson: a one-line chip (a pill does not wrap).
-          - **Name** `Label` · variation `ToyChipLightText` · text `tutorial.list.move`: en "Controls" · uk "Керування"
-        - **PickUp** `Label` · variation `ToyPlateTextMuted` · custom_minimum_size (360, 0) · text `tutorial.list.pick_up`: en "Picking up and putting down" · uk "Взяти й покласти" · autowrap_mode `AUTOWRAP_WORD_SMART`
-        - **HandBelt** `Label` · variation `ToyPlateTextMuted` · custom_minimum_size (360, 0) · text `tutorial.list.hand_belt`: en "Hand and belt" · uk "Рука й пояс" · autowrap_mode `AUTOWRAP_WORD_SMART`
-        - **Throw** `Label` · variation `ToyPlateTextMuted` · custom_minimum_size (360, 0) · text `tutorial.list.throw`: en "Throwing" · uk "Кидання" · autowrap_mode `AUTOWRAP_WORD_SMART`
-        - **Map** `Label` · variation `ToyPlateTextMuted` · custom_minimum_size (360, 0) · text `tutorial.list.map` with sample {key} = "M": en "Map and tasks (M)" · uk "Мапа й задачі (M)" · autowrap_mode `AUTOWRAP_WORD_SMART`
-          - Note: {key} is the bound key of the map action (control.map).
-        - **Downed** `Label` · variation `ToyPlateTextMuted` · custom_minimum_size (360, 0) · text `tutorial.list.downed`: en "Downed" · uk "Нокдаун" · autowrap_mode `AUTOWRAP_WORD_SMART`
-        - **Death** `Label` · variation `ToyPlateTextMuted` · custom_minimum_size (360, 0) · text `tutorial.list.death`: en "Death" · uk "Смерть" · autowrap_mode `AUTOWRAP_WORD_SMART`
-        - **Voice** `Label` · variation `ToyPlateTextMuted` · custom_minimum_size (360, 0) · text `tutorial.list.voice`: en "Voice nearby" · uk "Голос поруч" · autowrap_mode `AUTOWRAP_WORD_SMART`
-        - **Menu** `Label` · variation `ToyPlateTextMuted` · custom_minimum_size (360, 0) · text `tutorial.list.menu`: en "Menu" · uk "Меню" · autowrap_mode `AUTOWRAP_WORD_SMART`
+  - **List** `PanelContainer` · variation `ToyRoster` · anchors `top_right`, offsets -39, 39, -39, 39 (left, top, right, bottom), grow begin/end · custom_minimum_size (330, 0) = Vector2(330, 0)
+    - Note: mouse_filter IGNORE; not clickable. The nine lessons in the roster's place and look (the tutorial has no roster): 39 px in at the top right, a quiet tile with the small-capitals head and compact rows, growing to its longest row.
+    - **V** `VBoxContainer` · variation `ToyColumnTwelve` · gaps from the variation: separation 12
+      - **Head** `Label` · variation `ToyKicker` · text `tutorial.list.title`: en "Tutorial" · uk "Навчання"
+        - Note: The tile's head; the game sets uppercase = true.
+      - **Rows** `VBoxContainer` · variation `ToyColumnEight` · gaps from the variation: separation 8
+        - **Move** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
+          - Note: One row per lesson, built in code, in the lessons' order: a done lesson is its name in ToyRosterName (the text colour) with the check at the right edge (tinted by the name), the current one ToyRosterNameSelf (the accent, as the own name in the round's roster), the rest ToyRosterNameDead (dim).
+          - **Name** `Label` · variation `ToyRosterNameSelf` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text `tutorial.list.move`: en "Controls" · uk "Керування"
+        - **PickUp** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
+          - **Name** `Label` · variation `ToyRosterNameDead` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text `tutorial.list.pick_up`: en "Picking up and putting down" · uk "Взяти й покласти"
+        - **HandBelt** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
+          - **Name** `Label` · variation `ToyRosterNameDead` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text `tutorial.list.hand_belt`: en "Hand and belt" · uk "Рука й пояс"
+        - **Throw** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
+          - **Name** `Label` · variation `ToyRosterNameDead` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text `tutorial.list.throw`: en "Throwing" · uk "Кидання"
+        - **Map** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
+          - **Name** `Label` · variation `ToyRosterNameDead` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text `tutorial.list.map` with sample {key} = "M": en "Map and tasks (M)" · uk "Мапа й задачі (M)"
+            - Note: {key} is the bound key of the map action (control.map).
+        - **Downed** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
+          - **Name** `Label` · variation `ToyRosterNameDead` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text `tutorial.list.downed`: en "Downed" · uk "Нокдаун"
+        - **Death** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
+          - **Name** `Label` · variation `ToyRosterNameDead` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text `tutorial.list.death`: en "Death" · uk "Смерть"
+        - **Voice** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
+          - **Name** `Label` · variation `ToyRosterNameDead` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text `tutorial.list.voice`: en "Voice nearby" · uk "Голос поруч"
+        - **Menu** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
+          - **Name** `Label` · variation `ToyRosterNameDead` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text `tutorial.list.menu`: en "Menu" · uk "Меню"
 
 ## `step-howto`: what differs from `invite`
 
-- **Hidden:** `Dim`, `Lang`, `Box`.
+- **Hidden:** `Dim`, `Box`.
 - **Shown:**
-  - **Step** `PanelContainer` · variation `ToyPlate` · anchors `center_top`, offsets 0, 39, 0, 39 (left, top, right, bottom), grow both/end · custom_minimum_size (1140, 0)
-    - Note: mouse_filter IGNORE (and its children). The current lesson. A lesson advances when the game sees its action; a lesson with two instructions swaps Title and How within the same step number. The lessons (Progress {count} of 9; the list key; the title key, the how key and the binding that fills {key}): 1 tutorial.list.move: tutorial.step.move.title with the key row HowKeys (control.forward, control.left, control.backward, control.right, control.sprint, control.jump), advancing once the player has moved. 2 tutorial.list.pick_up: tutorial.step.pick_up.title, tutorial.step.pick_up.how, control.interact (E); then tutorial.step.put_down.title, tutorial.step.press, control.put_down (Q). 3 tutorial.list.hand_belt: tutorial.step.hand_belt.title, tutorial.step.press, control.swap (X). 4 tutorial.list.throw: tutorial.step.throw.title, tutorial.step.throw.how, control.throw (G). 5 tutorial.list.map: tutorial.step.map.title, tutorial.step.press, control.map (M); then tutorial.step.howto.title, tutorial.step.howto.how with the round «?» keycap (the map's «?» button). 6 tutorial.list.downed: tutorial.step.downed.title, tutorial.step.downed.how, control.interact held (E). 7 tutorial.list.death: tutorial.step.dead_room.title, tutorial.step.dead_room.how (drafts), no key: the player waits in the dead's room (m8 §3) and comes back at a capsule. 8 tutorial.list.voice: tutorial.step.voice.title, tutorial.step.voice.how, no key. 9 tutorial.list.menu: tutorial.step.menu.title, tutorial.step.press, Esc (ui_cancel, a wide keycap).
-    - **V** `VBoxContainer` · variation `ToyColumnTwelve` · gaps from the variation: separation 12 · alignment `ALIGNMENT_CENTER`
-      - **Progress** `Label` · variation `ToyPlateTextMuted` · text `tutorial.step.progress` with sample {count} = "5", {total} = "9": en "Step 5 of 9" · uk "Крок 5 з 9" · horizontal_alignment `CENTER`
-      - **Title** `Label` · variation `ToyPlateTitle` · custom_minimum_size (900, 0) · text `tutorial.step.howto.title`: en "See how a task is done" · uk "Подивись, як виконати задачу" · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
-      - **How** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12 · alignment `ALIGNMENT_CENTER`
+  - **Step** `PanelContainer` · variation `ToyPlate` · anchors `center_top`, offsets 0, 36, 0, 36 (left, top, right, bottom), grow both/end · custom_minimum_size (720, 0)
+    - Note: mouse_filter IGNORE (and its children). The current lesson as a quiet tile at the top centre, 36 px down, where the round's time tile sits (the tutorial has no timer): the step count as the small-capitals head, the lesson's title, then how, all at the left. A lesson advances when the game sees its action; a lesson with two instructions swaps Title and How within the same step number. The lessons (Progress {count} of 9; the list key; the title key, the how key and the binding that fills {key}): 1 tutorial.list.move: tutorial.step.move.title with the key row HowKeys (control.forward, control.left, control.backward, control.right, control.sprint, control.jump), advancing once the player has moved. 2 tutorial.list.pick_up: tutorial.step.pick_up.title, tutorial.step.pick_up.how, control.interact (E); then tutorial.step.put_down.title, tutorial.step.press, control.put_down (Q). 3 tutorial.list.hand_belt: tutorial.step.hand_belt.title, tutorial.step.press, control.swap (X). 4 tutorial.list.throw: tutorial.step.throw.title, tutorial.step.throw.how, control.throw (G). 5 tutorial.list.map: tutorial.step.map.title, tutorial.step.press, control.map (M); then tutorial.step.howto.title, tutorial.step.howto.how with the round «?» keycap (the map's «?» button). 6 tutorial.list.downed: tutorial.step.downed.title, tutorial.step.downed.how, control.interact held (E). 7 tutorial.list.death: tutorial.step.dead_room.title, tutorial.step.dead_room.how (drafts), no key: the player waits in the dead's room (m8 §3) and comes back at a capsule. 8 tutorial.list.voice: tutorial.step.voice.title, tutorial.step.voice.how, no key. 9 tutorial.list.menu: tutorial.step.menu.title, tutorial.step.press, Esc (ui_cancel, a wide keycap).
+    - **V** `VBoxContainer` · variation `ToyColumnTwelve` · gaps from the variation: separation 12
+      - **Progress** `Label` · variation `ToyKicker` · text `tutorial.step.progress` with sample {count} = "5", {total} = "9": en "Step 5 of 9" · uk "Крок 5 з 9"
+        - Note: The tile's head; the game sets uppercase = true.
+      - **Title** `Label` · variation `ToyPlateTitle` · text `tutorial.step.howto.title`: en "See how a task is done" · uk "Подивись, як виконати задачу"
+      - **How** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
         - Note: A sentence with a keycap (P3), built in code: tr() the lesson's how-string, split it at {key}, strip_edges() each piece, add a Label per non-empty piece and the keycap between them; a how-string without {key} (death, voice) is one Label. The keycap is a ToyKeyOnDark PanelContainer holding a ToyKeyText Label: DisplayServer.keyboard_get_label_from_physical() of the action's binding (#211); Space and the mouse buttons use key.space, key.mouse_left, key.mouse_right, and Space, Shift, Tab and Esc keycaps take the wide size. Lesson 5's «?» is a ToyKeyRound keycap with the text «?», the look of the map's «?» button.
         - **Before** `Label` · variation `ToyPlateText` · size flags vertical `SIZE_SHRINK_CENTER` · text piece 0 of `tr("tutorial.step.howto.how")` split at {key}/{preset} (strip_edges(); hidden when the piece is empty) with sample {key} = "?": en "Press" · uk "Натисни"
         - **Key** `PanelContainer` · variation `ToyKeyRound` · custom_minimum_size (42, 0) = Vector2(get_theme_constant("min_width", "ToyKeyRound"), 0)
           - **Text** `Label` · variation `ToyKeyText` · text the value of {key} in `tutorial.step.howto.how` with sample {key} = "?": en "?" · uk "?" · horizontal_alignment `CENTER`
         - **After** `Label` · variation `ToyPlateText` · size flags vertical `SIZE_SHRINK_CENTER` · text piece 1 of `tr("tutorial.step.howto.how")` split at {key}/{preset} (strip_edges(); hidden when the piece is empty) with sample {key} = "?": en "next to a task" · uk "біля задачі"
-  - **List** `PanelContainer` · variation `ToyPlate` · anchors `top_right`, offsets -39, 270, -39, 270 (left, top, right, bottom), grow begin/end · custom_minimum_size (520, 0)
-    - Note: mouse_filter IGNORE; not clickable. The nine lessons in order, built in code: a done lesson is its name with a check at the right edge (XDone), the current one a one-line light chip (XNow), the rest muted and wrapping (the plain names). 520 px holds every lesson's chip at large text.
-    - **V** `VBoxContainer` · variation `ToyColumnTwentyFour` · gaps from the variation: separation 24
-      - **Head** `Label` · variation `ToyPlateText` · text `tutorial.list.title`: en "Tutorial" · uk "Навчання"
-      - **Rows** `VBoxContainer` · variation `ToyColumnTwelve` · gaps from the variation: separation 12
-        - **MoveDone** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
-          - **Name** `Label` · variation `ToyPlateText` · size flags horizontal `SIZE_EXPAND_FILL` · custom_minimum_size (360, 0) · text `tutorial.list.move`: en "Controls" · uk "Керування" · autowrap_mode `AUTOWRAP_WORD_SMART`
-          - **Check** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (36, 36) · texture `check` (dist/pack/icons/check.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyPlateText")
-        - **PickUpDone** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
-          - **Name** `Label` · variation `ToyPlateText` · size flags horizontal `SIZE_EXPAND_FILL` · custom_minimum_size (360, 0) · text `tutorial.list.pick_up`: en "Picking up and putting down" · uk "Взяти й покласти" · autowrap_mode `AUTOWRAP_WORD_SMART`
-          - **Check** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (36, 36) · texture `check` (dist/pack/icons/check.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyPlateText")
-        - **HandBeltDone** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
-          - **Name** `Label` · variation `ToyPlateText` · size flags horizontal `SIZE_EXPAND_FILL` · custom_minimum_size (360, 0) · text `tutorial.list.hand_belt`: en "Hand and belt" · uk "Рука й пояс" · autowrap_mode `AUTOWRAP_WORD_SMART`
-          - **Check** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (36, 36) · texture `check` (dist/pack/icons/check.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyPlateText")
-        - **ThrowDone** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
-          - **Name** `Label` · variation `ToyPlateText` · size flags horizontal `SIZE_EXPAND_FILL` · custom_minimum_size (360, 0) · text `tutorial.list.throw`: en "Throwing" · uk "Кидання" · autowrap_mode `AUTOWRAP_WORD_SMART`
-          - **Check** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (36, 36) · texture `check` (dist/pack/icons/check.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyPlateText")
-        - **MapNow** `PanelContainer` · variation `ToyChipLight` · size flags horizontal `SIZE_SHRINK_BEGIN`
-          - **Name** `Label` · variation `ToyChipLightText` · text `tutorial.list.map` with sample {key} = "M": en "Map and tasks (M)" · uk "Мапа й задачі (M)"
-        - **Downed** `Label` · variation `ToyPlateTextMuted` · custom_minimum_size (360, 0) · text `tutorial.list.downed`: en "Downed" · uk "Нокдаун" · autowrap_mode `AUTOWRAP_WORD_SMART`
-        - **Death** `Label` · variation `ToyPlateTextMuted` · custom_minimum_size (360, 0) · text `tutorial.list.death`: en "Death" · uk "Смерть" · autowrap_mode `AUTOWRAP_WORD_SMART`
-        - **Voice** `Label` · variation `ToyPlateTextMuted` · custom_minimum_size (360, 0) · text `tutorial.list.voice`: en "Voice nearby" · uk "Голос поруч" · autowrap_mode `AUTOWRAP_WORD_SMART`
-        - **Menu** `Label` · variation `ToyPlateTextMuted` · custom_minimum_size (360, 0) · text `tutorial.list.menu`: en "Menu" · uk "Меню" · autowrap_mode `AUTOWRAP_WORD_SMART`
+  - **List** `PanelContainer` · variation `ToyRoster` · anchors `top_right`, offsets -39, 39, -39, 39 (left, top, right, bottom), grow begin/end · custom_minimum_size (330, 0) = Vector2(330, 0)
+    - Note: mouse_filter IGNORE; not clickable. The nine lessons in the roster's place and look (the tutorial has no roster): 39 px in at the top right, a quiet tile with the small-capitals head and compact rows, growing to its longest row.
+    - **V** `VBoxContainer` · variation `ToyColumnTwelve` · gaps from the variation: separation 12
+      - **Head** `Label` · variation `ToyKicker` · text `tutorial.list.title`: en "Tutorial" · uk "Навчання"
+        - Note: The tile's head; the game sets uppercase = true.
+      - **Rows** `VBoxContainer` · variation `ToyColumnEight` · gaps from the variation: separation 8
+        - **Move** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
+          - Note: One row per lesson, built in code, in the lessons' order: a done lesson is its name in ToyRosterName (the text colour) with the check at the right edge (tinted by the name), the current one ToyRosterNameSelf (the accent, as the own name in the round's roster), the rest ToyRosterNameDead (dim).
+          - **Name** `Label` · variation `ToyRosterName` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text `tutorial.list.move`: en "Controls" · uk "Керування"
+          - **Check** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (27, 27) · texture `check` (dist/pack/icons/check.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyRosterName")
+        - **PickUp** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
+          - **Name** `Label` · variation `ToyRosterName` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text `tutorial.list.pick_up`: en "Picking up and putting down" · uk "Взяти й покласти"
+          - **Check** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (27, 27) · texture `check` (dist/pack/icons/check.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyRosterName")
+        - **HandBelt** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
+          - **Name** `Label` · variation `ToyRosterName` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text `tutorial.list.hand_belt`: en "Hand and belt" · uk "Рука й пояс"
+          - **Check** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (27, 27) · texture `check` (dist/pack/icons/check.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyRosterName")
+        - **Throw** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
+          - **Name** `Label` · variation `ToyRosterName` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text `tutorial.list.throw`: en "Throwing" · uk "Кидання"
+          - **Check** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (27, 27) · texture `check` (dist/pack/icons/check.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyRosterName")
+        - **Map** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
+          - **Name** `Label` · variation `ToyRosterNameSelf` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text `tutorial.list.map` with sample {key} = "M": en "Map and tasks (M)" · uk "Мапа й задачі (M)"
+            - Note: {key} is the bound key of the map action (control.map).
+        - **Downed** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
+          - **Name** `Label` · variation `ToyRosterNameDead` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text `tutorial.list.downed`: en "Downed" · uk "Нокдаун"
+        - **Death** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
+          - **Name** `Label` · variation `ToyRosterNameDead` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text `tutorial.list.death`: en "Death" · uk "Смерть"
+        - **Voice** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
+          - **Name** `Label` · variation `ToyRosterNameDead` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text `tutorial.list.voice`: en "Voice nearby" · uk "Голос поруч"
+        - **Menu** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
+          - **Name** `Label` · variation `ToyRosterNameDead` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text `tutorial.list.menu`: en "Menu" · uk "Меню"
 
 ## `step-dead`: what differs from `invite`
 
-- **Hidden:** `Dim`, `Lang`, `Box`.
+- **Hidden:** `Dim`, `Box`.
 - **Shown:**
-  - **Step** `PanelContainer` · variation `ToyPlate` · anchors `center_top`, offsets 0, 39, 0, 39 (left, top, right, bottom), grow both/end · custom_minimum_size (1140, 0)
-    - Note: mouse_filter IGNORE (and its children). The current lesson. A lesson advances when the game sees its action; a lesson with two instructions swaps Title and How within the same step number. The lessons (Progress {count} of 9; the list key; the title key, the how key and the binding that fills {key}): 1 tutorial.list.move: tutorial.step.move.title with the key row HowKeys (control.forward, control.left, control.backward, control.right, control.sprint, control.jump), advancing once the player has moved. 2 tutorial.list.pick_up: tutorial.step.pick_up.title, tutorial.step.pick_up.how, control.interact (E); then tutorial.step.put_down.title, tutorial.step.press, control.put_down (Q). 3 tutorial.list.hand_belt: tutorial.step.hand_belt.title, tutorial.step.press, control.swap (X). 4 tutorial.list.throw: tutorial.step.throw.title, tutorial.step.throw.how, control.throw (G). 5 tutorial.list.map: tutorial.step.map.title, tutorial.step.press, control.map (M); then tutorial.step.howto.title, tutorial.step.howto.how with the round «?» keycap (the map's «?» button). 6 tutorial.list.downed: tutorial.step.downed.title, tutorial.step.downed.how, control.interact held (E). 7 tutorial.list.death: tutorial.step.dead_room.title, tutorial.step.dead_room.how (drafts), no key: the player waits in the dead's room (m8 §3) and comes back at a capsule. 8 tutorial.list.voice: tutorial.step.voice.title, tutorial.step.voice.how, no key. 9 tutorial.list.menu: tutorial.step.menu.title, tutorial.step.press, Esc (ui_cancel, a wide keycap).
-    - **V** `VBoxContainer` · variation `ToyColumnTwelve` · gaps from the variation: separation 12 · alignment `ALIGNMENT_CENTER`
-      - **Progress** `Label` · variation `ToyPlateTextMuted` · text `tutorial.step.progress` with sample {count} = "7", {total} = "9": en "Step 7 of 9" · uk "Крок 7 з 9" · horizontal_alignment `CENTER`
-      - **Title** `Label` · variation `ToyPlateTitle` · custom_minimum_size (900, 0) · text `tutorial.step.dead_room.title`: en "Wait in the dead's room" · uk "Перечекай у кімнаті мертвих" · horizontal_alignment `CENTER` · autowrap_mode `AUTOWRAP_WORD_SMART`
-      - **HowText** `Label` · variation `ToyPlateText` · text `tutorial.step.dead_room.how`: en "You're back at a capsule" · uk "Повернешся в одній із капсул" · horizontal_alignment `CENTER`
+  - **Step** `PanelContainer` · variation `ToyPlate` · anchors `center_top`, offsets 0, 36, 0, 36 (left, top, right, bottom), grow both/end · custom_minimum_size (720, 0)
+    - Note: mouse_filter IGNORE (and its children). The current lesson as a quiet tile at the top centre, 36 px down, where the round's time tile sits (the tutorial has no timer): the step count as the small-capitals head, the lesson's title, then how, all at the left. A lesson advances when the game sees its action; a lesson with two instructions swaps Title and How within the same step number. The lessons (Progress {count} of 9; the list key; the title key, the how key and the binding that fills {key}): 1 tutorial.list.move: tutorial.step.move.title with the key row HowKeys (control.forward, control.left, control.backward, control.right, control.sprint, control.jump), advancing once the player has moved. 2 tutorial.list.pick_up: tutorial.step.pick_up.title, tutorial.step.pick_up.how, control.interact (E); then tutorial.step.put_down.title, tutorial.step.press, control.put_down (Q). 3 tutorial.list.hand_belt: tutorial.step.hand_belt.title, tutorial.step.press, control.swap (X). 4 tutorial.list.throw: tutorial.step.throw.title, tutorial.step.throw.how, control.throw (G). 5 tutorial.list.map: tutorial.step.map.title, tutorial.step.press, control.map (M); then tutorial.step.howto.title, tutorial.step.howto.how with the round «?» keycap (the map's «?» button). 6 tutorial.list.downed: tutorial.step.downed.title, tutorial.step.downed.how, control.interact held (E). 7 tutorial.list.death: tutorial.step.dead_room.title, tutorial.step.dead_room.how (drafts), no key: the player waits in the dead's room (m8 §3) and comes back at a capsule. 8 tutorial.list.voice: tutorial.step.voice.title, tutorial.step.voice.how, no key. 9 tutorial.list.menu: tutorial.step.menu.title, tutorial.step.press, Esc (ui_cancel, a wide keycap).
+    - **V** `VBoxContainer` · variation `ToyColumnTwelve` · gaps from the variation: separation 12
+      - **Progress** `Label` · variation `ToyKicker` · text `tutorial.step.progress` with sample {count} = "7", {total} = "9": en "Step 7 of 9" · uk "Крок 7 з 9"
+        - Note: The tile's head; the game sets uppercase = true.
+      - **Title** `Label` · variation `ToyPlateTitle` · text `tutorial.step.dead_room.title`: en "Wait in the dead's room" · uk "Перечекай у кімнаті мертвих"
+      - **HowText** `Label` · variation `ToyPlateText` · text `tutorial.step.dead_room.how`: en "You're back at a capsule" · uk "Повернешся в одній із капсул"
         - Note: A how-string without {key}: one Label (voice's works the same).
-  - **List** `PanelContainer` · variation `ToyPlate` · anchors `top_right`, offsets -39, 270, -39, 270 (left, top, right, bottom), grow begin/end · custom_minimum_size (520, 0)
-    - Note: mouse_filter IGNORE; not clickable. The nine lessons in order, built in code: a done lesson is its name with a check at the right edge (XDone), the current one a one-line light chip (XNow), the rest muted and wrapping (the plain names). 520 px holds every lesson's chip at large text.
-    - **V** `VBoxContainer` · variation `ToyColumnTwentyFour` · gaps from the variation: separation 24
-      - **Head** `Label` · variation `ToyPlateText` · text `tutorial.list.title`: en "Tutorial" · uk "Навчання"
-      - **Rows** `VBoxContainer` · variation `ToyColumnTwelve` · gaps from the variation: separation 12
-        - **MoveDone** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
-          - **Name** `Label` · variation `ToyPlateText` · size flags horizontal `SIZE_EXPAND_FILL` · custom_minimum_size (360, 0) · text `tutorial.list.move`: en "Controls" · uk "Керування" · autowrap_mode `AUTOWRAP_WORD_SMART`
-          - **Check** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (36, 36) · texture `check` (dist/pack/icons/check.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyPlateText")
-        - **PickUpDone** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
-          - **Name** `Label` · variation `ToyPlateText` · size flags horizontal `SIZE_EXPAND_FILL` · custom_minimum_size (360, 0) · text `tutorial.list.pick_up`: en "Picking up and putting down" · uk "Взяти й покласти" · autowrap_mode `AUTOWRAP_WORD_SMART`
-          - **Check** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (36, 36) · texture `check` (dist/pack/icons/check.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyPlateText")
-        - **HandBeltDone** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
-          - **Name** `Label` · variation `ToyPlateText` · size flags horizontal `SIZE_EXPAND_FILL` · custom_minimum_size (360, 0) · text `tutorial.list.hand_belt`: en "Hand and belt" · uk "Рука й пояс" · autowrap_mode `AUTOWRAP_WORD_SMART`
-          - **Check** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (36, 36) · texture `check` (dist/pack/icons/check.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyPlateText")
-        - **ThrowDone** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
-          - **Name** `Label` · variation `ToyPlateText` · size flags horizontal `SIZE_EXPAND_FILL` · custom_minimum_size (360, 0) · text `tutorial.list.throw`: en "Throwing" · uk "Кидання" · autowrap_mode `AUTOWRAP_WORD_SMART`
-          - **Check** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (36, 36) · texture `check` (dist/pack/icons/check.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyPlateText")
-        - **MapDone** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
-          - **Name** `Label` · variation `ToyPlateText` · size flags horizontal `SIZE_EXPAND_FILL` · custom_minimum_size (360, 0) · text `tutorial.list.map` with sample {key} = "M": en "Map and tasks (M)" · uk "Мапа й задачі (M)" · autowrap_mode `AUTOWRAP_WORD_SMART`
-          - **Check** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (36, 36) · texture `check` (dist/pack/icons/check.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyPlateText")
-        - **DownedDone** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
-          - **Name** `Label` · variation `ToyPlateText` · size flags horizontal `SIZE_EXPAND_FILL` · custom_minimum_size (360, 0) · text `tutorial.list.downed`: en "Downed" · uk "Нокдаун" · autowrap_mode `AUTOWRAP_WORD_SMART`
-          - **Check** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (36, 36) · texture `check` (dist/pack/icons/check.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyPlateText")
-        - **DeathNow** `PanelContainer` · variation `ToyChipLight` · size flags horizontal `SIZE_SHRINK_BEGIN`
-          - **Name** `Label` · variation `ToyChipLightText` · text `tutorial.list.death`: en "Death" · uk "Смерть"
-        - **Voice** `Label` · variation `ToyPlateTextMuted` · custom_minimum_size (360, 0) · text `tutorial.list.voice`: en "Voice nearby" · uk "Голос поруч" · autowrap_mode `AUTOWRAP_WORD_SMART`
-        - **Menu** `Label` · variation `ToyPlateTextMuted` · custom_minimum_size (360, 0) · text `tutorial.list.menu`: en "Menu" · uk "Меню" · autowrap_mode `AUTOWRAP_WORD_SMART`
+  - **List** `PanelContainer` · variation `ToyRoster` · anchors `top_right`, offsets -39, 39, -39, 39 (left, top, right, bottom), grow begin/end · custom_minimum_size (330, 0) = Vector2(330, 0)
+    - Note: mouse_filter IGNORE; not clickable. The nine lessons in the roster's place and look (the tutorial has no roster): 39 px in at the top right, a quiet tile with the small-capitals head and compact rows, growing to its longest row.
+    - **V** `VBoxContainer` · variation `ToyColumnTwelve` · gaps from the variation: separation 12
+      - **Head** `Label` · variation `ToyKicker` · text `tutorial.list.title`: en "Tutorial" · uk "Навчання"
+        - Note: The tile's head; the game sets uppercase = true.
+      - **Rows** `VBoxContainer` · variation `ToyColumnEight` · gaps from the variation: separation 8
+        - **Move** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
+          - Note: One row per lesson, built in code, in the lessons' order: a done lesson is its name in ToyRosterName (the text colour) with the check at the right edge (tinted by the name), the current one ToyRosterNameSelf (the accent, as the own name in the round's roster), the rest ToyRosterNameDead (dim).
+          - **Name** `Label` · variation `ToyRosterName` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text `tutorial.list.move`: en "Controls" · uk "Керування"
+          - **Check** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (27, 27) · texture `check` (dist/pack/icons/check.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyRosterName")
+        - **PickUp** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
+          - **Name** `Label` · variation `ToyRosterName` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text `tutorial.list.pick_up`: en "Picking up and putting down" · uk "Взяти й покласти"
+          - **Check** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (27, 27) · texture `check` (dist/pack/icons/check.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyRosterName")
+        - **HandBelt** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
+          - **Name** `Label` · variation `ToyRosterName` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text `tutorial.list.hand_belt`: en "Hand and belt" · uk "Рука й пояс"
+          - **Check** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (27, 27) · texture `check` (dist/pack/icons/check.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyRosterName")
+        - **Throw** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
+          - **Name** `Label` · variation `ToyRosterName` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text `tutorial.list.throw`: en "Throwing" · uk "Кидання"
+          - **Check** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (27, 27) · texture `check` (dist/pack/icons/check.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyRosterName")
+        - **Map** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
+          - **Name** `Label` · variation `ToyRosterName` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text `tutorial.list.map` with sample {key} = "M": en "Map and tasks (M)" · uk "Мапа й задачі (M)"
+            - Note: {key} is the bound key of the map action (control.map).
+          - **Check** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (27, 27) · texture `check` (dist/pack/icons/check.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyRosterName")
+        - **Downed** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
+          - **Name** `Label` · variation `ToyRosterName` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text `tutorial.list.downed`: en "Downed" · uk "Нокдаун"
+          - **Check** `TextureRect` · size flags vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (27, 27) · texture `check` (dist/pack/icons/check.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("font_color", "ToyRosterName")
+        - **Death** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
+          - **Name** `Label` · variation `ToyRosterNameSelf` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text `tutorial.list.death`: en "Death" · uk "Смерть"
+        - **Voice** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
+          - **Name** `Label` · variation `ToyRosterNameDead` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text `tutorial.list.voice`: en "Voice nearby" · uk "Голос поруч"
+        - **Menu** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
+          - **Name** `Label` · variation `ToyRosterNameDead` · size flags horizontal `SIZE_EXPAND_FILL`, vertical `SIZE_SHRINK_CENTER` · text `tutorial.list.menu`: en "Menu" · uk "Меню"
 
 ## Notes
 
@@ -307,7 +342,7 @@ The tutorial room. On the first launch the invite with the language choice; in t
 
 ## Keys
 
-- **Drawn** (32): `control.jump`, `control.sprint`, `control.walk`, `hud.health`, `hud.slot.belt`, `hud.slot.hand`, `hud.stamina`, `key.space`, `lang.en`, `lang.uk`, `tutorial.invite.body`, `tutorial.invite.skip`, `tutorial.invite.start`, `tutorial.invite.title`, `tutorial.list.death`, `tutorial.list.downed`, `tutorial.list.hand_belt`, `tutorial.list.map`, `tutorial.list.menu`, `tutorial.list.move`, `tutorial.list.pick_up`, `tutorial.list.throw`, `tutorial.list.title`, `tutorial.list.voice`, `tutorial.step.dead_room.how`, `tutorial.step.dead_room.title`, `tutorial.step.howto.how`, `tutorial.step.howto.title`, `tutorial.step.move.title`, `tutorial.step.pick_up.how`, `tutorial.step.pick_up.title`, `tutorial.step.progress`.
+- **Drawn** (31): `control.jump`, `control.sprint`, `control.walk`, `hud.health`, `hud.slot.belt`, `hud.slot.hand`, `hud.stamina`, `hud.suit`, `key.space`, `tutorial.invite.body`, `tutorial.invite.skip`, `tutorial.invite.start`, `tutorial.invite.title`, `tutorial.list.death`, `tutorial.list.downed`, `tutorial.list.hand_belt`, `tutorial.list.map`, `tutorial.list.menu`, `tutorial.list.move`, `tutorial.list.pick_up`, `tutorial.list.throw`, `tutorial.list.title`, `tutorial.list.voice`, `tutorial.step.dead_room.how`, `tutorial.step.dead_room.title`, `tutorial.step.howto.how`, `tutorial.step.howto.title`, `tutorial.step.move.title`, `tutorial.step.pick_up.how`, `tutorial.step.pick_up.title`, `tutorial.step.progress`.
 - **Named only in the notes** (wire them too): `control.backward`, `control.forward`, `control.interact`, `control.left`, `control.map`, `control.put_down`, `control.right`, `control.swap`, `control.throw`, `key.mouse_left`, `key.mouse_right`, `tutorial.step.downed.how`, `tutorial.step.downed.title`, `tutorial.step.hand_belt.title`, `tutorial.step.map.title`, `tutorial.step.menu.title`, `tutorial.step.press`, `tutorial.step.put_down.title`, `tutorial.step.throw.how`, `tutorial.step.throw.title`, `tutorial.step.voice.how`, `tutorial.step.voice.title`.
 
 ## Layers and input (every screen)

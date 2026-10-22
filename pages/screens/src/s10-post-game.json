@@ -3,38 +3,30 @@
   "wireframe": "s10",
   "title": "Post game",
   "background": "black",
-  "note": "The black outro of about 3 s: the End phase fades to black (0.4 s; a cut under reduced motion), plays one sound for the win and one for the loss (the cops' end with a siren, m8 §6), routes no voice (#213) and returns everyone to the lobby after 3 s (#212). Nobody hears anybody and no text says so. No input. Three ends (m8 §6; the sketch pages/mvp-screens frames 10 to 12 at 0.75). Open: whether the end reveals who was human, and whether it shows the points (today it names only the winner).",
+  "note": "The outro of about 3 s, one of the three loud moments that end a round (the target page pages/suit-final, section 10): the End phase fades to this screen (0.4 s; a cut under reduced motion), plays one sound for the win and one for the loss (the cops' end with a siren, m8 §6), routes no voice (#213) and returns everyone to the ship after 3 s (#212). Nobody hears anybody and no text says so. No input, so no control and no focus. The loud part is only the band (or, for the cops, the whole screen); the lines under it are quiet text. Open: whether the end reveals who was human, and whether it shows the points (today it names only the winner).",
   "states": [
-    { "id": "aliens", "label": "Прибульці перемогли", "note": "An alien's view: every task done before the timer and the cops (the sketch's frame 10). The own side won: the winner on the result plate." },
-    { "id": "time", "label": "Час вийшов", "note": "A human's view: the timer ran out with the tasks unfinished (frame 11). The own side won: the plate." },
-    { "id": "cops", "label": "Копи приїхали", "note": "An alien's view: the cops' minute ran out (frame 12). The own side lost: the winner in plain text, no plate (the decided rule: the plate is for a win)." }
+    { "id": "aliens", "label": "Прибульці перемогли", "note": "Every task done before the timer and the cops (the target's frame 10a): the accent band." },
+    { "id": "time", "label": "Час вийшов", "note": "The timer ran out with the tasks unfinished (frame 10b): the danger band." },
+    { "id": "cops", "label": "Копи приїхали", "note": "The cops' minute ran out (frame 10c), the loudest end: the whole screen in the danger colour, the band the same colour, every line in the danger ink." }
   ],
   "nodes": [
-    { "name": "Night", "type": "Panel", "variation": "ToyBackdropFullScreen", "anchors_preset": "full_rect", "note": "P2, opaque: the full screens' base ground (ui-2.0.0). The cops' end fills the whole screen with the danger colour in the target page (ToyBackdropAlert, ToyTextOnDanger): open for the game, the screen here keeps the base under the danger band. It fades in over 0.4 s when the End phase starts (a cut under reduced motion)." },
     {
-      "name": "V", "type": "VBoxContainer", "variation": "ToyColumnThirtyTwo", "anchors_preset": "center", "grow_horizontal": "both", "grow_vertical": "both", "alignment": "center", "note": "A centred column on the night, 32 px between its lines (the sketch's 20 x 1.5 = 30, the nearest step).",
+      "name": "Night", "type": "Panel", "variation": "ToyBackdropFullScreen", "anchors_preset": "full_rect", "per_state": { "cops": { "variation": "ToyBackdropAlert" } }, "note": "Opaque, the whole screen: the full screens' base ground, ToyBackdropAlert (the danger colour) for the cops' end. It fades in over 0.4 s when the End phase starts (a cut under reduced motion). The texts are its children, so they sit on it (the danger ink needs the danger ground).",
       "children": [
         {
-          "name": "Band", "type": "PanelContainer", "variation": "ToyBand", "custom_minimum_size": [1920, 315], "per_state": { "time": { "variation": "ToyBandAlert" }, "cops": { "variation": "ToyBandAlert" } }, "note": "ui-2.0.0 (the target page, frame 10): the loud band across the whole width, 315 px tall (210 x 1.5): the accent when the aliens won, the danger colour when the humans did.",
+          "name": "Band", "type": "PanelContainer", "variation": "ToyBand", "anchors_preset": "top_wide", "offset_top": 300, "offset_bottom": 615, "per_state": { "time": { "variation": "ToyBandAlert" }, "cops": { "variation": "ToyBandAlert" } }, "note": "The loud band across the whole width, 300 px down and 315 tall (the target's 200 and 210 x 1.5): the accent when the aliens won, the danger colour when the humans did; on the cops' danger ground it is the same colour, so the title stands on the whole screen.",
           "children": [
-            { "name": "Title", "type": "Label", "variation": "ToyTitleHero", "key": "end.title.party", "horizontal_alignment": "center", "vertical_alignment": "center", "per_state": { "time": { "key": "end.title.time_up", "variation": "ToyTitleHeroAlert" }, "cops": { "key": "end.title.busted", "variation": "ToyTitleHeroAlert" } }, "note": "How the party ended, in Unbounded at the hero size on the band, the same for every player: end.title.party (the accent ink), end.title.time_up or end.title.busted (the danger ink)." }
+            { "name": "Title", "type": "Label", "variation": "ToyTitleHero", "key": "end.title.party", "horizontal_alignment": "center", "vertical_alignment": "center", "per_state": { "time": { "key": "end.title.time_up", "variation": "ToyTitleHeroAlert" }, "cops": { "key": "end.title.busted", "variation": "ToyTitleHeroAlert" } }, "note": "How the party ended, the same for every player, in Unbounded at the hero size: end.title.party in the accent ink, end.title.time_up or end.title.busted in the danger ink. The target sets the cops' title in capitals and larger (210 px); the pack's hero is 126 px and has no capitals (open, see the PR)." }
           ]
         },
         {
-          "name": "Winner", "type": "PanelContainer", "variation": "ToyPlateResult", "states": ["aliens", "time"], "size_flags_horizontal": "shrink_center", "note": "When the own side won: the winning side on the result plate.",
+          "name": "Lines", "type": "VBoxContainer", "variation": "ToyColumnTwentyFour", "anchors_preset": "top_wide", "offset_top": 672, "offset_bottom": 672, "note": "Under the band, 57 px below it (the target's 450 - 410 = 40 x 1.5 less the title's leading): who won, then why. Quiet text, centred.",
           "children": [
-            { "name": "Text", "type": "Label", "variation": "ToyPlateTitle", "key": "end.won_aliens", "per_state": { "time": { "key": "end.won_humans" } }, "note": "end.won_aliens or end.won_humans." }
+            { "name": "Won", "type": "Label", "variation": "ToyTitleOnDark", "key": "end.won_aliens", "horizontal_alignment": "center", "per_state": { "time": { "key": "end.won_humans" }, "cops": { "key": "end.won_humans", "variation": "ToyTextOnDanger" } }, "note": "The winning side, end.won_aliens or end.won_humans, the same for every player (no plate for a win or a loss since ui-2.0.0). ToyTextOnDanger on the cops' ground." },
+            { "name": "Reason", "type": "Label", "variation": "ToyTextMutedOnDark", "key": "end.reason.all_tasks", "args": { "time": "8:12" }, "horizontal_alignment": "center", "per_state": { "time": { "key": "end.reason.time_up", "args": {} }, "cops": { "key": "end.reason.cops", "args": {}, "variation": "ToyTextOnDanger" } }, "note": "Why the round ended, from the host's reason id (#208), in the dim text: end.reason.all_tasks with the round's time (m:ss), end.reason.time_up, or end.reason.cops. An unknown reason hides it." }
           ]
         },
-        { "name": "WinnerLoss", "type": "Label", "variation": "ToyTextOnDark", "key": "end.won_humans", "horizontal_alignment": "center", "states": ["cops"], "note": "When the own side lost: the winning side in plain text, no plate. end.won_aliens or end.won_humans." },
-        {
-          "name": "Reason", "type": "PanelContainer", "variation": "ToyStickerHighlight", "size_flags_horizontal": "shrink_center", "per_state": { "time": { "variation": "ToyStickerAlert" }, "cops": { "variation": "ToyStickerAlert" } }, "note": "Why the round ended, from the host's reason id (#208), on a word tile: an accent outline when the aliens won, a danger outline when the humans did. An unknown reason hides it.",
-          "children": [
-            { "name": "Text", "type": "Label", "variation": "ToyStickerTextLarge", "key": "end.reason.all_tasks", "args": { "time": "8:12" }, "per_state": { "time": { "key": "end.reason.time_up", "args": {} }, "cops": { "key": "end.reason.cops", "args": {} } }, "note": "end.reason.all_tasks with the round's time (m:ss), end.reason.time_up, or end.reason.cops." }
-          ]
-        },
-        { "name": "Gap", "type": "Control", "custom_minimum_size": [0, 12], "note": "With the column's two 32 px gaps, 76 px between the reason and the countdown." },
-        { "name": "Back", "type": "Label", "variation": "ToyTextOnDark", "key": "end.back_to_ship", "args": { "count": "3" }, "horizontal_alignment": "center", "note": "Counts 3, 2, 1 once a second; at 0 everyone is back in the lobby, the aliens' ship (#212). Open: how the return to the ship looks." }
+        { "name": "Back", "type": "Label", "variation": "ToyTextMutedOnDark", "key": "end.back_to_ship", "args": { "count": "3" }, "anchors_preset": "bottom_wide", "offset_top": -72, "offset_bottom": -72, "grow_vertical": "begin", "horizontal_alignment": "center", "per_state": { "cops": { "variation": "ToyTextOnDanger" } }, "note": "72 px from the bottom (the target's 48 x 1.5), dim. Counts 3, 2, 1 once a second; at 0 everyone is back on the ship, the lobby (#212)." }
       ]
     }
   ]

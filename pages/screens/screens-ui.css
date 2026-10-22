@@ -75,6 +75,25 @@
   padding-bottom: 0;
   padding-left: 0;
 }
+/* ToyBackdropAlert: Panel · backdrop.alert · dark */
+.tv-ToyBackdropAlert {
+  box-sizing: border-box;
+  position: relative;
+  background: var(--toy-backdrop-alert-panel-bg-color);
+  border-style: solid;
+  border-top-width: 0;
+  border-right-width: 0;
+  border-bottom-width: 0;
+  border-left-width: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  padding-top: 0;
+  padding-right: 0;
+  padding-bottom: 0;
+  padding-left: 0;
+}
 /* ToyScreenEdgeAlert: Panel · backdrop.screen-edge-alert · dark */
 .tv-ToyScreenEdgeAlert {
   box-sizing: border-box;
@@ -812,64 +831,6 @@
 .tv-ToyButtonDanger.is-disabled .tv-icon {
   color: var(--toy-button-danger-items-icon-disabled-color);
 }
-/* ToyButtonGhostOnDark: Button → ToyButton · button.ghost-on-dark · dark */
-.tv-ToyButtonGhostOnDark {
-  box-sizing: border-box;
-  position: relative;
-  background: var(--toy-palette-clear);
-  border-style: solid;
-  border-top-width: 0;
-  border-right-width: 0;
-  border-bottom-width: 0;
-  border-left-width: 0;
-  border-top-left-radius: calc(var(--toy-button-ghost-on-dark-normal-corner-radius) * var(--px));
-  border-top-right-radius: calc(var(--toy-button-ghost-on-dark-normal-corner-radius) * var(--px));
-  border-bottom-right-radius: calc(var(--toy-button-ghost-on-dark-normal-corner-radius) * var(--px));
-  border-bottom-left-radius: calc(var(--toy-button-ghost-on-dark-normal-corner-radius) * var(--px));
-  padding-top: calc(var(--toy-button-ghost-on-dark-normal-content-margin-block) * var(--px));
-  padding-right: calc(var(--toy-button-ghost-on-dark-normal-content-margin-inline) * var(--px));
-  padding-bottom: calc(var(--toy-button-ghost-on-dark-normal-content-margin-block) * var(--px));
-  padding-left: calc(var(--toy-button-ghost-on-dark-normal-content-margin-inline) * var(--px));
-  font-family: var(--toy-button-ghost-on-dark-label-font-family), system-ui, sans-serif;
-  font-size: calc(var(--toy-button-ghost-on-dark-label-font-size) * var(--px));
-  font-weight: var(--toy-button-ghost-on-dark-label-font-weight);
-  line-height: calc(var(--toy-button-ghost-on-dark-label-line-box) * var(--px));
-  letter-spacing: calc(var(--toy-button-ghost-on-dark-label-letter-spacing) * var(--px));
-  color: var(--toy-button-ghost-on-dark-normal-font-color);
-  cursor: pointer;
-}
-.tv-ToyButtonGhostOnDark.is-hover {
-  background: var(--toy-button-ghost-on-dark-hover-bg-color);
-}
-.tv-ToyButtonGhostOnDark.is-held {
-  background: var(--toy-button-ghost-on-dark-pressed-bg-color);
-}
-.tv-ToyButtonGhostOnDark.is-disabled {
-  color: var(--toy-button-ghost-on-dark-disabled-font-color);
-}
-.tv-ToyButtonGhostOnDark > .tv-focus {
-  display: none;
-  position: absolute;
-  pointer-events: none;
-  box-sizing: border-box;
-  border-style: solid;
-  border-color: var(--toy-button-ghost-on-dark-focus-border-color);
-  border-top-width: calc(var(--toy-button-ghost-on-dark-focus-border-width) * var(--px));
-  border-right-width: calc(var(--toy-button-ghost-on-dark-focus-border-width) * var(--px));
-  border-bottom-width: calc(var(--toy-button-ghost-on-dark-focus-border-width) * var(--px));
-  border-left-width: calc(var(--toy-button-ghost-on-dark-focus-border-width) * var(--px));
-  border-top-left-radius: calc(var(--toy-button-ghost-on-dark-focus-corner-radius) * var(--px));
-  border-top-right-radius: calc(var(--toy-button-ghost-on-dark-focus-corner-radius) * var(--px));
-  border-bottom-right-radius: calc(var(--toy-button-ghost-on-dark-focus-corner-radius) * var(--px));
-  border-bottom-left-radius: calc(var(--toy-button-ghost-on-dark-focus-corner-radius) * var(--px));
-  top: calc((0 - var(--toy-button-ghost-on-dark-focus-expand-margin)) * var(--px));
-  right: calc((0 - var(--toy-button-ghost-on-dark-focus-expand-margin)) * var(--px));
-  bottom: calc((0 - var(--toy-button-ghost-on-dark-focus-expand-margin)) * var(--px));
-  left: calc((0 - var(--toy-button-ghost-on-dark-focus-expand-margin)) * var(--px));
-}
-.tv-ToyButtonGhostOnDark.is-focus > .tv-focus, .tv-ToyButtonGhostOnDark:focus-visible > .tv-focus {
-  display: block;
-}
 /* ToyButtonGhostOnLight: Button → ToyButton · button.ghost-on-light · light */
 .tv-ToyButtonGhostOnLight {
   box-sizing: border-box;
@@ -1014,126 +975,6 @@
   line-height: calc(var(--toy-chip-alert-text-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-chip-alert-text-label-letter-spacing) * var(--px));
   color: var(--toy-chip-alert-text-normal-font-color);
-}
-/* ToyChipToggleOnDark: Button → ToyButton · chip.toggle-on-dark · dark */
-.tv-ToyChipToggleOnDark {
-  box-sizing: border-box;
-  position: relative;
-  background: var(--toy-chip-toggle-on-dark-normal-bg-color);
-  border-style: solid;
-  border-color: var(--toy-chip-toggle-on-dark-normal-border-color);
-  border-top-width: calc(var(--toy-chip-toggle-on-dark-normal-border-width) * var(--px));
-  border-right-width: calc(var(--toy-chip-toggle-on-dark-normal-border-width) * var(--px));
-  border-bottom-width: calc(var(--toy-chip-toggle-on-dark-normal-border-width) * var(--px));
-  border-left-width: calc(var(--toy-chip-toggle-on-dark-normal-border-width) * var(--px));
-  border-top-left-radius: calc(var(--toy-chip-toggle-on-dark-normal-corner-radius) * var(--px));
-  border-top-right-radius: calc(var(--toy-chip-toggle-on-dark-normal-corner-radius) * var(--px));
-  border-bottom-right-radius: calc(var(--toy-chip-toggle-on-dark-normal-corner-radius) * var(--px));
-  border-bottom-left-radius: calc(var(--toy-chip-toggle-on-dark-normal-corner-radius) * var(--px));
-  padding-top: calc((var(--toy-chip-toggle-on-dark-normal-content-margin-block) - var(--toy-chip-toggle-on-dark-normal-border-width)) * var(--px));
-  padding-right: calc((var(--toy-chip-toggle-on-dark-normal-content-margin-inline) - var(--toy-chip-toggle-on-dark-normal-border-width)) * var(--px));
-  padding-bottom: calc((var(--toy-chip-toggle-on-dark-normal-content-margin-block) - var(--toy-chip-toggle-on-dark-normal-border-width)) * var(--px));
-  padding-left: calc((var(--toy-chip-toggle-on-dark-normal-content-margin-inline) - var(--toy-chip-toggle-on-dark-normal-border-width)) * var(--px));
-  font-family: var(--toy-chip-toggle-on-dark-label-font-family), system-ui, sans-serif;
-  font-size: calc(var(--toy-chip-toggle-on-dark-label-font-size) * var(--px));
-  font-weight: var(--toy-chip-toggle-on-dark-label-font-weight);
-  line-height: calc(var(--toy-chip-toggle-on-dark-label-line-box) * var(--px));
-  letter-spacing: calc(var(--toy-chip-toggle-on-dark-label-letter-spacing) * var(--px));
-  color: var(--toy-chip-toggle-on-dark-normal-font-color);
-  cursor: pointer;
-}
-.tv-ToyChipToggleOnDark.is-hover {
-  background: var(--toy-chip-toggle-on-dark-hover-bg-color);
-  color: var(--toy-chip-toggle-on-dark-hover-font-color);
-}
-.tv-ToyChipToggleOnDark.is-held {
-  background: var(--toy-chip-toggle-on-dark-pressed-bg-color);
-}
-.tv-ToyChipToggleOnDark.is-disabled {
-  background: var(--toy-chip-toggle-on-dark-disabled-bg-color);
-  border-color: var(--toy-chip-toggle-on-dark-disabled-border-color);
-  color: var(--toy-chip-toggle-on-dark-disabled-font-color);
-}
-.tv-ToyChipToggleOnDark > .tv-focus {
-  display: none;
-  position: absolute;
-  pointer-events: none;
-  box-sizing: border-box;
-  border-style: solid;
-  border-color: var(--toy-chip-toggle-on-dark-focus-border-color);
-  border-top-width: calc(var(--toy-chip-toggle-on-dark-focus-border-width) * var(--px));
-  border-right-width: calc(var(--toy-chip-toggle-on-dark-focus-border-width) * var(--px));
-  border-bottom-width: calc(var(--toy-chip-toggle-on-dark-focus-border-width) * var(--px));
-  border-left-width: calc(var(--toy-chip-toggle-on-dark-focus-border-width) * var(--px));
-  border-top-left-radius: calc(var(--toy-chip-toggle-on-dark-focus-corner-radius) * var(--px));
-  border-top-right-radius: calc(var(--toy-chip-toggle-on-dark-focus-corner-radius) * var(--px));
-  border-bottom-right-radius: calc(var(--toy-chip-toggle-on-dark-focus-corner-radius) * var(--px));
-  border-bottom-left-radius: calc(var(--toy-chip-toggle-on-dark-focus-corner-radius) * var(--px));
-  top: calc((0 - var(--toy-chip-toggle-on-dark-normal-border-width) - var(--toy-chip-toggle-on-dark-focus-expand-margin)) * var(--px));
-  right: calc((0 - var(--toy-chip-toggle-on-dark-normal-border-width) - var(--toy-chip-toggle-on-dark-focus-expand-margin)) * var(--px));
-  bottom: calc((0 - var(--toy-chip-toggle-on-dark-normal-border-width) - var(--toy-chip-toggle-on-dark-focus-expand-margin)) * var(--px));
-  left: calc((0 - var(--toy-chip-toggle-on-dark-normal-border-width) - var(--toy-chip-toggle-on-dark-focus-expand-margin)) * var(--px));
-}
-.tv-ToyChipToggleOnDark.is-focus > .tv-focus, .tv-ToyChipToggleOnDark:focus-visible > .tv-focus {
-  display: block;
-}
-/* ToyChipToggleOnDarkSelected: Button → ToyButton · chip.toggle-on-dark-selected · dark */
-.tv-ToyChipToggleOnDarkSelected {
-  box-sizing: border-box;
-  position: relative;
-  background: var(--toy-chip-toggle-on-dark-selected-normal-bg-color);
-  border-style: solid;
-  border-color: var(--toy-chip-toggle-on-dark-selected-normal-border-color);
-  border-top-width: calc(var(--toy-chip-toggle-on-dark-selected-normal-border-width) * var(--px));
-  border-right-width: calc(var(--toy-chip-toggle-on-dark-selected-normal-border-width) * var(--px));
-  border-bottom-width: calc(var(--toy-chip-toggle-on-dark-selected-normal-border-width) * var(--px));
-  border-left-width: calc(var(--toy-chip-toggle-on-dark-selected-normal-border-width) * var(--px));
-  border-top-left-radius: calc(var(--toy-chip-toggle-on-dark-selected-normal-corner-radius) * var(--px));
-  border-top-right-radius: calc(var(--toy-chip-toggle-on-dark-selected-normal-corner-radius) * var(--px));
-  border-bottom-right-radius: calc(var(--toy-chip-toggle-on-dark-selected-normal-corner-radius) * var(--px));
-  border-bottom-left-radius: calc(var(--toy-chip-toggle-on-dark-selected-normal-corner-radius) * var(--px));
-  padding-top: calc((var(--toy-chip-toggle-on-dark-selected-normal-content-margin-block) - var(--toy-chip-toggle-on-dark-selected-normal-border-width)) * var(--px));
-  padding-right: calc((var(--toy-chip-toggle-on-dark-selected-normal-content-margin-inline) - var(--toy-chip-toggle-on-dark-selected-normal-border-width)) * var(--px));
-  padding-bottom: calc((var(--toy-chip-toggle-on-dark-selected-normal-content-margin-block) - var(--toy-chip-toggle-on-dark-selected-normal-border-width)) * var(--px));
-  padding-left: calc((var(--toy-chip-toggle-on-dark-selected-normal-content-margin-inline) - var(--toy-chip-toggle-on-dark-selected-normal-border-width)) * var(--px));
-  font-family: var(--toy-chip-toggle-on-dark-selected-label-font-family), system-ui, sans-serif;
-  font-size: calc(var(--toy-chip-toggle-on-dark-selected-label-font-size) * var(--px));
-  font-weight: var(--toy-chip-toggle-on-dark-selected-label-font-weight);
-  line-height: calc(var(--toy-chip-toggle-on-dark-selected-label-line-box) * var(--px));
-  letter-spacing: calc(var(--toy-chip-toggle-on-dark-selected-label-letter-spacing) * var(--px));
-  color: var(--toy-chip-toggle-on-dark-selected-normal-font-color);
-  cursor: pointer;
-}
-.tv-ToyChipToggleOnDarkSelected.is-hover {
-  background: var(--toy-chip-toggle-on-dark-selected-hover-bg-color);
-}
-.tv-ToyChipToggleOnDarkSelected.is-disabled {
-  background: var(--toy-chip-toggle-on-dark-selected-disabled-bg-color);
-  border-color: var(--toy-chip-toggle-on-dark-selected-disabled-border-color);
-  color: var(--toy-chip-toggle-on-dark-selected-disabled-font-color);
-}
-.tv-ToyChipToggleOnDarkSelected > .tv-focus {
-  display: none;
-  position: absolute;
-  pointer-events: none;
-  box-sizing: border-box;
-  border-style: solid;
-  border-color: var(--toy-chip-toggle-on-dark-selected-focus-border-color);
-  border-top-width: calc(var(--toy-chip-toggle-on-dark-selected-focus-border-width) * var(--px));
-  border-right-width: calc(var(--toy-chip-toggle-on-dark-selected-focus-border-width) * var(--px));
-  border-bottom-width: calc(var(--toy-chip-toggle-on-dark-selected-focus-border-width) * var(--px));
-  border-left-width: calc(var(--toy-chip-toggle-on-dark-selected-focus-border-width) * var(--px));
-  border-top-left-radius: calc(var(--toy-chip-toggle-on-dark-selected-focus-corner-radius) * var(--px));
-  border-top-right-radius: calc(var(--toy-chip-toggle-on-dark-selected-focus-corner-radius) * var(--px));
-  border-bottom-right-radius: calc(var(--toy-chip-toggle-on-dark-selected-focus-corner-radius) * var(--px));
-  border-bottom-left-radius: calc(var(--toy-chip-toggle-on-dark-selected-focus-corner-radius) * var(--px));
-  top: calc((0 - var(--toy-chip-toggle-on-dark-selected-normal-border-width) - var(--toy-chip-toggle-on-dark-selected-focus-expand-margin)) * var(--px));
-  right: calc((0 - var(--toy-chip-toggle-on-dark-selected-normal-border-width) - var(--toy-chip-toggle-on-dark-selected-focus-expand-margin)) * var(--px));
-  bottom: calc((0 - var(--toy-chip-toggle-on-dark-selected-normal-border-width) - var(--toy-chip-toggle-on-dark-selected-focus-expand-margin)) * var(--px));
-  left: calc((0 - var(--toy-chip-toggle-on-dark-selected-normal-border-width) - var(--toy-chip-toggle-on-dark-selected-focus-expand-margin)) * var(--px));
-}
-.tv-ToyChipToggleOnDarkSelected.is-focus > .tv-focus, .tv-ToyChipToggleOnDarkSelected:focus-visible > .tv-focus {
-  display: block;
 }
 /* ToyChipToggleOnLight: Button → ToyButton · chip.toggle-on-light · light */
 .tv-ToyChipToggleOnLight {
@@ -1837,15 +1678,6 @@
   padding-bottom: calc((var(--toy-map-room-panel-content-margin) - var(--toy-map-room-panel-border-width)) * var(--px));
   padding-left: calc((var(--toy-map-room-panel-content-margin) - var(--toy-map-room-panel-border-width)) * var(--px));
 }
-/* ToyMapRoomText: Label · map.room-text · light */
-.tv-ToyMapRoomText {
-  font-family: var(--toy-map-room-text-label-font-family), system-ui, sans-serif;
-  font-size: calc(var(--toy-map-room-text-label-font-size) * var(--px));
-  font-weight: var(--toy-map-room-text-label-font-weight);
-  line-height: calc(var(--toy-map-room-text-label-line-box) * var(--px));
-  letter-spacing: calc(var(--toy-map-room-text-label-letter-spacing) * var(--px));
-  color: var(--toy-map-room-text-normal-font-color);
-}
 /* ToyMapZone: Panel · map.zone · light */
 .tv-ToyMapZone {
   box-sizing: border-box;
@@ -2383,25 +2215,6 @@
   padding-left: calc(var(--toy-plate-goal-panel-content-margin-inline) * var(--px));
   min-width: calc(var(--toy-plate-goal-size-width) * var(--px));
 }
-/* ToyPlateResult: PanelContainer · plate.result · dark */
-.tv-ToyPlateResult {
-  box-sizing: border-box;
-  position: relative;
-  background: var(--toy-palette-clear);
-  border-style: solid;
-  border-top-width: 0;
-  border-right-width: 0;
-  border-bottom-width: 0;
-  border-left-width: 0;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-  padding-top: calc(var(--toy-plate-result-panel-content-margin-block) * var(--px));
-  padding-right: calc(var(--toy-plate-result-panel-content-margin-inline) * var(--px));
-  padding-bottom: calc(var(--toy-plate-result-panel-content-margin-block) * var(--px));
-  padding-left: calc(var(--toy-plate-result-panel-content-margin-inline) * var(--px));
-}
 /* ToyPlateGoalText: Label · plate.goal-text · dark */
 .tv-ToyPlateGoalText {
   font-family: var(--toy-plate-goal-text-label-font-family), system-ui, sans-serif;
@@ -2892,26 +2705,6 @@
   padding-bottom: calc((var(--toy-sticker-alert-panel-content-margin-block) - var(--toy-sticker-alert-panel-border-width)) * var(--px));
   padding-left: calc((var(--toy-sticker-alert-panel-content-margin-inline) - var(--toy-sticker-alert-panel-border-width)) * var(--px));
 }
-/* ToyStickerHighlight: PanelContainer · sticker.highlight · dark */
-.tv-ToyStickerHighlight {
-  box-sizing: border-box;
-  position: relative;
-  background: var(--toy-sticker-highlight-panel-bg-color);
-  border-style: solid;
-  border-color: var(--toy-sticker-highlight-panel-border-color);
-  border-top-width: calc(var(--toy-sticker-highlight-panel-border-width) * var(--px));
-  border-right-width: calc(var(--toy-sticker-highlight-panel-border-width) * var(--px));
-  border-bottom-width: calc(var(--toy-sticker-highlight-panel-border-width) * var(--px));
-  border-left-width: calc(var(--toy-sticker-highlight-panel-border-width) * var(--px));
-  border-top-left-radius: calc(var(--toy-sticker-highlight-panel-corner-radius) * var(--px));
-  border-top-right-radius: calc(var(--toy-sticker-highlight-panel-corner-radius) * var(--px));
-  border-bottom-right-radius: calc(var(--toy-sticker-highlight-panel-corner-radius) * var(--px));
-  border-bottom-left-radius: calc(var(--toy-sticker-highlight-panel-corner-radius) * var(--px));
-  padding-top: calc((var(--toy-sticker-highlight-panel-content-margin-block) - var(--toy-sticker-highlight-panel-border-width)) * var(--px));
-  padding-right: calc((var(--toy-sticker-highlight-panel-content-margin-inline) - var(--toy-sticker-highlight-panel-border-width)) * var(--px));
-  padding-bottom: calc((var(--toy-sticker-highlight-panel-content-margin-block) - var(--toy-sticker-highlight-panel-border-width)) * var(--px));
-  padding-left: calc((var(--toy-sticker-highlight-panel-content-margin-inline) - var(--toy-sticker-highlight-panel-border-width)) * var(--px));
-}
 /* ToyStickerText: Label · sticker.text · dark */
 .tv-ToyStickerText {
   font-family: var(--toy-sticker-text-label-font-family), system-ui, sans-serif;
@@ -3162,6 +2955,15 @@
   line-height: calc(var(--toy-text-text-alert-on-light-label-line-box) * var(--px));
   letter-spacing: calc(var(--toy-text-text-alert-on-light-label-letter-spacing) * var(--px));
   color: var(--toy-text-text-alert-on-light-normal-font-color);
+}
+/* ToyTextOnDanger: Label · text.text-on-danger · dark */
+.tv-ToyTextOnDanger {
+  font-family: var(--toy-text-text-on-danger-label-font-family), system-ui, sans-serif;
+  font-size: calc(var(--toy-text-text-on-danger-label-font-size) * var(--px));
+  font-weight: var(--toy-text-text-on-danger-label-font-weight);
+  line-height: calc(var(--toy-text-text-on-danger-label-line-box) * var(--px));
+  letter-spacing: calc(var(--toy-text-text-on-danger-label-letter-spacing) * var(--px));
+  color: var(--toy-text-text-on-danger-normal-font-color);
 }
 /* ToyKicker: Label · text.kicker · any */
 .tv-ToyKicker {
