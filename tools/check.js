@@ -48,6 +48,8 @@ const STEPS = [
   ["page:suit-c", ["pages/suit-c/build.js", "--check"]],
   // the whole screen set in the chosen look: the plain tile, the ink-mint palette
   ["page:suit-final", ["pages/suit-final/build.js", "--check"]],
+  // the card pilot on the ui-2.0.0 dark tile: three ways to recolour the clean sketch
+  ["page:card-ink", ["pages/card-ink/build.js", "--check"]],
   // the self-test only: CI has no manager transcripts
   ["manager:selftest", ["tools/manager/context.js", "--self-test"]],
 ];
