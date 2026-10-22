@@ -38,7 +38,8 @@
 //     disabled, the child keeps its minimum width, no bar drawn, the container's width its custom_minimum_size), HSlider (value, min_value, max_value, step, editable, state
 //     normal|hover|focus), VScrollBar (value, min_value, max_value, page, state normal|hover|held|focus),
 //     Label (key, args, count, piece, value_of, or text; horizontal_alignment left|center|right|fill,
-//     vertical_alignment top|center|bottom|fill, autowrap_mode off|arbitrary|word|word_smart), Button (key or text,
+//     vertical_alignment top|center|bottom|fill, autowrap_mode off|arbitrary|word|word_smart, uppercase: Label.uppercase,
+//     the text drawn in capitals, a node property a Theme cannot set; it may change per state), Button (key or text,
 //     and/or icon, icon_size (also the size of an icon only some states set through per_state), args, count, state,
 //     toggle_mode, alignment left|center|right, h_separation: the variation's theme constant, else 4; with no key,
 //     text or icon its children fill its StyleBox content rect),
@@ -65,7 +66,7 @@
 //     pressed StyleBox while selected (button_pressed). A toggle with a lang.* key is drawn pressed while its language
 //     is the page's (the language chips), whatever its source state.
 //   per_state may change only content: key, args, count, state, value, text, placeholder, editable, icon,
-//     theme_color, self_modulate, variation, wide. Layout never changes per state; a node shown only in some states
+//     theme_color, self_modulate, variation, wide, uppercase. Layout never changes per state; a node shown only in some states
 //     lists them in states.
 //
 // VALIDATION (every error names the file, the line, the JSON pointer and what to do): unknown types and fields; a
@@ -170,7 +171,7 @@ const GODOT = {
   ScrollContainer: { chain: ['ScrollContainer', 'Container', 'Control'], holds: 'scroll', fields: ['scroll_vertical', 'horizontal_scroll_mode'], spacing: ['scrollbar-h-separation'] },
   HSlider: { chain: ['HSlider', 'Slider', 'Range', 'Control'], holds: null, themed: true, fields: ['value', 'min_value', 'max_value', 'step', 'editable', 'state'] },
   VScrollBar: { chain: ['VScrollBar', 'ScrollBar', 'Range', 'Control'], holds: null, themed: true, fields: ['value', 'min_value', 'max_value', 'page', 'state'] },
-  Label: { chain: ['Label', 'Control'], holds: null, themed: true, fields: ['key', 'args', 'count', 'piece', 'value_of', 'text', 'horizontal_alignment', 'vertical_alignment', 'autowrap_mode', 'clip_text', 'text_overrun_behavior'] },
+  Label: { chain: ['Label', 'Control'], holds: null, themed: true, fields: ['key', 'args', 'count', 'piece', 'value_of', 'text', 'horizontal_alignment', 'vertical_alignment', 'autowrap_mode', 'uppercase', 'clip_text', 'text_overrun_behavior'] },
   // A Button with a key, a text or an icon places its children by anchors; with none of them its children are its
   // content and fill its StyleBox content rect (place 'content').
   Button: { chain: ['Button', 'BaseButton', 'Control'], holds: 'anchored', themed: true, fields: ['key', 'args', 'count', 'text', 'icon', 'icon_size', 'state', 'toggle_mode', 'alignment', 'h_separation', 'wide', 'clip_text', 'text_overrun_behavior'] },
@@ -182,12 +183,14 @@ const GODOT = {
 const COMMON_FIELDS = ['name', 'type', 'variation', 'states', 'per_state', 'note', 'custom_minimum_size'];
 const ANCHOR_FIELDS = ['anchors_preset', 'offset_left', 'offset_top', 'offset_right', 'offset_bottom', 'grow_horizontal', 'grow_vertical'];
 const FLAG_FIELDS = ['size_flags_horizontal', 'size_flags_vertical', 'size_flags_stretch_ratio'];
-const PER_STATE_FIELDS = ['key', 'args', 'count', 'state', 'value', 'text', 'placeholder', 'editable', 'icon', 'theme_color', 'self_modulate', 'variation', 'wide'];
+const PER_STATE_FIELDS = ['key', 'args', 'count', 'state', 'value', 'text', 'placeholder', 'editable', 'icon', 'theme_color', 'self_modulate', 'variation', 'wide', 'uppercase'];
 // The fields that give a Button its own content; a Button with none of them draws its children as its content.
 const BUTTON_CONTENT = ['key', 'text', 'icon'];
 // A data text's element (the page contract): data-text="data" in place of a deck text's data-key.
 const DATA_TEXT = 'data';
 const COLOUR_RE = /^#[0-9a-fA-F]{6}$/;
+// A Label whose uppercase is set (Label.uppercase): its element's class, drawn in capitals by the screens' components CSS.
+const UPPER_CLASS = 'tv-upper';
 // Colour items of a surface variation that tint an icon inside it (the CSS child class the components CSS colours).
 const TINTS = { 'icon-on': 'tv-icon-on', 'icon-off': 'tv-icon-off' };
 const ARROW_ICON = 'chevron-down'; // OptionButton's theme icon `arrow` (pages/components/icons)
@@ -251,7 +254,7 @@ const DEFAULTS = {
   separation: 4, h_separation: 4, v_separation: 4, scrollbar_h_separation: 0, columns: 1,
   horizontal_alignment: 'left', vertical_alignment: 'top', autowrap_mode: 'off', state: 'normal', toggle_mode: false,
   editable: true, value: 0, min_value: 0, max_value: 100, step: 1, page: 0, scroll_vertical: 0, horizontal_scroll_mode: 'disabled', show_percentage: true,
-  clip_text: false, text_overrun_behavior: 'no_trimming',
+  clip_text: false, text_overrun_behavior: 'no_trimming', uppercase: false,
 };
 const SPLIT = ['key', 'preset']; // placeholders drawn as their own element (copy/README.md, tools/copy/deck.js PH_SPLIT)
 const SPLIT_RE = /\{(?:key|preset)\}/;
@@ -448,7 +451,7 @@ function fieldProblem(type, field, v) {
     case 'step': return isNum(v) && v > 0 ? null : 'step is a number above 0';
     case 'page': return isNum(v) && v >= 0 ? null : 'page is a number of at least 0 (the visible part of the range)';
     case 'scroll_vertical': return int(0, 100000);
-    case 'toggle_mode': case 'editable': case 'show_percentage': case 'wide': case 'clip_text': return bool();
+    case 'toggle_mode': case 'editable': case 'show_percentage': case 'wide': case 'clip_text': case 'uppercase': return bool();
     case 'alignment': return oneOf(type === 'Button' ? ['left', 'center', 'right'] : ['begin', 'center', 'end']);
     case 'separation': case 'h_separation': case 'v_separation': return int(-200, 400);
     case 'margin_left': case 'margin_top': case 'margin_right': case 'margin_bottom': return int(-400, 1000);
@@ -1024,6 +1027,7 @@ function nodeLook(n, p, C) {
   if (name) cls.push(`tv-${name}`);
   if (p.wide) cls.push('tv-wide');
   if (p.theme_color) cls.push(TINTS[p.theme_color]);
+  if (n.type === 'Label' && p.uppercase) cls.push(UPPER_CLASS);
   if (n.type === 'Button') for (const c of buttonClasses(C.pack.variations[p.variation], p)) cls.push(c);
   if (n.content) cls.push('gd-content');
   if (n.type === 'ScrollContainer' && p.horizontal_scroll_mode === 'show_never') cls.push('gd-scroll-h');
@@ -1407,6 +1411,7 @@ function uiCss(sys, used, emitComponentsCss) {
     while (b.length && !b[b.length - 1].trim()) b.pop();
     parts.push(b.join('\n'));
   }
+  parts.push(`/* A Label's uppercase node property (Label.uppercase, set per node in a screen source) */\n.${UPPER_CLASS} {\n  text-transform: uppercase;\n}`);
   return parts.join('\n') + '\n';
 }
 
@@ -1677,6 +1682,7 @@ function handoff(S, C) {
       if (p.horizontal_alignment !== 'left') bits.push(`horizontal_alignment \`${p.horizontal_alignment.toUpperCase()}\``);
       if (p.vertical_alignment !== 'top') bits.push(`vertical_alignment \`${p.vertical_alignment.toUpperCase()}\``);
       if (p.autowrap_mode !== 'off') bits.push(`autowrap_mode \`AUTOWRAP_${p.autowrap_mode.toUpperCase()}\``);
+      if (p.uppercase) bits.push('uppercase true (the text drawn in capitals)');
     }
     if ((T === 'Label' || T === 'Button' || T === 'OptionButton') && clipsText(p)) {
       if (p.clip_text) bits.push('clip_text true');
@@ -1982,6 +1988,24 @@ function selfTest() {
     delete bad.nodes[0].children[0].children[0].custom_minimum_size;
     const r = validateAll([{ id: 'x6', file: 'x6-scroll-sideways.json', rel: `${SELFTEST}/x6-scroll-sideways.json`, data: bad, position: () => null }], C);
     check(r.errors.some((e) => /a sideways ScrollContainer adds no width of its own/.test(e)), 'x6: a sideways container with no width is refused', r.errors.join(' | ') || 'no error');
+  }
+
+  // 7. A Label drawn in capitals (Label.uppercase, a node property): set on the node it holds in every state, set in a
+  //    per_state only in that state; the page marks it tv-upper, the screens' components CSS draws the class in
+  //    capitals, and the handoff gives uppercase true where it is set. A non-boolean value is refused.
+  const x7 = screen('x7');
+  if (x7) {
+    const upper = (st, node) => /class="[^"]*\btv-upper\b/.test(tagOf(page(x7, st), `x7/Col/${node}`));
+    check(upper('plain', 'Always') && upper('loud', 'Always'), 'x7: a Label with uppercase is marked tv-upper in every state');
+    check(!upper('plain', 'Some') && upper('loud', 'Some'), 'x7: a per_state uppercase marks the Label only in that state');
+    check(/\n\.tv-upper \{\n  text-transform: uppercase;\n\}\n$/.test(uiCss({ variants: [] }, new Set(), () => '')), 'x7: the components CSS draws tv-upper in capitals');
+    const md = handoff(x7, C);
+    check(/\*\*Always\*\* `Label`[^\n]*uppercase true/.test(md), 'x7: the handoff gives the always-capital Label uppercase true');
+    check(/\*\*Changed\*\* `Col\/Some`:[^\n]*uppercase true/.test(md), 'x7: the handoff gives the other state its uppercase');
+    const bad = J.parse(readText(`${SELFTEST}/x7-label-uppercase.json`)).value;
+    bad.nodes[0].children[0].uppercase = 'yes';
+    const r = validateAll([{ id: 'x7', file: 'x7-label-uppercase.json', rel: `${SELFTEST}/x7-label-uppercase.json`, data: bad, position: () => null }], C);
+    check(r.errors.some((e) => /uppercase is true or false/.test(e)), 'x7: a non-boolean uppercase is refused', r.errors.join(' | ') || 'no error');
   }
 
   for (const f of files) check(loaded.has(f), `${SELFTEST}/${f} is a case of the self-test`);

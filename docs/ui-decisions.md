@@ -150,9 +150,13 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
     the engineer's words;
   - missing copy keys, not drawn: «хост» on its own (the roster's host tag; the host's row uses `lobby.host_mark`),
     «Матч» (the console's title), a map head (`map.title`), a failure head over s3's failure tiles;
-  - «ПОПАЛИСЬ!» (s10) and the role bands «Прибулець» / «Людина» (s6) are not in capitals as on the target:
-    `ToyTitleHeroAlert` and `ToyTitleHero` set no `uppercase` (a library change, or a deck text in capitals, his text);
   - the workbench step screen is parked until the device's new art.
+
+  Since (agent, 2026-10-22): the role bands «Прибулець» / «Людина» (s6) and the cops' «Попались!» (s10) are in
+  capitals, as the target writes them, while «Вечірка вдалася!» and «Час вийшов» keep their case (the target sets
+  those in sentence case). The capitals are the Label's `uppercase` set on the node in the screen source (in s10 only
+  in the cops' state), not on `ToyTitleHero` / `ToyTitleHeroAlert`, which draw both; the deck keeps its sentence-case
+  words. The screens' format takes `uppercase` on a Label and in `per_state`, and the handoff names it.
 - **The item bar is A** (the engineer, 2026-10-20, chat, translated, on the MVP screens page): sticker slots with a
   big item picture and a name tag over the bottom edge; B (a belt strap with a pocket) and C (the alien's hand
   holding the item) stay on the page, not chosen. The name tags' words are his texts.
