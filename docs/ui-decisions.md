@@ -149,7 +149,7 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
   - the lobbies nearby and «Твій код» in s5's Find a lobby (a placeholder tile) need the game's network discovery and
     the engineer's words;
   - missing copy keys, not drawn: «хост» on its own (the roster's host tag; the host's row uses `lobby.host_mark`),
-    «Матч» (the console's title), a map head (`map.title`), a failure head over s3's failure tiles;
+    «Матч» (the console's title), a map head (`map.title`);
   - the workbench step screen is parked until the device's new art.
 
   Since (agent, 2026-10-22): the role bands «Прибулець» / «Людина» (s6) and the cops' «Попались!» (s10) are in
@@ -157,6 +157,9 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
   those in sentence case). The capitals are the Label's `uppercase` set on the node in the screen source (in s10 only
   in the cops' state), not on `ToyTitleHero` / `ToyTitleHeroAlert`, which draw both; the deck keeps its sentence-case
   words. The screens' format takes `uppercase` on a Label and in `per_state`, and the handoff names it.
+  No failure head over s3's failure tile (agent, 2026-10-22): the tile's own title (`connect.fail.title` and the
+  other `*.title` keys) already says what happened, and a small-capitals head above it would only repeat it; the target
+  draws no failure screen. No key is added.
 - **The item bar is A** (the engineer, 2026-10-20, chat, translated, on the MVP screens page): sticker slots with a
   big item picture and a name tag over the bottom edge; B (a belt strap with a pocket) and C (the alien's hand
   holding the item) stay on the page, not chosen. The name tags' words are his texts.
