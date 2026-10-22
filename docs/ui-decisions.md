@@ -399,7 +399,11 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
   deeper into mid-20th-century American commercial art (print ads, enamel signs, safety posters with a cartoon
   mascot), with ten sub-directions next. His references stay private; the agent's reading: bold flat colour on cream
   paper, a thick ink line, an expressive mascot with motion bursts, slightly worn print; no lettering (the cards stay
-  wordless) (agent). **A card has as many frames as its task
+  wordless) (agent). **Round 2's reading** (the engineer, same day, chat, on
+  [the round-2 page](https://claude.ai/artifact/UG2Np47ojuCu11DqU6aGGc)): the graphics of sub-direction 1 (the 1940s
+  two-ink safety poster) but not its red alien; the character is round 1's cute little green alien; round 3 crosses the
+  two ([page](https://claude.ai/artifact/9xtL695eJFfprJ3Bb4r5A5), prime-game-art batch `2026-10-22-howto-styles-r3`).
+  **A card has as many frames as its task
   needs**, not four: when they do not fit, the card scrolls ("we're not limited to 4 cards; it can scroll if needed;
   the engine, for one, is hard to fit in 4"). The pilot is Cooking, seven frames (batch
   `2026-10-22-howto-cooking-pilot` in prime-game-art). This replaces the colourings of the card-ink page
