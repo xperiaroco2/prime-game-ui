@@ -932,7 +932,7 @@
 [data-node="s9/Hud/Cross"] { flex: none; min-width: max(100%, calc(12 * var(--px))); min-height: max(100%, calc(12 * var(--px))); }
 [data-anchor="s9/Hud/Vitals"] { left: calc(39 * var(--px)); top: calc(100% - 39 * var(--px)); right: calc(100% - 39 * var(--px)); bottom: calc(39 * var(--px)); justify-content: flex-start; align-items: flex-end; }
 [data-node="s9/Hud/Vitals"] { flex: none; min-width: 100%; min-height: 100%; grid-template-columns: minmax(min-content, auto); }
-.sc-frame[data-state="back"] [data-node="s9/Hud/Vitals"] { grid-template-columns: minmax(min-content, auto) minmax(min-content, auto); }
+.sc-frame[data-state="dead-room"] [data-node="s9/Hud/Vitals"], .sc-frame[data-state="back"] [data-node="s9/Hud/Vitals"] { grid-template-columns: minmax(min-content, auto) minmax(min-content, auto); }
 [data-node="s9/Hud/Vitals/Suit"] { align-self: end; }
 [data-node="s9/Hud/Vitals/Suit/Rows"] { grid-area: 1 / 1; grid-template-rows: minmax(min-content, auto) minmax(min-content, auto); }
 [data-node="s9/Hud/Vitals/Suit/Rows/Health"] { grid-template-columns: minmax(min-content, auto) minmax(min-content, auto); }
@@ -943,6 +943,8 @@
 [data-node="s9/Hud/Vitals/Suit/Rows/Stamina/Pips"] { align-self: center; grid-template-columns: minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto); }
 [data-node="s9/Hud/Vitals/Mic"] { align-self: end; }
 [data-node="s9/Hud/Vitals/Mic/Icon"] { min-width: calc(42 * var(--px)); min-height: calc(42 * var(--px)); grid-area: 1 / 1; justify-self: center; align-self: center; }
+[data-node="s9/Hud/Vitals/Others"] { align-self: center; }
+[data-node="s9/Hud/Vitals/Others/Text"] { grid-area: 1 / 1; }
 [data-anchor="s9/Hud/Slots"] { left: calc(100% - 36 * var(--px)); top: calc(100% - 36 * var(--px)); right: calc(36 * var(--px)); bottom: calc(36 * var(--px)); justify-content: flex-end; align-items: flex-end; }
 [data-node="s9/Hud/Slots"] { flex: none; min-width: 100%; min-height: 100%; grid-template-columns: minmax(min-content, auto) minmax(min-content, auto); }
 [data-node="s9/Hud/Slots/Hand"] { align-self: end; }
@@ -977,9 +979,6 @@
 [data-node="s9/DeadTop/V/Return"] { justify-content: center; grid-template-columns: minmax(min-content, auto) minmax(min-content, auto); }
 [data-node="s9/DeadTop/V/Return/Label"] { align-self: center; }
 [data-node="s9/DeadTop/V/Return/Time"] { align-self: center; }
-[data-anchor="s9/Others"] { left: calc(39 * var(--px)); top: calc(100% - 39 * var(--px)); right: calc(100% - 39 * var(--px)); bottom: calc(39 * var(--px)); justify-content: flex-start; align-items: flex-end; }
-[data-node="s9/Others"] { flex: none; min-width: 100%; min-height: 100%; }
-[data-node="s9/Others/Text"] { grid-area: 1 / 1; }
 [data-anchor="s9/Capsule"] { left: calc(100% - 39 * var(--px)); top: calc(100% - 39 * var(--px)); right: calc(39 * var(--px)); bottom: calc(39 * var(--px)); justify-content: flex-end; align-items: flex-end; }
 [data-node="s9/Capsule"] { flex: none; min-width: 100%; min-height: 100%; }
 [data-node="s9/Capsule/Text"] { grid-area: 1 / 1; }

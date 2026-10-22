@@ -5,7 +5,7 @@
 The styled downed, dead and respawn screen from the UI track (xperiaroco2/prime-game-ui), as a Godot 4.7.2 node tree for the 1920×1080 reference.
 
 - **Source:** `pages/screens/src/s09-downed.json`; the review page is `pages/screens/screens.html#s9`; the wireframe is section `s9` («Повалений, мертвий, повернення»).
-- **Theme:** the Toy pack ui-2.2.2 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
+- **Theme:** the Toy pack ui-2.2.3 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
 - **World behind the UI** (not UI): the dead's room.
 - **How to read it:** the roots are children of the screen's full-rect root `Control`; every property not listed keeps Godot's default; sizes and offsets are reference px. In a state's **Shown** list, the first node of each subtree gives its path from the screen root.
 - **Texts** are keys of `copy/strings.csv`, and the language switches live (the Esc menu's Settings). A plain key is set as `text` and translates itself. A key with placeholders, a plural key (`tr_n`) and a key drawn in pieces are set from code with `auto_translate_mode = DISABLED`: `tr()`, then `String.format()` with the data (the samples below), rebuilt on `NOTIFICATION_TRANSLATION_CHANGED`. A "text from data" (names, the room code, times, numbers) is set in code and never translated (`auto_translate_mode = DISABLED`).
@@ -19,7 +19,7 @@ The same HUD as s7: Hud and its nodes are s7's (same names and places); this scr
 | `down` | Нокдаун | Downed and bleeding out: only the two plates and the mic (off) show; the rest of the HUD hides. As decided, kept. |
 | `down-holding` | Утримуєш F | The give-up key is held: the hold bar fills over 1 s. |
 | `raise` | Тебе піднімають | Someone is raising the player: the raise progress replaces the bleed-out bar; giving up hides. |
-| `dead-room` | Кімната мертвих | Dead (killed, bled out or gave up): the player waits 30 s with the other dead in the dead's room, not watching the living (m8 §3, the sketch's frame 5). The rest of the HUD hides. Open: where the room is; whether the dead can talk to each other there; whether they see the timer and the anger (so no timer and no mic here). No killer is shown (the engineer, 2026-10-21). The return shows small at the top (the engineer, 2026-10-22). |
+| `dead-room` | Кімната мертвих | Dead (killed, bled out or gave up): the player waits 30 s with the other dead in the dead's room, not watching the living (m8 §3, the sketch's frame 5). The rest of the HUD hides but the mic: the dead hear and talk to each other, the living do not hear them (the engineer, 2026-10-22), so the mic is on with who else is here beside it. Open: where the room is; whether they see the timer and the anger (so no timer here). No killer is shown (the engineer, 2026-10-21). The return shows small at the top (the engineer, 2026-10-22). |
 | `back` | Повернення | Back in the round at a random capsule: the s7 HUD returns with the 3 s protection chip. Stamina returns full: all ten pips lit. |
 
 ## Node tree in `down`
@@ -28,7 +28,7 @@ The same HUD as s7: Hud and its nodes are s7's (same names and places); this scr
   - Note: s7's Hud. While downed only Vitals/Mic shows; in the dead's room nothing shows; on return everything as in s7.
   - **Vitals** `HBoxContainer` · variation `ToyRowTwentyFour` · anchors `bottom_left`, offsets 39, -39, 39, -39 (left, top, right, bottom), grow end/begin · gaps from the variation: separation 24
     - **Mic** `PanelContainer` · variation `ToyMic` · size flags vertical `SIZE_SHRINK_END` · custom_minimum_size (75, 75) = Vector2(get_theme_constant("width", "ToyMic"), get_theme_constant("height", "ToyMic"))
-      - Note: Off while downed (nobody hears a downed player); hidden in the dead's room; on again on return (when the player is heard).
+      - Note: Off while downed (nobody hears a downed player); on in the dead's room, where only the other dead hear the player and the living do not (the engineer, 2026-10-22: the dead hear and talk to each other, the living and the dead never hear one another); on again on return (when the living hear the player).
       - **Icon** `TextureRect` · size flags horizontal `SIZE_SHRINK_CENTER`, vertical `SIZE_SHRINK_CENTER` · custom_minimum_size (42, 42) · texture `mic-off` (dist/pack/icons/mic-off.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("icon_off", "ToyMic")
 - **Downed** `PanelContainer` · variation `ToyPlate` · anchors `center_top`, offsets 0, 228, 0, 228 (left, top, right, bottom), grow both/end · custom_minimum_size (900, 0)
   - Note: Shown from the moment the player is downed until they are raised, give up or bleed out. Never shows who knocked the player down. 228 px down (the old 152 x 1.5); 900 wide, the old 688 x 1.5 capped at the goal plate's width.
@@ -70,8 +70,13 @@ The same HUD as s7: Hud and its nodes are s7's (same names and places); this scr
 
 ## `dead-room`: what differs from `down`
 
-- **Hidden:** `Hud/Vitals`, `Downed`, `GiveUp`.
+- **Hidden:** `Downed`, `GiveUp`.
+- **Changed** `Hud/Vitals/Mic/Icon`: texture `mic` (dist/pack/icons/mic.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("icon_on", "ToyMic") (was: texture `mic-off` (dist/pack/icons/mic-off.svg, white, own work), expand_mode `EXPAND_IGNORE_SIZE`, stretch_mode `STRETCH_KEEP_ASPECT_CENTERED` · self_modulate = get_theme_color("icon_off", "ToyMic"))
 - **Shown:**
+  - **Hud/Vitals/Others** `PanelContainer` · variation `ToyChipPlate` · size flags vertical `SIZE_SHRINK_CENTER`
+    - Note: Who else waits in the room, beside the mic: the dead hear and talk to each other there (the engineer, 2026-10-22), so these are the voices the player hears; hidden when the player is alone there.
+    - **Text** `Label` · variation `ToyChipPlateText` · text `dead.also_here` with sample {names} = "Bulk, Zinga" / "Бульк, Зінга": en "Also here: Bulk, Zinga" · uk "Тут також: Бульк, Зінга"
+      - Note: {names}: the other dead players' names joined with ", " (data).
   - **DeadTop** `PanelContainer` · variation `ToyPlate` · anchors `center_top`, offsets 0, 36, 0, 36 (left, top, right, bottom), grow both/end
     - Note: The dead's room: its name and the return countdown in one quiet tile at the top centre, where the round's time tile sits (36 px down); the middle of the screen stays clear, since the dead walk around and interact there (the engineer, 2026-10-22: the return written nicely at the top, not filling the screen). No bar under the countdown and no big title plate. No killer line (the engineer, 2026-10-21).
     - **V** `VBoxContainer` · variation `ToyColumnFour` · gaps from the variation: separation 4
@@ -81,10 +86,6 @@ The same HUD as s7: Hud and its nodes are s7's (same names and places); this scr
         - **Label** `Label` · variation `ToyHudCaption` · size flags vertical `SIZE_SHRINK_CENTER` · text `dead.back_in`: en "Back in" · uk "Повернення через"
         - **Time** `Label` · variation `ToyTimer` · size flags vertical `SIZE_SHRINK_CENTER` · text from data (auto_translate_mode = DISABLED), sample: "0:24"
           - Note: The time to respawn, m:ss from code (auto_translate_mode DISABLED), every second; the wait is 30 s (m8 §3).
-  - **Others** `PanelContainer` · variation `ToyChipPlate` · anchors `bottom_left`, offsets 39, -39, 39, -39 (left, top, right, bottom), grow end/begin
-    - Note: Who else waits in the room, 39 px in at the bottom left; hidden when the player is alone there.
-    - **Text** `Label` · variation `ToyChipPlateText` · text `dead.also_here` with sample {names} = "Bulk, Zinga" / "Бульк, Зінга": en "Also here: Bulk, Zinga" · uk "Тут також: Бульк, Зінга"
-      - Note: {names}: the other dead players' names joined with ", " (data).
   - **Capsule** `PanelContainer` · variation `ToySticker` · anchors `bottom_right`, offsets -39, -39, -39, -39 (left, top, right, bottom), grow begin/begin
     - Note: Where the player comes back: a random capsule, with the 3 s protection of state back. Choosing the capsule is a later perk (m8 §3).
     - **Text** `Label` · variation `ToyStickerText` · text `dead.capsule_note` with sample {count} = "3": en "Random capsule · 3 s protection" · uk "Випадкова капсула · 3 с захисту"
