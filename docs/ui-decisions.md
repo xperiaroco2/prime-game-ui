@@ -403,6 +403,11 @@ trust rules in `CLAUDE.md` (small and easy to change); the engineer can veto it 
   [the round-2 page](https://claude.ai/artifact/UG2Np47ojuCu11DqU6aGGc)): the graphics of sub-direction 1 (the 1940s
   two-ink safety poster) but not its red alien; the character is round 1's cute little green alien; round 3 crosses the
   two ([page](https://claude.ai/artifact/9xtL695eJFfprJ3Bb4r5A5), prime-game-art batch `2026-10-22-howto-styles-r3`).
+  **The card style** (the engineer, same day, chat, on round 3): variation 1's inks (teal-green alien, signal red,
+  navy, cream paper) with variation 4's white three-fingered gloves; the antenna balls are always signal red; the eyes
+  are the same in every frame, white eyeballs with dark pupils (the fry frame's), never dark alien ovals. One
+  high-quality check first ("to make sure we understood each other"): batch `2026-10-22-howto-style-check`, the fry
+  frame and the plate frame drawn from it ([page](https://claude.ai/artifact/3cgDfjGFYs3cZjmWFQ9cvw)).
   **A card has as many frames as its task
   needs**, not four: when they do not fit, the card scrolls ("we're not limited to 4 cards; it can scroll if needed;
   the engine, for one, is hard to fit in 4"). The pilot is Cooking, seven frames (batch
