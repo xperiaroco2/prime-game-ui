@@ -1,8 +1,159 @@
 {
  "about": "The copy review (prime-game-ui#4; round 4, prime-game-ui#51, and round 5, prime-game-ui#57: the deck rows the game's M7 asked for on prime-game#150). Round 2 was answered on 2026-10-05 and applied. Round 3 (2026-10-06, wave prime-game-ui#19), about the texts the styled screens added or reworded, was answered the same day and applied. open: questions still waiting for the engineer, each with options a-c; an option lists the rows it would write (empty uk and en remove the key), an option without rows keeps the deck and says so in its label. The deck keeps its current wording until an open question is answered on pages/copy/; where option a has rows, the deck could not take the change yet (an old wireframe frame still shows the current text). decided: what was applied, round 2 first. removed: keys taken out of the deck. asked: when the current round was put to the engineer; the page ignores answers saved before it. Rules: copy/README.md and docs/research/2026-10-05-ukrainian-localization/report.md.",
- "asked": "2026-10-22T11:15:49Z",
+ "asked": "2026-10-22T13:43:25Z",
  "principle": "Гравці досвідчені, гра не для дітей: не пояснюємо звичне й очевидне (що меню не ставить на паузу, що щось нове, знайоме керування), без «водіння за руку». Без написаних жартів: текст простий, короткий і впевнений; смішне робить гра, а не підписи (дизайн-трек, 21.10).",
- "open": [],
+ "open": [
+  {
+   "id": "find.nearby",
+   "keys": [
+    "find.nearby"
+   ],
+   "kind": "word",
+   "round": "new",
+   "why": "Чернетка (зразок «вигляд ок», меню костюма). Заголовок списку лобі в мережі поруч на вкладці «Знайти лобі».",
+   "options": [
+    {
+     "id": "a",
+     "label": "Як у колоді (рекомендую)",
+     "note": "«Лобі поруч» / «Lobbies nearby».",
+     "rows": []
+    },
+    {
+     "id": "b",
+     "label": "Поруч",
+     "note": "Коротше: вкладка вже каже «лобі».",
+     "rows": [
+      {
+       "key": "find.nearby",
+       "en": "Lobbies nearby",
+       "uk": "Поруч"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "find.none",
+   "keys": [
+    "find.none"
+   ],
+   "kind": "word",
+   "round": "new",
+   "why": "Чернетка. Рядок у списку, коли поруч не знайшлося жодного лобі.",
+   "options": [
+    {
+     "id": "a",
+     "label": "Як у колоді (рекомендую)",
+     "note": "«Поруч лобі немає» / «No lobbies nearby».",
+     "rows": []
+    },
+    {
+     "id": "b",
+     "label": "Поки нікого",
+     "note": "Тепліше, розмовніше.",
+     "rows": [
+      {
+       "key": "find.none",
+       "en": "No lobbies nearby",
+       "uk": "Поки нікого"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "find.your_code",
+   "keys": [
+    "find.your_code"
+   ],
+   "kind": "word",
+   "round": "new",
+   "why": "Чернетка (зразок, низ «Знайти лобі»). Твій власний код, щоб покликати друзів у свій корабель; поруч кнопка «Копіювати».",
+   "options": [
+    {
+     "id": "a",
+     "label": "Як у колоді (рекомендую)",
+     "note": "«Твій код» / «Your code».",
+     "rows": []
+    },
+    {
+     "id": "b",
+     "label": "Код твого корабля",
+     "note": "Пояснює, куди саме кличеш.",
+     "rows": [
+      {
+       "key": "find.your_code",
+       "en": "Your code",
+       "uk": "Код твого корабля"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "unit.ms",
+   "keys": [
+    "unit.ms"
+   ],
+   "kind": "word",
+   "round": "new",
+   "why": "Чернетка. Затримка до лобі в списку, число з гри.",
+   "options": [
+    {
+     "id": "a",
+     "label": "Як у колоді (рекомендую)",
+     "note": "«{count} мс» / «{count} ms».",
+     "rows": []
+    }
+   ]
+  },
+  {
+   "id": "console.title",
+   "keys": [
+    "console.title"
+   ],
+   "kind": "word",
+   "round": "new",
+   "why": "Чернетка (зразок, пульт на кораблі). Заголовок екрана пульта з налаштуваннями матчу.",
+   "options": [
+    {
+     "id": "a",
+     "label": "Як у колоді (рекомендую)",
+     "note": "«Матч» / «Match».",
+     "rows": []
+    },
+    {
+     "id": "b",
+     "label": "Налаштування матчу",
+     "note": "Довше, але однозначно.",
+     "rows": [
+      {
+       "key": "console.title",
+       "en": "Match",
+       "uk": "Налаштування матчу"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "map.title",
+   "keys": [
+    "map.title"
+   ],
+   "kind": "word",
+   "round": "new",
+   "why": "Чернетка. Заголовок дошки на мапі (s08).",
+   "options": [
+    {
+     "id": "a",
+     "label": "Як у колоді (рекомендую)",
+     "note": "«Мапа» / «Map».",
+     "rows": []
+    }
+   ]
+  }
+ ],
  "removed": [
   "downed.can_raise",
   "esc.running",
