@@ -1078,6 +1078,21 @@
     "tutorial.step.put_down.title"
    ],
    "how": "ui-2.5.2 (2026-10-30): повернуто формулювання ui-0.8.0 з пакунком, бо урок у грі завершується на предметі package, а батарейки в MVP немає з 2026-10-23 (GDD, «The battery»). Технічне рішення агента за рекомендацією директора."
+  },
+  {
+   "id": "topic.r11_offer",
+   "keys": [
+    "hud.take_offer",
+    "hud.offering"
+   ],
+   "how": "ui-2.5.3 (2026-10-30, відповідь інженера 2A на prime-game PR #1435, https://github.com/xperiaroco2/prime-game/pull/1435#issuecomment-6527038175): підказки чипа прицілу для передачі з рук у руки, обидві мови — як написано в запиті https://github.com/xperiaroco2/prime-game/issues/150#issuecomment-6527049299."
+  },
+  {
+   "id": "control.use_secondary",
+   "keys": [
+    "control.use_secondary"
+   ],
+   "how": "ui-2.5.3 (2026-10-30, запит гри https://github.com/xperiaroco2/prime-game/issues/150#issuecomment-6528963468): рядок Settings > Controls для дії предмета на правій кнопці миші. Англійська — як рекомендує запит («Use item»); українська — агент, за постійною вказівкою інженера від 2026-10-22."
   }
  ]
 }
