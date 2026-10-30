@@ -18,7 +18,7 @@ keys ([prime-game#208](https://github.com/xperiaroco2/prime-game/issues/208)); t
 
 - `keys`: snake_case `screen.element`, for example `menu.host`, `downed.give_up_hold`, `esc.lobby.ready`. Strings
   used on several screens take a shared prefix: `common.*` (Back, Cancel, Close), `player.*`, `role.*`, `task.*`,
-  `room.*`, `item.*`, `unit.*`, `lang.*`. `lobby.*` is the lobby as one concept, shared by the lobby HUD (s4) and the
+  `room.*`, `item.*`, `station.*`, `unit.*`, `lang.*`. `lobby.*` is the lobby as one concept, shared by the lobby HUD (s4) and the
   Esc menu's Lobby tab (s5), as `lobby.setting.*` already is (`lobby.player_count`, `lobby.host_mark`).
 - `en`, `uk`: both always filled. Language names are written in their own language in both columns.
 - `?plural`: filled only on a counted string, and it repeats the key: the game calls `tr_n(key, key, n)`.

@@ -44,7 +44,8 @@
   "esc.tab.role",
   "esc.role.teammates",
   "esc.character.locked",
-  "lobby.host_mark"
+  "lobby.host_mark",
+  "room.roof"
  ],
  "decided": [
   {
@@ -1007,6 +1008,61 @@
     "lobby.host_mark"
    ],
    "how": "Коло 9 (2026-10-22): мітка hud.roster.host замінила «{name} · хост» у рядку хоста; ключ прибрано агентом за постійною вказівкою інженера (вирішувати за рекомендаціями, він дивиться готовий результат)."
+  },
+  {
+   "id": "topic.r10_places",
+   "keys": [
+    "control.place_1",
+    "control.place_2",
+    "control.place_3",
+    "control.swap"
+   ],
+   "how": "Коло 10 (2026-10-30, слово інженера «За рекомендацією, нова UI-сесія», prime-game#1039): рядки prime-game-ui#149 для трьох місць (prime-game#1218); англійська control.swap — як у #149, «Place 1…3» — агент. Українською — агент, за постійною вказівкою інженера (вирішувати за рекомендаціями, він дивиться готовий результат)."
+  },
+  {
+   "id": "topic.r10_hand_belt",
+   "keys": [
+    "tutorial.step.hand_belt_draw.title",
+    "tutorial.step.hand_belt_draw.how",
+    "tutorial.step.hand_belt_wheel.title",
+    "tutorial.step.hand_belt_wheel.how",
+    "tutorial.step.hand_belt.title"
+   ],
+   "how": "Коло 10 (2026-10-30, слово інженера «За рекомендацією, нова UI-сесія», prime-game#1039): урок «Рука й пояс» (prime-game#1376), англійська — як запропоновано в коментарі 6508538736. Українською — агент, за постійною вказівкою інженера (вирішувати за рекомендаціями, він дивиться готовий результат)."
+  },
+  {
+   "id": "topic.r10_bar",
+   "keys": [
+    "station.tap",
+    "item.mug",
+    "item.mug_empty",
+    "hud.hand_over"
+   ],
+   "how": "Коло 10 (2026-10-30, слово інженера «За рекомендацією, нова UI-сесія», prime-game#1039): бар у лобі, обидві мови — як рекомендують prime-game PR #1414 і #1415."
+  },
+  {
+   "id": "topic.r10_estate",
+   "keys": [
+    "room.house",
+    "room.summer_kitchen",
+    "room.ship",
+    "room.fallen_trunk"
+   ],
+   "how": "Коло 10 (2026-10-30, слово інженера «За рекомендацією, нова UI-сесія», prime-game#1039): кімнати маєтку (prime-game PR #1402), англійська — назви estate-map.md §3; room.pantry, room.greenhouse, room.garage уже є в колоді. Українською — агент, за постійною вказівкою інженера (вирішувати за рекомендаціями, він дивиться готовий результат)."
+  },
+  {
+   "id": "settings.controls.reserved",
+   "keys": [
+    "settings.controls.reserved"
+   ],
+   "how": "Коло 10 (2026-10-30, слово інженера «За рекомендацією, нова UI-сесія», prime-game#1039): prime-game-ui#116 (prime-game#1248), обидві мови — як запропоновано в задачі."
+  },
+  {
+   "id": "room.roof",
+   "keys": [
+    "room.roof"
+   ],
+   "how": "Коло 10 (2026-10-30, слово інженера «За рекомендацією, нова UI-сесія», prime-game#1039): ключ прибрано (prime-game-ui#65): кімнати даху більше немає (prime-game#523)."
   }
  ]
 }
