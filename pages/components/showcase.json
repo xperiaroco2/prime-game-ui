@@ -1478,7 +1478,7 @@
           "id": "type",
           "kind": "type-scale",
           "title_key": "row_type",
-          "label": "pick_battery"
+          "label": "pick_package"
         },
         {
           "id": "ramp",

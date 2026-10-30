@@ -5,12 +5,12 @@
 The styled tutorial screen from the UI track (xperiaroco2/prime-game-ui), as a Godot 4.7.2 node tree for the 1920×1080 reference.
 
 - **Source:** `pages/screens/src/s01-tutorial.json`; the review page is `pages/screens/screens.html#s1`; the wireframe is section `s1` («Перший запуск і навчання»).
-- **Theme:** the Toy pack ui-2.5.1 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
+- **Theme:** the Toy pack ui-2.5.2 (`dist/pack/toy.pack.json`); the variations below are `theme_type_variation` names.
 - **World behind the UI** (not UI): a lit room of the house (the level).
 - **How to read it:** the roots are children of the screen's full-rect root `Control`; every property not listed keeps Godot's default; sizes and offsets are reference px. In a state's **Shown** list, the first node of each subtree gives its path from the screen root.
 - **Texts** are keys of `copy/strings.csv`, and the language switches live (the Esc menu's Settings). A plain key is set as `text` and translates itself. A key with placeholders, a plural key (`tr_n`) and a key drawn in pieces are set from code with `auto_translate_mode = DISABLED`: `tr()`, then `String.format()` with the data (the samples below), rebuilt on `NOTIFICATION_TRANSLATION_CHANGED`. A "text from data" (names, the room code, times, numbers) is set in code and never translated (`auto_translate_mode = DISABLED`).
 
-The tutorial room. On the first launch the invite (the language is chosen only in Settings, s5); in the room, the current lesson at the top and the lesson list at the right, over the MVP round HUD of s7 without the timer, the anger meter, the roster and the role (Hud). After lesson 9 the game returns to the ship (the player's own, no session) with no end screen, where the game boots (the engineer, 2026-10-21). The nine lessons are the game's (GDD §15: Throwing replaced Delivery in #901); which lessons the MVP adds (points and the workbench, the neighbours' anger and the cops, a task) is open, the engineer's design. Lesson 2 names the battery, an MVP item (a draft; which item lies in the room is the game's data).
+The tutorial room. On the first launch the invite (the language is chosen only in Settings, s5); in the room, the current lesson at the top and the lesson list at the right, over the MVP round HUD of s7 without the timer, the anger meter, the roster and the role (Hud). After lesson 9 the game returns to the ship (the player's own, no session) with no end screen, where the game boots (the engineer, 2026-10-21). The nine lessons are the game's (GDD §15: Throwing replaced Delivery in #901); which lessons the MVP adds (points and the workbench, the neighbours' anger and the cops, a task) is open, the engineer's design. Lesson 2 names the package, the item the game's tutorial lesson completes on (the battery left the MVP on 2026-10-23).
 
 ## States
 
@@ -98,10 +98,10 @@ The tutorial room. On the first launch the invite (the language is chosen only i
     - **V** `VBoxContainer` · variation `ToyColumnTwelve` · gaps from the variation: separation 12
       - **Progress** `Label` · variation `ToyKicker` · text `tutorial.step.progress` with sample {count} = "2", {total} = "9": en "Step 2 of 9" · uk "Крок 2 з 9"
         - Note: The tile's head; the game sets uppercase = true.
-      - **Title** `Label` · variation `ToyPlateTitle` · text `tutorial.step.pick_up.title`: en "Pick up the battery" · uk "Візьми батарейку"
+      - **Title** `Label` · variation `ToyPlateTitle` · text `tutorial.step.pick_up.title`: en "Pick up a package" · uk "Візьми пакунок"
       - **How** `HBoxContainer` · variation `ToyRowTwelve` · gaps from the variation: separation 12
         - Note: A sentence with a keycap (P3), built in code: tr() the lesson's how-string, split it at {key}, strip_edges() each piece, add a Label per non-empty piece and the keycap between them; a how-string without {key} (death, voice) is one Label. The keycap is a ToyKeyOnDark PanelContainer holding a ToyKeyText Label: DisplayServer.keyboard_get_label_from_physical() of the action's binding (#211); Space and the mouse buttons use key.space, key.mouse_left, key.mouse_right, and Space, Shift, Tab and Esc keycaps take the wide size. Lesson 5's «?» is a ToyKeyRound keycap with the text «?», the look of the map's «?» button.
-        - **Before** `Label` · variation `ToyPlateText` · size flags vertical `SIZE_SHRINK_CENTER` · text piece 0 of `tr("tutorial.step.pick_up.how")` split at {key}/{preset} (strip_edges(); hidden when the piece is empty) with sample {key} = "E": en "Aim at the battery and press" · uk "Наведи приціл на батарейку і натисни"
+        - **Before** `Label` · variation `ToyPlateText` · size flags vertical `SIZE_SHRINK_CENTER` · text piece 0 of `tr("tutorial.step.pick_up.how")` split at {key}/{preset} (strip_edges(); hidden when the piece is empty) with sample {key} = "E": en "Aim at the package and press" · uk "Наведи приціл на пакунок і натисни"
         - **Key** `PanelContainer` · variation `ToyKeyOnDark` · custom_minimum_size (42, 0) = Vector2(get_theme_constant("min_width", "ToyKeyOnDark"), 0)
           - **Text** `Label` · variation `ToyKeyText` · text the value of {key} in `tutorial.step.pick_up.how` with sample {key} = "E": en "E" · uk "E" · horizontal_alignment `CENTER`
   - **List** `PanelContainer` · variation `ToyRoster` · anchors `top_right`, offsets -39, 39, -39, 39 (left, top, right, bottom), grow begin/end · custom_minimum_size (330, 0) = Vector2(330, 0)
