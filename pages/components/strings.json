@@ -300,7 +300,7 @@
     "round_end": { "uk": "Кінець раунду", "en": "End of the round" },
     "goal": { "uk": "Твоя мета: виконати всі задачі, поки не вийшов час.", "en": "Your goal: complete every task before time runs out." },
     "timer": { "uk": "07:22", "en": "07:22", "new": true },
-    "pick_battery": { "uk": "Візьми батарейку", "en": "Pick up the battery" },
+    "pick_package": { "uk": "Візьми пакунок", "en": "Pick up a package" },
     "one": { "uk": "1", "en": "1", "new": true },
     "two": { "uk": "2", "en": "2", "new": true },
     "three": { "uk": "3", "en": "3", "new": true },
