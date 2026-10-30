@@ -371,7 +371,7 @@
 [data-node="s5/Menu/Page/Settings/Scroll"] { min-width: calc(700 * var(--px)); min-height: calc(828 * var(--px)); }
 [data-node="s5/Menu/Page/Settings/Scroll/Rows"] { grid-template-rows: minmax(min-content, auto); }
 .sc-frame[data-state="settings-sound"] [data-node="s5/Menu/Page/Settings/Scroll/Rows"] { grid-template-rows: minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto); }
-.sc-frame[data-state="settings-controls"] [data-node="s5/Menu/Page/Settings/Scroll/Rows"] { grid-template-rows: minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto); }
+.sc-frame[data-state="settings-controls"] [data-node="s5/Menu/Page/Settings/Scroll/Rows"] { grid-template-rows: minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto) minmax(min-content, auto); }
 .sc-frame[data-state="settings-access"] [data-node="s5/Menu/Page/Settings/Scroll/Rows"] { grid-template-rows: minmax(min-content, auto) minmax(min-content, auto); }
 [data-node="s5/Menu/Page/Settings/Scroll/Rows/Overall"] { min-height: calc(88 * var(--px)); }
 [data-node="s5/Menu/Page/Settings/Scroll/Rows/Overall/H"] { grid-area: 1 / 1; grid-template-columns: minmax(min-content, 1fr) minmax(min-content, auto); }
@@ -462,6 +462,10 @@
 [data-node="s5/Menu/Page/Settings/Scroll/Rows/Use/H"] { grid-area: 1 / 1; grid-template-columns: minmax(min-content, 1fr) minmax(min-content, auto); }
 [data-node="s5/Menu/Page/Settings/Scroll/Rows/Use/H/Name"] { align-self: center; }
 [data-node="s5/Menu/Page/Settings/Scroll/Rows/Use/H/Bind"] { align-self: center; column-gap: calc(4 * var(--px)); }
+[data-node="s5/Menu/Page/Settings/Scroll/Rows/UseSecondary"] { min-height: calc(88 * var(--px)); }
+[data-node="s5/Menu/Page/Settings/Scroll/Rows/UseSecondary/H"] { grid-area: 1 / 1; grid-template-columns: minmax(min-content, 1fr) minmax(min-content, auto); }
+[data-node="s5/Menu/Page/Settings/Scroll/Rows/UseSecondary/H/Name"] { align-self: center; }
+[data-node="s5/Menu/Page/Settings/Scroll/Rows/UseSecondary/H/Bind"] { align-self: center; column-gap: calc(4 * var(--px)); }
 [data-node="s5/Menu/Page/Settings/Scroll/Rows/PutDown"] { min-height: calc(88 * var(--px)); }
 [data-node="s5/Menu/Page/Settings/Scroll/Rows/PutDown/H"] { grid-area: 1 / 1; grid-template-columns: minmax(min-content, 1fr) minmax(min-content, auto); }
 [data-node="s5/Menu/Page/Settings/Scroll/Rows/PutDown/H/Name"] { align-self: center; }

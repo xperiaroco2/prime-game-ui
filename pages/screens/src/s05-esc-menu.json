@@ -444,6 +444,18 @@
                           ]
                         },
                         {
+                          "name": "UseSecondary", "type": "PanelContainer", "variation": "ToySettingRow", "states": ["settings-controls"], "custom_minimum_size": [0, 88],
+                          "children": [
+                            {
+                              "name": "H", "type": "HBoxContainer", "variation": "ToyRowSixteen",
+                              "children": [
+                                { "name": "Name", "type": "Label", "variation": "ToySettingRowText", "key": "control.use_secondary", "size_flags_horizontal": "expand_fill", "size_flags_vertical": "shrink_center", "note": "The item's own action on the right mouse button (the game's use_secondary, prime-game#1438), e.g. the mug's drink." },
+                                { "name": "Bind", "type": "Button", "variation": "ToyKeyButton", "wide": true, "key": "key.mouse_right", "size_flags_vertical": "shrink_center" }
+                              ]
+                            }
+                          ]
+                        },
+                        {
                           "name": "PutDown", "type": "PanelContainer", "variation": "ToySettingRow", "states": ["settings-controls"], "custom_minimum_size": [0, 88],
                           "children": [
                             {
