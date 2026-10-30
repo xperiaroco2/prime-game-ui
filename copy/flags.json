@@ -24,27 +24,8 @@
   "howto.delivery.sign",
   "howto.delivery.find",
   "howto.delivery.drop",
-  "tutorial.list.deliver",
-  "tutorial.step.deliver.title",
-  "tutorial.step.deliver.how",
-  "lobby.setting.packages",
-  "dead.watching",
-  "dead.respawn_in",
-  "control.spectate_next",
-  "control.spectate_previous",
-  "item.package",
-  "item.wine",
-  "item.oil",
-  "item.gnome",
-  "item.parasol",
-  "map.zone_hint",
   "hud.kill_notice",
   "dead.killed_by",
-  "esc.tab.game",
-  "esc.tab.role",
-  "esc.role.teammates",
-  "esc.character.locked",
-  "lobby.host_mark",
   "room.roof"
  ],
  "decided": [
@@ -1063,6 +1044,31 @@
     "room.roof"
    ],
    "how": "Коло 10 (2026-10-30, слово інженера «За рекомендацією, нова UI-сесія», prime-game#1039): ключ прибрано (prime-game-ui#65): кімнати даху більше немає (prime-game#523)."
+  },
+  {
+   "id": "topic.r10_restored",
+   "keys": [
+    "control.spectate_next",
+    "control.spectate_previous",
+    "dead.respawn_in",
+    "dead.watching",
+    "esc.character.locked",
+    "esc.role.teammates",
+    "esc.tab.game",
+    "esc.tab.role",
+    "item.gnome",
+    "item.oil",
+    "item.package",
+    "item.parasol",
+    "item.wine",
+    "lobby.host_mark",
+    "lobby.setting.packages",
+    "map.zone_hint",
+    "tutorial.list.deliver",
+    "tutorial.step.deliver.how",
+    "tutorial.step.deliver.title"
+   ],
+   "how": "ui-2.5.1 (2026-10-30): повернуто з формулюванням ui-0.8.0, бо гра (на ui-0.8.0) ще читає ці ключі; рішення про їх прибирання стоять, гра перестане їх читати з переходом на редизайн (prime-game#1319), тоді їх приберуть знову. Технічне рішення агента за рекомендацією директора."
   }
  ]
 }
