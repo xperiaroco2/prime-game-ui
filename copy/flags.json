@@ -1093,6 +1093,35 @@
     "control.use_secondary"
    ],
    "how": "ui-2.5.3 (2026-10-30, запит гри https://github.com/xperiaroco2/prime-game/issues/150#issuecomment-6528963468): рядок Settings > Controls для дії предмета на правій кнопці миші. Англійська — як рекомендує запит («Use item»); українська — агент, за постійною вказівкою інженера від 2026-10-22."
+  },
+  {
+   "id": "topic.r12_engine",
+   "keys": [
+    "item.crystal_spent",
+    "item.crystal_charged",
+    "task.engine.description",
+    "station.engine_console",
+    "station.gill_button",
+    "station.breaker_board",
+    "station.breaker",
+    "station.cartridge_socket",
+    "station.cartridge_charger"
+   ],
+   "how": "ui-2.5.4 (2026-10-31, слово інженера «Так, за рекомендаціями», https://github.com/xperiaroco2/prime-game/issues/507#issuecomment-6544569670): двигун корабля (prime-game PR #1463 і #1464, запит https://github.com/xperiaroco2/prime-game/issues/150#issuecomment-6542724160). Англійська предметів і опису задачі — як у запиті; назви станцій і вся українська — агент, за постійною вказівкою інженера від 2026-10-22."
+  },
+  {
+   "id": "topic.r12_toggles",
+   "keys": [
+    "station.bookcase",
+    "station.bookcase_inside",
+    "station.wine_rack",
+    "station.wine_rack_inside",
+    "station.manhole",
+    "station.manhole_inside",
+    "station.fixed_camera",
+    "station.light_breaker"
+   ],
+   "how": "ui-2.5.4 (2026-10-31, слово інженера «Так, за рекомендаціями», https://github.com/xperiaroco2/prime-game/issues/507#issuecomment-6544569670): перемикачі світу маєтку (prime-game PR #1465, запит https://github.com/xperiaroco2/prime-game/issues/150#issuecomment-6543500356). Обидві мови — агент, за постійною вказівкою інженера від 2026-10-22; *_inside — той самий перемикач зсередини проходу."
   }
  ]
 }
