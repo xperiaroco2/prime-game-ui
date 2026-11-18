@@ -66,7 +66,7 @@ References, then wireframes of every screen, then three style directions, the ch
 screens, and finally handoff issues in prime-game.
 
 ## Manager rules (one set for every prime-game track)
-A manager session of this repo follows `D:\prime-game\docs\MANAGERS.md` (prime-game's main checkout beside this one;
+A manager session of this repo follows `..\prime-game\docs\MANAGERS.md` (prime-game's main checkout beside this one;
 missing or unreadable: https://github.com/xperiaroco2/prime-game/blob/main/docs/MANAGERS.md). Read it whole at the
 session's start, before anything else; after a change to it reaches prime-game's `main`, read its diff. It holds the
 mode and effort, the kickoff (no "ultracode"), the "For you:" block, the keep-alive, when to hand over and the handover
