@@ -2,117 +2,7 @@
  "about": "The copy review (prime-game-ui#4; round 4, prime-game-ui#51, and round 5, prime-game-ui#57: the deck rows the game's M7 asked for on prime-game#150). Round 2 was answered on 2026-10-05 and applied. Round 3 (2026-10-06, wave prime-game-ui#19), about the texts the styled screens added or reworded, was answered the same day and applied. open: questions still waiting for the engineer, each with options a-c; an option lists the rows it would write (empty uk and en remove the key), an option without rows keeps the deck and says so in its label. The deck keeps its current wording until an open question is answered on pages/copy/; where option a has rows, the deck could not take the change yet (an old wireframe frame still shows the current text). decided: what was applied, round 2 first. removed: keys taken out of the deck. asked: when the current round was put to the engineer; the page ignores answers saved before it. Rules: copy/README.md and docs/research/2026-10-05-ukrainian-localization/report.md.",
  "asked": "2026-11-18T23:09:15Z",
  "principle": "Гравці досвідчені, гра не для дітей: не пояснюємо звичне й очевидне (що меню не ставить на паузу, що щось нове, знайоме керування), без «водіння за руку». Без написаних жартів: текст простий, короткий і впевнений; смішне робить гра, а не підписи (дизайн-трек, 21.10).",
- "open": [
-  {
-   "id": "topic.pinball_flippers",
-   "keys": [
-    "control.flipper_left",
-    "control.flipper_right"
-   ],
-   "kind": "word",
-   "round": "new",
-   "why": "Чернетка (нічна зміна 2026-11-19). Два рядки Налаштування › Керування для лапок пінбола в лобі (типово Z і /), запит гри https://github.com/xperiaroco2/prime-game/issues/150#issuecomment-6551822918. Поки їх немає, лапки працюють, але без рядка для перепризначення. Англійська — як пропонує гра.",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "note": "«Лівий фліпер», «Правий фліпер»: так пінбол називають гравці, а гравці досвідчені.",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "label": "Лапки",
-     "note": "Розмовне слово.",
-     "rows": [
-      {
-       "key": "control.flipper_left",
-       "en": "Left flipper",
-       "uk": "Ліва лапка"
-      },
-      {
-       "key": "control.flipper_right",
-       "en": "Right flipper",
-       "uk": "Права лапка"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "pinball.best",
-   "keys": [
-    "pinball.best"
-   ],
-   "kind": "word",
-   "round": "new",
-   "why": "Чернетка (нічна зміна 2026-11-19). Табло автомата в лобі: підпис перед найкращим рахунком лобі, під ним імʼя власника рекорду («Рекорд 1200»), запит гри https://github.com/xperiaroco2/prime-game/issues/150#issuecomment-6551822918. Зараз табло показує сирий ключ.",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "note": "«Рекорд 1200» / «Best 1200»: коротко, як на аркадному табло.",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "label": "Найкраще",
-     "rows": [
-      {
-       "key": "pinball.best",
-       "en": "Best",
-       "uk": "Найкраще"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "pinball.score",
-   "keys": [
-    "pinball.score"
-   ],
-   "kind": "word",
-   "round": "new",
-   "why": "Чернетка (нічна зміна 2026-11-19). Табло під час гри: рахунок поточної гри перед кульками («Рахунок 70   Кульки 2»), запит гри https://github.com/xperiaroco2/prime-game/issues/150#issuecomment-6551822918.",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "note": "«Рахунок 70»: нейтральне слово.",
-     "rows": []
-    },
-    {
-     "id": "b",
-     "label": "Очки",
-     "note": "Коротше, розмовніше.",
-     "rows": [
-      {
-       "key": "pinball.score",
-       "en": "Score",
-       "uk": "Очки"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "pinball.balls",
-   "keys": [
-    "pinball.balls"
-   ],
-   "kind": "word",
-   "round": "new",
-   "why": "Чернетка (нічна зміна 2026-11-19). Табло під час гри: скільки кульок лишилось («Кульки 2»; число після підпису, тому без tr_n), запит гри https://github.com/xperiaroco2/prime-game/issues/150#issuecomment-6551822918.",
-   "options": [
-    {
-     "id": "a",
-     "label": "Як у колоді (рекомендую)",
-     "note": "«Кульки 2» / «Balls 2».",
-     "rows": []
-    }
-   ]
-  }
- ],
+ "open": [],
  "removed": [
   "downed.can_raise",
   "esc.running",
@@ -1232,6 +1122,17 @@
     "station.light_breaker"
    ],
    "how": "ui-2.5.4 (2026-10-31, слово інженера «Так, за рекомендаціями», https://github.com/xperiaroco2/prime-game/issues/507#issuecomment-6544569670): перемикачі світу маєтку (prime-game PR #1465, запит https://github.com/xperiaroco2/prime-game/issues/150#issuecomment-6543500356). Обидві мови — агент, за постійною вказівкою інженера від 2026-10-22; *_inside — той самий перемикач зсередини проходу."
+  },
+  {
+   "id": "topic.r13_pinball",
+   "keys": [
+    "control.flipper_left",
+    "control.flipper_right",
+    "pinball.best",
+    "pinball.score",
+    "pinball.balls"
+   ],
+   "how": "Без релізу (2026-11-19, PR не змерджено): пінбол у лобі (prime-game#1400, запит https://github.com/xperiaroco2/prime-game/issues/150#issuecomment-6551822918). Слово інженера: рекомендована колонка (https://github.com/xperiaroco2/prime-game/issues/1095#issuecomment-7008982636): «Лівий фліпер», «Правий фліпер», «Рекорд», «Рахунок», «Кульки»; англійська, як запропонувала гра. Альтернативи («лапка», «Найкраще», «Очки») не обрано."
   }
  ]
 }
