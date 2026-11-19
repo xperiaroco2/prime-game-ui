@@ -18,6 +18,7 @@ The outro of about 3 s, one of the three loud moments that end a round (the targ
 |---|---|---|
 | `aliens` | Прибульці перемогли | Every task done before the timer and the cops (the target's frame 10a): the accent band. |
 | `time` | Час вийшов | The timer ran out with the tasks unfinished (frame 10b): the danger band. |
+| `time-no-humans` | Час вийшов, людей нема | The timer ran out with the tasks unfinished in a match with no humans (the dissidents setting 0, prime-game#1627): nobody is named the winner, the winner line says the aliens lost (end.lost_aliens); the same danger band as every time-up. |
 | `cops` | Копи приїхали | The cops' minute ran out (frame 10c), the loudest end: the whole screen in the danger colour, the band the same colour, every line in the danger ink. |
 
 ## Node tree in `aliens`
@@ -31,7 +32,7 @@ The outro of about 3 s, one of the three loud moments that end a round (the targ
   - **Lines** `VBoxContainer` · variation `ToyColumnTwentyFour` · anchors `top_wide`, offsets 0, 672, 0, 672 (left, top, right, bottom), grow both/end · gaps from the variation: separation 24
     - Note: Under the band, 57 px below it (the target's 450 - 410 = 40 x 1.5 less the title's leading): who won, then why. Quiet text, centred.
     - **Won** `Label` · variation `ToyTitleOnDark` · text `end.won_aliens`: en "The aliens won" · uk "Прибульці перемогли" · horizontal_alignment `CENTER`
-      - Note: The winning side, end.won_aliens or end.won_humans, the same for every player (no plate for a win or a loss since ui-2.0.0). ToyTextOnDanger on the cops' ground.
+      - Note: The winning side, end.won_aliens or end.won_humans, the same for every player (no plate for a win or a loss since ui-2.0.0); in a match with no humans that runs out of time nobody wins and the line says end.lost_aliens (prime-game#1627). ToyTextOnDanger on the cops' ground.
     - **Reason** `Label` · variation `ToyTextMutedOnDark` · text `end.reason.all_tasks` with sample {time} = "8:12": en "All tasks done in 8:12." · uk "Усі задачі виконано за 8:12." · horizontal_alignment `CENTER`
       - Note: Why the round ended, from the host's reason id (#208), in the dim text: end.reason.all_tasks with the round's time (m:ss), end.reason.time_up, or end.reason.cops. An unknown reason hides it.
   - **Back** `Label` · variation `ToyTextMutedOnDark` · anchors `bottom_wide`, offsets 0, -72, 0, -72 (left, top, right, bottom), grow both/begin · text `end.back_to_ship` with sample {count} = "3": en "Back to the ship in 3…" · uk "Повернення на корабель через 3…" · horizontal_alignment `CENTER`
@@ -42,6 +43,13 @@ The outro of about 3 s, one of the three loud moments that end a round (the targ
 - **Changed** `Night/Band`: variation `ToyBandAlert` (was: variation `ToyBand`)
 - **Changed** `Night/Band/Title`: variation `ToyTitleHeroAlert` · text `end.title.time_up`: en "Time's up" · uk "Час вийшов" (was: variation `ToyTitleHero` · text `end.title.party`: en "Great party!" · uk "Вечірка вдалася!")
 - **Changed** `Night/Lines/Won`: text `end.won_humans`: en "The humans won" · uk "Люди перемогли" (was: text `end.won_aliens`: en "The aliens won" · uk "Прибульці перемогли")
+- **Changed** `Night/Lines/Reason`: text `end.reason.time_up`: en "The tasks aren't done." · uk "Задачі не виконано." (was: text `end.reason.all_tasks` with sample {time} = "8:12": en "All tasks done in 8:12." · uk "Усі задачі виконано за 8:12.")
+
+## `time-no-humans`: what differs from `aliens`
+
+- **Changed** `Night/Band`: variation `ToyBandAlert` (was: variation `ToyBand`)
+- **Changed** `Night/Band/Title`: variation `ToyTitleHeroAlert` · text `end.title.time_up`: en "Time's up" · uk "Час вийшов" (was: variation `ToyTitleHero` · text `end.title.party`: en "Great party!" · uk "Вечірка вдалася!")
+- **Changed** `Night/Lines/Won`: text `end.lost_aliens`: en "The aliens lost" · uk "Прибульці програли" (was: text `end.won_aliens`: en "The aliens won" · uk "Прибульці перемогли")
 - **Changed** `Night/Lines/Reason`: text `end.reason.time_up`: en "The tasks aren't done." · uk "Задачі не виконано." (was: text `end.reason.all_tasks` with sample {time} = "8:12": en "All tasks done in 8:12." · uk "Усі задачі виконано за 8:12.")
 
 ## `cops`: what differs from `aliens`
@@ -60,7 +68,7 @@ The outro of about 3 s, one of the three loud moments that end a round (the targ
 
 ## Keys
 
-- **Drawn** (9): `end.back_to_ship`, `end.reason.all_tasks`, `end.reason.cops`, `end.reason.time_up`, `end.title.busted`, `end.title.party`, `end.title.time_up`, `end.won_aliens`, `end.won_humans`.
+- **Drawn** (10): `end.back_to_ship`, `end.lost_aliens`, `end.reason.all_tasks`, `end.reason.cops`, `end.reason.time_up`, `end.title.busted`, `end.title.party`, `end.title.time_up`, `end.won_aliens`, `end.won_humans`.
 
 ## Layers and input (every screen)
 
