@@ -1658,11 +1658,6 @@
 .tv-ToyRowThirtyTwo {
   gap: calc(var(--toy-layout-row-32-items-separation) * var(--px));
 }
-/* ToyGridSwatch: GridContainer · layout.grid-swatch · any */
-.tv-ToyGridSwatch {
-  column-gap: calc(var(--toy-layout-grid-swatch-items-h-separation) * var(--px));
-  row-gap: calc(var(--toy-layout-grid-swatch-items-v-separation) * var(--px));
-}
 /* ToyScroll: ScrollContainer · layout.scroll · any */
 .tv-ToyScroll {
   column-gap: calc(var(--toy-layout-scroll-items-scrollbar-h-separation) * var(--px));
@@ -2077,52 +2072,6 @@
   padding-right: calc((var(--toy-panel-howto-panel-content-margin) - var(--toy-panel-howto-panel-border-width)) * var(--px));
   padding-bottom: calc((var(--toy-panel-howto-panel-content-margin) - var(--toy-panel-howto-panel-border-width)) * var(--px));
   padding-left: calc((var(--toy-panel-howto-panel-content-margin) - var(--toy-panel-howto-panel-border-width)) * var(--px));
-}
-/* ToySwatchRing: Panel · pick.swatch-ring · light */
-.tv-ToySwatchRing {
-  box-sizing: border-box;
-  position: relative;
-  background: var(--toy-palette-clear);
-  border-style: solid;
-  border-color: var(--toy-pick-swatch-ring-panel-border-color);
-  border-top-width: calc(var(--toy-pick-swatch-ring-panel-border-width) * var(--px));
-  border-right-width: calc(var(--toy-pick-swatch-ring-panel-border-width) * var(--px));
-  border-bottom-width: calc(var(--toy-pick-swatch-ring-panel-border-width) * var(--px));
-  border-left-width: calc(var(--toy-pick-swatch-ring-panel-border-width) * var(--px));
-  border-top-left-radius: calc(var(--toy-pick-swatch-ring-panel-corner-radius) * var(--px));
-  border-top-right-radius: calc(var(--toy-pick-swatch-ring-panel-corner-radius) * var(--px));
-  border-bottom-right-radius: calc(var(--toy-pick-swatch-ring-panel-corner-radius) * var(--px));
-  border-bottom-left-radius: calc(var(--toy-pick-swatch-ring-panel-corner-radius) * var(--px));
-  padding-top: calc((var(--toy-pick-swatch-ring-panel-border-width) - var(--toy-pick-swatch-ring-panel-border-width)) * var(--px));
-  padding-right: calc((var(--toy-pick-swatch-ring-panel-border-width) - var(--toy-pick-swatch-ring-panel-border-width)) * var(--px));
-  padding-bottom: calc((var(--toy-pick-swatch-ring-panel-border-width) - var(--toy-pick-swatch-ring-panel-border-width)) * var(--px));
-  padding-left: calc((var(--toy-pick-swatch-ring-panel-border-width) - var(--toy-pick-swatch-ring-panel-border-width)) * var(--px));
-  width: calc(var(--toy-pick-swatch-ring-size-width) * var(--px));
-  height: calc(var(--toy-pick-swatch-ring-size-height) * var(--px));
-}
-/* ToySwatchSelected: Panel · pick.swatch-selected · light */
-.tv-ToySwatchSelected {
-  box-sizing: border-box;
-  position: relative;
-  background: var(--toy-palette-clear);
-  border-style: solid;
-  border-color: var(--toy-pick-swatch-selected-panel-border-color);
-  border-top-width: calc(var(--toy-pick-swatch-selected-panel-border-width) * var(--px));
-  border-right-width: calc(var(--toy-pick-swatch-selected-panel-border-width) * var(--px));
-  border-bottom-width: calc(var(--toy-pick-swatch-selected-panel-border-width) * var(--px));
-  border-left-width: calc(var(--toy-pick-swatch-selected-panel-border-width) * var(--px));
-  border-top-left-radius: calc(var(--toy-pick-swatch-selected-panel-corner-radius) * var(--px));
-  border-top-right-radius: calc(var(--toy-pick-swatch-selected-panel-corner-radius) * var(--px));
-  border-bottom-right-radius: calc(var(--toy-pick-swatch-selected-panel-corner-radius) * var(--px));
-  border-bottom-left-radius: calc(var(--toy-pick-swatch-selected-panel-corner-radius) * var(--px));
-  padding-top: calc((var(--toy-pick-swatch-selected-panel-border-width) + var(--toy-pick-swatch-selected-panel-expand-margin) - var(--toy-pick-swatch-selected-panel-border-width)) * var(--px));
-  padding-right: calc((var(--toy-pick-swatch-selected-panel-border-width) + var(--toy-pick-swatch-selected-panel-expand-margin) - var(--toy-pick-swatch-selected-panel-border-width)) * var(--px));
-  padding-bottom: calc((var(--toy-pick-swatch-selected-panel-border-width) + var(--toy-pick-swatch-selected-panel-expand-margin) - var(--toy-pick-swatch-selected-panel-border-width)) * var(--px));
-  padding-left: calc((var(--toy-pick-swatch-selected-panel-border-width) + var(--toy-pick-swatch-selected-panel-expand-margin) - var(--toy-pick-swatch-selected-panel-border-width)) * var(--px));
-  margin-top: calc(var(--toy-pick-swatch-selected-panel-expand-margin) * -1 * var(--px));
-  margin-right: calc(var(--toy-pick-swatch-selected-panel-expand-margin) * -1 * var(--px));
-  margin-bottom: calc(var(--toy-pick-swatch-selected-panel-expand-margin) * -1 * var(--px));
-  margin-left: calc(var(--toy-pick-swatch-selected-panel-expand-margin) * -1 * var(--px));
 }
 /* ToyPlate: PanelContainer · plate.default · dark */
 .tv-ToyPlate {
