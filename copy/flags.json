@@ -32,7 +32,10 @@
   "tutorial.list.deliver",
   "tutorial.step.voice.down",
   "esc.character.locked",
-  "map.zone_hint.switches"
+  "map.zone_hint.switches",
+  "esc.tab.character",
+  "esc.character.colour",
+  "esc.character.hat"
  ],
  "decided": [
   {
@@ -1158,6 +1161,15 @@
     "pinball.balls"
    ],
    "how": "Без релізу (2026-11-19, PR не змерджено): пінбол у лобі (prime-game#1400, запит https://github.com/xperiaroco2/prime-game/issues/150#issuecomment-6551822918). Слово інженера: рекомендована колонка (https://github.com/xperiaroco2/prime-game/issues/1095#issuecomment-7008982636): «Лівий фліпер», «Правий фліпер», «Рекорд», «Рахунок», «Кульки»; англійська, як запропонувала гра. Альтернативи («лапка», «Найкраще», «Очки») не обрано."
+  },
+  {
+   "id": "topic.r13_character_tab",
+   "keys": [
+    "esc.tab.character",
+    "esc.character.colour",
+    "esc.character.hat"
+   ],
+   "how": "Без релізу (2026-11-19, PR — чернетка до PR гри): вкладку «Персонаж» у меню Esc лобі (s05) прибрано разом із трьома ключами, слово інженера https://github.com/xperiaroco2/prime-game/issues/1095#issuecomment-7008982636: персонажа змінюють лише біля дзеркала. Реліз — лише разом зі зміною гри, яка перестає їх читати (картка 9 code lane)."
   }
  ]
 }
