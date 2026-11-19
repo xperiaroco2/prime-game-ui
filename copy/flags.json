@@ -26,7 +26,13 @@
   "howto.delivery.drop",
   "hud.kill_notice",
   "dead.killed_by",
-  "room.roof"
+  "room.roof",
+  "tutorial.step.deliver.title",
+  "tutorial.step.deliver.how",
+  "tutorial.list.deliver",
+  "tutorial.step.voice.down",
+  "esc.character.locked",
+  "map.zone_hint.switches"
  ],
  "decided": [
   {
@@ -1122,6 +1128,18 @@
     "station.light_breaker"
    ],
    "how": "ui-2.5.4 (2026-10-31, слово інженера «Так, за рекомендаціями», https://github.com/xperiaroco2/prime-game/issues/507#issuecomment-6544569670): перемикачі світу маєтку (prime-game PR #1465, запит https://github.com/xperiaroco2/prime-game/issues/150#issuecomment-6543500356). Обидві мови — агент, за постійною вказівкою інженера від 2026-10-22; *_inside — той самий перемикач зсередини проходу."
+  },
+  {
+   "id": "topic.r13_unread",
+   "keys": [
+    "tutorial.step.deliver.title",
+    "tutorial.step.deliver.how",
+    "tutorial.list.deliver",
+    "tutorial.step.voice.down",
+    "esc.character.locked",
+    "map.zone_hint.switches"
+   ],
+   "how": "Без релізу (2026-11-19, нічна зміна, PR лише відкрито): прибрано 6 із 13 ключів prime-game-ui#114 (слово інженера «Так, приймаю всі рекомендації 1–7», https://github.com/xperiaroco2/prime-game/issues/1247): гра на main (b9b88c2c) не читає жодного з них, і жоден екран їх не малює. `map.zone_hint.switches` гра будує як `map.zone_hint.<тип задачі>`, але типу `switches` немає (Генератор має id `generator`). Решту 7 не прибрано: `lobby.setting.task_steps` (client/ui/match_rows.gd, #1604) і `lobby.players` (client/ui/connecting_screen.gd, #1571) гра знову читає; переклад `tutorial.step.howto.how` перевіряє tutorial_screen_test, а s01 малює його разом із `tutorial.step.howto.title`; `esc.tab.character`, `esc.character.colour`, `esc.character.hat` — вкладка «Персонаж» у лобі (s05, рішення інженера 2026-10-22), прибрати її — рішення інженера, не копії. Технічне рішення агента."
   },
   {
    "id": "hud.quest_item_area",
