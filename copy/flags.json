@@ -1140,6 +1140,13 @@
     "map.zone_hint.switches"
    ],
    "how": "Без релізу (2026-11-19, нічна зміна, PR лише відкрито): прибрано 6 із 13 ключів prime-game-ui#114 (слово інженера «Так, приймаю всі рекомендації 1–7», https://github.com/xperiaroco2/prime-game/issues/1247): гра на main (b9b88c2c) не читає жодного з них, і жоден екран їх не малює. `map.zone_hint.switches` гра будує як `map.zone_hint.<тип задачі>`, але типу `switches` немає (Генератор має id `generator`). Решту 7 не прибрано: `lobby.setting.task_steps` (client/ui/match_rows.gd, #1604) і `lobby.players` (client/ui/connecting_screen.gd, #1571) гра знову читає; переклад `tutorial.step.howto.how` перевіряє tutorial_screen_test, а s01 малює його разом із `tutorial.step.howto.title`; `esc.tab.character`, `esc.character.colour`, `esc.character.hat` — вкладка «Персонаж» у лобі (s05, рішення інженера 2026-10-22), прибрати її — рішення інженера, не копії. Технічне рішення агента."
+  },
+  {
+   "id": "hud.quest_item_area",
+   "keys": [
+    "hud.quest_item_area"
+   ],
+   "how": "Без релізу (2026-11-19, нічна зміна, PR лише відкрито): сповіщення, коли корабель бʼє гравця, що виносить кристал (prime-game#1585, prime-game-ui#155). Обидві мови — слово інженера на M8 sit-down 2026-11-08 (https://github.com/xperiaroco2/prime-game/issues/1095#issuecomment-6721181350, картка https://github.com/xperiaroco2/prime-game/issues/1585#issuecomment-6721181541), дослівно, як у тимчасовому fallback гри (HudText)."
   }
  ]
 }
