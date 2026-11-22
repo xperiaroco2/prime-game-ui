@@ -1177,6 +1177,15 @@
     "end.lost_aliens"
    ],
    "how": "ui-2.5.5 (2026-11-19): рядок переможця на екрані кінця (s10, стан time-no-humans), коли в матчі без людей (dissidents = 0) вийшов час, prime-game#1627. Обидві мови — слово інженера https://github.com/xperiaroco2/prime-game/issues/1095#issuecomment-7016251264 (пункт 3), дослівно; червона смуга, як для будь-якого кінця часу (пункт 4)."
+  },
+  {
+   "id": "topic.m8_lobby_stations",
+   "keys": [
+    "station.mirror",
+    "station.pinball",
+    "station.booth"
+   ],
+   "how": "Без релізу (2026-11-23): назви трьох станцій лобі в підказці прицілу, запит https://github.com/xperiaroco2/prime-game/issues/150#issuecomment-7084965662 (prime-game#1673): досі там видно сирі id. Обидві мови — як рекомендує запит, агент, за постійною вказівкою інженера від 2026-10-22; збігаються з назвами GDD і з рядками pinball.*."
   }
  ]
 }
