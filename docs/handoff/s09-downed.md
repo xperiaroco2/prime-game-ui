@@ -88,7 +88,7 @@ The same HUD as s7: Hud and its nodes are s7's (same names and places); this scr
           - Note: The time to respawn, m:ss from code (auto_translate_mode DISABLED), every second; the wait is 30 s (m8 §3).
   - **Capsule** `PanelContainer` · variation `ToySticker` · anchors `bottom_right`, offsets -39, -39, -39, -39 (left, top, right, bottom), grow begin/begin
     - Note: Where the player comes back: a random capsule, with the 3 s protection of state back. Choosing the capsule is a later perk (m8 §3).
-    - **Text** `Label` · variation `ToyStickerText` · text `dead.capsule_note` with sample {count} = "3": en "Random capsule · 3 s protection" · uk "Випадкова капсула · 3 с захисту"
+    - **Text** `Label` · variation `ToyStickerText` · text `dead.capsule_note` with sample {count} = "3": en "Back on the clearing · 3 s protection" · uk "Повернення на галявину · 3 с захисту"
 
 ## `back`: what differs from `down`
 
