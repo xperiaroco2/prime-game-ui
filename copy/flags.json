@@ -853,7 +853,7 @@
    "keys": [
     "dead.capsule_note"
    ],
-   "how": "Not released yet (2026-11-24): the dead room note about the return. M8 has no capsules (since prime-game#1683 the player just appears on the clearing by the ship), prime-game#1705. Both languages: the engineer pick (a), https://github.com/xperiaroco2/prime-game/issues/1705#issuecomment-7127078923, word for word. Before: round 6, MVP (2026-10-21), Random capsule."
+   "how": "ui-2.5.7 (2026-11-24): the dead room note about the return. M8 has no capsules (since prime-game#1683 the player just appears on the clearing by the ship), prime-game#1705. Both languages: the engineer pick (a), https://github.com/xperiaroco2/prime-game/issues/1705#issuecomment-7127078923, word for word. Before: round 6, MVP (2026-10-21), Random capsule."
   },
   {
    "id": "topic.mvp_ends",
